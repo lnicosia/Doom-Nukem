@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/08 12:23:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/08 19:05:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,38 @@ typedef struct	s_v3
 	double	z;
 }				t_v3;
 
+/*
+** VERTICES = PLURIEL DE VERTEX
+*/
+
 typedef struct	s_sector
 {
 	double			floor;
 	double			ceiling;
 	short			num;
-	t_v2			*walls;
+	short			*vertices;
 	short			*neighbors;
-	short			nbwalls;
+	short			nbvertices;
 }				t_sector;
 
-typedef struct	s_wall
+typedef struct	s_vertex
 {
 	double			x;
 	double			y;
 	short			num;
-	short			next_wall;
-	short			next_sector;
-}				t_wall;
+}				t_vertex;
 
 typedef struct	s_player
 {
 	t_v2		pos;
-	t_v2		dir;
-	t_v2		plane;
-	t_sector	sector;
+	double		angle;
+	short		sector;
 }				t_player;
 
 typedef struct	s_map
 {
-	t_sector	*sectors;
-	short		*walls;
+	short		*sectors;
+	short		*vertices;
 }				t_map;
 
 /*
