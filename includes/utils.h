@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 18:30:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/09 18:39:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct	s_env
 	int				h;
 	int				running;
 	int				nb_sectors;
+	int				nb_vertices;
 }				t_env;
 
 void			free_all(t_env *env);

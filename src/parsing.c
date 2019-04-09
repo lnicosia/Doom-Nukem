@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/09 18:30:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/09 18:39:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int	parsing(int fd, t_env *env)
 		else if (line [0] == 'S')
 			env->nb_sectors = init_sectors(env, line);
 	}
+	env->nb_vertices = nb_vertices;
 	return (1);
 }
 
@@ -188,30 +189,14 @@ int	main(int ac, char **av)
 	int		fd;
 	t_env	env;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	(void)ac;
 	fd = open(av[1], O_RDONLY);
 	parsing(fd, &env);	
-	while (i < env.nb_sectors)
+	while (i < env.nb_vertices)
 	{
-		ft_printf("sector[%d] --> vertex[%d] ", i, env.sector[i].nb_vertices);
-		j = 0;
-		while (j < env.sector[i].nb_vertices)
-		{
-			ft_printf("%hd ", env.sector[i].vertices[j]);
-			j++;
-		}
-		j = 0;
-		ft_printf("   neighbors ----> ");
-		while (j < env.sector[i].nb_vertices)
-		{
-			ft_printf("%hd ", env.sector[i].neighbors[j]);
-			j++;
-		}
-		ft_printf("\n");
+		ft_printf("vertex[%d] x = %d y = %d\n", i, env.vertices[i].x, env.vertices[i].y);
 		i++;
 	}
 }
