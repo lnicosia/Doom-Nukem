@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:47:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 14:20:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/09 17:01:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	map_brute(t_env *env)
 	env->sectors[0].floor = 0;
 	env->sectors[0].ceiling = 20;
 	env->sectors[0].num = 0;
-	env->sectors[0].nbvertices = 4;
+	env->sectors[0].nb_vertices = 4;
 	env->sectors[0].vertices = (short*)malloc(sizeof(short) * 4);
 	env->sectors[0].vertices[0] = 0;
 	env->sectors[0].vertices[1] = 1;
