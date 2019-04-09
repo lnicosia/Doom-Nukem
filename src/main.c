@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/08 17:15:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/09 12:16:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		main(void)
 		free_all(&env);
 		return (ft_printf("Init error\nExiting the programm..\n"));
 	}
-	init_map(&env);
 	while (env.running)
 	{
 		while (SDL_PollEvent(&env.sdl.event))

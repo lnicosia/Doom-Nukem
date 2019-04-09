@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/08 14:14:28 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/09 13:53:06 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ BIN_DIR = .
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_RAW = main.c free_all.c init_sdl.c clear_image.c init_map.c
+SRC_RAW = main.c free_all.c init_sdl.c clear_image.c draw.c map_brute.c
 
-HEADERS = utils.h
+HEADERS = utils.h draw.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
