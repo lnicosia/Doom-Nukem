@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/09 18:13:04 by sipatry          ###   ########.fr        #
+#    Updated: 2019/04/10 12:07:01 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ BIN_DIR = .
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_RAW = free_all.c init_sdl.c clear_image.c draw.c parsing.c
+SRC_RAW = main.c free_all.c init_sdl.c clear_image.c draw.c parsing.c
 
 HEADERS = utils.h draw.h
 

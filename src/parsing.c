@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/09 18:39:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/10 12:07:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	vertices(t_env *env, char *line, int num)
 	env->vertices[num].num = num;
 	while (*line < '0' || *line > '9')
 		line++;
-	env->vertices->x = ft_atoi(line);
+	env->vertices[num].x = ft_atoi(line);
 	while (*line >= '0' && *line <= '9')
 		line++;
 	line++;
-	env->vertices->y = ft_atoi(line);
+	env->vertices[num].y = ft_atoi(line);
 	return (1);
 }
 
@@ -183,7 +183,7 @@ int	parsing(int fd, t_env *env)
 	env->nb_vertices = nb_vertices;
 	return (1);
 }
-
+/*
 int	main(int ac, char **av)
 {
 	int		fd;
@@ -196,7 +196,7 @@ int	main(int ac, char **av)
 	parsing(fd, &env);	
 	while (i < env.nb_vertices)
 	{
-		ft_printf("vertex[%d] x = %d y = %d\n", i, env.vertices[i].x, env.vertices[i].y);
+		printf("vertex[%d] x = %f y = %f\n", i, env.vertices[i].x, env.vertices[i].y);
 		i++;
 	}
-}
+}*/
