@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/09 13:53:06 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/10 12:16:44 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ BIN_DIR = .
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_RAW = main.c free_all.c init_sdl.c clear_image.c draw.c map_brute.c
+SRC_RAW = main.c free_all.c init_sdl.c clear_image.c draw.c parsing.c
 
 HEADERS = utils.h draw.h
 
@@ -30,7 +30,7 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -g3 -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
+CFLAGS =  -g3 -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -fsanitize=address\
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  #-F ~/Library/Frameworks/ -framework SDL2 \

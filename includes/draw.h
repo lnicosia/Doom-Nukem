@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 17:20:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/10 12:20:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,5 @@ typedef struct		s_line
 	int				x;
 	unsigned int	color;
 }					t_line;
-
-void				map_brute(t_env *env);
 
 #endif

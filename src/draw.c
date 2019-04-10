@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 18:02:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/10 12:21:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render_sector(t_env *env, t_render render)
 
 	(void)line;
 	i = 0;
-	current = env->sectors[render.num];
+	current = env->sector[render.num];
 	while (i < current.nb_vertices)
 	{
 		// Deux options:
@@ -53,7 +53,6 @@ void	draw(t_env *env)
 	t_render	render;
 	int			i;
 
-	map_brute(env);
 	i = 0;
 	render.num = env->player.sector;
 	render.x1 = 0;

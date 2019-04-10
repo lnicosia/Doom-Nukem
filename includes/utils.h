@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 16:58:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/10 12:19:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <SDL.h>
+# include <fcntl.h>
 # include "libft.h"
 
 typedef struct	s_v2
@@ -57,12 +58,6 @@ typedef struct	s_player
 	short		sector;
 }				t_player;
 
-typedef struct	s_map
-{
-	short		*sectors;
-	short		*vertices;
-}				t_map;
-
 /*
 ** SDL data necessities
 */
@@ -80,12 +75,14 @@ typedef struct	s_sdl
 typedef struct	s_env
 {
 	t_sdl			sdl;
-	t_sector		*sectors;
 	t_vertex		*vertices;
+	t_sector		*sector;
 	t_player		player;
 	int				w;
 	int				h;
 	int				running;
+	int				nb_sectors;
+	int				nb_vertices;
 }				t_env;
 
 void			free_all(t_env *env);
