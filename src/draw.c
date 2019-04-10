@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/10 12:21:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/10 18:10:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,38 @@ void	render_sector(t_env *env, t_render render)
 {
 	int	i;
 	t_line		line;
-	t_sector	current;
+	t_sector	sector;
+	t_v2		v1;
+	t_v2		v2;
+	double		z1;
+	double		z2;
 
 	(void)line;
+	(void)render;
 	i = 0;
-	current = env->sector[render.num];
-	while (i < current.nb_vertices)
+	sector = env->sector[env->player.sector];
+	while (i < sector.nb_vertices - 1)
 	{
-		// Deux options:
-		// 		-bisqwit way: calculer tous les murs
-		// 		-raycasting?
+		/*
+		// Calculer 
+		// 		Vertex 1
+		v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
+		v1.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
+		//		Vertex 2
+		v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
+		v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
+		
+		// Calculer la distance entre les murs et le joueur
+		z1 = v1.x * env->player.dir.x + v1.y * env->player.dir.y;
+		z2 = v2.x * env->player.dir.x + v2.y * env->player.dir.y;
+		
+		// On continue que si au moins une des deux profondeurs est positive
+		// (= mur devant le joueur)
+		if (z1 > 0 || z2 > 0)
+		{
+		}
 
-		// tracer plafond
-		// tracer sol
-		// tracer mur
-		// if (voisin)
-		// 		if (plus haut) tracer marche
-		// 		if (plus bas) tracer corniche
-		// 		rendre secteur voisin
+		*/
 		i++;
 	}
 }
@@ -54,7 +68,6 @@ void	draw(t_env *env)
 	int			i;
 
 	i = 0;
-	render.num = env->player.sector;
 	render.x1 = 0;
 	render.x2 = env->w;
 	// On commence par rendre le secteur courant

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/10 12:20:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/10 16:50:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct		s_render
 {
 	int				x1;
 	int				x2;
-	int				num;
+	int				player_sector;
 }					t_render;
 
 typedef struct		s_line

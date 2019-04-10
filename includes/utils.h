@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/10 12:19:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/10 17:07:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_player
 {
 	t_v2		pos;
 	double		angle;
+	t_v2		dir;
 	short		sector;
 }				t_player;
 
