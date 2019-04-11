@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 13:42:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:40:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_player
 {
 	t_v2		pos;
 	double		angle;
-	t_v2		dir;
+	t_v3		dir;
 	short		sector;
 }				t_player;
 
@@ -70,6 +70,8 @@ typedef struct	s_sdl
 	SDL_Renderer	*renderer;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
+	int				mouse_x;
+	int				mouse_y;
 	unsigned int	*img_str;
 }				t_sdl;
 

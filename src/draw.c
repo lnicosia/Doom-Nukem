@@ -6,10 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 12:40:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:00:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "utils.h"
 #include "draw.h"
 
@@ -33,16 +34,19 @@ void	render_sector(t_env *env, t_render render)
 	double		x2;
 	double		z1;
 	double		z2;
-	t_v2		scale1;
-	t_v2		scale2;
 	int			floor1;
 	int			floor2;
 	int			ceiling1;
 	int			ceiling2;
+	int			xstart;
+	int			xend;
+	int			floor_start;
+	int			ceiling_end;
 
 	(void)render;
 	i = 0;
 	sector = env->sector[env->player.sector];
+	ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices - 1)
 	{
 		// Calculer 
@@ -52,6 +56,12 @@ void	render_sector(t_env *env, t_render render)
 		//		Vertex 2
 		v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
 		v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
+		ft_printf("v1 = %d\n", sector.vertices[i]);
+		ft_printf("v1.x = %f\n", v1.x);
+		ft_printf("v1.y = %f\n", v1.y);
+		ft_printf("v2 = %d\n", sector.vertices[i + 1]);
+		ft_printf("v2.x = %f\n", v2.x);
+		ft_printf("v2.y = %f\n", v2.y);
 		
 		
 		// Calculer la distance entre les murs et le joueur
@@ -65,30 +75,45 @@ void	render_sector(t_env *env, t_render render)
 		// (= mur devant le joueur)
 		if (z1 > 0 && z2 > 0)
 		{
-			scale1.x = HFOV / z1;
-			scale2.x = HFOV / z2;
-			scale1.y = VFOV / z1;
-			scale2.y = VFOV / z2;
-			floor1 = env->h / 2 - sector.floor * VFOV / z1;
-			ceiling1 = env->h / 2 - sector.ceiling * VFOV / z1;
-			floor2 = env->h / 2 - sector.floor * VFOV / z2;
-			ceiling2 = env->h / 2 - sector.ceiling * VFOV / z2;
-			x1 = env->w / 2 - x1 * HFOV / z1;
-			x2 = env->w / 2 - x2 * HFOV / z2;
-			render.x1 = ft_max(x1, render.x1);
-			render.x2 = ft_min(x2, render.x2);
-			while (render.x1 < render.x2)
+			// Convertir plafond et sol en screen coordinates
+			floor1 = env->h / 2 - (int)(sector.floor * env->player.dir.z * ((VFOV * env->h) / z1));
+			floor2 = env->h / 2 - (int)(sector.floor * env->player.dir.z * ((VFOV * env->h) / z2));
+			ceiling1 = env->h / 2 - (int)(sector.ceiling * env->player.dir.z * ((VFOV * env->h) / z1));
+			ceiling2 = env->h / 2 - (int)(sector.ceiling * env->player.dir.z * ((VFOV * env->h) / z2));
+			x1 = (int)(env->w / 2 - x1 * ((HFOV * env->h) / z1));
+			x2 = (int)(env->w / 2 - x2 * ((HFOV * env->h) / z2));
+			//ft_printf("x1 = %f x2 = %f\n", x1, x2);
+			xstart = ft_max(x1, render.x1);
+			xend = ft_min(x2, render.x2);
+			ft_printf("xstart = %d xend = %d\n\n", xstart, xend);
+			while (xstart <= xend)
 			{
-				line.x = render.x1;
+				line.x = xstart;
+				ceiling_end = (xstart - x1) * (ceiling2 - ceiling1) / (x2 - x1) + ceiling1;
+				ceiling_end = ft_clamp(ceiling_end, 0, env->h - 1);
+				floor_start = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
+				floor_start = ft_clamp(floor_start, 0, env->h - 1);
+
+				// Dessiner plafond
 				line.start = 0;
-				line.end = (render.x1 - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
-				line.color = 0xFF0000FF;
+				line.end = ceiling_end;
+				line.color = 0x222222FF;
+				//ft_printf("floor end = %d\n", line.end);
 				draw_line(line, env);
-				line.start = (render.x1 - x1) * (ceiling2 - ceiling1) / (x2 - x1) + ceiling1;
-				line.end = env->h;
-				line.color = 0xFFFF00FF;
+
+				// Dessiner sol
+				line.start = floor_start;
+				line.end = env->h - 1;
+				line.color = 0x444444FF;
+				//ft_printf("ceiling start = %d\n", line.start);
 				draw_line(line, env);
-				render.x1++;
+
+				// Dessiner mur
+				line.start = ceiling_end;
+				line.end = floor_start;
+				line.color = 0x888888FF;
+				draw_line(line, env);
+				xstart++;
 			}
 		}
 		i++;
@@ -103,7 +128,7 @@ void	draw(t_env *env)
 	i = 0;
 	render.x1 = 0;
 	render.x2 = env->w - 1;
-	ft_printf("Draw\n");
+	ft_printf("player cos = %f\nplayer sin = %f\n", env->player.dir.x, env->player.dir.y);
 	// On commence par rendre le secteur courant
 	render_sector(env, render);
 }

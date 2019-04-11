@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/03/25 17:40:15 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/11 14:27:05 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_strsplit.c ft_itoa.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 		  ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstlen.c ft_lstpushback.c \
 		  ft_abs.c get_next_line.c ft_strjoin_free.c ft_min.c ft_max.c \
-		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c
+		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c \
+		  ft_clamp.c ft_fclamp.c
 
 HEADERS = 
 
