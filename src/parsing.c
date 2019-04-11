@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/10 12:07:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/11 16:44:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	player_pos(t_env *env, char *line)
 		line++;
 	line++;
 	env->player.sector = ft_atoi(line);
+	env->player.pos.z = 6;
 	return (1);
 }
 

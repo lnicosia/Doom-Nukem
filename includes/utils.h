@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 15:40:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 16:43:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_vertex
 
 typedef struct	s_player
 {
-	t_v2		pos;
+	t_v3		pos;
 	double		angle;
 	t_v3		dir;
 	short		sector;

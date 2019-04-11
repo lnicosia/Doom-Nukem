@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 16:00:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 17:04:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,24 @@ void	render_sector(t_env *env, t_render render)
 		ft_printf("v2 = %d\n", sector.vertices[i + 1]);
 		ft_printf("v2.x = %f\n", v2.x);
 		ft_printf("v2.y = %f\n", v2.y);
-		
-		
+
+
 		// Calculer la distance entre les murs et le joueur
 		z1 = v1.x * env->player.dir.x + v1.y * env->player.dir.y;
 		z2 = v2.x * env->player.dir.x + v2.y * env->player.dir.y;
 		// Calculer la position des murs par rapport au joueur
 		x1 = v1.x * env->player.dir.y - v1.y * env->player.dir.x;
 		x2 = v2.x * env->player.dir.y - v2.y * env->player.dir.x;
-		
+
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
-		if (z1 > 0 && z2 > 0)
+		if (z1 > 0 || z2 > 0)
 		{
 			// Convertir plafond et sol en screen coordinates
-			floor1 = env->h / 2 - (int)(sector.floor * env->player.dir.z * ((VFOV * env->h) / z1));
-			floor2 = env->h / 2 - (int)(sector.floor * env->player.dir.z * ((VFOV * env->h) / z2));
-			ceiling1 = env->h / 2 - (int)(sector.ceiling * env->player.dir.z * ((VFOV * env->h) / z1));
-			ceiling2 = env->h / 2 - (int)(sector.ceiling * env->player.dir.z * ((VFOV * env->h) / z2));
+			floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
+			floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
+			ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
+			ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
 			x1 = (int)(env->w / 2 - x1 * ((HFOV * env->h) / z1));
 			x2 = (int)(env->w / 2 - x2 * ((HFOV * env->h) / z2));
 			//ft_printf("x1 = %f x2 = %f\n", x1, x2);
@@ -93,6 +93,12 @@ void	render_sector(t_env *env, t_render render)
 				ceiling_end = ft_clamp(ceiling_end, 0, env->h - 1);
 				floor_start = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
 				floor_start = ft_clamp(floor_start, 0, env->h - 1);
+
+				// Protection
+				if (z1 <= 0)
+					ceiling_end = 0;
+				if (z2 <= 0)
+					floor_start = env->h - 1;
 
 				// Dessiner plafond
 				line.start = 0;
