@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/10 17:07:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 12:29:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ void			free_all(t_env *env);
 void			clear_image(t_env *env);
 int				init_sdl(t_env *env);
 void			draw(t_env *env);
+void			render(t_env *env);
+int				parsing(int fd, t_env *env);
 
 #endif

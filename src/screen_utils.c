@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.h                                             :+:      :+:    :+:   */
+/*   screen_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 11:39:58 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/11 12:28:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_H
-# define DRAW_H
-# define MAX_SECTORS_TO_RENDER 32
-# define HFOV	0.66
-# define VFOV	0.2
+#include "utils.h"
 
-typedef struct		s_render
+// TODO Protection
+
+void	render(t_env *env)
 {
-	int				x1;
-	int				x2;
-	int				player_sector;
-}					t_render;
-
-typedef struct		s_line
-{
-	int				start;
-	int				end;
-	int				x;
-	unsigned int	color;
-}					t_line;
-
-#endif
+	env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
+	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
+	SDL_RenderPresent(env->sdl.renderer);
+}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/09 12:16:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 12:41:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ int		main(void)
 		free_all(&env);
 		return (ft_printf("Init error\nExiting the programm..\n"));
 	}
+	ft_printf("Parsing\n");
+	parsing(open("../piece.map", O_RDONLY), &env);
+	//parsing(open("../map-fixed.txt", O_RDONLY), &env);
+	ft_printf("vert\n");
 	while (env.running)
 	{
+		draw(&env);
+		render(&env);
 		while (SDL_PollEvent(&env.sdl.event))
 		{
 			SDL_CaptureMouse(SDL_TRUE);
