@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 12:41:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 13:24:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		main(void)
 		return (ft_printf("Init error\nExiting the programm..\n"));
 	}
 	ft_printf("Parsing\n");
-	parsing(open("../piece.map", O_RDONLY), &env);
-	//parsing(open("../map-fixed.txt", O_RDONLY), &env);
-	ft_printf("vert\n");
+	//parsing(open("../piece.map", O_RDONLY), &env);
+	parsing(open("piece.map", O_RDONLY), &env);
+	ft_printf("[OK]\n");
 	while (env.running)
 	{
 		draw(&env);
