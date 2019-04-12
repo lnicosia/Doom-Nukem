@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/11 16:44:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 11:59:59 by aherriau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	vertices(t_env *env, char *line, int num)
 	env->vertices[num].num = num;
 	while (*line < '0' || *line > '9')
 		line++;
-	env->vertices[num].x = ft_atoi(line);
+	env->vertices[num].y = ft_atoi(line);
 	while (*line >= '0' && *line <= '9')
 		line++;
 	line++;
-	env->vertices[num].y = ft_atoi(line);
+	env->vertices[num].x = ft_atoi(line);
 	return (1);
 }
 

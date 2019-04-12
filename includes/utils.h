@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 16:43:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:01:16 by aherriau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,8 @@ void			draw(t_env *env);
 void			render(t_env *env);
 int				parsing(int fd, t_env *env);
 void			check_parsing(t_env *env);
+
+void			map_process(t_env *e);
+void			map_render(t_env *e);
 
 #endif
