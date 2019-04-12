@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/11 16:44:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 14:30:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	sectors(t_env *env, char *line, short num)
 	line++;
 	iter_max = calc_vertices(line);
 	env->sector[num].nb_vertices = iter_max;
-	env->sector[num].vertices = (short*)malloc(sizeof(short) * (iter_max));
+	env->sector[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
 	while (iter < iter_max)
 	{
 		while (*line > '9' || *line < '0')
@@ -114,6 +114,7 @@ int	sectors(t_env *env, char *line, short num)
 		line++;
 		iter++;
 	}
+	env->sector[num].vertices[iter] = env->sector[num].vertices[0];
 	iter = 0;
 	while ((*line > '9' || *line < '0') && *line != '-')
 		line++;

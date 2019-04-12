@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 14:06:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:43:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 
 void	draw_line(t_line line, t_env *env)
 {
+	if (env->options.contouring)
+	{
+		env->sdl.img_str[line.x + env->w * line.start] = 0xFF;
+		env->sdl.img_str[line.x + env->w * line.end] = 0xFF;
+		line.start++;
+		line.end--;
+	}
 	while (line.start <= line.end)
 	{
 		env->sdl.img_str[line.x + env->w * line.start] = line.color;
@@ -47,7 +54,7 @@ void	render_sector(t_env *env, t_render render)
 	i = 0;
 	sector = env->sector[env->player.sector];
 	ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
-	while (i < sector.nb_vertices - 1)
+	while (i < sector.nb_vertices)
 	{
 		// Calculer 
 		// 		Vertex 1
@@ -65,11 +72,11 @@ void	render_sector(t_env *env, t_render render)
 
 
 		// Calculer la distance entre les murs et le joueur
-		z1 = v1.x * env->player.dir.x + v1.y * env->player.dir.y;
-		z2 = v2.x * env->player.dir.x + v2.y * env->player.dir.y;
+		z1 = v1.x * env->player.angle_cos + v1.y * env->player.angle_sin;
+		z2 = v2.x * env->player.angle_cos + v2.y * env->player.angle_sin;
 		// Calculer la position des murs par rapport au joueur
-		x1 = v1.x * env->player.dir.y - v1.y * env->player.dir.x;
-		x2 = v2.x * env->player.dir.y - v2.y * env->player.dir.x;
+		x1 = v1.x * env->player.angle_sin - v1.y * env->player.angle_cos;
+		x2 = v2.x * env->player.angle_sin - v2.y * env->player.angle_cos;
 
 		ft_printf("\nz1 = %f\n", z1);
 		ft_printf("z2 = %f\n", z2);
@@ -94,10 +101,10 @@ void	render_sector(t_env *env, t_render render)
 				z1 = tmp;
 			}*/
 			// Convertir plafond et sol en screen coordinates
-			y_floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
-			y_floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
-			y_ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
-			y_ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
+			y_floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.angle_z) * ((VFOV * env->h) / z1));
+			y_floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.angle_z) * ((VFOV * env->h) / z2));
+			y_ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.angle_z) * ((VFOV * env->h) / z1));
+			y_ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.angle_z) * ((VFOV * env->h) / z2));
 			x1 = (int)(env->w / 2 - x1 * ((HFOV * env->h) / z1));
 			x2 = (int)(env->w / 2 - x2 * ((HFOV * env->h) / z2));
 			//ft_printf("x1 = %f x2 = %f\n", x1, x2);
@@ -137,6 +144,8 @@ void	render_sector(t_env *env, t_render render)
 				line.start = ceiling_end;
 				line.end = floor_start;
 				line.color = 0x888888FF;
+				if (env->options.contouring && (xstart == x1 || xstart == x2))
+					line.color = 0xFF;
 				draw_line(line, env);
 				xstart++;
 			}
@@ -153,7 +162,7 @@ void	draw(t_env *env)
 	i = 0;
 	render.x1 = 0;
 	render.x2 = env->w - 1;
-	ft_printf("player cos = %f\nplayer sin = %f\n", env->player.dir.x, env->player.dir.y);
+	ft_printf("player cos = %f\nplayer sin = %f\n", env->player.angle_cos, env->player.angle_sin);
 	// On commence par rendre le secteur courant
 	render_sector(env, render);
 }

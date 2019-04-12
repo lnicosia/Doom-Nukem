@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   angle_z.c                                             :+:      :+:    :+:   */
+/*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 14:39:04 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/12 15:22:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-/*
- **	Handle player angle_z rotations from mouse
- **	TODO Protection / return value??
- */
-
-void	view(t_env *env)
+void	options(t_env *env)
 {
-	env->player.angle += env->sdl.mouse_x * 0.03;
-	env->player.angle_cos = cos(env->player.angle);
-	env->player.angle_sin = sin(env->player.angle);
-	env->player.angle_z = ft_fclamp(env->player.angle_z + env->sdl.mouse_y * 0.05, -5, 5);
-	//ft_printf("player angle = %f\n", env.player.angle);
+	if (env->sdl.event.key.keysym.sym == SDLK_c)
+		env->options.contouring = env->options.contouring ? 0 : 1;
 }

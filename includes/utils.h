@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 10:19:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:17:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ typedef struct	s_player
 {
 	t_v3		pos;
 	double		angle;
-	t_v3		dir;
+	double		angle_cos;
+	double		angle_sin;
+	double		angle_z;
 	short		sector;
 }				t_player;
 
@@ -75,12 +77,26 @@ typedef struct	s_sdl
 	unsigned int	*img_str;
 }				t_sdl;
 
+/*
+**	Contains a list of options for the game
+*/
+
+typedef struct	s_options
+{
+	int			contouring;
+}				t_options;
+
+/*
+**	Environment data struct
+*/
+
 typedef struct	s_env
 {
 	t_sdl			sdl;
 	t_vertex		*vertices;
 	t_sector		*sector;
 	t_player		player;
+	t_options		options;
 	int				w;
 	int				h;
 	int				running;
@@ -97,5 +113,7 @@ int				parsing(int fd, t_env *env);
 void			check_parsing(t_env *env);
 void			view(t_env *env);
 void			move_player(t_env *env);
+void			init_options(t_env *env);
+void			options(t_env *env);
 
 #endif
