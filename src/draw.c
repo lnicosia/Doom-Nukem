@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 17:04:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 14:06:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	render_sector(t_env *env, t_render render)
 	double		x2;
 	double		z1;
 	double		z2;
-	int			floor1;
-	int			floor2;
-	int			ceiling1;
-	int			ceiling2;
+	int			y_floor1;
+	int			y_floor2;
+	int			y_ceiling1;
+	int			y_ceiling2;
 	int			xstart;
 	int			xend;
 	int			floor_start;
@@ -71,34 +71,53 @@ void	render_sector(t_env *env, t_render render)
 		x1 = v1.x * env->player.dir.y - v1.y * env->player.dir.x;
 		x2 = v2.x * env->player.dir.y - v2.y * env->player.dir.x;
 
+		ft_printf("\nz1 = %f\n", z1);
+		ft_printf("z2 = %f\n", z2);
+		ft_printf("x1 = %f\n", x1);
+		ft_printf("x2 = %f\n", x2);
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
 		if (z1 > 0 || z2 > 0)
 		{
+			/*if (z1 <= 0)
+			{
+				double tmp;
+				tmp = z1;
+				z1 = z2;
+				z2 = tmp;
+			}
+			if (z2 <= 0)
+			{
+				double tmp;
+				tmp = z2;
+				z2 = z1;
+				z1 = tmp;
+			}*/
 			// Convertir plafond et sol en screen coordinates
-			floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
-			floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
-			ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
-			ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
+			y_floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
+			y_floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
+			y_ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.dir.z) * ((VFOV * env->h) / z1));
+			y_ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.dir.z) * ((VFOV * env->h) / z2));
 			x1 = (int)(env->w / 2 - x1 * ((HFOV * env->h) / z1));
 			x2 = (int)(env->w / 2 - x2 * ((HFOV * env->h) / z2));
 			//ft_printf("x1 = %f x2 = %f\n", x1, x2);
 			xstart = ft_max(x1, render.x1);
 			xend = ft_min(x2, render.x2);
 			ft_printf("xstart = %d xend = %d\n\n", xstart, xend);
+			//int floor_test = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
 			while (xstart <= xend)
 			{
 				line.x = xstart;
-				ceiling_end = (xstart - x1) * (ceiling2 - ceiling1) / (x2 - x1) + ceiling1;
+				ceiling_end = (xstart - x1) * (y_ceiling2 - y_ceiling1) / (x2 - x1) + y_ceiling1;
 				ceiling_end = ft_clamp(ceiling_end, 0, env->h - 1);
-				floor_start = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
+				floor_start = (xstart - x1) * (y_floor2 - y_floor1) / (x2 - x1) + y_floor1;
 				floor_start = ft_clamp(floor_start, 0, env->h - 1);
 
 				// Protection
-				if (z1 <= 0)
+				/*if (z1 <= 0)
 					ceiling_end = 0;
 				if (z2 <= 0)
-					floor_start = env->h - 1;
+					floor_start = env->h - 1;*/
 
 				// Dessiner plafond
 				line.start = 0;

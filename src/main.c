@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 15:43:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 10:21:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ int		main(int ac, char **av)
 					|| (env.sdl.event.type == SDL_KEYUP
 						&& env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
+			if (env.sdl.event.type == SDL_KEYDOWN)
+				move_player(&env);
 		}
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
-		env.player.angle += env.sdl.mouse_x * 0.03;
-		env.player.dir.x = cos(env.player.angle);
-		env.player.dir.y = sin(env.player.angle);
-		env.player.dir.z = ft_fclamp(env.player.dir.z + env.sdl.mouse_y * 0.05, -5, 5);
-		//ft_printf("player angle = %f\n", env.player.angle);
+		view(&env);
 		SDL_Delay(10);
 	}
 	return (0);

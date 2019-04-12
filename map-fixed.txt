@@ -1,4 +1,4 @@
-# Vertices: x y
+# Vertices: y x
 Vertex 55
 vertex	0 0
 vertex	0 6
