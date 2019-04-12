@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 16:43:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:28:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	render_sector(t_env *env, t_render render)
 		ft_printf("x2 = %f\n", x2);
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
-		if (z1 > 0 || z2 > 0)
+		if (z1 > 0 && z2 > 0)
 		{
 			/*if (z1 <= 0)
 			{
