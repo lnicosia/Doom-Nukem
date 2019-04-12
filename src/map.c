@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/12 14:19:14 by aherriau         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:19:00 by aherriau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,34 @@ void	draw_line_3(t_env *e, t_line line)
 
 void	draw_player(t_env *e)
 {
-	put_pixel(e, e->player.pos.x, e->player.pos.y, 0xFFFF00FF);
-	//ft_printf("%f\n", e->player.angle);
+	int		x;
+	int		y;
+	int		factor;
+	int		factor2;
+	t_line	line;
 
+	factor = 2;
+	factor2 = 20;
+	x = (int)e->player.pos.x - factor;
+	while (x < ((int)e->player.pos.x + factor))
+	{
+		y = (int)e->player.pos.y - factor;
+		while (y < ((int)e->player.pos.y + factor))
+		{
+			put_pixel(e, x, y, 0xFFFF00FF);
+			y++;
+		}
+		x++;
+	}
+	//ft_printf("(%f, %f)\n", e->player.dir.x, e->player.dir.y);
+
+	line.x0 = e->player.pos.x;
+	line.y0 = e->player.pos.y;
+	line.x1 = cos(e->player.angle) * factor2 + line.x0;
+	line.y1 = sin(e->player.angle) * factor2 + line.y0;
+	line.color = 0xFFFFFFFF;
+	draw_line_3(e, line);
+	//ft_printf("%f\n", e->player.angle);
 }
 
 void	map_process(t_env *e)

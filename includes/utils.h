@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 18:01:16 by aherriau         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:05:45 by aherriau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_player
 	double		angle;
 	t_v3		dir;
 	short		sector;
+	int			speed;
 }				t_player;
 
 /*
@@ -98,5 +99,8 @@ void			check_parsing(t_env *env);
 
 void			map_process(t_env *e);
 void			map_render(t_env *e);
+
+void			move_player(t_env *env);
+void			view(t_env *env);
 
 #endif

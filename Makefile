@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/11 18:01:30 by aherriau         ###   ########.fr        #
+#    Updated: 2019/04/12 14:37:33 by aherriau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c free_all.c init_sdl.c clear_image.c draw.c parsing.c \
-		  screen_utils.c check_parsing.c map.c
+		  screen_utils.c check_parsing.c map.c movement.c view.c
 
 HEADERS = utils.h draw.h
 

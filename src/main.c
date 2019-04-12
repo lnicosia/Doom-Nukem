@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 14:18:53 by aherriau         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:06:30 by aherriau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		main(int ac, char **av)
 	parsing(open(av[1], O_RDONLY), &env);
 	//check_parsing(&env);
 	ft_printf("[OK]\n");
+	SDL_SetRelativeMouseMode(1);
+	env.player.speed = 3;
 	while (env.running)
 	{
 		clear_image(&env);
@@ -39,8 +41,11 @@ int		main(int ac, char **av)
 		{
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
-
+			else if (env.sdl.event.type == SDL_KEYDOWN)
+				move_player(&env);
 		}
+		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
+		view(&env);
 		SDL_Delay(10);
 
 		/*
