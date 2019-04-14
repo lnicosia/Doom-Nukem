@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/14 18:27:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:27:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,141 +30,205 @@ void	draw_line(t_line line, t_env *env)
 	}
 }
 
+/*
+ **	Draw the ceiling of the current wall
+ */
+
+void	draw_ceiling(int current_ceiling, t_render render,t_env *env)
+{
+	t_line	line;
+
+	line.x = render.currentx;
+	line.start = render.ymin;
+	line.end = current_ceiling;
+	line.color = 0x222222FF;
+	if (env->options.lighting)
+		line.color = (render.light / 5) << 24
+			| (render.light / 5) << 16
+			| (render.light / 5) << 8
+			| 255;
+	//ft_printf("floor end = %d\n", line.end);
+	draw_line(line, env);
+}
+
+/*
+ **	Draw the floor of the current wall
+ */
+
+void	draw_floor(int current_floor, t_render render,t_env *env)
+{
+	t_line	line;
+
+	line.x = render.currentx;
+	line.start = current_floor;
+	line.end = render.ymax;
+	line.color = 0x444444FF;
+	if (env->options.lighting)
+		line.color = (render.light / 3) << 24
+			| (render.light / 3) << 16
+			| (render.light / 3) << 8
+			| 255;
+	//ft_printf("ceiling start = %d\n", line.start);
+	draw_line(line, env);
+}
+
+/*
+ **	Draw the wall part of the current wall
+ */
+
+/*void	draw_wall(int current_floor, int render.light, t_line line,t_env *env)
+  {
+  render.line.color = 0x888888FF;
+  if (env->options.render.lighting)
+  render.line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
+  if (env->options.contouring && (x == x1 || x == x2))
+  render.line.color = 0xFF;
+  draw_line(render.line, env);
+  }*/
+
+/*
+ **	Get the translated vertices coord for the current wall
+ */
+
+void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
+{
+	// 	Vertex 1
+	render->v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
+	render->v1.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
+	//	Vertex 2
+	render->v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
+	render->v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
+	/*ft_printf("v1 = %d\n", sector.vertices[i]);
+	  ft_printf("v1.x = %f\n", v1.x);
+	  ft_printf("v1.y = %f\n", v1.y);
+	  ft_printf("v2 = %d\n", sector.vertices[i + 1]);
+	  ft_printf("v2.x = %f\n", v2.x);
+	  ft_printf("v2.y = %f\n", v2.y);*/
+}
+
+/*
+ **	Get the rotated vertices coord for the current wall
+ */
+
+void	get_rotated_vertices(t_render *render, t_env *env)
+{
+	// Calculer le z entre les murs et le joueur
+	render->vz1 = render->v1.x * env->player.angle_cos + render->v1.y * env->player.angle_sin;
+	render->vz2 = render->v2.x * env->player.angle_cos + render->v2.y * env->player.angle_sin;
+	// Calculer le x entre les murs et le joueur
+	render->vx1 = render->v1.x * env->player.angle_sin - render->v1.y * env->player.angle_cos;
+	render->vx2 = render->v2.x * env->player.angle_sin - render->v2.y * env->player.angle_cos;
+	/*ft_printf("\nz1 = %f\n", render.vz1);
+	  ft_printf("z2 = %f\n", render.vz2);
+	  ft_printf("x1 = %f\n", x1);
+	  ft_printf("x2 = %f\n", x2);*/
+}
+
+void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector)
+{
+	render->floor1 = env->h / 2 -
+		(int)((sector.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz1));
+	render->floor2 = env->h / 2 -
+		(int)((sector.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz2));
+	render->ceiling1 = env->h / 2 -
+		(int)((sector.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz1));
+	render->ceiling2 = env->h / 2 -
+		(int)((sector.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz2));
+	render->x1 = (int)(env->w / 2 - render->vx1 * ((HFOV * env->h) / render->vz1));
+	render->x2 = (int)(env->w / 2 - render->vx2 * ((HFOV * env->h) / render->vz2));
+}
+
 void	render_sector(t_env *env, t_render render)
 {
 	int			i;
-	t_line		line;
 	t_sector	sector;
-	t_v2		v1;
-	t_v2		v2;
-	double		x1;
-	double		x2;
-	double		z1;
-	double		z2;
-	int			y_floor1;
-	int			y_floor2;
-	int			y_ceiling1;
-	int			y_ceiling2;
+	t_line		line;
+	int			x;
 	int			xstart;
 	int			xend;
-	int			floor_start;
-	int			ceiling_end;
+	int			current_floor;
+	int			current_ceiling;
 
-	(void)render;
 	i = 0;
 	sector = env->sector[render.sector];
-	ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
+	//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices)
 	{
-		// Calculer 
-		// 		Vertex 1
-		v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
-		v1.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
-		//		Vertex 2
-		v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
-		v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
-		ft_printf("v1 = %d\n", sector.vertices[i]);
-		ft_printf("v1.x = %f\n", v1.x);
-		ft_printf("v1.y = %f\n", v1.y);
-		ft_printf("v2 = %d\n", sector.vertices[i + 1]);
-		ft_printf("v2.x = %f\n", v2.x);
-		ft_printf("v2.y = %f\n", v2.y);
+		//ft_printf("rendering wall %d\n", sector.vertices[i]);
+		// Calculer les coordonnes transposees du mur par rapport au joueur 
+		get_translated_vertices(&render, env, sector, i);
 
+		// Calculer les coordonnes tournees du mur par rapport au joueur 
+		get_rotated_vertices(&render, env);
 
-		// Calculer la distance entre les murs et le joueur
-		z1 = v1.x * env->player.angle_cos + v1.y * env->player.angle_sin;
-		z2 = v2.x * env->player.angle_cos + v2.y * env->player.angle_sin;
-		// Calculer la position des murs par rapport au joueur
-		x1 = v1.x * env->player.angle_sin - v1.y * env->player.angle_cos;
-		x2 = v2.x * env->player.angle_sin - v2.y * env->player.angle_cos;
-
-		ft_printf("\nz1 = %f\n", z1);
-		ft_printf("z2 = %f\n", z2);
-		ft_printf("x1 = %f\n", x1);
-		ft_printf("x2 = %f\n", x2);
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
-		if (z1 > 0 || z2 > 0)
+		if (render.vz1 > 0 || render.vz2 > 0)
 		{
-			// Convertir plafond et sol en screen coordinates
-			y_floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.angle_z) * ((VFOV * env->h) / z1));
-			y_floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.angle_z) * ((VFOV * env->h) / z2));
-			y_ceiling1 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z1 * env->player.angle_z) * ((VFOV * env->h) / z1));
-			y_ceiling2 = env->h / 2 - (int)((sector.ceiling - env->player.pos.z + z2 * env->player.angle_z) * ((VFOV * env->h) / z2));
-			x1 = (int)(env->w / 2 - x1 * ((HFOV * env->h) / z1));
-			x2 = (int)(env->w / 2 - x2 * ((HFOV * env->h) / z2));
+			// Obtenir les coordoonees du sol et du plafond sur l'ecran
+
+			get_floor_and_ceiling_screen_coordinates(&render, env, sector);
 			//ft_printf("x1 = %f x2 = %f\n", x1, x2);
-			xstart = ft_max(x1, render.x1);
-			xend = ft_min(x2, render.x2);
-			ft_printf("xstart = %d xend = %d\n\n", xstart, xend);
-			//int floor_test = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
-			while (xstart <= xend)
+			xstart = ft_max(render.x1, render.xmin);
+			xend = ft_min(render.x2, render.xmax);
+			//ft_printf("x = %d xend = %d\n\n", x, xend);
+			//int floor_test = (x - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
+			x = xstart;
+			while (x <= xend)
 			{
-				double z = ((xstart - x1) * (z2 - z1) / (x2 - x1) + z1) * 8;
-				int light = 255 - ft_fclamp(z, 0, 255);
-				//if (z > 0)
-				//{
-				line.x = xstart;
-				ceiling_end = (xstart - x1) * (y_ceiling2 - y_ceiling1) / (x2 - x1) + y_ceiling1;
-				ceiling_end = ft_clamp(ceiling_end, 0, env->h - 1);
-				floor_start = (xstart - x1) * (y_floor2 - y_floor1) / (x2 - x1) + y_floor1;
-				floor_start = ft_clamp(floor_start, 0, env->h - 1);
+				render.currentx = x;
 
-				// Protection
-				/*if (z1 <= 0)
-					ceiling_end = 0;
-				if (z2 <= 0)
-					floor_start = env->h - 1;*/
+				// Lumiere
+				render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
-				// Dessiner plafond
-				line.start = 0;
-				line.end = ceiling_end;
-				line.color = 0x222222FF;
-				if (env->options.lighting)
-					line.color = (light / 5) << 24 | (light / 5) << 16 | (light / 5) << 8 | 255;
-				//ft_printf("floor end = %d\n", line.end);
-				draw_line(line, env);
+				// Calculer y du plafond et du sol actuel
+				current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
+				current_ceiling = ft_clamp(current_ceiling, render.ymin, render.ymax);
+				current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+				current_floor = ft_clamp(current_floor, render.ymin, render.ymax);
 
-				// Dessiner sol
-				line.start = floor_start;
-				line.end = env->h - 1;
-				line.color = 0x444444FF;
-				if (env->options.lighting)
-					line.color = (light / 3) << 24 | (light / 3) << 16 | (light / 3) << 8 | 255;
-				//ft_printf("ceiling start = %d\n", line.start);
-				draw_line(line, env);
+				// Dessiner le plafond de ymin jusqu'au plafond
+				draw_ceiling(current_ceiling, render, env);
 
-				// Dessiner mur
-				line.start = ceiling_end;
-				line.end = floor_start;
-				if (sector.neighbors[i] >= 0 && sector.num != render.father)
+				// Dessiner le sol du sol jusqu'a ymax
+				draw_floor(current_floor, render, env);
+
+				// Dessiner le mur du plafond jusqu'au sol
+				line.start = current_ceiling;
+				line.end = current_floor;
+				line.x = x;
+				if (sector.neighbors[i] >= 0 && !env->options.render_sectors)
 				{
-					t_render new = render;
-					new.x1 = xstart;
-					new.x2 = xend;
-					new.father = sector.num;
-					new.sector = sector.neighbors[i];
-					if (env->options.render_sectors)
-						render_sector(env, new);
-					else
-					{
-						line.color = 0xAA0000FF;
-						if (env->options.lighting)
-							line.color = light << 24 | 255;
-						draw_line(line, env);
-					}
+					//ft_printf("[NEIGHBOR]\nRendering sector #%d\n", sector.neighbors[i]);
+					line.color = 0xAA0000FF;
+					if (env->options.lighting)
+						line.color = render.light << 24 | 255;
+					draw_line(line, env);
 				}
 				else
 				{
 					line.color = 0x888888FF;
 					if (env->options.lighting)
-						line.color = light << 24 | light << 16 | light << 8 | 255;
-					if (env->options.contouring && (xstart == x1 || xstart == x2))
+						line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
+					if (env->options.contouring && (x == render.x1 || x == render.x2))
 						line.color = 0xFF;
 					draw_line(line, env);
 				}
-				xstart++;
-				//}
+				x++;
+			}
+			if (sector.neighbors[i] >= 0 && sector.neighbors[i] != render.father && env->options.render_sectors)
+			{
+				// TODO array de ymin et ymax pour delimiter la hauteur du prochain secteur
+				t_render new = render;
+				new.xmin = xstart;
+				new.xmax = xend;
+				new.father = sector.num;
+				new.sector = sector.neighbors[i];
+				render_sector(env, new);
 			}
 		}
 		i++;
@@ -177,11 +241,12 @@ void	draw(t_env *env)
 	int			i;
 
 	i = 0;
-	render.x1 = 0;
-	render.x2 = env->w - 1;
-	render.father = -1;
+	render.xmin = 0;
+	render.xmax = env->w - 1;
+	render.ymin = 0;
+	render.ymax = env->h - 1;
+	render.father = -2;
 	render.sector = env->player.sector;
-	ft_printf("player cos = %f\nplayer sin = %f\n", env->player.angle_cos, env->player.angle_sin);
 	// On commence par rendre le secteur courant
 	render_sector(env, render);
 }
