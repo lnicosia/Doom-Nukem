@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 17:28:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/14 18:27:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	render_sector(t_env *env, t_render render)
 
 	(void)render;
 	i = 0;
-	sector = env->sector[env->player.sector];
+	sector = env->sector[render.sector];
 	ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices)
 	{
@@ -84,22 +84,8 @@ void	render_sector(t_env *env, t_render render)
 		ft_printf("x2 = %f\n", x2);
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
-		if (z1 > 0 && z2 > 0)
+		if (z1 > 0 || z2 > 0)
 		{
-			/*if (z1 <= 0)
-			{
-				double tmp;
-				tmp = z1;
-				z1 = z2;
-				z2 = tmp;
-			}
-			if (z2 <= 0)
-			{
-				double tmp;
-				tmp = z2;
-				z2 = z1;
-				z1 = tmp;
-			}*/
 			// Convertir plafond et sol en screen coordinates
 			y_floor1 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z1 * env->player.angle_z) * ((VFOV * env->h) / z1));
 			y_floor2 = env->h / 2 - (int)((sector.floor - env->player.pos.z + z2 * env->player.angle_z) * ((VFOV * env->h) / z2));
@@ -114,6 +100,10 @@ void	render_sector(t_env *env, t_render render)
 			//int floor_test = (xstart - x1) * (floor2 - floor1) / (x2 - x1) + floor1;
 			while (xstart <= xend)
 			{
+				double z = ((xstart - x1) * (z2 - z1) / (x2 - x1) + z1) * 8;
+				int light = 255 - ft_fclamp(z, 0, 255);
+				//if (z > 0)
+				//{
 				line.x = xstart;
 				ceiling_end = (xstart - x1) * (y_ceiling2 - y_ceiling1) / (x2 - x1) + y_ceiling1;
 				ceiling_end = ft_clamp(ceiling_end, 0, env->h - 1);
@@ -130,6 +120,8 @@ void	render_sector(t_env *env, t_render render)
 				line.start = 0;
 				line.end = ceiling_end;
 				line.color = 0x222222FF;
+				if (env->options.lighting)
+					line.color = (light / 5) << 24 | (light / 5) << 16 | (light / 5) << 8 | 255;
 				//ft_printf("floor end = %d\n", line.end);
 				draw_line(line, env);
 
@@ -137,17 +129,42 @@ void	render_sector(t_env *env, t_render render)
 				line.start = floor_start;
 				line.end = env->h - 1;
 				line.color = 0x444444FF;
+				if (env->options.lighting)
+					line.color = (light / 3) << 24 | (light / 3) << 16 | (light / 3) << 8 | 255;
 				//ft_printf("ceiling start = %d\n", line.start);
 				draw_line(line, env);
 
 				// Dessiner mur
 				line.start = ceiling_end;
 				line.end = floor_start;
-				line.color = 0x888888FF;
-				if (env->options.contouring && (xstart == x1 || xstart == x2))
-					line.color = 0xFF;
-				draw_line(line, env);
+				if (sector.neighbors[i] >= 0 && sector.num != render.father)
+				{
+					t_render new = render;
+					new.x1 = xstart;
+					new.x2 = xend;
+					new.father = sector.num;
+					new.sector = sector.neighbors[i];
+					if (env->options.render_sectors)
+						render_sector(env, new);
+					else
+					{
+						line.color = 0xAA0000FF;
+						if (env->options.lighting)
+							line.color = light << 24 | 255;
+						draw_line(line, env);
+					}
+				}
+				else
+				{
+					line.color = 0x888888FF;
+					if (env->options.lighting)
+						line.color = light << 24 | light << 16 | light << 8 | 255;
+					if (env->options.contouring && (xstart == x1 || xstart == x2))
+						line.color = 0xFF;
+					draw_line(line, env);
+				}
 				xstart++;
+				//}
 			}
 		}
 		i++;
@@ -162,6 +179,8 @@ void	draw(t_env *env)
 	i = 0;
 	render.x1 = 0;
 	render.x2 = env->w - 1;
+	render.father = -1;
+	render.sector = env->player.sector;
 	ft_printf("player cos = %f\nplayer sin = %f\n", env->player.angle_cos, env->player.angle_sin);
 	// On commence par rendre le secteur courant
 	render_sector(env, render);
