@@ -1,0 +1,19 @@
+Vertex	10
+vertex	0 15
+vertex	0 30
+vertex	15 0
+vertex	15 15
+vertex	15 30
+vertex	15 45
+vertex	30 0
+vertex	30 15
+vertex	30 30
+vertex	30 45
+
+Sector 4
+sector	0 20	0 1 4 3		-1 -1 -1 2
+sector	-4 18	2 3 7 6		-1 -1 2 -1
+sector	2 20	3 4 8 7		1 0 3 -1
+sector	10 22	4 5 9 8		2 -1 -1 -1
+
+player	10 10	0	0

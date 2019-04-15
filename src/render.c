@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 11:47:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 13:22:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ void	render_sector(t_env *env, t_render render)
 				get_neighbor_floor_and_ceiling_screen_coordinates(&render, env, env->sector[sector.neighbors[i]]);
 			xstart = ft_max(render.x1, render.xmin);
 			xend = ft_min(render.x2, render.xmax);
+			if (sector.neighbors[i] >= 0 && sector.neighbors[i] != render.father && env->options.render_sectors)
+			{
+				// TODO array de ymin et ymax pour delimiter la hauteur du prochain secteur
+				t_render new = render;
+				new.xmin = xstart;
+				new.xmax = xend;
+				new.father = sector.num;
+				new.sector = sector.neighbors[i];
+				render_sector(env, new);
+			}
 			//ft_printf("xstart = %d xend = %d\n\n", x, xend);
 			x = xstart;
 			while (x <= xend)
@@ -103,16 +113,6 @@ void	render_sector(t_env *env, t_render render)
 					draw_line(line, env);
 				}
 				x++;
-			}
-			if (sector.neighbors[i] >= 0 && sector.neighbors[i] != render.father && env->options.render_sectors)
-			{
-				// TODO array de ymin et ymax pour delimiter la hauteur du prochain secteur
-				t_render new = render;
-				new.xmin = xstart;
-				new.xmax = xend;
-				new.father = sector.num;
-				new.sector = sector.neighbors[i];
-				render_sector(env, new);
 			}
 		}
 		i++;

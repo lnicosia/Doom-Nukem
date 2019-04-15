@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/15 10:55:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:02:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ int	player_pos(t_env *env, char *line)
 {
 	while (*line > '9' || *line < '0')
 		line++;
+	ft_printf("x %d\n", ft_atoi(line));
 	env->player.pos.x = ft_atoi(line);
 	while (*line <= '9' && *line >= '0')
 		line++;
 	line++;
+	ft_printf("y %d\n", ft_atoi(line));
 	env->player.pos.y = ft_atoi(line);
-	while (*line > '9' || *line < '0')
-		line++;
-	line++;
-	env->player.angle = ft_atoi(line);
 	while (*line <= '9' && *line >= '0')
 		line++;
 	line++;
+	env->player.angle = ft_atoi(line);
+	ft_printf("angle %d\n", ft_atoi(line));
+	while (*line <= '9' && *line >= '0')
+		line++;
+	line++;
+	ft_printf("sector %d\n", ft_atoi(line));
 	env->player.sector = ft_atoi(line);
 	env->player.pos.z = 6;
 	return (1);
