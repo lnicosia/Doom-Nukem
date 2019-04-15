@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 14:09:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:22:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	draw_upper_wall(t_render render, t_env *env)
 			| (render.light / 5) << 8
 			| 255;
 	//ft_printf("floor end = %d\n", line.end);
+	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
+			line.color = 0xFF;
 	draw_line(line, env);
 }
 
@@ -112,5 +114,7 @@ void	draw_bottom_wall(t_render render,t_env *env)
 			| (render.light / 3) << 8
 			| 255;
 	//ft_printf("ceiling start = %d\n", line.start);
+	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
+			line.color = 0xFF;
 	draw_line(line, env);
 }

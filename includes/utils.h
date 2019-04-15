@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/14 18:24:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:57:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			nb_vertices;
+	short			state;
 }				t_sector;
 
 typedef struct	s_vertex
