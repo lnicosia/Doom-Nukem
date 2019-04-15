@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 10:19:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:47:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	render_sector(t_env *env, t_render render)
 	int			x;
 	int			xstart;
 	int			xend;
-	int			current_floor;
-	int			current_ceiling;
 
 	i = 0;
 	//ft_printf("rendering sector #%d\n", render.sector);
@@ -45,6 +43,8 @@ void	render_sector(t_env *env, t_render render)
 			// Obtenir les coordoonees du sol et du plafond sur l'ecran
 
 			get_floor_and_ceiling_screen_coordinates(&render, env, sector);
+			if (sector.neighbors[i] >= 0)
+				get_neighbor_floor_and_ceiling_screen_coordinates(&render, env, env->sector[sector.neighbors[i]]);
 			xstart = ft_max(render.x1, render.xmin);
 			xend = ft_min(render.x2, render.xmax);
 			//ft_printf("xstart = %d xend = %d\n\n", x, xend);
@@ -56,29 +56,42 @@ void	render_sector(t_env *env, t_render render)
 				// Lumiere
 				render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
-				// Calculer y du plafond et du sol actuel
-				current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
-				current_ceiling = ft_clamp(current_ceiling, render.ymin, render.ymax);
-				current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
-				current_floor = ft_clamp(current_floor, render.ymin, render.ymax);
+				// Calculer y actuel du plafond et du sol
+				render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
+				render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
+				render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+				render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
 
 				// Dessiner le plafond de ymin jusqu'au plafond
-				draw_ceiling(current_ceiling, render, env);
+				draw_ceiling(render, env);
 
 				// Dessiner le sol du sol jusqu'a ymax
-				draw_floor(current_floor, render, env);
+				draw_floor(render, env);
 
 				// Dessiner le mur du plafond jusqu'au sol
-				line.start = current_ceiling;
-				line.end = current_floor;
+				line.start = render.current_ceiling;
+				line.end = render.current_floor;
 				line.x = x;
-				if (sector.neighbors[i] >= 0 && !env->options.render_sectors)
+				if (sector.neighbors[i] >= 0)
 				{
-					//ft_printf("[NEIGHBOR]\nRendering sector #%d\n", sector.neighbors[i]);
-					line.color = 0xAA0000FF;
-					if (env->options.lighting)
-						line.color = render.light << 24 | 255;
-					draw_line(line, env);
+					if (!env->options.render_sectors)
+					{
+						// Dessiner le portail en rouge
+						line.color = 0xAA0000FF;
+						if (env->options.lighting)
+							line.color = render.light << 24 | 255;
+						draw_line(line, env);
+					}
+
+					// Calculer y actuel du plafond et du sol du voisin
+					render.current_neighbor_ceiling = (x - render.x1) * (render.neighbor_ceiling2 - render.neighbor_ceiling1) / (render.x2 - render.x1) + render.neighbor_ceiling1;
+					render.current_neighbor_ceiling = ft_clamp(render.current_neighbor_ceiling, render.ymin, render.ymax);
+					render.current_neighbor_floor = (x - render.x1) * (render.neighbor_floor2 - render.neighbor_floor1) / (render.x2 - render.x1) + render.neighbor_floor1;
+					render.current_neighbor_floor = ft_clamp(render.current_neighbor_floor, render.ymin, render.ymax);
+					if (render.current_neighbor_ceiling > render.current_ceiling)
+						draw_upper_wall(render, env);
+					if (render.current_neighbor_floor < render.current_floor)
+						draw_bottom_wall(render, env);
 				}
 				else
 				{

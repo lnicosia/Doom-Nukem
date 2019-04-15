@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 10:05:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:21:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	get_rotated_vertices(t_render *render, t_env *env)
 	  ft_printf("x2 = %f\n", x2);*/
 }
 
+/*
+**	Get the floor and ceiling position on the screen
+*/
+
 void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector)
 {
 	render->floor1 = env->h / 2 -
@@ -67,4 +71,24 @@ void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_se
 				* ((VFOV * env->h) / render->vz2));
 	render->x1 = (int)(env->w / 2 - render->vx1 * ((HFOV * env->h) / render->vz1));
 	render->x2 = (int)(env->w / 2 - render->vx2 * ((HFOV * env->h) / render->vz2));
+}
+
+/*
+**	Get the neighbor floor and ceiling position on the screen
+*/
+
+void	get_neighbor_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector neighbor)
+{
+	render->neighbor_floor1 = env->h / 2 -
+		(int)((neighbor.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz1));
+	render->neighbor_floor2 = env->h / 2 -
+		(int)((neighbor.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz2));
+	render->neighbor_ceiling1 = env->h / 2 -
+		(int)((neighbor.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz1));
+	render->neighbor_ceiling2 = env->h / 2 -
+		(int)((neighbor.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
+				* ((VFOV * env->h) / render->vz2));
 }

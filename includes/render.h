@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 10:09:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:29:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ typedef struct		s_render
 	int				currentx;
 	int				floor1;
 	int				floor2;
+	int				current_floor;
+	int				current_ceiling;
+	int				current_neighbor_floor;
+	int				current_neighbor_ceiling;
 	int				ceiling1;
 	int				ceiling2;
+	int				neighbor_floor1;
+	int				neighbor_floor2;
+	int				neighbor_ceiling1;
+	int				neighbor_ceiling2;
 	int				x1;
 	int				x2;
 	int				xstart;
@@ -59,8 +67,11 @@ typedef struct		s_render
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env);
 void				get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector);
+void				get_neighbor_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector);
 void				draw_line(t_line, t_env *env);
-void				draw_ceiling(int current_ceiling, t_render render, t_env *env);
-void				draw_floor(int current_floor, t_render render, t_env *env);
+void				draw_ceiling(t_render render, t_env *env);
+void				draw_floor(t_render render, t_env *env);
+void				draw_upper_wall(t_render render, t_env *env);
+void				draw_bottom_wall(t_render render, t_env *env);
 
 #endif
