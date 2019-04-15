@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/14 20:20:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:09:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,12 @@ typedef struct		s_render
 	int				father;
 	int				light;
 }					t_render;
+
+void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
+void				get_rotated_vertices(t_render *render, t_env *env);
+void				get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector);
+void				draw_line(t_line, t_env *env);
+void				draw_ceiling(int current_ceiling, t_render render, t_env *env);
+void				draw_floor(int current_floor, t_render render, t_env *env);
 
 #endif
