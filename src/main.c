@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 17:17:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/16 17:22:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ int		main(int ac, char **av)
 	ft_printf("[OK]\n");
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
+	//draw(&env);
 	while (env.running)
 	{
 		clear_image(&env);
-	//	map_process(&env);
-	//	map_render(&env);
 		draw(&env);
-		render(&env);
+		if (env.options.show_minimap)
+			minimap(&env);
+		update_screen(&env);
 		while (SDL_PollEvent(&env.sdl.event))
 		{
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))

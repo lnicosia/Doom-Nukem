@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/16 14:25:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:27:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ void	draw_player(t_env *env)
 
 	factor = 2;
 	factor2 = 20;
-	x = env->w - 100  - factor;
-	while (x < env->w - 100 + factor + 1)
+	x = env->w - 150  - factor;
+	while (x < env->w - 150 + factor + 1)
 	{
-		y = 100 - factor;
-		while (y < 100 + factor + 1)
+		y = 150 - factor;
+		while (y < 150 + factor + 1)
 		{
 			put_pixel(env, x, y, 0xFFFF00FF);
 			y++;
@@ -134,8 +134,8 @@ void	draw_player(t_env *env)
 	}
 	//ft_printf("(%f, %f)\n", env->player.dir.x, env->player.dir.y);
 
-	line.x0 = env->w - 100;
-	line.y0 = 100;
+	line.x0 = env->w - 150;
+	line.y0 = 150;
 	line.x1 = cos(env->player.angle) * factor2 + line.x0;
 	line.y1 = sin(env->player.angle) * factor2 + line.y0;
 	line.color = 0xFFFFFFFF;
@@ -181,17 +181,17 @@ void	minimap(t_env *env)
 		v = 0;
 		while (v < sect.nb_vertices)
 		{
-			line.x0 = env->w - 100 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
-			line.y0 = 100 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * 10;
+			line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
+			line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * 10;
 			if ((v + 1) == sect.nb_vertices)
 			{
-				line.x1 = env->w - 100 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * 10;
-				line.y1 = 100 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * 10;
+				line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * 10;
+				line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * 10;
 			}
 			else
 			{
-				line.x1 = env->w - 100 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
-				line.y1 = 100 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
+				line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
+				line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
 			}
 			//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
 			if (sect.neighbors[v] == -1)
