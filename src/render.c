@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 14:14:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 17:21:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	render_sector(t_env *env, t_render render)
 	int			xend;
 
 	i = 0;
-	//ft_printf("rendering sector #%d\n", render.sector);
+	ft_printf("rendering sector #%d\n", render.sector);
 	sector = env->sectors[render.sector];
-	env->sectors[sector.num].state = 1;
 	//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices)
 	{
+		//ft_printf("----rendering wall #%d\n", sector.vertices[i]);
 		//ft_printf("rendering wall %d\n", sector.vertices[i]);
 		// Calculer les coordonnes transposees du mur par rapport au joueur 
 		get_translated_vertices(&render, env, sector, i);
@@ -39,19 +39,64 @@ void	render_sector(t_env *env, t_render render)
 
 		// On continue que si au moins une des deux profondeurs est positive
 		// (= mur devant le joueur)
-		if (render.vz1 > 0 || render.vz2 > 0)
+		if (render.vz1 > 0 && render.vz2 > 0)
 		{
+			// Calculer le cliping
+			if(render.vz1 <= 0 || render.vz2 <= 0)
+			{
+				t_v2	new_vz1;
+				t_v2	new_vz2;
+				render.near_z = 1e-10f;
+				render.far_z = 5;
+				render.near_side = 1e-11f;
+				render.far_side = 20.f;
+
+				//Find an intersection between the wall and the approximate edges of player's view
+				get_intersection(&render, &new_vz1, 1);
+				get_intersection(&render, &new_vz2, 2);
+				if(render.vz1 < render.near_z)
+				{
+					if(new_vz1.y > 0)
+					{
+						render.vx1 = new_vz1.x;
+						render.vz1 = new_vz1.y;
+					}
+					else
+					{
+						render.vx1 = new_vz2.x;
+						render.vz1 = new_vz2.y;
+					}
+				}
+				if(render.vz2 < render.near_z)
+				{
+					if(new_vz1.y > 0)
+					{
+						render.vx2 = new_vz1.x;
+						render.vz2 = new_vz1.y;
+					}
+					else
+					{
+						render.vx2 = new_vz2.x;
+						render.vz2 = new_vz2.y;
+					}
+				}
+			}
 			// Obtenir les coordoonees du sol et du plafond sur l'ecran
 
 			get_floor_and_ceiling_screen_coordinates(&render, env, sector);
+
+			// Pareil pour le secteur voisin si c'est un portail
 			if (sector.neighbors[i] >= 0)
 				get_neighbor_floor_and_ceiling_screen_coordinates(&render, env, env->sectors[sector.neighbors[i]]);
-			if (render.x1 < render.x2)
+			if (render.x1 < render.x2
+			   )//&& env->vertices[sector.vertices[i]].state == 0)
 			{
+				env->vertices[sector.vertices[i]].state = 1;
+				//env->sectors[sector.num].state = 1;
 				xstart = ft_max(render.x1, render.xmin);
 				xend = ft_min(render.x2, render.xmax);
 				if (sector.neighbors[i] >= 0 && env->options.render_sectors
-						&& env->sectors[sector.neighbors[i]].state == 0)
+				   )//&& env->sectors[sector.neighbors[i]].state == 0)
 				{
 					// TODO array de ymin et ymax pour delimiter la hauteur du prochain secteur
 					t_render new = render;
@@ -66,7 +111,6 @@ void	render_sector(t_env *env, t_render render)
 				while (x <= xend)
 				{
 					render.currentx = x;
-
 					// Lumiere
 					render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
@@ -132,9 +176,9 @@ static void	reset_sectors_state(t_env *env)
 	int	i;
 
 	i = 0;
-	while (i < env->nb_sectors)
+	while (i < env->nb_vertices)
 	{
-		env->sectors[i].state = 0;
+		env->vertices[i].state = 0;
 		i++;
 	}
 }
@@ -144,6 +188,7 @@ void	draw(t_env *env)
 	t_render	render;
 	int			i;
 
+	ft_printf("{green}[New render]{reset} | [%d Sectors][%d Vertices]\n", env->nb_sectors, env->nb_vertices);
 	i = 0;
 	render.xmin = 0;
 	render.xmax = env->w - 1;

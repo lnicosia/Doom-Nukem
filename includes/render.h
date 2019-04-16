@@ -6,16 +6,17 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 14:51:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 16:55:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 # define MAX_SECTORS_TO_RENDER 32
-# define HFOV	0.66
+# define HFOV	0.73
 # define VFOV	0.2
 # include "utils.h"
+# define vxs(x0,y0, x1,y1)    ((x0)*(y1) - (x1)*(y0))
 
 typedef struct		s_line
 {
@@ -62,6 +63,10 @@ typedef struct		s_render
 	int				sector;
 	int				father;
 	int				light;
+	double			far_z;
+	double			near_z;
+	double			near_side;
+	double			far_side;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
@@ -73,5 +78,6 @@ void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
 void				draw_bottom_wall(t_render render, t_env *env);
+void				get_intersection(t_render *render, t_v2 *new_vz, int check_vz);
 
 #endif
