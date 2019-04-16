@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 11:06:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 17:08:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,46 @@ void	render_sector(t_env *env, t_render render)
 		// (= mur devant le joueur)
 		if (render.vz1 > 0 || render.vz2 > 0)
 		{
+			// Calculer le cliping
+			if(render.vz1 <= 0 || render.vz2 <= 0)
+			{
+				t_v2	new_vz1;
+				t_v2	new_vz2;
+				render.near_z = 1e-10f;
+				render.far_z = 5;
+				render.near_side = 1e-11f;
+				render.far_side = 20.f;
+
+				//Find an intersection between the wall and the approximate edges of player's view
+				get_intersection(&render, &new_vz1, 1);
+				get_intersection(&render, &new_vz2, 2);
+				if(render.vz1 < render.near_z)
+				{
+					if(new_vz1.y > 0)
+					{
+						render.vx1 = new_vz1.x;
+						render.vz1 = new_vz1.y;
+					}
+					else
+					{
+						render.vx1 = new_vz2.x;
+						render.vz1 = new_vz2.y;
+					}
+				}
+				if(render.vz2 < render.near_z)
+				{
+					if(new_vz1.y > 0)
+					{
+						render.vx2 = new_vz1.x;
+						render.vz2 = new_vz1.y;
+					}
+					else
+					{
+						render.vx2 = new_vz2.x;
+						render.vz2 = new_vz2.y;
+					}
+				}
+			}
 			// Obtenir les coordoonees du sol et du plafond sur l'ecran
 
 			get_floor_and_ceiling_screen_coordinates(&render, env, sector);

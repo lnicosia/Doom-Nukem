@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 11:21:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 17:03:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,62 @@ void	get_rotated_vertices(t_render *render, t_env *env)
 	  ft_printf("x2 = %f\n", x2);*/
 }
 
+void	get_intersection(t_render *render, t_v2 *new_vz, int check_vz)
+{
+	if (check_vz == 2)
+	{
+		{
+			new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+					(render->vz1)-(render->vz2),
+					vxs(-render->near_side,render->near_z, render->far_side,render->far_z),
+					(render->near_z)-(render->far_z))
+					/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
+			new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+					(render->vz1)-(render->vz2),
+					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
+					(render->near_z)-(render->far_z))
+				/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
+		}
+
+	}
+	if (check_vz == 1)
+	{
+		{
+			new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+					(render->vz1)-(render->vz2),
+					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
+					(render->near_z)-(render->far_z))
+					/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+					(-render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
+			new_vz->y = vxs(vxs(render->vx1,render->vx1, render->vx2,render->vz2),
+					(render->vz1)-(render->vz2),
+					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
+					(render->near_z)-(render->far_z))
+				/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+					(-render->near_side)-(-render->far_side), (render->near_z)-(render->far_z));
+		}
+	}
+}
 /*
-**	Get the floor and ceiling position on the screen
-*/
+   {
+   vxs((vxs(render->v1.x, render->v1.y, render->v2.x, render->v2.y),
+   (render->v1.x) - (render->v2.x),
+   vxs(env->player.pox.x, env->player.pos.y, x4,y4),
+   (en->player.pos.x)-(x4)) /
+   vxs(render->v1.x, render->v1.y, render->v2.x, render->v2.y),
+   (render->v1.x) - (render->v2.x));
+   vxs(env->player.pox.x, env->player.pos.y, x4,y4),
+   (en->player.pos.x)-(x4);
+   vxs(vxs(x1,y1, x2,y2), (y1)-(y2),
+   ,y3, x4,y4), (y3)-(y4))
+   / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4));
+   }
+   */
+/*
+ **	Get the floor and ceiling position on the screen
+ */
 
 void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector)
 {
@@ -74,8 +127,8 @@ void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_se
 }
 
 /*
-**	Get the neighbor floor and ceiling position on the screen
-*/
+ **	Get the neighbor floor and ceiling position on the screen
+ */
 
 void	get_neighbor_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector neighbor)
 {
