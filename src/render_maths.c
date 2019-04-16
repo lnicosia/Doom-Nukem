@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 17:03:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/16 19:08:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,93 +55,85 @@ void	get_intersection(t_render *render, t_v2 *new_vz, int check_vz)
 {
 	if (check_vz == 2)
 	{
-		{
-			new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-					(render->vz1)-(render->vz2),
-					vxs(-render->near_side,render->near_z, render->far_side,render->far_z),
-					(render->near_z)-(render->far_z))
-					/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+		new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+				(render->vx1)-(render->vx2),
+				vxs(render->near_side,render->near_z, render->far_side,render->far_z),
+				(render->near_side)-(render->far_side))
+			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
 					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
-			new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-					(render->vz1)-(render->vz2),
-					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
-					(render->near_z)-(render->far_z))
-				/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+		new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+				(render->vz1)-(render->vz2),
+				vxs(render->near_side,render->near_z, render->far_side,render->far_z),
+				(render->near_z)-(render->far_z))
+			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
 					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
-		}
 
 	}
 	if (check_vz == 1)
 	{
-		{
-			new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-					(render->vz1)-(render->vz2),
-					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
-					(render->near_z)-(render->far_z))
-					/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
-					(-render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
-			new_vz->y = vxs(vxs(render->vx1,render->vx1, render->vx2,render->vz2),
-					(render->vz1)-(render->vz2),
-					vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
-					(render->near_z)-(render->far_z))
-				/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+		new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+				(render->vx1)-(render->vx2),
+				vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
+				(-render->near_side)-(-render->far_side))
+			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
 					(-render->near_side)-(-render->far_side), (render->near_z)-(render->far_z));
-		}
+		new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
+				(render->vz1)-(render->vz2),
+				vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
+				(render->near_z)-(render->far_z))
+			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
+					(-render->near_side)-(-render->far_side), (render->near_z)-(render->far_z));
 	}
 }
-/*
-   {
-   vxs((vxs(render->v1.x, render->v1.y, render->v2.x, render->v2.y),
-   (render->v1.x) - (render->v2.x),
-   vxs(env->player.pox.x, env->player.pos.y, x4,y4),
-   (en->player.pos.x)-(x4)) /
-   vxs(render->v1.x, render->v1.y, render->v2.x, render->v2.y),
-   (render->v1.x) - (render->v2.x));
-   vxs(env->player.pox.x, env->player.pos.y, x4,y4),
-   (en->player.pos.x)-(x4);
-   vxs(vxs(x1,y1, x2,y2), (y1)-(y2),
-   ,y3, x4,y4), (y3)-(y4))
-   / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4));
-   }
-   */
+
 /*
  **	Get the floor and ceiling position on the screen
  */
 
-void	get_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector sector)
+void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector)
 {
+	double	hfov;
+	double	vfov;
+
+	hfov = HFOV * env->h;
+	vfov = VFOV * env->h;
 	render->floor1 = env->h / 2 -
 		(int)((sector.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz1));
+				* (vfov / render->vz1));
 	render->floor2 = env->h / 2 -
 		(int)((sector.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz2));
+				* (vfov / render->vz2));
 	render->ceiling1 = env->h / 2 -
 		(int)((sector.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz1));
+				* (vfov / render->vz1));
 	render->ceiling2 = env->h / 2 -
 		(int)((sector.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz2));
-	render->x1 = (int)(env->w / 2 - render->vx1 * ((HFOV * env->h) / render->vz1));
-	render->x2 = (int)(env->w / 2 - render->vx2 * ((HFOV * env->h) / render->vz2));
+				* (vfov / render->vz2));
+	render->x1 = env->w / 2 - (int)(render->vx1 * (hfov / render->vz1));
+	render->x2 = env->w / 2 - (int)(render->vx2 * (hfov / render->vz2));
 }
 
 /*
  **	Get the neighbor floor and ceiling position on the screen
  */
 
-void	get_neighbor_floor_and_ceiling_screen_coordinates(t_render *render, t_env *env, t_sector neighbor)
+void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor)
 {
+	double	hfov;
+	double	vfov;
+
+	hfov = HFOV * env->h;
+	vfov = VFOV * env->h;
 	render->neighbor_floor1 = env->h / 2 -
 		(int)((neighbor.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz1));
+				* (vfov / render->vz1));
 	render->neighbor_floor2 = env->h / 2 -
 		(int)((neighbor.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz2));
+				* (vfov / render->vz2));
 	render->neighbor_ceiling1 = env->h / 2 -
 		(int)((neighbor.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz1));
+				* (vfov / render->vz1));
 	render->neighbor_ceiling2 = env->h / 2 -
 		(int)((neighbor.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* ((VFOV * env->h) / render->vz2));
+				* (vfov / render->vz2));
 }
