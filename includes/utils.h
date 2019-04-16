@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 16:40:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/16 17:19:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_player
 	double		angle_sin;
 	double		angle_z;
 	short		sector;
-	int			speed;
+	double		speed;
 }				t_player;
 
 /*
@@ -88,6 +88,7 @@ typedef struct	s_options
 	int			contouring;
 	int			render_sectors;
 	int			lighting;
+	int			show_minimap;
 }				t_options;
 
 /*
@@ -120,8 +121,7 @@ void			move_player(t_env *env);
 void			init_options(t_env *env);
 void			options(t_env *env);
 
-void			map_process(t_env *e);
-void			map_render(t_env *e);
+void			minimap(t_env *e);
 
 void			move_player(t_env *env);
 void			view(t_env *env);

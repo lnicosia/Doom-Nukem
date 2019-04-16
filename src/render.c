@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 17:08:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/04/16 17:16:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_sector(t_env *env, t_render render)
 	int			xend;
 
 	i = 0;
-	ft_printf("rendering sector #%d\n", render.sector);
+	//ft_printf("rendering sector #%d\n", render.sector);
 	sector = env->sectors[render.sector];
 	env->sectors[sector.num].state = 1;
 	//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
