@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
+#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/15 18:35:33 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/04/16 15:01:54 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  screen_utils.c check_parsing.c view.c movement.c init_options.c \
-		  options.c render_maths.c draw_functions.c movement_collision.c
+		  options.c render_maths.c draw_functions.c movement_collision.c \
+		  minimap.c
 
 HEADERS = utils.h render.h
 

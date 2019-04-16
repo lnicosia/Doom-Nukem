@@ -6,32 +6,36 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/15 14:02:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:23:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
+char	*skip_number(char *line)
+{
+	while ((*line <= '9' && *line >= '0') || *line == '.' || *line == '-')
+		line++;
+	line++;
+	return (line);
+}
+
+char	*skip_spaces(char *line)
+{
+	while ((*line > '9' || *line < '0') && *line != '-')
+		line++;
+	return (line);
+}
+
 int	player_pos(t_env *env, char *line)
 {
-	while (*line > '9' || *line < '0')
-		line++;
-	ft_printf("x %d\n", ft_atoi(line));
-	env->player.pos.x = ft_atoi(line);
-	while (*line <= '9' && *line >= '0')
-		line++;
-	line++;
-	ft_printf("y %d\n", ft_atoi(line));
-	env->player.pos.y = ft_atoi(line);
-	while (*line <= '9' && *line >= '0')
-		line++;
-	line++;
-	env->player.angle = ft_atoi(line);
-	ft_printf("angle %d\n", ft_atoi(line));
-	while (*line <= '9' && *line >= '0')
-		line++;
-	line++;
-	ft_printf("sector %d\n", ft_atoi(line));
+	line = skip_spaces(line);
+	env->player.pos.x = ft_atof(line);
+	line = skip_number(line);
+	env->player.pos.y = ft_atof(line);
+	line = skip_number(line);
+	env->player.angle = ft_atof(line);
+	line = skip_number(line);
 	env->player.sector = ft_atoi(line);
 	env->player.pos.z = 6;
 	return (1);
@@ -40,13 +44,12 @@ int	player_pos(t_env *env, char *line)
 int	vertices(t_env *env, char *line, int num)
 {
 	env->vertices[num].num = num;
-	while (*line < '0' || *line > '9')
-		line++;
-	env->vertices[num].x = ft_atoi(line);
-	while (*line >= '0' && *line <= '9')
-		line++;
-	line++;
-	env->vertices[num].y = ft_atoi(line);
+	line = skip_spaces(line);
+	env->vertices[num].x = ft_atof(line);
+	//ft_printf("s = %s\nx = %f\n", line, ft_atof(line));
+	line = skip_number(line);
+	env->vertices[num].y = ft_atof(line);
+	//ft_printf(" y= %f\n", line, ft_atof(line));
 	return (1);
 }
 
@@ -93,45 +96,36 @@ int	sectors(t_env *env, char *line, short num)
 	short	iter;
 	short	iter_max;
 
-	env->sector[num].num = num;
-	while ((*line > '9' || *line < '0') && *line != '-')
-		line++;
-	env->sector[num].floor = ft_atoi(line);
-	while ((*line <= '9' && *line >= '0') || *line == '-')
-		line++;
-	line++;
-	env->sector[num].ceiling = ft_atoi(line);
-	while (*line <= '9' && *line >= '0')
-		line++;
-	line++;
+	env->sectors[num].num = num;
+	env->sectors[num].state = 0;
+	line = skip_spaces(line);
+	env->sectors[num].floor = ft_atof(line);
+	line = skip_number(line);
+	env->sectors[num].ceiling = ft_atof(line);
+	line = skip_number(line);
 	iter_max = calc_vertices(line);
-	env->sector[num].nb_vertices = iter_max;
-	env->sector[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
+	env->sectors[num].nb_vertices = iter_max;
+	env->sectors[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
 	iter = iter_max - 1;
 	while (iter >= 0)
 	{
-		while (*line > '9' || *line < '0')
-			line++;
-		env->sector[num].vertices[iter] = ft_atoi(line);
+		line = skip_spaces(line);
+		env->sectors[num].vertices[iter] = ft_atoi(line);
 		while (*line <= '9' && *line >= '0')
 			line++;
 		line++;
 		iter--;
 	}
-	env->sector[num].vertices[iter_max] = env->sector[num].vertices[0];
-	while ((*line > '9' || *line < '0') && *line != '-')
-		line++;
+	env->sectors[num].vertices[iter_max] = env->sectors[num].vertices[0];
+	line = skip_spaces(line);
 	iter_max = calc_neighbors(line);
 	iter = iter_max - 1;
-	env->sector[num].neighbors = (short*)malloc(sizeof(short) * (iter_max));
+	env->sectors[num].neighbors = (short*)malloc(sizeof(short) * (iter_max));
 	while (iter >= 0)
 	{
-		while ((*line > '9' || *line < '0') && *line != '-')
-			line++;
-		env->sector[num].neighbors[iter] = ft_atoi(line);
-		while ((*line <= '9' && *line >= '0')|| *line == '-')
-			line++;
-		line++;
+		line = skip_spaces(line);
+		env->sectors[num].neighbors[iter] = ft_atoi(line);
+		line = skip_number(line);
 		iter--;
 	}
 	return (1);
@@ -141,8 +135,7 @@ int	init_vertex(t_env *env, char *line)
 {
 	int	nb_vertex;
 
-	while (*line < '0' || *line > '9')
-		line++;
+	line = skip_spaces(line);
 	nb_vertex = ft_atoi(line);
 	env->vertices = (t_vertex *)malloc(sizeof(t_vertex) * (nb_vertex));
 	return (1);
@@ -152,10 +145,9 @@ int	init_sectors(t_env *env, char *line)
 {
 	int	nb_sector;
 
-	while (*line < '0' || *line > '9')
-		line++;
+	line = skip_spaces(line);
 	nb_sector = atoi(line);
-	env->sector = (t_sector *)malloc(sizeof(t_sector) * (nb_sector));
+	env->sectors = (t_sector *)malloc(sizeof(t_sector) * (nb_sector));
 	return (nb_sector);
 }
 
@@ -189,20 +181,3 @@ int	parsing(int fd, t_env *env)
 	env->nb_vertices = nb_vertices;
 	return (1);
 }
-/*
-int	main(int ac, char **av)
-{
-	int		fd;
-	t_env	env;
-	int		i;
-
-	i = 0;
-	(void)ac;
-	fd = open(av[1], O_RDONLY);
-	parsing(fd, &env);	
-	while (i < env.nb_vertices)
-	{
-		printf("vertex[%d] x = %f y = %f\n", i, env.vertices[i].x, env.vertices[i].y);
-		i++;
-	}
-}*/

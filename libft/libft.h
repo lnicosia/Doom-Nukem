@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/03/08 11:01:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:35:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void			*ft_memset(void *b, int c, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 int				ft_atoi(const char *str);
+double			ft_atof(const char *str);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strncpy(char *dst, char const *src, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);

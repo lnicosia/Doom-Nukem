@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_parser.c                                     :+:      :+:    :+:   */
+/*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 13:27:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/11 13:54:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:03:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,31 @@ void	check_parsing(t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		ft_printf("vertex	%.f %.f\n", env->vertices[i].x, env->vertices[i].y);
+		ft_printf("vertex	%f %f\n", env->vertices[i].x, env->vertices[i].y);
 		i++;
 	}
 	ft_printf("\nSector %d\n", env->nb_sectors);
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		ft_printf("sector	%.f %.f	", env->sector[i].floor,
-				env->sector[i].ceiling);
+		ft_printf("sector	%f %f	", env->sectors[i].floor,
+				env->sectors[i].ceiling);
 		j = 0;
-		while (j < env->sector[i].nb_vertices)
+		while (j < env->sectors[i].nb_vertices)
 		{
-			ft_printf("%d ", env->sector[i].vertices[j]);
+			ft_printf("%d ", env->sectors[i].vertices[j]);
 			j++;
 		}
 		ft_printf("	");
 		j = 0;
-		while (j < env->sector[i].nb_vertices)
+		while (j < env->sectors[i].nb_vertices)
 		{
-			ft_printf("%d ", env->sector[i].neighbors[j]);
+			ft_printf("%d ", env->sectors[i].neighbors[j]);
 			j++;
 		}
 		ft_printf("\n");
 		i++;
 	}
-	ft_printf("\nplayer	%.f %.f	%.f %d\n", env->player.pos.x,
+	ft_printf("\nplayer	%f %f	%f %d\n", env->player.pos.x,
 			env->player.pos.y, env->player.angle, env->player.sector);
 }

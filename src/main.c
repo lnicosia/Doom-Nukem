@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 13:56:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 14:28:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,20 @@ int		main(int ac, char **av)
 	ft_printf("Origin sector: %d\n", env.player.sector);
 	//check_parsing(&env);
 	ft_printf("[OK]\n");
-	/*clear_image(&env);
-	draw(&env);
-	render(&env);*/
+	SDL_SetRelativeMouseMode(1);
+	env.player.speed = 0.5;
 	while (env.running)
 	{
 		clear_image(&env);
 		draw(&env);
+		if (env.options.show_minimap)
+			minimap(&env);
 		render(&env);
 		while (SDL_PollEvent(&env.sdl.event))
 		{
-			SDL_CaptureMouse(SDL_TRUE);
-			if (env.sdl.event.type == SDL_QUIT
-					|| (env.sdl.event.type == SDL_KEYUP
-						&& env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
+			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
-			if (env.sdl.event.type == SDL_KEYDOWN)
+			else if (env.sdl.event.type == SDL_KEYDOWN)
 				move_player(&env);
 			if (env.sdl.event.type == SDL_KEYUP)
 				options(&env);
