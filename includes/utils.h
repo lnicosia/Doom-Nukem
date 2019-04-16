@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 14:28:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:38:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_vertex
 	double			x;
 	double			y;
 	short			num;
+	short			state;
 }				t_vertex;
 
 typedef struct	s_player
@@ -113,7 +114,7 @@ void			free_all(t_env *env);
 void			clear_image(t_env *env);
 int				init_sdl(t_env *env);
 void			draw(t_env *env);
-void			render(t_env *env);
+void			update_screen(t_env *env);
 int				parsing(int fd, t_env *env);
 void			check_parsing(t_env *env);
 void			view(t_env *env);
