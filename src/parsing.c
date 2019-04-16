@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/16 11:07:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:23:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,20 +181,3 @@ int	parsing(int fd, t_env *env)
 	env->nb_vertices = nb_vertices;
 	return (1);
 }
-/*
-int	main(int ac, char **av)
-{
-	int		fd;
-	t_env	env;
-	int		i;
-
-	i = 0;
-	(void)ac;
-	fd = open(av[1], O_RDONLY);
-	parsing(fd, &env);	
-	while (i < env.nb_vertices)
-	{
-		printf("vertex[%d] x = %f y = %f\n", i, env.vertices[i].x, env.vertices[i].y);
-		i++;
-	}
-}*/

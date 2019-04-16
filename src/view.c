@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   angle_z.c                                             :+:      :+:    :+:   */
+/*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/12 14:39:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:21:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
 /*
- **	Handle player angle_z rotations from mouse
+ **	Handle player view rotations from mouse
  **	TODO Protection / return value??
  */
 
