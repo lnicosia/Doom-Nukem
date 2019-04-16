@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/16 14:17:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 14:25:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	swap_value(int *a, int *b)
 
 void	put_pixel(t_env *env, int x, int y, int color)
 {
-	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300)
+	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300
+			&& env->sdl.img_str[x + env->w * y] != 0x00FF00FF)
 		env->sdl.img_str[x + env->w * y] = color;
 }
 
@@ -192,12 +193,13 @@ void	minimap(t_env *env)
 				line.x1 = env->w - 100 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
 				line.y1 = 100 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
 			}
-			ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
-
+			//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
 			if (sect.neighbors[v] == -1)
 				line.color = 0xFFFFFFFF;
 			else
 				line.color = 0x990000FF;
+			if (sect.num == env->player.sector)
+				line.color = 0x00FF00FF;
 			draw_line_3(env, line);
 			v++;
 		}

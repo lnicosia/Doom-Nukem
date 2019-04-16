@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 13:43:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 14:28:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_player
 	double		angle_sin;
 	double		angle_z;
 	short		sector;
-	int			speed;
+	double		speed;
 }				t_player;
 
 /*
