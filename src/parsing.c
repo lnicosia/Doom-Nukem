@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/15 18:58:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:07:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,35 +96,35 @@ int	sectors(t_env *env, char *line, short num)
 	short	iter;
 	short	iter_max;
 
-	env->sector[num].num = num;
-	env->sector[num].state = 0;
+	env->sectors[num].num = num;
+	env->sectors[num].state = 0;
 	line = skip_spaces(line);
-	env->sector[num].floor = ft_atof(line);
+	env->sectors[num].floor = ft_atof(line);
 	line = skip_number(line);
-	env->sector[num].ceiling = ft_atof(line);
+	env->sectors[num].ceiling = ft_atof(line);
 	line = skip_number(line);
 	iter_max = calc_vertices(line);
-	env->sector[num].nb_vertices = iter_max;
-	env->sector[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
+	env->sectors[num].nb_vertices = iter_max;
+	env->sectors[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
 	iter = iter_max - 1;
 	while (iter >= 0)
 	{
 		line = skip_spaces(line);
-		env->sector[num].vertices[iter] = ft_atoi(line);
+		env->sectors[num].vertices[iter] = ft_atoi(line);
 		while (*line <= '9' && *line >= '0')
 			line++;
 		line++;
 		iter--;
 	}
-	env->sector[num].vertices[iter_max] = env->sector[num].vertices[0];
+	env->sectors[num].vertices[iter_max] = env->sectors[num].vertices[0];
 	line = skip_spaces(line);
 	iter_max = calc_neighbors(line);
 	iter = iter_max - 1;
-	env->sector[num].neighbors = (short*)malloc(sizeof(short) * (iter_max));
+	env->sectors[num].neighbors = (short*)malloc(sizeof(short) * (iter_max));
 	while (iter >= 0)
 	{
 		line = skip_spaces(line);
-		env->sector[num].neighbors[iter] = ft_atoi(line);
+		env->sectors[num].neighbors[iter] = ft_atoi(line);
 		line = skip_number(line);
 		iter--;
 	}
@@ -147,7 +147,7 @@ int	init_sectors(t_env *env, char *line)
 
 	line = skip_spaces(line);
 	nb_sector = atoi(line);
-	env->sector = (t_sector *)malloc(sizeof(t_sector) * (nb_sector));
+	env->sectors = (t_sector *)malloc(sizeof(t_sector) * (nb_sector));
 	return (nb_sector);
 }
 

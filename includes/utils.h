@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 18:57:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:05:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct	s_env
 {
 	t_sdl			sdl;
 	t_vertex		*vertices;
-	t_sector		*sector;
+	t_sector		*sectors;
 	t_player		player;
 	t_options		options;
 	int				w;

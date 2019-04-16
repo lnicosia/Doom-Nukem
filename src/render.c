@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/15 19:25:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/16 11:06:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	render_sector(t_env *env, t_render render)
 
 	i = 0;
 	ft_printf("rendering sector #%d\n", render.sector);
-	sector = env->sector[render.sector];
-	env->sector[sector.num].state = 1;
+	sector = env->sectors[render.sector];
+	env->sectors[sector.num].state = 1;
 	//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices)
 	{
@@ -45,13 +45,13 @@ void	render_sector(t_env *env, t_render render)
 
 			get_floor_and_ceiling_screen_coordinates(&render, env, sector);
 			if (sector.neighbors[i] >= 0)
-				get_neighbor_floor_and_ceiling_screen_coordinates(&render, env, env->sector[sector.neighbors[i]]);
+				get_neighbor_floor_and_ceiling_screen_coordinates(&render, env, env->sectors[sector.neighbors[i]]);
 			if (render.x1 < render.x2)
 			{
 				xstart = ft_max(render.x1, render.xmin);
 				xend = ft_min(render.x2, render.xmax);
 				if (sector.neighbors[i] >= 0 && env->options.render_sectors
-						&& env->sector[sector.neighbors[i]].state == 0)
+						&& env->sectors[sector.neighbors[i]].state == 0)
 				{
 					// TODO array de ymin et ymax pour delimiter la hauteur du prochain secteur
 					t_render new = render;
@@ -134,7 +134,7 @@ static void	reset_sectors_state(t_env *env)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		env->sector[i].state = 0;
+		env->sectors[i].state = 0;
 		i++;
 	}
 }
