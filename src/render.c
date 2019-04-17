@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 19:15:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 12:26:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	render_sector(t_env *env, t_render render)
 			// Calculer le cliping
 			if(render.vz1 <= 0 || render.vz2 <= 0)
 			{
+				render.clipped = 1;
 				t_v2	new_vz1;
 				t_v2	new_vz2;
 				render.near_z = 1e-4f;
@@ -81,6 +82,8 @@ void	render_sector(t_env *env, t_render render)
 					}
 				}
 			}
+			else
+				render.clipped = 0;
 			// Obtenir les coordoonees du sol et du plafond sur l'ecran
 
 			project_floor_and_ceiling(&render, env, sector);
@@ -114,9 +117,21 @@ void	render_sector(t_env *env, t_render render)
 					render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
 					// Calculer y actuel du plafond et du sol
+					if (!i)
+					{
+						ft_printf("z1 = %f\n", render.vz1);
+						ft_printf("z2 = %f\n", render.vz2);
+						ft_printf("x = %d\n", x);
+						ft_printf("x1 = %d\n", render.x1);
+						ft_printf("x2 = %d\n", render.x2);
+						ft_printf("ceiling2 = %d\n", render.ceiling2);
+						ft_printf("ceiling1 = %d\n", render.ceiling1);
+					}
 					render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
+					if (!i) ft_printf("ceiling = %d\n", render.current_ceiling);
 					render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
 					render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+					if (!i)ft_printf("floor = %d\n\n\n", render.current_floor);
 					render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
 
 					// Dessiner le plafond de ymin jusqu'au plafond
@@ -155,7 +170,10 @@ void	render_sector(t_env *env, t_render render)
 					}
 					else
 					{
-						line.color = 0x888888FF;
+						if (render.clipped && env->options.color_clipping)
+							line.color = 0x00AA00FF;
+						else
+							line.color = 0x888888FF;
 						if (env->options.lighting)
 							line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
 						if (env->options.contouring && (x == render.x1 || x == render.x2))
