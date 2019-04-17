@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 12:26:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:04:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	render_sector(t_env *env, t_render render)
 		if (render.vz1 > 0 || render.vz2 > 0)
 		{
 			// Calculer le cliping
-			if(render.vz1 <= 0 || render.vz2 <= 0)
+			if(render.vz1 <= 0.05 || render.vz2 <= 0)
 			{
 				render.clipped = 1;
 				t_v2	new_vz1;
@@ -119,19 +119,19 @@ void	render_sector(t_env *env, t_render render)
 					// Calculer y actuel du plafond et du sol
 					if (!i)
 					{
-						ft_printf("z1 = %f\n", render.vz1);
+						/*ft_printf("z1 = %f\n", render.vz1);
 						ft_printf("z2 = %f\n", render.vz2);
 						ft_printf("x = %d\n", x);
 						ft_printf("x1 = %d\n", render.x1);
 						ft_printf("x2 = %d\n", render.x2);
 						ft_printf("ceiling2 = %d\n", render.ceiling2);
-						ft_printf("ceiling1 = %d\n", render.ceiling1);
+						ft_printf("ceiling1 = %d\n", render.ceiling1);*/
 					}
 					render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
-					if (!i) ft_printf("ceiling = %d\n", render.current_ceiling);
+					//if (!i) ft_printf("ceiling = %d\n", render.current_ceiling);
 					render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
 					render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
-					if (!i)ft_printf("floor = %d\n\n\n", render.current_floor);
+					//if (!i)ft_printf("floor = %d\n\n\n", render.current_floor);
 					render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
 
 					// Dessiner le plafond de ymin jusqu'au plafond

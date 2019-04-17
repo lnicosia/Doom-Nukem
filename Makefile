@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/17 11:07:40 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/17 13:03:47 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -g3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -fsanitize=address\
+CFLAGS =  -g3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -O3 \
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  #-F ~/Library/Frameworks/ -framework SDL2 \

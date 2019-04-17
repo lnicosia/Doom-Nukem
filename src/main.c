@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 11:06:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:05:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		main(int ac, char **av)
 		}
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		view(&env);
-		SDL_Delay(10);
+		SDL_Delay(5);
 	}
 	return (0);
 }
