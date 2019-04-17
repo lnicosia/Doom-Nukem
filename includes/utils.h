@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 13:15:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:14:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct	s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			nb_vertices;
-	short			state;
 }				t_sector;
 
 typedef struct	s_vertex
@@ -50,7 +49,6 @@ typedef struct	s_vertex
 	double			x;
 	double			y;
 	short			num;
-	short			state;
 }				t_vertex;
 
 typedef struct	s_player

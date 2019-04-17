@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 13:28:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:31:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ int		main(int ac, char **av)
 		free_all(&env);
 		return (ft_printf("Init error\nExiting the programm..\n"));
 	}
-	ft_printf("Parsing\n");
 	parsing(open(av[1], O_RDONLY), &env);
 	init_options(&env);
-	ft_printf("Origin sector: %d\n", env.player.sector);
 	//check_parsing(&env);
-	ft_printf("[OK]\n");
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
 	//draw(&env);
