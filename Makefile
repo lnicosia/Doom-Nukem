@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/17 14:29:48 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/17 16:49:47 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_RAW = main.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  screen_utils.c check_parsing.c view.c movement.c init_options.c \
 		  options.c render_maths.c draw_functions.c minimap.c fps.c \
+		  init_ttf.c
 
 HEADERS = utils.h render.h
 
@@ -35,6 +36,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -g3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
+		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -O3 \
 
 DEBUG ?= 0
@@ -45,6 +47,7 @@ DEBUG ?= 0
 
 MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 SDL = -F ~/Library/Frameworks/ -framework SDL2 \
+	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  #`sdl-config --cflags --libs` \
 
 RED := "\033[0;31m"

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 13:31:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:28:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 	env.w = 1366;
 	env.h = 768;
 	env.running = 1;
-	if (init_sdl(&env) != 0)
+	if (init_sdl(&env) != 0 || init_ttf(&env) != 0)
 	{
 		free_all(&env);
 		return (ft_printf("Init error\nExiting the programm..\n"));
@@ -34,12 +34,9 @@ int		main(int ac, char **av)
 	//draw(&env);
 	while (env.running)
 	{
-		if (env.sdl.render)
-		{
-			clear_image(&env);
-			draw(&env);
-			env.sdl.render = 0;
-		}
+		clear_image(&env);
+		draw(&env);
+		env.sdl.render = 0;
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)
