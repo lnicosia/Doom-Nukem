@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 11:49:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:15:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_sdl
 	int				mouse_y;
 	unsigned int	*img_str;
 	int				time;
+	int				render;
 }				t_sdl;
 
 /*
