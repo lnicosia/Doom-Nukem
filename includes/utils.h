@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 18:56:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/17 11:47:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_sdl
 	int				mouse_x;
 	int				mouse_y;
 	unsigned int	*img_str;
+	int				time;
 }				t_sdl;
 
 /*
@@ -90,6 +91,7 @@ typedef struct	s_options
 	int			render_sectors;
 	int			lighting;
 	int			show_minimap;
+	int			show_fps;
 }				t_options;
 
 /*
@@ -124,8 +126,8 @@ void			options(t_env *env);
 int				check_collision(t_env *env, double x_move, double y_move);
 
 void			minimap(t_env *e);
+void			fps(t_env *e);
 
-void			move_player(t_env *env);
 void			view(t_env *env);
 
 #endif

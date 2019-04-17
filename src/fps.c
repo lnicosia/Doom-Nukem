@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_options.c                                     :+:      :+:    :+:   */
+/*   fps.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 15:16:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 11:07:06 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/17 11:12:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	init_options(t_env *env)
+void	fps(t_env *env)
 {
-	env->options.contouring = 1;
-	env->options.render_sectors = 1;
-	env->options.lighting = 0;
-	env->options.show_minimap = 1;
-	env->options.show_fps = 1;
+	int	new_time;
+
+	new_time = SDL_GetTicks();
+	ft_printf("FPS = %d\n", 1000 / (new_time - env->sdl.time));
+	env->sdl.time = new_time;
 }
