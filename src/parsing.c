@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/17 15:15:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 12:13:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ int	sectors(t_env *env, char *line, short num)
 	line = skip_spaces(line);
 	env->sectors[num].floor = ft_atof(line);
 	line = skip_number(line);
+	env->sectors[num].floor_slope = ft_atoi(line);
+	line = skip_number(line);
 	env->sectors[num].ceiling = ft_atof(line);
+	line = skip_number(line);
+	env->sectors[num].ceiling_slope = ft_atoi(line);
 	line = skip_number(line);
 	iter_max = calc_vertices(line);
 	env->sectors[num].nb_vertices = iter_max;

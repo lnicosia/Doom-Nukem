@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 17:34:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 11:45:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fps(t_env *env)
 	//ft_printf("FPS = %d\n", 1000 / (new_time - env->sdl.time));
 	texte = TTF_RenderText_Solid(env->sdl.font, fps, color);
 	rect.x = 10;
-	rect.y = -5;
+	rect.y = 0;
 	SDL_BlitSurface(texte, NULL, env->sdl.surface, &rect);
 	SDL_FreeSurface(texte);
 	free(fps);

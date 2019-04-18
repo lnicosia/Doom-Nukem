@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 16:50:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 12:07:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct	s_v3
 typedef struct	s_sector
 {
 	double			floor;
+	short			floor_slope;
 	double			ceiling;
+	short			ceiling_slope;
 	short			num;
 	short			*vertices;
 	short			*neighbors;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 15:14:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 10:50:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			if (render.vz1 > 0 || render.vz2 > 0)
 			{
 				// Calculer le cliping
-				if(render.vz1 <= 0.05 || render.vz2 <= 0)
+				if(render.vz1 <= 0.5 || render.vz2 <= 0)
 				{
 					render.clipped = 1;
 					t_v2	new_vz1;
 					t_v2	new_vz2;
-					render.near_z = 1e-4f;
+					render.near_z = 0.5;
 					render.far_z = 5;
-					render.near_side = 1e-5f;
+					render.near_side = 0.00001;
 					render.far_side = 20.f;
 
 					//Find an intersection between the wall and the approximate edges of player's view
