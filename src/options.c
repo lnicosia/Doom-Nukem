@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 17:29:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:33:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	options(t_env *env)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->options.show_fps = env->options.show_fps ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_f)
-		env->options.show_fps = env->options.wall_lover ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_x)
+		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
 }
