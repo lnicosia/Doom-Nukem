@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 10:50:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:29:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 		//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 		while (i < sector.nb_vertices)
 		{
-			//ft_printf("----rendering wall #%d\n", sector.vertices[i]);
-			//ft_printf("rendering wall %d\n", sector.vertices[i]);
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 
@@ -88,8 +86,8 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 				}
 				else
 					render.clipped = 0;
-				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 
+				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector);
 
 				if (render.x1 < render.x2)
@@ -97,6 +95,24 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					// Pareil pour le secteur voisin si c'est un portail
 					if (sector.neighbors[i] >= 0 && sector.neighbors[i] != env->player.sector)
 						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
+					// Calculer la pente
+					render.floor_slope = 1;
+					render.ceiling_slope = 1;
+					if (sector.floor_slope != 0 || sector.ceiling_slope != 0)
+					{
+						get_slope(&render, i, env);
+						ft_printf("i = %d\ndist = %f\n", i, render.dist);
+						//if (i > 1)
+						//{
+							render.floor1 -= (cos(sector.floor_slope * M_PI / 180.0)) * render.dist;
+							render.ceiling1 -= (cos(sector.ceiling_slope * M_PI / 180.0)) * render.dist;
+						//}
+						//if (i != 0 && i != sector.nb_vertices - 1)
+						//{
+							render.floor2 -= (cos(sector.floor_slope * M_PI / 180.0)) * render.dist;
+							render.ceiling2 -= (cos(sector.ceiling_slope * M_PI / 180.0)) * render.dist;
+						//}
+					}
 					xstart = ft_max(render.x1, render.xmin);
 					xend = ft_min(render.x2, render.xmax);
 					if (sector.neighbors[i] >= 0 && env->options.render_sectors)
@@ -118,8 +134,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
 						// Calculer y actuel du plafond et du sol
+						//ft_printf("Pente plafond = %f\n", cos(sector.ceiling_slope * M_PI / 180.0));
 						render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
+						//ft_printf("Pente sol = %f\n", cos(sector.floor_slope * M_PI / 180.0));
 						render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
 
@@ -163,6 +181,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 								line.color = 0x00AA00FF;
 							else
 								line.color = 0x888888FF;
+							if (i == 0)
+								line.color = 0xAA0000FF;
+							if (i == 1)
+								line.color = 0x00AA00FF;
+							if (i == 2)
+								line.color = 0xAAFF;
 							if (env->options.lighting)
 								line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
 							if (env->options.contouring && (x == render.x1 || x == render.x2))

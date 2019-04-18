@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/17 16:49:47 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/04/18 17:08:37 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_RAW = main.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  screen_utils.c check_parsing.c view.c movement.c init_options.c \
 		  options.c render_maths.c draw_functions.c minimap.c fps.c \
-		  init_ttf.c
+		  init_ttf.c get_slope.c
 
 HEADERS = utils.h render.h
 

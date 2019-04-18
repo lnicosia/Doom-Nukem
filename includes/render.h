@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 15:14:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:18:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct		s_render
 	double			near_side;
 	double			far_side;
 	int				clipped;
+	double			dist;
+	double			floor_slope;
+	double			ceiling_slope;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
@@ -80,5 +83,6 @@ void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
 void				draw_bottom_wall(t_render render, t_env *env);
 void				get_intersection(t_render *render, t_v2 *new_vz, int check_vz);
+void				get_slope(t_render *render, int vertex_nb, t_env *env);
 
 #endif
