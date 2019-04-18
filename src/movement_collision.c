@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/04/18 17:29:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:18:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ int     diff_sign(double nb1, double nb2)
         return (0);
     return (1);
 }    
+
+int     check_wall(t_env *env, int i)
+{
+    if ((PLAYER_XPOS >= X1 && PLAYER_XPOS <= X2) || (PLAYER_XPOS >= X2 && PLAYER_XPOS <= X1))
+        return (1);
+    if ((PLAYER_YPOS >= Y1 && PLAYER_YPOS <= Y2) || (PLAYER_YPOS >= Y2 && PLAYER_YPOS <= Y1))
+        return (1);
+    return (0);
+}
 
 int     check_collision(t_env *env, double x_move, double y_move)
 {
@@ -34,9 +43,9 @@ int     check_collision(t_env *env, double x_move, double y_move)
     future_y = env->player.pos.y + y_move;
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
-        start_pos = (env->player.pos.x - X1) * (Y2 - Y1) - (env->player.pos.y - Y1) * (X2 - X1);
+        start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
         end_pos = (future_x - X1) * (Y2 - Y1) - (future_y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos))
+        if (diff_sign(start_pos, end_pos) && check_wall(env, i))
             return (0);
         i++;
     }
