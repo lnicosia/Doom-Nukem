@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 12:07:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:29:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct	s_options
 	int			lighting;
 	int			show_minimap;
 	int			show_fps;
+	int			wall_lover;
 }				t_options;
 
 /*
