@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/17 11:47:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/17 12:07:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <SDL.h>
 # include <fcntl.h>
 # include "libft.h"
+# define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
+# define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
+# define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
+# define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 
 typedef struct	s_v2
 {
