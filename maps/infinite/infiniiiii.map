@@ -7,7 +7,7 @@ vertex	5 5
 vertex	5 10
 
 Sector 2
-sector	0 20	0 1 4 3		-1 -1 1 -1
-sector	0 20	1 2 5 4		0 -1 0 -1
+sector	0 0 20 0	0 1 4 3		-1 -1 1 -1
+sector	0 0 20 0	1 2 5 4		0 -1 0 -1
 
 player	2 2	0	0
