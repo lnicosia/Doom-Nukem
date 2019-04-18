@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/17 11:47:32 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/04/18 21:51:44 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_RAW = main.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  screen_utils.c check_parsing.c view.c movement.c init_options.c \
-		  options.c render_maths.c draw_functions.c movement_collision.c \
-		  minimap.c fps.c
+		  options.c render_maths.c draw_functions.c minimap.c fps.c \
+		  init_ttf.c movement_collision.c
 
 HEADERS = utils.h render.h
 
@@ -33,10 +33,11 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -g3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -fsanitize=address\
+CFLAGS =  -g3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
-		  #-F ~/Library/Frameworks/ -framework SDL2 \
+		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
+		  -O3 \
 
 DEBUG ?= 0
 
@@ -46,6 +47,7 @@ DEBUG ?= 0
 
 MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 SDL = -F ~/Library/Frameworks/ -framework SDL2 \
+	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  #`sdl-config --cflags --libs` \
 
 RED := "\033[0;31m"

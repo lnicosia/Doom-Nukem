@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 20:50:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/18 21:49:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <SDL.h>
+# include <SDL_ttf.h>
 # include <fcntl.h>
 # include "libft.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
@@ -43,12 +44,13 @@ typedef struct	s_v3
 typedef struct	s_sector
 {
 	double			floor;
+	short			floor_slope;
 	double			ceiling;
+	short			ceiling_slope;
 	short			num;
 	short			*vertices;
 	short			*neighbors;
 	short			nb_vertices;
-	short			state;
 }				t_sector;
 
 typedef struct	s_vertex
@@ -56,7 +58,6 @@ typedef struct	s_vertex
 	double			x;
 	double			y;
 	short			num;
-	short			state;
 }				t_vertex;
 
 typedef struct	s_player
@@ -81,10 +82,12 @@ typedef struct	s_sdl
 	SDL_Renderer	*renderer;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
+	TTF_Font		*font;
 	int				mouse_x;
 	int				mouse_y;
 	unsigned int	*img_str;
 	int				time;
+	int				render;
 }				t_sdl;
 
 /*
@@ -99,6 +102,7 @@ typedef struct	s_options
 	int			show_minimap;
 	int			show_fps;
 	int			wall_lover;
+	int			color_clipping;
 }				t_options;
 
 /*
@@ -122,6 +126,7 @@ typedef struct	s_env
 void			free_all(t_env *env);
 void			clear_image(t_env *env);
 int				init_sdl(t_env *env);
+int				init_ttf(t_env *env);
 void			draw(t_env *env);
 void			update_screen(t_env *env);
 int				parsing(int fd, t_env *env);

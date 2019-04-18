@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/03 17:37:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:15:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		init_sdl(t_env *env)
 	env->sdl.renderer = NULL;
 	env->sdl.texture = NULL;
 	env->sdl.surface = NULL;
+	env->sdl.render = 1;
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		return(ft_printf("SDL_Init Error: %s\n", SDL_GetError()));
 	if (!(env->sdl.window = SDL_CreateWindow(

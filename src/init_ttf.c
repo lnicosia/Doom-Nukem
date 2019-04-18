@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_options.c                                     :+:      :+:    :+:   */
+/*   init_sdl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 15:16:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 21:50:15 by gaerhard         ###   ########.fr       */
+/*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/18 11:45:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	init_options(t_env *env)
+int		init_ttf(t_env *env)
 {
-	env->options.contouring = 1;
-	env->options.render_sectors = 1;
-	env->options.lighting = 0;
-	env->options.show_minimap = 1;
-	env->options.wall_lover = 0;
-	env->options.show_fps = 1;
-	env->options.color_clipping = 0;
+	if (TTF_Init() == -1)
+		return(ft_printf("SDL_Init Error: %s\n", SDL_GetError()));
+	//env->sdl.font = TTF_OpenFont("fonts/heartwrecked.ttf", 65);
+	env->sdl.font = TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 65);
+	return (0);
 }

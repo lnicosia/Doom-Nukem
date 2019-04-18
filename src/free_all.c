@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/03 15:43:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:03:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	free_all(t_env *env)
 		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.surface)
 		SDL_FreeSurface(env->sdl.surface);
+	if (env->sdl.font)
+		TTF_CloseFont(env->sdl.font);
+	TTF_Quit();
 	SDL_Quit();
 	exit(1);
 }
