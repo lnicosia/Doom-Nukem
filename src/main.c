@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 11:35:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:09:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int ac, char **av)
 	}
 	parsing(open(av[1], O_RDONLY), &env);
 	init_options(&env);
-	check_parsing(&env);
+	//check_parsing(&env);
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
 	//draw(&env);

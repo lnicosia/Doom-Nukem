@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/19 13:56:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:09:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	pos.x /= sector.nb_vertices;
 	pos.y /= sector.nb_vertices;
 	num = ft_itoa(sector.num);
-	ft_printf("pos = [%f, %f]\n%s\n", pos.y, pos.x, num);
 	if (pos.x > env->w - 297 && pos.y <= 295)
 		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
 				num,
