@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/19 13:50:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 13:56:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	swap_value(int *a, int *b)
 void	put_pixel(t_env *env, int x, int y, int color)
 {
 	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300
-			&& env->sdl.img_str[x + env->w * y] != 0x00FF00FF)
+			&& env->sdl.img_str[x + env->w * y] != 0x00FF00FF
+			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF)
 		env->sdl.img_str[x + env->w * y] = color;
 }
 
@@ -186,7 +187,8 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	pos.y /= sector.nb_vertices;
 	num = ft_itoa(sector.num);
 	ft_printf("pos = [%f, %f]\n%s\n", pos.y, pos.x, num);
-	print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
+	if (pos.x > env->w - 297 && pos.y <= 295)
+		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
 				num,
 				"fonts/bebas_neue/BebasNeue-Regular.ttf",
 				color,
@@ -211,7 +213,7 @@ void	minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		if (s == env->player.sector)
+		//if (s == env->player.sector)
 			draw_sector_num(env, sect);
 		while (v < sect.nb_vertices)
 		{
