@@ -6,11 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 13:36:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:17:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+/*
+**	Create a struct formated to use print_text
+**	DONT FORGET TO FREE *text if needed
+*/
 
 t_printable_text	new_printable_text(char *text, char *font, unsigned int color, int size)
 {

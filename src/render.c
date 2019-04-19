@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 11:35:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:23:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,4 +241,6 @@ void	draw(t_env *env)
 	render.sector = env->player.sector;
 	// On commence par rendre le secteur courant
 	render_sector(env, render, rendered_sectors);
+	free(rendered_sectors);
+	rendered_sectors = NULL;
 }

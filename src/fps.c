@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 13:36:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:23:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	fps(t_env *env)
 				0xFFFFFFFF,
 				65),
 			env);
-	free(fps);
+	ft_strdel(&fps);
 	env->sdl.time = new_time;
 }

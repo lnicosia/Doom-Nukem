@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/19 14:09:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:23:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	draw_sector_num(t_env *env, t_sector sector)
 				color,
 				20),
 			env);
-	free(num);
+	ft_strdel(&num);
 
 }
 

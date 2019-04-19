@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/19 11:23:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:20:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ int	parsing(int fd, t_env *env)
 			init_vertex(env, line);
 		else if (line [0] == 'S')
 			env->nb_sectors = init_sectors(env, line);
+		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	env->nb_vertices = nb_vertices;
 	return (1);
 }
