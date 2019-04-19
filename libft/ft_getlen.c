@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fps.c                                              :+:      :+:    :+:   */
+/*   ft_getlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 13:36:05 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/19 13:46:12 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/19 13:49:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-void	fps(t_env *env)
+size_t	ft_getlen(long nb)
 {
-	int			new_time;
-	char		*fps;
+	size_t	len;
 
-	new_time = SDL_GetTicks();
-	fps = ft_itoa(1000 / (new_time - env->sdl.time));
-	print_text(new_v2(0, 10), new_printable_text(
-				fps,
-				"fonts/amazdoom/AmazDoomLeft.ttf",
-				0xFFFFFFFF,
-				65),
-			env);
-	free(fps);
-	env->sdl.time = new_time;
+	if (!nb)
+		return (1);
+	len = 0;
+	while (nb != 0)
+	{
+		nb /= 10;
+		len++;
+	}
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 21:49:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/19 12:29:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,18 @@ typedef struct	s_options
 }				t_options;
 
 /*
+**	Contains every data need to print a text on the screen
+*/
+
+typedef struct	s_printable_text
+{
+	char			*str;
+	char			*font;
+	int				size;
+	SDL_Color		color;
+}				t_printable_text;
+
+/*
 **	Environment data struct
 */
 
@@ -123,23 +135,27 @@ typedef struct	s_env
 	int				nb_vertices;
 }				t_env;
 
-void			free_all(t_env *env);
-void			clear_image(t_env *env);
-int				init_sdl(t_env *env);
-int				init_ttf(t_env *env);
-void			draw(t_env *env);
-void			update_screen(t_env *env);
-int				parsing(int fd, t_env *env);
-void			check_parsing(t_env *env);
-void			view(t_env *env);
-void			move_player(t_env *env);
-void			init_options(t_env *env);
-void			options(t_env *env);
-int				check_collision(t_env *env, double x_move, double y_move);
+void				free_all(t_env *env);
+void				clear_image(t_env *env);
+int					init_sdl(t_env *env);
+int					init_ttf(t_env *env);
+void				draw(t_env *env);
+void				update_screen(t_env *env);
+int					parsing(int fd, t_env *env);
+void				check_parsing(t_env *env);
+void				view(t_env *env);
+void				move_player(t_env *env);
+void				init_options(t_env *env);
+void				options(t_env *env);
+int					check_collision(t_env *env, double x_move, double y_move);
+void				minimap(t_env *e);
+void				fps(t_env *e);
+void				view(t_env *env);
 
-void			minimap(t_env *e);
-void			fps(t_env *e);
+t_v2				new_v2(double x, double y);
+t_v3				new_v3(double x, double y, double z);
 
-void			view(t_env *env);
+t_printable_text	new_printable_text(char *text, char *font, unsigned int color, int size);
+void				print_text(t_v2 pos, t_printable_text, t_env *env);
 
 #endif

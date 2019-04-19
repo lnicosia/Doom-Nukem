@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fps.c                                              :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 13:36:05 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/19 12:15:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	fps(t_env *env)
+t_v2	new_v2(double x, double y)
 {
-	int			new_time;
-	char		*fps;
+	t_v2	new;
 
-	new_time = SDL_GetTicks();
-	fps = ft_itoa(1000 / (new_time - env->sdl.time));
-	print_text(new_v2(0, 10), new_printable_text(
-				fps,
-				"fonts/amazdoom/AmazDoomLeft.ttf",
-				0xFFFFFFFF,
-				65),
-			env);
-	free(fps);
-	env->sdl.time = new_time;
+	new.x = x;
+	new.y = y;
+	return (new);
+}
+
+t_v3	new_v3(double x, double y, double z)
+{
+	t_v3	new;
+
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	return (new);
 }

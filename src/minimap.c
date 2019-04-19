@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/16 15:27:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 13:50:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,38 @@ void	draw_minimap_hud(t_env *env)
 	}
 }
 
+void	draw_sector_num(t_env *env, t_sector sector)
+{
+	t_v2			pos;
+	char			*num;
+	unsigned int	color;
+	int				i;
+
+	color = 0xFFFFFFFF;
+	if (sector.num == env->player.sector)
+		color = 0x00FF00FF;
+	i = 0;
+	pos = new_v2(0, 0);
+	while (i < sector.nb_vertices)
+	{
+		pos.x += env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * 10;
+		pos.y += 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * 10;
+		i++;
+	}
+	pos.x /= sector.nb_vertices;
+	pos.y /= sector.nb_vertices;
+	num = ft_itoa(sector.num);
+	ft_printf("pos = [%f, %f]\n%s\n", pos.y, pos.x, num);
+	print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
+				num,
+				"fonts/bebas_neue/BebasNeue-Regular.ttf",
+				color,
+				20),
+			env);
+	free(num);
+
+}
+
 void	minimap(t_env *env)
 {
 	int			s;
@@ -179,6 +211,8 @@ void	minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
+		if (s == env->player.sector)
+			draw_sector_num(env, sect);
 		while (v < sect.nb_vertices)
 		{
 			line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
