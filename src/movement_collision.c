@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/04/18 21:40:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/19 16:46:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int     diff_sign(double nb1, double nb2)
 {
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0))
+    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
         return (0);
     return (1);
 }    
@@ -43,7 +43,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
     future_x = env->player.pos.x + x_move;
     future_y = env->player.pos.y + y_move;
     /*
-    **On parcours tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
+    **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
     */
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
@@ -64,6 +64,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
         else if (diff_sign(start_pos, end_pos) && check_wall(env, i) && env->sectors[env->player.sector].neighbors[i] >= 0)
         {
             tmp = env->player.sector;
+			env->player.old_sector = tmp;
             env->player.sector = env->sectors[env->player.sector].neighbors[i];
             env->player.pos.z += env->sectors[env->player.sector].floor - env->sectors[tmp].floor;
             return (1);

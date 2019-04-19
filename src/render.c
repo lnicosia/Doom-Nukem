@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 14:23:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:42:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			if (render.vz1 > 0 || render.vz2 > 0)
 			{
 				// Calculer le cliping
-				if(render.vz1 <= 0.5 || render.vz2 <= 0)
+				if(render.vz1 <= 0 || render.vz2 <= 0)
 				{
 					render.clipped = 1;
 					t_v2	new_vz1;
 					t_v2	new_vz2;
-					render.near_z = 0.5;
+					render.near_z = 0.0005;
 					render.far_z = 5;
 					render.near_side = 0.00001;
 					render.far_side = 20.f;
