@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 13:27:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 15:03:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/19 10:37:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	check_parsing(t_env *env)
 	{
 		ft_printf("sector	%f %f	", env->sectors[i].floor,
 				env->sectors[i].ceiling);
-		j = 0;
-		while (j < env->sectors[i].nb_vertices)
+		j = env->sectors[i].nb_vertices - 1;
+		while (j >= 0)
 		{
 			ft_printf("%d ", env->sectors[i].vertices[j]);
-			j++;
+			j--;
 		}
 		ft_printf("	");
-		j = 0;
-		while (j < env->sectors[i].nb_vertices)
+		j = env->sectors[i].nb_vertices - 1;
+		while (j >= 0)
 		{
 			ft_printf("%d ", env->sectors[i].neighbors[j]);
-			j++;
+			j--;
 		}
 		ft_printf("\n");
 		i++;
