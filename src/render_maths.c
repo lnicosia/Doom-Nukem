@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/16 19:08:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 11:26:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 {
 	// 	Vertex 1
-	render->v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
-	render->v1.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
+	render->v2.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
+	render->v2.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
 	//	Vertex 2
-	render->v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
-	render->v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
+	render->v1.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
+	render->v1.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
 	/*ft_printf("v1 = %d\n", sector.vertices[i]);
 	  ft_printf("v1.x = %f\n", v1.x);
 	  ft_printf("v1.y = %f\n", v1.y);

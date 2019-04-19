@@ -10,9 +10,9 @@ vertex	20 10
 vertex	20 20
 
 Sector 4
-sector	0 0 20 0	0 1 4 3		-1 -1 1 2
-sector	2 0 18 0	1 2 5 4		0 -1 -1 3
-sector	2 0 18 0	3 4 7 6		-1 0 3 -1
-sector	4 0 16 0	4 5 8 7		2 1 -1 -1
+sector	0 0 20 0	0 1 4 3		-1 1 2 -1
+sector	2 0 18 0	1 2 5 4		-1 -1 3 0
+sector	2 0 18 0	3 4 7 6		0 3 -1 -1
+sector	4 0 16 0	4 5 8 7		1 -1 -1 2
 
 player 2 2	0	0

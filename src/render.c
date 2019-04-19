@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 10:30:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 11:35:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 		//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 		while (i < sector.nb_vertices)
 		{
+			//ft_printf("v%d a v%d\n", i, i + 1);
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 

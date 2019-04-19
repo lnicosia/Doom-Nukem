@@ -11,9 +11,9 @@ vertex	30 30
 vertex	30 45
 
 Sector 4
-sector	0 0 20 0	0 1 4 3		-1 -1 -1 2
-sector	-4 0 18 0	2 3 7 6		-1 -1 2 -1
-sector	2 0 20 0	3 4 8 7		1 0 3 -1
-sector	10 0 22 0	4 5 9 8		2 -1 -1 -1
+sector	0 0 20 0	0 1 4 3		-1 -1 2 -1
+sector	-4 0 18 0	2 3 7 6		-1 2 -1 -1
+sector	2 0 20 0	3 4 8 7		0 3 -1 1
+sector	10 0 22 0	4 5 9 8		-1 -1 -1 2
 
 player	10 20	0	0

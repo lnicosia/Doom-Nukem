@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/18 12:13:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/19 11:23:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,27 +109,27 @@ int	sectors(t_env *env, char *line, short num)
 	iter_max = calc_vertices(line);
 	env->sectors[num].nb_vertices = iter_max;
 	env->sectors[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1));
-	iter = iter_max - 1;
-	while (iter >= 0)
+	iter = 0;
+	while (iter < iter_max)
 	{
 		line = skip_spaces(line);
 		env->sectors[num].vertices[iter] = ft_atoi(line);
 		while (*line <= '9' && *line >= '0')
 			line++;
 		line++;
-		iter--;
+		iter++;
 	}
 	env->sectors[num].vertices[iter_max] = env->sectors[num].vertices[0];
 	line = skip_spaces(line);
 	iter_max = calc_neighbors(line);
-	iter = iter_max - 1;
+	iter = 0;
 	env->sectors[num].neighbors = (short*)malloc(sizeof(short) * (iter_max));
-	while (iter >= 0)
+	while (iter < iter_max)
 	{
 		line = skip_spaces(line);
 		env->sectors[num].neighbors[iter] = ft_atoi(line);
 		line = skip_number(line);
-		iter--;
+		iter++;
 	}
 	return (1);
 }
