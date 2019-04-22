@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/18 17:18:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/22 11:43:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct		s_render
 	double			near_side;
 	double			far_side;
 	int				clipped;
-	double			dist;
+	double			dist1;
+	double			dist2;
 	double			floor_slope;
 	double			ceiling_slope;
 }					t_render;

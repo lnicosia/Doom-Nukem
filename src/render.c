@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 15:42:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/22 12:05:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,16 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					if (sector.floor_slope != 0 || sector.ceiling_slope != 0)
 					{
 						get_slope(&render, i, env);
-						ft_printf("i = %d\ndist = %f\n", i, render.dist);
+						ft_printf("i = %d\ndist = %f\n", i, render.dist1);
 						//if (i > 1)
 						//{
-							render.floor1 -= (cos(sector.floor_slope * M_PI / 180.0)) * render.dist;
-							render.ceiling1 -= (cos(sector.ceiling_slope * M_PI / 180.0)) * render.dist;
+							render.floor1 += (sin(sector.floor_slope * M_PI / 180.0)) * render.dist1;
+							render.ceiling1 += (sin(sector.ceiling_slope * M_PI / 180.0)) * render.dist1;
 						//}
 						//if (i != 0 && i != sector.nb_vertices - 1)
 						//{
-							render.floor2 -= (cos(sector.floor_slope * M_PI / 180.0)) * render.dist;
-							render.ceiling2 -= (cos(sector.ceiling_slope * M_PI / 180.0)) * render.dist;
+							render.floor2 += (sin(sector.floor_slope * M_PI / 180.0)) * render.dist1;
+							render.ceiling2 += (sin(sector.ceiling_slope * M_PI / 180.0)) * render.dist1;
 						//}
 					}
 					xstart = ft_max(render.x1, render.xmin);
@@ -182,12 +182,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 								line.color = 0x00AA00FF;
 							else
 								line.color = 0x888888FF;
-							/*if (i == 0)
+							if (i == 0)
 								line.color = 0xAA0000FF;
 							if (i == 1)
 								line.color = 0x00AA00FF;
 							if (i == 2)
-								line.color = 0xAAFF;*/
+								line.color = 0xAAFF;
 							if (env->options.lighting)
 								line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
 							if (env->options.contouring && (x == render.x1 || x == render.x2))
