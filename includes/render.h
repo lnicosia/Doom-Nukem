@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/22 11:43:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/22 17:54:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
 void				draw_bottom_wall(t_render render, t_env *env);
 void				get_intersection(t_render *render, t_v2 *new_vz, int check_vz);
-void				get_slope(t_render *render, int vertex_nb, t_env *env);
+t_v2				get_sector_normal(t_sector sector, t_env *env);
 
 #endif

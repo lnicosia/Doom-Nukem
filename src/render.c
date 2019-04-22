@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/22 12:05:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/22 16:35:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					if (sector.neighbors[i] >= 0 && sector.neighbors[i] != env->player.sector)
 						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
 					// Calculer la pente
-					render.floor_slope = 1;
+					/*render.floor_slope = 1;
 					render.ceiling_slope = 1;
 					if (sector.floor_slope != 0 || sector.ceiling_slope != 0)
 					{
+						t_v2 normal = get_sector_normal(sector, env);
 						get_slope(&render, i, env);
 						ft_printf("i = %d\ndist = %f\n", i, render.dist1);
 						//if (i > 1)
@@ -113,7 +114,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 							render.floor2 += (sin(sector.floor_slope * M_PI / 180.0)) * render.dist1;
 							render.ceiling2 += (sin(sector.ceiling_slope * M_PI / 180.0)) * render.dist1;
 						//}
-					}
+					}*/
 					xstart = ft_max(render.x1, render.xmin);
 					xend = ft_min(render.x2, render.xmax);
 					if (sector.neighbors[i] >= 0 && env->options.render_sectors)

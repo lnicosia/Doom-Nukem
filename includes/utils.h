@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 15:12:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/22 17:35:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,22 @@ typedef struct	s_v3
 typedef struct	s_sector
 {
 	double			floor;
-	short			floor_slope;
+	double			floor_slope;
 	double			ceiling;
-	short			ceiling_slope;
+	double			ceiling_slope;
 	short			num;
 	short			*vertices;
 	short			*neighbors;
 	short			nb_vertices;
+	t_v2			normal;
 }				t_sector;
 
 typedef struct	s_vertex
 {
 	double			x;
 	double			y;
+	double			floor;
+	double			ceiling;
 	short			num;
 }				t_vertex;
 
@@ -159,5 +162,6 @@ t_v3				new_v3(double x, double y, double z);
 
 t_printable_text	new_printable_text(char *text, char *font, unsigned int color, int size);
 void				print_text(t_v2 pos, t_printable_text, t_env *env);
+void				precompute_slopes(t_env *env);
 
 #endif
