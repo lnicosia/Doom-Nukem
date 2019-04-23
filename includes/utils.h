@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 11:16:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:33:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,7 @@ t_v3				new_v3(double x, double y, double z);
 t_printable_text	new_printable_text(char *text, char *font, unsigned int color, int size);
 void				print_text(t_v2 pos, t_printable_text, t_env *env);
 void				precompute_slopes(t_env *env);
+void				draw_axes(t_env *env);
+void				draw_crosshair(t_env *env);
 
 #endif

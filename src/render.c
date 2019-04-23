@@ -6,13 +6,31 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 11:56:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:27:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "utils.h"
 #include "render.h"
+
+short	get_vertex_nb_in_sector(short vertex, t_sector sector)
+{
+	short	i;
+	short	res;
+
+	i = 0;
+	res = 0;
+	while (i < sector.nb_vertices)
+	{
+		if (sector.vertices[i] == vertex)
+			res = i - 1;
+		i++;
+	}
+	if (res < 0)
+		res = sector.nb_vertices - 1;
+	return (res);
+}
 
 void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 {
@@ -95,7 +113,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 				{
 					// Pareil pour le secteur voisin si c'est un portail
 					if (sector.neighbors[i] >= 0 && sector.neighbors[i] != env->player.sector)
-						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]], i);
+					{
+						int	nb = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
+						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]], nb);
+					}
 					xstart = ft_max(render.x1, render.xmin);
 					xend = ft_min(render.x2, render.xmax);
 					if (sector.neighbors[i] >= 0 && env->options.render_sectors)

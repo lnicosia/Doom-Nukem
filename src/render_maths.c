@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 12:30:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:42:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 {
 	// 	Vertex 1
-	render->v2.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
-	render->v2.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
+	render->v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
+	render->v1.y = env->vertices[sector.vertices[i]].y - env->player.pos.y;
 	//	Vertex 2
-	render->v1.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
-	render->v1.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
+	render->v2.x = env->vertices[sector.vertices[i + 1]].x - env->player.pos.x;
+	render->v2.y = env->vertices[sector.vertices[i + 1]].y - env->player.pos.y;
 	/*ft_printf("v1 = %d\n", sector.vertices[i]);
 	  ft_printf("v1.x = %f\n", v1.x);
 	  ft_printf("v1.y = %f\n", v1.y);
@@ -98,16 +98,16 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
 	render->floor1 = env->h / 2 -
-		(int)((sector.floors[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->floor2 = env->h / 2 -
-		(int)((sector.floors[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.floors[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->ceiling1 = env->h / 2 -
-		(int)((sector.ceilings[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.ceilings[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->ceiling2 = env->h / 2 -
-		(int)((sector.ceilings[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.ceilings[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->x1 = env->w / 2 - (int)(render->vx1 * (hfov / render->vz1));
 	render->x2 = env->w / 2 - (int)(render->vx2 * (hfov / render->vz2));
@@ -125,15 +125,15 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
 	render->neighbor_floor1 = env->h / 2 -
-		(int)((neighbor.floors[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->neighbor_floor2 = env->h / 2 -
-		(int)((neighbor.floors[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.floors[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->neighbor_ceiling1 = env->h / 2 -
-		(int)((neighbor.ceilings[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.ceilings[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->neighbor_ceiling2 = env->h / 2 -
-		(int)((neighbor.ceilings[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.ceilings[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 }

@@ -13,5 +13,5 @@ vertex	15 15
 Sector	1
 sector	0 0 20 0	0 1 3 2		-1 -1 -1 -1
 
-# Player: Location (x y), angle, and sector number
+# Player: Location (y x), angle, and sector number
 player	1 1	0	0

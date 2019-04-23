@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/23 11:49:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:52:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ char	*skip_spaces(char *line)
 int	player_pos(t_env *env, char *line)
 {
 	line = skip_spaces(line);
-	env->player.pos.x = ft_atof(line);
-	line = skip_number(line);
 	env->player.pos.y = ft_atof(line);
+	line = skip_number(line);
+	env->player.pos.x = ft_atof(line);
 	line = skip_number(line);
 	env->player.angle = ft_atof(line);
 	line = skip_number(line);
 	env->player.sector = ft_atoi(line);
-	env->player.pos.z = 6;
 	return (1);
 }
 
@@ -45,10 +44,10 @@ int	vertices(t_env *env, char *line, int num)
 {
 	env->vertices[num].num = num;
 	line = skip_spaces(line);
-	env->vertices[num].x = ft_atof(line);
+	env->vertices[num].y = ft_atof(line);
 	//ft_printf("s = %s\nx = %f\n", line, ft_atof(line));
 	line = skip_number(line);
-	env->vertices[num].y = ft_atof(line);
+	env->vertices[num].x = ft_atof(line);
 	//ft_printf(" y= %f\n", line, ft_atof(line));
 	return (1);
 }
