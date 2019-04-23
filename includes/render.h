@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/22 17:54:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 11:41:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct		s_render
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env);
-void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector);
-void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector sector);
+void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
+void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
 void				draw_line(t_line, t_env *env);
 void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);

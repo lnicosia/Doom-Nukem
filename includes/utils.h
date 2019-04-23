@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/22 17:35:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 11:16:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ typedef struct	s_sector
 	short			*neighbors;
 	short			nb_vertices;
 	t_v2			normal;
+	double			*floors;
+	double			*ceilings;
 }				t_sector;
 
 typedef struct	s_vertex
 {
 	double			x;
 	double			y;
-	double			floor;
-	double			ceiling;
 	short			num;
 }				t_vertex;
 

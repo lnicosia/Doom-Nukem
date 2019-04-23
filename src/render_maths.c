@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 11:26:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/23 12:30:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	get_intersection(t_render *render, t_v2 *new_vz, int check_vz)
  **	Get the floor and ceiling position on the screen
  */
 
-void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector)
+void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i)
 {
 	double	hfov;
 	double	vfov;
@@ -98,16 +98,16 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector)
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
 	render->floor1 = env->h / 2 -
-		(int)((sector.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.floors[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->floor2 = env->h / 2 -
-		(int)((sector.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.floors[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->ceiling1 = env->h / 2 -
-		(int)((sector.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.ceilings[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->ceiling2 = env->h / 2 -
-		(int)((sector.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.ceilings[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->x1 = env->w / 2 - (int)(render->vx1 * (hfov / render->vz1));
 	render->x2 = env->w / 2 - (int)(render->vx2 * (hfov / render->vz2));
@@ -117,7 +117,7 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector)
  **	Get the neighbor floor and ceiling position on the screen
  */
 
-void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor)
+void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor, int i)
 {
 	double	hfov;
 	double	vfov;
@@ -125,15 +125,15 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
 	render->neighbor_floor1 = env->h / 2 -
-		(int)((neighbor.floor - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.floors[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->neighbor_floor2 = env->h / 2 -
-		(int)((neighbor.floor - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.floors[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 	render->neighbor_ceiling1 = env->h / 2 -
-		(int)((neighbor.ceiling - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.ceilings[i + 1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / render->vz1));
 	render->neighbor_ceiling2 = env->h / 2 -
-		(int)((neighbor.ceiling - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.ceilings[i] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / render->vz2));
 }
