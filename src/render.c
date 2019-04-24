@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 18:27:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 11:43:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,12 +185,15 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 								line.color = 0x00AA00FF;
 							else
 								line.color = 0x888888FF;
-							if (i == 0)
-								line.color = 0xAA0000FF;
-							if (i == 1)
-								line.color = 0x00AA00FF;
-							if (i == 2)
-								line.color = 0xAAFF;
+							if (env->options.wall_color)
+							{
+								if (i == 0)
+									line.color = 0xAA0000FF;
+								if (i == 1)
+									line.color = 0x00AA00FF;
+								if (i == 2)
+									line.color = 0xAAFF;
+							}
 							if (env->options.lighting)
 								line.color = render.light << 24 | render.light << 16 | render.light << 8 | 255;
 							if (env->options.contouring && (x == render.x1 || x == render.x2))

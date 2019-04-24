@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 18:07:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 11:34:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_v2	get_sector_normal(t_sector sector, t_env *env)
 	v2 = env->vertices[sector.vertices[1]];
 	norm = sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2));
 	normal.x = -((v2.y - v1.y) / norm);
-	normal.y = ((v2.x - v1.x) / norm);
+	normal.y = -((v2.x - v1.x) / norm);
 	return (normal);
 }
 
@@ -43,20 +43,24 @@ double	get_distance(t_sector sector, short vertex_nb, t_env *env)
 	return (sqrt(pow(vi.x - vmid.x, 2) + pow(vi.y - vmid.y, 2)));
 }
 
-double	get_floor(t_sector sector, t_vertex vertex)
+double	get_floor(t_sector sector, t_vertex vertex, t_env *env)
 {
-	double	res;
+	double		res;
+	t_vertex	v0;
 
-	res = sector.normal.x * vertex.x + sector.normal.y * vertex.y;
+	v0 = env->vertices[sector.vertices[0]];
+	res = sector.normal.x * (vertex.x - v0.x) - sector.normal.y * (vertex.y - v0.y);
 	res = res * sector.floor_slope + sector.floor;
 	return (res);
 }
 
-double	get_ceiling(t_sector sector, t_vertex vertex)
+double	get_ceiling(t_sector sector, t_vertex vertex, t_env *env)
 {
 	double	res;
+	t_vertex	v0;
 
-	res = sector.normal.x * vertex.x - sector.normal.y * vertex.y;
+	v0 = env->vertices[sector.vertices[0]];
+	res = sector.normal.x * (vertex.x - v0.x) - sector.normal.y * (vertex.y - v0.y);
 	res = res * sector.ceiling_slope + sector.ceiling;
 	return (res);
 }
@@ -87,6 +91,7 @@ void	precompute_slopes(t_env *env)
 	int			i;
 	int			j;
 	t_sector	sector;
+	t_vertex	v0;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -97,11 +102,11 @@ void	precompute_slopes(t_env *env)
 		while (j < sector.nb_vertices)
 		{
 			if (sector.floor_slope != 0)
-				env->sectors[i].floors[j] = get_floor(sector, env->vertices[sector.vertices[j]]); 
+				env->sectors[i].floors[j] = get_floor(sector, env->vertices[sector.vertices[j]], env); 
 			else
 				env->sectors[i].floors[j] = sector.floor;
 			if (sector.ceiling_slope != 0)
-				env->sectors[i].ceilings[j] = get_ceiling(sector, env->vertices[sector.vertices[j]]); 
+				env->sectors[i].ceilings[j] = get_ceiling(sector, env->vertices[sector.vertices[j]], env); 
 			else
 				env->sectors[i].ceilings[j] = sector.ceiling;
 			j++;
@@ -111,6 +116,7 @@ void	precompute_slopes(t_env *env)
 		i++;
 	}
 	sector = env->sectors[env->player.sector];
-	env->player.pos.z = 6 + sector.floor + (sector.normal.x * env->player.pos.x + sector.normal.y * env->player.pos.y) * sector.floor_slope;
-	//check_slopes(env);
+	v0 = env->vertices[sector.vertices[0]];
+	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	check_slopes(env);
 }

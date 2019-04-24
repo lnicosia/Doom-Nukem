@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 14:03:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 11:33:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 void	move_player(t_env *env)
 {
 	t_sector	sector;
+	t_vertex	v0;
 
-	sector = env->sectors[env->player.sector];
 	if (env->sdl.event.key.keysym.sym == SDLK_w ||
 			env->sdl.event.key.keysym.sym == SDLK_UP)
 	{	
@@ -58,5 +58,7 @@ void	move_player(t_env *env)
 			env->player.pos.y += env->player.angle_cos * env->player.speed;
 		}
 	}
-	env->player.pos.z = 6 + sector.floor + (sector.normal.x * env->player.pos.x + sector.normal.y * env->player.pos.y) * sector.floor_slope;
+	sector = env->sectors[env->player.sector];
+	v0 = env->vertices[sector.vertices[0]];
+	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }

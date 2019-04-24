@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 15:33:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 11:42:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct	s_options
 	int			show_fps;
 	int			wall_lover;
 	int			color_clipping;
+	int			wall_color;
 }				t_options;
 
 /*
