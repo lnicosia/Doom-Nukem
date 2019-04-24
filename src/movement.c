@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 11:33:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:06:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	move_player(t_env *env)
 	t_sector	sector;
 	t_vertex	v0;
 
-	if (env->sdl.event.key.keysym.sym == SDLK_w ||
-			env->sdl.event.key.keysym.sym == SDLK_UP)
+	if (env->inputs.forward)
 	{	
 		if (check_collision(env, env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed) == 1)
 		{
@@ -31,8 +30,7 @@ void	move_player(t_env *env)
 			env->player.pos.y += env->player.angle_sin * env->player.speed;
 		}
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_s ||
-			env->sdl.event.key.keysym.sym == SDLK_DOWN)
+	if (env->inputs.backward)
 	{
 		if (check_collision(env, env->player.angle_cos * -env->player.speed, env->player.angle_sin * -env->player.speed) == 1)
 		{
@@ -40,8 +38,7 @@ void	move_player(t_env *env)
 			env->player.pos.y -= env->player.angle_sin * env->player.speed;
 		}
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_a ||
-			env->sdl.event.key.keysym.sym == SDLK_LEFT)
+	if (env->inputs.left)
 	{
 		if (check_collision(env, env->player.angle_sin * env->player.speed, env->player.angle_cos * -env->player.speed) == 1)
 		{
@@ -49,8 +46,7 @@ void	move_player(t_env *env)
 			env->player.pos.y -= env->player.angle_cos * env->player.speed;
 		}
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_d ||
-			env->sdl.event.key.keysym.sym == SDLK_RIGHT)
+	if (env->inputs.right)
 	{
 		if (check_collision(env, env->player.angle_sin * -env->player.speed, env->player.angle_cos * env->player.speed) == 1)
 		{

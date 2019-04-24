@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 15:34:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:09:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		main(int ac, char **av)
 	parsing(open(av[1], O_RDONLY), &env);
 	precompute_slopes(&env);
 	init_options(&env);
+	init_keys(&env);
+	init_inputs(&env);
 	//check_parsing(&env);
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
@@ -37,6 +39,7 @@ int		main(int ac, char **av)
 	while (env.running)
 	{
 		clear_image(&env);
+		move_player(&env);
 		draw(&env);
 		draw_crosshair(&env);
 		env.sdl.render = 0;
@@ -50,10 +53,9 @@ int		main(int ac, char **av)
 			env.sdl.render = 1;
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
-			else if (env.sdl.event.type == SDL_KEYDOWN)
-				move_player(&env);
-			else if (env.sdl.event.type == SDL_KEYUP)
-				options(&env);
+			else if (env.sdl.event.type == SDL_KEYDOWN
+					|| env.sdl.event.type == SDL_KEYUP)
+				keys(&env);
 		}
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		view(&env);

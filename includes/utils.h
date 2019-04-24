@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 11:42:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:06:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,30 @@ typedef struct	s_player
 }				t_player;
 
 /*
+** Player's keys configuration
+*/
+
+typedef struct	s_keys
+{
+	int			forward;
+	int			backward;
+	int			left;
+	int			right;
+	int			forward2;
+	int			backward2;
+	int			left2;
+	int			right2;
+}				t_keys;
+
+typedef struct	s_inputs
+{
+	uint8_t		forward;
+	uint8_t		backward;
+	uint8_t		left;
+	uint8_t		right;
+}				t_inputs;
+
+/*
 ** SDL data necessities
 */
 
@@ -134,6 +158,8 @@ typedef struct	s_env
 	t_sector		*sectors;
 	t_player		player;
 	t_options		options;
+	t_keys			keys;
+	t_inputs		inputs;
 	int				w;
 	int				h;
 	int				running;
@@ -150,8 +176,9 @@ void				update_screen(t_env *env);
 int					parsing(int fd, t_env *env);
 void				check_parsing(t_env *env);
 void				view(t_env *env);
-void				move_player(t_env *env);
 void				init_options(t_env *env);
+void				init_keys(t_env *env);
+void				init_inputs(t_env *env);
 void				options(t_env *env);
 int					check_collision(t_env *env, double x_move, double y_move);
 void				minimap(t_env *e);
@@ -166,5 +193,7 @@ void				print_text(t_v2 pos, t_printable_text, t_env *env);
 void				precompute_slopes(t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
+void				keys(t_env *env);
+void				move_player(t_env *env);
 
 #endif
