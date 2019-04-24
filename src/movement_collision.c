@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/04/23 14:31:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:33:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int     check_collision(t_env *env, double x_move, double y_move)
         {
             tmp = env->player.sector;
 			env->player.old_sector = tmp;
+            if (!check_inside_sector(env, end_pos, i))
+                return (0);
             env->player.sector = env->sectors[env->player.sector].neighbors[i];
             return (1);
         }

@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/23 17:52:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:56:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+void	set_sectors_xmax(t_env *env)
+{
+	int i;
+	int	j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].x_max < env->vertices[env->sectors[i].vertices[j]].x)
+				env->sectors[i].x_max = env->vertices[env->sectors[i].vertices[j]].x;
+			j++;
+		}
+		i++;
+	}
+}
 
 char	*skip_number(char *line)
 {
@@ -148,10 +167,17 @@ int	init_vertex(t_env *env, char *line)
 int	init_sectors(t_env *env, char *line)
 {
 	int	nb_sector;
+	int	i;
 
+	i = 0;
 	line = skip_spaces(line);
 	nb_sector = atoi(line);
 	env->sectors = (t_sector *)malloc(sizeof(t_sector) * (nb_sector));
+	while (i < nb_sector)
+	{
+		env->sectors[i].x_max = -2147483648;
+		i++;
+	}
 	return (nb_sector);
 }
 
@@ -185,5 +211,6 @@ int	parsing(int fd, t_env *env)
 	}
 	ft_strdel(&line);
 	env->nb_vertices = nb_vertices;
+	set_sectors_xmax(env);
 	return (1);
 }
