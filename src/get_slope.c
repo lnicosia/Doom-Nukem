@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 11:34:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:22:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,5 @@ void	precompute_slopes(t_env *env)
 	sector = env->sectors[env->player.sector];
 	v0 = env->vertices[sector.vertices[0]];
 	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
-	check_slopes(env);
+	//check_slopes(env);
 }

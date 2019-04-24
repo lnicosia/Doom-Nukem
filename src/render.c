@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 11:43:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:23:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 
 	i = 0;
 	res = 0;
+	//ft_printf("Vertex n %d in env\n", vertex);
 	while (i < sector.nb_vertices)
 	{
+		//ft_printf("Neighbor sector %d = %d\n", i, sector.vertices[i]);
 		if (sector.vertices[i] == vertex)
-			res = i - 1;
+			res = i;
 		i++;
 	}
 	if (res < 0)
@@ -114,8 +116,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					// Pareil pour le secteur voisin si c'est un portail
 					if (sector.neighbors[i] >= 0 && sector.neighbors[i] != env->player.sector)
 					{
-						int	nb = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
-						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]], nb);
+						render.nv1 = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
+						render.nv2 = get_vertex_nb_in_sector(sector.vertices[i + 1], env->sectors[sector.neighbors[i]]);
+						//ft_printf("nv1 = %d, nv2 = %d\n", render.nv1, render.nv2);
+						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
 					}
 					xstart = ft_max(render.x1, render.xmin);
 					xend = ft_min(render.x2, render.xmax);
