@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 16:06:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:16:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ typedef struct	s_keys
 	int			left2;
 	int			right2;
 }				t_keys;
+
+/*
+** Keys inputs
+*/
 
 typedef struct	s_inputs
 {

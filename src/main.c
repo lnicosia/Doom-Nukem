@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 16:09:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:40:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int		main(int ac, char **av)
 		free_all(&env);
 		return (ft_printf("Init error\nExiting the programm..\n"));
 	}
-	parsing(open(av[1], O_RDONLY), &env);
+	if (parsing(open(av[1], O_RDONLY), &env))
+	{
+		ft_printf("Parsing error\nExiting..\n");
+		free_all(&env);
+	}
 	precompute_slopes(&env);
 	init_options(&env);
 	init_keys(&env);
@@ -61,5 +65,6 @@ int		main(int ac, char **av)
 		view(&env);
 		SDL_Delay(5);
 	}
+	free_all(&env);
 	return (0);
 }
