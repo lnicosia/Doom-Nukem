@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 12:35:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:46:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,10 @@ static short	*init_rendered_sector(t_env *env)
 	int		i;
 
 	if (!(res = (short*)malloc(sizeof(short) * env->nb_sectors)))
+	{
+		ft_printf("Could not malloc rendering sector array!\n");
 		return (NULL);
+	}
 	i = 0;
 	while (i < env->nb_sectors)
 	{
