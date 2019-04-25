@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/24 17:47:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 12:40:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ int	sectors(t_env *env, char *line, short num)
 	iter_max = calc_vertices(line);
 	env->sectors[num].nb_vertices = iter_max;
 	if (!(env->sectors[num].vertices = (short*)malloc(sizeof(short) * (iter_max + 1))))
-		return (ft_printf("Could not malloc!\n"));
+		crash("Could not malloc sector vertices!\n", env);
 	if (!(env->sectors[num].ceilings = (double*)malloc(sizeof(double) * (iter_max + 1))))
-		return (ft_printf("Could not malloc!\n"));
-	if (!(env->sectors[num].floors = (double*)malloc(sizeof(double) * (iter_max + 1))))
-		return (ft_printf("Could not malloc!\n"));
+		crash("Could not malloc sector ceilings!\n", env);
+	if ((env->sectors[num].floors = (double*)malloc(sizeof(double) * (iter_max + 1))))
+		crash("Could not malloc sector floors!\n", env);
 	iter = 0;
 	while (iter < iter_max)
 	{
@@ -128,7 +128,7 @@ int	sectors(t_env *env, char *line, short num)
 	iter_max = calc_neighbors(line);
 	iter = 0;
 	if (!(env->sectors[num].neighbors = (short*)malloc(sizeof(short) * (iter_max))))
-		return (ft_printf("Could not malloc!\n"));
+		crash("Could not malloc!\n", env);
 	while (iter < iter_max)
 	{
 		line = skip_spaces(line);
@@ -190,17 +190,18 @@ int	parsing(int fd, t_env *env)
 		else if (line[0] == 's')
 		{
 			if (sectors(env, line, nb_sectors))
-				nb_sectors++;
+				return (ft_printf("Could not parse sectors!\n"));
+			nb_sectors++;
 		}
 		else if (line[0] == 'V')
 		{
 			if (init_vertex(env, line) == -1)
-				return (ft_printf("Couldnt init vertices!\n"));
+				return (ft_printf("Could not init vertices!\n"));
 		}
 		else if (line [0] == 'S')
 		{
 			if ((env->nb_sectors = init_sectors(env, line)) == -1)
-				return (ft_printf("Couldnt init vertices!\n"));
+				return (ft_printf("Could not init sectors!\n"));
 		}
 		ft_strdel(&line);
 	}

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 16:16:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 12:14:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void				free_all(t_env *env);
 void				clear_image(t_env *env);
 int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);
-void				draw(t_env *env);
+int					draw(t_env *env);
 void				update_screen(t_env *env);
 int					parsing(int fd, t_env *env);
 void				check_parsing(t_env *env);
@@ -199,5 +199,6 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				keys(t_env *env);
 void				move_player(t_env *env);
+void				crash(char *str, t_env *env);
 
 #endif
