@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 16:29:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:32:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		free_all(t_env *env)
 int			crash(char *str, t_env *env)
 {
 	ft_dprintf(STDERR_FILENO, "%s", str);
-	ft_printf("{red}[CRASH]{reset}\n");
+	ft_printf("{red}[Critical error]{reset}\n");
 	free_all(env);
 	return(-1);
 }
