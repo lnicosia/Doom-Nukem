@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 13:59:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:55:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ typedef struct		s_v3
 	double			y;
 	double			z;
 }					t_v3;
+
+typedef struct		s_line_eq
+{
+	double a;
+	double b;
+}					t_line_eq;
 
 /*
 ** VERTICES = PLURIEL DE VERTEX
