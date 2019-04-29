@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/26 11:52:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:06:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*skip_spaces(char *line)
 	return (line);
 }
 
-int		parse_player(t_env *env, char *line)
+int		parse_player(t_env *env, char *line, int line_count)
 {
 	line = skip_spaces(line);
 	env->player.pos.y = ft_atof(line);
@@ -39,25 +39,28 @@ int		parse_player(t_env *env, char *line)
 	line = skip_number(line);
 	env->player.sector = ft_atoi(line);
 	if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
-		return (ft_printf("Invalid player sector\n"));
+		return (ft_printf("Invalid player sector (line %d)\n", line_count));
+	line = skip_number(line);
+	if (*line != '\0')
+		return (ft_printf("Too much data at player declaration (line %d)\n", line_count));
 	return (0);
 }
 
-int		parse_vertex(t_env *env, char *line, int num)
+int		parse_vertex(t_env *env, char *line, int num, int line_count)
 {
 	env->vertices[num].num = num;
 	line = skip_spaces(line);
 	if (!*line)
-		return (ft_printf("Wrong number of coordinates at vertex %d\n", num));
+		return (ft_printf("Wrong number of coordinates at vertex %d (line %d)\n", num, line_count));
 	env->vertices[num].y = ft_atof(line);
 	//ft_printf("s = %s\nx = %f\n", line, ft_atof(line));
 	line = skip_number(line);
 	if (!*line)
-		return (ft_printf("Wrong number of coordinates at vertex %d\n", num));
+		return (ft_printf("Wrong number of coordinates at vertex %d (line %d)\n", num, line_count));
 	env->vertices[num].x = ft_atof(line);
 	line = skip_number(line);
 	if (*line != '\0')
-		return (ft_printf("Too much data at vertex %d\n", num));
+		return (ft_printf("Too much data at vertex %d (line %d)\n", num, line_count));
 	//ft_printf(" y= %f\n", line, ft_atof(line));
 	return (0);
 }
@@ -67,14 +70,14 @@ int		count_vertices(char *line)
 	int i;
 
 	i = 0;
-	while (*line != '	')
+	while (*line && *line != '\t')
 	{
-		while ((*line < '0' || *line > '9') && *line != '	')
+		while (*line && (*line < '0' || *line > '9') && *line != '\t')
 			line++;
-		if (*line <= '9' && *line >= '0')
+		if (*line && *line <= '9' && *line >= '0')
 		{
 			i++;
-			while (*line <= '9' && *line >= '0')
+			while (*line && *line <= '9' && *line >= '0')
 				line++;
 		}
 	}
@@ -100,7 +103,7 @@ int		count_neighbors(char *line)
 	return (i);
 }
 
-int		parse_sector(t_env *env, char *line, short num)
+int		parse_sector(t_env *env, char *line, short num, int line_count)
 {
 	short	i;
 	short	vertices_count;
@@ -112,19 +115,21 @@ int		parse_sector(t_env *env, char *line, short num)
 	line = skip_number(line);
 	env->sectors[num].floor_slope = ft_atof(line);
 	if (env->sectors[num].floor_slope > 45 || env->sectors[num].floor_slope < -45)
-		return (ft_printf("Slopes must be between -45 and 45 degrees\n"));
+		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", line_count));
 	env->sectors[num].floor_slope = tan(env->sectors[num].floor_slope * M_PI / 180.0);
 	line = skip_number(line);
 	env->sectors[num].ceiling = ft_atof(line);
 	line = skip_number(line);
 	env->sectors[num].ceiling_slope = ft_atof(line);
 	if (env->sectors[num].ceiling_slope > 45 || env->sectors[num].ceiling_slope < -45)
-		return (ft_printf("Slopes must be between -45 and 45 degrees\n"));
+		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", line_count));
 	env->sectors[num].ceiling_slope = tan(env->sectors[num].ceiling_slope * M_PI / 180.0);
+	if (env->sectors[num].ceiling - env->sectors[num].floor <= 0)
+		return (ft_printf("Sector %d must have a positive ceiling-floor difference (line %d)\n", num, line_count));
 	line = skip_number(line);
 	vertices_count = count_vertices(line);
 	if (vertices_count < 3)
-		return (ft_printf("Sector %d must contain at least 3 vertices\n", num));
+		return (ft_printf("Sector %d must contain at least 3 vertices (line %d)\n", num, line_count));
 	env->sectors[num].nb_vertices = vertices_count;
 	if (!(env->sectors[num].vertices = (short*)malloc(sizeof(short) * (vertices_count + 1))))
 		return (ft_printf("Could not malloc sector vertices!\n", env));
@@ -138,19 +143,17 @@ int		parse_sector(t_env *env, char *line, short num)
 		line = skip_spaces(line);
 		env->sectors[num].vertices[i] = ft_atoi(line);
 		if (env->sectors[num].vertices[i] < 0 || env->sectors[num].vertices[i] >= env->nb_vertices)
-			return (ft_printf("Vertex \'%d\' in sector %d does not exist.\n", env->sectors[num].vertices[i], num));
-		while (*line <= '9' && *line >= '0')
-			line++;
-		line++;
+			return (ft_printf("Vertex \'%d\' in sector %d does not exist (line %d)\n", env->sectors[num].vertices[i], num, line_count));
+		line = skip_number(line);
 		i++;
 	}
 	env->sectors[num].vertices[vertices_count] = env->sectors[num].vertices[0];
 	line = skip_spaces(line);
 	neighbors_count = count_neighbors(line);
 	if (neighbors_count < vertices_count)
-		return (ft_printf("Missing neighbors in sector %d.\n", num));
+		return (ft_printf("Missing neighbors in sector %d (line %d)\n", num, line_count));
 	if (neighbors_count > vertices_count)
-		return (ft_printf("Too much neighbors in sector %d.\n", num));
+		return (ft_printf("Too much neighbors in sector %d (line %d)\n", num, line_count));
 	i = 0;
 	if (!(env->sectors[num].neighbors = (short*)malloc(sizeof(short) * (neighbors_count))))
 		return (ft_printf("Could not malloc sector neighbors!\n", env));
@@ -159,9 +162,9 @@ int		parse_sector(t_env *env, char *line, short num)
 		line = skip_spaces(line);
 		env->sectors[num].neighbors[i] = ft_atoi(line);
 		if (env->sectors[num].neighbors[i] < -1 || env->sectors[num].neighbors[i] >= env->nb_sectors)
-			return (ft_printf("Neighbor \'%d\' in sector %d does not exist.\n", env->sectors[num].neighbors[i], num));
+			return (ft_printf("Neighbor \'%d\' in sector %d does not exist (line %d)\n", env->sectors[num].neighbors[i], num, line_count));
 		if (env->sectors[num].neighbors[i] == num)
-			return (ft_printf("Sector %d can not contain a portal to itself.\n", num));
+			return (ft_printf("Sector %d can not contain a portal to itself\n", num, line_count));
 		line = skip_number(line);
 		i++;
 	}
@@ -232,11 +235,14 @@ int		parsing(int fd, t_env *env)
 	short		count_sectors;
 	short		count_vertices;
 	int			ret;
+	int			line_count;
 
 	env->nb_sectors = 0;
 	env->nb_vertices = 0;
 	count_sectors = 0;
 	count_vertices = 0;
+	env->player.sector = -1;
+	line_count = 1;
 	ft_printf("{red}");
 	while ((ret = get_next_line(fd, &line)))
 	{
@@ -248,16 +254,16 @@ int		parsing(int fd, t_env *env)
 				return (ft_printf("You must declare sectors before you declare the player\n"));
 			if (count_sectors < env->nb_sectors)
 				return (ft_printf("You gave less sectors than you declared.\n"));
-			if (parse_player(env, line))
+			if (parse_player(env, line, line_count))
 				return (ft_printf("Error while parsing player!\n"));
 		}
 		else if (line[0] == 'v')
 		{
 			if (env->nb_vertices <= 0)
-				return (ft_printf("Please declare how many vertices there are.\n"));
+				return (ft_printf("Please say how many vertices there are before declaring them\n(line starting with \'V\' followed by the number of vertices)\n"));
 			if (count_vertices >= env->nb_vertices)
-				return (ft_printf("You gave more vertices than you declared.\n"));
-			if (parse_vertex(env, line, count_vertices))
+				return (ft_printf("You gave more vertices than you declared\n"));
+			if (parse_vertex(env, line, count_vertices, line_count))
 				return (ft_printf("Error while parsing vertices!\n"));
 			count_vertices++;
 		}
@@ -267,17 +273,21 @@ int		parsing(int fd, t_env *env)
 				return (ft_printf("Please declare how many sectors there are.\n"));
 			if (count_sectors >= env->nb_sectors)
 				return (ft_printf("You gave more sectors than you declared.\n"));
-			if (parse_sector(env, line, count_sectors))
+			if (parse_sector(env, line, count_sectors, line_count))
 				return (ft_printf("Error while parsing sectors!\n"));
 			count_sectors++;
 		}
 		else if (line[0] == 'V')
 		{
+			if (env->nb_vertices != 0)
+				return (ft_printf("Redeclaration of vertices numbers (line %d)\n", line_count));
 			if ((env->nb_vertices = init_vertices(env, line)) == -1)
 				return (ft_printf("Could not init vertices!\n"));
 		}
 		else if (line [0] == 'S')
 		{
+			if (env->nb_sectors != 0)
+				return (ft_printf("Redeclaration of sectors numbers (line %d)\n", line_count));
 			if (count_vertices == 0 || env->nb_vertices == 0)
 				return (ft_printf("You must declare vertices before you declare sectors\n"));
 			if (count_vertices < env->nb_vertices)
@@ -285,8 +295,11 @@ int		parsing(int fd, t_env *env)
 			if ((env->nb_sectors = init_sectors(env, line)) == -1)
 				return (ft_printf("Could not init sectors!\n"));
 		}
+		line_count++;
 		ft_strdel(&line);
 	}
+	if (env->player.sector == -1)
+		return (ft_printf("You need to give player data\n"));
 	ft_printf("{reset}");
 	ft_strdel(&line);
 	return (0);
