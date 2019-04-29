@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 12:22:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:47:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	precompute_slopes(t_env *env)
 	t_sector	sector;
 	t_vertex	v0;
 
+	ft_printf("Computing map slopes..\n");
 	i = 0;
 	while (i < env->nb_sectors)
 	{

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 13:27:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 11:36:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 11:28:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_parsing(t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		ft_printf("vertex	%f %f\n", env->vertices[i].x, env->vertices[i].y);
+		ft_printf("vertex	%f %f\n", env->vertices[i].y, env->vertices[i].x);
 		i++;
 	}
 	ft_printf("\nSector %d\n", env->nb_sectors);
@@ -46,6 +46,6 @@ void	check_parsing(t_env *env)
 		ft_printf("\n");
 		i++;
 	}
-	ft_printf("\nplayer	%f %f	%f %d\n", env->player.pos.x,
-			env->player.pos.y, env->player.angle, env->player.sector);
+	ft_printf("\nplayer	%f %f	%f %d\n", env->player.pos.y,
+			env->player.pos.x, env->player.angle, env->player.sector);
 }

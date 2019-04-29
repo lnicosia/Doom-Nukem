@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 12:23:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:46:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,11 @@ static short	*init_rendered_sector(t_env *env)
 	short	*res;
 	int		i;
 
-	res = (short*)malloc(sizeof(short) * env->nb_sectors);
+	if (!(res = (short*)malloc(sizeof(short) * env->nb_sectors)))
+	{
+		ft_printf("Could not malloc rendering sector array!\n");
+		return (NULL);
+	}
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -231,10 +235,10 @@ static short	*init_rendered_sector(t_env *env)
 
 /*
  **	Main draw function
- **	TODO Protect function && malloc
+ **	TODO Protect function
  */
 
-void	draw(t_env *env)
+int				draw(t_env *env)
 {
 	t_render	render;
 	short		*rendered_sectors;
@@ -247,10 +251,11 @@ void	draw(t_env *env)
 	render.ymin = 0;
 	render.ymax = env->h - 1;
 	render.father = -2;
-	rendered_sectors = init_rendered_sector(env);
+	if (!(rendered_sectors = init_rendered_sector(env)))
+		return (-1);
 	render.sector = env->player.sector;
 	// On commence par rendre le secteur courant
 	render_sector(env, render, rendered_sectors);
-	free(rendered_sectors);
-	rendered_sectors = NULL;
+	ft_memdel((void**)&rendered_sectors);
+	return (0);
 }

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_sdl.c                                         :+:      :+:    :+:   */
+/*   init_pointers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 16:56:50 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/04/25 16:50:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		init_ttf(t_env *env)
+void	init_pointers(t_env *env)
 {
-	ft_printf("Initializing fonts..\n");
-	if (TTF_Init() == -1)
-		return(ft_printf("SDL_Init Error: %s\n", SDL_GetError()));
-	//env->sdl.font = TTF_OpenFont("fonts/heartwrecked.ttf", 65);
-	env->sdl.font = TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 65);
-	return (0);
+	ft_printf("Initializing pointers..\n");
+	env->sectors = NULL;
+	env->vertices = NULL;
+	env->sdl.window = NULL;
+	env->sdl.renderer = NULL;
+	env->sdl.surface = NULL;
+	env->sdl.texture = NULL;
+	env->sdl.font = NULL;
+	env->sdl.img_str = NULL;
 }
