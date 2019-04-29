@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/29 16:05:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:40:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,25 @@
 **	Check if a sector has duplicate vertices
 */
 
-int		check_vertices_uniqueness(t_env *env, t_sector sector)
+int		check_vertices_uniqueness(t_sector sector)
 {
-	(void)env;
-	(void)sector;
+	int	i;
+	int	j;
+	int	nb;
+
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		nb = sector.vertices[i];
+		j = i + 1;
+		while (j < sector.nb_vertices)
+		{
+			if (nb == sector.vertices[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
 	return (0);
 }
 
@@ -216,7 +231,7 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		i++;
 	}
 	env->sectors[num].vertices[vertices_count] = env->sectors[num].vertices[0];
-	if (check_vertices_uniqueness(env, env->sectors[num]))
+	if (check_vertices_uniqueness(env->sectors[num]))
 		return (ft_printf("Sector %d has duplicate vertices (line %d)\n", num, line_count));
 	if (check_sector_duplicate(env, env->sectors[num], num))
 		return (ft_printf("Sector %d already exists (line %d)\n", num, line_count));
