@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/29 14:02:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:32:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,89 @@ void	set_sectors_xmax(t_env *env)
 		}
 		i++;
 	}
+	return (0);
+}
+/*
+**	Check if a sector has duplicate vertices
+*/
+
+int		check_vertices_uniqueness(t_sector sector)
+{
+	int	i;
+	int	j;
+	int	nb;
+
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		nb = sector.vertices[i];
+		j = i + 1;
+		while (j < sector.nb_vertices)
+		{
+			if (nb == sector.vertices[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+/*
+**	Check if 2 sectors have exactly the same vertices
+*/
+int		sector_eq(t_sector s1, t_sector s2)
+{
+	int	i;
+
+	if (s1.nb_vertices != s2.nb_vertices)
+		return (0);
+	i = 0;
+	while (i < s1.nb_vertices)
+	{
+		if (s1.vertices[i] != s2.vertices[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+/*
+**	Check if the current sector already exists
+*/
+
+int		check_sector_duplicate(t_env *env, t_sector sector, int num)
+{
+	int			i;
+	t_sector	current;
+
+	i = 0;
+	while (i < num)
+	{
+		current = env->sectors[i];
+		if (sector_eq(sector, env->sectors[i]))
+			return (ft_printf("Sectors %d and %d are identical\n", sector.num, i));
+		i++;
+	}
+	return (0);
+}
+
+/*
+**	Chek if the current vertex already exists
+*/
+
+int		check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i < num)
+	{
+		if (vertex.x == env->vertices[i].x && vertex.y == env->vertices[i].y)
+			return (ft_printf("Vertices %d and %d are identical\n", vertex.num, i));
+		i++;
+	}
+	return (0);
 }
 
 char	*skip_number(char *line)
@@ -72,7 +155,6 @@ int		parse_vertex(t_env *env, char *line, int num, int line_count)
 	if (!*line)
 		return (ft_printf("Wrong number of coordinates at vertex %d (line %d)\n", num, line_count));
 	env->vertices[num].y = ft_atof(line);
-	//ft_printf("s = %s\nx = %f\n", line, ft_atof(line));
 	line = skip_number(line);
 	if (!*line)
 		return (ft_printf("Wrong number of coordinates at vertex %d (line %d)\n", num, line_count));
@@ -80,7 +162,8 @@ int		parse_vertex(t_env *env, char *line, int num, int line_count)
 	line = skip_number(line);
 	if (*line != '\0')
 		return (ft_printf("Too much data at vertex %d (line %d)\n", num, line_count));
-	//ft_printf(" y= %f\n", line, ft_atof(line));
+	if (check_vertex_duplicate(env, env->vertices[num], num))
+		return (ft_printf("Vertex %d already exists (line %d)\n", num, line_count));
 	return (0);
 }
 
@@ -167,6 +250,10 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		i++;
 	}
 	env->sectors[num].vertices[vertices_count] = env->sectors[num].vertices[0];
+	if (check_vertices_uniqueness(env->sectors[num]))
+		return (ft_printf("Sector %d has duplicate vertices (line %d)\n", num, line_count));
+	if (check_sector_duplicate(env, env->sectors[num], num))
+		return (ft_printf("Sector %d already exists (line %d)\n", num, line_count));
 	line = skip_spaces(line);
 	neighbors_count = count_neighbors(line);
 	if (neighbors_count < vertices_count)
@@ -321,7 +408,6 @@ int		parsing(int fd, t_env *env)
 	}
 	if (env->player.sector == -1)
 		return (ft_printf("You need to give player data\n"));
-	ft_printf("{reset}");
 	ft_strdel(&line);
 	set_sectors_xmax(env);
 	return (0);

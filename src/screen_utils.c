@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 15:37:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:09:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	update_screen(t_env *env)
 {
 	env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
+	SDL_DestroyTexture(env->sdl.texture);
 	SDL_RenderPresent(env->sdl.renderer);
 }
 

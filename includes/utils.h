@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 14:55:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:25:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,8 @@ int					init_ttf(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
+int					parsing(int fd, t_env *env);
+int					valid_map(t_env *env);
 
 /*
 ** Screen utils
@@ -215,7 +217,6 @@ void				fps(t_env *e);
 */
 
 int					draw(t_env *env);
-int					parsing(int fd, t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
 int					check_collision(t_env *env, double x_move, double y_move);
