@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/29 17:32:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:33:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	set_sectors_xmax(t_env *env)
 		}
 		i++;
 	}
-	return (0);
 }
 /*
 **	Check if a sector has duplicate vertices
