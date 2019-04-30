@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/30 16:27:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:53:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	parse_image_header(int fd, int debug, t_bmp_parser *parser)
 	ft_memdel((void**)&image_header);
 	if ((ret = read(fd, image_header, parser->image_header_size)) > 0)
 	{
+
 	}
 	return (0);
 }
