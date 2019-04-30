@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/30 12:06:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:37:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int		doom(int ac, char **av)
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	precompute_slopes(&env);
-	parse_bmp("images/w3c_home.bmp", &env);
+	if (parse_bmp("images/w3c_home.bmp", 1, &env))
+		return (crash("Invalid bmp file!\n", &env));
+	return (0);
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
 	env.player.size = 0.5;
