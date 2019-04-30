@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 17:25:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:55:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ typedef struct		s_sdl
 	int				mouse_y;
 	unsigned int	*img_str;
 	int				time;
+	SDL_Surface		*image;
+	unsigned int	*image_str;
 }					t_sdl;
 
 /*
@@ -231,5 +233,6 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				keys(t_env *env);
 void				move_player(t_env *env);
+int					parse_bmp(char *file, t_env *env);
 
 #endif
