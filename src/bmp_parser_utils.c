@@ -6,22 +6,17 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:46:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/30 15:40:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:46:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "bmp_parser.h"
 
-int		read_int(unsigned char *str, int index)
+int32_t		read_int(unsigned char *str, int index)
 {
-	int		res;
+	int32_t		res;
 
-	ft_printf("{reset}");
-	ft_printf("%d\n", str[index]);
-	ft_printf("%d\n", str[index + 1]);
-	ft_printf("%d\n", str[index + 2]);
-	ft_printf("%d\n", str[index + 3]);
 	res = str[index + 3] << 24
 		| str[index + 2] << 16
 		| str[index + 1] << 8
