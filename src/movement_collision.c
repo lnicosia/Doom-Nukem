@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/04/29 18:44:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/04/30 11:20:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,25 @@ int     check_inside_sector(t_env *env, double x, double y)
 
     i = 0;
     count = 0;
-    ft_printf("<------------------------------------------->\nchecking next sector\n");
+    //ft_printf("<------------------------------------------->\nchecking next sector\n");
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         start_pos = (x - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
         end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
         if (diff_sign(start_pos, end_pos) && in_range(y, Y1, Y2))
         {
-            ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
+            /*ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
             ft_printf("start_pos = %f\n", start_pos);
-            ft_printf("end_pos = %f\n", end_pos);
+            ft_printf("end_pos = %f\n", end_pos);*/
             count++;
         }
         i++;
     }
-    ft_printf("count = %d\n", count);
+    //ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
         return (0);
-        ft_printf("I'm out of the sector %d\n", env->player.sector);
+        //ft_printf("I'm out of the sector %d\n", env->player.sector);
     }
    // player_line = line_equation(env->player.pos.x, env->player.pos.y, env->player.pos.x + x_move, env->player.pos.y + y_move);
     return (1);
