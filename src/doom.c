@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 11:54:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:56:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		doom(int ac, char **av)
 	precompute_slopes(&env);
 	if (parse_bmp("images/w3c_home.bmp", &env))
 		return (crash("Invalid bmp file!\n", &env));
-	return (0);
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
 	env.player.size = 0.5;
@@ -47,14 +46,19 @@ int		doom(int ac, char **av)
 	{
 		clear_image(&env);
 		move_player(&env);
-		if (draw(&env) != 0)
-			return (crash("Render function failed\n", &env));
+		/*if (draw(&env) != 0)
+			return (crash("Render function failed\n", &env));*/
 		draw_crosshair(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
-		update_screen(&env);
+		//update_screen(&env);
+		//SDL_Renderer *renderer = SDL_CreateRenderer(env.sdl.window, -1, SDL_RENDERER_SOFTWARE);
+		SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
+		SDL_RenderCopy(env.sdl.renderer, texture, NULL, NULL);
+		SDL_DestroyTexture(texture);
+		SDL_RenderPresent(env.sdl.renderer);
 		while (SDL_PollEvent(&env.sdl.event))
 		{
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
