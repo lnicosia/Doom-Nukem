@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:16:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 14:08:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:23:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 		return (ft_printf("Image planes must be equal to 1 (%d)\n",
 					parser->planes));
 		parser->bpp = read_int16(str, 10);
-	if (parser->bpp != 32 && parser->bpp != 24)
+	if (parser->bpp != 32 && parser->bpp != 24 && parser->bpp != 16
+			&& parser->bpp != 8 && parser->bpp != 4 && parser->bpp != 1)
 		return (ft_printf("Bits per pixels must be equal to 32 or 24 (%d)\n",
 					parser->bpp));
 		if ((parser->compression = read_int32(str, 12)))

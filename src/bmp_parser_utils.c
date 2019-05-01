@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:46:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 15:07:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:25:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "bmp_parser.h"
 
 /*
-**	Read a integer of 32 bits
-**	TODO Better protection
-*/
+ **	Read a integer of 32 bits
+ **	TODO Better protection
+ */
 
 int32_t		read_int32(unsigned char *str, int index)
 {
@@ -35,9 +35,9 @@ int32_t		read_int32(unsigned char *str, int index)
 }
 
 /*
-**	Read a integer of 24 bits
-**	TODO Better protection
-*/
+ **	Read a integer of 24 bits
+ **	TODO Better protection
+ */
 
 int32_t		read_int24(unsigned char *str, int index)
 {
@@ -48,10 +48,10 @@ int32_t		read_int24(unsigned char *str, int index)
 		ft_printf("String is not well formated. Can not parse int\n");
 		return (0);
 	}
-	res = 0 << 24
-		| str[index + 2] << 16
-		| str[index + 1] << 8
-		| str[index + 0];
+	res = str[index + 2] << 24
+		| str[index + 1] << 16
+		| str[index + 0] << 8
+		| 0xFF;
 	return (res);
 }
 

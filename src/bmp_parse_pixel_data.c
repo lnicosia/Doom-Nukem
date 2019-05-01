@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 15:04:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:35:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env)
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((ret = read(fd, str, parser->w * parser->h * parser->bpp / 8)) > 0)
 	{
-		i = 0;
+		i = -4;
 		x = 0;
-		y = parser->h;
+		y = parser->h - 1;
 		while (i < parser->h * parser->w * parser->bpp / 8)
 		{
 			env->sdl.image_str[x + y * parser->w] = get_pixel(i, str, parser); 
-			//env->sdl.image_str[parser->h * parser->w - j] = get_pixel(i, str, parser); 
-			ft_printf("image[%d, %d] = %d\n", y, x, env->sdl.image_str[x + y * parser->w]);
 			i += parser->bpp / 8;
 			x++;
 			if (x >= parser->w)
