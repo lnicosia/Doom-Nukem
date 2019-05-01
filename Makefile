@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/04/30 14:47:38 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/05/01 11:54:16 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  options.c render_maths.c draw_functions.c minimap.c fps.c \
 		  init_ttf.c get_slope.c movement_collision.c print_text.c \
 		  vector_utils.c inputs.c init_keys.c init_pointers.c valid_map.c \
-		  bmp_parser.c bmp_parser_utils.c
+		  bmp_parser.c bmp_parser_utils.c check_bmp_parsing.c
 
 HEADERS = utils.h render.h
 
