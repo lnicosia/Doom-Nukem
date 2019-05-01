@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 18:21:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:21:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	move_player(t_env *env)
 {
 	t_sector	sector;
 	t_vertex	v0;
+	double		tmp_speed;
 
+	tmp_speed = env->player.speed;
 	if (env->inputs.forward)
 	{	
 		if (check_collision(env, env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed) == 1)
@@ -54,6 +56,7 @@ void	move_player(t_env *env)
 			env->player.pos.y += env->player.angle_cos * env->player.speed;
 		}
 	}
+	env->player.speed = tmp_speed;
 	sector = env->sectors[env->player.sector];
 	v0 = env->vertices[sector.vertices[0]];
 	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;

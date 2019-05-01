@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/04/29 18:44:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/01 16:19:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,32 @@ int     in_range(double nb, double val1, double val2)
     return (0);
 }
 
-int     diff_sign(double nb1, double nb2)
+int     diff_sign(double nb1, double nb2, t_env *env)
 {
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
+     if (nb1 == 0)
+     {
+        env->player.speed = env->player.speed;
+        ft_printf("<--->\nnb1 = 0\n<--->\n");
+        return (0);
+     }
+    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0))
         return (0);
     return (1);
 }
 
-int     check_wall(t_env *env, int i)
+int     check_wall(t_env *env, int i, double future_x, double future_y)
 {
     if ((PLAYER_XPOS >= X1 && PLAYER_XPOS <= X2) || (PLAYER_XPOS >= X2 && PLAYER_XPOS <= X1))
         return (1);
     if ((PLAYER_YPOS >= Y1 && PLAYER_YPOS <= Y2) || (PLAYER_YPOS >= Y2 && PLAYER_YPOS <= Y1))
         return (1);
+    if (env->options.test)
+    {
+        if ((future_y >= Y1 && future_y <= Y2) || (future_y >= Y2 && future_y <= Y1))
+            return (1);
+        if ((future_x >= X1 && future_x <= X2) || (future_x >= X2 && future_x <= X1))
+            return (1);
+    }
     return (0);
 }
 
@@ -58,16 +71,16 @@ int     check_inside_sector(t_env *env, double x, double y)
 
     i = 0;
     count = 0;
-    ft_printf("<------------------------------------------->\nchecking next sector\n");
+    ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         start_pos = (x - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
         end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos) && in_range(y, Y1, Y2))
+        if (diff_sign(start_pos, end_pos, env) && in_range(y, Y1, Y2))
         {
-            ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
-            ft_printf("start_pos = %f\n", start_pos);
-            ft_printf("end_pos = %f\n", end_pos);
+            //ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
+            /* ft_printf("start_pos = %f\n", start_pos);
+            ft_printf("end_pos = %f\n", end_pos); */
             count++;
         }
         i++;
@@ -75,8 +88,8 @@ int     check_inside_sector(t_env *env, double x, double y)
     ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
-        return (0);
         ft_printf("I'm out of the sector %d\n", env->player.sector);
+        return (0);
     }
    // player_line = line_equation(env->player.pos.x, env->player.pos.y, env->player.pos.x + x_move, env->player.pos.y + y_move);
     return (1);
@@ -112,9 +125,14 @@ int     check_collision(t_env *env, double x_move, double y_move)
         */
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
         end_pos = (future_x - X1) * (Y2 - Y1) - (future_y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos) && check_wall(env, i) && env->sectors[env->player.sector].neighbors[i] < 0)
+        if (end_pos == 0)
+        {
+                env->player.speed = env->player.speed * 0.7;
+                return (check_collision(env, x_move * 0.7, y_move * 0.7));
+        }
+        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] < 0)
             return (0);
-        else if (diff_sign(start_pos, end_pos) && check_wall(env, i) && env->sectors[env->player.sector].neighbors[i] >= 0)
+        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] >= 0)
         {
             env->player.old_sector = env->player.sector;
             env->player.sector = env->sectors[env->player.sector].neighbors[i];
