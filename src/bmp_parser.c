@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/02 11:58:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/02 16:26:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static int	parse(int fd, t_env *env)
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
 	env->sdl.image_str = env->sdl.image->pixels;
 	if (parser.color_used)
+	{
 		if (parse_color_table(fd, &parser))
 			return (ft_printf("Error in color table\n"));
+	}
 	if (parse_pixel_data(fd, &parser, env))
 		return (ft_printf("Error in pixel data\n"));
 	check_bmp_parsing(parser);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 11:53:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 14:08:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/02 16:27:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void	check_bmp_parsing(t_bmp_parser parser)
 {
+	int	i;
+
+	i = 0;
 	ft_printf("{yellow}");
 	ft_printf("File size = %d bytes\n", parser.size);
 	ft_printf("Image offset = %d\n", parser.start);
@@ -29,5 +32,10 @@ void	check_bmp_parsing(t_bmp_parser parser)
 	ft_printf("Y pixels per meter = %d\n", parser.ypixels_per_meter);
 	ft_printf("Color map entries = %d\n", parser.color_used);
 	ft_printf("Significant colors = %d\n", parser.color_important);
+	while (i < parser.color_used)
+	{
+		ft_printf("Color %d = 0x%x\n", i, parser.colors[i]);
+		i++;
+	}
 	ft_printf("{reset}");
 }

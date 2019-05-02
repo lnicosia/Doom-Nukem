@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/02 11:59:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:01:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,36 @@
 
 typedef struct	s_bmp_parser
 {
-	int32_t		size;
-	int32_t		start;
-	int32_t		image_header_size;
-	int32_t		w;
-	int32_t		h;
-	int16_t		planes;
-	int16_t		bpp;
-	int32_t		compression;
-	int32_t		image_size;
-	int32_t		xpixels_per_meter;
-	int32_t		ypixels_per_meter;
-	int32_t		color_used;
-	int32_t		color_important;
+	int32_t			size;
+	int32_t			start;
+	int32_t			image_header_size;
+	int32_t			w;
+	int32_t			h;
+	int16_t			planes;
+	int16_t			bpp;
+	int32_t			compression;
+	int32_t			image_size;
+	int32_t			xpixels_per_meter;
+	int32_t			ypixels_per_meter;
+	int32_t			color_used;
+	int32_t			color_important;
+	unsigned int	*colors;
 }				t_bmp_parser;
 
 int32_t				read_int32(unsigned char *str, int index);
+int32_t				read_int32_swaped(unsigned char *str, int index);
 int32_t				read_int24(unsigned char *str, int index);
 int32_t				read_int16(unsigned char *str, int index);
-int32_t				read_int8(unsigned char *str, int index);
-int32_t				read_int4(unsigned char *str, double index);
-int32_t				read_int1(unsigned char *str, double index);
+int32_t				read_int8(unsigned char *str, int index,
+		unsigned int *colors);
+int32_t				read_int4(unsigned char *str, double index,
+		unsigned int *colors);
+int32_t				read_int1(unsigned char *str, double index,
+		unsigned int *colors);
 void				check_bmp_parsing(t_bmp_parser parser);
 int					parse_file_header(int fd, t_bmp_parser *parser);
-int					get_image_header_data(unsigned char *str, t_bmp_parser *parser);
+int					get_image_header_data(unsigned char *str,
+		t_bmp_parser *parser);
 int					parse_image_header(int fd, t_bmp_parser *parser);
 int					parse_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
