@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:01:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:45:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int     diff_sign(double nb1, double nb2, t_env *env)
         return (0);
      }
     if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0))
+        return (0);
+    return (1);
+}
+
+int     check_ceiling(t_env *env, t_movement motion)
+{
+    FUTURE_Z = 6 + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
+    if (FUTURE_Z > env->sectors[env->player.sector].ceiling + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].ceiling_slope - 1)
         return (0);
     return (1);
 }
@@ -82,7 +90,7 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
     return (1);
 }
 
-int     check_collision_rec(t_env *env, t_movement motion)
+int     check_collision_rec(t_env *env, t_movement motion, t_sector sector)
 {
     short   i;
     double  start_pos;
@@ -99,7 +107,7 @@ int     check_collision_rec(t_env *env, t_movement motion)
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;
-                return (check_collision_rec(env, motion));
+                return (check_collision_rec(env, motion, sector));
         }
         if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0 
             && diff_value(motion.wall_v1 , motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num,  env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
@@ -119,16 +127,7 @@ int     check_collision_rec(t_env *env, t_movement motion)
     return (1);
 }
 
-t_line_eq  line_equation(double x1, double y1, double x2, double y2)
-{
-    t_line_eq  line_eq;
-
-    line_eq.a = (y2 - y1) / (x2 - x1);
-    line_eq.b = y1 - line_eq.a * x1;
-    return (line_eq);
-}
-
-int     check_inside_sector(t_env *env, t_movement motion)
+int     check_inside_sector(t_env *env, t_movement motion, t_sector sector)
 {
     int     count;
     int     i;
@@ -157,7 +156,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
         //ft_printf("I'm out of the sector %d\n", env->player.sector);
         if (env->options.test)
         {
-            if (check_collision_rec(env, motion))
+            if (check_collision_rec(env, motion, sector))
                 return (1);
         }
         return (0);
@@ -166,7 +165,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
     return (1);
 }
 
-int     check_collision(t_env *env, double x_move, double y_move)
+int     check_collision(t_env *env, double x_move, double y_move, t_sector sector)
 {
     short   i;
     t_movement  motion;
@@ -181,6 +180,8 @@ int     check_collision(t_env *env, double x_move, double y_move)
     /*
     **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
     */
+    if (check_ceiling(env, motion) == 0)
+        return (0);
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         /*
@@ -198,7 +199,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;
-                return (check_collision(env, x_move * 0.7, y_move * 0.7));
+                return (check_collision(env, x_move * 0.7, y_move * 0.7, sector));
         }
         if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0)
             return (0);
@@ -208,7 +209,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
             motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
             motion.old_sector = env->player.sector;
             env->player.sector = NEIGHBOR;
-            if (!check_inside_sector(env, motion))
+            if (!check_inside_sector(env, motion, sector) || !check_ceiling(env, motion))
             {
                 env->player.sector = motion.old_sector;
                 return (0);
