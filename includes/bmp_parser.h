@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/02 17:01:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:52:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,23 @@ typedef struct	s_bmp_parser
 }				t_bmp_parser;
 
 int32_t				read_int32(unsigned char *str, int index);
-int32_t				read_int32_swaped(unsigned char *str, int index);
-int32_t				read_int24(unsigned char *str, int index);
 int32_t				read_int16(unsigned char *str, int index);
-int32_t				read_int8(unsigned char *str, int index,
+int32_t				read_int32_swaped(unsigned char *str, int index);
+uint32_t			read_color32(unsigned char *str, int index);
+uint32_t			read_color24(unsigned char *str, int index);
+uint32_t			read_color16(unsigned char *str, int index);
+uint32_t			read_color8(unsigned char *str, int index,
+		t_bmp_parser *parser);
+uint32_t			read_color4(unsigned char *str, double index,
 		unsigned int *colors);
-int32_t				read_int4(unsigned char *str, double index,
-		unsigned int *colors);
-int32_t				read_int1(unsigned char *str, double index,
+uint32_t			read_color1(unsigned char *str, double index,
 		unsigned int *colors);
 void				check_bmp_parsing(t_bmp_parser parser);
 int					parse_file_header(int fd, t_bmp_parser *parser);
 int					get_image_header_data(unsigned char *str,
 		t_bmp_parser *parser);
 int					parse_image_header(int fd, t_bmp_parser *parser);
-int					parse_color_table(int fd, t_bmp_parser *parser);
+int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env);
 

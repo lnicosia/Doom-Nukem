@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/02 16:26:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:56:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	parse(int fd, t_env *env)
 		return (ft_printf("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (ft_printf("Error in image header\n"));
+	check_bmp_parsing(parser);
+	ft_printf("{red}");
 	if (!(env->sdl.image = SDL_CreateRGBSurfaceWithFormat(
 					0,
 					parser.w,
@@ -38,11 +40,12 @@ static int	parse(int fd, t_env *env)
 					SDL_PIXELFORMAT_RGBA8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
 	env->sdl.image_str = env->sdl.image->pixels;
-	if (parser.color_used)
+	if (parser.color_used || parser.bpp <= 8)
 	{
-		if (parse_color_table(fd, &parser))
+		if (set_color_table(fd, &parser))
 			return (ft_printf("Error in color table\n"));
 	}
+	check_bmp_parsing(parser);
 	if (parse_pixel_data(fd, &parser, env))
 		return (ft_printf("Error in pixel data\n"));
 	check_bmp_parsing(parser);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:16:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/02 10:26:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:13:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 	if ((parser->w = read_int32(str, 0)) <= 0)
 		return (ft_printf("Image width is too small (%d)\n",
 					parser->w));
-		if ((parser->h = read_int32(str, 4)) <= 0)
+		if (ft_abs(parser->h = read_int32(str, 4)) <= 0)
 		return (ft_printf("Image height is too small (%d)\n",
 					parser->h));
 		if ((parser->planes = read_int16(str, 8)) != 1)
