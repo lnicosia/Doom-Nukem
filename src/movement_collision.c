@@ -6,11 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/02 19:26:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:54:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "collision.h"
 
 int     in_range(double nb, double val1, double val2)
 {
@@ -44,20 +45,20 @@ int     diff_sign(double nb1, double nb2, t_env *env)
     return (1);
 }
 
-int     check_wall(t_env *env, int i, double future_x, double future_y)
+int     check_wall(t_env *env, int i, t_movement motion)
 {
     if ((PLAYER_XPOS >= X1 && PLAYER_XPOS <= X2) || (PLAYER_XPOS >= X2 && PLAYER_XPOS <= X1))
         return (1);
     if ((PLAYER_YPOS >= Y1 && PLAYER_YPOS <= Y2) || (PLAYER_YPOS >= Y2 && PLAYER_YPOS <= Y1))
         return (1);
-    if ((future_y >= Y1 && future_y <= Y2) || (future_y >= Y2 && future_y <= Y1))
+    if ((motion.future_y >= Y1 && motion.future_y <= Y2) || (motion.future_y >= Y2 && motion.future_y <= Y1))
         return (1);
-    if ((future_x >= X1 && future_x <= X2) || (future_x >= X2 && future_x <= X1))
+    if ((motion.future_x >= X1 && motion.future_x <= X2) || (motion.future_x >= X2 && motion.future_x <= X1))
         return (1);
     return (0);
 }
 
-int     check_inside_sector_bis(t_env *env, double x, double y)
+int     check_inside_sector_bis(t_env *env, t_movement motion)
 {
     int     count;
     int     i;
@@ -67,24 +68,21 @@ int     check_inside_sector_bis(t_env *env, double x, double y)
     i = 0;
     count = 0;
     ft_printf("inside sector bis: %d\n", env->player.sector);
-    while (i < env->sectors[env->player.sector].nb_vertices)
+    while (i < VERTICES_AMOUNT)
     {
-        start_pos = (x - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
-        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(y, Y1, Y2))
-        {
+        start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        if (diff_sign(start_pos, end_pos, env) && in_range(motion.future_y, Y1, Y2))
             count++;
-        }
         i++;
     }
     ft_printf("count %d\n", count);
     if (count % 2 == 0)
         return (0);
-    //player_line = line_equation(env->player.pos.x, env->player.pos.y, env->player.pos.x + x_move, env->player.pos.y + y_move);
     return (1);
 }
 
-int     check_collision_rec(t_env *env, double future_x, double future_y)
+int     check_collision_rec(t_env *env, t_movement motion)
 {
     short   i;
     double  start_pos;
@@ -94,25 +92,25 @@ int     check_collision_rec(t_env *env, double future_x, double future_y)
     if (env->options.wall_lover == 1)
         return (1);
     ft_printf("collision rec\n");
-    while (i < env->sectors[env->player.sector].nb_vertices)
+    while (i < VERTICES_AMOUNT)
     {
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
-        end_pos = (future_x - X1) * (Y2 - Y1) - (future_y - Y1) * (X2 - X1);
+        end_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;
-                return (check_collision_rec(env, future_x * 0.7, future_y * 0.7));
+                return (check_collision_rec(env, motion));
         }
-        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] < 0 
-            && diff_value(env->player.wall_v1 , env->player.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num,  env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
+        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0 
+            && diff_value(motion.wall_v1 , motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num,  env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
             return (0);
-        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] >= 0
-         && diff_value(env->player.wall_v1, env->player.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
+        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR >= 0
+         && diff_value(motion.wall_v1, motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
         {
-            env->player.sector = env->sectors[env->player.sector].neighbors[i];
+            env->player.sector = NEIGHBOR;
             env->player.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
             env->player.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
-            if (!check_inside_sector_bis(env, future_x, future_y))
+            if (!check_inside_sector_bis(env, motion))
                 return (0);
             return (1);
         }
@@ -130,7 +128,7 @@ t_line_eq  line_equation(double x1, double y1, double x2, double y2)
     return (line_eq);
 }
 
-int     check_inside_sector(t_env *env, double x, double y)
+int     check_inside_sector(t_env *env, t_movement motion)
 {
     int     count;
     int     i;
@@ -140,11 +138,11 @@ int     check_inside_sector(t_env *env, double x, double y)
     i = 0;
     count = 0;
     ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
-    while (i < env->sectors[env->player.sector].nb_vertices)
+    while (i < VERTICES_AMOUNT)
     {
-        start_pos = (x - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
-        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(y, Y1, Y2))
+        start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        if (diff_sign(start_pos, end_pos, env) && in_range(motion.future_y, Y1, Y2))
         {
             //ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
             /* ft_printf("start_pos = %f\n", start_pos);
@@ -159,7 +157,7 @@ int     check_inside_sector(t_env *env, double x, double y)
         ft_printf("I'm out of the sector %d\n", env->player.sector);
         if (env->options.test)
         {
-            if (check_collision_rec(env, x, y))
+            if (check_collision_rec(env, motion))
                 return (1);
         }
         return (0);
@@ -171,16 +169,15 @@ int     check_inside_sector(t_env *env, double x, double y)
 int     check_collision(t_env *env, double x_move, double y_move)
 {
     short   i;
-    double  future_x;
-    double  future_y;
+    t_movement  motion;
     double  start_pos;
     double  end_pos;
 
     i = 0;
     if (env->options.wall_lover == 1)
         return (1);
-    future_x = env->player.pos.x + x_move;
-    future_y = env->player.pos.y + y_move;
+    motion.future_x = env->player.pos.x + x_move;
+    motion.future_y = env->player.pos.y + y_move;
     /*
     **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
     */
@@ -197,32 +194,28 @@ int     check_collision(t_env *env, double x_move, double y_move)
         ** Et finalement on regarde si c'est un mur ou un portail
         */
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
-        end_pos = (future_x - X1) * (Y2 - Y1) - (future_y - Y1) * (X2 - X1);
+        end_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;
                 return (check_collision(env, x_move * 0.7, y_move * 0.7));
         }
-        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] < 0)
+        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0)
             return (0);
-        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, future_x, future_y) && env->sectors[env->player.sector].neighbors[i] >= 0)
+        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR >= 0)
         {
-            env->player.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
-            env->player.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
-            env->player.old_sector = env->player.sector;
-            env->player.sector = env->sectors[env->player.sector].neighbors[i];
-            if (!check_inside_sector(env, future_x, future_y))
+            motion.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
+            motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
+            motion.old_sector = env->player.sector;
+            env->player.sector = NEIGHBOR;
+            if (!check_inside_sector(env, motion))
             {
-                env->player.sector = env->player.old_sector;
+                env->player.sector = motion.old_sector;
                 return (0);
             }
             return (1);
         }
         i++;
-        /*
-        ** Pour proteger les angles entre un mur et un portail il faudrait vérifier que le point d'arrivée du joueur
-        ** est bien a l'interieur du secteur relié a ce portail
-        */
     }
     return (1);
 }

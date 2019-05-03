@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/29 17:33:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:04:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int		parse_player(t_env *env, char *line, int line_count)
 	env->player.pos.x = ft_atof(line);
 	line = skip_number(line);
 	env->player.angle = ft_atof(line);
+	env->player.angle_z = 0;
 	line = skip_number(line);
 	env->player.sector = ft_atoi(line);
 	if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
