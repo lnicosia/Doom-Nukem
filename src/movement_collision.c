@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/03 16:56:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:01:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int     check_wall(t_env *env, int i, t_movement motion)
         return (1);
     if ((PLAYER_YPOS >= Y1 && PLAYER_YPOS <= Y2) || (PLAYER_YPOS >= Y2 && PLAYER_YPOS <= Y1))
         return (1);
-    if ((motion.future_y >= Y1 && motion.future_y <= Y2) || (motion.future_y >= Y2 && motion.future_y <= Y1))
+    if ((FUTURE_Y >= Y1 && FUTURE_Y <= Y2) || (FUTURE_Y >= Y2 && FUTURE_Y <= Y1))
         return (1);
-    if ((motion.future_x >= X1 && motion.future_x <= X2) || (motion.future_x >= X2 && motion.future_x <= X1))
+    if ((FUTURE_X >= X1 && FUTURE_X <= X2) || (FUTURE_X >= X2 && FUTURE_X <= X1))
         return (1);
     return (0);
 }
@@ -70,9 +70,9 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
     //ft_printf("inside sector bis: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
-        start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
-        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(motion.future_y, Y1, Y2))
+        start_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
+        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
+        if (diff_sign(start_pos, end_pos, env) && in_range(FUTURE_Y, Y1, Y2))
             count++;
         i++;
     }
@@ -95,7 +95,7 @@ int     check_collision_rec(t_env *env, t_movement motion)
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
-        end_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        end_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;
@@ -140,9 +140,9 @@ int     check_inside_sector(t_env *env, t_movement motion)
     //ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
-        start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
-        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(motion.future_y, Y1, Y2))
+        start_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
+        end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
+        if (diff_sign(start_pos, end_pos, env) && in_range(FUTURE_Y, Y1, Y2))
         {
             //ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
             /* ft_printf("start_pos = %f\n", start_pos);
@@ -176,8 +176,8 @@ int     check_collision(t_env *env, double x_move, double y_move)
     i = 0;
     if (env->options.wall_lover == 1)
         return (1);
-    motion.future_x = env->player.pos.x + x_move;
-    motion.future_y = env->player.pos.y + y_move;
+    FUTURE_X = env->player.pos.x + x_move;
+    FUTURE_Y = env->player.pos.y + y_move;
     /*
     **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
     */
@@ -194,7 +194,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
         ** Et finalement on regarde si c'est un mur ou un portail
         */
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
-        end_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
+        end_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         if (end_pos == 0)
         {
                 env->player.speed = env->player.speed * 0.7;

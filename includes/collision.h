@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/03 15:55:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:59:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
+# define FUTURE_X motion.future_x
+# define FUTURE_Y motion.future_y
 # define VERTICES_AMOUNT env->sectors[env->player.sector].nb_vertices
 # define NEIGHBOR env->sectors[env->player.sector].neighbors[i]
 # define PLAYER_XPOS env->player.pos.x
