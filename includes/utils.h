@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 15:56:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:53:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,8 @@ typedef struct		s_player
 	double			angle_sin;
 	double			angle_z;
 	short			sector;
-	short			old_sector;
 	double			speed;
 	double			size;
-	int				wall_v1;
-	int				wall_v2;
 }					t_player;
 
 /*
@@ -222,8 +219,6 @@ void				fps(t_env *e);
 int					draw(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
-/* int					check_collision(t_env *env, double x_move, double y_move);
-int     			check_inside_sector(t_env *env, double x, double y); */
 void				minimap(t_env *e);
 void				view(t_env *env);
 

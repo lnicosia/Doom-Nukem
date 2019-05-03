@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/03 15:54:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:56:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
 
     i = 0;
     count = 0;
-    ft_printf("inside sector bis: %d\n", env->player.sector);
+    //ft_printf("inside sector bis: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
@@ -76,7 +76,7 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
             count++;
         i++;
     }
-    ft_printf("count %d\n", count);
+    //ft_printf("count %d\n", count);
     if (count % 2 == 0)
         return (0);
     return (1);
@@ -91,7 +91,7 @@ int     check_collision_rec(t_env *env, t_movement motion)
     i = 0;
     if (env->options.wall_lover == 1)
         return (1);
-    ft_printf("collision rec\n");
+    //ft_printf("collision rec\n");
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
@@ -108,8 +108,8 @@ int     check_collision_rec(t_env *env, t_movement motion)
          && diff_value(motion.wall_v1, motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
         {
             env->player.sector = NEIGHBOR;
-            env->player.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
-            env->player.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
+            motion.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
+            motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
             if (!check_inside_sector_bis(env, motion))
                 return (0);
             return (1);
@@ -137,7 +137,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
 
     i = 0;
     count = 0;
-    ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
+    //ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (motion.future_x - X1) * (Y2 - Y1) - (motion.future_y - Y1) * (X2 - X1);
@@ -151,10 +151,10 @@ int     check_inside_sector(t_env *env, t_movement motion)
         }
         i++;
     }
-    ft_printf("count = %d\n", count);
+    //ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
-        ft_printf("I'm out of the sector %d\n", env->player.sector);
+        //ft_printf("I'm out of the sector %d\n", env->player.sector);
         if (env->options.test)
         {
             if (check_collision_rec(env, motion))
