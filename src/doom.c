@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 12:26:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:48:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int		doom(int ac, char **av)
 	if (init_ttf(&env))
 		return (crash("Could not initialize fonts!\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parsing(open("maps/piece.map", O_RDONLY), &env))
+	if (parsing(open(av[1], O_RDONLY), &env))
 		return (crash("Parsing error!\n", &env));
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	precompute_slopes(&env);
-	if (parse_bmp(av[1], &env))
-		return (crash("Invalid bmp file!\n", &env));
+	/*if (parse_bmp(av[1], &env))
+		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
 	env.player.size = 0.5;
@@ -46,19 +46,19 @@ int		doom(int ac, char **av)
 	{
 		clear_image(&env);
 		move_player(&env);
-		/*if (draw(&env) != 0)
-			return (crash("Render function failed\n", &env));*/
+		if (draw(&env) != 0)
+			return (crash("Render function failed\n", &env));
 		draw_crosshair(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
-		//update_screen(&env);
-		//SDL_Renderer *renderer = SDL_CreateRenderer(env.sdl.window, -1, SDL_RENDERER_SOFTWARE);
-		SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
+		update_screen(&env);
+		// BMP parser
+		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
 		SDL_RenderCopy(env.sdl.renderer, texture, NULL, NULL);
 		SDL_DestroyTexture(texture);
-		SDL_RenderPresent(env.sdl.renderer);
+		SDL_RenderPresent(env.sdl.renderer);*/
 		while (SDL_PollEvent(&env.sdl.event))
 		{
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))

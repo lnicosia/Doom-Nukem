@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 12:13:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:52:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@
 # define VFOV	0.2
 # include "utils.h"
 # define vxs(x0,y0, x1,y1)    ((x0)*(y1) - (x1)*(y0))
+
+/*
+**	Camera values
+*/
+
+typedef struct		s_camera
+{
+	double			near;
+	double			far;
+}					t_camera;
 
 typedef struct		s_line
 {
