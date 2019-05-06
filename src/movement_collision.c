@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/03 18:45:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:06:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ int     check_ceiling(t_env *env, t_movement motion)
     return (1);
 }
 
+int     check_floor(t_env *env, t_movement motion)
+{
+    FUTURE_Z = 6 + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
+    if (env->player.pos.z + 2 < FUTURE_Z)
+    {
+       // ft_printf("current z pos %f\n future Z %f\n", env->player.pos.z, FUTURE_Z);
+        return (0);
+    }
+    return (1);
+}
+
 int     check_wall(t_env *env, int i, t_movement motion)
 {
     if ((PLAYER_XPOS >= X1 && PLAYER_XPOS <= X2) || (PLAYER_XPOS >= X2 && PLAYER_XPOS <= X1))
@@ -85,7 +96,7 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
         i++;
     }
     //ft_printf("count %d\n", count);
-    if (count % 2 == 0)
+    if (count % 2 == 0 || !check_floor(env, motion))
         return (0);
     return (1);
 }
@@ -99,6 +110,7 @@ int     check_collision_rec(t_env *env, t_movement motion, t_sector sector)
     i = 0;
     if (env->options.wall_lover == 1)
         return (1);
+    env->player.pos.z = 6 + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
     //ft_printf("collision rec\n");
     while (i < VERTICES_AMOUNT)
     {
@@ -118,7 +130,7 @@ int     check_collision_rec(t_env *env, t_movement motion, t_sector sector)
             env->player.sector = NEIGHBOR;
             motion.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
             motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
-            if (!check_inside_sector_bis(env, motion))
+            if (!check_inside_sector_bis(env, motion) || !check_floor(env, motion))
                 return (0);
             return (1);
         }
@@ -154,13 +166,12 @@ int     check_inside_sector(t_env *env, t_movement motion, t_sector sector)
     if (count % 2 == 0)
     {
         //ft_printf("I'm out of the sector %d\n", env->player.sector);
-        if (env->options.test)
-        {
-            if (check_collision_rec(env, motion, sector))
-                return (1);
-        }
+        if (check_collision_rec(env, motion, sector))
+            return (1);
         return (0);
     }
+    else if (!check_floor(env, motion))
+        return (0);
    // player_line = line_equation(env->player.pos.x, env->player.pos.y, env->player.pos.x + x_move, env->player.pos.y + y_move);
     return (1);
 }
@@ -180,7 +191,7 @@ int     check_collision(t_env *env, double x_move, double y_move, t_sector secto
     /*
     **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
     */
-    if (check_ceiling(env, motion) == 0)
+    if (!check_ceiling(env, motion) || !check_floor(env, motion))
         return (0);
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
@@ -208,10 +219,12 @@ int     check_collision(t_env *env, double x_move, double y_move, t_sector secto
             motion.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
             motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
             motion.old_sector = env->player.sector;
+            motion.old_z = env->player.pos.z;
             env->player.sector = NEIGHBOR;
             if (!check_inside_sector(env, motion, sector) || !check_ceiling(env, motion))
             {
                 env->player.sector = motion.old_sector;
+                env->player.pos.z = motion.old_z;
                 return (0);
             }
             return (1);
