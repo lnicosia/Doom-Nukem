@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/07 12:08:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:57:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,14 @@ void	draw_player(t_env *env)
 	line.x1 = cos(env->player.angle) * factor2 + line.x0;
 	line.y1 = sin(env->player.angle) * factor2 + line.y0;
 	line.color = 0xFFFFFFFF;
+	draw_line_3(env, line);
+
+	line.x0 = env->w - 150;
+	line.y0 = 150;
+	//ft_printf("hfov = %f\n", 
+	line.x1 = (cos(env->player.angle) + cos(env->options.hfov / 2 * M_PI / 180.0)) * factor2 + line.x0;
+	line.y1 = (sin(env->player.angle) + sin(env->options.hfov / 2 * M_PI / 180.0)) * factor2 + line.y0;
+	line.color = 0xFF0000FF;
 	draw_line_3(env, line);
 	//ft_printf("%f\n", env->player.angle);
 }
