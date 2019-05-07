@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 14:28:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:04:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ int		doom(int ac, char **av)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
-	env.options.hfov = 110;
+	env.options.hfov = 90;
 	env.options.vfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.hfov / 2)) / ((double)env.w / (double)env.h)) * 2;
 	//env.options.hfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.vfov / 2)) * ((double)env.w / (double)env.h)) * 2;
-	ft_printf("Hfov = %f, Vfov = %f\n", env.options.hfov, env.options.vfov);
 	env.running = 1;
 	init_pointers(&env);
 	init_options(&env);
@@ -57,6 +56,8 @@ int		doom(int ac, char **av)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
+		if (env.options.test)
+			print_text(new_v2(0, 1300), new_printable_text("TEST", "fonts/amazdoom/AmazDooMLeft.ttf", 0xFFFFFFFF, 20), &env);
 		update_screen(&env);
 		// BMP parser
 		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);

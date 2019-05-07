@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 14:12:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 16:14:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		init_sdl(t_env *env)
 					-1,
 					SDL_RENDERER_SOFTWARE)))
 		return (ft_printf("SDL_CreateRenderer error: %s\n", SDL_GetError()));
+	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
+		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/
 	if (!(env->sdl.surface = SDL_CreateRGBSurfaceWithFormat(
 					0,
 					env->w,
@@ -37,6 +39,8 @@ int		init_sdl(t_env *env)
 					32,
 					SDL_PIXELFORMAT_RGBA8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
+	if (SDL_SetSurfaceBlendMode(env->sdl.surface, SDL_BLENDMODE_BLEND))
+		return (ft_printf("SDL_SurfaceDrawBlendMode error: %s\n", SDL_GetError()));
 	env->sdl.img_str = env->sdl.surface->pixels;
 	clear_image(env);
 	if (!(env->sdl.texture = SDL_CreateTextureFromSurface(

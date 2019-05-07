@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 14:17:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:37:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ t_printable_text	new_printable_text(
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
 void				fps(t_env *e);
+void				fill_triangle(t_v3 v[3], t_env *env);
 
 /*
 ** Main pipeline functions
