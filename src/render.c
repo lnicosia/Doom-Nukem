@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 15:00:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:06:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 
 			// On continue que si au moins une des deux profondeurs est positive
 			// (= mur devant le joueur)
-			if (render.vz1 > 1 || render.vz2 > 1)
+			if (render.vz1 > 0 || render.vz2 > 0)
 			{
 				// Calculer le cliping
-				if(render.vz1 <= 1 || render.vz2 <= 1)
+				if(render.vz1 <= 0 || render.vz2 <= 0)
 				{
 					render.clipped = 1;
 					t_v2	new_vz1;
 					t_v2	new_vz2;
-					render.near_z = 1;
+					render.near_z = 0.0001;
 					render.far_z = 2;
 					render.near_side = 0.0001;
 					render.far_side = 7.3;
