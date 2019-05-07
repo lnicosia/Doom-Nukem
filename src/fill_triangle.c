@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:18:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 16:29:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:54:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ float	edge(t_v3 c0, t_v3 c1, t_v3 p)
 void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 {
 	t_v3	w;
-	//float		z;
 	double		norm;
 	double		area;
-	//float		light;
 
 	area = edge(v[0], v[1], v[2]);
 	w.x = edge(v[0], v[1], new_v3(p.x, p.y, 0));
@@ -69,24 +67,14 @@ void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 						* (v[2].x - v[0].x)) > 0 ? 1 : -1;
 	if ((norm == -1 && w.x >= 0 && w.y >= 0 && w.z >= 0) ||
 			(norm == 1 && w.x <= 0 && w.y <= 0 && w.z <= 0))
-	//{
-	//if (w.x >= 0 && w.y >= 0 && w.z >= 0)
 	{
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		//z = -(v[2].z + w.y * data->c0_c2 + w.z * data->c1_c2);
-		data->sdl.img_str[(int)p.x + (int)p.y * data->w] += 0xFF000005;
-		//z = -(v[2].z + w.y * data->c0_c2 + w.z * data->c1_c2);
-		//light = ft_fabs(-z - data->fzmin) / data->light_range;
-		//if (data->config.debug == 1)
-		//	light = light * 255;
-		//if (z < data->zbuffer[p.x + p.y * data->config.s_width])
-		//{
-			//data->zbuffer[p.x + p.y * data->config.s_width] = z;
-			//set_pixel(p, light, data);
-		//}
-	//}
+		if (data->sdl.img_str[(int)p.x + (int)p.y * data->w] == 0xFF)
+			data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 0x3a7499FF;
+		/*data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 
+			blend_alpha(data->sdl.img_str[(int)p.x + (int)p.y * data->w], 0x3a7499FF, 128);*/
 	}
 }
 

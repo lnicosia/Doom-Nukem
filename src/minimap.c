@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/07 15:53:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:36:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,10 +244,10 @@ void	minimap(t_env *env)
 					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
 				}
 				//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
-				if (sect.neighbors[v] == -1)
+				//if (sect.neighbors[v] == -1)
 					line.color = 0xFFFFFFFF;
-				else
-					line.color = 0x990000FF;
+				/*else
+					line.color = 0x990000FF;*/
 				if (sect.num == env->player.sector)
 					line.color = 0x00FF00FF;
 				draw_line_3(env, line);
