@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/19 14:23:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:46:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	draw_player(t_env *env)
 	t_line	line;
 
 	factor = 2;
-	factor2 = 20;
+	factor2 = 200;
 	x = env->w - 150  - factor;
 	while (x < env->w - 150 + factor + 1)
 	{

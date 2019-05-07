@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 17:10:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:30:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		doom(int ac, char **av)
 		return (crash("Invalid map!\n", &env));
 	precompute_slopes(&env);
 	SDL_SetRelativeMouseMode(1);
-	env.player.speed = 0.5;
+	env.player.speed = 0.4;
 	env.player.size = 0.5;
 	ft_printf("Launching game loop..\n");
 	while (env.running)

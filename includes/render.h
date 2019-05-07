@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 12:13:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:06:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct		s_render
 	int				xend;
 	int				sector;
 	int				father;
-	int				light;
+	double				light;
 	double			far_z;
 	double			near_z;
 	double			near_side;

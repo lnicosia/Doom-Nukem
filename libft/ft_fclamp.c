@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clamp.c                                         :+:      :+:    :+:   */
+/*   ft_fclamp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 15:13:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/12 15:42:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:16:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_fclamp(double nb, double min, double max)
+double		ft_fclamp(double  nb, double min, double max)
 {
 	if (nb < min)
 		nb = min;
