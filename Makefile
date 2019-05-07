@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/06 10:48:32 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/05/07 12:18:29 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,10 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  init_ttf.c get_slope.c movement_collision.c print_text.c \
 		  vector_utils.c inputs.c init_keys.c init_pointers.c valid_map.c \
 		  bmp_parser.c bmp_parser_utils.c check_bmp_parsing.c \
-		  bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c
+		  bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
+		  maths_utils.c
 
-HEADERS = utils.h render.h
+HEADERS = utils.h render.h collision.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))

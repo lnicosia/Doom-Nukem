@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/04/19 14:23:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:08:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,11 +188,11 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	num = ft_itoa(sector.num);
 	if (pos.x > env->w - 297 && pos.y <= 295)
 		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
-				num,
-				"fonts/bebas_neue/BebasNeue-Regular.ttf",
-				color,
-				20),
-			env);
+					num,
+					"fonts/bebas_neue/BebasNeue-Regular.ttf",
+					color,
+					20),
+				env);
 	ft_strdel(&num);
 
 }
@@ -212,31 +212,33 @@ void	minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		//if (s == env->player.sector)
-			draw_sector_num(env, sect);
-		while (v < sect.nb_vertices)
+		if (env->player.pos.z > sect.floor && env->player.pos.z < sect.ceiling)
 		{
-			line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
-			line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * 10;
-			if ((v + 1) == sect.nb_vertices)
+			draw_sector_num(env, sect);
+			while (v < sect.nb_vertices)
 			{
-				line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * 10;
-				line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * 10;
+				line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
+				line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * 10;
+				if ((v + 1) == sect.nb_vertices)
+				{
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * 10;
+					line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * 10;
+				}
+				else
+				{
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
+					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
+				}
+				//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
+				if (sect.neighbors[v] == -1)
+					line.color = 0xFFFFFFFF;
+				else
+					line.color = 0x990000FF;
+				if (sect.num == env->player.sector)
+					line.color = 0x00FF00FF;
+				draw_line_3(env, line);
+				v++;
 			}
-			else
-			{
-				line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
-				line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
-			}
-			//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
-			if (sect.neighbors[v] == -1)
-				line.color = 0xFFFFFFFF;
-			else
-				line.color = 0x990000FF;
-			if (sect.num == env->player.sector)
-				line.color = 0x00FF00FF;
-			draw_line_3(env, line);
-			v++;
 		}
 		s++;
 	}

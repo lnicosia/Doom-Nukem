@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 12:14:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 12:15:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,6 @@ void	get_rotated_vertices(t_render *render, t_env *env)
 	  ft_printf("z2 = %f\n", render.vz2);
 	  ft_printf("x1 = %f\n", x1);
 	  ft_printf("x2 = %f\n", x2);*/
-}
-
-void	get_intersection(t_render *render, t_v2 *new_vz, int check_vz)
-{
-	if (check_vz == 2)
-	{
-		new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-				(render->vx1)-(render->vx2),
-				vxs(render->near_side,render->near_z, render->far_side,render->far_z),
-				(render->near_side)-(render->far_side))
-			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
-					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
-		new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-				(render->vz1)-(render->vz2),
-				vxs(render->near_side,render->near_z, render->far_side,render->far_z),
-				(render->near_z)-(render->far_z))
-			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
-					(render->near_side)-(render->far_side), (render->near_z)-(render->far_z));
-
-	}
-	if (check_vz == 1)
-	{
-		new_vz->x = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-				(render->vx1)-(render->vx2),
-				vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
-				(-render->near_side)-(-render->far_side))
-			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
-					(-render->near_side)-(-render->far_side), (render->near_z)-(render->far_z));
-		new_vz->y = vxs(vxs(render->vx1,render->vz1, render->vx2,render->vz2),
-				(render->vz1)-(render->vz2),
-				vxs(-render->near_side,render->near_z, -render->far_side,render->far_z),
-				(render->near_z)-(render->far_z))
-			/ vxs((render->vx1)-(render->vx2), (render->vz1)-(render->vz2),
-					(-render->near_side)-(-render->far_side), (render->near_z)-(render->far_z));
-	}
 }
 
 /*
