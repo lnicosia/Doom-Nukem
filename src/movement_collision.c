@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/06 15:06:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:52:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int     check_collision_rec(t_env *env, t_movement motion, t_sector sector)
         }
         i++;
     }
-    return (1);
+    return (0);
 }
 
 int     check_inside_sector(t_env *env, t_movement motion, t_sector sector)
@@ -148,6 +148,8 @@ int     check_inside_sector(t_env *env, t_movement motion, t_sector sector)
 
     i = 0;
     count = 0;
+    if (!check_floor(env, motion))
+        return (0);
     //ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
@@ -165,7 +167,7 @@ int     check_inside_sector(t_env *env, t_movement motion, t_sector sector)
     //ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
-        //ft_printf("I'm out of the sector %d\n", env->player.sector);
+       // ft_printf("I'm out of the sector %d\n", env->player.sector);
         if (check_collision_rec(env, motion, sector))
             return (1);
         return (0);

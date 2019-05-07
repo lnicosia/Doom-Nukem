@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 17:10:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:49:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		doom(int ac, char **av)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
+		if (env.options.test)
+			print_text(new_v2(0, 1300), new_printable_text("TEST", "fonts/amazdoom/AmazDooMLeft.ttf", 0xFFFFFFFF, 20), &env);
 		update_screen(&env);
 		while (SDL_PollEvent(&env.sdl.event))
 		{
