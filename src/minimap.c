@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/08 17:07:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:18:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	draw_player(t_env *env)
 	int		y;
 	int		player_hitbox;
 	int		factor2;
-	t_line	line;
+	//t_line	line;
 	t_v3	triangle[3];
 
 	player_hitbox = 2;
@@ -135,7 +135,25 @@ void	draw_player(t_env *env)
 		x++;
 	}
 
-	line.x0 = env->w - 150;
+	triangle[2] = new_v3(
+			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + env->w - 150,
+			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + 150,
+			0);
+	triangle[1] = new_v3(
+			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
+			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
+			0);
+	triangle[0] = new_v3(
+			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + env->w - 150,
+			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + 150,
+			0);
+	fill_triangle(triangle, env);
+	triangle[2] = new_v3(
+			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
+			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
+			0);
+	fill_triangle(triangle, env);
+	/*line.x0 = env->w - 150;
 	line.y0 = 150;
 	line.x1 = cos(env->player.angle) * 10 + line.x0;
 	line.y1 = sin(env->player.angle) * 10 + line.y0;
@@ -147,7 +165,7 @@ void	draw_player(t_env *env)
 	line.y0 = 150 + sin(env->player.angle) * 10;
 	line.x1 = cos(env->player.angle) + line.x0;
 	line.y1 = sin(env->player.angle) + line.y0;
-	triangle[2] = new_v3(line.x0, line.y0, 0);
+	triangle[0] = new_v3(line.x0, line.y0, 0);
 
 	line.x1 = cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
 	line.y1 = sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
@@ -159,8 +177,8 @@ void	draw_player(t_env *env)
 	line.y1 = sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
 	line.color = 0xFF0000FF;
 	//draw_line_3(env, line);
-	triangle[0] = new_v3(line.x1, line.y1, 0);
-	fill_triangle(triangle, env);
+	triangle[2] = new_v3(line.x1, line.y1, 0);
+	fill_triangle(triangle, env);*/
 	//ft_printf("%f\n", env->player.angle);
 }
 
