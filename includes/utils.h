@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 17:30:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 12:11:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct		s_player
 	double			angle_sin;
 	double			angle_z;
 	short			sector;
+	short			camera_sector;
 	double			speed;
 	double			size;
 }					t_player;

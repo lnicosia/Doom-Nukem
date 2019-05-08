@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 11:26:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 11:54:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,38 +48,22 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
-	/*hfov = 160;
-	vfov = 90;*/
-	hfov = env->options.hfov;
-	vfov = env->options.vfov;
-	/*render->floor1 = env->h / 2 -
+	hfov *= 1 / tan((env->options.hfov / 2) * M_PI / 180.0);
+	vfov *= 1 / tan((env->options.vfov / 2) * M_PI / 180.0);
+	render->floor1 = env->h / 2 +
 		(int)((sector.floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->floor2 = env->h / 2 -
+				* (vfov / -render->vz1));
+	render->floor2 = env->h / 2 +
 		(int)((sector.floors[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->ceiling1 = env->h / 2 -
+				* (vfov / -render->vz2));
+	render->ceiling1 = env->h / 2 +
 		(int)((sector.ceilings[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->ceiling2 = env->h / 2 -
+				* (vfov / -render->vz1));
+	render->ceiling2 = env->h / 2 +
 		(int)((sector.ceilings[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->x1 = env->w / 2 - (int)(render->vx1 * (hfov / render->vz1));
-	render->x2 = env->w / 2 - (int)(render->vx2 * (hfov / render->vz2));*/
-	render->floor1 = env->h / 2 -
-		(int)((sector.floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->floor2 = env->h / 2 -
-		(int)((sector.floors[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->ceiling1 = env->h / 2 -
-		(int)((sector.ceilings[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->ceiling2 = env->h / 2 -
-		(int)((sector.ceilings[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->x1 = env->w / 2 - (int)(render->vx1 * (hfov / render->vz1));
-	render->x2 = env->w / 2 - (int)(render->vx2 * (hfov / render->vz2));
+				* (vfov / -render->vz2));
+	render->x1 = env->w / 2 + (int)(render->vx1 * (hfov / -render->vz1));
+	render->x2 = env->w / 2 + (int)(render->vx2 * (hfov / -render->vz2));
 }
 
 /*
@@ -93,32 +77,18 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
-	/*hfov = 160;
-	vfov = 90;*/
-	hfov = env->options.hfov;
-	vfov = env->options.vfov;
-	/*render->neighbor_floor1 = env->h / 2 -
+	hfov *= 1 / tan((env->options.hfov / 2) * M_PI / 180.0);
+	vfov *= 1 / tan((env->options.vfov / 2) * M_PI / 180.0);
+	render->neighbor_floor1 = env->h / 2 +
 		(int)((neighbor.floors[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->neighbor_floor2 = env->h / 2 -
+				* (vfov / -render->vz1));
+	render->neighbor_floor2 = env->h / 2 +
 		(int)((neighbor.floors[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->neighbor_ceiling1 = env->h / 2 -
+				* (vfov / -render->vz2));
+	render->neighbor_ceiling1 = env->h / 2 +
 		(int)((neighbor.ceilings[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->neighbor_ceiling2 = env->h / 2 -
+				* (vfov / -render->vz1));
+	render->neighbor_ceiling2 = env->h / 2 +
 		(int)((neighbor.ceilings[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));*/
-	render->neighbor_floor1 = env->h / 2 -
-		(int)((neighbor.floors[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->neighbor_floor2 = env->h / 2 -
-		(int)((neighbor.floors[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
-	render->neighbor_ceiling1 = env->h / 2 -
-		(int)((neighbor.ceilings[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
-				* (vfov / render->vz1));
-	render->neighbor_ceiling2 = env->h / 2 -
-		(int)((neighbor.ceilings[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
-				* (vfov / render->vz2));
+				* (vfov / -render->vz2));
 }

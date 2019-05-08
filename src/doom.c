@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 11:04:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 11:51:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		doom(int ac, char **av)
 		move_player(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
-		draw_crosshair(&env);
+		//draw_crosshair(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)
