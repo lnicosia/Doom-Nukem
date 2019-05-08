@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/07 18:55:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/08 11:27:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,11 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
     FUTURE_X = PLAYER_XPOS + x_move;
     FUTURE_Y = PLAYER_YPOS + y_move;
     motion.old_sector = env->player.sector;
-   /*  if ((in_range(FUTURE_X, X1 - 0.25, X1 + 0.25) && in_range(FUTURE_Y, Y1 - 0.25, Y1 + 0.25))
-            || (in_range(FUTURE_X, X2 - 0.25, X2 + 0.25) && in_range(FUTURE_Y, Y2 - 0.25, Y2 + 0.25)))
-    {
-        ft_printf("close enough\n");
-        return ;
-    } */
-    ft_printf("may I?\n");
     if (check_inside_sector(env, motion))
     {
         PLAYER_XPOS = FUTURE_X;
         PLAYER_YPOS = FUTURE_Y;
     }
-    else
-    {
-        ft_printf("you shall not pass\n");
-    }
-    
-    
 }
 
 int     diff_value(int nb1, int nb2, int a, int b)
@@ -65,15 +52,9 @@ int     diff_value(int nb1, int nb2, int a, int b)
     return (1);
 }
 
-int     diff_sign(double nb1, double nb2, t_env *env)
+int     diff_sign(double nb1, double nb2)
 {
-     if (nb1 == 0)
-     {
-        env->player.speed = env->player.speed;
-        ft_printf("<--->\nnb1 = 0\n<--->\n");
-        return (0);
-     }
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0))
+    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
         return (0);
     return (1);
 }
@@ -90,10 +71,7 @@ int     check_floor(t_env *env, t_movement motion)
 {
     FUTURE_Z = 6 + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
     if (env->player.pos.z + 2 < FUTURE_Z)
-    {
-       // ft_printf("current z pos %f\n future Z %f\n", env->player.pos.z, FUTURE_Z);
         return (0);
-    }
     return (1);
 }
 
@@ -119,16 +97,14 @@ int     check_inside_sector_bis(t_env *env, t_movement motion)
 
     i = 0;
     count = 0;
-    //ft_printf("inside sector bis: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(FUTURE_Y, Y1, Y2))
+        if (diff_sign(start_pos, end_pos) && in_range(FUTURE_Y, Y1, Y2))
             count++;
         i++;
     }
-    //ft_printf("count %d\n", count);
     if (count % 2 == 0 || !check_floor(env, motion))
         return (0);
     return (1);
@@ -153,10 +129,10 @@ int     check_collision_rec(t_env *env, t_movement motion)
                 env->player.speed = env->player.speed * 0.7;
                 return (check_collision_rec(env, motion));
         }
-        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0 
+        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0 
             && diff_value(motion.wall_v1 , motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num,  env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
             return (0);
-        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR >= 0
+        else if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR >= 0
          && diff_value(motion.wall_v1, motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
         {
             env->player.sector = NEIGHBOR;
@@ -185,31 +161,22 @@ int     check_inside_sector(t_env *env, t_movement motion)
     count = 0;
     if (!check_floor(env, motion))
         return (0);
-    //ft_printf("<------------------------------------------->\nchecking next sector: %d\n", env->player.sector);
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         end_pos = (env->sectors[env->player.sector].x_max + 1 - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
-        if (diff_sign(start_pos, end_pos, env) && in_range(FUTURE_Y, Y1, Y2))
-        {
-            //ft_printf("vertice %i-%i\n", env->vertices[env->sectors[env->player.sector].vertices[i]].num, env->vertices[env->sectors[env->player.sector].vertices[i+1]].num);
-            /* ft_printf("start_pos = %f\n", start_pos);
-            ft_printf("end_pos = %f\n", end_pos); */
+        if (diff_sign(start_pos, end_pos) && in_range(FUTURE_Y, Y1, Y2))
             count++;
-        }
         i++;
     }
-    ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
-       // ft_printf("I'm out of the sector %d\n", env->player.sector);
         if (check_collision_rec(env, motion))
             return (1);
         return (0);
     }
     else if (!check_floor(env, motion))
         return (0);
-   // player_line = line_equation(env->player.pos.x, env->player.pos.y, env->player.pos.x + x_move, env->player.pos.y + y_move);
     return (1);
 }
 
@@ -225,9 +192,6 @@ int     check_collision(t_env *env, double x_move, double y_move)
         return (1);
     FUTURE_X = env->player.pos.x + x_move;
     FUTURE_Y = env->player.pos.y + y_move;
-    /*
-    **On parcourt tout les murs et portails du secteur actuel afin de verifier si le joueur rentre dedans
-    */
     if (!check_ceiling(env, motion) || !check_floor(env, motion))
         return (0);
     while (i < env->sectors[env->player.sector].nb_vertices)
@@ -237,21 +201,16 @@ int     check_collision(t_env *env, double x_move, double y_move)
         motion.old_sector = env->player.sector;
         if (end_pos == 0)
         {
-                ft_printf("est ce a cause de moi?\n");
                 env->player.speed = env->player.speed * 0.7;
                 return (check_collision(env, x_move * 0.7, y_move * 0.7));
         }
-        if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR < 0)
+        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0)
         {
-            if (env->options.test){
-            ft_printf("alongside wall\n");
-            move_alongside_wall(env, x_move, y_move, i);}
-            //env->player.sector = motion.old_sector;
+            move_alongside_wall(env, x_move, y_move, i);
             return (0);
         }
-        else if (diff_sign(start_pos, end_pos, env) && check_wall(env, i, motion) && NEIGHBOR >= 0)
+        else if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR >= 0)
         {
-            ft_printf("portal\n");
             motion.wall_v1 = env->vertices[env->sectors[env->player.sector].vertices[i]].num;
             motion.wall_v2 = env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num;
             motion.old_z = env->player.pos.z;
@@ -260,6 +219,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
             {
                 env->player.sector = motion.old_sector;
                 env->player.pos.z = motion.old_z;
+                move_alongside_wall(env, x_move, y_move, i);
                 return (0);
             }
             return (1);
