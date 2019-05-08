@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/08 17:18:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:33:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,16 @@ void	draw_player(t_env *env)
 	}
 
 	triangle[2] = new_v3(
-			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + env->w - 150,
-			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + 150,
+			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + env->w - 150,
+			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + 150,
 			0);
 	triangle[1] = new_v3(
 			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
 			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
 			0);
 	triangle[0] = new_v3(
-			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + env->w - 150,
-			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 10 + 150,
+			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + env->w - 150,
+			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
 	triangle[2] = new_v3(
@@ -153,16 +153,19 @@ void	draw_player(t_env *env)
 			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
 			0);
 	fill_triangle(triangle, env);
-	/*line.x0 = env->w - 150;
+
+
+	/*
+	line.x0 = env->w - 150;
 	line.y0 = 150;
-	line.x1 = cos(env->player.angle) * 10 + line.x0;
-	line.y1 = sin(env->player.angle) * 10 + line.y0;
+	line.x1 = cos(env->player.angle) * env->options.minimap_scale + line.x0;
+	line.y1 = sin(env->player.angle) * env->options.minimap_scale + line.y0;
 	line.color = 0xFFFFFFFF;
 	draw_line_3(env, line);
 
 	
-	line.x0 = env->w - 150 + cos(env->player.angle) * 10;
-	line.y0 = 150 + sin(env->player.angle) * 10;
+	line.x0 = env->w - 150 + cos(env->player.angle) * env->options.minimap_scale;
+	line.y0 = 150 + sin(env->player.angle) * env->options.minimap_scale;
 	line.x1 = cos(env->player.angle) + line.x0;
 	line.y1 = sin(env->player.angle) + line.y0;
 	triangle[0] = new_v3(line.x0, line.y0, 0);
@@ -217,8 +220,8 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	pos = new_v2(0, 0);
 	while (i < sector.nb_vertices)
 	{
-		pos.x += env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * 10;
-		pos.y += 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * 10;
+		pos.x += env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * env->options.minimap_scale;
+		pos.y += 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * env->options.minimap_scale;
 		i++;
 	}
 	pos.x /= sector.nb_vertices;
@@ -253,17 +256,17 @@ void	minimap(t_env *env)
 			draw_sector_num(env, sect);
 			while (v < sect.nb_vertices)
 			{
-				line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * 10;
-				line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * 10;
+				line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+				line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
 				if ((v + 1) == sect.nb_vertices)
 				{
-					line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * 10;
-					line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * 10;
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * env->options.minimap_scale;
 				}
 				else
 				{
-					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
-					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
 				}
 				line.color = 0xFFFFFFFF;
 				if (sect.num == env->player.sector)

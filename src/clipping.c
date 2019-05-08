@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 17:04:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:21:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		is_in_fov(double x, double z, t_env *env)
 {
 	(void)x;
 	(void)env;
-	if (z > 0)
+	if (z > 1)
 		return (1);
 	return (0);
 }
