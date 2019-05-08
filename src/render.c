@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 16:43:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:20:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			if (is_in_fov(render.vx1, render.vz1, env) || is_in_fov(render.vx2, render.vz2, env))
 			{
 				// Calculer le cliping
-				clip_wall(&render, env);
+				clip_walls(&render, env);
 
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);
