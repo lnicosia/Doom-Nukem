@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/07 18:24:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:07:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,18 @@ void	draw_player(t_env *env)
 {
 	int		x;
 	int		y;
-	int		factor;
+	int		player_hitbox;
 	int		factor2;
 	t_line	line;
 	t_v3	triangle[3];
 
-	factor = 2;
+	player_hitbox = 2;
 	factor2 = 20;
-	x = env->w - 150  - factor;
-	while (x < env->w - 150 + factor + 1)
+	x = env->w - 150 - player_hitbox;
+	while (x < env->w - 150 + player_hitbox + 1)
 	{
-		y = 150 - factor;
-		while (y < 150 + factor + 1)
+		y = 150 - player_hitbox;
+		while (y < 150 + player_hitbox + 1)
 		{
 			put_pixel(env, x, y, 0xFFFF00FF);
 			y++;
@@ -135,22 +135,28 @@ void	draw_player(t_env *env)
 		x++;
 	}
 
+	line.x0 = env->w - 150;
+	line.y0 = 150;
+	line.x1 = cos(env->player.angle) * 10 + line.x0;
+	line.y1 = sin(env->player.angle) * 10 + line.y0;
+	line.color = 0xFFFFFFFF;
+	draw_line_3(env, line);
+
+	
 	line.x0 = env->w - 150 + cos(env->player.angle) * 10;
 	line.y0 = 150 + sin(env->player.angle) * 10;
-	line.x1 = cos(env->player.angle) * factor2 + line.x0;
-	line.y1 = sin(env->player.angle) * factor2 + line.y0;
-	line.color = 0xFFFFFFFF;
-	//draw_line_3(env, line);
+	line.x1 = cos(env->player.angle) + line.x0;
+	line.y1 = sin(env->player.angle) + line.y0;
 	triangle[2] = new_v3(line.x0, line.y0, 0);
 
-	line.x1 = cos(env->player.angle - (env->options.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
-	line.y1 = sin(env->player.angle - (env->options.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
+	line.x1 = cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
+	line.y1 = sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
 	line.color = 0xFF0000FF;
 	//draw_line_3(env, line);
 	triangle[1] = new_v3(line.x1, line.y1, 0);
 
-	line.x1 = cos(env->player.angle + (env->options.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
-	line.y1 = sin(env->player.angle + (env->options.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
+	line.x1 = cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
+	line.y1 = sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.y0;
 	line.color = 0xFF0000FF;
 	//draw_line_3(env, line);
 	triangle[0] = new_v3(line.x1, line.y1, 0);
@@ -218,15 +224,13 @@ void	minimap(t_env *env)
 	t_line		line;
 	t_sector	sect;
 
-	//ft_printf("---\n");
 	s = 0;
-	//while (s < 2)
 	draw_minimap_hud(env);
 	while (s < env->nb_sectors)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		if (env->player.pos.z > sect.floor && env->player.pos.z < sect.ceiling)
+		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
 		{
 			draw_sector_num(env, sect);
 			while (v < sect.nb_vertices)
@@ -243,11 +247,7 @@ void	minimap(t_env *env)
 					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * 10;
 					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * 10;
 				}
-				//ft_printf("(%d, %d) -> (%d, %d)\n", line.x0, line.y0, line.x1, line.y1);
-				//if (sect.neighbors[v] == -1)
-					line.color = 0xFFFFFFFF;
-				/*else
-					line.color = 0x990000FF;*/
+				line.color = 0xFFFFFFFF;
 				if (sect.num == env->player.sector)
 					line.color = 0x00FF00FF;
 				draw_line_3(env, line);

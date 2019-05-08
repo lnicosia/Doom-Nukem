@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/08 12:20:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:50:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
     motion.old_sector = env->player.sector;
     if (check_inside_sector(env, motion))
     {
-        ft_printf("move\n");
+        //ft_printf("move\n");
         PLAYER_XPOS = FUTURE_X;
         PLAYER_YPOS = FUTURE_Y;
     }
@@ -170,7 +170,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
             count++;
         i++;
     }
-    ft_printf("count = %d\n", count);
+    //ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
         if (check_collision_rec(env, motion))

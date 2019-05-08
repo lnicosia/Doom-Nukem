@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/06 17:43:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 15:09:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 	env->sectors[num].num = num;
 	line = skip_spaces(line);
 	env->sectors[num].floor = ft_atof(line);
+	env->sectors[num].floor_min = ft_atof(line);
 	line = skip_number(line);
 	env->sectors[num].floor_slope = ft_atof(line);
 	if (env->sectors[num].floor_slope > 45 || env->sectors[num].floor_slope < -45)
@@ -221,6 +222,7 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 	env->sectors[num].floor_slope = tan(env->sectors[num].floor_slope * M_PI / 180.0);
 	line = skip_number(line);
 	env->sectors[num].ceiling = ft_atof(line);
+	env->sectors[num].ceiling_max = ft_atof(line);
 	line = skip_number(line);
 	env->sectors[num].ceiling_slope = ft_atof(line);
 	if (env->sectors[num].ceiling_slope > 45 || env->sectors[num].ceiling_slope < -45)

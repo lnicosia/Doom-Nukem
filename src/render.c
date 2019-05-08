@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 12:18:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:43:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,61 +56,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
 			get_rotated_vertices(&render, env);
 
-			// On continue que si au moins une des deux profondeurs est positive
-			// (= mur devant le joueur)
-			if (render.vz1 > 1 && render.vz2 > 1)
+			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
+			if (is_in_fov(render.vx1, render.vz1, env) || is_in_fov(render.vx2, render.vz2, env))
 			{
 				// Calculer le cliping
-				if (render.vz1 <= 0 || render.vz2 <= 0)
-				{
-					render.clipped = 1;
-					t_v2	new_vz1;
-					t_v2	new_vz2;
-					render.near_z = 1;
-					render.far_z = 100;
-					render.near_side = 1;
-					render.far_side = 20;
-
-					//Trouver une intersection entre le mur et le champ de vision du joueur
-					new_vz1 = get_intersection(
-							new_v2(render.vx1, render.vz1),
-							new_v2(render.vx2, render.vz2),
-							new_v2(render.near_side, render.near_z),
-							new_v2(render.far_side, render.far_z));
-					new_vz2 = get_intersection(
-							new_v2(render.vx1, render.vz1),
-							new_v2(render.vx2, render.vz2),
-							new_v2(-render.near_side, render.near_z),
-							new_v2(-render.far_side, render.far_z));
-					if (render.vz1 < render.near_z)
-					{
-						if(new_vz1.y > 0)
-						{
-							render.vx1 = new_vz1.x;
-							render.vz1 = new_vz1.y;
-						}
-						else
-						{
-							render.vx1 = new_vz2.x;
-							render.vz1 = new_vz2.y;
-						}
-					}
-					if (render.vz2 < render.near_z)
-					{
-						if(new_vz1.y > 0)
-						{
-							render.vx2 = new_vz1.x;
-							render.vz2 = new_vz1.y;
-						}
-						else
-						{
-							render.vx2 = new_vz2.x;
-							render.vz2 = new_vz2.y;
-						}
-					}
-				}
-				else
-					render.clipped = 0;
+				clip_wall(&render, env);
 
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);
