@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 16:46:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:06:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 	{
 		rendered_sectors[render.sector]++;
 		i = 0;
-		//ft_printf("rendering sector #%d\n", render.sector);
 		sector = env->sectors[render.sector];
-		//ft_printf("rendering sector numero %d from sector numero %d\n\n", render.sector, render.father);
-		//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 		while (i < sector.nb_vertices)
 		{
-			//ft_printf("v%d a v%d\n", i, i + 1);
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 
@@ -70,15 +66,23 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					render.clipped = 1;
 					t_v2	new_vz1;
 					t_v2	new_vz2;
-					render.near_z = 0.0005;
-					render.far_z = 5;
-					render.near_side = 0.00001;
-					render.far_side = 20.f;
+					render.near_z = 0.0001;
+					render.far_z = 2;
+					render.near_side = 0.0001;
+					render.far_side = 7.3;
 
-					//Find an intersection between the wall and the approximate edges of player's view
-					get_intersection(&render, &new_vz1, 1);
-					get_intersection(&render, &new_vz2, 2);
-					if(render.vz1 < render.near_z)
+					//Trouver une intersection entre le mur et le champ de vision du joueur
+					new_vz1 = get_intersection(
+							new_v2(render.vx1, render.vz1),
+							new_v2(render.vx2, render.vz2),
+							new_v2(render.near_side, render.near_z),
+							new_v2(render.far_side, render.far_z));
+					new_vz2 = get_intersection(
+							new_v2(render.vx1, render.vz1),
+							new_v2(render.vx2, render.vz2),
+							new_v2(-render.near_side, render.near_z),
+							new_v2(-render.far_side, render.far_z));
+					if (render.vz1 < render.near_z)
 					{
 						if(new_vz1.y > 0)
 						{
@@ -91,7 +95,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 							render.vz1 = new_vz2.y;
 						}
 					}
-					if(render.vz2 < render.near_z)
+					if (render.vz2 < render.near_z)
 					{
 						if(new_vz1.y > 0)
 						{
@@ -118,7 +122,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					{
 						render.nv1 = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
 						render.nv2 = get_vertex_nb_in_sector(sector.vertices[i + 1], env->sectors[sector.neighbors[i]]);
-						//ft_printf("nv1 = %d, nv2 = %d\n", render.nv1, render.nv2);
 						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
 					}
 					xstart = ft_max(render.x1, render.xmin);
@@ -133,7 +136,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						new.sector = sector.neighbors[i];
 						render_sector(env, new, rendered_sectors);
 					}
-					//ft_printf("xstart = %d xend = %d\n\n", x, xend);
 					x = xstart;
 					while (x <= xend)
 					{
@@ -142,10 +144,8 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						render.light = 255 - ft_clamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 8, 0, 255);
 
 						// Calculer y actuel du plafond et du sol
-						//ft_printf("Pente plafond = %f\n", cos(sector.ceiling_slope * M_PI / 180.0));
 						render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
-						//ft_printf("Pente sol = %f\n", cos(sector.floor_slope * M_PI / 180.0));
 						render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
 
@@ -244,7 +244,6 @@ int				draw(t_env *env)
 	short		*rendered_sectors;
 	int			i;
 
-	//ft_printf("{green}[New render]{reset} | [%d Sectors][%d Vertices]\n", env->nb_sectors, env->nb_vertices);
 	i = 0;
 	render.xmin = 0;
 	render.xmax = env->w - 1;

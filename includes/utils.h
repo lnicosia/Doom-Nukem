@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 16:53:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:30:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ typedef struct		s_sdl
 	int				mouse_y;
 	unsigned int	*img_str;
 	int				time;
+	SDL_Surface		*image;
+	unsigned int	*image_str;
 }					t_sdl;
 
 /*
@@ -143,6 +145,8 @@ typedef struct		s_options
 	int				color_clipping;
 	int				wall_color;
 	int				test;
+	double			hfov;
+	double			vfov;
 }					t_options;
 
 /*
@@ -211,6 +215,10 @@ t_printable_text	new_printable_text(
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
 void				fps(t_env *e);
+void				fill_triangle(t_v3 v[3], t_env *env);
+unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_mul(unsigned int src, unsigned int dest);
 
 /*
 ** Main pipeline functions
@@ -230,5 +238,6 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				keys(t_env *env);
 void				move_player(t_env *env);
+int					parse_bmp(char *file, t_env *env);
 
 #endif
