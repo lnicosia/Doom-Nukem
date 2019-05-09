@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 18:30:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/09 11:40:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		is_in_fov(double x, double z, t_env *env)
 	return (0);
 }
 
-void	clip_walls(t_render*render, t_env *env)
+void	clip_walls(t_render *render, t_env *env)
 {
 	//t_v2	vz1;
 	t_v2	vz2;
