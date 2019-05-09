@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 19:11:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/09 14:53:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	//ft_printf("Vertex n %d in env\n", vertex);
 	while (i < sector.nb_vertices)
 	{
-		//ft_printf("Neighbor sector %d = %d\n", i, sector.vertices[i]);
 		if (sector.vertices[i] == vertex)
 			res = i;
 		i++;
@@ -122,18 +121,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 					render.clipped = 0;
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);
-			/*	if ( render.x1 > render.x2)
-				{
-					temp = render.x1;
-					render.x1 = render.x2;
-					render.x2 = temp;
-					temp = render.floor1;
-					render.floor1 = render.floor2;
-					render.floor2 = temp;
-					temp = render.ceiling1;
-					render.ceiling1 = render.ceiling2;
-					render.ceiling2 = temp;
-				}*/
 				if (render.x1 < render.x2)
 				{
 					// Pareil pour le secteur voisin si c'est un portail
@@ -151,14 +138,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						t_render new = render;
 						new.xmin = xstart;
 						new.xmax = xend;
-					/*				if (render.neighbor_floor1 >= render.current_floor)
-									new.ymax = render.current_floor;
-									else
-									new.ymax = render.neighbor_floor1;
-									if (render.neighbor_ceiling1 >= render.current_ceiling)
-									new.ymin = render.neighbor_ceiling1;
-									else
-									new.ymin = render.current_ceiling;*/
 						new.father = sector.num;
 						new.sector = sector.neighbors[i];
 						render_sector(env, new, rendered_sectors, coucou + 1);
@@ -170,12 +149,8 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						// Lumiere
 						render.light = 255 - ft_fclamp(((double)(x - render.x1) * (double)(render.vz2 - render.vz1) / (double)(render.x2 - render.x1) + (double)render.vz1) * 8.00, 0.00, 255.00);
 
-						//	if (env->depth_array[x] > render.light)
-						//		{
-						//env->depth_array[x] = render.light;
 						// Calculer y actuel du plafond et du sol
 						render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
-						//	ft_printf(" ceiling = %d ", render.current_ceiling);
 						render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
 						render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
@@ -213,18 +188,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						}
 						else
 						{
-							//	ft_printf(" before %f %f |", env->depth_array[x], render.light);
 							if (env->depth_array[x] < render.light)
 							{
-							/*	// Dessiner le plafond de ymin jusqu'au plafond
-								draw_ceiling(render, env);
-
-								// Dessiner le sol du sol jusqu'a ymax
-								draw_floor(render, env);*/
-								/*		if (env->depth_array[x] != 2147483647)
-										ft_printf("%d = %d, ", x, env->depth_array[x]);*/
 								env->depth_array[x] = render.light;
-								//ft_printf("| %d = %f %f |", x, env->depth_array[x], render.light);
 								if (render.clipped && env->options.color_clipping)
 									line.color = 0x00AA00FF;
 								else
@@ -254,12 +220,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						x++;
 					}
 				}
-				else
-					ft_printf("not visible\n");
 			}
 			i++;
 		}
-		ft_printf("\n");
 		rendered_sectors[render.sector]--;
 	}
 }
