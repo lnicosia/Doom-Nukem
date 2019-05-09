@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 18:12:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/09 15:12:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ int		doom(int ac, char **av)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
-	env.options.hfov = 90;
-	env.options.vfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.hfov / 2)) / ((double)env.w / (double)env.h)) * 2;
-	//env.options.hfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.vfov / 2)) * ((double)env.w / (double)env.h)) * 2;
 	env.running = 1;
 	init_pointers(&env);
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
+	init_camera(&env);
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL!\n", &env));
 	if (init_ttf(&env))
@@ -42,8 +40,8 @@ int		doom(int ac, char **av)
 	/*if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
-	env.player.speed = 0.4;
-	env.player.size = 0.5;
+	env.player.speed = 0.5;
+	env.player.size_2d = 1;
 	ft_printf("Launching game loop..\n");
 	while (env.running)
 	{
@@ -51,7 +49,7 @@ int		doom(int ac, char **av)
 		move_player(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
-		draw_crosshair(&env);
+		//draw_crosshair(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)

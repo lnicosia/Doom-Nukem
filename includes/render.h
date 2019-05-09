@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 18:12:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/09 15:14:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ typedef struct		s_render
 	int				xend;
 	int				sector;
 	int				father;
-	double				light;
 	double			far_z;
 	double			near_z;
 	double			near_side;
 	double			far_side;
+	int				light;
 	int				clipped;
 	double			dist1;
 	double			dist2;
@@ -77,6 +77,8 @@ typedef struct		s_render
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env);
+int					is_in_fov(double x, double z, t_env *env);
+void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
 void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector sector);
 void				draw_line(t_line, t_env *env);

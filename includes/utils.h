@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 18:13:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/09 15:10:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct		s_sector
 	t_v2			normal;
 	double			*floors;
 	double			*ceilings;
+	double			floor_min;
+	double			ceiling_max;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -78,9 +80,26 @@ typedef struct		s_player
 	double			angle_sin;
 	double			angle_z;
 	short			sector;
+	short			camera_sector;
 	double			speed;
-	double			size;
+	double			size_2d;
 }					t_player;
+
+/*
+**	Camera values
+*/
+
+typedef struct		s_camera
+{
+	double			near_z;
+	double			far_z;
+	double			near_left;
+	double			near_right;
+	double			far_left;
+	double			far_right;
+	double			hfov;
+	double			vfov;
+}					t_camera;
 
 /*
 ** Player's keys configuration
@@ -145,8 +164,7 @@ typedef struct		s_options
 	int				color_clipping;
 	int				wall_color;
 	int				test;
-	double			hfov;
-	double			vfov;
+	double			minimap_scale;
 }					t_options;
 
 /*
@@ -174,6 +192,7 @@ typedef struct		s_env
 	t_options		options;
 	t_keys			keys;
 	t_inputs		inputs;
+	t_camera		camera;
 	int				w;
 	int				h;
 	int				running;
@@ -200,6 +219,8 @@ int					init_ttf(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
+void				init_camera(t_env *env);
+void				set_camera(t_env *env);
 int					parsing(int fd, t_env *env);
 int					valid_map(t_env *env);
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 16:47:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/08 15:11:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,10 @@ void	precompute_slopes(t_env *env)
 				env->sectors[i].ceilings[j] = get_ceiling(sector, env->vertices[sector.vertices[j]], env); 
 			else
 				env->sectors[i].ceilings[j] = sector.ceiling;
+			if (env->sectors[i].floors[j] < env->sectors[i].floor_min)
+				env->sectors[i].floor_min = env->sectors[i].floors[j];
+			if (env->sectors[i].ceilings[j] > env->sectors[i].ceiling_max)
+				env->sectors[i].ceiling_max = env->sectors[i].ceilings[j];
 			j++;
 		}
 		env->sectors[i].floors[j] = env->sectors[i].floors[0];
