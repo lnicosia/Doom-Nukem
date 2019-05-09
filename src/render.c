@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 18:03:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/07 19:11:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 
 		rendered_sectors[render.sector]++;
 		i = 0;
-		//ft_printf("rendering sector #%d\n", render.sector);
 		sector = env->sectors[render.sector];
-		//ft_printf("rendering sector numero %d from sector numero %d\n\n", render.sector, render.father);
-		//ft_printf("Sector #%d\n%d vertices\n", sector.num, sector.nb_vertices);
 		while (i < sector.nb_vertices)
 		{
-			//	printf("mur[%d] = %d | %d\n", i, env->vertices[sector.vertices[i]].num, env->vertices[sector.vertices[i + 1]].num);
-			ft_printf("\n v%d a v%d\n", i, i + 1);
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 
@@ -80,15 +75,23 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 					render.clipped = 1;
 					t_v2	new_vz1;
 					t_v2	new_vz2;
-					render.near_z = 0.0005;
-					render.far_z = 5;
-					render.near_side = 0.00001;
-					render.far_side = 20.f;
+					render.near_z = 0.0001;
+					render.far_z = 2;
+					render.near_side = 0.0001;
+					render.far_side = 7.3;
 
-					//Find an intersection between the wall and the approximate edges of player's view
-					get_intersection(&render, &new_vz1, 1);
-					get_intersection(&render, &new_vz2, 2);
-					if(render.vz1 < render.near_z)
+					//Trouver une intersection entre le mur et le champ de vision du joueur
+					new_vz1 = get_intersection(
+							new_v2(render.vx1, render.vz1),
+							new_v2(render.vx2, render.vz2),
+							new_v2(render.near_side, render.near_z),
+							new_v2(render.far_side, render.far_z));
+					new_vz2 = get_intersection(
+							new_v2(render.vx1, render.vz1),
+							new_v2(render.vx2, render.vz2),
+							new_v2(-render.near_side, render.near_z),
+							new_v2(-render.far_side, render.far_z));
+					if (render.vz1 < render.near_z)
 					{
 						if(new_vz1.y > 0)
 						{
@@ -101,7 +104,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 							render.vz1 = new_vz2.y;
 						}
 					}
-					if(render.vz2 < render.near_z)
+					if (render.vz2 < render.near_z)
 					{
 						if(new_vz1.y > 0)
 						{
@@ -138,7 +141,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 					{
 						render.nv1 = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
 						render.nv2 = get_vertex_nb_in_sector(sector.vertices[i + 1], env->sectors[sector.neighbors[i]]);
-						//ft_printf("nv1 = %d, nv2 = %d\n", render.nv1, render.nv2);
 						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
 					}
 					xstart = ft_max(render.x1, render.xmin);
@@ -149,7 +151,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						t_render new = render;
 						new.xmin = xstart;
 						new.xmax = xend;
-						/*			if (render.neighbor_floor1 >= render.current_floor)
+					/*				if (render.neighbor_floor1 >= render.current_floor)
 									new.ymax = render.current_floor;
 									else
 									new.ymax = render.neighbor_floor1;
@@ -161,7 +163,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						new.sector = sector.neighbors[i];
 						render_sector(env, new, rendered_sectors, coucou + 1);
 					}
-					//ft_printf("xstart = %d xend = %d\n\n", x, xend);
 					x = xstart;
 					while (x <= xend)
 					{
@@ -188,6 +189,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 							render.current_neighbor_ceiling = ft_clamp(render.current_neighbor_ceiling, render.ymin, render.ymax);
 							render.current_neighbor_floor = (x - render.x1) * (render.neighbor_floor2 - render.neighbor_floor1) / (render.x2 - render.x1) + render.neighbor_floor1;
 							render.current_neighbor_floor = ft_clamp(render.current_neighbor_floor, render.ymin, render.ymax);
+								// Dessiner le plafond de ymin jusqu'au plafond
+								draw_ceiling(render, env);
+
+								// Dessiner le sol du sol jusqu'a ymax
+								draw_floor(render, env);
+								//}
 							if (!env->options.render_sectors)
 							{
 								// Dessiner le portail en rouge
@@ -209,11 +216,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 							//	ft_printf(" before %f %f |", env->depth_array[x], render.light);
 							if (env->depth_array[x] < render.light)
 							{
-								// Dessiner le plafond de ymin jusqu'au plafond
+							/*	// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 
 								// Dessiner le sol du sol jusqu'a ymax
-								draw_floor(render, env);
+								draw_floor(render, env);*/
 								/*		if (env->depth_array[x] != 2147483647)
 										ft_printf("%d = %d, ", x, env->depth_array[x]);*/
 								env->depth_array[x] = render.light;
@@ -236,12 +243,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									line.color = 0xFF;
 								draw_line(line, env);
-/*								// Dessiner le plafond de ymin jusqu'au plafond
+								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 
 								// Dessiner le sol du sol jusqu'a ymax
 								draw_floor(render, env);
-*/								//}
+								//}
 							}
 						}
 						x++;
@@ -288,7 +295,6 @@ int				draw(t_env *env)
 
 	if (!(env->depth_array = (double *)malloc(sizeof(double) * env->w)))
 		return (-1);
-	//ft_printf("{green}[New render]{reset} | [%d Sectors][%d Vertices]\n", env->nb_sectors, env->nb_vertices);
 	render.xmin = 0;
 	render.xmax = env->w - 1;
 	render.ymin = 0;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/06 10:06:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/07 18:12:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define HFOV	0.73
 # define VFOV	0.2
 # include "utils.h"
-# define vxs(x0,y0, x1,y1)    ((x0)*(y1) - (x1)*(y0))
 
 typedef struct		s_line
 {
@@ -85,7 +84,8 @@ void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
 void				draw_bottom_wall(t_render render, t_env *env);
-void				get_intersection(t_render *render, t_v2 *new_vz, int check_vz);
+t_v2				get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
+double				cross_product(double x0, double y0, double x1, double y1);
 
 #endif

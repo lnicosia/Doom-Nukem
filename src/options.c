@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 18:18:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/07 18:10:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	options(t_env *env)
 		env->options.color_clipping = env->options.color_clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
 		env->options.wall_color = env->options.wall_color ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_t)
+		env->options.test = env->options.test ? 0 : 1;
 }

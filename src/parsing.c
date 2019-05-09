@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/29 17:33:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/06 17:43:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ int		parse_player(t_env *env, char *line, int line_count)
 	line = skip_number(line);
 	env->player.pos.x = ft_atof(line);
 	line = skip_number(line);
-	env->player.angle = ft_atof(line);
+	env->player.angle = ft_atof(line) * M_PI / 180.0;
+	env->player.angle_z = 0;
 	line = skip_number(line);
 	env->player.sector = ft_atoi(line);
 	if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
@@ -351,6 +352,8 @@ int		parsing(int fd, t_env *env)
 	env->player.sector = -1;
 	line_count = 1;
 	ft_printf("{red}");
+	if (fd == -1)
+		return (ft_printf("Could not open the file\n"));
 	while ((ret = get_next_line(fd, &line)))
 	{
 		if (ret == -1)
@@ -409,5 +412,7 @@ int		parsing(int fd, t_env *env)
 		return (ft_printf("You need to give player data\n"));
 	ft_strdel(&line);
 	set_sectors_xmax(env);
+	if (close(fd))
+		return (ft_printf("Could not close the file\n"));
 	return (0);
 }

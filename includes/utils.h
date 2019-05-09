@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/06 10:10:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/07 18:13:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct		s_player
 	double			angle_sin;
 	double			angle_z;
 	short			sector;
-	short			old_sector;
 	double			speed;
 	double			size;
 }					t_player;
@@ -127,6 +126,8 @@ typedef struct		s_sdl
 	int				mouse_y;
 	unsigned int	*img_str;
 	int				time;
+	SDL_Surface		*image;
+	unsigned int	*image_str;
 }					t_sdl;
 
 /*
@@ -143,6 +144,9 @@ typedef struct		s_options
 	int				wall_lover;
 	int				color_clipping;
 	int				wall_color;
+	int				test;
+	double			hfov;
+	double			vfov;
 }					t_options;
 
 /*
@@ -212,6 +216,10 @@ t_printable_text	new_printable_text(
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
 void				fps(t_env *e);
+void				fill_triangle(t_v3 v[3], t_env *env);
+unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_mul(unsigned int src, unsigned int dest);
 
 /*
 ** Main pipeline functions
@@ -220,7 +228,6 @@ void				fps(t_env *e);
 int					draw(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
-int					check_collision(t_env *env, double x_move, double y_move);
 void				minimap(t_env *e);
 void				view(t_env *env);
 
@@ -232,5 +239,6 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				keys(t_env *env);
 void				move_player(t_env *env);
+int					parse_bmp(char *file, t_env *env);
 
 #endif

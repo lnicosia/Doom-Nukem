@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 18:30:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/07 18:12:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int		doom(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
-	env.w = 1366;
-	env.h = 768;
+	env.w = 1600;
+	env.h = 900;
+	env.options.hfov = 90;
+	env.options.vfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.hfov / 2)) / ((double)env.w / (double)env.h)) * 2;
+	//env.options.hfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env.options.vfov / 2)) * ((double)env.w / (double)env.h)) * 2;
 	env.running = 1;
 	init_pointers(&env);
 	init_options(&env);
@@ -36,6 +39,8 @@ int		doom(int ac, char **av)
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	precompute_slopes(&env);
+	/*if (parse_bmp(av[1], &env))
+		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.4;
 	env.player.size = 0.5;
@@ -51,7 +56,14 @@ int		doom(int ac, char **av)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
+		if (env.options.test)
+			print_text(new_v2(0, 1300), new_printable_text("TEST", "fonts/amazdoom/AmazDooMLeft.ttf", 0xFFFFFFFF, 20), &env);
 		update_screen(&env);
+		// BMP parser
+		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
+		SDL_RenderCopy(env.sdl.renderer, texture, NULL, NULL);
+		SDL_DestroyTexture(texture);
+		SDL_RenderPresent(env.sdl.renderer);*/
 		while (SDL_PollEvent(&env.sdl.event))
 		{
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
