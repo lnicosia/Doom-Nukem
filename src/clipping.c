@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 11:40:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:48:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int		is_in_fov(double x, double z, t_env *env)
 
 void	clip_walls(t_render *render, t_env *env)
 {
-	//t_v2	vz1;
+	t_v2	vz1;
 	t_v2	vz2;
 
 	render->clipped = 0;
-	if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
+	/*if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
 	{
 		vz2 = get_intersection(
 				new_v2(render->vx1, render->vz1),
@@ -46,8 +46,8 @@ void	clip_walls(t_render *render, t_env *env)
 	{
 		render->vx2 = vz2.x;
 		render->vz2 = vz2.y;
-	}
-	/*if (render->vz1 <= 0 || render->vz2 <= 0)
+	}*/
+	if (render->vz1 <= 0 || render->vz2 <= 0)
 	{
 		render->clipped = 1;
 		//Trouver une intersection entre le mur et le champ de vision du joueur
@@ -63,31 +63,31 @@ void	clip_walls(t_render *render, t_env *env)
 				new_v2(env->camera.far_right, env->camera.far_z));
 		if (render->vz1 < env->camera.near_z)
 		{
-			if(new_vz1.y > 0)
+			if(vz1.y > 0)
 			{
-				render->vx1 = new_vz1.x;
-				render->vz1 = new_vz1.y;
+				render->vx1 = vz1.x;
+				render->vz1 = vz1.y;
 			}
 			else
 			{
-				render->vx1 = new_vz2.x;
-				render->vz1 = new_vz2.y;
+				render->vx1 = vz2.x;
+				render->vz1 = vz2.y;
 			}
 		}
 		if (render->vz2 < env->camera.near_z)
 		{
-			if(new_vz1.y > 0)
+			if(vz1.y > 0)
 			{
-				render->vx2 = new_vz1.x;
-				render->vz2 = new_vz1.y;
+				render->vx2 = vz1.x;
+				render->vz2 = vz1.y;
 			}
 			else
 			{
-				render->vx2 = new_vz2.x;
-				render->vz2 = new_vz2.y;
+				render->vx2 = vz2.x;
+				render->vz2 = vz2.y;
 			}
 		}
 	}
 	else
-		render->clipped = 0;*/
+		render->clipped = 0;
 }

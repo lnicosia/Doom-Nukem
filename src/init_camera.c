@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:15:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 17:00:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:52:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	set_camera(t_env *env)
 	env->camera.near_right = tan(env->camera.hfov / 2);
 	env->camera.far_left = -tan(env->camera.hfov / 2) * env->camera.far_z;
 	env->camera.far_right = tan(env->camera.hfov / 2) * env->camera.far_z;
+	env->camera.near_left = 0.0001;
+	env->camera.near_right = -0.0001;
+	env->camera.far_left = 20;
+	env->camera.far_right = -20;
 	ft_printf("near_left = %f near_right = %f\nfar_left = %f far_right = %f\n",
 			env->camera.near_left,
 			env->camera.near_right,
@@ -31,7 +35,7 @@ void	set_camera(t_env *env)
 void	init_camera(t_env *env)
 {
 	env->camera.hfov = 90;
-	env->camera.near_z = 1;
-	env->camera.far_z = 1000;
+	env->camera.near_z = 0.0001;
+	env->camera.far_z = 5;
 	set_camera(env);
 }

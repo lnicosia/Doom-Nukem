@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 11:59:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:50:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 			}
 			i++;
 		}
-		ft_printf("\n");
+		//ft_printf("\n");
 		rendered_sectors[render.sector]--;
 	}
 }
