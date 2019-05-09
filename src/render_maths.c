@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 14:53:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:53:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
-	/*hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
-	vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);*/
+	hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
+	vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->floor1 = env->h / 2 +
 		(int)((sector.floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
@@ -77,8 +77,8 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
-	/*hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
-	vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);*/
+	hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
+	vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->neighbor_floor1 = env->h / 2 +
 		(int)((neighbor.floors[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
