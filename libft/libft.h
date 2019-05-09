@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/25 11:48:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:15:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int				ft_lstlen(t_list *lst);
 void			ft_lstpushback(t_list **alst, t_list *new);
 int				ft_abs(int	nb);
 int				ft_clamp(int nb, int min, int max);
+double				ft_fclamp(double nb, double min, double max);
 int				ft_min(int nb1, int nb2);
 int				ft_max(int nb1, int nb2);
 double			ft_fabs(double nb);

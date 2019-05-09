@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/23 18:05:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:08:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	draw_ceiling(t_render render, t_env *env)
 	line.end = render.current_ceiling;
 	line.color = 0x222222FF;
 	if (env->options.lighting)
-		line.color = (render.light / 5) << 24
-			| (render.light / 5) << 16
-			| (render.light / 5) << 8
+		line.color = ((int)render.light / 5) << 24
+			| ((int)render.light / 5) << 16
+			| ((int)render.light / 5) << 8
 			| 255;
 	//ft_printf("floor end = %d\n", line.end);
 	draw_line(line, env);
@@ -67,9 +67,9 @@ void	draw_floor(t_render render,t_env *env)
 	line.end = render.ymax;
 	line.color = 0x444444FF;
 	if (env->options.lighting)
-		line.color = (render.light / 3) << 24
-			| (render.light / 3) << 16
-			| (render.light / 3) << 8
+		line.color = ((int)render.light / 3) << 24
+			| ((int)render.light / 3) << 16
+			| ((int)render.light / 3) << 8
 			| 255;
 	//ft_printf("ceiling start = %d\n", line.start);
 	draw_line(line, env);
@@ -88,9 +88,9 @@ void	draw_upper_wall(t_render render, t_env *env)
 	line.end = render.current_neighbor_ceiling;
 	line.color = 0x07C00D9FF;
 	if (env->options.lighting)
-		line.color = render.light / 3 << 24
-			| render.light / 3 << 16
-			| render.light / 3<< 8
+		line.color = (int)render.light / 3 << 24
+			| (int)render.light / 3 << 16
+			| (int)render.light / 3<< 8
 			| 255;
 	//ft_printf("floor end = %d\n", line.end);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
@@ -111,9 +111,9 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	line.end = render.current_floor;
 	line.color = 0x7C00D9FF;
 	if (env->options.lighting)
-		line.color = render.light / 3 << 24
-			| render.light / 3 << 16
-			| render.light / 3 << 8
+		line.color = (int)render.light / 3 << 24
+			| (int)render.light / 3 << 16
+			| (int)render.light / 3 << 8
 			| 255;
 	//ft_printf("ceiling start = %d\n", line.start);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
