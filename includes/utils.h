@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 13:44:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:25:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct		s_player
 	short			camera_sector;
 	double			speed;
 	double			size_2d;
+	double			camera_x;
+	double			camera_y;
 }					t_player;
 
 /*
@@ -169,6 +171,7 @@ typedef struct		s_options
 	int				wall_color;
 	int				test;
 	double			minimap_scale;
+	int				render_type;
 }					t_options;
 
 /*
@@ -272,6 +275,8 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				keys(t_env *env);
 void				move_player(t_env *env);
+void				update_camera_position(t_env *env);
+int					get_camera_sector(t_env *env);
 int					parse_bmp(char *file, t_env *env);
 
 #endif

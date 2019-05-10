@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 10:38:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:05:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 int		is_in_fov(double x, double z, t_env *env)
 {
+	/*t_v2	inter1;
+	t_v2	inter2;
+
+	inter = get_intersection(
+			new_v2(render->vx1, render->vz1),
+			new_v2(render->vx2, render->vz2),
+			new_v2(env->camera.near_left, env->camera.near_z),
+			new_v2(env->camera.far_left, env->camera.far_z));*/
 	(void)x;
 	(void)env;
 	if (z > env->camera.near_z)
@@ -58,7 +66,7 @@ void	clip_walls(t_render *render, t_env *env)
 					new_v2(env->camera.near_left, env->camera.near_z),
 					new_v2(env->camera.far_left, env->camera.far_z));
 			vz2 = get_intersection(
-				new_v2(render->vx1, render->vz1),
+				new_v2(render->vx1, render->vz1
 				new_v2(render->vx2, render->vz2),
 				new_v2(env->camera.near_right, env->camera.near_z),
 				new_v2(env->camera.far_right, env->camera.far_z));

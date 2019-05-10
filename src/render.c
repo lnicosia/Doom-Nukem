@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 14:50:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:26:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,10 @@ int				draw(t_env *env)
 	render.father = -2;
 	if (!(rendered_sectors = init_rendered_sector(env)))
 		return (-1);
-	render.sector = env->player.sector;
+	if (env->options.render_type)
+		render.sector = env->player.camera_sector;
+	else
+		render.sector = env->player.sector;
 	// On commence par rendre le secteur courant
 	render_sector(env, render, rendered_sectors, 0);
 	ft_memdel((void**)&rendered_sectors);
