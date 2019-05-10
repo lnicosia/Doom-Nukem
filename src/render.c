@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 19:11:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/10 16:25:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	return (res);
 }
 
-void	render_sector(t_env *env, t_render render, short *rendered_sectors, int coucou)
+void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 {
 	int			i;
 	t_sector	sector;
@@ -68,7 +68,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 			// (= mur devant le joueur)
 			if (render.vz1 > 0 || render.vz2 > 0)
 			{
-				ft_printf("visible\n");
 				// Calculer le cliping
 				if(render.vz1 <= 0 || render.vz2 <= 0)
 				{
@@ -161,7 +160,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 									new.ymin = render.current_ceiling;*/
 						new.father = sector.num;
 						new.sector = sector.neighbors[i];
-						render_sector(env, new, rendered_sectors, coucou + 1);
+						render_sector(env, new, rendered_sectors);
 					}
 					x = xstart;
 					while (x <= xend)
@@ -254,12 +253,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 						x++;
 					}
 				}
-				else
-					ft_printf("not visible\n");
 			}
 			i++;
 		}
-		ft_printf("\n");
 		rendered_sectors[render.sector]--;
 	}
 }
@@ -304,7 +300,7 @@ int				draw(t_env *env)
 		return (-1);
 	render.sector = env->player.sector;
 	// On commence par rendre le secteur courant
-	render_sector(env, render, rendered_sectors, 0);
+	render_sector(env, render, rendered_sectors);
 	ft_memdel((void**)&rendered_sectors);
 	return (0);
 }
