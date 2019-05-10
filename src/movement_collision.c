@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/08 12:05:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/10 19:08:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
     motion.old_sector = env->player.sector;
     if (check_inside_sector(env, motion))
     {
-        ft_printf("move\n");
+       // ft_printf("move\n");
         PLAYER_XPOS = FUTURE_X;
         PLAYER_YPOS = FUTURE_Y;
     }
@@ -89,6 +89,28 @@ int     check_wall(t_env *env, int i, t_movement motion)
     return (0);
 }
 
+int     check_on_wall(t_env *env, int i, t_movement motion)
+{
+    int curr;
+    int fut;
+
+    curr = 0;
+    fut = 0;
+    if ((PLAYER_XPOS >= X1 && PLAYER_XPOS <= X2) || (PLAYER_XPOS >= X2 && PLAYER_XPOS <= X1))
+        curr++;
+    if ((PLAYER_YPOS >= Y1 && PLAYER_YPOS <= Y2) || (PLAYER_YPOS >= Y2 && PLAYER_YPOS <= Y1))
+        curr++;
+    if ((FUTURE_Y >= Y1 && FUTURE_Y <= Y2) || (FUTURE_Y >= Y2 && FUTURE_Y <= Y1))
+        fut++;
+    if ((FUTURE_X >= X1 && FUTURE_X <= X2) || (FUTURE_X >= X2 && FUTURE_X <= X1))
+        fut++;
+    if (curr == 2 && fut == 2)
+        return (-1);
+    if (curr == 2 || fut == 2)
+        return (1);
+    return (0);
+}
+
 int     check_inside_sector_bis(t_env *env, t_movement motion)
 {
     int     count;
@@ -125,12 +147,14 @@ int     check_collision_rec(t_env *env, t_movement motion)
     {
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
         end_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
-        if (end_pos == 0)
+        if (end_pos == 0 && check_on_wall(env, i, motion))
         {
                 env->player.speed = env->player.speed * 0.7;
+                FUTURE_X *= 0.7;
+                FUTURE_Y *= 0.7;
                 return (check_collision_rec(env, motion));
         }
-        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0 
+        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0 && end_pos != 0
             && diff_value(motion.wall_v1 , motion.wall_v2, env->vertices[env->sectors[env->player.sector].vertices[i]].num,  env->vertices[env->sectors[env->player.sector].vertices[i + 1]].num))
             return (0);
         else if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR >= 0
@@ -170,7 +194,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
             count++;
         i++;
     }
-    ft_printf("count = %d\n", count);
+    //ft_printf("count = %d\n", count);
     if (count % 2 == 0)
     {
         if (check_collision_rec(env, motion))
@@ -201,12 +225,12 @@ int     check_collision(t_env *env, double x_move, double y_move)
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
         end_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         motion.old_sector = env->player.sector;
-        if (end_pos == 0)
+        if (end_pos == 0  && check_on_wall(env, i, motion))
         {
                 env->player.speed = env->player.speed * 0.7;
                 return (check_collision(env, x_move * 0.7, y_move * 0.7));
         }
-        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0)
+        if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0 && end_pos != 0)
         {
             move_alongside_wall(env, x_move, y_move, i);
             return (0);

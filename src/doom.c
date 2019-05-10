@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 18:12:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/10 19:03:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		doom(int ac, char **av)
 	/*if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
-	env.player.speed = 0.4;
+	env.player.speed = 0.3;
 	env.player.size = 0.5;
 	ft_printf("Launching game loop..\n");
 	while (env.running)
