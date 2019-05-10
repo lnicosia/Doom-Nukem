@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 10:30:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 13:44:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,14 @@ typedef struct		s_env
 	int				nb_vertices;
 	double			*depth_array;
 }					t_env;
+
+/*
+**	  -------------
+**	 ---------------
+**	----FUNCTIONS----
+**	 ---------------
+**	  -------------
+*/
 
 /*
 ** Main functions
