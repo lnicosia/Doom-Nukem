@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 15:36:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:23:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int		is_in_fov(double x, double z, t_env *env)
 
 void	clip_walls(t_render *render, t_env *env)
 {
-	t_v2	vz1;
+	//t_v2	vz1;
 	t_v2	vz2;
 
-	/*render->clipped = 0;
+	render->clipped = 0;
 	if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
 	{
 		vz2 = get_intersection(
@@ -36,6 +36,7 @@ void	clip_walls(t_render *render, t_env *env)
 				new_v2(-100000, env->camera.near_z),
 				new_v2(100000, env->camera.near_z));
 		render->clipped = 1;
+		ft_printf("new wall: x = %f z = %f\n", vz2.x, vz2.y);
 	}
 	if (render->vz1 <= env->camera.near_z)
 	{
@@ -46,8 +47,8 @@ void	clip_walls(t_render *render, t_env *env)
 	{
 		render->vx2 = vz2.x;
 		render->vz2 = vz2.y;
-	}*/
-	if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
+	}
+	/*if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
 	{
 		render->clipped = 1;
 		//Trouver une intersection entre le mur et le champ de vision du joueur
@@ -89,5 +90,5 @@ void	clip_walls(t_render *render, t_env *env)
 		}
 	}
 	else
-		render->clipped = 0;
+		render->clipped = 0;*/
 }

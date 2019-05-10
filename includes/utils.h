@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 11:57:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:30:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ typedef struct		s_keys
 	int				backward2;
 	int				left2;
 	int				right2;
+	int				plus;
+	int				minus;
 }					t_keys;
 
 /*
@@ -127,6 +129,8 @@ typedef struct		s_inputs
 	uint8_t			backward;
 	uint8_t			left;
 	uint8_t			right;
+	uint8_t			plus;
+	uint8_t			minus;
 }					t_inputs;
 
 /*

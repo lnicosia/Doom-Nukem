@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 16:09:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:33:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.right
 			|| env->sdl.event.key.keysym.sym == env->keys.right2)
 		env->inputs.right = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.plus
+			&& env->options.minimap_scale * 1.2 < 100)
+		env->options.minimap_scale *= 1.2;
+	if (env->sdl.event.key.keysym.sym == env->keys.minus
+			&& env->options.minimap_scale / 1.2 > 5)
+		env->options.minimap_scale /= 1.2;
 }
 
 void	keys(t_env *env)

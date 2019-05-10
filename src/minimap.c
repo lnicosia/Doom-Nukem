@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/09 15:32:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:10:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,8 @@ void	draw_player(t_env *env)
 	
 	line.x0 = env->w - 150;
 	line.y0 = 150;
-	line.x1 = cos(env->player.angle) * env->options.minimap_scale + line.x0;
-	line.y1 = sin(env->player.angle) * env->options.minimap_scale + line.y0;
+	line.x1 = cos(env->player.angle) * env->camera.near_z * env->options.minimap_scale + line.x0;
+	line.y1 = sin(env->player.angle) * env->camera.near_z * env->options.minimap_scale + line.y0;
 	line.color = 0xFFFFFFFF;
 	draw_line_3(env, line);
 

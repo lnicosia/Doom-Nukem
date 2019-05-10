@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:15:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 15:37:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:20:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	set_camera(t_env *env)
 void	init_camera(t_env *env)
 {
 	env->camera.hfov = 90;
-	env->camera.near_z = 0.0001;
+	env->camera.near_z = 0.5;
 	env->camera.far_z = 1000;
 	set_camera(env);
 }
