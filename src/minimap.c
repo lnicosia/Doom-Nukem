@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/10 10:10:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:25:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,20 +137,16 @@ void	draw_player(t_env *env)
 
 	line.color = 0xFFFF00FF;
 	triangle[2] = new_v3(
-			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 1.5 * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 1.5 * env->options.minimap_scale + 150,
+			(cos(env->player.angle) * env->camera.near_z - sin(env->player.angle) * env->camera.near_left) * env->options.minimap_scale + env->w - 150,
+			(sin(env->player.angle) * env->camera.near_z + cos(env->player.angle) * env->camera.near_left) * env->options.minimap_scale + 150,
 			0);
-	/*triangle[2] = new_v3(
-			cos(env->player.angle) * env->camera.near_right * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle) * env->camera.near_z * env->options.minimap_scale + 150,
-			0);*/
 	triangle[1] = new_v3(
-			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w * env->options.minimap_scale + 150,
+			(cos(env->player.angle) * env->camera.far_z - sin(env->player.angle) * env->camera.far_left) * env->options.minimap_scale + env->w - 150,
+			(sin(env->player.angle) * env->camera.far_z + cos(env->player.angle) * env->camera.far_left) * env->options.minimap_scale + 150,
 			0);
 	triangle[0] = new_v3(
-			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 1.5 * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * 1.5 * env->options.minimap_scale + 150,
+			(cos(env->player.angle) * env->camera.near_z - sin(env->player.angle) * env->camera.near_right) * env->options.minimap_scale + env->w - 150,
+			(sin(env->player.angle) * env->camera.near_z + cos(env->player.angle) * env->camera.near_right) * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
 	line.x0 = triangle[2].x;
@@ -158,9 +154,15 @@ void	draw_player(t_env *env)
 	line.x1 = triangle[1].x;
 	line.y1 = triangle[1].y;
 	draw_line_3(env, line);
+	if (!env->options.test)
+	{
+		line.x1 = triangle[0].x;
+		line.y1 = triangle[0].y;
+		draw_line_3(env, line);
+	}
 	triangle[2] = new_v3(
-			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
-			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
+			(cos(env->player.angle) * env->camera.far_z - sin(env->player.angle) * env->camera.far_right) * env->options.minimap_scale + env->w - 150,
+			(sin(env->player.angle) * env->camera.far_z + cos(env->player.angle) * env->camera.far_right) * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
 	line.x0 = triangle[0].x;

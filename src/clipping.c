@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 10:23:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:38:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clip_walls(t_render *render, t_env *env)
 				new_v2(-100000, env->camera.near_z),
 				new_v2(100000, env->camera.near_z));
 		render->clipped = 1;
-		ft_printf("new wall: x = %f z = %f\n", vz2.x, vz2.y);
+		//ft_printf("new wall: x = %f z = %f\n", vz2.x, vz2.y);
 	}
 	if (render->vz1 <= env->camera.near_z)
 	{
