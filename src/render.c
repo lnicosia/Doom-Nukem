@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 18:26:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 09:59:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors, int cou
 			get_rotated_vertices(&render, env);
 
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
-			if (is_in_fov(render.vx1, render.vz1, env) || is_in_fov(render.vx2, render.vz2, env))
+			if (is_in_fov(render.vx1, render.vz1, env) || is_in_fov(render.vx2, render.vz2, env)
+					|| !env->options.clipping)
 			{
-				//ft_printf("visible\n");
 				// Calculer le cliping
-				clip_walls(&render, env);
+				if (env->options.clipping)
+					clip_walls(&render, env);
 
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);

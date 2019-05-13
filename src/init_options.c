@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:16:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 18:25:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 09:55:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	init_options(t_env *env)
 	env->options.test = 1;
 	env->options.minimap_scale = 20;
 	env->options.render_type = 0;
+	env->options.clipping = 1;
 }

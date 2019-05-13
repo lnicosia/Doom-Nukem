@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 18:25:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 10:17:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ typedef struct		s_keys
 	int				right2;
 	int				plus;
 	int				minus;
+	int				shift;
+	int				ctrl;
 }					t_keys;
 
 /*
@@ -133,6 +135,8 @@ typedef struct		s_inputs
 	uint8_t			right;
 	uint8_t			plus;
 	uint8_t			minus;
+	uint8_t			shift;
+	uint8_t			ctrl;
 }					t_inputs;
 
 /*
@@ -172,6 +176,7 @@ typedef struct		s_options
 	int				test;
 	double			minimap_scale;
 	int				render_type;
+	int				clipping;
 }					t_options;
 
 /*
@@ -252,6 +257,7 @@ t_printable_text	new_printable_text(
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
 void				fps(t_env *e);
+void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);
 unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
@@ -273,10 +279,12 @@ t_v3				new_v3(double x, double y, double z);
 void				precompute_slopes(t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
-void				keys(t_env *env);
+void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_camera_sector(t_env *env);
 int					parse_bmp(char *file, t_env *env);
+void				keys(t_env *env);
+
 
 #endif
