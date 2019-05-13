@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 11:58:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:55:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,15 @@ typedef struct		s_render
 	double			ceiling_slope;
 	short			nv1;
 	short			nv2;
+	t_v2			inter_near;
+	t_v2			inter_far;
+	t_v2			inter_left;
+	t_v2			inter_right;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env);
-int					is_in_fov(double x, double z, t_env *env);
+int					check_fov(t_render *render, t_env *env);
 void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
 void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector sector);

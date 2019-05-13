@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/08 15:09:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 15:57:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,11 @@ int		init_vertices(t_env *env, char *line)
 	if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex) * (nb_vertices))))
 	{
 		ft_printf("Could not malloc vertices!\n", env);
+		return (-1);
+	}
+	if (!(env->clipped_vertices = (t_vertex *)malloc(sizeof(t_vertex) * (nb_vertices))))
+	{
+		ft_printf("Could not malloc clipped_vertices!\n", env);
 		return (-1);
 	}
 	return (nb_vertices);

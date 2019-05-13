@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/01 14:12:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 15:49:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void		free_all(t_env *env)
 		free_sectors(env);
 	if (env->vertices)
 		ft_memdel((void**)&env->vertices);
+	if (env->clipped_vertices)
+		ft_memdel((void**)&env->clipped_vertices);
 	TTF_Quit();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
