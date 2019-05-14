@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/14 12:03:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 18:41:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,21 @@ static void	get_intersections(t_render *render, t_env *env)
 				new_v2(render->vx2, render->vz2),
 				new_v2(env->camera.far_left, env->camera.far_z),
 				new_v2(env->camera.far_right, env->camera.far_z));
+/*	ft_printf("Inter near = [%f, %f]\n", render->inter_near.y, render->inter_near.x);
+	ft_printf("Inter far = [%f, %f]\n", render->inter_far.y, render->inter_far.x);
+	ft_printf("Inter left = [%f, %f]\n", render->inter_left.y, render->inter_left.x);
+	ft_printf("Inter right = [%f, %f]\n", render->inter_right.y, render->inter_right.x);*/
 }
 
 int			check_fov(t_render *render, t_env *env)
 {
-	if (render->vz1 < env->camera.near_z && render->vz2 < env->camera.near_z
-			&& render->vx1 > env->camera.far_left && render->vx2 > env->camera.far_right)
+	if ((render->vz1 < env->camera.near_z && render->vz2 < env->camera.near_z)
+			|| (render->vz1 > env->camera.far_z && render->vz2 > env->camera.far_z)
+			|| (render->vx1 < env->camera.far_left && render->vx2 < env->camera.far_left)
+			|| (render->vx2 > env->camera.far_right && render->vx2 > env->camera.far_right))
 		return (0);
 	get_intersections(render, env);
+	return (1);
 	if ((render->inter_left.x >= env->camera.far_left
 			&& render->inter_left.x <= env->camera.near_left
 			&& render->inter_left.y >= env->camera.near_z
@@ -68,27 +75,65 @@ int			check_fov(t_render *render, t_env *env)
 			|| (render->inter_near.x >= env->camera.near_left
 			&& render->inter_near.x <= env->camera.near_right))
 		return (1);
+	/*if ((render->vx1 >= render->inter_left.x && render->vx1 <= render->inter_right.x
+				&& render->vz1 >= render->inter_near.y && render->vz1 <= render->inter_far.y)
+			|| (render->vx2 >= render->inter_left.x && render->vx2 <= render->inter_right.x
+				&& render->vz2 >= render->inter_near.y && render->vz2 <= render->inter_far.y))
+		return (1);*/
+	/*if (render->vz1 >= env->camera.near_z || render->vz2 >= env->camera.near_z)
+		return (1);*/
 	return (0);
 }
 
 void		clip_walls(t_render *render, t_env *env)
 {
-
 	render->clipped = 0;
 	render->v1_clipped = 0;
 	render->v2_clipped = 0;
-	if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
+	/*handle_left(render, env);
+	handle_right(render, env);
+	handle_near(render, env);
+	handle_far(render, env);*/
+	/*if (render->vx1 < render->inter_left.x)
+	{
+		render->vx1 = render->inter_left.x;
+		render->vz1 = render->inter_left.y;
+		render->v1_clipped = 1;
+		render->clipped = 1;
+	}
+	if (render->vz1 < render->inter_near.y)
+	{
+		render->vx1 = render->inter_near.x;
+		render->vz1 = render->inter_near.y;
+		render->v1_clipped = 1;
+		render->clipped = 1;
+	}
+	if (render->vx2 > render->inter_right.x)
+	{
+		render->vx2 = render->inter_right.x;
+		render->vz2 = render->inter_right.y;
+		render->v2_clipped = 1;
+		render->clipped = 1;
+	}
+	if (render->vz2 < render->inter_near.y)
+	{
+		render->vx2 = render->inter_near.x;
+		render->vz2 = render->inter_near.y;
+		render->v2_clipped = 1;
+		render->clipped = 1;
+	}*/
+	if (render->vz1 < env->camera.near_z || render->vz2 < env->camera.near_z)
 	{
 		render->clipped = 1;
 		//ft_printf("new wall: x = %f z = %f\n", vz2.x, vz2.y);
 	}
-	if (render->vz1 <= env->camera.near_z)
+	if (render->vz1 < env->camera.near_z)
 	{
 		render->vx1 = render->inter_near.x;
 		render->vz1 = render->inter_near.y;
 		render->v1_clipped = 1;
 	}
-	if (render->vz2 <= env->camera.near_z)
+	if (render->vz2 < env->camera.near_z)
 	{
 		render->vx2 = render->inter_near.x;
 		render->vz2 = render->inter_near.y;
@@ -98,41 +143,33 @@ void		clip_walls(t_render *render, t_env *env)
 	{
 		render->clipped = 1;
 		//Trouver une intersection entre le mur et le champ de vision du joueur
-			vz1 = get_intersection(
-					new_v2(render->vx1, render->vz1),
-					new_v2(render->vx2, render->vz2),
-					new_v2(env->camera.near_left, env->camera.near_z),
-					new_v2(env->camera.far_left, env->camera.far_z));
-			vz2 = get_intersection(
-				new_v2(render->vx1, render->vz1
-				new_v2(render->vx2, render->vz2),
-				new_v2(env->camera.near_right, env->camera.near_z),
-				new_v2(env->camera.far_right, env->camera.far_z));
 		if (render->vz1 < env->camera.near_z)
 		{
-			if(vz1.y > env->camera.near_z)
+			if(render->inter_left.y > env->camera.near_z)
 			{
-				render->vx1 = vz1.x;
-				render->vz1 = vz1.y;
+				render->vx1 = render->inter_left.x;
+				render->vz1 = render->inter_left.y;
 			}
 			else
 			{
-				render->vx1 = vz2.x;
-				render->vz1 = vz2.y;
+				render->vx1 = render->inter_right.x;
+				render->vz1 = render->inter_right.y;
 			}
+			render->v1_clipped = 1;
 		}
 		if (render->vz2 < env->camera.near_z)
 		{
-			if(vz1.y > env->camera.near_z)
+			if(render->inter_left.y > env->camera.near_z)
 			{
-				render->vx2 = vz1.x;
-				render->vz2 = vz1.y;
+				render->vx2 = render->inter_left.x;
+				render->vz2 = render->inter_left.y;
 			}
 			else
 			{
-				render->vx2 = vz2.x;
-				render->vz2 = vz2.y;
+				render->vx2 = render->inter_right.x;
+				render->vz2 = render->inter_right.y;
 			}
+			render->v2_clipped = 1;
 		}
 	}
 	else
