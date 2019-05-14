@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 17:08:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 12:03:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
 			get_rotated_vertices(&render, env);
 
-					env->clipped_vertices[sector.vertices[i]].y = (render.vz1 + env->player.pos.x) * env->player.angle_sin
-						- (render.vx1 - env->player.pos.y) * env->player.angle_cos;
-					env->clipped_vertices[sector.vertices[i]].x = (render.vz1 + env->player.pos.x) * env->player.angle_cos
-						+ (render.vx1 - env->player.pos.y) * env->player.angle_sin;
-					env->clipped_vertices[sector.vertices[i + 1]].y = (render.vz2 + env->player.pos.x) * env->player.angle_sin
-						- (render.vx2 - env->player.pos.y) * env->player.angle_cos;
-					env->clipped_vertices[sector.vertices[i + 1]].x = (render.vz2 + env->player.pos.x) * env->player.angle_cos
-						+ (render.vx2 - env->player.pos.y) * env->player.angle_sin;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env)
 					|| !env->options.clipping)
@@ -80,6 +72,26 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 				if (env->options.clipping)
 				{
 					clip_walls(&render, env);
+					if (render.v1_clipped)
+					{
+						env->vertices[sector.vertices[i]].clipped_y = (render.vx1) * -env->player.angle_cos
+							+ (render.vz1) * env->player.angle_sin;
+						env->vertices[sector.vertices[i]].clipped_x = (render.vx1) * env->player.angle_sin
+							- (render.vz1) * -env->player.angle_cos;
+						env->vertices[sector.vertices[i]].clipped_x += env->player.pos.x;
+						env->vertices[sector.vertices[i]].clipped_y += env->player.pos.y;
+						env->vertices[sector.vertices[i]].clipped = 1;
+					}
+					if (render.v2_clipped)
+					{
+						env->vertices[sector.vertices[i + 1]].clipped_y = (render.vx2) * -env->player.angle_cos
+							+ (render.vz2) * env->player.angle_sin;
+						env->vertices[sector.vertices[i + 1]].clipped_x = (render.vx2) * env->player.angle_sin
+							- (render.vz2) * -env->player.angle_cos;
+						env->vertices[sector.vertices[i + 1]].clipped_x += env->player.pos.x;
+						env->vertices[sector.vertices[i + 1]].clipped_y += env->player.pos.y;
+						env->vertices[sector.vertices[i + 1]].clipped = 1;
+					}
 				}
 
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran

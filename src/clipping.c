@@ -6,12 +6,24 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 16:37:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 12:03:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "render.h"
+
+void		reset_clipped(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->nb_vertices)
+	{
+		env->vertices[i].clipped = 0;
+		i++;
+	}
+}
 
 static void	get_intersections(t_render *render, t_env *env)
 {
@@ -63,6 +75,8 @@ void		clip_walls(t_render *render, t_env *env)
 {
 
 	render->clipped = 0;
+	render->v1_clipped = 0;
+	render->v2_clipped = 0;
 	if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
 	{
 		render->clipped = 1;
@@ -72,11 +86,13 @@ void		clip_walls(t_render *render, t_env *env)
 	{
 		render->vx1 = render->inter_near.x;
 		render->vz1 = render->inter_near.y;
+		render->v1_clipped = 1;
 	}
 	if (render->vz2 <= env->camera.near_z)
 	{
 		render->vx2 = render->inter_near.x;
 		render->vz2 = render->inter_near.y;
+		render->v2_clipped = 1;
 	}
 	/*if (render->vz1 <= env->camera.near_z || render->vz2 <= env->camera.near_z)
 	{

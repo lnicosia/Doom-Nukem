@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 16:36:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 11:51:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct		s_vertex
 {
 	double			x;
 	double			y;
+	double			clipped_x;
+	double			clipped_y;
+	int				clipped;
 	short			num;
 }					t_vertex;
 
@@ -200,7 +203,6 @@ typedef struct		s_env
 {
 	t_sdl			sdl;
 	t_vertex		*vertices;
-	t_vertex		*clipped_vertices;
 	t_sector		*sectors;
 	t_player		player;
 	t_options		options;
@@ -274,7 +276,7 @@ void				check_parsing(t_env *env);
 void				options(t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
-void				cpy_vertices(t_env *env);
+void				reset_clipped(t_env *env);
 
 t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);

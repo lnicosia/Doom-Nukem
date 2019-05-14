@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 16:36:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 11:50:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		doom(int ac, char **av)
 	ft_printf("Launching game loop..\n");
 	while (env.running)
 	{
-		cpy_vertices(&env);
+		reset_clipped(&env);
 		clear_image(&env);
 		keys(&env);
 		if (draw(&env) != 0)

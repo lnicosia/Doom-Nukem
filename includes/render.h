@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 14:55:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/14 12:01:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ typedef struct		s_render
 	int				xend;
 	int				sector;
 	int				father;
-	double				light;
+	double			light;
 	int				clipped;
+	int				v1_clipped;
+	int				v2_clipped;
 	double			dist1;
 	double			dist2;
 	double			floor_slope;
