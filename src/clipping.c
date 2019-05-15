@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 14:50:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:07:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void		reset_clipped(t_env *env)
 	{
 		env->vertices[i].clipped[0] = 0;
 		env->vertices[i].clipped[1] = 0;
+		env->vertices[i].clipped_x[0] = env->vertices[i].x;
+		env->vertices[i].clipped_x[1] = env->vertices[i].x;
+		env->vertices[i].clipped_y[0] = env->vertices[i].y;
+		env->vertices[i].clipped_y[1] = env->vertices[i].y;
 		i++;
 	}
 	i = 0;
@@ -101,9 +105,6 @@ int			check_fov(t_render *render, t_env *env)
 
 void		clip_walls(t_render *render, t_env *env)
 {
-	render->clipped = 0;
-	render->v1_clipped = 0;
-	render->v2_clipped = 0;
 	/*handle_left(render, env);
 	handle_right(render, env);
 	handle_near(render, env);
@@ -136,11 +137,6 @@ void		clip_walls(t_render *render, t_env *env)
 		render->v2_clipped = 1;
 		render->clipped = 1;
 	}*/
-	if (render->vz1 < env->camera.near_z || render->vz2 < env->camera.near_z)
-	{
-		render->clipped = 1;
-		//ft_printf("new wall: x = %f z = %f\n", vz2.x, vz2.y);
-	}
 	if (render->vz1 < env->camera.near_z)
 	{
 		render->vx1 = render->inter_near.x;

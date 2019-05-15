@@ -6,20 +6,11 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/15 14:12:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:10:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-typedef struct	s_line
-{
-	int			x0;
-	int			y0;
-	int			x1;
-	int			y1;
-	int			color;
-}				t_line;
 
 void	swap_value(int *a, int *b)
 {
@@ -283,63 +274,23 @@ void	minimap(t_env *env)
 		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
 		{
 			draw_sector_num(env, sect);
-			while (v < sect.nb_vertices)
+			if (!env->options.test)
 			{
-				line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-				line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-				line.color = 0xFFFFFFFF;
-				if (sect.num == env->player.sector)
-					line.color = 0x00FF00FF;
-				draw_line_3(env, line);
-				v++;
+				while (v < sect.nb_vertices)
+				{
+					line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+					line.color = 0xFFFFFFFF;
+					if (sect.num == env->player.sector)
+						line.color = 0x00FF00FF;
+					draw_line_3(env, line);
+					v++;
+				}
 			}
 		}
 		s++;
 	}
 	draw_player(env);
-	if (!env->options.test)
-		return ;
-	s = 0;
-	while (s < env->nb_sectors)
-	{
-		sect = env->sectors[s];
-		v = 0;
-		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
-		{
-			draw_sector_num(env, sect);
-			while (v < sect.nb_vertices)
-			{
-				if (env->vertices[sect.vertices[v]].clipped[0]
-						|| env->vertices[sect.vertices[v + 1]].clipped[1])
-				{
-					if (env->vertices[sect.vertices[v]].clipped[0])
-					{
-						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sect.vertices[v]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					else
-					{
-						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					if (env->vertices[sect.vertices[v + 1]].clipped[1])
-					{
-						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					else
-					{
-						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					line.color = 0xFF0000FF;
-					draw_line_3(env, line);
-				}
-				v++;
-			}
-		}
-		s++;
-	}
 }

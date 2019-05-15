@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/06 10:08:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 17:55:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 #include "render.h"
 
 /*
-**	Draw a vertical line on the screen at line.x
+**	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_line(t_line line, t_env *env)
+void	draw_vline(t_vline vline, t_env *env)
 {
 	if (env->options.contouring)
 	{
-		env->sdl.img_str[line.x + env->w * line.start] = 0xFF;
-		env->sdl.img_str[line.x + env->w * line.end] = 0xFF;
-		line.start++;
-		line.end--;
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
+			env->sdl.img_str[vline.x + env->w * vline.start] = 0xFF;
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.end >= 0 && vline.end <= 300) || !env->options.show_minimap)
+		env->sdl.img_str[vline.x + env->w * vline.end] = 0xFF;
+		vline.start++;
+		vline.end--;
 	}
-	while (line.start <= line.end)
+	while (vline.start <= vline.end)
 	{
-		env->sdl.img_str[line.x + env->w * line.start] = line.color;
-		line.start++;
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
+			env->sdl.img_str[vline.x + env->w * vline.start] = vline.color;
+		vline.start++;
 	}
 }
 
@@ -39,19 +42,19 @@ void	draw_line(t_line line, t_env *env)
 
 void	draw_ceiling(t_render render, t_env *env)
 {
-	t_line	line;
+	t_vline	vline;
 
-	line.x = render.currentx;
-	line.start = render.ymin;
-	line.end = render.current_ceiling;
-	line.color = 0x222222FF;
+	vline.x = render.currentx;
+	vline.start = render.ymin;
+	vline.end = render.current_ceiling;
+	vline.color = 0x222222FF;
 	if (env->options.lighting)
-		line.color = ((int)render.light / 5) << 24
+		vline.color = ((int)render.light / 5) << 24
 			| ((int)render.light / 5) << 16
 			| ((int)render.light / 5) << 8
 			| 255;
-	//ft_printf("floor end = %d\n", line.end);
-	draw_line(line, env);
+	//ft_printf("floor end = %d\n", vline.end);
+	draw_vline(vline, env);
 }
 
 /*
@@ -60,19 +63,19 @@ void	draw_ceiling(t_render render, t_env *env)
 
 void	draw_floor(t_render render,t_env *env)
 {
-	t_line	line;
+	t_vline	vline;
 
-	line.x = render.currentx;
-	line.start = render.current_floor;
-	line.end = render.ymax;
-	line.color = 0x444444FF;
+	vline.x = render.currentx;
+	vline.start = render.current_floor;
+	vline.end = render.ymax;
+	vline.color = 0x444444FF;
 	if (env->options.lighting)
-		line.color = ((int)render.light / 3) << 24
+		vline.color = ((int)render.light / 3) << 24
 			| ((int)render.light / 3) << 16
 			| ((int)render.light / 3) << 8
 			| 255;
-	//ft_printf("ceiling start = %d\n", line.start);
-	draw_line(line, env);
+	//ft_printf("ceiling start = %d\n", vline.start);
+	draw_vline(vline, env);
 }
 
 /*
@@ -81,21 +84,21 @@ void	draw_floor(t_render render,t_env *env)
 
 void	draw_upper_wall(t_render render, t_env *env)
 {
-	t_line	line;
+	t_vline	vline;
 
-	line.x = render.currentx;
-	line.start = render.current_ceiling;
-	line.end = render.current_neighbor_ceiling;
-	line.color = 0x07C00D9FF;
+	vline.x = render.currentx;
+	vline.start = render.current_ceiling;
+	vline.end = render.current_neighbor_ceiling;
+	vline.color = 0x07C00D9FF;
 	if (env->options.lighting)
-		line.color = (int)render.light / 3 << 24
+		vline.color = (int)render.light / 3 << 24
 			| (int)render.light / 3 << 16
 			| (int)render.light / 3<< 8
 			| 255;
-	//ft_printf("floor end = %d\n", line.end);
+	//ft_printf("floor end = %d\n", vline.end);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
-			line.color = 0xFF;
-	draw_line(line, env);
+			vline.color = 0xFF;
+	draw_vline(vline, env);
 }
 
 /*
@@ -104,19 +107,19 @@ void	draw_upper_wall(t_render render, t_env *env)
 
 void	draw_bottom_wall(t_render render,t_env *env)
 {
-	t_line	line;
+	t_vline	vline;
 
-	line.x = render.currentx;
-	line.start = render.current_neighbor_floor;
-	line.end = render.current_floor;
-	line.color = 0x7C00D9FF;
+	vline.x = render.currentx;
+	vline.start = render.current_neighbor_floor;
+	vline.end = render.current_floor;
+	vline.color = 0x7C00D9FF;
 	if (env->options.lighting)
-		line.color = (int)render.light / 3 << 24
+		vline.color = (int)render.light / 3 << 24
 			| (int)render.light / 3 << 16
 			| (int)render.light / 3 << 8
 			| 255;
-	//ft_printf("ceiling start = %d\n", line.start);
+	//ft_printf("ceiling start = %d\n", vline.start);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
-			line.color = 0xFF;
-	draw_line(line, env);
+			vline.color = 0xFF;
+	draw_vline(vline, env);
 }

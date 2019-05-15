@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:13:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/14 18:24:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:07:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ void		handle_left(t_render *render, t_env *env)
 			render->vx1 = render->inter_left.x;
 			render->vz1 = render->inter_left.y;
 			render->v1_clipped = 1;
-			render->clipped = 1;
 		}
 		if (render->vx2 < render->inter_left.x && render->vx1 > render->inter_left.x)
 		{
 			render->vx1 = render->inter_left.x;
 			render->vz1 = render->inter_left.y;
 			render->v1_clipped = 1;
-			render->clipped = 1;
 		}
 	}
 }

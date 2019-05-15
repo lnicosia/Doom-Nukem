@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 15:00:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:08:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 {
 	int			i;
 	t_sector	sector;
+	t_vline		vline;
 	t_line		line;
 	int			x;
 	int			xstart;
@@ -64,6 +65,8 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
 			get_rotated_vertices(&render, env);
 
+			render.v1_clipped = 0;
+			render.v2_clipped = 0;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 					//|| !env->options.clipping)
@@ -74,31 +77,50 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					clip_walls(&render, env);
 					if (render.v1_clipped)
 					{
-						env->vertices[sector.vertices[i]].clipped_y = (render.vx1) * -env->player.angle_cos
+						env->vertices[sector.vertices[i]].clipped_y[0] = (render.vx1) * -env->player.angle_cos
 							+ (render.vz1) * env->player.angle_sin;
-						env->vertices[sector.vertices[i]].clipped_x = (render.vx1) * env->player.angle_sin
+						env->vertices[sector.vertices[i]].clipped_x[0] = (render.vx1) * env->player.angle_sin
 							- (render.vz1) * -env->player.angle_cos;
-						env->vertices[sector.vertices[i]].clipped_x += env->player.pos.x;
-						env->vertices[sector.vertices[i]].clipped_y += env->player.pos.y;
+						env->vertices[sector.vertices[i]].clipped_x[0] += env->player.pos.x;
+						env->vertices[sector.vertices[i]].clipped_y[0] += env->player.pos.y;
 						env->vertices[sector.vertices[i]].clipped[0] = 1;
+						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].clipped_x[0] - env->player.pos.x) * env->options.minimap_scale;
+						line.y0 = 150 + (env->vertices[sector.vertices[i]].clipped_y[0] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i] = get_clipped_floor(sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_floors[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i] = get_clipped_ceiling(sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_ceilings[i] = get_clipped_ceiling(0, sector, env->vertices[sector.vertices[i]], env); 
+					}
+					else
+					{
+						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.y0 = 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * env->options.minimap_scale;
 					}
 					if (render.v2_clipped)
 					{
-						env->vertices[sector.vertices[i + 1]].clipped_y = (render.vx2) * -env->player.angle_cos
+						env->vertices[sector.vertices[i + 1]].clipped_y[1] = (render.vx2) * -env->player.angle_cos
 							+ (render.vz2) * env->player.angle_sin;
-						env->vertices[sector.vertices[i + 1]].clipped_x = (render.vx2) * env->player.angle_sin
+						env->vertices[sector.vertices[i + 1]].clipped_x[1] = (render.vx2) * env->player.angle_sin
 							- (render.vz2) * -env->player.angle_cos;
-						env->vertices[sector.vertices[i + 1]].clipped_x += env->player.pos.x;
-						env->vertices[sector.vertices[i + 1]].clipped_y += env->player.pos.y;
+						env->vertices[sector.vertices[i + 1]].clipped_x[1] += env->player.pos.x;
+						env->vertices[sector.vertices[i + 1]].clipped_y[1] += env->player.pos.y;
 						env->vertices[sector.vertices[i + 1]].clipped[1] = 1;
+						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].clipped_x[1] - env->player.pos.x) * env->options.minimap_scale;
+						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].clipped_y[1] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i + 1] = get_clipped_floor(sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_floors[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i + 1] = get_clipped_ceiling(sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_ceilings[i + 1] = get_clipped_ceiling(1, sector, env->vertices[sector.vertices[i + 1]], env); 
+					}
+					else
+					{
+						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+					}
+					if (env->options.test && env->player.pos.z > sector.floor_min && env->player.pos.z < sector.ceiling_max)
+					{
+						line.color = 0xFF0000FF;
+						draw_line_3(env, line);
 					}
 				}
 
@@ -161,9 +183,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
 						render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
-						line.start = render.current_ceiling;
-						line.end = render.current_floor;
-						line.x = x;
+						vline.start = render.current_ceiling;
+						vline.end = render.current_floor;
+						vline.x = x;
 						if (sector.neighbors[i] >= 0)
 						{
 							// Calculer y actuel du plafond et du sol du voisin
@@ -180,10 +202,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 							if (!env->options.render_sectors)
 							{
 								// Dessiner le portail en rouge
-								line.color = 0xAA0000FF;
+								vline.color = 0xAA0000FF;
 								if (env->options.lighting)
-									line.color = (int)render.light << 24 | 255;
-								draw_line(line, env);
+									vline.color = (int)render.light << 24 | 255;
+								draw_vline(vline, env);
 							}
 							// Dessiner corniche
 							if (render.current_neighbor_ceiling > render.current_ceiling)
@@ -207,24 +229,24 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 										ft_printf("%d = %d, ", x, env->depth_array[x]);*/
 								env->depth_array[x] = render.light;
 								//ft_printf("| %d = %f %f |", x, env->depth_array[x], render.light);
-								if (render.clipped && env->options.color_clipping)
-									line.color = 0x00AA00FF;
+								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
+									vline.color = 0x00AA00FF;
 								else
-									line.color = 0x888888FF;
+									vline.color = 0x888888FF;
 								if (env->options.wall_color)
 								{
 									if (i == 0)
-										line.color = 0xAA0000FF;
+										vline.color = 0xAA0000FF;
 									if (i == 1)
-										line.color = 0x00AA00FF;
+										vline.color = 0x00AA00FF;
 									if (i == 2)
-										line.color = 0xAAFF;
+										vline.color = 0xAAFF;
 								}
 								if (env->options.lighting)
-									line.color = (int)render.light << 24 | (int)render.light << 16 | (int)render.light << 8 | 255;
+									vline.color = (int)render.light << 24 | (int)render.light << 16 | (int)render.light << 8 | 255;
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
-									line.color = 0xFF;
-								draw_line(line, env);
+									vline.color = 0xFF;
+								draw_vline(vline, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 

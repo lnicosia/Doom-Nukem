@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 14:57:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:02:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ typedef struct		s_line_eq
 	double b;
 }					t_line_eq;
 
+typedef struct	s_line
+{
+		int			x0;
+		int			y0;
+		int			x1;
+		int			y1;
+		int			color;
+}				t_line;
+
 /*
 ** VERTICES = PLURIEL DE VERTEX
 */
@@ -71,8 +80,8 @@ typedef struct		s_vertex
 {
 	double			x;
 	double			y;
-	double			clipped_x;
-	double			clipped_y;
+	double			clipped_x[2];
+	double			clipped_y[2];
 	int				clipped[2];
 	short			num;
 }					t_vertex;
@@ -268,6 +277,7 @@ void				fill_triangle(t_v3 v[3], t_env *env);
 unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
+void				draw_line_3(t_env *env, t_line line);
 
 /*
 ** Main pipeline functions
@@ -284,8 +294,8 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(t_sector sector, t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_floor(int num, t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_ceiling(int num, t_sector sector, t_vertex vertex, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
