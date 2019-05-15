@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/09 15:09:48 by sipatry          ###   ########.fr        #
+#    Updated: 2019/05/15 11:47:25 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  bmp_parser.c bmp_parser_utils.c check_bmp_parsing.c \
 		  bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		  maths_utils.c fill_triangle.c color_utils.c clipping.c init_camera.c \
+		  keys.c print_debug.c intersections.c
 
 HEADERS = utils.h render.h collision.h
 

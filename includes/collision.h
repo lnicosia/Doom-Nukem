@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/07 16:25:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/05/10 14:06:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
+# define SECTOR_X1 env->vertices[env->sectors[sector].vertices[i]].x
+# define SECTOR_X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
+# define SECTOR_Y1 env->vertices[env->sectors[sector].vertices[i]].y
+# define SECTOR_Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
 # define FUTURE_V0X env->vertices[env->sectors[env->player.sector].vertices[0]].x
 # define FUTURE_V0Y env->vertices[env->sectors[env->player.sector].vertices[0]].y
 # define FUTURE_X motion.future_x
@@ -47,5 +51,6 @@ typedef struct  s_data
 
 int					check_collision(t_env *env, double x_move, double y_move);
 int     			check_inside_sector(t_env *env, t_movement motion);
+int					is_in_sector(t_env *env, short sector, double x, double y);
 
 #endif

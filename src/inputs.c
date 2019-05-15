@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/24 16:09:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/13 10:09:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	init_inputs(t_env *env)
 	env->inputs.backward = 0;
 	env->inputs.left = 0;
 	env->inputs.right = 0;
+	env->inputs.plus = 0;
+	env->inputs.minus = 0;
+	env->inputs.shift = 0;
+	env->inputs.ctrl = 0;
 }
 
 void	set_inputs(t_env *env, int mode)
@@ -34,9 +38,15 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.right
 			|| env->sdl.event.key.keysym.sym == env->keys.right2)
 		env->inputs.right = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.plus)
+		env->inputs.plus = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.minus)
+		env->inputs.minus = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.shift)
+		env->inputs.shift = mode;
 }
 
-void	keys(t_env *env)
+void	update_inputs(t_env *env)
 {
 	if (env->sdl.event.type == SDL_KEYDOWN)
 		set_inputs(env, 1);

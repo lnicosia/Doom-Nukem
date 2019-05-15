@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/09 15:12:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 11:14:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,22 @@ int		doom(int ac, char **av)
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
 	env.player.speed = 0.5;
-	env.player.size_2d = 1;
+	env.player.size_2d = 0.5;
 	ft_printf("Launching game loop..\n");
 	while (env.running)
 	{
+		reset_clipped(&env);
 		clear_image(&env);
-		move_player(&env);
+		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
-		//draw_crosshair(&env);
+		draw_crosshair(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
-			print_text(new_v2(0, 1300), new_printable_text("TEST", "fonts/amazdoom/AmazDooMLeft.ttf", 0xFFFFFFFF, 20), &env);
+			print_debug(&env);
 		update_screen(&env);
 		// BMP parser
 		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
@@ -68,7 +69,7 @@ int		doom(int ac, char **av)
 				env.running = 0;
 			else if (env.sdl.event.type == SDL_KEYDOWN
 					|| env.sdl.event.type == SDL_KEYUP)
-				keys(&env);
+				update_inputs(&env);
 		}
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		view(&env);

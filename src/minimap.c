@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/09 15:14:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 10:44:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ void	swap_value(int *a, int *b)
 	*b = tmp;
 }
 
-void	put_pixel(t_env *env, int x, int y, int color)
+void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
-	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300
-			&& env->sdl.img_str[x + env->w * y] != 0x00FF00FF
-			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF)
+	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300)
+	{
+		if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
+			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF))
 		env->sdl.img_str[x + env->w * y] = color;
+	}
 }
 
 void	draw_line_2(t_env *env, t_line line)
@@ -135,47 +137,66 @@ void	draw_player(t_env *env)
 		x++;
 	}
 
+	line.color = 0xFFFF00FF;
 	triangle[2] = new_v3(
-			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + 150,
+			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_left) * env->options.minimap_scale + env->w - 150,
+			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_left) * env->options.minimap_scale + 150,
 			0);
 	triangle[1] = new_v3(
-			cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
-			sin(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
+			(env->player.angle_cos * env->camera.far_z - env->player.angle_sin * env->camera.far_left) * env->options.minimap_scale + env->w - 150,
+			(env->player.angle_sin * env->camera.far_z + env->player.angle_cos * env->camera.far_left) * env->options.minimap_scale + 150,
 			0);
 	triangle[0] = new_v3(
-			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + env->w - 150,
-			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->camera.near_z * env->options.minimap_scale + 150,
+			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_right) * env->options.minimap_scale + env->w - 150,
+			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right) * env->options.minimap_scale + 150,
 			0);
-	line.x0 = (triangle[2].x - triangle[0].x) / (triangle[2].y - triangle[0].y) * env->w + env->w - 150;
-	line.y0 = (triangle[2].x - triangle[0].x) / (triangle[2].y - triangle[0].y) * env->w + 150;
-	line.x1 = -(triangle[2].x - triangle[0].x) / (triangle[2].y - triangle[0].y) * env->w + env->w - 150;
-	line.y1 = -(triangle[2].x - triangle[0].x) / (triangle[2].y - triangle[0].y) * env->w + 150;
-	line.x0 = cos(env->player.angle) * env->options.minimap_scale + env->w - 150;
-	line.x0 = sin(env->player.angle) * env->options.minimap_scale + 150;
-	line.color = 0xFFFF00FF;
-	//draw_line_3(env, line);
 	fill_triangle(triangle, env);
+	line.x0 = triangle[2].x;
+	line.y0 = triangle[2].y;
+	line.x1 = triangle[1].x;
+	line.y1 = triangle[1].y;
+	draw_line_3(env, line);
+	if (!env->options.test)
+	{
+		line.x1 = triangle[0].x;
+		line.y1 = triangle[0].y;
+		draw_line_3(env, line);
+	}
 	triangle[2] = new_v3(
-			cos(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + env->w - 150,
-			sin(env->player.angle + (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + 150,
+			(env->player.angle_cos * env->camera.far_z - env->player.angle_sin * env->camera.far_right) * env->options.minimap_scale + env->w - 150,
+			(env->player.angle_sin * env->camera.far_z + env->player.angle_cos * env->camera.far_right) * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
+	line.x0 = triangle[0].x;
+	line.y0 = triangle[0].y;
+	line.x1 = triangle[2].x;
+	line.y1 = triangle[2].y;
+	draw_line_3(env, line);
+	
+	//ligne de near_z
+	line.x0 = env->player.angle_cos * env->camera.near_z * env->options.minimap_scale + env->w - 150;
+	line.y0 = env->player.angle_sin * env->camera.near_z * env->options.minimap_scale + 150;
+	line.x1 = line.x0 + cos(env->player.angle - M_PI / 2) * env->w * env->options.minimap_scale;
+	line.y1 = line.y0 + sin(env->player.angle - M_PI / 2) * env->w * env->options.minimap_scale;
+	line.x0 = line.x0 - cos(env->player.angle - M_PI / 2) * env->w * env->options.minimap_scale;
+	line.y0 = line.y0 - sin(env->player.angle - M_PI / 2) * env->w * env->options.minimap_scale;
+	if (env->options.test)
+		draw_line_3(env, line);
 
 
-	/*
+	
 	line.x0 = env->w - 150;
 	line.y0 = 150;
-	line.x1 = cos(env->player.angle) * env->options.minimap_scale + line.x0;
-	line.y1 = sin(env->player.angle) * env->options.minimap_scale + line.y0;
+	line.x1 = env->player.angle_cos * env->camera.near_z * env->options.minimap_scale + line.x0;
+	line.y1 = env->player.angle_sin * env->camera.near_z * env->options.minimap_scale + line.y0;
 	line.color = 0xFFFFFFFF;
 	draw_line_3(env, line);
 
 	
-	line.x0 = env->w - 150 + cos(env->player.angle) * env->options.minimap_scale;
-	line.y0 = 150 + sin(env->player.angle) * env->options.minimap_scale;
-	line.x1 = cos(env->player.angle) + line.x0;
-	line.y1 = sin(env->player.angle) + line.y0;
+	/*line.x0 = env->w - 150 + env->player.angle_cos * env->options.minimap_scale;
+	line.y0 = 150 + env->player.angle_sin * env->options.minimap_scale;
+	line.x1 = env->player.angle_cos + line.x0;
+	line.y1 = env->player.angle_sin + line.y0;
 	triangle[0] = new_v3(line.x0, line.y0, 0);
 
 	line.x1 = cos(env->player.angle - (env->camera.hfov / 2 * M_PI / 180.0)) * env->w + line.x0;
@@ -266,16 +287,8 @@ void	minimap(t_env *env)
 			{
 				line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
 				line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-				if ((v + 1) == sect.nb_vertices)
-				{
-					line.x1 = env->w - 150 + (env->vertices[sect.vertices[0]].x - env->player.pos.x) * env->options.minimap_scale;
-					line.y1 = 150 + (env->vertices[sect.vertices[0]].y - env->player.pos.y) * env->options.minimap_scale;
-				}
-				else
-				{
-					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-				}
+				line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+				line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
 				line.color = 0xFFFFFFFF;
 				if (sect.num == env->player.sector)
 					line.color = 0x00FF00FF;
@@ -286,4 +299,47 @@ void	minimap(t_env *env)
 		s++;
 	}
 	draw_player(env);
+	if (!env->options.test)
+		return ;
+	s = 0;
+	while (s < env->nb_sectors)
+	{
+		sect = env->sectors[s];
+		v = 0;
+		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
+		{
+			draw_sector_num(env, sect);
+			while (v < sect.nb_vertices)
+			{
+				if (env->vertices[sect.vertices[v]].clipped
+						|| env->vertices[sect.vertices[v + 1]].clipped)
+				{
+					if (env->vertices[sect.vertices[v]].clipped)
+					{
+						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
+						line.y0 = 150 + (env->vertices[sect.vertices[v]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
+					}
+					else
+					{
+						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
+					}
+					if (env->vertices[sect.vertices[v + 1]].clipped)
+					{
+						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
+						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
+					}
+					else
+					{
+						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+					}
+					line.color = 0xFF0000FF;
+					draw_line_3(env, line);
+				}
+				v++;
+			}
+		}
+		s++;
+	}
 }
