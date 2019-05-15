@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/14 11:51:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:57:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct		s_sector
 	t_v2			normal;
 	double			*floors;
 	double			*ceilings;
+	double			*clipped_floors;
+	double			*clipped_ceilings;
 	double			floor_min;
 	double			ceiling_max;
 }					t_sector;
@@ -71,7 +73,7 @@ typedef struct		s_vertex
 	double			y;
 	double			clipped_x;
 	double			clipped_y;
-	int				clipped;
+	int				clipped[2];
 	short			num;
 }					t_vertex;
 
@@ -282,6 +284,8 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
+double				get_clipped_floor(t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_ceiling(t_sector sector, t_vertex vertex, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/14 11:45:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:44:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,10 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		return (ft_printf("Could not malloc sector ceilings!\n", env));
 	if (!(env->sectors[num].floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
 		return (ft_printf("Could not malloc sector floors!\n", env));
+	if (!(env->sectors[num].clipped_ceilings = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_ceilings!\n", env));
+	if (!(env->sectors[num].clipped_floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_floors!\n", env));
 	i = 0;
 	while (i < vertices_count)
 	{
@@ -332,6 +336,8 @@ int		init_sectors(t_env *env, char *line)
 		env->sectors[i].vertices = NULL;
 		env->sectors[i].ceilings = NULL;
 		env->sectors[i].floors = NULL;
+		env->sectors[i].clipped_ceilings = NULL;
+		env->sectors[i].clipped_floors = NULL;
 		env->sectors[i].neighbors = NULL;
 		env->sectors[i].x_max = -2147483648;
 		i++;

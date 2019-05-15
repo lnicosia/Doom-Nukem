@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/14 18:30:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:12:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,10 +311,10 @@ void	minimap(t_env *env)
 			draw_sector_num(env, sect);
 			while (v < sect.nb_vertices)
 			{
-				if (env->vertices[sect.vertices[v]].clipped
-						|| env->vertices[sect.vertices[v + 1]].clipped)
+				if (env->vertices[sect.vertices[v]].clipped[0]
+						|| env->vertices[sect.vertices[v + 1]].clipped[1])
 				{
-					if (env->vertices[sect.vertices[v]].clipped)
+					if (env->vertices[sect.vertices[v]].clipped[0])
 					{
 						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
 						line.y0 = 150 + (env->vertices[sect.vertices[v]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
@@ -324,7 +324,7 @@ void	minimap(t_env *env)
 						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
 						line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
 					}
-					if (env->vertices[sect.vertices[v + 1]].clipped)
+					if (env->vertices[sect.vertices[v + 1]].clipped[1])
 					{
 						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
 						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].clipped_y - env->player.pos.y) * env->options.minimap_scale;

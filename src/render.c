@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/14 12:03:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 15:00:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			get_rotated_vertices(&render, env);
 
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
-			if (check_fov(&render, env)
-					|| !env->options.clipping)
+			if (check_fov(&render, env))
+					//|| !env->options.clipping)
 			{
 				// Calculer le cliping
 				if (env->options.clipping)
@@ -80,7 +80,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 							- (render.vz1) * -env->player.angle_cos;
 						env->vertices[sector.vertices[i]].clipped_x += env->player.pos.x;
 						env->vertices[sector.vertices[i]].clipped_y += env->player.pos.y;
-						env->vertices[sector.vertices[i]].clipped = 1;
+						env->vertices[sector.vertices[i]].clipped[0] = 1;
+						if (sector.floor_slope)
+							env->sectors[render.sector].clipped_floors[i] = get_clipped_floor(sector, env->vertices[sector.vertices[i]], env); 
+						if (sector.ceiling_slope)
+							env->sectors[render.sector].clipped_ceilings[i] = get_clipped_ceiling(sector, env->vertices[sector.vertices[i]], env); 
 					}
 					if (render.v2_clipped)
 					{
@@ -90,7 +94,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 							- (render.vz2) * -env->player.angle_cos;
 						env->vertices[sector.vertices[i + 1]].clipped_x += env->player.pos.x;
 						env->vertices[sector.vertices[i + 1]].clipped_y += env->player.pos.y;
-						env->vertices[sector.vertices[i + 1]].clipped = 1;
+						env->vertices[sector.vertices[i + 1]].clipped[1] = 1;
+						if (sector.floor_slope)
+							env->sectors[render.sector].clipped_floors[i + 1] = get_clipped_floor(sector, env->vertices[sector.vertices[i + 1]], env); 
+						if (sector.ceiling_slope)
+							env->sectors[render.sector].clipped_ceilings[i + 1] = get_clipped_ceiling(sector, env->vertices[sector.vertices[i + 1]], env); 
 					}
 				}
 
