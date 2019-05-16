@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 15:11:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:12:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 **	Returns camera sector according to the last player movement
 */
 
-int		get_camera_sector(t_env *env)
+int		get_sector(t_env *env, t_v2 p)
 {
 	int		i;
 
-	if (is_in_sector(env, env->player.sector, env->player.camera_x, env->player.camera_y))
+	if (is_in_sector(env, env->player.sector, p.x, p.y))
 		return (env->player.sector);
 	i = 0;
 	while (i < env->sectors[env->player.sector].nb_vertices)
 	{
 		if (env->sectors[env->player.sector].neighbors[i] >= 0)
 		{
-			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], env->player.camera_x, env->player.camera_y))
+			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], p.x, p.y))
 				return (env->sectors[env->player.sector].neighbors[i]);
 		}
 		i++;
@@ -36,11 +36,11 @@ int		get_camera_sector(t_env *env)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (is_in_sector(env, i, env->player.camera_x, env->player.camera_y) && env->player.pos.z > env->sectors[i].floor_min)
+		if (is_in_sector(env, i, p.x, p.y) && env->player.pos.z > env->sectors[i].floor_min)
 			return (i);
 		i++;
 	}
-	return (env->player.sector);
+	return (-1);
 }
 
 /*
@@ -51,6 +51,10 @@ void	update_camera_position(t_env *env)
 {
 	env->player.camera_x = env->player.pos.x + env->player.angle_cos * env->camera.near_z;
 	env->player.camera_y = env->player.pos.y + env->player.angle_sin * env->camera.near_z;
+	env->player.near_left.x = env->player.pos.x + (env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_left);
+	env->player.near_left.y = env->player.pos.y + (env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_left);
+	env->player.near_right.x = env->player.pos.x + (env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_right);
+	env->player.near_right.y = env->player.pos.y + (env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right);
 }
 
 /*
@@ -62,12 +66,22 @@ void	move_player(t_env *env)
 {
 	t_sector	sector;
 	t_vertex	v0;
+	t_v3		origin_pos;
+	short		origin_camera_sect;
+	short		origin_left_sect;
+	short		origin_right_sect;
+	short		origin_sect;
 	double		tmp_speed;
 	int			movement;
 
 	tmp_speed = env->player.speed;
 	sector = env->sectors[env->player.sector];
 	movement = 0;
+	origin_pos = env->player.pos;
+	origin_sect = env->player.sector;
+	origin_camera_sect = env->player.camera_sector;
+	origin_right_sect = env->player.near_left_sector;
+	origin_left_sect = env->player.near_right_sector;
 	if (env->inputs.forward)
 	{	
 		if (check_collision(env, env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed) == 1)
@@ -107,7 +121,17 @@ void	move_player(t_env *env)
 	if (movement)
 	{
 		update_camera_position(env);
-		env->player.camera_sector = get_camera_sector(env);
+		env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
+		env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
+		env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
+		if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
+		{
+			env->player.pos = origin_pos; 
+			env->player.sector = origin_sect;
+			env->player.camera_sector = origin_camera_sect;
+			env->player.near_left_sector = origin_left_sect;
+			env->player.near_right_sector = origin_right_sect;
+		}
 	}
 	env->player.speed = tmp_speed;
 	sector = env->sectors[env->player.sector];

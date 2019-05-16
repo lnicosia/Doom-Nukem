@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/16 10:52:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 14:25:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,16 +130,16 @@ void	draw_player(t_env *env)
 
 	line.color = 0xFFFF00FF;
 	triangle[2] = new_v3(
-			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_left) * env->options.minimap_scale + env->w - 150,
-			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_left) * env->options.minimap_scale + 150,
+			(env->player.near_left.x - env->player.pos.x) * env->options.minimap_scale + env->w - 150,
+			(env->player.near_left.y - env->player.pos.y) * env->options.minimap_scale + 150,
 			0);
 	triangle[1] = new_v3(
 			(env->player.angle_cos * env->camera.far_z - env->player.angle_sin * env->camera.far_left) * env->options.minimap_scale + env->w - 150,
 			(env->player.angle_sin * env->camera.far_z + env->player.angle_cos * env->camera.far_left) * env->options.minimap_scale + 150,
 			0);
 	triangle[0] = new_v3(
-			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_right) * env->options.minimap_scale + env->w - 150,
-			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right) * env->options.minimap_scale + 150,
+			(env->player.near_right.x - env->player.pos.x) * env->options.minimap_scale + env->w - 150,
+			(env->player.near_right.y - env->player.pos.y) * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
 	line.x0 = triangle[2].x;

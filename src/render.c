@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 12:57:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:03:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 	i = 0;
 	while (i < env->w)
 	{
-		env->depth_array[i] = -2147483647;
+		render.depth_array[i] = -2147483647;
 		i++;
 	}
 	if (!rendered_sectors[render.sector])
@@ -163,7 +163,6 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 									new.ymin = render.neighbor_ceiling1;
 									else
 									new.ymin = render.current_ceiling;*/
-						new.father = sector.num;
 						new.sector = sector.neighbors[i];
 						render_sector(env, new, rendered_sectors);
 					}
@@ -174,9 +173,9 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						// Lumiere
 						render.light = 255 - ft_fclamp(((double)(x - render.x1) * (double)(render.vz2 - render.vz1) / (double)(render.x2 - render.x1) + (double)render.vz1) * 8.00, 0.00, 255.00);
 
-						//	if (env->depth_array[x] > render.light)
+						//	if (render.depth_array[x] > render.light)
 						//		{
-						//env->depth_array[x] = render.light;
+						//render.depth_array[x] = render.light;
 						// Calculer y actuel du plafond et du sol
 						render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						//	ft_printf(" ceiling = %d ", render.current_ceiling);
@@ -217,18 +216,18 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						}
 						else
 						{
-							//	ft_printf(" before %f %f |", env->depth_array[x], render.light);
-							if (env->depth_array[x] < render.light)
+							//	ft_printf(" before %f %f |", render.depth_array[x], render.light);
+							if (render.depth_array[x] < render.light)
 							{
 							/*	// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 
 								// Dessiner le sol du sol jusqu'a ymax
 								draw_floor(render, env);*/
-								/*		if (env->depth_array[x] != 2147483647)
-										ft_printf("%d = %d, ", x, env->depth_array[x]);*/
-								env->depth_array[x] = render.light;
-								//ft_printf("| %d = %f %f |", x, env->depth_array[x], render.light);
+								/*		if (render.depth_array[x] != 2147483647)
+										ft_printf("%d = %d, ", x, render.depth_array[x]);*/
+								render.depth_array[x] = render.light;
+								//ft_printf("| %d = %f %f |", x, render.depth_array[x], render.light);
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0x00AA00FF;
 								else
@@ -284,6 +283,21 @@ static short	*init_rendered_sector(t_env *env)
 	return (res);
 }
 
+static void		reset_screen_sectors(t_env *env)
+{
+	int	i;
+	int	max;
+
+	max = ft_min(env->nb_sectors, env->w);
+	i = 0;
+	while (i < max)
+	{
+		env->xmin[i] = 0;
+		env->xmax[i] = env->w;
+		i++;
+	}
+}
+
 /*
  **	Main draw function
  **	TODO Protect function
@@ -291,32 +305,32 @@ static short	*init_rendered_sector(t_env *env)
 
 int				draw(t_env *env)
 {
+	int			i;
+	int			screen_sectors;
 	t_render	render;
 	short		*rendered_sectors;
 
-	if (!(env->depth_array = (double *)malloc(sizeof(double) * env->w)))
+	if (!(render.depth_array = (double *)malloc(sizeof(double) * env->w)))
 		return (-1);
-	render.xmin = 0;
-	render.xmin = env->w / 2 + env->camera.x1 * env->camera.scale;
-	render.xmax = env->w - 1;
-	render.xmax = env->w / 2 + env->camera.x2 * env->camera.scale;
-	render.ymin = 0;
-	render.ymin = env->h / 2 + env->camera.y1 * env->camera.scale;
-	render.ymax = env->h - 1;
-	render.ymax = env->h / 2 + env->camera.y2 * env->camera.scale;
-	render.father = -2;
 	if (!(rendered_sectors = init_rendered_sector(env)))
 	{
-		ft_memdel((void**)&env->depth_array);
+		ft_memdel((void**)&render.depth_array);
 		return (-1);
 	}
-	if (env->options.render_type)
-		render.sector = env->player.camera_sector;
-	else
-		render.sector = env->player.sector;
-	// On commence par rendre le secteur courant
-	render_sector(env, render, rendered_sectors);
+	i = 0;
+	reset_screen_sectors(env);
+	screen_sectors = get_screen_sectors(env);
+	render.ymin = ft_max(env->h / 2 + env->camera.y1 * env->camera.scale, 0);
+	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
+	while (i < screen_sectors)
+	{
+		render.xmin = env->xmin[i];
+		render.xmax = env->xmax[i];
+		render.sector = env->screen_sectors[i];
+		render_sector(env, render, rendered_sectors);
+		i++;
+	}
 	ft_memdel((void**)&rendered_sectors);
-	ft_memdel((void**)&env->depth_array);
+	ft_memdel((void**)&render.depth_array);
 	return (0);
 }

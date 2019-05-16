@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 17:55:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 16:55:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_vline
 typedef struct		s_render
 {
 	t_vline			vline;
+	double			*depth_array;
 	int				xmin;
 	int				xmax;
 	int				ymin;
@@ -60,7 +61,6 @@ typedef struct		s_render
 	int				xstart;
 	int				xend;
 	int				sector;
-	int				father;
 	double			light;
 	int				v1_clipped;
 	int				v2_clipped;
@@ -94,5 +94,6 @@ void				handle_left(t_render *render, t_env *env);
 void				handle_right(t_render *render, t_env *env);
 void				handle_far(t_render *render, t_env *env);
 void				handle_near(t_render *render, t_env *env);
+int					get_screen_sectors(t_env *env);
 
 #endif
