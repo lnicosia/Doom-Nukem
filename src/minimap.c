@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/15 18:10:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 10:52:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,8 +274,8 @@ void	minimap(t_env *env)
 		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
 		{
 			draw_sector_num(env, sect);
-			if (!env->options.test)
-			{
+			//if (!env->options.test)
+			//{
 				while (v < sect.nb_vertices)
 				{
 					line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
@@ -288,7 +288,7 @@ void	minimap(t_env *env)
 					draw_line_3(env, line);
 					v++;
 				}
-			}
+			//}
 		}
 		s++;
 	}

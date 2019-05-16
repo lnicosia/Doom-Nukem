@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 14:49:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 12:49:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 	hfov = HFOV * env->h;
 	vfov = VFOV * env->h;
 	hfov = 800;
-	vfov = 500;
+	hfov = env->camera.scale;
+	vfov = env->camera.scale;
 	//hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
 	//vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->floor1 = env->h / 2 +
@@ -81,6 +82,8 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 	vfov = VFOV * env->h;
 	hfov = 800;
 	vfov = 500;
+	hfov = env->camera.scale;
+	vfov = env->camera.scale;
 	//hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
 	//vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->neighbor_floor1 = env->h / 2 +

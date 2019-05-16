@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 18:08:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 12:57:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,12 +297,19 @@ int				draw(t_env *env)
 	if (!(env->depth_array = (double *)malloc(sizeof(double) * env->w)))
 		return (-1);
 	render.xmin = 0;
+	render.xmin = env->w / 2 + env->camera.x1 * env->camera.scale;
 	render.xmax = env->w - 1;
+	render.xmax = env->w / 2 + env->camera.x2 * env->camera.scale;
 	render.ymin = 0;
+	render.ymin = env->h / 2 + env->camera.y1 * env->camera.scale;
 	render.ymax = env->h - 1;
+	render.ymax = env->h / 2 + env->camera.y2 * env->camera.scale;
 	render.father = -2;
 	if (!(rendered_sectors = init_rendered_sector(env)))
+	{
+		ft_memdel((void**)&env->depth_array);
 		return (-1);
+	}
 	if (env->options.render_type)
 		render.sector = env->player.camera_sector;
 	else

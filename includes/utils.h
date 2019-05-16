@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 18:02:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/16 12:32:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,26 @@ typedef struct		s_player
 
 typedef struct		s_camera
 {
+	double			ratio_w;
+	double			ratio_h;
+	double			ratio;
 	double			near_z;
 	double			far_z;
 	double			near_left;
 	double			near_right;
+	double			near_up;
+	double			near_down;
 	double			far_left;
 	double			far_right;
 	double			hfov;
 	double			vfov;
 	double			scale;
+	double			x1;
+	double			x2;
+	double			y1;
+	double			y2;
+	double			hscale;
+	double			vscale;
 }					t_camera;
 
 /*
