@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/13 10:02:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:07:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	init_keys(t_env *env)
 	env->keys.minus = SDLK_KP_MINUS;
 	env->keys.shift = SDLK_LSHIFT;
 	env->keys.ctrl = SDLK_LCTRL;
+	env->keys.space = SDLK_SPACE;
 }

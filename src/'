@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 17:48:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		doom(int ac, char **av)
 	init_keys(&env);
 	init_inputs(&env);
 	init_camera(&env);
-	init_animations(&env);
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL!\n", &env));
 	if (init_ttf(&env))
@@ -41,7 +40,6 @@ int		doom(int ac, char **av)
 	/*if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
-	env.flag = 0;
 	env.player.speed = 0.5;
 	env.player.size_2d = 0.5;
 	ft_printf("Launching game loop..\n");

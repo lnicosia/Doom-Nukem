@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 10:46:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/17 18:47:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct		s_keys
 	int				minus;
 	int				shift;
 	int				ctrl;
+	int				space;
 }					t_keys;
 
 /*
@@ -141,6 +142,7 @@ typedef struct		s_inputs
 	uint8_t			minus;
 	uint8_t			shift;
 	uint8_t			ctrl;
+	uint8_t			space;
 }					t_inputs;
 
 /*
@@ -196,6 +198,16 @@ typedef struct		s_printable_text
 }					t_printable_text;
 
 /*
+**	Contains every data needed for an animation on the screen
+*/
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+}					t_animation;
+
+/*
 **	Environment data struct
 */
 
@@ -209,12 +221,17 @@ typedef struct		s_env
 	t_keys			keys;
 	t_inputs		inputs;
 	t_camera		camera;
+	t_animation		jump;
+	t_animation		squat;
 	int				w;
 	int				h;
 	int				running;
 	int				nb_sectors;
 	int				nb_vertices;
+	int				flag;
+	int				on_going;
 	double			*depth_array;
+	double			z;
 }					t_env;
 
 /*
@@ -237,6 +254,7 @@ int					crash(char *str, t_env *env);
 ** Init functions
 */
 
+void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);

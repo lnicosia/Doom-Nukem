@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/15 10:44:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 15:15:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ void	minimap(t_env *env)
 		s++;
 	}
 	draw_player(env);
-	if (!env->options.test)
+/*	if (!env->options.test)
 		return ;
 	s = 0;
 	while (s < env->nb_sectors)
@@ -341,5 +341,5 @@ void	minimap(t_env *env)
 			}
 		}
 		s++;
-	}
+	}*/
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 11:46:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/15 12:14:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	calc_render(t_render *render, t_line *line, int x)
 {
 	render->currentx = x;
 	// Lumiere
-	render->light = 255 - ft_fclamp(((double)(x - render->x1) * (double)(render->vz2 - render->vz1) / (double)(render->x2 - render->x1) + (double)render->vz1) * 8.00, 0.00, 255.00);
+	render->light = 255 - ft_fclamp(((double)(x - render->x1) * (double)(render->vz2 - render->vz1) / (double)(render->x2 - render->x1) + (double)render->vz1) * 6.00, 0.00, 255.00);
 	// Calculer y actuel du plafond et du sol
 	render->current_ceiling = (x - render->x1) * (render->ceiling2 - render->ceiling1) / (render->x2 - render->x1) + render->ceiling1;
 	render->current_ceiling = ft_clamp(render->current_ceiling, render->ymin, render->ymax);

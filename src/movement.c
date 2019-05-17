@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/10 15:11:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:47:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,34 @@ void	update_camera_position(t_env *env)
 }
 
 /*
+** Contains calculs to allow a jump
+*/
+void	jump(t_env *env, t_sector sector, t_vertex v0)
+{
+	env->on_going = 1;
+	if (env->jump.start == 0)
+		env->jump.start = SDL_GetTicks() / 10;
+	env->jump.end = SDL_GetTicks() / 10;
+	if (env->jump.end < env->jump.start + 5 && env->flag == 0)
+		env->z += 0.5;
+	if (env->jump.end > env->jump.start + 5 && env->flag == 0)
+		env->flag = 1;
+	if (env->jump.end < env->jump.start + 10 && env->flag == 1)
+		env->z -= 0.5;
+	if (env->jump.end > env->jump.start + 20 )
+	{
+		env->flag = 0;
+		env->jump.start = 0;
+		env->on_going = 0;
+	}
+	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+}
+
+/*
 **	Handles player movements
 **	TODO Protection / return values??
 */
+
 
 void	move_player(t_env *env)
 {
@@ -109,8 +134,14 @@ void	move_player(t_env *env)
 		update_camera_position(env);
 		env->player.camera_sector = get_camera_sector(env);
 	}
+	if (env->inputs.space || env->on_going == 1)
+	{
+		v0 = env->vertices[sector.vertices[0]];
+		jump(env, sector, v0);
+	}
+	else
+		env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 	env->player.speed = tmp_speed;
 	sector = env->sectors[env->player.sector];
 	v0 = env->vertices[sector.vertices[0]];
-	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }
