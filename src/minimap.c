@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/17 10:59:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:21:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
 	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300)
 	{
-		if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
+		/*if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
 			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF))
 		{
 			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
 				env->sdl.img_str[x + env->w * y] = color;
+		}*/
+		if (color == 0xFF0000FF || (env->sdl.texture_pixels[x + env->w * y] != 0x00FF00FF
+			&& env->sdl.texture_pixels[x + env->w * y] != 0xFFFFFFF))
+		{
+			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
+				env->sdl.texture_pixels[x + env->w * y] = color;
 		}
 	}
 }

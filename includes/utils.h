@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 17:03:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:30:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,11 @@ typedef struct		s_sdl
 	int				mouse_x;
 	int				mouse_y;
 	unsigned int	*img_str;
+	Uint32		*texture_pixels;
 	int				time;
 	SDL_Surface		*image;
 	unsigned int	*image_str;
+	int				pitch;
 }					t_sdl;
 
 /*
@@ -232,6 +234,8 @@ typedef struct		s_env
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
+	double			*depth_array;
+	short			*rendered_sectors;
 	t_player		player;
 	t_options		options;
 	t_keys			keys;

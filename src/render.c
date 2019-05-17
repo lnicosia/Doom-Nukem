@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 11:24:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:40:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	return (res);
 }
 
-void	render_sector(t_env *env, t_render render, short *rendered_sectors)
+void	render_sector(t_env *env, t_render render)
 {
 	int			i;
 	t_sector	sector;
@@ -48,13 +48,13 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 	i = 0;
 	while (i < env->w)
 	{
-		render.depth_array[i] = -2147483647;
+		env->depth_array[i] = -2147483647;
 		i++;
 	}
-	if (!rendered_sectors[render.sector])
+	if (!env->rendered_sectors[render.sector])
 	{
 
-		rendered_sectors[render.sector]++;
+		env->rendered_sectors[render.sector]++;
 		i = 0;
 		sector = env->sectors[render.sector];
 		while (i < sector.nb_vertices)
@@ -164,7 +164,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 									else
 									new.ymin = render.current_ceiling;*/
 						new.sector = sector.neighbors[i];
-						render_sector(env, new, rendered_sectors);
+						render_sector(env, new);
 					}
 					x = xstart;
 					while (x <= xend)
@@ -217,7 +217,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 						else
 						{
 							//	ft_printf(" before %f %f |", render.depth_array[x], render.light);
-							if (render.depth_array[x] < render.light)
+							if (env->depth_array[x] < render.light)
 							{
 							/*	// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
@@ -226,7 +226,7 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 								draw_floor(render, env);*/
 								/*		if (render.depth_array[x] != 2147483647)
 										ft_printf("%d = %d, ", x, render.depth_array[x]);*/
-								render.depth_array[x] = render.light;
+								env->depth_array[x] = render.light;
 								//ft_printf("| %d = %f %f |", x, render.depth_array[x], render.light);
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0x00AA00FF;
@@ -260,30 +260,11 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 			}
 			i++;
 		}
-		rendered_sectors[render.sector]--;
+		env->rendered_sectors[render.sector]--;
 	}
 }
 
-static short	*init_rendered_sector(t_env *env)
-{
-	short	*res;
-	int		i;
-
-	if (!(res = (short*)malloc(sizeof(short) * env->nb_sectors)))
-	{
-		ft_printf("Could not malloc rendering sector array!\n");
-		return (NULL);
-	}
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		res[i] = 0;
-		i++;
-	}
-	return (res);
-}
-
-static void		reset_screen_sectors(t_env *env)
+static void		reset_render_utils(t_env *env)
 {
 	int	i;
 	int	max;
@@ -295,6 +276,12 @@ static void		reset_screen_sectors(t_env *env)
 		env->xmin[i] = -1;
 		env->xmax[i] = -1;
 		env->screen_sectors[i] = -1;
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		env->rendered_sectors[i] = 0;
 		i++;
 	}
 }
@@ -309,32 +296,19 @@ int				draw(t_env *env)
 	int			i;
 	int			screen_sectors;
 	t_render	render;
-	short		*rendered_sectors;
 
-	if (!(render.depth_array = (double *)malloc(sizeof(double) * env->w)))
-		return (-1);
-	if (!(rendered_sectors = init_rendered_sector(env)))
-	{
-		ft_memdel((void**)&render.depth_array);
-		return (-1);
-	}
 	i = 0;
-	reset_screen_sectors(env);
+	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
 	render.ymin = ft_max(env->h / 2 + env->camera.y1 * env->camera.scale, 0);
 	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
 	{
-		//if (env->screen_sectors[i] != -1)
-		//{
-			render.xmin = env->xmin[i];
-			render.xmax = env->xmax[i];
-			render.sector = env->screen_sectors[i];
-			render_sector(env, render, rendered_sectors);
-		//}
+		render.xmin = env->xmin[i];
+		render.xmax = env->xmax[i];
+		render.sector = env->screen_sectors[i];
+		render_sector(env, render);
 		i++;
 	}
-	ft_memdel((void**)&rendered_sectors);
-	ft_memdel((void**)&render.depth_array);
 	return (0);
 }

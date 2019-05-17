@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:18:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 17:54:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:20:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		if (data->sdl.img_str[(int)p.x + (int)p.y * data->w] == 0xFF)
-			data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 0x3a7499FF;
+		/*if (data->sdl.img_str[(int)p.x + (int)p.y * data->w] == 0xFF)
+			data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 0x3a7499FF;*/
+		if (data->sdl.texture_pixels[(int)p.x + (int)p.y * data->w] == 0xFF)
+			data->sdl.texture_pixels[(int)p.x + (int)p.y * data->w] = 0x3a7499FF;
 		/*data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 
 			blend_alpha(data->sdl.img_str[(int)p.x + (int)p.y * data->w], 0x3a7499FF, 128);*/
 	}

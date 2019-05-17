@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 16:55:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:29:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct		s_vline
 typedef struct		s_render
 {
 	t_vline			vline;
-	double			*depth_array;
 	int				xmin;
 	int				xmax;
 	int				ymin;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/08 10:46:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:53:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 
 void	update_screen(t_env *env)
 {
-	env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
+	//env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
 	//SDL_SetTextureBlendMode(env->sdl.texture, SDL_BLENDMODE_BLEND);
+	SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32));
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
-	SDL_DestroyTexture(env->sdl.texture);
+	//SDL_DestroyTexture(env->sdl.texture);
 	SDL_RenderPresent(env->sdl.renderer);
 }
 
@@ -30,13 +31,15 @@ void	draw_axes(t_env *env)
 	i = 0;
 	while (i < env->h)
 	{
-		env->sdl.img_str[i * env->w + env->w / 2] = 0xFFFFFFFF;
+		//env->sdl.img_str[i * env->w + env->w / 2] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[i * env->w + env->w / 2] = 0xFFFFFFFF;
 		i++;
 	}
 	i = 0;
 	while (i < env->w)
 	{
-		env->sdl.img_str[env->h / 2 * env->w + i] = 0xFFFFFFFF;
+		//env->sdl.img_str[env->h / 2 * env->w + i] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[env->h / 2 * env->w + i] = 0xFFFFFFFF;
 		i++;
 	}
 }
@@ -50,26 +53,30 @@ void	draw_crosshair(t_env *env)
 	y = env->h / 2 - 10;
 	while (y < env->h / 2 - 2)
 	{
-		env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		y++;
 	}
 	y = env->h / 2 + 10;
 	while (y > env->h / 2 + 2)
 	{
-		env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		y--;
 	}
 	y = env->h / 2;
 	x = env->w / 2 - 10;
 	while (x < env->w / 2 - 2)
 	{
-		env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		x++;
 	}
 	x = env->w / 2 + 10;
 	while (x > env->w / 2 + 2)
 	{
-		env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
+		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		x--;
 	}
 }

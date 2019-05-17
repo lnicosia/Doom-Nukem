@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 13:48:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:51:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void	draw_vline(t_vline vline, t_env *env)
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
 			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				env->sdl.img_str[vline.x + env->w * vline.start] = 0xFF;
+				//env->sdl.img_str[vline.x + env->w * vline.start] = 0xFF;
+				env->sdl.texture_pixels[vline.x + env->w * vline.start] = 0xFF;
 		}
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.end >= 0 && vline.end <= 300) || !env->options.show_minimap)
 		{
 			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
-				env->sdl.img_str[vline.x + env->w * vline.end] = 0xFF;
+				//env->sdl.img_str[vline.x + env->w * vline.end] = 0xFF;
+				env->sdl.texture_pixels[vline.x + env->w * vline.end] = 0xFF;
 		}
 		vline.start++;
 		vline.end--;
@@ -39,7 +41,8 @@ void	draw_vline(t_vline vline, t_env *env)
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
 			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				env->sdl.img_str[vline.x + env->w * vline.start] = vline.color;
+				//env->sdl.img_str[vline.x + env->w * vline.start] = vline.color;
+				env->sdl.texture_pixels[vline.x + env->w * vline.start] = vline.color;
 		}
 		vline.start++;
 	}

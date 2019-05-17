@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/16 17:03:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:37:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,6 +345,11 @@ int		init_sectors(t_env *env, char *line)
 	if (!(env->screen_sectors = (int*)malloc(sizeof(int) * (nb_screen_sectors))))
 	{
 		ft_printf("Could not malloc screen sectors!\n", env);
+		return (-1);
+	}
+	if (!(env->rendered_sectors = (short*)malloc(sizeof(short) * (nb_screen_sectors))))
+	{
+		ft_printf("Could not malloc rendered sectors!\n", env);
 		return (-1);
 	}
 	i = 0;

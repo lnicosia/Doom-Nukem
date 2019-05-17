@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 11:22:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:53:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int		doom(int ac, char **av)
 		draw_crosshair(&env);
 		if (env.options.show_fps)
 			fps(&env);
-		if (env.options.test)
-			print_debug(&env);
+		/*if (env.options.test)
+			print_debug(&env);*/
 		update_screen(&env);
 		// BMP parser
 		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
