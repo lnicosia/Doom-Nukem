@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:16:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 14:31:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:40:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_options(t_env *env)
 	env->options.show_minimap = 1;
 	env->options.wall_lover = 0;
 	env->options.show_fps = 1;
-	env->options.color_clipping = 1;
+	env->options.color_clipping = 0;
 	env->options.wall_color = 0;
 	env->options.test = 1;
 	env->options.minimap_scale = 20;

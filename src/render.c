@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 17:03:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:24:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					clip_walls(&render, env);
 					if (render.v1_clipped)
 					{
+						env->vertices[sector.vertices[i]].clipped_x[0] = (render.vx1) * env->player.angle_sin
+							+ (render.vz1) * env->player.angle_cos;
 						env->vertices[sector.vertices[i]].clipped_y[0] = (render.vx1) * -env->player.angle_cos
 							+ (render.vz1) * env->player.angle_sin;
-						env->vertices[sector.vertices[i]].clipped_x[0] = (render.vx1) * env->player.angle_sin
-							- (render.vz1) * -env->player.angle_cos;
 						env->vertices[sector.vertices[i]].clipped_x[0] += env->player.pos.x;
 						env->vertices[sector.vertices[i]].clipped_y[0] += env->player.pos.y;
 						env->vertices[sector.vertices[i]].clipped[0] = 1;
@@ -98,10 +98,10 @@ void	render_sector(t_env *env, t_render render, short *rendered_sectors)
 					}
 					if (render.v2_clipped)
 					{
+						env->vertices[sector.vertices[i + 1]].clipped_x[1] = (render.vx2) * env->player.angle_sin
+							+ (render.vz2) * env->player.angle_cos;
 						env->vertices[sector.vertices[i + 1]].clipped_y[1] = (render.vx2) * -env->player.angle_cos
 							+ (render.vz2) * env->player.angle_sin;
-						env->vertices[sector.vertices[i + 1]].clipped_x[1] = (render.vx2) * env->player.angle_sin
-							- (render.vz2) * -env->player.angle_cos;
 						env->vertices[sector.vertices[i + 1]].clipped_x[1] += env->player.pos.x;
 						env->vertices[sector.vertices[i + 1]].clipped_y[1] += env->player.pos.y;
 						env->vertices[sector.vertices[i + 1]].clipped[1] = 1;
@@ -292,8 +292,9 @@ static void		reset_screen_sectors(t_env *env)
 	i = 0;
 	while (i < max)
 	{
-		env->xmin[i] = 0;
-		env->xmax[i] = env->w;
+		env->xmin[i] = -1;
+		env->xmax[i] = -1;
+		env->screen_sectors[i] = -1;
 		i++;
 	}
 }
@@ -324,10 +325,13 @@ int				draw(t_env *env)
 	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
 	{
-		render.xmin = env->xmin[i];
-		render.xmax = env->xmax[i];
-		render.sector = env->screen_sectors[i];
-		render_sector(env, render, rendered_sectors);
+		//if (env->screen_sectors[i] != -1)
+		//{
+			render.xmin = env->xmin[i];
+			render.xmax = env->xmax[i];
+			render.sector = env->screen_sectors[i];
+			render_sector(env, render, rendered_sectors);
+		//}
 		i++;
 	}
 	ft_memdel((void**)&rendered_sectors);

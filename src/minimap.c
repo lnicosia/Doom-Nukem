@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/16 14:25:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 10:59:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	put_pixel(t_env *env, int x, int y, unsigned int color)
 	{
 		if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
 			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF))
-		env->sdl.img_str[x + env->w * y] = color;
+		{
+			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
+				env->sdl.img_str[x + env->w * y] = color;
+		}
 	}
 }
 
