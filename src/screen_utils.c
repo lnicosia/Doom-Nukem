@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 14:53:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:06:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,45 @@ void	update_screen(t_env *env)
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
 	//SDL_DestroyTexture(env->sdl.texture);
 	SDL_RenderPresent(env->sdl.renderer);
+}
+
+/*
+**	Copy a surface into our main texture
+*/
+
+void	apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env)
+{
+	int		x;
+	int		y;
+	Uint32	*pixels;
+	SDL_PixelFormat	*fmt;
+
+	if (!surface)
+	{
+		ft_printf("apply_surface error: surface is NULL\n");
+		return ;
+	}
+	pixels = surface->pixels;
+	fmt = surface->format;
+	y = 0;
+	while (y < size.y)
+	{
+		x = 0;
+		while (x < size.x)
+		{
+			if ((Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
+					&& pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
+				/*env->sdl.texture_pixels[(int)(pos.y + x + env->w * (pos.x + y))] =
+					pixels[(int)(x + surface->w * y)];*/
+			env->sdl.texture_pixels[(int)(pos.y + x + env->w * (pos.x + y))] =
+				(Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 24
+				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 16
+				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 8
+				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	draw_axes(t_env *env)

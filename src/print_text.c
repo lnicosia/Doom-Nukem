@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 14:17:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:22:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	DONT FORGET TO FREE *text if needed
 */
 
-t_printable_text	new_printable_text(char *text, char *font, unsigned int color, int size)
+t_printable_text	new_printable_text(char *text, TTF_Font *font, unsigned int color, int size)
 {
 	t_printable_text	new;
 	SDL_Color			sdl_color;
@@ -35,15 +35,13 @@ t_printable_text	new_printable_text(char *text, char *font, unsigned int color, 
 
 void	print_text(t_v2 pos, t_printable_text text, t_env *env)
 {
-	SDL_Surface	*texte;
-	SDL_Rect	rect;
+	SDL_Surface	*surface;
 
-	if (env->sdl.font)
-		TTF_CloseFont(env->sdl.font);
-	env->sdl.font = TTF_OpenFont(text.font, text.size);
-	texte = TTF_RenderText_Solid(env->sdl.font, text.str, text.color);
-	rect.x = pos.y;
-	rect.y = pos.x;
-	SDL_BlitSurface(texte, NULL, env->sdl.surface, &rect);
-	SDL_FreeSurface(texte);
+	if (!(surface = TTF_RenderText_Blended(text.font, text.str, text.color)))
+	{
+		ft_printf("TTF_RenderText_Solid error: %s\n", text.str);
+		return ;
+	}
+	apply_surface(surface, pos, new_v2(surface->w, surface->h), env);
+	SDL_FreeSurface(surface);
 }

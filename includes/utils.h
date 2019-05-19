@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 15:30:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:07:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,18 @@ typedef struct		s_inputs
 }					t_inputs;
 
 /*
+** Fonts
+*/
+
+typedef struct		s_fonts
+{
+	TTF_Font		*amazdoom50;
+	TTF_Font		*amazdoom20;
+	TTF_Font		*alice;
+	TTF_Font		*bebasneue;
+}					t_fonts;
+
+/*
 ** SDL data necessities
 */
 
@@ -180,11 +192,11 @@ typedef struct		s_sdl
 	SDL_Renderer	*renderer;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
-	TTF_Font		*font;
+	t_fonts			fonts;
 	int				mouse_x;
 	int				mouse_y;
 	unsigned int	*img_str;
-	Uint32		*texture_pixels;
+	Uint32			*texture_pixels;
 	int				time;
 	SDL_Surface		*image;
 	unsigned int	*image_str;
@@ -217,7 +229,7 @@ typedef struct		s_options
 typedef struct		s_printable_text
 {
 	char			*str;
-	char			*font;
+	TTF_Font		*font;
 	int				size;
 	SDL_Color		color;
 }					t_printable_text;
@@ -287,10 +299,11 @@ void				clear_image(t_env *env);
 void				update_screen(t_env *env);
 t_printable_text	new_printable_text(
 		char *text,
-		char *font,
+		TTF_Font *font,
 		unsigned int color,
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
+void				apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);

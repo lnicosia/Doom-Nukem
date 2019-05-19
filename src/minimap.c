@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/17 15:21:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:27:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,16 +255,14 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	}
 	pos.x /= sector.nb_vertices;
 	pos.y /= sector.nb_vertices;
-	num = ft_itoa(sector.num);
-	if (pos.x > env->w - 297 && pos.y <= 295)
+	num = ft_sitoa(sector.num);
+	if (pos.x > env->w - 297 && pos.x < env->w && pos.y <= 295 && pos.y >= 0)
 		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
 					num,
-					"fonts/bebas_neue/BebasNeue-Regular.ttf",
+					env->sdl.fonts.bebasneue,
 					color,
 					20),
 				env);
-	ft_strdel(&num);
-
 }
 
 void	minimap(t_env *env)
