@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/19 19:27:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:17:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	pos.y /= sector.nb_vertices;
 	num = ft_sitoa(sector.num);
 	if (pos.x > env->w - 297 && pos.x < env->w && pos.y <= 295 && pos.y >= 0)
-		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
+		print_text(new_v2((int)(pos.y - 10), (int)(pos.x - 3 * ft_getlen(sector.num))), new_printable_text(
 					num,
 					env->sdl.fonts.bebasneue,
 					color,
