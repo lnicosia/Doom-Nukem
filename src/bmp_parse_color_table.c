@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:58:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 17:53:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 17:22:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,21 @@ static void	set_colors8(unsigned int *colors)
 
 static void	set_colors4(unsigned int *colors)
 {
-	colors[0] = 0xFF;
-	colors[1] = 0x0000AAFF;
-	colors[2] = 0x00AA00FF;
-	colors[3] = 0x00AAAAFF;
-	colors[4] = 0xAA0000FF;
-	colors[5] = 0xAA00AAFF;
-	colors[6] = 0xAA5500FF;
-	colors[7] = 0xAAAAAAFF;
-	colors[8] = 0x555555FF;
-	colors[9] = 0x5555FFFF;
-	colors[10] = 0x55FF55FF;
-	colors[11] = 0x55FFFFFF;
-	colors[12] = 0xFF5555FF;
-	colors[13] = 0xFF55FFFF;
-	colors[14] = 0xFFFF55FF;
+	colors[0] = 0;
+	colors[1] = 0xFF0000AA;
+	colors[2] = 0xFF00AA00;
+	colors[3] = 0xFF00AAAA;
+	colors[4] = 0xFFAA0000;
+	colors[5] = 0xFFAA00AA;
+	colors[6] = 0xFFAA5500;
+	colors[7] = 0xFFAAAAAA;
+	colors[8] = 0xFF555555;
+	colors[9] = 0xFF5555FF;
+	colors[10] = 0xFF55FF55;
+	colors[11] = 0xFF55FFFF;
+	colors[12] = 0xFFFF5555;
+	colors[13] = 0xFFFF55FF;
+	colors[14] = 0xFFFFFF55;
 	colors[15] = 0xFFFFFFFF;
 }
 
