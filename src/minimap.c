@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/20 12:29:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:54:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void	draw_sector_num(t_env *env, t_sector sector)
 
 	color = 0xFFFFFFFF;
 	if (sector.num == env->player.sector)
-		color = 0xFF00FF00;
+		color = 0x00FF00FF;
 	i = 0;
 	pos = new_v2(0, 0);
 	while (i < sector.nb_vertices)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 12:38:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:54:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env)
 				(Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
 				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
 				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss);
+				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 12:40:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:38:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	vline.color = 0xFF222222;
 	if (env->options.lighting)
 		vline.color = 
-			255
+			255 << 24
 			| ((int)render.light / 5) << 16
 			| ((int)render.light / 5) << 8
 			| ((int)render.light / 5) << 0;
@@ -84,7 +84,7 @@ void	draw_floor(t_render render,t_env *env)
 	vline.color = 0xFF444444;
 	if (env->options.lighting)
 		vline.color = 
-			255
+			255 << 24
 			| ((int)render.light / 3) << 16
 			| ((int)render.light / 3) << 8
 			| ((int)render.light / 3) << 0;
@@ -106,7 +106,7 @@ void	draw_upper_wall(t_render render, t_env *env)
 	vline.color = 0xFF7C00D9;
 	if (env->options.lighting)
 		vline.color = 
-			255
+			255 << 24
 			| ((int)render.light / 3) << 16
 			| ((int)render.light / 3) << 8
 			| ((int)render.light / 3) << 0;
@@ -130,7 +130,7 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	vline.color = 0xFF7C00D9;
 	if (env->options.lighting)
 		vline.color = 
-			255
+			255 << 24
 			| ((int)render.light / 3) << 16
 			| ((int)render.light / 3) << 8
 			| ((int)render.light / 3) << 0;
