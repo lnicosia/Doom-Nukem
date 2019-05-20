@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 15:39:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 14:29:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	precompute_slopes(t_env *env)
 	t_sector	sector;
 	t_vertex	v0;
 
-	ft_printf("Computing map slopes..\n");
+	ft_printf("{reset}Computing map slopes..\n");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -134,8 +134,12 @@ void	precompute_slopes(t_env *env)
 				env->sectors[i].ceilings[j] = sector.ceiling;
 			if (env->sectors[i].floors[j] < env->sectors[i].floor_min)
 				env->sectors[i].floor_min = env->sectors[i].floors[j];
+			if (env->sectors[i].floors[j] > env->sectors[i].floor_max)
+				env->sectors[i].floor_max = env->sectors[i].floors[j];
 			if (env->sectors[i].ceilings[j] > env->sectors[i].ceiling_max)
 				env->sectors[i].ceiling_max = env->sectors[i].ceilings[j];
+			if (env->sectors[i].ceilings[j] < env->sectors[i].ceiling_min)
+				env->sectors[i].ceiling_min = env->sectors[i].ceilings[j];
 			j++;
 		}
 		env->sectors[i].floors[j] = env->sectors[i].floors[0];

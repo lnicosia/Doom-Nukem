@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 11:13:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 14:28:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	check_sector(t_sector sector, t_env *env)
 
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
+	if (sector.floor_max > sector.ceiling_min)
+		return (ft_printf("Sector %d slopes are too strong (floor and ceiling intersect)\n"));
 	i = 0;
 	vertex = env->vertices[0];
 	while (i < sector.nb_vertices)
