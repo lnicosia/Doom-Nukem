@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:46:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 17:56:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 17:10:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ uint32_t		read_color24(unsigned char *str, int index)
 	res = str[index + 2] << 24
 		| str[index + 1] << 16
 		| str[index + 0] << 8
-		| 0xFF;
+		| 255;
 	return (res);
 }
 
