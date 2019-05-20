@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:15:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 10:17:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:57:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_camera(t_env *env)
 {
 	env->camera.vfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env->camera.hfov / 2)) / env->camera.ratio) * 2;
 	//env->camera.hfov = (180.0 / M_PI) * atan(tan(((M_PI / 180.0) * env->cameravfov / 2)) * env->camera.ratio) * 2;
-	ft_printf("hfov = %f, vfov = %f\n", env->camera.hfov, env->camera.vfov);
+	//ft_printf("hfov = %f, vfov = %f\n", env->camera.hfov, env->camera.vfov);
 	env->camera.near_left = -tan((M_PI / 180.0) * env->camera.hfov / 2) * env->camera.near_z;
 	env->camera.near_right = tan((M_PI / 180.0) * env->camera.hfov / 2) * env->camera.near_z;
 	env->camera.near_up = -tan((M_PI / 180.0) * env->camera.vfov / 2) * env->camera.near_z;

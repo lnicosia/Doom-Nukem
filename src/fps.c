@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 11:07:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 11:57:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:57:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	fps(t_env *env)
 				0xFFFFFFFF,
 				65),
 			env);
-	ft_printf("fps = %d\n", 1000 / (new_time - env->sdl.time));
+	//ft_printf("fps = %d\n", 1000 / (new_time - env->sdl.time));
 	env->sdl.time = new_time;
 }

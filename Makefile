@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/20 12:31:10 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/05/20 13:57:27 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ CFLAGS =  -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -flto -fno-builtin
-		  -fsanitize=address \
+		  #-fsanitize=address -g3 \
 		  #-O3 \
 
 DEBUG ?= 0
