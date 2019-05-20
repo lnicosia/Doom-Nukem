@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 15:45:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		doom(int ac, char **av)
 	env.flag = 0;
 	env.player.speed = 0.5;
 	env.player.size_2d = 0.5;
+	env.player.z = 6.00;
+	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");
 	env.z = 6.00;
 	env.flag = 0;

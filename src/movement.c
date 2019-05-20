@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 15:45:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,55 @@ void	update_camera_position(t_env *env)
 */
 void	jump(t_env *env, t_sector sector, t_vertex v0)
 {
-	env->on_going = 1;
+	double	x;
+
+	x = 2;
+	env->jump.on_going = 1;
 	if (env->jump.start == 0)
-		env->jump.start = SDL_GetTicks() / 10;
-	env->jump.end = SDL_GetTicks() / 10;
-	if (env->jump.end < env->jump.start + 5 && env->flag == 0)
-		env->z += 0.5;
-	if (env->jump.end > env->jump.start + 5 && env->flag == 0)
+		env->jump.start = SDL_GetTicks();
+	env->jump.end = SDL_GetTicks();
+	if (env->jump.end < env->jump.start + 150 && env->flag == 0)
+	{
+		env->player.gravity
+		env->z += x;
+	}
+	if (env->jump.end > env->jump.start + 150 && env->flag == 0)
 		env->flag = 1;
-	if (env->jump.end < env->jump.start + 10 && env->flag == 1)
-		env->z -= 0.5;
-	if (env->jump.end > env->jump.start + 20 )
+	if (env->z > env->player.z && env->flag == 1)
+		env->z -= x * env->player.gravity;
+	if (env->jump.end > env->jump.start + 500)
 	{
 		env->flag = 0;
 		env->jump.start = 0;
-		env->on_going = 0;
+		env->jump.on_going = 0;
+	}
+	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+}
+
+void	squat(t_env *env, t_sector sector, t_vertex v0)
+{
+	env->squat.on_going = 1;
+	if (env->squat.start == 0)
+		env->squat.start = SDL_GetTicks() / 5;
+	env->squat.end = SDL_GetTicks() / 5;
+	if (env->flag == 0)
+	{
+		if (env->squat.end < env->squat.start + 30 && env->z > 2)
+			env->z -= 1;
+		if (env->z == 2)
+			env->flag = 1;
+	}		
+	else if (env->flag == 1)
+	{
+		if (env->squat.end < env->squat.start + 30 && env->z < env->player.z)
+			env->z += 1;
+		if (env->z == env->player.z)
+			env->flag = 0;
+	}
+	if (env->squat.end > env->squat.start + 30 )
+	{
+		env->squat.start = 0;
+		env->squat.on_going = 0;
 	}
 	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }
@@ -134,10 +168,15 @@ void	move_player(t_env *env)
 		update_camera_position(env);
 		env->player.camera_sector = get_camera_sector(env);
 	}
-	if (env->inputs.space || env->on_going == 1)
+	if (env->inputs.space || env->jump.on_going == 1)
 	{
 		v0 = env->vertices[sector.vertices[0]];
 		jump(env, sector, v0);
+	}
+	if (env->inputs.ctrl || env->squat.on_going == 1)
+	{
+		v0 = env->vertices[sector.vertices[0]];
+		squat(env, sector, v0);
 	}
 	else
 		env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;

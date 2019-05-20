@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 15:45:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct		s_vertex
 typedef struct		s_player
 {
 	t_v3			pos;
+	double			gravity;
+	double			z;
 	double			angle;
 	double			angle_cos;
 	double			angle_sin;
@@ -205,6 +207,7 @@ typedef struct		s_animation
 {
 	double			start;
 	double			end;
+	int				on_going;
 }					t_animation;
 
 /*
@@ -229,7 +232,6 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				flag;
-	int				on_going;
 	double			*depth_array;
 	double			z;
 }					t_env;
