@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:14:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 19:16:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:32:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void		print_debug(t_env *env)
 	print_text(new_v2(0, 1300), new_printable_text("Test", env->sdl.fonts.alice, 0xFFFFFFFF, 20), env);
 	print_text(new_v2(env->h - 200, 5), new_printable_text("Clipping :", env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
 	if (env->options.clipping)
-		print_text(new_v2(env->h - 200, 145), new_printable_text("ON", env->sdl.fonts.alice, 0x00FF00FF, 30), env);
+		print_text(new_v2(env->h - 200, 145), new_printable_text("ON", env->sdl.fonts.alice, 0xFF00FF00, 30), env);
 	else
-		print_text(new_v2(env->h - 200, 145), new_printable_text("OFF", env->sdl.fonts.alice, 0xFF0000FF, 30), env);
+		print_text(new_v2(env->h - 200, 145), new_printable_text("OFF", env->sdl.fonts.alice, 0xFFFF0000, 30), env);
 	print_text(new_v2(env->h - 250, 5), new_printable_text("Near_z =", env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
 	print_text(new_v2(env->h - 250, 135), new_printable_text(near_z, env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
 	ft_strdel(&near_z);

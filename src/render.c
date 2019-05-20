@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 15:40:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:42:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	render_sector(t_env *env, t_render render)
 					}
 					if (env->options.test && env->player.pos.z > sector.floor_min && env->player.pos.z < sector.ceiling_max)
 					{
-						line.color = 0xFF0000FF;
+						line.color = 0xFFFF0000;
 						draw_line_3(env, line);
 					}
 				}
@@ -201,9 +201,9 @@ void	render_sector(t_env *env, t_render render)
 							if (!env->options.render_sectors)
 							{
 								// Dessiner le portail en rouge
-								vline.color = 0xAA0000FF;
+								vline.color = 0xFFAA0000;
 								if (env->options.lighting)
-									vline.color = (int)render.light << 24 | 255;
+									vline.color = 255 | (int)render.light << 24;
 								draw_vline(vline, env);
 							}
 							// Dessiner corniche
@@ -229,22 +229,22 @@ void	render_sector(t_env *env, t_render render)
 								env->depth_array[x] = render.light;
 								//ft_printf("| %d = %f %f |", x, render.depth_array[x], render.light);
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
-									vline.color = 0x00AA00FF;
+									vline.color = 0xFF00AA00;
 								else
-									vline.color = 0x888888FF;
+									vline.color = 0xFF888888;
 								if (env->options.wall_color)
 								{
 									if (i == 0)
-										vline.color = 0xAA0000FF;
+										vline.color = 0xFFAA0000;
 									if (i == 1)
-										vline.color = 0x00AA00FF;
+										vline.color = 0xFF00AA00;
 									if (i == 2)
-										vline.color = 0xAAFF;
+										vline.color = 0xFFAA;
 								}
 								if (env->options.lighting)
-									vline.color = (int)render.light << 24 | (int)render.light << 16 | (int)render.light << 8 | 255;
+									vline.color = 255 | (int)render.light << 16 | (int)render.light << 8 | (int)render.light << 0;
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
-									vline.color = 0xFF;
+									vline.color = 0;
 								draw_vline(vline, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);

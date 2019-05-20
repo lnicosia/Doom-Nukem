@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 16:01:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:13:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_inside(t_sector sector, t_env *env)
 		}
 		i++;
 	}
-	free(duplicates);
+	ft_memdel((void**)&duplicates);
 	return (0);
 }
 

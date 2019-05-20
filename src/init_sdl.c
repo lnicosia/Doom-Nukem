@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 18:12:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:23:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		init_sdl(t_env *env)
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,
-					SDL_RENDERER_SOFTWARE)))
+					SDL_RENDERER_TARGETTEXTURE)))
 		return (ft_printf("SDL_CreateRenderer error: %s\n", SDL_GetError()));
 	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
 		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/
@@ -44,7 +44,7 @@ int		init_sdl(t_env *env)
 	env->sdl.img_str = env->sdl.surface->pixels;
 	if (!(env->sdl.texture = SDL_CreateTexture(
 					env->sdl.renderer,
-					SDL_PIXELFORMAT_RGBA8888,
+					SDL_PIXELFORMAT_ARGB8888,
 					SDL_TEXTUREACCESS_STREAMING,
 					env->w,
 					env->h)))

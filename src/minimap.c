@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/20 10:17:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:29:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	put_pixel(t_env *env, int x, int y, unsigned int color)
 			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
 				env->sdl.img_str[x + env->w * y] = color;
 		}*/
-		if (color == 0xFF0000FF || (env->sdl.texture_pixels[x + env->w * y] != 0x00FF00FF
+		if (color == 0xFFFF0000 || (env->sdl.texture_pixels[x + env->w * y] != 0xFF00FF00
 			&& env->sdl.texture_pixels[x + env->w * y] != 0xFFFFFFF))
 		{
 			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
@@ -131,13 +131,13 @@ void	draw_player(t_env *env)
 		y = 150 - player_hitbox;
 		while (y < 150 + player_hitbox + 1)
 		{
-			put_pixel(env, x, y, 0xFFFF00FF);
+			put_pixel(env, x, y, 0xFFFFFF00);
 			y++;
 		}
 		x++;
 	}
 
-	line.color = 0xFFFF00FF;
+	line.color = 0xFFFFFF00;
 	triangle[2] = new_v3(
 			(env->player.near_left.x - env->player.pos.x) * env->options.minimap_scale + env->w - 150,
 			(env->player.near_left.y - env->player.pos.y) * env->options.minimap_scale + 150,
@@ -228,7 +228,7 @@ void	draw_minimap_hud(t_env *env)
 			if (x == env->w - 300 || y == 300)
 				put_pixel(env, x, y, 0xFFFFFFFF);
 			else
-				put_pixel(env, x, y, 0xFF);
+				put_pixel(env, x, y, 0);
 			x++;
 		}
 		y++;
@@ -244,7 +244,7 @@ void	draw_sector_num(t_env *env, t_sector sector)
 
 	color = 0xFFFFFFFF;
 	if (sector.num == env->player.sector)
-		color = 0x00FF00FF;
+		color = 0xFF00FF00;
 	i = 0;
 	pos = new_v2(0, 0);
 	while (i < sector.nb_vertices)
@@ -291,7 +291,7 @@ void	minimap(t_env *env)
 					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
 					line.color = 0xFFFFFFFF;
 					if (sect.num == env->player.sector)
-						line.color = 0x00FF00FF;
+						line.color = 0xFF00FF00;
 					draw_line_3(env, line);
 					v++;
 				}

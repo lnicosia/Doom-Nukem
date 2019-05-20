@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 13:20:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 17:59:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:17:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	ft_fillstr(int size, int i, int nbr, char *str)
 
 char		*ft_sitoa(int nbr)
 {
-	int		i;
-	int		size;
+	int			i;
+	int			size;
 	static char	str[11];
 
 	i = 0;
