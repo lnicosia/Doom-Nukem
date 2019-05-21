@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 12:09:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:25:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,40 +63,47 @@ void	update_camera_position(t_env *env)
 void	jump(t_env *env, t_sector sector, t_vertex v0)
 {
 	double	x;
-
+	double	player_feet;
+	double	tmp_height;
+	
 	x = 0.5;
+	player_feet = sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	tmp_height = env->player.eyesight + player_feet;
 	env->jump.on_going = 1;
 	if (env->jump.start == 0)
 		env->jump.start = SDL_GetTicks();
 	env->jump.end = SDL_GetTicks();
 	if (env->jump.end < env->jump.start + 150 && env->flag == 0)
 	{
-		env->z += x;
+		env->player.eyesight += x;
+		tmp_height = env->player.eyesight + player_feet;
 	}
 	if (env->jump.end > env->jump.start + 150 && env->flag == 0)
 		env->flag = 1;
-	if (env->z > env->player.z && env->flag == 1)
-		env->z -= x * env->player.gravity;
-	if (env->z == env->player.z && env->jump.end > env->jump.start + 400)
+	if (env->player.eyesight > env->player.z && env->flag == 1)
+	{
+		env->player.eyesight -= x * env->player.gravity;
+		tmp_height = env->player.eyesight + player_feet;
+	}
+	if (env->player.eyesight == env->player.z && env->jump.end > env->jump.start + 400)
 	{
 		env->flag = 0;
 		env->jump.start = 0;
 		env->jump.on_going = 0;
 	}
-	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	env->player.pos.z = env->player.eyesight + player_feet;
+	//env->player.pos.z = tmp_height;
 }
 
 void	squat(t_env *env, t_sector sector, t_vertex v0)
 {
 	env->squat.on_going = 1;
-/*	if (env->squat.start == 0)
-		env->squat.start = SDL_GetTicks();
-	env->squat.end = SDL_GetTicks();*/
 	if (env->flag == 0 && env->squat.on_going)
 	{
-		if (env->z > 3)
-			env->z -= 0.5;
-		if (env->z == 3)
+		env->player.z -= 0.5;
+		if (env->player.eyesight > 3)
+			env->player.eyesight -= 0.5;
+		if (env->player.eyesight == 3)
 		{
 			env->flag = 1;
 			env->squat.on_going = 0;
@@ -104,15 +111,17 @@ void	squat(t_env *env, t_sector sector, t_vertex v0)
 	}
 	else if (env->flag == 1 && env->squat.on_going && !env->inputs.ctrl)
 	{
-		if (env->z < env->player.z)
-			env->z += 0.5;
-		if (env->z == env->player.z)
+		env->player.z = 6;
+		if (env->player.eyesight < env->player.z)
+			env->player.eyesight += 0.5;
+		if (env->player.eyesight == env->player.z)
 		{
 			env->flag = 0;
 			env->squat.on_going = 0;
 		}
 	}
-	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	// player height: eyesight + the floors height
+	env->player.pos.z = env->player.eyesight + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }
 
 /*
@@ -203,8 +212,10 @@ void	move_player(t_env *env)
 		squat(env, sector, v0);
 	}
 	else
-		env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	{
+		v0 = env->vertices[sector.vertices[0]];
+		env->player.pos.z = env->player.eyesight + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	}
 	env->player.speed = tmp_speed;
 	sector = env->sectors[env->player.sector];
-	v0 = env->vertices[sector.vertices[0]];
 }
