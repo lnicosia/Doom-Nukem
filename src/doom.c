@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:10:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:53:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		doom(int ac, char **av)
 	init_inputs(&env);
 	init_camera(&env);
 	init_animations(&env);
+	env.player.eyesight = 6.00;
+	env.player.z = 6.00;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL!\n", &env));
 	if (init_ttf(&env))
@@ -34,20 +36,18 @@ int		doom(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parsing(open(av[1], O_RDONLY), &env))
 		return (crash("Parsing error!\n", &env));
+	precompute_slopes(&env);
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	precompute_slopes(&env);
 	/*if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	env.player.speed = 0.2;
 	env.player.size_2d = 0.5;
-	env.player.z = 6.00;
 	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");
-	env.player.eyesight = 6.00;
 	env.flag = 0;
 	while (env.running)
 	{
@@ -65,9 +65,9 @@ int		doom(int ac, char **av)
 			print_debug(&env);
 		update_screen(&env);
 		// BMP parser
-		/*SDL_Texture *texture = SDL_CreateTextureFromSurface(env.sdl.renderer, env.sdl.image);
-		SDL_RenderCopy(env.sdl.renderer, texture, NULL, NULL);
-		SDL_DestroyTexture(texture);
+		/*apply_surface(env.sdl.image, new_v2(0, 0), new_v2(env.sdl.image->w, env.sdl.image->h), &env);
+		SDL_UpdateTexture(env.sdl.texture, NULL, env.sdl.texture_pixels, env.w * sizeof(Uint32));
+		SDL_RenderCopy(env.sdl.renderer, env.sdl.texture, NULL, NULL);
 		SDL_RenderPresent(env.sdl.renderer);*/
 		while (SDL_PollEvent(&env.sdl.event))
 		{

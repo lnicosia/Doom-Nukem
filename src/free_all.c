@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 11:26:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:05:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].ceilings);
 		if (env->sectors[i].floors)
 			ft_memdel((void**)&env->sectors[i].floors);
-		if (env->sectors[i].clipped_ceilings)
-			ft_memdel((void**)&env->sectors[i].clipped_ceilings);
-		if (env->sectors[i].clipped_floors)
-			ft_memdel((void**)&env->sectors[i].clipped_floors);
+		if (env->sectors[i].clipped_ceilings1)
+			ft_memdel((void**)&env->sectors[i].clipped_ceilings1);
+		if (env->sectors[i].clipped_floors1)
+			ft_memdel((void**)&env->sectors[i].clipped_floors1);
+		if (env->sectors[i].clipped_ceilings2)
+			ft_memdel((void**)&env->sectors[i].clipped_ceilings2);
+		if (env->sectors[i].clipped_floors2)
+			ft_memdel((void**)&env->sectors[i].clipped_floors2);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		i++;

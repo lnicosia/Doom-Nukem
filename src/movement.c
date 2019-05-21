@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:25:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:48:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,11 @@ void	update_camera_position(t_env *env)
 /*
  ** Contains calculs to allow a jump
  */
-void	jump(t_env *env, t_sector sector, t_vertex v0)
+void	jump(t_env *env)
 {
 	double	x;
-	double	player_feet;
-	double	tmp_height;
 	
 	x = 0.5;
-	player_feet = sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
-	tmp_height = env->player.eyesight + player_feet;
 	env->jump.on_going = 1;
 	if (env->jump.start == 0)
 		env->jump.start = SDL_GetTicks();
@@ -76,14 +72,12 @@ void	jump(t_env *env, t_sector sector, t_vertex v0)
 	if (env->jump.end < env->jump.start + 150 && env->flag == 0)
 	{
 		env->player.eyesight += x;
-		tmp_height = env->player.eyesight + player_feet;
 	}
 	if (env->jump.end > env->jump.start + 150 && env->flag == 0)
 		env->flag = 1;
 	if (env->player.eyesight > env->player.z && env->flag == 1)
 	{
 		env->player.eyesight -= x * env->player.gravity;
-		tmp_height = env->player.eyesight + player_feet;
 	}
 	if (env->player.eyesight == env->player.z && env->jump.end > env->jump.start + 400)
 	{
@@ -91,11 +85,11 @@ void	jump(t_env *env, t_sector sector, t_vertex v0)
 		env->jump.start = 0;
 		env->jump.on_going = 0;
 	}
-	env->player.pos.z = env->player.eyesight + player_feet;
 	//env->player.pos.z = tmp_height;
+	update_player_z(env);
 }
 
-void	squat(t_env *env, t_sector sector, t_vertex v0)
+void	squat(t_env *env)
 {
 	env->squat.on_going = 1;
 	if (env->flag == 0 && env->squat.on_going)
@@ -121,7 +115,7 @@ void	squat(t_env *env, t_sector sector, t_vertex v0)
 		}
 	}
 	// player height: eyesight + the floors height
-	env->player.pos.z = env->player.eyesight + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	update_player_z(env);
 }
 
 /*
@@ -132,8 +126,6 @@ void	squat(t_env *env, t_sector sector, t_vertex v0)
 
 void	move_player(t_env *env)
 {
-	t_sector	sector;
-	t_vertex	v0;
 	t_v3		origin_pos;
 	short		origin_camera_sect;
 	short		origin_left_sect;
@@ -143,7 +135,6 @@ void	move_player(t_env *env)
 	int			movement;
 
 	tmp_speed = env->player.speed;
-	sector = env->sectors[env->player.sector];
 	movement = 0;
 	origin_pos = env->player.pos;
 	origin_sect = env->player.sector;
@@ -192,30 +183,25 @@ void	move_player(t_env *env)
 		env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
 		env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
 		env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
-		if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
+		/*if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
 		{
 			env->player.pos = origin_pos; 
 			env->player.sector = origin_sect;
 			env->player.camera_sector = origin_camera_sect;
 			env->player.near_left_sector = origin_left_sect;
 			env->player.near_right_sector = origin_right_sect;
-		}
+		}*/
 	}
 	if (env->inputs.space || env->jump.on_going == 1)
 	{
-		v0 = env->vertices[sector.vertices[0]];
-		jump(env, sector, v0);
+		update_player_z(env);
+		jump(env);
 	}
 	if (env->inputs.ctrl || env->squat.on_going == 1 || (env->flag == 1 && !env->inputs.ctrl))
 	{
-		v0 = env->vertices[sector.vertices[0]];
-		squat(env, sector, v0);
-	}
-	else
-	{
-		v0 = env->vertices[sector.vertices[0]];
-		env->player.pos.z = env->player.eyesight + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+		update_player_z(env);
+		squat(env);
 	}
 	env->player.speed = tmp_speed;
-	sector = env->sectors[env->player.sector];
+	update_player_z(env);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:55:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:32:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void		reset_clipped(t_env *env)
 {
 	int			i;
 	int			j;
+	int			max;
 
 	i = 0;
-	while (i < env->nb_vertices)
+	max = env->nb_vertices;
+	while (i < max)
 	{
 		env->vertices[i].clipped[0] = 0;
 		env->vertices[i].clipped[1] = 0;
@@ -33,10 +35,13 @@ void		reset_clipped(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		j = 0;
-		while (j <= env->sectors[i].nb_vertices)
+		max = env->sectors[i].nb_vertices;
+		while (j <= max)
 		{
-			env->sectors[i].clipped_floors[j] = env->sectors[i].floors[j];
-			env->sectors[i].clipped_ceilings[j] = env->sectors[i].ceilings[j];
+			env->sectors[i].clipped_floors1[j] = env->sectors[i].floors[j];
+			env->sectors[i].clipped_ceilings1[j] = env->sectors[i].ceilings[j];
+			env->sectors[i].clipped_floors2[j] = env->sectors[i].floors[j];
+			env->sectors[i].clipped_ceilings2[j] = env->sectors[i].ceilings[j];
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/17 15:37:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:05:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 	line = skip_spaces(line);
 	env->sectors[num].floor = ft_atof(line);
 	env->sectors[num].floor_min = ft_atof(line);
+	env->sectors[num].floor_max = ft_atof(line);
 	line = skip_number(line);
 	env->sectors[num].floor_slope = ft_atof(line);
 	if (env->sectors[num].floor_slope > 45 || env->sectors[num].floor_slope < -45)
@@ -223,6 +224,7 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 	line = skip_number(line);
 	env->sectors[num].ceiling = ft_atof(line);
 	env->sectors[num].ceiling_max = ft_atof(line);
+	env->sectors[num].ceiling_min = ft_atof(line);
 	line = skip_number(line);
 	env->sectors[num].ceiling_slope = ft_atof(line);
 	if (env->sectors[num].ceiling_slope > 45 || env->sectors[num].ceiling_slope < -45)
@@ -241,10 +243,14 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		return (ft_printf("Could not malloc sector ceilings!\n", env));
 	if (!(env->sectors[num].floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
 		return (ft_printf("Could not malloc sector floors!\n", env));
-	if (!(env->sectors[num].clipped_ceilings = (double*)malloc(sizeof(double) * (vertices_count + 1))))
-		return (ft_printf("Could not malloc sector clipped_ceilings!\n", env));
-	if (!(env->sectors[num].clipped_floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
-		return (ft_printf("Could not malloc sector clipped_floors!\n", env));
+	if (!(env->sectors[num].clipped_ceilings1 = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_ceilings1!\n", env));
+	if (!(env->sectors[num].clipped_floors1 = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_floors1!\n", env));
+	if (!(env->sectors[num].clipped_ceilings2 = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_ceilings2!\n", env));
+	if (!(env->sectors[num].clipped_floors2 = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_floors2!\n", env));
 	i = 0;
 	while (i < vertices_count)
 	{
@@ -358,8 +364,10 @@ int		init_sectors(t_env *env, char *line)
 		env->sectors[i].vertices = NULL;
 		env->sectors[i].ceilings = NULL;
 		env->sectors[i].floors = NULL;
-		env->sectors[i].clipped_ceilings = NULL;
-		env->sectors[i].clipped_floors = NULL;
+		env->sectors[i].clipped_ceilings1 = NULL;
+		env->sectors[i].clipped_floors1 = NULL;
+		env->sectors[i].clipped_ceilings2 = NULL;
+		env->sectors[i].clipped_floors2 = NULL;
 		env->sectors[i].neighbors = NULL;
 		env->sectors[i].x_max = -2147483648;
 		i++;

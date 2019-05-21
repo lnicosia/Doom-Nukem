@@ -6,11 +6,20 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/19 12:15:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:56:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+t_point	new_point(int x, int y)
+{
+	t_point	new;
+
+	new.x = x;
+	new.y = y;
+	return (new);
+}
 
 t_v2	new_v2(double x, double y)
 {

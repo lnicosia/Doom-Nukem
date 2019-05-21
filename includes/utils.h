@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 16:43:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:32:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
+
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+}					t_point;
 
 typedef struct		s_v2
 {
@@ -58,22 +64,26 @@ typedef struct	s_line
 
 typedef struct		s_sector
 {
+	short			num;
+	short			*vertices;
+	short			*neighbors;
+	short			nb_vertices;
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
 	double			ceiling_slope;
-	short			num;
 	double			x_max;
-	short			*vertices;
-	short			*neighbors;
-	short			nb_vertices;
 	t_v2			normal;
+	double			floor_min;
+	double			ceiling_min;
+	double			floor_max;
+	double			ceiling_max;
 	double			*floors;
 	double			*ceilings;
-	double			*clipped_floors;
-	double			*clipped_ceilings;
-	double			floor_min;
-	double			ceiling_max;
+	double			*clipped_floors1;
+	double			*clipped_ceilings1;
+	double			*clipped_floors2;
+	double			*clipped_ceilings2;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -155,6 +165,8 @@ typedef struct		s_keys
 	int				shift;
 	int				ctrl;
 	int				space;
+	int				down;
+	int				up;
 }					t_keys;
 
 /*
@@ -172,6 +184,8 @@ typedef struct		s_inputs
 	uint8_t			shift;
 	uint8_t			ctrl;
 	uint8_t			space;
+	uint8_t			up;
+	uint8_t			down;
 }					t_inputs;
 
 /*
@@ -331,6 +345,7 @@ unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
+void				draw_line(t_point c1, t_point c2, t_env env, int color);
 
 /*
  ** Main pipeline functions
@@ -343,6 +358,7 @@ void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 
+t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
@@ -357,6 +373,8 @@ void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
 int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
+void				update_player_z(t_env *env);
+void				update_sector_slope(t_env *env, short sector_nb);
 
 
 #endif

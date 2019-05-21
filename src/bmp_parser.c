@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 17:56:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 17:12:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static int	parse(int fd, t_env *env)
 					parser.w,
 					parser.h,
 					parser.bpp,
-					SDL_PIXELFORMAT_RGBA8888)))
+					SDL_PIXELFORMAT_ARGB8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
+	/*if (!(env->sdl.image_str = (Uint32*)malloc(sizeof(Uint32) * parser.w * parser.h)))
+		return (ft_printf("Could not malloc image pixels\n"));*/
 	env->sdl.image_str = env->sdl.image->pixels;
 	if (parser.color_used || parser.bpp <= 8)
 	{

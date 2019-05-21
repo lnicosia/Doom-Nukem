@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:46:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:27:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 	//hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
 	//vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->floor1 = env->h / 2 +
-		(int)((sector.clipped_floors[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.clipped_floors1[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
 	render->floor2 = env->h / 2 +
-		(int)((sector.clipped_floors[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.clipped_floors2[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / -render->vz2));
 	render->ceiling1 = env->h / 2 +
-		(int)((sector.clipped_ceilings[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((sector.clipped_ceilings1[i] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
 	render->ceiling2 = env->h / 2 +
-		(int)((sector.clipped_ceilings[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((sector.clipped_ceilings2[i + 1] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / -render->vz2));
 	render->x1 = env->w / 2 + (int)(render->vx1 * (hfov / -render->vz1));
 	render->x2 = env->w / 2 + (int)(render->vx2 * (hfov / -render->vz2));
@@ -84,15 +84,15 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 	//hfov *= 1 / tan((env->camera.hfov / 2) * M_PI / 180.0);
 	//vfov *= 1 / tan((env->camera.vfov / 2) * M_PI / 180.0);
 	render->neighbor_floor1 = env->h / 2 +
-		(int)((neighbor.clipped_floors[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.clipped_floors1[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
 	render->neighbor_floor2 = env->h / 2 +
-		(int)((neighbor.clipped_floors[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.clipped_floors2[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / -render->vz2));
 	render->neighbor_ceiling1 = env->h / 2 +
-		(int)((neighbor.clipped_ceilings[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
+		(int)((neighbor.clipped_ceilings1[render->nv1] - env->player.pos.z + render->vz1 * env->player.angle_z)
 				* (vfov / -render->vz1));
 	render->neighbor_ceiling2 = env->h / 2 +
-		(int)((neighbor.clipped_ceilings[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
+		(int)((neighbor.clipped_ceilings2[render->nv2] - env->player.pos.z + render->vz2 * env->player.angle_z)
 				* (vfov / -render->vz2));
 }

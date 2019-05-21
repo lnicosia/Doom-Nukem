@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 16:17:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:35:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ void	render_sector(t_env *env, t_render render)
 						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].clipped_x[0] - env->player.pos.x) * env->options.minimap_scale;
 						line.y0 = 150 + (env->vertices[sector.vertices[i]].clipped_y[0] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_floors1[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i] = get_clipped_ceiling(0, sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_ceilings1[i] = get_clipped_ceiling(0, sector, env->vertices[sector.vertices[i]], env); 
 					}
 					else
 					{
@@ -133,9 +133,9 @@ void	render_sector(t_env *env, t_render render)
 						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].clipped_x[1] - env->player.pos.x) * env->options.minimap_scale;
 						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].clipped_y[1] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_floors2[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i + 1] = get_clipped_ceiling(1, sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_ceilings2[i + 1] = get_clipped_ceiling(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 					}
 					else
 					{
@@ -197,7 +197,9 @@ void	render_sector(t_env *env, t_render render)
 								// Dessiner le portail en rouge
 								vline.color = 0xFFAA0000;
 								if (env->options.lighting)
-									vline.color = 255 | (int)render.light << 24;
+									vline.color = 255 << 24 | (int)render.light << 16;
+								if (env->options.contouring && (x == render.x1 || x == render.x2))
+									vline.color = 0;
 								draw_vline(vline, env);
 							}
 							// Dessiner corniche
@@ -205,7 +207,13 @@ void	render_sector(t_env *env, t_render render)
 								draw_upper_wall(render, env);
 							// Dessiner marche
 							if (render.current_neighbor_floor < render.current_floor)
+							{
+								/*ft_printf("current sector vertex floor height = %f current neighbor vertex floor height = %f\n",
+										sector.clipped_floors1[i], env->sectors[sector.neighbors[i]].clipped_floors2[render.nv2]);
+								ft_printf("current sector vertex floor height = %d current neighbor vertex floor height = %d\n",
+										render.current_neighbor_floor, render.current_floor);*/
 								draw_bottom_wall(render, env);
+							}
 						}
 						else
 						{
@@ -228,7 +236,7 @@ void	render_sector(t_env *env, t_render render)
 								if (env->options.lighting)
 									vline.color = 255 << 24 | (int)render.light << 16 | (int)render.light << 8 | (int)render.light << 0;
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
-									vline.color = 0;
+									vline.color = 0xFF222222;
 								draw_vline(vline, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);

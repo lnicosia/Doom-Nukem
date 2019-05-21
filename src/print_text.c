@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 19:22:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 14:07:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	print_text(t_v2 pos, t_printable_text text, t_env *env)
 {
 	SDL_Surface	*surface;
 
+	if (!text.font)
+	{
+		ft_printf("Font not initialized\n");
+		return ;
+	}
 	if (!(surface = TTF_RenderText_Blended(text.font, text.str, text.color)))
 	{
 		ft_printf("TTF_RenderText_Solid error: %s\n", text.str);
