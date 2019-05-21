@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:01:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:06:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	render_sector(t_env *env, t_render render)
 						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].clipped_x[0] - env->player.pos.x) * env->options.minimap_scale;
 						line.y0 = 150 + (env->vertices[sector.vertices[i]].clipped_y[0] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_floors1[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i] = get_clipped_ceiling(0, sector, env->vertices[sector.vertices[i]], env); 
+							env->sectors[render.sector].clipped_ceilings1[i] = get_clipped_ceiling(0, sector, env->vertices[sector.vertices[i]], env); 
 					}
 					else
 					{
@@ -108,9 +108,9 @@ void	render_sector(t_env *env, t_render render)
 						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].clipped_x[1] - env->player.pos.x) * env->options.minimap_scale;
 						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].clipped_y[1] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
-							env->sectors[render.sector].clipped_floors[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_floors2[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 						if (sector.ceiling_slope)
-							env->sectors[render.sector].clipped_ceilings[i + 1] = get_clipped_ceiling(1, sector, env->vertices[sector.vertices[i + 1]], env); 
+							env->sectors[render.sector].clipped_ceilings2[i + 1] = get_clipped_ceiling(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 					}
 					else
 					{

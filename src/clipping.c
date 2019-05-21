@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 16:07:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:07:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void		reset_clipped(t_env *env)
 		j = 0;
 		while (j <= env->sectors[i].nb_vertices)
 		{
-			env->sectors[i].clipped_floors[j] = env->sectors[i].floors[j];
-			env->sectors[i].clipped_ceilings[j] = env->sectors[i].ceilings[j];
+			env->sectors[i].clipped_floors1[j] = env->sectors[i].floors[j];
+			env->sectors[i].clipped_ceilings1[j] = env->sectors[i].ceilings[j];
+			env->sectors[i].clipped_floors2[j] = env->sectors[i].floors[j];
+			env->sectors[i].clipped_ceilings2[j] = env->sectors[i].ceilings[j];
 			j++;
 		}
 		i++;
