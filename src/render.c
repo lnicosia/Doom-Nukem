@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:35:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 18:28:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void	render_sector(t_env *env, t_render render)
 						env->vertices[sector.vertices[i]].clipped_x[0] += env->player.pos.x;
 						env->vertices[sector.vertices[i]].clipped_y[0] += env->player.pos.y;
 						env->vertices[sector.vertices[i]].clipped[0] = 1;
-						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].clipped_x[0] - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sector.vertices[i]].clipped_y[0] - env->player.pos.y) * env->options.minimap_scale;
+						line.p0.x = env->w - 150 + (env->vertices[sector.vertices[i]].clipped_x[0] - env->player.pos.x) * env->options.minimap_scale;
+						line.p0.y = 150 + (env->vertices[sector.vertices[i]].clipped_y[0] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
 							env->sectors[render.sector].clipped_floors1[i] = get_clipped_floor(0, sector, env->vertices[sector.vertices[i]], env); 
 						if (sector.ceiling_slope)
@@ -118,8 +118,8 @@ void	render_sector(t_env *env, t_render render)
 					}
 					else
 					{
-						line.x0 = env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * env->options.minimap_scale;
+						line.p0.x = env->w - 150 + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.p0.y = 150 + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * env->options.minimap_scale;
 					}
 					if (render.v2_clipped)
 					{
@@ -130,8 +130,8 @@ void	render_sector(t_env *env, t_render render)
 						env->vertices[sector.vertices[i + 1]].clipped_x[1] += env->player.pos.x;
 						env->vertices[sector.vertices[i + 1]].clipped_y[1] += env->player.pos.y;
 						env->vertices[sector.vertices[i + 1]].clipped[1] = 1;
-						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].clipped_x[1] - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].clipped_y[1] - env->player.pos.y) * env->options.minimap_scale;
+						line.p1.x = env->w - 150 + (env->vertices[sector.vertices[i + 1]].clipped_x[1] - env->player.pos.x) * env->options.minimap_scale;
+						line.p1.y = 150 + (env->vertices[sector.vertices[i + 1]].clipped_y[1] - env->player.pos.y) * env->options.minimap_scale;
 						if (sector.floor_slope)
 							env->sectors[render.sector].clipped_floors2[i + 1] = get_clipped_floor(1, sector, env->vertices[sector.vertices[i + 1]], env); 
 						if (sector.ceiling_slope)
@@ -139,8 +139,8 @@ void	render_sector(t_env *env, t_render render)
 					}
 					else
 					{
-						line.x1 = env->w - 150 + (env->vertices[sector.vertices[i + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sector.vertices[i + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+						line.p1.x = env->w - 150 + (env->vertices[sector.vertices[i + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+						line.p1.y = 150 + (env->vertices[sector.vertices[i + 1]].y - env->player.pos.y) * env->options.minimap_scale;
 					}
 					if (env->options.test && env->player.pos.z > sector.floor_min && env->player.pos.z < sector.ceiling_max)
 					{
