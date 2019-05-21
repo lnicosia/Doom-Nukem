@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 14:06:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:52:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,7 @@ void	render_sector(t_env *env, t_render render)
 
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);
-			/*	if ( render.x1 > render.x2)
-				{
-					temp = render.x1;
-					render.x1 = render.x2;
-					render.x2 = temp;
-					temp = render.floor1;
-					render.floor1 = render.floor2;
-					render.floor2 = temp;
-					temp = render.ceiling1;
-					render.ceiling1 = render.ceiling2;
-					render.ceiling2 = temp;
-				}*/
+
 				if (render.x1 < render.x2)
 				{
 					// Pareil pour le secteur voisin si c'est un portail
@@ -210,11 +199,19 @@ void	render_sector(t_env *env, t_render render)
 							}
 							// Dessiner corniche
 							if (render.current_neighbor_ceiling > render.current_ceiling)
+							{
 								draw_upper_wall(render, env);
+							}
 
 							// Dessiner marche
 							if (render.current_neighbor_floor < render.current_floor)
+							{
+								/*ft_printf("current sector vertex floor height = %f current neighbor vertex floor height = %f\n",
+										sector.clipped_floors1[i], env->sectors[sector.neighbors[i]].clipped_floors2[render.nv2]);
+								ft_printf("current sector vertex floor height = %d current neighbor vertex floor height = %d\n",
+										render.current_neighbor_floor, render.current_floor);*/
 								draw_bottom_wall(render, env);
+							}
 						}
 						else
 						{

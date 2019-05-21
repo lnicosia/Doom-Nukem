@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 13:38:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 15:15:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		init_sdl(t_env *env)
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,
-					SDL_RENDERER_PRESENTVSYNC)))
+					SDL_RENDERER_TARGETTEXTURE)))
 		return (ft_printf("SDL_CreateRenderer error: %s\n", SDL_GetError()));
 	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
 		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:54:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 11:21:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:20:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,21 @@ void	clear_image(t_env *env)
 {
 	int		y;
 	int		x;
+	int		y_env;
+	int		xmax;
+	int		ymax;
 
 	y = 0;
-	while (y < env->h)
+	xmax = env->w;
+	ymax = env->h;
+	while (y < ymax)
 	{
 		x = 0;
-		while (x < env->w)
+		y_env = y * ymax;
+		while (x < xmax)
 		{
 			//env->sdl.img_str[x + y * env->w] = 0xFF;
-			env->sdl.texture_pixels[x + y * env->w] = 0;
+			env->sdl.texture_pixels[x + y_env] = 0;
 			x++;
 		}
 		y++;
