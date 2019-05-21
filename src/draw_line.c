@@ -6,18 +6,22 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:33:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 16:55:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:44:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	fill_img(t_point c, t_env data, int color)
+void	fill_img(t_point c, t_env data, Uint32 color)
 {
-	if (c.x < 0 || c.x > data.w - 1 || c.y < 0 || c.y >
-			data.h - 1)
-		return ;
-		data.sdl.texture_pixels[(int)(c.x + c.y * data.w)] = color;
+	int	pos;
+
+	pos = c.x + c.y * data.w;
+	if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
+			&& (color == 0xFFFF0000
+				|| (data.sdl.texture_pixels[pos] != 0xFF00FF00
+					&& data.sdl.texture_pixels[pos] != 0xFFFFFFFF)))
+		data.sdl.texture_pixels[pos] = color;
 }
 
 void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
@@ -42,7 +46,7 @@ void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
 	}
 }
 
-void	draw_line_high(t_point c1, t_point c2, t_env data, int color)
+void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
 {
 	int	dx;
 	int	dy;
@@ -64,7 +68,7 @@ void	draw_line_high(t_point c1, t_point c2, t_env data, int color)
 	}
 }
 
-void	draw_line(t_point c1, t_point c2, t_env data, int color)
+void	draw_line(t_point c1, t_point c2, t_env data, Uint32 color)
 {
 	if (ft_abs(c2.y - c1.y) < ft_abs(c2.x - c1.x))
 		if (c1.x > c2.x)

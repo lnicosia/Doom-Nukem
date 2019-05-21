@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 10:04:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 18:20:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	view(t_env *env)
 	env->player.angle += env->sdl.mouse_x * 0.03;
 	env->player.angle_cos = cos(env->player.angle);
 	env->player.angle_sin = sin(env->player.angle);
+	env->player.perp_cos = cos(env->player.angle - M_PI / 2);
+	env->player.perp_sin = sin(env->player.angle - M_PI / 2);
 	update_camera_position(env);
 	env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
 	env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
