@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 13:54:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:37:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	update_screen(t_env *env)
 {
 	//env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
 	//SDL_SetTextureBlendMode(env->sdl.texture, SDL_BLENDMODE_BLEND);
-	SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32));
+	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
+	{
+		ft_printf("Failed to update screen: %s\n", SDL_GetError());
+		return ;
+	}
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
 	//SDL_DestroyTexture(env->sdl.texture);
 	SDL_RenderPresent(env->sdl.renderer);

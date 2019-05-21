@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 10:05:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:08:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,41 +108,65 @@ void	check_slopes(t_env *env)
 	}
 }
 
+void	update_sector_slope(t_env *env, short sector_nb)
+{
+	t_sector	sector;
+	int			i;
+
+	if (sector_nb < 0 || sector_nb > env->nb_sectors)
+	{
+		ft_printf("Error when updating sector %d slope: sector does not exist\n");
+	}
+	sector = env->sectors[sector_nb];
+	env->sectors[sector_nb].floor_max = sector.floor;
+	env->sectors[sector_nb].floor_min = sector.floor;
+	env->sectors[sector_nb].ceiling_max = sector.ceiling;
+	env->sectors[sector_nb].ceiling_min = sector.ceiling;
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		if (sector.floor_slope != 0)
+			env->sectors[sector_nb].floors[i] = get_floor(sector,
+					env->vertices[sector.vertices[i]], env); 
+		else
+			env->sectors[sector_nb].floors[i] = sector.floor;
+		if (sector.ceiling_slope != 0)
+			env->sectors[sector_nb].ceilings[i] = get_ceiling(sector,
+					env->vertices[sector.vertices[i]], env); 
+		else
+			env->sectors[sector_nb].ceilings[i] = sector.ceiling;
+		if (env->sectors[sector_nb].floors[i]
+				< env->sectors[sector_nb].floor_min)
+			env->sectors[sector_nb].floor_min
+				= env->sectors[sector_nb].floors[i];
+		if (env->sectors[sector_nb].floors[i] 
+			> env->sectors[sector_nb].floor_max)
+			env->sectors[sector_nb].floor_max
+				= env->sectors[sector_nb].floors[i];
+		if (env->sectors[sector_nb].ceilings[i]
+				> env->sectors[sector_nb].ceiling_max)
+			env->sectors[sector_nb].ceiling_max
+				= env->sectors[sector_nb].ceilings[i];
+		if (env->sectors[sector_nb].ceilings[i]
+				< env->sectors[sector_nb].ceiling_min)
+			env->sectors[sector_nb].ceiling_min
+				= env->sectors[sector_nb].ceilings[i];
+		i++;
+	}
+	env->sectors[sector_nb].floors[i] = env->sectors[sector_nb].floors[0];
+	env->sectors[sector_nb].ceilings[i] = env->sectors[sector_nb].ceilings[0];
+}
+
 void	precompute_slopes(t_env *env)
 {
 	int			i;
-	int			j;
-	t_sector	sector;
 
 	ft_printf("{reset}Computing map slopes..\n");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
 		env->sectors[i].normal = get_sector_normal(env->sectors[i], env);
-		sector = env->sectors[i];
-		j = 0;
-		while (j < sector.nb_vertices)
-		{
-			if (sector.floor_slope != 0)
-				env->sectors[i].floors[j] = get_floor(sector, env->vertices[sector.vertices[j]], env); 
-			else
-				env->sectors[i].floors[j] = sector.floor;
-			if (sector.ceiling_slope != 0)
-				env->sectors[i].ceilings[j] = get_ceiling(sector, env->vertices[sector.vertices[j]], env); 
-			else
-				env->sectors[i].ceilings[j] = sector.ceiling;
-			if (env->sectors[i].floors[j] < env->sectors[i].floor_min)
-				env->sectors[i].floor_min = env->sectors[i].floors[j];
-			if (env->sectors[i].floors[j] > env->sectors[i].floor_max)
-				env->sectors[i].floor_max = env->sectors[i].floors[j];
-			if (env->sectors[i].ceilings[j] > env->sectors[i].ceiling_max)
-				env->sectors[i].ceiling_max = env->sectors[i].ceilings[j];
-			if (env->sectors[i].ceilings[j] < env->sectors[i].ceiling_min)
-				env->sectors[i].ceiling_min = env->sectors[i].ceilings[j];
-			j++;
-		}
-		env->sectors[i].floors[j] = env->sectors[i].floors[0];
-		env->sectors[i].ceilings[j] = env->sectors[i].ceilings[0];
+		update_sector_slope(env, i);
 		i++;
 	}
 	update_player_z(env);
