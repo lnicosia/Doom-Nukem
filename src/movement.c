@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/16 17:12:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:03:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	update_camera_position(t_env *env)
 
 void	move_player(t_env *env)
 {
-	t_sector	sector;
-	t_vertex	v0;
 	t_v3		origin_pos;
 	short		origin_camera_sect;
 	short		origin_left_sect;
@@ -75,7 +73,6 @@ void	move_player(t_env *env)
 	int			movement;
 
 	tmp_speed = env->player.speed;
-	sector = env->sectors[env->player.sector];
 	movement = 0;
 	origin_pos = env->player.pos;
 	origin_sect = env->player.sector;
@@ -124,17 +121,15 @@ void	move_player(t_env *env)
 		env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
 		env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
 		env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
-		if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
+		/*if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
 		{
 			env->player.pos = origin_pos; 
 			env->player.sector = origin_sect;
 			env->player.camera_sector = origin_camera_sect;
 			env->player.near_left_sector = origin_left_sect;
 			env->player.near_right_sector = origin_right_sect;
-		}
+		}*/
 	}
 	env->player.speed = tmp_speed;
-	sector = env->sectors[env->player.sector];
-	v0 = env->vertices[sector.vertices[0]];
-	env->player.pos.z = 6 + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	update_player_z(env);
 }

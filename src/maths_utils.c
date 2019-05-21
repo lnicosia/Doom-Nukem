@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 12:28:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:01:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,17 @@ t_v2	get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4)
 		/ cross_product((p1.x) - (p2.x), (p1.y) - (p2.y),
 				(p3.x) - (p4.x), (p3.y) - (p4.y));
 	return (res);
+}
+
+void	update_player_z(t_env *env)
+{
+	t_sector	sector;
+	t_vertex	v0;
+
+	sector = env->sectors[env->player.sector];
+	v0 = env->vertices[sector.vertices[0]];
+	env->player.pos.z =
+		6 + sector.floor +
+		(sector.normal.x * (env->player.pos.x - v0.x)
+		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 16:48:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:02:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@ void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
 int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
+void				update_player_z(t_env *env);
 
 
 #endif
