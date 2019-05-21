@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:45:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 11:12:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		doom(int ac, char **av)
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
-	env.player.speed = 0.5;
+	env.player.speed = 0.2;
 	env.player.size_2d = 0.5;
 	env.player.z = 6.00;
 	env.player.gravity = 1;
@@ -53,12 +53,12 @@ int		doom(int ac, char **av)
 	{
 		reset_clipped(&env);
 		clear_image(&env);
+		if (env.options.show_minimap)
+			minimap(&env);
 		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
 		draw_crosshair(&env);
-		if (env.options.show_minimap)
-			minimap(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
@@ -79,7 +79,7 @@ int		doom(int ac, char **av)
 		}
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		view(&env);
-		SDL_Delay(5);
+	//	SDL_Delay(5);
 	}
 	ft_printf("User quit the game\n");
 	free_all(&env);

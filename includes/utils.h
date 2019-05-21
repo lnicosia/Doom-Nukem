@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:45:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 16:03:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ typedef struct		s_line_eq
 	double b;
 }					t_line_eq;
 
+typedef struct	s_line
+{
+	int			x0;
+	int			y0;
+	int			x1;
+	int			y1;
+	int			color;
+}				t_line;
+
 /*
-** VERTICES = PLURIEL DE VERTEX
-*/
+ ** VERTICES = PLURIEL DE VERTEX
+ */
 
 typedef struct		s_sector
 {
@@ -61,6 +70,8 @@ typedef struct		s_sector
 	t_v2			normal;
 	double			*floors;
 	double			*ceilings;
+	double			*clipped_floors;
+	double			*clipped_ceilings;
 	double			floor_min;
 	double			ceiling_max;
 }					t_sector;
@@ -69,9 +80,9 @@ typedef struct		s_vertex
 {
 	double			x;
 	double			y;
-	double			clipped_x;
-	double			clipped_y;
-	int				clipped;
+	double			clipped_x[2];
+	double			clipped_y[2];
+	int				clipped[2];
 	short			num;
 }					t_vertex;
 
@@ -86,32 +97,47 @@ typedef struct		s_player
 	double			angle_z;
 	short			sector;
 	short			camera_sector;
+	short			near_left_sector;
+	short			near_right_sector;
 	double			speed;
 	double			size_2d;
 	double			camera_x;
 	double			camera_y;
+	t_v2			near_left;
+	t_v2			near_right;
 }					t_player;
 
 /*
-**	Camera values
-*/
+ **	Camera values
+ */
 
 typedef struct		s_camera
 {
+	double			ratio_w;
+	double			ratio_h;
+	double			ratio;
 	double			near_z;
 	double			far_z;
 	double			near_left;
 	double			near_right;
+	double			near_up;
+	double			near_down;
 	double			far_left;
 	double			far_right;
 	double			hfov;
 	double			vfov;
 	double			scale;
+	double			x1;
+	double			x2;
+	double			y1;
+	double			y2;
+	double			hscale;
+	double			vscale;
 }					t_camera;
 
 /*
-** Player's keys configuration
-*/
+ ** Player's keys configuration
+ */
 
 typedef struct		s_keys
 {
@@ -131,8 +157,8 @@ typedef struct		s_keys
 }					t_keys;
 
 /*
-** Keys inputs
-*/
+ ** Keys inputs
+ */
 
 typedef struct		s_inputs
 {
@@ -148,8 +174,20 @@ typedef struct		s_inputs
 }					t_inputs;
 
 /*
-** SDL data necessities
-*/
+ ** Fonts
+ */
+
+typedef struct		s_fonts
+{
+	TTF_Font		*amazdoom50;
+	TTF_Font		*amazdoom20;
+	TTF_Font		*alice;
+	TTF_Font		*bebasneue;
+}					t_fonts;
+
+/*
+ ** SDL data necessities
+ */
 
 typedef struct		s_sdl
 {
@@ -158,18 +196,20 @@ typedef struct		s_sdl
 	SDL_Renderer	*renderer;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
-	TTF_Font		*font;
+	t_fonts			fonts;
 	int				mouse_x;
 	int				mouse_y;
 	unsigned int	*img_str;
+	Uint32			*texture_pixels;
 	int				time;
 	SDL_Surface		*image;
 	unsigned int	*image_str;
+	int				pitch;
 }					t_sdl;
 
 /*
-**	Contains a list of options for the game
-*/
+ **	Contains a list of options for the game
+ */
 
 typedef struct		s_options
 {
@@ -183,25 +223,24 @@ typedef struct		s_options
 	int				wall_color;
 	int				test;
 	double			minimap_scale;
-	int				render_type;
 	int				clipping;
 }					t_options;
 
 /*
-**	Contains every data need to print a text on the screen
-*/
+ **	Contains every data need to print a text on the screen
+ */
 
 typedef struct		s_printable_text
 {
 	char			*str;
-	char			*font;
+	TTF_Font		*font;
 	int				size;
 	SDL_Color		color;
 }					t_printable_text;
 
 /*
-**	Contains every data needed for an animation on the screen
-*/
+ **	Contains every data needed for an animation on the screen
+ */
 
 typedef struct		s_animation
 {
@@ -211,14 +250,18 @@ typedef struct		s_animation
 }					t_animation;
 
 /*
-**	Environment data struct
-*/
+ **	Environment data struct
+ */
 
 typedef struct		s_env
 {
 	t_sdl			sdl;
 	t_vertex		*vertices;
 	t_sector		*sectors;
+	int				*xmin;
+	int				*xmax;
+	int				*screen_sectors;
+	short			*rendered_sectors;
 	t_player		player;
 	t_options		options;
 	t_keys			keys;
@@ -237,24 +280,24 @@ typedef struct		s_env
 }					t_env;
 
 /*
-**	  -------------
-**	 ---------------
-**	----FUNCTIONS----
-**	 ---------------
-**	  -------------
-*/
+ **	  -------------
+ **	 ---------------
+ **	----FUNCTIONS----
+ **	 ---------------
+ **	  -------------
+ */
 
 /*
-** Main functions
-*/
+ ** Main functions
+ */
 
 int					doom(int ac, char **av);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
 /*
-** Init functions
-*/
+ ** Init functions
+ */
 
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
@@ -269,27 +312,29 @@ int					parsing(int fd, t_env *env);
 int					valid_map(t_env *env);
 
 /*
-** Screen utils
-*/
+ ** Screen utils
+ */
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
 t_printable_text	new_printable_text(
 		char *text,
-		char *font,
+		TTF_Font *font,
 		unsigned int color,
 		int size);
 void				print_text(t_v2 pos, t_printable_text text, t_env *env);
+void				apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);
 unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
+void				draw_line_3(t_env *env, t_line line);
 
 /*
-** Main pipeline functions
-*/
+ ** Main pipeline functions
+ */
 
 int					draw(t_env *env);
 void				check_parsing(t_env *env);
@@ -302,12 +347,14 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
+double				get_clipped_floor(int num, t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_ceiling(int num, t_sector sector, t_vertex vertex, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
-int					get_camera_sector(t_env *env);
+int					get_sector(t_env *env, t_v2 p);
 int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
 

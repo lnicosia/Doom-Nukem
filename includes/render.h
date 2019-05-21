@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 10:47:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 15:57:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # define VFOV	0.2
 # include "utils.h"
 
-typedef struct		s_line
+typedef struct		s_vline
 {
 	int				start;
 	int				end;
 	int				x;
 	unsigned int	color;
-}					t_line;
+}					t_vline;
 
 /*
 **	Every variable needed for the rendering
@@ -31,7 +31,7 @@ typedef struct		s_line
 
 typedef struct		s_render
 {
-	t_line			line;
+	t_vline			vline;
 	int				xmin;
 	int				xmax;
 	int				ymin;
@@ -60,9 +60,7 @@ typedef struct		s_render
 	int				xstart;
 	int				xend;
 	int				sector;
-	int				father;
 	double			light;
-	int				clipped;
 	int				v1_clipped;
 	int				v2_clipped;
 	double			dist1;
@@ -83,7 +81,7 @@ int					check_fov(t_render *render, t_env *env);
 void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
 void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector sector);
-void				draw_line(t_line, t_env *env);
+void				draw_vline(t_vline, t_env *env);
 void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
@@ -95,5 +93,6 @@ void				handle_left(t_render *render, t_env *env);
 void				handle_right(t_render *render, t_env *env);
 void				handle_far(t_render *render, t_env *env);
 void				handle_near(t_render *render, t_env *env);
+int					get_screen_sectors(t_env *env);
 
 #endif

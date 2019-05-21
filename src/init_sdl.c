@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/07 17:35:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:23:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		init_sdl(t_env *env)
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,
-					SDL_RENDERER_SOFTWARE)))
+					SDL_RENDERER_TARGETTEXTURE)))
 		return (ft_printf("SDL_CreateRenderer error: %s\n", SDL_GetError()));
 	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
 		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/
@@ -42,17 +42,24 @@ int		init_sdl(t_env *env)
 	if (SDL_SetSurfaceBlendMode(env->sdl.surface, SDL_BLENDMODE_BLEND))
 		return (ft_printf("SDL_SurfaceDrawBlendMode error: %s\n", SDL_GetError()));
 	env->sdl.img_str = env->sdl.surface->pixels;
-	clear_image(env);
-	if (!(env->sdl.texture = SDL_CreateTextureFromSurface(
+	if (!(env->sdl.texture = SDL_CreateTexture(
 					env->sdl.renderer,
-					env->sdl.surface)))
+					SDL_PIXELFORMAT_ARGB8888,
+					SDL_TEXTUREACCESS_STREAMING,
+					env->w,
+					env->h)))
 		return (ft_printf("SDL_CreateTextureFromSurface error: %s\n", SDL_GetError()));
-	if (SDL_RenderCopy(
+	if (!(env->sdl.texture_pixels = (Uint32*)malloc(sizeof(Uint32) * env->w * env->h)))
+		return (ft_printf("Could not malloc texture pixels\n"));
+	if (!(env->depth_array = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	clear_image(env);
+	/*if (SDL_RenderCopy(
 				env->sdl.renderer,
 				env->sdl.texture,
 				NULL,
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
-	SDL_RenderPresent(env->sdl.renderer);
+	SDL_RenderPresent(env->sdl.renderer);*/
 	return (0);
 }

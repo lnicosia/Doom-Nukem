@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:45:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/21 12:09:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 #include "collision.h"
 
 /*
-**	Returns camera sector according to the last player movement
-*/
+ **	Returns camera sector according to the last player movement
+ */
 
-int		get_camera_sector(t_env *env)
+int		get_sector(t_env *env, t_v2 p)
 {
 	int		i;
 
-	if (is_in_sector(env, env->player.sector, env->player.camera_x, env->player.camera_y))
+	if (is_in_sector(env, env->player.sector, p.x, p.y))
 		return (env->player.sector);
 	i = 0;
 	while (i < env->sectors[env->player.sector].nb_vertices)
 	{
 		if (env->sectors[env->player.sector].neighbors[i] >= 0)
 		{
-			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], env->player.camera_x, env->player.camera_y))
+			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], p.x, p.y))
 				return (env->sectors[env->player.sector].neighbors[i]);
 		}
 		i++;
@@ -36,45 +36,48 @@ int		get_camera_sector(t_env *env)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (is_in_sector(env, i, env->player.camera_x, env->player.camera_y) && env->player.pos.z > env->sectors[i].floor_min)
+		if (is_in_sector(env, i, p.x, p.y) && env->player.pos.z > env->sectors[i].floor_min)
 			return (i);
 		i++;
 	}
-	return (env->player.sector);
+	return (-1);
 }
 
 /*
-**	Update camera's position (save some computings)
-*/
+ **	Update camera's position (save some computings)
+ */
 
 void	update_camera_position(t_env *env)
 {
 	env->player.camera_x = env->player.pos.x + env->player.angle_cos * env->camera.near_z;
 	env->player.camera_y = env->player.pos.y + env->player.angle_sin * env->camera.near_z;
+	env->player.near_left.x = env->player.pos.x + (env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_left);
+	env->player.near_left.y = env->player.pos.y + (env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_left);
+	env->player.near_right.x = env->player.pos.x + (env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_right);
+	env->player.near_right.y = env->player.pos.y + (env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right);
 }
 
 /*
-** Contains calculs to allow a jump
-*/
+ ** Contains calculs to allow a jump
+ */
 void	jump(t_env *env, t_sector sector, t_vertex v0)
 {
 	double	x;
 
-	x = 2;
+	x = 0.5;
 	env->jump.on_going = 1;
 	if (env->jump.start == 0)
 		env->jump.start = SDL_GetTicks();
 	env->jump.end = SDL_GetTicks();
 	if (env->jump.end < env->jump.start + 150 && env->flag == 0)
 	{
-		env->player.gravity
 		env->z += x;
 	}
 	if (env->jump.end > env->jump.start + 150 && env->flag == 0)
 		env->flag = 1;
 	if (env->z > env->player.z && env->flag == 1)
 		env->z -= x * env->player.gravity;
-	if (env->jump.end > env->jump.start + 500)
+	if (env->z == env->player.z && env->jump.end > env->jump.start + 400)
 	{
 		env->flag = 0;
 		env->jump.start = 0;
@@ -86,47 +89,58 @@ void	jump(t_env *env, t_sector sector, t_vertex v0)
 void	squat(t_env *env, t_sector sector, t_vertex v0)
 {
 	env->squat.on_going = 1;
-	if (env->squat.start == 0)
-		env->squat.start = SDL_GetTicks() / 5;
-	env->squat.end = SDL_GetTicks() / 5;
-	if (env->flag == 0)
+/*	if (env->squat.start == 0)
+		env->squat.start = SDL_GetTicks();
+	env->squat.end = SDL_GetTicks();*/
+	if (env->flag == 0 && env->squat.on_going)
 	{
-		if (env->squat.end < env->squat.start + 30 && env->z > 2)
-			env->z -= 1;
-		if (env->z == 2)
+		if (env->z > 3)
+			env->z -= 0.5;
+		if (env->z == 3)
+		{
 			env->flag = 1;
-	}		
-	else if (env->flag == 1)
-	{
-		if (env->squat.end < env->squat.start + 30 && env->z < env->player.z)
-			env->z += 1;
-		if (env->z == env->player.z)
-			env->flag = 0;
+			env->squat.on_going = 0;
+		}
 	}
-	if (env->squat.end > env->squat.start + 30 )
+	else if (env->flag == 1 && env->squat.on_going && !env->inputs.ctrl)
 	{
-		env->squat.start = 0;
-		env->squat.on_going = 0;
+		if (env->z < env->player.z)
+			env->z += 0.5;
+		if (env->z == env->player.z)
+		{
+			env->flag = 0;
+			env->squat.on_going = 0;
+		}
 	}
 	env->player.pos.z = env->z + sector.floor + (sector.normal.x * (env->player.pos.x - v0.x) - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 }
 
 /*
-**	Handles player movements
-**	TODO Protection / return values??
-*/
+ **	Handles player movements
+ **	TODO Protection / return values??
+ */
 
 
 void	move_player(t_env *env)
 {
 	t_sector	sector;
 	t_vertex	v0;
+	t_v3		origin_pos;
+	short		origin_camera_sect;
+	short		origin_left_sect;
+	short		origin_right_sect;
+	short		origin_sect;
 	double		tmp_speed;
 	int			movement;
 
 	tmp_speed = env->player.speed;
 	sector = env->sectors[env->player.sector];
 	movement = 0;
+	origin_pos = env->player.pos;
+	origin_sect = env->player.sector;
+	origin_camera_sect = env->player.camera_sector;
+	origin_right_sect = env->player.near_left_sector;
+	origin_left_sect = env->player.near_right_sector;
 	if (env->inputs.forward)
 	{	
 		if (check_collision(env, env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed) == 1)
@@ -166,14 +180,24 @@ void	move_player(t_env *env)
 	if (movement)
 	{
 		update_camera_position(env);
-		env->player.camera_sector = get_camera_sector(env);
+		env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
+		env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
+		env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
+		if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
+		{
+			env->player.pos = origin_pos; 
+			env->player.sector = origin_sect;
+			env->player.camera_sector = origin_camera_sect;
+			env->player.near_left_sector = origin_left_sect;
+			env->player.near_right_sector = origin_right_sect;
+		}
 	}
 	if (env->inputs.space || env->jump.on_going == 1)
 	{
 		v0 = env->vertices[sector.vertices[0]];
 		jump(env, sector, v0);
 	}
-	if (env->inputs.ctrl || env->squat.on_going == 1)
+	if (env->inputs.ctrl || env->squat.on_going == 1 || (env->flag == 1 && !env->inputs.ctrl))
 	{
 		v0 = env->vertices[sector.vertices[0]];
 		squat(env, sector, v0);

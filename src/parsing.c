@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/14 11:45:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:37:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,10 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		return (ft_printf("Could not malloc sector ceilings!\n", env));
 	if (!(env->sectors[num].floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
 		return (ft_printf("Could not malloc sector floors!\n", env));
+	if (!(env->sectors[num].clipped_ceilings = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_ceilings!\n", env));
+	if (!(env->sectors[num].clipped_floors = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector clipped_floors!\n", env));
 	i = 0;
 	while (i < vertices_count)
 	{
@@ -305,7 +309,8 @@ int		init_vertices(t_env *env, char *line)
 
 int		init_sectors(t_env *env, char *line)
 {
-	int	nb_sector;
+	int	nb_sectors;
+	int	nb_screen_sectors;
 	int	i;
 
 	i = 0;
@@ -315,28 +320,51 @@ int		init_sectors(t_env *env, char *line)
 		ft_printf("Please declare how many sectors there are\n");
 		return (-1);
 	}
-	nb_sector = atoi(line);
-	if (nb_sector < 1)
+	nb_sectors = atoi(line);
+	if (nb_sectors < 1)
 	{
 		ft_printf("You need to declare at least one sector.\n");
 		return (-1);
 	}
-	if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector) * (nb_sector))))
+	if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector) * (nb_sectors))))
 	{
 		ft_printf("Could not malloc sectors!\n", env);
 		return (-1);
 	}
+	nb_screen_sectors = ft_min(nb_sectors, env->w);
+	if (!(env->xmin = (int*)malloc(sizeof(int) * (nb_screen_sectors))))
+	{
+		ft_printf("Could not malloc xmins!\n", env);
+		return (-1);
+	}
+	if (!(env->xmax = (int*)malloc(sizeof(int) * (nb_screen_sectors))))
+	{
+		ft_printf("Could not malloc xmaxs!\n", env);
+		return (-1);
+	}
+	if (!(env->screen_sectors = (int*)malloc(sizeof(int) * (nb_screen_sectors))))
+	{
+		ft_printf("Could not malloc screen sectors!\n", env);
+		return (-1);
+	}
+	if (!(env->rendered_sectors = (short*)malloc(sizeof(short) * (nb_screen_sectors))))
+	{
+		ft_printf("Could not malloc rendered sectors!\n", env);
+		return (-1);
+	}
 	i = 0;
-	while (i < nb_sector)
+	while (i < nb_sectors)
 	{
 		env->sectors[i].vertices = NULL;
 		env->sectors[i].ceilings = NULL;
 		env->sectors[i].floors = NULL;
+		env->sectors[i].clipped_ceilings = NULL;
+		env->sectors[i].clipped_floors = NULL;
 		env->sectors[i].neighbors = NULL;
 		env->sectors[i].x_max = -2147483648;
 		i++;
 	}
-	return (nb_sector);
+	return (nb_sectors);
 }
 
 int		parsing(int fd, t_env *env)

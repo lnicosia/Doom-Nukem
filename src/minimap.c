@@ -6,20 +6,11 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/15 15:15:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/20 16:13:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-typedef struct	s_line
-{
-	int			x0;
-	int			y0;
-	int			x1;
-	int			y1;
-	int			color;
-}				t_line;
 
 void	swap_value(int *a, int *b)
 {
@@ -34,9 +25,18 @@ void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
 	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300)
 	{
-		if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
+		/*if (color == 0xFF0000FF || (env->sdl.img_str[x + env->w * y] != 0x00FF00FF
 			&& env->sdl.img_str[x + env->w * y] != 0xFFFFFFF))
-		env->sdl.img_str[x + env->w * y] = color;
+		{
+			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
+				env->sdl.img_str[x + env->w * y] = color;
+		}*/
+		if (color == 0xFFFF0000 || (env->sdl.texture_pixels[x + env->w * y] != 0xFF00FF00
+			&& env->sdl.texture_pixels[x + env->w * y] != 0xFFFFFFF))
+		{
+			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
+				env->sdl.texture_pixels[x + env->w * y] = color;
+		}
 	}
 }
 
@@ -131,24 +131,24 @@ void	draw_player(t_env *env)
 		y = 150 - player_hitbox;
 		while (y < 150 + player_hitbox + 1)
 		{
-			put_pixel(env, x, y, 0xFFFF00FF);
+			put_pixel(env, x, y, 0xFFFFFF00);
 			y++;
 		}
 		x++;
 	}
 
-	line.color = 0xFFFF00FF;
+	line.color = 0xFFFFFF00;
 	triangle[2] = new_v3(
-			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_left) * env->options.minimap_scale + env->w - 150,
-			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_left) * env->options.minimap_scale + 150,
+			(env->player.near_left.x - env->player.pos.x) * env->options.minimap_scale + env->w - 150,
+			(env->player.near_left.y - env->player.pos.y) * env->options.minimap_scale + 150,
 			0);
 	triangle[1] = new_v3(
 			(env->player.angle_cos * env->camera.far_z - env->player.angle_sin * env->camera.far_left) * env->options.minimap_scale + env->w - 150,
 			(env->player.angle_sin * env->camera.far_z + env->player.angle_cos * env->camera.far_left) * env->options.minimap_scale + 150,
 			0);
 	triangle[0] = new_v3(
-			(env->player.angle_cos * env->camera.near_z - env->player.angle_sin * env->camera.near_right) * env->options.minimap_scale + env->w - 150,
-			(env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right) * env->options.minimap_scale + 150,
+			(env->player.near_right.x - env->player.pos.x) * env->options.minimap_scale + env->w - 150,
+			(env->player.near_right.y - env->player.pos.y) * env->options.minimap_scale + 150,
 			0);
 	fill_triangle(triangle, env);
 	line.x0 = triangle[2].x;
@@ -228,7 +228,7 @@ void	draw_minimap_hud(t_env *env)
 			if (x == env->w - 300 || y == 300)
 				put_pixel(env, x, y, 0xFFFFFFFF);
 			else
-				put_pixel(env, x, y, 0xFF);
+				put_pixel(env, x, y, 0);
 			x++;
 		}
 		y++;
@@ -255,16 +255,14 @@ void	draw_sector_num(t_env *env, t_sector sector)
 	}
 	pos.x /= sector.nb_vertices;
 	pos.y /= sector.nb_vertices;
-	num = ft_itoa(sector.num);
-	if (pos.x > env->w - 297 && pos.y <= 295)
-		print_text(new_v2(pos.y - 10, pos.x - 3 * ft_getlen(sector.num)), new_printable_text(
+	num = ft_sitoa(sector.num);
+	if (pos.x > env->w - 297 && pos.x < env->w && pos.y <= 295 && pos.y >= 0)
+		print_text(new_v2((int)(pos.y - 10), (int)(pos.x - 3 * ft_getlen(sector.num))), new_printable_text(
 					num,
-					"fonts/bebas_neue/BebasNeue-Regular.ttf",
+					env->sdl.fonts.bebasneue,
 					color,
 					20),
 				env);
-	ft_strdel(&num);
-
 }
 
 void	minimap(t_env *env)
@@ -313,32 +311,21 @@ void	minimap(t_env *env)
 			{
 				if (env->vertices[sect.vertices[v]].clipped
 						|| env->vertices[sect.vertices[v + 1]].clipped)
+			//if (!env->options.test)
+			//{
+				while (v < sect.nb_vertices)
 				{
-					if (env->vertices[sect.vertices[v]].clipped)
-					{
-						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sect.vertices[v]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					else
-					{
-						line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					if (env->vertices[sect.vertices[v + 1]].clipped)
-					{
-						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].clipped_x - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].clipped_y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					else
-					{
-						line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-						line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-					}
-					line.color = 0xFF0000FF;
+					line.x0 = env->w - 150 + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y0 = 150 + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
+					line.x1 = env->w - 150 + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.y1 = 150 + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+					line.color = 0xFFFFFFFF;
+					if (sect.num == env->player.sector)
+						line.color = 0xFF00FF00;
 					draw_line_3(env, line);
+					v++;
 				}
-				v++;
-			}
+			//}
 		}
 		s++;
 	}*/

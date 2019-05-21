@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/04/29 15:20:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:13:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 **	Check if the current sector is inside another sector
 */
+
 static int	is_inside(t_sector sector, t_env *env)
 {
 	short	*duplicates;
@@ -32,7 +33,7 @@ static int	is_inside(t_sector sector, t_env *env)
 		}
 		i++;
 	}
-	free(duplicates);
+	ft_memdel((void**)&duplicates);
 	return (0);
 }
 
@@ -40,6 +41,7 @@ static int	is_inside(t_sector sector, t_env *env)
 /*
 **	Check sector validity
 */
+
 static int	check_sector(t_sector sector, t_env *env)
 {
 	int			i;
