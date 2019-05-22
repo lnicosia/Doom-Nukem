@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:49:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 12:16:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ void	draw_upper_wall(t_render render, t_env *env)
 	if (env->options.lighting)
 		vline.color = 
 			255 << 24
-			| ((int)render.light / 3) << 16
-			| ((int)render.light / 3) << 8
-			| ((int)render.light / 3) << 0;
+			| (int)(0x7C * render.light / 255) << 16
+			| 0
+			| (int)(0xD9 * render.light / 255) << 0;
 	//ft_printf("floor end = %d\n", vline.end);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
 			vline.color = 0xFF222222;
@@ -128,9 +128,9 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	if (env->options.lighting)
 		vline.color = 
 			255 << 24
-			| ((int)render.light / 3) << 16
-			| ((int)render.light / 3) << 8
-			| ((int)render.light / 3) << 0;
+			| (int)(0x7C * render.light / 255) << 16
+			| 0
+			| (int)(0xD9 * render.light / 255) << 0;
 	//ft_printf("ceiling start = %d\n", vline.start);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
 			vline.color = 0xFF222222;

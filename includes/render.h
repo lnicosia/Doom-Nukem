@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 15:57:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:25:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,29 @@ typedef struct		s_vline
 typedef struct		s_render
 {
 	t_vline			vline;
-	int				xmin;
-	int				xmax;
-	int				ymin;
-	int				ymax;
 	t_v2			v1;
 	t_v2			v2;
+	t_v2			inter_near;
+	t_v2			inter_far;
+	t_v2			inter_left;
+	t_v2			inter_right;
 	double			vx1;
 	double			vx2;
 	double			vz1;
 	double			vz2;
+	double			clipped_vz1;
+	double			clipped_vz2;
+	double			clipped_vx1;
+	double			clipped_vx2;
+	double			light;
+	double			dist1;
+	double			dist2;
+	double			floor_slope;
+	double			ceiling_slope;
+	int				xmin;
+	int				xmax;
+	int				ymin;
+	int				ymax;
 	int				currentx;
 	int				floor1;
 	int				floor2;
@@ -60,23 +73,14 @@ typedef struct		s_render
 	int				xstart;
 	int				xend;
 	int				sector;
-	double			light;
 	int				v1_clipped;
 	int				v2_clipped;
-	double			dist1;
-	double			dist2;
-	double			floor_slope;
-	double			ceiling_slope;
 	short			nv1;
 	short			nv2;
-	t_v2			inter_near;
-	t_v2			inter_far;
-	t_v2			inter_left;
-	t_v2			inter_right;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
-void				get_rotated_vertices(t_render *render, t_env *env);
+void				get_rotated_vertices(t_render *render, t_env *env, int i);
 int					check_fov(t_render *render, t_env *env);
 void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);

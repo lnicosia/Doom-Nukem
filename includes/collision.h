@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/10 14:06:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 10:51:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 
 typedef struct  s_movement
 {
-    int         wall_v1;
-    int         wall_v2;
-    int         old_sector;
     double      old_z;
     double      future_x;
     double      future_y;
     double      future_z;
+    int         wall_v1;
+    int         wall_v2;
+    int         old_sector;
 }               t_movement;
 
 typedef struct  s_data

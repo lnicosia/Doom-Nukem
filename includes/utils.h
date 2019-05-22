@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 18:29:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 10:22:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,12 @@ typedef struct	s_line
 
 typedef struct		s_sector
 {
-	short			num;
-	short			*vertices;
-	short			*neighbors;
-	short			nb_vertices;
+	t_v2			normal;
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
 	double			ceiling_slope;
 	double			x_max;
-	t_v2			normal;
 	double			floor_min;
 	double			ceiling_min;
 	double			floor_max;
@@ -82,14 +78,18 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
+	short			*vertices;
+	short			*neighbors;
+	short			num;
+	short			nb_vertices;
 }					t_sector;
 
 typedef struct		s_vertex
 {
-	double			x;
-	double			y;
 	double			clipped_x[2];
 	double			clipped_y[2];
+	double			x;
+	double			y;
 	int				clipped[2];
 	short			num;
 }					t_vertex;
@@ -97,6 +97,8 @@ typedef struct		s_vertex
 typedef struct		s_player
 {
 	t_v3			pos;
+	t_v2			near_left;
+	t_v2			near_right;
 	double			gravity;
 	double			eyesight;
 	double			z;
@@ -106,16 +108,14 @@ typedef struct		s_player
 	double			perp_cos;
 	double			perp_sin;
 	double			angle_z;
-	short			sector;
-	short			camera_sector;
-	short			near_left_sector;
-	short			near_right_sector;
 	double			speed;
 	double			size_2d;
 	double			camera_x;
 	double			camera_y;
-	t_v2			near_left;
-	t_v2			near_right;
+	short			sector;
+	short			camera_sector;
+	short			near_left_sector;
+	short			near_right_sector;
 }					t_player;
 
 /*
@@ -124,9 +124,6 @@ typedef struct		s_player
 
 typedef struct		s_camera
 {
-	double			ratio_w;
-	double			ratio_h;
-	double			ratio;
 	double			near_z;
 	double			far_z;
 	double			near_left;
@@ -135,6 +132,9 @@ typedef struct		s_camera
 	double			near_down;
 	double			far_left;
 	double			far_right;
+	double			ratio_w;
+	double			ratio_h;
+	double			ratio;
 	double			hfov;
 	double			vfov;
 	double			scale;
@@ -206,19 +206,19 @@ typedef struct		s_fonts
 
 typedef struct		s_sdl
 {
-	SDL_Window		*window;
 	SDL_Event		event;
+	t_fonts			fonts;
+	SDL_Window		*window;
 	SDL_Renderer	*renderer;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
-	t_fonts			fonts;
-	int				mouse_x;
-	int				mouse_y;
 	unsigned int	*img_str;
 	Uint32			*texture_pixels;
-	int				time;
 	SDL_Surface		*image;
 	unsigned int	*image_str;
+	int				mouse_x;
+	int				mouse_y;
+	int				time;
 	int				pitch;
 }					t_sdl;
 
@@ -228,6 +228,7 @@ typedef struct		s_sdl
 
 typedef struct		s_options
 {
+	double			minimap_scale;
 	int				contouring;
 	int				render_sectors;
 	int				lighting;
@@ -237,7 +238,6 @@ typedef struct		s_options
 	int				color_clipping;
 	int				wall_color;
 	int				test;
-	double			minimap_scale;
 	int				clipping;
 }					t_options;
 
@@ -249,8 +249,8 @@ typedef struct		s_printable_text
 {
 	char			*str;
 	TTF_Font		*font;
-	int				size;
 	SDL_Color		color;
+	int				size;
 }					t_printable_text;
 
 /*
@@ -271,12 +271,6 @@ typedef struct		s_animation
 typedef struct		s_env
 {
 	t_sdl			sdl;
-	t_vertex		*vertices;
-	t_sector		*sectors;
-	int				*xmin;
-	int				*xmax;
-	int				*screen_sectors;
-	short			*rendered_sectors;
 	t_player		player;
 	t_options		options;
 	t_keys			keys;
@@ -284,13 +278,19 @@ typedef struct		s_env
 	t_camera		camera;
 	t_animation		jump;
 	t_animation		squat;
+	t_vertex		*vertices;
+	t_sector		*sectors;
+	double			*depth_array;
+	int				*xmin;
+	int				*xmax;
+	int				*screen_sectors;
+	short			*rendered_sectors;
 	int				w;
 	int				h;
 	int				running;
 	int				nb_sectors;
 	int				nb_vertices;
 	int				flag;
-	double			*depth_array;
 }					t_env;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:14:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 18:28:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 10:30:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 void		print_debug(t_env *env)
 {
-	char	*near_z;
 	char	*player_sector;
 	char	*left_sector;
 	char	*right_sector;
@@ -24,7 +23,6 @@ void		print_debug(t_env *env)
 	player_sector = ft_sitoa(env->player.sector);
 	left_sector = ft_sitoa(env->player.near_left_sector);
 	right_sector = ft_sitoa(env->player.near_right_sector);
-	asprintf(&near_z, "%f", env->camera.near_z);
 	print_text(new_point(h - 150, 5), new_printable_text("Player sector = ", env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
 	print_text(new_point(h - 150, 215), new_printable_text(player_sector, env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
 	print_text(new_point(h - 100, 5), new_printable_text("Near_left sector = ", env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
@@ -37,7 +35,4 @@ void		print_debug(t_env *env)
 		print_text(new_point(h - 200, 145), new_printable_text("ON", env->sdl.fonts.alice, 0x00FF00FF, 30), env);
 	else
 		print_text(new_point(h - 200, 145), new_printable_text("OFF", env->sdl.fonts.alice, 0xFF0000FF, 30), env);
-	print_text(new_point(h - 250, 5), new_printable_text("Near_z =", env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
-	print_text(new_point(h - 250, 135), new_printable_text(near_z, env->sdl.fonts.alice, 0xFFFFFFFF, 30), env);
-	ft_strdel(&near_z);
 }

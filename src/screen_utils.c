@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:56:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 10:31:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@
 
 void	update_screen(t_env *env)
 {
-	//env->sdl.texture = SDL_CreateTextureFromSurface(env->sdl.renderer, env->sdl.surface);
-	//SDL_SetTextureBlendMode(env->sdl.texture, SDL_BLENDMODE_BLEND);
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;
 	}
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
-	//SDL_DestroyTexture(env->sdl.texture);
 	SDL_RenderPresent(env->sdl.renderer);
 }
 
@@ -35,9 +32,9 @@ void	update_screen(t_env *env)
 
 void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 {
-	int		x;
-	int		y;
-	Uint32	*pixels;
+	int				x;
+	int				y;
+	Uint32			*pixels;
 	SDL_PixelFormat	*fmt;
 
 	if (!surface)
@@ -55,8 +52,6 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 		{
 			if ((Uint8)(((pixels[x + surface->w * y] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
 					&& pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-				/*env->sdl.texture_pixels[(int)(pos.y + x + env->w * (pos.x + y))] =
-					pixels[(int)(x + surface->w * y)];*/
 			env->sdl.texture_pixels[pos.y + x + env->w * (pos.x + y)] =
 				(Uint8)(((pixels[x + surface->w * y] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
 				| (Uint8)(((pixels[x + surface->w * y] & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
@@ -71,16 +66,19 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 void	draw_axes(t_env *env)
 {
 	int	i;
+	int	max;
 
 	i = 0;
-	while (i < env->h)
+	max = env->h;
+	while (i < max)
 	{
 		//env->sdl.img_str[i * env->w + env->w / 2] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[i * env->w + env->w / 2] = 0xFFFFFFFF;
 		i++;
 	}
 	i = 0;
-	while (i < env->w)
+	max = env->w;
+	while (i < max)
 	{
 		//env->sdl.img_str[env->h / 2 * env->w + i] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[env->h / 2 * env->w + i] = 0xFFFFFFFF;
@@ -92,34 +90,35 @@ void	draw_crosshair(t_env *env)
 {
 	int y;
 	int	x; 
+	int max;
 
 	x = env->w / 2;
 	y = env->h / 2 - 10;
-	while (y < env->h / 2 - 2)
+	max = env->h / 2 - 2;
+	while (y < max)
 	{
-		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		y++;
 	}
 	y = env->h / 2 + 10;
-	while (y > env->h / 2 + 2)
+	max = env->h / 2 + 2;
+	while (y > max)
 	{
-		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		y--;
 	}
 	y = env->h / 2;
 	x = env->w / 2 - 10;
-	while (x < env->w / 2 - 2)
+	max = env->w / 2 - 2;
+	while (x < max)
 	{
-		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		x++;
 	}
 	x = env->w / 2 + 10;
-	while (x > env->w / 2 + 2)
+	max = env->w / 2 + 2;
+	while (x > max)
 	{
-		//env->sdl.img_str[x + y * env->w] = 0xFFFFFFFF;
 		env->sdl.texture_pixels[x + y * env->w] = 0xFFFFFFFF;
 		x--;
 	}

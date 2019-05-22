@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/21 17:28:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 10:53:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,14 +207,14 @@ int     check_inside_sector(t_env *env, t_movement motion)
 
 int     check_collision(t_env *env, double x_move, double y_move)
 {
-    short   i;
+    short		i;
     t_movement  motion;
-    double  start_pos;
-    double  end_pos;
+    double		start_pos;
+    double  	end_pos;
 
-    i = 0;
     if (env->options.wall_lover == 1)
         return (1);
+    i = 0;
     FUTURE_X = env->player.pos.x + x_move;
     FUTURE_Y = env->player.pos.y + y_move;
     if (!check_ceiling(env, motion) || !check_floor(env, motion))

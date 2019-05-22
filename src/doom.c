@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:53:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:21:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,9 @@ int		doom(int ac, char **av)
 	env.flag = 0;
 	while (env.running)
 	{
+		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		reset_clipped(&env);
 		clear_image(&env);
-		if (env.options.show_minimap)
-			minimap(&env);
-		keys(&env);
-		if (draw(&env) != 0)
-			return (crash("Render function failed\n", &env));
-		draw_crosshair(&env);
-		if (env.options.show_fps)
-			fps(&env);
-		if (env.options.test)
-			print_debug(&env);
-		update_screen(&env);
 		// BMP parser
 		/*apply_surface(env.sdl.image, new_v2(0, 0), new_v2(env.sdl.image->w, env.sdl.image->h), &env);
 		SDL_UpdateTexture(env.sdl.texture, NULL, env.sdl.texture_pixels, env.w * sizeof(Uint32));
@@ -77,7 +67,17 @@ int		doom(int ac, char **av)
 					|| env.sdl.event.type == SDL_KEYUP)
 				update_inputs(&env);
 		}
-		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
+		if (env.options.show_minimap)
+			minimap(&env);
+		keys(&env);
+		if (draw(&env) != 0)
+			return (crash("Render function failed\n", &env));
+		draw_crosshair(&env);
+		if (env.options.show_fps)
+			fps(&env);
+		if (env.options.test)
+			print_debug(&env);
+		update_screen(&env);
 		view(&env);
 	//	SDL_Delay(5);
 	}
