@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 19:19:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 19:25:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			y = ft_fclamp(y, 0, env->sdl.image->h);
 			//y = ((i - env->h + render.max_floor - render.max_ceiling) * env->sdl.image->h) / (double)(render.max_floor - render.max_ceiling);
 			//ft_printf("yalpha = %f\n", yalpha);
-			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h)
+			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
+					&& x >= 0 && x < env->sdl.image->w && y >= 0 && y < env->sdl.image->h)
 				env->sdl.texture_pixels[vline.x + env->w * i] = apply_light(env->sdl.image_str[(int)x + env->sdl.image->w * (int)y], render.light);
 		}
 		i++;
