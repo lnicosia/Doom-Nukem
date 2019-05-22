@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 12:06:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 19:16:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void	render_sector(t_env *env, t_render render)
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
-			get_rotated_vertices(&render, env, i);
+			get_rotated_vertices(&render, env, sector, i);
+
+			project_floor_and_ceiling_preclip(&render, env, sector, i);
 			render.v1_clipped = 0;
 			render.v2_clipped = 0;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
@@ -156,14 +158,15 @@ void	render_sector(t_env *env, t_render render)
 					while (x <= xend)
 					{
 						render.currentx = x;
+						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						// Lumiere
-						render.light = 255 - ft_fclamp(((double)(x - render.x1) * (double)(render.vz2 - render.vz1) / (double)(render.x2 - render.x1) + (double)render.vz1) * 4.00, 0.00, 255.00);
+						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 4.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
-						render.current_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
+						render.max_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						//	ft_printf(" ceiling = %d ", render.current_ceiling);
-						render.current_ceiling = ft_clamp(render.current_ceiling, render.ymin, render.ymax);
-						render.current_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
-						render.current_floor = ft_clamp(render.current_floor, render.ymin, render.ymax);
+						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
+						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;
@@ -182,7 +185,7 @@ void	render_sector(t_env *env, t_render render)
 									vline.color = 255 << 24 | (int)render.light << 16;
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0;
-								draw_vline(vline, env);
+								draw_vline(vline, render, env);
 							}
 							// Dessiner corniche
 							if (render.current_neighbor_ceiling > render.current_ceiling)
@@ -205,7 +208,7 @@ void	render_sector(t_env *env, t_render render)
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else
-									vline.color = 0xFF888888;
+									vline.color = 0xFF0B6484;
 								if (env->options.wall_color)
 								{
 									if (i == 0)
@@ -216,10 +219,10 @@ void	render_sector(t_env *env, t_render render)
 										line.color = 0xAAFF;
 								}	
 								if (env->options.lighting)
-									vline.color = 255 << 24 | (int)render.light << 16 | (int)render.light << 8 | (int)render.light << 0;
+									vline.color = apply_light(vline.color, render.light);
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0xFF222222;
-								draw_vline(vline, env);
+								draw_vline(vline, render, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 								// Dessiner le sol du sol jusqu'a ymax

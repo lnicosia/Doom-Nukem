@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 10:22:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 17:50:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ typedef struct		s_line_eq
 	double b;
 }					t_line_eq;
 
-typedef struct	s_line
+typedef struct		s_line
 {
-	t_point		p0;
-	t_point		p1;
-	Uint32		color;
-}				t_line;
+	t_point			p0;
+	t_point			p1;
+	Uint32			color;
+}					t_line;
 
 /*
- ** VERTICES = PLURIEL DE VERTEX
- */
+** VERTICES = PLURIEL DE VERTEX
+*/
 
 typedef struct		s_sector
 {
@@ -108,6 +108,8 @@ typedef struct		s_player
 	double			perp_cos;
 	double			perp_sin;
 	double			angle_z;
+	double			angle_z_cos;
+	double			angle_z_sin;
 	double			speed;
 	double			size_2d;
 	double			camera_x;
@@ -223,6 +225,17 @@ typedef struct		s_sdl
 }					t_sdl;
 
 /*
+**	Definition of a texture
+*/
+
+typedef struct		s_texture
+{
+	SDL_Surface		*surface;
+	unsigned int	w;
+	unsigned int	h;
+}					t_texture;
+
+/*
  **	Contains a list of options for the game
  */
 
@@ -280,6 +293,7 @@ typedef struct		s_env
 	t_animation		squat;
 	t_vertex		*vertices;
 	t_sector		*sectors;
+	t_texture		textures[1];
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
@@ -346,6 +360,7 @@ unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
+Uint32				apply_light(Uint32 color, uint8_t light);
 
 /*
  ** Main pipeline functions

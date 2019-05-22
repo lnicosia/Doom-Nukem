@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 11:21:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 19:03:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ int		doom(int ac, char **av)
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	/*if (parse_bmp(av[1], &env))
-		return (crash("Invalid bmp file!\n", &env));*/
+	if (parse_bmp("images/wall2.bmp", &env))
+		return (crash("Invalid bmp file!\n", &env));
+	env.textures[0].surface = env.sdl.image;
+	env.textures[0].w = 20;
+	env.textures[0].h = 5;
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	env.player.speed = 0.2;
@@ -67,9 +70,9 @@ int		doom(int ac, char **av)
 					|| env.sdl.event.type == SDL_KEYUP)
 				update_inputs(&env);
 		}
+		keys(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
-		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
 		draw_crosshair(&env);
