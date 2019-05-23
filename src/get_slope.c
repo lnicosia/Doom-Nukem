@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:53:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 17:57:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,7 @@ void	precompute_slopes(t_env *env)
 		i++;
 	}
 	update_player_z(env);
+	env->jump.end_height = env->player.pos.z;
+	env->gravity.end_height = env->player.pos.z;
 	//check_slopes(env);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:48:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 17:54:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,34 @@ void	update_camera_position(t_env *env)
  */
 void	jump(t_env *env)
 {
-	double	x;
-	
-	x = 0.5;
 	env->jump.on_going = 1;
 	if (env->jump.start == 0)
 		env->jump.start = SDL_GetTicks();
 	env->jump.end = SDL_GetTicks();
 	if (env->jump.end < env->jump.start + 150 && env->flag == 0)
 	{
-		env->player.eyesight += x;
+		env->player.pos.z += 0.5;
 	}
 	if (env->jump.end > env->jump.start + 150 && env->flag == 0)
 		env->flag = 1;
-	if (env->player.eyesight > env->player.z && env->flag == 1)
-	{
-		env->player.eyesight -= x * env->player.gravity;
-	}
-	if (env->player.eyesight == env->player.z && env->jump.end > env->jump.start + 400)
+	if (env->player.pos.z > env->jump.end_height && env->flag == 1)
+		env->player.pos.z -= 0.5;
+	if (env->jump.end > env->jump.start + 400)
 	{
 		env->flag = 0;
 		env->jump.start = 0;
 		env->jump.on_going = 0;
 	}
-	//env->player.pos.z = tmp_height;
-	update_player_z(env);
+}
+
+void	gravity(t_env *env)
+{
+	env->gravity.on_going = 1;
+	if (env->player.pos.z > env->gravity.end_height && env->gravity.on_going)
+	{
+		printf("z = %f\n", env->player.pos.z);
+		env->player.pos.z -= 0.5;
+	}
 }
 
 void	squat(t_env *env)
@@ -114,7 +117,6 @@ void	squat(t_env *env)
 			env->squat.on_going = 0;
 		}
 	}
-	// player height: eyesight + the floors height
 	update_player_z(env);
 }
 
@@ -194,14 +196,18 @@ void	move_player(t_env *env)
 	}
 	if (env->inputs.space || env->jump.on_going == 1)
 	{
-		update_player_z(env);
+		if (env->jump.on_going == 0)
+			update_player_z(env);
 		jump(env);
 	}
-	if (env->inputs.ctrl || env->squat.on_going == 1 || (env->flag == 1 && !env->inputs.ctrl))
-	{
+	else
 		update_player_z(env);
+	if (env->player.pos.z > env->gravity.end_height && !env->jump.on_going && !env->squat.on_going)
+		gravity(env);
+	if (env->inputs.ctrl || env->squat.on_going == 1)
+	{
+		//update_player_z(env);
 		squat(env);
 	}
 	env->player.speed = tmp_speed;
-	update_player_z(env);
 }

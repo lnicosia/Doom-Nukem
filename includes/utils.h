@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:32:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 15:25:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ typedef struct		s_animation
 {
 	double			start;
 	double			end;
+	double			end_height;
 	int				on_going;
 }					t_animation;
 
@@ -284,6 +285,7 @@ typedef struct		s_env
 	t_camera		camera;
 	t_animation		jump;
 	t_animation		squat;
+	t_animation		gravity;
 	int				w;
 	int				h;
 	int				running;

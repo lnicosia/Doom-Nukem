@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:53:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/22 15:14:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		doom(int ac, char **av)
 	env.w = 1600;
 	env.h = 900;
 	env.running = 1;
+	env.flag = 0;
 	init_pointers(&env);
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
 	init_camera(&env);
-	init_animations(&env);
 	env.player.eyesight = 6.00;
-	env.player.z = 6.00;
+	env.player.z = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL!\n", &env));
 	if (init_ttf(&env))
@@ -43,12 +43,11 @@ int		doom(int ac, char **av)
 	/*if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));*/
 	SDL_SetRelativeMouseMode(1);
-	env.flag = 0;
+	init_animations(&env);
 	env.player.speed = 0.2;
 	env.player.size_2d = 0.5;
 	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");
-	env.flag = 0;
 	while (env.running)
 	{
 		reset_clipped(&env);
