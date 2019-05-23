@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 10:37:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:56:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	update_screen(t_env *env)
 
 /*
 **	Copy a surface into our main texture
+**	TODO Protection
 */
 
-void	apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env)
+void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 {
 	int		x;
 	int		y;
@@ -52,15 +53,15 @@ void	apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env)
 		x = 0;
 		while (x < size.x)
 		{
-			if ((Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
+			if ((Uint8)(((pixels[x + surface->w * y] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
 					&& pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
 				/*env->sdl.texture_pixels[(int)(pos.y + x + env->w * (pos.x + y))] =
 					pixels[(int)(x + surface->w * y)];*/
-			env->sdl.texture_pixels[(int)(pos.y + x + env->w * (pos.x + y))] =
-				(Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-				| (Uint8)(((pixels[(int)(x + surface->w * y)] & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;
+			env->sdl.texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				(Uint8)(((pixels[x + surface->w * y] & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
+				| (Uint8)(((pixels[x + surface->w * y] & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
+				| (Uint8)(((pixels[x + surface->w * y] & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
+				| (Uint8)(((pixels[x + surface->w * y] & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 14:07:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:53:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_printable_text	new_printable_text(char *text, TTF_Font *font, unsigned int col
 	return (new);
 }
 
-void	print_text(t_v2 pos, t_printable_text text, t_env *env)
+void	print_text(t_point pos, t_printable_text text, t_env *env)
 {
 	SDL_Surface	*surface;
 
@@ -47,6 +47,6 @@ void	print_text(t_v2 pos, t_printable_text text, t_env *env)
 		ft_printf("TTF_RenderText_Solid error: %s\n", text.str);
 		return ;
 	}
-	apply_surface(surface, pos, new_v2(surface->w, surface->h), env);
+	apply_surface(surface, pos, new_point(surface->w, surface->h), env);
 	SDL_FreeSurface(surface);
 }

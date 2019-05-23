@@ -6,7 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/05/22 15:25:04 by sipatry          ###   ########.fr       */
+=======
+/*   Updated: 2019/05/21 18:29:07 by lnicosia         ###   ########.fr       */
+>>>>>>> 6dd934d7e938b0d3751e7f5a5c0bfbd644874b54
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +55,9 @@ typedef struct		s_line_eq
 
 typedef struct	s_line
 {
-	int			x0;
-	int			y0;
-	int			x1;
-	int			y1;
-	int			color;
+	t_point		p0;
+	t_point		p1;
+	Uint32		color;
 }				t_line;
 
 /*
@@ -105,6 +107,8 @@ typedef struct		s_player
 	double			angle;
 	double			angle_cos;
 	double			angle_sin;
+	double			perp_cos;
+	double			perp_sin;
 	double			angle_z;
 	short			sector;
 	short			camera_sector;
@@ -338,8 +342,8 @@ t_printable_text	new_printable_text(
 		TTF_Font *font,
 		unsigned int color,
 		int size);
-void				print_text(t_v2 pos, t_printable_text text, t_env *env);
-void				apply_surface(SDL_Surface *surface, t_v2 pos, t_v2 size, t_env *env);
+void				print_text(t_point pos, t_printable_text text, t_env *env);
+void				apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);
@@ -347,7 +351,7 @@ unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
-void				draw_line(t_point c1, t_point c2, t_env env, int color);
+void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 
 /*
  ** Main pipeline functions
