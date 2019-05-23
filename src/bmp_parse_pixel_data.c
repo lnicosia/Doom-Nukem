@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 17:49:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 10:14:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env)
 		byte = 0;
 		x = 0;
 		y = parser->h - 1;
-		while (byte < size)
+		while (byte + 4 < ret)
 		{
 			env->sdl.image_str[x + y * parser->w] = get_pixel(byte, str, parser); 
 			byte += parser->bpp / 8.0;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 19:26:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 10:16:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int		doom(int ac, char **av)
 	if (init_ttf(&env))
 		return (crash("Could not initialize fonts!\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parsing(open(av[1], O_RDONLY), &env))
+	if (parsing(open("maps/bisqwit.map", O_RDONLY), &env))
 		return (crash("Parsing error!\n", &env));
 	precompute_slopes(&env);
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (parse_bmp("images/wall2.bmp", &env))
+	if (parse_bmp(av[1], &env))
 		return (crash("Invalid bmp file!\n", &env));
 	env.textures[0].surface = env.sdl.image;
 	env.textures[0].w = 20;
