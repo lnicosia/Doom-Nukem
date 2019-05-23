@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/21 14:05:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 11:22:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,8 @@ int		parse_sector(t_env *env, char *line, short num, int line_count)
 		return (ft_printf("Could not malloc sector clipped_ceilings2!\n", env));
 	if (!(env->sectors[num].clipped_floors2 = (double*)malloc(sizeof(double) * (vertices_count + 1))))
 		return (ft_printf("Could not malloc sector clipped_floors2!\n", env));
+	if (!(env->sectors[num].wall_size = (double*)malloc(sizeof(double) * (vertices_count + 1))))
+		return (ft_printf("Could not malloc sector wall_size!\n", env));
 	i = 0;
 	while (i < vertices_count)
 	{
@@ -370,6 +372,7 @@ int		init_sectors(t_env *env, char *line)
 		env->sectors[i].clipped_floors2 = NULL;
 		env->sectors[i].neighbors = NULL;
 		env->sectors[i].x_max = -2147483648;
+		env->sectors[i].wall_size = NULL;
 		i++;
 	}
 	return (nb_sectors);

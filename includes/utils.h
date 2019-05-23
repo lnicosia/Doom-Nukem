@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 17:50:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 11:20:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_sector
 	double			ceiling_min;
 	double			floor_max;
 	double			ceiling_max;
+	double			*wall_size;
 	double			*floors;
 	double			*ceilings;
 	double			*clipped_floors1;

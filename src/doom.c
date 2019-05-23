@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 10:16:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 10:57:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		doom(int ac, char **av)
 {
 	t_env	env;
 
-	if (ac != 2)
+	if (ac != 3)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
@@ -34,17 +34,17 @@ int		doom(int ac, char **av)
 	if (init_ttf(&env))
 		return (crash("Could not initialize fonts!\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parsing(open("maps/bisqwit.map", O_RDONLY), &env))
+	if (parsing(open(av[1], O_RDONLY), &env))
 		return (crash("Parsing error!\n", &env));
 	precompute_slopes(&env);
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (parse_bmp(av[1], &env))
+	if (parse_bmp(av[2], &env))
 		return (crash("Invalid bmp file!\n", &env));
 	env.textures[0].surface = env.sdl.image;
-	env.textures[0].w = 20;
-	env.textures[0].h = 5;
+	env.textures[0].w = env.textures[0].surface->w / 100;
+	env.textures[0].h = env.textures[0].surface->h / 100;
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	env.player.speed = 0.2;

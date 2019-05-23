@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 10:14:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 10:46:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env)
 		size = parser->image_size;
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
-	ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
+	//ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
 	if (!(str = (unsigned char*)malloc(sizeof(unsigned char) * size)))
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((ret = read(fd, str, size)) > 0)
