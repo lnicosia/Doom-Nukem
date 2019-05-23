@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/21 18:21:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 11:58:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,8 @@ void		minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		if (env->player.pos.z > sect.floor_min && env->player.pos.z < sect.ceiling_max)
+		if (env->player.pos.z > sect.floor_min
+				&& env->player.pos.z < sect.ceiling_max)
 		{
 			if (s == env->player.sector)
 				line.color = 0xFF00FF00;

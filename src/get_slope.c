@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 17:57:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/23 14:34:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,11 @@ void	update_sector_slope(t_env *env, short sector_nb)
 				< env->sectors[sector_nb].ceiling_min)
 			env->sectors[sector_nb].ceiling_min
 				= env->sectors[sector_nb].ceilings[i];
+		env->sectors[sector_nb].wall_width[i] = sqrt(
+				pow(env->vertices[sector.vertices[i + 1]].x
+					- env->vertices[sector.vertices[i]].x, 2)
+				+ pow(env->vertices[sector.vertices[i + 1]].y
+					- env->vertices[sector.vertices[i]].y, 2));
 		i++;
 	}
 	env->sectors[sector_nb].floors[i] = env->sectors[sector_nb].floors[0];

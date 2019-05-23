@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:33:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 17:44:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/22 11:50:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	fill_img(t_point c, t_env data, Uint32 color)
 
 	pos = c.x + c.y * data.w;
 	if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
-			&& (color == 0xFFFF0000
-				|| (data.sdl.texture_pixels[pos] != 0xFF00FF00
-					&& data.sdl.texture_pixels[pos] != 0xFFFFFFFF)))
+			&& (color == 0xFFFF0000 || color == 0xFF00FF00
+				|| (data.sdl.texture_pixels[pos] != 0xFF00FF00)))
+					//&& data.sdl.texture_pixels[pos] != 0xFFFFFFFF)))
 		data.sdl.texture_pixels[pos] = color;
 }
 

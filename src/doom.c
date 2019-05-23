@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 15:14:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/23 14:19:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		doom(int ac, char **av)
 {
 	t_env	env;
 
-	if (ac != 2)
+	if (ac != 3)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
@@ -40,8 +40,11 @@ int		doom(int ac, char **av)
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	/*if (parse_bmp(av[1], &env))
-		return (crash("Invalid bmp file!\n", &env));*/
+	if (parse_bmp(av[2], &env))
+		return (crash("Invalid bmp file!\n", &env));
+	env.textures[0].surface = env.sdl.image;
+	env.textures[0].w = env.textures[0].surface->w / 100;
+	env.textures[0].h = env.textures[0].surface->h / 100;
 	SDL_SetRelativeMouseMode(1);
 	init_animations(&env);
 	env.player.speed = 0.2;
@@ -50,19 +53,9 @@ int		doom(int ac, char **av)
 	ft_printf("Launching game loop..\n");
 	while (env.running)
 	{
+		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		reset_clipped(&env);
 		clear_image(&env);
-		if (env.options.show_minimap)
-			minimap(&env);
-		keys(&env);
-		if (draw(&env) != 0)
-			return (crash("Render function failed\n", &env));
-		draw_crosshair(&env);
-		if (env.options.show_fps)
-			fps(&env);
-		if (env.options.test)
-			print_debug(&env);
-		update_screen(&env);
 		// BMP parser
 		/*apply_surface(env.sdl.image, new_v2(0, 0), new_v2(env.sdl.image->w, env.sdl.image->h), &env);
 		SDL_UpdateTexture(env.sdl.texture, NULL, env.sdl.texture_pixels, env.w * sizeof(Uint32));
@@ -76,7 +69,17 @@ int		doom(int ac, char **av)
 					|| env.sdl.event.type == SDL_KEYUP)
 				update_inputs(&env);
 		}
-		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
+		keys(&env);
+		if (env.options.show_minimap)
+			minimap(&env);
+		if (draw(&env) != 0)
+			return (crash("Render function failed\n", &env));
+		draw_crosshair(&env);
+		if (env.options.show_fps)
+			fps(&env);
+		if (env.options.test)
+			print_debug(&env);
+		update_screen(&env);
 		view(&env);
 	//	SDL_Delay(5);
 	}
