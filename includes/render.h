@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:30:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 11:50:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef struct		s_render
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
-	double			wall_size;
+	double			wall_width;
+	double			wall_height;
 	int				xmin;
 	int				xmax;
 	int				ymin;

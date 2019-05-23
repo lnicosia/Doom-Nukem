@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:32:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 11:52:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	render_sector(t_env *env, t_render render)
 			project_floor_and_ceiling_preclip(&render, env, sector, i);
 			render.v1_clipped = 0;
 			render.v2_clipped = 0;
-			render.wall_size = sector.wall_size[i] / 10;
+			render.wall_width = sector.wall_width[i] / 10;
+			render.wall_height = (sector.ceiling - sector.floor) / 10;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 				//|| !env->options.clipping)
