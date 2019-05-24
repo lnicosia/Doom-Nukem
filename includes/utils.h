@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:50:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/24 13:29:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ typedef struct		s_sector
 	double			*clipped_ceilings2;
 	short			*vertices;
 	short			*neighbors;
+	short			*vertices_textures;
+	short			ceiling_texture;
+	short			floor_texture;
 	short			num;
 	short			nb_vertices;
 }					t_sector;
@@ -299,6 +302,7 @@ typedef struct		s_env
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
+	int				screen_sectors_size;
 	short			*rendered_sectors;
 	int				w;
 	int				h;
@@ -337,8 +341,16 @@ void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
 void				init_camera(t_env *env);
 void				set_camera(t_env *env);
-int					parsing(int fd, t_env *env);
 int					valid_map(t_env *env);
+
+/*
+**	Parser functions
+*/
+
+int					parse_bmp(char *file, t_env *env);
+int					parse_map(char *file, t_env *env);
+char				*skip_number(char *line);
+char				*skip_spaces(char *line);
 
 /*
  ** Screen utils
@@ -387,7 +399,6 @@ void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
-int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);

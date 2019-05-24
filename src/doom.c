@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 10:57:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/24 13:50:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int		doom(int ac, char **av)
 	env.player.eyesight = 6.00;
 	env.player.z = 6.00;
 	if (init_sdl(&env))
-		return (crash("Coulnt not initialize SDL!\n", &env));
+		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_ttf(&env))
-		return (crash("Could not initialize fonts!\n", &env));
+		return (crash("Could not initialize fonts\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parsing(open(av[1], O_RDONLY), &env))
-		return (crash("Parsing error!\n", &env));
+	if (parse_map(av[1], &env))
+		return (crash("Error while parsing the map\n", &env));
 	precompute_slopes(&env);
 	//check_parsing(&env);
 	if (valid_map(&env))
@@ -47,7 +47,7 @@ int		doom(int ac, char **av)
 	env.textures[0].h = env.textures[0].surface->h / 100;
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
-	env.player.speed = 0.2;
+	env.player.speed = 0.5;
 	env.player.size_2d = 0.5;
 	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");

@@ -1,14 +1,17 @@
 [MAP FORMAT]
-With example
+With examples
 
-# Vertexes (Y coordinate, followed by list of X coordinates)
-Vertex	4
-vertex	0 0
-vertex	0 15
-vertex	15 0
-vertex	15 15
+# Vertices number: "V + space + number"
+V 4
+# vertices value: "Y + space(s) + X"
+0 0
+0 15
+15 0
+15 15
 
-# Sectors (floor height, floor slope, ceiling height, ceiling slope, then vertex numbers in clockwise order)
+# Emtpy line after vertices declaration
+# Sectors number: "S + space + number"
+# Sectors: "floor height, floor slope, ceiling height, ceiling slope, then vertex numbers in clockwise order"
 # After the list of vertexes comes the list of sector numbers on the "opposite" side of that wall; "-1" = none.
 # You must separate vertex numbers from neighbors with a TAB
 Sector	1

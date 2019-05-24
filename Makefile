@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/23 10:17:47 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/05/24 16:15:11 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ BIN_DIR = .
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
+SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c map_parser.c \
 		  screen_utils.c check_parsing.c view.c movement.c init_options.c \
 		  options.c render_maths.c draw_functions.c minimap.c fps.c \
 		  init_ttf.c get_slope.c movement_collision.c print_text.c \
@@ -31,9 +31,9 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c parsing.c \
 		  bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		  maths_utils.c fill_triangle.c color_utils.c clipping.c init_camera.c \
 		  keys.c print_debug.c intersections.c init_animations.c get_screen_sectors.c \
-		  draw_line.c
+		  draw_line.c map_parse_vertices.c map_parse_sectors.c parser_utils.c \
 
-HEADERS = utils.h render.h collision.h bmp_parser.h
+HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
@@ -43,8 +43,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
-		  -flto -fno-builtin -O3
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-flto -fno-builtin -O3
 
 DEBUG ?= 0
 
