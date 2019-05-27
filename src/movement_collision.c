@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/27 13:46:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:41:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,8 @@ int     check_ceiling(t_env *env, t_movement motion)
 int     check_floor(t_env *env, t_movement motion)
 {
     FUTURE_Z = env->player.eyesight + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
-	ft_printf("future_z = %f player_z = %f\n", FUTURE_Z, env->player.pos.z);
     if (FUTURE_Z > env->player.pos.z + 2)
-	{
 		        return (0);
-	}
     return (1);
 }
 
@@ -218,7 +215,6 @@ int     check_collision(t_env *env, double x_move, double y_move)
     double		start_pos;
     double  	end_pos;
 
-	ft_printf("check\n");
     if (env->options.wall_lover == 1)
         return (1);
     i = 0;

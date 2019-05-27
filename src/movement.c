@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/27 14:13:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:41:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,32 @@ void	jump(t_env *env)
 
 void	gravity(t_env *env)
 {
+	double	x;
+
+	x = 0.5;
 	if (env->player.pos.z > env->gravity.floor)
-		env->player.pos.z -= 0.5;
-	if (env->player.pos.z < env->gravity.floor)
-		env->player.pos.z += 0.5;
+		env->player.pos.z -= x;
+	else if (env->player.pos.z < env->gravity.floor)
+		env->player.pos.z += x;
+	if (env->player.pos.z != env->gravity.floor)
+	{
+		if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
+		{
+			x = env->gravity.floor - env->player.pos.z;
+			ft_printf("x = %f\n", x);
+			env->player.pos.z += x;
+		}
+		else if (env->player.pos.z > env->gravity.floor && env->player.pos.z - x < env->gravity.floor)
+		{
+			x = env->player.pos.z - env->gravity.floor;
+			ft_printf("x = %f\n", x);
+			env->player.pos.z -= x;
+		}
+
+	}
 	if (env->player.pos.z == env->gravity.floor)
 		env->flag = 0;
+	ft_printf("z = %f\n", env->player.pos.z);
 }
 
 void	squat(t_env *env)
@@ -200,11 +220,8 @@ void	move_player(t_env *env)
 		if (env->flag == 0)
 			jump(env);
 	}
-	if (!env->jump.on_going && !env->flag && !env->gravity.on_going)
-		update_player_z(env);
 /*	if ((env->inputs.ctrl || env->squat.on_going == 1 || (env->flag == 1 && !env->inputs.ctrl)) && !env->jump.on_going)
 		squat(env);*/
-	ft_printf("z = %f\n", env->player.pos.z);
 	ft_printf("jump : %d\n", env->jump.on_going);
 	ft_printf("squat : %d\n", env->squat.on_going);
 	ft_printf("gravity : %d\n", env->gravity.on_going);
