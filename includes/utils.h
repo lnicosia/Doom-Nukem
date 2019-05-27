@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 14:20:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:13:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ typedef struct		s_animation
 {
 	double			start;
 	double			end;
-	double			end_height;
+	double			floor;
 	int				on_going;
 }					t_animation;
 
@@ -392,6 +392,7 @@ int					get_sector(t_env *env, t_v2 p);
 int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
+void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);
 
 

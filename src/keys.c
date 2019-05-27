@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 14:38:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/24 12:01:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void		keys(t_env *env)
 {
+	if (env->jump.on_going)
+		update_floor(env);
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->squat.on_going  == 1 || env->gravity.on_going == 1
-			|| env->inputs.ctrl)
+			|| env->squat.on_going || env->inputs.ctrl || env->gravity.on_going)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)

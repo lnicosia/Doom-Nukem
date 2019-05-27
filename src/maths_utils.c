@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 14:47:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/27 14:13:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ void	update_player_z(t_env *env)
 		env->player.z + env->player.eyesight + sector.floor +
 		(sector.normal.x * (env->player.pos.x - v0.x)
 		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+}
+
+void	update_floor(t_env *env)
+{
+	t_sector	sector;
+	t_vertex	v0;
+	double		player_feet;
+
+	sector = env->sectors[env->player.sector];
+	v0 = env->vertices[sector.vertices[0]];
+	player_feet =
+		env->player.eyesight + sector.floor +
+		(sector.normal.x * (env->player.pos.x - v0.x)
+		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
+	env->gravity.floor = player_feet;
 }

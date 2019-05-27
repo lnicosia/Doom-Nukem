@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:52:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/27 13:44:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	render_sector(t_env *env, t_render render)
 						render.currentx = x;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						// Lumiere
-						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 4.00, 0.00, 255.00);
+						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 2.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
 						render.max_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						//	ft_printf(" ceiling = %d ", render.current_ceiling);

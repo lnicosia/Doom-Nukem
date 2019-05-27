@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 14:19:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/27 13:40:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int		doom(int ac, char **av)
 	env.w = 1600;
 	env.h = 900;
 	env.running = 1;
-	env.flag = 0;
 	init_pointers(&env);
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
 	init_camera(&env);
+	init_animations(&env);
 	env.player.eyesight = 6.00;
 	env.player.z = 0;
 	if (init_sdl(&env))
@@ -46,11 +46,12 @@ int		doom(int ac, char **av)
 	env.textures[0].w = env.textures[0].surface->w / 100;
 	env.textures[0].h = env.textures[0].surface->h / 100;
 	SDL_SetRelativeMouseMode(1);
-	init_animations(&env);
-	env.player.speed = 0.2;
+	env.flag = 0;
+	env.player.speed = 0.4;
 	env.player.size_2d = 0.5;
 	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");
+	env.flag = 0;
 	while (env.running)
 	{
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
