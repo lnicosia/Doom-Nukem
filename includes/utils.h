@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/24 13:29:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/28 15:49:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
+# define MAX_TEXTURE 2
 
 typedef struct		s_point
 {
@@ -81,7 +82,7 @@ typedef struct		s_sector
 	double			*clipped_ceilings2;
 	short			*vertices;
 	short			*neighbors;
-	short			*vertices_textures;
+	short			*textures;
 	short			ceiling_texture;
 	short			floor_texture;
 	short			num;

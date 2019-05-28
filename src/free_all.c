@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 16:02:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/28 15:49:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].clipped_floors2);
 		if (env->sectors[i].wall_width)
 			ft_memdel((void**)&env->sectors[i].wall_width);
-		if (env->sectors[i].vertices_textures)
-			ft_memdel((void**)&env->sectors[i].vertices_textures);
+		if (env->sectors[i].textures)
+			ft_memdel((void**)&env->sectors[i].textures);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		i++;

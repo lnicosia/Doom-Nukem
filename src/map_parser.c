@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/28 12:04:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/28 16:13:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 				env->sectors[i].neighbors = NULL;
 				env->sectors[i].x_max = -2147483648;
 				env->sectors[i].wall_width = NULL;
-				env->sectors[i].vertices_textures = NULL;
+				env->sectors[i].textures = NULL;
 				i++;
 			}
 			return (0);
@@ -131,22 +131,37 @@ void	set_sectors_xmax(t_env *env)
 	}
 }
 
-int		parse_player(t_env *env, char *line, t_map_parser *parser)
+int		parse_player(t_env *env, t_map_parser *parser)
 {
-	line = skip_spaces(line);
-	env->player.pos.y = ft_atof(line);
-	line = skip_number(line);
-	env->player.pos.x = ft_atof(line);
-	line = skip_number(line);
-	env->player.angle = ft_atof(line) * M_PI / 180.0;
-	env->player.angle_z = 0;
-	line = skip_number(line);
-	env->player.sector = ft_atoi(line);
-	if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
-		return (ft_printf("Invalid player sector (line %d)\n", parser->line_count));
-	line = skip_number(line);
-	if (*line != '\0')
-		return (ft_printf("Too much data at player declaration (line %d)\n", parser->line_count));
+	char	*line;
+
+	while ((parser->ret = get_next_line(parser->fd, &line)))
+	{
+		parser->line_count++;
+		if (line[0] >= '0' && line[0] <= '9')
+		{
+			env->player.pos.y = ft_atof(line);
+			line = skip_number(line);
+			line = skip_spaces(line);
+			env->player.pos.x = ft_atof(line);
+			line = skip_number(line);
+			line = skip_spaces(line);
+			env->player.angle = ft_atof(line) * M_PI / 180.0;
+			env->player.angle_z = 0;
+			line = skip_number(line);
+			line = skip_spaces(line);
+			env->player.sector = ft_atoi(line);
+			if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
+				return (ft_printf("Invalid player sector (line %d)\n", parser->line_count));
+			line = skip_number(line);
+			line = skip_spaces(line);
+			if (*line != '\0')
+				return (ft_printf("Invalid character after player declaration (line %d)\n", parser->line_count));
+		}
+		else if (line[0] != '#')
+			return (ft_printf("Invalid character at line %d\n",
+						parser->line_count));
+	}
 	return (0);
 }
 
@@ -171,6 +186,8 @@ int		parse_map(char *file, t_env *env)
 		return (ft_printf("Could not init sectors\n"));
 	if (parse_sectors(env, &parser))
 		return (ft_printf("Error while parsing sectors\n"));
+	if (parse_player(env, &parser))
+		return (ft_printf("Error while parsing player\n"));
 	if (env->player.sector == -1)
 		return (ft_printf("You need to give player data\n"));
 	set_sectors_xmax(env);

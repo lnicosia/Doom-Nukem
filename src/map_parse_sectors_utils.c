@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 11:24:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/28 15:50:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 	return (0);
 }
 
-int		count_vertices(char *line)
+int		count_numbers(char *line)
 {
 	int i;
 
 	i = 0;
-	while (*line && *line != '\t')
+	while (*line && *line != ')')
 	{
 		while (*line && (*line < '0' || *line > '9') && *line != '\t')
 			line++;
@@ -91,25 +91,6 @@ int		count_vertices(char *line)
 		{
 			i++;
 			while (*line && *line <= '9' && *line >= '0')
-				line++;
-		}
-	}
-	return (i);
-}
-
-int		count_neighbors(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (*line != '\n' && *line != '\0')
-	{
-		while (*line && (*line < '0' || *line > '9'))
-			line++;
-		if (*line && (*line <= '9' && *line >= '0'))
-		{
-			i++;
-			while (*line && (*line <= '9' && *line >= '0'))
 				line++;
 		}
 	}
