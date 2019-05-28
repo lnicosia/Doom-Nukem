@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:50:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:05:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,21 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 	return (0);
 }
 
-int		count_numbers(char *line)
+int		count_numbers(char *line, t_map_parser *parser)
 {
 	int i;
 
 	i = 0;
 	while (*line && *line != ')')
 	{
-		while (*line && (*line < '0' || *line > '9') && *line != '\t')
-			line++;
-		if (*line && *line <= '9' && *line >= '0')
+		if (!valid_number(line, parser))
 		{
-			i++;
-			while (*line && *line <= '9' && *line >= '0')
-				line++;
+			line = skip_number(line);
+			line = skip_spaces(line);
 		}
+		else
+			return (-1);
+		i++;
 	}
 	return (i);
 }
