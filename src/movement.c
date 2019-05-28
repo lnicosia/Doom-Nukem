@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/27 14:41:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/28 09:35:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,52 +88,43 @@ void	gravity(t_env *env)
 
 	x = 0.5;
 	if (env->player.pos.z > env->gravity.floor)
-		env->player.pos.z -= x;
-	else if (env->player.pos.z < env->gravity.floor)
-		env->player.pos.z += x;
-	if (env->player.pos.z != env->gravity.floor)
 	{
-		if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
-		{
-			x = env->gravity.floor - env->player.pos.z;
-			ft_printf("x = %f\n", x);
-			env->player.pos.z += x;
-		}
-		else if (env->player.pos.z > env->gravity.floor && env->player.pos.z - x < env->gravity.floor)
-		{
-			x = env->player.pos.z - env->gravity.floor;
-			ft_printf("x = %f\n", x);
-			env->player.pos.z -= x;
-		}
-
+		env->player.pos.z -= x;
 	}
+	else if (env->player.pos.z < env->gravity.floor && !env->squat.on_going)
+		env->player.pos.z += x;
+	if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
+	{
+		x = env->gravity.floor - env->player.pos.z;
+		env->player.pos.z += x;
+	}
+	else if (env->player.pos.z > env->gravity.floor && env->player.pos.z - x < env->gravity.floor)
+	{
+		x = env->player.pos.z - env->gravity.floor;
+		env->player.pos.z -= x;
+	}
+
 	if (env->player.pos.z == env->gravity.floor)
 		env->flag = 0;
-	ft_printf("z = %f\n", env->player.pos.z);
 }
 
 void	squat(t_env *env)
 {
 	env->squat.on_going = 1;
-	if (env->flag == 0 && env->squat.on_going)
+	if (env->player.eyesight > 3)
 	{
-		if (env->player.pos.z > 3)
-			env->player.pos.z -= 0.5;
-		if (env->player.pos.z == 3)
-		{
-			env->flag = 1;
-			env->squat.on_going = 0;
-		}
+		env->flag = 1;
+		env->player.pos.z -= 0.5;
+		env->player.eyesight -= 0.5; 
+		update_floor(env);
 	}
-	else if (env->flag == 1 && env->squat.on_going && !env->inputs.ctrl)
+	if (env->player.eyesight == 3 && !env->inputs.ctrl)
 	{
-		if (env->player.pos.z < env->squat.floor)
-			env->player.pos.z += 0.5;
-		if (env->player.pos.z == env->squat.floor)
-		{
-			env->flag = 0;
-			env->squat.on_going = 0;
-		}
+		printf("go up again\n");
+		env->player.eyesight = 6;
+		update_floor(env);
+		env->flag = 0;
+		env->squat.on_going = 0;
 	}
 }
 
@@ -203,28 +194,29 @@ void	move_player(t_env *env)
 	{
 		update_camera_position(env);
 		/*env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
-		env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
-		env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
-		if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
-		{
-			env->player.pos = origin_pos; 
-			env->player.sector = origin_sect;
-			env->player.camera_sector = origin_camera_sect;
-			env->player.near_left_sector = origin_left_sect;
-			env->player.near_right_sector = origin_right_sect;
-		}*/
+		  env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));
+		  env->player.near_right_sector = get_sector(env, new_v2(env->player.near_right.x, env->player.near_right.y));
+		  if (env->player.near_left_sector == -1 || env->player.near_right_sector == -1)
+		  {
+		  env->player.pos = origin_pos; 
+		  env->player.sector = origin_sect;
+		  env->player.camera_sector = origin_camera_sect;
+		  env->player.near_left_sector = origin_left_sect;
+		  env->player.near_right_sector = origin_right_sect;
+		  }*/
 	}
 	if ((env->inputs.space || env->jump.on_going == 1) && !env->squat.on_going)
 	{
-		env->jump.floor = SDL_GetTicks();
 		if (env->flag == 0)
 			jump(env);
 	}
-/*	if ((env->inputs.ctrl || env->squat.on_going == 1 || (env->flag == 1 && !env->inputs.ctrl)) && !env->jump.on_going)
-		squat(env);*/
+	if ((env->inputs.ctrl || env->squat.on_going == 1) && !env->jump.on_going)
+		squat(env);
 	ft_printf("jump : %d\n", env->jump.on_going);
 	ft_printf("squat : %d\n", env->squat.on_going);
 	ft_printf("gravity : %d\n", env->gravity.on_going);
+	ft_printf("floor : %f\n", env->gravity.floor);
+	ft_printf("z : %f\n", env->player.pos.z);
 	ft_printf("flag : %d\n", env->flag);
 	ft_printf("\n");
 	env->player.speed = tmp_speed;
