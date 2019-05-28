@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 09:35:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/28 15:34:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,14 @@ void	jump(t_env *env)
 	if (env->jump.start == 0)
 		env->jump.start = SDL_GetTicks();
 	env->jump.end = SDL_GetTicks();
-	if (env->jump.end < env->jump.start + 200 && env->flag == 0)
-		env->player.pos.z += x;
-	if (env->jump.end > env->jump.start + 200 && env->flag == 0)
+	if (env->jump.end < env->jump.start + 250 && env->flag == 0)
+	{
+		env->player.pos.z += (x * env->gravity.start);
+		env->gravity.start -= 0.1;
+	}
+	if (env->jump.end > env->jump.start + 250 && env->flag == 0)
 		env->flag = 1;
-	if (env->jump.end >= env->jump.start + 200)
+	if (env->jump.end >= env->jump.start + 250)
 	{
 		env->jump.start = 0;
 		env->jump.on_going = 0;
@@ -89,9 +92,10 @@ void	gravity(t_env *env)
 	x = 0.5;
 	if (env->player.pos.z > env->gravity.floor)
 	{
-		env->player.pos.z -= x;
+		env->player.pos.z -= (x * env->gravity.start);
+		env->gravity.start += 0.5;
 	}
-	else if (env->player.pos.z < env->gravity.floor && !env->squat.on_going)
+	else if (env->player.pos.z < env->gravity.floor)
 		env->player.pos.z += x;
 	if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
 	{
@@ -105,22 +109,24 @@ void	gravity(t_env *env)
 	}
 
 	if (env->player.pos.z == env->gravity.floor)
+	{
+		env->gravity.start= 1;
 		env->flag = 0;
+	}
 }
 
 void	squat(t_env *env)
 {
 	env->squat.on_going = 1;
-	if (env->player.eyesight > 3)
+	if (env->player.eyesight > 3 )
 	{
 		env->flag = 1;
 		env->player.pos.z -= 0.5;
 		env->player.eyesight -= 0.5; 
-		update_floor(env);
+		update_player_z(env);
 	}
 	if (env->player.eyesight == 3 && !env->inputs.ctrl)
 	{
-		printf("go up again\n");
 		env->player.eyesight = 6;
 		update_floor(env);
 		env->flag = 0;
@@ -210,7 +216,7 @@ void	move_player(t_env *env)
 		if (env->flag == 0)
 			jump(env);
 	}
-	if ((env->inputs.ctrl || env->squat.on_going == 1) && !env->jump.on_going)
+	if ((env->inputs.ctrl || env->squat.on_going == 1) && (!env->jump.on_going))
 		squat(env);
 	ft_printf("jump : %d\n", env->jump.on_going);
 	ft_printf("squat : %d\n", env->squat.on_going);

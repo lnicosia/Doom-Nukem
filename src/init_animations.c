@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/24 11:45:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/05/28 11:18:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	init_animations(t_env *env)
 {
 	env->gravity.on_going = 1;
+	env->gravity.start = 1;
 	env->jump.on_going = 0;
 	env->jump.start = 0;
 	env->jump.end = 0;
