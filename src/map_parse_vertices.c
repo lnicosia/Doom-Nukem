@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 17:50:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 11:48:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 			&& (parser->ret = get_next_line(parser->fd, &line)))
 	{
 		parser->line_count++;
-		if (line[0] >= '0' && line[0] <= '9')
+		if ((line[0] >= '0' && line[0] <= '9') || line[0] == '-')
 		{
 			if (parse_vertex(env, parser, line))
 				return (ft_printf("Error while parsing vertex %d (line %d)\n",

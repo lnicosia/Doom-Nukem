@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/28 17:50:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 11:45:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 		}
 		else if (line[0] != '#')
 			return (ft_printf("Wrong format of vertices number "
-						"declaration%d\nEx: \"V vertices_count (> 2)\"\n",
+						"declaration (line %d)\nEx: \"V 127\" (> 2)\n",
 						parser->line_count));
 		ft_strdel(&line);
 	}
@@ -104,8 +104,8 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			return (0);
 		}
 		else if (line[0] != '#')
-			return (ft_printf("Wrong format of vertices number "
-						"declaration%d\nEx: \"S sectors_count (> 0)\"\n",
+			return (ft_printf("Wrong format of sectors number "
+						"declaration (line %d)\nEx: \"S 35\" (> 0)\n",
 						parser->line_count));
 		ft_strdel(&line);
 	}

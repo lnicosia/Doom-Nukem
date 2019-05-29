@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/24 13:50:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 14:38:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		doom(int ac, char **av)
 {
 	t_env	env;
 
-	if (ac != 3)
+	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
@@ -40,7 +40,7 @@ int		doom(int ac, char **av)
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (parse_bmp(av[2], &env))
+	if (parse_bmp("images/wall.bmp", &env))
 		return (crash("Invalid bmp file!\n", &env));
 	env.textures[0].surface = env.sdl.image;
 	env.textures[0].w = env.textures[0].surface->w / 100;
