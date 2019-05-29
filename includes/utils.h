@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:49:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:40:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 2
+# define MAX_TEXTURE 4
 
 typedef struct		s_point
 {
@@ -236,6 +236,7 @@ typedef struct		s_sdl
 typedef struct		s_texture
 {
 	SDL_Surface		*surface;
+	Uint32			*str;
 	unsigned int	w;
 	unsigned int	h;
 }					t_texture;
@@ -298,7 +299,7 @@ typedef struct		s_env
 	t_animation		squat;
 	t_vertex		*vertices;
 	t_sector		*sectors;
-	t_texture		textures[1];
+	t_texture		textures[MAX_TEXTURE];
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
@@ -337,6 +338,7 @@ void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);
+int					init_textures(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
@@ -348,7 +350,7 @@ int					valid_map(t_env *env);
 **	Parser functions
 */
 
-int					parse_bmp(char *file, t_env *env);
+int					parse_bmp(char *file, int index, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
 char				*skip_spaces(char *line);

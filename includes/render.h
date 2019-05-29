@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:50:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:02:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ typedef struct		s_render
 	int				v2_clipped;
 	short			nv1;
 	short			nv2;
+	int				i;
+	int				texture;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);

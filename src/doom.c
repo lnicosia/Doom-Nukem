@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 14:38:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:43:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ int		doom(int ac, char **av)
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (parse_bmp("images/wall.bmp", &env))
-		return (crash("Invalid bmp file!\n", &env));
-	env.textures[0].surface = env.sdl.image;
-	env.textures[0].w = env.textures[0].surface->w / 100;
-	env.textures[0].h = env.textures[0].surface->h / 100;
+	if (init_textures(&env))
+		return (crash("Could not load textures\n", &env));
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	env.player.speed = 0.5;

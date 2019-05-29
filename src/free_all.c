@@ -6,11 +6,24 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:49:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:17:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+static void	free_textures(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_TEXTURE)
+	{
+		if (env->textures[i].surface)
+			SDL_FreeSurface(env->textures[i].surface);
+		i++;
+	}
+}
 
 static void	free_sectors(t_env *env)
 {
@@ -79,6 +92,7 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->rendered_sectors);
 	if (env->depth_array)
 		ft_memdel((void**)&env->depth_array);
+	free_textures(env);
 	TTF_Quit();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
