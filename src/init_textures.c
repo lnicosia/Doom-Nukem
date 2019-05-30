@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 16:40:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/30 15:21:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/wall2.bmp", 2, env))
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/wall3.bmp", 3, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/floor0.bmp", 4, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/floor1.bmp", 5, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }

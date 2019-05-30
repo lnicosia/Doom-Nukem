@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 16:40:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:03:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 4
+# define MAX_TEXTURE 6
 
 typedef struct		s_point
 {
@@ -64,6 +64,7 @@ typedef struct		s_line
 typedef struct		s_sector
 {
 	t_v2			normal;
+	t_v3			boundaries[4];
 	double			floor;
 	double			floor_slope;
 	double			ceiling;

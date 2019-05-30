@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 19:00:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:52:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,15 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		(int)(render->vcy2 * scale / -render->vz2);
 	render->preclip_x1 = env->w / 2 + (int)(render->vx1 * (scale / -render->vz1));
 	render->preclip_x2 = env->w / 2 + (int)(render->vx2 * (scale / -render->vz2));
+	if (!i)
+	{
+		render->projected_v0_floor.x = render->preclip_x1;
+		render->projected_v0_floor.y = render->preclip_floor1;
+		render->projected_v0_ceiling.x = render->preclip_x1;
+		render->projected_v0_ceiling.y = render->preclip_ceiling1;
+		render->projected_v1_floor.x = render->preclip_x2;
+		render->projected_v1_floor.y = render->preclip_floor2;
+		render->projected_v1_ceiling.x = render->preclip_x2;
+		render->projected_v1_ceiling.y = render->preclip_ceiling2;
+	}
 }

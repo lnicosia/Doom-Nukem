@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 16:02:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:44:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct		s_render
 	t_v2			inter_far;
 	t_v2			inter_left;
 	t_v2			inter_right;
+	t_v2			projected_v0_floor;
+	t_v2			projected_v0_ceiling;
+	t_v2			projected_v1_floor;
+	t_v2			projected_v1_ceiling;
 	double			vx1;
 	double			vx2;
 	double			vz1;
@@ -62,6 +66,7 @@ typedef struct		s_render
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
+	double			floor_alpha;
 	double			wall_width;
 	double			wall_height;
 	int				xmin;
@@ -91,14 +96,6 @@ typedef struct		s_render
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
-	double			preclip_vcy1;
-	double			preclip_vcy2;
-	double			preclip_vfy1;
-	double			preclip_vfy2;
-	double			preclip_nvcy1;
-	double			preclip_nvcy2;
-	double			preclip_nvfy1;
-	double			preclip_nvfy2;
 	int				x1;
 	int				x2;
 	int				xstart;
@@ -110,6 +107,8 @@ typedef struct		s_render
 	short			nv2;
 	int				i;
 	int				texture;
+	int				floor_texture;
+	int				ceiling_texture;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
