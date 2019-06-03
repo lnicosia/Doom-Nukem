@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 16:44:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/03 10:27:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct		s_render
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
+	int				v0_floor;
+	int				v0_ceiling;
 	int				x1;
 	int				x2;
 	int				xstart;

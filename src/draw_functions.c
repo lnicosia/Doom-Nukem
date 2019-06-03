@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 17:49:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/03 18:28:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 
-	x = (render.floor_alpha * (env->textures[render.floor_texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.floor_alpha) * (1 / render.vz1) + render.floor_alpha * (1 / render.vz2));
+	/*x = (render.floor_alpha * (env->textures[render.floor_texture].surface->w / render.vz2)) / ((1 - render.floor_alpha) * (1 / render.vz1) + render.floor_alpha * (1 / render.vz2));*/
+	x = (render.alpha * (env->textures[render.floor_texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.alpha) * (1 / render.vz1) + render.alpha * (1 / render.vz2));
 	x = (int)x % env->textures[render.floor_texture].surface->w;
 	x = ft_fclamp(x, 0, env->textures[render.floor_texture].surface->w);
 	//ft_printf("x = %f\n", x);
@@ -132,7 +133,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			yalpha = (1 - (i - render.max_floor) / (double)(render.projected_v0_floor.y - render.max_floor));
+			yalpha = (1 - (i - render.max_floor) / (double)(render.v0_floor - render.max_floor));
+			//yalpha = (1 - (i - env->h / 2) / (double)(env->h / 2));
 			//y = (yalpha * (env->sdl.image->h / render.vz2)) / ((1 - yalpha) * (1 / render.vz1) + yalpha * (1 / render.vz2));
 			y = yalpha * env->textures[render.floor_texture].surface->h * render.wall_height;
 			y = (int)y % env->textures[render.floor_texture].surface->h;

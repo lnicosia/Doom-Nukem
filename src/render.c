@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 16:45:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/03 18:28:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	render_sector(t_env *env, t_render render)
 	int			xend;
 
 	i = 0;
+	//ft_printf("\n");
 	while (i < env->w)
 	{
 		env->depth_array[i] = -2147483647;
@@ -163,8 +164,10 @@ void	render_sector(t_env *env, t_render render)
 					while (x <= xend)
 					{
 						render.currentx = x;
+						render.v0_floor = (x - render.projected_v0_floor.x) * (render.projected_v1_floor.y - render.projected_v0_floor.y) / (render.projected_v1_floor.x - render.projected_v0_floor.x) + render.projected_v0_floor.y;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
+						ft_printf("v0_floor = %d\n", render.v0_floor);
 						// Lumiere
 						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 4.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -222,13 +225,13 @@ void	render_sector(t_env *env, t_render render)
 									if (i == 1)
 										vline.color = 0xFF00AA00;
 									if (i == 2)
-										line.color = 0xAAFF;
+										line.color = 0xFF0000AA;
 								}	
 								if (env->options.lighting)
 									vline.color = apply_light(vline.color, render.light);
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0xFF222222;
-								draw_vline(vline, render, env);
+								draw_vline_color(vline, render, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 								// Dessiner le sol du sol jusqu'a ymax

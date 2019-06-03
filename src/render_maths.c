@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 17:52:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:34:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,29 @@ void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 }
 
 /*
+** Translate and rotate vertices z into player's view
+*/
+
+void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector, int i)
+{
+	double	y1;
+	double	y2;
+
+	y1 = sector.floors[i] - env->player.pos.z;
+	y2 = sector.floors[i + 1] - env->player.pos.z;
+	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
+	render->vfy2 = y2 + (render->vz2 * env->player.angle_z);
+	/*render->vfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
+	render->vfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
+	y1 = sector.ceilings[i] - env->player.pos.z;
+	y2 = sector.ceilings[i + 1] - env->player.pos.z;
+	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
+	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
+	/*render->vcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
+	render->vcy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
+}
+
+/*
 ** Translate and rotate neighbor's vertices z into player's view
 */
 
@@ -130,6 +153,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		(int)(render->vcy2 * scale / -render->clipped_vz2);
 	render->x1 = env->w / 2 + (int)(render->clipped_vx1 * (scale / -render->clipped_vz1));
 	render->x2 = env->w / 2 + (int)(render->clipped_vx2 * (scale / -render->clipped_vz2));
+	if (i == 0)
+		ft_printf("v0_floor1 = %d v0_floor2 = %d\n", render->floor1, render->floor2);
 }
 
 /*
@@ -161,7 +186,7 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 	double	scale;
 
 	scale = env->camera.scale;
-	get_relative_heights(render, env, sector, i);
+	get_relative_heights_preclip(render, env, sector, i);
 	render->preclip_floor1 = env->h / 2 +
 		(int)(render->vfy1 * scale / -render->vz1);
 	render->preclip_floor2 = env->h / 2 +
@@ -172,7 +197,7 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		(int)(render->vcy2 * scale / -render->vz2);
 	render->preclip_x1 = env->w / 2 + (int)(render->vx1 * (scale / -render->vz1));
 	render->preclip_x2 = env->w / 2 + (int)(render->vx2 * (scale / -render->vz2));
-	if (!i)
+	if (i == 0)
 	{
 		render->projected_v0_floor.x = render->preclip_x1;
 		render->projected_v0_floor.y = render->preclip_floor1;
@@ -182,5 +207,9 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		render->projected_v1_floor.y = render->preclip_floor2;
 		render->projected_v1_ceiling.x = render->preclip_x2;
 		render->projected_v1_ceiling.y = render->preclip_ceiling2;
+		ft_printf("v0_floor1 = %.f v0_floor2 = %.f\n", render->projected_v0_floor.y,
+				render->projected_v1_floor.y);
+		ft_printf("x1 = %f x2 = %f\n", render->projected_v0_floor.x,
+				render->projected_v1_floor.x);
 	}
 }
