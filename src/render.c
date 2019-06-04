@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/03 18:28:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:12:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	render_sector(t_env *env, t_render render)
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 10;
 			render.wall_height = (sector.ceiling - sector.floor) / 10;
+			if (i == 0)
+			{
+				render.v0_width = render.wall_width;
+				render.v0_height = render.wall_height;
+			}
 			render.texture = sector.textures[i];
 			render.floor_texture = sector.floor_texture;
 			render.i = i;
@@ -167,7 +172,11 @@ void	render_sector(t_env *env, t_render render)
 						render.v0_floor = (x - render.projected_v0_floor.x) * (render.projected_v1_floor.y - render.projected_v0_floor.y) / (render.projected_v1_floor.x - render.projected_v0_floor.x) + render.projected_v0_floor.y;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
-						ft_printf("v0_floor = %d\n", render.v0_floor);
+						/*while (render.floor_alpha < 0)
+							render.floor_alpha += 1;
+						while (render.floor_alpha >= 1)
+							render.floor_alpha -= 1;*/
+						//ft_printf("v0_floor = %d\n", render.v0_floor);
 						// Lumiere
 						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 4.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -232,6 +241,7 @@ void	render_sector(t_env *env, t_render render)
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0xFF222222;
 								draw_vline_color(vline, render, env);
+								//draw_vline(vline, render, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 								// Dessiner le sol du sol jusqu'a ymax

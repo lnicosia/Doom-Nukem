@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/03 14:34:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:28:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ void	get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 	{
 		render->vx1 = render->v1.x * env->player.angle_sin - render->v1.z * env->player.angle_cos;
 		render->vz1 = render->v1.x * env->player.angle_cos + render->v1.z * env->player.angle_sin;
+		render->v0_vz1 = render->vz1;
 	}
 	render->vx2 = render->v2.x * env->player.angle_sin - render->v2.z * env->player.angle_cos;
 	render->vz2 = render->v2.x * env->player.angle_cos + render->v2.z * env->player.angle_sin;
+	if (i == 0)
+		render->v0_vz2 = render->vz2;
 	y1 = sector.clipped_floors1[i] - env->player.pos.z;
 	y2 = sector.clipped_floors2[i + 1] - env->player.pos.z;
 	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
@@ -153,8 +156,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		(int)(render->vcy2 * scale / -render->clipped_vz2);
 	render->x1 = env->w / 2 + (int)(render->clipped_vx1 * (scale / -render->clipped_vz1));
 	render->x2 = env->w / 2 + (int)(render->clipped_vx2 * (scale / -render->clipped_vz2));
-	if (i == 0)
-		ft_printf("v0_floor1 = %d v0_floor2 = %d\n", render->floor1, render->floor2);
+	/*if (i == 0)
+		ft_printf("v0_floor1 = %d v0_floor2 = %d\n", render->floor1, render->floor2);*/
 }
 
 /*
@@ -207,9 +210,9 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		render->projected_v1_floor.y = render->preclip_floor2;
 		render->projected_v1_ceiling.x = render->preclip_x2;
 		render->projected_v1_ceiling.y = render->preclip_ceiling2;
-		ft_printf("v0_floor1 = %.f v0_floor2 = %.f\n", render->projected_v0_floor.y,
+		/*ft_printf("v0_floor1 = %.f v0_floor2 = %.f\n", render->projected_v0_floor.y,
 				render->projected_v1_floor.y);
 		ft_printf("x1 = %f x2 = %f\n", render->projected_v0_floor.x,
-				render->projected_v1_floor.x);
+				render->projected_v1_floor.x);*/
 	}
 }
