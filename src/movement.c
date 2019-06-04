@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:34:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/04 18:33:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,88 +57,19 @@ void	update_camera_position(t_env *env)
 	env->player.near_right.y = env->player.pos.y + (env->player.angle_sin * env->camera.near_z + env->player.angle_cos * env->camera.near_right);
 }
 
-/*
- ** Contains calculs to allow a jump
- */
-void	jump(t_env *env)
+void	animations(t_env *env)
 {
-	double	x;
-
-	x = 0.5;
-	env->jump.on_going = 1;
-	env->gravity.on_going = 0;
-	if (env->jump.start == 0)
-		env->jump.start = SDL_GetTicks();
-	env->jump.end = SDL_GetTicks();
-	if (env->jump.end < env->jump.start + 250 && env->flag == 0)
-	{
-		env->player.pos.z += (x * env->gravity.start);
-		env->gravity.start -= 0.1;
-	}
-	if (env->jump.end > env->jump.start + 250 && env->flag == 0)
-		env->flag = 1;
-	if (env->jump.end >= env->jump.start + 250)
-	{
-		env->jump.start = 0;
-		env->jump.on_going = 0;
-		env->gravity.on_going = 1;
-	}
-}
-
-void	gravity(t_env *env)
-{
-	double	x;
-
-	x = 0.5;
-	if (env->player.pos.z > env->gravity.floor)
-	{
-		env->player.pos.z -= (x * env->gravity.start);
-		env->gravity.start += 0.5;
-	}
-	else if (env->player.pos.z < env->gravity.floor)
-		env->player.pos.z += x;
-	if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
-	{
-		x = env->gravity.floor - env->player.pos.z;
-		env->player.pos.z += x;
-	}
-	else if (env->player.pos.z > env->gravity.floor && env->player.pos.z - x < env->gravity.floor)
-	{
-		x = env->player.pos.z - env->gravity.floor;
-		env->player.pos.z -= x;
-	}
-
-	if (env->player.pos.z == env->gravity.floor)
-	{
-		env->gravity.start= 1;
-		env->flag = 0;
-	}
-}
-
-void	squat(t_env *env)
-{
-	env->squat.on_going = 1;
-	if (env->player.eyesight > 3 )
-	{
-		env->flag = 1;
-		env->player.pos.z -= 0.5;
-		env->player.eyesight -= 0.5; 
-		update_player_z(env);
-	}
-	if (env->player.eyesight == 3 && !env->inputs.ctrl)
-	{
-		env->player.eyesight = 6;
-		update_floor(env);
-		env->flag = 0;
-		env->squat.on_going = 0;
-	}
+	update_floor(env);
+	if (env->gravity.on_going)
+		gravity(env);
+	if (((env->inputs.space && !env->player.state) || env->jump.on_going) && !env->inputs.ctrl)
+		jump(env);
 }
 
 /*
  **	Handles player movements
  **	TODO Protection / return values??
  */
-
 
 void	move_player(t_env *env)
 {
@@ -157,9 +88,6 @@ void	move_player(t_env *env)
 	origin_camera_sect = env->player.camera_sector;
 	origin_right_sect = env->player.near_left_sector;
 	origin_left_sect = env->player.near_right_sector;
-	update_floor(env);
-	if (env->gravity.on_going || !env->jump.on_going)
-		gravity(env);
 	if (env->inputs.forward && !env->inputs.backward)
 	{	
 		if (check_collision(env, env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed) == 1)
@@ -211,19 +139,5 @@ void	move_player(t_env *env)
 		  env->player.near_right_sector = origin_right_sect;
 		  }*/
 	}
-	if ((env->inputs.space || env->jump.on_going == 1) && !env->squat.on_going)
-	{
-		if (env->flag == 0)
-			jump(env);
-	}
-	if ((env->inputs.ctrl || env->squat.on_going == 1) && (!env->jump.on_going))
-		squat(env);
-	ft_printf("jump : %d\n", env->jump.on_going);
-	ft_printf("squat : %d\n", env->squat.on_going);
-	ft_printf("gravity : %d\n", env->gravity.on_going);
-	ft_printf("floor : %f\n", env->gravity.floor);
-	ft_printf("z : %f\n", env->player.pos.z);
-	ft_printf("flag : %d\n", env->flag);
-	ft_printf("\n");
 	env->player.speed = tmp_speed;
 }

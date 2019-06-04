@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:34:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/04 18:33:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,12 @@ typedef struct		s_player
 	double			size_2d;
 	double			camera_x;
 	double			camera_y;
+	double			rotation_speed;
 	short			sector;
 	short			camera_sector;
 	short			near_left_sector;
 	short			near_right_sector;
+	int				state;
 }					t_player;
 
 /*
@@ -276,7 +278,8 @@ typedef struct		s_animation
 	double			start;
 	double			end;
 	double			floor;
-	int				on_going;
+	double				on_going;
+	double			weight;
 }					t_animation;
 
 /*
@@ -297,6 +300,7 @@ typedef struct		s_env
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_texture		textures[1];
+	int				time;
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
@@ -308,6 +312,7 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				flag;
+	int				time_tick;
 }					t_env;
 
 /*
@@ -394,6 +399,10 @@ void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);
-
+void				speed(t_env *env);
+void				gravity(t_env *env);
+void				animations(t_env *env);
+void				fall(t_env *env);
+void				jump(t_env *env);
 
 #endif

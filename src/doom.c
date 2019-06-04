@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 15:34:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/04 16:35:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,15 @@ int		doom(int ac, char **av)
 	env.textures[0].h = env.textures[0].surface->h / 100;
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
-	env.player.speed = 0.4;
+	fps(&env);
+	env.player.speed = 0.3;
 	env.player.size_2d = 0.5;
-	env.player.gravity = 1;
 	ft_printf("Launching game loop..\n");
 	env.flag = 0;
 	while (env.running)
 	{
+		speed(&env);
+		animations(&env);
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		reset_clipped(&env);
 		clear_image(&env);
