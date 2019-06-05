@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/04 18:33:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/05 11:03:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	jump(t_env *env)
 {
 	double	x;
 
-	x = 0.5;
+	x = 0.55;
 	ft_printf("jump\n");
 	env->player.state = 1;
 	if (!env->jump.on_going)
@@ -44,7 +44,7 @@ void	jump(t_env *env)
 		if (env->gravity.weight < 0)
 			env->gravity.weight = 0;
 	}
-	if (env->jump.end >= env->jump.on_going + 4)
+	if (env->jump.end >= env->jump.on_going + 5)
 	{
 		env->jump.start = 0;
 		env->gravity.weight = 1;
@@ -62,13 +62,24 @@ void	climb(t_env *env)
 
 	x = 0.5;
 	ft_printf("climb\n");
-	if (env->player.pos.z < env->gravity.floor)
-		env->player.pos.z += (x * env->gravity.weight);
-	if (env->player.pos.z < env->gravity.floor && env->player.pos.z + (x * env->gravity.weight) > env->gravity.floor)
+	if (env->player.pos.z + x > env->gravity.floor)
 	{
+		ft_printf("adjustement\n");
 		x = env->gravity.floor - env->player.pos.z;
 		env->player.pos.z += x;
 	}
+	if (env->player.pos.z < env->gravity.floor)
+	{
+		ft_printf("normal\n");
+		env->player.pos.z += (x * env->gravity.weight);
+	}
+	if (env->player.pos.z + (x * env->gravity.weight) > env->gravity.floor)
+	{
+		ft_printf("adjustement\n");
+		x = env->gravity.floor - env->player.pos.z;
+		env->player.pos.z += x;
+	}
+	ft_printf("\n");
 }
 
 void	fall(t_env *env)
@@ -133,33 +144,3 @@ void	gravity(t_env *env)
 			climb(env);
 	}
 }
-
-/*void	gravity(t_env *env)
-  {
-  double	x;
-
-  x = 0.5;
-  if (env->player.pos.z > env->gravity.floor)
-  {
-  env->player.pos.z -= (x * env->gravity.start);
-  env->gravity.start += 0.5;
-  }
-  else if (env->player.pos.z < env->gravity.floor)
-  env->player.pos.z += x;
-  if (env->player.pos.z < env->gravity.floor && env->player.pos.z + x > env->gravity.floor)
-  {
-  x = env->gravity.floor - env->player.pos.z;
-  env->player.pos.z += x;
-  }
-  else if (env->player.pos.z > env->gravity.floor && env->player.pos.z - x < env->gravity.floor)
-  {
-  x = env->player.pos.z - env->gravity.floor;
-  env->player.pos.z -= x;
-  }
-
-  if (env->player.pos.z == env->gravity.floor)
-  {
-  env->gravity.start= 1;
-  env->flag = 0;
-  }
-  }*/
