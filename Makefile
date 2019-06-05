@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/30 16:04:52 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/06/05 15:16:48 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ DEBUG ?= 0
 #	CFLAGS += -fsanitize=address
 #endif
 
-MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 SDL = -F ~/Library/Frameworks/ -framework SDL2 \
 	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  #`sdl-config --cflags --libs` \

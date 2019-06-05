@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/04 18:12:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:46:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,8 @@ void	render_sector(t_env *env, t_render render)
 									vline.color = apply_light(vline.color, render.light);
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0xFF222222;
-								draw_vline_color(vline, render, env);
-								//draw_vline(vline, render, env);
+								//draw_vline_color(vline, render, env);
+								draw_vline(vline, render, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
 								// Dessiner le sol du sol jusqu'a ymax
