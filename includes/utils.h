@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 13:51:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 15:38:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,5 +412,6 @@ void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
 void				jump(t_env *env);
+void				squat(t_env *env);
 
 #endif

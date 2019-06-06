@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/04 12:04:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 14:34:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			yalpha = (1 - (i - render.max_ceiling) / (double)(render.max_floor - render.max_ceiling));
 			//y = (yalpha * (env->sdl.image->h / render.vz2)) / ((1 - yalpha) * (1 / render.vz1) + yalpha * (1 / render.vz2));
 			y = yalpha * env->sdl.image->h * render.wall_height;
-			y = (int)y % env->sdl.image->h;
+			while (y > env->sdl.image->h)
+				y -= env->sdl.image->h;
 			y = env->sdl.image->h - ft_fclamp(y, 0, env->sdl.image->h);
 			//y = ((i - env->h + render.max_floor - render.max_ceiling) * env->sdl.image->h) / (double)(render.max_floor - render.max_ceiling);
 			//ft_printf("yalpha = %f\n", yalpha);

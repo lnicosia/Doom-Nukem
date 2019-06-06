@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/06 13:51:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 15:38:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	fall(t_env *env)
 {
 	double	x;
 
-	x = 0.5;
+	x = 0.3;
 	ft_printf("fall\n");
 	env->gravity.start = env->time.tenth_s;
 	if (env->gravity.start - env->gravity.end >= 0.1)
@@ -110,7 +110,6 @@ void	fall(t_env *env)
 			ft_printf("adjustement\n");
 			x = env->player.pos.z - env->gravity.floor;
 			env->player.pos.z -= x;
-			x = 0.3;
 			env->gravity.weight = 1;
 			env->player.state = 0;
 		}
