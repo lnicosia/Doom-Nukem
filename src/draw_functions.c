@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 12:05:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:56:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,21 +116,12 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 {
 	int		i;
-	double	yalpha;
 	double	y;
 	double	x;
-	double	yweight;
+	double	weight;
 	double	xweight;
 
 	xweight = (render.floor_alpha * (env->textures[render.floor_texture].surface->w * render.v0_width / render.v0_vz2)) / ((1 - render.floor_alpha) * (1 / render.v0_vz1) + render.floor_alpha * (1 / render.v0_vz2));
-	/*xweight = (render.alpha * (env->textures[render.floor_texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.alpha) * (1 / render.vz1) + render.alpha * (1 / render.vz2));*/
-	//x = (int)x % env->textures[render.floor_texture].surface->w;
-	/*while (x >= env->textures[render.floor_texture].surface->w)
-		x -= env->textures[render.floor_texture].surface->w;
-	while (x < 0)
-		x += env->textures[render.floor_texture].surface->w;*/
-	//x = ft_fclamp(x, 0, env->textures[render.floor_texture].surface->w);
-	//ft_printf("x = %f\n", x);
 	if (env->options.contouring)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
@@ -146,36 +137,26 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		vline.start++;
 		vline.end--;
 	}
-	i = vline.start;
+	i = vline.start + 1;
 	while (i <= vline.end)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			//yalpha = (1 - (i - render.max_floor) / (double)(render.v0_floor - render.max_floor));
-			yweight = (1 - (i - render.max_floor) / (double)(render.max_floor));
-			if (render.v0_floor != 0)
-			yalpha = (1 - (i - render.v0_floor) / (double)(render.v0_floor));
-			//yalpha = (1 - (i - env->h / 2) / (double)(env->h / 2));
-			/*y = (yalpha * (env->textures[render.floor_texture].surface->h * render.wall_height / render.v0_vz2)) / ((1 - yalpha) * (1 / render.v0_vz1) + yalpha * (1 / render.v0_vz2));*/
-			//y = (yalpha * (env->sdl.image->h / render.vz2)) / ((1 - yalpha) * (1 / render.vz1) + yalpha * (1 / render.vz2));
-			y = yweight * env->textures[render.floor_texture].surface->h * render.v0_height;
-			//x = weight * env->textures[render.floor_texture].surface->w;
-			//x = xweight + (i - render.v0_floor);
-			x = xweight;
-			//x = (weight * (env->textures[render.floor_texture].surface->w * render.v0_width / render.v0_vz2)) / ((1 - weight) * (1 / render.v0_vz1) + weight * (1 / render.v0_vz2));
-			//x = yalpha * x;
-			//y = (int)y % env->textures[render.floor_texture].surface->h;
-			/*while (y >= env->textures[render.floor_texture].surface->h)
+			weight = env->h / (double)(i - (render.max_floor + render.max_ceiling) / 2);
+			//weight = env->h / (double)(2 * i - env->h);
+			weight = weight / render.currentz;
+			y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
+			x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
+			y *= env->textures[render.floor_texture].surface->h / 10;
+			x *= env->textures[render.floor_texture].surface->w / 10;
+			while (y >= env->textures[render.floor_texture].surface->h)
 				y -= env->textures[render.floor_texture].surface->h;
 			while (y < 0)
 				y += env->textures[render.floor_texture].surface->h;
 			while (x >= env->textures[render.floor_texture].surface->w)
 				x -= env->textures[render.floor_texture].surface->w;
 			while (y < 0)
-				x += env->textures[render.floor_texture].surface->w;*/
-			/*y = env->textures[render.floor_texture].surface->h - ft_fclamp(y, 0, env->textures[render.floor_texture].surface->h);*/
-			//y = ((i - env->h + render.max_floor - render.max_ceiling) * env->sdl.image->h) / (double)(render.max_floor - render.max_ceiling);
-			//ft_printf("yalpha = %f\n", yalpha);
+				x += env->textures[render.floor_texture].surface->w;
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
 					&& x >= 0 && x < env->textures[render.floor_texture].surface->w && y >= 0 && y < env->textures[render.floor_texture].surface->h)
 			{

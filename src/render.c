@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 12:14:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:59:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,15 +173,8 @@ void	render_sector(t_env *env, t_render render)
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.texel.x = render.alpha * (env->vertices[sector.vertices[i + 1]].x - env->vertices[sector.vertices[i]].x) + env->vertices[sector.vertices[i]].x;
 						render.texel.y = render.alpha * (env->vertices[sector.vertices[i + 1]].y - env->vertices[sector.vertices[i]].y) + env->vertices[sector.vertices[i]].y;
-						ft_printf("alpha = %f\n", render.alpha);
-						ft_printf("texel = [%f, %f]\n", render.texel.y, render.texel.x);
-						//render.floor_alpha = (x) / (double)(env->w);
+						render.currentz = render.alpha * (render.vz2 - render.vz1);
 						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
-						/*while (render.floor_alpha < 0)
-							render.floor_alpha += 1;
-						while (render.floor_alpha >= 1)
-							render.floor_alpha -= 1;*/
-						//ft_printf("v0_floor = %d\n", render.v0_floor);
 						// Lumiere
 						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 4.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -190,6 +183,7 @@ void	render_sector(t_env *env, t_render render)
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
+						render.currentz = env->h / (double)(render.max_floor - render.max_ceiling);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;

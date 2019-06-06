@@ -6,15 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 12:02:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:11:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 # define MAX_SECTORS_TO_RENDER 32
-# define HFOV	0.73
-# define VFOV	0.2
 # include "utils.h"
 
 typedef struct		s_vline
@@ -74,6 +72,7 @@ typedef struct		s_render
 	double			v0_height;
 	double			v0_vz1;
 	double			v0_vz2;
+	double			currentz;
 	int				xmin;
 	int				xmax;
 	int				ymin;
