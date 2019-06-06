@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 15:23:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 18:30:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int		doom(int ac, char **av)
 	fps(&env);
 	env.player.speed = 0.3;
 	env.player.size_2d = 0.5;
+	ft_printf("Starting music..\n");
+	Mix_PlayMusic(env.sound.background, -1);
+	Mix_VolumeMusic(MIX_MAX_VOLUME/2);
 	ft_printf("Launching game loop..\n");
 	env.flag = 0;
 	while (env.running)

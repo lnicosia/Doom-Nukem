@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/31 15:46:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 18:44:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.shift)
 		env->inputs.shift = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.space)
+	{
+		 if (mode == 0)
+			Mix_PlayChannel(1, env->sound.jump, 0);
 		env->inputs.space = mode;
+	}
 	if (env->sdl.event.key.keysym.sym == env->keys.ctrl)
 		env->inputs.ctrl = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.up)

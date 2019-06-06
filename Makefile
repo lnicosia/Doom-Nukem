@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/06/05 14:22:34 by sipatry          ###   ########.fr        #
+#    Updated: 2019/06/06 15:55:56 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
+		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
 		  -flto -fno-builtin -O3
 		  #-fsanitize=address -g3 \
 
@@ -55,6 +56,7 @@ DEBUG ?= 0
 MLX = -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 SDL = -F ~/Library/Frameworks/ -framework SDL2 \
 	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
+	  -F ~/Library/Frameworks/ -framework SDL2_mixer \
 	  #`sdl-config --cflags --libs` \
 
 RED := "\033[0;31m"

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 13:51:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 18:09:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <SDL.h>
 # include <SDL_ttf.h>
+# include <SDL_mixer.h>
 # include <fcntl.h>
 # include "libft.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
@@ -206,6 +207,17 @@ typedef struct		s_fonts
 }					t_fonts;
 
 /*
+** Sound structure
+*/
+
+typedef struct		s_audio
+{
+	Mix_Music		*background;
+	Mix_Chunk		*footstep;
+	Mix_Chunk		*jump;
+}					t_audio;
+
+/*
  ** SDL data necessities
  */
 
@@ -310,6 +322,7 @@ typedef struct		s_env
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_texture		textures[1];
+	t_audio			sound;
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
