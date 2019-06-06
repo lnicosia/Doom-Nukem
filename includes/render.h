@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 11:29:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:02:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_render
 	t_v2			projected_v0_ceiling;
 	t_v2			projected_v1_floor;
 	t_v2			projected_v1_ceiling;
+	t_v2			texel;
 	double			vx1;
 	double			vx2;
 	double			vz1;

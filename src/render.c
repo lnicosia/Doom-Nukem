@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 11:46:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:14:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,11 @@ void	render_sector(t_env *env, t_render render)
 						render.currentx = x;
 						render.v0_floor = (x - render.projected_v0_floor.x) * (render.projected_v1_floor.y - render.projected_v0_floor.y) / (render.projected_v1_floor.x - render.projected_v0_floor.x) + render.projected_v0_floor.y;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
+						render.texel.x = render.alpha * (env->vertices[sector.vertices[i + 1]].x - env->vertices[sector.vertices[i]].x) + env->vertices[sector.vertices[i]].x;
+						render.texel.y = render.alpha * (env->vertices[sector.vertices[i + 1]].y - env->vertices[sector.vertices[i]].y) + env->vertices[sector.vertices[i]].y;
+						ft_printf("alpha = %f\n", render.alpha);
+						ft_printf("texel = [%f, %f]\n", render.texel.y, render.texel.x);
+						//render.floor_alpha = (x) / (double)(env->w);
 						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
 						/*while (render.floor_alpha < 0)
 							render.floor_alpha += 1;
