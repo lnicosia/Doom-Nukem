@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 15:56:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:42:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 
-	x = (render.alpha * (env->textures[render.texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.alpha) * (1 / render.vz1) + render.alpha * (1 / render.vz2));
+	x = (render.alpha * (env->textures[render.texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.alpha) / render.vz1 + render.alpha / render.vz2);
 	while (x >= env->textures[render.texture].surface->w)
 		x -= env->textures[render.texture].surface->w;
 	while (x < 0)
 		x += env->textures[render.texture].surface->w;
 	x = ft_fclamp(x, 0, env->textures[render.texture].surface->w);
-	//ft_printf("x = %f\n", x);
 	if (env->options.contouring)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
@@ -52,16 +51,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
 			yalpha = (1 - (i - render.max_ceiling) / (double)(render.max_floor - render.max_ceiling));
-			//y = (yalpha * (env->sdl.image->h / render.vz2)) / ((1 - yalpha) * (1 / render.vz1) + yalpha * (1 / render.vz2));
 			while (y >= env->textures[render.texture].surface->h)
 				y -= env->textures[render.texture].surface->h;
 			while (y < 0)
 				y += env->textures[render.texture].surface->h;
 			y = yalpha * env->textures[render.texture].surface->h * render.wall_height;
-			//y = (int)y % env->textures[render.texture].surface->h;
-			y = env->textures[render.texture].surface->h - ft_fclamp(y, 0, env->textures[render.texture].surface->h);
-			//y = ((i - env->h + render.max_floor - render.max_ceiling) * env->sdl.image->h) / (double)(render.max_floor - render.max_ceiling);
-			//ft_printf("yalpha = %f\n", yalpha);
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
 					&& x >= 0 && x < env->textures[render.texture].surface->w && y >= 0 && y < env->textures[render.texture].surface->h)
 			{
@@ -145,8 +139,11 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			weight = env->h / (double)(i - (render.max_floor + render.max_ceiling) / 2);
 			//weight = env->h / (double)(2 * i - env->h);
 			weight = weight / render.currentz;
-			y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
-			x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
+			//y = weight * render.texel.y + (2.0 - weight) * env->player.pos.y;
+			y = ((2.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((2.0 - weight) / render.vz1 + weight / render.vz2);
+			//ft_printf("y = %f\n", y);
+			//x = weight * render.texel.x + (2.0 - weight) * env->player.pos.x;
+			x = ((2.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((2.0 - weight) / render.vz1 + weight / render.vz2);
 			y *= env->textures[render.floor_texture].surface->h / 10;
 			x *= env->textures[render.floor_texture].surface->w / 10;
 			while (y >= env->textures[render.floor_texture].surface->h)
