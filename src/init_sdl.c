@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 17:32:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/05 15:12:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int		init_sdl(t_env *env)
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);*/
-	env->time = 0;
+	env->time.milli_s =  0;
 	return (0);
 }

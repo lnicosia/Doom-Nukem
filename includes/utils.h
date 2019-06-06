@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 11:03:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/06 13:51:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,13 +273,22 @@ typedef struct		s_printable_text
  **	Contains every data needed for an animation on the screen
  */
 
+typedef struct		s_time
+{
+	double			start;
+	double			end;
+	double			minuts;
+	double			tenth_s;
+	double			milli_s;
+}					t_time;
+
 typedef struct		s_animation
 {
 	double			start;
 	double			end;
 	double			floor;
-	double				on_going;
 	double			weight;
+	double			on_going;
 }					t_animation;
 
 /*
@@ -294,13 +303,13 @@ typedef struct		s_env
 	t_keys			keys;
 	t_inputs		inputs;
 	t_camera		camera;
+	t_time			time;
 	t_animation		jump;
 	t_animation		squat;
 	t_animation		gravity;
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_texture		textures[1];
-	int				time;
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
@@ -312,7 +321,6 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				flag;
-	int				time_tick;
 }					t_env;
 
 /*
@@ -399,7 +407,7 @@ void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);
-void				speed(t_env *env);
+void				time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
