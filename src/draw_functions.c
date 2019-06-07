@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 17:42:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/07 11:59:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
 			yalpha = (1 - (i - render.max_ceiling) / (double)(render.max_floor - render.max_ceiling));
+			y = yalpha * env->textures[render.texture].surface->h * render.wall_height;
 			while (y >= env->textures[render.texture].surface->h)
 				y -= env->textures[render.texture].surface->h;
 			while (y < 0)
 				y += env->textures[render.texture].surface->h;
-			y = yalpha * env->textures[render.texture].surface->h * render.wall_height;
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
 					&& x >= 0 && x < env->textures[render.texture].surface->w && y >= 0 && y < env->textures[render.texture].surface->h)
 			{
@@ -113,9 +113,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 	double	weight;
-	double	xweight;
 
-	xweight = (render.floor_alpha * (env->textures[render.floor_texture].surface->w * render.v0_width / render.v0_vz2)) / ((1 - render.floor_alpha) * (1 / render.v0_vz1) + render.floor_alpha * (1 / render.v0_vz2));
 	if (env->options.contouring)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
@@ -136,14 +134,15 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			weight = env->h / (double)(i - (render.max_floor + render.max_ceiling) / 2);
+			weight = env->h / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
 			//weight = env->h / (double)(2 * i - env->h);
-			weight = weight / render.currentz;
-			//y = weight * render.texel.y + (2.0 - weight) * env->player.pos.y;
-			y = ((2.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((2.0 - weight) / render.vz1 + weight / render.vz2);
+			//ft_printf("weight = %f\n", weight);
+			weight = weight / render.currentz / 2.0;
+			//y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
+			y = ((1.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
 			//ft_printf("y = %f\n", y);
-			//x = weight * render.texel.x + (2.0 - weight) * env->player.pos.x;
-			x = ((2.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((2.0 - weight) / render.vz1 + weight / render.vz2);
+			//x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
+			x = ((1.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
 			y *= env->textures[render.floor_texture].surface->h / 10;
 			x *= env->textures[render.floor_texture].surface->w / 10;
 			while (y >= env->textures[render.floor_texture].surface->h)
@@ -152,7 +151,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 				y += env->textures[render.floor_texture].surface->h;
 			while (x >= env->textures[render.floor_texture].surface->w)
 				x -= env->textures[render.floor_texture].surface->w;
-			while (y < 0)
+			while (x < 0)
 				x += env->textures[render.floor_texture].surface->w;
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
 					&& x >= 0 && x < env->textures[render.floor_texture].surface->w && y >= 0 && y < env->textures[render.floor_texture].surface->h)

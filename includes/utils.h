@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 16:03:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/07 11:42:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,9 @@ typedef struct		s_texture
 {
 	SDL_Surface		*surface;
 	Uint32			*str;
+	double			scale;
+	int				xpadding;
+	int				ypadding;
 	unsigned int	w;
 	unsigned int	h;
 }					t_texture;

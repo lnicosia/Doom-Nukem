@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 15:54:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/07 11:43:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static int	parse(int fd, int index, t_env *env)
 	/*if (!(env->sdl.image_str = (Uint32*)malloc(sizeof(Uint32) * parser.w * parser.h)))
 		return (ft_printf("Could not malloc image pixels\n"));*/
 	env->textures[index].str = env->textures[index].surface->pixels;
+	env->textures[index].scale = 1;
+	env->textures[index].xpadding = 0;
+	env->textures[index].ypadding = 0;
 	if (parser.color_used || parser.bpp <= 8)
 	{
 		if (set_color_table(fd, &parser))
