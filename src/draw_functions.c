@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/07 11:59:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:14:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,11 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			//weight = env->h / (double)(2 * i - env->h);
 			//ft_printf("weight = %f\n", weight);
 			weight = weight / render.currentz / 2.0;
-			//y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
-			y = ((1.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
+			y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
+			//y = ((1.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
 			//ft_printf("y = %f\n", y);
-			//x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
-			x = ((1.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
+			x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
+			//x = ((1.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
 			y *= env->textures[render.floor_texture].surface->h / 10;
 			x *= env->textures[render.floor_texture].surface->w / 10;
 			while (y >= env->textures[render.floor_texture].surface->h)
