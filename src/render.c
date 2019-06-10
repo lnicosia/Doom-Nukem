@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 10:35:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:47:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	render_sector(t_env *env, t_render render)
 	int			xend;
 
 	i = 0;
+	//ft_printf("\n");
 	while (i < env->w)
 	{
 		env->depth_array[i] = -2147483647;
@@ -78,6 +79,14 @@ void	render_sector(t_env *env, t_render render)
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 10;
 			render.wall_height = (sector.ceiling - sector.floor) / 10;
+			if (i == 0)
+			{
+				render.v0_width = render.wall_width;
+				render.v0_height = render.wall_height;
+			}
+			render.texture = sector.textures[i];
+			render.floor_texture = sector.floor_texture;
+			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 				//|| !env->options.clipping)
@@ -160,7 +169,12 @@ void	render_sector(t_env *env, t_render render)
 					while (x <= xend)
 					{
 						render.currentx = x;
+						render.v0_floor = (x - render.projected_v0_floor.x) * (render.projected_v1_floor.y - render.projected_v0_floor.y) / (render.projected_v1_floor.x - render.projected_v0_floor.x) + render.projected_v0_floor.y;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
+						render.texel.x = render.alpha * (env->vertices[sector.vertices[i + 1]].x - env->vertices[sector.vertices[i]].x) + env->vertices[sector.vertices[i]].x;
+						render.texel.y = render.alpha * (env->vertices[sector.vertices[i + 1]].y - env->vertices[sector.vertices[i]].y) + env->vertices[sector.vertices[i]].y;
+						render.currentz = render.alpha * (render.vz2 - render.vz1);
+						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
 						// Lumiere
 						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 2.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -169,6 +183,9 @@ void	render_sector(t_env *env, t_render render)
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
+						render.currentz = env->h / (double)(render.max_floor - render.max_ceiling);
+						render.currentz = render.alpha / (double)(render.vz2 - render.vz1);
+						//render.currentz = (x - render.x1) * (render.clipped_vz2 - render.clipped_vz1) / (render.x2 - render.x1);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;
@@ -218,12 +235,13 @@ void	render_sector(t_env *env, t_render render)
 									if (i == 1)
 										vline.color = 0xFF00AA00;
 									if (i == 2)
-										line.color = 0xAAFF;
+										line.color = 0xFF0000AA;
 								}	
 								if (env->options.lighting)
 									vline.color = apply_light(vline.color, render.light);
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0xFF222222;
+								//draw_vline_color(vline, render, env);
 								draw_vline(vline, render, env);
 								// Dessiner le plafond de ymin jusqu'au plafond
 								draw_ceiling(render, env);
@@ -246,7 +264,7 @@ static void		reset_render_utils(t_env *env)
 	int	i;
 	int	max;
 
-	max = ft_min(env->nb_sectors, env->w);
+	max = env->screen_sectors_size;
 	i = 0;
 	while (i < max)
 	{

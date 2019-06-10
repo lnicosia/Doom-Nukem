@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.h                                             :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 14:24:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:35:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 # define MAX_SECTORS_TO_RENDER 32
-# define HFOV	0.73
-# define VFOV	0.2
 # include "utils.h"
 
 typedef struct		s_vline
@@ -38,6 +36,11 @@ typedef struct		s_render
 	t_v2			inter_far;
 	t_v2			inter_left;
 	t_v2			inter_right;
+	t_v2			projected_v0_floor;
+	t_v2			projected_v0_ceiling;
+	t_v2			projected_v1_floor;
+	t_v2			projected_v1_ceiling;
+	t_v2			texel;
 	double			vx1;
 	double			vx2;
 	double			vz1;
@@ -62,8 +65,14 @@ typedef struct		s_render
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
+	double			floor_alpha;
 	double			wall_width;
 	double			wall_height;
+	double			v0_width;
+	double			v0_height;
+	double			v0_vz1;
+	double			v0_vz2;
+	double			currentz;
 	int				xmin;
 	int				xmax;
 	int				ymin;
@@ -91,14 +100,8 @@ typedef struct		s_render
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
-	double			preclip_vcy1;
-	double			preclip_vcy2;
-	double			preclip_vfy1;
-	double			preclip_vfy2;
-	double			preclip_nvcy1;
-	double			preclip_nvcy2;
-	double			preclip_nvfy1;
-	double			preclip_nvfy2;
+	int				v0_floor;
+	int				v0_ceiling;
 	int				x1;
 	int				x2;
 	int				xstart;
@@ -108,6 +111,10 @@ typedef struct		s_render
 	int				v2_clipped;
 	short			nv1;
 	short			nv2;
+	int				i;
+	int				texture;
+	int				floor_texture;
+	int				ceiling_texture;
 }					t_render;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);

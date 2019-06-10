@@ -1,14 +1,14 @@
-# Vertexes (Y coordinate, followed by list of X coordinates)
-Vertex	4
-vertex	0 15
-vertex	15 0
-vertex	15 30
-vertex	30 15
+# es (Y coordinate, followed by list of X coordinates)
+V 4
+0 15
+15 0
+15 30
+30 15
 
-# Sectors (floor height, ceiling height, then vertex numbers in clockwise order)
-# After the list of vertexes, comes the list of sector numbers on the "opposite" side of that wall; "x" = none.
-Sector	1
-sector	0 30 20 0	0 2 3 1		-1 -1 -1 -1
+# s (floor height, ceiling height, then  numbers in clockwise order)
+# After the list of es, comes the list of  numbers on the "opposite" side of that wall; "x" = none.
+S 1
+[0 30 0] [20 0 0] (0 2 3 1) (-1 -1 -1 -1) (0 0 0 0)
 
-# Player: Location (x y), angle, and sector number
-player	15 15	0	0
+# : Location (x y), angle, and  number
+15 15 0 0

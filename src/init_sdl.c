@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/07 11:42:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:59:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		init_sdl(t_env *env)
 		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Portals !!!!!",
-					SDL_WINDOWPOS_CENTERED,
-					SDL_WINDOWPOS_CENTERED,
+					0,
+					0,
 					env->w,
 					env->h,
 					SDL_WINDOW_MOUSE_FOCUS)))
@@ -37,6 +37,7 @@ int		init_sdl(t_env *env)
 	if (!(env->sound.shotgun = Mix_LoadWAV("audio/shotgun_shot.wav")))
 		return (ft_printf("Failed to load shotgun_shot.wav %s\n", Mix_GetError()));
 	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / 2);
+	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / 2);
 	Mix_VolumeChunk(env->sound.shotgun, MIX_MAX_VOLUME / 2);
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,

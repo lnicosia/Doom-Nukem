@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/17 11:48:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:59:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int		get_screen_sectors(t_env *env)
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
 		i = 0;
 		sect = get_sector(env, curr);
-		while (env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
+		while (i < env->screen_sectors_size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
 			i++;
-		if (env->screen_sectors[i] == -1 && sect != -1)
+		if (i < env->screen_sectors_size && env->screen_sectors[i] == -1 && sect != -1)
 		{
 			env->screen_sectors[i] = sect;
 			env->xmin[i] = x;
 			sect_count++;
 		}
-		else if (env->screen_sectors[i] == sect)
+		else if (i < env->screen_sectors_size && env->screen_sectors[i] == sect)
 			env->xmax[i] = x;
 		x++;
 	}
