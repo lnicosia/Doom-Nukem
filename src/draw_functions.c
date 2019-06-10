@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/07 15:14:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:04:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,9 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	int		i;
 	double	y;
 	double	x;
-	double	weight;
+	double	alpha;
+	double	dist;
+	double	startdist;
 
 	if (env->options.contouring)
 	{
@@ -129,20 +131,23 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		vline.start++;
 		vline.end--;
 	}
-	i = vline.start + 1;
+	i = vline.start;
+	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
 	while (i <= vline.end)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			weight = env->h / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-			//weight = env->h / (double)(2 * i - env->h);
-			//ft_printf("weight = %f\n", weight);
-			weight = weight / render.currentz / 2.0;
-			y = weight * render.texel.y + (1.0 - weight) * env->player.pos.y;
-			//y = ((1.0 - weight) * env->player.pos.y / render.vz1 + weight * render.texel.y / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
+			dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
+			//alpha = env->h / (double)(2 * i - env->h);
+			//ft_printf("alpha = %f\n", alpha);
+			alpha = dist / startdist;
+			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+			//y = ((1.0 - alpha) * env->player.pos.y / render.vz1 + alpha * render.texel.y / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
+			//y = ((1.0 - alpha) * env->player.pos.y + alpha * render.texel.y / startdist) / ((1.0 - alpha) + alpha / startdist);
 			//ft_printf("y = %f\n", y);
-			x = weight * render.texel.x + (1.0 - weight) * env->player.pos.x;
-			//x = ((1.0 - weight) * env->player.pos.x / render.vz1 + weight * render.texel.x / render.vz2) / ((1.0 - weight) / render.vz1 + weight / render.vz2);
+			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
+			//x = ((1.0 - alpha) * env->player.pos.x + alpha * render.texel.x / startdist) / ((1.0 - alpha) + alpha / startdist);
 			y *= env->textures[render.floor_texture].surface->h / 10;
 			x *= env->textures[render.floor_texture].surface->w / 10;
 			while (y >= env->textures[render.floor_texture].surface->h)

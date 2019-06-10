@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/07 13:54:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/10 10:12:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		init_sdl(t_env *env)
 		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Portals !!!!!",
-					0,
-					0,
+					SDL_WINDOWPOS_CENTERED,
+					SDL_WINDOWPOS_CENTERED,
 					env->w,
 					env->h,
 					SDL_WINDOW_MOUSE_FOCUS)))
