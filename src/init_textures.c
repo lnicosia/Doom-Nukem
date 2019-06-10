@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_textures.c                                    :+:      :+:    :+:   */
+/*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/30 15:21:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:05:28 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/floor0.bmp", 4, env))
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/floor1.bmp", 5, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/weapon_resized2.bmp", 6, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }
