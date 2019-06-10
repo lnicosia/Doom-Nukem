@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 18:30:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:40:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int		doom(int ac, char **av)
 	env.textures[0].surface = env.sdl.image;
 	env.textures[0].w = env.textures[0].surface->w / 100;
 	env.textures[0].h = env.textures[0].surface->h / 100;
+	/* if (parse_bmp("images/weapon.bmp", &env))
+		return (crash("Invalid bmp file!\n", &env)); */
+	/* env.textures[1].surface = env.sdl.image;
+	env.textures[1].w = env.textures[1].surface->w / 100;
+	env.textures[1].h = env.textures[1].surface->h / 100; */
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	fps(&env);
@@ -52,7 +57,7 @@ int		doom(int ac, char **av)
 	env.player.size_2d = 0.5;
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
-	Mix_VolumeMusic(MIX_MAX_VOLUME/2);
+	Mix_VolumeMusic(MIX_MAX_VOLUME/6);
 	ft_printf("Launching game loop..\n");
 	env.flag = 0;
 	while (env.running)
@@ -73,7 +78,7 @@ int		doom(int ac, char **av)
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
 			else if (env.sdl.event.type == SDL_KEYDOWN
-					|| env.sdl.event.type == SDL_KEYUP)
+					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN)
 				update_inputs(&env);
 		}
 		keys(&env);
@@ -82,12 +87,14 @@ int		doom(int ac, char **av)
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
 		draw_crosshair(&env);
+		draw_weapon(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
 			print_debug(&env);
 		update_screen(&env);
 		view(&env);
+		//load_weapon(&env);
 	//	SDL_Delay(5);
 	}
 	ft_printf("User quit the game\n");

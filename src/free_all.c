@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 18:10:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/07 11:41:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.jump);
+	if (env->sound.shotgun)
+		Mix_FreeChunk(env->sound.shotgun);
 	TTF_Quit();
 	Mix_CloseAudio();
 	SDL_Quit();

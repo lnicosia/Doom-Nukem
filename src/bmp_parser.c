@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_bmp.c                                        :+:      :+:    :+:   */
+/*   bmp_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 10:46:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/10 10:49:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	parse(int fd, t_env *env)
 		return (ft_printf("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (ft_printf("Error in image header\n"));
-	//check_bmp_parsing(parser);
+	check_bmp_parsing(parser);
 	ft_printf("{red}");
 	if (!(env->sdl.image = SDL_CreateRGBSurfaceWithFormat(
 					0,

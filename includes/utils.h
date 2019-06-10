@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 18:09:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:15:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ typedef struct		s_audio
 	Mix_Music		*background;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;
+	Mix_Chunk		*shotgun;
 }					t_audio;
 
 /*
@@ -321,7 +322,7 @@ typedef struct		s_env
 	t_animation		gravity;
 	t_vertex		*vertices;
 	t_sector		*sectors;
-	t_texture		textures[1];
+	t_texture		textures[2];
 	t_audio			sound;
 	double			*depth_array;
 	int				*xmin;
@@ -401,6 +402,8 @@ void				options(t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
+
+void				draw_weapon(t_env *env);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);

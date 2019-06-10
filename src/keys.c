@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 18:45:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/07 10:35:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		keys(t_env *env)
 {
-	if (env->jump.on_going)
+	if (!env->jump.on_going && env->inputs.space)
 	{
 		update_floor(env);
-		/* Mix_PlayChannel(1, env->sound.jump, 0); */
+		Mix_PlayChannel(1, env->sound.jump, 0);
 	}
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
