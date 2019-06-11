@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/07 11:42:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:01:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ typedef struct		s_env
 	t_sector		*sectors;
 	t_texture		textures[MAX_TEXTURE];
 	double			*depth_array;
+	double			infinite;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
