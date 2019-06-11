@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/11 10:41:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/11 11:58:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ void	jump(t_env *env)
 	double	x;
 
 	x = 0.6;
-	//ft_printf("jump\n");
 	env->player.state = 1;
 	env->gravity.on_going = 0;
+	ft_printf("weight = %f\n", env->gravity.weight);
 	if (!env->jump.on_going)
+	{
+		Mix_PlayChannel(-1, env->sound.jump, 0);
 		env->jump.on_going = env->time.tenth_s;
+	}
 	env->jump.start = env->time.tenth_s;
 	if (env->jump.start - env->jump.end >= 0.1)
 	{
@@ -45,10 +48,9 @@ void	jump(t_env *env)
 	}
 	if (env->jump.end >= env->jump.on_going + 4)
 	{
-		//ft_printf("end jump\n");
-		env->gravity.weight = 1;
-		env->jump.on_going = 0;
+		env->gravity.weight = 2;
 		env->gravity.on_going = 1;
+		env->jump.on_going = 0;
 	}
 }
 
@@ -57,26 +59,19 @@ void	climb(t_env *env)
 	double	x;
 
 	x = 0.5;
-	//ft_printf("climb\n");
 	if (env->player.pos.z + x > env->gravity.floor)
 	{
-		//ft_printf("adjustement\n");
 		x = env->gravity.floor - env->player.pos.z;
 		env->player.pos.z += x;
 	}
 	if (env->player.pos.z < env->gravity.floor)
-	{
-		//ft_printf("normal\n");
 		env->player.pos.z += (x * env->gravity.weight);
-	}
 	if (env->player.pos.z + (x * env->gravity.weight) > env->gravity.floor)
 	{
-		//ft_printf("adjustement\n");
 		x = env->gravity.floor - env->player.pos.z;
 		env->player.pos.z += x;
-		env->gravity.weight = 1;
+		env->gravity.weight = 2;
 	}
-	//ft_printf("\n");
 }
 
 void	fall(t_env *env)
@@ -94,7 +89,7 @@ void	fall(t_env *env)
 			x = env->player.pos.z - env->gravity.floor;
 			env->player.pos.z -= x;
 			x = 0.3;
-			env->gravity.weight = 1;
+			env->gravity.weight = 2;
 			env->player.state = 0;
 		}
 		if (env->player.pos.z > env->gravity.floor)
@@ -107,7 +102,7 @@ void	fall(t_env *env)
 		{
 			x = env->player.pos.z - env->gravity.floor;
 			env->player.pos.z -= x;
-			env->gravity.weight = 1;
+			env->gravity.weight = 2;
 			env->player.state = 0;
 		}
 	}

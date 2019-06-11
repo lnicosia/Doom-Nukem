@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/10 18:06:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:09:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,4 @@ void    draw_weapon(t_env *env)
         }
         x++;
     }
-    ft_printf("width weapon = %d\n", env->textures[6].surface->w);
-    ft_printf("heigth weapon = %d\n", env->textures[6].surface->h);
 }
