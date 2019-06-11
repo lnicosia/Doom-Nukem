@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 11:51:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:47:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+static void	free_textures(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_TEXTURE)
+	{
+		if (env->textures[i].surface)
+			SDL_FreeSurface(env->textures[i].surface);
+		i++;
+	}
+}
 
 static void	free_sectors(t_env *env)
 {
@@ -35,6 +48,8 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].clipped_floors2);
 		if (env->sectors[i].wall_width)
 			ft_memdel((void**)&env->sectors[i].wall_width);
+		if (env->sectors[i].textures)
+			ft_memdel((void**)&env->sectors[i].textures);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		i++;
@@ -77,7 +92,17 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->rendered_sectors);
 	if (env->depth_array)
 		ft_memdel((void**)&env->depth_array);
+	if (env->sound.background)
+		Mix_FreeMusic(env->sound.background);
+	if (env->sound.footstep)
+		Mix_FreeChunk(env->sound.footstep);
+	if (env->sound.footstep)
+		Mix_FreeChunk(env->sound.jump);
+	if (env->sound.shotgun)
+		Mix_FreeChunk(env->sound.shotgun);
+	free_textures(env);
 	TTF_Quit();
+	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
 }
@@ -87,5 +112,5 @@ int			crash(char *str, t_env *env)
 	ft_dprintf(STDERR_FILENO, "%s", str);
 	ft_printf("{red}[Critical error]{reset}\n");
 	free_all(env);
-	return(-1);
+	return (-1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 15:26:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/11 10:29:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,21 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.shift)
 		env->inputs.shift = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.space)
+	{
+		 /* if (mode == 0)
+			Mix_PlayChannel(1, env->sound.jump, 0); */
 		env->inputs.space = mode;
+	}
 	if (env->sdl.event.key.keysym.sym == env->keys.ctrl)
 		env->inputs.ctrl = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.up)
 		env->inputs.up = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.down)
 		env->inputs.down = mode;
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		Mix_PlayChannel(2, env->sound.shotgun, 0);
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
+		ft_printf("click droit\n");
 }
 
 void	update_inputs(t_env *env)
@@ -65,4 +73,6 @@ void	update_inputs(t_env *env)
 		set_inputs(env, 0);
 		options(env);
 	}
+	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
+		set_inputs(env, 1);
 }

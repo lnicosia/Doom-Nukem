@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 10:46:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:55:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static unsigned int	get_pixel(double byte, unsigned char *str, t_bmp_parser *par
 	return (0);
 }
 
-int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env)
+int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env)
 {
 	double			byte;
 	double			trash;
@@ -55,7 +55,7 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, t_env *env)
 		y = parser->h - 1;
 		while (byte + 4 < ret)
 		{
-			env->sdl.image_str[x + y * parser->w] = get_pixel(byte, str, parser); 
+			env->textures[index].str[x + y * parser->w] = get_pixel(byte, str, parser); 
 			byte += parser->bpp / 8.0;
 			x++;
 			if (x >= parser->w)

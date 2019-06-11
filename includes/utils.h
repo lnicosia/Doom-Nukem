@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 15:38:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/11 10:30:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <SDL.h>
 # include <SDL_ttf.h>
+# include <SDL_mixer.h>
 # include <fcntl.h>
 # include "libft.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
@@ -23,6 +24,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
+# define MAX_TEXTURE 7
 
 typedef struct		s_point
 {
@@ -63,6 +65,7 @@ typedef struct		s_line
 typedef struct		s_sector
 {
 	t_v2			normal;
+	t_v3			boundaries[4];
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
@@ -81,6 +84,9 @@ typedef struct		s_sector
 	double			*clipped_ceilings2;
 	short			*vertices;
 	short			*neighbors;
+	short			*textures;
+	short			ceiling_texture;
+	short			floor_texture;
 	short			num;
 	short			nb_vertices;
 }					t_sector;
@@ -206,6 +212,18 @@ typedef struct		s_fonts
 }					t_fonts;
 
 /*
+** Sound structure
+*/
+
+typedef struct		s_audio
+{
+	Mix_Music		*background;
+	Mix_Chunk		*footstep;
+	Mix_Chunk		*jump;
+	Mix_Chunk		*shotgun;
+}					t_audio;
+
+/*
  ** SDL data necessities
  */
 
@@ -234,6 +252,10 @@ typedef struct		s_sdl
 typedef struct		s_texture
 {
 	SDL_Surface		*surface;
+	Uint32			*str;
+	double			scale;
+	int				xpadding;
+	int				ypadding;
 	unsigned int	w;
 	unsigned int	h;
 }					t_texture;
@@ -309,11 +331,13 @@ typedef struct		s_env
 	t_animation		gravity;
 	t_vertex		*vertices;
 	t_sector		*sectors;
-	t_texture		textures[1];
+	t_audio			sound;
+	t_texture		textures[MAX_TEXTURE];
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
+	int				screen_sectors_size;
 	short			*rendered_sectors;
 	int				w;
 	int				h;
@@ -347,13 +371,22 @@ void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);
+int					init_textures(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
 void				init_camera(t_env *env);
 void				set_camera(t_env *env);
-int					parsing(int fd, t_env *env);
 int					valid_map(t_env *env);
+
+/*
+**	Parser functions
+*/
+
+int					parse_bmp(char *file, int index, t_env *env);
+int					parse_map(char *file, t_env *env);
+char				*skip_number(char *line);
+char				*skip_spaces(char *line);
 
 /*
  ** Screen utils
@@ -389,6 +422,8 @@ void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 
+void				draw_weapon(t_env *env);
+
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
@@ -402,7 +437,6 @@ void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
-int					parse_bmp(char *file, t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);

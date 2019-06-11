@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/06 15:38:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/11 10:28:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	move_player(t_env *env)
 	}
 	if (movement)
 	{
+		//Mix_PlayChannel(0, env->sound.footstep, 0);
 		update_camera_position(env);
 		/*env->player.camera_sector = get_sector(env, new_v2(env->player.camera_x, env->player.camera_y));
 		  env->player.near_left_sector = get_sector(env, new_v2(env->player.near_left.x, env->player.near_left.y));

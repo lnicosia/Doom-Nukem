@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 15:23:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:46:18 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		doom(int ac, char **av)
 {
 	t_env	env;
 
-	if (ac != 3)
+	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.w = 1600;
 	env.h = 900;
@@ -30,26 +30,25 @@ int		doom(int ac, char **av)
 	env.player.eyesight = 6.00;
 	env.player.z = 0;
 	if (init_sdl(&env))
-		return (crash("Coulnt not initialize SDL!\n", &env));
+		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_ttf(&env))
-		return (crash("Could not initialize fonts!\n", &env));
+		return (crash("Could not initialize fonts\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parsing(open(av[1], O_RDONLY), &env))
-		return (crash("Parsing error!\n", &env));
+	if (parse_map(av[1], &env))
+		return (crash("Error while parsing the map\n", &env));
 	precompute_slopes(&env);
 	//check_parsing(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (parse_bmp(av[2], &env))
-		return (crash("Invalid bmp file!\n", &env));
-	env.textures[0].surface = env.sdl.image;
-	env.textures[0].w = env.textures[0].surface->w / 100;
-	env.textures[0].h = env.textures[0].surface->h / 100;
+	if (init_textures(&env))
+		return (crash("Could not load textures\n", &env));
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
-	fps(&env);
-	env.player.speed = 0.3;
+	env.player.speed = 0.5;
 	env.player.size_2d = 0.5;
+	ft_printf("Starting music..\n");
+	Mix_PlayMusic(env.sound.background, -1);
+	Mix_VolumeMusic(MIX_MAX_VOLUME/6);
 	ft_printf("Launching game loop..\n");
 	env.flag = 0;
 	while (env.running)
@@ -70,7 +69,7 @@ int		doom(int ac, char **av)
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
 			else if (env.sdl.event.type == SDL_KEYDOWN
-					|| env.sdl.event.type == SDL_KEYUP)
+					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN)
 				update_inputs(&env);
 		}
 		keys(&env);
@@ -79,12 +78,14 @@ int		doom(int ac, char **av)
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
 		draw_crosshair(&env);
+		draw_weapon(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
 			print_debug(&env);
 		update_screen(&env);
 		view(&env);
+		//load_weapon(&env);
 	//	SDL_Delay(5);
 	}
 	ft_printf("User quit the game\n");

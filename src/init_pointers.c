@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 11:26:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:14:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	init_pointers(t_env *env)
 {
+	int	i;
+
 	ft_printf("Initializing pointers..\n");
 	env->sectors = NULL;
 	env->vertices = NULL;
@@ -32,4 +34,11 @@ void	init_pointers(t_env *env)
 	env->sdl.fonts.amazdoom50 = NULL;
 	env->sdl.fonts.bebasneue = NULL;
 	env->sdl.fonts.alice = NULL;
+	i = 0;
+	while (i < MAX_TEXTURE)
+	{
+		env->textures[i].surface = NULL;
+		env->textures[i].str = NULL;
+		i++;
+	}
 }
