@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 11:14:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:16:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ typedef struct		s_render
 	t_v2			inter_far;
 	t_v2			inter_left;
 	t_v2			inter_right;
-	t_v2			projected_v0_floor;
-	t_v2			projected_v0_ceiling;
-	t_v2			projected_v1_floor;
-	t_v2			projected_v1_ceiling;
 	t_v2			texel;
 	double			vx1;
 	double			vx2;
@@ -65,31 +61,26 @@ typedef struct		s_render
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
-	double			floor_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			v0_width;
-	double			v0_height;
-	double			v0_vz1;
-	double			v0_vz2;
 	double			distwall;
 	int				xmin;
 	int				xmax;
 	int				ymin;
 	int				ymax;
 	int				currentx;
-	int				floor1;
-	int				floor2;
+	double			floor1;
+	double			floor2;
 	int				current_floor;
 	int				current_ceiling;
 	int				current_neighbor_floor;
 	int				current_neighbor_ceiling;
-	int				max_floor;
-	int				max_ceiling;
+	double			max_floor;
+	double			max_ceiling;
 	int				max_neighbor_floor;
 	int				max_neighbor_ceiling;
-	int				ceiling1;
-	int				ceiling2;
+	double			ceiling1;
+	double			ceiling2;
 	int				neighbor_floor1;
 	int				neighbor_floor2;
 	int				neighbor_ceiling1;
@@ -100,10 +91,8 @@ typedef struct		s_render
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
-	int				v0_floor;
-	int				v0_ceiling;
-	int				x1;
-	int				x2;
+	double			x1;
+	double			x2;
 	int				xstart;
 	int				xend;
 	int				sector;

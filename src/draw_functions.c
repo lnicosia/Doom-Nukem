@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 14:04:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:32:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		vline.start++;
 		vline.end--;
 	}
-	i = vline.start;
+	i = vline.start + 1;
 	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
 	while (i <= vline.end)
 	{
@@ -139,15 +139,15 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		{
 			dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
 			//alpha = env->h / (double)(2 * i - env->h);
+			alpha = dist / render.distwall;
 			//ft_printf("alpha = %f\n", alpha);
-			alpha = dist / startdist;
-			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+			//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 			//y = ((1.0 - alpha) * env->player.pos.y / render.vz1 + alpha * render.texel.y / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
-			//y = ((1.0 - alpha) * env->player.pos.y + alpha * render.texel.y / startdist) / ((1.0 - alpha) + alpha / startdist);
+			y = ((1.0 - alpha) * env->player.pos.y / 2.0 + alpha * render.texel.y / render.distwall) / ((1.0 - alpha) / 2.0 + alpha / render.distwall);
 			//ft_printf("y = %f\n", y);
-			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+			//x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
 			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
-			//x = ((1.0 - alpha) * env->player.pos.x + alpha * render.texel.x / startdist) / ((1.0 - alpha) + alpha / startdist);
+			x = ((1.0 - alpha) * env->player.pos.x / 2.0 + alpha * render.texel.x / render.distwall) / ((1.0 - alpha) / 2.0 + alpha / render.distwall);
 			y *= env->textures[render.floor_texture].surface->h / 10;
 			x *= env->textures[render.floor_texture].surface->w / 10;
 			while (y >= env->textures[render.floor_texture].surface->h)
