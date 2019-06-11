@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 17:02:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:31:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 7
+# define MAX_TEXTURE 21
 
 typedef struct		s_point
 {
@@ -197,6 +197,7 @@ typedef struct		s_inputs
 	uint8_t			space;
 	uint8_t			up;
 	uint8_t			down;
+	uint8_t			leftclick;
 }					t_inputs;
 
 /*
@@ -329,6 +330,7 @@ typedef struct		s_env
 	t_animation		jump;
 	t_animation		squat;
 	t_animation		gravity;
+	t_animation		shot;
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_audio			sound;
@@ -422,7 +424,8 @@ void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 
-void				draw_weapon(t_env *env);
+void				draw_weapon(t_env *env, int sprite);
+void				weapon_animation(t_env *env, int sprite);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);

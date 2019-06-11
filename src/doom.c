@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:46:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:48:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,20 @@ int		doom(int ac, char **av)
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
 			else if (env.sdl.event.type == SDL_KEYDOWN
-					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN)
+					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN || env.sdl.event.type == SDL_MOUSEBUTTONUP)
 				update_inputs(&env);
 		}
-		keys(&env);
+		//keys(&env);
 		if (env.options.show_minimap)
 			minimap(&env);
+		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
+		if (env.inputs.leftclick || env.shot.on_going)
+			weapon_animation(&env, 6);
+		else
+			draw_weapon(&env, 6);
 		draw_crosshair(&env);
-		draw_weapon(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
