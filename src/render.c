@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 16:35:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:46:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,9 @@ void	render_sector(t_env *env, t_render render)
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
-						if (x == xstart && i == 0)
-						render.distwall = (env->h) / (double)(render.max_floor - render.max_ceiling);
+						//if (x == xstart && i == 0)
+						//render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling)) / cos(env->player.angle - (((env->camera.hfov / 2.0) * (x / (env->w / 2.0))) - env->camera.hfov / 2.0) * (CONVERT_RADIANS));
+						render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling));
 						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;

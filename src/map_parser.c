@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/05/29 11:45:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:30:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			env->player.pos.x = ft_atof(line);
 			line = skip_number(line);
 			line = skip_spaces(line);
-			env->player.angle = ft_atof(line) * M_PI / 180.0;
+			env->player.angle = ft_atof(line) * CONVERT_RADIANS;
 			env->player.angle_z = 0;
 			line = skip_number(line);
 			line = skip_spaces(line);

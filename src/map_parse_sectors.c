@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 18:06:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:33:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].floor_slope > 45 || env->sectors[parser->sectors_count].floor_slope < -45)
 		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", parser->line_count));
-	env->sectors[parser->sectors_count].floor_slope = tan(env->sectors[parser->sectors_count].floor_slope * M_PI / 180.0);
+	env->sectors[parser->sectors_count].floor_slope = tan(env->sectors[parser->sectors_count].floor_slope * CONVERT_RADIANS);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_number(*line, parser))
@@ -57,7 +57,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].ceiling_slope > 45 || env->sectors[parser->sectors_count].ceiling_slope < -45)
 		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", parser->line_count));
-	env->sectors[parser->sectors_count].ceiling_slope = tan(env->sectors[parser->sectors_count].ceiling_slope * M_PI / 180.0);
+	env->sectors[parser->sectors_count].ceiling_slope = tan(env->sectors[parser->sectors_count].ceiling_slope * CONVERT_RADIANS);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_number(*line, parser))

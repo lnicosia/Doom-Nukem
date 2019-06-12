@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 15:54:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:48:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
 			dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-			//dist = (env->h / 2.0) / (double)(i - env->h / 2.0);
+			//dist = (env->h) / (double)(2.0 * i - env->h);
 			//alpha = env->h / (double)(2 * i - env->h);
 			alpha = dist / render.distwall;
 			//ft_printf("alpha = %f\n", alpha);
