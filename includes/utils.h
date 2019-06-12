@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 10:30:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/12 17:14:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct		s_player
 	t_v2			near_right;
 	double			gravity;
 	double			eyesight;
-	double			z;
 	double			angle;
 	double			angle_cos;
 	double			angle_sin;

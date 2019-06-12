@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 11:46:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/12 17:09:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	move_player(t_env *env)
 	env->time.end = env->time.milli_s / 10;
 	if (env->time.end - env->time.start >= 1)
 	{
-		ft_printf("coucou\n");
 		env->time.start = env->time.end;
 		if (env->inputs.forward && !env->inputs.backward)
 		{	

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 15:08:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/12 17:22:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		doom(int ac, char **av)
 	init_camera(&env);
 	init_animations(&env);
 	env.player.eyesight = 6.00;
-	env.player.z = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_ttf(&env))
@@ -55,7 +54,7 @@ int		doom(int ac, char **av)
 	{
 		time(&env);
 		animations(&env);
-		ft_printf("player_z = %f\n", env.player.pos.z);
+		ft_printf("player_z = %f jump = %f state = %d\n", env.player.pos.z, env.jump.on_going, env.player.state);
 		//ft_printf("player z = %f\n", env.player.pos.z);
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		reset_clipped(&env);
