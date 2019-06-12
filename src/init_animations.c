@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/11 14:45:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:44:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,8 @@ void	init_animations(t_env *env)
 	env->squat.end = 0;
 	env->shot.on_going = 0;
 	env->shot.start = 0;
+	env->weapon_up.on_going = 0;
+	env->weapon_up.start = 0;
+	env->weapon_down.on_going = 0;
+	env->weapon_down.start = 0;
 }

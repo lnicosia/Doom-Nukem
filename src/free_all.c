@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:47:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:52:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.jump);
-	if (env->sound.shotgun)
-		Mix_FreeChunk(env->sound.shotgun);
+	if (env->weapons[0].sound)
+		Mix_FreeChunk(env->weapons[0].sound);
+	if (env->weapons[1].sound)
+		Mix_FreeChunk(env->weapons[1].sound);
 	free_textures(env);
 	TTF_Quit();
 	Mix_CloseAudio();

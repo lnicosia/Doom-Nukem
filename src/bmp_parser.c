@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 14:17:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:05:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			parse_bmp(char *file, int index, t_env *env)
 {
 	int	fd;
 
-	ft_printf("Parsing \"%s\"\n{red}", file);
+	//ft_printf("Parsing \"%s\"\n{red}", file);
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (ft_printf("Could not open \"%s\"\n", file));
 	if (parse(fd, index, env))

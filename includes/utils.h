@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 14:31:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:40:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 21
+# define MAX_TEXTURE 28
+# define NB_WEAPONS 2
 
 typedef struct		s_point
 {
@@ -127,6 +128,7 @@ typedef struct		s_player
 	short			near_left_sector;
 	short			near_right_sector;
 	int				state;
+	int				curr_weapon;
 }					t_player;
 
 /*
@@ -221,8 +223,20 @@ typedef struct		s_audio
 	Mix_Music		*background;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;
-	Mix_Chunk		*shotgun;
 }					t_audio;
+
+/*
+** Weapon structure
+*/
+
+typedef struct		s_weapons
+{
+	int				anim_length;
+	int				first_sprite;
+	int				nb_sprites;
+	int				weapon_switch;
+	Mix_Chunk		*sound;
+}					t_weapons;
 
 /*
  ** SDL data necessities
@@ -331,10 +345,13 @@ typedef struct		s_env
 	t_animation		squat;
 	t_animation		gravity;
 	t_animation		shot;
+	t_animation		weapon_down;
+	t_animation		weapon_up;
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
+	t_weapons		weapons[NB_WEAPONS];
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
@@ -369,6 +386,7 @@ int					crash(char *str, t_env *env);
  ** Init functions
  */
 
+void    			init_weapons(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
@@ -426,6 +444,8 @@ void				reset_clipped(t_env *env);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
+void    			weapon_down(t_env *env);
+void				weapon_up(t_env *env);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);

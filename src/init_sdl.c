@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:59:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:50:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ int		init_sdl(t_env *env)
 		return (ft_printf("Failed to load footstep.wav %s\n", Mix_GetError()));
 	if (!(env->sound.jump = Mix_LoadWAV("audio/jump.wav")))
 		return (ft_printf("Failed to load jump.wav %s\n", Mix_GetError()));
-	if (!(env->sound.shotgun = Mix_LoadWAV("audio/shotgun_shot.wav")))
+	if (!(env->weapons[0].sound = Mix_LoadWAV("audio/shotgun_shot.wav")))
 		return (ft_printf("Failed to load shotgun_shot.wav %s\n", Mix_GetError()));
+	if (!(env->weapons[1].sound = Mix_LoadWAV("audio/raygun_shot.wav")))
+		return (ft_printf("Failed to load raygun_shot.wav %s\n", Mix_GetError()));
 	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / 2);
 	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->sound.shotgun, MIX_MAX_VOLUME / 2);
+	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / 2);
+	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / 2);
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,

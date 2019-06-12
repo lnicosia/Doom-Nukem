@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 15:46:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:40:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,6 @@ void	update_inputs(t_env *env)
 		set_inputs(env, 1);
  	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		set_inputs(env, 0);
+	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_down.on_going && !env->shot.on_going && !env->weapon_up.on_going)
+		weapon_down(env);
 }

@@ -6,26 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 14:18:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:27:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		init_textures(t_env *env)
+int		init_shotgun(t_env *env)
 {
-	if (parse_bmp("images/wall0.bmp", 0, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/wall1.bmp", 1, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/wall2.bmp", 2, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/wall3.bmp", 3, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/floor0.bmp", 4, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/floor1.bmp", 5, env))
-		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/shotgun/shot1.bmp", 6, env))
 		return (ft_printf("Invalid bmp file\n"));
  	if (parse_bmp("images/shotgun/shot2.bmp", 7, env))
@@ -56,5 +44,45 @@ int		init_textures(t_env *env)
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/shotgun/shot15.bmp", 20, env))
 		return (ft_printf("Invalid bmp file\n"));
+	return (0);
+}
+
+int		init_raygun(t_env *env)
+{
+	if (parse_bmp("images/raygun/raygun1.bmp", 21, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun2.bmp", 22, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun3.bmp", 23, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun4.bmp", 24, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun5.bmp", 25, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun6.bmp", 26, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/raygun/raygun7.bmp", 27, env))
+		return (ft_printf("Invalid bmp file\n"));
+	return (0);
+}
+
+int		init_textures(t_env *env)
+{
+	if (parse_bmp("images/wall0.bmp", 0, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/wall1.bmp", 1, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/wall2.bmp", 2, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/wall3.bmp", 3, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/floor0.bmp", 4, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/floor1.bmp", 5, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (init_shotgun(env))
+		return (ft_printf("Failed to load shotgun textures\n"));
+	if (init_raygun(env))
+		return (ft_printf("Failed to load raygun textures\n"));
 	return (0);
 }

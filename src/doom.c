@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 15:48:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:45:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int		doom(int ac, char **av)
 	init_inputs(&env);
 	init_camera(&env);
 	init_animations(&env);
+	init_weapons(&env);
 	env.player.eyesight = 6.00;
 	env.player.z = 0;
+	env.player.curr_weapon = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_ttf(&env))
@@ -69,7 +71,8 @@ int		doom(int ac, char **av)
 			if (env.sdl.event.type == SDL_QUIT || (env.sdl.event.type == SDL_KEYUP && env.sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env.running = 0;
 			else if (env.sdl.event.type == SDL_KEYDOWN
-					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN || env.sdl.event.type == SDL_MOUSEBUTTONUP)
+					|| env.sdl.event.type == SDL_KEYUP || env.sdl.event.type == SDL_MOUSEBUTTONDOWN
+					|| env.sdl.event.type == SDL_MOUSEBUTTONUP || env.sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(&env);
 		}
 		//keys(&env);
@@ -78,10 +81,14 @@ int		doom(int ac, char **av)
 		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
-		if (env.inputs.leftclick || env.shot.on_going)
-			weapon_animation(&env, 6);
+		if ((env.inputs.leftclick && !env.shot.on_going && !env.weapon_down.on_going && !env.weapon_up.on_going) || env.shot.on_going)
+			weapon_animation(&env, env.player.curr_weapon);
 		else
-			draw_weapon(&env, 6);
+			draw_weapon(&env, env.weapons[env.player.curr_weapon].first_sprite);
+		if (env.weapon_down.on_going && !env.shot.on_going)
+			weapon_down(&env);
+		if (env.weapon_up.on_going && !env.shot.on_going)
+			weapon_up(&env);
 		draw_crosshair(&env);
 		if (env.options.show_fps)
 			fps(&env);
