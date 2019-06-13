@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/12 17:43:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/13 14:25:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	time(t_env *env)
 	new_time = env->time.milli_s;
 	env->time.milli_s = SDL_GetTicks();
 	env->player.speed = ((env->time.milli_s - new_time) / 1000) * 10;
-	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000) * 0.3;
+	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000) * 0.2;
 	env->time.tenth_s = env->time.milli_s / 100;
 }
 
@@ -77,7 +77,6 @@ void	fall(t_env *env)
 	double	x;
 
 	x = 0.3;
-	ft_printf("fall\n");
 	env->gravity.start = env->time.tenth_s;
 	env->player.state = 1;
 	if (env->gravity.start - env->gravity.end >= 0.1)
@@ -86,7 +85,6 @@ void	fall(t_env *env)
 		if (env->player.pos.z > env->gravity.floor && env->player.pos.z -
 				(x * env->gravity.weight) < env->gravity.floor)
 		{
-			ft_printf("oups\n");
 			x = env->player.pos.z - env->gravity.floor;
 			env->player.pos.z -= x;
 			x = 0.3;
@@ -95,14 +93,12 @@ void	fall(t_env *env)
 		}
 		if (env->player.pos.z > env->gravity.floor)
 		{
-			ft_printf("test\n");
 			env->player.pos.z -= (x * env->gravity.weight);
 			env->gravity.weight += 0.1;
 		}
 		if (env->player.pos.z > env->gravity.floor && env->player.pos.z -
 				(x * env->gravity.weight) < env->gravity.floor)
 		{
-			ft_printf("klkgikf\n");
 			x = env->player.pos.z - env->gravity.floor;
 			env->player.pos.z -= x;
 			env->gravity.weight = 1;

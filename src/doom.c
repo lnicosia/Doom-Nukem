@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 17:22:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/13 14:18:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		doom(int ac, char **av)
 	{
 		time(&env);
 		animations(&env);
-		ft_printf("player_z = %f jump = %f state = %d\n", env.player.pos.z, env.jump.on_going, env.player.state);
 		//ft_printf("player z = %f\n", env.player.pos.z);
 		SDL_GetRelativeMouseState(&env.sdl.mouse_x, &env.sdl.mouse_y);
 		reset_clipped(&env);
