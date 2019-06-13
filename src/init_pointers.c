@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 16:14:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:10:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_pointers(t_env *env)
 	env->sdl.fonts.amazdoom50 = NULL;
 	env->sdl.fonts.bebasneue = NULL;
 	env->sdl.fonts.alice = NULL;
+	env->screen_pos = NULL;
 	i = 0;
 	while (i < MAX_TEXTURE)
 	{

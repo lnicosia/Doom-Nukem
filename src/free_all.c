@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 16:17:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:10:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,19 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->rendered_sectors);
 	if (env->depth_array)
 		ft_memdel((void**)&env->depth_array);
+	if (env->screen_pos)
+		ft_memdel((void**)&env->screen_pos);
+	if (env->sound.background)
+		Mix_FreeMusic(env->sound.background);
+	if (env->sound.footstep)
+		Mix_FreeChunk(env->sound.footstep);
+	if (env->sound.footstep)
+		Mix_FreeChunk(env->sound.jump);
+	if (env->sound.shotgun)
+		Mix_FreeChunk(env->sound.shotgun);
 	free_textures(env);
 	TTF_Quit();
+	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
 }

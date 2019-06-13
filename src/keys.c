@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 10:38:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:50:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 void		keys(t_env *env)
 {
+	if (!env->jump.on_going && env->inputs.space)
+		update_floor(env);
+	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+			|| env->inputs.right)
+		Mix_PlayChannel(-1, env->sound.footstep, 0);
+	/* if (env->inputs.space)
+		Mix_PlayChannel(1, env->sound.jump, 0); */
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->squat.on_going || env->inputs.ctrl)
+			|| env->squat.on_going || env->inputs.ctrl || env->gravity.on_going)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -34,19 +41,16 @@ void		keys(t_env *env)
 			env->sectors[env->player.sector].floor_slope -= 0.01;
 			update_sector_slope(env, env->player.sector);
 		}
-		update_player_z(env);
 	}
 	if (env->inputs.down && !env->inputs.shift)
 	{
 		env->sectors[env->player.sector].floor_slope -= 0.01;
 		update_sector_slope(env, env->player.sector);
-		update_player_z(env);
 	}
 	if (env->inputs.up && env->inputs.shift)
 	{
 		env->sectors[env->player.sector].ceiling_slope += 0.01;
 		update_sector_slope(env, env->player.sector);
-		update_player_z(env);
 	}
 	if (env->inputs.down && env->inputs.shift)
 	{
@@ -58,6 +62,5 @@ void		keys(t_env *env)
 			env->sectors[env->player.sector].ceiling_slope += 0.01;
 			update_sector_slope(env, env->player.sector);
 		}
-		update_player_z(env);
 	}
 }

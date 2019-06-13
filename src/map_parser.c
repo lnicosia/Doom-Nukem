@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/12 11:30:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:22:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 				return (ft_printf("Could not malloc xmaxs!\n", env));
 			if (!(env->screen_sectors = (int*)malloc(sizeof(int) * (env->screen_sectors_size))))
 				return (ft_printf("Could not malloc screen sectors!\n", env));
+			if (!(env->screen_pos = (t_v2*)malloc(sizeof(t_v2) * (env->w))))
+				return (ft_printf("Could not malloc screen pos!\n", env));
 			if (!(env->rendered_sectors = (short*)malloc(sizeof(short) * (env->screen_sectors_size))))
 				return (ft_printf("Could not malloc rendered sectors!\n", env));
 			i = 0;

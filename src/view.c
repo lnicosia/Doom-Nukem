@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 11:43:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:38:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	view(t_env *env)
 	origin_camera_sect = env->player.camera_sector;
 	origin_right_sect = env->player.near_left_sector;
 	origin_left_sect = env->player.near_right_sector;
-	env->player.angle += env->sdl.mouse_x * 0.03;
+	env->player.angle += env->sdl.mouse_x * env->player.rotation_speed;
 	env->player.angle_cos = cos(env->player.angle);
 	env->player.angle_sin = sin(env->player.angle);
 	env->player.perp_cos = cos(env->player.angle - M_PI / 2);
@@ -50,7 +50,7 @@ void	view(t_env *env)
 		env->player.near_left_sector = origin_left_sect;
 		env->player.near_right_sector = origin_right_sect;
 	}*/
-	env->player.angle_z = ft_fclamp(env->player.angle_z + env->sdl.mouse_y * 0.05, -5, 5);
+	env->player.angle_z = ft_fclamp(env->player.angle_z + env->sdl.mouse_y * 0.02, -5, 5);
 	env->player.angle_z_cos = cos(env->player.angle_z);
 	env->player.angle_z_sin = sin(env->player.angle_z);
 	//ft_printf("player angle = %f\n", env.player.angle);
