@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 15:43:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:39:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		doom(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
-	env.w = 1600;
-	env.h = 900;
+	env.w = 2560;
+	env.h = 1440;
 	env.running = 1;
 	init_pointers(&env);
 	init_options(&env);
