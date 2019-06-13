@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 18:40:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:20:28 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,11 @@ typedef struct		s_weapons
 	int				first_sprite;
 	int				nb_sprites;
 	int				weapon_switch;
+	int				ammo;
+	int				no_ammo;
+	int				max_ammo;
 	Mix_Chunk		*sound;
+	Mix_Chunk		*empty;
 }					t_weapons;
 
 /*
@@ -345,8 +349,7 @@ typedef struct		s_env
 	t_animation		squat;
 	t_animation		gravity;
 	t_animation		shot;
-	t_animation		weapon_down;
-	t_animation		weapon_up;
+	t_animation		weapon_change;
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_audio			sound;
@@ -387,6 +390,7 @@ int					crash(char *str, t_env *env);
  */
 
 void    			init_weapons(t_env *env);
+int     			init_sound(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
@@ -444,8 +448,8 @@ void				reset_clipped(t_env *env);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
-void    			weapon_down(t_env *env);
-void				weapon_up(t_env *env);
+void    			weapon_change(t_env *env);
+void				print_ammo(t_env *env);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);

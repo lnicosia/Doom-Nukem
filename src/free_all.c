@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 15:52:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:24:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static void	free_sectors(t_env *env)
 
 void		free_all(t_env *env)
 {
+	int i;
+
 	ft_printf("Freeing data..\n");
 	if (!env)
 		exit(0);
@@ -98,10 +100,15 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.jump);
-	if (env->weapons[0].sound)
-		Mix_FreeChunk(env->weapons[0].sound);
-	if (env->weapons[1].sound)
-		Mix_FreeChunk(env->weapons[1].sound);
+	i = 0;
+	while (i < NB_WEAPONS)
+	{
+		if (env->weapons[i].empty)
+			Mix_FreeChunk(env->weapons[i].empty);
+		if (env->weapons[i].sound)
+			Mix_FreeChunk(env->weapons[i].sound);
+		i++;
+	}
 	free_textures(env);
 	TTF_Quit();
 	Mix_CloseAudio();

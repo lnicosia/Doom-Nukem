@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 15:50:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:45:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,8 @@ int		init_sdl(t_env *env)
 					env->h,
 					SDL_WINDOW_MOUSE_FOCUS)))
 		return (ft_printf("SDL_CreateWindow error: %s\n", SDL_GetError()));
-	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
-		return (ft_printf("SDL_OpenAudio error %s\n", Mix_GetError()));
-	if(!(env->sound.background = Mix_LoadMUS("audio/at_dooms_gate.mp3")))
-    	return (ft_printf("Failed to load Music %s\n", Mix_GetError()));
-	Mix_AllocateChannels(3);
-	if (!(env->sound.footstep = Mix_LoadWAV("audio/footstep.wav")))
-		return (ft_printf("Failed to load footstep.wav %s\n", Mix_GetError()));
-	if (!(env->sound.jump = Mix_LoadWAV("audio/jump.wav")))
-		return (ft_printf("Failed to load jump.wav %s\n", Mix_GetError()));
-	if (!(env->weapons[0].sound = Mix_LoadWAV("audio/shotgun_shot.wav")))
-		return (ft_printf("Failed to load shotgun_shot.wav %s\n", Mix_GetError()));
-	if (!(env->weapons[1].sound = Mix_LoadWAV("audio/raygun_shot.wav")))
-		return (ft_printf("Failed to load raygun_shot.wav %s\n", Mix_GetError()));
-	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / 2);
+	if (init_sound(env))
+		return (ft_printf("Could not load sound\n"));
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,

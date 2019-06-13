@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 18:40:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:27:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.down = mode;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->inputs.leftclick = mode;
-	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
-		ft_printf("click droit\n");
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT && mode == 1)
+	{
+		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+			env->weapons[env->player.curr_weapon].ammo++;
+	}
 }
 
 void	update_inputs(t_env *env)
@@ -75,6 +78,6 @@ void	update_inputs(t_env *env)
 		set_inputs(env, 1);
  	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		set_inputs(env, 0);
-	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_down.on_going && !env->shot.on_going && !env->weapon_up.on_going)
-		weapon_down(env);
+	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
+		weapon_change(env);
 }

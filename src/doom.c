@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 18:45:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:57:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,14 @@ int		doom(int ac, char **av)
 		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
-		if ((env.inputs.leftclick && !env.shot.on_going && !env.weapon_down.on_going && !env.weapon_up.on_going) || env.shot.on_going)
+		if ((env.inputs.leftclick && !env.shot.on_going && !env.weapon_change.on_going) || env.shot.on_going)
 			weapon_animation(&env, env.player.curr_weapon);
 		else
 			draw_weapon(&env, env.weapons[env.player.curr_weapon].first_sprite);
-		if (env.weapon_down.on_going && !env.shot.on_going)
-			weapon_down(&env);
-		if (env.weapon_up.on_going && !env.shot.on_going)
-			weapon_up(&env);
+		if (env.weapon_change.on_going && !env.shot.on_going)
+			weapon_change(&env);
 		draw_crosshair(&env);
+		print_ammo(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)
