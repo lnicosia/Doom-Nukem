@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/14 10:57:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:36:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		doom(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	env.player.eyesight = 6.00;
-	env.player.z = 0;
 	env.player.curr_weapon = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));

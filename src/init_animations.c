@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/13 13:57:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:38:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	init_animations(t_env *env)
 {
+	env->time.start = 0;
+	env->time.end = 0;
 	env->player.state = 0;
 	env->gravity.on_going = 1;
 	env->gravity.start = 0;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 16:20:28 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:38:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct		s_player
 	t_v2			near_right;
 	double			gravity;
 	double			eyesight;
-	double			z;
 	double			angle;
 	double			angle_cos;
 	double			angle_sin;
@@ -323,13 +322,21 @@ typedef struct		s_time
 	double			milli_s;
 }					t_time;
 
-typedef struct		s_animation
+typedef struct		s_gravity
 {
 	double			start;
 	double			end;
 	double			floor;
 	double			weight;
 	double			on_going;
+}					t_gravity;
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+	double			on_going;
+	double			nb_frame;
 }					t_animation;
 
 /*
@@ -347,7 +354,7 @@ typedef struct		s_env
 	t_time			time;
 	t_animation		jump;
 	t_animation		squat;
-	t_animation		gravity;
+	t_gravity		gravity;
 	t_animation		shot;
 	t_animation		weapon_change;
 	t_vertex		*vertices;
@@ -473,5 +480,6 @@ void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
 void				jump(t_env *env);
+void				squat(t_env *env);
 
 #endif
