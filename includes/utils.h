@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 11:44:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/14 14:32:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,13 +303,21 @@ typedef struct		s_time
 	double			milli_s;
 }					t_time;
 
-typedef struct		s_animation
+typedef struct		s_gravity
 {
 	double			start;
 	double			end;
 	double			floor;
 	double			weight;
 	double			on_going;
+}					t_gravity;
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+	double			on_going;
+	double			nb_frame;
 }					t_animation;
 
 /*
@@ -327,7 +335,7 @@ typedef struct		s_env
 	t_time			time;
 	t_animation		jump;
 	t_animation		squat;
-	t_animation		gravity;
+	t_gravity		gravity;
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_audio			sound;
