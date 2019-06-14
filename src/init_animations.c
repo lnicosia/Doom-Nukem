@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/14 14:32:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/14 14:36:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,8 @@ void	init_animations(t_env *env)
 	env->squat.on_going = 0;
 	env->squat.start = 0;
 	env->squat.end = 0;
+	env->shot.on_going = 0;
+	env->shot.start = 0;
+	env->weapon_change.on_going = 0;
+	env->weapon_change.start = 0;
 }

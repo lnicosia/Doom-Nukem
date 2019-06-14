@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:38:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:05:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	parse(int fd, int index, t_env *env)
 		return (ft_printf("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (ft_printf("Error in image header\n"));
-	check_bmp_parsing(parser);
+	//check_bmp_parsing(parser);
 	ft_printf("{red}");
 	if (!(env->textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
 					0,
@@ -69,7 +69,7 @@ int			parse_bmp(char *file, int index, t_env *env)
 {
 	int	fd;
 
-	ft_printf("Parsing \"%s\"\n{red}", file);
+	//ft_printf("Parsing \"%s\"\n{red}", file);
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (ft_printf("Could not open \"%s\"\n", file));
 	if (parse(fd, index, env))

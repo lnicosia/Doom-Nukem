@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 10:29:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/14 14:36:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.shift = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.space)
 	{
-		 /* if (mode == 0)
-			Mix_PlayChannel(1, env->sound.jump, 0); */
 		env->inputs.space = mode;
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.ctrl)
@@ -59,9 +57,12 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.down)
 		env->inputs.down = mode;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		Mix_PlayChannel(2, env->sound.shotgun, 0);
-	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
-		ft_printf("click droit\n");
+		env->inputs.leftclick = mode;
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT && mode == 1)
+	{
+		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+			env->weapons[env->player.curr_weapon].ammo++;
+	}
 }
 
 void	update_inputs(t_env *env)
@@ -75,4 +76,8 @@ void	update_inputs(t_env *env)
 	}
 	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
 		set_inputs(env, 1);
+ 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
+		set_inputs(env, 0);
+	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
+		weapon_change(env);
 }
