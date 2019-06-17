@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 18:26:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:33:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,16 @@ void	render_sector(t_env *env, t_render render)
 					{
 						render.currentx = x;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
-						render.texel.x = render.alpha * (env->vertices[sector.vertices[i + 1]].x - env->vertices[sector.vertices[i]].x) + env->vertices[sector.vertices[i]].x;
-						render.texel.y = render.alpha * (env->vertices[sector.vertices[i + 1]].y - env->vertices[sector.vertices[i]].y) + env->vertices[sector.vertices[i]].y;
-						ft_printf("texel = [%f][%f]\n", render.texel.y, render.texel.x);
+						render.clipped_alpha = (x - render.x1) / (double)(render.x2 - render.x1);
+						render.texel.x = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].x / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].x / render.vz2) / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
+						render.texel.y = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].y / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].y / render.vz2) / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
+						if (render.texel.y < 0 || render.texel.y > 35 || render.texel.x < 0 || render.texel.x > 35)
+						{
+							//ft_printf("texel = [%f][%f]\n", render.texel.y, render.texel.x);
+							/*ft_printf("i = [%f][%f]\n", env->vertices[sector.vertices[i]].y, env->vertices[sector.vertices[i]].x);
+							ft_printf("i + 1 = [%f][%f]\n", env->vertices[sector.vertices[i + 1]].y, env->vertices[sector.vertices[i + 1]].x);
+							ft_printf("alpha = %f\n", render.alpha);*/
+						}
 						// Lumiere
 						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 2.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -177,8 +184,14 @@ void	render_sector(t_env *env, t_render render)
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
 						//if (x == xstart && i == 0)
 						//render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling)) * cos(env->player.angle - (((env->camera.hfov / 2.0) * (x / (env->w / 2.0))) - env->camera.hfov / 2.0) * (CONVERT_RADIANS));
-						//if (x == xstart && i == 0)
-						render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling));
+						/*if (x == xstart && i == 0)
+						{*/
+							render.horizon = (render.max_floor + render.max_ceiling) / 2.0;
+							//ft_printf("horizon = %f\n", render.horizon);
+						//}
+						//render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling));
+						render.distwall = ((env->h / 2.0) / (double)(render.max_floor - render.horizon));
+						//render.distwall = (x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1;
 						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
@@ -243,6 +256,7 @@ void	render_sector(t_env *env, t_render render)
 								draw_floor(render, env);
 							}
 						}
+						//Ligne noire pour la separation des sols
 						if (x == xstart)
 						{
 							vline.start = render.max_floor;

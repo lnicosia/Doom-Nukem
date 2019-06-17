@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/13 15:38:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:38:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	fall(t_env *env)
 			env->player.pos.z -= x;
 			env->gravity.weight = 1;
 			env->player.state = 0;
-			ft_printf("\n");
 		}
 	}
 }
