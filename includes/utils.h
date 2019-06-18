@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/14 14:38:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:58:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,13 +230,13 @@ typedef struct		s_audio
 
 typedef struct		s_weapons
 {
-	int				anim_length;
 	int				first_sprite;
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
 	int				no_ammo;
 	int				max_ammo;
+	int				damage;
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
