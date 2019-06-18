@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/17 15:33:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:30:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	render_sector(t_env *env, t_render render)
 			render.wall_height = (sector.ceiling - sector.floor) / 10;
 			render.texture = sector.textures[i];
 			render.floor_texture = sector.floor_texture;
+			render.ceiling_texture = sector.ceiling_texture;
 			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
@@ -182,15 +183,10 @@ void	render_sector(t_env *env, t_render render)
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
-						//if (x == xstart && i == 0)
-						//render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling)) * cos(env->player.angle - (((env->camera.hfov / 2.0) * (x / (env->w / 2.0))) - env->camera.hfov / 2.0) * (CONVERT_RADIANS));
-						/*if (x == xstart && i == 0)
-						{*/
-							render.horizon = (render.max_floor + render.max_ceiling) / 2.0;
-							//ft_printf("horizon = %f\n", render.horizon);
-						//}
-						//render.distwall = ((env->h) / (double)(render.max_floor - render.max_ceiling));
-						render.distwall = ((env->h / 2.0) / (double)(render.max_floor - render.horizon));
+						render.floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.distfloor = ((env->h / 2.0) / (double)(render.max_floor - render.floor_horizon));
+						render.distceiling = ((env->h / 2.0) / (double)(render.max_ceiling - render.ceiling_horizon));
 						//render.distwall = (x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1;
 						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
@@ -256,14 +252,14 @@ void	render_sector(t_env *env, t_render render)
 								draw_floor(render, env);
 							}
 						}
-						//Ligne noire pour la separation des sols
-						if (x == xstart)
+						//Ligne noire pour separer les sols
+						/*if (x == xstart)
 						{
 							vline.start = render.max_floor;
 							vline.end = env->h - 1;
 							vline.color = 0xFF;
 							draw_vline(vline, render, env);
-						}
+						}*/
 						x++;
 					}
 				}

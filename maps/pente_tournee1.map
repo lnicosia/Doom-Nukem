@@ -8,7 +8,7 @@ V 4
 # s (floor height, ceiling height, then  numbers in clockwise order)
 # After the list of es, comes the list of  numbers on the "opposite" side of that wall; "x" = none.
 S 1
-[0 0 4] [20 0 0] (0 2 3 1) (-1 -1 -1 -1) (0 0 0 0)
+[0 0 4] [12 0 0] (0 2 3 1) (-1 -1 -1 -1) (0 0 0 0)
 
 # : Location (x y), angle, and  number
 15 15 0 0

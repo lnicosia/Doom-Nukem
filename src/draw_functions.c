@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/17 15:08:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:30:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,85 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 **	Draw a vertical vline on the screen at vline.x
 */
 
+void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
+{
+	int		i;
+	double	y;
+	double	x;
+	double	alpha;
+	double	dist;
+	double	startdist;
+
+	if (env->options.contouring)
+	{
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
+		{
+			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
+				env->sdl.texture_pixels[vline.x + env->w * vline.start] = 0xFF222222;
+		}
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.end >= 0 && vline.end <= 300) || !env->options.show_minimap)
+		{
+			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
+				env->sdl.texture_pixels[vline.x + env->w * vline.end] = 0xFF222222;
+		}
+		vline.start++;
+		vline.end--;
+	}
+	i = vline.start + 1;
+	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
+	startdist = (env->h / 2.0) / (double)(i - render.ceiling_horizon);
+	while (i <= vline.end)
+	{
+		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
+		{
+			//dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
+			dist = (env->h / 2.0) / (double)(i - render.ceiling_horizon);
+			//dist = (env->h) / (double)(2.0 * i - env->h);
+			//dist = env->h / (double)(2 * i - env->h);
+			//alpha = dist / startdist;
+			alpha = dist / render.distceiling;
+			//alpha = (i - render.max_floor) / (double)(env->h - render.max_floor);
+			//alpha = (double)(env->h - render.max_floor) / (double)(i - render.max_floor);
+			//ft_printf("alpha = %f\n", alpha);
+			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+			//y = alpha * render.texel.y + (1.0 - alpha) * env->screen_pos[render.currentx].y;
+			//y = ((1.0 - alpha) * env->player.pos.y / render.vz1 + alpha * render.texel.y / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
+			double	v0;
+			v0 = 2.0;
+			//y = ((1.0 - alpha) * env->player.pos.y / v0 + alpha * render.texel.y / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
+			//ft_printf("y = %f\n", y);
+			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+			//x = alpha * render.texel.x + (1.0 - alpha) * env->screen_pos[render.currentx].x;
+			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
+			//x = ((1.0 - alpha) * env->player.pos.x / v0 + alpha * render.texel.x / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
+			y *= env->textures[render.ceiling_texture].surface->h / 5.0;
+			x *= env->textures[render.ceiling_texture].surface->w / 5.0;
+			while (y >= env->textures[render.ceiling_texture].surface->h)
+				y -= env->textures[render.ceiling_texture].surface->h;
+			while (y < 0)
+				y += env->textures[render.ceiling_texture].surface->h;
+			while (x >= env->textures[render.ceiling_texture].surface->w)
+				x -= env->textures[render.ceiling_texture].surface->w;
+			while (x < 0)
+				x += env->textures[render.ceiling_texture].surface->w;
+			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
+					&& x >= 0 && x < env->textures[render.ceiling_texture].surface->w && y >= 0 && y < env->textures[render.ceiling_texture].surface->h)
+			{
+				if (!env->options.lighting)
+					env->sdl.texture_pixels[vline.x + env->w * i] = env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y];
+				else
+					env->sdl.texture_pixels[vline.x + env->w * i] = apply_light(env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y], render.light);
+			}
+		}
+		i++;
+		//vline.start++;
+	}
+}
+
+/*
+**	Draw a vertical vline on the screen at vline.x
+*/
+
 void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 {
 	int		i;
@@ -133,17 +212,17 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	}
 	i = vline.start + 1;
 	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-	startdist = (env->h / 2.0) / (double)(i - render.horizon);
+	startdist = (env->h / 2.0) / (double)(i - render.floor_horizon);
 	while (i <= vline.end)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
 			//dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-			dist = (env->h / 2.0) / (double)(i - render.horizon);
+			dist = (env->h / 2.0) / (double)(i - render.floor_horizon);
 			//dist = (env->h) / (double)(2.0 * i - env->h);
 			//dist = env->h / (double)(2 * i - env->h);
 			//alpha = dist / startdist;
-			alpha = dist / render.distwall;
+			alpha = dist / render.distfloor;
 			//alpha = (i - render.max_floor) / (double)(env->h - render.max_floor);
 			//alpha = (double)(env->h - render.max_floor) / (double)(i - render.max_floor);
 			//ft_printf("alpha = %f\n", alpha);
@@ -158,8 +237,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			//x = alpha * render.texel.x + (1.0 - alpha) * env->screen_pos[render.currentx].x;
 			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
 			//x = ((1.0 - alpha) * env->player.pos.x / v0 + alpha * render.texel.x / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
-			y *= env->textures[render.floor_texture].surface->h / 5;
-			x *= env->textures[render.floor_texture].surface->w / 5;
+			y *= env->textures[render.floor_texture].surface->h / 5.0;
+			x *= env->textures[render.floor_texture].surface->w / 5.0;
 			while (y >= env->textures[render.floor_texture].surface->h)
 				y -= env->textures[render.floor_texture].surface->h;
 			while (y < 0)
@@ -197,7 +276,8 @@ void	draw_ceiling(t_render render, t_env *env)
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
 	//ft_printf("floor end = %d\n", vline.end);
-	draw_vline_color(vline, render, env);
+	//draw_vline_color(vline, render, env);
+	draw_vline_ceiling(vline, render, env);
 }
 
 /*
