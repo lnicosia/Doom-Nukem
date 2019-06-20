@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/13 15:22:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:44:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 static int	init_vertices(t_env *env, t_map_parser *parser)
 {
 	char	*line;
+	char	*tmp;
 
-	while ((parser->ret = get_next_line(parser->fd, &line)))
+	while ((parser->ret = get_next_line(parser->fd, &tmp)))
 	{
 		parser->line_count++;
+		line = tmp;
 		if (parser->ret == -1)
 			return (ft_printf("Invalid file\n"));
 		if (line[0] == 'V' && line[1] == ' '
@@ -40,13 +42,14 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
 				return (ft_printf("Could not malloc vertices!\n", env));
+			ft_strdel(&tmp);
 			return (0);
 		}
 		else if (line[0] != '#')
 			return (ft_printf("Wrong format of vertices number "
 						"declaration (line %d)\nEx: \"V 127\" (> 2)\n",
 						parser->line_count));
-		ft_strdel(&line);
+		ft_strdel(&tmp);
 	}
 	return (0);
 }
@@ -55,11 +58,13 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 {
 	int		i;
 	char	*line;
+	char	*tmp;
 
 	line = NULL;
-	while ((parser->ret = get_next_line(parser->fd, &line)))
+	while ((parser->ret = get_next_line(parser->fd, &tmp)))
 	{
 		parser->line_count++;
+		line = tmp;
 		if (line[0] == 'S' && line[1] == ' '
 				&& line[2] >= '0' && line[2] <= '9')
 		{
@@ -103,13 +108,14 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 				env->sectors[i].textures = NULL;
 				i++;
 			}
+			ft_strdel(&tmp);
 			return (0);
 		}
 		else if (line[0] != '#')
 			return (ft_printf("Wrong format of sectors number "
 						"declaration (line %d)\nEx: \"S 35\" (> 0)\n",
 						parser->line_count));
-		ft_strdel(&line);
+		ft_strdel(&tmp);
 	}
 	return (0);
 }
@@ -136,10 +142,12 @@ void	set_sectors_xmax(t_env *env)
 int		parse_player(t_env *env, t_map_parser *parser)
 {
 	char	*line;
+	char	*tmp;
 
-	while ((parser->ret = get_next_line(parser->fd, &line)))
+	while ((parser->ret = get_next_line(parser->fd, &tmp)))
 	{
 		parser->line_count++;
+		line = tmp;
 		if (line[0] >= '0' && line[0] <= '9')
 		{
 			env->player.pos.y = ft_atof(line);
@@ -163,6 +171,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 		else if (line[0] != '#')
 			return (ft_printf("Invalid character at line %d\n",
 						parser->line_count));
+		ft_strdel(&tmp);
 	}
 	return (0);
 }

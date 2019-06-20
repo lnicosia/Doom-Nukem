@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 11:33:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:47:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,26 +214,30 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 int			parse_sectors(t_env *env, t_map_parser *parser)
 {
 	char	*line;
+	char	*tmp;
 
+	line = NULL;
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &line)))
 	{
+		tmp = line;
 		parser->line_count++;
-		if (line[0] == '[')
+		if (tmp[0] == '[')
 		{
-			line++;
-			if (parse_sector(env, line, parser))
+			tmp++;
+			if (parse_sector(env, tmp, parser))
 				return (ft_printf("Error while parsing sector %d (line %d)\n",
 							parser->sectors_count, parser->line_count));
 			parser->sectors_count++;
 		}
-		else if (line[0] == '\0' && parser->sectors_count < env->nb_sectors)
+		else if (tmp[0] == '\0' && parser->sectors_count < env->nb_sectors)
 			return (ft_printf("You must still declare %d sectors (line %d)\n",
 						env->nb_sectors - parser->sectors_count,
 						parser->line_count));
-		else if (line[0] != '#')
+		else if (tmp[0] != '#')
 			return (ft_printf("Invalid character at line %d\n"
 						, parser->line_count));
+		ft_strdel(&line);
 	}
 	if ((parser->ret = get_next_line(parser->fd, &line)))
 	{
@@ -242,6 +246,7 @@ int			parse_sectors(t_env *env, t_map_parser *parser)
 			return (ft_printf("Line %d must be an empty line "
 						"(every sector has been declared)\n",
 						parser->line_count));
+		ft_strdel(&line);
 	}
 	else
 		return (ft_printf("File ended at sectors declaration\n"));

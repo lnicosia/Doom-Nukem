@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 09:51:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:24:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			{
 				if (!env->options.lighting)
 					env->sdl.texture_pixels[vline.x + env->w * i] = env->textures[render.texture].str[(int)x + env->textures[render.texture].surface->w * (int)y];
+					//env->sdl.texture_pixels[0] = 0xFFFF0000;
 				else
 					env->sdl.texture_pixels[vline.x + env->w * i] = apply_light(env->textures[render.texture].str[(int)x + env->textures[render.texture].surface->w * (int)y], render.light);
 			}
@@ -77,6 +78,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 {
 	(void)render;
+	int	coord;
+
 	if (env->options.contouring)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
@@ -94,10 +97,12 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 	}
 	while (vline.start <= vline.end)
 	{
+		coord = vline.x + env->w * vline.start;
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
 			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				env->sdl.texture_pixels[vline.x + env->w * vline.start] = vline.color;
+				//env->sdl.texture_pixels[100000] = vline.color;
+				env->sdl.texture_pixels[coord] = vline.color;
 		}
 		vline.start++;
 	}

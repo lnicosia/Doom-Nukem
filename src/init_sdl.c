@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:17:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:48:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,25 @@ int		init_sdl(t_env *env)
 					-1,
 					SDL_RENDERER_TARGETTEXTURE)))
 		return (ft_printf("SDL_CreateRenderer error: %s\n", SDL_GetError()));
+	// Check renderer info
+	/*SDL_RendererInfo	info;
+	SDL_GetRendererInfo(env->sdl.renderer, &info);
+	ft_printf("renderer:\nname: %s\nflags: %X\nnum_texture_formats: %x\n",
+			info.name, info.flags, info.num_texture_formats);
+	ft_printf("SDL_RENDER_SOFTWARE = %X\n", SDL_RENDERER_SOFTWARE);
+	ft_printf("SDL_RENDER_ACCELERATED = %X\n", SDL_RENDERER_ACCELERATED);
+	ft_printf("SDL_RENDER_PRESENTVSYNC = %X\n", SDL_RENDERER_PRESENTVSYNC);
+	ft_printf("SDL_RENDER_TARGETTEXTURE = %X\n", SDL_RENDERER_TARGETTEXTURE);
+	ft_printf("OR'd = %X\n", 2 | 8);
+	ft_printf("texture formats:\n");
+	unsigned int i = 0;
+	while (i < info.num_texture_formats)
+	{
+		ft_printf("%s\n", SDL_GetPixelFormatName(info.texture_formats[i]));
+		i++;
+	}
+	ft_printf("max width = %d\n", info.max_texture_width);
+	ft_printf("max height = %d\n", info.max_texture_height);*/
 	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
 		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/
 	if (!(env->sdl.surface = SDL_CreateRGBSurfaceWithFormat(
@@ -51,7 +70,7 @@ int		init_sdl(t_env *env)
 					env->w,
 					env->h,
 					32,
-					SDL_PIXELFORMAT_RGBA8888)))
+					SDL_PIXELFORMAT_ARGB8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
 	if (SDL_SetSurfaceBlendMode(env->sdl.surface, SDL_BLENDMODE_BLEND))
 		return (ft_printf("SDL_SurfaceDrawBlendMode error: %s\n", SDL_GetError()));
@@ -70,13 +89,13 @@ int		init_sdl(t_env *env)
 	clear_image(env);
 	if (SDL_SetRelativeMouseMode(1))
 		return (ft_printf("SDL_SetRelativeMouseMode error: %s\n", SDL_GetError()));
-	/*if (SDL_RenderCopy(
+	if (SDL_RenderCopy(
 				env->sdl.renderer,
 				env->sdl.texture,
 				NULL,
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
-	SDL_RenderPresent(env->sdl.renderer);*/
+	SDL_RenderPresent(env->sdl.renderer);
 	env->time.milli_s =  0;
 	return (0);
 }
