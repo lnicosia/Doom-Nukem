@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/20 11:44:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 13:51:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ int		parse_map(char *file, t_env *env)
 		return (ft_printf("Could not init sectors\n"));
 	if (parse_sectors(env, &parser))
 		return (ft_printf("Error while parsing sectors\n"));
+	if (parse_objects(env, &parser))
+		return (ft_printf("Error while parsing objects\n"));
 	if (parse_player(env, &parser))
 		return (ft_printf("Error while parsing player\n"));
 	if (env->player.sector == -1)

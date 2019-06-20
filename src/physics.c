@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/17 15:38:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:55:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	jump(t_env *env)
 	env->gravity.on_going = 0;
 	if (!env->jump.on_going)
 	{
-		Mix_PlayChannel(1, env->sound.jump, 0);
+		//Mix_PlayChannel(1, env->sound.jump, 0);
 		env->jump.on_going = env->time.tenth_s;
 	}
 	env->jump.start = env->time.tenth_s;

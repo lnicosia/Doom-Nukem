@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/06/20 11:37:31 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/06/20 16:08:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,10 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c map_parser.
 		  maths_utils.c fill_triangle.c color_utils.c clipping.c init_camera.c \
 		  keys.c print_debug.c intersections.c init_animations.c get_screen_sectors.c \
 		  draw_line.c map_parse_vertices.c map_parse_sectors.c map_parser_utils.c \
-		  map_parse_sectors_utils.c init_textures.c weapon_load.c physics.c\
+		  map_parse_sectors_utils.c init_textures.c weapons.c physics.c init_weapons.c\
+		  init_sound.c map_parse_objects.c draw_sprites.c sprites_maths.c
 
-HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h
+HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
@@ -45,7 +46,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -flto -fno-builtin -O3
+		  -flto -fno-builtin -O3 \
 		  #-fsanitize=address -g3 \
 
 DEBUG ?= 0

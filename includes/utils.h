@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 18:25:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:51:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <SDL_mixer.h>
 # include <fcntl.h>
 # include "libft.h"
+# include "object_types.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
@@ -25,7 +26,8 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define CONVERT_RADIANS 0.0174532925199432955
-# define MAX_TEXTURE 7
+# define MAX_TEXTURE 29
+# define NB_WEAPONS 2
 
 typedef struct		s_point
 {
@@ -127,6 +129,7 @@ typedef struct		s_player
 	short			near_left_sector;
 	short			near_right_sector;
 	int				state;
+	int				curr_weapon;
 }					t_player;
 
 /*
@@ -197,6 +200,7 @@ typedef struct		s_inputs
 	uint8_t			space;
 	uint8_t			up;
 	uint8_t			down;
+	uint8_t			leftclick;
 }					t_inputs;
 
 /*
@@ -220,8 +224,43 @@ typedef struct		s_audio
 	Mix_Music		*background;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;
-	Mix_Chunk		*shotgun;
 }					t_audio;
+
+/*
+** Weapon structure
+*/
+
+typedef struct		s_weapons
+{
+	int				possessed;
+	int				first_sprite;
+	int				nb_sprites;
+	int				weapon_switch;
+	int				ammo;
+	int				no_ammo;
+	int				max_ammo;
+	int				damage;
+	Mix_Chunk		*sound;
+	Mix_Chunk		*empty;
+}					t_weapons;
+
+/*
+** Object structure
+*/
+
+typedef struct		s_object
+{
+	int				type;
+	int				sprites[8];
+	int				pickable;
+	int				solid;
+	t_v3			pos;
+	t_point			start;
+	double			width;
+	double			height;
+	int				sector;
+	int				drawn;
+}					t_object;
 
 /*
  ** SDL data necessities
@@ -304,13 +343,21 @@ typedef struct		s_time
 	double			milli_s;
 }					t_time;
 
-typedef struct		s_animation
+typedef struct		s_gravity
 {
 	double			start;
 	double			end;
 	double			floor;
 	double			weight;
 	double			on_going;
+}					t_gravity;
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+	double			on_going;
+	double			nb_frame;
 }					t_animation;
 
 /*
@@ -328,12 +375,16 @@ typedef struct		s_env
 	t_time			time;
 	t_animation		jump;
 	t_animation		squat;
-	t_animation		gravity;
+	t_gravity		gravity;
+	t_animation		shot;
+	t_animation		weapon_change;
 	t_vertex		*vertices;
 	t_sector		*sectors;
+	t_object		*objects;
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
 	t_v2			*screen_pos;
+	t_weapons		weapons[NB_WEAPONS];
 	double			*depth_array;
 	int				horizon;
 	int				*xmin;
@@ -346,6 +397,7 @@ typedef struct		s_env
 	int				running;
 	int				nb_sectors;
 	int				nb_vertices;
+	int				nb_objects;
 	int				flag;
 }					t_env;
 
@@ -369,6 +421,8 @@ int					crash(char *str, t_env *env);
  ** Init functions
  */
 
+void    			init_weapons(t_env *env);
+int     			init_sound(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
@@ -424,7 +478,10 @@ void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 
-void				draw_weapon(t_env *env);
+void				draw_weapon(t_env *env, int sprite);
+void				weapon_animation(t_env *env, int sprite);
+void    			weapon_change(t_env *env);
+void				print_ammo(t_env *env);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);
