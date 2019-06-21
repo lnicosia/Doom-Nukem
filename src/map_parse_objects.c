@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 15:51:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:53:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[0].pos.x = 5;
 	env->objects[0].pos.y = 5;
 	env->objects[0].pos.z = 0;
-	env->objects[0].start.x = 0;
-	env->objects[0].start.y = 0;
+	env->objects[0].start.x = 511;
+	env->objects[0].start.y = 101;
+	env->objects[0].size.x = 51;
+	env->objects[0].size.y = 24;
 	env->objects[0].width = 2;
 	env->objects[0].height = 2;
 	env->objects[0].sector = 0;
