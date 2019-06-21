@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 14:27:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:01:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,9 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load shotgun textures\n"));
 	if (init_raygun(env))
 		return (ft_printf("Failed to load raygun textures\n"));
+	if (parse_bmp("images/HUD/Ammo_hud.bmp", 28, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/Life_armor_hud.bmp", 29, env))
+		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }

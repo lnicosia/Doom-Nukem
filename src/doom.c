@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/14 14:36:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:50:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		doom(int ac, char **av)
 	init_weapons(&env);
 	env.player.eyesight = 6.00;
 	env.player.curr_weapon = 0;
+	env.player.life = 100;
+	env.player.armor = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_ttf(&env))
@@ -80,6 +82,7 @@ int		doom(int ac, char **av)
 		keys(&env);
 		if (draw(&env) != 0)
 			return (crash("Render function failed\n", &env));
+		draw_hud(&env);
 		if ((env.inputs.leftclick && !env.shot.on_going && !env.weapon_change.on_going) || env.shot.on_going)
 			weapon_animation(&env, env.player.curr_weapon);
 		else
@@ -87,7 +90,6 @@ int		doom(int ac, char **av)
 		if (env.weapon_change.on_going && !env.shot.on_going)
 			weapon_change(&env);
 		draw_crosshair(&env);
-		print_ammo(&env);
 		if (env.options.show_fps)
 			fps(&env);
 		if (env.options.test)

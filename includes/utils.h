@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/18 13:58:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:29:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 28
+# define MAX_TEXTURE 30
 # define NB_WEAPONS 2
+# define AMMO_HUD 28
+# define ARMOR_LIFE_HUD 29
 
 typedef struct		s_point
 {
@@ -128,6 +130,8 @@ typedef struct		s_player
 	short			near_right_sector;
 	int				state;
 	int				curr_weapon;
+	int				life;
+	int				armor;
 }					t_player;
 
 /*
@@ -457,6 +461,8 @@ void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void    			weapon_change(t_env *env);
 void				print_ammo(t_env *env);
+
+void				draw_hud(t_env *env);
 
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);

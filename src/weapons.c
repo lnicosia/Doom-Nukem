@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/13 16:23:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:07:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    draw_weapon(t_env *env, int sprite)
 
     x = 0;
     window_w = (int)(env->w - env->textures[sprite].surface->w) / 1.5;
-    window_h = (env->h - env->textures[sprite].surface->h) + env->weapons[0].weapon_switch;
+    window_h = (env->h - env->textures[sprite].surface->h + env->weapons[0].weapon_switch);
     while (x < env->textures[sprite].surface->w)
     {
         y = 0;
@@ -34,7 +34,6 @@ void    draw_weapon(t_env *env, int sprite)
         }
         x++;
     }
-    //update_screen(env);
 }
 
 void    weapon_animation(t_env *env, int nb)
@@ -101,12 +100,10 @@ void    print_ammo(t_env *env)
 {
     char *str;
 
-    str = "Ammo = ";
-    print_text(new_point(env->h - env->h / 15, env->w / 4), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xFFFFFF00, 0), env);
     str = ft_itoa(env->weapons[env->player.curr_weapon].ammo);
-    print_text(new_point(env->h - env->h / 15, env->w / 4 + 110), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xFFFFFF00, 0), env);
+    print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
     str = "/";
-    print_text(new_point(env->h - env->h / 15, env->w / 4 + 160), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xFFFFFF00, 0), env);
+    print_text(new_point(env->h - env->h / 12, env->w - env->w / 19), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
     str = ft_itoa(env->weapons[env->player.curr_weapon].max_ammo);
-    print_text(new_point(env->h - env->h / 15, env->w / 4 + 180), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xFFFFFF00, 0), env);
+    print_text(new_point(env->h - env->h / 12, env->w - env->w / 24), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
 }
