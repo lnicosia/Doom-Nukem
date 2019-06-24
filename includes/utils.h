@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/21 15:33:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/24 12:03:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,15 +250,17 @@ typedef struct		s_weapons
 
 typedef struct		s_object
 {
-	int				type;
+	int				oriented;
 	int				sprites[8];
 	int				pickable;
 	int				solid;
 	t_v3			pos;
 	t_point			start;
+	t_point			end;
 	t_point			size;
 	double			width;
 	double			height;
+	double			scale;
 	int				sector;
 	int				drawn;
 }					t_object;
