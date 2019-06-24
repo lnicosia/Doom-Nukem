@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 15:41:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:10:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,12 @@ static void		reset_render_utils(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		env->rendered_sectors[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].drawn = 0;
 		i++;
 	}
 }

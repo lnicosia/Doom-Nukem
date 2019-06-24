@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 13:45:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:10:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int		init_textures(t_env *env)
 	if (init_raygun(env))
 		return (ft_printf("Failed to load raygun textures\n"));
 	if (parse_bmp("images/sprite_sheet.bmp", 28, env))
+		return (ft_printf("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/lost_soul.bmp", 29, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
 	return (0);
 }
