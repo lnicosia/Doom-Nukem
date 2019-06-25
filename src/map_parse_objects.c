@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 19:03:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/25 10:39:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[1].scale = 60;
 	env->objects[1].sector = 0;
 	env->objects[1].drawn = 0;
-	env->objects[1].angle = 90;
+	env->objects[1].angle = -90;
 
 	env->objects[1].start[0].x = 44;
 	env->objects[1].start[0].y = 120;
