@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 15:19:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:16:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,27 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	ystart = orender.screen_pos.y - sprite.size[index].y / (orender.rotated_pos.z / object.scale);
 	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
 	yend = (orender.screen_pos.y);
-	x = xstart;
+	x = xstart + 1;
 	while (x < xend)
 	{
 		xalpha = (x - xstart) / (double)(xend - xstart);
 		if (sprite.reversed[index])
 			xalpha = 1.0 - xalpha;
 		textx = (1.0 - xalpha) * sprite.start[index].x + xalpha * sprite.end[index].x;
-		y = ystart;
+		y = ystart + 1;
 		while (y < yend)
 		{
 			yalpha = (y - ystart) / (double)(yend - ystart);
 			texty = (1.0 - yalpha) * sprite.start[index].y + yalpha * sprite.end[index].y;
-			if (x >= 0 && x < env->w && y >= 0 && y < env->h
-					&& texture.str[textx + texty * texture.surface->w] != 0xFFC10099)
-			{
-				if (!env->options.lighting)
-					env->sdl.texture_pixels[x + y * env->w] = texture.str[textx + texty * texture.surface->w];
-				else
-					env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], render->light);
-			}
+			if (!(x >= env->w - 300 && x < env->w && y >= 0 && y <= 300) || !env->options.show_minimap)
+				if (x >= 0 && x < env->w && y >= 0 && y < env->h
+						&& texture.str[textx + texty * texture.surface->w] != 0xFFC10099)
+				{
+					if (!env->options.lighting)
+						env->sdl.texture_pixels[x + y * env->w] = texture.str[textx + texty * texture.surface->w];
+					else
+						env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], render->light);
+				}
 			y++;
 		}
 		x++;

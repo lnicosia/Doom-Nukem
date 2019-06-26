@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 15:10:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:41:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,9 @@ void	render_sector(t_env *env, t_render render)
 							ft_printf("i + 1 = [%f][%f]\n", env->vertices[sector.vertices[i + 1]].y, env->vertices[sector.vertices[i + 1]].x);
 							ft_printf("alpha = %f\n", render.alpha);*/
 						}
+						render.z = (x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1;
 						// Lumiere
-						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 2.00, 0.00, 255.00);
+						render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
 						render.max_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
@@ -224,9 +225,9 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							if (env->depth_array[x] < render.light)
+							if (env->depth_array[x] < render.z)
 							{
-								env->depth_array[x] = render.light;
+								env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else

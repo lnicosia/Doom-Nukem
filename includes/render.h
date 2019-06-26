@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 10:45:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:40:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_render
 	double			clipped_vy1;
 	double			clipped_vy2;
 	double			light;
+	double			z;
 	double			dist1;
 	double			dist2;
 	double			floor_slope;
