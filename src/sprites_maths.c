@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 10:48:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:12:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 void	get_translated_object_pos(t_render_object *orender, t_object object, t_env *env)
 {
-	orender->translated_left_bottom.x = (object.pos.x - object.width / 2.0)
-		- env->player.pos.x;
+	/*orender->translated_left_bottom.x = (object.pos.x - object.width / 2.0)
+		- env->player.pos.x;*/
 	orender->translated_left_bottom.z = object.pos.y - env->player.pos.y;
 	orender->translated_left_bottom.y = (object.pos.z - env->player.pos.z);
-	orender->translated_right_bottom.x = (object.pos.x + object.width / 2.0)
-		- env->player.pos.x;
+	/*orender->translated_right_bottom.x = (object.pos.x + object.width / 2.0)
+		- env->player.pos.x;*/
 	orender->translated_right_bottom.z = orender->translated_left_bottom.z;
 	orender->translated_right_bottom.y = orender->translated_left_bottom.y;
 	orender->translated_left_top.x = orender->translated_left_top.x;
 	orender->translated_left_top.z = orender->translated_left_top.z;
-	orender->translated_left_top.y = (object.pos.z + object.height)
-		- env->player.pos.z;
+	/*orender->translated_left_top.y = (object.pos.z + object.height)
+		- env->player.pos.z;*/
 	orender->translated_right_top.x = orender->translated_right_top.x;
 	orender->translated_right_top.z = orender->translated_right_top.z;
 	orender->translated_right_top.y = orender->translated_left_top.y;

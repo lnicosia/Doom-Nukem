@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 11:52:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:15:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		doom(int ac, char **av)
 		return (crash("Invalid map!\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (init_sprites(&env))
+		return (crash("Could not init sprites\n", &env));
 	SDL_SetRelativeMouseMode(1);
 	env.flag = 0;
 	env.player.speed = 0.5;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 14:47:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:19:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	get_sprite_direction(t_object object, t_render_object orender)
 void		draw_object(t_object object, t_env *env, t_render *render)
 {
 	t_render_object	orender;
+	t_sprite		sprite;
 	int				x;
 	int				xstart;
 	int				xend;
@@ -73,32 +74,33 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	t_texture		texture;
 
 	(void)render;
+	sprite = env->sprites[object.sprite];
 	get_translated_object_pos(&orender, object, env);
 	get_rotated_object_pos(&orender, env);
 	project_object(&orender, object, env);
 	if (orender.rotated_pos.z <= 1)
 		return ;
-	if (!object.oriented)
+	if (!sprite.oriented)
 		index = 0;
 	else
 		index = get_sprite_direction(object, orender);
-	texture = env->textures[object.sprite];
-	xstart = orender.screen_pos.x - object.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
-	ystart = orender.screen_pos.y - object.size[index].y / (orender.rotated_pos.z / object.scale);
-	xend = orender.screen_pos.x + object.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
+	texture = env->textures[sprite.texture];
+	xstart = orender.screen_pos.x - sprite.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
+	ystart = orender.screen_pos.y - sprite.size[index].y / (orender.rotated_pos.z / object.scale);
+	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
 	yend = (orender.screen_pos.y);
 	x = xstart;
 	while (x < xend)
 	{
 		xalpha = (x - xstart) / (double)(xend - xstart);
-		if (object.reversed[index])
+		if (sprite.reversed[index])
 			xalpha = 1.0 - xalpha;
-		textx = (1.0 - xalpha) * object.start[index].x + xalpha * object.end[index].x;
+		textx = (1.0 - xalpha) * sprite.start[index].x + xalpha * sprite.end[index].x;
 		y = ystart;
 		while (y < yend)
 		{
 			yalpha = (y - ystart) / (double)(yend - ystart);
-			texty = (1.0 - yalpha) * object.start[index].y + yalpha * object.end[index].y;
+			texty = (1.0 - yalpha) * sprite.start[index].y + yalpha * sprite.end[index].y;
 			if (x >= 0 && x < env->w && y >= 0 && y < env->h
 					&& texture.str[textx + texty * texture.surface->w] != 0xFFC10099)
 			{
