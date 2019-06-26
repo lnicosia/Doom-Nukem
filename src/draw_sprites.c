@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 13:46:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:47:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	xend = orender.screen_pos.x + object.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
 	yend = (orender.screen_pos.y);
 	x = xstart;
-	while (x <= xend)
+	while (x < xend)
 	{
 		xalpha = (x - xstart) / (double)(xend - xstart);
 		if (object.reversed[index])
 			xalpha = 1.0 - xalpha;
 		textx = (1.0 - xalpha) * object.start[index].x + xalpha * object.end[index].x;
 		y = ystart;
-		while (y <= yend)
+		while (y < yend)
 		{
 			yalpha = (y - ystart) / (double)(yend - ystart);
 			texty = (1.0 - yalpha) * object.start[index].y + yalpha * object.end[index].y;
