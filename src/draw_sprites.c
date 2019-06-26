@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 13:45:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:46:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ void		draw_sprites(t_env *env, t_render *render)
 	{
 		if (env->objects[i].sector == render->sector && !env->objects[i].drawn)
 		{
-			if (i == 1)
-				draw_object(env->objects[i], env, render);
+			draw_object(env->objects[i], env, render);
 			env->objects[i].drawn = 1;
 		}
 		i++;
