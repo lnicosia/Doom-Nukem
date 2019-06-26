@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/05 15:01:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:48:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	init_keys(t_env *env)
 	env->keys.space = SDLK_SPACE;
 	env->keys.up = SDLK_PAGEUP;
 	env->keys.down = SDLK_PAGEDOWN;
+	env->keys.option = SDLK_o;
 }

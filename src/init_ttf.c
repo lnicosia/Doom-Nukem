@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 19:07:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:42:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int		init_ttf(t_env *env)
 	if (TTF_Init() == -1)
 		return(ft_printf("SDL_Init Error: %s\n", SDL_GetError()));
 	//env->sdl.font = TTF_OpenFont("fonts/heartwrecked.ttf", 65);
+	env->sdl.fonts.amazdoom70 = TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 70);
 	env->sdl.fonts.amazdoom50 = TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 50);
 	env->sdl.fonts.amazdoom20 = TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 20);
-	env->sdl.fonts.alice = TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 30);
+	env->sdl.fonts.alice30 = TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 30);
+	env->sdl.fonts.alice70 = TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 70);
 	env->sdl.fonts.bebasneue = TTF_OpenFont("fonts/bebas_neue/BebasNeue-Regular.ttf", 20);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:22:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/24 12:28:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	init_pointers(t_env *env)
 	env->sdl.fonts.amazdoom20 = NULL;
 	env->sdl.fonts.amazdoom50 = NULL;
 	env->sdl.fonts.bebasneue = NULL;
-	env->sdl.fonts.alice = NULL;
+	env->sdl.fonts.alice30 = NULL;
+	env->sdl.fonts.alice70 = NULL;
 	env->sound.background = NULL;
 	env->sound.footstep = NULL;
 	env->sound.jump = NULL;

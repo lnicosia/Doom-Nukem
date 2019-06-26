@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 14:27:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/26 15:29:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,20 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load shotgun textures\n"));
 	if (init_raygun(env))
 		return (ft_printf("Failed to load raygun textures\n"));
+	return (0);
+}
+
+int		init_wallpapers_and_buttons(t_env *env)
+{
+	if (parse_bmp("images/wallpaper1.bmp", 28, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/wallpaper2.bmp", 29, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/left.bmp", 30, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/right.bmp", 31, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/menu.bmp", 32, env))
+		return (ft_printf("invalid bmp file\n"));
 	return (0);
 }

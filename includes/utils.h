@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/14 14:37:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/06/26 18:26:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 28
+# define MAX_TEXTURE 33
 # define NB_WEAPONS 2
 
 typedef struct		s_point
@@ -179,6 +179,7 @@ typedef struct		s_keys
 	int				space;
 	int				down;
 	int				up;
+	int				option;
 }					t_keys;
 
 /*
@@ -198,7 +199,9 @@ typedef struct		s_inputs
 	uint8_t			space;
 	uint8_t			up;
 	uint8_t			down;
+	uint8_t			left_click;
 	uint8_t			leftclick;
+	uint8_t			option;
 }					t_inputs;
 
 /*
@@ -207,9 +210,11 @@ typedef struct		s_inputs
 
 typedef struct		s_fonts
 {
+	TTF_Font		*amazdoom70;
 	TTF_Font		*amazdoom50;
 	TTF_Font		*amazdoom20;
-	TTF_Font		*alice;
+	TTF_Font		*alice30;
+	TTF_Font		*alice70;
 	TTF_Font		*bebasneue;
 }					t_fonts;
 
@@ -219,6 +224,11 @@ typedef struct		s_fonts
 
 typedef struct		s_audio
 {
+	int				g_music;
+	int				b_jump;
+	int				b_footstep;
+	int				b_music;
+	int				b_weapon;
 	Mix_Music		*background;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;
@@ -259,6 +269,8 @@ typedef struct		s_sdl
 	unsigned int	*image_str;
 	int				mouse_x;
 	int				mouse_y;
+	int				mx;
+	int				my;
 	int				time;
 	int				pitch;
 }					t_sdl;
@@ -337,6 +349,7 @@ typedef struct		s_animation
 	double			end;
 	double			on_going;
 	double			nb_frame;
+	double			a_time;
 }					t_animation;
 
 /*
@@ -362,18 +375,28 @@ typedef struct		s_env
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
 	t_weapons		weapons[NB_WEAPONS];
+	int				option;
+	int				menu_start;
+	char			*fps;
 	double			*depth_array;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
 	int				screen_sectors_size;
 	short			*rendered_sectors;
+	int				screen_w[3];
+	int				screen_h[3];
+	char			**res;
 	int				w;
 	int				h;
+	int				i;
 	int				running;
 	int				nb_sectors;
 	int				nb_vertices;
 	int				flag;
+	int				ac1;
+	char			**av1;
+	int				reset;
 }					t_env;
 
 /*
@@ -388,7 +411,8 @@ typedef struct		s_env
  ** Main functions
  */
 
-int					doom(int ac, char **av);
+int					init_program(int ac, char **av, int restart);
+int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
@@ -396,6 +420,7 @@ int					crash(char *str, t_env *env);
  ** Init functions
  */
 
+int					init_screen_size(t_env *env, int i);
 void    			init_weapons(t_env *env);
 int     			init_sound(t_env *env);
 void				init_animations(t_env *env);
@@ -403,6 +428,7 @@ void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
+int					init_wallpapers_and_buttons(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
@@ -447,6 +473,7 @@ Uint32				apply_light(Uint32 color, uint8_t light);
  */
 
 int					draw(t_env *env);
+int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
 void				minimap(t_env *e);
@@ -481,5 +508,8 @@ void				animations(t_env *env);
 void				fall(t_env *env);
 void				jump(t_env *env);
 void				squat(t_env *env);
+int					open_options(t_env *env);
+void				add_image(t_env *env, int i, int x, int y);
+void				start_menu(t_env *env);
 
 #endif

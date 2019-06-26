@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:24:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:04:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.amazdoom50);
 	if (env->sdl.fonts.amazdoom20)
 		TTF_CloseFont(env->sdl.fonts.amazdoom20);
-	if (env->sdl.fonts.alice)
-		TTF_CloseFont(env->sdl.fonts.alice);
+	if (env->sdl.fonts.alice30)
+		TTF_CloseFont(env->sdl.fonts.alice30);
+	if (env->sdl.fonts.alice70)
+		TTF_CloseFont(env->sdl.fonts.alice70);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
 	if (env->sectors)
