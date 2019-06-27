@@ -6,18 +6,18 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 18:16:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:20:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "render.h"
 
-static int	get_sprite_direction(t_object object, t_render_object orender)
+static int	get_sprite_direction(t_object object)
 {
 	double	angle;
 
-	angle = (atan2(orender.translated_pos.z, orender.translated_pos.x)) * CONVERT_DEGREES;
+	angle = (atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES;
 	if (angle >= object.angle - 22.5 && angle < object.angle + 22.5)
 		return (4);
 	else if (angle >= object.angle + 22.5 && angle < object.angle + 67.5)
@@ -74,24 +74,24 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	t_texture		texture;
 
 	(void)render;
-	sprite = env->sprites[object.sprite];
-	get_translated_object_pos(&orender, object, env);
-	get_rotated_object_pos(&orender, env);
 	project_object(&orender, object, env);
-	if (orender.rotated_pos.z <= 1)
+	sprite = env->sprites[object.sprite];
+	if (object.rotated_pos.z <= 1)
 		return ;
 	if (!sprite.oriented)
 		index = 0;
 	else
-		index = get_sprite_direction(object, orender);
+		index = get_sprite_direction(object);
 	texture = env->textures[sprite.texture];
-	xstart = orender.screen_pos.x - sprite.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
-	ystart = orender.screen_pos.y - sprite.size[index].y / (orender.rotated_pos.z / object.scale);
-	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (orender.rotated_pos.z / object.scale);
+	xstart = orender.screen_pos.x - sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
+	ystart = orender.screen_pos.y - sprite.size[index].y / (object.rotated_pos.z / object.scale);
+	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
 	yend = (orender.screen_pos.y);
-	x = xstart + 1;
-	while (x < xend)
+	x = xstart;
+	while (++x < xend)
 	{
+		if (object.rotated_pos.z > env->depth_array[x])
+			continue;
 		xalpha = (x - xstart) / (double)(xend - xstart);
 		if (sprite.reversed[index])
 			xalpha = 1.0 - xalpha;
@@ -112,7 +112,62 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 				}
 			y++;
 		}
-		x++;
+	}
+}
+
+static void	get_relative_pos(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		get_translated_object_pos(&env->objects[i], env);
+		get_rotated_object_pos(&env->objects[i], env);
+		i++;
+	}
+}
+
+static void	swap_objects(t_object *o1, t_object *o2)
+{
+	t_object	tmp;
+
+	tmp = *o1;
+	*o1 = *o2;
+	*o2 = tmp;
+}
+
+static int	partition(t_object *objects, int start, int end)
+{
+	int	pivot;
+	int	i;
+	int	j;
+	
+	pivot = objects[end].rotated_pos.z;
+	i = start - 1;
+	j = start;
+	while (j < end)
+	{
+		if (objects[j].rotated_pos.z > pivot)
+		{
+			i++;
+			swap_objects(&objects[i], &objects[j]);
+		}
+		j++;
+	}
+	swap_objects(&objects[i + 1], &objects[end]);
+	return (i + 1);
+}
+
+static void	sort_objects(t_object *objects, int start, int end)
+{
+	int	pi;
+
+	if (start < end)
+	{
+		pi = partition(objects, start, end);
+		sort_objects(objects, start, pi - 1);
+		sort_objects(objects, pi + 1, end);
 	}
 }
 
@@ -120,14 +175,12 @@ void		draw_sprites(t_env *env, t_render *render)
 {
 	int	i;
 
+	get_relative_pos(env);
+	sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		if (env->objects[i].sector == render->sector && !env->objects[i].drawn)
-		{
-			draw_object(env->objects[i], env, render);
-			env->objects[i].drawn = 1;
-		}
+		draw_object(env->objects[i], env, render);
 		i++;
 	}
 }

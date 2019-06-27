@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 15:41:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:18:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ void	render_sector(t_env *env, t_render render)
 	int			xstart;
 	int			xend;
 
-	i = 0;
-	//ft_printf("\n");
-	while (i < env->w)
-	{
-		env->depth_array[i] = -2147483647;
-		i++;
-	}
 	if (!env->rendered_sectors[render.sector])
 	{
 		env->rendered_sectors[render.sector]++;
@@ -188,7 +181,6 @@ void	render_sector(t_env *env, t_render render)
 						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
 						render.distfloor = ((env->h / 2.0) / (double)(render.max_floor - render.floor_horizon));
 						render.distceiling = ((env->h / 2.0) / (double)(render.max_ceiling - render.ceiling_horizon));
-						//render.distwall = (x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1;
 						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
@@ -225,7 +217,7 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							if (env->depth_array[x] < render.z)
+							if (render.z < env->depth_array[x])
 							{
 								env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
@@ -293,9 +285,9 @@ static void		reset_render_utils(t_env *env)
 		i++;
 	}
 	i = 0;
-	while (i < env->nb_objects)
+	while (i < env->w)
 	{
-		env->objects[i].drawn = 0;
+		env->depth_array[i] = 999999999999999;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 15:33:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:18:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[0].pos.z = 0;
 	env->objects[0].scale = 60;
 	env->objects[0].sector = 0;
-	env->objects[0].drawn = 0;
 
 	env->objects[1].sprite = 1;
 	env->objects[1].pickable = 0;
@@ -36,7 +35,6 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[1].pos.z = 6;
 	env->objects[1].scale = 60;
 	env->objects[1].sector = 0;
-	env->objects[1].drawn = 0;
 	env->objects[1].angle = 90;
 
 	env->objects[2].sprite = 1;
@@ -47,7 +45,6 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[2].pos.z = 6;
 	env->objects[2].scale = 60;
 	env->objects[2].sector = 0;
-	env->objects[2].drawn = 0;
 	env->objects[2].angle = -90;
 	return (0);
 }

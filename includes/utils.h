@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 15:16:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:18:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,10 +270,11 @@ typedef struct		s_sprite
 typedef struct		s_object
 {
 	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
 	int				sprite;
 	double			scale;
 	double			angle;
-	int				drawn;
 	int				pickable;
 	int				solid;
 	int				ammo;

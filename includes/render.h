@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 15:40:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/27 12:10:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,6 @@ typedef struct		s_render
 
 typedef struct		s_render_object
 {
-	t_v3			translated_left_bottom;
-	t_v3			translated_left_top;
-	t_v3			translated_right_bottom;
-	t_v3			translated_right_top;
-	t_v3			translated_pos;
-	t_v3			rotated_left_bottom;
-	t_v3			rotated_left_top;
-	t_v3			rotated_right_bottom;
-	t_v3			rotated_right_top;
-	t_v3			rotated_pos;
 	double			dist;
 	int				x1;
 	int				x2;
@@ -160,8 +150,8 @@ int					get_screen_sectors(t_env *env);
 */
 
 void				draw_sprites(t_env *env, t_render *render);
-void				get_translated_object_pos(t_render_object *orender, t_object object, t_env *env);
-void				get_rotated_object_pos(t_render_object *orender, t_env *env);
+void				get_translated_object_pos(t_object *object, t_env *env);
+void				get_rotated_object_pos(t_object *object, t_env *env);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
 
 #endif
