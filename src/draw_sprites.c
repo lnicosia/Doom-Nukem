@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/27 14:20:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:47:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	int				index;
 	double			xalpha;
 	double			yalpha;
+	double			light;
 	t_texture		texture;
 
 	(void)render;
@@ -87,10 +88,11 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	ystart = orender.screen_pos.y - sprite.size[index].y / (object.rotated_pos.z / object.scale);
 	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
 	yend = (orender.screen_pos.y);
+	light = 255 - ft_clamp(object.rotated_pos.z * 2, 0, 255);
 	x = xstart;
 	while (++x < xend)
 	{
-		if (object.rotated_pos.z > env->depth_array[x])
+		if (object.rotated_pos.z >= env->depth_array[x])
 			continue;
 		xalpha = (x - xstart) / (double)(xend - xstart);
 		if (sprite.reversed[index])
@@ -108,7 +110,7 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 					if (!env->options.lighting)
 						env->sdl.texture_pixels[x + y * env->w] = texture.str[textx + texty * texture.surface->w];
 					else
-						env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], render->light);
+						env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], light);
 				}
 			y++;
 		}
@@ -124,6 +126,7 @@ static void	get_relative_pos(t_env *env)
 	{
 		get_translated_object_pos(&env->objects[i], env);
 		get_rotated_object_pos(&env->objects[i], env);
+		ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);
 		i++;
 	}
 }

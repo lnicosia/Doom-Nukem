@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/27 14:18:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:29:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 int			parse_objects(t_env *env, t_map_parser *parser)
 {
 	(void)parser;
-	env->nb_objects = 3;
+	env->nb_objects = 1;
 	env->objects = (t_object*)malloc(sizeof(t_object) * env->nb_objects);
-	env->objects[0].sprite = 0;
+	/*env->objects[0].sprite = 0;
 	env->objects[0].pickable = 0;
 	env->objects[0].solid = 0;
 	env->objects[0].pos.x = 5;
@@ -45,6 +45,16 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	env->objects[2].pos.z = 6;
 	env->objects[2].scale = 60;
 	env->objects[2].sector = 0;
-	env->objects[2].angle = -90;
+	env->objects[2].angle = -90;*/
+
+	env->objects[0].sprite = 0;
+	env->objects[0].pickable = 0;
+	env->objects[0].solid = 0;
+	env->objects[0].pos.x = 17.5;
+	env->objects[0].pos.y = -2;
+	env->objects[0].pos.z = 6;
+	env->objects[0].scale = 60;
+	env->objects[0].sector = 0;
+	env->objects[0].angle = -90;
 	return (0);
 }

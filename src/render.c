@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/27 14:18:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:47:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	return (res);
 }
 
-void	neighbor_ceil_floor(t_render *render, int x)
+void	get_neighbor_ceil_floor(t_render *render, int x)
 {
 	//Calculer y actuel du plafond et du sol du voisin
 	render->current_neighbor_ceiling = (x - render->x1)
@@ -155,6 +155,7 @@ void	render_sector(t_env *env, t_render render)
 						}
 					}
 					x = xstart;
+					ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
 					while (x <= xend)
 					{
 						render.currentx = x;
@@ -169,7 +170,7 @@ void	render_sector(t_env *env, t_render render)
 							ft_printf("i + 1 = [%f][%f]\n", env->vertices[sector.vertices[i + 1]].y, env->vertices[sector.vertices[i + 1]].x);
 							ft_printf("alpha = %f\n", render.alpha);*/
 						}
-						render.z = (x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1;
+						render.z = (x - render.x1) * (render.clipped_vz2 - render.clipped_vz1) / (render.x2 - render.x1) + render.clipped_vz1;
 						// Lumiere
 						render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
 						// Calculer y actuel du plafond et du sol
@@ -187,7 +188,7 @@ void	render_sector(t_env *env, t_render render)
 						vline.x = x;
 						if (sector.neighbors[i] >= 0)
 						{
-							neighbor_ceil_floor(&render, x);
+							get_neighbor_ceil_floor(&render, x);
 							// Dessiner le plafond de ymin jusqu'au plafond
 							draw_ceiling(render, env);
 							// Dessiner le sol du sol jusqu'a ymax
@@ -218,7 +219,9 @@ void	render_sector(t_env *env, t_render render)
 						else
 						{
 							if (render.z < env->depth_array[x])
+							//if (env->depth_array[x] > render.light)
 							{
+								//env->depth_array[x] = render.light;
 								env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
@@ -259,7 +262,6 @@ void	render_sector(t_env *env, t_render render)
 			}
 			i++;
 		}
-		draw_sprites(env, &render);
 		env->rendered_sectors[render.sector]--;
 	}
 }
@@ -316,5 +318,6 @@ int				draw(t_env *env)
 		render_sector(env, render);
 		i++;
 	}
+	draw_sprites(env, &render);
 	return (0);
 }
