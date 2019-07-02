@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/01 15:47:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:34:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	render_sector(t_env *env, t_render render)
 		i = 0;
 		sector = env->sectors[render.sector];
 		while (i < sector.nb_vertices)
+		//while (i < 1)
 		{
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
@@ -155,28 +156,27 @@ void	render_sector(t_env *env, t_render render)
 						}
 					}
 					x = xstart;
-					ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
+					//ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
+					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2);
 					while (x <= xend)
 					{
 						render.currentx = x;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.clipped_alpha = (x - render.x1) / (double)(render.x2 - render.x1);
-						render.texel.x = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].x / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].x / render.vz2) / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
-						render.texel.y = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].y / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].y / render.vz2) / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
-						if (render.texel.y < 0 || render.texel.y > 35 || render.texel.x < 0 || render.texel.x > 35)
-						{
-							//ft_printf("texel = [%f][%f]\n", render.texel.y, render.texel.x);
-							/*ft_printf("i = [%f][%f]\n", env->vertices[sector.vertices[i]].y, env->vertices[sector.vertices[i]].x);
-							ft_printf("i + 1 = [%f][%f]\n", env->vertices[sector.vertices[i + 1]].y, env->vertices[sector.vertices[i + 1]].x);
-							ft_printf("alpha = %f\n", render.alpha);*/
-						}
-						render.z = (x - render.x1) * (render.clipped_vz2 - render.clipped_vz1) / (render.x2 - render.x1) + render.clipped_vz1;
+						//render.z = render.clipped_alpha * (render.clipped_vz2 - render.clipped_vz1) + render.clipped_vz1;
+						render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
+						render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.vz1 + render.clipped_alpha / render.vz2);
+
 						// Lumiere
 						render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
+
+						render.texel.x = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].x / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].x / render.vz2) * render.z;
+						render.texel.y = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].y / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].y / render.vz2) * render.z;
 						// Calculer y actuel du plafond et du sol
-						render.max_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
+						render.max_ceiling = render.clipped_alpha * (render.ceiling2 - render.ceiling1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
-						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+						render.max_floor = render.clipped_alpha * (render.floor2 - render.floor1) + render.floor1;
+						//render.max_floor = ((1.0 - render.clipped_alpha) * render.floor1 / render.vz1 + render.clipped_alpha * render.floor2 / render.vz2) * render.clipped_z;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
 						render.floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
 						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;

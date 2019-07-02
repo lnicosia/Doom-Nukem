@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/01 15:47:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:04:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static void	get_relative_pos(t_env *env)
 	{
 		get_translated_object_pos(&env->objects[i], env);
 		get_rotated_object_pos(&env->objects[i], env);
-		ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);
+		//ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);
 		i++;
 	}
 }

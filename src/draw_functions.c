@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/01 14:05:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:32:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 
-	x = (render.alpha * (env->textures[render.texture].surface->w * render.wall_width / render.vz2)) / ((1 - render.alpha) / render.vz1 + render.alpha / render.vz2);
+	x = (render.alpha * (env->textures[render.texture].surface->w * render.wall_width / render.vz2)) * render.z;
 	while (x >= env->textures[render.texture].surface->w)
 		x -= env->textures[render.texture].surface->w;
 	while (x < 0)

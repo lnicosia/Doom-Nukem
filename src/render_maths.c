@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/11 12:16:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:02:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 	y2 = sector.clipped_ceilings2[i + 1] - env->player.pos.z;
 	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
 	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
+	//ft_printf("vx1 = %f vx2 = %f\n", render->vx1, render->vx2);
 }
 
 /*
@@ -153,6 +154,9 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		(int)(render->vcy2 * scale / -render->clipped_vz2);
 	render->x1 = env->w / 2 + (int)(render->clipped_vx1 * (scale / -render->clipped_vz1));
 	render->x2 = env->w / 2 + (int)(render->clipped_vx2 * (scale / -render->clipped_vz2));
+	//ft_printf("x1 = %f x2 = %f\n", render->x1, render->x2);
+	//ft_printf("clipped_vx1 = %f clipped_vx2 = %f\n", render->clipped_vx1, render->clipped_vx2);
+	//ft_printf("scale = %f\n", scale);
 	/*if (i == 0)
 		ft_printf("v0_floor1 = %d v0_floor2 = %d\n", render->floor1, render->floor2);*/
 }
