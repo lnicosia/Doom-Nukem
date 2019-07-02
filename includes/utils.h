@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/01 13:31:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:53:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ typedef struct		s_player
 }					t_player;
 
 /*
- **	Camera values
- */
+**	Camera values
+*/
 
 typedef struct		s_camera
 {
@@ -163,8 +163,8 @@ typedef struct		s_camera
 }					t_camera;
 
 /*
- ** Player's keys configuration
- */
+** Player's keys configuration
+*/
 
 typedef struct		s_keys
 {
@@ -186,8 +186,8 @@ typedef struct		s_keys
 }					t_keys;
 
 /*
- ** Keys inputs
- */
+** Keys inputs
+*/
 
 typedef struct		s_inputs
 {
@@ -206,8 +206,8 @@ typedef struct		s_inputs
 }					t_inputs;
 
 /*
- ** Fonts
- */
+** Fonts
+*/
 
 typedef struct		s_fonts
 {
@@ -283,8 +283,8 @@ typedef struct		s_object
 }					t_object;
 
 /*
- ** SDL data necessities
- */
+** SDL data necessities
+*/
 
 typedef struct		s_sdl
 {
@@ -320,8 +320,8 @@ typedef struct		s_texture
 }					t_texture;
 
 /*
- **	Contains a list of options for the game
- */
+**	Contains a list of options for the game
+*/
 
 typedef struct		s_options
 {
@@ -340,8 +340,8 @@ typedef struct		s_options
 }					t_options;
 
 /*
- **	Contains every data need to print a text on the screen
- */
+**	Contains every data need to print a text on the screen
+*/
 
 typedef struct		s_printable_text
 {
@@ -352,8 +352,8 @@ typedef struct		s_printable_text
 }					t_printable_text;
 
 /*
- **	Contains every data needed for an animation on the screen
- */
+**	Contains every data needed for an animation on the screen
+*/
 
 typedef struct		s_time
 {
@@ -382,8 +382,8 @@ typedef struct		s_animation
 }					t_animation;
 
 /*
- **	Environment data struct
- */
+**	Environment data struct
+*/
 
 typedef struct		s_env
 {
@@ -424,27 +424,27 @@ typedef struct		s_env
 }					t_env;
 
 /*
- **	  -------------
- **	 ---------------
- **	----FUNCTIONS----
- **	 ---------------
- **	  -------------
- */
+**	  -------------
+**	 ---------------
+**	----FUNCTIONS----
+**	 ---------------
+**	  -------------
+*/
 
 /*
- ** Main functions
- */
+** Main functions
+*/
 
 int					doom(int ac, char **av);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
 /*
- ** Init functions
- */
+** Init functions
+*/
 
-void    			init_weapons(t_env *env);
-int     			init_sound(t_env *env);
+void				init_weapons(t_env *env);
+int					init_sound(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
@@ -468,8 +468,8 @@ char				*skip_number(char *line);
 char				*skip_spaces(char *line);
 
 /*
- ** Screen utils
- */
+** Screen utils
+*/
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
@@ -478,21 +478,25 @@ t_printable_text	new_printable_text(
 		TTF_Font *font,
 		unsigned int color,
 		int size);
-void				print_text(t_point pos, t_printable_text text, t_env *env);
-void				apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env);
+void				print_text(t_point pos,
+		t_printable_text text, t_env *env);
+void				apply_surface(SDL_Surface *surface,
+		t_point pos, t_point size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);
-unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
-unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_alpha(unsigned int src,
+		unsigned int dest, uint8_t alpha);
+unsigned int		blend_add(unsigned int src,
+		unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, uint8_t light);
 
 /*
- ** Main pipeline functions
- */
+** Main pipeline functions
+*/
 
 int					draw(t_env *env);
 void				check_parsing(t_env *env);
@@ -503,7 +507,7 @@ void				reset_clipped(t_env *env);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
-void    			weapon_change(t_env *env);
+void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 
 t_point				new_point(int x, int y);
@@ -511,8 +515,10 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(int num, t_sector sector, t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(int num, t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_floor(int num, t_sector sector,
+		t_vertex vertex, t_env *env);
+double				get_clipped_ceiling(int num, t_sector sector,
+		t_vertex vertex, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
