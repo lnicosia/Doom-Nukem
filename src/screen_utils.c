@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 10:31:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:26:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	update_screen(t_env *env)
 {
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
+	//if (SDL_UpdateTexture(env->sdl.texture, NULL, env->depth_array, env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;

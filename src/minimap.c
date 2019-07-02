@@ -6,7 +6,7 @@
 /*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/07/01 13:46:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:04:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,8 @@ void		draw_sprites_minimap(t_env *env)
 			y = pos.y - 2;
 			while (y < pos.y + 2)
 			{
-				env->sdl.texture_pixels[x + y * env->w] = 0xFFFF0000;
+				if (x > env->w - 300 && x < env->w && y >= 0 && y < 300)
+					env->sdl.texture_pixels[x + y * env->w] = 0xFFFF0000;
 				y++;
 			}
 			x++;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:34:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:41:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,11 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							if (render.z < env->depth_array[x])
+							//if (render.z < env->depth_array[x])
 							//if (env->depth_array[x] > render.light)
 							{
 								//env->depth_array[x] = render.light;
-								env->depth_array[x] = render.z;
+								//env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else
@@ -286,18 +286,18 @@ static void		reset_render_utils(t_env *env)
 		env->rendered_sectors[i] = 0;
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < env->w)
 	{
 		env->depth_array[i] = 999999999999999;
 		i++;
-	}
+	}*/
 }
 
 /*
- **	Main draw function
- **	TODO Protect function
- */
+**	Main draw function
+**	TODO Protect function
+*/
 
 int				draw(t_env *env)
 {

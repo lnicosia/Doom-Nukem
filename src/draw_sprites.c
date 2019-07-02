@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:04:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:46:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	x = xstart;
 	while (++x < xend)
 	{
-		if (object.rotated_pos.z >= env->depth_array[x])
-			continue;
 		xalpha = (x - xstart) / (double)(xend - xstart);
 		if (sprite.reversed[index])
 			xalpha = 1.0 - xalpha;
@@ -105,12 +103,14 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 			texty = (1.0 - yalpha) * sprite.start[index].y + yalpha * sprite.end[index].y;
 			if (!(x >= env->w - 300 && x < env->w && y >= 0 && y <= 300) || !env->options.show_minimap)
 				if (x >= 0 && x < env->w && y >= 0 && y < env->h
+						&& object.rotated_pos.z < env->depth_array[x + y * env->w]
 						&& texture.str[textx + texty * texture.surface->w] != 0xFFC10099)
 				{
 					if (!env->options.lighting)
 						env->sdl.texture_pixels[x + y * env->w] = texture.str[textx + texty * texture.surface->w];
 					else
 						env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], light);
+					env->depth_array[x + y * env->w] = object.rotated_pos.z;
 				}
 			y++;
 		}
@@ -131,7 +131,7 @@ static void	get_relative_pos(t_env *env)
 	}
 }
 
-static void	swap_objects(t_object *o1, t_object *o2)
+/*static void	swap_objects(t_object *o1, t_object *o2)
 {
 	t_object	tmp;
 
@@ -172,14 +172,14 @@ static void	sort_objects(t_object *objects, int start, int end)
 		sort_objects(objects, start, pi - 1);
 		sort_objects(objects, pi + 1, end);
 	}
-}
+}*/
 
 void		draw_sprites(t_env *env, t_render *render)
 {
 	int	i;
 
 	get_relative_pos(env);
-	sort_objects(env->objects, 0, env->nb_objects - 1);
+	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
 	while (i < env->nb_objects)
 	{

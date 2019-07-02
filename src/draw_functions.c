@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:32:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:42:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,21 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
+			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
+					&& render.z <= env->depth_array[vline.x + env->w * vline.start])
+			{
 				env->sdl.texture_pixels[vline.x + env->w * vline.start] = 0xFF222222;
+				env->depth_array[vline.x + env->w * vline.start] = render.z;
+			}
 		}
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.end >= 0 && vline.end <= 300) || !env->options.show_minimap)
 		{
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
+			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h
+					&& render.z <= env->depth_array[vline.x + env->w * vline.end])
+			{
 				env->sdl.texture_pixels[vline.x + env->w * vline.end] = 0xFF222222;
+				env->depth_array[vline.x + env->w * vline.end] = render.z;
+			}
 		}
 		vline.start++;
 		vline.end--;
@@ -57,13 +65,16 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			while (y < 0)
 				y += env->textures[render.texture].surface->h;
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
-					&& x >= 0 && x < env->textures[render.texture].surface->w && y >= 0 && y < env->textures[render.texture].surface->h)
+					&& x >= 0 && x < env->textures[render.texture].surface->w && y >= 0 && y < env->textures[render.texture].surface->h
+					&& render.z <= env->depth_array[vline.x + env->w * i])
 			{
 				if (!env->options.lighting)
 					env->sdl.texture_pixels[vline.x + env->w * i] = env->textures[render.texture].str[(int)x + env->textures[render.texture].surface->w * (int)y];
-					//env->sdl.texture_pixels[0] = 0xFFFF0000;
 				else
 					env->sdl.texture_pixels[vline.x + env->w * i] = apply_light(env->textures[render.texture].str[(int)x + env->textures[render.texture].surface->w * (int)y], render.light);
+				env->depth_array[vline.x + env->w * i] = render.z;
+				/*if (env->options.lighting)
+					env->sdl.texture_pixels[vline.x + env->w * i] = apply_light(0xFF888888, render.light);*/
 			}
 		}
 		i++;
@@ -84,13 +95,21 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
+			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
+					&& render.z <= env->depth_array[vline.x + env->w * vline.start])
+			{
 				env->sdl.texture_pixels[vline.x + env->w * vline.start] = 0xFF222222;
+				env->depth_array[vline.x + env->w * vline.start] = render.z;
+			}
 		}
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.end >= 0 && vline.end <= 300) || !env->options.show_minimap)
 		{
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
+			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h
+					&& render.z <= env->depth_array[vline.x + env->w * vline.end])
+			{
 				env->sdl.texture_pixels[vline.x + env->w * vline.end] = 0xFF222222;
+				env->depth_array[vline.x + env->w * vline.end] = render.z;
+			}
 		}
 		vline.start++;
 		vline.end--;
@@ -100,9 +119,14 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 		coord = vline.x + env->w * vline.start;
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
 		{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				//env->sdl.texture_pixels[100000] = vline.color;
+			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
+					&& render.z <= env->depth_array[coord])
+			{
 				env->sdl.texture_pixels[coord] = vline.color;
+				env->depth_array[coord] = render.z;
+				/*if (env->options.lighting)
+					env->sdl.texture_pixels[coord] = apply_light(0xFF888888, render.light);*/
+			}
 		}
 		vline.start++;
 	}
