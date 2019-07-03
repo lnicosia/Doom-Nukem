@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:18:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 12:30:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 12:27:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ float	edge(t_v3 c0, t_v3 c1, t_v3 p)
 
 void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 {
-	t_v3	w;
+	t_v3		w;
 	double		norm;
 	double		area;
+	int			coord;
+	Uint32		*pixels;
 
+	pixels = data->sdl.texture_pixels;
+	coord = (int)p.x + (int)p.y * data->w;
 	area = edge(v[0], v[1], v[2]);
 	w.x = edge(v[0], v[1], new_v3(p.x, p.y, 0));
 	w.y = edge(v[1], v[2], new_v3(p.x, p.y, 0));
@@ -71,12 +75,8 @@ void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		/*if (data->sdl.img_str[(int)p.x + (int)p.y * data->w] == 0xFF)
-			data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 0x3a7499FF;*/
-		if (data->sdl.texture_pixels[(int)p.x + (int)p.y * data->w] == 0)
-			data->sdl.texture_pixels[(int)p.x + (int)p.y * data->w] = 0xFF3a7499;
-		/*data->sdl.img_str[(int)p.x + (int)p.y * data->w] = 
-			blend_alpha(data->sdl.img_str[(int)p.x + (int)p.y * data->w], 0x3a7499FF, 128);*/
+		if (pixels[coord] == 0)
+			pixels[coord] = 0xFF3a7499;
 	}
 }
 

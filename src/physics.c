@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 14:22:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:30:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	time(t_env *env)
 
 	new_time = env->time.milli_s;
 	env->time.milli_s = SDL_GetTicks();
-	env->player.speed = ((env->time.milli_s - new_time) / 1000) * 10;
+	env->player.speed = ((env->time.milli_s - new_time) / 1000) * 15;
 	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000) * 0.2;
 	env->time.tenth_s = env->time.milli_s / 100;
 	//env->time.tick = 1000 / env->fps;
@@ -36,9 +36,7 @@ void	jump(t_env *env)
 	if (!env->jump.on_going)
 	{
 		//Mix_PlayChannel(1, env->sound.jump, 0);
-		env->jump.on_going = env->time.milli_s;
-		env->jump.start = env->time.milli_s;
-		env->player.state = 1;
+		env->jump.on_going = env->time.tenth_s;
 	}
 	if (env->jump.nb_frame > 0)
 	{

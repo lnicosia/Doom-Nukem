@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 15:59:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:20:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		get_screen_sectors(t_env *env)
 		curr.y = -env->camera.near_z;
 		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
+		env->screen_pos[x] = curr;
 		i = 0;
 		sect = get_sector(env, curr);
 		while (i < env->screen_sectors_size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)

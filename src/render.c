@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:22:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:30:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	return (res);
 }
 
-void	neighbor_ceil_floor(t_render *render, int x)
+void	get_neighbor_ceil_floor(t_render *render, int x)
 {
 	//Calculer y actuel du plafond et du sol du voisin
 	render->current_neighbor_ceiling = (x - render->x1)
@@ -55,18 +55,13 @@ void	render_sector(t_env *env, t_render render)
 	int			xstart;
 	int			xend;
 
-	i = 0;
-	while (i < env->w)
-	{
-		env->depth_array[i] = -2147483647;
-		i++;
-	}
 	if (!env->rendered_sectors[render.sector])
 	{
 		env->rendered_sectors[render.sector]++;
 		i = 0;
 		sector = env->sectors[render.sector];
 		while (i < sector.nb_vertices)
+		//while (i < 1)
 		{
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
@@ -78,13 +73,9 @@ void	render_sector(t_env *env, t_render render)
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 10;
 			render.wall_height = (sector.ceiling - sector.floor) / 10;
-			if (i == 0)
-			{
-				render.v0_width = render.wall_width;
-				render.v0_height = render.wall_height;
-			}
 			render.texture = sector.textures[i];
 			render.floor_texture = sector.floor_texture;
+			render.ceiling_texture = sector.ceiling_texture;
 			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
@@ -165,32 +156,39 @@ void	render_sector(t_env *env, t_render render)
 						}
 					}
 					x = xstart;
+					//ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
+					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2);
 					while (x <= xend)
 					{
 						render.currentx = x;
-						render.v0_floor = (x - render.projected_v0_floor.x) * (render.projected_v1_floor.y - render.projected_v0_floor.y) / (render.projected_v1_floor.x - render.projected_v0_floor.x) + render.projected_v0_floor.y;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
-						render.texel.x = render.alpha * (env->vertices[sector.vertices[i + 1]].x - env->vertices[sector.vertices[i]].x) + env->vertices[sector.vertices[i]].x;
-						render.texel.y = render.alpha * (env->vertices[sector.vertices[i + 1]].y - env->vertices[sector.vertices[i]].y) + env->vertices[sector.vertices[i]].y;
-						render.currentz = render.alpha * (render.vz2 - render.vz1);
-						render.floor_alpha = (x - render.projected_v0_floor.x) / (double)(render.projected_v1_floor.x - render.projected_v0_floor.x);
+						render.clipped_alpha = (x - render.x1) / (double)(render.x2 - render.x1);
+						//render.z = render.clipped_alpha * (render.clipped_vz2 - render.clipped_vz1) + render.clipped_vz1;
+						render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
+						render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.vz1 + render.clipped_alpha / render.vz2);
+
 						// Lumiere
-						render.light = 255 - ft_fclamp(((x - render.x1) * (render.vz2 - render.vz1) / (render.x2 - render.x1) + render.vz1) * 2.00, 0.00, 255.00);
+						render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
+
+						render.texel.x = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].x / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].x / render.vz2) * render.z;
+						render.texel.y = ((1.0 - render.alpha) * env->vertices[sector.vertices[i]].y / render.vz1 + render.alpha * env->vertices[sector.vertices[i + 1]].y / render.vz2) * render.z;
 						// Calculer y actuel du plafond et du sol
-						render.max_ceiling = (x - render.x1) * (render.ceiling2 - render.ceiling1) / (render.x2 - render.x1) + render.ceiling1;
-						//	ft_printf(" ceiling = %d ", render.current_ceiling);
+						render.max_ceiling = render.clipped_alpha * (render.ceiling2 - render.ceiling1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
-						render.max_floor = (x - render.x1) * (render.floor2 - render.floor1) / (render.x2 - render.x1) + render.floor1;
+						render.max_floor = render.clipped_alpha * (render.floor2 - render.floor1) + render.floor1;
+						//render.max_floor = ((1.0 - render.clipped_alpha) * render.floor1 / render.vz1 + render.clipped_alpha * render.floor2 / render.vz2) * render.clipped_z;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
-						render.currentz = env->h / (double)(render.max_floor - render.max_ceiling);
-						render.currentz = render.alpha / (double)(render.vz2 - render.vz1);
-						//render.currentz = (x - render.x1) * (render.clipped_vz2 - render.clipped_vz1) / (render.x2 - render.x1);
+						render.floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.distfloor = ((env->h / 2.0) / (double)(render.max_floor - render.floor_horizon));
+						render.distceiling = ((env->h / 2.0) / (double)(render.max_ceiling - render.ceiling_horizon));
+						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;
 						if (sector.neighbors[i] >= 0)
 						{
-							neighbor_ceil_floor(&render, x);
+							get_neighbor_ceil_floor(&render, x);
 							// Dessiner le plafond de ymin jusqu'au plafond
 							draw_ceiling(render, env);
 							// Dessiner le sol du sol jusqu'a ymax
@@ -203,7 +201,7 @@ void	render_sector(t_env *env, t_render render)
 									vline.color = 255 << 24 | (int)render.light << 16;
 								if (env->options.contouring && (x == render.x1 || x == render.x2))
 									vline.color = 0;
-								draw_vline(vline, render, env);
+								draw_vline_color(vline, render, env);
 							}
 							// Dessiner corniche
 							if (render.current_neighbor_ceiling > render.current_ceiling)
@@ -220,9 +218,11 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							if (env->depth_array[x] < render.light)
+							//if (render.z < env->depth_array[x])
+							//if (env->depth_array[x] > render.light)
 							{
-								env->depth_array[x] = render.light;
+								//env->depth_array[x] = render.light;
+								//env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else
@@ -248,6 +248,14 @@ void	render_sector(t_env *env, t_render render)
 								draw_floor(render, env);
 							}
 						}
+						//Ligne noire pour separer les sols
+						/*if (x == xstart)
+						{
+							vline.start = render.max_floor;
+							vline.end = env->h - 1;
+							vline.color = 0xFF;
+							draw_vline(vline, render, env);
+						}*/
 						x++;
 					}
 				}
@@ -278,12 +286,18 @@ static void		reset_render_utils(t_env *env)
 		env->rendered_sectors[i] = 0;
 		i++;
 	}
+	/*i = 0;
+	while (i < env->w)
+	{
+		env->depth_array[i] = 999999999999999;
+		i++;
+	}*/
 }
 
 /*
- **	Main draw function
- **	TODO Protect function
- */
+**	Main draw function
+**	TODO Protect function
+*/
 
 int				draw(t_env *env)
 {
@@ -304,5 +318,6 @@ int				draw(t_env *env)
 		render_sector(env, render);
 		i++;
 	}
+	draw_sprites(env, &render);
 	return (0);
 }

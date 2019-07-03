@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 11:48:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:47:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 			return (ft_printf("Line %d must be an empty line "
 						 "(every vertex has been declared)\n",
 						parser->line_count));
+		ft_strdel(&line);
 	}
 	else
 		return (ft_printf("File ended at vertices declaration\n"));

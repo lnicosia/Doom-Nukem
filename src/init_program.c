@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 14:21:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:44:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_program(int ac, char **av)
 	env.aplicate_changes = 0;
 	env.reset = 0;
 	env.running = 1;
-	env.i = 1;
+	env.i = 2;
 	init_screen_size(&env, env.i);
 	init_pointers(&env);
 	init_options(&env);
@@ -45,6 +45,8 @@ int	init_program(int ac, char **av)
 		return (crash("Invalid map!\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (init_sprites(&env))
+		return (crash("Could not load sprites\n", &env));
 	if (init_wallpapers_and_buttons(&env))
 		return (crash("Could not load menu tools\n", &env));
 	SDL_SetRelativeMouseMode(1);

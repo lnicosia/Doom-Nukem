@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/25 16:59:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:35:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	parse(int fd, int index, t_env *env)
 {
 	t_bmp_parser	parser;
 
+	if (index >= MAX_TEXTURE)
+		return (ft_printf("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
 		return (ft_printf("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))

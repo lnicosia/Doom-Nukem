@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:35:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:14:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ typedef struct		s_render
 	t_v2			inter_far;
 	t_v2			inter_left;
 	t_v2			inter_right;
-	t_v2			projected_v0_floor;
-	t_v2			projected_v0_ceiling;
-	t_v2			projected_v1_floor;
-	t_v2			projected_v1_ceiling;
 	t_v2			texel;
 	double			vx1;
 	double			vx2;
@@ -60,36 +56,37 @@ typedef struct		s_render
 	double			clipped_vy1;
 	double			clipped_vy2;
 	double			light;
+	double			z;
+	double			clipped_z;
 	double			dist1;
 	double			dist2;
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
-	double			floor_alpha;
+	double			clipped_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			v0_width;
-	double			v0_height;
-	double			v0_vz1;
-	double			v0_vz2;
-	double			currentz;
+	double			distfloor;
+	double			distceiling;
+	double			floor_horizon;
+	double			ceiling_horizon;
 	int				xmin;
 	int				xmax;
 	int				ymin;
 	int				ymax;
 	int				currentx;
-	int				floor1;
-	int				floor2;
+	double			floor1;
+	double			floor2;
 	int				current_floor;
 	int				current_ceiling;
 	int				current_neighbor_floor;
 	int				current_neighbor_ceiling;
-	int				max_floor;
-	int				max_ceiling;
+	double			max_floor;
+	double			max_ceiling;
 	int				max_neighbor_floor;
 	int				max_neighbor_ceiling;
-	int				ceiling1;
-	int				ceiling2;
+	double			ceiling1;
+	double			ceiling2;
 	int				neighbor_floor1;
 	int				neighbor_floor2;
 	int				neighbor_ceiling1;
@@ -100,10 +97,8 @@ typedef struct		s_render
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
-	int				v0_floor;
-	int				v0_ceiling;
-	int				x1;
-	int				x2;
+	double			x1;
+	double			x2;
 	int				xstart;
 	int				xend;
 	int				sector;
@@ -116,6 +111,16 @@ typedef struct		s_render
 	int				floor_texture;
 	int				ceiling_texture;
 }					t_render;
+
+typedef struct		s_render_object
+{
+	double			dist;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	t_point			screen_pos;
+}					t_render_object;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i);
@@ -140,5 +145,14 @@ void				handle_right(t_render *render, t_env *env);
 void				handle_far(t_render *render, t_env *env);
 void				handle_near(t_render *render, t_env *env);
 int					get_screen_sectors(t_env *env);
+
+/*
+**	Sprite part
+*/
+
+void				draw_sprites(t_env *env, t_render *render);
+void				get_translated_object_pos(t_object *object, t_env *env);
+void				get_rotated_object_pos(t_object *object, t_env *env);
+void				project_object(t_render_object *orender, t_object object, t_env *env);
 
 #endif

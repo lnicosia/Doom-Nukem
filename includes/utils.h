@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:23:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:43:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@
 # include <SDL_mixer.h>
 # include <fcntl.h>
 # include "libft.h"
+# include "object_types.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 33
+# define MAX_TEXTURE 35
+# define CONVERT_RADIANS 0.0174532925199432955
+# define CONVERT_DEGREES 57.2957795130823228647
+# define MAX_SPRITES 2
 # define NB_WEAPONS 2
 # define NB_BUTTON 6
 
@@ -132,8 +136,8 @@ typedef struct		s_player
 }					t_player;
 
 /*
- **	Camera values
- */
+**	Camera values
+*/
 
 typedef struct		s_camera
 {
@@ -160,8 +164,8 @@ typedef struct		s_camera
 }					t_camera;
 
 /*
- ** Player's keys configuration
- */
+** Player's keys configuration
+*/
 
 typedef struct		s_keys
 {
@@ -184,8 +188,8 @@ typedef struct		s_keys
 }					t_keys;
 
 /*
- ** Keys inputs
- */
+** Keys inputs
+*/
 
 typedef struct		s_inputs
 {
@@ -206,8 +210,8 @@ typedef struct		s_inputs
 }					t_inputs;
 
 /*
- ** Fonts
- */
+** Fonts
+*/
 
 typedef struct		s_fonts
 {
@@ -241,20 +245,57 @@ typedef struct		s_audio
 
 typedef struct		s_weapons
 {
-	int				anim_length;
+	int				possessed;
 	int				first_sprite;
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
 	int				no_ammo;
 	int				max_ammo;
+	int				damage;
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
 
 /*
- ** SDL data necessities
- */
+** Sprite structure with associated texture
+** and 1 to 8 image cut on this texture
+*/
+
+typedef struct		s_sprite
+{
+	int				oriented;
+	int				texture;
+	t_point			start[8];
+	t_point			end[8];
+	t_point			size[8];
+	int				reversed[8];
+	double			width;
+	double			height;
+}					t_sprite;
+
+/*
+** Object structure
+*/
+
+typedef struct		s_object
+{
+	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
+	int				sprite;
+	double			scale;
+	double			angle;
+	int				pickable;
+	int				solid;
+	int				ammo;
+	int				health;
+	int				sector;
+}					t_object;
+
+/*
+** SDL data necessities
+*/
 
 typedef struct		s_sdl
 {
@@ -292,8 +333,8 @@ typedef struct		s_texture
 }					t_texture;
 
 /*
- **	Contains a list of options for the game
- */
+**	Contains a list of options for the game
+*/
 
 typedef struct		s_options
 {
@@ -308,11 +349,12 @@ typedef struct		s_options
 	int				wall_color;
 	int				test;
 	int				clipping;
+	int				show_ennemies;
 }					t_options;
 
 /*
- **	Contains every data need to print a text on the screen
- */
+**	Contains every data need to print a text on the screen
+*/
 
 typedef struct		s_printable_text
 {
@@ -323,8 +365,8 @@ typedef struct		s_printable_text
 }					t_printable_text;
 
 /*
- **	Contains every data needed for an animation on the screen
- */
+**	Contains every data needed for an animation on the screen
+*/
 
 typedef struct		s_time
 {
@@ -368,8 +410,8 @@ typedef struct		s_menu
 }					t_menu;
 
 /*
- **	Environment data struct
- */
+**	Environment data struct
+*/
 
 typedef struct		s_env
 {
@@ -387,8 +429,11 @@ typedef struct		s_env
 	t_animation		weapon_change;
 	t_vertex		*vertices;
 	t_sector		*sectors;
+	t_object		*objects;
+	t_sprite		*sprites;
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
+	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
 	int				option;
@@ -396,6 +441,7 @@ typedef struct		s_env
 	int				aplicate_changes;
 	char			*fps;
 	double			*depth_array;
+	int				horizon;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
@@ -410,6 +456,7 @@ typedef struct		s_env
 	int				running;
 	int				nb_sectors;
 	int				nb_vertices;
+	int				nb_objects;
 	int				flag;
 	int				ac1;
 	char			**av1;
@@ -417,16 +464,16 @@ typedef struct		s_env
 }					t_env;
 
 /*
- **	  -------------
- **	 ---------------
- **	----FUNCTIONS----
- **	 ---------------
- **	  -------------
- */
+**	  -------------
+**	 ---------------
+**	----FUNCTIONS----
+**	 ---------------
+**	  -------------
+*/
 
 /*
- ** Main functions
- */
+** Main functions
+*/
 
 int					init_program(int ac, char **av);
 int					doom(t_env *env);
@@ -434,8 +481,8 @@ void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
 /*
- ** Init functions
- */
+** Init functions
+*/
 
 int					init_screen_size(t_env *env, int i);
 void    			init_weapons(t_env *env);
@@ -446,6 +493,7 @@ int					init_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
+int					init_sprites(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
@@ -463,8 +511,8 @@ char				*skip_number(char *line);
 char				*skip_spaces(char *line);
 
 /*
- ** Screen utils
- */
+** Screen utils
+*/
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
@@ -473,13 +521,17 @@ t_printable_text	new_printable_text(
 		TTF_Font *font,
 		unsigned int color,
 		int size);
-void				print_text(t_point pos, t_printable_text text, t_env *env);
-void				apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env);
+void				print_text(t_point pos,
+		t_printable_text text, t_env *env);
+void				apply_surface(SDL_Surface *surface,
+		t_point pos, t_point size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle(t_v3 v[3], t_env *env);
-unsigned int		blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha);
-unsigned int		blend_add(unsigned int src, unsigned int dest, uint8_t alpha);
+unsigned int		blend_alpha(unsigned int src,
+		unsigned int dest, uint8_t alpha);
+unsigned int		blend_add(unsigned int src,
+		unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
@@ -487,8 +539,8 @@ Uint32				apply_light(Uint32 color, uint8_t light);
 void				free_all_sdl_relative(t_env *env);
 
 /*
- ** Main pipeline functions
- */
+** Main pipeline functions
+*/
 
 int					draw(t_env *env);
 int					draw_game(t_env *env);
@@ -500,7 +552,7 @@ void				reset_clipped(t_env *env);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
-void    			weapon_change(t_env *env);
+void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 
 t_point				new_point(int x, int y);
@@ -508,8 +560,10 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(int num, t_sector sector, t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(int num, t_sector sector, t_vertex vertex, t_env *env);
+double				get_clipped_floor(int num, t_sector sector,
+		t_vertex vertex, t_env *env);
+double				get_clipped_ceiling(int num, t_sector sector,
+		t_vertex vertex, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);

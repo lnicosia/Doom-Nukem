@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/05/19 17:58:49 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/07/03 14:02:15 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
-CFLAGS = -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) 
+CFLAGS = -flto -O3 -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) 
 
 RED := "\033[0;31m"
 GREEN := "\033[0;32m"

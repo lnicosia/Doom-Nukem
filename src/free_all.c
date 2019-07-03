@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 12:14:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:33:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void		free_all(t_env *env)
 		free_sectors(env);
 	if (env->vertices)
 		ft_memdel((void**)&env->vertices);
+	if (env->objects)
+		ft_memdel((void**)&env->objects);
 	if (env->xmin)
 		ft_memdel((void**)&env->xmin);
 	if (env->xmax)
@@ -102,6 +104,10 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->screen_sectors);
 	if (env->rendered_sectors)
 		ft_memdel((void**)&env->rendered_sectors);
+	if (env->depth_array)
+		ft_memdel((void**)&env->depth_array);
+	if (env->screen_pos)
+		ft_memdel((void**)&env->screen_pos);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 12:28:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:36:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_pointers(t_env *env)
 	ft_printf("Initializing pointers..\n");
 	env->sectors = NULL;
 	env->vertices = NULL;
+	env->objects = NULL;
 	env->sdl.window = NULL;
 	env->sdl.renderer = NULL;
 	env->sdl.surface = NULL;
@@ -35,6 +36,7 @@ void	init_pointers(t_env *env)
 	env->sdl.fonts.bebasneue = NULL;
 	env->sdl.fonts.alice30 = NULL;
 	env->sdl.fonts.alice70 = NULL;
+	env->screen_pos = NULL;
 	env->sound.background = NULL;
 	env->sound.footstep = NULL;
 	env->sound.jump = NULL;
