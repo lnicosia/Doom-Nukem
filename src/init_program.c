@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 15:16:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:16:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_program(int ac, char **av)
 	env.aplicate_changes = 0;
 	env.reset = 0;
 	env.running = 1;
-	env.i = 2;
+	env.i = 1;
 	init_screen_size(&env, env.i);
 	init_pointers(&env);
 	init_options(&env);
