@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 09:29:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 12:01:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,23 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	double			yalpha;
 	double			light;
 	t_texture		texture;
+	Uint32			*pixels;
+	Uint32			*texture_pixels;
+	double			*zbuffer;
 
 	(void)render;
-	project_object(&orender, object, env);
 	sprite = env->sprites[object.sprite];
+	texture = env->textures[sprite.texture];
+	pixels = env->sdl.texture_pixels;
+	texture_pixels = texture.str;
+	zbuffer = env->depth_array;
+	project_object(&orender, object, env);
 	if (object.rotated_pos.z <= 1)
 		return ;
 	if (!sprite.oriented)
 		index = 0;
 	else
 		index = get_sprite_direction(object);
-	texture = env->textures[sprite.texture];
 	xstart = orender.screen_pos.x - sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
 	ystart = orender.screen_pos.y - sprite.size[index].y / (object.rotated_pos.z / object.scale);
 	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
@@ -104,13 +110,13 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 			if (!(x >= env->w - 300 && x < env->w && y >= 0 && y <= 300) || !env->options.show_minimap)
 				if (x >= 0 && x < env->w && y >= 0 && y < env->h
 						&& object.rotated_pos.z < env->depth_array[x + y * env->w]
-						&& texture.str[textx + texty * texture.surface->w] != 0xFFC10099)
+						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099)
 				{
 					if (!env->options.lighting)
-						env->sdl.texture_pixels[x + y * env->w] = texture.str[textx + texty * texture.surface->w];
+						pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 					else
-						env->sdl.texture_pixels[x + y * env->w] = apply_light(texture.str[textx + texty * texture.surface->w], light);
-					env->depth_array[x + y * env->w] = object.rotated_pos.z;
+						pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], light);
+					zbuffer[x + y * env->w] = object.rotated_pos.z;
 				}
 			y++;
 		}
