@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 11:14:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/02 12:08:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 
 int		main(int ac, char **av)
 {	
-	init_program(ac, av, 1);
+	init_program(ac, av);
 	return (0);
 }

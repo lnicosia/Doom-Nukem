@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/24 11:59:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:22:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	render_sector(t_env *env, t_render render)
 	int			xend;
 
 	i = 0;
-	//ft_printf("\n");
 	while (i < env->w)
 	{
 		env->depth_array[i] = -2147483647;

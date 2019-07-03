@@ -6,24 +6,26 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/26 16:40:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:21:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	init_program(int ac, char **av, int restart)
+int	init_program(int ac, char **av)
 {
 	t_env env;
 
 	if (ac != 2)
-			return (ft_printf("No map file.\n"));
+		return (ft_printf("No map file.\n"));
 	env.ac1 = ac;
 	env.av1 = av;
-	env.menu_start = 1;
+	env.menu_start = 0;
+	env.aplicate_changes = 0;
 	env.reset = 0;
 	env.running = 1;
-	init_screen_size(&env, restart);
+	env.i = 1;
+	init_screen_size(&env, env.i);
 	init_pointers(&env);
 	init_options(&env);
 	init_keys(&env);

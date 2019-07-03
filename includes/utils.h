@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 18:26:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:23:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_TEXTURE 33
 # define NB_WEAPONS 2
+# define NB_BUTTON 6
 
 typedef struct		s_point
 {
@@ -352,6 +353,20 @@ typedef struct		s_animation
 	double			a_time;
 }					t_animation;
 
+
+/*
+ **	Data to manipulate menus
+ */
+
+typedef struct		s_menu
+{
+	int				x;
+	int				y;
+	int				image;
+	int				index;
+	int				id;
+}					t_menu;
+
 /*
  **	Environment data struct
  */
@@ -375,8 +390,10 @@ typedef struct		s_env
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
 	t_weapons		weapons[NB_WEAPONS];
+	t_menu			button[NB_BUTTON];
 	int				option;
 	int				menu_start;
+	int				aplicate_changes;
 	char			*fps;
 	double			*depth_array;
 	int				*xmin;
@@ -411,7 +428,7 @@ typedef struct		s_env
  ** Main functions
  */
 
-int					init_program(int ac, char **av, int restart);
+int					init_program(int ac, char **av);
 int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
@@ -467,6 +484,7 @@ unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, uint8_t light);
+void				free_all_sdl_relative(t_env *env);
 
 /*
  ** Main pipeline functions
@@ -511,5 +529,6 @@ void				squat(t_env *env);
 int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_menu(t_env *env);
+void				add_button(t_env *env, int text, int x, int y, int ref_but);
 
 #endif

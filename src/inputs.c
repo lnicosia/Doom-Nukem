@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 18:16:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:21:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@ void	init_inputs(t_env *env)
 	env->inputs.ctrl = 0;
 	env->inputs.option = 0;
 	env->inputs.left_click = 0;
+}
+
+int		button_leftclick(t_env *env, int nb)
+{
+	int	xmax;
+	int	ymax;
+
+	if (env->button[nb].image == 30 || env->button[nb].image == 31)
+	{
+		xmax = env->button[nb].x + 40;
+		ymax = env->button[nb].y + 40;
+	}
+	else
+	{
+		xmax = env->button[nb].x + 150;
+		ymax = env->button[nb].y + 150;
+	}
+	if ((env->sdl.mx >= env->button[nb].x
+		&& env->sdl.mx <= xmax)
+		&& (env->sdl.my >=  env->button[nb].y
+		&& env->sdl.my <= ymax))
+		return (1);
+	else
+		return (0);
 }
 
 void	set_inputs(t_env *env, int mode)
@@ -69,43 +93,28 @@ void	set_inputs(t_env *env, int mode)
 	{
 		env->inputs.left_click  = env->inputs.left_click ? 0 : 1;
 		if (env->inputs.left_click
-				&& (env->sdl.mx >= 910
-				&& env->sdl.mx <= 940)
-				&& (env->sdl.my >= 360
-				&& env->sdl.my <= 390)
-				&& env->i > 0)
-				env->i--;
+			&& button_leftclick(env, 2)
+			&& env->i > 0)
+			env->i--;
 		else if (env->inputs.left_click
-				&& (env->sdl.mx >= 1130
-				&& env->sdl.mx <= 1160)
-				&& (env->sdl.my >= 360
-				&& env->sdl.my <= 390)
-				&& env->i < 2)
+			&& button_leftclick(env, 3)
+			&& env->i < 2)
 			env->i++;
 		else if (env->inputs.left_click
-				&& (env->sdl.mx >= 910
-				&& env->sdl.mx <= 940)
-				&& (env->sdl.my >= 455
-				&& env->sdl.my <= 495)
-				&& env->sound.g_music > 5)
-		{
+			&& button_leftclick(env, 4)
+			&& env->sound.g_music > 5)
 			env->sound.g_music -= 5;
-			ft_printf("sound modified: %d\n", env->sound.g_music);
-		}
 		else if (env->inputs.left_click
-				&& (env->sdl.mx >= 1130
-				&& env->sdl.mx <= 1160)
-				&& (env->sdl.my >= 455
-				&& env->sdl.my <= 495)
-				&& env->sound.g_music < 100)
+			&& button_leftclick(env, 5)
+			&& env->sound.g_music < 100)
 			env->sound.g_music += 5;
+		else if (env->inputs.left_click
+			&& button_leftclick(env,11))
+			env->aplicate_changes = 1;
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->menu_start
-		&& (env->sdl.mx >= 840
-		&& env->sdl.mx <= 980)
-		&& (env->sdl.my >= 770
-		&& env->sdl.my <= 850)
-)
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+	&& env->menu_start
+	&& button_leftclick(env, 0))
 	{
 		env->menu_start = 0;
 		SDL_SetRelativeMouseMode(1);

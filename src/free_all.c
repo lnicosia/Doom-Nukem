@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 14:04:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/02 12:14:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,21 @@ static void	free_sectors(t_env *env)
 	ft_memdel((void**)&env->sectors);
 }
 
+void		free_all_sdl_relative(t_env *env)
+{
+	if (env->sdl.window)
+		SDL_DestroyWindow(env->sdl.window);
+	if (env->sdl.renderer)
+		SDL_DestroyRenderer(env->sdl.renderer);
+	if (env->sdl.surface)
+		SDL_FreeSurface(env->sdl.surface);
+	if (env->sdl.texture_pixels)
+		ft_memdel((void**)&env->sdl.texture_pixels);
+	if (env->depth_array)
+		ft_memdel((void**)&env->depth_array);
+
+}
+
 void		free_all(t_env *env)
 {
 	int i;
@@ -64,12 +79,7 @@ void		free_all(t_env *env)
 	ft_printf("Freeing data..\n");
 	if (!env)
 		exit(0);
-	if (env->sdl.window)
-		SDL_DestroyWindow(env->sdl.window);
-	if (env->sdl.renderer)
-		SDL_DestroyRenderer(env->sdl.renderer);
-	if (env->sdl.surface)
-		SDL_FreeSurface(env->sdl.surface);
+	free_all_sdl_relative(env);
 	if (env->sdl.fonts.amazdoom50)
 		TTF_CloseFont(env->sdl.fonts.amazdoom50);
 	if (env->sdl.fonts.amazdoom20)
@@ -82,8 +92,6 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
 	if (env->sectors)
 		free_sectors(env);
-	if (env->sdl.texture_pixels)
-		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->vertices)
 		ft_memdel((void**)&env->vertices);
 	if (env->xmin)
@@ -94,8 +102,6 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->screen_sectors);
 	if (env->rendered_sectors)
 		ft_memdel((void**)&env->rendered_sectors);
-	if (env->depth_array)
-		ft_memdel((void**)&env->depth_array);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)

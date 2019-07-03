@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/26 18:07:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:19:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		doom(t_env *env)
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
-	//	ft_printf("x = %d y = %d\n", env->sdl.mx, env->sdl.my);
 		while (SDL_PollEvent(&env->sdl.event))
 		{
 			if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP && env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
