@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/13 16:23:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:44:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,30 @@
 
 void    draw_weapon(t_env *env, int sprite)
 {
-    int x;
-    int y;
-    int window_w;
-    int window_h;
+    int			x;
+    int			y;
+    int			window_w;
+    int			window_h;
+    int			texture_w;
+    int			texture_h;
+	Uint32		*pixels;
+	Uint32		*texture_pixels;
 
+	pixels = env->sdl.texture_pixels;
+	texture_pixels = env->textures[sprite].str;
+	texture_w = env->textures[sprite].surface->w;
+	texture_h = env->textures[sprite].surface->h;
+    window_w = (int)(env->w - texture_w) / 1.5;
+    window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
     x = 0;
-    window_w = (int)(env->w - env->textures[sprite].surface->w) / 1.5;
-    window_h = (env->h - env->textures[sprite].surface->h) + env->weapons[0].weapon_switch;
-    while (x < env->textures[sprite].surface->w)
+    while (x < texture_w)
     {
         y = 0;
-        while (y < env->textures[sprite].surface->h  && (window_h + y) < env->h)
+        while (y < texture_h  && (window_h + y) < env->h)
         {
-            if (env->textures[sprite].str[x + env->textures[sprite].surface->w * y] != 0xFFC10099)
-                env->sdl.texture_pixels[(window_w + x) + env->w * (window_h + y)] = 
-                    env->textures[sprite].str[x + env->textures[sprite].surface->w * y];
+            if (texture_pixels[x + texture_w * y] != 0xFFC10099)
+                pixels[(window_w + x) + env->w * (window_h + y)] = 
+                    texture_pixels[x + texture_w * y];
             y++;
         }
         x++;
