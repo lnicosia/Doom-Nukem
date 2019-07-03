@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/06/26 16:34:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 15:31:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	draw_game(t_env *env)
 		print_debug(env);
 	time(env);
 	animations(env);
+	draw_hud(env);
 	update_screen(env);
 	view(env);
 	return (0);
