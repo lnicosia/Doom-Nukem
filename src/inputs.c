@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:31:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:51:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	set_inputs(t_env *env, int mode)
 			&& env->sound.g_music < 100)
 			env->sound.g_music += 5;
 		else if (env->inputs.left_click
-			&& button_leftclick(env,11))
+			&& button_leftclick(env, 1))
 			env->aplicate_changes = 1;
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT

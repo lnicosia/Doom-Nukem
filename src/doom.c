@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:35:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:15:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int		doom(t_env *env)
 		else
 		{
 			if (env->option)
-				open_options(env);
+			{
+				if (open_options(env))
+					return (crash("Crashed in opions\n", env));
+			}
 			else
 				draw_game(env);
 		}

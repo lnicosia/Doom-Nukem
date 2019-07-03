@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:33:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:17:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->depth_array)
 		ft_memdel((void**)&env->depth_array);
+	if (env->xmin)
+		ft_memdel((void**)&env->xmin);
+	if (env->xmax)
+		ft_memdel((void**)&env->xmax);
+	if (env->screen_sectors)
+		ft_memdel((void**)&env->screen_sectors);
+	if (env->rendered_sectors)
+		ft_memdel((void**)&env->rendered_sectors);
+	if (env->screen_pos)
+		ft_memdel((void**)&env->screen_pos);
 
 }
 
@@ -96,18 +106,6 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
 		ft_memdel((void**)&env->objects);
-	if (env->xmin)
-		ft_memdel((void**)&env->xmin);
-	if (env->xmax)
-		ft_memdel((void**)&env->xmax);
-	if (env->screen_sectors)
-		ft_memdel((void**)&env->screen_sectors);
-	if (env->rendered_sectors)
-		ft_memdel((void**)&env->rendered_sectors);
-	if (env->depth_array)
-		ft_memdel((void**)&env->depth_array);
-	if (env->screen_pos)
-		ft_memdel((void**)&env->screen_pos);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)

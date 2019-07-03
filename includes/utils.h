@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:43:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:07:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,6 +494,7 @@ int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_sprites(t_env *env);
+int					init_screen_pos(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);

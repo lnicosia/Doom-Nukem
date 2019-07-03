@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 14:44:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:16:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	init_program(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
+	if (init_screen_pos(&env))
+		return (crash("Could not init screen pos\n", &env));
 	precompute_slopes(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
@@ -50,5 +52,5 @@ int	init_program(int ac, char **av)
 	if (init_wallpapers_and_buttons(&env))
 		return (crash("Could not load menu tools\n", &env));
 	SDL_SetRelativeMouseMode(1);
-	return(doom(&env));
+	return (doom(&env));
 }

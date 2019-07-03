@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:22:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/03 15:15:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ int		open_options(t_env *env)
 	{
 		free_all_sdl_relative(env);
 		init_screen_size(env, env->i);
-		init_sdl(env);
+		if (init_sdl(env))
+			return (ft_printf("Could not re load sdl\n"));
+		if (init_screen_pos(env))
+			return (ft_printf("Could not re load screen pos\n"));
 		env->aplicate_changes = 0;
 	}
 	return (0);

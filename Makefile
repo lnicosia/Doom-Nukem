@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/03 14:42:27 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/07/03 15:18:36 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c map_parser.
 		  map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		  init_textures.c weapons.c physics.c init_weapons.c \
 		  init_program.c draw.c menu.c init_sound.c init_sprites.c \
-		  draw_sprites.c sprites_maths.c map_parse_objects.c
+		  init_screen_pos.c draw_sprites.c sprites_maths.c \
+		  map_parse_objects.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h
 
