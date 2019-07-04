@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:20:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:50:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,16 @@ int		get_screen_sectors(t_env *env)
 	sect_count = 0;
 	while (x < env->w)
 	{
-		tmp = 2 * x / (env->camera.x2 - env->camera.x1) / env->camera.scale + env->camera.x1;
+		//tmp = 2 * x / (env->camera.near_right - env->camera.near_left) / env->camera.scale + env->camera.near_left;
+		tmp = (x / ((double)env->w - 1)) * (env->camera.near_right - env->camera.near_left) + env->camera.near_left;
 		curr.y = -env->camera.near_z;
 		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
 		env->screen_pos[x] = curr;
 		i = 0;
 		sect = get_sector(env, curr);
+		/*if (sect == -1)
+			ft_printf("pixel %d\n", x);*/
 		while (i < env->screen_sectors_size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
 			i++;
 		if (i < env->screen_sectors_size && env->screen_sectors[i] == -1 && sect != -1)
