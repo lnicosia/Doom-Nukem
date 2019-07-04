@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/17 13:31:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:33:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	view(t_env *env)
 		env->player.near_left_sector = origin_left_sect;
 		env->player.near_right_sector = origin_right_sect;
 	}*/
-	env->player.angle_z = ft_fclamp(env->player.angle_z + env->sdl.mouse_y * 0.005, -5, 5);
+	env->player.angle_z = ft_fclamp(env->player.angle_z + env->sdl.mouse_y * 0.005, -1, 1);
 	env->player.angle_z_cos = cos(env->player.angle_z);
 	env->player.angle_z_sin = sin(env->player.angle_z);
 	//ft_printf("player angle = %f\n", env.player.angle);

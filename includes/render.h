@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:14:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:58:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ typedef struct		s_render
 	double			wall_height;
 	double			distfloor;
 	double			distceiling;
-	double			floor_horizon;
-	double			ceiling_horizon;
+	double			floor_horizon1;
+	double			ceiling_horizon1;
+	double			floor_horizon2;
+	double			ceiling_horizon2;
+	double			current_floor_horizon;
+	double			current_ceiling_horizon;
 	int				xmin;
 	int				xmax;
 	int				ymin;

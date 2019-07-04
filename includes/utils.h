@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 15:28:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:57:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,12 +440,12 @@ typedef struct		s_env
 	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
+	double			horizon;
 	int				option;
 	int				menu_start;
 	int				aplicate_changes;
 	char			*fps;
 	double			*depth_array;
-	int				horizon;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;

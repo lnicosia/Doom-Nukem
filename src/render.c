@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 11:40:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:30:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,14 @@ void	render_sector(t_env *env, t_render render)
 						render.max_floor = render.clipped_alpha * (render.floor2 - render.floor1) + render.floor1;
 						//render.max_floor = ((1.0 - render.clipped_alpha) * render.floor1 / render.vz1 + render.clipped_alpha * render.floor2 / render.vz2) * render.clipped_z;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
-						render.floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
-						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
-						render.distfloor = ((env->h / 2.0) / (double)(render.max_floor - render.floor_horizon));
-						render.distceiling = ((env->h / 2.0) / (double)(render.max_ceiling - render.ceiling_horizon));
+						render.current_floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.current_floor_horizon = render.clipped_alpha * (render.floor_horizon2 - render.floor_horizon1)
+							+ render.floor_horizon1;
+						render.current_ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
+						render.current_ceiling_horizon = render.clipped_alpha * (render.ceiling_horizon2 - render.ceiling_horizon1)
+							+ render.ceiling_horizon1;
+						render.distfloor = ((env->h) / (double)(render.max_floor - render.current_floor_horizon));
+						render.distceiling = ((env->h) / (double)(render.max_ceiling - render.current_ceiling_horizon));
 						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
@@ -249,13 +253,13 @@ void	render_sector(t_env *env, t_render render)
 							}
 						}
 						//Ligne noire pour separer les sols
-						/*if (x == xstart)
+						if (x == xstart)
 						{
 							vline.start = render.max_floor;
 							vline.end = env->h - 1;
-							vline.color = 0xFF;
-							draw_vline(vline, render, env);
-						}*/
+							vline.color = 0xFFFF0000;
+							draw_vline_color(vline, render, env);
+						}
 						x++;
 					}
 				}
