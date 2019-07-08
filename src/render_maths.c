@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 14:40:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:40:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,9 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 	render->ceiling2 = env->h / 2 +
 		(int)(render->vcy2 * scale / -render->clipped_vz2);
 	render->floor_horizon1 = env->h / 2 +
-		(int)((render->vfy1 + env->horizon) * scale / -render->clipped_vz1);
+		(int)((render->vfy1 + (env->player.eyesight)) * scale / -render->clipped_vz1);
 	render->floor_horizon2 = env->h / 2 +
-		(int)((render->vfy2 + env->horizon) * scale / -render->clipped_vz2);
+		(int)((render->vfy2 + (env->player.eyesight)) * scale / -render->clipped_vz2);
 	render->ceiling_horizon1 = env->h / 2 +
 		(int)((render->vcy1 - env->horizon) * scale / -render->clipped_vz1);
 	render->ceiling_horizon2 = env->h / 2 +
