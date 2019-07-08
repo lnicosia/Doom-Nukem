@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 15:38:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:48:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 				/*if (env->options.lighting)
 					pixels[vline.x + env->w * i] = apply_light(0xFF888888, render.light);*/
 			}
-		//if (i == (int)render.horizon)
-			//pixels[vline.x + env->w * i] = 0xFF00FF00;
+		if (i == (int)render.horizon)
+			pixels[vline.x + env->w * i] = 0xFF00FF00;
 		}
 		i++;
 	}
@@ -182,6 +182,11 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
+			/*if (i - render.horizon == 0)
+			{
+				//ft_printf("inf = \n");
+				break;
+			}*/
 			alpha = (render.max_ceiling - render.horizon) / (double)(i - render.horizon);
 			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
@@ -243,6 +248,11 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
+			/*if (i - render.horizon == 0)
+			{
+				//ft_printf("inf = \n");
+				break;
+			}*/
 			alpha = (render.max_floor - render.horizon) / (double)(i - render.horizon);
 			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;

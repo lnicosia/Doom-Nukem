@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/20 18:03:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:59:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void    armor_life_hud(t_env *env)
         y = 0;
         while (y < env->textures[ARMOR_LIFE_HUD].surface->h  && (window_h + y) < env->h)
         {
-            if (env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
+            if (window_w + x >= 0 && window_w + x < env->w
+					&& window_h + y >= 0 && window_h + y < env->h
+					&& env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
                 env->sdl.texture_pixels[(window_w + x) + env->w * (window_h + y)] = 
                     env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y];
             y++;
