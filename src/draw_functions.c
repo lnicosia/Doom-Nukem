@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 17:14:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:25:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 				/*if (env->options.lighting)
 					pixels[vline.x + env->w * i] = apply_light(0xFF888888, render.light);*/
 			}
-		if (i == (int)render.current_floor_horizon)
+		if (i == (int)render.current_ceiling_horizon)
 			pixels[vline.x + env->w * i] = 0xFFFF0000;
+		if (i == (int)render.current_floor_horizon)
+			pixels[vline.x + env->w * i] = 0xFF00FF00;
 		}
 		i++;
 		//vline.start++;
@@ -193,6 +195,8 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			//dist = env->h / (double)(2 * i - env->h);
 			//alpha = dist / startdist;
 			alpha = dist / render.distceiling;
+			alpha = (render.max_ceiling - render.current_ceiling_horizon) / (double)(i - render.current_ceiling_horizon);
+			alpha = (render.max_ceiling - render.current_floor_horizon) / (double)(i - render.current_floor_horizon);
 			//alpha = (i - render.max_floor) / (double)(env->h - render.max_floor);
 			//alpha = (double)(env->h - render.max_floor) / (double)(i - render.max_floor);
 			//ft_printf("alpha = %f\n", alpha);
@@ -341,8 +345,8 @@ void	draw_ceiling(t_render render, t_env *env)
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
 	//ft_printf("floor end = %d\n", vline.end);
-	draw_vline_color(vline, render, env);
-	//draw_vline_ceiling(vline, render, env);
+	//draw_vline_color(vline, render, env);
+	draw_vline_ceiling(vline, render, env);
 }
 
 /*

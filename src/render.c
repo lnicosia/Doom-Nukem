@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 17:30:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:23:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,13 +253,13 @@ void	render_sector(t_env *env, t_render render)
 							}
 						}
 						//Ligne noire pour separer les sols
-						if (x == xstart)
+						/*if (x == xstart)
 						{
 							vline.start = render.max_floor;
 							vline.end = env->h - 1;
 							vline.color = 0xFFFF0000;
 							draw_vline_color(vline, render, env);
-						}
+						}*/
 						x++;
 					}
 				}
