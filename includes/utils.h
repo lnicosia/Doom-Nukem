@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 13:57:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:20:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,6 +456,8 @@ typedef struct		s_env
 	char			**res;
 	int				w;
 	int				h;
+	int				h_w;
+	int				h_h;
 	int				i;
 	int				running;
 	int				nb_sectors;

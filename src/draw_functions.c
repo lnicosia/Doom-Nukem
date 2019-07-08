@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 14:34:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:38:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 				/*if (env->options.lighting)
 					pixels[vline.x + env->w * i] = apply_light(0xFF888888, render.light);*/
 			}
-		if (i == (int)render.horizon)
-			pixels[vline.x + env->w * i] = 0xFF00FF00;
+		//if (i == (int)render.horizon)
+			//pixels[vline.x + env->w * i] = 0xFF00FF00;
 		}
 		i++;
 	}

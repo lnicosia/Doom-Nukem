@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 14:53:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:31:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,8 +281,8 @@ int				draw(t_env *env)
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
 	//ft_printf("%d sectors to render\n", screen_sectors);
-	render.ymin = ft_max(env->h / 2 + env->camera.y1 * env->camera.scale, 0);
-	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
+	render.ymin = ft_max(env->h_h + env->camera.y1 * env->camera.scale, 0);
+	render.ymax = ft_min(env->h_h + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
 	{
 		render.xmin = env->xmin[i];

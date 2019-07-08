@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:54:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:35:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:31:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,4 @@ void	clear_image(t_env *env)
 		}
 		y++;
 	}
-	/*int y = 0;
-	while (y < env->h / 2)
-	{
-		int x = 0;
-		while (x < env->w)
-		{
-			env->sdl.img_str[x + y * env->w] = 0x222222FF;
-			x++;
-		}
-		y++;
-	}
-	y = env->h / 2;
-	while (y < env->h)
-	{
-		int x = 0;
-		while (x < env->w)
-		{
-			env->sdl.img_str[x + y * env->w] = 0x444444FF;
-			x++;
-		}
-		y++;
-	}*/
-	//SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, sizeof(Uint32) * env->w);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 14:42:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:11:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ typedef struct		s_render
 	double			wall_width;
 	double			wall_height;
 	double			horizon;
+	double			angle_z1;
+	double			angle_z2;
+	double			preclip_angle_z1;
+	double			preclip_angle_z2;
+	double			scale1;
+	double			scale2;
 	int				xmin;
 	int				xmax;
 	int				ymin;

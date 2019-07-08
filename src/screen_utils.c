@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:29:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:29:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,16 @@ void	draw_axes(t_env *env)
 	max = env->h;
 	while (i < max)
 	{
-		//env->sdl.img_str[i * env->w + env->w / 2] = 0xFFFFFFFF;
-		pixels[i * env->w + env->w / 2] = 0xFFFFFFFF;
+		//env->sdl.img_str[i * env->w + env->h_w] = 0xFFFFFFFF;
+		pixels[i * env->w + env->h_w] = 0xFFFFFFFF;
 		i++;
 	}
 	i = 0;
 	max = env->w;
 	while (i < max)
 	{
-		//env->sdl.img_str[env->h / 2 * env->w + i] = 0xFFFFFFFF;
-		pixels[env->h / 2 * env->w + i] = 0xFFFFFFFF;
+		//env->sdl.img_str[env->h_h * env->w + i] = 0xFFFFFFFF;
+		pixels[env->h_h * env->w + i] = 0xFFFFFFFF;
 		i++;
 	}
 }
@@ -101,31 +101,31 @@ void	draw_crosshair(t_env *env)
 	Uint32	*pixels;
 
 	pixels = env->sdl.texture_pixels;
-	x = env->w / 2;
-	y = env->h / 2 - 10;
-	max = env->h / 2 - 2;
+	x = env->h_w;
+	y = env->h_h - 10;
+	max = env->h_h - 2;
 	while (y < max)
 	{
 		pixels[x + y * env->w] = 0xFFFFFFFF;
 		y++;
 	}
-	y = env->h / 2 + 10;
-	max = env->h / 2 + 2;
+	y = env->h_h + 10;
+	max = env->h_h + 2;
 	while (y > max)
 	{
 		pixels[x + y * env->w] = 0xFFFFFFFF;
 		y--;
 	}
-	y = env->h / 2;
-	x = env->w / 2 - 10;
-	max = env->w / 2 - 2;
+	y = env->h_h;
+	x = env->h_w - 10;
+	max = env->h_w - 2;
 	while (x < max)
 	{
 		pixels[x + y * env->w] = 0xFFFFFFFF;
 		x++;
 	}
-	x = env->w / 2 + 10;
-	max = env->w / 2 + 2;
+	x = env->h_w + 10;
+	max = env->h_w + 2;
 	while (x > max)
 	{
 		pixels[x + y * env->w] = 0xFFFFFFFF;

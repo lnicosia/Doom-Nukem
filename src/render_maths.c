@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 14:42:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:36:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	get_rotated_vertices(t_render *render, t_env *env, int i)
 	}
 	render->vx2 = render->v2.x * env->player.angle_sin - render->v2.z * env->player.angle_cos;
 	render->vz2 = render->v2.x * env->player.angle_cos + render->v2.z * env->player.angle_sin;
+	render->preclip_angle_z1 = render->vz1 * env->player.angle_z;
+	render->preclip_angle_z2 = render->vz2 * env->player.angle_z;
 }
 
 /*
@@ -62,16 +64,18 @@ void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 	double	y1;
 	double	y2;
 
+	render->angle_z1 = render->clipped_vz1 * env->player.angle_z;
+	render->angle_z2 = render->clipped_vz2 * env->player.angle_z;
 	y1 = sector.clipped_floors1[i] - env->player.pos.z;
 	y2 = sector.clipped_floors2[i + 1] - env->player.pos.z;
-	render->vfy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
-	render->vfy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
+	render->vfy1 = y1 + render->angle_z1;
+	render->vfy2 = y2 + render->angle_z2;
 	/*render->vfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 	y1 = sector.clipped_ceilings1[i] - env->player.pos.z;
 	y2 = sector.clipped_ceilings2[i + 1] - env->player.pos.z;
-	render->vcy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
-	render->vcy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
+	render->vcy1 = y1 + render->angle_z1;
+	render->vcy2 = y2 + render->angle_z2;
 	/*render->vcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vcy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 }
@@ -87,14 +91,14 @@ void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector,
 
 	y1 = sector.floors[i] - env->player.pos.z;
 	y2 = sector.floors[i + 1] - env->player.pos.z;
-	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
-	render->vfy2 = y2 + (render->vz2 * env->player.angle_z);
+	render->vfy1 = y1 + render->preclip_angle_z1;
+	render->vfy2 = y2 + render->preclip_angle_z2;
 	/*render->vfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 	y1 = sector.ceilings[i] - env->player.pos.z;
 	y2 = sector.ceilings[i + 1] - env->player.pos.z;
-	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
-	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
+	render->vcy1 = y1 + render->preclip_angle_z1;
+	render->vcy2 = y2 + render->preclip_angle_z2;
 	/*render->vcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vcy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 }
@@ -110,14 +114,14 @@ void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighb
 
 	y1 = neighbor.clipped_floors1[render->nv1] - env->player.pos.z;
 	y2 = neighbor.clipped_floors2[render->nv2] - env->player.pos.z;
-	render->nvfy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
-	render->nvfy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
+	render->nvfy1 = y1 + render->angle_z1;
+	render->nvfy2 = y2 + render->angle_z2;
 	/*render->nvfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->nvfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 	y1 = neighbor.clipped_ceilings1[render->nv1] - env->player.pos.z;
 	y2 = neighbor.clipped_ceilings2[render->nv2] - env->player.pos.z;
-	render->nvcy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
-	render->nvcy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
+	render->nvcy1 = y1 + render->angle_z1;
+	render->nvcy2 = y2 + render->angle_z2;
 	/*render->nvcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->nvcy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
 }
@@ -128,22 +132,23 @@ void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighb
 
 void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i)
 {
-	double	scale;
-
-	scale = env->camera.scale;
+	render->scale1 = env->camera.scale / -render->clipped_vz1;
+	render->scale2 = env->camera.scale / -render->clipped_vz2;
 	get_relative_heights(render, env, sector, i);
-	render->floor1 = env->h / 2 +
-		(int)(render->vfy1 * scale / -render->clipped_vz1);
-	render->floor2 = env->h / 2 +
-		(int)(render->vfy2 * scale / -render->clipped_vz2);
-	render->ceiling1 = env->h / 2 +
-		(int)(render->vcy1 * scale / -render->clipped_vz1);
-	render->ceiling2 = env->h / 2 +
-		(int)(render->vcy2 * scale / -render->clipped_vz2);
-	render->horizon = env->h / 2 +
-		(int)((render->clipped_vz1 * env->player.angle_z) * scale / -render->clipped_vz1);
-	render->x1 = env->w / 2 + (int)(render->clipped_vx1 * (scale / -render->clipped_vz1));
-	render->x2 = env->w / 2 + (int)(render->clipped_vx2 * (scale / -render->clipped_vz2));
+	render->floor1 = env->h_h +
+		render->vfy1 * render->scale1;
+	render->floor2 = env->h_h +
+		render->vfy2 * render->scale2;
+	render->ceiling1 = env->h_h +
+		render->vcy1 * render->scale1;
+	render->ceiling2 = env->h_h +
+		render->vcy2 * render->scale2;
+	render->horizon = env->h_h +
+		render->clipped_vz1 * env->player.angle_z * render->scale1;
+	render->horizon = env->h_h -
+		env->player.angle_z * env->camera.scale;
+	render->x1 = env->h_w + render->clipped_vx1 * render->scale1;
+	render->x2 = env->h_w + render->clipped_vx2 * render->scale2;
 }
 
 /*
@@ -152,18 +157,15 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 
 void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor)
 {
-	double	scale;
-
-	scale = env->camera.scale;
 	get_neighbor_relative_heights(render, env, neighbor);
-	render->neighbor_floor1 = env->h / 2 +
-		(int)(render->nvfy1 * scale / -render->clipped_vz1);
-	render->neighbor_floor2 = env->h / 2 +
-		(int)(render->nvfy2 * scale / -render->clipped_vz2);
-	render->neighbor_ceiling1 = env->h / 2 +
-		(int)(render->nvcy1 * scale / -render->clipped_vz1);
-	render->neighbor_ceiling2 = env->h / 2 +
-		(int)(render->nvcy2 * scale / -render->clipped_vz2);
+	render->neighbor_floor1 = env->h_h +
+		render->nvfy1 * render->scale1;
+	render->neighbor_floor2 = env->h_h +
+		render->nvfy2 * render->scale2;
+	render->neighbor_ceiling1 = env->h_h +
+		render->nvcy1 * render->scale1;
+	render->neighbor_ceiling2 = env->h_h +
+		render->nvcy2 * render->scale2;
 }
 
 /*
@@ -172,18 +174,17 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 
 void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector sector, int i)
 {
-	double	scale;
-
-	scale = env->camera.scale;
+	render->scale1 = env->camera.scale / -render->vz1;
+	render->scale2 = env->camera.scale / -render->vz2;
 	get_relative_heights_preclip(render, env, sector, i);
-	render->preclip_floor1 = env->h / 2 +
-		(int)(render->vfy1 * scale / -render->vz1);
-	render->preclip_floor2 = env->h / 2 +
-		(int)(render->vfy2 * scale / -render->vz2);
-	render->preclip_ceiling1 = env->h / 2 +
-		(int)(render->vcy1 * scale / -render->vz1);
-	render->preclip_ceiling2 = env->h / 2 +
-		(int)(render->vcy2 * scale / -render->vz2);
-	render->preclip_x1 = env->w / 2 + (int)(render->vx1 * (scale / -render->vz1));
-	render->preclip_x2 = env->w / 2 + (int)(render->vx2 * (scale / -render->vz2));
+	render->preclip_floor1 = env->h_h +
+		render->vfy1 * render->scale1;
+	render->preclip_floor2 = env->h_h +
+		render->vfy2 * render->scale2;
+	render->preclip_ceiling1 = env->h_h +
+		render->vcy1 * render->scale1;
+	render->preclip_ceiling2 = env->h_h +
+		render->vcy2 * render->scale2;
+	render->preclip_x1 = env->h_w + render->vx1 * render->scale1;
+	render->preclip_x2 = env->h_w + render->vx2 * render->scale2;
 }
