@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 17:44:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/04 12:31:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:24:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double		ft_atof(const char *str)
 		count++;
 	}
 	if (!*str || *str != '.')
-		return (res1);
+		return (neg * res1);
 	str++;
 	count = 0;
 	res2 = ft_abs(ft_atoi(str));

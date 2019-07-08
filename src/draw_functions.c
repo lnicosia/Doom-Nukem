@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 12:25:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:54:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 				/*if (env->options.lighting)
 					pixels[vline.x + env->w * i] = apply_light(0xFF888888, render.light);*/
 			}
-		if (i == (int)render.current_ceiling_horizon)
+		/*if (i == (int)render.current_floor_horizon)
 			pixels[vline.x + env->w * i] = 0xFFFF0000;
-		if (i == (int)render.current_floor_horizon)
-			pixels[vline.x + env->w * i] = 0xFF00FF00;
+		if (i == (int)render.horizon)
+			pixels[vline.x + env->w * i] = 0xFF00FF00;*/
 		}
 		i++;
 		//vline.start++;
@@ -160,8 +160,6 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 	double	alpha;
-	double	dist;
-	double	startdist;
 	Uint32	*pixels;
 	double	*zbuffer;
 
@@ -183,34 +181,13 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		vline.end--;
 	}
 	i = vline.start + 1;
-	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-	startdist = (env->h / 2.0) / (double)(i - render.current_ceiling_horizon);
 	while (i <= vline.end)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			//dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-			dist = (env->h / 2.0) / (double)(i - render.current_ceiling_horizon);
-			//dist = (env->h) / (double)(2.0 * i - env->h);
-			//dist = env->h / (double)(2 * i - env->h);
-			//alpha = dist / startdist;
-			alpha = dist / render.distceiling;
-			alpha = (render.max_ceiling - render.current_ceiling_horizon) / (double)(i - render.current_ceiling_horizon);
-			alpha = (render.max_ceiling - render.current_floor_horizon) / (double)(i - render.current_floor_horizon);
-			//alpha = (i - render.max_floor) / (double)(env->h - render.max_floor);
-			//alpha = (double)(env->h - render.max_floor) / (double)(i - render.max_floor);
-			//ft_printf("alpha = %f\n", alpha);
+			alpha = (render.max_ceiling - render.horizon) / (double)(i - render.horizon);
 			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-			//y = alpha * render.texel.y + (1.0 - alpha) * env->screen_pos[render.currentx].y;
-			//y = ((1.0 - alpha) * env->player.pos.y / render.vz1 + alpha * render.texel.y / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
-			double	v0;
-			v0 = 2.0;
-			//y = ((1.0 - alpha) * env->player.pos.y / v0 + alpha * render.texel.y / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
-			//ft_printf("y = %f\n", y);
 			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-			//x = alpha * render.texel.x + (1.0 - alpha) * env->screen_pos[render.currentx].x;
-			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
-			//x = ((1.0 - alpha) * env->player.pos.x / v0 + alpha * render.texel.x / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
 			y *= env->textures[render.ceiling_texture].surface->h / 5.0;
 			x *= env->textures[render.ceiling_texture].surface->w / 5.0;
 			while (y >= env->textures[render.ceiling_texture].surface->h)
@@ -245,8 +222,6 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	y;
 	double	x;
 	double	alpha;
-	double	dist;
-	double	startdist;
 	Uint32	*pixels;
 	double	*zbuffer;
 
@@ -268,44 +243,13 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		vline.end--;
 	}
 	i = vline.start + 1;
-	startdist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-	startdist = (env->h / 2.0) / (double)(i - render.current_floor_horizon);
 	while (i <= vline.end)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			//dist = (env->h / 2.0) / (double)(i - (render.max_floor + render.max_ceiling) / 2.0);
-			dist = (env->h) / (double)(i - render.current_floor_horizon);
-			//dist = (env->h) / (double)(2.0 * i - env->h);
-			//dist = env->h / (double)(2 * i - env->h);
-			//alpha = dist / startdist;
-			alpha = dist / render.distfloor;
-			alpha = (render.max_floor - render.current_floor_horizon) / (double)(i - render.current_floor_horizon);
-			//ft_printf("alpha = %f\n", alpha);
-			//alpha = dist / render.z;
-			//alpha = (i - render.max_floor) / (double)(env->h - render.max_floor);
-			//alpha = (double)(env->h - render.max_floor) / (double)(i - render.max_floor);
-			//ft_printf("alpha = %f\n", alpha);
+			alpha = (render.max_floor - render.horizon) / (double)(i - render.horizon);
 			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-			//y = alpha * render.texel.y + (1.0 - alpha) * env->screen_pos[vline.x].y;
-			//y = (1 - alpha) * render.texel.y + alpha * env->player.pos.y;
-			//y = (1 - alpha) * render.texel.y + alpha * env->screen_pos[vline.x].y;
-			//y = alpha * render.texel.y + (1.0 - alpha) * env->screen_pos[render.currentx].y;
-			//y = ((1.0 - alpha) * render.texel.y / render.z + alpha * env->screen_pos[vline.x].y / env->camera.near_z) / ((1.0 - alpha) / render.z + alpha / env->camera.near_z);
-			//y = ((1.0 - alpha) * env->screen_pos[vline.x].y / render.z + alpha * render.texel.y / env->camera.near_z) / ((1.0 - alpha) / render.z + alpha / env->camera.near_z);
-			//y = ((1.0 - alpha) * env->screen_pos[vline.x].y / env->camera.near_z + alpha * render.texel.y / render.z) / ((1.0 - alpha) / env->camera.near_z + alpha / render.z);
-			//y = ((1.0 - alpha) * env->player.pos.y / v0 + alpha * render.texel.y / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
-			//ft_printf("y = %f\n", y);
 			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-			//x = alpha * render.texel.x + (1.0 - alpha) * env->screen_pos[vline.x].x;
-			//x = (1 - alpha) * render.texel.x + alpha * env->screen_pos[vline.x].x;
-			//x = (1 - alpha) * render.texel.x + alpha * env->player.pos.x;
-			//x = ((1.0 - alpha) * render.texel.x / render.z + alpha * env->screen_pos[vline.x].x / env->camera.near_z) / ((1.0 - alpha) / render.z + alpha / env->camera.near_z);
-			//x = ((1.0 - alpha) * env->screen_pos[vline.x].x / render.z + alpha * render.texel.x / env->camera.near_z) / ((1.0 - alpha) / render.z + alpha / env->camera.near_z);
-			//x = ((1.0 - alpha) * env->screen_pos[vline.x].x / env->camera.near_z + alpha * render.texel.x / render.z) / ((1.0 - alpha) / env->camera.near_z + alpha / render.z);
-			//x = alpha * render.texel.x + (1.0 - alpha) * env->screen_pos[render.currentx].x;
-			//x = ((1.0 - alpha) * env->player.pos.x / render.vz1 + alpha * render.texel.x / render.vz2) / ((1.0 - alpha) / render.vz1 + alpha / render.vz2);
-			//x = ((1.0 - alpha) * env->player.pos.x / v0 + alpha * render.texel.x / render.distwall) / ((1.0 - alpha) / v0 + alpha / render.distwall);
 			y *= env->textures[render.floor_texture].surface->h / 5.0;
 			x *= env->textures[render.floor_texture].surface->w / 5.0;
 			while (y >= env->textures[render.floor_texture].surface->h)
@@ -344,7 +288,6 @@ void	draw_ceiling(t_render render, t_env *env)
 	vline.color = 0xFF222222;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
-	//ft_printf("floor end = %d\n", vline.end);
 	//draw_vline_color(vline, render, env);
 	draw_vline_ceiling(vline, render, env);
 }
@@ -363,7 +306,6 @@ void	draw_floor(t_render render,t_env *env)
 	vline.color = 0xFF444444;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
-	//ft_printf("ceiling start = %d\n", vline.start);
 	draw_vline_floor(vline, render, env);
 	//draw_vline_color(vline, render, env);
 }
