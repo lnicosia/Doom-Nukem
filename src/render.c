@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 13:53:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:53:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	render_sector(t_env *env, t_render render)
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
-			get_rotated_vertices(&render, env, sector, i);
+			get_rotated_vertices(&render, env, i);
 
 			project_floor_and_ceiling_preclip(&render, env, sector, i);
 			render.v1_clipped = 0;
@@ -79,7 +79,6 @@ void	render_sector(t_env *env, t_render render)
 			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
-				//|| !env->options.clipping)
 			{
 				// Calculer le cliping
 				clip_walls(&render, env);
@@ -156,8 +155,6 @@ void	render_sector(t_env *env, t_render render)
 						}
 					}
 					x = xstart;
-					//ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
-					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2);
 					while (x <= xend)
 					{
 						render.currentx = x;
@@ -211,11 +208,7 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							//if (render.z < env->depth_array[x])
-							//if (env->depth_array[x] > render.light)
 							{
-								//env->depth_array[x] = render.light;
-								//env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else
@@ -241,14 +234,6 @@ void	render_sector(t_env *env, t_render render)
 								draw_floor(render, env);
 							}
 						}
-						//Ligne noire pour separer les sols
-						/*if (x == xstart)
-						{
-							vline.start = render.max_floor;
-							vline.end = env->h - 1;
-							vline.color = 0xFFFF0000;
-							draw_vline_color(vline, render, env);
-						}*/
 						x++;
 					}
 				}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:15:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/04 11:54:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:51:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	set_camera(t_env *env)
 	env->camera.near_down = tan(CONVERT_RADIANS * env->camera.vfov / 2) * env->camera.near_z;
 	env->camera.far_left = -tan(CONVERT_RADIANS * env->camera.hfov / 2) * env->camera.far_z;
 	env->camera.far_right = tan(CONVERT_RADIANS * env->camera.hfov / 2) * env->camera.far_z;
-	ft_printf("near left = %f near right = %f\n", env->camera.near_left, env->camera.near_right);
+	//ft_printf("near left = %f near right = %f\n", env->camera.near_left, env->camera.near_right);
 	env->camera.x1 = (env->camera.near_left / env->camera.near_z);
 	env->camera.x2 = (env->camera.near_right / env->camera.near_z);
 	env->camera.y1 = (env->camera.near_up / env->camera.near_z);
 	env->camera.y2 = (env->camera.near_down / env->camera.near_z);
-	ft_printf("x1 = %f x2 = %f\n", env->camera.x1, env->camera.x2);
+	//ft_printf("x1 = %f x2 = %f\n", env->camera.x1, env->camera.x2);
 	env->camera.hscale = env->w / 2 / env->camera.x2;
 	env->camera.vscale = env->h / 2 / env->camera.y2;
 	env->camera.scale = env->camera.vscale;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 13:53:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:42:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int 
 **	Get the rotated vertices coord for the current wall
 */
 
-void	get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i)
+void	get_rotated_vertices(t_render *render, t_env *env, int i)
 {
-	double	y1;
-	double	y2;
-
 	if (i != 0)
 	{
 		render->vx1 = render->vx2;
@@ -54,15 +51,6 @@ void	get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 	}
 	render->vx2 = render->v2.x * env->player.angle_sin - render->v2.z * env->player.angle_cos;
 	render->vz2 = render->v2.x * env->player.angle_cos + render->v2.z * env->player.angle_sin;
-	y1 = sector.clipped_floors1[i] - env->player.pos.z;
-	y2 = sector.clipped_floors2[i + 1] - env->player.pos.z;
-	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
-	render->vfy2 = y2 + (render->vz2 * env->player.angle_z);
-	y1 = sector.clipped_ceilings1[i] - env->player.pos.z;
-	y2 = sector.clipped_ceilings2[i + 1] - env->player.pos.z;
-	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
-	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
-	//ft_printf("vx1 = %f vx2 = %f\n", render->vx1, render->vx2);
 }
 
 /*
