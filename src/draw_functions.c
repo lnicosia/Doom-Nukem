@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 16:48:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:45:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,9 +225,11 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	alpha;
 	Uint32	*pixels;
 	double	*zbuffer;
+	int		inf;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
+	inf = 0;
 	if (env->options.contouring)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && vline.start >= 0 && vline.start <= 300) || !env->options.show_minimap)
@@ -248,24 +250,25 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	{
 		if (!(vline.x >= env->w - 300 && vline.x < env->w && i >= 0 && i <= 300) || !env->options.show_minimap)
 		{
-			/*if (i - render.horizon == 0)
-			{
-				//ft_printf("inf = \n");
-				break;
-			}*/
-			alpha = (render.max_floor - render.horizon) / (double)(i - render.horizon);
+			if (i == render.horizon || render.max_floor == render.horizon)
+				return;
+			alpha = (render.max_floor - render.horizon) / (double)((i - render.horizon));
 			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
 			y *= env->textures[render.floor_texture].surface->h / 5.0;
 			x *= env->textures[render.floor_texture].surface->w / 5.0;
-			while (y >= env->textures[render.floor_texture].surface->h)
+			/*while (y >= env->textures[render.floor_texture].surface->h)
 				y -= env->textures[render.floor_texture].surface->h;
 			while (y < 0)
 				y += env->textures[render.floor_texture].surface->h;
 			while (x >= env->textures[render.floor_texture].surface->w)
 				x -= env->textures[render.floor_texture].surface->w;
 			while (x < 0)
-				x += env->textures[render.floor_texture].surface->w;
+				x += env->textures[render.floor_texture].surface->w;*/
+			if (y >= env->textures[render.floor_texture].surface->h || y < 0)
+				y = ft_abs((int)y % env->textures[render.floor_texture].surface->h);
+			if (x >= env->textures[render.floor_texture].surface->w || x < 0)
+				x = ft_abs((int)x % env->textures[render.floor_texture].surface->w);
 			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
 					&& x >= 0 && x < env->textures[render.floor_texture].surface->w && y >= 0 && y < env->textures[render.floor_texture].surface->h)
 			{
@@ -293,8 +296,10 @@ void	draw_ceiling(t_render render, t_env *env)
 	vline.color = 0xFF222222;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
-	//draw_vline_color(vline, render, env);
-	draw_vline_ceiling(vline, render, env);
+	/*if (!env->sectors[render.sector].ceiling_slope)
+		draw_vline_color(vline, render, env);
+	else
+		draw_vline_ceiling(vline, render, env);*/
 }
 
 /*
@@ -311,8 +316,10 @@ void	draw_floor(t_render render,t_env *env)
 	vline.color = 0xFF444444;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
-	draw_vline_floor(vline, render, env);
-	//draw_vline_color(vline, render, env);
+	if (!env->sectors[render.sector].floor_slope)
+		draw_vline_floor(vline, render, env);
+	else
+		draw_vline_color(vline, render, env);
 }
 
 /*
