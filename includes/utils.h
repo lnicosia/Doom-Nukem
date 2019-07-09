@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 15:07:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:05:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,8 +391,9 @@ typedef struct		s_animation
 	double			start;
 	double			end;
 	double			on_going;
+	double			height;
+	double			tick;
 	double			nb_frame;
-	double			a_time;
 }					t_animation;
 
 
@@ -423,7 +424,7 @@ typedef struct		s_env
 	t_camera		camera;
 	t_time			time;
 	t_animation		jump;
-	t_animation		squat;
+	t_animation		crouch;
 	t_gravity		gravity;
 	t_animation		shot;
 	t_animation		weapon_change;
@@ -458,8 +459,6 @@ typedef struct		s_env
 	int				nb_vertices;
 	int				nb_objects;
 	int				flag;
-	int				ac1;
-	char			**av1;
 	int				reset;
 }					t_env;
 
@@ -580,7 +579,7 @@ void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
 void				jump(t_env *env);
-void				squat(t_env *env);
+void				crouch(t_env *env);
 int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_menu(t_env *env);

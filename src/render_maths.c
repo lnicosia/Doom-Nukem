@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:02:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:17:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 	}
 	render->vx2 = render->v2.x * env->player.angle_sin - render->v2.z * env->player.angle_cos;
 	render->vz2 = render->v2.x * env->player.angle_cos + render->v2.z * env->player.angle_sin;
-	y1 = sector.clipped_floors1[i] - env->player.pos.z;
-	y2 = sector.clipped_floors2[i + 1] - env->player.pos.z;
+	y1 = sector.clipped_floors1[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.clipped_floors2[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
 	render->vfy2 = y2 + (render->vz2 * env->player.angle_z);
-	y1 = sector.clipped_ceilings1[i] - env->player.pos.z;
-	y2 = sector.clipped_ceilings2[i + 1] - env->player.pos.z;
+	y1 = sector.clipped_ceilings1[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.clipped_ceilings2[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
 	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
 	//ft_printf("vx1 = %f vx2 = %f\n", render->vx1, render->vx2);
@@ -74,14 +74,14 @@ void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 	double	y1;
 	double	y2;
 
-	y1 = sector.clipped_floors1[i] - env->player.pos.z;
-	y2 = sector.clipped_floors2[i + 1] - env->player.pos.z;
+	y1 = sector.clipped_floors1[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.clipped_floors2[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vfy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
 	render->vfy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
 	/*render->vfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
-	y1 = sector.clipped_ceilings1[i] - env->player.pos.z;
-	y2 = sector.clipped_ceilings2[i + 1] - env->player.pos.z;
+	y1 = sector.clipped_ceilings1[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.clipped_ceilings2[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vcy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
 	render->vcy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
 	/*render->vcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
@@ -97,14 +97,14 @@ void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector,
 	double	y1;
 	double	y2;
 
-	y1 = sector.floors[i] - env->player.pos.z;
-	y2 = sector.floors[i + 1] - env->player.pos.z;
+	y1 = sector.floors[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.floors[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vfy1 = y1 + (render->vz1 * env->player.angle_z);
 	render->vfy2 = y2 + (render->vz2 * env->player.angle_z);
 	/*render->vfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->vfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
-	y1 = sector.ceilings[i] - env->player.pos.z;
-	y2 = sector.ceilings[i + 1] - env->player.pos.z;
+	y1 = sector.ceilings[i] - (env->player.pos.z + env->player.eyesight);
+	y2 = sector.ceilings[i + 1] - (env->player.pos.z + env->player.eyesight);
 	render->vcy1 = y1 + (render->vz1 * env->player.angle_z);
 	render->vcy2 = y2 + (render->vz2 * env->player.angle_z);
 	/*render->vcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
@@ -120,14 +120,14 @@ void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighb
 	double	y1;
 	double	y2;
 
-	y1 = neighbor.clipped_floors1[render->nv1] - env->player.pos.z;
-	y2 = neighbor.clipped_floors2[render->nv2] - env->player.pos.z;
+	y1 = neighbor.clipped_floors1[render->nv1] - (env->player.pos.z + env->player.eyesight);
+	y2 = neighbor.clipped_floors2[render->nv2] - (env->player.pos.z + env->player.eyesight);
 	render->nvfy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
 	render->nvfy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
 	/*render->nvfy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;
 	render->nvfy2 = y2 * env->player.angle_z_cos + render->vz2 * env->player.angle_z_sin;*/
-	y1 = neighbor.clipped_ceilings1[render->nv1] - env->player.pos.z;
-	y2 = neighbor.clipped_ceilings2[render->nv2] - env->player.pos.z;
+	y1 = neighbor.clipped_ceilings1[render->nv1] - (env->player.pos.z + env->player.eyesight);
+	y2 = neighbor.clipped_ceilings2[render->nv2] - (env->player.pos.z + env->player.eyesight);
 	render->nvcy1 = y1 + (render->clipped_vz1 * env->player.angle_z);
 	render->nvcy2 = y2 + (render->clipped_vz2 * env->player.angle_z);
 	/*render->nvcy1 = y1 * env->player.angle_z_cos + render->vz1 * env->player.angle_z_sin;

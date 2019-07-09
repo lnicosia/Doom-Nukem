@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/17 16:59:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:02:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	animations(t_env *env)
 		gravity(env);
 	if (((env->inputs.space && !env->player.state) || env->jump.on_going))
 		jump(env);
-	if (((env->inputs.ctrl && !env->player.state) || env->squat.on_going) && !env->jump.on_going)
-		squat(env);
+	if (((env->inputs.ctrl && !env->player.state && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
+		crouch(env);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 15:15:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:07:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ int		open_options(t_env *env)
 	if (env->aplicate_changes)
 	{
 		free_all_sdl_relative(env);
-		init_screen_size(env, env->i);
+		env->w = env->screen_w[env->i];
+		env->h = env->screen_h[env->i];
+		set_camera(env);
 		if (init_sdl(env))
 			return (ft_printf("Could not re load sdl\n"));
 		if (init_screen_pos(env))

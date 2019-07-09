@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:30:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:32:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,24 @@ void	render_sector(t_env *env, t_render render)
 					}
 					x = xstart;
 					//ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
-					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2);
+					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					while (x <= xend)
 					{
 						render.currentx = x;
@@ -258,6 +275,37 @@ void	render_sector(t_env *env, t_render render)
 						}*/
 						x++;
 					}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				}
 			}
 			i++;

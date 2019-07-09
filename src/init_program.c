@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 15:16:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:26:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	init_program(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
-	env.ac1 = ac;
-	env.av1 = av;
 	env.menu_start = 0;
 	env.aplicate_changes = 0;
 	env.reset = 0;
