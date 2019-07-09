@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/27 12:09:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:21:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_translated_object_pos(t_object *object, t_env *env)
 	object->translated_right_top.y = object->translated_left_top.y;*/
 	object->translated_pos.x = object->pos.x - env->player.pos.x;
 	object->translated_pos.z = object->pos.y - env->player.pos.y;
-	object->translated_pos.y = object->pos.z - env->player.pos.z;
+	object->translated_pos.y = object->pos.z - (env->player.pos.z + env->player.eyesight);
 }
 
 void	get_rotated_object_pos(t_object *object, t_env *env)
