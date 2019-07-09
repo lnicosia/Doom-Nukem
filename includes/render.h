@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/02 11:14:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:57:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,13 @@ typedef struct		s_render
 	double			clipped_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			distfloor;
-	double			distceiling;
-	double			floor_horizon;
-	double			ceiling_horizon;
+	double			horizon;
+	double			angle_z1;
+	double			angle_z2;
+	double			preclip_angle_z1;
+	double			preclip_angle_z2;
+	double			scale1;
+	double			scale2;
 	int				xmin;
 	int				xmax;
 	int				ymin;
@@ -77,20 +80,20 @@ typedef struct		s_render
 	int				currentx;
 	double			floor1;
 	double			floor2;
-	int				current_floor;
-	int				current_ceiling;
-	int				current_neighbor_floor;
-	int				current_neighbor_ceiling;
+	double			current_floor;
+	double			current_ceiling;
+	double			current_neighbor_floor;
+	double			current_neighbor_ceiling;
 	double			max_floor;
 	double			max_ceiling;
-	int				max_neighbor_floor;
-	int				max_neighbor_ceiling;
+	double			max_neighbor_floor;
+	double			max_neighbor_ceiling;
 	double			ceiling1;
 	double			ceiling2;
-	int				neighbor_floor1;
-	int				neighbor_floor2;
-	int				neighbor_ceiling1;
-	int				neighbor_ceiling2;
+	double			neighbor_floor1;
+	double			neighbor_floor2;
+	double			neighbor_ceiling1;
+	double			neighbor_ceiling2;
 	int				preclip_x1;
 	int				preclip_x2;
 	int				preclip_floor1;
@@ -123,7 +126,7 @@ typedef struct		s_render_object
 }					t_render_object;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
-void				get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i);
+void				get_rotated_vertices(t_render *render, t_env *env, int i);
 int					check_fov(t_render *render, t_env *env);
 void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);

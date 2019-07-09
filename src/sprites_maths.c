@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:21:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:24:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	project_object(t_render_object *orender, t_object object, t_env *env)
 	double	scale;
 
 	scale = env->camera.scale;
-	orender->screen_pos.y = env->h / 2
+	orender->screen_pos.y = env->h_h
 		+ (object.rotated_pos.y * scale / -object.rotated_pos.z);
-	orender->screen_pos.x = env->w / 2 + (object.rotated_pos.x * (scale / -object.rotated_pos.z));
+	orender->screen_pos.x = env->h_w + (object.rotated_pos.x * (scale / -object.rotated_pos.z));
 	orender->dist = sqrt(pow(object.pos.x - env->player.pos.x, 2)
 		+ pow(object.pos.y - env->player.pos.y, 2));
 }

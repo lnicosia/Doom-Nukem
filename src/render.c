@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:12:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:25:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	render_sector(t_env *env, t_render render)
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);
 			// Calculer les coordonnes tournees du mur par rapport au joueur 
-			get_rotated_vertices(&render, env, sector, i);
+			get_rotated_vertices(&render, env, i);
 
 			project_floor_and_ceiling_preclip(&render, env, sector, i);
 			render.v1_clipped = 0;
@@ -79,7 +79,6 @@ void	render_sector(t_env *env, t_render render)
 			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
-				//|| !env->options.clipping)
 			{
 				// Calculer le cliping
 				clip_walls(&render, env);
@@ -156,31 +155,11 @@ void	render_sector(t_env *env, t_render render)
 						}
 					}
 					x = xstart;
-					//ft_printf("z1 = %f z2 = %f\n", render.clipped_vz1, render.clipped_vz2);
-					//ft_printf("x1 = %f x2 = %f\n", render.x1, render.x2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					while (x <= xend)
 					{
 						render.currentx = x;
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.clipped_alpha = (x - render.x1) / (double)(render.x2 - render.x1);
-						//render.z = render.clipped_alpha * (render.clipped_vz2 - render.clipped_vz1) + render.clipped_vz1;
 						render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
 						render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.vz1 + render.clipped_alpha / render.vz2);
 
@@ -193,13 +172,7 @@ void	render_sector(t_env *env, t_render render)
 						render.max_ceiling = render.clipped_alpha * (render.ceiling2 - render.ceiling1) + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = render.clipped_alpha * (render.floor2 - render.floor1) + render.floor1;
-						//render.max_floor = ((1.0 - render.clipped_alpha) * render.floor1 / render.vz1 + render.clipped_alpha * render.floor2 / render.vz2) * render.clipped_z;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
-						render.floor_horizon = (render.max_floor + render.max_ceiling) / 2.0;
-						render.ceiling_horizon = (render.max_floor + render.max_ceiling) / 2.0;
-						render.distfloor = ((env->h / 2.0) / (double)(render.max_floor - render.floor_horizon));
-						render.distceiling = ((env->h / 2.0) / (double)(render.max_ceiling - render.ceiling_horizon));
-						//ft_printf("distwall = %f\n", render.distwall);
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;
@@ -235,11 +208,7 @@ void	render_sector(t_env *env, t_render render)
 						}
 						else
 						{
-							//if (render.z < env->depth_array[x])
-							//if (env->depth_array[x] > render.light)
 							{
-								//env->depth_array[x] = render.light;
-								//env->depth_array[x] = render.z;
 								if (env->options.color_clipping && (render.v1_clipped || render.v2_clipped))
 									vline.color = 0xFF00AA00;
 								else
@@ -265,47 +234,8 @@ void	render_sector(t_env *env, t_render render)
 								draw_floor(render, env);
 							}
 						}
-						//Ligne noire pour separer les sols
-						/*if (x == xstart)
-						{
-							vline.start = render.max_floor;
-							vline.end = env->h - 1;
-							vline.color = 0xFF;
-							draw_vline(vline, render, env);
-						}*/
 						x++;
 					}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				}
 			}
 			i++;
@@ -351,8 +281,8 @@ int				draw(t_env *env)
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
 	//ft_printf("%d sectors to render\n", screen_sectors);
-	render.ymin = ft_max(env->h / 2 + env->camera.y1 * env->camera.scale, 0);
-	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
+	render.ymin = ft_max(env->h_h + env->camera.y1 * env->camera.scale, 0);
+	render.ymax = ft_min(env->h_h + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
 	{
 		render.xmin = env->xmin[i];

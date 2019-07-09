@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:42:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:42:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	double			xalpha;
 	double			yalpha;
 	double			light;
+	double			xrange;
+	double			yrange;
 	t_texture		texture;
 	Uint32			*pixels;
 	Uint32			*texture_pixels;
@@ -96,16 +98,18 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	yend = (orender.screen_pos.y);
 	light = 255 - ft_clamp(object.rotated_pos.z * 2, 0, 255);
 	x = xstart;
+	xrange = xend - xstart;
+	yrange = yend - ystart;
 	while (++x < xend)
 	{
-		xalpha = (x - xstart) / (double)(xend - xstart);
+		xalpha = (x - xstart) / xrange;
 		if (sprite.reversed[index])
 			xalpha = 1.0 - xalpha;
 		textx = (1.0 - xalpha) * sprite.start[index].x + xalpha * sprite.end[index].x;
 		y = ystart + 1;
 		while (y < yend)
 		{
-			yalpha = (y - ystart) / (double)(yend - ystart);
+			yalpha = (y - ystart) / yrange;
 			texty = (1.0 - yalpha) * sprite.start[index].y + yalpha * sprite.end[index].y;
 			if (!(x >= env->w - 300 && x < env->w && y >= 0 && y <= 300) || !env->options.show_minimap)
 				if (x >= 0 && x < env->w && y >= 0 && y < env->h

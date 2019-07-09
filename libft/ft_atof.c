@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 17:44:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/04/19 10:18:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:24:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,26 @@ double		ft_atof(const char *str)
 	double	res1;
 	double	res2;
 	int		count;
+	int		neg;
 
+	neg = 1;
+	if (*str == '-')
+	{
+		neg = -1;
+		str++;
+	}
 	count = 0;
-	res1 = ft_atoi(str);
+	res1 = ft_abs(ft_atoi(str));
 	while (*str >= '0' && *str <= '9')
 	{
 		str++;
 		count++;
 	}
 	if (!*str || *str != '.')
-		return (res1);
+		return (neg * res1);
 	str++;
 	count = 0;
-	res2 = ft_atoi(str);
+	res2 = ft_abs(ft_atoi(str));
 	while (*str >= '0' && *str <= '9')
 	{
 		str++;
@@ -42,5 +49,5 @@ double		ft_atof(const char *str)
 		count--;
 	}
 	res = res1 + res2;
-	return (res);
+	return (neg * res);
 }
