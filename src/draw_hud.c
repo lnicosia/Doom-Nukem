@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/08 15:59:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:28:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void    armor_life_hud(t_env *env)
 
     x = 0;
     window_w = (int)(env->w)/*  - env->textures[ARMOR_LIFE_HUD].surface->w */;
+	window_w = 0;
     window_h = (env->h - env->textures[ARMOR_LIFE_HUD].surface->h);
-    while (x < env->textures[ARMOR_LIFE_HUD].surface->w)
+    while (x < env->textures[ARMOR_LIFE_HUD].surface->w && window_w + x < env->w)
     {
         y = 0;
         while (y < env->textures[ARMOR_LIFE_HUD].surface->h  && (window_h + y) < env->h)
         {
-            if (window_w + x >= 0 && window_w + x < env->w
-					&& window_h + y >= 0 && window_h + y < env->h
-					&& env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
+			if (env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
                 env->sdl.texture_pixels[(window_w + x) + env->w * (window_h + y)] = 
                     env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y];
             y++;
