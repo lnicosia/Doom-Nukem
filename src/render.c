@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 12:32:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:12:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,12 +334,6 @@ static void		reset_render_utils(t_env *env)
 		env->rendered_sectors[i] = 0;
 		i++;
 	}
-	/*i = 0;
-	while (i < env->w)
-	{
-		env->depth_array[i] = 999999999999999;
-		i++;
-	}*/
 }
 
 /*
@@ -356,6 +350,7 @@ int				draw(t_env *env)
 	i = 0;
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
+	//ft_printf("%d sectors to render\n", screen_sectors);
 	render.ymin = ft_max(env->h / 2 + env->camera.y1 * env->camera.scale, 0);
 	render.ymax = ft_min(env->h / 2 + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
@@ -363,6 +358,7 @@ int				draw(t_env *env)
 		render.xmin = env->xmin[i];
 		render.xmax = env->xmax[i];
 		render.sector = env->screen_sectors[i];
+	//	ft_printf("sector %d from %d to %d\n", render.sector, render.xmin, render.xmax);
 		render_sector(env, render);
 		i++;
 	}
