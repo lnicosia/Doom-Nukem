@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/03 15:31:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:08:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	if (env->options.show_minimap)
-		minimap(env);
 	if (draw(env) != 0)
 		return (crash("Render function failed\n", env));
 	if ((env->inputs.leftclick && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
@@ -31,6 +29,8 @@ int	draw_game(t_env *env)
 		fps(env);
 	if (env->options.test)
 		print_debug(env);
+	if (env->options.show_minimap)
+		minimap(env);
 	time(env);
 	animations(env);
 	draw_hud(env);

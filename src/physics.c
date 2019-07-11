@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/09 14:10:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/11 11:47:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	jump(t_env *env)
 	if (env->player.pos.z <= env->jump.height)
 	{
 		env->player.pos.z = env->jump.height - 3;
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->jump.tick = env->jump.end / env->jump.nb_frame;
 		j = (new_time - env->jump.start) / env->jump.tick;
 		while (i < j)
@@ -59,6 +60,7 @@ void	jump(t_env *env)
 		}
 		env->gravity.weight = 0;	
 		env->player.pos.z += res;
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		if (env->gravity.weight < 0)
 			env->gravity.weight = 0;
 	}
@@ -84,12 +86,15 @@ void	climb(t_env *env)
 			env->player.pos.z += x;
 		}
 		if (env->player.pos.z < env->gravity.floor)
+		{
 			env->player.pos.z += (x);
+		}
 		if (env->player.pos.z + (x) > env->gravity.floor)
 		{
 			x = env->gravity.floor - env->player.pos.z;
 			env->player.pos.z += x;
 		}
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
 	}
 	else if (env->player.eyesight < 6)
 		env->player.eyesight += 0.5;
@@ -128,6 +133,7 @@ void	fall(t_env *env)
 			env->gravity.weight = 1;
 			env->player.state = 0;
 		}
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
 	}
 }
 
@@ -157,6 +163,7 @@ void	crouch(t_env *env)
 		env->crouch.start = 0;
 		env->crouch.on_going = 0;
 	}
+	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }
 
 void	gravity(t_env *env)
