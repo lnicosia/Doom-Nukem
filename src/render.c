@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 15:44:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/12 16:07:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,8 @@ static void		reset_render_utils(t_env *env)
 }
 
 /*
- **	Main draw function
- **	TODO Protect function
- */
+**	Main draw function
+*/
 
 int				draw(t_env *env)
 {
@@ -257,6 +256,7 @@ int				draw(t_env *env)
 		render_sector(env, render);
 		i++;
 	}
-	draw_sprites(env, &render);
+	if (env->options.wall_color)
+		draw_sprites(env, &render);
 	return (0);
 }
