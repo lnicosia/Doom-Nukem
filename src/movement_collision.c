@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/08 15:56:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/11 11:38:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int     check_collision_rec(t_env *env, t_movement motion)
     if (env->options.wall_lover == 1)
         return (1);
     env->player.pos.z = env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
+	env->player.head_z = env->player.pos.z + env->player.eyesight;
     while (i < VERTICES_AMOUNT)
     {
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
@@ -247,6 +248,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
             {
                 env->player.sector = motion.old_sector;
                 env->player.pos.z = motion.old_z;
+				env->player.head_z = env->player.pos.z + env->player.eyesight;
                 move_alongside_wall(env, x_move, y_move, i);
                 return (0);
             }

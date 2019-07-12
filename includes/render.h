@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 11:57:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:34:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct		s_render
 	int				preclip_ceiling2;
 	double			x1;
 	double			x2;
+	double			xrange;
+	double			preclip_xrange;
 	int				xstart;
 	int				xend;
 	int				sector;
@@ -113,6 +115,13 @@ typedef struct		s_render
 	int				texture;
 	int				floor_texture;
 	int				ceiling_texture;
+	double			x1z1;
+	double			x2z2;
+	double			y1z1;
+	double			y2z2;
+	int				ceil_range;
+	int				floor_range;
+	double			max_fc;
 }					t_render;
 
 typedef struct		s_render_object

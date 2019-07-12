@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/09 14:26:41 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/07/11 13:41:29 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -flto -O3 \
+		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
 
 DEBUG ?= 0
@@ -79,7 +79,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
-	@gcc $(CFLAGS) $(OBJ) $(LIBFT) $(SDL) -o $(NAME)
+	@gcc  -pg $(CFLAGS) $(OBJ) $(LIBFT) $(SDL) -o $(NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(BIN_DIR)/$(NAME)' with success!"${RESET}
 
 clean: 

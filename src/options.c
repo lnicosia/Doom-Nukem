@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:25:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:10:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	options(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_r)
-		env->options.render_sectors = env->options.render_sectors ? 0 : 1;
+		ft_printf("will reload on day\n");
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
@@ -56,8 +56,8 @@ void	options(t_env *env)
 		env->options.color_clipping = env->options.color_clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
 		env->options.wall_color = env->options.wall_color ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_t)
-		env->options.test = env->options.test ? 0 : 1;
+/*	if (env->sdl.event.key.keysym.sym == SDLK_t)
+		env->options.test = env->options.test ? 0 : 1;*/
 	if (env->sdl.event.key.keysym.sym == SDLK_i)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
