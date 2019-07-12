@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:25:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:29:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	render_sector(t_env *env, t_render render)
 						render.alpha = (x - render.preclip_x1) / (double)(render.preclip_x2 - render.preclip_x1);
 						render.clipped_alpha = (x - render.x1) / (double)(render.x2 - render.x1);
 						render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
-						render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.vz1 + render.clipped_alpha / render.vz2);
+						render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.clipped_vz1 + render.clipped_alpha / render.vz2);
 
 						// Lumiere
 						render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);

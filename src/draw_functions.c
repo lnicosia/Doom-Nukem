@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:30:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:29:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ void	draw_floor(t_render render,t_env *env)
 	vline.x = render.currentx;
 	vline.start = render.current_floor;
 	vline.end = render.ymax;
-	vline.color = 0xFF444444;
+	vline.color = 0xFF0B6484;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
 	if (!env->sectors[render.sector].floor_slope)
