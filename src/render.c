@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 12:09:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:44:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ void	render_sector(t_env *env, t_render render)
 			render.texture = sector.textures[i];
 			render.floor_texture = sector.floor_texture;
 			render.ceiling_texture = sector.ceiling_texture;
+			render.floor_yscale = env->textures[render.floor_texture].surface->h / 5.0;
+			render.floor_xscale = env->textures[render.floor_texture].surface->w / 5.0;
+			render.ceiling_yscale = env->textures[render.ceiling_texture].surface->h / 5.0;
+			render.ceiling_xscale = env->textures[render.ceiling_texture].surface->w / 5.0;
 			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))

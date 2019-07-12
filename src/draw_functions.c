@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 12:11:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/12 14:46:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "render.h"
 
 /*
- **	Draw a vertical vline on the screen at vline.x
- */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline(t_vline vline, t_render render, t_env *env)
 {
@@ -24,8 +24,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	double		y;
 	double		x;
 	Uint32		*pixels;
-	double		*zbuffer;
 	Uint32		*texture_pixels;
+	double		*zbuffer;
 	t_texture	texture;
 	int			texture_w;
 	int			texture_h;
@@ -66,7 +66,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		yalpha = (1 - (i - render.max_ceiling) / render.line_height);
+		yalpha = 1 - (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
 		while (y >= texture_h)
 			y -= texture_h;
@@ -85,8 +85,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 }
 
 /*
- **	Draw a vertical vline on the screen at vline.x
- */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 {
@@ -128,8 +128,8 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 }
 
 /*
- **	Draw a vertical vline on the screen at vline.x
- */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 {
@@ -138,13 +138,19 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	double	x;
 	double	alpha;
 	Uint32	*pixels;
+	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		start_coord;
 	int		end_coord;
 	int		coord;
+	int		texture_w;
+	int		texture_h;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
+	texture_w = env->textures[render.ceiling_texture].surface->w;
+	texture_h = env->textures[render.ceiling_texture].surface->h;
+	texture_pixels = env->textures[render.ceiling_texture].str;
 	if (env->options.contouring)
 	{
 		start_coord = vline.x + env->w * vline.start;
@@ -165,22 +171,22 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	i = vline.start;
 	while (i <= vline.end)
 	{
-		alpha = (render.ceiling_horizon) / (double)(i - render.horizon);
+		alpha = render.ceiling_horizon / (double)(i - render.horizon);
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-		y *= env->textures[render.ceiling_texture].surface->h / 5.0;
-		x *= env->textures[render.ceiling_texture].surface->w / 5.0;
-		if (y >= env->textures[render.ceiling_texture].surface->h || y < 0)
-			y = ft_abs((int)y % env->textures[render.ceiling_texture].surface->h);
-		if (x >= env->textures[render.ceiling_texture].surface->w || x < 0)
-			x = ft_abs((int)x % env->textures[render.ceiling_texture].surface->w);
-		if (x >= 0 && x < env->textures[render.ceiling_texture].surface->w && y >= 0 && y < env->textures[render.ceiling_texture].surface->h)
+		y *= render.ceiling_yscale;
+		x *= render.ceiling_xscale;
+		if (y >= texture_h || y < 0)
+			y = ft_abs((int)y % texture_h);
+		if (x >= texture_w || x < 0)
+			x = ft_abs((int)x % texture_w);
+		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			coord = vline.x + env->w * i;
 			if (!env->options.lighting)
-				pixels[coord] = env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y];
+				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
-				pixels[coord] = apply_light(env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y], render.light);
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 			zbuffer[coord] = render.z;
 		}
 		i++;
@@ -188,8 +194,8 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 }
 
 /*
- **	Draw a vertical vline on the screen at vline.x
- */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 {
@@ -198,13 +204,19 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	x;
 	double	alpha;
 	Uint32	*pixels;
+	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		start_coord;
 	int		end_coord;
 	int		coord;
+	int		texture_w;
+	int		texture_h;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
+	texture_w = env->textures[render.floor_texture].surface->w;
+	texture_h = env->textures[render.floor_texture].surface->h;
+	texture_pixels = env->textures[render.floor_texture].str;
 	if (env->options.contouring)
 	{
 		start_coord = vline.x + env->w * vline.start;
@@ -227,32 +239,31 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	{
 		if (i == render.horizon || render.max_floor == render.horizon)
 			return;
-		alpha = (render.floor_horizon) / (double)((i - render.horizon));
+		alpha = render.floor_horizon / (double)(i - render.horizon);
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-		y *= env->textures[render.floor_texture].surface->h / 5.0;
-		x *= env->textures[render.floor_texture].surface->w / 5.0;
-		if (y >= env->textures[render.floor_texture].surface->h || y < 0)
-			y = ft_abs((int)y % env->textures[render.floor_texture].surface->h);
-		if (x >= env->textures[render.floor_texture].surface->w || x < 0)
-			x = ft_abs((int)x % env->textures[render.floor_texture].surface->w);
-		if (x >= 0 && x < env->textures[render.floor_texture].surface->w && y >= 0 && y < env->textures[render.floor_texture].surface->h)
+		y *= render.floor_yscale;
+		x *= render.floor_xscale;
+		if (y >= texture_h || y < 0)
+			y = ft_abs((int)y % texture_h);
+		if (x >= texture_w || x < 0)
+			x = ft_abs((int)x % texture_w);
+		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			coord = vline.x + env->w * i;
 			if (!env->options.lighting)
-				pixels[coord] = env->textures[render.floor_texture].str[(int)x + env->textures[render.floor_texture].surface->w * (int)y];
+				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
-				pixels[coord] = apply_light(env->textures[render.floor_texture].str[(int)x + env->textures[render.floor_texture].surface->w * (int)y], render.light);
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 			zbuffer[coord] = render.z;
 		}
-		//		}
 		i++;
 }
 }
 
 /*
- **	Draw the ceiling of the current wall
- */
+**	Draw the ceiling of the current wall
+*/
 
 void	draw_ceiling(t_render render, t_env *env)
 {
@@ -271,8 +282,8 @@ void	draw_ceiling(t_render render, t_env *env)
 }
 
 /*
- **	Draw the floor of the current wall
- */
+**	Draw the floor of the current wall
+*/
 
 void	draw_floor(t_render render,t_env *env)
 {
@@ -291,8 +302,8 @@ void	draw_floor(t_render render,t_env *env)
 }
 
 /*
- **	Draw the neighbor upper wall (corniche)
- */
+**	Draw the neighbor upper wall (corniche)
+*/
 
 void	draw_upper_wall(t_render render, t_env *env)
 {
@@ -311,8 +322,8 @@ void	draw_upper_wall(t_render render, t_env *env)
 }
 
 /*
- **	Draw the neighbor bottom wall (marche)
- */
+**	Draw the neighbor bottom wall (marche)
+*/
 
 void	draw_bottom_wall(t_render render,t_env *env)
 {
