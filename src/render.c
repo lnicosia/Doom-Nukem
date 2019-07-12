@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 11:36:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/12 12:09:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ void	render_sector(t_env *env, t_render render)
 					render.y2z2 =  env->vertices[sector.vertices[i + 1]].y / render.vz2; 
 					render.ceil_range = render.ceiling2 - render.ceiling1;
 					render.floor_range = render.floor2 - render.floor1;
+					render.projected_texture_w = env->textures[render.texture].surface->w
+						* render.wall_width / render.vz2;
+					render.projected_texture_h = env->textures[render.texture].surface->h
+						* render.wall_height;
 					while (x <= xend)
 					{
 						render.currentx = x;
@@ -170,8 +174,10 @@ void	render_sector(t_env *env, t_render render)
 						render.max_ceiling = render.clipped_alpha * render.ceil_range + render.ceiling1;
 						render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
 						render.max_floor = render.clipped_alpha * render.floor_range + render.floor1;
-						render.max_fc = render.max_floor - render.max_ceiling;
+						render.line_height = render.max_floor - render.max_ceiling;
 						render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
+						render.ceiling_horizon = render.max_ceiling - render.horizon;
+						render.floor_horizon = render.max_floor - render.horizon;
 						vline.start = render.current_ceiling;
 						vline.end = render.current_floor;
 						vline.x = x;
