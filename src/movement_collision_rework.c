@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement_collision.c                               :+:      :+:    :+:   */
+/*   movement_collision_rework.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/03 17:13:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/15 15:32:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
     }
 }
 
-int     diff_value(int nb1, int nb2, int a, int b)
+int     diff_value(double nb1, double nb2, double a, double b)
 {
     if ((nb1 == a && nb2 == b) || (nb1 == b && nb2 == a))
         return (0);
@@ -208,7 +208,7 @@ int     check_inside_sector(t_env *env, t_movement motion)
     return (1);
 }
 
-int     hitbox_collision(short x1, short x2, short y1, short y2, t_movement motion)
+/* int     hitbox_collision(short x1, short x2, short y1, short y2, t_movement motion)
 {
     short a;
     short b;
@@ -224,22 +224,89 @@ int     hitbox_collision(short x1, short x2, short y1, short y2, t_movement moti
     abs_val = (abs_val < 0) ? -abs_val : abs_val;
     if (abs_val / sqrt(a * a + b * b) <= r)
     {
-        //ft_printf("collision\n");
         return (1);
     }
     //ft_printf("pas de collision\n");
     return (0);
+} */
+
+int     hitbox_collision(short x1, short x2, short y1, short y2, t_movement motion)
+{
+    double a;
+    double b;
+    double c;
+    double delta;
+    double sqrt_delta;
+    double t1;
+    double t2;
+
+    x1 -= FUTURE_X;
+    y1 -= FUTURE_Y;
+    x2 -= FUTURE_X;
+    y2 -= FUTURE_Y;
+    c = x1 * x1 + y1 * y1 - 1.4 * 1.4;
+    b = 2 * (x1 * (x2 - x1) + y1*(y2 - y1));
+    a = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+    delta = b * b - 4 * a * c;
+    if (delta <= 0)
+        return (0);
+    sqrt_delta = sqrt(delta);
+    t1 = (-b + sqrt_delta) / (2 * a);
+    t2 = (-b - sqrt_delta) / (2 * a);
+    if((0 < t1 && t1 < 1) || (0 < t2 && t2 < 1))
+        return 1;
+    return 0;
+}
+
+int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
+{
+    short       i;
+    t_movement  motion;
+
+    i = 0;
+    FUTURE_X = dest_x;
+    FUTURE_Y = dest_y;
+    motion.old_sector = wall.sector_or;
+    ft_printf("sector dest = %d\n", wall.sector_dest);
+    env->sector_list[wall.sector_dest] = 1;
+    while (i < env->sectors[wall.sector_dest].nb_vertices)
+    {
+        if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR < 0)
+        {
+            //env->player.sector = motion.old_sector;
+            return (0);
+        }
+        else if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR >= 0 &&
+        env->sector_list[RNEIGHBOR] == 0)
+        {
+            wall.sector_or = wall.sector_dest;
+            wall.sector_dest = RNEIGHBOR;
+            return (collision_rec(env, FUTURE_X, FUTURE_Y, wall));
+        }
+        i++;
+    }
+    return (1);
 }
 
 int     check_collision(t_env *env, double x_move, double y_move)
 {
     short		i;
     t_movement  motion;
+    t_wall      wall;
     double		start_pos;
     double  	end_pos;
 
     if (env->options.wall_lover == 1)
         return (1);
+    i = 0;
+    while (i < env->nb_sectors)
+    {
+        if (i == env->player.sector)
+            env->sector_list[i] = 1;
+        else
+            env->sector_list[i] = 0;
+        i++;
+    }
     i = 0;
     FUTURE_X = env->player.pos.x + x_move;
     FUTURE_Y = env->player.pos.y + y_move;
@@ -250,18 +317,34 @@ int     check_collision(t_env *env, double x_move, double y_move)
         start_pos = (PLAYER_XPOS - X1) * (Y2 - Y1) - (PLAYER_YPOS - Y1) * (X2 - X1);
         end_pos = (FUTURE_X - X1) * (Y2 - Y1) - (FUTURE_Y - Y1) * (X2 - X1);
         motion.old_sector = env->player.sector;
-        if (end_pos == 0  && check_on_wall(env, i, motion))
+        /* if (end_pos == 0  && check_on_wall(env, i, motion))
         {
                 env->player.speed = env->player.speed * 0.7;
                 return (check_collision(env, x_move * 0.7, y_move * 0.7));
-        }
+        } */
         if (hitbox_collision(X1, X2, Y1, Y2, motion) && NEIGHBOR < 0)
             return (0);
         else if (hitbox_collision(X1, X2, Y1, Y2, motion) && NEIGHBOR >= 0)
         {
-            /*
-            ** Tester avec secteur NEIGHBOR en evitant de retester le même portail.
-            */
+            wall.sector_or = env->player.sector;
+            wall.sector_dest = NEIGHBOR;
+            if (collision_rec(env, FUTURE_X, FUTURE_Y, wall))
+            {
+                i = 0;
+                while (i < env->nb_sectors)
+                {
+                    if (env->sector_list[i])
+                    {
+                        ft_printf("tested sectors = %d\n", i);
+                        if (is_in_sector(env, i, env->player.pos.x, env->player.pos.y))
+                            env->player.sector = i;
+                    }
+                    i++;
+                }
+                return (1);
+            }
+            else
+                return (0);
         }
         /* if (diff_sign(start_pos, end_pos) && check_wall(env, i, motion) && NEIGHBOR < 0 && end_pos != 0)
         {
@@ -279,10 +362,10 @@ int     check_collision(t_env *env, double x_move, double y_move)
                 env->player.sector = motion.old_sector;
                 env->player.pos.z = motion.old_z;
                 move_alongside_wall(env, x_move, y_move, i);
-                return (0);
+                return (-1);
             }
-            return (1);
-        } */
+            return (env->player.sector);
+        }*/
         i++;
     }
     return (1);
@@ -314,4 +397,3 @@ int     is_in_sector(t_env *env, short sector, double x, double y)
 	//ft_printf("OK\n");
     return (1);
 }
-

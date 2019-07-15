@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/18 13:58:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:29:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    init_weapons(t_env *env)
     env->weapons[0].weapon_switch = 0;
     env->weapons[0].first_sprite = 6;
     env->weapons[0].nb_sprites = 15;
-    env->weapons[0].ammo = 2;
+    env->weapons[0].ammo = 20;
     env->weapons[0].no_ammo = 0;
     env->weapons[0].max_ammo = 20;
     env->weapons[1].first_sprite = 21;

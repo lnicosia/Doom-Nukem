@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:24:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:18:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.jump);
+	if (env->sector_list)
+		free(env->sector_list);
 	i = 0;
 	while (i < NB_WEAPONS)
 	{

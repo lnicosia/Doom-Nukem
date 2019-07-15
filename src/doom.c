@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 15:50:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:18:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		doom(int ac, char **av)
 	init_camera(&env);
 	init_animations(&env);
 	init_weapons(&env);
+	env.sector_list = NULL;
 	env.player.eyesight = 6.00;
 	env.player.curr_weapon = 0;
 	env.player.life = 100;
@@ -46,6 +47,8 @@ int		doom(int ac, char **av)
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	SDL_SetRelativeMouseMode(1);
+	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
+		return (crash("Could not create sector_list\n", &env));
 	env.flag = 0;
 	env.player.speed = 0.5;
 	env.player.size_2d = 0.5;

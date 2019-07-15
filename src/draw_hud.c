@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/20 18:03:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:20:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    armor_life_hud(t_env *env)
     int window_w;
 
     x = 0;
-    window_w = (int)(env->w)/*  - env->textures[ARMOR_LIFE_HUD].surface->w */;
+    window_w = 0;
     window_h = (env->h - env->textures[ARMOR_LIFE_HUD].surface->h);
     while (x < env->textures[ARMOR_LIFE_HUD].surface->w)
     {

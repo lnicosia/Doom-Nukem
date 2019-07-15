@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/05/22 10:51:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:48:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define PLAYER_ZPOS env->player.pos.z
+# define X1R env->vertices[env->sectors[wall.sector_dest].vertices[i]].x
+# define X2R env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].x
+# define Y1R env->vertices[env->sectors[wall.sector_dest].vertices[i]].y
+# define Y2R env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].y
+# define RNEIGHBOR env->sectors[wall.sector_dest].neighbors[i]
 
 typedef struct  s_movement
 {
@@ -41,6 +46,16 @@ typedef struct  s_movement
     int         wall_v2;
     int         old_sector;
 }               t_movement;
+
+typedef struct  s_wall
+{
+    double      x1;
+    double      x2;
+    double      y1;
+    double      y2;
+    short       sector_or;
+    short       sector_dest;  
+}               t_wall;
 
 typedef struct  s_data
 {

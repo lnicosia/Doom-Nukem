@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 15:29:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:16:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,6 +367,7 @@ typedef struct		s_env
 	t_texture		textures[MAX_TEXTURE];
 	t_weapons		weapons[NB_WEAPONS];
 	double			*depth_array;
+	int				*sector_list;
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
