@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 15:37:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/15 10:57:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	texture_pixels = texture.str;
 	zbuffer = env->depth_array;
 	project_object(&orender, object, env);
-	if (object.rotated_pos.z <= 1)
-		return ;
 	if (!sprite.oriented)
 		index = 0;
 	else
@@ -193,7 +191,8 @@ void		draw_sprites(t_env *env, t_render *render)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		draw_object(env->objects[i], env, render);
+		if (env->objects[i].rotated_pos.z > 1)
+			draw_object(env->objects[i], env, render);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:31:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/15 18:05:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int		init_sdl(t_env *env)
 		return (ft_printf("Could not malloc texture pixels\n"));
 	if (!(env->depth_array = (double*)malloc(sizeof(double) * env->w * env->h)))
 		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->ymin = (int*)malloc(sizeof(int) * env->w)))
+		return (ft_printf("Could not malloc ymin array\n"));
+	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
+		return (ft_printf("Could not malloc ymax array\n"));
 	clear_image(env);
 	if (SDL_SetRelativeMouseMode(1))
 		return (ft_printf("SDL_SetRelativeMouseMode error: %s\n", SDL_GetError()));

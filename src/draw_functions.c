@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 14:46:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/15 19:07:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -82,6 +84,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		}
 		i++;
 	}
+	//update_screen(env);
 }
 
 /*
@@ -158,11 +161,13 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -224,11 +229,13 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
+			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -258,7 +265,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			zbuffer[coord] = render.z;
 		}
 		i++;
-}
+	}
 }
 
 /*
@@ -270,7 +277,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	t_vline	vline;
 
 	vline.x = render.currentx;
-	vline.start = render.ymin;
+	vline.start = env->ymin[vline.x];
 	vline.end = render.current_ceiling;
 	vline.color = 0xFF222222;
 	if (env->options.lighting)
@@ -291,7 +298,7 @@ void	draw_floor(t_render render,t_env *env)
 
 	vline.x = render.currentx;
 	vline.start = render.current_floor;
-	vline.end = render.ymax;
+	vline.end = env->ymax[vline.x];
 	vline.color = 0xFF0B6484;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);

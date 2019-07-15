@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 11:37:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/15 18:03:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,6 +467,9 @@ typedef struct		s_env
 	int				nb_objects;
 	int				flag;
 	int				reset;
+	int				count;
+	int				*ymax;
+	int				*ymin;
 }					t_env;
 
 /*
@@ -549,7 +552,7 @@ void				free_all_sdl_relative(t_env *env);
 ** Main pipeline functions
 */
 
-int					draw(t_env *env);
+int					draw_walls(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
