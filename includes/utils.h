@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 18:03:16 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/15 20:54:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <SDL_ttf.h>
 # include <SDL_mixer.h>
 # include <fcntl.h>
+# include <pthread.h>
 # include "libft.h"
 # include "object_types.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
@@ -586,7 +587,7 @@ void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);
-void				time(t_env *env);
+void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);

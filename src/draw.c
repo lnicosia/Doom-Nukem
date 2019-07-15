@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/15 16:06:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/15 20:42:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	draw_game(t_env *env)
 		print_debug(env);
 	if (env->options.show_minimap)
 		minimap(env);
-	time(env);
+	game_time(env);
 	animations(env);
 	draw_hud(env);
 	update_screen(env);

@@ -6,14 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/11 11:47:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/15 20:42:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "collision.h"
 
-void	time(t_env *env)
+void	game_time(t_env *env)
 {
 	double	new_time;
 
