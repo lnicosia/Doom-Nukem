@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 15:02:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:55:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,14 @@ typedef struct		s_render_object
 	int				x2;
 	int				y1;
 	int				y2;
+	int				xstart;
+	int				ystart;
+	int				xend;
+	int				yend;
+	int				index;
+	double			light;
+	double			xrange;
+	double			yrange;
 	t_point			screen_pos;
 }					t_render_object;
 
@@ -151,8 +159,10 @@ typedef struct		s_render_thread
 typedef struct		s_object_thread
 {
 	t_env			*env;
-	int				start;
-	int				end;
+	t_object		object;
+	t_render_object	orender;
+	int				xstart;
+	int				xend;
 }					t_object_thread;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);

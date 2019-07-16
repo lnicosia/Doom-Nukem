@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 15:33:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:41:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	*get_object_relative_pos(void *param)
 	int		max;
 
 	env = ((t_object_thread*)param)->env;
-	i = ((t_object_thread*)param)->start;
-	max = ((t_object_thread*)param)->end;
+	i = ((t_object_thread*)param)->xstart;
+	max = ((t_object_thread*)param)->xend;
 	while (i < max)
 	{
 		//ft_printf("i = %d\n", i);

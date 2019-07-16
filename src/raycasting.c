@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 10:40:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:11:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,35 +85,27 @@ void	*raycasting(void *param)
 
 void	threaded_raycasting(t_env *env, t_render render)
 {
-	t_render_thread	original;
+	//t_render_thread	original;
 	t_render_thread	rt[THREADS];
 	pthread_t		threads[THREADS];
 	int				i;
 
-	original.env = env;
+	/*original.env = env;
 	original.render = render;
 	original.xstart = render.xstart;
-	original.xend = render.xend;
+	original.xend = render.xend;*/
 	//raycasting(&original);
 	i = 0;
 	//ft_printf("\ndebut = %d fin = %d\n", render.xstart, render.xend);
 	while (i < THREADS)
 	{
-		//raycasting(&rt);
-		ft_memcpy(&rt[i], &original, sizeof(t_render_thread));
+		rt[i].env = env;
+		rt[i].render = render;
 		rt[i].xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
 		rt[i].xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
-		//original.xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
-		//original.xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
-		//ft_printf("start = %d end = %d\n", rt[i].xstart, rt[i].xend);
 		pthread_create(&threads[i], NULL, raycasting, &rt[i]);
-		//pthread_create(&threads[i], NULL, raycasting, &original);
 		i++;
-		/*update_screen(env);
-		SDL_Delay(50);*/
 	}
 	while (i-- > 0)
 		pthread_join(threads[i], NULL);
-	/*update_screen(env);
-	SDL_Delay(50);*/
 }
