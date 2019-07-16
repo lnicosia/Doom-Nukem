@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 11:52:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,6 @@ void		free_all_sdl_relative(t_env *env)
 		SDL_DestroyWindow(env->sdl.window);
 	if (env->sdl.renderer)
 		SDL_DestroyRenderer(env->sdl.renderer);
-	if (env->sdl.surface)
-		SDL_FreeSurface(env->sdl.surface);
-	if (env->sdl.img_str)
-		env->sdl.img_str = NULL;
 	if (env->sdl.texture)
 		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.texture_pixels)
@@ -98,6 +94,8 @@ void		free_all(t_env *env)
 	if (!env)
 		exit(0);
 	free_all_sdl_relative(env);
+	if (env->sdl.fonts.amazdoom70)
+		TTF_CloseFont(env->sdl.fonts.amazdoom70);
 	if (env->sdl.fonts.amazdoom50)
 		TTF_CloseFont(env->sdl.fonts.amazdoom50);
 	if (env->sdl.fonts.amazdoom20)
@@ -114,6 +112,8 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
 		ft_memdel((void**)&env->objects);
+	if (env->sprites)
+		ft_memdel((void**)&env->sprites);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)

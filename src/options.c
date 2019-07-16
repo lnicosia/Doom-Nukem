@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 11:47:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:25:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ int		init_screen_size(t_env *env)
 	env->screen_h[1] = 1080;
 	env->screen_w[0] = 1600;
 	env->screen_h[0] = 900;
-	/*if (!(env->res = (char**)malloc(sizeof(char*) * 3)))
-		return (-1);
-	if (!(env->res[2] = (char*)malloc(sizeof(char) * 11)))
-		return (-1);
-	if (!(env->res[1] = (char*)malloc(sizeof(char) * 11)))
-		return (-1);
-	if (!(env->res[0] = (char*)malloc(sizeof(char) * 10)))
-		return (-1);*/
 	if (!(env->res[2] = ft_strdup("2560 x 1440")))
 		return (ft_printf("Could not malloc screen size 0\n"));
 	if (!(env->res[1] = ft_strdup("1920 x 1080")))

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 11:41:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:33:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,12 +310,9 @@ typedef struct		s_sdl
 	t_fonts			fonts;
 	SDL_Window		*window;
 	SDL_Renderer	*renderer;
-	SDL_Surface		*surface;
 	SDL_Texture		*texture;
 	unsigned int	*img_str;
 	Uint32			*texture_pixels;
-	SDL_Surface		*image;
-	unsigned int	*image_str;
 	int				mouse_x;
 	int				mouse_y;
 	int				mx;

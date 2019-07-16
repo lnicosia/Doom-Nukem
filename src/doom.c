@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:12:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/16 11:59:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		doom(t_env *env)
 			if (env->option)
 			{
 				if (open_options(env))
-					return (crash("Crashed in opions\n", env));
+					return (crash("Could not process options pannel\n", env));
 			}
 			else
 				draw_game(env);
