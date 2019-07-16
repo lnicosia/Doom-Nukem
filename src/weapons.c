@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/03 15:26:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:58:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void    print_ammo(t_env *env)
 {
     char *str;
 
-    str = ft_itoa(env->weapons[env->player.curr_weapon].ammo);
+    str = ft_sitoa(env->weapons[env->player.curr_weapon].ammo);
     print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
     str = "/";
     print_text(new_point(env->h - env->h / 12, env->w - env->w / 19), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
-    str = ft_itoa(env->weapons[env->player.curr_weapon].max_ammo);
+    str = ft_sitoa(env->weapons[env->player.curr_weapon].max_ammo);
     print_text(new_point(env->h - env->h / 12, env->w - env->w / 24), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 22:08:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:40:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*raycasting(void *param)
 			draw_floor(render, env);
 		if (sector.neighbors[render.i] >= 0)
 		{
-			get_neighbor_ceil_floor(&render, x);
+			get_neighbor_ceil_floor(&render, env, x);
 			// Dessiner corniche
 			if (render.current_neighbor_ceiling > render.current_ceiling)
 				draw_upper_wall(render, env);
@@ -79,8 +79,6 @@ void	*raycasting(void *param)
 		else
 			draw_vline(vline, render, env);
 		x++;
-		/*update_screen(env);
-		  SDL_Delay(5);*/
 	}
 	return (NULL);
 }
@@ -88,8 +86,8 @@ void	*raycasting(void *param)
 void	threaded_raycasting(t_env *env, t_render render)
 {
 	t_render_thread	original;
-	t_render_thread	rt[8];
-	pthread_t		threads[8];
+	t_render_thread	rt[THREADS];
+	pthread_t		threads[THREADS];
 	int				i;
 
 	original.env = env;
@@ -99,18 +97,23 @@ void	threaded_raycasting(t_env *env, t_render render)
 	//raycasting(&original);
 	i = 0;
 	//ft_printf("\ndebut = %d fin = %d\n", render.xstart, render.xend);
-	while (i < 8)
+	while (i < THREADS)
 	{
 		//raycasting(&rt);
 		ft_memcpy(&rt[i], &original, sizeof(t_render_thread));
-		rt[i].xstart = render.xstart + (render.xend - render.xstart) / 8.0 * i;
-		rt[i].xend = render.xstart + (render.xend - render.xstart) / 8.0 * (i + 1);
-		/*original.xstart = render.xstart + (render.xend - render.xstart) / 8.0 * i;
-		original.xend = render.xstart + (render.xend - render.xstart) / 8.0 * (i + 1);*/
+		rt[i].xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
+		rt[i].xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
+		//original.xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
+		//original.xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
 		//ft_printf("start = %d end = %d\n", rt[i].xstart, rt[i].xend);
 		pthread_create(&threads[i], NULL, raycasting, &rt[i]);
+		//pthread_create(&threads[i], NULL, raycasting, &original);
 		i++;
+		/*update_screen(env);
+		SDL_Delay(50);*/
 	}
 	while (i-- > 0)
 		pthread_join(threads[i], NULL);
+	/*update_screen(env);
+	SDL_Delay(50);*/
 }

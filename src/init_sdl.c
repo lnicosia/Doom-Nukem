@@ -6,17 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 18:05:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:49:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		init_sdl(t_env *env)
+int		set_sdl(t_env *env)
 {
-	ft_printf("Initializing SDL..\n");
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Dookme",
 					SDL_WINDOWPOS_CENTERED,
@@ -25,8 +22,6 @@ int		init_sdl(t_env *env)
 					env->h,
 					SDL_WINDOW_MOUSE_FOCUS)))
 		return (ft_printf("SDL_CreateWindow error: %s\n", SDL_GetError()));
-	if (init_sound(env))
-		return (ft_printf("Could not load sound\n"));
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,
@@ -88,6 +83,16 @@ int		init_sdl(t_env *env)
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);
+	return (0);
+}
+
+int		init_sdl(t_env *env)
+{
+	ft_printf("Initializing SDL..\n");
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	env->time.milli_s =  0;
+	if (set_sdl(env))
+		return (ft_printf("Could not set SDL\n"));
 	return (0);
 }

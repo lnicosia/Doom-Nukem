@@ -6,13 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/12 16:00:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:47:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		init_screen_size(t_env *env, int i)
+int		init_screen_size(t_env *env)
 {
 	env->screen_w[2] = 2560;
 	env->screen_h[2] = 1440;
@@ -20,22 +20,30 @@ int		init_screen_size(t_env *env, int i)
 	env->screen_h[1] = 1080;
 	env->screen_w[0] = 1600;
 	env->screen_h[0] = 900;
-	if (!(env->res = (char**)malloc(sizeof(char*) * 3)))
-		return (0);
+	/*if (!(env->res = (char**)malloc(sizeof(char*) * 3)))
+		return (-1);
 	if (!(env->res[2] = (char*)malloc(sizeof(char) * 11)))
-		return (0);
+		return (-1);
 	if (!(env->res[1] = (char*)malloc(sizeof(char) * 11)))
-		return (0);
+		return (-1);
 	if (!(env->res[0] = (char*)malloc(sizeof(char) * 10)))
-		return (0);
-	env->res[2] = "2560 x 1440";
-	env->res[1] = "1920 x 1080";
-	env->res[0] = "1600 x 900";
-	env->w = env->screen_w[i];
-	env->h = env->screen_h[i];
+		return (-1);*/
+	if (!(env->res[2] = ft_strdup("2560 x 1440")))
+		return (ft_printf("Could not malloc screen size 0\n"));
+	if (!(env->res[1] = ft_strdup("1920 x 1080")))
+		return (ft_printf("Could not malloc screen size 1\n"));
+	if (!(env->res[0] = ft_strdup("1600 x 900")))
+		return (ft_printf("Could not malloc screen size 2\n"));
+	set_screen_size(env);
+	return (0);
+}
+
+void	set_screen_size(t_env *env)
+{
+	env->w = env->screen_w[env->i];
+	env->h = env->screen_h[env->i];
 	env->h_w = env->w / 2;
 	env->h_h = env->h / 2;
-	return (0);
 }
 
 void	options(t_env *env)
@@ -82,7 +90,7 @@ void	sound_options(t_env *env)
 {
 	char	*sound;
 
-	sound = ft_itoa(env->sound.g_music);
+	sound = ft_sitoa(env->sound.g_music);
 	add_button(env, 30, env->h_w - 40, env->h_h - 100, 4);
 	add_button(env, 31, env->h_w + 160, env->h_h - 100, 5);
 	print_text(new_point(env->h_h - 100 , env->h_w - 250), new_printable_text("Sound :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
@@ -104,14 +112,13 @@ int		open_options(t_env *env)
 	if (env->aplicate_changes)
 	{
 		free_all_sdl_relative(env);
-		env->w = env->screen_w[env->i];
-		env->h = env->screen_h[env->i];
+		set_screen_size(env);
 		set_camera(env);
-		if (init_sdl(env))
+		if (set_sdl(env))
 			return (ft_printf("Could not re load sdl\n"));
 		if (init_screen_pos(env))
 			return (ft_printf("Could not re load screen pos\n"));
-		set_camera(env);
+		//set_camera(env);
 		env->aplicate_changes = 0;
 	}
 	return (0);

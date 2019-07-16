@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 10:57:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:44:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	get_sprite_direction(t_object object)
 		return (0);
 }
 
-void		draw_object(t_object object, t_env *env, t_render *render)
+void		draw_object(t_object object, t_env *env)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
@@ -79,7 +79,6 @@ void		draw_object(t_object object, t_env *env, t_render *render)
 	Uint32			*texture_pixels;
 	double			*zbuffer;
 
-	(void)render;
 	sprite = env->sprites[object.sprite];
 	texture = env->textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
@@ -182,7 +181,7 @@ static void	sort_objects(t_object *objects, int start, int end)
 	}
 }*/
 
-void		draw_sprites(t_env *env, t_render *render)
+void		draw_sprites(t_env *env)
 {
 	int	i;
 
@@ -192,7 +191,7 @@ void		draw_sprites(t_env *env, t_render *render)
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].rotated_pos.z > 1)
-			draw_object(env->objects[i], env, render);
+			draw_object(env->objects[i], env);
 		i++;
 	}
 }

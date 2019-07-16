@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 20:54:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:41:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define NB_BUTTON 6
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
+# define THREADS 4
 
 typedef struct		s_point
 {
@@ -456,7 +457,7 @@ typedef struct		s_env
 	short			*rendered_sectors;
 	int				screen_w[3];
 	int				screen_h[3];
-	char			**res;
+	char			*res[3];
 	int				w;
 	int				h;
 	int				h_w;
@@ -494,12 +495,14 @@ int					crash(char *str, t_env *env);
 ** Init functions
 */
 
-int					init_screen_size(t_env *env, int i);
+int					init_screen_size(t_env *env);
+void				set_screen_size(t_env *env);
 void    			init_weapons(t_env *env);
 int     			init_sound(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
+int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
@@ -554,6 +557,7 @@ void				free_all_sdl_relative(t_env *env);
 */
 
 int					draw_walls(t_env *env);
+void				draw_sprites(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);

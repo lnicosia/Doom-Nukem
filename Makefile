@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/15 21:24:35 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/07/16 10:35:56 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,8 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all: 
-	@make -C $(LIBFT_DIR)
-	@make $(BIN_DIR)/$(NAME)
+	@make -C $(LIBFT_DIR) -j8
+	@make $(BIN_DIR)/$(NAME) -j8
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 21:47:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:45:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ typedef struct		s_render
 	double			scale2;
 	int				xmin;
 	int				xmax;
-	int				ymin;
-	int				ymax;
 	int				currentx;
 	double			floor1;
 	double			floor2;
@@ -178,11 +176,10 @@ int					get_screen_sectors(t_env *env);
 **	Sprite part
 */
 
-void				draw_sprites(t_env *env, t_render *render);
 void				get_translated_object_pos(t_object *object, t_env *env);
 void				get_rotated_object_pos(t_object *object, t_env *env);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
-void				get_neighbor_ceil_floor(t_render *render, int x);
+void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
 void				*raycasting(void *param);
 void				threaded_raycasting(t_env *env, t_render render);
 

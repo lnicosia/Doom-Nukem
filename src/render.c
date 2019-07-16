@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 22:12:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:48:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	render_sector(t_env *env, t_render render)
 			render.floor_xscale = env->textures[render.floor_texture].surface->w / 5.0;
 			render.ceiling_yscale = env->textures[render.ceiling_texture].surface->h / 5.0;
 			render.ceiling_xscale = env->textures[render.ceiling_texture].surface->w / 5.0;
-			render.i = i;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 			{
@@ -151,22 +150,9 @@ void	render_sector(t_env *env, t_render render)
 						t_render new = render;
 						new.xmin = render.xstart;
 						new.xmax = render.xend;
-						new.ymin = ft_min(render.neighbor_ceiling1, render.neighbor_ceiling2);
-						//new.ymin = ft_max(new.ymin, render.ymin);
-						new.ymin = ft_clamp(new.ymin, render.ymin, render.ymax);
-						new.ymax = ft_max(render.neighbor_floor1, render.neighbor_floor2);
-						//new.ymax = ft_min(new.ymax, render.ymax);
-						new.ymax = ft_clamp(new.ymax, render.ymin, render.ymax);
 						new.sector = sector.neighbors[i];
 						render_sector(env, new);
 					}
-					/*update_screen(env);
-					if (sector.neighbors[i] < 0)
-					{
-					ft_printf("%d\n", env->count++);
-					ft_printf("sector %d wall %d\n", render.sector, i);
-					SDL_Delay(1550);
-					}*/
 				}
 			}
 			i++;
@@ -223,8 +209,6 @@ int				draw_walls(t_env *env)
 	env->count = 0;
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
-	render.ymin = ft_max(env->h_h + env->camera.y1 * env->camera.scale, 0);
-	render.ymax = ft_min(env->h_h + env->camera.y2 * env->camera.scale, env->h - 1);
 	while (i < screen_sectors)
 	{
 		render.xmin = env->xmin[i];
@@ -234,7 +218,5 @@ int				draw_walls(t_env *env)
 		render_sector(env, render);
 		i++;
 	}
-	if (env->options.wall_color)
-		draw_sprites(env, &render);
 	return (0);
 }

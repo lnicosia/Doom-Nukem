@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 18:04:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:52:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ void		free_all_sdl_relative(t_env *env)
 		SDL_DestroyRenderer(env->sdl.renderer);
 	if (env->sdl.surface)
 		SDL_FreeSurface(env->sdl.surface);
+	if (env->sdl.img_str)
+		env->sdl.img_str = NULL;
+	if (env->sdl.texture)
+		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->depth_array)
@@ -114,8 +118,14 @@ void		free_all(t_env *env)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.footstep);
-	if (env->sound.footstep)
+	if (env->sound.jump)
 		Mix_FreeChunk(env->sound.jump);
+	if (env->res[0])
+		ft_strdel(&env->res[0]);
+	if (env->res[1])
+		ft_strdel(&env->res[1]);
+	if (env->res[2])
+		ft_strdel(&env->res[2]);
 	i = 0;
 	while (i < NB_WEAPONS)
 	{

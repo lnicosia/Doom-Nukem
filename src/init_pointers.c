@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 20:50:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 11:38:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	init_pointers(t_env *env)
 	env->sound.jump = NULL;
 	env->ymin = NULL;
 	env->ymax = NULL;
+	env->res[0] = NULL;
+	env->res[1] = NULL;
+	env->res[2] = NULL;
 	i = 0;
 	while (i < MAX_TEXTURE)
 	{

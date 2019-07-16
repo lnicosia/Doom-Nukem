@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/11 11:29:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/16 11:50:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	init_program(int ac, char **av)
 	env.running = 1;
 	env.i = 0;
 	env.horizon = 3;
-	init_screen_size(&env, env.i);
 	init_pointers(&env);
+	if (init_screen_size(&env))
+		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
@@ -34,6 +35,8 @@ int	init_program(int ac, char **av)
 	env.player.curr_weapon = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
+	if (init_sound(&env))
+		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not initialize fonts\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 21:26:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:40:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,17 +175,17 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 	render->preclip_x2 = env->h_w + render->vx2 * render->scale2;
 }
 
-void	get_neighbor_ceil_floor(t_render *render, int x)
+void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)
 {
 	//Calculer y actuel du plafond et du sol du voisin
 	render->current_neighbor_ceiling = (x - render->x1)
 		* (render->neighbor_ceiling2 - render->neighbor_ceiling1)
 		/ (render->x2 - render->x1) + render->neighbor_ceiling1;
 	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
-			, render->ymin, render->ymax);
+			, env->ymin[x], env->ymax[x]);
 	render->current_neighbor_floor = (x - render->x1)
 		* (render->neighbor_floor2 - render->neighbor_floor1)
 		/ (render->x2 - render->x1) + render->neighbor_floor1;
 	render->current_neighbor_floor = ft_clamp(render->current_neighbor_floor
-			, render->ymin, render->ymax);
+			, env->ymin[x], env->ymax[x]);
 }
