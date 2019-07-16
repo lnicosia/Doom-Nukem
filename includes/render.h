@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 10:45:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:02:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,13 @@ typedef struct		s_render_thread
 	int				xend;
 }					t_render_thread;
 
+typedef struct		s_object_thread
+{
+	t_env			*env;
+	int				start;
+	int				end;
+}					t_object_thread;
+
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env, int i);
 int					check_fov(t_render *render, t_env *env);
@@ -176,8 +183,9 @@ int					get_screen_sectors(t_env *env);
 **	Sprite part
 */
 
-void				get_translated_object_pos(t_object *object, t_env *env);
-void				get_rotated_object_pos(t_object *object, t_env *env);
+void				get_translated_object_pos(t_env *env, t_object *object);
+void				get_rotated_object_pos(t_env *env, t_object *object);
+void				*get_object_relative_pos(void *param);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
 void				*raycasting(void *param);

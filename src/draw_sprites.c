@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 10:44:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:36:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,18 +124,43 @@ void		draw_object(t_object object, t_env *env)
 	}
 }
 
-static void	get_relative_pos(t_env *env)
+void	get_relative_pos(t_env *env)
 {
 	int	i;
-
+	
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		get_translated_object_pos(&env->objects[i], env);
-		get_rotated_object_pos(&env->objects[i], env);
-		//ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);
+		get_translated_object_pos(env, &env->objects[i]);
+		get_rotated_object_pos(env, &env->objects[i]);
 		i++;
 	}
+}
+
+void	threaded_get_relative_pos(t_env *env)
+{
+	int				i;
+	t_object_thread	object_threads[THREADS];
+	//t_object_thread	original;
+	pthread_t		threads[THREADS];
+
+	//original.env = env;
+	env->current_object = 0;
+	i = 0;
+	//ft_printf("\n");
+	while (i < THREADS)
+	{
+		//ft_memcpy(&object_threads[i], &original, sizeof(t_object_thread));
+		object_threads[i].env = env;
+		object_threads[i].start = env->nb_objects / (double)THREADS * i;
+		object_threads[i].end = env->nb_objects / (double)THREADS * (i + 1);
+		//ft_printf("start = %d end = %d\n", object_threads[i].start, object_threads[i].end);
+		pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]);
+		i++;
+	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
+	//ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);	
 }
 
 /*static void	swap_objects(t_object *o1, t_object *o2)
@@ -185,7 +210,8 @@ void		draw_sprites(t_env *env)
 {
 	int	i;
 
-	get_relative_pos(env);
+	threaded_get_relative_pos(env);
+	//get_relative_pos(env);
 	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
 	while (i < env->nb_objects)
