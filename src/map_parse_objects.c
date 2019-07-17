@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 10:54:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/17 11:08:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (valid_number(*line, parser))
 		return (ft_printf("Missing angle (line %d)\n", parser->line_count));
-	env->objects[parser->objects_count].angle = ft_atof(*line) * CONVERT_RADIANS;
+	env->objects[parser->objects_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (**line != ']' &&  **(line + 1) != ' ')
