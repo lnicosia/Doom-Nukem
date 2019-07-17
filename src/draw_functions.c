@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 14:04:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/17 17:12:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -81,16 +79,16 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			y += texture_h;
 		if (render.z <= zbuffer[coord])
 		{
-			//ft_printf("texture [%f][%f]\n", y, x);
 			if (!env->options.lighting)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 			zbuffer[coord] = render.z;
 		}
+		/*if (i == (int)render.horizon)
+			pixels[coord] = 0xFF00FF00;*/
 		i++;
 	}
-	//update_screen(env);
 }
 
 /*
@@ -167,13 +165,11 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -235,13 +231,11 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		if (render.z <= zbuffer[start_coord])
 		{
 			pixels[start_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[start_coord] = render.z;
 		}
 		if (render.z <= zbuffer[end_coord])
 		{
 			pixels[end_coord] = 0xFF222222;
-			//pixels[start_coord] = 0xFFFF0000;
 			zbuffer[end_coord] = render.z;
 		}
 		vline.start++;
@@ -250,8 +244,6 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	i = vline.start;
 	while (i <= vline.end)
 	{
-		if (i == render.horizon || render.max_floor == render.horizon)
-			return;
 		alpha = render.floor_horizon / (double)(i - render.horizon);
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
