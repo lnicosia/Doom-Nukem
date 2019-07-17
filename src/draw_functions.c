@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 19:07:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/17 14:04:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
 	x = render.alpha * render.projected_texture_w * render.z;
+	if (x != x)
+	{
+		ft_printf("z = 0!\n");
+		return ;
+	}
 	while (x >= texture_w)
 		x -= texture_w;
 	while (x < 0)
@@ -76,6 +81,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			y += texture_h;
 		if (render.z <= zbuffer[coord])
 		{
+			//ft_printf("texture [%f][%f]\n", y, x);
 			if (!env->options.lighting)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
