@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/17 17:55:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/17 19:39:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_program(int ac, char **av)
 	env.running = 1;
 	env.i = 0;
 	env.horizon = 3;
+	env.sector_list = NULL;
 	init_pointers(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
