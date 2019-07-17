@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/10 16:18:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/17 17:20:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,33 +57,18 @@ static void	free_sectors(t_env *env)
 	ft_memdel((void**)&env->sectors);
 }
 
-void		free_all(t_env *env)
+void		free_all_sdl_relative(t_env *env)
 {
-	int i;
-
-	ft_printf("Freeing data..\n");
-	if (!env)
-		exit(0);
 	if (env->sdl.window)
 		SDL_DestroyWindow(env->sdl.window);
 	if (env->sdl.renderer)
 		SDL_DestroyRenderer(env->sdl.renderer);
-	if (env->sdl.surface)
-		SDL_FreeSurface(env->sdl.surface);
-	if (env->sdl.fonts.amazdoom50)
-		TTF_CloseFont(env->sdl.fonts.amazdoom50);
-	if (env->sdl.fonts.amazdoom20)
-		TTF_CloseFont(env->sdl.fonts.amazdoom20);
-	if (env->sdl.fonts.alice)
-		TTF_CloseFont(env->sdl.fonts.alice);
-	if (env->sdl.fonts.bebasneue)
-		TTF_CloseFont(env->sdl.fonts.bebasneue);
-	if (env->sectors)
-		free_sectors(env);
+	if (env->sdl.texture)
+		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
-	if (env->vertices)
-		ft_memdel((void**)&env->vertices);
+	if (env->depth_array)
+		ft_memdel((void**)&env->depth_array);
 	if (env->xmin)
 		ft_memdel((void**)&env->xmin);
 	if (env->xmax)
@@ -92,16 +77,57 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->screen_sectors);
 	if (env->rendered_sectors)
 		ft_memdel((void**)&env->rendered_sectors);
-	if (env->depth_array)
-		ft_memdel((void**)&env->depth_array);
+	if (env->screen_pos)
+		ft_memdel((void**)&env->screen_pos);
+	if (env->ymin)
+		ft_memdel((void**)&env->ymin);
+	if (env->ymax)
+		ft_memdel((void**)&env->ymax);
+
+}
+
+void		free_all(t_env *env)
+{
+	int i;
+
+	ft_printf("Freeing data..\n");
+	if (!env)
+		exit(0);
+	free_all_sdl_relative(env);
+	if (env->sdl.fonts.amazdoom70)
+		TTF_CloseFont(env->sdl.fonts.amazdoom70);
+	if (env->sdl.fonts.amazdoom50)
+		TTF_CloseFont(env->sdl.fonts.amazdoom50);
+	if (env->sdl.fonts.amazdoom20)
+		TTF_CloseFont(env->sdl.fonts.amazdoom20);
+	if (env->sdl.fonts.alice30)
+		TTF_CloseFont(env->sdl.fonts.alice30);
+	if (env->sdl.fonts.alice70)
+		TTF_CloseFont(env->sdl.fonts.alice70);
+	if (env->sdl.fonts.bebasneue)
+		TTF_CloseFont(env->sdl.fonts.bebasneue);
+	if (env->sectors)
+		free_sectors(env);
+	if (env->vertices)
+		ft_memdel((void**)&env->vertices);
+	if (env->objects)
+		ft_memdel((void**)&env->objects);
+	if (env->sprites)
+		ft_memdel((void**)&env->sprites);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.footstep);
-	if (env->sound.footstep)
+	if (env->sound.jump)
 		Mix_FreeChunk(env->sound.jump);
 	if (env->sector_list)
 		free(env->sector_list);
+	if (env->res[0])
+		ft_strdel(&env->res[0]);
+	if (env->res[1])
+		ft_strdel(&env->res[1]);
+	if (env->res[2])
+		ft_strdel(&env->res[2]);
 	i = 0;
 	while (i < NB_WEAPONS)
 	{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 18:06:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:57:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].floor_slope > 45 || env->sectors[parser->sectors_count].floor_slope < -45)
 		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", parser->line_count));
-	env->sectors[parser->sectors_count].floor_slope = tan(env->sectors[parser->sectors_count].floor_slope * M_PI / 180.0);
+	env->sectors[parser->sectors_count].floor_slope = tan(env->sectors[parser->sectors_count].floor_slope * CONVERT_RADIANS);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_number(*line, parser))
 		return (ft_printf("Missing floor texture (line %d)\n", parser->line_count));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].floor_texture < 0
+			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
+		return (ft_printf("Invalid floor texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
 	if (**line != ']' && **(line + 1) != ' ')
 		return (ft_printf("Invalid character after floor declaration at line %d\n", parser->line_count));
@@ -57,12 +60,15 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].ceiling_slope > 45 || env->sectors[parser->sectors_count].ceiling_slope < -45)
 		return (ft_printf("Slopes must be between -45 and 45 degrees (line %d)\n", parser->line_count));
-	env->sectors[parser->sectors_count].ceiling_slope = tan(env->sectors[parser->sectors_count].ceiling_slope * M_PI / 180.0);
+	env->sectors[parser->sectors_count].ceiling_slope = tan(env->sectors[parser->sectors_count].ceiling_slope * CONVERT_RADIANS);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_number(*line, parser))
 		return (ft_printf("Missing floor texture (line %d)\n", parser->line_count));
 	env->sectors[parser->sectors_count].ceiling_texture = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].ceiling_texture < 0
+			|| env->sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
+		return (ft_printf("Invalid ceiling texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
 	if (**line != ']' && **(line + 1) != ' ')
 		return (ft_printf("Invalid character after ceiling declaration at line %d\n", parser->line_count));
@@ -214,26 +220,30 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 int			parse_sectors(t_env *env, t_map_parser *parser)
 {
 	char	*line;
+	char	*tmp;
 
+	line = NULL;
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &line)))
 	{
+		tmp = line;
 		parser->line_count++;
-		if (line[0] == '[')
+		if (tmp[0] == '[')
 		{
-			line++;
-			if (parse_sector(env, line, parser))
+			tmp++;
+			if (parse_sector(env, tmp, parser))
 				return (ft_printf("Error while parsing sector %d (line %d)\n",
 							parser->sectors_count, parser->line_count));
 			parser->sectors_count++;
 		}
-		else if (line[0] == '\0' && parser->sectors_count < env->nb_sectors)
+		else if (tmp[0] == '\0' && parser->sectors_count < env->nb_sectors)
 			return (ft_printf("You must still declare %d sectors (line %d)\n",
 						env->nb_sectors - parser->sectors_count,
 						parser->line_count));
-		else if (line[0] != '#')
+		else if (tmp[0] != '#')
 			return (ft_printf("Invalid character at line %d\n"
 						, parser->line_count));
+		ft_strdel(&line);
 	}
 	if ((parser->ret = get_next_line(parser->fd, &line)))
 	{
@@ -242,6 +252,7 @@ int			parse_sectors(t_env *env, t_map_parser *parser)
 			return (ft_printf("Line %d must be an empty line "
 						"(every sector has been declared)\n",
 						parser->line_count));
+		ft_strdel(&line);
 	}
 	else
 		return (ft_printf("File ended at sectors declaration\n"));

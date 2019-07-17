@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:13:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/13 15:45:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:16:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int     init_sound(t_env *env)
 {
+	env->sound.b_jump = 20;
+	env->sound.b_footstep = 20;
+	env->sound.b_weapon = 20;
+	env->sound.g_music = 20;
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
 		return (ft_printf("SDL_OpenAudio error %s\n", Mix_GetError()));
 	if(!(env->sound.background = Mix_LoadMUS("audio/at_dooms_gate.mp3")))
@@ -31,9 +35,9 @@ int     init_sound(t_env *env)
 		return (ft_printf("Failed to load raygun_shot.wav %s\n", Mix_GetError()));
 	if (!(env->weapons[1].empty = Mix_LoadWAV("audio/shotgun_no_ammo.wav")))
 		return (ft_printf("Failed to load raygun_shot.wav %s\n", Mix_GetError()));
-	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / 2);
-	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / 2);
+	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / env->sound.b_jump);
+	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / env->sound.b_footstep);
+	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
+	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
     return (0);
 }

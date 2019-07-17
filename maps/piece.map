@@ -1,14 +1,16 @@
 # es (Y coordinate, followed by list of X coordinates)
 V 4
 0 0
-0 15
-15 0
-15 15
+0 35
+35 0
+35 35
 
 # s (floor height, ceiling height, then  numbers in clockwise order)
 # After the list of es, comes the list of  numbers on the "opposite" side of that wall; "x" = none.
 S 1
-[0 0 4] [10 0 0] (0 1 3 2) (-1 -1 -1 -1) (0 1 2 3)
+[0 0 5] [12 0 4] (0 1 3 2) (-1 -1 -1 -1) (0 1 2 3)
+
+O 0
 
 # : Location (x y), angle, and  number
-10 5 -90 0
+16.5 17.5 -90 0

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/12 12:05:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:27:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ static int	parse(int fd, int index, t_env *env)
 {
 	t_bmp_parser	parser;
 
+	if (index >= MAX_TEXTURE)
+		return (ft_printf("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
 		return (ft_printf("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
 		return (ft_printf("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (ft_printf("Error in image header\n"));
-	//check_bmp_parsing(parser);
+//	check_bmp_parsing(parser);
 	ft_printf("{red}");
 	if (!(env->textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
 					0,
@@ -39,8 +41,6 @@ static int	parse(int fd, int index, t_env *env)
 					parser.bpp,
 					SDL_PIXELFORMAT_ARGB8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	/*if (!(env->sdl.image_str = (Uint32*)malloc(sizeof(Uint32) * parser.w * parser.h)))
-		return (ft_printf("Could not malloc image pixels\n"));*/
 	env->textures[index].str = env->textures[index].surface->pixels;
 	env->textures[index].scale = 1;
 	env->textures[index].xpadding = 0;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 18:01:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:21:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,30 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load shotgun textures\n"));
 	if (init_raygun(env))
 		return (ft_printf("Failed to load raygun textures\n"));
-	if (parse_bmp("images/HUD/Ammo_hud.bmp", 28, env))
+	if (parse_bmp("images/sprite_sheet.bmp", 33, env))
+		return (ft_printf("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/lost_soul.bmp", 34, env))
+		return (ft_printf("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/rust.bmp", 37, env))
+		return (ft_printf("Failed to load sprite sheet\n"));
+	return (0);
+}
+
+int		init_wallpapers_and_buttons(t_env *env)
+{
+	if (parse_bmp("images/wallpaper1.bmp", 28, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/wallpaper2.bmp", 29, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/left.bmp", 30, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/right.bmp", 31, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/menu.bmp", 32, env))
+		return (ft_printf("invalid bmp file\n"));
+	if (parse_bmp("images/HUD/Ammo_hud.bmp", 36, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Life_armor_hud.bmp", 29, env))
+	if (parse_bmp("images/HUD/Life_armor_hud.bmp", 35, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }

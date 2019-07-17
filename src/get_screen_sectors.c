@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/23 15:59:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:31:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ int		get_screen_sectors(t_env *env)
 	int		sect_count;
 	int		x;
 	int		i;
+	double	camera_range;
 
-	size = ft_min(env->nb_sectors, env->w);
+	size = env->screen_sectors_size;
 	x = 0;
 	sect_count = 0;
+	camera_range = env->camera.near_right - env->camera.near_left;
 	while (x < env->w)
 	{
-		tmp = 2 * x / (env->camera.x2 - env->camera.x1) / env->camera.scale + env->camera.x1;
+		tmp = (x / (double)(env->w - 1)) * camera_range + env->camera.near_left;
 		curr.y = -env->camera.near_z;
 		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
+		env->screen_pos[x] = curr;
 		i = 0;
 		sect = get_sector(env, curr);
 		while (i < env->screen_sectors_size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
@@ -45,6 +48,5 @@ int		get_screen_sectors(t_env *env)
 			env->xmax[i] = x;
 		x++;
 	}
-	//ft_printf("sect nb = %d\n", sect_count);
 	return (sect_count);
 }

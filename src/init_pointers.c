@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/13 15:22:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:33:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	init_pointers(t_env *env)
 	ft_printf("Initializing pointers..\n");
 	env->sectors = NULL;
 	env->vertices = NULL;
+	env->objects = NULL;
+	env->sprites = NULL;
 	env->sdl.window = NULL;
 	env->sdl.renderer = NULL;
-	env->sdl.surface = NULL;
 	env->sdl.texture = NULL;
-	env->sdl.img_str = NULL;
 	env->sdl.texture_pixels = NULL;
 	env->xmin = NULL;
 	env->xmax = NULL;
@@ -33,10 +33,17 @@ void	init_pointers(t_env *env)
 	env->sdl.fonts.amazdoom20 = NULL;
 	env->sdl.fonts.amazdoom50 = NULL;
 	env->sdl.fonts.bebasneue = NULL;
-	env->sdl.fonts.alice = NULL;
+	env->sdl.fonts.alice30 = NULL;
+	env->sdl.fonts.alice70 = NULL;
+	env->screen_pos = NULL;
 	env->sound.background = NULL;
 	env->sound.footstep = NULL;
 	env->sound.jump = NULL;
+	env->ymin = NULL;
+	env->ymax = NULL;
+	env->res[0] = NULL;
+	env->res[1] = NULL;
+	env->res[2] = NULL;
 	i = 0;
 	while (i < MAX_TEXTURE)
 	{

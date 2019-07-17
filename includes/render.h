@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/10 16:35:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:55:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ typedef struct		s_render
 	t_v2			inter_far;
 	t_v2			inter_left;
 	t_v2			inter_right;
-	t_v2			projected_v0_floor;
-	t_v2			projected_v0_ceiling;
-	t_v2			projected_v1_floor;
-	t_v2			projected_v1_ceiling;
 	t_v2			texel;
 	double			vx1;
 	double			vx2;
@@ -60,50 +56,52 @@ typedef struct		s_render
 	double			clipped_vy1;
 	double			clipped_vy2;
 	double			light;
+	double			z;
+	double			clipped_z;
 	double			dist1;
 	double			dist2;
 	double			floor_slope;
 	double			ceiling_slope;
 	double			alpha;
-	double			floor_alpha;
+	double			clipped_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			v0_width;
-	double			v0_height;
-	double			v0_vz1;
-	double			v0_vz2;
-	double			currentz;
+	double			horizon;
+	double			angle_z1;
+	double			angle_z2;
+	double			preclip_angle_z1;
+	double			preclip_angle_z2;
+	double			scale1;
+	double			scale2;
 	int				xmin;
 	int				xmax;
-	int				ymin;
-	int				ymax;
 	int				currentx;
-	int				floor1;
-	int				floor2;
-	int				current_floor;
-	int				current_ceiling;
-	int				current_neighbor_floor;
-	int				current_neighbor_ceiling;
-	int				max_floor;
-	int				max_ceiling;
-	int				max_neighbor_floor;
-	int				max_neighbor_ceiling;
-	int				ceiling1;
-	int				ceiling2;
-	int				neighbor_floor1;
-	int				neighbor_floor2;
-	int				neighbor_ceiling1;
-	int				neighbor_ceiling2;
+	double			floor1;
+	double			floor2;
+	double			current_floor;
+	double			current_ceiling;
+	double			current_neighbor_floor;
+	double			current_neighbor_ceiling;
+	double			max_floor;
+	double			max_ceiling;
+	double			max_neighbor_floor;
+	double			max_neighbor_ceiling;
+	double			ceiling1;
+	double			ceiling2;
+	double			neighbor_floor1;
+	double			neighbor_floor2;
+	double			neighbor_ceiling1;
+	double			neighbor_ceiling2;
 	int				preclip_x1;
 	int				preclip_x2;
 	int				preclip_floor1;
 	int				preclip_floor2;
 	int				preclip_ceiling1;
 	int				preclip_ceiling2;
-	int				v0_floor;
-	int				v0_ceiling;
-	int				x1;
-	int				x2;
+	double			x1;
+	double			x2;
+	double			xrange;
+	double			preclip_xrange;
 	int				xstart;
 	int				xend;
 	int				sector;
@@ -115,10 +113,60 @@ typedef struct		s_render
 	int				texture;
 	int				floor_texture;
 	int				ceiling_texture;
+	double			x1z1;
+	double			x2z2;
+	double			y1z1;
+	double			y2z2;
+	int				ceil_range;
+	int				floor_range;
+	double			line_height;
+	double			projected_texture_w;
+	double			projected_texture_h;
+	double			ceiling_horizon;
+	double			floor_horizon;
+	double			ceiling_yscale;
+	double			ceiling_xscale;
+	double			floor_yscale;
+	double			floor_xscale;
 }					t_render;
 
+typedef struct		s_render_object
+{
+	double			dist;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				xstart;
+	int				ystart;
+	int				xend;
+	int				yend;
+	int				index;
+	double			light;
+	double			xrange;
+	double			yrange;
+	t_point			screen_pos;
+}					t_render_object;
+
+typedef struct		s_render_thread
+{
+	t_render		render;
+	t_env			*env;
+	int				xstart;
+	int				xend;
+}					t_render_thread;
+
+typedef struct		s_object_thread
+{
+	t_env			*env;
+	t_object		object;
+	t_render_object	orender;
+	int				xstart;
+	int				xend;
+}					t_object_thread;
+
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
-void				get_rotated_vertices(t_render *render, t_env *env, t_sector sector, int i);
+void				get_rotated_vertices(t_render *render, t_env *env, int i);
 int					check_fov(t_render *render, t_env *env);
 void				clip_walls(t_render *render, t_env *env);
 void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
@@ -140,5 +188,17 @@ void				handle_right(t_render *render, t_env *env);
 void				handle_far(t_render *render, t_env *env);
 void				handle_near(t_render *render, t_env *env);
 int					get_screen_sectors(t_env *env);
+
+/*
+**	Sprite part
+*/
+
+void				get_translated_object_pos(t_env *env, t_object *object);
+void				get_rotated_object_pos(t_env *env, t_object *object);
+void				*get_object_relative_pos(void *param);
+void				project_object(t_render_object *orender, t_object object, t_env *env);
+void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
+void				*raycasting(void *param);
+void				threaded_raycasting(t_env *env, t_render render);
 
 #endif

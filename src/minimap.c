@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/05/22 11:58:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/17 18:12:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ static void	swap_value(int *a, int *b)
 
 static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
+	Uint32		*pixels;
+
+	pixels = env->sdl.texture_pixels;
 	if (x >= env->w - 300 && x < env->w && y >= 0 && y <= 300)
 	{
-		if (color == 0xFFFF0000 || (env->sdl.texture_pixels[x + env->w * y] != 0xFF00FF00
-			&& env->sdl.texture_pixels[x + env->w * y] != 0xFFFFFFF))
+		if (color == 0xFFFF0000 || (pixels[x + env->w * y] != 0xFF00FF00
+			&& pixels[x + env->w * y] != 0xFFFFFFF))
 		{
 			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
-				env->sdl.texture_pixels[x + env->w * y] = color;
+				pixels[x + env->w * y] = color;
 		}
 	}
 }
@@ -122,7 +125,6 @@ static void	draw_player(t_env *env)
 		}
 		x++;
 	}
-
 	triangle[2] = new_v3(
 			(env->player.near_left.x - env->player.pos.x) * env->options.minimap_scale + start.x,
 			(env->player.near_left.y - env->player.pos.y) * env->options.minimap_scale + 150,
@@ -231,6 +233,38 @@ static void	draw_sector_num(t_env *env, t_sector sector)
 				env);
 }
 
+void		draw_sprites_minimap(t_env *env)
+{
+	int			i;
+	int			x;
+	int			y;
+	t_object	object;
+	t_point		pos;
+	Uint32		*pixels;
+
+	pixels = env->sdl.texture_pixels;
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		object = env->objects[i];
+		pos.x = env->w - 150 + (object.pos.x - env->player.pos.x) * env->options.minimap_scale;
+		x = pos.x - 2;
+		while (x < pos.x + 2)
+		{
+			pos.y = 150 + (object.pos.y - env->player.pos.y) * env->options.minimap_scale;
+			y = pos.y - 2;
+			while (y < pos.y + 2)
+			{
+				if (x > env->w - 300 && x < env->w && y >= 0 && y < 300)
+					pixels[x + y * env->w] = 0xFFFF0000;
+				y++;
+			}
+			x++;
+		}
+		i++;
+	}
+}
+
 void		minimap(t_env *env)
 {
 	int			s;
@@ -247,8 +281,8 @@ void		minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		if (env->player.pos.z > sect.floor_min
-				&& env->player.pos.z < sect.ceiling_max)
+		if (env->player.head_z > sect.floor_min
+				&& env->player.head_z < sect.ceiling_max)
 		{
 			if (s == env->player.sector)
 				line.color = 0xFF00FF00;
@@ -267,5 +301,6 @@ void		minimap(t_env *env)
 		}
 		s++;
 	}
+	draw_sprites_minimap(env);
 	draw_player(env);
 }
