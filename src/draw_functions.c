@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 16:36:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/11 18:13:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	texture_pixels = texture.str;
 	zbuffer = env->depth_array;
 	texture_w = texture.surface->w;
-	x = (render.alpha * (texture_w * render.wall_width / render.vz2)) * render.z;
+	// check render.c for wall_vz2
+	x = (render.alpha * (texture_w * render.wall_vz2)) * render.z;
 	while (x >= texture_w)
 		x -= texture_w;
 	while (x < 0)
@@ -60,7 +61,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	i = vline.start;
 	while (i <= vline.end)
 	{
-		// max_fc = soustraction max floor - ceiling
+		// check render.c (while x < xend) for max_fc 
 			yalpha = (1 - (i - render.max_ceiling) / render.max_fc);
 			y = yalpha * texture.surface->h * render.wall_height;
 			while (y >= texture.surface->h)

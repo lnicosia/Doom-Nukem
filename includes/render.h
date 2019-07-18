@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 16:34:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/11 18:08:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct		s_render
 	int				ceil_range;
 	int				floor_range;
 	double			max_fc;
+	double			wall_vz2;
 }					t_render;
 
 typedef struct		s_render_object

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 16:34:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/11 18:09:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	render_sector(t_env *env, t_render render)
 			render.v1_clipped = 0;
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 5;
+			render.wall_vz2 = render.wall_width / render.vz2;
 			render.wall_height = (sector.ceiling - sector.floor) / 10;
 			render.texture = sector.textures[i];
 			render.floor_texture = sector.floor_texture;
