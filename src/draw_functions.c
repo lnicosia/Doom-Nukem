@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 18:13:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/17 17:12:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,27 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	double		y;
 	double		x;
 	Uint32		*pixels;
-	double		*zbuffer;
 	Uint32		*texture_pixels;
+	double		*zbuffer;
 	t_texture	texture;
 	int			texture_w;
+	int			texture_h;
+	int			start_coord;
+	int			end_coord;
+	int			coord;
 
 	texture = env->textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->depth_array;
 	texture_w = texture.surface->w;
-	// check render.c for wall_vz2
-	x = (render.alpha * (texture_w * render.wall_vz2)) * render.z;
+	texture_h = texture.surface->h;
+	x = render.alpha * render.projected_texture_w * render.z;
+	if (x != x)
+	{
+		ft_printf("z = 0!\n");
+		return ;
+	}
 	while (x >= texture_w)
 		x -= texture_w;
 	while (x < 0)
@@ -43,41 +52,41 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	x = ft_fclamp(x, 0, texture_w);
 	if (env->options.contouring)
 	{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
-					&& render.z <= zbuffer[vline.x + env->w * vline.start])
-			{
-				pixels[vline.x + env->w * vline.start] = 0xFF222222;
-				zbuffer[vline.x + env->w * vline.start] = render.z;
-			}
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h
-					&& render.z <= zbuffer[vline.x + env->w * vline.end])
-			{
-				pixels[vline.x + env->w * vline.end] = 0xFF222222;
-				zbuffer[vline.x + env->w * vline.end] = render.z;
-			}
+		start_coord = vline.x + env->w * vline.start;
+		end_coord = vline.x + env->w * vline.end;
+		if (render.z <= zbuffer[start_coord])
+		{
+			pixels[start_coord] = 0xFF222222;
+			zbuffer[start_coord] = render.z;
+		}
+		if (render.z <= zbuffer[end_coord])
+		{
+			pixels[end_coord] = 0xFF222222;
+			zbuffer[end_coord] = render.z;
+		}
 		vline.start++;
 		vline.end--;
 	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
-		// check render.c (while x < xend) for max_fc 
-			yalpha = (1 - (i - render.max_ceiling) / render.max_fc);
-			y = yalpha * texture.surface->h * render.wall_height;
-			while (y >= texture.surface->h)
-				y -= texture.surface->h;
-			while (y < 0)
-				y += texture.surface->h;
-			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
-					&& x >= 0 && x < texture_w && y >= 0 && y < texture.surface->h
-					&& render.z <= zbuffer[vline.x + env->w * i])
-			{
-				if (!env->options.lighting)
-					pixels[vline.x + env->w * i] = texture_pixels[(int)x + texture_w * (int)y];
-				else
-					pixels[vline.x + env->w * i] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
-				zbuffer[vline.x + env->w * i] = render.z;
-			}
+		coord = vline.x + env->w * i;
+		yalpha = 1 - (i - render.max_ceiling) / render.line_height;
+		y = yalpha * render.projected_texture_h;
+		while (y >= texture_h)
+			y -= texture_h;
+		while (y < 0)
+			y += texture_h;
+		if (render.z <= zbuffer[coord])
+		{
+			if (!env->options.lighting)
+				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
+			else
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+			zbuffer[coord] = render.z;
+		}
+		/*if (i == (int)render.horizon)
+			pixels[coord] = 0xFF00FF00;*/
 		i++;
 	}
 }
@@ -88,8 +97,9 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 
 void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 {
-	(void)render;
-	int	coord;
+	int		start_coord;
+	int		end_coord;
+	int		coord;
 	Uint32	*pixels;
 	double	*zbuffer;
 
@@ -97,30 +107,29 @@ void	draw_vline_color(t_vline vline, t_render render, t_env *env)
 	zbuffer = env->depth_array;
 	if (env->options.contouring)
 	{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
-					&& render.z <= zbuffer[vline.x + env->w * vline.start])
-			{
-				pixels[vline.x + env->w * vline.start] = 0xFF222222;
-				zbuffer[vline.x + env->w * vline.start] = render.z;
-			}
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h
-					&& render.z <= zbuffer[vline.x + env->w * vline.end])
-			{
-				pixels[vline.x + env->w * vline.end] = 0xFF222222;
-				zbuffer[vline.x + env->w * vline.end] = render.z;
-			}
+		start_coord = vline.x + env->w * vline.start;
+		end_coord = vline.x + env->w * vline.end;
+		if (render.z <= zbuffer[start_coord])
+		{
+			pixels[start_coord] = 0xFF222222;
+			zbuffer[start_coord] = render.z;
+		}
+		if (render.z <= zbuffer[end_coord])
+		{
+			pixels[end_coord] = 0xFF222222;
+			zbuffer[end_coord] = render.z;
+		}
 		vline.start++;
 		vline.end--;
 	}
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h
-					&& render.z <= zbuffer[coord])
-			{
-				pixels[coord] = vline.color;
-				zbuffer[coord] = render.z;
-			}
+		if (render.z <= zbuffer[coord])
+		{
+			pixels[coord] = vline.color;
+			zbuffer[coord] = render.z;
+		}
 		vline.start++;
 	}
 }
@@ -136,40 +145,57 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	double	x;
 	double	alpha;
 	Uint32	*pixels;
+	Uint32	*texture_pixels;
 	double	*zbuffer;
+	int		start_coord;
+	int		end_coord;
+	int		coord;
+	int		texture_w;
+	int		texture_h;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
+	texture_w = env->textures[render.ceiling_texture].surface->w;
+	texture_h = env->textures[render.ceiling_texture].surface->h;
+	texture_pixels = env->textures[render.ceiling_texture].str;
 	if (env->options.contouring)
 	{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				pixels[vline.x + env->w * vline.start] = 0xFF222222;
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
-				pixels[vline.x + env->w * vline.end] = 0xFF222222;
+		start_coord = vline.x + env->w * vline.start;
+		end_coord = vline.x + env->w * vline.end;
+		if (render.z <= zbuffer[start_coord])
+		{
+			pixels[start_coord] = 0xFF222222;
+			zbuffer[start_coord] = render.z;
+		}
+		if (render.z <= zbuffer[end_coord])
+		{
+			pixels[end_coord] = 0xFF222222;
+			zbuffer[end_coord] = render.z;
+		}
 		vline.start++;
 		vline.end--;
 	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
-			alpha = (render.max_ceiling - render.horizon) / (double)(i - render.horizon);
-			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-			y *= env->textures[render.ceiling_texture].surface->h / 5.0;
-			x *= env->textures[render.ceiling_texture].surface->w / 5.0;
-			if (y >= env->textures[render.ceiling_texture].surface->h || y < 0)
-				y = ft_abs((int)y % env->textures[render.ceiling_texture].surface->h);
-			if (x >= env->textures[render.ceiling_texture].surface->w || x < 0)
-				x = ft_abs((int)x % env->textures[render.ceiling_texture].surface->w);
-			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
-					&& x >= 0 && x < env->textures[render.ceiling_texture].surface->w && y >= 0 && y < env->textures[render.ceiling_texture].surface->h)
-			{
-				if (!env->options.lighting)
-					pixels[vline.x + env->w * i] = env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y];
-				else
-					pixels[vline.x + env->w * i] = apply_light(env->textures[render.ceiling_texture].str[(int)x + env->textures[render.ceiling_texture].surface->w * (int)y], render.light);
-				zbuffer[vline.x + env->w * i] = render.z;
-			}
+		alpha = render.ceiling_horizon / (double)(i - render.horizon);
+		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+		y *= render.ceiling_yscale;
+		x *= render.ceiling_xscale;
+		if (y >= texture_h || y < 0)
+			y = ft_abs((int)y % texture_h);
+		if (x >= texture_w || x < 0)
+			x = ft_abs((int)x % texture_w);
+		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
+		{
+			coord = vline.x + env->w * i;
+			if (!env->options.lighting)
+				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
+			else
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+			zbuffer[coord] = render.z;
+		}
 		i++;
 	}
 }
@@ -185,45 +211,57 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	double	x;
 	double	alpha;
 	Uint32	*pixels;
+	Uint32	*texture_pixels;
 	double	*zbuffer;
-	int		inf;
+	int		start_coord;
+	int		end_coord;
+	int		coord;
+	int		texture_w;
+	int		texture_h;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
-	inf = 0;
+	texture_w = env->textures[render.floor_texture].surface->w;
+	texture_h = env->textures[render.floor_texture].surface->h;
+	texture_pixels = env->textures[render.floor_texture].str;
 	if (env->options.contouring)
 	{
-			if (vline.x >= 0 && vline.x < env->w && vline.start >= 0 && vline.start < env->h)
-				pixels[vline.x + env->w * vline.start] = 0xFF222222;
-			if (vline.x >= 0 && vline.x < env->w && vline.end >= 0 && vline.end < env->h)
-				pixels[vline.x + env->w * vline.end] = 0xFF222222;
+		start_coord = vline.x + env->w * vline.start;
+		end_coord = vline.x + env->w * vline.end;
+		if (render.z <= zbuffer[start_coord])
+		{
+			pixels[start_coord] = 0xFF222222;
+			zbuffer[start_coord] = render.z;
+		}
+		if (render.z <= zbuffer[end_coord])
+		{
+			pixels[end_coord] = 0xFF222222;
+			zbuffer[end_coord] = render.z;
+		}
 		vline.start++;
 		vline.end--;
 	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
-			if (i == render.horizon || render.max_floor == render.horizon)
-				return;
-			alpha = (render.max_floor - render.horizon) / (double)((i - render.horizon));
-			y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-			x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-			y *= env->textures[render.floor_texture].surface->h / 5.0;
-			x *= env->textures[render.floor_texture].surface->w / 5.0;
-			if (y >= env->textures[render.floor_texture].surface->h || y < 0)
-				y = ft_abs((int)y % env->textures[render.floor_texture].surface->h);
-			if (x >= env->textures[render.floor_texture].surface->w || x < 0)
-				x = ft_abs((int)x % env->textures[render.floor_texture].surface->w);
-			if (vline.x >= 0 && vline.x < env->w && i >= 0 && i < env->h
-					&& x >= 0 && x < env->textures[render.floor_texture].surface->w && y >= 0 && y < env->textures[render.floor_texture].surface->h)
-			{
-				if (!env->options.lighting)
-					pixels[vline.x + env->w * i] = env->textures[render.floor_texture].str[(int)x + env->textures[render.floor_texture].surface->w * (int)y];
-				else
-					pixels[vline.x + env->w * i] = apply_light(env->textures[render.floor_texture].str[(int)x + env->textures[render.floor_texture].surface->w * (int)y], render.light);
-				zbuffer[vline.x + env->w * i] = render.z;
-			}
-//		}
+		alpha = render.floor_horizon / (double)(i - render.horizon);
+		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+		y *= render.floor_yscale;
+		x *= render.floor_xscale;
+		if (y >= texture_h || y < 0)
+			y = ft_abs((int)y % texture_h);
+		if (x >= texture_w || x < 0)
+			x = ft_abs((int)x % texture_w);
+		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
+		{
+			coord = vline.x + env->w * i;
+			if (!env->options.lighting)
+				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
+			else
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+			zbuffer[coord] = render.z;
+		}
 		i++;
 	}
 }
@@ -237,7 +275,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	t_vline	vline;
 
 	vline.x = render.currentx;
-	vline.start = render.ymin;
+	vline.start = env->ymin[vline.x];
 	vline.end = render.current_ceiling;
 	vline.color = 0xFF222222;
 	if (env->options.lighting)
@@ -258,8 +296,8 @@ void	draw_floor(t_render render,t_env *env)
 
 	vline.x = render.currentx;
 	vline.start = render.current_floor;
-	vline.end = render.ymax;
-	vline.color = 0xFF444444;
+	vline.end = env->ymax[vline.x];
+	vline.color = 0xFF0B6484;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
 	if (!env->sectors[render.sector].floor_slope)
@@ -284,7 +322,7 @@ void	draw_upper_wall(t_render render, t_env *env)
 		vline.color = apply_light(vline.color, render.light);
 	//ft_printf("floor end = %d\n", vline.end);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
-			vline.color = 0xFF222222;
+		vline.color = 0xFF222222;
 	draw_vline(vline, render, env);
 }
 
@@ -304,6 +342,6 @@ void	draw_bottom_wall(t_render render,t_env *env)
 		vline.color = apply_light(vline.color, render.light);
 	//ft_printf("ceiling start = %d\n", vline.start);
 	if (env->options.contouring && (render.currentx == render.x1 || render.currentx == render.x2))
-			vline.color = 0xFF222222;
+		vline.color = 0xFF222222;
 	draw_vline(vline, render, env);
 }

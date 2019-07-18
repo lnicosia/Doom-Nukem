@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 18:08:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/16 17:55:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ typedef struct		s_render
 	double			scale2;
 	int				xmin;
 	int				xmax;
-	int				ymin;
-	int				ymax;
 	int				currentx;
 	double			floor1;
 	double			floor2;
@@ -121,8 +119,15 @@ typedef struct		s_render
 	double			y2z2;
 	int				ceil_range;
 	int				floor_range;
-	double			max_fc;
-	double			wall_vz2;
+	double			line_height;
+	double			projected_texture_w;
+	double			projected_texture_h;
+	double			ceiling_horizon;
+	double			floor_horizon;
+	double			ceiling_yscale;
+	double			ceiling_xscale;
+	double			floor_yscale;
+	double			floor_xscale;
 }					t_render;
 
 typedef struct		s_render_object
@@ -132,8 +137,33 @@ typedef struct		s_render_object
 	int				x2;
 	int				y1;
 	int				y2;
+	int				xstart;
+	int				ystart;
+	int				xend;
+	int				yend;
+	int				index;
+	double			light;
+	double			xrange;
+	double			yrange;
 	t_point			screen_pos;
 }					t_render_object;
+
+typedef struct		s_render_thread
+{
+	t_render		render;
+	t_env			*env;
+	int				xstart;
+	int				xend;
+}					t_render_thread;
+
+typedef struct		s_object_thread
+{
+	t_env			*env;
+	t_object		object;
+	t_render_object	orender;
+	int				xstart;
+	int				xend;
+}					t_object_thread;
 
 void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
 void				get_rotated_vertices(t_render *render, t_env *env, int i);
@@ -163,9 +193,12 @@ int					get_screen_sectors(t_env *env);
 **	Sprite part
 */
 
-void				draw_sprites(t_env *env, t_render *render);
-void				get_translated_object_pos(t_object *object, t_env *env);
-void				get_rotated_object_pos(t_object *object, t_env *env);
+void				get_translated_object_pos(t_env *env, t_object *object);
+void				get_rotated_object_pos(t_env *env, t_object *object);
+void				*get_object_relative_pos(void *param);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
+void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
+void				*raycasting(void *param);
+void				threaded_raycasting(t_env *env, t_render render);
 
 #endif

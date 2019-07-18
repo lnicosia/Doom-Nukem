@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 13:42:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:57:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,89 +56,164 @@ static int	get_sprite_direction(t_object object)
 		return (0);
 }
 
-void		draw_object(t_object object, t_env *env, t_render *render)
+void		*object_loop(void *param)
 {
+	t_env			*env;
+	t_object		object;
 	t_render_object	orender;
 	t_sprite		sprite;
 	int				x;
-	int				xstart;
-	int				xend;
 	int				y;
-	int				ystart;
+	int				xend;
 	int				yend;
 	int				textx;
 	int				texty;
-	int				index;
 	double			xalpha;
 	double			yalpha;
-	double			light;
-	double			xrange;
-	double			yrange;
 	t_texture		texture;
 	Uint32			*pixels;
 	Uint32			*texture_pixels;
 	double			*zbuffer;
 
-	(void)render;
+
+	orender = ((t_object_thread*)param)->orender;
+	env = ((t_object_thread*)param)->env;
+	object = ((t_object_thread*)param)->object;
 	sprite = env->sprites[object.sprite];
 	texture = env->textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->depth_array;
-	project_object(&orender, object, env);
-	if (object.rotated_pos.z <= 1)
-		return ;
-	if (!sprite.oriented)
-		index = 0;
-	else
-		index = get_sprite_direction(object);
-	xstart = orender.screen_pos.x - sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
-	ystart = orender.screen_pos.y - sprite.size[index].y / (object.rotated_pos.z / object.scale);
-	xend = orender.screen_pos.x + sprite.size[index].x / 2.0 / (object.rotated_pos.z / object.scale);
-	yend = (orender.screen_pos.y);
-	light = 255 - ft_clamp(object.rotated_pos.z * 2, 0, 255);
-	x = xstart;
-	xrange = xend - xstart;
-	yrange = yend - ystart;
-	while (++x < xend)
+	x = ((t_object_thread*)param)->xstart;
+	xend = ((t_object_thread*)param)->xend;
+	yend = orender.yend;
+	while (++x <= xend)
 	{
-		xalpha = (x - xstart) / xrange;
-		if (sprite.reversed[index])
+		xalpha = (x - orender.x1) / orender.xrange;
+		if (sprite.reversed[orender.index])
 			xalpha = 1.0 - xalpha;
-		textx = (1.0 - xalpha) * sprite.start[index].x + xalpha * sprite.end[index].x;
-		y = ystart + 1;
+		textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
+		y = orender.ystart;
 		while (y < yend)
 		{
-			yalpha = (y - ystart) / yrange;
-			texty = (1.0 - yalpha) * sprite.start[index].y + yalpha * sprite.end[index].y;
-			if (!(x >= env->w - 300 && x < env->w && y >= 0 && y <= 300) || !env->options.show_minimap)
-				if (x >= 0 && x < env->w && y >= 0 && y < env->h
-						&& object.rotated_pos.z < env->depth_array[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099)
-				{
-					if (!env->options.lighting)
-						pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
-					else
-						pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], light);
-					zbuffer[x + y * env->w] = object.rotated_pos.z;
-				}
+			yalpha = (y - orender.y1) / orender.yrange;
+			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
+			if ( object.rotated_pos.z < env->depth_array[x + y * env->w]
+					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099)
+			{
+				if (!env->options.lighting)
+					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
+				else
+					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light);
+				zbuffer[x + y * env->w] = object.rotated_pos.z;
+			}
 			y++;
 		}
 	}
+	return (NULL);
 }
 
-static void	get_relative_pos(t_env *env)
+void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
+{
+	t_object_thread	ot[THREADS];
+	pthread_t		threads[THREADS];
+	int				i;
+
+	i = 0;
+	while (i < THREADS)
+	{
+		ot[i].env = env;
+		ot[i].object = object;
+		ot[i].orender = orender;
+		ot[i].xstart = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * i;
+		ot[i].xend = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * (i + 1);
+		pthread_create(&threads[i], NULL, object_loop, &ot[i]);
+		i++;
+	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
+}
+
+void		draw_object(t_object object, t_env *env)
+{
+	t_render_object	orender;
+	t_sprite		sprite;
+
+	sprite = env->sprites[object.sprite];
+	project_object(&orender, object, env);
+	if (!sprite.oriented)
+		orender.index = 0;
+	else
+		orender.index = get_sprite_direction(object);
+	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object.rotated_pos.z / object.scale);
+	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object.rotated_pos.z / object.scale);
+	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object.rotated_pos.z / object.scale);
+	orender.y2 = orender.screen_pos.y;
+	orender.light = 255 - ft_clamp(object.rotated_pos.z * 2, 0, 255);
+	orender.xstart = ft_clamp(orender.x1, 0, env->w - 1);
+	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
+	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);
+	orender.yend = ft_clamp(orender.y2, 0, env->h - 1);
+	orender.xrange = orender.x2 - orender.x1;
+	orender.yrange = orender.y2 - orender.y1;
+	threaded_object_loop(object, orender, env);
+/*	while (++x < orender.xend)
+	{
+		xalpha = (x - orender.x1) / orender.xrange;
+		if (sprite.reversed[orender.index])
+			xalpha = 1.0 - xalpha;
+		textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
+		y = orender.ystart;
+		while (y < orender.yend)
+		{
+			yalpha = (y - orender.y1) / orender.yrange;
+			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
+			if ( object.rotated_pos.z < env->depth_array[x + y * env->w]
+					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099)
+			{
+				if (!env->options.lighting)
+					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
+				else
+					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light);
+				zbuffer[x + y * env->w] = object.rotated_pos.z;
+			}
+			y++;
+		}
+	}*/
+}
+
+void	get_relative_pos(t_env *env)
 {
 	int	i;
-
+	
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		get_translated_object_pos(&env->objects[i], env);
-		get_rotated_object_pos(&env->objects[i], env);
-		//ft_printf("object z = %f\n", env->objects[i].rotated_pos.z);
+		get_translated_object_pos(env, &env->objects[i]);
+		get_rotated_object_pos(env, &env->objects[i]);
 		i++;
 	}
+}
+
+void	threaded_get_relative_pos(t_env *env)
+{
+	int				i;
+	t_object_thread	object_threads[THREADS];
+	pthread_t		threads[THREADS];
+
+	env->current_object = 0;
+	i = 0;
+	while (i < THREADS)
+	{
+		object_threads[i].env = env;
+		object_threads[i].xstart = env->nb_objects / (double)THREADS * i;
+		object_threads[i].xend = env->nb_objects / (double)THREADS * (i + 1);
+		//ft_printf("start = %d end = %d\n", object_threads[i].start, object_threads[i].end);
+		pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]);
+		i++;
+	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
 }
 
 /*static void	swap_objects(t_object *o1, t_object *o2)
@@ -184,16 +259,18 @@ static void	sort_objects(t_object *objects, int start, int end)
 	}
 }*/
 
-void		draw_sprites(t_env *env, t_render *render)
+void		draw_sprites(t_env *env)
 {
 	int	i;
 
-	get_relative_pos(env);
+	threaded_get_relative_pos(env);
+	//get_relative_pos(env);
 	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		draw_object(env->objects[i], env, render);
+		if (env->objects[i].rotated_pos.z > 1)
+			draw_object(env->objects[i], env);
 		i++;
 	}
 }

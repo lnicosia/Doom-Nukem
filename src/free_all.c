@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/08 16:03:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/16 13:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		free_all_sdl_relative(t_env *env)
 		SDL_DestroyWindow(env->sdl.window);
 	if (env->sdl.renderer)
 		SDL_DestroyRenderer(env->sdl.renderer);
-	if (env->sdl.surface)
-		SDL_FreeSurface(env->sdl.surface);
+	if (env->sdl.texture)
+		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->depth_array)
@@ -79,6 +79,10 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->rendered_sectors);
 	if (env->screen_pos)
 		ft_memdel((void**)&env->screen_pos);
+	if (env->ymin)
+		ft_memdel((void**)&env->ymin);
+	if (env->ymax)
+		ft_memdel((void**)&env->ymax);
 
 }
 
@@ -90,6 +94,8 @@ void		free_all(t_env *env)
 	if (!env)
 		exit(0);
 	free_all_sdl_relative(env);
+	if (env->sdl.fonts.amazdoom70)
+		TTF_CloseFont(env->sdl.fonts.amazdoom70);
 	if (env->sdl.fonts.amazdoom50)
 		TTF_CloseFont(env->sdl.fonts.amazdoom50);
 	if (env->sdl.fonts.amazdoom20)
@@ -106,12 +112,20 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
 		ft_memdel((void**)&env->objects);
+	if (env->sprites)
+		ft_memdel((void**)&env->sprites);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.footstep);
-	if (env->sound.footstep)
+	if (env->sound.jump)
 		Mix_FreeChunk(env->sound.jump);
+	if (env->res[0])
+		ft_strdel(&env->res[0]);
+	if (env->res[1])
+		ft_strdel(&env->res[1]);
+	if (env->res[2])
+		ft_strdel(&env->res[2]);
 	i = 0;
 	while (i < NB_WEAPONS)
 	{

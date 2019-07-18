@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/09 12:28:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 10:57:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void    draw_hud(t_env *env)
 {
     char *str;
 
-    str = ft_itoa(env->player.life);
+    str = ft_sitoa(env->player.life);
     armor_life_hud(env);
     ammo_hud(env);
     print_text(new_point(830, 300), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
-    str = ft_itoa(env->player.armor);
+    str = ft_sitoa(env->player.armor);
     print_text(new_point(830, 80), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
     print_ammo(env);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 15:32:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:21:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/sprite_sheet.bmp", 33, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/lost_soul.bmp", 34, env))
+		return (ft_printf("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/rust.bmp", 37, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
 	return (0);
 }

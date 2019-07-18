@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 11:50:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/16 10:40:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "render.h"
 
 /*
-**	Get the translated vertices coord for the current wall
-*/
+ **	Get the translated vertices coord for the current wall
+ */
 
 void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -34,8 +34,8 @@ void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int 
 }
 
 /*
-**	Get the rotated vertices coord for the current wall
-*/
+ **	Get the rotated vertices coord for the current wall
+ */
 
 void	get_rotated_vertices(t_render *render, t_env *env, int i)
 {
@@ -56,8 +56,8 @@ void	get_rotated_vertices(t_render *render, t_env *env, int i)
 }
 
 /*
-** Translate and rotate vertices z into player's view
-*/
+ ** Translate and rotate vertices z into player's view
+ */
 
 void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -77,8 +77,8 @@ void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 }
 
 /*
-** Translate and rotate vertices z into player's view
-*/
+ ** Translate and rotate vertices z into player's view
+ */
 
 void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -96,8 +96,8 @@ void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector,
 }
 
 /*
-** Translate and rotate neighbor's vertices z into player's view
-*/
+ ** Translate and rotate neighbor's vertices z into player's view
+ */
 
 void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighbor)
 {
@@ -115,8 +115,8 @@ void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighb
 }
 
 /*
-**	Get the floor and ceiling position on the screen
-*/
+ **	Get the floor and ceiling position on the screen
+ */
 
 void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -131,8 +131,6 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		render->vcy1 * render->scale1;
 	render->ceiling2 = env->h_h +
 		render->vcy2 * render->scale2;
-	render->horizon = env->h_h +
-		render->clipped_vz1 * env->player.angle_z * render->scale1;
 	render->horizon = env->h_h -
 		env->player.angle_z * env->camera.scale;
 	render->x1 = env->h_w + render->clipped_vx1 * render->scale1;
@@ -140,8 +138,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 }
 
 /*
-**	Get the neighbor floor and ceiling position on the screen
-*/
+ **	Get the neighbor floor and ceiling position on the screen
+ */
 
 void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor)
 {
@@ -157,8 +155,8 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 }
 
 /*
-**	Get the floor and ceiling position on the screen before clipping
-*/
+ **	Get the floor and ceiling position on the screen before clipping
+ */
 
 void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -175,4 +173,19 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		render->vcy2 * render->scale2;
 	render->preclip_x1 = env->h_w + render->vx1 * render->scale1;
 	render->preclip_x2 = env->h_w + render->vx2 * render->scale2;
+}
+
+void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)
+{
+	//Calculer y actuel du plafond et du sol du voisin
+	render->current_neighbor_ceiling = (x - render->x1)
+		* (render->neighbor_ceiling2 - render->neighbor_ceiling1)
+		/ (render->x2 - render->x1) + render->neighbor_ceiling1;
+	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
+			, env->ymin[x], env->ymax[x]);
+	render->current_neighbor_floor = (x - render->x1)
+		* (render->neighbor_floor2 - render->neighbor_floor1)
+		/ (render->x2 - render->x1) + render->neighbor_floor1;
+	render->current_neighbor_floor = ft_clamp(render->current_neighbor_floor
+			, env->ymin[x], env->ymax[x]);
 }

@@ -6,14 +6,33 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:24:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:41:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "render.h"
 
-void	get_translated_object_pos(t_object *object, t_env *env)
+void	*get_object_relative_pos(void *param)
+{
+	t_env	*env;
+	int		i;
+	int		max;
+
+	env = ((t_object_thread*)param)->env;
+	i = ((t_object_thread*)param)->xstart;
+	max = ((t_object_thread*)param)->xend;
+	while (i < max)
+	{
+		//ft_printf("i = %d\n", i);
+		get_translated_object_pos(env, &env->objects[i]);
+		get_rotated_object_pos(env, &env->objects[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+void	get_translated_object_pos(t_env *env, t_object *object)
 {
 	/*object->translated_left_bottom.x = (object.pos.x - object.width / 2.0)
 		- env->player.pos.x;
@@ -32,10 +51,10 @@ void	get_translated_object_pos(t_object *object, t_env *env)
 	object->translated_right_top.y = object->translated_left_top.y;*/
 	object->translated_pos.x = object->pos.x - env->player.pos.x;
 	object->translated_pos.z = object->pos.y - env->player.pos.y;
-	object->translated_pos.y = object->pos.z - (env->player.pos.z + env->player.eyesight);
+	object->translated_pos.y = object->pos.z - env->player.head_z;
 }
 
-void	get_rotated_object_pos(t_object *object, t_env *env)
+void	get_rotated_object_pos(t_env *env, t_object *object)
 {
 	/*object->rotated_left_bottom.x = object->translated_left_bottom.x
 		* env->player.angle_sin - object->translated_left_bottom.z

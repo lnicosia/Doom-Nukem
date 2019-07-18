@@ -6,17 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/03 14:31:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/16 13:32:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		init_sdl(t_env *env)
+int		set_sdl(t_env *env)
 {
-	ft_printf("Initializing SDL..\n");
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Dookme",
 					SDL_WINDOWPOS_CENTERED,
@@ -25,8 +22,6 @@ int		init_sdl(t_env *env)
 					env->h,
 					SDL_WINDOW_MOUSE_FOCUS)))
 		return (ft_printf("SDL_CreateWindow error: %s\n", SDL_GetError()));
-	if (init_sound(env))
-		return (ft_printf("Could not load sound\n"));
 	if (!(env->sdl.renderer = SDL_CreateRenderer(
 					env->sdl.window,
 					-1,
@@ -53,16 +48,6 @@ int		init_sdl(t_env *env)
 	ft_printf("max height = %d\n", info.max_texture_height);*/
 	/*if (SDL_SetRenderDrawBlendMode(env->sdl.renderer, SDL_BLENDMODE_NONE))
 		return (ft_printf("SDL_RendererDrawBlendMode error: %s\n", SDL_GetError()));*/
-	if (!(env->sdl.surface = SDL_CreateRGBSurfaceWithFormat(
-					0,
-					env->w,
-					env->h,
-					32,
-					SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	if (SDL_SetSurfaceBlendMode(env->sdl.surface, SDL_BLENDMODE_BLEND))
-		return (ft_printf("SDL_SurfaceDrawBlendMode error: %s\n", SDL_GetError()));
-	env->sdl.img_str = env->sdl.surface->pixels;
 	if (!(env->sdl.texture = SDL_CreateTexture(
 					env->sdl.renderer,
 					SDL_PIXELFORMAT_ARGB8888,
@@ -74,6 +59,10 @@ int		init_sdl(t_env *env)
 		return (ft_printf("Could not malloc texture pixels\n"));
 	if (!(env->depth_array = (double*)malloc(sizeof(double) * env->w * env->h)))
 		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->ymin = (int*)malloc(sizeof(int) * env->w)))
+		return (ft_printf("Could not malloc ymin array\n"));
+	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
+		return (ft_printf("Could not malloc ymax array\n"));
 	clear_image(env);
 	if (SDL_SetRelativeMouseMode(1))
 		return (ft_printf("SDL_SetRelativeMouseMode error: %s\n", SDL_GetError()));
@@ -84,6 +73,16 @@ int		init_sdl(t_env *env)
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);
+	return (0);
+}
+
+int		init_sdl(t_env *env)
+{
+	ft_printf("Initializing SDL..\n");
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		return(ft_printf("SDL_Init error: %s\n", SDL_GetError()));
 	env->time.milli_s =  0;
+	if (set_sdl(env))
+		return (ft_printf("Could not set SDL\n"));
 	return (0);
 }

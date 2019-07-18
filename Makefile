@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/18 14:16:26 by sipatry          ###   ########.fr        #
+#    Updated: 2019/07/17 16:15:32 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_RAW = main.c doom.c free_all.c init_sdl.c clear_image.c render.c map_parser.
 		  init_textures.c weapons.c physics.c init_weapons.c \
 		  init_program.c draw.c menu.c init_sound.c init_sprites.c \
 		  init_screen_pos.c draw_sprites.c sprites_maths.c \
-		  map_parse_objects.c draw_hud.c
+		  map_parse_objects.c draw_hud.c raycasting.c map_init_objects.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h
 
@@ -69,8 +69,8 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all: 
-	@make -C $(LIBFT_DIR)
-	@make $(BIN_DIR)/$(NAME)
+	@make -C $(LIBFT_DIR) -j8
+	@make $(BIN_DIR)/$(NAME) -j8
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)

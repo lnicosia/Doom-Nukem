@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/11 11:29:08 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/18 13:49:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <SDL_ttf.h>
 # include <SDL_mixer.h>
 # include <fcntl.h>
+# include <pthread.h>
 # include "libft.h"
 # include "object_types.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
@@ -25,7 +26,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 37
+# define MAX_TEXTURE 38
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 2
@@ -33,6 +34,7 @@
 # define NB_BUTTON 6
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
+# define THREADS 4
 
 typedef struct		s_point
 {
@@ -133,7 +135,7 @@ typedef struct		s_player
 	short			camera_sector;
 	short			near_left_sector;
 	short			near_right_sector;
-	int				state;
+	double				state;
 	int				curr_weapon;
 	int				life;
 	int				armor;
@@ -308,12 +310,9 @@ typedef struct		s_sdl
 	t_fonts			fonts;
 	SDL_Window		*window;
 	SDL_Renderer	*renderer;
-	SDL_Surface		*surface;
 	SDL_Texture		*texture;
 	unsigned int	*img_str;
 	Uint32			*texture_pixels;
-	SDL_Surface		*image;
-	unsigned int	*image_str;
 	int				mouse_x;
 	int				mouse_y;
 	int				mx;
@@ -455,7 +454,7 @@ typedef struct		s_env
 	short			*rendered_sectors;
 	int				screen_w[3];
 	int				screen_h[3];
-	char			**res;
+	char			*res[3];
 	int				w;
 	int				h;
 	int				h_w;
@@ -465,8 +464,14 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				nb_objects;
-	int				flag;
+	double			flag;
 	int				reset;
+	int				count;
+	int				*ymax;
+	int				*ymin;
+	int				current_object;
+	int				objects_start;
+	int				objects_end;
 }					t_env;
 
 /*
@@ -490,12 +495,14 @@ int					crash(char *str, t_env *env);
 ** Init functions
 */
 
-int					init_screen_size(t_env *env, int i);
+int					init_screen_size(t_env *env);
+void				set_screen_size(t_env *env);
 void    			init_weapons(t_env *env);
 int     			init_sound(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
+int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
@@ -549,7 +556,8 @@ void				free_all_sdl_relative(t_env *env);
 ** Main pipeline functions
 */
 
-int					draw(t_env *env);
+int					draw_walls(t_env *env);
+void				draw_sprites(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);
@@ -583,7 +591,7 @@ void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, short sector_nb);
-void				time(t_env *env);
+void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/20 11:47:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:57:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (ft_printf("Missing floor texture (line %d)\n", parser->line_count));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].floor_texture < 0
+			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
+		return (ft_printf("Invalid floor texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
 	if (**line != ']' && **(line + 1) != ' ')
 		return (ft_printf("Invalid character after floor declaration at line %d\n", parser->line_count));
@@ -63,6 +66,9 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (ft_printf("Missing floor texture (line %d)\n", parser->line_count));
 	env->sectors[parser->sectors_count].ceiling_texture = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].ceiling_texture < 0
+			|| env->sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
+		return (ft_printf("Invalid ceiling texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
 	if (**line != ']' && **(line + 1) != ' ')
 		return (ft_printf("Invalid character after ceiling declaration at line %d\n", parser->line_count));

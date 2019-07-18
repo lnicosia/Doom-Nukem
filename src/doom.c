@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 14:12:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/18 13:49:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		doom(t_env *env)
 	env->flag = 0;
 	while (env->running)
 	{	
-		//ft_printf("z = %f eyesight = %f\n", env->player.pos.z, env->player.eyesight);
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);
@@ -47,7 +46,7 @@ int		doom(t_env *env)
 			if (env->option)
 			{
 				if (open_options(env))
-					return (crash("Crashed in opions\n", env));
+					return (crash("Could not process options pannel\n", env));
 			}
 			else
 				draw_game(env);
