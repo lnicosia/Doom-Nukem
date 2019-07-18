@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/16 11:50:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:43:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	init_program(int ac, char **av)
 		return (crash("Could not load sprites\n", &env));
 	if (init_wallpapers_and_buttons(&env))
 		return (crash("Could not load menu tools\n", &env));
+	update_camera_position(&env);
 	SDL_SetRelativeMouseMode(1);
 	return (doom(&env));
 }
