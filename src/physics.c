@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/18 13:49:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/18 14:20:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	climb(t_env *env)
 	double	x;
 
 	x = 0.5;
-	ft_printf("climb\n");
 	if (env->flag)
 		env->flag = 0;
 	if (env->player.pos.z < env->gravity.floor)
