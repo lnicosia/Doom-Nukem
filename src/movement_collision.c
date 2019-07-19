@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/17 18:27:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/19 15:12:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,13 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
     motion.old_sector = wall.sector_or;
     //ft_printf("sector dest = %d\n", wall.sector_dest);
     env->sector_list[wall.sector_dest] = 1;
+    env->player.sector = wall.sector_dest;
+    if (!check_ceiling(env, motion) || !check_floor(env, motion))
+    {
+        env->player.sector = wall.sector_or;
+        return (0);
+    }
+    env->player.sector = wall.sector_or;
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
         if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR < 0)
@@ -307,6 +314,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
     short       j;
     t_movement  motion;
     t_wall      wall;
+    int         sector_tmp;
     //double		start_pos;
     //double  	end_pos;
 
@@ -348,7 +356,8 @@ int     check_collision(t_env *env, double x_move, double y_move)
             return (0);
         }
 
-        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR >= 0)
+        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR >= 0
+            && check_floor(env, motion) && check_ceiling(env, motion))
         {
             wall.sector_or = env->player.sector;
             wall.sector_dest = NEIGHBOR;
@@ -360,10 +369,17 @@ int     check_collision(t_env *env, double x_move, double y_move)
                     if (env->sector_list[j])
                     {
                         //ft_printf("tested sectors = %d\n", j);
-                        if (is_in_sector(env, j, env->player.pos.x, env->player.pos.y))
+                        if (is_in_sector(env, j, FUTURE_X, FUTURE_Y))
                         {
                             //ft_printf("in_in_sector %d\n", j);
+                            sector_tmp = env->player.sector;
                             env->player.sector = j;
+                            if (!check_ceiling(env, motion) || !check_floor(env, motion))
+                            {
+                                env->player.sector = sector_tmp;
+                                return (0);
+                            }
+                            j = env->nb_sectors;
                         }
                     }
                     j++;
