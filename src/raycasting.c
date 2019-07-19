@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 16:14:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/18 10:29:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*raycasting(void *param)
 		render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
 		render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.clipped_vz1 + render.clipped_alpha / render.vz2);
 		// Lumiere
-		render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
+		//render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
 
 		render.texel.x = ((1.0 - render.alpha) * render.x1z1 + render.alpha * render.x2z2) * render.z;
 		render.texel.y = ((1.0 - render.alpha) * render.y1z1 + render.alpha * render.y2z2) * render.z;

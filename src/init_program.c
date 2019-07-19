@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/17 19:39:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/19 16:04:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	init_program(int ac, char **av)
 	{
 		/* ft_printf("crash\n"); */
 		return (crash("Could not allocate sector list\n", &env));}
+	update_camera_position(&env);
 	SDL_SetRelativeMouseMode(1);
 	return (doom(&env));
 }

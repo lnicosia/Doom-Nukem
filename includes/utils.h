@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 17:16:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/19 16:06:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct		s_sector
 	double			ceiling_min;
 	double			floor_max;
 	double			ceiling_max;
+	double			light;
 	double			*wall_width;
 	double			*floors;
 	double			*ceilings;
@@ -293,6 +294,7 @@ typedef struct		s_object
 	int				sprite;
 	double			scale;
 	double			angle;
+	double			light;
 	int				pickable;
 	int				solid;
 	int				ammo;
@@ -550,7 +552,7 @@ unsigned int		blend_add(unsigned int src,
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
-Uint32				apply_light(Uint32 color, uint8_t light);
+Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
 
 /*
@@ -588,6 +590,7 @@ void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
+int					get_sector_global(t_env *env, t_v2 p);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);

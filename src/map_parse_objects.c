@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 11:08:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:44:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	env->objects[parser->objects_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
+	env->objects[parser->objects_count].sector = get_sector_global(env,
+			new_v2(env->objects[parser->objects_count].pos.x,
+				env->objects[parser->objects_count].pos.y));
+	env->objects[parser->objects_count].light =
+		env->sectors[env->objects[parser->objects_count].sector].light;
 	if (**line != ']' &&  **(line + 1) != ' ')
 		return (ft_printf("Invalid character after pos declaration (line %d)\n",
 					parser->line_count));

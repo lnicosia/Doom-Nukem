@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 17:57:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:17:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void		draw_object(t_object object, t_env *env)
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object.rotated_pos.z / object.scale);
 	orender.y2 = orender.screen_pos.y;
 	orender.light = 255 - ft_clamp(object.rotated_pos.z * 2, 0, 255);
+	orender.light = object.light;
 	orender.xstart = ft_clamp(orender.x1, 0, env->w - 1);
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);
