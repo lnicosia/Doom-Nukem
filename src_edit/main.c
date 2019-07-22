@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/20 14:53:11 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/20 20:10:49 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/20 20:15:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		main(int ac, char **av)
-{	
-	init_program(ac, av);
+int	main(int ac, char **av)
+{
+	init_edition(ac, av);
 	return (0);
 }

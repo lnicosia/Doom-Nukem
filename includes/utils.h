@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 14:20:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/22 16:18:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 2
 # define NB_WEAPONS 2
-# define NB_BUTTON 6
+# define NB_BUTTON 10
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
@@ -444,6 +444,8 @@ typedef struct		s_env
 	double			horizon;
 	int				option;
 	int				menu_start;
+	int				menu_select;
+	int				menu_edit;
 	int				aplicate_changes;
 	char			*fps;
 	double			*depth_array;
@@ -481,6 +483,13 @@ typedef struct		s_env
 **	 ---------------
 **	  -------------
 */
+
+
+/*
+** Temporary functions from editor
+*/
+
+int					init_edition(int ac, char **av);
 
 /*
 ** Main functions
@@ -601,5 +610,6 @@ int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
+void				select_menu(t_env *env);
 
 #endif

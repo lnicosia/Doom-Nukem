@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 14:20:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/20 16:28:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		doom(t_env *env)
 		keys(env);
 		if (env->menu_start)
 			start_menu(env);
+//		if (env->menu_select && !env->menu_start)
+//			select_menu(env);
 		else
 		{
 			if (env->option)
