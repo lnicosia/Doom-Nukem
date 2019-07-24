@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/22 16:18:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 10:43:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include "libft.h"
 # include "object_types.h"
+# include "editor.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
@@ -135,7 +136,7 @@ typedef struct		s_player
 	short			camera_sector;
 	short			near_left_sector;
 	short			near_right_sector;
-	double				state;
+	double			state;
 	int				curr_weapon;
 	int				life;
 	int				armor;
@@ -441,6 +442,9 @@ typedef struct		s_env
 	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
+	t_edit 			edit;
+	int				drawing;
+	int				edition;
 	double			horizon;
 	int				option;
 	int				menu_start;
@@ -490,6 +494,10 @@ typedef struct		s_env
 */
 
 int					init_edition(int ac, char **av);
+void				editor(t_env *env);
+void				start_editor_menu(t_env *env);
+void				draw_map(t_env *env);
+void				init_edit(t_env *env);
 
 /*
 ** Main functions
@@ -608,7 +616,7 @@ void				jump(t_env *env);
 void				crouch(t_env *env);
 int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
-void				start_menu(t_env *env);
+void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 void				select_menu(t_env *env);
 

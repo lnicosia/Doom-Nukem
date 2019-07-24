@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doom.c                                             :+:      :+:    :+:   */
+/*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 10:45:16 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/24 10:44:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		doom(t_env *env)
+void	editor(t_env *env)
 {
-	init_animations(env);
-	init_weapons(env);
-	env->player.speed = 0.5;
-	env->player.size_2d = 0.5;
-	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env->sound.background, -1);
-	ft_printf("Launching game loop..\n");
-	env->flag = 0;
 	while (env->running)
-	{	
-		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
-		reset_clipped(env);
+	{
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
@@ -39,23 +29,9 @@ int		doom(t_env *env)
 				update_inputs(env);
 		}
 		keys(env);
-		if (env->menu_start)
-			start_game_menu(env);
-//		if (env->menu_select && !env->menu_start)
-//			select_menu(env);
-		else
-		{
-			if (env->option)
-			{
-				if (open_options(env))
-					return (crash("Could not process options pannel\n", env));
-			}
-			else
-				draw_game(env);
-		}
-	//	SDL_Delay(5);
+		if (env->edit.menu)
+			start_editor_menu(env);
+		draw_map(env);
+		keys(env);
 	}
-	ft_printf("User quit the game\n");
-	free_all(env);
-	return (0);
 }

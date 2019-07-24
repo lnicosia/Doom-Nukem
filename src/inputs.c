@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 18:10:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/23 19:53:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void	set_inputs(t_env *env, int mode)
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->edition && env->drawing)
+	{
+		
+	}
 
 /*
  * * gestion menu option
@@ -167,8 +171,8 @@ void	update_inputs(t_env *env)
 	}
 	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
 		set_inputs(env, 1);
- 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
+	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		set_inputs(env, 0);
-	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
-		weapon_change(env);
+//	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
+//		weapon_change(env);
 }

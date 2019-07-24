@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 13:32:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 11:50:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int		set_sdl(t_env *env)
 	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
 		return (ft_printf("Could not malloc ymax array\n"));
 	clear_image(env);
-	if (SDL_SetRelativeMouseMode(1))
-		return (ft_printf("SDL_SetRelativeMouseMode error: %s\n", SDL_GetError()));
 	if (SDL_RenderCopy(
 				env->sdl.renderer,
 				env->sdl.texture,
