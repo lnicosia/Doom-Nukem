@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 15:19:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:35:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	init_edit(t_env *env)
 	env->edit.center.x = env->h_w;
 	env->edit.center.y = env->h_h;
 	env->edit.scale = 20;
+	env->edit.vertices = NULL;
 }

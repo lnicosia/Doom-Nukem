@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 16:23:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:46:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 void		editor_keys(t_env *env)
 {
+	if (env->inputs.left_click)
+	{
+		if (env->drawing)
+		{
+			add_vertex(env);
+			env->edit.nb_vertex++;
+		}
+	}
 	if (env->inputs.right_click)
 	{
 		if (env->sdl.mx < env->w && env->sdl.mx > 0

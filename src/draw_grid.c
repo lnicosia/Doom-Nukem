@@ -6,79 +6,22 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 16:24:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:46:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	hline(t_env *env, int y)
-{
-	int x;
-
-	x = 0;
-	while (x < env->w)
-	{
-		env->sdl.texture_pixels[x + y * env->w] = 0xFF888888;
-		x++;
-	}
-}
-
-void	vline(t_env *env, int x)
-{
-	int y;
-
-	y = 0;
-	while (y < env->h)
-	{
-		env->sdl.texture_pixels[x + y * env->w] = 0xFF888888;
-		y++;
-	}
-}
-
-void	draw_hgrid(t_env *env)
-{
-	int	i;
-
-	i = env->edit.center.y;
-	while (i < env->h)
-	{
-		hline(env, i);
-		i += env->edit.scale;
-	}
-	i = env->edit.center.y - env->edit.scale;
-	while (i >= 0)
-	{
-		hline(env, i);
-		i -= env->edit.scale;
-	}
-}
-
-void	draw_vgrid(t_env *env)
-{
-	int	i;
-
-	i = env->edit.center.x;
-	while (i < env->w)
-	{
-		vline(env, i);
-		i += env->edit.scale;
-	}
-	i = env->edit.center.x - env->edit.scale;
-	while (i >= 0)
-	{
-		vline(env, i);
-		i -= env->edit.scale;
-	}
-}
-
 int		add_vertex(t_env *env)
 {
-	int new_nb;
+	t_list		*new;
+	t_vertex	vertex;
 
-	new_nb = 20;
-	if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex) * new_nb)))
-		return (ft_printf("malloc of the vertices went wrong\n"));
+	vertex.num = env->edit.nb_vertex;
+	if (!(new = ft_lstnew(&vertex, sizeof(t_vertex))))
+		return (ft_printf("Error when creating new vertex\n"));
+	ft_lstpushback(&env->edit.vertices, new);
+
 	return (0);
 }
 
@@ -120,9 +63,21 @@ void	draw_center(t_env *env)
 	}
 }
 
+void	draw_grid_walls(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->edit.nb_vertex)
+	{
+		
+	}
+}
+
 void	draw_map(t_env *env)
 {
 	draw_hgrid(env);
 	draw_vgrid(env);
 	draw_center(env);
+	draw_walls(env);
 }
