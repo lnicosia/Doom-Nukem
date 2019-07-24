@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 11:55:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:55:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	jump(t_env *env)
 	int		i;
 	int		j;
 
-	x = 0.6;
+	x = 0.45;
 	res = 0;
 	j = 0;
 	i = 0;
@@ -40,37 +40,40 @@ void	jump(t_env *env)
 	env->gravity.on_going = 0;
 	env->player.state = 1;
 	new_time = env->time.milli_s;
-	if (!env->jump.start)
+	if (check_collision(env, 0, 0))
 	{
-		//Mix_PlayChannel(1, env->sound.jump, 0);
-		env->jump.start = env->time.milli_s;
-		env->jump.height = env->player.pos.z + 3;
-	}
-	if (env->player.pos.z <= env->jump.height)
-	{
-		env->player.pos.z = env->jump.height - 3;
-		env->player.head_z = env->player.pos.z + env->player.eyesight;
-		env->jump.tick = env->jump.end / env->jump.nb_frame;
-		j = (new_time - env->jump.start) / env->jump.tick;
-		while (i < j)
+		if (!env->jump.start)
 		{
-			res += x - env->gravity.weight;
-			env->gravity.weight += 0.05;
-			i++;
+			//Mix_PlayChannel(1, env->sound.jump, 0);
+			env->jump.start = env->time.milli_s;
+			env->jump.height = env->player.pos.z + 3;
 		}
-		env->gravity.weight = 0;	
-		env->player.pos.z += res;
-		env->player.head_z = env->player.pos.z + env->player.eyesight;
-		if (env->gravity.weight < 0)
+		if (env->player.pos.z <= env->jump.height)
+		{
+			env->player.pos.z = env->jump.height - 3;
+			env->player.head_z = env->player.pos.z + env->player.eyesight;
+			env->jump.tick = env->jump.end / env->jump.nb_frame;
+			j = (new_time - env->jump.start) / env->jump.tick;
+			while (i < j)
+			{
+				res += x - env->gravity.weight;
+				env->gravity.weight += 0.04;
+				i++;
+			}
+			env->gravity.weight = 0;	
+			env->player.pos.z += res;
+			env->player.head_z = env->player.pos.z + env->player.eyesight;
+			if (env->gravity.weight < 0)
+				env->gravity.weight = 0;
+		}
+		if (new_time - env->jump.start >= env->jump.end)
+		{
 			env->gravity.weight = 0;
-	}
-	if (new_time - env->jump.start >= env->jump.end)
-	{
-		env->gravity.weight = 0;
-		env->gravity.on_going = 1;
-		env->jump.start = 0;
-		env->jump.on_going = 0;
-		env->player.state = 0;
+			env->gravity.on_going = 1;
+			env->jump.start = 0;
+			env->jump.on_going = 0;
+			env->player.state = 0;
+		}
 	}
 }
 
@@ -88,11 +91,11 @@ void	climb(t_env *env)
 			x = env->gravity.floor - env->player.pos.z;
 			env->player.pos.z += x;
 		}
-		if (env->player.pos.z < env->gravity.floor)
+		else if (env->player.pos.z < env->gravity.floor)
 		{
 			env->player.pos.z += (x);
 		}
-		if (env->player.pos.z + (x) > env->gravity.floor)
+		else if (env->player.pos.z + (x) > env->gravity.floor)
 		{
 			x = env->gravity.floor - env->player.pos.z;
 			env->player.pos.z += x;
@@ -109,6 +112,7 @@ void	fall(t_env *env)
 	double	x;
 
 	x = 0.5;
+	ft_printf("fall\n");
 	env->gravity.start = env->time.tenth_s;
 	env->player.state = 1;
 	env->gravity.end = env->gravity.start;
@@ -123,12 +127,12 @@ void	fall(t_env *env)
 		env->player.state = 0;
 		env->flag = 0;
 	}
-	if (env->player.pos.z > env->gravity.floor)
+	else if (env->player.pos.z > env->gravity.floor)
 	{
 		env->player.pos.z -= (x * env->gravity.weight);
 		env->gravity.weight += 0.1;
 	}
-	if ((env->player.pos.z > env->gravity.floor && env->player.pos.z -
+	else if ((env->player.pos.z > env->gravity.floor && env->player.pos.z -
 				(x * env->gravity.weight) < env->gravity.floor) || env->player.pos.z == env->gravity.floor)
 	{
 		x = env->player.pos.z - env->gravity.floor;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:58:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 12:29:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		doom(t_env *env)
 	ft_printf("Launching game loop..\n");
 	env->flag = 0;
 	while (env->running)
-	{	
+	{
+		ft_printf("z = %f\n", env->player.pos.z);
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);

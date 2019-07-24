@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/24 12:00:13 by sipatry          ###   ########.fr        #
+#    Updated: 2019/07/24 13:55:17 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MAKEFILE = Makefile
 
 SRC_DIR = src
 OBJ_GAME_DIR = obj_game
-OBJ_EDIT_DIR = obj_edit
+OBJ_EDITOR_DIR = obj_editor
 OBJ_ALL_DIR = obj_all
 INCLUDES_DIR = includes
 GAME_DIR = .
@@ -57,7 +57,7 @@ SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
 SRC_EDITOR = $(addprefix $(SRC_DIR)/, $(SRC_EDITOR_RAW))
-OBJ_EDITOR = $(addprefix $(OBJ_EDIT_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
+OBJ_EDITOR = $(addprefix $(OBJ_EDITOR_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
 
 SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
@@ -89,63 +89,63 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all:
-	make -C $(LIBFT_DIR) -j8
-	make $(GAME_DIR)/$(GAME_NAME) -j8
-	make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@make -C $(LIBFT_DIR) -j8
+	@make $(GAME_DIR)/$(GAME_NAME) -j8
+	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
 game:
-	make -C $(LIBFT_DIR) -j8
-	make $(GAME_DIR)/$(GAME_NAME) -j8
+	@make -C $(LIBFT_DIR) -j8
+	@make $(GAME_DIR)/$(GAME_NAME) -j8
 
 editor:
-	make -C $(LIBFT_DIR) -j8
-	make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@make -C $(LIBFT_DIR) -j8
+	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
 ($LIBFT):
-	make -C $(LIBFT_DIR) -j8
+	@make -C $(LIBFT_DIR) -j8
 
 $(OBJ_GAME_DIR):
-	mkdir -p $(OBJ_GAME_DIR)
+	@mkdir -p $(OBJ_GAME_DIR)
 
-$(OBJ_EDIT_DIR):
-	mkdir -p $(OBJ_EDIT_DIR)
+$(OBJ_EDITOR_DIR):
+	@mkdir -p $(OBJ_EDITOR_DIR)
 
 $(OBJ_ALL_DIR):
-	mkdir -p $(OBJ_ALL_DIR)
+	@mkdir -p $(OBJ_ALL_DIR)
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDIT_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(EDITOR_NAME): $(LIBFT) $(OBJ_EDIT_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(EDITOR_NAME)
+$(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
+	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(EDITOR_NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(GAME_NAME)
+	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(GAME_NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
 
 clean: 
 	@make clean -C libft
-	@rm -f $(OBJ)
-	@rm -Rf $(OBJ_DIR)
-	@rm -f $(OBJE)
-	@rm -Rf $(OBJ_EDIT)
+	@rm -Rf $(OBJ_ALL_DIR)
+	@rm -Rf $(OBJ_EDITOR_DIR)
+	@rm -Rf $(OBJ_GAME_DIR)
 	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 
 fclean:
 	@make fclean -C libft
-	@rm -f $(OBJ)
-	@rm -Rf $(OBJ_EDIT)
+	@rm -Rf $(OBJ_ALL_DIR)
+	@rm -Rf $(OBJ_EDITOR_DIR)
+	@rm -Rf $(OBJ_GAME_DIR)
 	@echo ${CYAN}"[INFO] Removed objs"${RESET}
-	@rm -Rf $(NAME)
-	@rm -Rf $(EDITOR)
-	@echo ${CYAN}"[INFO] Removed $(BIN_DIR)/$(NAME)"${RESET}
+	@rm -Rf $(GAME_DIR)/$(GAME_NAME)
+	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
+	@echo ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)"${RESET}
 
 re: fclean all
 
