@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:58:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/20 17:22:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:54:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "bmp_parser.h"
 
 static int	parse_color_table(int fd, t_bmp_parser *parser)

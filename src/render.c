@@ -6,12 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:54:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:03:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "utils.h"
+#include "env.h"
 #include "render.h"
 
 short	get_vertex_nb_in_sector(short vertex, t_sector sector)

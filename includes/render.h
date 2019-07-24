@@ -6,14 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 17:55:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:12:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 # define MAX_SECTORS_TO_RENDER 32
-# include "utils.h"
+# include "env.h"
 
 typedef struct		s_vline
 {

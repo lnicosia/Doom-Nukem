@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 12:30:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:55:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "bmp_parser.h"
 
 static unsigned int	get_pixel(double byte, unsigned char *str, t_bmp_parser *parser)

@@ -6,11 +6,11 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 13:55:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 16:17:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	editor(t_env *env)
 {
@@ -27,11 +27,19 @@ void	editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
+			if (env->sdl.event.type == SDL_MOUSEWHEEL)
+			{
+				if (env->sdl.event.wheel.y > 0 && env->edit.scale * 1.1 < 500)
+					env->edit.scale *= 1.1;
+				if (env->sdl.event.wheel.y < 0 && env->edit.scale / 1.1 > 10)
+					env->edit.scale /= 1.1;
+			}
+
 		}
-		keys(env);
+		editor_keys(env);
 		if (env->edit.menu)
 			start_editor_menu(env);
 		draw_map(env);
-		keys(env);
+		update_screen(env);
 	}
 }

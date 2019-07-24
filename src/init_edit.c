@@ -6,15 +6,18 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 11:51:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:19:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	init_edit(t_env *env)
 {
 	env->edit.menu = 0;
 	env->edit.select_mode = 0;
 	env->edit.nb_vertex =  0;
+	env->edit.center.x = env->h_w;
+	env->edit.center.y = env->h_h;
+	env->edit.scale = 20;
 }

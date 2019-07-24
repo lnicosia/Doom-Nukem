@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 10:47:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:49:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void		keys(t_env *env)
 {
@@ -60,5 +60,10 @@ void		keys(t_env *env)
 			env->sectors[env->player.sector].ceiling_slope += 0.01;
 			update_sector_slope(env, env->player.sector);
 		}
+	}
+	if (env->inputs.right_click && !env->option)
+	{
+		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+			env->weapons[env->player.curr_weapon].ammo++;
 	}
 }

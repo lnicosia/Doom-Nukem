@@ -6,11 +6,11 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:36:49 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/23 11:37:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:02:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	add_image(t_env *env, int i, int x, int y)
 {

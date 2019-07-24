@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:13:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/06/26 17:16:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:00:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 int     init_sound(t_env *env)
 {

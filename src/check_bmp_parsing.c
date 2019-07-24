@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 11:53:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/23 18:08:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:55:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "bmp_parser.h"
 
 void	check_bmp_parsing(t_bmp_parser parser)

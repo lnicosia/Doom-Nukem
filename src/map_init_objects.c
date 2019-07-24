@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 10:13:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 10:22:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:01:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "map_parser.h"
 
 int		init_objects(t_env *env, t_map_parser *parser)

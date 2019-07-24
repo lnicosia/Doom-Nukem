@@ -6,11 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 10:26:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:16:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef	MAP_PARSER_H
+# define MAP_PARSER_H
+# include "env.h"
 
 typedef struct		s_map_parser
 {
@@ -36,3 +38,5 @@ int					count_numbers(char *line, t_map_parser *parser);
 int					check_vertices_uniqueness(t_sector sector);
 int					check_sector_duplicate(t_env *env, t_sector sector, int num);
 int					valid_number(char *line, t_map_parser *parser);
+
+#endif

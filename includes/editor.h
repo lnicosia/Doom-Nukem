@@ -6,18 +6,23 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/23 19:53:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 16:24:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
-typedef struct	s_edit
+# include "utils.h"
+
+typedef struct	s_editor
 {
 	int			menu;
 	int			select_mode;
 	int			nb_vertex;
-}				t_edit;
+	t_point		center;
+	double		scale;
+
+}				t_editor;
 
 #endif

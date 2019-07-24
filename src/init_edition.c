@@ -6,11 +6,11 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 20:12:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/23 18:37:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:18:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 int	init_edition(int ac, char **av)
 {
@@ -18,8 +18,10 @@ int	init_edition(int ac, char **av)
 
 	env.w = 1600;
 	env.h = 900;
+	env.h_w = env.w / 2;
+	env.h_h = env.h / 2;
 	env.running = 1;
-	env.drawing = 0;
+	env.drawing = 1;
 	env.edition = 1;
 	init_edit(&env);
 	init_textures(&env);

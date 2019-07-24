@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:16:04 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/03 18:13:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:54:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "bmp_parser.h"
 
 int	parse_file_header(int fd, t_bmp_parser *parser)

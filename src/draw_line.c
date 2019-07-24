@@ -6,11 +6,11 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:32:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/23 18:32:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:57:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	fill_img(t_point c, t_env data, Uint32 color)
 {
