@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:03:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:17:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:56:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,16 @@ void	draw_vgrid(t_env *env)
 	int	i;
 
 	i = env->edit.center.x;
+	while (i < 0)
+		i += env->edit.scale;
 	while (i < env->w)
 	{
 		vline(env, i);
 		i += env->edit.scale;
 	}
 	i = env->edit.center.x - env->edit.scale;
+	while (i >= env->w)
+		i -= env->edit.scale;
 	while (i >= 0)
 	{
 		vline(env, i);
