@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:46:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:58:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void	draw_map(t_env *env)
 	draw_hgrid(env);
 	draw_vgrid(env);
 	draw_center(env);
-	draw_walls(env);
+	draw_grid_walls(env);
 }
