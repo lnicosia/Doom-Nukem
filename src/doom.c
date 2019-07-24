@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 17:42:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/24 09:46:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		doom(t_env *env)
 	ft_printf("Launching game loop..\n");
 	env->flag = 0;
 	while (env->running)
-	{	
+	{
 		//ft_printf("z = %f eyesight = %f\n", env->player.pos.z, env->player.eyesight);
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);

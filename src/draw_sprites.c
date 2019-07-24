@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 11:17:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/22 13:33:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ void		draw_sprites(t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		if (env->objects[i].rotated_pos.z > 1)
+		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 			draw_object(env->objects[i], env);
 		i++;
 	}

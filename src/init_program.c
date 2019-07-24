@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/19 16:04:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/22 14:37:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	init_program(int ac, char **av)
 {
-	t_env env;
+	t_env	env;
+	int		i;
 
+	i = 0;
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.menu_start = 0;
@@ -55,9 +57,12 @@ int	init_program(int ac, char **av)
 	if (init_wallpapers_and_buttons(&env))
 		return (crash("Could not load menu tools\n", &env));
 	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
+		return (crash("Could not allocate sector list\n", &env));
+	while (i < env.nb_objects)
 	{
-		/* ft_printf("crash\n"); */
-		return (crash("Could not allocate sector list\n", &env));}
+		env.objects[i].exists = 1;
+		i++;
+	}
 	update_camera_position(&env);
 	SDL_SetRelativeMouseMode(1);
 	return (doom(&env));

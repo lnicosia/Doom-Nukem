@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/19 16:04:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/22 11:46:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,10 @@ void	move_player(t_env *env)
 			}
 		}
 		if (movement)
+		{
+			objects_collision(env);
 			update_camera_position(env);
+		}
 	}
 	env->player.speed = tmp_speed;
 }

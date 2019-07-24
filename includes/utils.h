@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/19 16:06:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/22 13:32:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ typedef struct		s_object
 	int				ammo;
 	int				health;
 	int				sector;
+	int				exists;
 }					t_object;
 
 /*
