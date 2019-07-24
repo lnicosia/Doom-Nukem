@@ -6,19 +6,20 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/16 11:50:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 13:29:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	init_program(int ac, char **av)
+int	init_game(int ac, char **av)
 {
 	t_env env;
 
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.menu_start = 0;
+	env.menu_select = 1;
 	env.aplicate_changes = 0;
 	env.reset = 0;
 	env.running = 1;
@@ -53,6 +54,7 @@ int	init_program(int ac, char **av)
 		return (crash("Could not load sprites\n", &env));
 	if (init_wallpapers_and_buttons(&env))
 		return (crash("Could not load menu tools\n", &env));
+	update_camera_position(&env);
 	SDL_SetRelativeMouseMode(1);
 	return (doom(&env));
 }

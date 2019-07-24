@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_edit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 13:38:18 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/24 11:51:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int		main(int ac, char **av)
-{	
-	init_program(ac, av);
-	return (0);
+void	init_edit(t_env *env)
+{
+	env->edit.menu = 0;
+	env->edit.select_mode = 0;
+	env->edit.nb_vertex =  0;
 }

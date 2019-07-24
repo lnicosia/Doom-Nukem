@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 14:45:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 13:29:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include "libft.h"
 # include "object_types.h"
+# include "editor.h"
 # define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
 # define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
 # define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
@@ -31,7 +32,7 @@
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 2
 # define NB_WEAPONS 2
-# define NB_BUTTON 6
+# define NB_BUTTON 10
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
@@ -85,6 +86,7 @@ typedef struct		s_sector
 	double			ceiling_min;
 	double			floor_max;
 	double			ceiling_max;
+	double			light;
 	double			*wall_width;
 	double			*floors;
 	double			*ceilings;
@@ -135,7 +137,7 @@ typedef struct		s_player
 	short			camera_sector;
 	short			near_left_sector;
 	short			near_right_sector;
-	int				state;
+	double			state;
 	int				curr_weapon;
 	int				life;
 	int				armor;
@@ -293,6 +295,7 @@ typedef struct		s_object
 	int				sprite;
 	double			scale;
 	double			angle;
+	double			light;
 	int				pickable;
 	int				solid;
 	int				ammo;
@@ -441,9 +444,14 @@ typedef struct		s_env
 	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
+	t_edit 			edit;
+	int				drawing;
+	int				edition;
 	double			horizon;
 	int				option;
 	int				menu_start;
+	int				menu_select;
+	int				menu_edit;
 	int				aplicate_changes;
 	char			*fps;
 	double			*depth_array;
@@ -464,7 +472,7 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				nb_objects;
-	int				flag;
+	double			flag;
 	int				reset;
 	int				count;
 	int				*ymax;
@@ -482,11 +490,22 @@ typedef struct		s_env
 **	  -------------
 */
 
+
+/*
+** Temporary functions from editor
+*/
+
+int					init_edition(int ac, char **av);
+void				editor(t_env *env);
+void				start_editor_menu(t_env *env);
+void				draw_map(t_env *env);
+void				init_edit(t_env *env);
+
 /*
 ** Main functions
 */
 
-int					init_program(int ac, char **av);
+int					init_game(int ac, char **av);
 int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
@@ -549,7 +568,7 @@ unsigned int		blend_add(unsigned int src,
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
-Uint32				apply_light(Uint32 color, uint8_t light);
+Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
 
 /*
@@ -587,6 +606,7 @@ void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
+int					get_sector_global(t_env *env, t_v2 p);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
@@ -599,7 +619,8 @@ void				jump(t_env *env);
 void				crouch(t_env *env);
 int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
-void				start_menu(t_env *env);
+void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
+void				select_menu(t_env *env);
 
 #endif

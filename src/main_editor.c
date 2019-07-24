@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 14:59:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:52:54 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/20 20:10:49 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/23 12:19:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
 
-int		ft_abs(int nb)
+int	main(int ac, char **av)
 {
-	return ((nb > 0) ? nb : -nb);
+	init_edition(ac, av);
+	return (0);
 }

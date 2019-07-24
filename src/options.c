@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 13:25:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 11:55:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	options(t_env *env)
 		env->options.test = env->options.test ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_i)
 		env->options.clipping = env->options.clipping ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_n)
+		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 	{
 		env->option = env->option ? 0 : 1;
@@ -98,6 +100,9 @@ int		open_options(t_env *env)
 	add_button(env, 0, env->h_w + 350, env->h_h + 350, 1);
 	print_text(new_point(env->h / 4 - 100, env->h_w - 250), new_printable_text("PARAMETERS", env->sdl.fonts.alice70, 0x960018FF, 70), env);
 	print_text(new_point(env->h_h + 350 , env->h_w + 350), new_printable_text("APPLIQUER", env->sdl.fonts.alice30, 0x960018FF, 30), env);
+	print_text(new_point(env->h_h, env->h_w - 250), new_printable_text("Select menu :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
+	print_text(new_point(env->h_h, env->h_w + 65), new_printable_text("GO", env->sdl.fonts.alice30, 0x960018FF, 30), env);
+	add_button(env, 0, env->h_w + 65, env->h_h, 7);
 	screen_options(env);
 	sound_options(env);
 	update_screen(env);

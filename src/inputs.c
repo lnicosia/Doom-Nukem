@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/10 16:58:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:18:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ void	set_inputs(t_env *env, int mode)
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->edition && env->drawing)
+	{
+		
+	}
+
+/*
+ * * gestion menu option
+ */
+
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->option)
 	{
 		env->inputs.left_click  = env->inputs.left_click ? 0 : 1;
@@ -111,13 +120,43 @@ void	set_inputs(t_env *env, int mode)
 		else if (env->inputs.left_click
 			&& button_leftclick(env, 1))
 			env->aplicate_changes = 1;
+		else if (env->inputs.left_click
+			&& button_leftclick(env, 7))
+			env->menu_select = 1;
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->menu_start
-	&& button_leftclick(env, 0))
+
+/*
+ * * gestion menu start
+ */
+
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->menu_start)
+	{	
+		if (button_leftclick(env, 0))
+		{
+			env->menu_start = 0;
+			SDL_SetRelativeMouseMode(1);
+		}
+	}
+
+/*
+ * * gestion menu select
+ */
+
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->menu_select)
 	{
-		env->menu_start = 0;
-		SDL_SetRelativeMouseMode(1);
+		if (button_leftclick(env, 6))
+			env->menu_select = 0;
+		if (button_leftclick(env, 8))
+		{
+			env->menu_select = 0;
+			env->menu_edit = 0;
+			env->option = 0;
+		}
+		if (button_leftclick(env, 9))
+		{
+			env->menu_select = 0;
+			env->menu_edit = 1;
+		}
 	}
 }
 
@@ -132,7 +171,7 @@ void	update_inputs(t_env *env)
 	}
 	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
 		set_inputs(env, 1);
- 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
+	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		set_inputs(env, 0);
 	if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
 		weapon_change(env);

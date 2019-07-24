@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 14:59:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:52:54 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/23 19:53:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EDITOR_H
+# define EDITOR_H
 
-int		ft_abs(int nb)
+typedef struct	s_edit
 {
-	return ((nb > 0) ? nb : -nb);
-}
+	int			menu;
+	int			select_mode;
+	int			nb_vertex;
+}				t_edit;
+
+#endif
