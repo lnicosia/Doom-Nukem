@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/20 20:10:49 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 10:38:36 by sipatry          ###   ########.fr       */
+/*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/24 11:56:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	main(int ac, char **av)
-{
+int		main(int ac, char **av)
+{	
 	init_program(ac, av);
 	return (0);
 }

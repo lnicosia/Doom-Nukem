@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/09 16:57:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 11:55:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,24 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		*line = skip_spaces(*line);
 		i++;
 	}
-	if (**line != ')' && *(*line + 1) != '\0')
+	if (**line != ')' && *(*line + 1) != ' ')
 		return (ft_printf("Invalid character after textures declaration at line %d\n", parser->line_count));
+	*line += 2;
+	return (0);
+}
+
+int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
+{
+	if (valid_number(*line, parser))
+		return (ft_printf("Missing line value (line %d)\n", parser->line_count)); 
+	env->sectors[parser->sectors_count].light = ft_atoi(*line) / 100.0;
+	if (env->sectors[parser->sectors_count].light < 0 ||
+			env->sectors[parser->sectors_count].light > 1)
+		return (ft_printf("Light must be between 0 and 100\n"));
+	*line = skip_number(*line);
+	*line = skip_spaces(*line);
+	if (**line != '\0')
+		return (ft_printf("Invalid character after light declaration at line %d\n", parser->line_count));
 	return (0);
 }
 
@@ -214,6 +230,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (ft_printf("Error while parsing sector neighbors\n"));
 	if (parse_sector_textures(env, &line, parser))
 		return (ft_printf("Error while parsing sector textures\n"));
+	if (parse_sector_light(env, &line, parser))
+		return (ft_printf("Error while parsing sector light\n"));
 	return (0);
 }
 

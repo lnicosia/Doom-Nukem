@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 11:41:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 11:55:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ int		get_sector(t_env *env, t_v2 p)
 	while (i < env->nb_sectors)
 	{
 		if (is_in_sector(env, i, p.x, p.y) && env->player.pos.z > env->sectors[i].floor_min)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int		get_sector_global(t_env *env, t_v2 p)
+{
+	int		i;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (is_in_sector(env, i, p.x, p.y))
 			return (i);
 		i++;
 	}
