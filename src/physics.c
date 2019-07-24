@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 13:55:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:59:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	fall(t_env *env)
 	double	x;
 
 	x = 0.5;
-	ft_printf("fall\n");
 	env->gravity.start = env->time.tenth_s;
 	env->player.state = 1;
 	env->gravity.end = env->gravity.start;

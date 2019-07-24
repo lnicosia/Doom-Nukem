@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 10:34:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:16:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	draw_map(t_env *env)
 		draw_line(env->vertices[i], env->vertices[i + 1], env, 0xFFFFFF00);
 		i++;
 	}*/
-	ft_printf("draw: %d menu: %d\n", env->drawing, env->edit.menu);
+	//ft_printf("draw: %d menu: %d\n", env->drawing, env->edit.menu);
 }
