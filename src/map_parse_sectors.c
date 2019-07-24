@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:55:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:47:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
 		return (ft_printf("Invalid floor texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
-	if (**line != ']' && **(line + 1) != ' ')
+	if (**line != ']' || *(*line + 1) != ' ')
 		return (ft_printf("Invalid character after floor declaration at line %d\n", parser->line_count));
 	*line += 2;
 	return (0);
@@ -70,7 +70,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 			|| env->sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
 		return (ft_printf("Invalid ceiling texture (line %d)\n", parser->line_count));
 	*line = skip_number(*line);
-	if (**line != ']' && **(line + 1) != ' ')
+	if (**line != ']' || *(*line + 1) != ' ')
 		return (ft_printf("Invalid character after ceiling declaration at line %d\n", parser->line_count));
 	*line += 2;
 	return (0);
@@ -130,7 +130,7 @@ int			parse_sector_vertices(t_env *env, char **line, t_map_parser *parser)
 		return (ft_printf("Sector %d has duplicate vertices (line %d)\n", parser->sectors_count, parser->line_count));
 	if (check_sector_duplicate(env, env->sectors[parser->sectors_count], parser->sectors_count))
 		return (ft_printf("Sector %d already exists (line %d)\n", parser->sectors_count, parser->line_count));
-	if (**line != ')' && *(*line + 1) != ' ')
+	if (**line != ')' || *(*line + 1) != ' ')
 		return (ft_printf("Invalid character after vertices declaration at line %d\n", parser->line_count));
 	(*line) += 2;
 	return (0);
@@ -161,7 +161,7 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 		*line = skip_spaces(*line);
 		i++;
 	}
-	if (**line != ')' && *(*line + 1) != ' ')
+	if (**line != ')' || *(*line + 1) != ' ')
 		return (ft_printf("Invalid character after neighbors declaration at line %d\n", parser->line_count));
 	(*line) += 2;
 	return (0);
@@ -190,16 +190,23 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		*line = skip_spaces(*line);
 		i++;
 	}
-	if (**line != ')' && *(*line + 1) != ' ')
+	if (**line != ')')
 		return (ft_printf("Invalid character after textures declaration at line %d\n", parser->line_count));
-	*line += 2;
+	*line += 1;
 	return (0);
 }
 
 int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 {
+	if (!**line)
+		return (ft_printf("Missing light value (line %d)\n", parser->line_count));
+	if (**line != ' ')
+		return (ft_printf("Invalid character before light declaration (line %d)\n",
+					parser->line_count));
+	(*line)++;
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing line value (line %d)\n", parser->line_count)); 
+		return (ft_printf("Invalid character at light declaration (line %d)\n",
+					parser->line_count));
 	env->sectors[parser->sectors_count].light = ft_atoi(*line) / 100.0;
 	if (env->sectors[parser->sectors_count].light < 0 ||
 			env->sectors[parser->sectors_count].light > 1)

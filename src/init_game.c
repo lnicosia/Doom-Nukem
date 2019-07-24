@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 11:56:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:29:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	init_program(int ac, char **av)
+int	init_game(int ac, char **av)
 {
 	t_env env;
 

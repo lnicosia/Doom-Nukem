@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:58:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:29:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,7 +505,7 @@ void				init_edit(t_env *env);
 ** Main functions
 */
 
-int					init_program(int ac, char **av);
+int					init_game(int ac, char **av);
 int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:56:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:30:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		main(int ac, char **av)
 {	
-	init_program(ac, av);
+	init_game(ac, av);
 	return (0);
 }
