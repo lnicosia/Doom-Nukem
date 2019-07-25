@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:19:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 12:22:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 14:31:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	print_vertices(t_env *env)
 {
 	t_list *tmp;
 	t_vertex *v;
-	t_list	*tmp2;
 
 	tmp = env->edit.vertices;
-	tmp2 = env->edit.vertices;
-	while(env->edit.vertices != NULL)
+	while(tmp)
 	{
 		v = (t_vertex *)tmp->content;
 		ft_printf("vertex [%d]:\nx: %f y: %f\n", v->num, v->x, v->y);

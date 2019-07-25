@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:22:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 14:02:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 14:58:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,22 @@ void	draw_grid_walls(t_env *env)
 	if (!tmp)
 		return ;
 	v = (t_vertex*)tmp->content;
-	v1.x = v->x;
-	v1.y = v->y;
+	v1.x = env->edit.center.x + v->x * env->edit.scale;
+	v1.y = env->edit.center.y + v->y * env->edit.scale;
 	tmp = tmp->next;
 	while (tmp)
 	{
 		v = (t_vertex*)tmp->content;
-		v2.x = v->x;
-		v2.y = v->y;
-		draw_line(v1, v2, *env, 0x008000);
+		print_vertex(env, v->num);
+		v2.x = env->edit.center.x + v->x * env->edit.scale;
+		v2.y = env->edit.center.y + v->y * env->edit.scale;
+		ft_printf("v1 = [%d][%d] v2 = [%d][%d]\n", v1.y, v1.x, v2.y, v2.x);
+		draw_line(v1, v2, *env, 0xFFFFFF00);
 		v1 = v2;
 		tmp = tmp->next;
 	}
-	v2.x = (env->sdl.mx - env->edit.center.x) / env->edit.scale;
-	v2.y = (env->sdl.my - env->edit.center.y) / env->edit.scale;
-	draw_line(v1, v2, *env, 0x008000);
+	v2.x = env->sdl.mx;
+	v2.y = env->sdl.my;
+	draw_line(v1, v2, *env, 0xFFFFFF00);
 	return ;
 }

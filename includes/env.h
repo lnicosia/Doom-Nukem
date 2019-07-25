@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 14:01:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 14:13:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void				draw_grid_vertices(t_env *env);
 void				print_vertex(t_env *env, int num);
 void				print_vertices(t_env *env);
 void				draw_grid_walls(t_env *env);
+int					get_existing_vertex(t_env *env);
 
 /*
  * ** Main functions
