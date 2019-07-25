@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:22:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 15:19:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 17:25:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	draw_grid_walls(t_env *env)
+void	draw_grid_current_sector(t_env *env)
 {
 	t_list		*tmp;
 	t_vertex	*v;

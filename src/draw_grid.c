@@ -6,11 +6,22 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 14:42:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 17:25:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		add_current_vertex(t_env *env)
+{
+	/*t_list		*tmp;
+	t_vertex	vertex;
+	int			i;
+
+	ft_lstpushback(&env->edit.current_vertices, new);*/
+	(void)env;
+	return (0);
+}
 
 int		add_vertex(t_env *env)
 {
@@ -23,6 +34,7 @@ int		add_vertex(t_env *env)
 	if (!(new = ft_lstnew(&vertex, sizeof(t_vertex))))
 		return (ft_printf("Error when creating new vertex\n"));
 	ft_lstpushback(&env->edit.vertices, new);
+	env->edit.nb_vertex++;
 	return (0);
 }
 
