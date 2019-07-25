@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 12:30:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 13:55:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radiu
 void				draw_grid_vertices(t_env *env);
 void				print_vertex(t_env *env, int num);
 void				print_vertices(t_env *env);
+int					get_existing_vertex(t_env *env);
 
 /*
  * ** Main functions

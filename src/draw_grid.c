@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 13:41:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 13:48:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		add_vertex(t_env *env)
 	t_vertex	vertex;
 
 	vertex.num = env->edit.nb_vertex;
-	vertex.x = (env->sdl.mx - env->edit.center.x) / env->edit.scale;
-	vertex.y = (env->sdl.my - env->edit.center.y) / env->edit.scale;
+	vertex.x = round((env->sdl.mx - env->edit.center.x) / env->edit.scale);
+	vertex.y = round((env->sdl.my - env->edit.center.y) / env->edit.scale);
 	if (!(new = ft_lstnew(&vertex, sizeof(t_vertex))))
 		return (ft_printf("Error when creating new vertex\n"));
 	ft_lstpushback(&env->edit.vertices, new);
