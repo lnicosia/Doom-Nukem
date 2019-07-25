@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 10:40:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 11:45:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,10 @@ void	draw_grid_walls(t_env *env)
 	}
 }
 
-void	draw_map(t_env *env)
+void	draw_grid(t_env *env)
 {
 	draw_hgrid(env);
 	draw_vgrid(env);
-	/*if (env->edit.center.x >= 0
-	  && env->edit.center.x < env->w
-	  && env->edit.center.y >= 0
-	  && env->edit.center.y < env->h)*/
 	draw_center(env);
 	draw_grid_walls(env);
 }
