@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:58:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 09:39:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,38 @@ void	draw_center(t_env *env)
 
 	pixels = env->sdl.texture_pixels;
 	x = env->edit.center.x;
-	y = env->edit.center.y - 10;
-	max = env->edit.center.y;
-	while (y <= max)
+	if (x >= 0 && x < env->w)
 	{
-		pixels[x + y * env->w] = 0xFFFF0000;
-		y++;
-	}
-	y = env->edit.center.y + 10;
-	while (y > max)
-	{
-		pixels[x + y * env->w] = 0xFFFF0000;
-		y--;
+		y = ft_clamp(env->edit.center.y - 10, 0, env->h);
+		max = ft_clamp(env->edit.center.y, 0, env->h);
+		while (y <= max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			y++;
+		}
+		y = ft_clamp(env->edit.center.y + 10, 0, env->h);
+		while (y > max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			y--;
+		}
 	}
 	y = env->edit.center.y;
-	x = env->edit.center.x - 10;
-	max = env->edit.center.x;
-	while (x <= max)
+	if (y >= 0 && y < env->h)
 	{
-		pixels[x + y * env->w] = 0xFFFF0000;
-		x++;
-	}
-	x = env->edit.center.x + 10;
-	while (x > max)
-	{
-		pixels[x + y * env->w] = 0xFFFF0000;
-		x--;
+		x = ft_clamp(env->edit.center.x - 10, 0, env->w);
+		max = ft_clamp(env->edit.center.x, 0, env->w);
+		while (x <= max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			x++;
+		}
+		x = ft_clamp(env->edit.center.x + 10, 0, env->w);
+		while (x > max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			x--;
+		}
 	}
 }
 
@@ -70,7 +76,7 @@ void	draw_grid_walls(t_env *env)
 	i = 0;
 	while (i < env->edit.nb_vertex)
 	{
-		
+
 	}
 }
 
@@ -78,6 +84,10 @@ void	draw_map(t_env *env)
 {
 	draw_hgrid(env);
 	draw_vgrid(env);
+	/*if (env->edit.center.x >= 0
+	  && env->edit.center.x < env->w
+	  && env->edit.center.y >= 0
+	  && env->edit.center.y < env->h)*/
 	draw_center(env);
 	draw_grid_walls(env);
 }
