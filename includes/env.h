@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:55:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:02:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
+int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
 void				editor_keys(t_env *env);
 void				hline(t_env *env, int y);
@@ -224,5 +225,7 @@ void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 void				draw_grid_walls(t_env *env);
 int					add_vertex(t_env *env);
+void				print_vertex(t_env *env, int num);
+void				print_vertices(t_env *env);
 
 #endif
