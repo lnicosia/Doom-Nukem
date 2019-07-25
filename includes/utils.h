@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:09:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 12:04:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ typedef struct		s_line
 	t_point			p1;
 	Uint32			color;
 }					t_line;
+
+typedef struct		s_circle
+{
+	Uint32			line_color;
+	Uint32			color;
+	t_point			center;
+	int				radius;
+}					t_circle;
 
 /*
 ** VERTICES = PLURIEL DE VERTEX

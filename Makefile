@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/25 11:26:35 by sipatry          ###   ########.fr        #
+#    Updated: 2019/07/25 12:20:51 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c \
 
 SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_edit.c \
 				 editor_menu.c draw_grid.c editor_keys.c grid_tools.c \
-				 prints.c
+				 prints.c draw_circle.c draw_grid_vertices.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

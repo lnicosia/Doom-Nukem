@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 12:02:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:30:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,26 @@ typedef struct		s_env
 
 
 /*
- * ** Temporary functions from editor
+ * ** Functions from editor
  * */
 
 int					init_edition(int ac, char **av);
 void				editor(t_env *env);
 void				start_editor_menu(t_env *env);
-void				draw_map(t_env *env);
+void				draw_grid(t_env *env);
 void				init_edit(t_env *env);
+void				editor_keys(t_env *env);
+void				hline(t_env *env, int y);
+void				vline(t_env *env, int x);
+void				draw_hgrid(t_env *env);
+void				draw_vgrid(t_env *env);
+void				draw_grid_walls(t_env *env);
+int					add_vertex(t_env *env);
+void				draw_circle(t_circle circle, t_env *env);
+t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
+void				draw_grid_vertices(t_env *env);
+void				print_vertex(t_env *env, int num);
+void				print_vertices(t_env *env);
 
 /*
  * ** Main functions
@@ -218,14 +230,5 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
-void				editor_keys(t_env *env);
-void				hline(t_env *env, int y);
-void				vline(t_env *env, int x);
-void				draw_hgrid(t_env *env);
-void				draw_vgrid(t_env *env);
-void				draw_grid_walls(t_env *env);
-int					add_vertex(t_env *env);
-void				print_vertex(t_env *env, int num);
-void				print_vertices(t_env *env);
 
 #endif
