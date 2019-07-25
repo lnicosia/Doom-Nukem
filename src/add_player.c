@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_edit.c                                        :+:      :+:    :+:   */
+/*   add_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 17:35:10 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/25 17:34:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	init_edit(t_env *env)
+void	add_player(t_env *env)
 {
-	t_point center;
-	double	scale;
-
-	scale = env->edit.scale / 5.0;
-	center.x = 150;
-	center.y = 150;
-	env->edit.menu = 0;
-	env->edit.select_mode = 0;
-	env->edit.nb_vertex =  0;
-	env->edit.center.x = env->h_w;
-	env->edit.center.y = env->h_h;
-	env->edit.scale = 20;
-	env->edit.vertices = NULL;
-	env->edit.new_player = 0;
-	draw_circle(new_circle(0xFFFF0000,
-				0xFFFF0000,
-				center,
-				scale), env);
+	env->edit.player.x = (env->sdl.mx - env->edit.center.x) / env->edit.scale;
+	env->edit.player.y = (env->sdl.my - env->edit.center.y) / env->edit.scale;
+	env->edit.player.z = 0;
+	env->edit.player. angle = 0;
+	env->edit.new_player = 2;
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:22:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 15:19:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:58:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	draw_grid_walls(t_env *env)
 		v1 = v2;
 		tmp = tmp->next;
 	}
-	v2.x = env->sdl.mx;
-	v2.y = env->sdl.my;
-	draw_line(v1, v2, *env, 0xFFFFFF00);
+	if (env->drawing)
+	{
+		v2.x = env->sdl.mx;
+		v2.y = env->sdl.my;
+		draw_line(v1, v2, *env, 0xFFFFFF00);
+	}
 	return ;
 }
