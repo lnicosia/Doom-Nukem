@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 12:30:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 13:44:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,6 @@ void	draw_center(t_env *env)
 			pixels[x + y * env->w] = 0xFFFF0000;
 			x--;
 		}
-	}
-}
-
-void	draw_grid_walls(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (i < env->edit.nb_vertex)
-	{
-
 	}
 }
 
