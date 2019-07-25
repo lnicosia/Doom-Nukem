@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 10:33:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:28:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,11 @@ void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 void				draw_grid_walls(t_env *env);
 int					add_vertex(t_env *env);
+
+/*
+** enemies functions
+*/
+
+void	enemy_pursuit(t_env *env);
 
 #endif

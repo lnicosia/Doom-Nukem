@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/25 10:32:12 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/07/25 16:18:46 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c \
+SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c\
 
 SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_edit.c \
 				 editor_menu.c draw_grid.c editor_keys.c grid_tools.c \

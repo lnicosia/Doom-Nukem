@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/25 10:35:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 14:49:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int     in_range(double nb, double val1, double val2)
     return (0);
 }
 
-void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
+/* void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
 {
     float xd;
     float yd;
@@ -43,7 +43,7 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
         PLAYER_XPOS = FUTURE_X;
         PLAYER_YPOS = FUTURE_Y;
     }
-}
+} */
 
 int     diff_sign(double nb1, double nb2)
 {

@@ -6,11 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:29:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:27:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "collision.h"
 
 int		doom(t_env *env)
 {
@@ -40,7 +41,8 @@ int		doom(t_env *env)
 			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
 						weapon_change(env);
 		}
-		//enemy_sight(env);
+		enemy_pursuit(env);
+		objects_collision(env);
 		keys(env);
 		if (env->menu_start)
 			start_game_menu(env);
