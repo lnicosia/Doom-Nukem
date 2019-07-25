@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 09:39:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:40:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	draw_center(t_env *env)
 	if (y >= 0 && y < env->h)
 	{
 		x = ft_clamp(env->edit.center.x - 10, 0, env->w);
-		max = ft_clamp(env->edit.center.x, 0, env->w);
+		max = ft_clamp(env->edit.center.x, -1, env->w - 1);
 		while (x <= max)
 		{
 			pixels[x + y * env->w] = 0xFFFF0000;
 			x++;
 		}
-		x = ft_clamp(env->edit.center.x + 10, 0, env->w);
+		x = ft_clamp(env->edit.center.x + 10, -1, env->w - 1);
 		while (x > max)
 		{
 			pixels[x + y * env->w] = 0xFFFF0000;
