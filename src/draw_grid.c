@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:58:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 10:46:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int		add_vertex(t_env *env)
 	t_list		*new;
 	t_vertex	vertex;
 
+	ft_printf("adding new vertex\n");
 	vertex.num = env->edit.nb_vertex;
 	if (!(new = ft_lstnew(&vertex, sizeof(t_vertex))))
 		return (ft_printf("Error when creating new vertex\n"));
+	new.x = env->sdl.mx;
+	new.y = env->sdl.my;
 	ft_lstpushback(&env->edit.vertices, new);
-
+	ft_printf("x : %d\ny: %d", env->edit.vertices);
 	return (0);
 }
 
