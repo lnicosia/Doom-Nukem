@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/28 18:09:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:02:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "bmp_parser.h"
-#include "utils.h"
+#include "env.h"
 
 char	*skip_number(char *line)
 {

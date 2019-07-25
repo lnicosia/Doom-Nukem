@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   init_edit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 14:59:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:52:54 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/24 17:35:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "env.h"
 
-int		ft_abs(int nb)
+void	init_edit(t_env *env)
 {
-	return ((nb > 0) ? nb : -nb);
+	env->edit.menu = 0;
+	env->edit.select_mode = 0;
+	env->edit.nb_vertex =  0;
+	env->edit.center.x = env->h_w;
+	env->edit.center.y = env->h_h;
+	env->edit.scale = 20;
+	env->edit.vertices = NULL;
 }

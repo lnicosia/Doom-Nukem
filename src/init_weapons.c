@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/17 17:20:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 /*
 ** Weapon switch is only in the first weapon because it's common to every weapon

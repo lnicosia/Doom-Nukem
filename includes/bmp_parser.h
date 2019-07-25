@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/29 15:54:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:10:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BMP_PARSER_H
 # define TRUE 1
 # define FALSE 0
+# include "env.h"
 
 typedef struct	s_bmp_parser
 {

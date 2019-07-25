@@ -6,12 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/09 13:45:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:58:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "utils.h"
+#include "env.h"
 
 void	init_animations(t_env *env)
 {
@@ -24,7 +24,7 @@ void	init_animations(t_env *env)
 	env->gravity.weight = 0;
 	env->jump.on_going = 0;
 	env->jump.start = 0;
-	env->jump.nb_frame = 8;
+	env->jump.nb_frame = 15;
 	env->jump.end = 300;
 	env->crouch.on_going = 0;
 	env->crouch.start = 0;

@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/19 16:04:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "map_parser.h"
 
 static int	init_vertices(t_env *env, t_map_parser *parser)

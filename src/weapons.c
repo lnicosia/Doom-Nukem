@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/16 10:58:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:07:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void    draw_weapon(t_env *env, int sprite)
 {

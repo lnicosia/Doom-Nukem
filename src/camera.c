@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:15:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/17 19:05:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:29:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	set_camera(t_env *env)
 {

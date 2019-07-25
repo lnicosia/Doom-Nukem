@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_program.c                                     :+:      :+:    :+:   */
+/*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/22 14:37:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
-int	init_program(int ac, char **av)
+int	init_game(int ac, char **av)
 {
 	t_env	env;
 	int		i;
@@ -21,6 +21,7 @@ int	init_program(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.menu_start = 0;
+	env.menu_select = 1;
 	env.aplicate_changes = 0;
 	env.reset = 0;
 	env.running = 1;

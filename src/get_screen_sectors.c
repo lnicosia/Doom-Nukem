@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 17:31:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:58:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 int		get_screen_sectors(t_env *env)
 {

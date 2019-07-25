@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:01:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/15 20:50:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:59:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 int		init_screen_pos(t_env *env)
 {

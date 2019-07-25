@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/17 17:19:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:29:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void    armor_life_hud(t_env *env)
 {

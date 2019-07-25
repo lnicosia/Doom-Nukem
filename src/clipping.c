@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/22 14:59:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:56:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "render.h"
 
 void		reset_clipped(t_env *env)

@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 17:26:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 10:31:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:56:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 unsigned int	blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha)
 {

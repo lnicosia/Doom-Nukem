@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 14:13:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:07:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 /*
 **	Check if the current sector is inside another sector

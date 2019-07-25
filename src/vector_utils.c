@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/21 16:56:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:07:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 t_point	new_point(int x, int y)
 {

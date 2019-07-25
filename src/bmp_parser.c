@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/16 13:27:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:55:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "bmp_parser.h"
 
 /*

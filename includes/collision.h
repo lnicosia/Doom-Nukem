@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/22 11:46:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/25 10:33:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define Y1R env->vertices[env->sectors[wall.sector_dest].vertices[i]].y
 # define Y2R env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].y
 # define RNEIGHBOR env->sectors[wall.sector_dest].neighbors[i]
+# include "env.h"
 
 typedef struct  s_movement
 {

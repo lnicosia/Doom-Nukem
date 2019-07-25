@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/18 10:28:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:24:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "render.h"
 
 /*
@@ -41,10 +41,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 	texture_h = texture.surface->h;
 	x = render.alpha * render.projected_texture_w * render.z;
 	if (x != x)
-	{
-		ft_printf("z = 0!\n");
 		return ;
-	}
 	while (x >= texture_w)
 		x -= texture_w;
 	while (x < 0)
