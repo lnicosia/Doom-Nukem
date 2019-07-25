@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 13:40:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:17:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	editor(t_env *env)
 			start_editor_menu(env);
 		draw_grid(env);
 		draw_grid_vertices(env);
+		draw_grid_walls(env);
 		update_screen(env);
 	}
 }
