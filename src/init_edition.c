@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 20:12:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 11:01:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/26 11:32:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	init_edition(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.edition = 1;
-	init_edit(&env);
+	init_editor(&env);
 	init_textures(&env);
 	init_ttf(&env);
+	init_keys(&env);
 	if (ac == 1)
 		ft_printf("Creating a new map\n");
 	else if (ac == 2)

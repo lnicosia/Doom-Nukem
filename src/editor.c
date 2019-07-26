@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 17:25:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 11:41:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,20 @@ void	editor(t_env *env)
 				update_inputs(env);
 			if (env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
-				if (env->sdl.event.wheel.y > 0 && env->edit.scale * 1.1 < 500)
-					env->edit.scale *= 1.1;
-				if (env->sdl.event.wheel.y < 0 && env->edit.scale / 1.1 > 10)
-					env->edit.scale /= 1.1;
+				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)
+					env->editor.scale *= 1.1;
+				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 10)
+					env->editor.scale /= 1.1;
 			}
 
 		}
 		editor_keys(env);
-		if (env->edit.menu)
+		if (env->editor.menu)
 			start_editor_menu(env);
 		draw_grid(env);
 		draw_grid_vertices(env);
-		draw_grid_current_sector(env);
+		if (env->editor.new_sector)
+			draw_grid_current_sector(env);
 		update_screen(env);
 	}
 }

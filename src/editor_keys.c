@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 17:44:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:58:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,44 @@ void		editor_keys(t_env *env)
 {
 	int		clicked_vertex;
 
-	if (env->inputs.left_click)
+	if (env->inputs.space)
 	{
-		if (env->drawing)
+		clicked_vertex = get_existing_vertex(env);
+		if (clicked_vertex == -1)
 		{
-			clicked_vertex = get_existing_vertex(env);
-			if (clicked_vertex == -1)
+			add_vertex(env);
+			if (!env->editor.new_sector) //Nouveau secteur
 			{
-				if (!env->edit.sector_done)
-					env->edit.sector_done = 1;
-				add_vertex(env);
+				env->editor.new_sector = 1;
+				env->editor.current_vertices = NULL;
+			}
+			add_vertex_to_current_sector(env, env->editor.vertices_count - 1);
+		}
+		else
+		{
+			if (!env->editor.new_sector)
+			{
+				env->editor.new_sector = 1;
+				env->editor.current_vertices = NULL;
+				add_vertex_to_current_sector(env, clicked_vertex);
 			}
 			else
 			{
-				env->edit.sector_done = env->edit.sector_done ? 0 : 1;
-				if (env->edit.sector_done)
-					env->edit.current_vertices = NULL;
+				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num)
+				{
+					if (!get_clockwise_order(env))
+						revert_sector_order(env);
+					env->editor.new_sector = 0;
+				}
+				else
+					add_vertex_to_current_sector(env, clicked_vertex);
 			}
 		}
-		env->inputs.left_click = 0;
+		env->inputs.space = 0;
 	}
 	if (env->inputs.right_click)
 	{
-		env->edit.center.x += env->sdl.mouse_x;
-		env->edit.center.y += env->sdl.mouse_y;
+		env->editor.center.x += env->sdl.mouse_x;
+		env->editor.center.y += env->sdl.mouse_y;
 	}
 }

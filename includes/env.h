@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 17:13:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:55:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct		s_env
 	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
-	t_editor 		edit;
+	t_editor 		editor;
 	int				drawing;
 	int				edition;
 	double			horizon;
@@ -94,21 +94,24 @@ int					init_edition(int ac, char **av);
 void				editor(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
-void				init_edit(t_env *env);
+void				init_editor(t_env *env);
 void				editor_keys(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 int					add_vertex(t_env *env);
-int					add_current_vertex(t_env *env);
+int					add_vertex_to_current_sector(t_env *env, int num);
 void				draw_circle(t_circle circle, t_env *env);
 t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
 void				draw_grid_vertices(t_env *env);
 void				print_vertex(t_env *env, int num);
 void				print_vertices(t_env *env);
+void				print_sectors(t_env *env);
 void				draw_grid_current_sector(t_env *env);
 int					get_existing_vertex(t_env *env);
+int					get_clockwise_order(t_env *env);
+void				revert_sector_order(t_env *env);
 
 /*
  * ** Main functions

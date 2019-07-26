@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 14:58:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/26 10:10:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct		s_sector
 	short			floor_texture;
 	short			num;
 	short			nb_vertices;
+	short			closed;
 }					t_sector;
 
 typedef struct		s_vertex

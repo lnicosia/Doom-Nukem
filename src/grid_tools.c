@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:03:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 15:12:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 10:03:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@ void	draw_hgrid(t_env *env)
 {
 	double	i;
 
-	i = env->edit.center.y;
+	i = env->editor.center.y;
 	while (i < 0)
-		i += env->edit.scale;
+		i += env->editor.scale;
 	while (i < env->h)
 	{
 		hline(env, i);
-		i += env->edit.scale;
+		i += env->editor.scale;
 	}
-	i = env->edit.center.y - env->edit.scale;
+	i = env->editor.center.y - env->editor.scale;
 	while (i >= env->h)
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	while (i >= 0)
 	{
 		hline(env, i);
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	}
 }
 
@@ -62,20 +62,20 @@ void	draw_vgrid(t_env *env)
 {
 	double	i;
 
-	i = env->edit.center.x;
+	i = env->editor.center.x;
 	while (i < 0)
-		i += env->edit.scale;
+		i += env->editor.scale;
 	while (i < env->w)
 	{
 		vline(env, i);
-		i += env->edit.scale;
+		i += env->editor.scale;
 	}
-	i = env->edit.center.x - env->edit.scale;
+	i = env->editor.center.x - env->editor.scale;
 	while (i >= env->w)
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	while (i >= 0)
 	{
 		vline(env, i);
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	}
 }
