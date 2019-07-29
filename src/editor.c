@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 17:31:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 16:38:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	editor(t_env *env)
 		draw_grid(env);
 		draw_grid_vertices(env);
 		draw_grid_walls(env);
+		editor_hud(env);
+		if (env->edit.new_player)
+			draw_grid_player(env);
 		update_screen(env);
 	}
 }

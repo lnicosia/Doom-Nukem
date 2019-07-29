@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_edition.c                                     :+:      :+:    :+:   */
+/*   editor_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/20 20:12:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 15:39:55 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/29 15:54:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int	init_edition(int ac, char **av)
+void	editor_hud(t_env *env)
 {
-	t_env	env;
+	t_point	center;
 
-	env.w = 1600;
-	env.h = 900;
-	env.h_w = env.w / 2;
-	env.h_h = env.h / 2;
-	env.running = 1;
-	env.drawing = 1;
-	env.edition = 1;
-	init_textures(&env);
-	init_ttf(&env);
-	if (ac == 1)
-		ft_printf("Creating a new map\n");
-	else if (ac == 2)
-		ft_printf("opening %s\n", av[1]);
-	init_sdl(&env);
-	init_edit(&env);
-	editor(&env);
-	return (0);
+	center.x = 150;
+	center.y = 300;
+	draw_circle(new_circle(0xFFFF0000, 0xFFFF0000, center, (env->edit.scale / 3.5)), env);
 }

@@ -40,6 +40,10 @@ src/*.swp
 *.hex
 ./test
 test
+doom
+doom_editor
+./doom
+./doom_editor
 
 # Debug files
 *.dSYM/

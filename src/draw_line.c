@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:32:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 14:58:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:23:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	fill_img(t_point c, t_env data, Uint32 color)
 {
-	int	pos;
-
-	pos = c.x + c.y * data.w;
-	if (pos < data.w * data.h)
-		data.sdl.texture_pixels[pos] = color;
+	if (c.x >= 0 && c.x < data.w && c.y >= 0 && c.y < data.h)
+		data.sdl.texture_pixels[c.x + c.y * data.w] = color;
 }
 
 void	draw_line_low(t_point c1, t_point c2, t_env data, int color)

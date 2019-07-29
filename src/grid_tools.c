@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:03:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:56:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:12:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,19 @@ void	vline(t_env *env, int x)
 
 void	draw_hgrid(t_env *env)
 {
-	int	i;
+	double	i;
 
 	i = env->edit.center.y;
+	while (i < 0)
+		i += env->edit.scale;
 	while (i < env->h)
 	{
 		hline(env, i);
 		i += env->edit.scale;
 	}
 	i = env->edit.center.y - env->edit.scale;
+	while (i >= env->h)
+		i -= env->edit.scale;
 	while (i >= 0)
 	{
 		hline(env, i);
@@ -56,7 +60,7 @@ void	draw_hgrid(t_env *env)
 
 void	draw_vgrid(t_env *env)
 {
-	int	i;
+	double	i;
 
 	i = env->edit.center.x;
 	while (i < 0)
