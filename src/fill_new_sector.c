@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 15:35:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 17:25:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
-		sector->textures[index] = 4;
+		sector->textures[index] = 0;
 		tmp = tmp->next;
 		i++;
 	}

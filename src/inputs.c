@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 17:11:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:36:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	init_inputs(t_env *env)
 	env->inputs.ctrl = 0;
 	env->inputs.option = 0;
 	env->inputs.left_click = 0;
+	env->inputs.right_click = 0;
+	env->inputs.enter = 0;
+	env->inputs.up = 0;
+	env->inputs.down = 0;
 }
 
 int		button_leftclick(t_env *env, int nb)
@@ -86,6 +90,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.left_click = mode;
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
 		env->inputs.right_click = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.enter)
+		env->inputs.enter = mode;
 }
 
 void	update_inputs(t_env *env)
@@ -93,10 +99,7 @@ void	update_inputs(t_env *env)
 	if (env->sdl.event.type == SDL_KEYDOWN)
 		set_inputs(env, 1);
 	if (env->sdl.event.type == SDL_KEYUP)
-	{
 		set_inputs(env, 0);
-		options(env);
-	}
 	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
 		set_inputs(env, 1);
 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)

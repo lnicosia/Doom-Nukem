@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 17:19:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:42:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct	s_plr
 
 typedef struct	s_editor
 {
-	int			menu;
 	int			select_mode;
 	int			nb_vertex;
 	int			new_player;
@@ -56,6 +55,7 @@ typedef struct	s_editor
 	t_list		*current_vertices;
 	int			new_sector;
 	int			reverted;
+	int			in_game;
 }				t_editor;
 
 #endif
