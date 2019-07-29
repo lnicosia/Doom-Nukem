@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 13:55:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 12:11:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	get_existing_vertex(t_env *env)
 {
-	t_list		*tmp;
-	t_vertex	*vertex;
+	t_vertex	vertex;
+	int			i;
 
-	tmp = env->edit.vertices;
-	while (tmp)
+	i = 0;
+	while (i < env->nb_vertices)
 	{
-		vertex = (t_vertex*)tmp->content;
-		if (round((env->sdl.mx - env->edit.center.x) / env->edit.scale) == vertex->x
-				&& round((env->sdl.my - env->edit.center.y) / env->edit.scale) == vertex->y)
+		vertex = env->vertices[i];
+		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
+				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
 		{
-			ft_printf("Click on vertex %d ([%f][%f])\n", vertex->num, vertex->y, vertex->x);
-			return (vertex->num);
+			//ft_printf("Click on vertex %d ([%f][%f])\n", vertex->num, vertex->y, vertex->x);
+			return (vertex.num);
 		}
-		tmp = tmp->next;
+		i++;
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 16:12:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:36:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct		s_env
 	t_v2			*screen_pos;
 	t_weapons		weapons[NB_WEAPONS];
 	t_menu			button[NB_BUTTON];
-	t_editor 		edit;
+	t_editor 		editor;
 	int				drawing;
 	int				edition;
 	double			horizon;
@@ -91,27 +91,34 @@ typedef struct		s_env
  * */
 
 int					init_edition(int ac, char **av);
-void				editor(t_env *env);
+int					editor(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
-void				init_edit(t_env *env);
-void				editor_keys(t_env *env);
+void				init_editor(t_env *env);
+int					editor_keys(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 int					add_vertex(t_env *env);
 int					add_ennemy(t_env *env);
+int					add_vertex_to_current_sector(t_env *env, int num);
 void				draw_circle(t_circle circle, t_env *env);
 t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
 void				draw_grid_vertices(t_env *env);
 void				print_vertex(t_env *env, int num);
 void				print_vertices(t_env *env);
-void				draw_grid_walls(t_env *env);
+void				print_sectors(t_env *env);
+void				draw_grid_current_sector(t_env *env);
 int					get_existing_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
 void				editor_hud(t_env *env);
+int					get_clockwise_order(t_env *env);
+void				revert_sector_order(t_env *env);
+int					add_sector(t_env *env);
+void				fill_new_sector(t_sector *sector, t_env *env);
+void				free_current_vertices(t_env *env);
 
 /*
  * ** Main functions
@@ -212,6 +219,7 @@ double				get_clipped_floor(int num, t_sector sector,
 				t_vertex vertex, t_env *env);
 double				get_clipped_ceiling(int num, t_sector sector,
 				t_vertex vertex, t_env *env);
+t_v2				get_sector_normal(t_sector sector, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
@@ -222,7 +230,7 @@ int					get_sector_global(t_env *env, t_v2 p);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);
-void				update_sector_slope(t_env *env, short sector_nb);
+void				update_sector_slope(t_env *env, t_sector *sector);
 void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);

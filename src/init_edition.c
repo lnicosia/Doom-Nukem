@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 20:12:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 15:39:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 17:31:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int	init_edition(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.edition = 1;
+	init_pointers(&env);
+	init_sdl(&env);
+	init_editor(&env);
 	init_textures(&env);
 	init_ttf(&env);
+	init_keys(&env);
 	if (ac == 1)
 		ft_printf("Creating a new map\n");
 	else if (ac == 2)
 		ft_printf("opening %s\n", av[1]);
-	init_sdl(&env);
-	init_edit(&env);
-	editor(&env);
-	return (0);
+	return (editor(&env));
 }

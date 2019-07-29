@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 12:29:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 17:11:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.down)
 		env->inputs.down = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.option)
-		env->inputs.option = mode;
+		env->inputs.option = mode;	
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->inputs.left_click = mode;
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)

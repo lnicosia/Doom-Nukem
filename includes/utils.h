@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 14:45:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 17:20:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct		s_circle
 typedef struct		s_sector
 {
 	t_v2			normal;
-	t_v3			boundaries[4];
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
