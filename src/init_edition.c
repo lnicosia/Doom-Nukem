@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 20:12:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/26 11:32:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 14:50:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	init_edition(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.edition = 1;
+	init_pointers(&env);
 	init_editor(&env);
 	init_textures(&env);
 	init_ttf(&env);
@@ -32,6 +33,5 @@ int	init_edition(int ac, char **av)
 	else if (ac == 2)
 		ft_printf("opening %s\n", av[1]);
 	init_sdl(&env);
-	editor(&env);
-	return (0);
+	return (editor(&env));
 }

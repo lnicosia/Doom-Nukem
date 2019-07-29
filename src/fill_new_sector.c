@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_existing_vertex.c                              :+:      :+:    :+:   */
+/*   fill_new_sector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 13:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 12:11:12 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/29 11:56:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int	get_existing_vertex(t_env *env)
+void	fill_new_sector(t_sector *sector, t_env *env)
 {
-	t_vertex	vertex;
 	int			i;
+	int			index;
+	t_list		*tmp;
+	t_vertex	*vertex;
 
+	tmp = env->editor.current_vertices;
 	i = 0;
-	while (i < env->nb_vertices)
+	while (tmp)
 	{
-		vertex = env->vertices[i];
-		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
-		{
-			//ft_printf("Click on vertex %d ([%f][%f])\n", vertex->num, vertex->y, vertex->x);
-			return (vertex.num);
-		}
+		vertex = (t_vertex*)tmp->content;
+		if (env->editor.reverted)
+			index = sector->nb_vertices - i - 1;
+		else
+			index = i;
+		sector->vertices[index] = vertex->num;
+		sector->neighbors[index] = -1;
+		sector->textures[index] = 4;
+		tmp = tmp->next;
 		i++;
 	}
-	return (-1);
 }

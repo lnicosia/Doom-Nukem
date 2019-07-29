@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/26 11:40:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 12:07:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	draw_grid_vertices(t_env *env)
 {
-	t_list		*tmp;
-	t_vertex	*vertex;
+	int			i;
+	t_vertex	vertex;
 	t_point		center;
 	double		scale;
 	Uint32		color;
 
-	tmp = env->editor.vertices;
-	while (tmp)
+	i = 0;
+	while (i < env->nb_vertices)
 	{
-		vertex = (t_vertex*)tmp->content;
-		center = new_point(env->editor.center.x + vertex->x * env->editor.scale,
-				env->editor.center.y + vertex->y * env->editor.scale);
+		vertex = env->vertices[i];
+		center = new_point(env->editor.center.x + vertex.x * env->editor.scale,
+				env->editor.center.y + vertex.y * env->editor.scale);
 		if (env->sdl.mx > center.x - env->editor.scale / 5.0
 				&& env->sdl.mx < center.x + env->editor.scale / 5.0
 				&& env->sdl.my > center.y - env->editor.scale / 5.0
@@ -45,6 +45,6 @@ void	draw_grid_vertices(t_env *env)
 						color,
 						center,
 						scale), env);
-		tmp = tmp->next;
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/19 17:58:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 14:33:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ int				ft_atoi_base(char *str, char *base);
 int				ft_dprintf(int fd, const char *restrict format, ...);
 int				ft_printf(const char *restrict format, ...);
 size_t			ft_getlen(long nb);
+void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif

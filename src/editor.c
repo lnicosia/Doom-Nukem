@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/26 11:41:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 10:40:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	editor(t_env *env)
+int		editor(t_env *env)
 {
 	while (env->running)
 	{
@@ -36,7 +36,8 @@ void	editor(t_env *env)
 			}
 
 		}
-		editor_keys(env);
+		if (editor_keys(env))
+			return (ft_printf("Error in inputs\n"));
 		if (env->editor.menu)
 			start_editor_menu(env);
 		draw_grid(env);
@@ -45,4 +46,5 @@ void	editor(t_env *env)
 			draw_grid_current_sector(env);
 		update_screen(env);
 	}
+	return (0);
 }
