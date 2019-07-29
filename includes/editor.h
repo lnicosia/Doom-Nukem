@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 12:05:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 15:15:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct	s_editor
 	t_point		center;
 	double		scale;
 	t_list		*current_vertices;
-	int			current_sector_start;
 	int			new_sector;
 	int			reverted;
 }				t_editor;

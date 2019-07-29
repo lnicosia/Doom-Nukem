@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/29 14:49:48 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/07/29 15:37:10 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_editor.c \
 				 editor_menu.c draw_grid.c editor_keys.c grid_tools.c \
 				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
-				 create_sector.c fill_new_sector.c \
+				 add_sector.c fill_new_sector.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

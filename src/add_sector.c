@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_sector.c                                    :+:      :+:    :+:   */
+/*   add_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 11:55:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 15:38:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			init_new_sector_arrays(t_sector *sector)
 {
 	if (!(sector->vertices = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_printf("could not malloc sector vertices\n"));
-	if (!(sector->neighbors = (short*)malloc(sizeof(short) * sector->nb_vertices)))
+	if (!(sector->neighbors = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_printf("Could not malloc sector neighbors\n"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_printf("Could not malloc sector textures\n"));
@@ -68,7 +68,7 @@ t_sector	new_default_sector(t_env *env)
 	return (sector);
 }
 
-int			create_sector(t_env *env)
+int			add_sector(t_env *env)
 {
 	t_sector	sector;
 
@@ -76,7 +76,13 @@ int			create_sector(t_env *env)
 	if (init_new_sector_arrays(&sector))
 		return (ft_printf("Error while initializing new sector arrays\n"));
 	fill_new_sector(&sector, env);
-	//sector.normal = get_sector_normal(sector, env);
-	//update_sector_slope(env, &sector);
+	sector.normal = get_sector_normal(sector, env);
+	update_sector_slope(env, &sector);
+	if (!(env->sectors = (t_sector*)ft_realloc(env->sectors,
+					sizeof(t_sector) * env->nb_sectors,
+					sizeof(t_sector) * (env->nb_sectors + 1))))
+		return (ft_printf("Could not realloc sectors\n"));
+	env->sectors[env->nb_sectors] = sector;
+	env->nb_sectors++;
 	return (0);
 }

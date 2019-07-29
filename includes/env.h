@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 14:55:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 15:11:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void				draw_grid_current_sector(t_env *env);
 int					get_existing_vertex(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
-int					create_sector(t_env *env);
+int					add_sector(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 

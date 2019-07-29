@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 15:07:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 15:27:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,10 @@ int			editor_keys(t_env *env)
 			{
 				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num)
 				{
-					if (!get_clockwise_order(env))
-						env->editor.reverted = 1;
-					else
-						env->editor.reverted = 0;
+					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.new_sector = 0;
-					/*if (create_sector(env))
-						return (ft_printf("Error while creating new sector\n"));*/
+					if (add_sector(env))
+						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
 				}
 				else
