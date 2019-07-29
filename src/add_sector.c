@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 15:38:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:33:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling = 12;
 	sector.ceiling_slope = 0;
 	sector.ceiling_texture = 4;
-	sector.light = 100;
+	sector.light = 1;
 	sector.num = env->nb_sectors;
+	sector.x_max = -2147483648;
 	sector.nb_vertices = get_new_sector_len(env);
 	return (sector);
 }
@@ -83,6 +84,7 @@ int			add_sector(t_env *env)
 					sizeof(t_sector) * (env->nb_sectors + 1))))
 		return (ft_printf("Could not realloc sectors\n"));
 	env->sectors[env->nb_sectors] = sector;
+	set_sectors_xmax(env);
 	env->nb_sectors++;
 	return (0);
 }

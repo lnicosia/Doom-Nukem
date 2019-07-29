@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:06:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:03:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 	Uint32			*pixels;
 	Uint32			pixel;
 	SDL_PixelFormat	*fmt;
-	Uint32	*texture_pixels;
+	Uint32			*texture_pixels;
 
 	texture_pixels = env->sdl.texture_pixels;
 	if (!surface)
@@ -79,7 +79,6 @@ void	draw_axes(t_env *env)
 	max = env->h;
 	while (i < max)
 	{
-		//env->sdl.img_str[i * env->w + env->h_w] = 0xFFFFFFFF;
 		pixels[i * env->w + env->h_w] = 0xFFFFFFFF;
 		i++;
 	}
@@ -87,7 +86,6 @@ void	draw_axes(t_env *env)
 	max = env->w;
 	while (i < max)
 	{
-		//env->sdl.img_str[env->h_h * env->w + i] = 0xFFFFFFFF;
 		pixels[env->h_h * env->w + i] = 0xFFFFFFFF;
 		i++;
 	}

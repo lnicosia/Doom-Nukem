@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 15:11:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:17:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct		s_env
 	t_menu			button[NB_BUTTON];
 	t_editor 		editor;
 	int				drawing;
-	int				edition;
 	double			horizon;
 	int				option;
 	int				menu_start;
@@ -109,12 +108,14 @@ void				print_vertex(t_env *env, int num);
 void				print_vertices(t_env *env);
 void				print_sectors(t_env *env);
 void				draw_grid_current_sector(t_env *env);
+void				draw_grid_sectors(t_env *env);
 int					get_existing_vertex(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
+int					editor_render(t_env *env);
 
 /*
  * ** Main functions
@@ -223,6 +224,7 @@ void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v2 p);
 int					get_sector_global(t_env *env, t_v2 p);
+void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_floor(t_env *env);

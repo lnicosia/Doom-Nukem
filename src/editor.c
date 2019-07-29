@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 10:40:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 18:07:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (env->sdl.event.type == SDL_MOUSEWHEEL)
+			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)
 					env->editor.scale *= 1.1;
@@ -36,15 +36,23 @@ int		editor(t_env *env)
 			}
 
 		}
-		if (editor_keys(env))
-			return (ft_printf("Error in inputs\n"));
-		if (env->editor.menu)
-			start_editor_menu(env);
-		draw_grid(env);
-		draw_grid_vertices(env);
-		if (env->editor.new_sector)
-			draw_grid_current_sector(env);
+		if (!env->editor.in_game)
+		{
+			if (editor_keys(env))
+				return (ft_printf("Error in inputs\n"));
+			draw_grid(env);
+			draw_grid_vertices(env);
+			if (env->editor.new_sector)
+				draw_grid_current_sector(env);
+			draw_grid_sectors(env);
+		}
+		else
+		{
+			if (editor_render(env))
+				return (crash("Render function failed\n", env));
+		}
 		update_screen(env);
 	}
+	free_all(env);
 	return (0);
 }

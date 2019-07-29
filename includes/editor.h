@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 15:15:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/29 15:51:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 
 typedef struct	s_editor
 {
-	int			menu;
 	int			select_mode;
 	t_point		center;
 	double		scale;
 	t_list		*current_vertices;
 	int			new_sector;
 	int			reverted;
+	int			in_game;
 }				t_editor;
 
 #endif
