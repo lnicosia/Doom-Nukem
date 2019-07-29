@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:38:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:58:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			editor_keys(t_env *env)
 			&& env->sdl.mx < 170
 			&& env->sdl.my > 280
 			&& env->sdl.my < 320
-			&& !env->drawing)
+			&& !env->editor.new_sector)
 	{
 		env->editor.new_player = 1;
 		env->editor.drag = 1;
@@ -72,10 +72,6 @@ int			editor_keys(t_env *env)
 	}
 	if (env->inputs.enter && env->nb_sectors)
 	{
-		env->player.pos.x = 0;
-		env->player.pos.y = 0;
-		env->player.pos.z = 0;
-		env->player.angle = 0;
 		env->player.angle_z = 0;
 		env->player.angle_cos = cos(env->player.angle);
 		env->player.angle_cos = sin(env->player.angle);

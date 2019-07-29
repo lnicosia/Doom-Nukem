@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 18:36:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:59:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	draw_grid_player(t_env *env)
 	}
 	else
 	{
-		circle.center.x = env->editor.player.x;
-		circle.center.y = env->editor.player.y;
+		circle.center.x = (env->player.pos.x * env->editor.scale) + env->editor.center.x;
+		circle.center.y = (env->player.pos.y * env->editor.scale) + env->editor.center.y;
 	}
 	if (circle.center.x - scale >= 0 && circle.center.x + scale < env->w
 			&& circle.center.y - scale >= 0 && circle.center.y + scale < env->h)
@@ -38,8 +38,9 @@ void	draw_grid_player(t_env *env)
 
 void	add_player(t_env *env)
 {
-	env->editor.player.x = env->sdl.mx;
-	env->editor.player.y = env->sdl.my;
-	env->editor.player.z = 0;
-	env->editor.player.angle = 0;
+	env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
+	env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
+	env->player.pos.z = 0;
+	env->player.angle = 0;
+	env->player.sector = get_sector(env, new_v2(env->player.pos.x, env->player.pos.y));
 }
