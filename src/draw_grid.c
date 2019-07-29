@@ -1,46 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_map.c                                         :+:      :+:    :+:   */
+/*   draw_grid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/29 12:17:20 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/29 17:18:35 by sipatry          ###   ########.fr       */
 /*   Created: 2019/07/23 14:34:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 13:16:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 10:03:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
-int		add_vertex(t_env *env)
+void	draw_center(t_env *env)
 {
-	int new_nb;
+	int		x;
+	int		y;
+	int		max;
+	Uint32	*pixels;
 
-	new_nb = env->edit.nb_vertex + 1;
-	if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex) * new_nb + 1)))
-		return (ft_printf("malloc of the vertices went wrong\n"));
-	if (env->vertices)
-		return (0);
-	return (0);
+	pixels = env->sdl.texture_pixels;
+	x = env->editor.center.x;
+	if (x >= 0 && x < env->w)
+	{
+		y = ft_clamp(env->editor.center.y - 10, 0, env->h);
+		max = ft_clamp(env->editor.center.y, 0, env->h);
+		while (y <= max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			y++;
+		}
+		y = ft_clamp(env->editor.center.y + 10, 0, env->h);
+		while (y > max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			y--;
+		}
+	}
+	y = env->editor.center.y;
+	if (y >= 0 && y < env->h)
+	{
+		x = ft_clamp(env->editor.center.x - 10, 0, env->w);
+		max = ft_clamp(env->editor.center.x, -1, env->w - 1);
+		while (x <= max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			x++;
+		}
+		x = ft_clamp(env->editor.center.x + 10, -1, env->w - 1);
+		while (x > max)
+		{
+			pixels[x + y * env->w] = 0xFFFF0000;
+			x--;
+		}
+	}
 }
 
-void	draw_map(t_env *env)
+void	draw_grid(t_env *env)
 {
-	int	i;
-//	t_point	v1;
-//	t_point	v2;
-
-	i = 0;
-	env->edit.menu = 0;
-/*	while(i < env->edit.nb_vertex - 1)
-	{
-		v1.x = env->vertex[i].x;
-		v1.y = env->vertex[i].y;
-		if ()
-			v2.x = ;
-		else
-		draw_line(env->vertices[i], env->vertices[i + 1], env, 0xFFFFFF00);
-		i++;
-	}*/
-	//ft_printf("draw: %d menu: %d\n", env->drawing, env->edit.menu);
+	draw_hgrid(env);
+	draw_vgrid(env);
+	draw_center(env);
 }

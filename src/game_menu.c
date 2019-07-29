@@ -6,11 +6,11 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 10:41:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 10:41:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:58:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	start_game_menu(t_env *env)
 {

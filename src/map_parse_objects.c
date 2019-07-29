@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:56:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 15:02:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "map_parser.h"
 
 static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)

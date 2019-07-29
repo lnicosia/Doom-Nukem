@@ -6,12 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:54:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 10:12:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "utils.h"
+#include "env.h"
 #include "render.h"
 
 short	get_vertex_nb_in_sector(short vertex, t_sector sector)
@@ -195,6 +195,12 @@ static void		reset_render_utils(t_env *env)
 	{
 		env->ymin[i] = ymin;
 		env->ymax[i] = ymax;
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].seen = 0;
 		i++;
 	}
 }

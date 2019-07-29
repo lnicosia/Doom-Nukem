@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 16:13:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/05/15 16:07:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:01:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 #include "render.h"
 
 void		handle_left(t_render *render, t_env *env)

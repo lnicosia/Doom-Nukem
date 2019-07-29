@@ -6,22 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 13:59:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 18:02:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 int		doom(t_env *env)
 {
-	init_animations(env);
-	init_weapons(env);
-	env->player.speed = 0.5;
-	env->player.size_2d = 0.5;
-	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env->sound.background, -1);
-	ft_printf("Launching game loop..\n");
-	env->flag = 0;
 	while (env->running)
 	{
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
@@ -37,12 +29,14 @@ int		doom(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
+			if (env->sdl.event.type == SDL_KEYUP)
+				options(env);
+			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
+				weapon_change(env);
 		}
 		keys(env);
 		if (env->menu_start)
 			start_game_menu(env);
-//		if (env->menu_select && !env->menu_start)
-//			select_menu(env);
 		else
 		{
 			if (env->option)
@@ -50,8 +44,8 @@ int		doom(t_env *env)
 				if (open_options(env))
 					return (crash("Could not process options pannel\n", env));
 			}
-			else
-				draw_game(env);
+			else if (draw_game(env))
+				return (ft_printf("Crash in game loop\n"));
 		}
 	//	SDL_Delay(5);
 	}

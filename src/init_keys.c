@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/06/19 16:48:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 15:59:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	init_keys(t_env *env)
 {
@@ -31,4 +31,5 @@ void	init_keys(t_env *env)
 	env->keys.up = SDLK_PAGEUP;
 	env->keys.down = SDLK_PAGEDOWN;
 	env->keys.option = SDLK_o;
+	env->keys.enter = SDLK_RETURN;
 }

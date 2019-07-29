@@ -6,11 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:16:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 11:57:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:59:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
 void	init_options(t_env *env)
 {

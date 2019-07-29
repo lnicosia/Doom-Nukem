@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/07/24 14:01:22 by sipatry          ###   ########.fr        #
+#    Updated: 2019/07/29 19:01:04 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,11 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c \
 
-SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_edit.c \
-				 editor_menu.c draw_grid.c
+SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_editor.c \
+				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
+				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
+				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
+				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -53,7 +56,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h 
+		  editor.h env.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -73,7 +76,6 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
 		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
-
 DEBUG ?= 0
 
 #ifeq ($(DEBUG), 1)

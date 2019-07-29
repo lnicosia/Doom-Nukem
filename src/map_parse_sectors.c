@@ -6,12 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 13:47:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:02:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
-#include "utils.h"
+#include "env.h"
 
 int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 {

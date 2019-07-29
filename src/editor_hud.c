@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_edit.c                                        :+:      :+:    :+:   */
+/*   editor_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 11:51:42 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
+/*   Updated: 2019/07/29 17:27:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
-void	init_edit(t_env *env)
+void	editor_hud(t_env *env)
 {
-	env->edit.menu = 0;
-	env->edit.select_mode = 0;
-	env->edit.nb_vertex =  0;
+	t_point	center;
+
+	center.x = 150;
+	center.y = 300;
+	draw_circle(new_circle(0xFFFF0000, 0xFFFF0000, center, (env->editor.scale / 3.5)), env);
 }
