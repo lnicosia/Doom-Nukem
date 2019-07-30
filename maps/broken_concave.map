@@ -15,9 +15,9 @@ V 10
 # After the list of vertexes, comes the list of sector numbers on the "opposite" side of that wall; "x" = none.
 S 2
 [0 0 0] [10 0 0] (0 1 4 5 2 3 7 6) (-1 -1 1 -1 -1 -1 -1 -1) (0 0 0 0 0 0 0 0) 100
-[0 0 0] [10 0 0] (0 8 9 3 2 5 4 1) (-1 -1 -1 -1 -1 0 -1 -1) (0 0 0 0 0 0 0 0) 100
+[0 0 0] [10 0 0] (0 8 9 3 2 5 4 1) (-1 -1 -1 -1 -1 0 -1 -1) (0 0 0 0 0 0 0 0) 80
 
 O 0
 
 # Player: Location (x y), angle, and sector number
-10 10 0 0
+10 10 -90 0

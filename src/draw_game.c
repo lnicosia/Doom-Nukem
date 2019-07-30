@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 10:49:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 17:03:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	draw_game(t_env *env)
 	game_time(env);
 	animations(env);
 	draw_hud(env);
-	update_screen(env);
+	if (env->inputs.shift)
+		update_screen_zbuffer(env);
+	else
+		update_screen(env);
 	view(env);
 	return (0);
 }
