@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 10:40:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:03:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ typedef struct		s_env
  * ** Functions from editor
  * */
 
-int					init_edition(int ac, char **av);
+int					init_editor(int ac, char **av);
 int					editor(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
-void				init_editor(t_env *env);
+void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
