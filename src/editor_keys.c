@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:58:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 11:15:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,20 @@ int			editor_keys(t_env *env)
 		env->editor.center.x += env->sdl.mouse_x;
 		env->editor.center.y += env->sdl.mouse_y;
 	}
-	if (env->inputs.enter && env->nb_sectors)
+	if (env->inputs.enter)
 	{
-		env->player.angle_z = 0;
-		env->player.angle_cos = cos(env->player.angle);
-		env->player.angle_cos = sin(env->player.angle);
-		env->player.perp_cos = cos(env->player.angle - M_PI / 2);
-		env->player.perp_sin = sin(env->player.angle - M_PI / 2);
-		env->player.sector = 0;
-		env->editor.in_game = 1;
+		if (!valid_map(env))
+		{
+			env->editor.in_game = 1;
+			env->inputs.enter = 0;
+			if (init_screen_pos(env))
+				return (ft_printf("Could not init screen pos\n"));
+			update_camera_position(env);
+			update_player_z(env);
+			update_floor(env);
+			SDL_SetRelativeMouseMode(1);
+		}
 		env->inputs.enter = 0;
-		if (init_screen_pos(env))
-			return (ft_printf("Could not init screen pos\n"));
-		update_camera_position(env);
-		update_player_z(env);
-		update_floor(env);
-		SDL_SetRelativeMouseMode(1);
 	}
 	return (0);
 }
