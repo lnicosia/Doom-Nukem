@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 11:15:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:25:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int			editor_keys(t_env *env)
 		{
 			env->editor.in_game = 1;
 			env->inputs.enter = 0;
+			free_screen_sectors(env);
 			if (init_screen_pos(env))
 				return (ft_printf("Could not init screen pos\n"));
 			update_camera_position(env);

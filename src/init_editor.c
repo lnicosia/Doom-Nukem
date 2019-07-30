@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 11:10:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:37:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	init_editor(int ac, char **av)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
+		precompute_slopes(&env);
 	}
 	return (editor(&env));
 }

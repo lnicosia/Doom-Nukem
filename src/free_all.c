@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:58:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 11:25:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,18 @@ static void	free_sectors(t_env *env)
 	ft_memdel((void**)&env->sectors);
 }
 
+void		free_screen_sectors(t_env *env)
+{
+	if (env->xmin)
+		ft_memdel((void**)&env->xmin);
+	if (env->xmax)
+		ft_memdel((void**)&env->xmax);
+	if (env->screen_sectors)
+		ft_memdel((void**)&env->screen_sectors);
+	if (env->rendered_sectors)
+		ft_memdel((void**)&env->rendered_sectors);
+}
+
 void		free_all_sdl_relative(t_env *env)
 {
 	if (env->sdl.window)
@@ -69,20 +81,13 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->depth_array)
 		ft_memdel((void**)&env->depth_array);
-	if (env->xmin)
-		ft_memdel((void**)&env->xmin);
-	if (env->xmax)
-		ft_memdel((void**)&env->xmax);
-	if (env->screen_sectors)
-		ft_memdel((void**)&env->screen_sectors);
-	if (env->rendered_sectors)
-		ft_memdel((void**)&env->rendered_sectors);
-	if (env->screen_pos)
-		ft_memdel((void**)&env->screen_pos);
 	if (env->ymin)
 		ft_memdel((void**)&env->ymin);
 	if (env->ymax)
 		ft_memdel((void**)&env->ymax);
+	if (env->screen_pos)
+		ft_memdel((void**)&env->screen_pos);
+	free_screen_sectors(env);
 
 }
 

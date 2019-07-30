@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 11:03:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:26:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
+void				free_screen_sectors(t_env *env);
 
 /*
  * ** Main pipeline functions
