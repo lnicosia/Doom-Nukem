@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 11:16:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:43:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ int			valid_map(t_env *env)
 	{
 		i++;
 	}
-	ft_printf("{reset}Map is ok\n");
 	return (0);
 }
