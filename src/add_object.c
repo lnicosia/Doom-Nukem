@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 15:00:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 17:28:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,56 @@
 
 void	draw_grid_objects(t_env *env)
 {
-	t_circle	circle;
+	t_point		center;
 	double		scale;
 	int			i;
+	Uint32		color;
 
 	i = 0;
-	circle.color = 0xFFFFFF00;
-	circle.line_color = 0xFFFFFF00;
-	circle.radius = env->editor.scale;
-	scale = env->editor.scale / 2;
 	if (env->editor.drag_object)
 	{
-		circle.center.x = env->sdl.mx;
-		circle.center.y = env->sdl.my;
+		color = 0xFFFFFF00;
+		scale = env->editor.scale;
+		center.x = env->sdl.mx;
+		center.y = env->sdl.my;
+		if (center.x - scale >= 0 && center.x + scale < env->w
+				&& center.y - scale >= 0 && center.y + scale < env->h)
+			draw_circle(new_circle(color,
+									color,
+									center,
+									scale), env);
 	}
 	else
 	{
 		while (i < env->nb_objects)
 		{
-			circle.center.x = (env->objects[i].pos.x * env->editor.scale) + env->editor.center.x;
-			circle.center.y = (env->objects[i].pos.y * env->editor.scale) + env->editor.center.y;
-			draw_circle(circle, env);
+			center.x = env->objects[i].pos.x  * env->editor.scale + env->editor.center.x;
+			center.y = env->objects[i].pos.y  * env->editor.scale + env->editor.center.y;
+			if (env->sdl.mx > center.x - env->editor.scale / 3.5
+					&& env->sdl.mx < center.x + env->editor.scale / 3.5
+					&& env->sdl.my > center.y - env->editor.scale / 3.5
+					&& env->sdl.my < center.y + env->editor.scale / 3.5)
+			{
+				scale = env->editor.scale;
+				color = 0xFF00FF00;
+			}
+			else
+			{
+				color = 0xFFFFFF00;
+				scale = env->editor.scale / 2;
+			}
+			if (center.x - scale >= 0 && center.x + scale < env->w
+					&& center.y - scale >= 0 && center.y + scale < env->h)
+				draw_circle(new_circle(color,
+										color,
+										center,
+										scale), env);
 			i++;
 		}
 	}
-	if (circle.center.x - scale >= 0 && circle.center.x + scale < env->w
-			&& circle.center.y - scale >= 0 && circle.center.y + scale < env->h)
-		draw_circle(circle, env);
 }
+
+int	del_object()
 
 int	add_object(t_env *env)
 {
@@ -56,7 +78,7 @@ int	add_object(t_env *env)
 	object.scale = 50;
 	object.angle = 0;
 	object.sector = get_sector_global(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
-	object.light = env->sectors[object.sector]. light;
+	object.light = env->sectors[object.sector].light;
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
