@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 18:59:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 12:28:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_grid_player(t_env *env)
 	circle.line_color = 0xFFFF0000;
 	circle.radius = env->editor.scale;
 	scale = env->editor.scale / 2;
-	if (env->editor.drag)
+	if (env->editor.drag_player)
 	{
 		circle.center.x = env->sdl.mx;
 		circle.center.y = env->sdl.my;

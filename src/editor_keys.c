@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:58:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 14:04:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,35 @@ int			editor_keys(t_env *env)
 		env->inputs.space = 0;
 	}
 	if (env->inputs.left_click
-			&& env->sdl.mx > 130
-			&& env->sdl.mx < 170
+			&& env->sdl.mx > 80
+			&& env->sdl.mx < 120
+			&& env->sdl.my > 180
+			&& env->sdl.my < 220
+			&& !env->editor.new_sector)
+	{
+		env->editor.drag_player = 1;
+		env->editor.new_player = 1;
+	}
+	if (!env->inputs.left_click && env->editor.drag_player)
+	{
+		env->editor.drag_player = 0;
+		add_player(env);
+	}
+	if (env->inputs.left_click
+			&& env->sdl.mx > 80
+			&& env->sdl.mx < 120
 			&& env->sdl.my > 280
 			&& env->sdl.my < 320
 			&& !env->editor.new_sector)
 	{
-		env->editor.new_player = 1;
-		env->editor.drag = 1;
+		env->editor.drag_object = 1;
 	}
-	if (!env->inputs.left_click && env->editor.drag)
+	if (!env->inputs.left_click && env->editor.drag_object)
 	{
-		env->editor.drag = 0;
-		add_player(env);
+		env->editor.drag_object = 0;
+		add_object(env);
 	}
+
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
