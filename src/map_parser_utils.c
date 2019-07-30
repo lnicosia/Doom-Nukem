@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:02:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 17:50:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int		valid_number(char *line, t_map_parser *parser)
 		return (ft_printf("Missing data at line %d\n",
 					parser->line_count));
 	if ((*line < '0' || *line > '9') && *line != '-')
-		return (ft_printf("Invalid character at line %d\n",
-					parser->line_count));
+		return (-1);
 	return (0);
 }
