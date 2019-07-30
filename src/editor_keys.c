@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 12:14:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 14:08:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			editor_keys(t_env *env)
 		}
 		env->inputs.enter = 0;
 	}
-	if (env->inputs.s && env->inputs.ctrl)// && !valid_map(env))
+	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
 		if (save_map("maps/test.map", env))
 			return (ft_printf("Could not save the map\n"));
