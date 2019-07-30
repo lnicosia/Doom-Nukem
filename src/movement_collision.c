@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 14:11:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,8 @@ int     is_in_sector(t_env *env, short sector, double x, double y)
     i = 0;
     count = 0;
 	//ft_printf("Checking sector %d\n", sector);
+	if (sector < 0 || sector >= env->nb_sectors)
+		return (-1);
     while (i < env->sectors[sector].nb_vertices)
     {
         start_pos = (x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
