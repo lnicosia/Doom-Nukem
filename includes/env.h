@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 11:41:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 16:34:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ char				*skip_spaces(char *line);
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
+void				update_screen_zbuffer(t_env *env);
 t_printable_text	new_printable_text(
 				char *text,
 						TTF_Font *font,
