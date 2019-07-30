@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:41:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 10:49:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,6 @@ typedef struct		s_inputs
 	uint8_t			down;
 	uint8_t			left_click;
 	uint8_t			right_click;
-	uint8_t			leftclick;
 	uint8_t			option;
 	uint8_t			enter;
 }					t_inputs;

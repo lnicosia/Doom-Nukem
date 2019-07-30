@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 16:11:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 10:49:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	draw_game(t_env *env)
 		return (crash("Failed to draw walls\n", env));
 	if (env->options.wall_color)
 		draw_sprites(env);
-	if ((env->inputs.leftclick && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
+	if ((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
 		weapon_animation(env, env->player.curr_weapon);
 	else
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);

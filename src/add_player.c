@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 18:59:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 10:44:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	add_player(t_env *env)
 	env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	env->player.pos.z = 0;
 	env->player.angle = 0;
-	env->player.sector = get_sector(env, new_v2(env->player.pos.x, env->player.pos.y));
+	env->player.sector = get_sector_global(env,
+			new_v3(env->player.pos.x, env->player.pos.y, env->player.pos.z));
 }

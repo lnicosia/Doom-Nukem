@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 10:23:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 10:40:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,8 @@ void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
-int					get_sector(t_env *env, t_v2 p);
-int					get_sector_global(t_env *env, t_v2 p);
+int					get_sector(t_env *env, t_v3 p, short origin);
+int					get_sector_global(t_env *env, t_v3 p);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -246,5 +246,6 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
+int					is_in_sector(t_env *env, short sector, double x, double y);
 
 #endif
