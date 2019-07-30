@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_screen_sectors.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:58:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/29 11:50:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		get_screen_sectors(t_env *env)
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
 		env->screen_pos[x] = curr;
 		i = 0;
-		sect = get_sector(env, curr);
+		sect = get_sector(env, curr, env->player.sector);
 		while (i < env->screen_sectors_size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
 			i++;
 		if (i < env->screen_sectors_size && env->screen_sectors[i] == -1 && sect != -1)

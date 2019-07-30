@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 16:14:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:05:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_sprite_direction(t_object object)
 {
 	double	angle;
 
-	angle = (atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES;
+	angle = (int)((atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle >= object.angle - 22.5 && angle < object.angle + 22.5)
 		return (4);
 	else if (angle >= object.angle + 22.5 && angle < object.angle + 67.5)

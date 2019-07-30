@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:30:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/07/29 11:46:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
  **	Returns camera sector according to the last player movement
  */
 
-int		get_sector(t_env *env, t_v2 p)
+int		get_sector(t_env *env, t_v2 p, int origin)
 {
 	int		i;
 
-	if (is_in_sector(env, env->player.sector, p.x, p.y))
-		return (env->player.sector);
+	if (is_in_sector(env, origin, p.x, p.y))
+		return (origin);
 	i = 0;
-	while (i < env->sectors[env->player.sector].nb_vertices)
+	while (i < env->sectors[origin].nb_vertices)
 	{
-		if (env->sectors[env->player.sector].neighbors[i] >= 0)
+		if (env->sectors[origin].neighbors[i] >= 0)
 		{
-			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], p.x, p.y))
-				return (env->sectors[env->player.sector].neighbors[i]);
+			if (is_in_sector(env, env->sectors[origin].neighbors[i], p.x, p.y))
+				return (env->sectors[origin].neighbors[i]);
 		}
 		i++;
 	}
@@ -146,7 +146,6 @@ void	move_player(t_env *env)
 		}
 		if (movement)
 		{
-			objects_collision(env);
 			update_camera_position(env);
 		}
 	}
