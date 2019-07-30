@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:02:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 10:43:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	env->objects[parser->objects_count].sector = get_sector_global(env,
-			new_v2(env->objects[parser->objects_count].pos.x,
-				env->objects[parser->objects_count].pos.y));
+			new_v3(env->objects[parser->objects_count].pos.x,
+				env->objects[parser->objects_count].pos.y,
+				env->objects[parser->objects_count].pos.z));
 	env->objects[parser->objects_count].light =
 		env->sectors[env->objects[parser->objects_count].sector].light;
 	if (**line != ']' &&  **(line + 1) != ' ')

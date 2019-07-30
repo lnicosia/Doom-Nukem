@@ -1,0 +1,46 @@
+draw_sprites.c:142:	sprite = env->sprites[object->sprite];
+draw_sprites.c:148:	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
+draw_sprites.c:149:	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
+draw_sprites.c:150:	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
+draw_sprites.c:152:	orender.light = 255 - ft_clamp(object->rotated_pos.z * 2, 0, 255);
+draw_sprites.c:153:	orender.light = object->light;
+draw_sprites.c:161:	if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
+draw_sprites.c:162:		object->seen = 1;
+sprites_maths.c:37:	/*object->translated_left_bottom.x = (object.pos.x - object.width / 2.0)
+sprites_maths.c:39:	object->translated_left_bottom.z = object.pos.y - env->player.pos.y;
+sprites_maths.c:40:	object->translated_left_bottom.y = (object.pos.z - env->player.pos.z);
+sprites_maths.c:41:	object->translated_right_bottom.x = (object.pos.x + object.width / 2.0)
+sprites_maths.c:43:	object->translated_right_bottom.z = object->translated_left_bottom.z;
+sprites_maths.c:44:	object->translated_right_bottom.y = object->translated_left_bottom.y;
+sprites_maths.c:45:	object->translated_left_top.x = object->translated_left_top.x;
+sprites_maths.c:46:	object->translated_left_top.z = object->translated_left_top.z;
+sprites_maths.c:47:	object->translated_left_top.y = (object.pos.z + object.height)
+sprites_maths.c:49:	object->translated_right_top.x = object->translated_right_top.x;
+sprites_maths.c:50:	object->translated_right_top.z = object->translated_right_top.z;
+sprites_maths.c:51:	object->translated_right_top.y = object->translated_left_top.y;*/
+sprites_maths.c:52:	object->translated_pos.x = object->pos.x - env->player.pos.x;
+sprites_maths.c:53:	object->translated_pos.z = object->pos.y - env->player.pos.y;
+sprites_maths.c:54:	object->translated_pos.y = object->pos.z - env->player.head_z;
+sprites_maths.c:59:	/*object->rotated_left_bottom.x = object->translated_left_bottom.x
+sprites_maths.c:60:		* env->player.angle_sin - object->translated_left_bottom.z
+sprites_maths.c:62:	object->rotated_left_bottom.z = object->translated_left_bottom.x
+sprites_maths.c:63:		* env->player.angle_cos + object->translated_left_bottom.z
+sprites_maths.c:65:	object->rotated_left_bottom.y = object->translated_left_bottom.y
+sprites_maths.c:66:		+ object->rotated_left_bottom.z * env->player.angle_z;
+sprites_maths.c:67:	object->rotated_right_bottom.x = object->translated_right_bottom.x
+sprites_maths.c:68:		* env->player.angle_sin - object->translated_right_bottom.z
+sprites_maths.c:70:	object->rotated_right_bottom.z = object->rotated_left_bottom.z;
+sprites_maths.c:71:	object->rotated_right_bottom.y = object->rotated_left_bottom.y;
+sprites_maths.c:72:	object->rotated_left_top.x = object->rotated_left_bottom.x;
+sprites_maths.c:73:	object->rotated_left_top.z = object->rotated_left_bottom.z;
+sprites_maths.c:74:	object->rotated_left_top.y = object->translated_left_top.y
+sprites_maths.c:75:		+ object->rotated_left_bottom.z * env->player.angle_z;
+sprites_maths.c:76:	object->rotated_right_top.x = object->rotated_right_bottom.x;
+sprites_maths.c:77:	object->rotated_right_top.z = object->rotated_right_bottom.z;
+sprites_maths.c:78:	object->rotated_right_top.y = object->rotated_left_top.y;*/
+sprites_maths.c:79:	object->rotated_pos.x = object->translated_pos.x
+sprites_maths.c:80:		* env->player.angle_sin - object->translated_pos.z * env->player.angle_cos;
+sprites_maths.c:81:	object->rotated_pos.z = object->translated_pos.x
+sprites_maths.c:82:		* env->player.angle_cos + object->translated_pos.z * env->player.angle_sin;
+sprites_maths.c:83:	object->rotated_pos.y = object->translated_pos.y
+sprites_maths.c:84:		+ object->rotated_pos.z * env->player.angle_z;

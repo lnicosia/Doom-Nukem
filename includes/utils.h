@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:12:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 15:00:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct		s_keys
 	int				up;
 	int				option;
 	int				enter;
+	int				s;
 }					t_keys;
 
 /*
@@ -221,9 +222,9 @@ typedef struct		s_inputs
 	uint8_t			down;
 	uint8_t			left_click;
 	uint8_t			right_click;
-	uint8_t			leftclick;
 	uint8_t			option;
 	uint8_t			enter;
+	uint8_t			s;
 }					t_inputs;
 
 /*

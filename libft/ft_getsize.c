@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_render.c                                    :+:      :+:    :+:   */
+/*   ft_getsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:47:03 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/30 13:19:30 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/30 13:31:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "libft.h"
 
-int		editor_render(t_env *env)
+size_t	ft_getsize(long nbr)
 {
-	if (env->inputs.enter)
+	size_t	size;
+
+	size = 0;
+	if (nbr <= 0)
+		size++;
+	while (nbr != 0)
 	{
-		env->editor.in_game = 0;
-		env->inputs.enter = 0;
-		SDL_SetRelativeMouseMode(0);
-		return (0);
+		nbr = nbr / 10;
+		size++;
 	}
-	reset_clipped(env);
-	keys(env);
-	if (draw_walls(env))
-		return (crash("Failed to draw walls\n", env));
-	draw_sprites(env);
-	if (env->options.show_fps)
-		fps(env);
-	game_time(env);
-	view(env);
-	return (0);
+	return (size);
 }

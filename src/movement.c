@@ -6,56 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 12:05:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-/*
- **	Returns camera sector according to the last player movement
- */
-
-int		get_sector(t_env *env, t_v2 p)
-{
-	int		i;
-
-	if (is_in_sector(env, env->player.sector, p.x, p.y))
-		return (env->player.sector);
-	i = 0;
-	while (i < env->sectors[env->player.sector].nb_vertices)
-	{
-		if (env->sectors[env->player.sector].neighbors[i] >= 0)
-		{
-			if (is_in_sector(env, env->sectors[env->player.sector].neighbors[i], p.x, p.y))
-				return (env->sectors[env->player.sector].neighbors[i]);
-		}
-		i++;
-	}
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		if (is_in_sector(env, i, p.x, p.y) && env->player.pos.z > env->sectors[i].floor_min)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int		get_sector_global(t_env *env, t_v2 p)
-{
-	int		i;
-
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		if (is_in_sector(env, i, p.x, p.y))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 /*
  **	Update camera's position (save some computings)
