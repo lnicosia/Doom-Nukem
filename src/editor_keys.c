@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 17:28:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/31 15:29:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	create_player(t_env *env)
 		add_player(env);
 	}
 }
-void	create_ennemy(t_env *env)
+void	create_object(t_env *env)
 {
 	if (env->inputs.left_click
 			&& env->sdl.mx > 80
@@ -48,6 +48,11 @@ void	create_ennemy(t_env *env)
 		add_object(env);
 		env->nb_objects++;
 	}
+}
+
+void	drag_object(t_env *env)
+{
+
 }
 
 int			editor_keys(t_env *env)
@@ -89,8 +94,8 @@ int			editor_keys(t_env *env)
 		env->inputs.space = 0;
 	}
 	create_player(env);
-	create_ennemy(env);
-	del_object(env);
+	create_object(env);
+	drag_object(env);
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;

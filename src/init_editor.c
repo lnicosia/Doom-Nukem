@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 14:32:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/31 12:31:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_editor_data(t_env *env)
 	env->nb_sectors = 0;
 	env->nb_objects = 0;
 	env->player.sector = -1;
+	env->editor.select_object = 0;
 }
 
 int	init_editor(int ac, char **av)

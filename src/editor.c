@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 16:16:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/31 12:18:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
-		update_screen(env);
+		if (env->editor.in_game && env->inputs.shift)
+			update_screen_zbuffer(env);
+		else
+			update_screen(env);
 	}
 	free_all(env);
 	return (0);

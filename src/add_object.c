@@ -6,11 +6,21 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 17:28:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/31 15:29:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	draw_dragged_circle(t_env *env, Uint32 color, t_point center, double scale)
+{
+		if (center.x - scale >= 0 && center.x + scale < env->w
+				&& center.y - scale >= 0 && center.y + scale < env->h)
+			draw_circle(new_circle(color,
+									color,
+									center,
+									scale), env);
+}
 
 void	draw_grid_objects(t_env *env)
 {
@@ -26,12 +36,7 @@ void	draw_grid_objects(t_env *env)
 		scale = env->editor.scale;
 		center.x = env->sdl.mx;
 		center.y = env->sdl.my;
-		if (center.x - scale >= 0 && center.x + scale < env->w
-				&& center.y - scale >= 0 && center.y + scale < env->h)
-			draw_circle(new_circle(color,
-									color,
-									center,
-									scale), env);
+		draw_dragged_circle(env, color, center, scale);
 	}
 	else
 	{
@@ -44,13 +49,16 @@ void	draw_grid_objects(t_env *env)
 					&& env->sdl.my > center.y - env->editor.scale / 3.5
 					&& env->sdl.my < center.y + env->editor.scale / 3.5)
 			{
+				ft_printf("nb = %d\n", i);
 				scale = env->editor.scale;
 				color = 0xFF00FF00;
+				env->editor.select_object = i;
 			}
 			else
 			{
 				color = 0xFFFFFF00;
 				scale = env->editor.scale / 2;
+				env->editor.select_object = 0;
 			}
 			if (center.x - scale >= 0 && center.x + scale < env->w
 					&& center.y - scale >= 0 && center.y + scale < env->h)
@@ -62,8 +70,6 @@ void	draw_grid_objects(t_env *env)
 		}
 	}
 }
-
-int	del_object()
 
 int	add_object(t_env *env)
 {
