@@ -47,6 +47,12 @@ typedef struct		s_v2
 	double			y;
 }					t_v2;
 
+typedef	struct		s_segment
+{
+	t_v2			p1;
+	t_v2			p2;
+}					t_segment;
+
 typedef struct		s_v3
 {
 	double			x;
