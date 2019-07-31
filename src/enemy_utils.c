@@ -84,7 +84,7 @@ double  max_val(double nb1, double nb2)
         return (nb2);
 }
 
-int onLine(line l1, Point p)
+int onLine(t_segment l1, t_v2 p)
 {
     //check whether p is on the line or not
     if(p.x <= max_val(l1.p1.x, l1.p2.x) && p.x <= min_val(l1.p1.x, l1.p2.x) &&
@@ -135,8 +135,8 @@ int    enemy_view(t_env *env, int nb, int sector)
     int         i;
     t_segment   line_1;
     t_segment   line_2;
-    double      start_pos;
-    double      end_pos;
+    //double      start_pos;
+    //double      end_pos;
     static int  a = 0;
 
     ft_printf("test sector %d\n", sector);
@@ -164,7 +164,7 @@ int    enemy_view(t_env *env, int nb, int sector)
         end_pos = (env->player.pos.x - OX1) * (OY2 - OY1) - (env->player.pos.y - OY1) * (OX2 - OX1);
         if (diff_sign(start_pos, end_pos) && check_wall(env, i, enemy, sector) && env->sectors[sector].neighbors[i] < 0)
             return (0);
-        else if (diff_sign(start_pos, end_pos) /*&& check_wall(env, i, enemy, sector) && env->sectors[sector].neighbors[i] >= 0 &&
+        else if (diff_sign(start_pos, end_pos) && check_wall(env, i, enemy, sector) && env->sectors[sector].neighbors[i] >= 0 &&
             env->sector_list[env->sectors[sector].neighbors[i]] == 0 && end_pos != 0)
         {
             env->sector_list[env->sectors[sector].neighbors[i]] = 1;
@@ -181,9 +181,8 @@ void    enemy_pursuit(t_env *env)
     int     i;
     int     j;
     t_v3    direction;
-    t_v2    object_poss;
     double  tmp_z;
-    static int a = 0;
+    //static int a = 0;
 
     i = 0;
     while (i < env->nb_objects)
