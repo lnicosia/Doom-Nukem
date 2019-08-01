@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/31 15:29:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/01 14:38:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	create_object(t_env *env)
 			&& !env->editor.new_sector)
 	{
 		env->editor.objects = 1;
-		env->editor.drag_object = 1;
+		env->editor.drag_object = 2;
 	}
-	if (!env->inputs.left_click && env->editor.drag_object)
+	if (!env->inputs.left_click && env->editor.drag_object == 2)
 	{
 		env->editor.drag_object = 0;
 		add_object(env);
@@ -50,9 +50,42 @@ void	create_object(t_env *env)
 	}
 }
 
-void	drag_object(t_env *env)
+void	drag_element(t_env *env)
 {
+	t_point	center;
+	double	scale;
 
+	scale = 0;
+	if (env->editor.select_object != -1)
+	{
+		if (env->inputs.left_click)
+		{
+		//	ft_printf("dragging an element\n");
+			env->editor.drag_object = 1;
+			scale = env->editor.scale;
+			center.x = env->sdl.mx;
+			center.y= env->sdl.my;
+			draw_circle(new_circle(0xFF00FF00, 0xFF00FF00, center, scale), env);
+			ft_printf("x: %d y: %d\n",  env->objects[env->editor.select_object].pos.x, env->objects[env->editor.select_object].pos.y);
+
+		}
+		else if (env->editor.drag_object)
+		{	
+	//		env->objects[env->editor.select_object].pos.x = env->sdl.mx;
+	//		env->objects[env->editor.select_object].pos.y = env->sdl.my;
+			ft_printf("x: %d y: %d\n",  env->objects[env->editor.select_object].pos.x, env->objects[env->editor.select_object].pos.y);
+			env->editor.select_object = -1;
+			env->editor.drag_object = 0;
+		}
+	}
+	if (env->editor.select_player != -1)
+	{
+
+	}
+	if (env->editor.select_vertex != -1)
+	{
+
+	}
 }
 
 int			editor_keys(t_env *env)
@@ -95,7 +128,7 @@ int			editor_keys(t_env *env)
 	}
 	create_player(env);
 	create_object(env);
-	drag_object(env);
+	drag_element(env);
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;

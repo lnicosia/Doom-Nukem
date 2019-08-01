@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/31 15:29:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/01 14:38:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,15 @@ void	draw_grid_objects(t_env *env)
 					&& env->sdl.my > center.y - env->editor.scale / 3.5
 					&& env->sdl.my < center.y + env->editor.scale / 3.5)
 			{
-				ft_printf("nb = %d\n", i);
 				scale = env->editor.scale;
 				color = 0xFF00FF00;
 				env->editor.select_object = i;
+				ft_printf("select: %d\n", env->editor.select_object);
 			}
 			else
 			{
 				color = 0xFFFFFF00;
 				scale = env->editor.scale / 2;
-				env->editor.select_object = 0;
 			}
 			if (center.x - scale >= 0 && center.x + scale < env->w
 					&& center.y - scale >= 0 && center.y + scale < env->h)

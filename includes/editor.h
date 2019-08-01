@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/31 15:29:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/01 14:38:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct	s_editor
 {
 	int			select_mode;
 	int			select_object;
+	int			select_player;
+	int			select_vertex;
 	int			nb_vertex;
 	int			new_player;
 	int			objects;

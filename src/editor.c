@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/31 12:18:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/01 14:38:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		editor(t_env *env)
 			update_screen_zbuffer(env);
 		else
 			update_screen(env);
+		//if (env->nb_objects)
+		//	ft_printf("object[%d] =\nx: %d y: %d\n",env->nb_objects, env->objects[env->editor.select_object].pos.x, env->objects[env->editor.select_object].pos.y);
 	}
 	free_all(env);
 	return (0);
