@@ -172,6 +172,8 @@ int    enemy_view(t_env *env, int nb, int sector)
         }*/
         i++;
     }
+    if (sector != env->player.sector)
+        return (0);
     ft_printf("he saw me %d\n", a++);
     return (1);
 }
