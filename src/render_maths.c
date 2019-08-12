@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:06:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/12 18:13:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,14 +178,18 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)
 {
 	//Calculer y actuel du plafond et du sol du voisin
-	render->current_neighbor_ceiling = (x - render->x1)
+	/*render->current_neighbor_ceiling = (x - render->x1)
 		* (render->neighbor_ceiling2 - render->neighbor_ceiling1)
 		/ (render->x2 - render->x1) + render->neighbor_ceiling1;
-	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
-			, env->ymin[x], env->ymax[x]);
 	render->current_neighbor_floor = (x - render->x1)
 		* (render->neighbor_floor2 - render->neighbor_floor1)
-		/ (render->x2 - render->x1) + render->neighbor_floor1;
+		/ (render->x2 - render->x1) + render->neighbor_floor1;*/
+	render->current_neighbor_ceiling = render->clipped_alpha
+		* render->neighbor_ceil_range + render->neighbor_ceiling1;
+	render->current_neighbor_floor = render->clipped_alpha
+		* render->neighbor_floor_range + render->neighbor_floor1;
+	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
+			, env->ymin[x], env->ymax[x]);
 	render->current_neighbor_floor = ft_clamp(render->current_neighbor_floor
 			, env->ymin[x], env->ymax[x]);
 }

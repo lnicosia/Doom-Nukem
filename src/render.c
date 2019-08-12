@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:12:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/12 18:15:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	render_sector(t_env *env, t_render render)
 						render.nv1 = get_vertex_nb_in_sector(sector.vertices[i], env->sectors[sector.neighbors[i]]);
 						render.nv2 = get_vertex_nb_in_sector(sector.vertices[i + 1], env->sectors[sector.neighbors[i]]);
 						project_neighbor_floor_and_ceiling(&render, env, env->sectors[sector.neighbors[i]]);
+						render.neighbor_ceil_range = render.neighbor_ceiling2 - render.neighbor_ceiling1;
+						render.neighbor_floor_range = render.neighbor_floor2 - render.neighbor_floor1;
 					}
 					x = render.xstart;
 					render.xrange = render.x2 - render.x1;

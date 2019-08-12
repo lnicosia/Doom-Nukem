@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/12 17:46:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	*raycasting(void *param)
 		vline.start = render.current_ceiling;
 		vline.end = render.current_floor;
 		vline.x = x;
+		vline.color = 0xFF222222;
+		vline.color = 0xFFFF0000;
 		// Dessiner le plafond de ymin jusqu'au plafond
 		if (render.current_ceiling > 0)
 			draw_ceiling(render, env);
@@ -77,8 +79,22 @@ void	*raycasting(void *param)
 					env->ymax[x]);
 		}
 		else
+		{
 			draw_vline(vline, render, env);
+			if (env->options.contouring
+					&& ((x == render.preclip_x1)
+						|| x == render.preclip_x2))
+				draw_vline_color(vline, render, env);
+		}
 		x++;
+	}
+	if (!env->options.wall_color && THREADS == 1)
+	{
+		if (!env->inputs.shift)
+			update_screen(env);
+		else
+			update_screen_zbuffer(env);
+		SDL_Delay(1000);
 	}
 	return (NULL);
 }
