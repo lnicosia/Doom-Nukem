@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/01 14:38:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 12:39:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	draw_dragged_circle(t_env *env, Uint32 color, t_point center, double scale)
 {
-		if (center.x - scale >= 0 && center.x + scale < env->w
-				&& center.y - scale >= 0 && center.y + scale < env->h)
-			draw_circle(new_circle(color,
-									color,
-									center,
-									scale), env);
+	if (center.x - scale >= 0 && center.x + scale < env->w
+			&& center.y - scale >= 0 && center.y + scale < env->h)
+		draw_circle(new_circle(color,
+					color,
+					center,
+					scale), env);
 }
 
 void	draw_grid_objects(t_env *env)
@@ -38,35 +38,32 @@ void	draw_grid_objects(t_env *env)
 		center.y = env->sdl.my;
 		draw_dragged_circle(env, color, center, scale);
 	}
-	else
+	while (i < env->nb_objects)
 	{
-		while (i < env->nb_objects)
+		center.x = env->objects[i].pos.x  * env->editor.scale + env->editor.center.x;
+		center.y = env->objects[i].pos.y  * env->editor.scale + env->editor.center.y;
+		if (env->sdl.mx > center.x - env->editor.scale / 3.5
+				&& env->sdl.mx < center.x + env->editor.scale / 3.5
+				&& env->sdl.my > center.y - env->editor.scale / 3.5
+				&& env->sdl.my < center.y + env->editor.scale / 3.5)
 		{
-			center.x = env->objects[i].pos.x  * env->editor.scale + env->editor.center.x;
-			center.y = env->objects[i].pos.y  * env->editor.scale + env->editor.center.y;
-			if (env->sdl.mx > center.x - env->editor.scale / 3.5
-					&& env->sdl.mx < center.x + env->editor.scale / 3.5
-					&& env->sdl.my > center.y - env->editor.scale / 3.5
-					&& env->sdl.my < center.y + env->editor.scale / 3.5)
-			{
-				scale = env->editor.scale;
-				color = 0xFF00FF00;
+			scale = env->editor.scale;
+			color = 0xFF00FF00;
+			if (env->inputs.left_click)
 				env->editor.select_object = i;
-				ft_printf("select: %d\n", env->editor.select_object);
-			}
-			else
-			{
-				color = 0xFFFFFF00;
-				scale = env->editor.scale / 2;
-			}
-			if (center.x - scale >= 0 && center.x + scale < env->w
-					&& center.y - scale >= 0 && center.y + scale < env->h)
-				draw_circle(new_circle(color,
-										color,
-										center,
-										scale), env);
-			i++;
 		}
+		else
+		{
+			color = 0xFFFFFF00;
+			scale = env->editor.scale / 2;
+		}
+		if (center.x - scale >= 0 && center.x + scale < env->w
+				&& center.y - scale >= 0 && center.y + scale < env->h)
+			draw_circle(new_circle(color,
+						color,
+						center,
+						scale), env);
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/01 14:38:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 15:16:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_editor
 	int			objects;
 	int			drag_player;
 	int			drag_object;
+	int			drag_vertex;
 	int			dragging;
 	t_point		center;
 	double		scale;
