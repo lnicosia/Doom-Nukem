@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 14:27:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:01:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,12 @@ void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)
 	render->current_neighbor_floor = (x - render->x1)
 		* (render->neighbor_floor2 - render->neighbor_floor1)
 		/ (render->x2 - render->x1) + render->neighbor_floor1;*/
-	render->current_neighbor_ceiling = render->clipped_alpha
+	render->max_neighbor_ceiling = render->clipped_alpha
 		* render->neighbor_ceil_range + render->neighbor_ceiling1;
-	render->current_neighbor_floor = render->clipped_alpha
+	render->max_neighbor_floor = render->clipped_alpha
 		* render->neighbor_floor_range + render->neighbor_floor1;
-	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
+	render->current_neighbor_ceiling = ft_clamp(render->max_neighbor_ceiling
 			, env->ymin[x], env->ymax[x]);
-	render->current_neighbor_floor = ft_clamp(render->current_neighbor_floor
+	render->current_neighbor_floor = ft_clamp(render->max_neighbor_floor
 			, env->ymin[x], env->ymax[x]);
 }

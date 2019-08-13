@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 14:58:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:18:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.start] = 100000000000;
 		}
-		if (vline.end == (int)render.max_ceiling)
+		if (vline.end == (int)render.max_ceiling - 1)
 		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.end] = 100000000000;
@@ -231,7 +231,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	}
 	if (env->options.contouring)
 	{
-		if (vline.start == (int)render.max_floor)
+		if (vline.start == (int)render.max_floor + 1)
 		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.start] = 1000000000000;
@@ -305,6 +305,11 @@ void	draw_upper_wall(t_render render, t_env *env)
 	//draw_vline_color(vline, render, env);
 	if (env->options.contouring && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
 		draw_vline_color(vline, render, env);
+	if (env->options.contouring && vline.end == (int)render.max_neighbor_ceiling)
+	{
+		env->sdl.texture_pixels[env->w * (vline.end - 1) + vline.x] = 0xFFFF0000;
+		env->depth_array[env->w * (vline.end - 1) + vline.x] = 10000000000;
+	}
 }
 
 /*
@@ -327,4 +332,9 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	//draw_vline_color(vline, render, env);
 	if (env->options.contouring && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
 		draw_vline_color(vline, render, env);
+	if (env->options.contouring && vline.start == (int)render.max_neighbor_floor)
+	{
+		env->sdl.texture_pixels[env->w * (vline.start + 1) + vline.x] = 0xFFFF0000;
+		env->depth_array[env->w * (vline.start + 1) + vline.x] = 10000000000;
+	}
 }
