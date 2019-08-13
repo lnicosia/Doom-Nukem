@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 18:12:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 12:09:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct		s_render
 	double			neighbor_floor2;
 	double			neighbor_ceiling1;
 	double			neighbor_ceiling2;
-	int				preclip_x1;
-	int				preclip_x2;
+	double			preclip_x1;
+	double			preclip_x2;
 	int				preclip_floor1;
 	int				preclip_floor2;
 	int				preclip_ceiling1;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 18:13:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:27:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		env->player.angle_z * env->camera.scale;
 	render->x1 = env->h_w + render->clipped_vx1 * render->scale1;
 	render->x2 = env->h_w + render->clipped_vx2 * render->scale2;
+	render->x1 = ceil(render->x1);
+	//render->x2 = floor(render->x2);
 }
 
 /*
@@ -173,6 +175,8 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		render->vcy2 * render->scale2;
 	render->preclip_x1 = env->h_w + render->vx1 * render->scale1;
 	render->preclip_x2 = env->h_w + render->vx2 * render->scale2;
+	render->preclip_x1 = ceil(render->preclip_x1);
+	//render->preclip_x2 = floor(render->preclip_x2);
 }
 
 void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)

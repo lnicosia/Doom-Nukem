@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 18:15:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 12:51:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	render_sector(t_env *env, t_render render)
 				project_floor_and_ceiling(&render, env, sector, i);
 
 				if (render.x1 < render.x2
-						&& render.x1 < render.xmax && render.x2 > render.xmin)
+						&& render.x1 <= render.xmax && render.x2 >= render.xmin)
 				{
 					render.xstart = ft_max(render.x1, render.xmin);
 					render.xend = ft_min(render.x2, render.xmax);

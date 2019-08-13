@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 17:46:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:42:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	*raycasting(void *param)
 		render.texel.y = ((1.0 - render.alpha) * render.y1z1 + render.alpha * render.y2z2) * render.z;
 		// Calculer y actuel du plafond et du sol
 		render.max_ceiling = render.clipped_alpha * render.ceil_range + render.ceiling1;
-		//render.current_ceiling = ft_clamp(render.max_ceiling, render.ymin, render.ymax);
+		//render.current_ceiling = ft_clamp(render.max_ceiling, 0, env->h - 1);
 		render.current_ceiling = ft_clamp(render.max_ceiling, env->ymin[x], env->ymax[x]);
 		render.max_floor = render.clipped_alpha * render.floor_range + render.floor1;
 		render.line_height = render.max_floor - render.max_ceiling;
-		//render.current_floor = ft_clamp(render.max_floor, render.ymin, render.ymax);
+		//render.current_floor = ft_clamp(render.max_floor, 0, env->h - 1);
 		render.current_floor = ft_clamp(render.max_floor, env->ymin[x], env->ymax[x]);
 		render.ceiling_horizon = render.max_ceiling - render.horizon;
 		render.floor_horizon = render.max_floor - render.horizon;
@@ -82,14 +82,19 @@ void	*raycasting(void *param)
 		{
 			draw_vline(vline, render, env);
 			if (env->options.contouring
-					&& ((x == render.preclip_x1)
-						|| x == render.preclip_x2))
+					&& (x == (int)render.preclip_x1
+						|| x == (int)render.preclip_x2))
+			{
+				//ft_printf("drawing line at %d from %d to %d\n", vline.x, vline.start, vline.end);
 				draw_vline_color(vline, render, env);
+			}
 		}
 		x++;
 	}
 	if (!env->options.wall_color && THREADS == 1)
 	{
+		//ft_printf("x1 = %d, x2 = %d\n", (int)render.xmin, (int)render.xmax);
+		ft_printf("xstart = %d, xend = %d\n\n", ((t_render_thread*)param)->xstart, x - 1);
 		if (!env->inputs.shift)
 			update_screen(env);
 		else
