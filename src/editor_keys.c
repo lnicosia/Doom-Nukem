@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 15:16:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:02:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	drag_element(t_env *env)
 
 	//scale = 0;
 	(void)center;
-	if (env->editor.select_object != -1)
+	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1)
 	{	
 		if (env->inputs.left_click)
 		{
@@ -77,7 +77,7 @@ void	drag_element(t_env *env)
 			env->editor.drag_object = 0;
 		}
 	}
-	if (env->editor.select_player != -1)
+	else if (env->editor.select_player != -1 && env->editor.select_object == -1 && env->editor.select_vertex == -1)
 	{
 		if (env->inputs.left_click)
 		{
@@ -94,7 +94,7 @@ void	drag_element(t_env *env)
 		}
 
 	}
-	if (env->editor.select_vertex != -1)
+	else if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1)
 	{
 		if (env->inputs.left_click)
 		{

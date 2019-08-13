@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 12:39:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:00:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_grid_objects(t_env *env)
 		{
 			scale = env->editor.scale;
 			color = 0xFF00FF00;
-			if (env->inputs.left_click)
+			if (env->inputs.left_click && env->editor.select_player == -1 && env->editor.select_vertex == -1)
 				env->editor.select_object = i;
 		}
 		else
