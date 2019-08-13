@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:03:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/26 10:03:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:33:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	hline(t_env *env, int y)
 {
 	int x;
 
-	x = 0;
+	x = 200;
 	while (x < env->w)
 	{
 		env->sdl.texture_pixels[x + y * env->w] = 0xFF888888;
@@ -63,7 +63,7 @@ void	draw_vgrid(t_env *env)
 	double	i;
 
 	i = env->editor.center.x;
-	while (i < 0)
+	while (i < 200)
 		i += env->editor.scale;
 	while (i < env->w)
 	{
@@ -73,7 +73,7 @@ void	draw_vgrid(t_env *env)
 	i = env->editor.center.x - env->editor.scale;
 	while (i >= env->w)
 		i -= env->editor.scale;
-	while (i >= 0)
+	while (i >= 200)
 	{
 		vline(env, i);
 		i -= env->editor.scale;

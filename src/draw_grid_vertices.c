@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:59:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 15:17:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ void	draw_grid_vertices(t_env *env)
 		{
 			scale = env->editor.scale / 3.5;
 			color = 0xFF00FF00;
+			if (env->inputs.left_click && !env->editor.drag_vertex)
+			{
+				center.x = env->sdl.mx;
+				center.y = env->sdl.my;
+				vertex.x = env->sdl.mx;
+				vertex.y = env->sdl.my;
+				env->editor.select_vertex = i;
+			}
 		}
 		else
 		{

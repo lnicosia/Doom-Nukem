@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 15:03:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:35:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ typedef struct		s_object
 	int				ammo;
 	int				health;
 	int				sector;
+	int				num;
 }					t_object;
 
 /*

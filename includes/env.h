@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 12:11:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/13 15:43:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,17 @@ void				draw_grid_sectors(t_env *env);
 int					get_existing_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
+void				draw_grid_objects(t_env *env);
 void				editor_hud(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
+int					add_object(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
+void				editor_options(t_env *env);
 
 /*
  * ** Main functions
