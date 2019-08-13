@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 15:16:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/13 15:17:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	draw_grid_vertices(t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		ft_printf("vertex[%d]\n", i);
 		vertex = env->vertices[i];
 		center = new_point(env->editor.center.x + vertex.x * env->editor.scale,
 				env->editor.center.y + vertex.y * env->editor.scale);
@@ -42,7 +41,6 @@ void	draw_grid_vertices(t_env *env)
 				vertex.y = env->sdl.my;
 				env->editor.select_vertex = i;
 			}
-			ft_printf("vertex[%d] x: %f y: %f\n", i, vertex.x, vertex.y);
 		}
 		else
 		{
