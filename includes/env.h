@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:39:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 18:21:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ typedef struct		s_env
  * ** Functions from editor
  * */
 
-int					init_edition(int ac, char **av);
+int					init_editor(int ac, char **av);
 int					editor(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
-void				init_editor(t_env *env);
+void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
@@ -118,13 +118,17 @@ void				draw_grid_sectors(t_env *env);
 int					get_existing_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
+void				draw_grid_objects(t_env *env);
 void				editor_hud(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
+int					add_object(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
+int					save_map(char *file, t_env *env);
+void				editor_options(t_env *env);
 
 /*
  * ** Main functions
@@ -174,6 +178,7 @@ char				*skip_spaces(char *line);
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
+void				update_screen_zbuffer(t_env *env);
 t_printable_text	new_printable_text(
 				char *text,
 						TTF_Font *font,
@@ -193,8 +198,10 @@ unsigned int		blend_add(unsigned int src,
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
+void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
+void				free_screen_sectors(t_env *env);
 
 /*
  * ** Main pipeline functions
@@ -221,18 +228,16 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
+double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
+double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
-int					get_sector(t_env *env, t_v2 p, int origin);
-int					get_sector_global(t_env *env, t_v2 p);
+int					get_sector(t_env *env, t_v3 p, short origin);
+int					get_sector_global(t_env *env, t_v3 p);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -250,6 +255,8 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
+int					is_in_sector(t_env *env, short sector, t_v3 pos);
+int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 
 /*
 ** enemies functions

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:36:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/12 13:25:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_inputs(t_env *env)
 {
 	env->inputs.forward = 0;
 	env->inputs.backward = 0;
+	env->inputs.s = 0;
 	env->inputs.left = 0;
 	env->inputs.right = 0;
 	env->inputs.plus = 0;
@@ -61,7 +62,7 @@ void	set_inputs(t_env *env, int mode)
 	if (env->sdl.event.key.keysym.sym == env->keys.forward
 			|| env->sdl.event.key.keysym.sym == env->keys.forward2)
 		env->inputs.forward = mode;
-	if (env->sdl.event.key.keysym.sym == env->keys.backward
+	if (env->sdl.event.key.keysym.sym == env->keys.s
 			|| env->sdl.event.key.keysym.sym == env->keys.backward2)
 		env->inputs.backward = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.left
@@ -92,6 +93,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.right_click = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.enter)
 		env->inputs.enter = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.s)
+		env->inputs.s = mode;
 }
 
 void	update_inputs(t_env *env)

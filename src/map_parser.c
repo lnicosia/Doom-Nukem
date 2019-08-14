@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:36:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:46:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		line = tmp;
-		if (line[0] >= '0' && line[0] <= '9')
+		if (!valid_number(line, parser))
 		{
 			env->player.pos.y = ft_atof(line);
 			line = skip_number(line);
@@ -202,5 +202,6 @@ int		parse_map(char *file, t_env *env)
 	set_sectors_xmax(env);
 	if (close(parser.fd))
 		return (ft_printf("Could not close the file\n"));
+	ft_printf("{reset}");
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/14 17:34:13 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/08/14 17:50:04 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,13 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c\
 
-SRC_EDITOR_RAW = main_editor.c init_edition.c editor.c init_editor.c \
+SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
+				 save_map.c write_vertices.c write_sectors.c write_objects.c \
+				 write_player.c add_object.c editor_options.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -43,10 +45,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   get_slope.c maths_utils.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   render_maths.c draw_functions.c minimap.c fps.c \
-		   valid_map.c game_menu.c \
+		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle.c color_utils.c clipping.c camera.c \
 		   print_debug.c intersections.c init_animations.c \
-		   map_parse_vertices.c \
+		   map_parse_vertices.c is_in_sector.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c \
 		   init_sound.c init_sprites.c \
@@ -56,7 +58,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h
+		  editor.h env.h save.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -76,6 +78,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
 		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
+
 DEBUG ?= 0
 
 #ifeq ($(DEBUG), 1)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/14 17:23:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:51:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,6 @@ void    enemy_pursuit(t_env *env)
     int     j;
     t_v3    direction;
     double  tmp_z;
-    t_v2    p;
     //static int a = 0;
 
     i = 0;
@@ -209,9 +208,7 @@ void    enemy_pursuit(t_env *env)
             env->objects[i].pos.x += direction.x;
             env->objects[i].pos.y += direction.y;
             env->objects[i].pos.z += direction.z;
-            p.x = env->objects[i].pos.x;
-            p.y = env->objects[i].pos.y;
-            env->objects[i].sector = get_sector(env, p, env->objects[i].sector);
+            env->objects[i].sector = get_sector(env, env->objects[i].pos, env->objects[i].sector);
 
             //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
             /*ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);

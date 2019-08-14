@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:02:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 17:37:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
 	if (!*line)
 		return (ft_printf("Line %d is incomplete\n", parser->line_count));
 	line = skip_spaces(line);
-	if (*line < '0' || *line > '9')
+	if (valid_number(line, parser))
 		return (ft_printf("Invalid character after vertex y at line %d\n",
 		parser->line_count));
 	//line++;

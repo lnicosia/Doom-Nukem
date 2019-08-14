@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_render.c                                    :+:      :+:    :+:   */
+/*   write_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:47:03 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/30 11:52:14 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/30 14:02:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "save.h"
 
-int		editor_render(t_env *env)
+static void	write_object(int fd, t_object object)
 {
-	if (env->inputs.enter)
+	ft_dprintf(fd, "[%.3f %.3f %.3f %.3f] ",
+			object.pos.x, object.pos.y, object.pos.z, object.angle);
+	ft_dprintf(fd, "[%d %.f] ",
+			object.sprite, object.scale);
+}
+
+void		write_objects(int fd, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	ft_dprintf(fd, "\nO %d\n", env->nb_objects);
+	while (i < env->nb_objects)
 	{
-		env->editor.in_game = 0;
-		env->inputs.enter = 0;
-		SDL_SetRelativeMouseMode(0);
-		return (0);
+		write_object(fd, env->objects[i]);
+		i++;
 	}
-	reset_clipped(env);
-	keys(env);
-	if (draw_walls(env))
-		return (crash("Failed to draw walls\n", env));
-	draw_sprites(env);
-	if (env->options.show_fps)
-		fps(env);
-	game_time(env);
-	view(env);
-	return (0);
 }

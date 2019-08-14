@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:12:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 15:37:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_render
 	t_v2			inter_left;
 	t_v2			inter_right;
 	t_v2			texel;
+	t_v2			player_texel;
 	double			vx1;
 	double			vx2;
 	double			vz1;
@@ -66,7 +67,6 @@ typedef struct		s_render
 	double			clipped_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			horizon;
 	double			angle_z1;
 	double			angle_z2;
 	double			preclip_angle_z1;
@@ -92,12 +92,12 @@ typedef struct		s_render
 	double			neighbor_floor2;
 	double			neighbor_ceiling1;
 	double			neighbor_ceiling2;
-	int				preclip_x1;
-	int				preclip_x2;
-	int				preclip_floor1;
-	int				preclip_floor2;
-	int				preclip_ceiling1;
-	int				preclip_ceiling2;
+	double			preclip_x1;
+	double			preclip_x2;
+	double			preclip_floor1;
+	double			preclip_floor2;
+	double			preclip_ceiling1;
+	double			preclip_ceiling2;
 	double			x1;
 	double			x2;
 	double			xrange;
@@ -105,8 +105,8 @@ typedef struct		s_render
 	int				xstart;
 	int				xend;
 	int				sector;
-	int				v1_clipped;
-	int				v2_clipped;
+	double			v1_clipped;
+	double			v2_clipped;
 	short			nv1;
 	short			nv2;
 	int				i;
@@ -117,11 +117,16 @@ typedef struct		s_render
 	double			x2z2;
 	double			y1z1;
 	double			y2z2;
-	int				ceil_range;
-	int				floor_range;
+	double			ceil_range;
+	double			floor_range;
+	double			neighbor_ceil_range;
+	double			neighbor_floor_range;
 	double			line_height;
 	double			projected_texture_w;
 	double			projected_texture_h;
+	double			ceiling_start;
+	double			floor_start;
+	double			horizon;
 	double			ceiling_horizon;
 	double			floor_horizon;
 	double			ceiling_yscale;

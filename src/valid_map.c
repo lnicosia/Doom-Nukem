@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:07:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 13:36:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ int			valid_map(t_env *env)
 
 	ft_printf("{reset}Checking map validity..{red}\n");
 	i = 0;
+	if (!env->nb_sectors)
+		return (ft_printf("You need at least one sector to go in 3d mode{reset}\n"));
+	if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
+		return (ft_printf("Player position is not valid{reset}\n"));
 	while (i < env->nb_sectors)
 	{
 		if (check_sector(env->sectors[i], env))
@@ -78,6 +82,5 @@ int			valid_map(t_env *env)
 	{
 		i++;
 	}
-	ft_printf("{reset}");
 	return (0);
 }

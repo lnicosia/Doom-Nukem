@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:38:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 18:17:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	draw_game(t_env *env)
 		return (crash("Failed to draw walls\n", env));
 	if (env->options.wall_color)
 		draw_sprites(env);
-	if ((env->inputs.leftclick && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
+	if ((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
 		weapon_animation(env, env->player.curr_weapon);
 	else
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
@@ -36,7 +36,10 @@ int	draw_game(t_env *env)
 	game_time(env);
 	animations(env);
 	draw_hud(env);
-	update_screen(env);
+	if (env->inputs.shift)
+		update_screen_zbuffer(env);
+	else
+		update_screen(env);
 	view(env);
 	return (0);
 }

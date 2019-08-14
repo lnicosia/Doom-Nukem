@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_line.c                                        :+:      :+:    :+:   */
+/*   draw_line_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 18:32:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:47:37 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/07/30 10:23:10 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/30 10:25:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	fill_img(t_point c, t_env data, Uint32 color)
+void	fill_img_minimap(t_point c, t_env data, Uint32 color)
 {
-	if (c.x >= 0 && c.x < data.w && c.y >= 0 && c.y < data.h)
+	if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
+			&& (color == 0xFFFF0000 || color == 0xFF00FF00
+				|| (data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFF00FF00)))
 		data.sdl.texture_pixels[c.x + c.y * data.w] = color;
 }
 
-void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
+void	draw_line_low_minimap(t_point c1, t_point c2, t_env data, int color)
 {
 	int	dx;
 	int	dy;
@@ -32,7 +34,7 @@ void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
 	e = 2 * dy - dx;
 	while (c1.x <= c2.x)
 	{
-		fill_img(c1, data, color);
+		fill_img_minimap(c1, data, color);
 		c1.y = e > 0 ? c1.y + yi : c1.y;
 		e = e > 0 ? e - 2 * dx : e;
 		e += 2 * dy;
@@ -40,7 +42,7 @@ void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
 	}
 }
 
-void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
+void	draw_line_high_minimap(t_point c1, t_point c2, t_env data, Uint32 color)
 {
 	int	dx;
 	int	dy;
@@ -54,7 +56,7 @@ void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
 	e = 2 * dx - dy;
 	while (c1.y <= c2.y)
 	{
-		fill_img(c1, data, color);
+		fill_img_minimap(c1, data, color);
 		c1.x = e > 0 ? c1.x + xi : c1.x;
 		e = e > 0 ? e - 2 * dy : e;
 		e += 2 * dx;
@@ -62,18 +64,18 @@ void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
 	}
 }
 
-void	draw_line(t_point c1, t_point c2, t_env data, Uint32 color)
+void	draw_line_minimap(t_point c1, t_point c2, t_env data, Uint32 color)
 {
 	if (ft_abs(c2.y - c1.y) < ft_abs(c2.x - c1.x))
 		if (c1.x > c2.x)
-			draw_line_low(c2, c1, data, color);
+			draw_line_low_minimap(c2, c1, data, color);
 		else
-			draw_line_low(c1, c2, data, color);
+			draw_line_low_minimap(c1, c2, data, color);
 	else
 	{
 		if (c1.y > c2.y)
-			draw_line_high(c2, c1, data, color);
+			draw_line_high_minimap(c2, c1, data, color);
 		else
-			draw_line_high(c1, c2, data, color);
+			draw_line_high_minimap(c1, c2, data, color);
 	}
 }

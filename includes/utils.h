@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:39:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:50:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
+# define MAX_W 2560
+# define MAX_H 1440
 
 typedef struct		s_point
 {
@@ -206,6 +208,7 @@ typedef struct		s_keys
 	int				up;
 	int				option;
 	int				enter;
+	int				s;
 }					t_keys;
 
 /*
@@ -227,9 +230,9 @@ typedef struct		s_inputs
 	uint8_t			down;
 	uint8_t			left_click;
 	uint8_t			right_click;
-	uint8_t			leftclick;
 	uint8_t			option;
 	uint8_t			enter;
+	uint8_t			s;
 }					t_inputs;
 
 /*
@@ -317,6 +320,7 @@ typedef struct		s_object
 	int				health;
 	int				sector;
 	int				exists;
+	int				num;
 }					t_object;
 
 /*

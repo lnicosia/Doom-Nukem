@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:03:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 17:31:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,73 @@
 void	update_screen(t_env *env)
 {
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
-	//if (SDL_UpdateTexture(env->sdl.texture, NULL, env->depth_array, env->w * sizeof(Uint32)))
+	{
+		ft_printf("Failed to update screen: %s\n", SDL_GetError());
+		return ;
+	}
+	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
+	SDL_RenderPresent(env->sdl.renderer);
+}
+
+/*
+**	Give every pixel a shade according to the zbuffer
+*/
+
+void	set_zbuffer_colors(t_env *env)
+{
+	double	max_z;
+	double	min_z;
+	int		max;
+	int		i;
+	int		y;
+	int		x;
+	double	alpha;
+
+	i = 0;
+	max_z = 0;
+	min_z = 9999999999;
+	max = env->w * env->h;
+	while (i < max)
+	{
+		if (env->depth_array[i] > max_z)
+			max_z = env->depth_array[i];
+		if (env->depth_array[i] < min_z)
+			min_z = env->depth_array[i];
+		i++;
+	}
+	max_z = 30;
+	y = 0;
+	while (y < env->h)
+	{
+		x = 0;
+		while (x < env->w)
+		{
+			if ((y <= 300 && x < env->w - 300) || y > 300 || env->editor.in_game)
+			{
+				alpha = 1 - env->depth_array[x + env->w * y] / max_z;
+				//ft_printf("alpha = %f\n", alpha);
+				if (alpha >= 0 && alpha <= 1)
+					env->sdl.texture_pixels[x + env->w * y] = (int)(alpha * 0xFF) << 24
+						| (int)(alpha * 0xFF) << 16
+						| (int)(alpha * 0xFF) << 8
+						| (int)(alpha * 0xFF);
+				else
+					env->sdl.texture_pixels[x + env->w * y] = 0;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+/*
+**	Show Zbuffer
+*/
+
+void	update_screen_zbuffer(t_env *env)
+{
+	set_zbuffer_colors(env);
+	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;
