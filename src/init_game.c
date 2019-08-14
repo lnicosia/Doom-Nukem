@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_program.c                                     :+:      :+:    :+:   */
+/*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/29 17:59:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:38:18 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	init_game(int ac, char **av)
 {
-	t_env env;
+	t_env	env;
+	int		i;
 
+	i = 0;
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	env.menu_start = 0;
@@ -24,6 +26,7 @@ int	init_game(int ac, char **av)
 	env.reset = 0;
 	env.running = 1;
 	env.i = 0;
+	env.sector_list = NULL;
 	init_pointers(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
@@ -51,6 +54,13 @@ int	init_game(int ac, char **av)
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
 		return (crash("Could not load sprites\n", &env));
+	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
+		return (crash("Could not allocate sector list\n", &env));
+	while (i < env.nb_objects)
+	{
+		env.objects[i].exists = 1;
+		i++;
+	}
 	update_camera_position(&env);
 	SDL_SetRelativeMouseMode(1);
 	init_animations(&env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:21:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:05:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_sprite_direction(t_object object)
 {
 	double	angle;
 
-	angle = (atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES;
+	angle = (int)((atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle >= object.angle - 22.5 && angle < object.angle + 22.5)
 		return (4);
 	else if (angle >= object.angle + 22.5 && angle < object.angle + 67.5)
@@ -158,8 +158,9 @@ void		draw_object(t_object *object, t_env *env)
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
 	threaded_object_loop(*object, orender, env);
-	if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
-		object->seen = 1;
+	if (((orender.x1 + orender.x2) / 2) < env->w && ((orender.x1 + orender.x2) / 2) >= 0 && ((orender.y1 + orender.y2) / 2) < env->h && ((orender.y1 + orender.y2) / 2) >= 0)
+		if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
+			object->seen = 1;
 }
 
 void	get_relative_pos(t_env *env)
@@ -249,7 +250,7 @@ void		draw_sprites(t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		if (env->objects[i].rotated_pos.z > 1)
+		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 			draw_object(&env->objects[i], env);
 		i++;
 	}

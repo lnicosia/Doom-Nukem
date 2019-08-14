@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:41:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:39:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef struct		s_v2
 	double			x;
 	double			y;
 }					t_v2;
+
+typedef	struct		s_segment
+{
+	t_v2			p1;
+	t_v2			p2;
+}					t_segment;
 
 typedef struct		s_v3
 {
@@ -310,6 +316,7 @@ typedef struct		s_object
 	int				ammo;
 	int				health;
 	int				sector;
+	int				exists;
 }					t_object;
 
 /*

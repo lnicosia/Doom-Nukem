@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:59:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:28 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	init_pointers(t_env *env)
 		env->weapons[i].empty = NULL;
 		i++;
 	}
+	env->player.life = 100;
 }

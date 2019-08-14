@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aherriau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ static void	draw_player(t_env *env)
 		}
 		x++;
 	}
-
 	triangle[2] = new_v3(
 			(env->player.near_left.x - env->player.pos.x) * env->options.minimap_scale + start.x,
 			(env->player.near_left.y - env->player.pos.y) * env->options.minimap_scale + 150,

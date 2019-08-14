@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:58:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/25 10:30:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.jump)
 		Mix_FreeChunk(env->sound.jump);
+	if (env->sector_list)
+		free(env->sector_list);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])

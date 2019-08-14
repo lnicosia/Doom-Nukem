@@ -8,9 +8,10 @@ V 4
 # Sectors (floor height, ceiling height, then vertex numbers in clockwise order)
 # After the list of vertexes, comes the list of sector numbers on the "opposite" side of that wall; "x" = none.
 S 1
-[0 0 4] [20 0 3] (0 1 3 2) (-1 -1 -1 -1) (0 0 0 0)
+[0 0 4] [20 0 3] (0 1 3 2) (-1 -1 -1 -1) (0 0 0 0) 70
 
-O 0
+O 1
+[40 1 5 90] [1 50]
 
 # Player: Location (x y), angle, and sector number
 1 1 0 0
