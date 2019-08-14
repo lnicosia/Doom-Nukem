@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/30 10:35:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 09:49:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ typedef struct  s_data
 
 int					check_collision(t_env *env, double x_move, double y_move);
 int     			check_inside_sector(t_env *env, t_movement motion);
+int					diff_sign(double nb1, double nb2);
+int					diff_value(int nb1, int nb2, int a, int b);
+int					in_range(double nb, double val1, double val2);
 
 #endif

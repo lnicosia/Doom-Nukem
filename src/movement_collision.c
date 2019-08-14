@@ -6,24 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/30 14:13:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 09:48:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-int     in_range(double nb, double val1, double val2)
-{
-    double min;
-    double max;
-
-    min = (val1 <= val2) ? val1 : val2;
-    max = (val1 > val2) ? val1 : val2;
-    if (nb > min && nb <= max)
-        return (1);
-    return (0);
-}
 
 void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
 {
@@ -43,20 +31,6 @@ void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
         PLAYER_XPOS = FUTURE_X;
         PLAYER_YPOS = FUTURE_Y;
     }
-}
-
-int     diff_value(int nb1, int nb2, int a, int b)
-{
-    if ((nb1 == a && nb2 == b) || (nb1 == b && nb2 == a))
-        return (0);
-    return (1);
-}
-
-int     diff_sign(double nb1, double nb2)
-{
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
-        return (0);
-    return (1);
 }
 
 int     check_ceiling(t_env *env, t_movement motion)
@@ -258,33 +232,3 @@ int     check_collision(t_env *env, double x_move, double y_move)
     }
     return (1);
 }
-
-int     is_in_sector(t_env *env, short sector, double x, double y)
-{
-    int     count;
-    int     i;
-    double  start_pos;
-    double  end_pos;
-
-    i = 0;
-    count = 0;
-	//ft_printf("Checking sector %d\n", sector);
-	if (sector < 0 || sector >= env->nb_sectors)
-		return (-1);
-    while (i < env->sectors[sector].nb_vertices)
-    {
-        start_pos = (x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-        end_pos = (env->sectors[sector].x_max + 1 - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-        if (diff_sign(start_pos, end_pos) && in_range(y, SECTOR_Y1, SECTOR_Y2))
-            count++;
-        i++;
-    }
-    if (count % 2 == 0)
-	{
-		//ft_printf("KO\n");
-        return (0);
-	}
-	//ft_printf("OK\n");
-    return (1);
-}
-

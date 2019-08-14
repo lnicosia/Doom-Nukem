@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 15:43:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 10:14:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,10 +223,8 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
+double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
+double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
@@ -252,6 +250,6 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
-int					is_in_sector(t_env *env, short sector, double x, double y);
+int					is_in_sector(t_env *env, short sector, t_v3 pos);
 
 #endif
