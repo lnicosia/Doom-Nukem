@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:38:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/14 18:41:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	init_game(int ac, char **av)
 	env.reset = 0;
 	env.running = 1;
 	env.i = 0;
-	env.sector_list = NULL;
 	init_pointers(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
