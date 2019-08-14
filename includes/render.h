@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 12:09:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:52:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_render
 	t_v2			inter_left;
 	t_v2			inter_right;
 	t_v2			texel;
+	t_v2			player_texel;
 	double			vx1;
 	double			vx2;
 	double			vz1;
@@ -66,7 +67,6 @@ typedef struct		s_render
 	double			clipped_alpha;
 	double			wall_width;
 	double			wall_height;
-	double			horizon;
 	double			angle_z1;
 	double			angle_z2;
 	double			preclip_angle_z1;
@@ -124,6 +124,9 @@ typedef struct		s_render
 	double			line_height;
 	double			projected_texture_w;
 	double			projected_texture_h;
+	double			ceiling_start;
+	double			floor_start;
+	double			horizon;
 	double			ceiling_horizon;
 	double			floor_horizon;
 	double			ceiling_yscale;

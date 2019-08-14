@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 14:42:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:54:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	*raycasting(void *param)
 		render.line_height = render.max_floor - render.max_ceiling;
 		//render.current_floor = ft_clamp(render.max_floor, 0, env->h - 1);
 		render.current_floor = ft_clamp(render.max_floor, env->ymin[x], env->ymax[x]);
-		render.ceiling_horizon = render.max_ceiling - render.horizon;
-		render.floor_horizon = render.max_floor - render.horizon;
+		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
+		render.floor_start = render.max_floor - render.floor_horizon;
 		vline.start = render.current_ceiling;
 		vline.end = render.current_floor;
 		vline.x = x;
