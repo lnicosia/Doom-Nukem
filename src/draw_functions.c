@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 15:40:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:15:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 		zbuffer[coord] = render.z;
-		if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;
+		/*if (i == (int)render.floor_horizon)
+			pixels[coord] = 0xFF00FF00;*/
 		/*if (i == (int)render.ceiling_horizon)
 			pixels[coord] = 0xFFFF0000;*/
 		i++;
@@ -161,8 +161,8 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 			zbuffer[coord] = z;
-		if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;
+		/*if (i == (int)render.floor_horizon)
+			pixels[coord] = 0xFF00FF00;*/
 		/*if (i == (int)render.ceiling_horizon)
 			pixels[coord] = 0xFFFF0000;*/
 		}
@@ -219,12 +219,12 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		}
 		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
-		//y = ((1.0 - alpha) * env->player.pos.y + alpha * render.texel.y / render.z)
-		//	/ ((1.0 - alpha) + alpha * 1 / render.z);
+		/*y = ((1.0 - alpha) * env->player.camera_y / env->camera.near_z + alpha * render.texel.y / render.z)
+			/ ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
 		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
-		//x = ((1.0 - alpha) * env->player.pos.x + alpha * render.texel.x / render.z)
-		//	/ ((1.0 - alpha) + alpha * 1 / render.z);
+		/*x = ((1.0 - alpha) * env->player.camera_x / env->camera.near_z + alpha * render.texel.y / render.z)
+			/ ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
 		y *= render.floor_yscale;
 		x *= render.floor_xscale;
 		if (y >= texture_h || y < 0)
@@ -238,8 +238,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
 			zbuffer[coord] = z;
-		if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;
+		/*if (i == (int)render.floor_horizon)
+			pixels[coord] = 0xFF00FF00;*/
 		/*if (i == (int)render.ceiling_horizon)
 			pixels[coord] = 0xFFFF0000;*/
 		}
