@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:33:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 09:53:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 10:28:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		get_sector(t_env *env, t_v3 pos, short origin)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (is_in_sector(env, i, pos))
+		if (i != origin && is_in_sector(env, i, pos))
 			return (i);
 		i++;
 	}
