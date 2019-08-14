@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 16:02:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:17:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	create_object(t_env *env)
 
 void	drag_element(t_env *env)
 {
-	t_point	center;
-	//double	scale;
+	int	i;
+	int	j;
 
-	//scale = 0;
-	(void)center;
+	i = 0;
+	j = 0;
 	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1)
 	{	
 		if (env->inputs.left_click)
@@ -106,6 +106,17 @@ void	drag_element(t_env *env)
 		{
 			env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+			while (i < env->nb_sectors)
+			{
+				j = 0;
+				while (j < env->sectors[i].nb_vertices)
+				{
+					if (env->editor.select_vertex == env->sectors[i].vertices[j])
+						revert_sector(&env->sectors[i], env);
+					j++;
+				}
+				i++;
+			}
 			env->editor.select_vertex = -1;
 			env->editor.drag_vertex = 0;
 		}

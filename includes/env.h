@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 17:32:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:16:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
+void				revert_sector(t_sector *sector, t_env *env);
 
 /*
  * ** Main functions
