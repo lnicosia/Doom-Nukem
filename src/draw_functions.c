@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 14:58:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/14 15:40:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,12 +217,12 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			i++;
 			continue;
 		}
-		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
+		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
+		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
 		//y = ((1.0 - alpha) * env->player.pos.y + alpha * render.texel.y / render.z)
 		//	/ ((1.0 - alpha) + alpha * 1 / render.z);
-		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
-		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
+		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+		x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
 		//x = ((1.0 - alpha) * env->player.pos.x + alpha * render.texel.x / render.z)
 		//	/ ((1.0 - alpha) + alpha * 1 / render.z);
 		y *= render.floor_yscale;
