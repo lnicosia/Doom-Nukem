@@ -39,6 +39,10 @@ src/*.swp
 *.x86_64
 *.hex
 ./test
+./doom
+./doom_editor
+doom
+doom_editor
 test
 
 # Debug files
