@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/25 14:49:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/15 15:14:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ double     distance_two_points(double x1, double y1, double x2, double y2)
     return (d);
 }
 
-int     hitbox_collision(double x1, double x2, double y1, double y2, t_movement motion)
+int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p)
 {
     double a;
     double b;
@@ -90,13 +90,13 @@ int     hitbox_collision(double x1, double x2, double y1, double y2, t_movement 
     double t1;
     double t2;
 
-    x1 -= FUTURE_X;
-    y1 -= FUTURE_Y;
-    x2 -= FUTURE_X;
-    y2 -= FUTURE_Y;
-    c = x1 * x1 + y1 * y1 - 0.5625;
-    b = 2 * (x1 * (x2 - x1) + y1*(y2 - y1));
-    a = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+    v1.x -= p.x;
+    v1.y -= p.y;
+    v2.x -= p.x;
+    v2.y -= p.y;
+    c = v1.x * v1.x + v1.y * v1.y - 0.5625;
+    b = 2 * (v1.x * (v2.x - v1.x) + v1.y *(v2.y - v1.y));
+    a = (v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y);
     delta = b * b - 4 * a * c;
     if (delta <= 0)
         return (0);
@@ -129,9 +129,9 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
     env->player.sector = sector_tmp;
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
-        if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR < 0)
+        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR < 0)
             return (0);
-        else if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR >= 0 &&
+        else if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             wall.sector_or = wall.sector_dest;
@@ -170,9 +170,9 @@ int     check_collision(t_env *env, double x_move, double y_move)
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         motion.old_sector = env->player.sector;
-        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR < 0)
+        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
             return (0);
-        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR >= 0
+        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0
             && check_floor(env, motion) && check_ceiling(env, motion))
         {
             wall.sector_or = env->player.sector;

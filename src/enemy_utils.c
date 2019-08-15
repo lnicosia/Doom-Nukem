@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/15 12:00:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:46:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,13 @@ int intersect(t_segment l1, t_segment l2) {
       return (1); //they are intersecting
    if (dir1 == 0 && onLine(l1, l2.p1)) //when p2 of line2 are on the line1
       return (1);
-   if(dir2 == 0 && onLine(l1, l2.p2)) //when p1 of line2 are on the line1
-      return (1);
+   /*if (dir2 == 0 && onLine(l1, l2.p2)) //when p1 of line2 are on the line1
+      return (1);*/
    if(dir3 == 0 && onLine(l2, l1.p1)) //when p2 of line1 are on the line2
       return (1);
    if(dir4 == 0 && onLine(l2, l1.p2)) //when p1 of line1 are on the line2
       return (1);
+    ft_printf("hello?\n");
    return (0);
 }
 
@@ -172,9 +173,10 @@ int    enemy_view(t_env *env, int nb, int sector)
         }*/
         i++;
     }
+    //ft_printf("sector %d\n", sector);
     if (sector != env->player.sector)
         return (0);
-    //ft_printf("he saw me %d\n", a++);
+    //ft_printf("he saw me %d\n", a);
     return (1);
 }
 
@@ -205,6 +207,7 @@ void    enemy_pursuit(t_env *env)
             env->player.pos.z = env->player.eyesight;
             direction = sprite_movement(0.1, env->objects[i].pos, env->player.pos);
             env->player.pos.z = tmp_z;
+            //ft_printf("he saw me %d\n", a++);
 
             env->objects[i].pos.x += direction.x;
             env->objects[i].pos.y += direction.y;
@@ -212,6 +215,7 @@ void    enemy_pursuit(t_env *env)
             p.x = env->objects[i].pos.x;
             p.y = env->objects[i].pos.y;
             env->objects[i].sector = get_sector(env, p, env->objects[i].sector);
+            ft_printf("object sector = %d\n", env->objects[i].sector);
 
             //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
             /*ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);
