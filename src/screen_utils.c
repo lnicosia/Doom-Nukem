@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 17:31:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:59:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,17 @@ void	set_zbuffer_colors(t_env *env)
 		x = 0;
 		while (x < env->w)
 		{
-			if ((y <= 300 && x < env->w - 300) || y > 300 || env->editor.in_game)
+			if ((y <= 300 && x < env->w - 300) || y > 300 || env->editor.in_game || !env->options.show_minimap)
 			{
 				alpha = 1 - env->depth_array[x + env->w * y] / max_z;
 				//ft_printf("alpha = %f\n", alpha);
-				if (alpha >= 0 && alpha <= 1)
+				if (env->depth_array[x + env->w * y] >= 0 && alpha >= 0 && alpha <= 1)
 					env->sdl.texture_pixels[x + env->w * y] = (int)(alpha * 0xFF) << 24
 						| (int)(alpha * 0xFF) << 16
 						| (int)(alpha * 0xFF) << 8
 						| (int)(alpha * 0xFF);
+				else if (env->depth_array[x + env->w * y] == -1)
+					env->sdl.texture_pixels[x + env->w * y] = 0xFFAA0000;
 				else
 					env->sdl.texture_pixels[x + env->w * y] = 0;
 			}

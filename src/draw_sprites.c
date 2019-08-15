@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:47:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 17:11:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void		*object_loop(void *param)
 		{
 			yalpha = (y - orender.y1) / orender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
-			if (object.rotated_pos.z < zbuffer[x + y * env->w]
-					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099)
+			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
+					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
