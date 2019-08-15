@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:50:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 12:08:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,6 +377,7 @@ typedef struct		s_options
 	int				test;
 	int				clipping;
 	int				show_ennemies;
+	int				zbuffer;
 }					t_options;
 
 /*

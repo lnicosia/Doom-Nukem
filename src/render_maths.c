@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:15:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 12:05:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,12 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 	render->horizon = env->h_h -
 		env->player.angle_z * env->camera.scale;
 	render->floor_horizon = env->h_h
-		+ (sector.floor_slope * (sector.floor_max + env->player.head_z) + render->angle_z1) * render->scale1;
+		+ (sector.floor_slope * (sector.floor_max + env->player.head_z) + render->preclip_angle_z1) * env->camera.scale / -render->vz1;
+	render->floor_horizon1 = env->h_h
+		+ (sector.floor_slope * (sector.floors[i] - env->player.head_z) + render->preclip_angle_z1) * env->camera.scale / -render->vz1;
+	render->floor_horizon2 = env->h_h
+		+ (sector.floor_slope * (sector.floors[i + 1] - env->player.head_z) + render->preclip_angle_z2) * env->camera.scale / -render->vz2;
+	render->floor_horizon_range = render->floor_horizon2 - render->floor_horizon1;
 	render->ceiling_horizon = env->h_h
 		+ (sector.ceiling_slope * (sector.ceiling_max + env->player.head_z) + render->angle_z1) * render->scale1;
 	render->x1 = env->h_w + render->clipped_vx1 * render->scale1;

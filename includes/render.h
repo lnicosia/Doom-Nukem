@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 15:37:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 10:01:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,14 @@ typedef struct		s_render
 	double			ceiling_start;
 	double			floor_start;
 	double			horizon;
-	double			ceiling_horizon;
 	double			floor_horizon;
+	double			floor_horizon1;
+	double			floor_horizon2;
+	double			floor_horizon_range;
+	double			ceiling_horizon;
+	double			ceiling_horizon1;
+	double			ceiling_horizon2;
+	double			ceiling_horizon_range;
 	double			ceiling_yscale;
 	double			ceiling_xscale;
 	double			floor_yscale;

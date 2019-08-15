@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:15:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 13:54:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,15 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		zbuffer[coord] = render.z;
 		/*if (i == (int)render.floor_horizon)
 			pixels[coord] = 0xFF00FF00;*/
+		/*if (i == (int)render.floor_horizon1)
+			pixels[coord] = 0xFF0000FF;
+		if (i == (int)render.floor_horizon2)
+			pixels[coord] = 0xFFFF0000;*/
 		/*if (i == (int)render.ceiling_horizon)
 			pixels[coord] = 0xFFFF0000;*/
 		i++;
 	}
-	if (env->options.contouring)
+	if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start == (int)render.max_ceiling)
 		{
@@ -168,7 +172,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		}
 		i++;
 	}
-	if (env->options.contouring)
+	if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start != env->h -1 && vline.start > 0)
 		{
@@ -245,7 +249,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		}
 		i++;
 	}
-	if (env->options.contouring)
+	if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start == (int)render.max_floor + 1)
 		{
@@ -319,9 +323,9 @@ void	draw_upper_wall(t_render render, t_env *env)
 	//ft_printf("floor end = %d\n", vline.end);
 	draw_vline(vline, render, env);
 	//draw_vline_color(vline, render, env);
-	if (env->options.contouring && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
+	if ((env->options.zbuffer || env->options.contouring) && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
 		draw_vline_color(vline, render, env);
-	if (env->options.contouring && vline.end == (int)render.max_neighbor_ceiling)
+	if ((env->options.zbuffer || env->options.contouring) && vline.end == (int)render.max_neighbor_ceiling)
 	{
 		env->sdl.texture_pixels[env->w * (vline.end - 1) + vline.x] = 0xFFFF0000;
 		env->depth_array[env->w * (vline.end - 1) + vline.x] = 10000000000;
@@ -346,9 +350,9 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	//ft_printf("ceiling start = %d\n", vline.start);
 	draw_vline(vline, render, env);
 	//draw_vline_color(vline, render, env);
-	if (env->options.contouring && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
+	if ((env->options.zbuffer || env->options.contouring) && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
 		draw_vline_color(vline, render, env);
-	if (env->options.contouring && vline.start == (int)render.max_neighbor_floor)
+	if ((env->options.zbuffer || env->options.contouring) && vline.start == (int)render.max_neighbor_floor)
 	{
 		env->sdl.texture_pixels[env->w * (vline.start + 1) + vline.x] = 0xFFFF0000;
 		env->depth_array[env->w * (vline.start + 1) + vline.x] = 10000000000;
