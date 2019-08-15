@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:46:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:12:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,16 @@ void	set_sectors_xmax(t_env *env)
 	}
 }
 
+void	init_player(t_env *env)
+{
+	env->player.eyesight = 6;
+	env->player.eyesight = 6;
+	env->player.sector = -1;
+	env->player.angle_z_cos = cos(0);
+	env->player.angle_z_sin = sin(0);
+	env->player.speed = 0.5;
+}
+
 int		parse_player(t_env *env, t_map_parser *parser)
 {
 	char	*line;
@@ -137,32 +147,51 @@ int		parse_player(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		line = tmp;
-		if (!valid_number(line, parser))
+		if (*line && *line != '#')
 		{
+			if (valid_number(line, parser) == WRONG_CHAR)
+				return (ft_printf("Invalid character at player x: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			env->player.pos.y = ft_atof(line);
 			line = skip_number(line);
+			if (*line != ' ')
+				return (ft_printf("Invalid character at player x: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			line = skip_spaces(line);
+			if (!*line)
+				return (ft_printf("Missing player y and angle\n"));
+			if (valid_number(line, parser) == WRONG_CHAR)
+				return (ft_printf("Invalid character at player y: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			env->player.pos.x = ft_atof(line);
 			line = skip_number(line);
+			if (*line != ' ')
+				return (ft_printf("Invalid character at player y: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			line = skip_spaces(line);
-			env->player.angle = (ft_atof(line) + 0.00001)* CONVERT_RADIANS;
-			env->player.angle_z = 0;
+			if (!*line)
+				return (ft_printf("Missing player angle\n"));
+			if (valid_number(line, parser) == WRONG_CHAR)
+				return (ft_printf("Invalid character at player angle: \'%c\' (line %d)\n",
+							*line, parser->line_count));
+			env->player.angle = (ft_atof(line) + 0.00001) * CONVERT_RADIANS;
 			env->player.angle_cos = cos(env->player.angle);
 			env->player.angle_sin = sin(env->player.angle);
 			env->player.perp_cos = cos(env->player.angle - M_PI / 2);
 			env->player.perp_sin = sin(env->player.angle - M_PI / 2);
 			line = skip_number(line);
+			if (*line && *line == ' ')
+				return (ft_printf("Playe declaration must end after declaring its angle (line %d)\n",
+							parser->line_count));
+			if (*line)
+				return (ft_printf("Invalid character at player angle: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			line = skip_spaces(line);
-			env->player.sector = ft_atoi(line);
-			if (env->player.sector < 0 || env->player.sector >= env->nb_sectors)
-				return (ft_printf("Invalid player sector (line %d)\n", parser->line_count));
-			line = skip_number(line);
-			line = skip_spaces(line);
-			if (*line != '\0')
-				return (ft_printf("Invalid character after player declaration (line %d)\n", parser->line_count));
+			if ((env->player.sector = get_sector_no_z(env, env->player.pos)) == -1)
+				return (ft_printf("Player is not in any sector (line %d)\n", parser->line_count));
 		}
 		else if (line[0] != '#')
-			return (ft_printf("Invalid character at line %d\n",
+			return (ft_printf("Missing player declaration\n",
 						parser->line_count));
 		ft_strdel(&tmp);
 	}
@@ -178,7 +207,6 @@ int		parse_map(char *file, t_env *env)
 	parser.sectors_count = 0;
 	parser.vertices_count = 0;
 	parser.objects_count = 0;
-	env->player.sector = -1;
 	parser.line_count = 0;
 	ft_printf("{red}");
 	if ((parser.fd = open(file, O_RDONLY)) < 0)
@@ -191,6 +219,7 @@ int		parse_map(char *file, t_env *env)
 		return (ft_printf("Could not init sectors\n"));
 	if (parse_sectors(env, &parser))
 		return (ft_printf("Error while parsing sectors\n"));
+	precompute_slopes(env);
 	if (init_objects(env, &parser))
 		return (ft_printf("Could not init objects\n"));
 	if (parse_objects(env, &parser))
@@ -199,6 +228,8 @@ int		parse_map(char *file, t_env *env)
 		return (ft_printf("Error while parsing player\n"));
 	if (env->player.sector == -1)
 		return (ft_printf("You need to give player data\n"));
+	update_player_z(env);
+	update_floor(env);
 	set_sectors_xmax(env);
 	if (close(parser.fd))
 		return (ft_printf("Could not close the file\n"));

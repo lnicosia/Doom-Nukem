@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 18:41:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:00:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,16 @@ int	init_game(int ac, char **av)
 	i = 0;
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
-	env.menu_start = 0;
+	ft_bzero(&env, sizeof(t_env));
 	env.menu_select = 1;
-	env.aplicate_changes = 0;
-	env.reset = 0;
 	env.running = 1;
-	env.i = 0;
-	init_pointers(&env);
+	init_player(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
 	init_camera(&env);
-	env.player.eyesight = 6.00;
-	env.player.curr_weapon = 0;
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_sound(&env))
@@ -46,7 +41,6 @@ int	init_game(int ac, char **av)
 		return (crash("Error while parsing the map\n", &env));
 	if (init_screen_pos(&env))
 		return (crash("Could not init screen pos\n", &env));
-	precompute_slopes(&env);
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	if (init_textures(&env))
@@ -64,11 +58,8 @@ int	init_game(int ac, char **av)
 	SDL_SetRelativeMouseMode(1);
 	init_animations(&env);
 	init_weapons(&env);
-	env.player.speed = 0.5;
-	env.player.size_2d = 0.5;
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
-	env.flag = 0;
 	return (doom(&env));
 }

@@ -38,7 +38,7 @@ O 1
 
 # Emtpy line after objects declaration
 # Player:
-# Y X angle sector
+# Y X Z angle
 # One space between values
 #
-1 1 0 0
+1 1 0 45

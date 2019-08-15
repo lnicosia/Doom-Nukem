@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/08/14 17:46:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:13:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,10 +243,12 @@ void		draw_sprites_minimap(t_env *env)
 	Uint32		*pixels;
 
 	pixels = env->sdl.texture_pixels;
-	i = 0;
-	while (i < env->nb_objects)
+	i = -1;
+	while (++i < env->nb_objects)
 	{
 		object = env->objects[i];
+		if (!object.exists)
+			continue;
 		pos.x = env->w - 150 + (object.pos.x - env->player.pos.x) * env->options.minimap_scale;
 		x = pos.x - 2;
 		while (x < pos.x + 2)
@@ -261,7 +263,6 @@ void		draw_sprites_minimap(t_env *env)
 			}
 			x++;
 		}
-		i++;
 	}
 }
 

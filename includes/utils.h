@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 12:08:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:13:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct		s_player
 	t_v3			pos;
 	t_v2			near_left;
 	t_v2			near_right;
-	double			gravity;
 	double			eyesight;
 	double			angle;
 	double			angle_cos;
@@ -142,14 +141,10 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
-	double			size_2d;
 	double			camera_x;
 	double			camera_y;
 	double			rotation_speed;
 	short			sector;
-	short			camera_sector;
-	short			near_left_sector;
-	short			near_right_sector;
 	double			state;
 	int				curr_weapon;
 	int				life;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:46:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:14:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,9 @@ void	animations(t_env *env)
 
 void	move_player(t_env *env)
 {
-	t_v3		origin_pos;
-	short		origin_camera_sect;
-	short		origin_left_sect;
-	short		origin_right_sect;
-	short		origin_sect;
-	double		tmp_speed;
 	int			movement;
 
-	tmp_speed = env->player.speed;
 	movement = 0;
-	origin_pos = env->player.pos;
-	origin_sect = env->player.sector;
-	origin_camera_sect = env->player.camera_sector;
-	origin_right_sect = env->player.near_left_sector;
-	origin_left_sect = env->player.near_right_sector;
 	env->time.end = env->time.milli_s / 10;
 	if (env->time.end - env->time.start >= 1)
 	{
@@ -105,5 +93,4 @@ void	move_player(t_env *env)
 			update_camera_position(env);
 		}
 	}
-	env->player.speed = tmp_speed;
 }

@@ -6,13 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:16:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 15:05:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	MAP_PARSER_H
 # define MAP_PARSER_H
 # include "env.h"
+# define WRONG_CHAR 1
+# define MISSING_CHAR 2
 
 typedef struct		s_map_parser
 {
