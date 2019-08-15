@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/14 17:23:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/15 12:00:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void    enemy_pursuit(t_env *env)
                 env->sector_list[j] = 0;
             j++;
         }
-        if (env->objects[i].sprite == 1 && enemy_view(env, i, env->objects[i].sector))
+        if (env->objects[i].sprite == 1 && enemy_view(env, i, env->objects[i].sector) && env->objects[i].exists)
         {
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
