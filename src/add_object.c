@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/15 18:01:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/16 14:53:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	add_object(t_env *env)
 	object.scale = 50;
 	object.angle = 0;
 	object.sector = get_sector_global(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
-	ft_printf("wekjbwljgbqknb%d\n", object.sector);
 	if (object.sector != -1)
 		object.light = env->sectors[object.sector].light;
 	else

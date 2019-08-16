@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 16:09:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/16 14:53:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	drag_element(t_env *env)
 	{
 		if (env->inputs.left_click)
 		{
-			env->editor.drag_vertex = 1;
+			if (!env->editor.drag_object)
+				env->editor.drag_vertex = 1;
 			env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 		}
