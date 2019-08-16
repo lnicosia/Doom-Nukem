@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/30 11:35:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 17:45:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		line = tmp;
-		if (line[0] >= '0' && line[0] <= '9')
+		if (!valid_number(line, parser))
 		{
 			env->player.pos.y = ft_atof(line);
 			line = skip_number(line);

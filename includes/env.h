@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/14 17:16:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 18:01:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
+void				editor_options(t_env *env);
+int					get_clockwise_order_sector(t_env *env, int index);
 
 /*
  * ** Main functions
@@ -223,10 +225,8 @@ t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
 
 void				precompute_slopes(t_env *env);
-double				get_clipped_floor(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
-double				get_clipped_ceiling(int num, t_sector sector,
-				t_vertex vertex, t_env *env);
+double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
+double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
@@ -252,6 +252,6 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
-int					is_in_sector(t_env *env, short sector, double x, double y);
+int					is_in_sector(t_env *env, short sector, t_v3 pos);
 
 #endif

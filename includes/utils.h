@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:15:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:19:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
+# define MAX_W 2560
+# define MAX_H 1440
 
 typedef struct		s_point
 {

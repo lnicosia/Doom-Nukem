@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:17:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 16:09:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 void	create_player(t_env *env)
 {
 	if (env->inputs.left_click
-			&& ((env->sdl.mx > 80
-			&& env->sdl.mx < 120
-			&& env->sdl.my > 180
-			&& env->sdl.my < 220)
-			|| (env->sdl.mx > env->player.pos.x - env->editor.scale / 3.5
-			&& env->sdl.mx < env->player.pos.x + env->editor.scale / 3.5
-			&& env->sdl.my > env->player.pos.y - env->editor.scale / 3.5
-			&& env->sdl.my < env->player.pos.y + env->editor.scale / 3.5))
+			&& (env->sdl.mx > 80
+					&& env->sdl.mx < 120
+					&& env->sdl.my > 180
+					&& env->sdl.my < 220)
 			&& !env->editor.new_sector)
 	{
 		env->editor.drag_player = 1;
+		env->editor.select_player = 1;
 		env->editor.new_player = 1;
 	}
 	if (!env->inputs.left_click && env->editor.drag_player)
@@ -112,7 +109,10 @@ void	drag_element(t_env *env)
 				while (j < env->sectors[i].nb_vertices)
 				{
 					if (env->editor.select_vertex == env->sectors[i].vertices[j])
+					{
+						env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
 						revert_sector(&env->sectors[i], env);
+					}
 					j++;
 				}
 				i++;
@@ -157,6 +157,7 @@ int			editor_keys(t_env *env)
 				}
 				else
 					add_vertex_to_current_sector(env, clicked_vertex);
+				ft_printf("\n");
 			}
 		}
 		env->inputs.space = 0;

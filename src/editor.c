@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 15:26:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:18:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
+			if (env->sdl.event.type == SDL_KEYUP)
+				editor_options(env);
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)

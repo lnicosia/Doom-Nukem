@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/13 15:18:49 by sipatry          ###   ########.fr        #
+#    Updated: 2019/08/15 12:16:19 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c add_object.c
+				 write_player.c add_object.c editor_options.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -48,7 +48,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle.c color_utils.c clipping.c camera.c \
 		   print_debug.c intersections.c init_animations.c \
-		   map_parse_vertices.c \
+		   map_parse_vertices.c is_in_sector.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c \
 		   init_sound.c init_sprites.c \
@@ -76,8 +76,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -flto -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-flto -Ofast \
 
 DEBUG ?= 0
 

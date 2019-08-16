@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:15:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 18:01:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 
 void	revert_sector(t_sector *sector, t_env *env)
 {
-
 	int			i;
-//	int			index;
+	int			index;
+	int			j;
+	short		*tmp;
 
-	i = 0;
-/*	while (i < secor.nb_vertices)
+	i = 1;
+	j = 1;
+	if (!(tmp = (short *)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return ;
+	tmp[0] = sector->vertices[0];
+	while (i < sector->nb_vertices)
 	{
 		if (env->editor.reverted)
-			index = sector->nb_vertices - i;
+			index = sector->nb_vertices - j;
 		else
-			index = i;
+			index = j;
+		tmp[i] = sector->vertices[index];
 		i++;
-	}*/
-	if (!env->editor.reverted)
-	{
-		sector->vertices[sector->nb_vertices] = sector->vertices[0];
-		sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
-		sector->textures[sector->nb_vertices] = sector->textures[0];
+		j++;
 	}
-	else
-	{
-		sector->vertices[0] = sector->vertices[sector->nb_vertices];
-		sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
-		sector->textures[0] = sector->textures[sector->nb_vertices];
-	}
-
+	tmp[i] = tmp[0];
+	sector->vertices = tmp;
+	tmp = NULL;
+	free(tmp);
 }
 
 void	fill_new_sector(t_sector *sector, t_env *env)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:06:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:15:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,14 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 		render->vcy2 * render->scale2;
 	render->horizon = env->h_h -
 		env->player.angle_z * env->camera.scale;
+	render->floor_horizon = env->h_h
+		+ (sector.floor_slope * (sector.floor_max + env->player.head_z) + render->angle_z1) * render->scale1;
+	render->ceiling_horizon = env->h_h
+		+ (sector.ceiling_slope * (sector.ceiling_max + env->player.head_z) + render->angle_z1) * render->scale1;
 	render->x1 = env->h_w + render->clipped_vx1 * render->scale1;
 	render->x2 = env->h_w + render->clipped_vx2 * render->scale2;
+	render->x1 = ceil(render->x1);
+	//render->x2 = floor(render->x2);
 }
 
 /*
@@ -173,19 +179,25 @@ void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector se
 		render->vcy2 * render->scale2;
 	render->preclip_x1 = env->h_w + render->vx1 * render->scale1;
 	render->preclip_x2 = env->h_w + render->vx2 * render->scale2;
+	render->preclip_x1 = ceil(render->preclip_x1);
+	//render->preclip_x2 = floor(render->preclip_x2);
 }
 
 void	get_neighbor_ceil_floor(t_render *render, t_env *env, int x)
 {
 	//Calculer y actuel du plafond et du sol du voisin
-	render->current_neighbor_ceiling = (x - render->x1)
+	/*render->current_neighbor_ceiling = (x - render->x1)
 		* (render->neighbor_ceiling2 - render->neighbor_ceiling1)
 		/ (render->x2 - render->x1) + render->neighbor_ceiling1;
-	render->current_neighbor_ceiling = ft_clamp(render->current_neighbor_ceiling
-			, env->ymin[x], env->ymax[x]);
 	render->current_neighbor_floor = (x - render->x1)
 		* (render->neighbor_floor2 - render->neighbor_floor1)
-		/ (render->x2 - render->x1) + render->neighbor_floor1;
-	render->current_neighbor_floor = ft_clamp(render->current_neighbor_floor
+		/ (render->x2 - render->x1) + render->neighbor_floor1;*/
+	render->max_neighbor_ceiling = render->clipped_alpha
+		* render->neighbor_ceil_range + render->neighbor_ceiling1;
+	render->max_neighbor_floor = render->clipped_alpha
+		* render->neighbor_floor_range + render->neighbor_floor1;
+	render->current_neighbor_ceiling = ft_clamp(render->max_neighbor_ceiling
+			, env->ymin[x], env->ymax[x]);
+	render->current_neighbor_floor = ft_clamp(render->max_neighbor_floor
 			, env->ymin[x], env->ymax[x]);
 }

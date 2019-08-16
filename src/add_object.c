@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 16:00:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 18:01:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,14 @@ int	add_object(t_env *env)
 	object.scale = 50;
 	object.angle = 0;
 	object.sector = get_sector_global(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
-	object.light = env->sectors[object.sector].light;
+	ft_printf("wekjbwljgbqknb%d\n", object.sector);
+	if (object.sector != -1)
+		object.light = env->sectors[object.sector].light;
+	else
+		object.light = 1;
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
+	ft_printf("passe la\n");
 	return (0);
 }
