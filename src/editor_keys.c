@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/16 14:53:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/16 15:23:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int			editor_keys(t_env *env)
 	create_player(env);
 	create_object(env);
 	drag_element(env);
+	delete_object(env);
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;

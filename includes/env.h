@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/15 18:01:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/16 15:24:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
 void				editor_options(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
+int					delete_object(t_env *env);
 
 /*
  * ** Main functions

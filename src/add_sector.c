@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 15:52:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/16 15:24:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,6 @@ int			add_sector(t_env *env)
 		return (ft_printf("Could not realloc sectors\n"));
 	env->sectors[env->nb_sectors] = sector;
 	set_sectors_xmax(env);
-	ft_printf("sector[%d]: %d vertex\n", env->nb_sectors, env->sectors[env->nb_sectors].nb_vertices);
-	int i;
-	i = 0;
-	while (i < env->sectors[env->nb_sectors].nb_vertices)
-	{
-		ft_printf("num: %d\n", sector.vertices[i]);
-		i++;
-	}
 	env->nb_sectors++;
 	return (0);
 }
