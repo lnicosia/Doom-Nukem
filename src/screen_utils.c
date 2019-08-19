@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 16:59:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/19 10:17:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	set_zbuffer_colors(t_env *env)
 						| (int)(alpha * 0xFF) << 16
 						| (int)(alpha * 0xFF) << 8
 						| (int)(alpha * 0xFF);
-				else if (env->depth_array[x + env->w * y] == -1)
+				else if (env->depth_array[x + env->w * y] == 100000000)
 					env->sdl.texture_pixels[x + env->w * y] = 0xFFAA0000;
 				else
 					env->sdl.texture_pixels[x + env->w * y] = 0;
