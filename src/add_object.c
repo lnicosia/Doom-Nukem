@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/16 15:11:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:37:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	draw_grid_objects(t_env *env)
 		if (env->sdl.mx > center.x - env->editor.scale / 3.5
 				&& env->sdl.mx < center.x + env->editor.scale / 3.5
 				&& env->sdl.my > center.y - env->editor.scale / 3.5
-				&& env->sdl.my < center.y + env->editor.scale / 3.5)
+				&& env->sdl.my < center.y + env->editor.scale / 3.5
+				&& env->editor.select_object == -1)
 		{
 			scale = env->editor.scale;
 			color = 0xFF00FF00;

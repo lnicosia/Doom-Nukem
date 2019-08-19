@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/16 15:23:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:37:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	drag_element(t_env *env)
 
 	i = 0;
 	j = 0;
-	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1)
+	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1 && env->editor.drag_object != 2)
 	{	
 		if (env->inputs.left_click)
 		{
+			env->flag = 1;
 			env->editor.drag_object = 1;
 			env->objects[env->editor.select_object].pos.x =	env->sdl.mx;
 			env->objects[env->editor.select_object].pos.y =	env->sdl.my;
@@ -70,8 +71,11 @@ void	drag_element(t_env *env)
 		{
 			env->objects[env->editor.select_object].pos.x =	round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->objects[env->editor.select_object].pos.y =	round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-			env->editor.select_object = -1;
+			if (env->sdl.mx > 200)
+				env->editor.select_object = -1;
 			env->editor.drag_object = 0;
+			if (env->sdl.mx > 200)
+				env->flag = 0;
 		}
 	}
 	else if (env->editor.select_player != -1 && env->editor.select_object == -1 && env->editor.select_vertex == -1)
@@ -91,7 +95,8 @@ void	drag_element(t_env *env)
 		}
 
 	}
-	else if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1)
+	else if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1
+			&& env->editor.drag_object != 2)
 	{
 		if (env->inputs.left_click)
 		{
