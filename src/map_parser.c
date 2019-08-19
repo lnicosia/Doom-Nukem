@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/15 16:12:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/19 11:05:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 		line = tmp;
 		if (parser->ret == -1)
 			return (ft_printf("Invalid file\n"));
-		if (line[0] == 'V' && line[1] == ' '
-				&& line[2] >= '0' && line[2] <= '9')
+		if (*line && *line != '#')
 		{
+			if (*line != 'V')
+				return (ft_printf("Invalid character at vertices number: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			line++;
+			if (*line != ' ')
+				return (ft_printf("Invalid character at vertices number: \'%c\' (line %d)\n",
+							*line, parser->line_count));
 			line = skip_spaces(line);
 			if (!*line)
 				return (ft_printf("Please declare how many vertices "
@@ -154,6 +159,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							*line, parser->line_count));
 			env->player.pos.y = ft_atof(line);
 			line = skip_number(line);
+			if (!*line)
+				return (ft_printf("Missing player y and angle\n"));
 			if (*line != ' ')
 				return (ft_printf("Invalid character at player x: \'%c\' (line %d)\n",
 							*line, parser->line_count));
@@ -165,6 +172,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							*line, parser->line_count));
 			env->player.pos.x = ft_atof(line);
 			line = skip_number(line);
+			if (!*line)
+				return (ft_printf("Missing player angle\n"));
 			if (*line != ' ')
 				return (ft_printf("Invalid character at player y: \'%c\' (line %d)\n",
 							*line, parser->line_count));
@@ -181,7 +190,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			env->player.perp_sin = sin(env->player.angle - M_PI / 2);
 			line = skip_number(line);
 			if (*line && *line == ' ')
-				return (ft_printf("Playe declaration must end after declaring its angle (line %d)\n",
+				return (ft_printf("Player declaration must end after declaring its angle (line %d)\n",
 							parser->line_count));
 			if (*line)
 				return (ft_printf("Invalid character at player angle: \'%c\' (line %d)\n",
