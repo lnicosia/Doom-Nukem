@@ -4,13 +4,13 @@
 # Vertices_number: "V + space + number"
 # Vertex:
 # Y X
-# One space between values
+# Space(s) between values
 #
-V 4
-0 0
-0 15
-15 0
-15 15
+V  4
+0     0
+0     15
+15    0
+15    15
 
 # Emtpy line after vertices declaration
 # Sectors_number: "S + space + number"
@@ -21,19 +21,19 @@ V 4
 # (neighbors numbers in clockwise order) ('-1' = no neighbor)
 # (textures numbers)
 # light value between 0 and 100
-# One space between every section
+# Space(s) between every section
 #
-S 1
-[0 0 5] [12 0 4] (0 1 3 2) (-1 -1 -1 -1) (0 1 2 3) 75
+S  1
+[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  -1  -1  -1) (0  1  2  3) 75
 
 # Emtpy line after sectors declaration
 # Objects_number: "O + space + number"
 # Object:
 # [x y z angle] [sprite_number scale]
-# One space between every section
+# Space(s) between every section
 # Angle is ignored if the sprite is not oriented
 #
-O 1
+O  1
 [7.5 7.5 6 45] [1 50]
 
 # Emtpy line after objects declaration
@@ -41,4 +41,4 @@ O 1
 # Y X angle
 # One space between values
 #
-1 1 45
+1  1   45

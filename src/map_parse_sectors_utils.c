@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:02:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:34:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		check_vertices_uniqueness(t_sector sector)
 /*
 **	Check if 2 sectors have exactly the same vertices
 */
+
 int		sector_eq(t_sector s1, t_sector s2)
 {
 	int	i;
@@ -72,27 +73,86 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 	{
 		current = env->sectors[i];
 		if (sector_eq(sector, env->sectors[i]))
-			return (ft_printf("Sectors %d and %d are identical\n", sector.num, i));
-		i++;
+			return (ft_printf("Sectors %d and %d are identical\n", sector.num,
+						i));
+			i++;
 	}
 	return (0);
 }
 
-int		count_numbers(char *line, t_map_parser *parser)
+/*
+**	Counts the numbers of vertices in between two parenthesis
+*/
+
+int		count_vertices(char *line, t_map_parser *parser)
 {
 	int i;
 
 	i = 0;
-	while (*line && *line != ')')
+	while (*line != ')')
 	{
-		if (!valid_number(line, parser))
-		{
-			line = skip_number(line);
-			line = skip_spaces(line);
-		}
-		else
-			return (-1);
+		if (!*line)
+			return (missing_data("')' after sector vertices", parser));
+		if (valid_number(line, parser))
+			return (invalid_char("in sector vertices", "a digit, a ')' or space(s)", *line, parser));
+		line = skip_number(line);
+		line = skip_spaces(line);
 		i++;
 	}
 	return (i);
+}
+
+/*
+**	Counts the numbers of neighbors in between two parenthesis
+*/
+
+int		count_neighbors(char *line, t_map_parser *parser)
+{
+	int i;
+
+	i = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector neighbors", parser));
+		if (valid_number(line, parser))
+			return (invalid_char("in sector neighbors", "a digit, a ')' or space(s)", *line, parser));
+		line = skip_number(line);
+		line = skip_spaces(line);
+		i++;
+	}
+	return (i);
+}
+
+/*
+**	Counts the numbers of textures in between two parenthesis
+*/
+
+int		count_textures(char *line, t_map_parser *parser)
+{
+	int i;
+
+	i = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector textures", parser));
+		if (valid_number(line, parser))
+			return (invalid_char("in sector textures", "a digit, a ')' or space(s)", *line, parser));
+		line = skip_number(line);
+		line = skip_spaces(line);
+		i++;
+	}
+	return (i);
+}
+
+/*
+**	Prints an error message with sector and line number and your message
+*/
+
+int		sector_error(const char *message, int sector, t_map_parser *parser)
+{
+	ft_dprintf(STDERR_FILENO, "[Line %d] ", parser->line_count);
+	ft_dprintf(STDERR_FILENO, "Sector %d %s\n", sector, message);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 11:05:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/19 14:31:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,40 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 		parser->line_count++;
 		line = tmp;
 		if (parser->ret == -1)
-			return (ft_printf("Invalid file\n"));
+			return (custom_error("Invalid file"));
 		if (*line && *line != '#')
 		{
 			if (*line != 'V')
-				return (ft_printf("Invalid character at vertices number: \'%c\' (line %d)\n",
-							*line, parser->line_count));
+				return (invalid_char("vertices number", "'V'", *line, parser));
 			line++;
-			if (*line != ' ')
-				return (ft_printf("Invalid character at vertices number: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			line = skip_spaces(line);
 			if (!*line)
-				return (ft_printf("Please declare how many vertices "
-							"there are\n"));
-			env->nb_vertices = ft_atoi(line);
+				return (missing_data("vertices number", parser));
+			if (*line != ' ')
+				return (invalid_char("vertices number", "space or a digit",
+							*line, parser));
+				line = skip_spaces(line);
+			if (!*line)
+				return (missing_data("vertices number", parser));
+			if (valid_number(line, parser) == WRONG_CHAR)
+				return (invalid_char("vertices number",
+							"space or a digit", *line, parser));
+				env->nb_vertices = ft_atoi(line);
 			line = skip_number(line);
+			if (*line && *line == ' ')
+				return (extra_data("vertices number declaration", parser));
 			if (*line)
-				return (ft_printf("Too much data in vertices number "
-							"declaration (line %d)\n", parser->line_count));
-			if (env->nb_vertices < 3)
-				return (ft_printf("You can not declare less than 3 walls.\n"));
+				return (invalid_char("vertices number", "a digit",
+							*line, parser));
+				if (env->nb_vertices < 3)
+				return (custom_error("You can not declare less than 3 walls."));
 			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
-				return (ft_printf("Could not malloc vertices!\n", env));
+				return (custom_error("Could not malloc vertices!"));
 			ft_strdel(&tmp);
 			return (0);
 		}
 		else if (line[0] != '#')
-			return (ft_printf("Wrong format of vertices number "
-						"declaration (line %d)\nEx: \"V 127\" (> 2)\n",
-						parser->line_count));
+			return (missing_data("vertices number declaration", parser));
 		ft_strdel(&tmp);
 	}
 	return (0);
@@ -70,45 +73,46 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		line = tmp;
-		if (line[0] == 'S' && line[1] == ' '
-				&& line[2] >= '0' && line[2] <= '9')
+		if (*line && *line != '#')
 		{
+			if (*line != 'S')
+				return (invalid_char("sectors number", "'S'", *line, parser));
 			line++;
-			line = skip_spaces(line);
 			if (!*line)
-				return (ft_printf("Please declare how many sectors there are\n"));
-			env->nb_sectors = atoi(line);
+				return (missing_data("sectors number", parser));
+			if (*line != ' ')
+				return (invalid_char("sectors number",
+							"space or a digit", *line, parser));
+				line = skip_spaces(line);
+			if (!*line)
+				return (missing_data("sectors number", parser));
+			if (valid_number(line, parser) == WRONG_CHAR)
+				return (invalid_char("sectors numbers",
+							"space or a digit", *line, parser));
+				env->nb_sectors = atoi(line);
 			line = skip_number(line);
+			if (*line && *line == ' ')
+				return (extra_data("sectors number declaration", parser));
 			if (*line)
-				return (ft_printf("Too much data in sectors number "
-							"declaration (line %d)\n", parser->line_count));
-			if (env->nb_sectors < 1)
-				return (ft_printf("You need to declare at least one sector.\n"));
-			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector) * (env->nb_sectors))))
-				return (ft_printf("Could not malloc sectors!\n", env));
+				return (invalid_char("sectors number",
+							"a digit", *line, parser));
+				if (env->nb_sectors < 1)
+				return (custom_error("You need at least one sector"));
+			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector)
+							* (env->nb_sectors))))
+				return (custom_error("Could not malloc sectors!"));
 			i = 0;
 			while (i < env->nb_sectors)
 			{
-				env->sectors[i].vertices = NULL;
-				env->sectors[i].ceilings = NULL;
-				env->sectors[i].floors = NULL;
-				env->sectors[i].clipped_ceilings1 = NULL;
-				env->sectors[i].clipped_floors1 = NULL;
-				env->sectors[i].clipped_ceilings2 = NULL;
-				env->sectors[i].clipped_floors2 = NULL;
-				env->sectors[i].neighbors = NULL;
+				ft_bzero(&env->sectors[i], sizeof(t_sector));
 				env->sectors[i].x_max = -2147483648;
-				env->sectors[i].wall_width = NULL;
-				env->sectors[i].textures = NULL;
 				i++;
 			}
 			ft_strdel(&tmp);
 			return (0);
 		}
 		else if (line[0] != '#')
-			return (ft_printf("Wrong format of sectors number "
-						"declaration (line %d)\nEx: \"S 35\" (> 0)\n",
-						parser->line_count));
+			return (missing_data("sectors number declaration", parser));
 		ft_strdel(&tmp);
 	}
 	return (0);
@@ -125,8 +129,10 @@ void	set_sectors_xmax(t_env *env)
 		j = 0;
 		while (j < env->sectors[i].nb_vertices)
 		{
-			if (env->sectors[i].x_max < env->vertices[env->sectors[i].vertices[j]].x)
-				env->sectors[i].x_max = env->vertices[env->sectors[i].vertices[j]].x;
+			if (env->sectors[i].x_max
+					< env->vertices[env->sectors[i].vertices[j]].x)
+				env->sectors[i].x_max =
+					env->vertices[env->sectors[i].vertices[j]].x;
 			j++;
 		}
 		i++;
@@ -143,70 +149,6 @@ void	init_player(t_env *env)
 	env->player.speed = 0.5;
 }
 
-int		parse_player(t_env *env, t_map_parser *parser)
-{
-	char	*line;
-	char	*tmp;
-
-	while ((parser->ret = get_next_line(parser->fd, &tmp)))
-	{
-		parser->line_count++;
-		line = tmp;
-		if (*line && *line != '#')
-		{
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (ft_printf("Invalid character at player x: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			env->player.pos.y = ft_atof(line);
-			line = skip_number(line);
-			if (!*line)
-				return (ft_printf("Missing player y and angle\n"));
-			if (*line != ' ')
-				return (ft_printf("Invalid character at player x: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			line = skip_spaces(line);
-			if (!*line)
-				return (ft_printf("Missing player y and angle\n"));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (ft_printf("Invalid character at player y: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			env->player.pos.x = ft_atof(line);
-			line = skip_number(line);
-			if (!*line)
-				return (ft_printf("Missing player angle\n"));
-			if (*line != ' ')
-				return (ft_printf("Invalid character at player y: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			line = skip_spaces(line);
-			if (!*line)
-				return (ft_printf("Missing player angle\n"));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (ft_printf("Invalid character at player angle: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			env->player.angle = (ft_atof(line) + 0.00001) * CONVERT_RADIANS;
-			env->player.angle_cos = cos(env->player.angle);
-			env->player.angle_sin = sin(env->player.angle);
-			env->player.perp_cos = cos(env->player.angle - M_PI / 2);
-			env->player.perp_sin = sin(env->player.angle - M_PI / 2);
-			line = skip_number(line);
-			if (*line && *line == ' ')
-				return (ft_printf("Player declaration must end after declaring its angle (line %d)\n",
-							parser->line_count));
-			if (*line)
-				return (ft_printf("Invalid character at player angle: \'%c\' (line %d)\n",
-							*line, parser->line_count));
-			line = skip_spaces(line);
-			if ((env->player.sector = get_sector_no_z(env, env->player.pos)) == -1)
-				return (ft_printf("Player is not in any sector (line %d)\n", parser->line_count));
-		}
-		else if (line[0] != '#')
-			return (ft_printf("Missing player declaration\n",
-						parser->line_count));
-		ft_strdel(&tmp);
-	}
-	return (0);
-}
-
 int		parse_map(char *file, t_env *env)
 {
 	t_map_parser	parser;
@@ -219,29 +161,32 @@ int		parse_map(char *file, t_env *env)
 	parser.line_count = 0;
 	ft_printf("{red}");
 	if ((parser.fd = open(file, O_RDONLY)) < 0)
-		return (ft_printf("Could not open %s\n", file));
+	{
+		ft_dprintf(STDERR_FILENO, "Could not open %s\n", file);
+		return (-1);
+	}
 	if (init_vertices(env, &parser))
-		return (ft_printf("Could not init vertices\n"));
+		return (custom_error("Could not init vertices"));
 	if (parse_vertices(env, &parser))
-		return (ft_printf("Error while parsing vertices\n"));
+		return (custom_error("Error while parsing vertices"));
 	if (init_sectors(env, &parser))
-		return (ft_printf("Could not init sectors\n"));
+		return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &parser))
-		return (ft_printf("Error while parsing sectors\n"));
+		return (custom_error("Error while parsing sectors"));
 	precompute_slopes(env);
 	if (init_objects(env, &parser))
-		return (ft_printf("Could not init objects\n"));
+		return (custom_error("Could not init objects"));
 	if (parse_objects(env, &parser))
-		return (ft_printf("Error while parsing objects\n"));
+		return (custom_error("Error while parsing objects"));
 	if (parse_player(env, &parser))
-		return (ft_printf("Error while parsing player\n"));
+		return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
-		return (ft_printf("You need to give player data\n"));
+		return (custom_error("You need to give player data"));
 	update_player_z(env);
 	update_floor(env);
 	set_sectors_xmax(env);
 	if (close(parser.fd))
-		return (ft_printf("Could not close the file\n"));
+		return (custom_error("Could not close the file"));
 	ft_printf("{reset}");
 	return (0);
 }

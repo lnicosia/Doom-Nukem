@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/15 14:03:08 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/08/19 12:05:29 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c\
+SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -48,9 +48,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle.c color_utils.c clipping.c camera.c \
 		   print_debug.c intersections.c init_animations.c \
-		   map_parse_vertices.c is_in_sector.c \
+		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
-		   physics.c init_weapons.c \
+		   physics.c init_weapons.c map_parse_player.c \
 		   init_sound.c init_sprites.c \
 		   init_screen_pos.c draw_sprites.c sprites_maths.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c \
