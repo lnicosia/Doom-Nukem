@@ -6,21 +6,12 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 18:37:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 16:21:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	draw_dragged_circle(t_env *env, Uint32 color, t_point center, double scale)
-{
-	if (center.x - scale >= 0 && center.x + scale < env->w
-			&& center.y - scale >= 0 && center.y + scale < env->h)
-		draw_circle(new_circle(color,
-					color,
-					center,
-					scale), env);
-}
 
 void	draw_grid_objects(t_env *env)
 {
@@ -36,7 +27,7 @@ void	draw_grid_objects(t_env *env)
 		scale = env->editor.scale;
 		center.x = env->sdl.mx;
 		center.y = env->sdl.my;
-		draw_dragged_circle(env, color, center, scale);
+		draw_circle(new_circle(color, color, center, scale), env);
 	}
 	while (i < env->nb_objects)
 	{
@@ -50,7 +41,10 @@ void	draw_grid_objects(t_env *env)
 		{
 			scale = env->editor.scale;
 			color = 0xFF00FF00;
-			if (env->inputs.left_click && env->editor.select_player == -1 && env->editor.select_vertex == -1)
+			if (env->inputs.left_click
+					&& env->editor.select_player == -1
+					&& env->editor.select_vertex == -1
+					&& env->editor.select_object == -1)
 				env->editor.select_object = i;
 		}
 		else
@@ -58,12 +52,7 @@ void	draw_grid_objects(t_env *env)
 			color = 0xFFFFFF00;
 			scale = env->editor.scale / 2;
 		}
-		if (center.x - scale >= 0 && center.x + scale < env->w
-				&& center.y - scale >= 0 && center.y + scale < env->h)
-			draw_circle(new_circle(color,
-						color,
-						center,
-						scale), env);
+		draw_circle(new_circle(color, color, center, scale), env);
 		i++;
 	}
 }

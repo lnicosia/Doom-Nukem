@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 15:31:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 17:09:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		editor(t_env *env)
 			draw_grid(env);
 			draw_grid_vertices(env);
 			editor_hud(env);
-			if (env->editor.new_player)
+			if (env->editor.new_player || env->editor.select_player == 1)
 				draw_grid_player(env);
 			if (env->editor.objects)
 				draw_grid_objects(env);

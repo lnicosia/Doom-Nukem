@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/15 16:01:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 15:50:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	init_pointers(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
