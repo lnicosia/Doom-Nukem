@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/15 15:14:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:40:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,18 @@ int     check_collision(t_env *env, double x_move, double y_move)
     t_movement  motion;
     t_wall      wall;
     int         sector_tmp;
+    static int a = 0;
 
+    FUTURE_X = env->player.pos.x + x_move;
+    FUTURE_Y = env->player.pos.y + y_move;
     if (env->options.wall_lover == 1)
-        return (1);
+    {
+        ft_printf("j'apprecie les murs %d\n", a++);
+        env->options.wall_lover = 0;
+        if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
+            return (1);
+        return (0);
+    }
     i = 0;
     while (i < env->nb_sectors)
     {
@@ -163,13 +172,26 @@ int     check_collision(t_env *env, double x_move, double y_move)
         i++;
     }
     i = 0;
-    FUTURE_X = env->player.pos.x + x_move;
-    FUTURE_Y = env->player.pos.y + y_move;
     if (!check_ceiling(env, motion) || !check_floor(env, motion))
         return (0);
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         motion.old_sector = env->player.sector;
+        /*
+        ** If the player is inside a wall for some reason
+        */
+        if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
+        {
+            env->options.wall_lover = 1;
+            return (check_collision(env, x_move, y_move));
+        }
+        else if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR >= 0
+            && (!check_floor(env, motion) || !check_ceiling(env, motion)))
+        {
+            env->options.wall_lover = 1;
+            ft_printf("corniche\n");
+            return (check_collision(env, x_move, y_move));
+        }
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
             return (0);
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0
