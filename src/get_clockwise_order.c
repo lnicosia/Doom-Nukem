@@ -6,11 +6,38 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 12:35:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/26 12:50:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:12:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+
+int		get_clockwise_order_sector(t_env *env, int index)	
+{
+	int			res;
+	int			i;
+	int			num;
+	t_vertex	vertex1;
+	t_vertex	vertex2;
+	
+	res = 0;
+	i = 0;
+	while (i < env->sectors[index].nb_vertices - 1)
+	{
+		num = env->sectors[index].vertices[i];
+		vertex1 = env->vertices[num];
+		num = env->sectors[index].vertices[i + 1];
+		vertex2 = env->vertices[num];
+		res += (vertex2.x - vertex1.x) * (vertex2.y + vertex1.y);
+		i++;
+	}
+	vertex1 = vertex2;;
+	num = env->sectors[index].vertices[0];
+	vertex2 = env->vertices[num];
+	res += (vertex2.x - vertex1.x) * (vertex2.y + vertex1.y);
+	return (res > 0 ? 0 : 1);
+}
 
 int		get_clockwise_order(t_env *env)
 {

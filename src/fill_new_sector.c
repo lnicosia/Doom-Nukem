@@ -6,11 +6,39 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 17:25:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 18:01:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	revert_sector(t_sector *sector, t_env *env)
+{
+	int			i;
+	int			index;
+	int			j;
+	short		*tmp;
+
+	i = 1;
+	j = 1;
+	if (!(tmp = (short *)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return ;
+	tmp[0] = sector->vertices[0];
+	while (i < sector->nb_vertices)
+	{
+		if (env->editor.reverted)
+			index = sector->nb_vertices - j;
+		else
+			index = j;
+		tmp[i] = sector->vertices[index];
+		i++;
+		j++;
+	}
+	tmp[i] = tmp[0];
+	sector->vertices = tmp;
+	tmp = NULL;
+	free(tmp);
+}
 
 void	fill_new_sector(t_sector *sector, t_env *env)
 {

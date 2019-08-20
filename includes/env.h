@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/15 15:49:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:46:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,10 @@ void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
+void				revert_sector(t_sector *sector, t_env *env);
 void				editor_options(t_env *env);
+int					get_clockwise_order_sector(t_env *env, int index);
+int					delete_object(t_env *env);
 
 /*
  * ** Main functions

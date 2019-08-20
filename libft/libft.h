@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 16:38:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:46:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ size_t			ft_getlen(long nb);
 size_t			ft_getsize(long nb);
 void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int				ft_perror(const char *s);
+void			*ft_delindex(void *ptr, size_t old_size, size_t new_size, size_t index);
 
 #endif

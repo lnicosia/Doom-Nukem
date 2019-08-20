@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 12:39:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:37:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void	draw_grid_objects(t_env *env)
 		if (env->sdl.mx > center.x - env->editor.scale / 3.5
 				&& env->sdl.mx < center.x + env->editor.scale / 3.5
 				&& env->sdl.my > center.y - env->editor.scale / 3.5
-				&& env->sdl.my < center.y + env->editor.scale / 3.5)
+				&& env->sdl.my < center.y + env->editor.scale / 3.5
+				&& env->editor.select_object == -1)
 		{
 			scale = env->editor.scale;
 			color = 0xFF00FF00;
-			if (env->inputs.left_click)
+			if (env->inputs.left_click && env->editor.select_player == -1 && env->editor.select_vertex == -1)
 				env->editor.select_object = i;
 		}
 		else
@@ -80,7 +81,10 @@ int	add_object(t_env *env)
 	object.scale = 50;
 	object.angle = 0;
 	object.sector = get_sector_global(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
-	object.light = env->sectors[object.sector].light;
+	if (object.sector != -1)
+		object.light = env->sectors[object.sector].light;
+	else
+		object.light = 1;
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
