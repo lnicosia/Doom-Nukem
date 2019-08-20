@@ -6,11 +6,13 @@
 # Y X
 # Space(s) between values
 #
-V  4
-0     0
-0     15
-15    0
-15    15
+V  6
+0  0
+0  15
+15 0
+15 15
+0  30
+15 30
 
 # Emtpy line after vertices declaration
 # Sectors_number: "S + space + number"
@@ -23,13 +25,14 @@ V  4
 # light value between 0 and 100
 # Space(s) between every section
 #
-S  1
-[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  -1  -1  -1) (0  1  2  3) 75
+S  2
+[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  1  -1  -1) (0  1  2  3) 70
+[2  0  4]  [14 0 4]   (1 4 5 3)  (-1  -1  -1  0) (0  1  2  3) 95
 
 # Emtpy line after sectors declaration
 # Objects_number: "O + space + number"
 # Object:
-# [x y z angle] [sprite_number scale]
+# [y x z angle] [sprite_number scale]
 # Space(s) between every section
 # Angle is ignored if the sprite is not oriented
 #

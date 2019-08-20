@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 14:31:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:11:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,36 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 		if (*line && *line != '#')
 		{
 			if (*line != 'V')
-				return (invalid_char("vertices number", "'V'", *line, parser));
+				return (invalid_char("at vertices number", "'V'", *line, parser));
 			line++;
 			if (!*line)
-				return (missing_data("vertices number", parser));
+				return (missing_data("at vertices number", parser));
 			if (*line != ' ')
-				return (invalid_char("vertices number", "space or a digit",
+				return (invalid_char("at vertices number", "space or a digit",
 							*line, parser));
 				line = skip_spaces(line);
 			if (!*line)
-				return (missing_data("vertices number", parser));
+				return (missing_data("before vertices number", parser));
 			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("vertices number",
+				return (invalid_char("before vertices number",
 							"space or a digit", *line, parser));
 				env->nb_vertices = ft_atoi(line);
 			line = skip_number(line);
 			if (*line && *line == ' ')
-				return (extra_data("vertices number declaration", parser));
+				return (extra_data("after vertices number", parser));
 			if (*line)
-				return (invalid_char("vertices number", "a digit",
+				return (invalid_char("after vertices number",
+							"a digit or the end of the line",
 							*line, parser));
 				if (env->nb_vertices < 3)
 				return (custom_error("You can not declare less than 3 walls."));
 			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
-				return (custom_error("Could not malloc vertices!"));
+				return (ft_perror("Could not malloc vertices:"));
 			ft_strdel(&tmp);
 			return (0);
 		}
-		else if (line[0] != '#')
+		else if (*line != '#')
 			return (missing_data("vertices number declaration", parser));
 		ft_strdel(&tmp);
 	}
@@ -111,7 +112,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			ft_strdel(&tmp);
 			return (0);
 		}
-		else if (line[0] != '#')
+		else if (*line != '#')
 			return (missing_data("sectors number declaration", parser));
 		ft_strdel(&tmp);
 	}
