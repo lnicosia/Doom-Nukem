@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 15:06:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:38:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,5 @@ int		valid_number(char *line, t_map_parser *parser)
 		return (MISSING_CHAR);
 	if ((*line < '0' || *line > '9') && *line != '-')
 		return (WRONG_CHAR);
-	return (0);
-}
-
-/*
-**
-*/
-
-int		end_of_section(char *line, char end_char, const char *log)
-{
-	(void)line;
-	(void)end_char;
-	(void)log;
 	return (0);
 }

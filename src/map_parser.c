@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 11:11:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:37:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,22 +167,30 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	}
 	if (init_vertices(env, &parser))
-		return (custom_error("Could not init vertices"));
+		return (-1);
+		//return (custom_error("Could not init vertices"));
 	if (parse_vertices(env, &parser))
-		return (custom_error("Error while parsing vertices"));
+		return (-1);
+		//return (custom_error("Error while parsing vertices"));
 	if (init_sectors(env, &parser))
-		return (custom_error("Could not init sectors"));
+		return (-1);
+		//return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &parser))
-		return (custom_error("Error while parsing sectors"));
+		return (-1);
+		//return (custom_error("Error while parsing sectors"));
 	precompute_slopes(env);
 	if (init_objects(env, &parser))
-		return (custom_error("Could not init objects"));
+		return (-1);
+		//return (custom_error("Could not init objects"));
 	if (parse_objects(env, &parser))
-		return (custom_error("Error while parsing objects"));
+		return (-1);
+		//return (custom_error("Error while parsing objects"));
 	if (parse_player(env, &parser))
-		return (custom_error("Error while parsing player"));
+		return (-1);
+		//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
-		return (custom_error("You need to give player data"));
+		return (-1);
+		//return (custom_error("You need to give player data"));
 	update_player_z(env);
 	update_floor(env);
 	set_sectors_xmax(env);

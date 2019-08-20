@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 18:34:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:45:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 	{
 		current = env->sectors[i];
 		if (sector_eq(sector, env->sectors[i]))
-			return (ft_printf("Sectors %d and %d are identical\n", sector.num,
-						i));
+			return (ft_dprintf(STDERR_FILENO,
+						"Sectors %d and %d are identical\n", sector.num, i));
 			i++;
 	}
 	return (0);

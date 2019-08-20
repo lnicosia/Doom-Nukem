@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 12:19:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:44:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (invalid_char("before floor declaration", "'['", **line, parser));
+		return (invalid_char("before floor data", "'['", **line, parser));
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("floor height", parser));
@@ -73,7 +73,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("ceiling, vertices, neighbors, textures and light",
 					parser));
 	if (**line != ' ')
-		return (invalid_char("after floor declaration", "space(s)", **line, parser));
+		return (invalid_char("after floor data", "space(s)", **line, parser));
 	*line = skip_spaces(*line);
 	return (0);
 }
@@ -84,7 +84,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("ceiling, vertices, neighbors, textures and light",
 					parser));
 	if (**line != '[')
-		return (invalid_char("before ceiling declaration", "'['",
+		return (invalid_char("before ceiling data", "'['",
 					**line, parser));
 		(*line)++;
 	if (!**line || **line == ']')
@@ -143,7 +143,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("vertices, neighbors, textures and light",
 					parser));
 	if (**line != ' ')
-		return (invalid_char("after ceiling texture", "space(s)",
+		return (invalid_char("after ceiling data", "space(s)",
 					**line, parser));
 		*line = skip_spaces(*line);
 	return (0);
@@ -235,7 +235,7 @@ int			parse_sector_vertices(t_env *env, char **line, t_map_parser *parser)
 	if (!**line)
 		return (missing_data("neighbors, textures and light", parser));
 	if (**line != ' ')
-		return (invalid_char("after vertices declaration", "space(s)",
+		return (invalid_char("after vertices data", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	return (0);
@@ -273,7 +273,7 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 			return (-1);
 		}
 		if (env->sectors[parser->sectors_count].neighbors[i] == parser->sectors_count)
-			return (ft_printf("Sector %d can not contain a portal to itself (line %d)\n", parser->sectors_count, parser->line_count));
+			return (sector_error("can not contain a portal to itself", parser->sectors_count, parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		i++;
@@ -282,7 +282,7 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	if (!**line)
 		return (missing_data("texures and light", parser));
 	if (**line != ' ')
-		return (invalid_char("after neighbors declaration", "space(s)",
+		return (invalid_char("after neighbors data", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	return (0);
@@ -309,7 +309,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
 		if (env->sectors[parser->sectors_count].textures[i] < 0 || env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURE)
 		{
-			ft_printf("[Line %d] Texture \'%d\' in sector %d does not exist\n",
+			ft_dprintf(STDERR_FILENO,
+					"[Line %d] Texture \'%d\' in sector %d does not exist\n",
 					parser->line_count,
 					env->sectors[parser->sectors_count].textures[i],
 					parser->sectors_count);
@@ -323,7 +324,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	if (!**line)
 		return (missing_data("light", parser));
 	if (**line != ' ')
-		return (invalid_char("after textures declaration", "space(s)",
+		return (invalid_char("after textures data", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	return (0);
@@ -352,24 +353,32 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	parser->sector_neighbors_count = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
 	if (parse_floor(env, &line, parser))
-		return (custom_error("Error while parsing floor"));
+		return (-1);
+		//return (custom_error("Error while parsing floor"));
 	if (parse_ceiling(env, &line, parser))
-		return (custom_error("Error while parsing ceiling"));
+		return (-1);
+		//return (custom_error("Error while parsing ceiling"));
 	if (env->sectors[parser->sectors_count].ceiling
 			<= env->sectors[parser->sectors_count].floor)
-		return (sector_error("ceiling must be higher than its floor",
-					parser->sectors_count, parser));
+		return (-1);
+		//return (sector_error("ceiling must be higher than its floor",
+					//parser->sectors_count, parser));
 	if (init_sector_data(env, line, parser))
-		return (custom_error("Could not init sector data"));
+		return (-1);
+		//return (custom_error("Could not init sector data"));
 	line++;
 	if (parse_sector_vertices(env, &line, parser))
-		return (custom_error("Error while parsing sector vertices"));
+		return (-1);
+		//return (custom_error("Error while parsing sector vertices"));
 	if (parse_sector_neighbors(env, &line, parser))
-		return (custom_error("Error while parsing sector neighbors"));
+		return (-1);
+		//return (custom_error("Error while parsing sector neighbors"));
 	if (parse_sector_textures(env, &line, parser))
-		return (custom_error("Error while parsing sector textures"));
+		return (-1);
+		//return (custom_error("Error while parsing sector textures"));
 	if (parse_sector_light(env, &line, parser))
-		return (custom_error("Error while parsing sector light"));
+		return (-1);
+		//return (custom_error("Error while parsing sector light"));
 	return (0);
 }
 
@@ -387,8 +396,7 @@ int			parse_sectors(t_env *env, t_map_parser *parser)
 		if (*tmp)
 		{
 			if (parse_sector(env, tmp, parser))
-				return (sector_error("had an error", parser->sectors_count,
-							parser));
+				return (-1);
 			parser->sectors_count++;
 		}
 		else

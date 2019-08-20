@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 16:21:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:37:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							parser));
 		}
 		else if (line[0] != '#')
-			return (missing_data("player declaration", parser));
+			return (missing_data("player data", parser));
 		ft_strdel(&tmp);
 	}
 	return (0);

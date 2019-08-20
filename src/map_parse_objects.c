@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 12:19:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:32:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,10 @@ static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 {
 	if (parse_object_pos(env, &line, parser))
 		return (-1);
+		//return (custom_error("Error while parsing object pos"));
 	if (parse_object_sprite(env, &line, parser))
 		return (-1);
+		//return (custom_error("Error while parsing object pos"));
 	return (0);
 }
 
