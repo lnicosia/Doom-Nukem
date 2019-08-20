@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 11:06:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:35:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
 	env->vertices[parser->vertices_count].x = ft_atof(line);
 	line = skip_number(line);
 	if (*line && *line == ' ')
-		return (extra_data("after vertex x", parser));
+		return (extra_data("vertex x", parser));
 	if (*line)
 		return (invalid_char("after vertex x",
 					"a digit or the end of the line", *line, parser));

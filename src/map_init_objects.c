@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 10:13:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:36:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:34:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		init_objects(t_env *env, t_map_parser *parser)
 			env->nb_objects = ft_atoi(line);
 			line = skip_number(line);
 			if (*line && *line == ' ')
-				return (extra_data("after objects number", parser));
+				return (extra_data("objects number", parser));
 			if (*line)
 				return (invalid_char("adter objects number",
 							"a digit or the end of the line",

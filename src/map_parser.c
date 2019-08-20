@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 13:37:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:34:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 				env->nb_vertices = ft_atoi(line);
 			line = skip_number(line);
 			if (*line && *line == ' ')
-				return (extra_data("after vertices number", parser));
+				return (extra_data("vertices number", parser));
 			if (*line)
 				return (invalid_char("after vertices number",
 							"a digit or the end of the line",
@@ -189,8 +189,7 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 		//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
-		return (-1);
-		//return (custom_error("You need to give player data"));
+		return (missing_data("You need to give player data", &parser));
 	update_player_z(env);
 	update_floor(env);
 	set_sectors_xmax(env);

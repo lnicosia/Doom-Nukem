@@ -26,7 +26,7 @@ V  6
 # Space(s) between every section
 #
 S  2
-[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  1  -1  -1) (0  1  2  3) 70
+[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  1  -1 -1) (0  1  2  3) 70
 [2  0  4]  [14 0 4]   (1 4 5 3)  (-1  -1  -1  0) (0  1  2  3) 95
 
 # Emtpy line after sectors declaration

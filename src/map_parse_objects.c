@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:32:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:32:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 		else
 		{
 			ft_dprintf(STDERR_FILENO,
-					"You must still declare %d objects (line %d)\n",
+					"[Line %d] You must still declare %d objects\n",
 					parser->line_count,
 					env->nb_objects - parser->objects_count);
 			return (-1);

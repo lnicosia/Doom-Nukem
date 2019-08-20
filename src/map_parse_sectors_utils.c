@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:45:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:47:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int		count_vertices(char *line, t_map_parser *parser)
 		if (!*line)
 			return (missing_data("')' after sector vertices", parser));
 		if (valid_number(line, parser))
-			return (invalid_char("in sector vertices", "a digit, a ')' or space(s)", *line, parser));
-		line = skip_number(line);
+			return (invalid_char("in sector vertices", "a digit, a ')'"
+						"or space(s)", *line, parser));
+			line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
 	}
@@ -116,7 +117,8 @@ int		count_neighbors(char *line, t_map_parser *parser)
 		if (!*line)
 			return (missing_data("')' after sector neighbors", parser));
 		if (valid_number(line, parser))
-			return (invalid_char("in sector neighbors", "a digit, a ')' or space(s)", *line, parser));
+			return (invalid_char("in sector neighbors", "a digit, a ')'"
+						"or space(s)", *line, parser));
 		line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
@@ -138,7 +140,8 @@ int		count_textures(char *line, t_map_parser *parser)
 		if (!*line)
 			return (missing_data("')' after sector textures", parser));
 		if (valid_number(line, parser))
-			return (invalid_char("in sector textures", "a digit, a ')' or space(s)", *line, parser));
+			return (invalid_char("in sector textures", "a digit, a ')'"
+						"or space(s)", *line, parser));
 		line = skip_number(line);
 		line = skip_spaces(line);
 		i++;

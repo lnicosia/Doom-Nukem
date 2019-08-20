@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:44:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:34:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,7 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (**line != '\0')
-		return (extra_data("after light", parser));
+		return (extra_data("light", parser));
 	return (0);
 }
 

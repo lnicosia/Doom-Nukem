@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 11:22:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:35:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	init_game(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
-	/*if (init_screen_pos(&env))
+	if (init_screen_pos(&env))
 		return (crash("Could not init screen pos\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
@@ -61,6 +61,5 @@ int	init_game(int ac, char **av)
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
-	return (doom(&env));*/
-	return (0);
+	return (doom(&env));
 }
