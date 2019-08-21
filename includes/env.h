@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 14:46:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 13:37:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct		s_env
 
 
 /*
- * ** Functions from editor
+ * ** Editor functions
  * */
 
 int					init_editor(int ac, char **av);
@@ -132,6 +132,9 @@ void				revert_sector(t_sector *sector, t_env *env);
 void				editor_options(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 int					delete_object(t_env *env);
+void				player_selection(t_env *env);
+void				objects_selection(t_env *env);
+void				vertices_selection(t_env *env);
 
 /*
  * ** Main functions
