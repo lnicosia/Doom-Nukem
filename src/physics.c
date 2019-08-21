@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/21 15:37:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	gravity(t_env *env)
 
 	if (p_z != env->gravity.floor || env->player.eyesight != 6)
 	{
-		if (p_z > env->gravity.floor && !env->jump.on_going)
+		if (p_z > env->gravity.floor && !env->jump.on_going && env->player.fall)
 		{
 			env->flag = 1;
 			fall(env);

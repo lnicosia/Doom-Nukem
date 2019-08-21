@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 16:27:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:42:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		doom(t_env *env)
 	Mix_PlayMusic(env->sound.background, -1);
 	ft_printf("Launching game loop..\n");
 	env->flag = 0;
+	env->player.fall = 1;
 	while (env->running)
 	{
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
@@ -56,7 +57,9 @@ int		doom(t_env *env)
 					return (crash("Could not process options pannel\n", env));
 			}
 			else
+			{
 				draw_game(env);
+			}
 		}
 	//	SDL_Delay(5);
 	}

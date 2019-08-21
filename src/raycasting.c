@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/21 17:12:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,23 @@ void	threaded_raycasting(t_env *env, t_render render)
 	//raycasting(&original);
 	i = 0;
 	//ft_printf("\ndebut = %d fin = %d\n", render.xstart, render.xend);
+	ft_printf("raycasting.c line 100\n");
 	while (i < THREADS)
 	{
 		rt[i].env = env;
 		rt[i].render = render;
 		rt[i].xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
 		rt[i].xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
+		ft_printf("raycasting.c line 107\n");
 		pthread_create(&threads[i], NULL, raycasting, &rt[i]);
+		ft_printf("raycasting.c line 109\n");
 		i++;
 	}
 	while (i-- > 0)
+	{
+		ft_printf("raycasting.c line 114\n");
 		pthread_join(threads[i], NULL);
+		ft_printf("raycasting.c line 116\n");
+	}
+	ft_printf("raycasting.c line 118\n");
 }

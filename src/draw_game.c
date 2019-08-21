@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 10:29:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:49:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	if (draw_walls(env) != 0)
+	if (draw_walls(env) != 0){
 		return (crash("Render function failed\n", env));
+	}
 	if (env->options.wall_color)
 		draw_sprites(env);
 	if ((env->inputs.leftclick && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
