@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 10:20:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 13:30:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ void	draw_ceiling(t_render render, t_env *env)
 
 	vline.x = render.currentx;
 	vline.start = env->ymin[vline.x];
-	vline.end = render.current_ceiling - 1;
+	vline.end = ft_min(render.current_ceiling - 1, env->h - 1);
 	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light);
@@ -293,7 +293,7 @@ void	draw_floor(t_render render,t_env *env)
 	t_vline	vline;
 
 	vline.x = render.currentx;
-	vline.start = render.current_floor + 1;
+	vline.start = ft_max(0, render.current_floor + 1);
 	vline.end = env->ymax[vline.x];
 	vline.color = 0xFF0B6484;
 	vline.color = 0xFFFF0000;
