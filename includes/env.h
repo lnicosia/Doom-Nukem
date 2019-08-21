@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 15:27:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:17:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
 void				vertices_selection(t_env *env);
 void				create_portals(t_env *env);
-int					current_vertices_contains(t_env *env, int index);
+int					is_new_vertex_valid(t_env *env, int index);
 
 /*
  * ** Main functions

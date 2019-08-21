@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 15:24:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:53:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ int			editor_keys(t_env *env)
 		{
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
+			if (is_new_vertex_valid(env, clicked_vertex))
+				add_vertex_to_current_sector(env, env->nb_vertices - 1);
 			if (!env->editor.new_sector) //Nouveau secteur
 				env->editor.new_sector = 1;
-			add_vertex_to_current_sector(env, env->nb_vertices - 1);
 		}
 		else
 		{
@@ -48,7 +49,7 @@ int			editor_keys(t_env *env)
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
 				}
-				else if (!current_vertices_contains(env, clicked_vertex))
+				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
 			}
 		}
