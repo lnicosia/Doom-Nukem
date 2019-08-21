@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 11:14:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:34:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,38 @@ void	draw_grid_objects(t_env *env)
 	Uint32		color;
 
 	i = 0;
-	if (env->editor.select_object != -1)
+	if (env->editor.selected_object != -1)
 	{
-		color = 0xFFFFFF00;
-		scale = env->editor.scale;
+		color = 0xFF00FF00;
+		scale = env->editor.scale / 2.0;
 		center.x = env->sdl.mx;
 		center.y = env->sdl.my;
 		draw_circle(new_circle(color, color, center, scale), env);
 	}
 	while (i < env->nb_objects)
 	{
-		center.x = env->objects[i].pos.x  * env->editor.scale + env->editor.center.x;
-		center.y = env->objects[i].pos.y  * env->editor.scale + env->editor.center.y;
-		if (env->sdl.mx > center.x - env->editor.scale / 2
-				&& env->sdl.mx < center.x + env->editor.scale / 2
-				&& env->sdl.my > center.y - env->editor.scale / 2
-				&& env->sdl.my < center.y + env->editor.scale / 2
-				&& env->editor.select_object == -1)
+		center.x = env->objects[i].pos.x * env->editor.scale + env->editor.center.x;
+		center.y = env->objects[i].pos.y * env->editor.scale + env->editor.center.y;
+		if (env->sdl.mx > center.x - env->editor.scale / 2.0
+				&& env->sdl.mx < center.x + env->editor.scale / 2.0
+				&& env->sdl.my > center.y - env->editor.scale / 2.0
+				&& env->sdl.my < center.y + env->editor.scale / 2.0)
 		{
 			scale = env->editor.scale;
 			color = 0xFF00FF00;
 			if (env->inputs.left_click
-					&& env->editor.select_player == -1
-					&& env->editor.select_vertex == -1)
-				env->editor.select_object = i;
+					&& env->editor.selected_player == -1
+					&& env->editor.selected_object == -1
+					&& env->editor.selected_vertex == -1)
+				env->editor.selected_object = i;
 		}
 		else
 		{
 			color = 0xFFFFFF00;
-			scale = env->editor.scale / 2;
+			scale = env->editor.scale / 2.0;
 		}
-		if (env->editor.select_object != i)
-		draw_circle(new_circle(color, color, center, scale), env);
+		if (env->editor.selected_object != i)
+			draw_circle(new_circle(color, color, center, scale), env);
 		i++;
 	}
 }
@@ -61,10 +61,9 @@ int	add_object(t_env *env)
 {
 	t_object	object;
 
-	env->editor.objects = 1;
 	object.num = env->nb_objects;
-	object.pos.x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-	object.pos.y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+	object.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
+	object.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	object.pos.z = 6;
 	object.sprite = 1;
 	object.scale = 50;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 11:12:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:20:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			valid_map(t_env *env)
 	if (!env->nb_sectors)
 		return (ft_printf("You need at least one sector to go in 3d mode{reset}\n"));
 	if (!env->editor.new_player)
-		return (ft_printf("You need to place the player at a valid position"));
+		return (ft_printf("You need to place the player at a valid position\n"));
 	if (env->player.sector == -1)
 		return (ft_printf("Player position is not valid{reset}\n"));
 	while (i < env->nb_sectors)

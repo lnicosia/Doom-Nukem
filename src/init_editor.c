@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 15:50:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:34:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_editor_data(t_env *env)
 {
 	env->editor.in_game = 0;
-	env->editor.select_mode = 0;
 	env->editor.center.x = env->h_w;
 	env->editor.center.y = env->h_h;
 	env->editor.scale = 20;
@@ -27,12 +26,9 @@ void	init_editor_data(t_env *env)
 	env->nb_sectors = 0;
 	env->nb_objects = 0;
 	env->player.sector = -1;
-	env->editor.drag_object = 0;
-	env->editor.drag_player = 0;
-	env->editor.drag_vertex = 0;
-	env->editor.select_object = -1;
-	env->editor.select_vertex = -1;
-	env->editor.select_player = -1;
+	env->editor.selected_object = -1;
+	env->editor.selected_vertex = -1;
+	env->editor.selected_player = -1;
 }
 
 int	init_editor(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 17:41:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:34:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_grid_player(t_env *env)
 	circle.color = 0xFFFF0000;
 	circle.line_color = 0xFFFF0000;
 	scale = 0;
-	if (env->editor.select_player == 1)
+	if (env->editor.selected_player == 1)
 	{
 		circle.center.x = env->sdl.mx;
 		circle.center.y = env->sdl.my;
@@ -34,11 +34,11 @@ void	draw_grid_player(t_env *env)
 				&& env->sdl.mx < circle.center.x + env->editor.scale / 2
 				&& env->sdl.my > circle.center.y - env->editor.scale / 2
 				&& env->sdl.my < circle.center.y + env->editor.scale / 2
-				&& env->editor.select_object == -1 && env->editor.select_vertex == -1)
+				&& env->editor.selected_object == -1 && env->editor.selected_vertex == -1)
 		{
 			circle.radius = env->editor.scale;
 			if (env->inputs.left_click)
-				env->editor.select_player = 1;
+				env->editor.selected_player = 1;
 		}
 		else
 			circle.radius = env->editor.scale / 2;
