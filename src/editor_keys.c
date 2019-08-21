@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 18:37:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/21 11:19:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	drag_element(t_env *env)
 
 	i = 0;
 	j = 0;
+
+/*
+ * * object
+ */
+
 	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1 && env->editor.drag_object != 2)
 	{	
 		if (env->inputs.left_click)
@@ -78,6 +83,11 @@ void	drag_element(t_env *env)
 				env->flag = 0;
 		}
 	}
+
+/*
+ * * player
+ */
+
 	else if (env->editor.select_player != -1 && env->editor.select_object == -1 && env->editor.select_vertex == -1)
 	{
 		if (env->inputs.left_click)
@@ -95,11 +105,17 @@ void	drag_element(t_env *env)
 		}
 
 	}
+
+/*
+ * * vertex
+ */
+
 	else if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1
 			&& env->editor.drag_object != 2)
 	{
 		if (env->inputs.left_click)
 		{
+			env->flag = 1;
 			if (!env->editor.drag_object)
 				env->editor.drag_vertex = 1;
 			env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
@@ -123,6 +139,8 @@ void	drag_element(t_env *env)
 				}
 				i++;
 			}
+			if (env->sdl.mx > 200)
+				env->flag = 0;
 			env->editor.select_vertex = -1;
 			env->editor.drag_vertex = 0;
 		}
@@ -172,6 +190,7 @@ int			editor_keys(t_env *env)
 	create_object(env);
 	drag_element(env);
 	delete_object(env);
+	delete_vertex(env);
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;

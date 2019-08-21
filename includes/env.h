@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 18:37:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/21 11:19:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void				revert_sector(t_sector *sector, t_env *env);
 void				editor_options(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 int					delete_object(t_env *env);
+int					delete_vertex(t_env *env);
+void				delete_sector(t_env *env);
 
 /*
  * ** Main functions
