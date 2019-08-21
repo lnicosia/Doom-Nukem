@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 11:37:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 12:11:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	options(t_env *env)
 		else
 			SDL_SetRelativeMouseMode(1);
 	}
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 }
 
 void	screen_options(t_env *env)

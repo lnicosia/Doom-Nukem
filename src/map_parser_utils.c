@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 17:50:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:38:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ char	*skip_spaces(char *line)
 	return (line);
 }
 
+/*
+** Checks if a charcter is a valid number
+*/
+
 int		valid_number(char *line, t_map_parser *parser)
 {
+	(void)parser;
 	if (!*line)
-		return (ft_printf("Missing data at line %d\n",
-					parser->line_count));
+		return (MISSING_CHAR);
 	if ((*line < '0' || *line > '9') && *line != '-')
-		return (-1);
+		return (WRONG_CHAR);
 	return (0);
 }

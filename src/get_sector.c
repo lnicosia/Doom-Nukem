@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:33:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 18:01:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 14:45:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ int		get_sector_global(t_env *env, t_v3 pos)
 	while (i < env->nb_sectors)
 	{
 		if (is_in_sector(env, i, pos))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+/*
+** Returns an object sector according to its position.
+** Looks up every sector.
+*/
+
+int		get_sector_no_z(t_env *env, t_v3 pos)
+{
+	int		i;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (is_in_sector_no_z(env, i, new_v2(pos.x, pos.y)))
 			return (i);
 		i++;
 	}

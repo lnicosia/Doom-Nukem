@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 13:25:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:59:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/14 18:36:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_pointers(t_env *env)
 	env->sound.background = NULL;
 	env->sound.footstep = NULL;
 	env->sound.jump = NULL;
+	env->sector_list = NULL;
 	env->ymin = NULL;
 	env->ymax = NULL;
 	env->res[0] = NULL;
@@ -58,4 +59,5 @@ void	init_pointers(t_env *env)
 		env->weapons[i].empty = NULL;
 		i++;
 	}
+	env->player.life = 100;
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 10:15:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:16:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	precompute_slopes(t_env *env)
 {
 	int	i;
 
-	ft_printf("{reset}Computing map slopes..\n");
+	ft_printf("{reset}Computing map slopes..\n{red}");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -172,7 +172,5 @@ void	precompute_slopes(t_env *env)
 		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}
-	update_player_z(env);
-	update_floor(env);
 	//check_slopes(env);
 }

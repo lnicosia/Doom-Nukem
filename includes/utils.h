@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 17:19:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 14:46:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct		s_v2
 	double			x;
 	double			y;
 }					t_v2;
+
+typedef	struct		s_segment
+{
+	t_v2			p1;
+	t_v2			p2;
+}					t_segment;
 
 typedef struct		s_v3
 {
@@ -125,7 +131,6 @@ typedef struct		s_player
 	t_v3			pos;
 	t_v2			near_left;
 	t_v2			near_right;
-	double			gravity;
 	double			eyesight;
 	double			angle;
 	double			angle_cos;
@@ -136,14 +141,10 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
-	double			size_2d;
 	double			camera_x;
 	double			camera_y;
 	double			rotation_speed;
 	short			sector;
-	short			camera_sector;
-	short			near_left_sector;
-	short			near_right_sector;
 	double			state;
 	int				curr_weapon;
 	int				life;
@@ -313,6 +314,7 @@ typedef struct		s_object
 	int				ammo;
 	int				health;
 	int				sector;
+	int				exists;
 	int				num;
 }					t_object;
 
@@ -370,6 +372,7 @@ typedef struct		s_options
 	int				test;
 	int				clipping;
 	int				show_ennemies;
+	int				zbuffer;
 }					t_options;
 
 /*

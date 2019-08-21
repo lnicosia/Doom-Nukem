@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/13 14:31:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 15:50:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ int	init_editor(int ac, char **av)
 {
 	t_env	env;
 
+	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	env.reset = 0;
-	env.i = 0;
-	init_pointers(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -51,10 +49,6 @@ int	init_editor(int ac, char **av)
 	init_editor_data(&env);
 	init_inputs(&env);
 	init_camera(&env);
-	env.player.eyesight = 6;
-	env.player.speed = 0.5;
-	env.player.size_2d = 0.5;
-	env.flag = 0;
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
 	if (init_sound(&env))

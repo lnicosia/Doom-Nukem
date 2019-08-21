@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 11:19:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/21 18:12:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "utils.h"
 # include "editor.h"
+# define OX1 env->vertices[env->sectors[sector].vertices[i]].x
+# define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
+# define OY1 env->vertices[env->sectors[sector].vertices[i]].y
+# define OY2 env->vertices[env->sectors[sector].vertices[i + 1]].y
 
 typedef struct		s_env
 {
@@ -52,6 +56,7 @@ typedef struct		s_env
 	int				*xmin;
 	int				*xmax;
 	int				*screen_sectors;
+	int				*sector_list;
 	int				screen_sectors_size;
 	short			*rendered_sectors;
 	int				screen_w[3];
@@ -160,6 +165,7 @@ void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
 void				init_camera(t_env *env);
+void				init_player(t_env *env);
 void				set_camera(t_env *env);
 int					valid_map(t_env *env);
 
@@ -238,6 +244,7 @@ void				move_player(t_env *env);
 void				update_camera_position(t_env *env);
 int					get_sector(t_env *env, t_v3 p, short origin);
 int					get_sector_global(t_env *env, t_v3 p);
+int					get_sector_no_z(t_env *env, t_v3 p);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -256,5 +263,12 @@ void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
+int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
+
+/*
+** enemies functions
+*/
+
+void	enemy_pursuit(t_env *env);
 
 #endif

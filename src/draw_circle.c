@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:21:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 14:36:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 16:06:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,29 @@ void		draw_circle(t_circle circle, t_env *env)
 	while (x <= y)
 	{
 		fill_hline(circle.color,
-				new_point(circle.center.x - x, circle.center.y + y),
-				new_point(circle.center.x + x, circle.center.y + y),
+				new_point(ft_clamp(circle.center.x - x, 0, env->w - 1), ft_clamp(circle.center.y + y, 0, env->h - 1)),
+				new_point(ft_clamp(circle.center.x + x, 0, env->w - 1), ft_clamp(circle.center.y + y, 0, env->h - 1)),
 				env);
 		fill_hline(circle.color,
-				new_point(circle.center.x - x, circle.center.y - y),
-				new_point(circle.center.x + x, circle.center.y - y),
+				new_point(ft_clamp(circle.center.x - x, 0, env->w - 1), ft_clamp(circle.center.y - y, 0, env->h - 1)),
+				new_point(ft_clamp(circle.center.x + x, 0, env->w - 1), ft_clamp(circle.center.y - y, 0, env->h - 1)),
 				env);
 		fill_hline(circle.color,
-				new_point(circle.center.x - y, circle.center.y - x),
-				new_point(circle.center.x + y, circle.center.y - x),
+				new_point(ft_clamp(circle.center.x - y, 0, env->w - 1), ft_clamp(circle.center.y - x, 0, env->h - 1)),
+				new_point(ft_clamp(circle.center.x + y, 0, env->w - 1), ft_clamp(circle.center.y - x, 0, env->h - 1)),
 				env);
 		fill_hline(circle.color,
-				new_point(circle.center.x - y, circle.center.y + x),
-				new_point(circle.center.x + y, circle.center.y + x),
+				new_point(ft_clamp(circle.center.x - y, 0, env->w - 1), ft_clamp(circle.center.y + x, 0, env->h - 1)),
+				new_point(ft_clamp(circle.center.x + y, 0, env->w - 1), ft_clamp(circle.center.y + x, 0, env->h - 1)),
 				env);
-		env->sdl.texture_pixels[circle.center.x + x + env->w * (circle.center.y + y)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x - x + env->w * (circle.center.y + y)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x + x + env->w * (circle.center.y - y)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x - x + env->w * (circle.center.y - y)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x + y + env->w * (circle.center.y + x)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x - y + env->w * (circle.center.y + x)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x + y + env->w * (circle.center.y - x)] = circle.line_color;
-		env->sdl.texture_pixels[circle.center.x - y + env->w * (circle.center.y - x)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x + x, 0, env->w - 1) + env->w * ft_clamp(circle.center.y + y, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x - x, 0, env->w - 1) + env->w * ft_clamp(circle.center.y + y, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x + x, 0, env->w - 1) + env->w * ft_clamp(circle.center.y - y, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x - x, 0, env->w - 1) + env->w * ft_clamp(circle.center.y - y, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x + y, 0, env->w - 1) + env->w * ft_clamp(circle.center.y + x, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x - y, 0, env->w - 1) + env->w * ft_clamp(circle.center.y + x, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x + y, 0, env->w - 1) + env->w * ft_clamp(circle.center.y - x, 0, env->h - 1)] = circle.line_color;
+		env->sdl.texture_pixels[ft_clamp(circle.center.x - y, 0, env->w - 1) + env->w * ft_clamp(circle.center.y - x, 0, env->h - 1)] = circle.line_color;
 		if (p < 0)
 			p += 4 * x++ + 6;
 		else
