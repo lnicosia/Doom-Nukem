@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 12:33:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 13:49:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_plr
 
 typedef struct	s_editor
 {
+	int			selected_sector;
 	int			selected_object;
 	int			selected_player;
 	int			selected_vertex;

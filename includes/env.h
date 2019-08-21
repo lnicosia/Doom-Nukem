@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 13:37:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:57:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int					delete_object(t_env *env);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
 void				vertices_selection(t_env *env);
+void				create_portals(t_env *env);
 
 /*
  * ** Main functions

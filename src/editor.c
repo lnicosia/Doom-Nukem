@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 12:34:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:39:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int		editor(t_env *env)
 		}
 		if (!env->editor.in_game)
 		{
-			if (editor_keys(env))
-				return (ft_printf("Error in inputs\n"));
 			draw_grid(env);
 			draw_grid_vertices(env);
+			if (editor_keys(env))
+				return (ft_printf("Error in inputs\n"));
 			editor_hud(env);
 			if (env->editor.new_player || env->editor.selected_player == 1)
 				draw_grid_player(env);
