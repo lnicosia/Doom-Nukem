@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 17:21:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 17:41:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void	add_player(t_env *env)
 	env->player.perp_sin = sin(env->player.angle - M_PI / 2);
 	env->player.sector = get_sector_no_z(env,
 			env->player.pos);
+	if (env->player.sector != -1)
+		update_player_z(env);
 }

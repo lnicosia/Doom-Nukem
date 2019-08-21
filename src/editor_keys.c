@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 17:09:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/20 18:03:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 void	create_player(t_env *env)
 {
 	if (env->inputs.left_click
-			&& (env->sdl.mx > 80
-					&& env->sdl.mx < 120
-					&& env->sdl.my > 180
-					&& env->sdl.my < 220)
+			&& env->sdl.mx > 80
+			&& env->sdl.mx < 120
+			&& env->sdl.my > 180
+			&& env->sdl.my < 220
 			&& !env->editor.new_sector
 			&& env->editor.select_player == -1
 			&& env->editor.select_vertex == -1
 			&& env->editor.select_object == -1)
-	{
 		env->editor.select_player = 1;
-	}
 	if (!env->inputs.left_click && env->editor.select_player == 1)
 	{
 		env->editor.select_player = -1;
@@ -51,17 +49,30 @@ void	create_object(t_env *env)
 			&& env->editor.select_object == -1)
 	{
 		env->editor.objects = 1;
+		env->editor.select_object = env->nb_objects;
 		env->editor.drag_object = 2;
 	}
-	if (!env->inputs.left_click && env->editor.drag_object == 2)
+	if (!env->inputs.left_click && env->editor.select_object != -1)
 	{
 		env->editor.drag_object = 0;
-		env->editor.select_object = -1;
 		if (env->sdl.mx > 200)
 		{
-			add_object(env);
-			env->nb_objects++;
+			if (env->editor.select_object == env->nb_objects)
+			{
+				add_object(env);
+				env->nb_objects++;
+			}
+			else
+			{
+				env->objects[env->editor.select_object].pos.x =	round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+				env->objects[env->editor.select_object].pos.y =	round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+			}
 		}
+		else
+		{
+			delete_object(env);
+		}
+		env->editor.select_object = -1;
 	}
 }
 
@@ -74,14 +85,13 @@ void	drag_element(t_env *env)
 	j = 0;
 	if (env->editor.select_object != -1 && env->editor.select_player == -1 && env->editor.select_vertex == -1 && env->editor.drag_object != 2)
 	{	
-		if (env->inputs.left_click)
+		/*if (env->inputs.left_click)
 		{
 			env->flag = 1;
-			env->editor.drag_object = 1;
 			env->objects[env->editor.select_object].pos.x =	env->sdl.mx;
 			env->objects[env->editor.select_object].pos.y =	env->sdl.my;
 		}
-		else if (env->editor.drag_object)
+		else if (env->editor.select_object)
 		{
 			env->objects[env->editor.select_object].pos.x =	round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->objects[env->editor.select_object].pos.y =	round((env->sdl.my - env->editor.center.y) / env->editor.scale);
@@ -90,8 +100,13 @@ void	drag_element(t_env *env)
 			env->editor.drag_object = 0;
 			if (env->sdl.mx > 200)
 				env->flag = 0;
-		}
+		}*/
 	}
+	/*if (env->editor.select_object != -1 && env->nb_objects > 0)
+	{
+		env->objects[env->editor.select_object].pos.x =	env->sdl.mx;
+		env->objects[env->editor.select_object].pos.y =	env->sdl.my;
+	}*/
 	/*else if (env->editor.select_player != -1 && env->editor.select_object == -1 && env->editor.select_vertex == -1)
 	{
 		if (env->inputs.left_click)
@@ -184,7 +199,7 @@ int			editor_keys(t_env *env)
 	create_player(env);
 	create_object(env);
 	drag_element(env);
-	delete_object(env);
+	//delete_object(env);
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
