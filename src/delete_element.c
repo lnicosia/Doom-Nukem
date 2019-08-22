@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 11:18:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 11:53:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			delete_sector(env);
 		else
 		{
+			j = 0;
 			tmp = env->sectors[sectors[i]];
 			env->sectors[sectors[i]].vertices = ft_delindex(env->sectors[sectors[i]].vertices,
 					(env->sectors[sectors[i]].nb_vertices + 1) * sizeof(short),
@@ -74,12 +75,12 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			{
 				if (env->sectors[sectors[i]].vertices[j] > env->editor.select_vertex)
 					env->sectors[sectors[i]].vertices[j]--;
-				ft_printf("sector[%d]: vertex[%d]: %d\n", sectors[i], env->sectors[sectors[i]].vertices[j], env->vertices[]);
 				j++;
 			}	
 			env->sectors[sectors[i]].vertices[env->sectors[sectors[i]].nb_vertices] = env->sectors[sectors[i]].vertices[0];
 		}
 		i++;
+		ft_printf("\n");
 	}
 }
 

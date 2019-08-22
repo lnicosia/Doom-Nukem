@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:22:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 11:18:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 11:53:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	draw_grid_sector(t_sector sector, t_env *env)
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-		ft_printf("vertex[%d]: %d et vertex[%d]: %d\n", i, sector.vertices[i], i + 1, sector.vertices[i + 1]);
 		v1.x = env->editor.center.x +
 			env->vertices[sector.vertices[i]].x * env->editor.scale;
 		v1.y = env->editor.center.y +
@@ -65,7 +64,6 @@ void	draw_grid_sector(t_sector sector, t_env *env)
 		draw_line(v1, v2, *env, 0xFFFFFFFF);
 		i++;
 	}
-	ft_printf("\n");
 }
 
 void	draw_grid_sectors(t_env *env)
