@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 11:53:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 11:54:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			env->sectors[sectors[i]].vertices[env->sectors[sectors[i]].nb_vertices] = env->sectors[sectors[i]].vertices[0];
 		}
 		i++;
-		ft_printf("\n");
 	}
 }
 
