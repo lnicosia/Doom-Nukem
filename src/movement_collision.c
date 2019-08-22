@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/21 16:35:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/22 14:47:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,11 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
     FUTURE_Y = dest_y;
     motion.old_sector = wall.sector_or;
     env->sector_list[wall.sector_dest] = 1;
-    if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
-        return (1);
+    /*
+    ** Permet de faire segfault pthread_join facilement sur triple piece
+    **if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
+    **    return (1);
+    */
     if (!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest))
     {
         //ft_printf("cheh you're stuck\n");
@@ -231,7 +234,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
         //ft_printf("line 231 %d\n", a++);
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
-            env->player.fall = 1;
+            env->player.fall = 0;
             //ft_printf("line 235 %d\n", a++);
             return (1);
         }
