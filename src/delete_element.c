@@ -6,11 +6,41 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 18:12:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 11:18:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (env->sectors[i].num == sectors[j])
+				break;
+			j++;
+		}
+		if (j == size)
+		{
+			k = 0;
+			while (k < env->sectors[i].nb_vertices)
+			{
+				if (env->sectors[i].vertices[k] > env->editor.select_vertex)
+					env->sectors[i].vertices[k]--;;
+				k++;
+			}
+		}
+		i++;
+	}
+}
 
 void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 {
@@ -44,6 +74,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			{
 				if (env->sectors[sectors[i]].vertices[j] > env->editor.select_vertex)
 					env->sectors[sectors[i]].vertices[j]--;
+				ft_printf("sector[%d]: vertex[%d]: %d\n", sectors[i], env->sectors[sectors[i]].vertices[j], env->vertices[]);
 				j++;
 			}	
 			env->sectors[sectors[i]].vertices[env->sectors[sectors[i]].nb_vertices] = env->sectors[sectors[i]].vertices[0];
@@ -87,6 +118,7 @@ void	calc_sectors(t_env *env)
 		i++;
 	}
 	modify_vertices_in_sectors(env, list_sectors, count);
+	modify_vertices_list_in_sectors(env, list_sectors, count);
 }
 
 int	delete_vertex(t_env *env)
