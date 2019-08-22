@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/22 14:47:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:19:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,12 @@ int     check_collision(t_env *env, double x_move, double y_move)
     /*if (!check_ceiling(env, motion, env->player.sector) || !check_floor(env, motion, env->player.sector))
         return (0);*/
     //ft_printf("line 177 %d\n", a++);
+    if (env->player.fall == 1)
+        env->player.prev_sector = env->player.sector;
+    //motion.old_sector = env->player.sector;
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         //ft_printf("line 180 %d\n", a++);
-        motion.old_sector = env->player.sector;
         /*
         ** If the player is inside a wall for some reason
         */
@@ -232,7 +234,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
         //ft_printf("line 231 %d\n", a++);
-        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
+        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR == env->player.prev_sector)
         {
             env->player.fall = 0;
             //ft_printf("line 235 %d\n", a++);
