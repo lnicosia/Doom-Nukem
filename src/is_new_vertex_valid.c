@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 18:05:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:17:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,12 @@ int		check_list_intersections(t_env *env, t_vertex *last)
 				new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
 					round((env->sdl.my - env->editor.center.y) / env->editor.scale)),
 				new_v2(last->x, last->y));
-		//ft_printf("Intersection avec mur %d-%d = [%f][%f]\n", v1->num, v2->num, intersection.x, intersection.y);
-		if ((intersection.x < v1->x && intersection.x < v2->x)
-				|| (intersection.x > v1->x && intersection.x > v2->x)
-				|| (intersection.y < v1->y && intersection.y < v2->y)
-				|| (intersection.y > v1->y && intersection.y > v2->y))
-		{
-			//ft_printf("N'intersecte pas\n");
-		}
-		else
+		if (segments_intersect(
+				new_v2(v1->x, v1->y),
+				new_v2(v2->x, v2->y),
+				new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
+					round((env->sdl.my - env->editor.center.y) / env->editor.scale)),
+				new_v2(last->x, last->y)))
 			ft_printf("Intersecte\n");
 		tmp = tmp->next;
 	}

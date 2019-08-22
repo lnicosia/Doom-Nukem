@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 14:46:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:35:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,11 @@
 # define MAX_W 2560
 # define MAX_H 1440
 
-typedef struct		s_point
-{
-	int				x;
-	int				y;
-}					t_point;
-
-typedef struct		s_v2
-{
-	double			x;
-	double			y;
-}					t_v2;
-
 typedef	struct		s_segment
 {
 	t_v2			p1;
 	t_v2			p2;
 }					t_segment;
-
-typedef struct		s_v3
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_v3;
 
 typedef struct		s_line_eq
 {

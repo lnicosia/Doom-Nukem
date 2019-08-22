@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 13:44:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:36:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	draw_grid_vertices(t_env *env)
 			color = 0xFFFF0000;
 			scale = env->editor.scale / 5.0;
 		}
+		if (env->editor.selected_vertex == i)
+			color = 0xFF00FF00;
 		draw_circle(new_circle(color, color, center, scale), env);
 		i++;
 	}

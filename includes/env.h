@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 16:17:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:41:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,11 +231,6 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 
 void				draw_hud(t_env *env);
-
-t_point				new_point(int x, int y);
-t_v2				new_v2(double x, double y);
-t_v3				new_v3(double x, double y, double z);
-
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
 double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);

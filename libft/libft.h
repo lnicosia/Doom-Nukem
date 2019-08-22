@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 15:18:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:16:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_point
+{
+	int			x;
+	int			y;
+}				t_point;
+
+typedef struct	s_v2
+{
+	double		x;
+	double		y;
+}				t_v2;
+
+typedef struct	s_v3
+{
+	double		x;
+	double		y;
+	double		z;
+}				t_v3;
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -112,5 +131,10 @@ void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int				ft_perror(const char *s);
 void			*ft_delindex(void *ptr, size_t old_size, size_t new_size, size_t index);
 int				ft_lstcontains(t_list *lst, void *content);
+t_point			new_point(int x, int y);
+t_v2			new_v2(double x, double y);
+t_v3			new_v3(double x, double y, double z);
+t_v2			get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
+int				segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 
 #endif
