@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 10:35:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 15:54:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@
 # define THREADS 4
 # define MAX_W 2560
 # define MAX_H 1440
-
-typedef	struct		s_segment
-{
-	t_v2			p1;
-	t_v2			p2;
-}					t_segment;
 
 typedef struct		s_line_eq
 {

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 13:55:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:20:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int			editor_keys(t_env *env)
 			update_camera_position(env);
 			update_player_z(env);
 			update_floor(env);
+			env->sdl.mx = env->w / 2;
+			env->sdl.my = env->h / 2;
 			SDL_SetRelativeMouseMode(1);
 		}
 		env->inputs.enter = 0;

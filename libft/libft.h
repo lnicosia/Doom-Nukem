@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 11:30:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 15:55:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct	s_v3
 	double		y;
 	double		z;
 }				t_v3;
+
+typedef	struct		s_segment
+{
+	t_v2			p1;
+	t_v2			p2;
+}					t_segment;
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);

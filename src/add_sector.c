@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 14:56:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 14:49:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int			add_sector(t_env *env)
 					sizeof(t_sector) * (env->nb_sectors + 1))))
 		return (ft_printf("Could not realloc sectors\n"));
 	env->sectors[env->nb_sectors] = sector;
+	create_portals(env, sector);
 	set_sectors_xmax(env);
 	env->nb_sectors++;
-	create_portals(env);
 	return (0);
 }

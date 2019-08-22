@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   create_portals.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 15:56:05 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/22 16:31:35 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/22 16:35:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef CREATE_PORTALS_H
+# define CREATE_PORTALS_H
 
-t_point	new_point(int x, int y)
+typedef struct	s_portal_data
 {
-	t_point	new;
+	int			v1;
+	int			v2;
+	int			index;
+	int			father;
+}				t_portal_data;
 
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_v2	new_v2(double x, double y)
-{
-	t_v2	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_v3	new_v3(double x, double y, double z)
-{
-	t_v3	new;
-
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	return (new);
-}
+#endif

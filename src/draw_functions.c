@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 13:30:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:22:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,13 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 	}
 	if (env->options.zbuffer || env->options.contouring)
 	{
-		if (vline.start != env->h -1 && vline.start > 0)
+		if (vline.start >= 0 && vline.start < env->h - 1)
 		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.start] = 100000000;
 		}
-		if (vline.end == (int)render.max_ceiling - 1)
+		if (vline.end == (int)render.max_ceiling - 1
+				&& vline.end >= 0 && vline.end < env->h)
 		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.end] = 100000000;
@@ -251,12 +252,13 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 	}
 	if (env->options.zbuffer || env->options.contouring)
 	{
-		if (vline.start == (int)render.max_floor + 1)
+		if (vline.start == (int)render.max_floor + 1
+				&& vline.start >= 0 && vline.start < env->h)
 		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.start] = 100000000;
 		}
-		if (vline.end != env->h - 1 && vline.end > 0)
+		if (vline.end < env->h - 1 && vline.end >= 0)
 		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.end] = 100000000;

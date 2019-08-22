@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:22:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 14:30:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:49:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	int		i;
 	t_point	v1;
 	t_point	v2;
+	Uint32	c;
 
 	i = 0;
 	while (i < sector.nb_vertices)
@@ -61,7 +62,11 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 			env->vertices[sector.vertices[i + 1]].x * env->editor.scale;
 		v2.y = env->editor.center.y +
 			env->vertices[sector.vertices[i + 1]].y * env->editor.scale;
-		draw_line(v1, v2, *env, color);
+		if (sector.neighbors[i] == -1)
+			c = color;
+		else
+			c = 0xFFFF0000;
+		draw_line(v1, v2, *env, c);
 		i++;
 	}
 }

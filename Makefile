@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/22 10:44:48 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/08/22 16:32:57 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h
+		  editor.h env.h save.h create_portals.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
