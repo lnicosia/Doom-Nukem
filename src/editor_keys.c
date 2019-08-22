@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 16:53:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:55:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ int			editor_keys(t_env *env)
 			&& env->editor.selected_vertex == -1)
 	{
 		clicked_vertex = get_existing_vertex(env);
-		if (clicked_vertex == -1)
+		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
 		{
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
-			if (is_new_vertex_valid(env, clicked_vertex))
-				add_vertex_to_current_sector(env, env->nb_vertices - 1);
+			add_vertex_to_current_sector(env, env->nb_vertices - 1);
 			if (!env->editor.new_sector) //Nouveau secteur
 				env->editor.new_sector = 1;
 		}
-		else
+		else if (clicked_vertex >= 0)
 		{
 			if (!env->editor.new_sector)
 			{
@@ -41,7 +40,8 @@ int			editor_keys(t_env *env)
 			else
 			{
 				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
-						&& ft_lstlen(env->editor.current_vertices) > 2)
+						&& ft_lstlen(env->editor.current_vertices) > 2
+						&& is_new_vertex_valid(env, clicked_vertex))
 				{
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.new_sector = 0;
