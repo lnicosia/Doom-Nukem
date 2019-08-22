@@ -6,11 +6,50 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/24 15:07:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 19:23:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void    hitscan_shot(t_env *env)
+{
+    int i;
+
+    i = 0;
+    while (i < env->nb_objects)
+    {
+        if (env->objects[i].exists && env->objects[i].sprite == 1)
+        {
+            if ((env->objects[i].left - env->objects[i].left) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].bottom) < 0)
+            {
+                //ft_printf("left %d  right %d  top %d  bottom %d  mousex %d  mousey %d\n", env->objects[i].left, env->objects[i].right, env->objects[i].top, env->objects[i].bottom, env->w / 2, env->h / 2);
+                i++;
+                continue ;
+            }
+            if ((env->objects[i].right - env->objects[i].left) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].top) < 0)
+            {
+                //ft_printf("fail 2\n");
+                i++;
+                continue ;
+            }
+            if ((env->objects[i].right - env->objects[i].right) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].top) < 0)
+            {
+                //ft_printf("fail 3\n");
+                i++;
+                continue ;
+            }
+            if ((env->objects[i].left - env->objects[i].right) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].bottom) < 0)
+            {
+                //ft_printf("fail 4\n");
+                i++;
+                continue ;
+            }
+            env->objects[i].exists = 0;
+        }
+        i++;
+    }
+}
 
 void    draw_weapon(t_env *env, int sprite)
 {
@@ -48,6 +87,7 @@ void    weapon_animation(t_env *env, int nb)
 {
     if (env->shot.start == 0)
 	{
+        hitscan_shot(env);
         env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
         if (env->weapons[nb].ammo <= 0)

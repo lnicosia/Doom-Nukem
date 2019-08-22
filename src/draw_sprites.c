@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/26 12:05:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/22 18:21:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,10 @@ void		draw_object(t_object *object, t_env *env)
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);
 	orender.yend = ft_clamp(orender.y2, 0, env->h - 1);
+	object->left = orender.xstart;
+	object->right = orender.xend;
+	object->top = orender.ystart;
+	object->bottom = orender.yend;
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
 	threaded_object_loop(*object, orender, env);

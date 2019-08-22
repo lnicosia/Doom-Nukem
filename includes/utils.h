@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 16:04:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:48:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,10 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
 	int				seen;
 	int				sprite;
 	double			scale;
