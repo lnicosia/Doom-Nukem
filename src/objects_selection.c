@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 13:35:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 12:04:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	objects_selection(t_env *env)
 			&& env->sdl.mx < 120
 			&& env->sdl.my > 280
 			&& env->sdl.my < 320
-			&& !env->editor.new_sector
+			&& env->editor.start_vertex == -1
 			&& env->editor.selected_player == -1
 			&& env->editor.selected_vertex == -1
 			&& env->editor.selected_object == -1)

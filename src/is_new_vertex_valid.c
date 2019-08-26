@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 14:33:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 12:09:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		current_vertices_contains(t_env *env, int index)
 	t_list		*tmp;
 	t_vertex	*v;
 
-	tmp = env->editor.current_vertices->next;
+	tmp = env->editor.current_vertices;
 	while (tmp)
 	{
 		v = (t_vertex*)tmp->content;
@@ -115,7 +115,8 @@ int		is_new_vertex_valid(t_env *env, int index)
 {
 	if (!env->editor.current_vertices)
 		return (1);
-	if (current_vertices_contains(env, index))
+	if (index != env->editor.start_vertex
+			&& current_vertices_contains(env, index))
 		return (0);
 	if (new_wall_intersects(env, index))
 		return (0);

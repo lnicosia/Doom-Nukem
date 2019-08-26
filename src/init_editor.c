@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 13:31:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 12:00:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_editor_data(t_env *env)
 	env->editor.center.y = env->h_h;
 	env->editor.scale = 20;
 	env->editor.current_vertices = NULL;
-	env->editor.new_sector = 0;
+	env->editor.start_vertex = -1;
 	env->editor.reverted = 0;
 	env->editor.new_player = 0;
 	env->nb_vertices = 0;

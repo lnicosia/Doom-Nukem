@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 09:57:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 11:37:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 12:12:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	del_last_vertex(t_env *env)
 	{
 		free(env->editor.current_vertices);
 		env->editor.current_vertices = NULL;
+		env->editor.start_vertex = -1;
 		return ;
 	}
 	tmp = env->editor.current_vertices;

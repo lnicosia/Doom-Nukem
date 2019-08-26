@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 11:38:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 11:57:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int					is_new_vertex_valid(t_env *env, int index);
 void				del_last_vertex(t_env *env);
 int					delete_vertex(t_env *env);
 void				delete_sector(t_env *env);
+int					current_vertices_contains(t_env *env, int index);
 
 /*
  * ** Main functions

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 11:35:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 12:08:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int			editor_keys(t_env *env)
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
-			if (!env->editor.new_sector) //Nouveau secteur
-				env->editor.new_sector = 1;
+			if (env->editor.start_vertex == -1) //Nouveau secteur
+				env->editor.start_vertex = env->nb_vertices - 1;
 		}
 		else if (clicked_vertex >= 0)
 		{
-			if (!env->editor.new_sector)
+			if (env->editor.start_vertex == -1)
 			{
-				env->editor.new_sector = 1;
+				env->editor.start_vertex = clicked_vertex;
 				add_vertex_to_current_sector(env, clicked_vertex);
 			}
 			else
@@ -44,7 +44,7 @@ int			editor_keys(t_env *env)
 						&& is_new_vertex_valid(env, clicked_vertex))
 				{
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
-					env->editor.new_sector = 0;
+					env->editor.start_vertex = -1;
 					if (add_sector(env))
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
@@ -64,7 +64,7 @@ int			editor_keys(t_env *env)
 	objects_selection(env);
 	vertices_selection(env);
 	if (env->inputs.left_click
-			&& !env->editor.new_sector
+			&& env->editor.start_vertex == -1
 			&& env->editor.selected_player == -1
 			&& env->editor.selected_object == -1
 			&& env->editor.selected_vertex == -1)
