@@ -6,11 +6,31 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 09:57:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 12:12:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 13:26:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		is_vertex_used(t_env *env, int index)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == index)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 void	del_last_vertex(t_env *env)
 {
@@ -21,6 +41,9 @@ void	del_last_vertex(t_env *env)
 		return ;
 	if (!env->editor.current_vertices->next)
 	{
+		v = (t_vertex*)env->editor.current_vertices->content;
+		if (!is_vertex_used(env, v->num))
+			delete_vertex(env, v->num);
 		free(env->editor.current_vertices);
 		env->editor.current_vertices = NULL;
 		env->editor.start_vertex = -1;
@@ -30,6 +53,8 @@ void	del_last_vertex(t_env *env)
 	while (tmp && tmp->next && tmp->next->next)
 		tmp = tmp->next;
 	v = (t_vertex*)tmp->next->content;
+	if (!is_vertex_used(env, v->num))
+		delete_vertex(env, v->num);
 	free(tmp->next->content);
 	tmp->next->content = NULL;
 	free(tmp->next);
