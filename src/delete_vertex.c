@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 14:25:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 17:57:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size, int vertex)
+/*void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size, int vertex)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ void	modify_vertices_in_sectors(t_env *env, int *sectors, int size, int vertex)
 		}
 		i++;
 	}
-}
+}*/
 
 void	modify_sectors(t_env *env, int vertex)
 {
@@ -96,7 +96,7 @@ void	modify_sectors(t_env *env, int vertex)
 	while (i < env->nb_sectors)
 	{
 		j = 0;
-		while (j <= env->sectors[i].nb_vertices)
+		while (j < env->sectors[i].nb_vertices)
 		{
 			if (env->sectors[i].vertices[j] == vertex)
 			{
@@ -112,16 +112,17 @@ void	modify_sectors(t_env *env, int vertex)
 				}
 				list_sectors[count] = i;
 				count++;*/
-				env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
-						sizeof(short) * (env->sectors[i].nb_vertices + 1),
-						sizeof(short),
-						sizeof(short) * j);
-				env->sectors[i].nb_vertices--;
+					env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
+							sizeof(short) * (env->sectors[i].nb_vertices + 1),
+							sizeof(short),
+							sizeof(short) * j);
+					env->sectors[i].nb_vertices--;
 			}
-			if (env->sectors[i].vertices[j] >= vertex)
+			if (env->sectors[i].vertices[j] > vertex)
 				env->sectors[i].vertices[j]--;
 			j++;
 		}
+		env->sectors[i].vertices[env->sectors[i].nb_vertices] = env->sectors[i].vertices[0];
 		i++;
 	}
 	//modify_vertices_in_sectors(env, list_sectors, count, vertex);
@@ -129,20 +130,20 @@ void	modify_sectors(t_env *env, int vertex)
 	//ft_memdel((void**)&list_sectors);
 }
 
-int	delete_vertex(t_env *env, int vertex)
+int		delete_vertex(t_env *env, int vertex)
 {
 	int			i;
 
+	//ft_printf("%d\n%d\n%d\n\n", sizeof(t_vertex) * env->nb_vertices, sizeof(t_vertex), sizeof(t_vertex) * vertex);
 	env->vertices = ft_delindex(env->vertices,
 			sizeof(t_vertex) * env->nb_vertices,
 			sizeof(t_vertex),
 			sizeof(t_vertex) * vertex);
 	env->nb_vertices--;
-	i = 0;
+	i = vertex;
 	while (i < env->nb_vertices)
 	{
-		if (env->vertices[i].num >= vertex)
-			env->vertices[i].num--;
+		env->vertices[i].num--;
 		i++;
 	}
 	if (env->nb_sectors)
@@ -151,13 +152,18 @@ int	delete_vertex(t_env *env, int vertex)
 	return (0);
 }
 
-int	delete_object(t_env *env)
+void	delete_invalid_vertices(t_env *env)
 {
-	env->objects = ft_delindex(env->objects,
-			env->nb_objects * sizeof(t_object),
-			sizeof(t_object),
-			env->editor.selected_object * sizeof(t_object));
-	env->nb_objects--;
-	env->editor.selected_object = -1;
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < env->nb_vertices)
+	{
+		if (!is_vertex_used(env, i))
+		{
+			delete_vertex(env, i);
+			i--;
+		}
+		i++;
+	}
 }

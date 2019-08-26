@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 12:04:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 14:31:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	objects_selection(t_env *env)
 			}
 		}
 		else
-			delete_object(env);
+			delete_object(env, env->editor.selected_object);
 		env->editor.selected_object = -1;
 	}
 }

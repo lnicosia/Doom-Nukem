@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 12:09:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 15:37:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,6 @@ int		new_wall_intersects(t_env *env, int index)
 		if (check_sector_intersections(env, env->sectors[i], *last, index))
 			return (1);
 		i++;
-	}
-	return (0);
-}
-
-int		current_vertices_contains(t_env *env, int index)
-{
-	t_list		*tmp;
-	t_vertex	*v;
-
-	tmp = env->editor.current_vertices;
-	while (tmp)
-	{
-		v = (t_vertex*)tmp->content;
-		if (v->num == index)
-			return (1);
-		tmp = tmp->next;
 	}
 	return (0);
 }

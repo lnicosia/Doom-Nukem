@@ -6,31 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 09:57:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 13:26:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 15:37:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		is_vertex_used(t_env *env, int index)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		j = 0;
-		while (j < env->sectors[i].nb_vertices)
-		{
-			if (env->sectors[i].vertices[j] == index)
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 void	del_last_vertex(t_env *env)
 {

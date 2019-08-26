@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 13:38:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 17:44:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	check_sector_order(t_env *env)
 			{
 				env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
 				revert_sector(&env->sectors[i], env);
+				break;
 			}
 			j++;
 		}
