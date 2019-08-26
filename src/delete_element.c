@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 13:34:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 14:25:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
+void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size, int vertex)
 {
 	int	i;
 	int	j;
@@ -33,7 +33,7 @@ void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
 			k = 0;
 			while (k < env->sectors[i].nb_vertices)
 			{
-				if (env->sectors[i].vertices[k] > env->editor.selected_vertex)
+				if (env->sectors[i].vertices[k] > vertex)
 					env->sectors[i].vertices[k]--;;
 				k++;
 			}
@@ -42,7 +42,7 @@ void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
 	}
 }
 
-void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
+void	modify_vertices_in_sectors(t_env *env, int *sectors, int size, int vertex)
 {
 	int			i;
 	int			j;
@@ -56,7 +56,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 		index = 0;
 		while (index < env->sectors[sectors[i]].nb_vertices)
 		{
-			if (env->sectors[sectors[i]].vertices[index] == env->editor.selected_vertex)
+			if (env->sectors[sectors[i]].vertices[index] == vertex)
 				break;
 			index++;
 		}
@@ -73,7 +73,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			env->sectors[sectors[i]].nb_vertices--;
 			while (j < env->sectors[sectors[i]].nb_vertices)
 			{
-				if (env->sectors[sectors[i]].vertices[j] > env->editor.selected_vertex)
+				if (env->sectors[sectors[i]].vertices[j] > index)
 					env->sectors[sectors[i]].vertices[j]--;
 				j++;
 			}	
@@ -83,24 +83,24 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 	}
 }
 
-void	calc_sectors(t_env *env)
+void	modify_sectors(t_env *env, int vertex)
 {
 	int	i;
 	int	j;
-	int	*list_sectors;
-	int	count;
+	//int	*list_sectors;
+	//int	count;
 
 	i = 0;
-	count = 0;
-	list_sectors = NULL;
+	//count = 0;
+	//list_sectors = NULL;
 	while (i < env->nb_sectors)
 	{
 		j = 0;
-		while (j < env->sectors[i].nb_vertices)
-		{	
-			if (env->sectors[i].vertices[j] == env->editor.selected_vertex)
+		while (j <= env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == vertex)
 			{
-				if (!count)
+				/*if (!count)
 				{
 					if (!(list_sectors = (int*)malloc(sizeof(int) * (count + 1))))
 						return ;
@@ -111,34 +111,42 @@ void	calc_sectors(t_env *env)
 						return ;
 				}
 				list_sectors[count] = i;
-				count++;
+				count++;*/
+				env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
+						sizeof(short) * (env->sectors[i].nb_vertices + 1),
+						sizeof(short),
+						sizeof(short) * j);
+				env->sectors[i].nb_vertices--;
 			}
+			if (env->sectors[i].vertices[j] >= vertex)
+				env->sectors[i].vertices[j]--;
 			j++;
 		}
 		i++;
 	}
-	modify_vertices_in_sectors(env, list_sectors, count);
-	modify_vertices_list_in_sectors(env, list_sectors, count);
+	//modify_vertices_in_sectors(env, list_sectors, count, vertex);
+	//modify_vertices_list_in_sectors(env, list_sectors, count, vertex);
+	//ft_memdel((void**)&list_sectors);
 }
 
-int	delete_vertex(t_env *env, int index)
+int	delete_vertex(t_env *env, int vertex)
 {
 	int			i;
 
 	env->vertices = ft_delindex(env->vertices,
 			sizeof(t_vertex) * env->nb_vertices,
 			sizeof(t_vertex),
-			index * sizeof(t_vertex));
+			sizeof(t_vertex) * vertex);
 	env->nb_vertices--;
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		if (env->vertices[i].num > index)
+		if (env->vertices[i].num >= vertex)
 			env->vertices[i].num--;
 		i++;
 	}
 	if (env->nb_sectors)
-		calc_sectors(env);
+		modify_sectors(env, vertex);
 	env->editor.selected_vertex = -1;
 	return (0);
 }
