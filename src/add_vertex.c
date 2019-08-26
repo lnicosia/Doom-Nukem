@@ -6,11 +6,34 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 09:57:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/14 15:25:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/26 11:31:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	del_last_vertex(t_env *env)
+{
+	t_list		*tmp;
+	t_vertex	*v;
+
+	if (!env->editor.current_vertices)
+		return ;
+	if (!env->editor.current_vertices->next)
+	{
+		free(env->editor.current_vertices);
+		env->editor.current_vertices = NULL;
+		return ;
+	}
+	tmp = env->editor.current_vertices;
+	while (tmp && tmp->next && tmp->next->next)
+		tmp = tmp->next;
+	v = (t_vertex*)tmp->next->content;
+	free(tmp->next->content);
+	tmp->next->content = NULL;
+	free(tmp->next);
+	tmp->next = NULL;
+}
 
 void	free_current_vertices(t_env *env)
 {
@@ -26,7 +49,7 @@ void	free_current_vertices(t_env *env)
 	}
 }
 
-int	add_vertex_to_current_sector(t_env *env, int num)
+int		add_vertex_to_current_sector(t_env *env, int num)
 {
 	t_list	*new;
 
@@ -36,7 +59,7 @@ int	add_vertex_to_current_sector(t_env *env, int num)
 	return (0);
 }
 
-int	add_vertex(t_env *env)
+int		add_vertex(t_env *env)
 {
 	t_vertex	vertex;
 

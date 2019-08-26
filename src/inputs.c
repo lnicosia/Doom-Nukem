@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/12 13:25:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 17:57:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.enter = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.s)
 		env->inputs.s = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.backspace)
+		env->inputs.backspace = mode;
 }
 
 void	update_inputs(t_env *env)
