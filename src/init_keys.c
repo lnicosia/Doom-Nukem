@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 17:57:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 11:47:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	init_keys(t_env *env)
 	env->keys.option = SDLK_o;
 	env->keys.enter = SDLK_RETURN;
 	env->keys.backspace = SDLK_BACKSPACE;
+	env->keys.del = SDLK_DELETE;
 }

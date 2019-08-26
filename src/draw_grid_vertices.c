@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 10:36:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/26 11:49:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	draw_grid_vertices(t_env *env)
 					&& env->editor.selected_player == -1
 					&& env->editor.selected_object == -1)
 				env->editor.selected_vertex = i;
+			if (env->inputs.del)
+			{
+				env->editor.selected_vertex = i;
+				delete_vertex(env);
+			}
 		}
 		else
 		{
