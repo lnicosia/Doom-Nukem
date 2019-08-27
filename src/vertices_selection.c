@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 10:31:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 11:33:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void		vertices_selection(t_env *env)
 
 	if (!env->inputs.left_click && env->editor.selected_vertex != -1)
 	{
-		if ((click_vertex = get_existing_vertex(env)) != -1)
+		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1)
 		{
+			ft_printf("click: %d\n", click_vertex);
 			if (click_vertex != -1 && click_vertex != env->vertices[env->editor.selected_vertex].num)
 			{
 				env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
@@ -51,8 +52,8 @@ void		vertices_selection(t_env *env)
 		}
 		else
 		{
-		env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-		env->vertices[env->editor.selected_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+			env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+			env->vertices[env->editor.selected_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 		}
 		check_sector_order(env);
 		env->editor.selected_vertex = -1;

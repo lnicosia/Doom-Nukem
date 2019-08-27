@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 10:18:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 11:33:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void				print_sectors(t_env *env);
 void				draw_grid_current_sector(t_env *env);
 void				draw_grid_sectors(t_env *env);
 int					get_existing_vertex(t_env *env);
+int					get_existing_not_dragged_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
 void				draw_grid_objects(t_env *env);
