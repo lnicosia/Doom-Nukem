@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 15:58:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:21:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_plr
 
 typedef struct	s_editor
 {
+	t_v2		start_pos;
 	int			select_mode;
 	int			select_object;
 	int			select_player;

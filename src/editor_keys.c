@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 10:34:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:12:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,20 @@ void	drag_element(t_env *env)
 {
 	int	i;
 	int	j;
+	int	click_vertex;
 
 	i = 0;
 	j = 0;
-
+	click_vertex = 0;
 	if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1
 			&& env->editor.drag_object != 2)
 	{
+		if (!env->editor.start_pos.x)
+		{
+			env->editor.start_pos.x = env->vertices[env->editor.select_vertex].x;
+			env->editor.start_pos.y = env->vertices[env->editor.select_vertex].y;
+		}
+		ft_printf("start.x:  %f start.y: %f\n", env->editor.start_pos.x ,env->editor.start_pos.y);
 		if (env->inputs.left_click)
 		{
 			env->flag = 1;
@@ -95,8 +102,28 @@ void	drag_element(t_env *env)
 		}
 		else if (env->editor.drag_vertex)
 		{
-			env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-			env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+		//	env->vertices[env->editor.select_vertex].x = 0;
+		//	env->vertices[env->editor.select_vertex].y = 0;
+			ft_printf("release\n");	
+			if ((click_vertex = get_existing_vertex(env)))
+			{
+				ft_printf("checking click_vertex: %d\n", click_vertex);
+				if (click_vertex != -1 && click_vertex != env->vertices[env->editor.select_vertex].num)
+				{
+					ft_printf("on a vertex\nclick: %d vertex: %d\n", click_vertex, env->vertices[env->editor.select_vertex].num);
+					env->vertices[env->editor.select_vertex].x = env->editor.start_pos.x;
+					env->vertices[env->editor.select_vertex].y = env->editor.start_pos.y;
+					env->editor.start_pos.x = 0;
+					env->editor.start_pos.y = 0;
+					ft_printf("start.x:  %f start.y: %f\n", env->editor.start_pos.x ,env->editor.start_pos.y);
+				}
+			}
+			else
+			{
+				env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+				env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+			}
+			ft_printf("click_vertex: %d\n", click_vertex);
 			while (i < env->nb_sectors)
 			{
 				j = 0;
