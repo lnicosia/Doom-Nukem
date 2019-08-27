@@ -6,190 +6,74 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 10:13:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:30:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	create_player(t_env *env)
-{
-	if (env->inputs.left_click
-			&& env->sdl.mx > 80
-			&& env->sdl.mx < 120
-			&& env->sdl.my > 180
-			&& env->sdl.my < 220
-			&& !env->editor.new_sector
-			&& env->editor.select_player == -1
-			&& env->editor.select_vertex == -1
-			&& env->editor.select_object == -1)
-		env->editor.select_player = 1;
-	if (!env->inputs.left_click && env->editor.select_player == 1)
-	{
-		env->editor.select_player = -1;
-		if (env->sdl.mx > 200)
-		{
-			add_player(env);
-			env->editor.new_player = 1;
-		}
-		else
-			env->editor.new_player = 0;
-	}
-}
-void	create_object(t_env *env)
-{
-	if (env->inputs.left_click
-			&& env->sdl.mx > 80
-			&& env->sdl.mx < 120
-			&& env->sdl.my > 280
-			&& env->sdl.my < 320
-			&& !env->editor.new_sector
-			&& env->editor.select_player == -1
-			&& env->editor.select_vertex == -1
-			&& env->editor.select_object == -1)
-	{
-		env->editor.objects = 1;
-		env->editor.select_object = env->nb_objects;
-		env->editor.drag_object = 2;
-	}
-	if (!env->inputs.left_click && env->editor.select_object != -1)
-	{
-		env->editor.drag_object = 0;
-		if (env->sdl.mx > 200)
-		{
-			if (env->editor.select_object == env->nb_objects)
-			{
-				add_object(env);
-				env->nb_objects++;
-			}
-			else
-			{
-				env->objects[env->editor.select_object].pos.x =	round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-				env->objects[env->editor.select_object].pos.y =	round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-			}
-		}
-		else
-			delete_object(env);
-		env->editor.select_object = -1;
-	}
-}
-
-void	drag_element(t_env *env)
-{
-	int	i;
-	int	j;
-	int	click_vertex;
-
-	i = 0;
-	j = 0;
-	click_vertex = 0;
-	if (env->editor.select_vertex != -1 && env->editor.select_player == -1 && env->editor.select_object == -1
-			&& env->editor.drag_object != 2)
-	{
-		if (!env->editor.start_pos.x)
-		{
-			env->editor.start_pos.x = env->vertices[env->editor.select_vertex].x;
-			env->editor.start_pos.y = env->vertices[env->editor.select_vertex].y;
-		}
-		ft_printf("start.x:  %f start.y: %f\n", env->editor.start_pos.x ,env->editor.start_pos.y);
-		if (env->inputs.left_click)
-		{
-			env->flag = 1;
-			if (!env->editor.drag_object)
-				env->editor.drag_vertex = 1;
-			env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-			env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-		}
-		else if (env->editor.drag_vertex)
-		{
-		//	env->vertices[env->editor.select_vertex].x = 0;
-		//	env->vertices[env->editor.select_vertex].y = 0;
-			ft_printf("release\n");	
-			if ((click_vertex = get_existing_vertex(env)))
-			{
-				ft_printf("checking click_vertex: %d\n", click_vertex);
-				if (click_vertex != -1 && click_vertex != env->vertices[env->editor.select_vertex].num)
-				{
-					ft_printf("on a vertex\nclick: %d vertex: %d\n", click_vertex, env->vertices[env->editor.select_vertex].num);
-					env->vertices[env->editor.select_vertex].x = env->editor.start_pos.x;
-					env->vertices[env->editor.select_vertex].y = env->editor.start_pos.y;
-					env->editor.start_pos.x = 0;
-					env->editor.start_pos.y = 0;
-					ft_printf("start.x:  %f start.y: %f\n", env->editor.start_pos.x ,env->editor.start_pos.y);
-				}
-			}
-			else
-			{
-				env->vertices[env->editor.select_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-				env->vertices[env->editor.select_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-			}
-			ft_printf("click_vertex: %d\n", click_vertex);
-			while (i < env->nb_sectors)
-			{
-				j = 0;
-				while (j < env->sectors[i].nb_vertices)
-				{
-					if (env->editor.select_vertex == env->sectors[i].vertices[j])
-					{
-						env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
-						revert_sector(&env->sectors[i], env);
-					}
-					j++;
-				}
-				i++;
-			}
-			if (env->sdl.mx > 200)
-			{
-				env->flag = 0;
-				env->editor.select_vertex = -1;
-			}
-			env->editor.drag_vertex = 0;
-		}
-	}
-}
-
 int			editor_keys(t_env *env)
 {
 	int		clicked_vertex;
 
-	if (env->inputs.space)
+	if (env->inputs.space
+			&& env->editor.selected_player == -1
+			&& env->editor.selected_object == -1
+			&& env->editor.selected_vertex == -1)
 	{
 		clicked_vertex = get_existing_vertex(env);
-		if (clicked_vertex == -1)
+		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
 		{
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
-			if (!env->editor.new_sector) //Nouveau secteur
-				env->editor.new_sector = 1;
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
+			if (env->editor.start_vertex == -1) //Nouveau secteur
+				env->editor.start_vertex = env->nb_vertices - 1;
 		}
-		else
+		else if (clicked_vertex >= 0)
 		{
-			if (!env->editor.new_sector)
+			if (env->editor.start_vertex == -1)
 			{
-				env->editor.new_sector = 1;
+				env->editor.start_vertex = clicked_vertex;
 				add_vertex_to_current_sector(env, clicked_vertex);
 			}
 			else
 			{
-				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num)
+				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
+						&& ft_lstlen(env->editor.current_vertices) > 2
+						&& is_new_vertex_valid(env, clicked_vertex))
 				{
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
-					env->editor.new_sector = 0;
+					env->editor.start_vertex = -1;
 					if (add_sector(env))
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
 				}
-				else
+				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
 			}
 		}
 		env->inputs.space = 0;
 	}
-	create_player(env);
-	create_object(env);
-	drag_element(env);
-	delete_vertex(env);
+	if (env->inputs.backspace)
+	{
+		del_last_vertex(env);
+		env->inputs.backspace = 0;
+	}
+	player_selection(env);
+	objects_selection(env);
+	vertices_selection(env);
+	if (env->inputs.left_click
+			&& env->editor.start_vertex == -1
+			&& env->editor.selected_player == -1
+			&& env->editor.selected_object == -1
+			&& env->editor.selected_vertex == -1)
+	{
+		env->editor.selected_sector = get_sector_no_z(env,
+				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
+					(env->sdl.my - env->editor.center.y) / env->editor.scale,
+					0));
+	}
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
@@ -211,6 +95,8 @@ int			editor_keys(t_env *env)
 			update_camera_position(env);
 			update_player_z(env);
 			update_floor(env);
+			env->sdl.mx = env->w / 2;
+			env->sdl.my = env->h / 2;
 			SDL_SetRelativeMouseMode(1);
 		}
 		env->inputs.enter = 0;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/20 14:35:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:09:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	init_game(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.menu_select = 1;
 	env.running = 1;
+	env.editor.new_player = 1;
 	init_player(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));

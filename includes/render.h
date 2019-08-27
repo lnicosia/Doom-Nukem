@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 10:01:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:42:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,6 @@ void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);
 void				draw_bottom_wall(t_render render, t_env *env);
-t_v2				get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
 double				cross_product(double x0, double y0, double x1, double y1);
 void				handle_left(t_render *render, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/19 18:32:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:30:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int					invalid_char(const char *location, const char *expected,
 		char c, t_map_parser *parser);
 int					missing_data(const char *missing_data, t_map_parser *parser);
 int					extra_data(const char *missing_data, t_map_parser *parser);
-int					custom_error(const char *message);
 int					custom_error_with_line(const char *message, t_map_parser *parser);
 int					sector_error(const char *message, int sector, t_map_parser *parser);
 

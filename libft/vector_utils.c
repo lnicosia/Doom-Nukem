@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_existing_vertex.c                              :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 13:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 10:15:14 by sipatry          ###   ########.fr       */
+/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/22 15:56:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "libft.h"
 
-int	get_existing_vertex(t_env *env)
+t_point	new_point(int x, int y)
 {
-	t_vertex	vertex;
-	int			i;
+	t_point	new;
 
-	i = 0;
-	while (i < env->nb_vertices)
-	{
-		vertex = env->vertices[i];
-		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
-			return (vertex.num);
-		i++;
-	}
-	return (-1);
+	new.x = x;
+	new.y = y;
+	return (new);
+}
+
+t_v2	new_v2(double x, double y)
+{
+	t_v2	new;
+
+	new.x = x;
+	new.y = y;
+	return (new);
+}
+
+t_v3	new_v3(double x, double y, double z)
+{
+	t_v3	new;
+
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	return (new);
 }

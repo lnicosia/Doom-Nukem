@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 10:13:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:18:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct		s_env
 
 
 /*
- * ** Functions from editor
+ * ** Editor functions
  * */
 
 int					init_editor(int ac, char **av);
@@ -131,9 +131,20 @@ int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
 void				editor_options(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
-int					delete_object(t_env *env);
-int					delete_vertex(t_env *env);
-void				delete_sector(t_env *env);
+void				player_selection(t_env *env);
+void				objects_selection(t_env *env);
+void				vertices_selection(t_env *env);
+void				create_portals(t_env *env, t_sector new_sector);
+int					is_new_vertex_valid(t_env *env, int index);
+void				del_last_vertex(t_env *env);
+int					delete_vertex(t_env *env, int vertex);
+int					delete_sector(t_env *env, int sector);
+int					delete_object(t_env *env, int object);
+int					current_vertices_contains(t_env *env, int vertex);
+int					is_vertex_used(t_env *env, int vertex);
+int					is_vertex_used_by_others(t_env *env, int vertex, int sector);
+int					delete_invalid_sectors(t_env *env);
+int					delete_invalid_vertices(t_env *env);
 
 /*
  * ** Main functions
@@ -228,11 +239,6 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 
 void				draw_hud(t_env *env);
-
-t_point				new_point(int x, int y);
-t_v2				new_v2(double x, double y);
-t_v3				new_v3(double x, double y, double z);
-
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
 double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);

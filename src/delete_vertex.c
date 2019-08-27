@@ -6,13 +6,13 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 10:13:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:16:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
+/*void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size, int vertex)
 {
 	int	i;
 	int	j;
@@ -33,7 +33,7 @@ void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
 			k = 0;
 			while (k < env->sectors[i].nb_vertices)
 			{
-				if (env->sectors[i].vertices[k] > env->editor.select_vertex)
+				if (env->sectors[i].vertices[k] > vertex)
 					env->sectors[i].vertices[k]--;;
 				k++;
 			}
@@ -42,7 +42,7 @@ void	modify_vertices_list_in_sectors(t_env *env, int *sectors, int size)
 	}
 }
 
-void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
+void	modify_vertices_in_sectors(t_env *env, int *sectors, int size, int vertex)
 {
 	int			i;
 	int			j;
@@ -56,7 +56,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 		index = 0;
 		while (index < env->sectors[sectors[i]].nb_vertices)
 		{
-			if (env->sectors[sectors[i]].vertices[index] == env->editor.select_vertex)
+			if (env->sectors[sectors[i]].vertices[index] == vertex)
 				break;
 			index++;
 		}
@@ -73,7 +73,7 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 			env->sectors[sectors[i]].nb_vertices--;
 			while (j < env->sectors[sectors[i]].nb_vertices)
 			{
-				if (env->sectors[sectors[i]].vertices[j] > env->editor.select_vertex)
+				if (env->sectors[sectors[i]].vertices[j] > index)
 					env->sectors[sectors[i]].vertices[j]--;
 				j++;
 			}	
@@ -81,101 +81,93 @@ void	modify_vertices_in_sectors(t_env *env, int	*sectors, int size)
 		}
 		i++;
 	}
-}
+}*/
 
-void	calc_sectors(t_env *env)
+int		modify_sectors(t_env *env, int vertex)
 {
 	int	i;
 	int	j;
-	int	*list_sectors;
-	int	count;
+	//int	*list_sectors;
+	//int	count;
 
 	i = 0;
-	count = 0;
-	list_sectors = NULL;
+	//count = 0;
+	//list_sectors = NULL;
 	while (i < env->nb_sectors)
 	{
 		j = 0;
 		while (j < env->sectors[i].nb_vertices)
-		{	
-			if (env->sectors[i].vertices[j] == env->editor.select_vertex)
+		{
+			if (env->sectors[i].vertices[j] == vertex)
 			{
-				if (!count)
+				/*if (!count)
 				{
-					if(!(list_sectors = (int*)malloc(sizeof(int) * (count + 1))))
+					if (!(list_sectors = (int*)malloc(sizeof(int) * (count + 1))))
 						return ;
 				}
 				else
 				{
-					if(!(list_sectors = (int *)ft_realloc(list_sectors, sizeof(int) * count, sizeof(int) * (count + 1))))
+					if (!(list_sectors = (int *)ft_realloc(list_sectors, sizeof(int) * count, sizeof(int) * (count + 1))))
 						return ;
 				}
 				list_sectors[count] = i;
-				count++;
+				count++;*/
+					env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
+							sizeof(short) * (env->sectors[i].nb_vertices + 1),
+							sizeof(short),
+							sizeof(short) * j);
+					env->sectors[i].nb_vertices--;
 			}
+			if (env->sectors[i].vertices[j] > vertex)
+				env->sectors[i].vertices[j]--;
 			j++;
 		}
+		env->sectors[i].vertices[env->sectors[i].nb_vertices] = env->sectors[i].vertices[0];
 		i++;
 	}
-	modify_vertices_in_sectors(env, list_sectors, count);
-	modify_vertices_list_in_sectors(env, list_sectors, count);
-}
-
-int	delete_vertex(t_env *env)
-{
-	t_vertex	*tmp;
-	int			i;
-	int			j;
-
-	i = 0;
-	j = 0;
-	(void)env;
-	if (!(tmp = (t_vertex*)malloc(sizeof(t_vertex) * env->nb_vertices)))
-		return (ft_printf("Deleting: failed copying vertices\n"));
-	if (!env->editor.drag_vertex && !env->inputs.left_click
-			&& env->sdl.mx <= 200 && env->flag)
-	{
-		env->flag = 0;
-		tmp = env->vertices;
-		env->vertices = ft_delindex(env->vertices,
-				sizeof(t_vertex) * env->nb_vertices,
-				sizeof(t_vertex),
-				env->editor.select_vertex * sizeof(t_vertex));
-		env->nb_vertices--;
-		i = 0;
-		while (i < env->nb_vertices)
-		{
-			if (env->vertices[i].num > env->editor.select_vertex)
-				env->vertices[i].num--;
-			i++;
-		}
-		if (env->nb_sectors)
-			calc_sectors(env);
-		env->editor.select_vertex = -1;
-	}
-	i = 0;
+	//modify_vertices_in_sectors(env, list_sectors, count, vertex);
+	//modify_vertices_list_in_sectors(env, list_sectors, count, vertex);
+	//ft_memdel((void**)&list_sectors);
 	return (0);
 }
 
-int	delete_object(t_env *env)
+int		delete_vertex(t_env *env, int vertex)
 {
-	t_object	*tmp;
 	int			i;
-	int			j;
 
-	j = 0;
+	//ft_printf("%d\n%d\n%d\n\n", sizeof(t_vertex) * env->nb_vertices, sizeof(t_vertex), sizeof(t_vertex) * vertex);
+	env->vertices = ft_delindex(env->vertices,
+			sizeof(t_vertex) * env->nb_vertices,
+			sizeof(t_vertex),
+			sizeof(t_vertex) * vertex);
+	env->nb_vertices--;
+	i = vertex;
+	while (i < env->nb_vertices)
+	{
+		env->vertices[i].num--;
+		i++;
+	}
+	if (env->nb_sectors)
+		if (modify_sectors(env, vertex))
+			return (-1);
+	env->editor.selected_vertex = -1;
+	return (0);
+}
+
+int		delete_invalid_vertices(t_env *env)
+{
+	int	i;
+
 	i = 0;
-	if (!(tmp = (t_object*)malloc(sizeof(t_object) * env->nb_objects)))
-		return (ft_printf("Deleting: failed copying objects\n"));
-	env->flag = 0;
-	tmp = env->objects;
-	env->objects = ft_delindex(env->objects,
-			env->nb_objects * sizeof(t_object),
-			sizeof(t_object),
-			env->editor.select_object * sizeof(t_object));
-	env->nb_objects--;
-	if (!env->nb_objects && env->editor.objects == 1)
-		env->editor.objects = 0;
-	env->editor.select_object = -1;
+	while (i < env->nb_vertices)
+	{
+		if (!is_vertex_used(env, i))
+		{
+			if (delete_vertex(env, i))
+				return (-1);
+			i--;
+		}
+		i++;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 12:36:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:18:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@
 # define THREADS 4
 # define MAX_W 2560
 # define MAX_H 1440
-
-typedef struct		s_point
-{
-	int				x;
-	int				y;
-}					t_point;
-
-typedef struct		s_v2
-{
-	double			x;
-	double			y;
-}					t_v2;
-
-typedef	struct		s_segment
-{
-	t_v2			p1;
-	t_v2			p2;
-}					t_segment;
-
-typedef struct		s_v3
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_v3;
 
 typedef struct		s_line_eq
 {
@@ -188,6 +163,7 @@ typedef struct		s_keys
 {
 	int				forward;
 	int				backward;
+	int				backspace;
 	int				left;
 	int				right;
 	int				forward2;
@@ -204,6 +180,7 @@ typedef struct		s_keys
 	int				option;
 	int				enter;
 	int				s;
+	int				del;
 }					t_keys;
 
 /*
@@ -214,6 +191,7 @@ typedef struct		s_inputs
 {
 	uint8_t			forward;
 	uint8_t			backward;
+	uint8_t			backspace;
 	uint8_t			left;
 	uint8_t			right;
 	uint8_t			plus;
@@ -228,6 +206,7 @@ typedef struct		s_inputs
 	uint8_t			option;
 	uint8_t			enter;
 	uint8_t			s;
+	uint8_t			del;
 }					t_inputs;
 
 /*

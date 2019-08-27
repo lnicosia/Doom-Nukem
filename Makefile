@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/21 11:27:55 by sipatry          ###   ########.fr        #
+#    Updated: 2019/08/26 17:56:51 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,15 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c add_object.c editor_options.c delete_element.c \
-				 delete_sector.c
+				 write_player.c add_object.c editor_options.c \
+				 player_selection.c objects_selection.c vertices_selection.c \
+				 draw_grid_player.c draw_grid_objects.c create_portals.c \
+				 is_new_vertex_valid.c delete_sector.c vertices_utils.c \
+				 delete_vertex.c delete_object.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
-		   print_text.c vector_utils.c bmp_parser.c bmp_parser_utils.c \
+		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c options.c raycasting.c render.c movement.c \
 		   get_slope.c maths_utils.c movement_collision.c weapons.c \
@@ -59,7 +62,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h
+		  editor.h env.h save.h create_portals.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -77,8 +80,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-fsanitize=address -g3 \
 
 DEBUG ?= 0
 

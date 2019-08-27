@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 14:08:42 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/19 18:28:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/26 16:01:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 	size_t		j;
 	size_t		new_size;
 
+	if (!ptr || !old_size || !type || old_size <= type)
+		return (NULL);
 	i = 0;
 	j = 0;
 	res =  NULL;

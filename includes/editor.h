@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 12:21:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 10:19:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,19 @@ typedef struct	s_plr
 typedef struct	s_editor
 {
 	t_v2		start_pos;
-	int			select_mode;
-	int			select_object;
-	int			select_player;
-	int			select_vertex;
+	int			selected_sector;
+	int			selected_object;
+	int			selected_player;
+	int			selected_vertex;
+	int			start_vertex;
 	int			nb_vertex;
 	int			new_player;
-	int			objects;
-	int			drag_player;
-	int			drag_object;
-	int			drag_vertex;
-	int			dragging;
 	t_point		center;
 	double		scale;
 	t_list		*vertices;
 	t_hud		hud;
 	t_plr		player;
 	t_list		*current_vertices;
-	int			new_sector;
 	int			reverted;
 	int			in_game;
 }				t_editor;

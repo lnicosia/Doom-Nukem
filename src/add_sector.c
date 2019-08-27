@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/16 15:24:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/22 14:49:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 int			init_new_sector_arrays(t_sector *sector)
 {
 	if (!(sector->vertices = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
-		return (ft_printf("could not malloc sector vertices\n"));
+		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->neighbors = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector neighbors\n"));
+		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector textures\n"));
+		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector ceilings\n"));
+		return (ft_perror("Could not malloc sector ceilings"));
 	if (!(sector->floors = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector floors\n"));
+		return (ft_perror("Could not malloc sector floors"));
 	if (!(sector->clipped_ceilings1 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector clipped_ceilings1\n"));
+		return (ft_perror("Could not malloc sector clipped_ceilings1"));
 	if (!(sector->clipped_ceilings2 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector clipped_ceilings2\n"));
+		return (ft_perror("Could not malloc sector clipped_ceilings2"));
 	if (!(sector->clipped_floors1 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector clipped_floors1\n"));
+		return (ft_perror("Could not malloc sector clipped_floors1"));
 	if (!(sector->clipped_floors2 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("Could not malloc sector clipped_floors2\n"));
+		return (ft_perror("Could not malloc sector clipped_floors2"));
 	if (!(sector->wall_width = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
-		return (ft_printf("could not malloc sector vertices\n"));
+		return (ft_perror("could not malloc sector vertices"));
 	return (0);
 }
 
@@ -84,6 +84,7 @@ int			add_sector(t_env *env)
 					sizeof(t_sector) * (env->nb_sectors + 1))))
 		return (ft_printf("Could not realloc sectors\n"));
 	env->sectors[env->nb_sectors] = sector;
+	create_portals(env, sector);
 	set_sectors_xmax(env);
 	env->nb_sectors++;
 	return (0);

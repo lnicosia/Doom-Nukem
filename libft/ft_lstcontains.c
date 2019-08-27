@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_existing_vertex.c                              :+:      :+:    :+:   */
+/*   ft_lstcontains.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 13:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 10:15:14 by sipatry          ###   ########.fr       */
+/*   Created: 2019/08/21 15:09:59 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/21 15:19:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "libft.h"
 
-int	get_existing_vertex(t_env *env)
+int		ft_lstcontains(t_list *lst, void *content)
 {
-	t_vertex	vertex;
-	int			i;
+	t_list	*tmp;
 
-	i = 0;
-	while (i < env->nb_vertices)
+	tmp = lst;
+	while (tmp)
 	{
-		vertex = env->vertices[i];
-		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
-			return (vertex.num);
-		i++;
+		if (tmp->content == content)
+			return (1);
+		tmp = tmp->next;
 	}
-	return (-1);
+	return (0);
 }
