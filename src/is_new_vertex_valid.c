@@ -6,13 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 15:37:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:50:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-
 
 int		check_list_intersections(t_env *env, t_vertex *last, int index)
 {
@@ -20,8 +19,9 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	t_vertex	*v1;
 	t_vertex	*v2;
 
+	(void)index;
 	tmp = env->editor.current_vertices;
-	while (tmp && tmp->next && tmp->next->next)
+	while (tmp && tmp->next)// && tmp->next->next)
 	{
 		v1 = (t_vertex*)tmp->content;
 		v2 = (t_vertex*)tmp->next->content;
@@ -29,14 +29,22 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 		//ft_printf("|v2 = %d [%d][%d]| ", v2->num, (int)v2->y, (int)v2->x);
 		//ft_printf("|last = %d [%d][%d]| ", last->num, (int)last->y, (int)last->x);
 		//ft_printf("|current = %d|\n", index);
-		if (v1->num != last->num && v2->num != last->num
-				&& v1->num != index && v2->num != index
-				&& segments_intersect(
+		/*if (v1->num != last->num && v2->num != last->num
+				&& v1->num != index && v2->num != index*/
+		/*if (check_line_intersection(
 					new_v2(v1->x, v1->y),
 					new_v2(v2->x, v2->y),
+					new_v2(last->x, last->y),
 					new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
-						round((env->sdl.my - env->editor.center.y) / env->editor.scale)),
-					new_v2(last->x, last->y)))
+						round((env->sdl.my - env->editor.center.y) / env->editor.scale))))
+			return (-1);*/
+			/* (v2->num != last->num && v1->num != index
+				&&*/if ( segments_intersect(
+					new_v2(v1->x, v1->y),
+					new_v2(v2->x, v2->y),
+					new_v2(last->x, last->y),
+					new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
+						round((env->sdl.my - env->editor.center.y) / env->editor.scale))))
 			return (custom_error("Intersects with current sector"));
 		tmp = tmp->next;
 	}
@@ -72,6 +80,12 @@ int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last, int 
 	return (0);
 }
 
+/*
+**	Returns 1 if a vertex has an intersection
+**	with either the current sector or any existing one
+**	
+*/
+
 int		new_wall_intersects(t_env *env, int index)
 {
 	t_list		*tmp;
@@ -94,6 +108,12 @@ int		new_wall_intersects(t_env *env, int index)
 	}
 	return (0);
 }
+
+/*
+**	Returns 1 if a vertex is valid
+**	(no intersection with current or existing sector,
+**	not already existing in current sector)
+*/
 
 int		is_new_vertex_valid(t_env *env, int index)
 {
