@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 19:07:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:06:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	draw_game(t_env *env)
 	game_time(env);
 	animations(env);
 	draw_hud(env);
+	if (env->player.hit)
+		damage_anim(env);
 	update_screen(env);
 	view(env);
 	return (0);

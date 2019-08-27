@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse_sprites.c                                :+:      :+:    :+:   */
+/*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:00:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/27 18:38:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			init_sprites(t_env *env)
 {
-	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 2)))
+	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 3)))
 		return (ft_printf("Could not malloc sprites\n"));
 	env->sprites[0].texture = 33;
 	env->sprites[0].oriented = 0;
@@ -98,5 +98,59 @@ int			init_sprites(t_env *env)
 	env->sprites[1].size[7].x = 32;
 	env->sprites[1].size[7].y = 53;
 	env->sprites[1].reversed[7] = 1;
+
+	// sprites de deces du precedent
+	env->sprites[2].texture = 34;
+	env->sprites[2].oriented = 0;
+	env->sprites[2].width = 2;
+	env->sprites[2].height = 2;
+
+	env->sprites[2].start[0].x = 44;
+	env->sprites[2].start[0].y = 448;
+	env->sprites[2].end[0].x = 77;
+	env->sprites[2].end[0].y = 498;
+	env->sprites[2].size[0].x = 34;
+	env->sprites[2].size[0].y = 51;
+	env->sprites[2].reversed[0] = 0;
+
+	env->sprites[2].start[1].x = 122;
+	env->sprites[2].start[1].y = 448;
+	env->sprites[2].end[1].x = 157;
+	env->sprites[2].end[1].y = 500;
+	env->sprites[2].size[1].x = 36;
+	env->sprites[2].size[1].y = 53;
+	env->sprites[2].reversed[1] = 0;
+
+	env->sprites[2].start[2].x = 202;
+	env->sprites[2].start[2].y = 448;
+	env->sprites[2].end[2].x = 246;
+	env->sprites[2].end[2].y = 495;
+	env->sprites[2].size[2].x = 45;
+	env->sprites[2].size[2].y = 48;
+	env->sprites[2].reversed[2] = 0;
+
+	env->sprites[2].start[3].x = 291;
+	env->sprites[2].start[3].y = 448;
+	env->sprites[2].end[3].x = 358;
+	env->sprites[2].end[3].y = 507;
+	env->sprites[2].size[3].x = 68;
+	env->sprites[2].size[3].y = 60;
+	env->sprites[2].reversed[3] = 0;
+
+	env->sprites[2].start[4].x = 403;
+	env->sprites[2].start[4].y = 448;
+	env->sprites[2].end[4].x = 490;
+	env->sprites[2].end[4].y = 519;
+	env->sprites[2].size[4].x = 88;
+	env->sprites[2].size[4].y = 72;
+	env->sprites[2].reversed[4] = 0;
+
+	env->sprites[2].start[5].x = 535;
+	env->sprites[2].start[5].y = 448;
+	env->sprites[2].end[5].x = 637;
+	env->sprites[2].end[5].y = 537;
+	env->sprites[2].size[5].x = 103;
+	env->sprites[2].size[5].y = 90;
+	env->sprites[2].reversed[5] = 0;
 	return (0);
 }

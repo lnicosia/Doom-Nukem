@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 17:48:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:13:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
+	int				hit;
 	double			size_2d;
 	double			camera_x;
 	double			camera_y;
@@ -256,6 +257,38 @@ typedef struct		s_audio
 }					t_audio;
 
 /*
+**	Contains every data needed for an animation on the screen
+*/
+
+typedef struct		s_time
+{
+	double			start;
+	double			end;
+	double			minuts;
+	double			tenth_s;
+	double			milli_s;
+}					t_time;
+
+typedef struct		s_gravity
+{
+	double			start;
+	double			end;
+	double			floor;
+	double			weight;
+	double			on_going;
+}					t_gravity;
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+	double			on_going;
+	double			height;
+	double			tick;
+	double			nb_frame;
+}					t_animation;
+
+/*
 ** Weapon structure
 */
 
@@ -266,9 +299,11 @@ typedef struct		s_weapons
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
+	double			range;
 	int				no_ammo;
 	int				max_ammo;
 	int				damage;
+	int				splash;
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
@@ -305,6 +340,7 @@ typedef struct		s_object
 	int				bottom;
 	int				seen;
 	int				sprite;
+	t_animation		death;
 	double			scale;
 	double			angle;
 	double			light;
@@ -383,39 +419,6 @@ typedef struct		s_printable_text
 	SDL_Color		color;
 	int				size;
 }					t_printable_text;
-
-/*
-**	Contains every data needed for an animation on the screen
-*/
-
-typedef struct		s_time
-{
-	double			start;
-	double			end;
-	double			minuts;
-	double			tenth_s;
-	double			milli_s;
-}					t_time;
-
-typedef struct		s_gravity
-{
-	double			start;
-	double			end;
-	double			floor;
-	double			weight;
-	double			on_going;
-}					t_gravity;
-
-typedef struct		s_animation
-{
-	double			start;
-	double			end;
-	double			on_going;
-	double			height;
-	double			tick;
-	double			nb_frame;
-}					t_animation;
-
 
 /*
  **	Data to manipulate menus

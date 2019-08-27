@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 18:44:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:33:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_env
 	t_animation		jump;
 	t_animation		crouch;
 	t_gravity		gravity;
+	t_animation		player_hurt;
 	t_animation		shot;
 	t_animation		weapon_change;
 	t_vertex		*vertices;
@@ -236,5 +237,7 @@ int					add_vertex(t_env *env);
 */
 
 void	enemy_pursuit(t_env *env);
+void	damage_anim(t_env *env);
+int		dying_enemy(t_env *env, int i);
 
 #endif

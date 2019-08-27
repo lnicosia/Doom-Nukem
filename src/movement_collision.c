@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/22 16:19:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:11:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,7 @@ void    objects_collision(t_env *env)
             }
             else if (env->objects[i].sprite == 1)
             {
+                env->player.hit = 1;
                 env->player.life -= 15;
                 env->objects[i].exists = 0;
             }

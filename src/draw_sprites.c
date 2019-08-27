@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 18:21:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 18:39:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,25 @@ void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_object(t_object *object, t_env *env)
+void		draw_object(t_object *object, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
-	sprite = env->sprites[object->sprite];
-	project_object(&orender, *object, env);
-	if (!sprite.oriented)
-		orender.index = 0;
+	if (death_sprite >= 0)
+	{
+		object->sprite = 2;
+		sprite = env->sprites[object->sprite];
+	}
 	else
+		sprite = env->sprites[object->sprite];
+	project_object(&orender, *object, env);
+	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
+	else if (death_sprite >= 0)
+		orender.index = death_sprite;
+	else
+		orender.index = 0;
 	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
 	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
@@ -255,7 +263,12 @@ void		draw_sprites(t_env *env)
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
-			draw_object(&env->objects[i], env);
+		{
+			if (env->objects[i].health <= 0)
+				draw_object(&env->objects[i], env, dying_enemy(env, i));
+			else
+				draw_object(&env->objects[i], env, -1);
+		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/22 16:34:25 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/08/27 15:07:44 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   init_sound.c init_sprites.c \
 		   init_screen_pos.c draw_sprites.c sprites_maths.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c \
-		   free_all.c map_parser.c
+		   free_all.c map_parser.c animations.c
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/25 10:30:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/27 13:51:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	init_game(int ac, char **av)
 	while (i < env.nb_objects)
 	{
 		env.objects[i].exists = 1;
+		if (env.objects[i].sprite == 1)
+			env.objects[i].health = 50;
 		i++;
 	}
 	update_camera_position(&env);
