@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 17:13:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:23:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ void				create_portals(t_env *env, t_sector new_sector);
 int					is_new_vertex_valid(t_env *env, int index);
 void				del_last_vertex(t_env *env);
 int					delete_vertex(t_env *env, int vertex);
-void				delete_sector(t_env *env, int sector);
+int					delete_sector(t_env *env, int sector);
 int					delete_object(t_env *env, int object);
 int					current_vertices_contains(t_env *env, int vertex);
 int					is_vertex_used(t_env *env, int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex, int sector);
-void				delete_invalid_sectors(t_env *env);
-void				delete_invalid_vertices(t_env *env);
+int					delete_invalid_sectors(t_env *env);
+int					delete_invalid_vertices(t_env *env);
 
 /*
  * ** Main functions

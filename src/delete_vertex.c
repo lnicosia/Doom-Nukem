@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 17:57:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:27:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	modify_vertices_in_sectors(t_env *env, int *sectors, int size, int vertex)
 	}
 }*/
 
-void	modify_sectors(t_env *env, int vertex)
+int		modify_sectors(t_env *env, int vertex)
 {
 	int	i;
 	int	j;
@@ -128,6 +128,7 @@ void	modify_sectors(t_env *env, int vertex)
 	//modify_vertices_in_sectors(env, list_sectors, count, vertex);
 	//modify_vertices_list_in_sectors(env, list_sectors, count, vertex);
 	//ft_memdel((void**)&list_sectors);
+	return (0);
 }
 
 int		delete_vertex(t_env *env, int vertex)
@@ -147,12 +148,13 @@ int		delete_vertex(t_env *env, int vertex)
 		i++;
 	}
 	if (env->nb_sectors)
-		modify_sectors(env, vertex);
+		if (modify_sectors(env, vertex))
+			return (-1);
 	env->editor.selected_vertex = -1;
 	return (0);
 }
 
-void	delete_invalid_vertices(t_env *env)
+int		delete_invalid_vertices(t_env *env)
 {
 	int	i;
 
@@ -161,9 +163,11 @@ void	delete_invalid_vertices(t_env *env)
 	{
 		if (!is_vertex_used(env, i))
 		{
-			delete_vertex(env, i);
+			if (delete_vertex(env, i))
+				return (-1);
 			i--;
 		}
 		i++;
 	}
+	return (0);
 }

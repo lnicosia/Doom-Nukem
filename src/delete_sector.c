@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 16:56:17 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 18:00:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/27 09:27:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	modify_sector_neighbors(t_env *env, int sector)
 	}
 }
 
-void	delete_sector(t_env *env, int sector)
+int		delete_sector(t_env *env, int sector)
 {
 	int	i;
 
@@ -58,9 +58,10 @@ void	delete_sector(t_env *env, int sector)
 		i++;
 	}
 	modify_sector_neighbors(env, sector);
+	return (0);
 }
 
-void	delete_invalid_sectors(t_env *env)
+int		delete_invalid_sectors(t_env *env)
 {
 	int	i;
 
@@ -68,7 +69,9 @@ void	delete_invalid_sectors(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		if (env->sectors[i].nb_vertices < 3)
-			delete_sector(env, i);
+			if (delete_sector(env, i))
+				return (-1);
 		i++;
 	}
+	return (0);
 }
