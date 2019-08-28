@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 10:38:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 16:50:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:17:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		segments_intersect(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 	intersection = get_intersection(v1, v2, v3, v4);
 	if ((v2.x - v1.x) * (v4.y - v3.y) - (v4.x - v3.x) * (v2.y - v1.y) == 0)
 	{
-		ft_printf("{green}Colineaires{reset}\n");
+		//ft_printf("{green}Colineaires{reset}\n");
 	}
 	if ((intersection.x <= v1.x && intersection.x <= v2.x)
 			|| (intersection.x >= v1.x && intersection.x >= v2.x)
@@ -60,8 +60,8 @@ int		check_line_intersection(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 			return (0);
 		else
 		{
-			ft_printf("v1.y = %f v2.y = %f v3.y = %f v4.y = %f\n",
-					v1.y, v2.y, v3.y, v4.y);
+			//ft_printf("v1.y = %f v2.y = %f v3.y = %f v4.y = %f\n",
+					//v1.y, v2.y, v3.y, v4.y);
 			return (custom_error("Ligne verticale invalide"));
 		}
 	}
