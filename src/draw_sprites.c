@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 18:39:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:22:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,10 @@ void		draw_sprites(t_env *env)
 	{
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 		{
-			if (env->objects[i].health <= 0)
+			/*
+			** && env->objects[i].sprite protects ammo sprite (should be changed)
+			*/
+			if (env->objects[i].health <= 0 && env->objects[i].sprite)
 				draw_object(&env->objects[i], env, dying_enemy(env, i));
 			else
 				draw_object(&env->objects[i], env, -1);
