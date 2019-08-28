@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:59:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/26 11:47:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_keys(t_env *env)
 {
 	ft_printf("Initializing player keys..\n");
 	env->keys.forward = SDLK_w;
-	env->keys.backward = SDLK_s;
+	env->keys.s = SDLK_s;
 	env->keys.left = SDLK_a;
 	env->keys.right = SDLK_d;
 	env->keys.forward2 = SDLK_UP;
@@ -31,4 +31,7 @@ void	init_keys(t_env *env)
 	env->keys.up = SDLK_PAGEUP;
 	env->keys.down = SDLK_PAGEDOWN;
 	env->keys.option = SDLK_o;
+	env->keys.enter = SDLK_RETURN;
+	env->keys.backspace = SDLK_BACKSPACE;
+	env->keys.del = SDLK_DELETE;
 }

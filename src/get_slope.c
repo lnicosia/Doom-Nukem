@@ -6,19 +6,23 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:58:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 14:16:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
+/*
+** Returns the given sector's normal starting from its first vertex.
+*/
+
 t_v2	get_sector_normal(t_sector sector, t_env *env)
 {
 	t_vertex	v1;
 	t_vertex	v2;
-	t_v2	normal;
-	double	norm;
+	t_v2		normal;
+	double		norm;
 
 	v1 = env->vertices[sector.vertices[0]];
 	v2 = env->vertices[sector.vertices[1]];
@@ -27,6 +31,10 @@ t_v2	get_sector_normal(t_sector sector, t_env *env)
 	normal.y = -((v2.x - v1.x) / norm);
 	return (normal);
 }
+
+/*
+** Returns a vertex euclidean distance from its sector's first vertex (in 2d).
+*/
 
 double	get_distance(t_sector sector, short vertex_nb, t_env *env)
 {
@@ -43,46 +51,34 @@ double	get_distance(t_sector sector, short vertex_nb, t_env *env)
 	return (sqrt(pow(vi.x - vmid.x, 2) + pow(vi.y - vmid.y, 2)));
 }
 
-double	get_clipped_floor(int num, t_sector sector, t_vertex vertex, t_env *env)
+/*
+** Returns the floor height at a certain pos in a given sector
+** (according to the sector's slope)
+*/
+
+double	get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
 
 	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (vertex.clipped_x[num] - v0.x) - sector.normal.y * (vertex.clipped_y[num] - v0.y);
+	res = sector.normal.x * (pos.x - v0.x) - sector.normal.y * (pos.y - v0.y);
 	res = res * sector.floor_slope + sector.floor;
 	return (res);
 }
 
-double	get_clipped_ceiling(int num, t_sector sector, t_vertex vertex, t_env *env)
-{
-	double	res;
-	t_vertex	v0;
+/*
+** Returns the ceiling height at a certain pos in a given sector
+** (according to the sector's slope)
+*/
 
-	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (vertex.clipped_x[num] - v0.x) - sector.normal.y * (vertex.clipped_y[num] - v0.y);
-	res = res * sector.ceiling_slope + sector.ceiling;
-	return (res);
-}
-
-double	get_floor(t_sector sector, t_vertex vertex, t_env *env)
+double	get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
 
 	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (vertex.x - v0.x) - sector.normal.y * (vertex.y - v0.y);
-	res = res * sector.floor_slope + sector.floor;
-	return (res);
-}
-
-double	get_ceiling(t_sector sector, t_vertex vertex, t_env *env)
-{
-	double	res;
-	t_vertex	v0;
-
-	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (vertex.x - v0.x) - sector.normal.y * (vertex.y - v0.y);
+	res = sector.normal.x * (pos.x - v0.x) - sector.normal.y * (pos.y - v0.y);
 	res = res * sector.ceiling_slope + sector.ceiling;
 	return (res);
 }
@@ -108,73 +104,73 @@ void	check_slopes(t_env *env)
 	}
 }
 
-void	update_sector_slope(t_env *env, short sector_nb)
+void	update_sector_slope(t_env *env, t_sector *sector)
 {
-	t_sector	sector;
 	int			i;
+	t_vertex	v1;
+	t_vertex	v2;
 
-	if (sector_nb < 0 || sector_nb > env->nb_sectors)
+	if (sector->num < 0 || sector->num > env->nb_sectors)
 	{
 		ft_printf("Error when updating sector %d slope: sector does not exist\n");
 	}
-	sector = env->sectors[sector_nb];
-	env->sectors[sector_nb].floor_max = sector.floor;
-	env->sectors[sector_nb].floor_min = sector.floor;
-	env->sectors[sector_nb].ceiling_max = sector.ceiling;
-	env->sectors[sector_nb].ceiling_min = sector.ceiling;
+	sector->floor_max = sector->floor;
+	sector->floor_min = sector->floor;
+	sector->ceiling_max = sector->ceiling;
+	sector->ceiling_min = sector->ceiling;
 	i = 0;
-	while (i < sector.nb_vertices)
+	while (i < sector->nb_vertices)
 	{
-		if (sector.floor_slope != 0)
-			env->sectors[sector_nb].floors[i] = get_floor(sector,
-					env->vertices[sector.vertices[i]], env); 
+		v1 = env->vertices[sector->vertices[i]];
+		v2 = env->vertices[sector->vertices[i + 1]];
+		if (sector->floor_slope != 0)
+			sector->floors[i] = get_floor_at_pos(*sector,
+					new_v2(v1.x, v1.y), env);
 		else
-			env->sectors[sector_nb].floors[i] = sector.floor;
-		if (sector.ceiling_slope != 0)
-			env->sectors[sector_nb].ceilings[i] = get_ceiling(sector,
-					env->vertices[sector.vertices[i]], env); 
+			sector->floors[i] = sector->floor;
+		if (sector->ceiling_slope != 0)
+			sector->ceilings[i] = get_ceiling_at_pos(*sector,
+					new_v2(v1.x, v1.y), env);
 		else
-			env->sectors[sector_nb].ceilings[i] = sector.ceiling;
-		if (env->sectors[sector_nb].floors[i]
-				< env->sectors[sector_nb].floor_min)
-			env->sectors[sector_nb].floor_min
-				= env->sectors[sector_nb].floors[i];
-		if (env->sectors[sector_nb].floors[i] 
-			> env->sectors[sector_nb].floor_max)
-			env->sectors[sector_nb].floor_max
-				= env->sectors[sector_nb].floors[i];
-		if (env->sectors[sector_nb].ceilings[i]
-				> env->sectors[sector_nb].ceiling_max)
-			env->sectors[sector_nb].ceiling_max
-				= env->sectors[sector_nb].ceilings[i];
-		if (env->sectors[sector_nb].ceilings[i]
-				< env->sectors[sector_nb].ceiling_min)
-			env->sectors[sector_nb].ceiling_min
-				= env->sectors[sector_nb].ceilings[i];
-		env->sectors[sector_nb].wall_width[i] = sqrt(
-				pow(env->vertices[sector.vertices[i + 1]].x
-					- env->vertices[sector.vertices[i]].x, 2)
-				+ pow(env->vertices[sector.vertices[i + 1]].y
-					- env->vertices[sector.vertices[i]].y, 2));
+			sector->ceilings[i] = sector->ceiling;
+		if (sector->floors[i]
+				< sector->floor_min)
+			sector->floor_min
+				= sector->floors[i];
+		if (sector->floors[i] 
+			> sector->floor_max)
+			sector->floor_max
+				= sector->floors[i];
+		if (sector->ceilings[i]
+				> sector->ceiling_max)
+			sector->ceiling_max
+				= sector->ceilings[i];
+		if (sector->ceilings[i]
+				< sector->ceiling_min)
+			sector->ceiling_min
+				= sector->ceilings[i];
+		sector->wall_width[i] = sqrt(
+				pow(env->vertices[sector->vertices[i + 1]].x
+					- env->vertices[sector->vertices[i]].x, 2)
+				+ pow(env->vertices[sector->vertices[i + 1]].y
+					- env->vertices[sector->vertices[i]].y, 2));
 		i++;
 	}
-	env->sectors[sector_nb].floors[i] = env->sectors[sector_nb].floors[0];
-	env->sectors[sector_nb].ceilings[i] = env->sectors[sector_nb].ceilings[0];
+	sector->floors[i] = sector->floors[0];
+	sector->ceilings[i] = sector->ceilings[0];
 }
 
 void	precompute_slopes(t_env *env)
 {
-	int			i;
+	int	i;
 
-	ft_printf("{reset}Computing map slopes..\n");
+	ft_printf("{reset}Computing map slopes..\n{red}");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
 		env->sectors[i].normal = get_sector_normal(env->sectors[i], env);
-		update_sector_slope(env, i);
+		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}
-	update_player_z(env);
-	update_floor(env);
 	//check_slopes(env);
 }

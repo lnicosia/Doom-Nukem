@@ -38,12 +38,10 @@ src/*.swp
 *.i*86
 *.x86_64
 *.hex
-./test
-./doom
-./doom_editor
 doom
 doom_editor
-test
+./doom
+./doom_editor
 
 # Debug files
 *.dSYM/

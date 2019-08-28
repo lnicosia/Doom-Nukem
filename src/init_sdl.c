@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:59:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/12 14:07:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		set_sdl(t_env *env)
 		return (ft_printf("Could not malloc ymin array\n"));
 	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
 		return (ft_printf("Could not malloc ymax array\n"));
+	if (!(env->screen_pos = (t_v2*)malloc(sizeof(t_v2) * (env->w))))
+		return (ft_printf("Could not malloc screen pos!\n", env));
 	clear_image(env);
 	if (SDL_RenderCopy(
 				env->sdl.renderer,

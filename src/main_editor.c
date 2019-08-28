@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 20:10:49 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 15:01:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/07/30 11:02:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(int ac, char **av)
 {
-	init_edition(ac, av);
+	init_editor(ac, av);
 	return (0);
 }

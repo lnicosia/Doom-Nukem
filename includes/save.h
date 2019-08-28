@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_edit.c                                        :+:      :+:    :+:   */
+/*   save.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:35:08 by sipatry          ###   ########.fr       */
+/*   Created: 2019/07/30 11:48:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/07/30 11:49:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#ifndef SAVE_H
+# define SAVE_H
+# include "env.h"
 
-void	init_edit(t_env *env)
-{
-	env->edit.menu = 0;
-	env->edit.select_mode = 0;
-	env->edit.nb_vertex =  0;
-	env->edit.center.x = env->h_w;
-	env->edit.center.y = env->h_h;
-	env->edit.scale = 20;
-	env->edit.vertices = NULL;
-}
+void	write_vertices(int fd, t_env *env);
+void	write_sectors(int fd, t_env *env);
+void	write_objects(int fd, t_env *env);
+void	write_player(int fd, t_env *env);
+
+#endif

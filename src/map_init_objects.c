@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 10:13:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:01:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 14:34:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,41 @@ int		init_objects(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		line = tmp;
-		if (line[0] == 'O' && line[1] == ' '
-				&& line[2] >= '0' && line[2] <= '9')
+		if (*line && *line != '#')
 		{
+			if (*line != 'O')
+				return (invalid_char("at objects number", "'O'", *line, parser));
 			line++;
-			line = skip_spaces(line);
 			if (!*line)
-				return (ft_printf("Please declare how many objects "
-							"there are\n"));
+				return (missing_data("at objects number", parser));
+			if (*line != ' ')
+				return (invalid_char("at objects number", "space of a digit",
+							*line, parser));
+				line = skip_spaces(line);
+			if (!*line)
+				return (missing_data("before objects number", parser));
+			if (valid_number(line,parser) == WRONG_CHAR)
+				return (invalid_char("before objects number", "space of a digit",
+							*line, parser));
 			env->nb_objects = ft_atoi(line);
 			line = skip_number(line);
+			if (*line && *line == ' ')
+				return (extra_data("objects number", parser));
 			if (*line)
-				return (ft_printf("Too much data in objects number "
-							"declaration (line %d)\n", parser->line_count));
+				return (invalid_char("adter objects number",
+							"a digit or the end of the line",
+							*line, parser));
 			if (env->nb_objects < 0)
-				return (ft_printf("You can not declare less than 0 objects\n"));
+				return (custom_error("You can not declare less than 0 objects"));
 			if (env->nb_objects
 					&& !(env->objects = (t_object*)malloc(sizeof(t_object)
 							* (env->nb_objects))))
-				return (ft_printf("Could not malloc objectss!\n", env));
+				return (ft_perror("Could not malloc objects:"));
 			ft_strdel(&tmp);
 			return (0);
 		}
-		else if (line[0] != '#')
-			return (ft_printf("Wrong format of objects number "
-						"declaration (line %d)\nEx: \"O 127\" (> 2)\n",
-						parser->line_count));
+		else if (*line != '#')
+				return (missing_data("objects number declaration", parser));
 		ft_strdel(&tmp);
 	}
 	return (0);

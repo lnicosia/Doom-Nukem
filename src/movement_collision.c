@@ -6,26 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/27 14:11:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:46:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-int     in_range(double nb, double val1, double val2)
-{
-    double min;
-    double max;
-
-    min = (val1 <= val2) ? val1 : val2;
-    max = (val1 > val2) ? val1 : val2;
-    if (nb > min && nb <= max)
-        return (1);
-    return (0);
-}
-
-/* void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
+/*void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
 {
     float xd;
     float yd;
@@ -44,13 +32,13 @@ int     in_range(double nb, double val1, double val2)
         PLAYER_YPOS = FUTURE_Y;
     }
 } */
-
+/*
 int     diff_sign(double nb1, double nb2)
 {
     if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
         return (0);
     return (1);
-}
+}*/
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
@@ -159,7 +147,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
     {
         //ft_printf("j'apprecie les murs %d\n", a++);
         env->options.wall_lover = 0;
-        if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
+        if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
             return (1);
         return (0);
     }
@@ -207,7 +195,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
                     //ft_printf("line 202 %d\n", a++);
                     if (env->sector_list[j])
                     {
-                        if (is_in_sector(env, j, FUTURE_X, FUTURE_Y))
+                        if (is_in_sector_no_z(env, j, new_v2(FUTURE_X, FUTURE_Y)))
                         {
                             if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
                             {
@@ -249,28 +237,6 @@ int     check_collision(t_env *env, double x_move, double y_move)
         i++;
     }
     //ft_printf("line 246 %d\n", a++);
-    return (1);
-}
-
-int     is_in_sector(t_env *env, short sector, double x, double y)
-{
-    int     count;
-    int     i;
-    double  start_pos;
-    double  end_pos;
-
-    i = 0;
-    count = 0;
-    while (i < env->sectors[sector].nb_vertices)
-    {
-        start_pos = (x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-        end_pos = (env->sectors[sector].x_max + 1 - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-        if (diff_sign(start_pos, end_pos) && in_range(y, SECTOR_Y1, SECTOR_Y2))
-            count++;
-        i++;
-    }
-    if (count % 2 == 0)
-        return (0);
     return (1);
 }
 

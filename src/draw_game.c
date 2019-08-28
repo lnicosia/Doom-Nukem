@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 15:06:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:34:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	if (draw_walls(env) != 0){
-		return (crash("Render function failed\n", env));
-	}
+	if (draw_walls(env))
+		return (crash("Failed to draw walls\n", env));
 	if (env->options.wall_color)
 		draw_sprites(env);
-	if ((env->inputs.leftclick && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
+	if ((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
 		weapon_animation(env, env->player.curr_weapon);
 	else
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
@@ -39,7 +38,10 @@ int	draw_game(t_env *env)
 	draw_hud(env);
 	if (env->player.hit)
 		damage_anim(env);
-	update_screen(env);
+	if (env->options.zbuffer)
+		update_screen_zbuffer(env);
+	else
+		update_screen(env);
 	view(env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:02:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/20 14:32:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,69 +16,120 @@
 static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (ft_printf("Invalid character before sprite declaration (line %d)\n",
-					parser->line_count));
+		return (invalid_char("before object sprite", "'['", **line, parser));
 	(*line)++;
+	if (!**line || **line == ']')
+		return (missing_data("object sprite and scale", parser));
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing sprite value (line %d)\n", parser->line_count));
+		return (invalid_char("before object sprite", "a digit",
+					**line, parser));
 	env->objects[parser->objects_count].sprite = ft_atoi(*line);
 	if (env->objects[parser->objects_count].sprite < 0
 			|| env->objects[parser->objects_count].sprite >= MAX_SPRITES)
-		return (ft_printf("Invalid sprite texture (line %d)\n", parser->line_count));
+		return (custom_error_with_line("Invalid sprite texture", parser));
 	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object scale", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after object sprite", "a digit or space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object scale", parser));
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing scale value (line %d)\n", parser->line_count));
+		return (invalid_char("before object scale", "a digit or space(s)",
+					**line, parser));
 	env->objects[parser->objects_count].scale = ft_atof(*line);
 	*line = skip_number(*line);
-	*line = skip_spaces(*line);
-	if (**line != ']' &&  **(line + 1) != ' ')
-		return (ft_printf("Invalid character after sprite declaration (line %d)\n",
-					parser->line_count));
-	*line += 2;
+	if (!**line)
+		return (missing_data("']' after object scale", parser));
+	if (**line != ']')
+		return (invalid_char("after object scale", "a digit or ']'",
+					**line, parser));
+	(*line)++;
+	if (**line)
+		return (extra_data("object scale", parser));
 	return (0);
 }
 
 static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 {
+	if (**line != '[')
+		return (invalid_char("before object y", "'['", **line, parser));
+	(*line)++;
+	if (!**line || **line == ']')
+		return (missing_data("object y, x, z and angle", parser));
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing x value (line %d)\n", parser->line_count));
-	env->objects[parser->objects_count].pos.x = ft_atof(*line);
-	*line = skip_number(*line);
-	*line = skip_spaces(*line);
-	if (valid_number(*line, parser))
-		return (ft_printf("Missing y value (line %d)\n", parser->line_count));
+		return (invalid_char("before object y", "a digit", **line, parser));
 	env->objects[parser->objects_count].pos.y = ft_atof(*line);
 	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object x, z and angle", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after object y", "a digit or space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object x, z and angle", parser));
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing z value (line %d)\n", parser->line_count));
+		return (invalid_char("before object x", "a digit", **line, parser));
+	env->objects[parser->objects_count].pos.x = ft_atof(*line);
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object z and angle", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after object x", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object z and angle", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before object z", "a digit or space(s)",
+					**line, parser));
 	env->objects[parser->objects_count].pos.z = ft_atof(*line);
 	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object angle", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after object z", "a digit or space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("object angle", parser));
 	if (valid_number(*line, parser))
-		return (ft_printf("Missing angle (line %d)\n", parser->line_count));
+		return (invalid_char("before object angle", "a digit or space(s)",
+					**line, parser));
 	env->objects[parser->objects_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
+	if (!**line)
+		return (missing_data("']' after object angle", parser));
+	if (**line != ']')
+		return (invalid_char("after object angle", "a digit or ']'",
+					**line, parser));
+		(*line)++;
+	if (!**line)
+		return (missing_data("object sprite and scale", parser));
+	if (**line != ' ')
+		return (invalid_char("after object angle", "space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
 	env->objects[parser->objects_count].sector = get_sector_global(env,
-			new_v2(env->objects[parser->objects_count].pos.x,
-				env->objects[parser->objects_count].pos.y));
+			new_v3(env->objects[parser->objects_count].pos.x,
+				env->objects[parser->objects_count].pos.y,
+				env->objects[parser->objects_count].pos.z));
 	env->objects[parser->objects_count].light =
 		env->sectors[env->objects[parser->objects_count].sector].light;
-	if (**line != ']' &&  **(line + 1) != ' ')
-		return (ft_printf("Invalid character after pos declaration (line %d)\n",
-					parser->line_count));
-	*line += 2;
 	return (0);
 }
 
 static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 {
 	if (parse_object_pos(env, &line, parser))
-		return (ft_printf("Error while parsing object pos\n"));
+		return (-1);
+		//return (custom_error("Error while parsing object pos"));
 	if (parse_object_sprite(env, &line, parser))
-		return (ft_printf("Error while parsing object pos\n"));
+		return (-1);
+		//return (custom_error("Error while parsing object pos"));
 	return (0);
 }
 
@@ -92,62 +143,32 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	{
 		parser->line_count++;
 		tmp = line;
-		if (tmp[0] == '[')
+		if (*tmp)
 		{
-			tmp++;
 			if (parse_object(env, tmp, parser))
-				return (ft_printf("Error while parsing object %d (line %d)\n",
-							parser->objects_count, parser->line_count));
+				return (-1);
 			parser->objects_count++;
 		}
-		else if (tmp[0] == '\0' && parser->objects_count < env->nb_objects)
-			return (ft_printf("You must still declare %d objects (line %d)\n",
-						env->nb_objects - parser->objects_count,
-						parser->line_count));
-		else if (tmp[0] != '#')
-			return (ft_printf("Invalid character at line %d\n",
-						parser->line_count));
+		else
+		{
+			ft_dprintf(STDERR_FILENO,
+					"[Line %d] You must still declare %d objects\n",
+					parser->line_count,
+					env->nb_objects - parser->objects_count);
+			return (-1);
+		}
 		ft_strdel(&line);
 	}
 	if ((parser->ret = get_next_line(parser->fd, &line)))
 	{
 		parser->line_count++;
-		if (line[0] != '\0')
-			return (ft_printf("Line %d must be an empty line "
+		if (*line)
+			return (custom_error_with_line("Must be an empty line "
 						"(every object has been declared)\n",
-						parser->line_count));
+						parser));
 		ft_strdel(&line);
 	}
 	else
-		return (ft_printf("File ended at objects declaration\n"));
-	return (0);
-	/*env->objects[0].sprite = 0;
-	env->objects[0].pickable = 0;
-	env->objects[0].solid = 0;
-	env->objects[0].pos.x = 5;
-	env->objects[0].pos.y = 5;
-	env->objects[0].pos.z = 0;
-	env->objects[0].scale = 60;
-	env->objects[0].sector = 0;
-
-	env->objects[1].sprite = 1;
-	env->objects[1].pickable = 0;
-	env->objects[1].solid = 0;
-	env->objects[1].pos.x = 20;
-	env->objects[1].pos.y = 10;
-	env->objects[1].pos.z = 6;
-	env->objects[1].scale = 60;
-	env->objects[1].sector = 0;
-	env->objects[1].angle = 90;
-
-	env->objects[2].sprite = 1;
-	env->objects[2].pickable = 0;
-	env->objects[2].solid = 0;
-	env->objects[2].pos.x = 10;
-	env->objects[2].pos.y = 20;
-	env->objects[2].pos.z = 6;
-	env->objects[2].scale = 60;
-	env->objects[2].sector = 0;
-	env->objects[2].angle = -90;*/
+		return (missing_data("player data", parser));
 	return (0);
 }

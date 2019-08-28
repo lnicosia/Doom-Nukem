@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:03:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/15 12:11:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	options(t_env *env)
 		else
 			SDL_SetRelativeMouseMode(1);
 	}
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 }
 
 void	screen_options(t_env *env)
@@ -106,6 +108,28 @@ int		open_options(t_env *env)
 	screen_options(env);
 	sound_options(env);
 	update_screen(env);
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->option)
+	{
+		if (env->inputs.left_click
+				&& button_leftclick(env, 2)
+				&& env->i > 0)
+			env->i--;
+		else if (env->inputs.left_click
+				&& button_leftclick(env, 3)
+				&& env->i < 2)
+			env->i++;
+		else if (env->inputs.left_click
+				&& button_leftclick(env, 4)
+				&& env->sound.g_music > 5)
+			env->sound.g_music -= 5;
+		else if (env->inputs.left_click
+				&& button_leftclick(env, 5)
+				&& env->sound.g_music < 100)
+			env->sound.g_music += 5;
+		else if (env->inputs.left_click
+				&& button_leftclick(env, 1))
+			env->aplicate_changes = 1;
+	}
 	if (env->aplicate_changes)
 	{
 		free_all_sdl_relative(env);

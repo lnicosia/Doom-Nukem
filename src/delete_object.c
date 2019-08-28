@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   delete_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:07:15 by sipatry          ###   ########.fr       */
+/*   Created: 2019/08/26 15:39:31 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/27 09:28:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-t_point	new_point(int x, int y)
+int	delete_object(t_env *env, int object)
 {
-	t_point	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_v2	new_v2(double x, double y)
-{
-	t_v2	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_v3	new_v3(double x, double y, double z)
-{
-	t_v3	new;
-
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	return (new);
+	env->objects = ft_delindex(env->objects,
+			sizeof(t_object) * env->nb_objects,
+			sizeof(t_object),
+			sizeof(t_object) * object);
+	env->nb_objects--;
+	env->editor.selected_object = -1;
+	return (0);
 }

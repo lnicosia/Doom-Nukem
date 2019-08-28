@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:03:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 17:56:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/07/30 11:33:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	hline(t_env *env, int y)
 {
 	int x;
 
-	x = 0;
+	x = 200;
 	while (x < env->w)
 	{
 		env->sdl.texture_pixels[x + y * env->w] = 0xFF888888;
@@ -38,40 +38,44 @@ void	vline(t_env *env, int x)
 
 void	draw_hgrid(t_env *env)
 {
-	int	i;
+	double	i;
 
-	i = env->edit.center.y;
+	i = env->editor.center.y;
+	while (i < 0)
+		i += env->editor.scale;
 	while (i < env->h)
 	{
 		hline(env, i);
-		i += env->edit.scale;
+		i += env->editor.scale;
 	}
-	i = env->edit.center.y - env->edit.scale;
+	i = env->editor.center.y - env->editor.scale;
+	while (i >= env->h)
+		i -= env->editor.scale;
 	while (i >= 0)
 	{
 		hline(env, i);
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	}
 }
 
 void	draw_vgrid(t_env *env)
 {
-	int	i;
+	double	i;
 
-	i = env->edit.center.x;
-	while (i < 0)
-		i += env->edit.scale;
+	i = env->editor.center.x;
+	while (i < 200)
+		i += env->editor.scale;
 	while (i < env->w)
 	{
 		vline(env, i);
-		i += env->edit.scale;
+		i += env->editor.scale;
 	}
-	i = env->edit.center.x - env->edit.scale;
+	i = env->editor.center.x - env->editor.scale;
 	while (i >= env->w)
-		i -= env->edit.scale;
-	while (i >= 0)
+		i -= env->editor.scale;
+	while (i >= 200)
 	{
 		vline(env, i);
-		i -= env->edit.scale;
+		i -= env->editor.scale;
 	}
 }

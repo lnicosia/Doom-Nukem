@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 17:13:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:42:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,8 @@
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
-
-typedef struct		s_point
-{
-	int				x;
-	int				y;
-}					t_point;
-
-typedef struct		s_v2
-{
-	double			x;
-	double			y;
-}					t_v2;
-
-typedef	struct		s_segment
-{
-	t_v2			p1;
-	t_v2			p2;
-}					t_segment;
-
-typedef struct		s_v3
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_v3;
+# define MAX_W 2560
+# define MAX_H 1440
 
 typedef struct		s_line_eq
 {
@@ -73,6 +50,14 @@ typedef struct		s_line
 	Uint32			color;
 }					t_line;
 
+typedef struct		s_circle
+{
+	Uint32			line_color;
+	Uint32			color;
+	t_point			center;
+	int				radius;
+}					t_circle;
+
 /*
 ** VERTICES = PLURIEL DE VERTEX
 */
@@ -80,7 +65,6 @@ typedef struct		s_line
 typedef struct		s_sector
 {
 	t_v2			normal;
-	t_v3			boundaries[4];
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
@@ -141,9 +125,6 @@ typedef struct		s_player
 	double			camera_y;
 	double			rotation_speed;
 	short			sector;
-	short			camera_sector;
-	short			near_left_sector;
-	short			near_right_sector;
 	double			state;
 	int				curr_weapon;
 	int				life;
@@ -187,6 +168,7 @@ typedef struct		s_keys
 {
 	int				forward;
 	int				backward;
+	int				backspace;
 	int				left;
 	int				right;
 	int				forward2;
@@ -201,6 +183,9 @@ typedef struct		s_keys
 	int				down;
 	int				up;
 	int				option;
+	int				enter;
+	int				s;
+	int				del;
 }					t_keys;
 
 /*
@@ -211,6 +196,7 @@ typedef struct		s_inputs
 {
 	uint8_t			forward;
 	uint8_t			backward;
+	uint8_t			backspace;
 	uint8_t			left;
 	uint8_t			right;
 	uint8_t			plus;
@@ -222,8 +208,10 @@ typedef struct		s_inputs
 	uint8_t			down;
 	uint8_t			left_click;
 	uint8_t			right_click;
-	uint8_t			leftclick;
 	uint8_t			option;
+	uint8_t			enter;
+	uint8_t			s;
+	uint8_t			del;
 }					t_inputs;
 
 /*
@@ -350,6 +338,7 @@ typedef struct		s_object
 	int				health;
 	int				sector;
 	int				exists;
+	int				num;
 }					t_object;
 
 /*
@@ -406,6 +395,7 @@ typedef struct		s_options
 	int				test;
 	int				clipping;
 	int				show_ennemies;
+	int				zbuffer;
 }					t_options;
 
 /*

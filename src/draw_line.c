@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/04 15:33:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/25 10:30:02 by gaerhard         ###   ########.fr       */
+/*   Created: 2019/07/23 18:32:18 by sipatry           #+#    #+#             */
+/*   Updated: 2019/08/21 14:37:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	fill_img(t_point c, t_env data, Uint32 color)
 {
-	int	pos;
-
-	pos = c.x + c.y * data.w;
-	if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
-			&& (color == 0xFFFF0000 || color == 0xFF00FF00
-				|| (data.sdl.texture_pixels[pos] != 0xFF00FF00)))
-					//&& data.sdl.texture_pixels[pos] != 0xFFFFFFFF)))
-		data.sdl.texture_pixels[pos] = color;
+	if (c.x >= 0 && c.x < data.w && c.y >= 0 && c.y < data.h
+			&& data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFF00FF00)
+		data.sdl.texture_pixels[c.x + c.y * data.w] = color;
 }
 
 void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
