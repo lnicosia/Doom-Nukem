@@ -6,15 +6,46 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:35:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 15:43:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/29 11:34:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 /*
-**	Returns 0 if the given vertex does not belong to any sector
-*/
+ **	Returns 0 if the given vertex does not belong to any sector
+ */
+
+int		*get_vertex_sectors(t_env *env, int index)
+{
+	int	*sectors;
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	k = 1;
+	if (!(sectors= (int *)malloc(sizeof(int) * 2)))
+		return (0);
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == index)
+			{
+				if (!(sectors = (int *)ft_realloc(sectors,sizeof(int) * k, sizeof(int) * (k + 1))))
+					return (0);
+				sectors[k] = i;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	sectors[0] = k - 1;
+	return (sectors);
+}
 
 int		is_vertex_used_by_others(t_env *env, int vertex, int sector)
 {
@@ -40,8 +71,8 @@ int		is_vertex_used_by_others(t_env *env, int vertex, int sector)
 }
 
 /*
-**	Returns 0 if the given vertex does not belong to any sector
-*/
+ **	Returns 0 if the given vertex does not belong to any sector
+ */
 
 int		is_vertex_used(t_env *env, int vertex)
 {
@@ -64,8 +95,8 @@ int		is_vertex_used(t_env *env, int vertex)
 }
 
 /*
-**	Returns 0 if the given vertex does not belong to the current sector
-*/
+ **	Returns 0 if the given vertex does not belong to the current sector
+ */
 
 int		current_vertices_contains(t_env *env, int vertex)
 {

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 10:46:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/29 11:38:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,88 @@ int		new_wall_intersects(t_env *env, int index)
 		i++;
 	}
 	return (0);
+}
+
+int		get_vertex_in_sector(t_env *env, int sector)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	while (i < env->sectors[sector].nb_vertices)
+	{
+		if (env->sectors[sector].vertices[i] == env->editor.selected_vertex)
+			break;
+		i++;
+	}
+	ret = env->sectors[sector].vertices[i];
+	return (ret);
+}
+
+int		is_a_selected_sector(t_env *env, int *list, int i)
+{
+	int	j;
+
+	j = 1;
+	while (j <= list[0])
+	{
+		if (env->sectors[i].num == list[j])
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index, int index)
+{
+	int	i;
+	t_vertex	res;
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		if (sector.vertices[i] == index)
+			break;
+		else
+			i++;
+	}
+	if (i == 0)
+		res = env->vertices[sector.vertices[sector.nb_vertices - 1]];
+	else
+		res = env->vertices[sector.vertices[i + new_index]];
+	return (res);
+}
+
+int		is_new_dragged_vertex_valid(t_env *env, int index)
+{
+	int			*list_sectors;
+	int			i;
+	int			j;
+	t_vertex	last;
+
+	i = 1;
+	list_sectors = get_vertex_sectors(env, index);
+	while (i <= list_sectors[0])
+	{
+		j = 0;
+		while (j < env->nb_sectors)
+		{
+			if (is_a_selected_sector(env, list_sectors, j))
+				j++;
+			else
+			{
+				last = find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
+				if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+					return (0);
+				last = find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
+				if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+					return (0);
+				j++;
+			}
+		}	
+		i++;
+	}
+	ft_printf("\n");
+	return (1);
 }
 
 int		is_new_vertex_valid(t_env *env, int index)

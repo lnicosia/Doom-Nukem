@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 11:33:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/29 11:38:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	check_sector_order(t_env *env)
 		{
 			if (env->editor.selected_vertex == env->sectors[i].vertices[j])
 			{
+				ft_printf("changing order\n");
 				env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
 				revert_sector(&env->sectors[i], env);
 				break;
@@ -38,17 +39,14 @@ void	check_sector_order(t_env *env)
 void		vertices_selection(t_env *env)
 {
 	int	click_vertex;
-
+	
+	click_vertex = -1;
 	if (!env->inputs.left_click && env->editor.selected_vertex != -1)
 	{
-		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1)
+		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || !(is_new_dragged_vertex_valid(env, env->editor.selected_vertex)) || (click_vertex != -1 && (click_vertex != env->vertices[env->editor.selected_vertex].num)))
 		{
-			ft_printf("click: %d\n", click_vertex);
-			if (click_vertex != -1 && click_vertex != env->vertices[env->editor.selected_vertex].num)
-			{
-				env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
-				env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
-			}
+			env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
+			env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
 		}
 		else
 		{
