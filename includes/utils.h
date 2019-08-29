@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/28 14:42:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/29 20:50:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct		s_player
 	double			rotation_speed;
 	short			sector;
 	double			state;
+	int				highest_sect;
 	int				curr_weapon;
 	int				life;
 	int				armor;

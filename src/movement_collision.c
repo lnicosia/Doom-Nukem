@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/28 14:46:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/29 21:13:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,39 @@ int     diff_sign(double nb1, double nb2)
     return (1);
 }*/
 
+double     sector_height(t_env *env, t_movement motion, int sector_dest)
+{
+    FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    return (FUTURE_Z);
+}
+
+void        find_highest_sector(t_env *env, t_movement motion)
+{
+    int     i;
+    double  height;
+    double  s_height;
+    int     tmp;
+
+    i = 0;
+    tmp = env->player.sector;
+    height = sector_height(env, motion, env->player.sector);
+    while (i < env->nb_sectors)
+    {
+        if (env->sector_list[i])
+        {
+            s_height = sector_height(env, motion, i);
+            if (height < s_height)
+            {
+                height = s_height;
+                tmp = i;
+            }
+        }
+        i++;
+    }
+    //ft_printf("mov_collision.c l71\n");
+    env->player.highest_sect = tmp;
+}
+
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
     FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
@@ -52,7 +85,7 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
 {
     FUTURE_Z = env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
     if (FUTURE_Z > env->player.pos.z + 2)
-		        return (0);
+		return (0);
     return (1);
 }
 
@@ -140,6 +173,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
     t_wall      wall;
     //static int a = 0;
 
+    env->player.highest_sect = env->player.sector;
     FUTURE_X = env->player.pos.x + x_move;
     FUTURE_Y = env->player.pos.y + y_move;
     //ft_printf("line 154 %d\n", a++);
@@ -229,13 +263,12 @@ int     check_collision(t_env *env, double x_move, double y_move)
             return (1);
         }
         else
-        {
             env->player.fall = 1;
-        }
         //ft_printf("line 242%d\n", a++);
         
         i++;
     }
+    find_highest_sector(env, motion);
     //ft_printf("line 246 %d\n", a++);
     return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 10:41:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/29 21:10:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_floor(t_env *env)
 	t_vertex	v0;
 	double		player_feet;
 
-	sector = env->sectors[env->player.sector];
+	sector = env->sectors[env->player.highest_sect];
 	v0 = env->vertices[sector.vertices[0]];
 	player_feet =
 		sector.floor +
