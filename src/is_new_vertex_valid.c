@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/29 11:38:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/29 13:43:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,6 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 		}	
 		i++;
 	}
-	ft_printf("\n");
 	return (1);
 }
 
