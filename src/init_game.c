@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/28 14:48:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 13:12:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	env.flag = 0;
-	env.player.fall = 1;
+	env.player.stuck = 0;
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");

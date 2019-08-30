@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/29 21:13:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 13:19:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,20 +176,16 @@ int     check_collision(t_env *env, double x_move, double y_move)
     env->player.highest_sect = env->player.sector;
     FUTURE_X = env->player.pos.x + x_move;
     FUTURE_Y = env->player.pos.y + y_move;
-    //ft_printf("line 154 %d\n", a++);
-    if (env->options.wall_lover == 1)
+    if (env->player.stuck == 1)
     {
-        //ft_printf("j'apprecie les murs %d\n", a++);
-        env->options.wall_lover = 0;
+        env->player.stuck = 0;
         if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
             return (1);
         return (0);
     }
-    //ft_printf("line 163 %d\n", a++);
     i = 0;
     while (i < env->nb_sectors)
     {
-        //ft_printf("line 167 %d\n", a++);
         if (i == env->player.sector)
             env->sector_list[i] = 1;
         else
@@ -197,28 +193,20 @@ int     check_collision(t_env *env, double x_move, double y_move)
         i++;
     }
     i = 0;
-    /*if (!check_ceiling(env, motion, env->player.sector) || !check_floor(env, motion, env->player.sector))
-        return (0);*/
-    //ft_printf("line 177 %d\n", a++);
-    if (env->player.fall == 1)
-        env->player.prev_sector = env->player.sector;
-    //motion.old_sector = env->player.sector;
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
-        //ft_printf("line 180 %d\n", a++);
         /*
         ** If the player is inside a wall for some reason
         */
         if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
         {
-            env->options.wall_lover = 1;
+            env->player.stuck = 1;
             return (check_collision(env, x_move, y_move));
         }
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
             return (0);
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
-            //ft_printf("line 194 %d\n", a++);
             wall.sector_or = env->player.sector;
             wall.sector_dest = NEIGHBOR;
             if (collision_rec(env, FUTURE_X, FUTURE_Y, wall))
@@ -226,14 +214,13 @@ int     check_collision(t_env *env, double x_move, double y_move)
                 j = 0;
                 while (j < env->nb_sectors)
                 {
-                    //ft_printf("line 202 %d\n", a++);
                     if (env->sector_list[j])
                     {
                         if (is_in_sector_no_z(env, j, new_v2(FUTURE_X, FUTURE_Y)))
                         {
                             if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
                             {
-                                env->options.wall_lover = 1;
+                                env->player.stuck = 1;
                                 return (check_collision(env, x_move, y_move));
                             }
                             env->player.sector = j;
@@ -244,32 +231,11 @@ int     check_collision(t_env *env, double x_move, double y_move)
                 }
             }
             else
-            {
-                //ft_printf("I'm stuck %d\n", a++);
                 return (0);
-            }
         }
-        i++;
-    }
-    //ft_printf("line 227 %d\n", a++);
-    i = 0;
-    while (i < env->sectors[env->player.sector].nb_vertices)
-    {
-        //ft_printf("line 231 %d\n", a++);
-        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR == env->player.prev_sector)
-        {
-            env->player.fall = 0;
-            //ft_printf("line 235 %d\n", a++);
-            return (1);
-        }
-        else
-            env->player.fall = 1;
-        //ft_printf("line 242%d\n", a++);
-        
         i++;
     }
     find_highest_sector(env, motion);
-    //ft_printf("line 246 %d\n", a++);
     return (1);
 }
 

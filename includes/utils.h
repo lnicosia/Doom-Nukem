@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/29 20:50:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 13:13:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct		s_player
 	t_v3			pos;
 	t_v2			near_left;
 	t_v2			near_right;
-	int				fall;
+	int				stuck;
 	int				prev_sector;
 	double			gravity;
 	double			eyesight;
