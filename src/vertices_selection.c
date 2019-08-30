@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 17:44:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:14:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_sector_order(t_env *env)
 		j = 0;
 		while (j < env->sectors[i].nb_vertices)
 		{
-			if (env->editor.selected_vertex == env->sectors[i].vertices[j])
+			if (env->editor.dragged_vertex == env->sectors[i].vertices[j])
 			{
 				env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
 				revert_sector(&env->sectors[i], env);
@@ -37,11 +37,11 @@ void	check_sector_order(t_env *env)
 
 void		vertices_selection(t_env *env)
 {
-	if (!env->inputs.left_click && env->editor.selected_vertex != -1)
+	if (!env->inputs.left_click && env->editor.dragged_vertex != -1)
 	{
-		env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-		env->vertices[env->editor.selected_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+		env->vertices[env->editor.dragged_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+		env->vertices[env->editor.dragged_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 		check_sector_order(env);
-		env->editor.selected_vertex = -1;
+		env->editor.dragged_vertex = -1;
 	}
 }

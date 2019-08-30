@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 14:31:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:14:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,29 @@ void	objects_selection(t_env *env)
 			&& env->sdl.my > 280
 			&& env->sdl.my < 320
 			&& env->editor.start_vertex == -1
-			&& env->editor.selected_player == -1
-			&& env->editor.selected_vertex == -1
-			&& env->editor.selected_object == -1)
+			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_object == -1)
 	{
-		env->editor.selected_object = env->nb_objects;
+		env->editor.dragged_object = env->nb_objects;
 	}
-	if (!env->inputs.left_click && env->editor.selected_object != -1)
+	if (!env->inputs.left_click && env->editor.dragged_object != -1)
 	{
 		if (env->sdl.mx > 200)
 		{
-			if (env->editor.selected_object == env->nb_objects)
+			if (env->editor.dragged_object == env->nb_objects)
 			{
 				add_object(env);
 				env->nb_objects++;
 			}
 			else
 			{
-				env->objects[env->editor.selected_object].pos.x =	(env->sdl.mx - env->editor.center.x) / env->editor.scale;
-				env->objects[env->editor.selected_object].pos.y =	(env->sdl.my - env->editor.center.y) / env->editor.scale;
+				env->objects[env->editor.dragged_object].pos.x =	(env->sdl.mx - env->editor.center.x) / env->editor.scale;
+				env->objects[env->editor.dragged_object].pos.y =	(env->sdl.my - env->editor.center.y) / env->editor.scale;
 			}
 		}
 		else
-			delete_object(env, env->editor.selected_object);
-		env->editor.selected_object = -1;
+			delete_object(env, env->editor.dragged_object);
+		env->editor.dragged_object = -1;
 	}
 }

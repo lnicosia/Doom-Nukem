@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:41:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 12:04:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:26:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_grid_objects(t_env *env)
 	Uint32		color;
 
 	i = 0;
-	if (env->editor.selected_object != -1)
+	if (env->editor.dragged_object != -1)
 	{
 		color = 0xFF00FF00;
 		scale = env->editor.scale / 2.0;
@@ -42,17 +42,25 @@ void	draw_grid_objects(t_env *env)
 			color = 0xFF00FF00;
 			if (env->inputs.left_click
 					&& env->editor.start_vertex == -1
-					&& env->editor.selected_player == -1
-					&& env->editor.selected_object == -1
-					&& env->editor.selected_vertex == -1)
+					&& env->editor.dragged_player == -1
+					&& env->editor.dragged_object == -1
+					&& env->editor.dragged_vertex == -1)
+			{
+				env->editor.dragged_object = i;
 				env->editor.selected_object = i;
+				env->editor.selected_vertex = -1;
+				env->editor.selected_sector = -1;
+				env->editor.selected_player = -1;
+			}
 		}
 		else
 		{
 			color = 0xFFFFFF00;
 			scale = env->editor.scale / 2.0;
 		}
-		if (env->editor.selected_object != i)
+		if (env->editor.selected_object == i)
+			color = 0xFF00FF00;
+		if (env->editor.dragged_object != i)
 			draw_circle(new_circle(color, color, center, scale), env);
 		i++;
 	}

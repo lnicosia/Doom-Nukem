@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 09:23:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:42:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int					is_vertex_used(t_env *env, int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex, int sector);
 int					delete_invalid_sectors(t_env *env);
 int					delete_invalid_vertices(t_env *env);
+int					delete_action(t_env *env);
 
 /*
  * ** Main functions
