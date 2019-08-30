@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 11:30:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:48:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_map_parser
 	int				sectors_count;
 	int				vertices_count;
 	int				objects_count;
+	int				enemies_count;
 	int				sector_vertices_count;
 	int				sector_neighbors_count;
 	int				sector_textures_count;
@@ -36,6 +37,8 @@ int					parse_vertices(t_env *env, t_map_parser *parser);
 int					parse_sectors(t_env *env, t_map_parser *parser);
 int					init_objects(t_env *env, t_map_parser *parser);
 int					parse_objects(t_env *env, t_map_parser *parser);
+int					init_enemies(t_env *env, t_map_parser *parser);
+int					parse_enemies(t_env *env, t_map_parser *parser);
 int					parse_player(t_env *env, t_map_parser *parser);
 int					check_vertices_uniqueness(t_sector sector);
 int					check_sector_duplicate(t_env *env, t_sector sector,

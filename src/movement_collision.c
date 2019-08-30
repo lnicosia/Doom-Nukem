@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/30 13:19:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 13:37:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ int     check_collision(t_env *env, double x_move, double y_move)
     short       j;
     t_movement  motion;
     t_wall      wall;
-    //static int a = 0;
 
     env->player.highest_sect = env->player.sector;
     FUTURE_X = env->player.pos.x + x_move;

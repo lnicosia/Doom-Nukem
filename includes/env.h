@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/28 14:43:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:36:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_env
 	t_vertex		*vertices;
 	t_sector		*sectors;
 	t_object		*objects;
+	t_enemies		*enemies;
 	t_sprite		*sprites;
 	t_audio			sound;
 	t_texture		textures[MAX_TEXTURE];
@@ -72,6 +73,7 @@ typedef struct		s_env
 	int				nb_sectors;
 	int				nb_vertices;
 	int				nb_objects;
+	int				nb_enemies;
 	double			flag;
 	int				reset;
 	int				count;

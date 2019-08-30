@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 13:13:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:43:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,9 +327,7 @@ typedef struct		s_object
 	int				right;
 	int				top;
 	int				bottom;
-	int				seen;
 	int				sprite;
-	t_animation		death;
 	double			scale;
 	double			angle;
 	double			light;
@@ -340,7 +338,30 @@ typedef struct		s_object
 	int				sector;
 	int				exists;
 	int				num;
+	t_animation		death;
 }					t_object;
+
+typedef struct		s_enemies
+{
+	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
+	float			speed;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
+	int				sprite;
+	int				death_sprite;
+	double			scale;
+	double			angle;
+	double			light;
+	int				health;
+	int				damage;
+	int				exists;
+	int				sector;
+	t_animation		death;
+}					t_enemies;
 
 /*
 ** SDL data necessities

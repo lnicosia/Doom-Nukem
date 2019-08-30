@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/28 14:29:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:17:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,12 +209,12 @@ static void		reset_render_utils(t_env *env)
 		env->ymax[i] = ymax;
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < env->nb_objects)
 	{
 		env->objects[i].seen = 0;
 		i++;
-	}
+	}*/
 }
 
 /*
