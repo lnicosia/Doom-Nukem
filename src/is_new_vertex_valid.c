@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:04:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:41:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 
 int		valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
-	(void)v3;
-	/*if ((v1.x < v2.x && v4.x < v2.x)
-			|| (v1.x > v2.x && v4.x > v2.x)
-			|| (v1.y < v2.y && v4.y < v2.y)
-			|| (v1.y > v2.y && v4.y > v2.y))*/
 	if ((v1.x > v3.x && v1.x < v4.x)
 			|| (v1.x < v3.x && v1.x > v4.x)
 			|| (v1.y < v3.y && v1.y > v4.y)
@@ -73,7 +68,6 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	t_vertex	*v1;
 	t_vertex	*v2;
 
-	(void)index;
 	tmp = env->editor.current_vertices;
 	while (tmp && tmp->next)// && tmp->next->next)
 	{
@@ -163,8 +157,7 @@ int		is_new_vertex_valid(t_env *env, int index)
 {
 	if (!env->editor.current_vertices)
 		return (1);
-	/*if ((ft_lstlen(env->editor.current_vertices) == 1
-		&& */if (index != env->editor.start_vertex
+	if (index != env->editor.start_vertex
 			&& current_vertices_contains(env, index))
 		return (0);
 	if (new_wall_intersects(env, index))

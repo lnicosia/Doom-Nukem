@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 16:56:17 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 09:27:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:48:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ int		delete_invalid_sectors(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		if (env->sectors[i].nb_vertices < 3)
+		{
 			if (delete_sector(env, i))
 				return (-1);
+			i--;
+		}
 		i++;
 	}
 	return (0);
