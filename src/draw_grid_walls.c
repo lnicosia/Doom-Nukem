@@ -51,10 +51,8 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	Uint32	c;
 
 	i = 0;
-	ft_printf("sector[%d]:\n", sector.num);
 	while (i < sector.nb_vertices)
 	{
-		ft_printf("drawing vertex[%d]: %d\n", i, sector.neighbors[i]);
 		v1.x = env->editor.center.x +
 			env->vertices[sector.vertices[i]].x * env->editor.scale;
 		v1.y = env->editor.center.y +
@@ -70,7 +68,6 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 		draw_line(v1, v2, *env, c);
 		i++;
 	}
-	ft_printf("\n");
 }
 
 void	draw_grid_sectors(t_env *env)

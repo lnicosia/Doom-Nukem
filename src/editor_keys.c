@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/28 11:16:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/30 14:11:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int			editor_keys(t_env *env)
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
 			if (env->editor.start_vertex == -1) //Nouveau secteur
+			{
 				env->editor.start_vertex = env->nb_vertices - 1;
+			}
 		}
 		else if (clicked_vertex >= 0)
 		{

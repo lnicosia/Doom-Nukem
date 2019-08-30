@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:00:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:03:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/30 15:03:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	clear_portals(t_env *env)
 	int	j;
 
 	i = 0;
-	ft_printf("clearing portals\n");
 	while (i < env->nb_sectors)
 	{
 		j = 0;

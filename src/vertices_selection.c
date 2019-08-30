@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:03:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/30 15:02:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,8 @@ void		vertices_selection(t_env *env)
 			while (i < env->nb_sectors)
 			{
 				create_portals(env, env->sectors[i]);
-				int j = 0;
-				ft_printf("sector[%d]: ", i);
-				while (j <= env->sectors[i].nb_vertices)
-				{
-					ft_printf("%d | ", env->sectors[i].neighbors[j]);
-					j++;
-				}
 				i++;
-				ft_printf("\n");
 			}
-			ft_printf("\n");
 		}
 		env->editor.selected_vertex = -1;
 	}

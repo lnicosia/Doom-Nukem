@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 11:40:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/08/30 15:06:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 
 	tmp = env->editor.current_vertices;
 	i = 0;
-	ft_printf("fil new_sector\n");
 	while (tmp)
 	{
 		vertex = (t_vertex*)tmp->content;
