@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 16:56:17 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:11:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 16:43:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int		delete_sector(t_env *env, int sector)
 		i++;
 	}
 	//modify_sector_neighbors(env, sector);
-	clear_portals(env);
+/*	clear_portals(env);
 	i = 0;
 	while (i < env->nb_sectors)
 	{
 		create_portals(env, env->sectors[i]);
 		i++;
-	}
+	}*/
 	return (0);
 }
 
