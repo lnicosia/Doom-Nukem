@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/28 14:41:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:47:28 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		doom(t_env *env)
 		}
 		enemy_pursuit(env);
 		objects_collision(env);
+		enemy_collision(env);
 		keys(env);
 		if (env->menu_start)
 			start_game_menu(env);

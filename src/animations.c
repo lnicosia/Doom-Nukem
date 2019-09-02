@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/27 18:47:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:48:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int     dying_enemy(t_env *env, int i)
     double start;
     double time_spent;
 
-    if (env->objects[i].death.start == 0)
-        env->objects[i].death.start = SDL_GetTicks();
-    start = env->objects[i].death.start;
+    if (env->enemies[i].death.start == 0)
+        env->enemies[i].death.start = SDL_GetTicks();
+    start = env->enemies[i].death.start;
     time_spent = env->time.milli_s - start;
     if ((int)time_spent >= 70 && (int)time_spent / 70 < 6)
         return ((int)(time_spent / 70));
@@ -60,7 +60,7 @@ int     dying_enemy(t_env *env, int i)
     if (time_spent >= 6 * 70)
     {
         start = 0;
-        env->objects[i].exists = 0;
+        env->enemies[i].exists = 0;
     }
     return (-1);
 }

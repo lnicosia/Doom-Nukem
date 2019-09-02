@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/27 19:10:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:44:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 int     damage_done(t_env env, int i)
 {
     if (env.weapons[env.player.curr_weapon].splash)
-        return ((int)(env.weapons[env.player.curr_weapon].damage / (env.objects[i].rotated_pos.z / 4 + 1)));
+        return ((int)(env.weapons[env.player.curr_weapon].damage / (env.enemies[i].rotated_pos.z / 4 + 1)));
     else
         return (env.weapons[env.player.curr_weapon].damage);
-    
 }
 
 void    hitscan_shot(t_env *env)
@@ -26,38 +25,38 @@ void    hitscan_shot(t_env *env)
     int i;
 
     i = 0;
-    while (i < env->nb_objects)
+    while (i < env->nb_enemies)
     {
-        if (env->objects[i].exists && env->objects[i].sprite == 1)
+        if (env->enemies[i].exists)
         {
-            if ((env->objects[i].left - env->objects[i].left) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].bottom) < 0)
+            if ((env->enemies[i].left - env->enemies[i].left) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].bottom) < 0)
             {
                 i++;
                 continue ;
             }
-            if ((env->objects[i].right - env->objects[i].left) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].top) < 0)
+            if ((env->enemies[i].right - env->enemies[i].left) * (env->h / 2 - env->enemies[i].top) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].top) < 0)
             {
                 i++;
                 continue ;
             }
-            if ((env->objects[i].right - env->objects[i].right) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].top) < 0)
+            if ((env->enemies[i].right - env->enemies[i].right) * (env->h / 2 - env->enemies[i].top) - (env->w / 2 - env->enemies[i].right) * (env->enemies[i].bottom - env->enemies[i].top) < 0)
             {
                 i++;
                 continue ;
             }
-            if ((env->objects[i].left - env->objects[i].right) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].bottom) < 0)
+            if ((env->enemies[i].left - env->enemies[i].right) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].right) * (env->enemies[i].bottom - env->enemies[i].bottom) < 0)
             {
                 i++;
                 continue ;
             }
-            if (env->objects[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range)
+            if (env->enemies[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range)
             {
                 i++;
                 continue;
             }
-            env->objects[i].health -= damage_done(*env, i);
-            /* if (env->objects[i].health <= 0)
-                env->objects[i].exists = 0; */
+            env->enemies[i].health -= damage_done(*env, i);
+            /* if (env->enemies[i].health <= 0)
+                env->enemies[i].exists = 0; */
             //break ;
         }
         i++;

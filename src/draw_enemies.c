@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 15:56:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:59:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
 
 	if (death_sprite >= 0)
 	{
-		enemy->sprite = 2;
+		enemy->sprite = env->sprites[enemy->sprite].death_counterpart;
 		sprite = env->sprites[enemy->sprite];
 	}
 	else

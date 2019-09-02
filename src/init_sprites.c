@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 18:38:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:00:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			init_sprites(t_env *env)
 	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 3)))
 		return (ft_printf("Could not malloc sprites\n"));
 	env->sprites[0].texture = 33;
+	env->sprites[0].death_counterpart = 0;
 	env->sprites[0].oriented = 0;
 	env->sprites[0].reversed[0] = 0;
 	env->sprites[0].start[0].x = 511;
@@ -31,6 +32,7 @@ int			init_sprites(t_env *env)
 
 	// Sprite oriente
 	env->sprites[1].texture = 34;
+	env->sprites[1].death_counterpart = 2;
 	env->sprites[1].oriented = 1;
 	env->sprites[1].width = 2;
 	env->sprites[1].height = 2;
@@ -101,6 +103,7 @@ int			init_sprites(t_env *env)
 
 	// sprites de deces du precedent
 	env->sprites[2].texture = 34;
+	env->sprites[2].death_counterpart = 2;
 	env->sprites[2].oriented = 0;
 	env->sprites[2].width = 2;
 	env->sprites[2].height = 2;

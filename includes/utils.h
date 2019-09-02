@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:43:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:58:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ typedef struct		s_sprite
 	t_point			end[8];
 	t_point			size[8];
 	int				reversed[8];
+	int				death_counterpart;
 	double			width;
 	double			height;
 }					t_sprite;

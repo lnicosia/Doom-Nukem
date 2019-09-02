@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 18:34:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:49:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	init_animations(t_env *env)
 	env->player_hurt.start = 0;
 	env->weapon_change.on_going = 0;
 	env->weapon_change.start = 0;
-	while (i < env->nb_objects)
+	while (i < env->nb_enemies)
 	{
-		env->objects[i].death.start = 0;
+		env->enemies[i].death.start = 0;
 		i++;
 	}
 }
