@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:00:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 16:41:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 17:21:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 				return (1);
 			}
 			else if (!i && sector.vertices[sector.nb_vertices - 1] == data.v2
-					&& sector.neighbors[sector.nb_vertices] == -1)
+					&& sector.neighbors[sector.nb_vertices -1] == -1)
 			{
 				env->sectors[sector.num].neighbors[sector.nb_vertices - 1] = data.father;
 				env->sectors[data.father].neighbors[data.index] = sector.num;
