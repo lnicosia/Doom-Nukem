@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/30 14:36:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:51:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct		s_env
 	int				*ymax;
 	int				*ymin;
 	int				current_object;
+	int				current_enemy;
 	int				objects_start;
 	int				objects_end;
 }					t_env;
@@ -228,7 +229,8 @@ void				free_screen_sectors(t_env *env);
  * */
 
 int					draw_walls(t_env *env);
-void				draw_sprites(t_env *env);
+void				draw_objects(t_env *env);
+void				draw_enemies(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				options(t_env *env);

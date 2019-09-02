@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:14:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:51:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	get_sprite_direction(t_object object)
 		return (0);
 }
 
-void		*object_loop(void *param)
+static void		*object_loop(void *param)
 {
 	t_env			*env;
 	t_object		object;
@@ -113,7 +113,7 @@ void		*object_loop(void *param)
 	return (NULL);
 }
 
-void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
+static void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 {
 	t_object_thread	ot[THREADS];
 	pthread_t		threads[THREADS];
@@ -134,7 +134,7 @@ void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_object(t_object *object, t_env *env, int death_sprite)
+static void		draw_object(t_object *object, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
@@ -174,8 +174,8 @@ void		draw_object(t_object *object, t_env *env, int death_sprite)
 		if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
 			object->seen = 1;*/
 }
-
-void	get_relative_pos(t_env *env)
+/*
+static void	get_relative_pos(t_env *env)
 {
 	int	i;
 	
@@ -186,9 +186,9 @@ void	get_relative_pos(t_env *env)
 		get_rotated_object_pos(env, &env->objects[i]);
 		i++;
 	}
-}
+}*/
 
-void	threaded_get_relative_pos(t_env *env)
+static void	threaded_get_relative_pos(t_env *env)
 {
 	int				i;
 	t_object_thread	object_threads[THREADS];
@@ -252,7 +252,7 @@ static void	sort_objects(t_object *objects, int start, int end)
 	}
 }*/
 
-void		draw_sprites(t_env *env)
+void		draw_objects(t_env *env)
 {
 	int	i;
 
