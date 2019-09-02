@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/30 15:15:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:16:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define EDITOR_H
 
 # include "utils.h"
-
-typedef	struct	s_button
-{
-	t_point		start;
-	t_point		end;
-}				t_button;
 
 typedef struct	s_hud
 {

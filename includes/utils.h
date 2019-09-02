@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 11:47:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:42:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,5 +411,43 @@ typedef struct		s_menu
 	int				index;
 	int				id;
 }					t_menu;
+
+/*
+**	Data for rectangle
+*/
+
+typedef struct		s_rectangle
+{
+	Uint32			line_color;
+	Uint32			inside_color;
+	int				filled;
+	int				line_size;
+}					t_rectangle;
+
+/*
+**	Data for button
+*/
+
+typedef struct		s_button
+{
+	t_rectangle		up;
+	t_rectangle		pressed;
+	t_rectangle		down;
+	int				state;
+}					t_button;
+
+/*
+**	Data for confirmation box
+*/
+
+typedef struct		s_confirmation_box
+{
+	t_button		yes;
+	t_button		no;
+	int				state;
+	char			*str;
+	int				yes_pressed;
+	int				no_pressed;
+}					t_confirmation_box;
 
 #endif
