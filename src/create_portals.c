@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 15:00:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 14:02:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 15:49:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,20 @@ void	clear_portals(t_env *env)
 /*
 **	Checks if a given sector contains the given vertex
 */
+/*
+void	print_sectors(t_env *env, t_sector sector, t_portal_data data)
+{
+	int	i;
 
+	i = 0;
+	ft_printf("sector: %d\n": sector.num);
+	while (i < env->sectors[sector.num].nb_vertices)
+	{
+		ft_printf("-->vertex: %d\n", );
+		i++;
+	}
+}
+*/
 int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 {
 	int	i;
@@ -49,20 +62,19 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 			{
 				env->sectors[sector.num].neighbors[i - 1] = data.father;
 				env->sectors[data.father].neighbors[data.index] = sector.num;
-				/*ft_printf("wall from %d to %d in sector %d", data.v1, data.v2, data.father);
+				ft_printf("1: wall from %d to %d in sector %d", data.v1, data.v2, data.father);
 				ft_printf(" is wall from %d to %d in sector %d\n",
-						sector.vertices[i - 1], sector.vertices[i], sector.num);*/
+						sector.vertices[i - 1], sector.vertices[i], sector.num);
 				return (1);
 			}
 			else if (!i && sector.vertices[sector.nb_vertices - 1] == data.v2
 					&& sector.neighbors[sector.nb_vertices] == -1)
 			{
-				env->sectors[sector.num].
-					neighbors[sector.nb_vertices] = data.father;
+				env->sectors[sector.num].neighbors[sector.nb_vertices - 1] = data.father;
 				env->sectors[data.father].neighbors[data.index] = sector.num;
-				/*ft_printf("wall from %d to %d in sector %d", data.v1, data.v2, data.father);
+				ft_printf("2: wall from %d to %d in sector %d", data.v1, data.v2, data.father);
 				ft_printf(" is wall from %d to %d in sector %d\n",
-						sector.vertices[sector.nb_vertices], sector.vertices[0], sector.num);*/
+						sector.vertices[sector.nb_vertices], sector.vertices[0], sector.num);
 				return (2);
 			}
 			else if (sector.vertices[i + 1] == data.v2
@@ -70,9 +82,9 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 			{
 				env->sectors[sector.num].neighbors[i] = data.father;
 				env->sectors[data.father].neighbors[data.index] = sector.num;
-				/*ft_printf("wall from %d to %d in sector %d", data.v1, data.v2, data.father);
+				ft_printf("3: wall from %d to %d in sector %d", data.v1, data.v2, data.father);
 				ft_printf(" is wall from %d to %d in sector %d\n",
-						sector.vertices[i], sector.vertices[i + 1], sector.num);*/
+						sector.vertices[i], sector.vertices[i + 1], sector.num);
 				return (3);
 			}
 		}
