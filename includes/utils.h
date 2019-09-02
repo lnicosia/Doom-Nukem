@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 15:42:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:18:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,6 +433,8 @@ typedef struct		s_button
 	t_rectangle		up;
 	t_rectangle		pressed;
 	t_rectangle		down;
+	t_point			pos;
+	t_point			size;
 	int				state;
 }					t_button;
 
@@ -444,6 +446,7 @@ typedef struct		s_confirmation_box
 {
 	t_button		yes;
 	t_button		no;
+	TTF_Font		*font;
 	int				state;
 	char			*str;
 	int				yes_pressed;

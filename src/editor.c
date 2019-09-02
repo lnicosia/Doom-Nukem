@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 15:41:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:48:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,16 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
+		env->confirmation_box.font = env->sdl.fonts.alice30;
 		if (env->confirmation_box.state == 1)
 			env->confirmation_box.state = confirmation_box(env->confirmation_box, env);
+		/*t_rectangle a = new_rectangle(0xFFDDDDDD, 0xFF888888, 1, 2);
+		t_rectangle b = new_rectangle(0xFFDDDDDD, 0xFF444444, 1, 2);
+		t_rectangle c = new_rectangle(0xFFDDDDDD, 0xFF444444, 1, 2);
+		t_button bu = new_button(a, b, c);
+		bu.pos = new_point(env->w / 2, env->h / 2);
+		bu.size = new_point(100, 20);
+		draw_button(env, bu);*/
 		if (env->editor.in_game && env->inputs.shift)
 			update_screen_zbuffer(env);
 		else

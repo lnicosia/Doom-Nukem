@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 15:30:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:19:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_env
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
+	t_confirmation_box	confirmation_box;
 	int					drawing;
 	double				horizon;
 	int					option;
@@ -79,7 +80,6 @@ typedef struct		s_env
 	int					current_object;
 	int					objects_start;
 	int					objects_end;
-	t_confirmation_box	confirmation_box;
 }					t_env;
 
 /*
@@ -117,6 +117,7 @@ void				print_sectors(t_env *env);
 void				draw_grid_current_sector(t_env *env);
 void				draw_grid_sectors(t_env *env);
 int					get_existing_vertex(t_env *env);
+int					get_existing_not_dragged_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
 void				draw_grid_objects(t_env *env);
@@ -146,6 +147,9 @@ int					is_vertex_used(t_env *env, int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex, int sector);
 int					delete_invalid_sectors(t_env *env);
 int					delete_invalid_vertices(t_env *env);
+int					*get_vertex_sectors(t_env *env, int index);
+int					is_new_dragged_vertex_valid(t_env *env, int index);
+void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 
 /*
@@ -226,6 +230,9 @@ t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
 		t_point size);
+t_button			new_button(t_rectangle up, t_rectangle pressed,
+		t_rectangle down);
+void				draw_button(t_env *env, t_button b);
 
 /*
  * ** Main pipeline functions

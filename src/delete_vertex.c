@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/30 15:23:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 14:10:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		delete_vertex(t_env *env, int vertex)
 {
 	int			i;
 
-	//ft_printf("%d\n%d\n%d\n\n", sizeof(t_vertex) * env->nb_vertices, sizeof(t_vertex), sizeof(t_vertex) * vertex);
 	env->vertices = ft_delindex(env->vertices,
 			sizeof(t_vertex) * env->nb_vertices,
 			sizeof(t_vertex),

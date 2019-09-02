@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   current_vertices_contains.c                        :+:      :+:    :+:   */
+/*   is_new_vertex_valid.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/21 15:25:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:41:40 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
+/*   Updated: 2019/09/02 14:08:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 	   )
 	{
 		//ft_printf("{red}Invalide v1 = [%f][%f] v2 = [%f][%f] v3 = [%f][%f] v4 = [%f][%f]{reset}\n",
-				//v1.y, v1.x, v2.y, v2.x, v3.y, v3.x, v4.y, v4.x);
+		//v1.y, v1.x, v2.y, v2.x, v3.y, v3.x, v4.y, v4.x);
 		return (1);
 	}
 	//ft_printf("{green}Valide{reset}\n");
@@ -38,7 +38,7 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 	t_v2	intersection;
 
 	//if ((v4.x == v1.x && v4.y == v1.y))
-		//return (0);
+	//return (0);
 	intersection = get_intersection(v1, v2, v3, v4);
 	if ((intersection.x < v1.x && intersection.x < v2.x)
 			|| (intersection.x > v1.x && intersection.x > v2.x)
@@ -77,7 +77,7 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 		//ft_printf("|v2 = %d [%d][%d]| ", v2->num, (int)v2->y, (int)v2->x);
 		//ft_printf("|last = %d [%d][%d]| ", last->num, (int)last->y, (int)last->x);
 		//ft_printf("|current = %d|\n", index);
-			 if (v1->num != index && segments_intersect_editor(
+		if (v1->num != index && segments_intersect_editor(
 					new_v2(v1->x, v1->y),
 					new_v2(v2->x, v2->y),
 					new_v2(last->x, last->y),
@@ -119,10 +119,10 @@ int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last, int 
 }
 
 /*
-**	Returns 1 if a vertex has an intersection
-**	with either the current sector or any existing one
-**	
-*/
+ **	Returns 1 if a vertex has an intersection
+ **	with either the current sector or any existing one
+ **	
+ */
 
 int		new_wall_intersects(t_env *env, int index)
 {
@@ -147,11 +147,73 @@ int		new_wall_intersects(t_env *env, int index)
 	return (0);
 }
 
+int		get_vertex_in_sector(t_env *env, int sector)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	while (i < env->sectors[sector].nb_vertices)
+	{
+		if (env->sectors[sector].vertices[i] == env->editor.selected_vertex)
+			break;
+		i++;
+	}
+	ret = env->sectors[sector].vertices[i];
+	return (ret);
+}
+
+t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index, int index)
+{
+	int	i;
+	t_vertex	res;
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		if (sector.vertices[i] == index)
+			break;
+		else
+			i++;
+	}
+	if (i == 0)
+		res = env->vertices[sector.vertices[sector.nb_vertices - 1]];
+	else
+		res = env->vertices[sector.vertices[i + new_index]];
+	return (res);
+}
+
+int		is_new_dragged_vertex_valid(t_env *env, int index)
+{
+	int			*list_sectors;
+	int			i;
+	int			j;
+	t_vertex	last;
+
+	i = 1;
+	list_sectors = get_vertex_sectors(env, index);
+	while (i <= list_sectors[0])
+	{
+		j = 0;
+		while (j < env->nb_sectors)
+		{
+			last = find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
+			if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+				return (0);
+			last = find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
+			if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+				return (0);
+			j++;
+		}	
+		i++;
+	}
+	return (1);
+}
+
 /*
-**	Returns 1 if a vertex is valid
-**	(no intersection with current or existing sector,
-**	not already existing in current sector)
-*/
+ **	Returns 1 if a vertex is valid
+ **	(no intersection with current or existing sector,
+ **	not already existing in current sector)
+ */
 
 int		is_new_vertex_valid(t_env *env, int index)
 {
