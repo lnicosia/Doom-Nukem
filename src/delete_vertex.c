@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 15:00:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/29 15:45:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 14:10:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		modify_sectors(t_env *env, int vertex)
 		{
 			if (env->sectors[i].vertices[j] == vertex)
 			{
-								env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
+					env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
 							sizeof(short) * (env->sectors[i].nb_vertices + 1),
 							sizeof(short),
 							sizeof(short) * j);

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/08/30 14:13:17 by sipatry          ###   ########.fr        #
+#    Updated: 2019/09/02 14:12:40 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
 				 draw_grid_player.c draw_grid_objects.c create_portals.c \
 				 is_new_vertex_valid.c delete_sector.c vertices_utils.c \
-				 delete_vertex.c delete_object.c
+				 delete_vertex.c delete_object.c delete_action.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

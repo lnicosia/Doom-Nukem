@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/27 11:24:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 14:09:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	init_editor_data(t_env *env)
 	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;
 	env->editor.selected_player = -1;
+	env->editor.dragged_object = -1;
+	env->editor.dragged_vertex = -1;
+	env->editor.dragged_player = -1;
 }
 
 int	init_editor(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 12:04:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:15:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	player_selection(t_env *env)
 			&& env->sdl.my > 180
 			&& env->sdl.my < 220
 			&& env->editor.start_vertex == -1
-			&& env->editor.selected_player == -1
-			&& env->editor.selected_vertex == -1
-			&& env->editor.selected_object == -1)
-		env->editor.selected_player = 1;
-	if (!env->inputs.left_click && env->editor.selected_player == 1)
+			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_object == -1)
+		env->editor.dragged_player = 1;
+	if (!env->inputs.left_click && env->editor.dragged_player == 1)
 	{
-		env->editor.selected_player = -1;
+		env->editor.dragged_player = -1;
 		if (env->sdl.mx > 200)
 		{
 			add_player(env);

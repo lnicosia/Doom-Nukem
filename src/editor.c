@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 12:02:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:14:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int		editor(t_env *env)
 			if (editor_keys(env))
 				return (ft_printf("Error in inputs\n"));
 			editor_hud(env);
-			if (env->editor.new_player || env->editor.selected_player == 1)
+			if (env->editor.new_player || env->editor.dragged_player == 1)
 				draw_grid_player(env);
-			if (env->editor.selected_object != -1 || env->nb_objects > 0)
+			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
 				draw_grid_objects(env);
 			if (env->editor.start_vertex != -1)
 				draw_grid_current_sector(env);

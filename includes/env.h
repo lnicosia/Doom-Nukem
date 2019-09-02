@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:02:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 14:33:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int					delete_invalid_vertices(t_env *env);
 int					*get_vertex_sectors(t_env *env, int index);
 int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
+int					delete_action(t_env *env);
 
 /*
  * ** Main functions

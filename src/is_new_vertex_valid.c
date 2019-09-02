@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:02:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 14:08:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	t_vertex	*v1;
 	t_vertex	*v2;
 
-	(void)index;
 	tmp = env->editor.current_vertices;
 	while (tmp && tmp->next)// && tmp->next->next)
 	{
@@ -220,11 +219,10 @@ int		is_new_vertex_valid(t_env *env, int index)
 {
 	if (!env->editor.current_vertices)
 		return (1);
-	/*if ((ft_lstlen(env->editor.current_vertices) == 1
-	  && */if (index != env->editor.start_vertex
-			  && current_vertices_contains(env, index))
-		  return (0);
-	  if (new_wall_intersects(env, index))
-		  return (0);
-	  return (1);
+	if (index != env->editor.start_vertex
+			&& current_vertices_contains(env, index))
+		return (0);
+	if (new_wall_intersects(env, index))
+		return (0);
+	return (1);
 }
