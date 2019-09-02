@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:02:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 11:19:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		vertices_selection(t_env *env)
 	click_vertex = -1;
 	if (!env->inputs.left_click && env->editor.selected_vertex != -1)
 	{
-		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || !(is_new_dragged_vertex_valid(env, env->editor.selected_vertex)) || (click_vertex != -1 && (click_vertex != env->vertices[env->editor.selected_vertex].num)))
+		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || (!(is_new_dragged_vertex_valid(env, env->editor.selected_vertex)) && (click_vertex != env->vertices[env->editor.selected_vertex].num)))
 		{
 			env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
 			env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
