@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/03 13:58:11 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/03 15:29:12 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 
-SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c editor_buttonup.c \
+SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
