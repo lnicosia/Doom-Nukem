@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:24:50 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 13:42:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:45:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	add_object(t_env *env)
 	object.sprite = 1;
 	object.scale = 50;
 	object.angle = 0;
+	object.exists = 1;
 	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
 	if (object.sector != -1)
 		object.light = env->sectors[object.sector].light;
