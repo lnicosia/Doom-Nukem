@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:47:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 17:47:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		editor_render(t_env *env)
 	if (draw_walls(env))
 		return (crash("Failed to draw walls\n", env));
 	draw_sprites(env);
+	draw_crosshair(env);
 	if (env->options.show_fps)
 		fps(env);
 	game_time(env);

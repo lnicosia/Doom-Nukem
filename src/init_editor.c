@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 15:48:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:44:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_editor_data(t_env *env)
 	env->nb_sectors = 0;
 	env->nb_objects = 0;
 	env->player.sector = -1;
+	env->editor.select = 0;
 
 	env->editor.start_pos.x = 0;
 	env->editor.start_pos.y = 0;
@@ -36,7 +37,10 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_object = -1;
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
-
+	env->selected_wall1 = -1;
+	env->selected_wall2 = -1;
+	env->selected_floor = -1;
+	env->selected_ceiling = -1;
 }
 
 int	init_editor(int ac, char **av)

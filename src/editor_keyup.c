@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 13:19:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 14:53:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:46:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
 	confirmation_box_keyup(&env->confirmation_box, env);
+	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.select = 1;
 }

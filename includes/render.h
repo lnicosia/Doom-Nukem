@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 10:42:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:17:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct		s_render
 	int				xmin;
 	int				xmax;
 	int				currentx;
+	int				selected;
 	double			floor1;
 	double			floor2;
 	double			current_floor;

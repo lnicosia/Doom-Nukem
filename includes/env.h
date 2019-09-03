@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 14:53:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:20:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	int					selected_wall1;
+	int					selected_wall2;
+	int					selected_floor;
+	int					selected_ceiling;
 	int					drawing;
 	double				horizon;
 	int					option;
