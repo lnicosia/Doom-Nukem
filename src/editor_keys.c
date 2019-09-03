@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 14:28:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 17:00:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			editor_keys(t_env *env)
 	player_selection(env);
 	objects_selection(env);
 	vertices_selection(env);
-	if (env->inputs.left_click
+	if (env->sdl.mx > 200 && env->inputs.left_click
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1

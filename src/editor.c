@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 11:46:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 18:01:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		editor(t_env *env)
 				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 10)
 					env->editor.scale /= 1.1;
 			}
-
 		}
 		if (!env->editor.in_game)
 		{
@@ -44,7 +43,6 @@ int		editor(t_env *env)
 			draw_grid_vertices(env);
 			if (editor_keys(env))
 				return (ft_printf("Error in inputs\n"));
-			editor_hud(env);
 			if (env->editor.new_player || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
@@ -52,12 +50,14 @@ int		editor(t_env *env)
 			if (env->editor.start_vertex != -1)
 				draw_grid_current_sector(env);
 			draw_grid_sectors(env);
+			editor_hud(env);
 		}
 		else
 		{
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
+
 		/*if (env->confirmation_box.state == 1)
 			env->confirmation_box.state = new_confirmation_box(env->confirmation_box, env);*/
 		if (env->editor.in_game && env->inputs.shift)
