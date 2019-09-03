@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:33:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 17:19:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,63 +22,64 @@
 
 typedef struct		s_env
 {
-	t_sdl			sdl;
-	t_player		player;
-	t_options		options;
-	t_keys			keys;
-	t_inputs		inputs;
-	t_camera		camera;
-	t_time			time;
-	t_animation		jump;
-	t_animation		crouch;
-	t_gravity		gravity;
-	t_animation		shot;
-	t_animation		weapon_change;
-	t_vertex		*vertices;
-	t_sector		*sectors;
-	t_object		*objects;
-	t_sprite		*sprites;
-	t_audio			sound;
-	t_texture		textures[MAX_TEXTURE];
-	t_v2			*screen_pos;
-	t_weapons		weapons[NB_WEAPONS];
-	t_menu			button[NB_BUTTON];
-	t_editor 		editor;
-	int				drawing;
-	double			horizon;
-	int				option;
-	int				menu_start;
-	int				menu_select;
-	int				menu_edit;
-	int				aplicate_changes;
-	char			*fps;
-	double			*depth_array;
-	int				*xmin;
-	int				*xmax;
-	int				*screen_sectors;
-	int				*sector_list;
-	int				screen_sectors_size;
-	short			*rendered_sectors;
-	int				screen_w[3];
-	int				screen_h[3];
-	char			*res[3];
-	int				w;
-	int				h;
-	int				h_w;
-	int				h_h;
-	int				i;
-	int				running;
-	int				nb_sectors;
-	int				nb_vertices;
-	int				nb_objects;
-	double			flag;
-	int				reset;
-	int				count;
-	int				*ymax;
-	int				*ymin;
-	int				current_object;
-	int				objects_start;
-	int				objects_end;
+	t_sdl				sdl;
+	t_player			player;
+	t_options			options;
+	t_keys				keys;
+	t_inputs			inputs;
+	t_camera			camera;
+	t_time				time;
+	t_animation			jump;
+	t_animation			crouch;
+	t_gravity			gravity;
+	t_animation			shot;
+	t_animation			weapon_change;
+	t_vertex			*vertices;
+	t_sector			*sectors;
+	t_object			*objects;
+	t_sprite			*sprites;
+	t_audio				sound;
+	t_texture			textures[MAX_TEXTURE];
+	t_v2				*screen_pos;
+	t_weapons			weapons[NB_WEAPONS];
+	t_menu				button[NB_BUTTON];
+	t_editor 			editor;
+	t_confirmation_box	confirmation_box;
+	int					drawing;
+	double				horizon;
+	int					option;
+	int					menu_start;
+	int					menu_select;
+	int					menu_edit;
+	int					aplicate_changes;
+	char				*fps;
+	double				*depth_array;
+	int					*xmin;
+	int					*xmax;
+	int					*screen_sectors;
+	int					*sector_list;
+	int					screen_sectors_size;
+	short				*rendered_sectors;
+	int					screen_w[3];
+	int					screen_h[3];
+	char				*res[3];
+	int					w;
+	int					h;
+	int					h_w;
+	int					h_h;
+	int					i;
+	int					running;
+	int					nb_sectors;
+	int					nb_vertices;
+	int					nb_objects;
+	double				flag;
+	int					reset;
+	int					count;
+	int					*ymax;
+	int					*ymin;
+	int					current_object;
+	int					objects_start;
+	int					objects_end;
 }					t_env;
 
 /*
@@ -186,8 +187,8 @@ void				set_camera(t_env *env);
 int					valid_map(t_env *env);
 
 /*
- * **	Parser functions
- * */
+**	Parser functions
+*/
 
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_map(char *file, t_env *env);
@@ -195,8 +196,8 @@ char				*skip_number(char *line);
 char				*skip_spaces(char *line);
 
 /*
- * ** Screen utils
- * */
+** Screen utils
+*/
 
 void				clear_image(t_env *env);
 void				update_screen(t_env *env);
@@ -224,6 +225,14 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
+int					confirmation_box(t_confirmation_box box, t_env *env);
+t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
+		int filled, int line_size);
+void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
+		t_point size);
+t_button			new_button(t_rectangle up, t_rectangle pressed,
+		t_rectangle down);
+void				draw_button(t_env *env, t_button b);
 
 /*
  * ** Main pipeline functions

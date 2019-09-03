@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 11:46:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 12:10:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define EDITOR_H
 
 # include "utils.h"
-
-typedef	struct	s_button
-{
-	t_point		start;
-	t_point		end;
-}				t_button;
 
 typedef struct	s_hud
 {
@@ -52,6 +46,7 @@ typedef struct	s_editor
 	int			start_vertex;
 	int			nb_vertex;
 	int			new_player;
+	int			tab;
 	t_point		center;
 	double		scale;
 	t_list		*vertices;

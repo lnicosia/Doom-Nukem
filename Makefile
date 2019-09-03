@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/02 17:32:52 by sipatry          ###   ########.fr        #
+#    Updated: 2019/09/03 11:55:06 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
 				 draw_grid_player.c draw_grid_objects.c create_portals.c \
 				 is_new_vertex_valid.c delete_sector.c vertices_utils.c \
-				 delete_vertex.c delete_object.c delete_action.c
+				 delete_vertex.c delete_object.c delete_action.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -55,10 +55,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c map_parse_player.c \
-		   init_sound.c init_sprites.c \
+		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
 		   init_screen_pos.c draw_sprites.c sprites_maths.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c \
-		   free_all.c map_parser.c
+		   free_all.c map_parser.c button.c
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \

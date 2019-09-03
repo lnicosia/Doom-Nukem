@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:42:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/13 15:42:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:26:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void	editor_options(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+		env->editor.tab = env->editor.tab ? 0 : 1;
 }

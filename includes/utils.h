@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 11:11:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 12:24:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct		s_keys
 	int				enter;
 	int				s;
 	int				del;
+	int				tab;
 }					t_keys;
 
 /*
@@ -207,6 +208,7 @@ typedef struct		s_inputs
 	uint8_t			enter;
 	uint8_t			s;
 	uint8_t			del;
+	uint8_t			tab;
 }					t_inputs;
 
 /*
@@ -221,6 +223,7 @@ typedef struct		s_fonts
 	TTF_Font		*alice30;
 	TTF_Font		*alice70;
 	TTF_Font		*bebasneue;
+	TTF_Font		*montserrat20;
 }					t_fonts;
 
 /*
@@ -411,5 +414,47 @@ typedef struct		s_menu
 	int				index;
 	int				id;
 }					t_menu;
+
+/*
+**	Data for rectangle
+*/
+
+typedef struct		s_rectangle
+{
+	Uint32			line_color;
+	Uint32			inside_color;
+	int				filled;
+	int				line_size;
+}					t_rectangle;
+
+/*
+**	Data for button
+*/
+
+typedef struct		s_button
+{
+	t_rectangle		up;
+	t_rectangle		pressed;
+	t_rectangle		down;
+	t_point			pos;
+	t_point			size;
+	int				state;
+}					t_button;
+
+/*
+**	Data for confirmation box
+*/
+
+typedef struct		s_confirmation_box
+{
+	t_button		yes;
+	t_button		no;
+	TTF_Font		*font;
+	t_point			size;
+	int				state;
+	char			*str;
+	int				yes_pressed;
+	int				no_pressed;
+}					t_confirmation_box;
 
 #endif

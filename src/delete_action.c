@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 15:41:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 17:45:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 12:10:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int		delete_action(t_env *env)
 			create_portals(env, env->sectors[i]);
 			i++;
 		}
-
 	}
 	if (env->editor.selected_object != -1)
 	{

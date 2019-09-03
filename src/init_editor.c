@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:09:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 12:21:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_object = -1;
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
+	env->editor.tab = 0;
 }
 
 int	init_editor(int ac, char **av)
@@ -58,6 +59,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
+	env.confirmation_box.font = env.sdl.fonts.montserrat20;
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
