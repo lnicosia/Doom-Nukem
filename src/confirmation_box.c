@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:38:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:33:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:39:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 
 void	draw_buttons(t_confirmation_box box, t_env *env)
 {
-	draw_rectangle(env,
+	/*draw_rectangle(env,
 			new_rectangle(0xFF888888, 0xFF444444, 1, 2),
 			new_point(env->w / 2 - box.size.x / 2 + 5 , env->h / 2 - box.size.y / 3),
-			new_point(box.size.x - 10, 25));
+			new_point(box.size.x - 10, 25));*/
 	draw_button(env, box.yes);
 	draw_button(env, box.no);
 }
