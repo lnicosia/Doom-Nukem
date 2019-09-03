@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:38:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:24:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:33:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int		get_box_size(t_confirmation_box *box)
 	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
 	TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y);
 	box->size.x = ft_max(yes_size.x * 3, text_size.x + 20);
-	box->size.y = ft_max(yes_size.y * 3, 300);
-	box->size.y = box->size.x;
+	box->size.y = ft_max(yes_size.y * 3, 50);
+	//box->size.y = box->size.x;
 	//ft_printf("size.x = %d size.y = %d\n", size.x, size.y);
 	return (yes_size.y);
 }
