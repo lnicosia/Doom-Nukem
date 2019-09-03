@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 17:19:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 14:53:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
-void				editor_options(t_env *env);
+void				editor_keyup(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
@@ -151,6 +151,7 @@ int					*get_vertex_sectors(t_env *env, int index);
 int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
+int					editor_buttonup(t_env *env);
 
 /*
  * ** Main functions
@@ -225,7 +226,8 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
-int					confirmation_box(t_confirmation_box box, t_env *env);
+int					new_confirmation_box(t_confirmation_box *box, t_env *env);
+int					draw_confirmation_box(t_confirmation_box box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
@@ -242,7 +244,9 @@ int					draw_walls(t_env *env);
 void				draw_sprites(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
-void				options(t_env *env);
+void				keyup(t_env *env);
+void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
+void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);

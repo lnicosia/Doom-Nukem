@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 11:30:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:20:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		doom(t_env *env)
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
-		/*while (SDL_PollEvent(&env->sdl.event))
+		while (SDL_PollEvent(&env->sdl.event))
 		{
 			if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP && env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env->running = 0;
@@ -31,10 +31,10 @@ int		doom(t_env *env)
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
 			if (env->sdl.event.type == SDL_KEYUP)
-				options(env);
+				keyup(env);
 			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
 				weapon_change(env);
-		}*/
+		}
 		enemy_pursuit(env);
 		objects_collision(env);
 		keys(env);

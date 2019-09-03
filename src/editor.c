@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 11:46:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:00:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (env->sdl.event.type == SDL_KEYUP)
-				editor_options(env);
+			if (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP)
+				editor_keyup(env);
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)
@@ -58,8 +58,8 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
-		/*if (env->confirmation_box.state == 1)
-			env->confirmation_box.state = new_confirmation_box(env->confirmation_box, env);*/
+		if (env->confirmation_box.state)
+			draw_confirmation_box(env->confirmation_box, env);
 		if (env->editor.in_game && env->inputs.shift)
 			update_screen_zbuffer(env);
 		else

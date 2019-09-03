@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 11:46:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 15:01:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	init_editor(int ac, char **av)
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.montserrat20;
+	env.confirmation_box.state = 0;
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
