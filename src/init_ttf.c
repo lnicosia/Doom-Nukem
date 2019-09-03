@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:00:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/03 11:02:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int		init_ttf(t_env *env)
 	env->sdl.fonts.alice30 = TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 30);
 	env->sdl.fonts.alice70 = TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 70);
 	env->sdl.fonts.bebasneue = TTF_OpenFont("fonts/bebas_neue/BebasNeue-Regular.ttf", 20);
+	env->sdl.fonts.montserrat20 = TTF_OpenFont("fonts/montserrat/Montserrat-Regular.ttf", 20);
 	return (0);
 }

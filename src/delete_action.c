@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 15:41:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 15:57:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 11:46:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int		delete_action(t_env *env)
 	}
 	if (env->editor.selected_sector != -1)
 	{
-		env->confirmation_box.state = 1;
+		/*env->confirmation_box.state = 1;
 		env->confirmation_box.str = ft_strdup("Delete the selected sector?");
 		if (env->confirmation_box.state == 2)
-		{
+		{*/
 			delete_sector(env, env->editor.selected_sector);
 			delete_invalid_sectors(env);
 			delete_invalid_vertices(env);
 			env->editor.selected_sector = -1;
-			env->confirmation_box.state = -1;
+			/*env->confirmation_box.state = -1;
 			ft_strdel(&env->confirmation_box.str);
-		}
+		}*/
 	}
 	if (env->editor.selected_object != -1)
 	{

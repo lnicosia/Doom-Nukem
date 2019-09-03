@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 17:18:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 11:32:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ typedef struct		s_fonts
 	TTF_Font		*alice30;
 	TTF_Font		*alice70;
 	TTF_Font		*bebasneue;
+	TTF_Font		*montserrat20;
 }					t_fonts;
 
 /*
@@ -447,6 +448,7 @@ typedef struct		s_confirmation_box
 	t_button		yes;
 	t_button		no;
 	TTF_Font		*font;
+	t_point			size;
 	int				state;
 	char			*str;
 	int				yes_pressed;
