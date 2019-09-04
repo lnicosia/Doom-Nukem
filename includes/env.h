@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 10:56:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 11:22:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ int					delete_action(t_env *env);
 int					editor_buttonup(t_env *env);
 
 /*
- * ** Main functions
- * */
+** Main functions
+*/
 
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
@@ -171,8 +171,8 @@ void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
 /*
- * ** Init functions
- * */
+** Init functions
+*/
 
 int					init_screen_size(t_env *env);
 void				set_screen_size(t_env *env);

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/04 10:52:58 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/04 11:27:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
 				 write_player.c add_object.c editor_keyup.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
-				 draw_grid_player.c draw_grid_objects.c create_portals.c \
-				 is_new_vertex_valid.c delete_sector.c vertices_utils.c \
-				 delete_vertex.c delete_object.c delete_action.c \
+				 draw_grid_player.c draw_grid_objects.c  \
+				 is_new_vertex_valid.c \
+				 delete_object.c delete_action.c \
 				 fill_triangle.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
@@ -52,16 +52,15 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   render_maths.c draw_functions.c minimap.c fps.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c clipping.c camera.c \
-		   print_debug.c intersections.c init_animations.c \
+		   print_debug.c intersections.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
-		   physics.c init_weapons.c map_parse_player.c \
+		   physics.c init_weapons.c map_parse_player.c create_portals.c \
 		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
 		   init_screen_pos.c draw_sprites.c sprites_maths.c \
-		   map_parse_objects.c draw_hud.c map_init_objects.c \
+		   map_parse_objects.c draw_hud.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
-		   sprite_maths_enemies.c draw_enemies.c button.c
-
+		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h
