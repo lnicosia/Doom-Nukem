@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_objects.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 14:32:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:59:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,6 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 		ft_strdel(&line);
 	}
 	else
-		return (missing_data("player data", parser));
+		return (missing_data("enemies and player data", parser));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/09/04 10:33:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:50:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,10 @@ void		draw_sprites_minimap(t_env *env)
 	{
 		object = env->objects[i];
 		if (!object.exists)
+		{
+			i++;
 			continue;
+		}
 		pos.x = env->w - 150 + (object.pos.x - env->player.pos.x) * env->options.minimap_scale;
 		x = pos.x - 2;
 		while (x < pos.x + 2)

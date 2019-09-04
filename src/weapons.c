@@ -6,11 +6,62 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/07/24 15:07:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 16:44:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int     damage_done(t_env env, int i)
+{
+    if (env.weapons[env.player.curr_weapon].splash)
+        return ((int)(env.weapons[env.player.curr_weapon].damage / (env.enemies[i].rotated_pos.z / 4 + 1)));
+    else
+        return (env.weapons[env.player.curr_weapon].damage);
+}
+
+void    hitscan_shot(t_env *env)
+{
+    int i;
+
+    i = 0;
+    while (i < env->nb_enemies)
+    {
+        if (env->enemies[i].exists)
+        {
+            if ((env->enemies[i].left - env->enemies[i].left) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].bottom) < 0)
+            {
+                i++;
+                continue ;
+            }
+            if ((env->enemies[i].right - env->enemies[i].left) * (env->h / 2 - env->enemies[i].top) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].top) < 0)
+            {
+                i++;
+                continue ;
+            }
+            if ((env->enemies[i].right - env->enemies[i].right) * (env->h / 2 - env->enemies[i].top) - (env->w / 2 - env->enemies[i].right) * (env->enemies[i].bottom - env->enemies[i].top) < 0)
+            {
+                i++;
+                continue ;
+            }
+            if ((env->enemies[i].left - env->enemies[i].right) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].right) * (env->enemies[i].bottom - env->enemies[i].bottom) < 0)
+            {
+                i++;
+                continue ;
+            }
+            if (env->enemies[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range)
+            {
+                i++;
+                continue;
+            }
+            env->enemies[i].health -= damage_done(*env, i);
+            /* if (env->enemies[i].health <= 0)
+                env->enemies[i].exists = 0; */
+            //break ;
+        }
+        i++;
+    }
+}
 
 void    draw_weapon(t_env *env, int sprite)
 {
@@ -48,6 +99,7 @@ void    weapon_animation(t_env *env, int nb)
 {
     if (env->shot.start == 0)
 	{
+        hitscan_shot(env);
         env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
         if (env->weapons[nb].ammo <= 0)

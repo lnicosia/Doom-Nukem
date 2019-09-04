@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 13:20:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:51:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 
 int		doom(t_env *env)
 {
+	/*init_animations(env);
+	init_weapons(env);
+	env->player.speed = 0.5;
+	env->player.size_2d = 0.5;
+	ft_printf("Starting music..\n");
+	Mix_PlayMusic(env->sound.background, -1);
+	ft_printf("Launching game loop..\n");
+	env->flag = 0;
+	env->player.fall = 1;*/
 	while (env->running)
 	{
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
@@ -37,6 +46,7 @@ int		doom(t_env *env)
 		}
 		enemy_pursuit(env);
 		objects_collision(env);
+		enemy_collision(env);
 		keys(env);
 		if (env->menu_start)
 			start_game_menu(env);

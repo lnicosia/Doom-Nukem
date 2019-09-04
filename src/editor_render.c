@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 17:47:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:50:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int		editor_render(t_env *env)
 	keys(env);
 	if (draw_walls(env))
 		return (crash("Failed to draw walls\n", env));
-	draw_sprites(env);
 	draw_crosshair(env);
+	draw_objects(env);
+	draw_enemies(env);
 	if (env->options.show_fps)
 		fps(env);
 	game_time(env);

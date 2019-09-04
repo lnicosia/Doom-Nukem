@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/22 17:08:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:18:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	init_player(t_env *env)
 	env->player.angle_z_sin = sin(0);
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
+	env->player.life = 100;
 }
 
 int		parse_map(char *file, t_env *env)
@@ -159,6 +160,7 @@ int		parse_map(char *file, t_env *env)
 	parser.sectors_count = 0;
 	parser.vertices_count = 0;
 	parser.objects_count = 0;
+	parser.enemies_count = 0;
 	parser.line_count = 0;
 	ft_printf("{red}");
 	if ((parser.fd = open(file, O_RDONLY)) < 0)
@@ -185,6 +187,12 @@ int		parse_map(char *file, t_env *env)
 	if (parse_objects(env, &parser))
 		return (-1);
 		//return (custom_error("Error while parsing objects"));
+	if (init_enemies(env, &parser))
+		return (-1);
+		//return (custom_error("Could not init objects"));
+	if (parse_enemies(env, &parser))
+		return (-1);
+		//return (custom_error("Error while parsing creatures"));
 	if (parse_player(env, &parser))
 		return (-1);
 		//return (custom_error("Error while parsing player"));

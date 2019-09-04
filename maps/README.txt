@@ -37,9 +37,19 @@ S  2
 # Angle is ignored if the sprite is not oriented
 #
 O  1
-[7.5 7.5 6 45] [1 50]
+[7.5 7.5 1 45] [0 50]
 
 # Emtpy line after objects declaration
+# Enemies_nmber: "E + space + number"
+# Enemies:
+# [y x z angle] [sprite_number scale] [health speed damage]
+# spaces between each section
+# speed should be between 0 and 1 (0 being static and 1 super fast)
+#
+E 1
+[5 5 5 0] [1 50] [50 0.3 15]
+
+# Empty lin after enemies declaration
 # Player:
 # Y X angle
 # One space between values

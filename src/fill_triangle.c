@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:18:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 10:37:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:56:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	fill_triangle(t_v3 v[3], Uint32 color, t_env *data)
 	while (p.y < max.y)
 	{
 		p.x = min.x < 0 ? 0 : min.x;
-		//ft_printf("p.x = %f max.x = %f\n", p.x, max.x);
 		while (p.x < max.x)
 		{
 			compute_triangle(v, p, color, data);

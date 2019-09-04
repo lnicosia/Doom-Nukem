@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 17:41:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:50:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void		keys(t_env *env)
 	}
 	if (env->inputs.right_click && !env->option)
 	{
+		ft_printf("enemy pos z %f\n", env->enemies[0].pos.z);
+		ft_printf("player feet z %f , player eyesight %f\n", env->player.pos.z, env->player.eyesight);
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}

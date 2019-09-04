@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 10:37:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:56:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct		s_env
 	t_gravity			gravity;
 	t_animation			shot;
 	t_animation			weapon_change;
+	t_animation			player_hurt;
 	t_vertex			*vertices;
 	t_sector			*sectors;
 	t_object			*objects;
+	t_enemies			*enemies;
 	t_sprite			*sprites;
 	t_audio				sound;
 	t_texture			textures[MAX_TEXTURE];
@@ -76,12 +78,14 @@ typedef struct		s_env
 	int					nb_sectors;
 	int					nb_vertices;
 	int					nb_objects;
+	int					nb_enemies;
 	double				flag;
 	int					reset;
 	int					count;
 	int					*ymax;
 	int					*ymin;
 	int					current_object;
+	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 }					t_env;
@@ -246,7 +250,8 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_env *env);
-void				draw_sprites(t_env *env);
+void				draw_objects(t_env *env);
+void				draw_enemies(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				keyup(t_env *env);
@@ -260,6 +265,7 @@ void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
+void    			hitscan_shot(t_env *env);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
@@ -299,5 +305,7 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 */
 
 void	enemy_pursuit(t_env *env);
+void	damage_anim(t_env *env);
+int		dying_enemy(t_env *env, int i);
 
 #endif
