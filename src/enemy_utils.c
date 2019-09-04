@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/04 07:53:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 08:29:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,8 @@ int    enemy_view(t_env *env, int nb, int sector)
         }*/
         i++;
     }
-    //ft_printf("sector %d\n", sector);
-    if (sector != env->player.sector)
-        return (0);
-    //ft_printf("he saw me %d\n", a);
+    /*if (sector != env->player.sector)
+        return (0);*/
     return (1);
 }
 
