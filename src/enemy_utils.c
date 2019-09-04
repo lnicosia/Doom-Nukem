@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/02 17:53:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 07:53:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ int    enemy_view(t_env *env, int nb, int sector)
     //ft_printf("test sector %d\n", sector);
     i = 0;
     enemy = env->enemies[nb];
+    if (sector == env->player.sector)
+        return (1);
     while (i < env->sectors[sector].nb_vertices)
     {
         line_1.p1.x = OX1;
