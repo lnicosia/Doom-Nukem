@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 16:10:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:38:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,7 @@ typedef struct		s_enemies
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
 	float			speed;
+	int				hit;
 	int				left;
 	int				right;
 	int				top;
@@ -368,6 +369,7 @@ typedef struct		s_enemies
 	int				sector;
 	int				num;
 	t_animation		death;
+	t_animation		hurt;
 }					t_enemies;
 
 /*

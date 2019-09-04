@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/02 16:48:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:55:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,37 @@ void    damage_anim(t_env *env)
         env->sdl.texture_pixels[j] = blend_alpha(env->sdl.texture_pixels[j], 0xFFFF0000, color);
 	    j++;
     }
+}
+
+int     enemy_hurt(t_env *env, int i)
+{
+    int time_spent;
+    int color;
+
+    if (!env->enemies[i].hurt.start)
+    {
+        ft_printf("starting all over again\n");
+        env->enemies[i].hurt.start = SDL_GetTicks();
+    }
+    if (env->time.milli_s > env->enemies[i].hurt.start + 160)
+    {
+        env->enemies[i].hurt.start = 0;
+        env->enemies[i].hit = 0;
+    }
+    time_spent = env->time.milli_s - env->player_hurt.start;
+    color = 40;
+    if (time_spent > 0 && time_spent <= 30)
+        color = 40;
+    else if (time_spent > 30 && time_spent <= 50)
+        color = 50;
+    else if (time_spent > 50 && time_spent <= 110)
+        color = 75;
+    else if (time_spent > 110 && time_spent <= 130)
+        color = 50;
+    else if (time_spent > 130 && time_spent <= 160)
+        color = 40;
+    //ft_printf("color %d\n", color);
+    return (color);
 }
 
 int     dying_enemy(t_env *env, int i)

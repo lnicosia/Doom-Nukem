@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 16:10:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:56:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ static void		*enemy_loop(void *param)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
 					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], erender.light);
+				if (env->enemies[enemy.num].hit)
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFFFF0000, enemy_hurt(env, enemy.num));
 				if (env->editor.in_game && env->selected_enemy == enemy.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;

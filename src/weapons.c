@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/04 16:11:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:38:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void    hitscan_shot(t_env *env)
                 continue;
             }
             env->enemies[i].health -= damage_done(*env, i);
+            env->enemies[i].hit = 1;
             /* if (env->enemies[i].health <= 0)
                 env->enemies[i].exists = 0; */
             //break ;
