@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:18:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 10:37:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:38:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		min_3(int a, int b, int c)
+static int		min_3(int a, int b, int c)
 {
 	if (a < b)
 	{
@@ -30,7 +30,7 @@ int		min_3(int a, int b, int c)
 	}
 }
 
-int		max_3(int a, int b, int c)
+static int		max_3(int a, int b, int c)
 {
 	if (a > b)
 	{
@@ -48,12 +48,12 @@ int		max_3(int a, int b, int c)
 	}
 }
 
-float	edge(t_v3 c0, t_v3 c1, t_v3 p)
+static float	edge(t_v3 c0, t_v3 c1, t_v3 p)
 {
 	return ((p.x - c0.x) * (c1.y - c0.y) - (p.y - c0.y) * (c1.x - c0.x));
 }
 
-void	compute_triangle(t_v3 v[3], t_v2 p, Uint32 color, t_env *data)
+static void		compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 {
 	t_v3		w;
 	double		norm;
@@ -75,30 +75,31 @@ void	compute_triangle(t_v3 v[3], t_v2 p, Uint32 color, t_env *data)
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		pixels[coord] = color;
+		if (pixels[coord] == 0)
+			pixels[coord] = 0xFF3a7499;
 	}
 }
 
-void	fill_triangle(t_v3 v[3], Uint32 color, t_env *data)
+void		fill_triangle_minimap(t_v3 v[3], t_env *data)
 {
 	t_v2	max;
 	t_v2	min;
 	t_v2	p;
 
 	max.x = max_3(v[0].x, v[1].x, v[2].x);
-	max.x = max.x < data->w ? max.x : data->w - 1;
+	max.x = max.x < data->w ? max.x : data->w;
 	max.y = max_3(v[0].y, v[1].y, v[2].y);
-	max.y = max.y < data->h ? max.y : data->h - 1;
+	max.y = max.y < 300 ? max.y : 300;
 	min.x = min_3(v[0].x, v[1].x, v[2].x);
 	min.y = min_3(v[0].y, v[1].y, v[2].y);
 	p.y = min.y < 0 ? 0 : min.y;
 	while (p.y < max.y)
 	{
-		p.x = min.x < 0 ? 0 : min.x;
-		//ft_printf("p.x = %f max.x = %f\n", p.x, max.x);
+		p.x = min.x < data->w - 300 ? data->w - 300 : min.x;
+		ft_printf("p.x = %f max.x = %f\n", p.x, max.x);
 		while (p.x < max.x)
 		{
-			compute_triangle(v, p, color, data);
+			compute_triangle(v, p, data);
 			p.x++;
 		}
 		p.y++;

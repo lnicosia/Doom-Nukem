@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 17:20:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:37:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,8 @@ void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
-void				fill_triangle(t_v3 v[3], t_env *env);
+void				fill_triangle_minimap(t_v3 v[3], t_env *env);
+void				fill_triangle(t_v3 v[3], Uint32 color, t_env *env);
 unsigned int		blend_alpha(unsigned int src,
 				unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src,
