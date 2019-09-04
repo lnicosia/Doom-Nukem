@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 12:10:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:10:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void		*enemy_loop(void *param)
 	Uint32			*pixels;
 	Uint32			*texture_pixels;
 	double			*zbuffer;
+	int 			n;
 
 
 	erender = ((t_enemy_thread*)param)->erender;
@@ -87,6 +88,7 @@ static void		*enemy_loop(void *param)
 	x = ((t_enemy_thread*)param)->xstart;
 	xend = ((t_enemy_thread*)param)->xend;
 	yend = erender.yend;
+	n = 0;
 	while (++x <= xend)
 	{
 		xalpha = (x - erender.x1) / erender.xrange;
@@ -101,10 +103,24 @@ static void		*enemy_loop(void *param)
 			if ((enemy.rotated_pos.z < zbuffer[x + y * env->w]
 					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
+				env->enemies[enemy.num].seen = 1;
+				if (env->editor.select && x == env->h_w && y == env->h_h)
+				{
+					//ft_printf("cc\n");
+					env->selected_wall1 = -1;
+					env->selected_wall2 = -1;
+					env->selected_floor = -1;
+					env->selected_ceiling = -1;
+					env->selected_object = -1;
+					env->selected_enemy = enemy.num;
+					env->editor.select = 0;
+				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
 					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], erender.light);
+				if (env->editor.in_game && env->selected_enemy == enemy.num)
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
 			}
 			y++;
@@ -261,11 +277,12 @@ void		draw_enemies(t_env *env)
 	//get_relative_pos(env);
 	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
-	dying_sprite = -1;
 	while (i < env->nb_enemies)
 	{
+		dying_sprite = -1;
 		if (env->enemies[i].rotated_pos.z > 1 && env->enemies[i].exists)
 		{
+			env->enemies[i].seen = 0;
 			if (env->enemies[i].health <= 0)
 				dying_sprite = dying_enemy(env, i);
 			if (env->enemies[i].exists)

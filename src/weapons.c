@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/02 16:44:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:11:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    hitscan_shot(t_env *env)
     i = 0;
     while (i < env->nb_enemies)
     {
-        if (env->enemies[i].exists)
+        if (env->enemies[i].exists && env->enemies[i].seen)
         {
             if ((env->enemies[i].left - env->enemies[i].left) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].bottom) < 0)
             {

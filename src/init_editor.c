@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 11:40:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 13:58:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	init_editor_data(t_env *env)
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;
 	env->selected_ceiling = -1;
+	env->selected_enemy = -1;
+	env->selected_object = -1;
 }
 
 int	init_editor(int ac, char **av)

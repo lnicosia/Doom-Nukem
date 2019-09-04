@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 12:00:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:10:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,7 @@ typedef struct		s_enemies
 	int				bottom;
 	int				sprite;
 	int				death_sprite;
+	int				seen;
 	double			scale;
 	double			angle;
 	double			light;
@@ -365,6 +366,7 @@ typedef struct		s_enemies
 	int				damage;
 	int				exists;
 	int				sector;
+	int				num;
 	t_animation		death;
 }					t_enemies;
 
