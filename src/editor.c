@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 12:28:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:33:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		editor(t_env *env)
 		{
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
+			//SDL_Delay(500);
 		}
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);

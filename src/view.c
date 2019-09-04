@@ -6,16 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 16:14:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:55:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 /*
- **	Handle player view rotations from mouse
- **	TODO Protection / return value??
- */
+**	Handle player view rotations from mouse
+**	TODO Protection / return value??
+*/
 
 void	view(t_env *env)
 {
