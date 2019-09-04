@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 14:19:25 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/30 15:55:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:05:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	env->enemies[parser->enemies_count].speed = ft_atof(*line);
     if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 1)
-		return (custom_error_with_line("Enemy must have speed between 0 and 1", parser));
+		return (custom_error_with_line("Enemy must have speed between 0 and 0.5", parser));
     *line = skip_number(*line);
     if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));
