@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 17:42:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 14:27:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		}
 		if (vline.x == env->w / 2 && i == env->h / 2 && env->editor.select)
 		{
+			if (env->editor.in_game)
+			{
+				env->editor.selected_sector = env->sectors[render.sector].num;
+				env->editor.selected_wall = env->sectors[render.sector].vertices[render.i];
+			}
 			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
 			env->selected_floor = -1;

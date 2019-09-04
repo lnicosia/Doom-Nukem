@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 11:39:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 12:29:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,8 @@ void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
-void    			hitscan_shot(t_env *env);
+void    			shot(t_env *env);
+int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);

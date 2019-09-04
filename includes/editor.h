@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 11:45:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 12:27:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_editor
 	int			selected_object;
 	int			selected_player;
 	int			selected_vertex;
+	int			selected_wall;
 	int			dragged_object;
 	int			dragged_player;
 	int			dragged_vertex;

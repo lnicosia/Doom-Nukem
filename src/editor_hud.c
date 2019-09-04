@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 11:45:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:27:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,26 @@ void	print_player_informations(t_env *env)
 
 }
 
+void	print_wall_informations(t_env *env)
+{
+	
+}
+
 void	editor_hud(t_env *env)
 {
 	t_point	center;
 
-	center.x = 100;
-	center.y = 100;
-	draw_circle(new_circle(0xFFFF0000, 0xFFFF0000, center, (env->editor.scale / 2)), env);
-	print_text(new_point(50, 60), new_printable_text("Player", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	center.x = 100;
-	center.y = 200;
-	draw_circle(new_circle(0xFFFFFF00, 0xFFFFFF00, center, (env->editor.scale / 2)), env);
-	print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	if (!env->editor.in_game)
+	{
+		center.x = 100;
+		center.y = 100;
+		draw_circle(new_circle(0xFFFF0000, 0xFFFF0000, center, (env->editor.scale / 2)), env);
+		print_text(new_point(50, 60), new_printable_text("Player", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		center.x = 100;
+		center.y = 200;
+		draw_circle(new_circle(0xFFFFFF00, 0xFFFFFF00, center, (env->editor.scale / 2)), env);
+		print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	}
 	if (env->editor.tab)
 	{
 		draw_rectangle(env,
@@ -96,6 +104,8 @@ void	editor_hud(t_env *env)
 			print_object_informations(env);
 		else if (env->editor.selected_sector != -1)
 			print_sector_informations(env);
+		else if (env->editor.selected_wall != -1)
+			print_wall_informations(env);
 		else
 			print_text(new_point(10, 430), new_printable_text("none", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	}

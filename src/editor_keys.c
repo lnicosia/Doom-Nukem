@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 11:44:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 15:03:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			editor_keys(t_env *env)
 		env->editor.selected_object = -1;
 		env->editor.selected_player = -1;
 	}
+	if ()
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
@@ -94,6 +95,11 @@ int			editor_keys(t_env *env)
 	{
 		if (!valid_map(env))
 		{
+			env->editor.selected_vertex = -1;
+			env->editor.selected_sector = -1;
+			env->editor.selected_player = -1;
+			env->editor.selected_object = -1;
+			env->editor.selected_enemies = -1;
 			env->editor.in_game = 1;
 			env->inputs.enter = 0;
 			free_screen_sectors(env);
