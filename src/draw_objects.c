@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 14:25:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:15:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,12 @@ static void		*object_loop(void *param)
 					env->selected_ceiling = -1;
 					env->selected_object = object.num;
 					env->selected_enemy = -1;
-					env->editor.select = 0;
 				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
 					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light);
-				if (env->editor.in_game && env->selected_object == object.num)
+				if (env->editor.in_game && !env->editor.select && env->selected_object == object.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
 			}

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 13:58:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:12:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct		s_env
 	int					selected_ceiling;
 	int					selected_object;
 	int					selected_enemy;
+	int					new_selection;
 	int					drawing;
 	double				horizon;
 	int					option;

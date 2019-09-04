@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 14:27:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:15:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,18 @@ static void		*enemy_loop(void *param)
 			{
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
-					//ft_printf("cc\n");
 					env->selected_wall1 = -1;
 					env->selected_wall2 = -1;
 					env->selected_floor = -1;
 					env->selected_ceiling = -1;
 					env->selected_object = -1;
 					env->selected_enemy = enemy.num;
-					env->editor.select = 0;
 				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
 					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], erender.light);
-				if (env->editor.in_game && env->selected_enemy == enemy.num)
+				if (env->editor.in_game && !env->editor.select && env->selected_enemy == enemy.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
 			}
