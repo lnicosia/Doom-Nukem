@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 13:53:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 15:04:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	render_sector(t_env *env, t_render render)
 			render.i = i;
 			render.selected = 0;
 			if (env->selected_wall1 == sector.vertices[i]
-					&& env->selected_wall2 == sector.vertices[i + 1])
+					&& env->selected_wall2 == sector.vertices[i + 1]
+					&& env->selected_floor == -1 && env->selected_ceiling == -1)
 				render.selected = 1;
 			// Calculer les coordonnes transposees du mur par rapport au joueur 
 			get_translated_vertices(&render, env, sector, i);

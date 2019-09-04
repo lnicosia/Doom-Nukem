@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 12:29:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 15:05:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct		s_env
 	int					selected_wall2;
 	int					selected_floor;
 	int					selected_ceiling;
+	int					selected_object;
+	int					selected_enemy;
 	int					drawing;
 	double				horizon;
 	int					option;

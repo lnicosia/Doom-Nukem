@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 13:19:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 13:54:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 15:05:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	editor_keyup(t_env *env)
 		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
+	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_z)
+		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)
-		confirmation_box_keyup(&env->confirmation_box, env);
+	confirmation_box_keyup(&env->confirmation_box, env);
 	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.select = 1;
 }
