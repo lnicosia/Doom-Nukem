@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 11:52:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:43:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:35:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	draw_grid_vertices(t_env *env)
 			scale = env->editor.scale / 3.0;
 			color = 0xFF00FF00;
 			if (env->inputs.left_click
+					&& !env->confirmation_box.state
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_player == -1

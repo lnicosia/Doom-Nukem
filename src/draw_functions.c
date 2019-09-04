@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 17:22:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:42:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			i++;
 			continue;
 		}
+		if (vline.x == env->w / 2 && i == env->h / 2 && env->editor.select)
+		{
+			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+			env->selected_floor = -1;
+			env->selected_ceiling = -1;
+			env->editor.select = 0;
+		}
 		yalpha = 1 - (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
 		while (y >= texture_h)
@@ -66,6 +74,8 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+		if (env->editor.in_game && render.selected && env->selected_floor == -1 && env->selected_ceiling == -1)
+			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 		zbuffer[coord] = render.z;
 		/*if (i == (int)render.floor_horizon)
 			pixels[coord] = 0xFF00FF00;*/
@@ -150,6 +160,14 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			i++;
 			continue;
 		}
+		if (vline.x == env->w / 2 && i == env->h / 2 && env->editor.select)
+		{
+			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+			env->selected_floor = -1;
+			env->selected_ceiling = render.sector;
+			env->editor.select = 0;
+		}
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
 		y *= render.ceiling_yscale;
@@ -164,6 +182,8 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+		if (env->editor.in_game && env->selected_ceiling == render.sector)
+			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		/*if (i == (int)render.floor_horizon)
 			pixels[coord] = 0xFF00FF00;*/
@@ -222,6 +242,14 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			i++;
 			continue;
 		}
+		if (vline.x == env->w / 2 && i == env->h / 2 && env->editor.select)
+		{
+			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+			env->selected_floor = render.sector;
+			env->selected_ceiling = -1;
+			env->editor.select = 0;
+		}
 		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
 		/*y = ((1.0 - alpha) * env->player.camera_y / env->camera.near_z + alpha * render.texel.y / render.z)
@@ -242,6 +270,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+		if (env->editor.in_game && env->selected_floor == render.sector)
+			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		/*if (i == (int)render.floor_horizon)
 			pixels[coord] = 0xFF00FF00;*/

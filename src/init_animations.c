@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/07/24 14:58:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/02 16:49:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void	init_animations(t_env *env)
 {
+	int i;
+
+	i = 0;
 	env->time.start = 0;
 	env->time.end = 0;
 	env->player.state = 0;
@@ -33,6 +36,12 @@ void	init_animations(t_env *env)
 	env->crouch.tick = env->crouch.end / env->crouch.nb_frame;
 	env->shot.on_going = 0;
 	env->shot.start = 0;
+	env->player_hurt.start = 0;
 	env->weapon_change.on_going = 0;
 	env->weapon_change.start = 0;
+	while (i < env->nb_enemies)
+	{
+		env->enemies[i].death.start = 0;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 17:11:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 18:03:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	get_sprite_direction(t_object object)
 		return (0);
 }
 
-void		*object_loop(void *param)
+static void		*object_loop(void *param)
 {
 	t_env			*env;
 	t_object		object;
@@ -113,7 +113,7 @@ void		*object_loop(void *param)
 	return (NULL);
 }
 
-void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
+static void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 {
 	t_object_thread	ot[THREADS];
 	pthread_t		threads[THREADS];
@@ -134,17 +134,16 @@ void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_object(t_object *object, t_env *env)
+static void		draw_object(t_object *object, t_env *env)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
 	sprite = env->sprites[object->sprite];
 	project_object(&orender, *object, env);
-	if (!sprite.oriented)
-		orender.index = 0;
-	else
+	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
+	orender.index = 0;
 	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
 	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
@@ -155,15 +154,19 @@ void		draw_object(t_object *object, t_env *env)
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);
 	orender.yend = ft_clamp(orender.y2, 0, env->h - 1);
+	object->left = orender.xstart;
+	object->right = orender.xend;
+	object->top = orender.ystart;
+	object->bottom = orender.yend;
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
 	threaded_object_loop(*object, orender, env);
-	if (((orender.x1 + orender.x2) / 2) < env->w && ((orender.x1 + orender.x2) / 2) >= 0 && ((orender.y1 + orender.y2) / 2) < env->h && ((orender.y1 + orender.y2) / 2) >= 0)
+	/*if (((orender.x1 + orender.x2) / 2) < env->w && ((orender.x1 + orender.x2) / 2) >= 0 && ((orender.y1 + orender.y2) / 2) < env->h && ((orender.y1 + orender.y2) / 2) >= 0)
 		if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
-			object->seen = 1;
+			object->seen = 1;*/
 }
-
-void	get_relative_pos(t_env *env)
+/*
+static void	get_relative_pos(t_env *env)
 {
 	int	i;
 	
@@ -174,9 +177,9 @@ void	get_relative_pos(t_env *env)
 		get_rotated_object_pos(env, &env->objects[i]);
 		i++;
 	}
-}
+}*/
 
-void	threaded_get_relative_pos(t_env *env)
+static void	threaded_get_relative_pos(t_env *env)
 {
 	int				i;
 	t_object_thread	object_threads[THREADS];
@@ -240,7 +243,7 @@ static void	sort_objects(t_object *objects, int start, int end)
 	}
 }*/
 
-void		draw_sprites(t_env *env)
+void		draw_objects(t_env *env)
 {
 	int	i;
 

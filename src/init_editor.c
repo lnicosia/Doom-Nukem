@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 12:21:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:40:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_editor_data(t_env *env)
 	env->nb_sectors = 0;
 	env->nb_objects = 0;
 	env->player.sector = -1;
+	env->editor.select = 0;
 
 	env->editor.start_pos.x = 0;
 	env->editor.start_pos.y = 0;
@@ -37,6 +38,10 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
 	env->editor.tab = 0;
+	env->selected_wall1 = -1;
+	env->selected_wall2 = -1;
+	env->selected_floor = -1;
+	env->selected_ceiling = -1;
 }
 
 int	init_editor(int ac, char **av)
@@ -59,7 +64,8 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
-	env.confirmation_box.font = env.sdl.fonts.montserrat20;
+	env.confirmation_box.font = env.sdl.fonts.playfair_display20;
+	env.confirmation_box.state = 0;
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))

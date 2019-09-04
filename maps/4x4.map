@@ -17,4 +17,8 @@ S 4
 
 O 0
 
-2 2 0 0
+# [x y z angle] [sprite scale] [health speed damage]
+E 1
+[5 5 4 45] [1 50]                   [50 0.1 50]
+
+2 2 0

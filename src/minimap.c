@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/08/15 14:13:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:50:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ static void	draw_player(t_env *env)
 			(env->player.near_right.x - env->player.pos.x) * env->options.minimap_scale + start.x,
 			(env->player.near_right.y - env->player.pos.y) * env->options.minimap_scale + 150,
 			0);
-	fill_triangle(triangle, env);
+	fill_triangle_minimap(triangle, env);
 	p0.x = triangle[2].x;
 	p0.y = triangle[2].y;
 	p1.x = triangle[1].x;
@@ -153,7 +153,7 @@ static void	draw_player(t_env *env)
 			(env->player.angle_cos * env->camera.far_z - env->player.angle_sin * env->camera.far_right) * env->options.minimap_scale + start.x,
 			(env->player.angle_sin * env->camera.far_z + env->player.angle_cos * env->camera.far_right) * env->options.minimap_scale + 150,
 			0);
-	fill_triangle(triangle, env);
+	fill_triangle_minimap(triangle, env);
 	p0.x = triangle[0].x;
 	p0.y = triangle[0].y;
 	p1.x = triangle[2].x;
@@ -248,7 +248,10 @@ void		draw_sprites_minimap(t_env *env)
 	{
 		object = env->objects[i];
 		if (!object.exists)
+		{
+			i++;
 			continue;
+		}
 		pos.x = env->w - 150 + (object.pos.x - env->player.pos.x) * env->options.minimap_scale;
 		x = pos.x - 2;
 		while (x < pos.x + 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 13:54:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/28 14:29:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,32 @@ void	threaded_raycasting(t_env *env, t_render render)
 	//raycasting(&original);
 	i = 0;
 	//ft_printf("\ndebut = %d fin = %d\n", render.xstart, render.xend);
+	//ft_printf("raycasting.c line 100\n");
 	while (i < THREADS)
 	{
 		rt[i].env = env;
+		//ft_memcpy((void *)&rt[i].env, (void *)env, sizeof(t_env));
+		//ft_memcpy((void *)&rt[i].render, (void*)&render , sizeof(t_render));
 		rt[i].render = render;
 		rt[i].xstart = render.xstart + (render.xend - render.xstart) / (double)THREADS * i;
 		rt[i].xend = render.xstart + (render.xend - render.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, raycasting, &rt[i]);
+		//ft_printf("raycasting.c line 107\n");
+		if (pthread_create(&threads[i], NULL, raycasting, &rt[i]) > 0)
+			return ;
+		//ft_printf("raycasting.c line 109\n");
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+	{
+		//ft_printf("raycasting.c line 114\n");
+		//if (threads[i])
+		//{
+			//ft_printf("thread exist\n");
+			pthread_join(threads[i], NULL);
+		//}
+		//else
+			//ft_printf("error, thread doesn't exist\n");
+		//ft_printf("raycasting.c line 116\n");
+	}
+	//ft_printf("raycasting.c line 118\n");
 }

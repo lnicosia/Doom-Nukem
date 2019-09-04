@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/14 17:49:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:48:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define SECTOR_X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define SECTOR_Y1 env->vertices[env->sectors[sector].vertices[i]].y
 # define SECTOR_Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
-# define FUTURE_V0X env->vertices[env->sectors[env->player.sector].vertices[0]].x
-# define FUTURE_V0Y env->vertices[env->sectors[env->player.sector].vertices[0]].y
+# define FUTURE_V0X env->vertices[env->sectors[sector_dest].vertices[0]].x
+# define FUTURE_V0Y env->vertices[env->sectors[sector_dest].vertices[0]].y
 # define FUTURE_X motion.future_x
 # define FUTURE_Y motion.future_y
 # define FUTURE_Z motion.future_z
@@ -68,6 +68,7 @@ typedef struct  s_data
 int					check_collision(t_env *env, double x_move, double y_move);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
+void                enemy_collision(t_env *env);
 int					diff_sign(double nb1, double nb2);
 int					diff_value(int nb1, int nb2, int a, int b);
 int					in_range(double nb, double val1, double val2);

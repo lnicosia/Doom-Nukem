@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/03 12:10:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:45:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_editor
 	int			nb_vertex;
 	int			new_player;
 	int			tab;
+	int			select;
 	t_point		center;
 	double		scale;
 	t_list		*vertices;

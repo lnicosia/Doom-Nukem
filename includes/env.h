@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 17:19:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 11:39:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct		s_env
 	t_gravity			gravity;
 	t_animation			shot;
 	t_animation			weapon_change;
+	t_animation			player_hurt;
 	t_vertex			*vertices;
 	t_sector			*sectors;
 	t_object			*objects;
+	t_enemies			*enemies;
 	t_sprite			*sprites;
 	t_audio				sound;
 	t_texture			textures[MAX_TEXTURE];
@@ -45,6 +47,10 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	int					selected_wall1;
+	int					selected_wall2;
+	int					selected_floor;
+	int					selected_ceiling;
 	int					drawing;
 	double				horizon;
 	int					option;
@@ -72,12 +78,14 @@ typedef struct		s_env
 	int					nb_sectors;
 	int					nb_vertices;
 	int					nb_objects;
+	int					nb_enemies;
 	double				flag;
 	int					reset;
 	int					count;
 	int					*ymax;
 	int					*ymin;
 	int					current_object;
+	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 }					t_env;
@@ -131,7 +139,7 @@ void				free_current_vertices(t_env *env);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
-void				editor_options(t_env *env);
+void				editor_keyup(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
@@ -151,10 +159,11 @@ int					*get_vertex_sectors(t_env *env, int index);
 int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
+int					editor_buttonup(t_env *env);
 
 /*
- * ** Main functions
- * */
+** Main functions
+*/
 
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
@@ -162,8 +171,8 @@ void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 
 /*
- * ** Init functions
- * */
+** Init functions
+*/
 
 int					init_screen_size(t_env *env);
 void				set_screen_size(t_env *env);
@@ -213,7 +222,8 @@ void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
-void				fill_triangle(t_v3 v[3], t_env *env);
+void				fill_triangle_minimap(t_v3 v[3], t_env *env);
+void				fill_triangle(t_v3 v[3], Uint32 color, t_env *env);
 unsigned int		blend_alpha(unsigned int src,
 				unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src,
@@ -225,7 +235,8 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 color, double light);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
-int					confirmation_box(t_confirmation_box box, t_env *env);
+int					new_confirmation_box(t_confirmation_box *box, t_env *env);
+int					draw_confirmation_box(t_confirmation_box box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
@@ -239,10 +250,13 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_env *env);
-void				draw_sprites(t_env *env);
+void				draw_objects(t_env *env);
+void				draw_enemies(t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
-void				options(t_env *env);
+void				keyup(t_env *env);
+void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
+void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
@@ -251,6 +265,7 @@ void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
+void    			hitscan_shot(t_env *env);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
@@ -290,5 +305,7 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 */
 
 void	enemy_pursuit(t_env *env);
+void	damage_anim(t_env *env);
+int		dying_enemy(t_env *env, int i);
 
 #endif

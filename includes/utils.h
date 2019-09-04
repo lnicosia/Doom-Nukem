@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 18:50:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:39:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ typedef struct		s_player
 	t_v3			pos;
 	t_v2			near_left;
 	t_v2			near_right;
+	int				stuck;
+	int				prev_sector;
+	double			gravity;
 	double			eyesight;
 	double			angle;
 	double			angle_cos;
@@ -116,11 +119,14 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
+	int				hit;
+	double			size_2d;
 	double			camera_x;
 	double			camera_y;
 	double			rotation_speed;
 	short			sector;
 	double			state;
+	int				highest_sect;
 	int				curr_weapon;
 	int				life;
 	int				armor;
@@ -224,6 +230,7 @@ typedef struct		s_fonts
 	TTF_Font		*alice70;
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
+	TTF_Font		*playfair_display20;
 }					t_fonts;
 
 /*
@@ -243,6 +250,38 @@ typedef struct		s_audio
 }					t_audio;
 
 /*
+**	Contains every data needed for an animation on the screen
+*/
+
+typedef struct		s_time
+{
+	double			start;
+	double			end;
+	double			minuts;
+	double			tenth_s;
+	double			milli_s;
+}					t_time;
+
+typedef struct		s_gravity
+{
+	double			start;
+	double			end;
+	double			floor;
+	double			weight;
+	double			on_going;
+}					t_gravity;
+
+typedef struct		s_animation
+{
+	double			start;
+	double			end;
+	double			on_going;
+	double			height;
+	double			tick;
+	double			nb_frame;
+}					t_animation;
+
+/*
 ** Weapon structure
 */
 
@@ -253,9 +292,11 @@ typedef struct		s_weapons
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
+	double			range;
 	int				no_ammo;
 	int				max_ammo;
 	int				damage;
+	int				splash;
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
@@ -273,6 +314,7 @@ typedef struct		s_sprite
 	t_point			end[8];
 	t_point			size[8];
 	int				reversed[8];
+	int				death_counterpart;
 	double			width;
 	double			height;
 }					t_sprite;
@@ -286,7 +328,10 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
-	int				seen;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
 	int				sprite;
 	double			scale;
 	double			angle;
@@ -298,7 +343,30 @@ typedef struct		s_object
 	int				sector;
 	int				exists;
 	int				num;
+	t_animation		death;
 }					t_object;
+
+typedef struct		s_enemies
+{
+	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
+	float			speed;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
+	int				sprite;
+	int				death_sprite;
+	double			scale;
+	double			angle;
+	double			light;
+	int				health;
+	int				damage;
+	int				exists;
+	int				sector;
+	t_animation		death;
+}					t_enemies;
 
 /*
 ** SDL data necessities
@@ -368,39 +436,6 @@ typedef struct		s_printable_text
 	SDL_Color		color;
 	int				size;
 }					t_printable_text;
-
-/*
-**	Contains every data needed for an animation on the screen
-*/
-
-typedef struct		s_time
-{
-	double			start;
-	double			end;
-	double			minuts;
-	double			tenth_s;
-	double			milli_s;
-}					t_time;
-
-typedef struct		s_gravity
-{
-	double			start;
-	double			end;
-	double			floor;
-	double			weight;
-	double			on_going;
-}					t_gravity;
-
-typedef struct		s_animation
-{
-	double			start;
-	double			end;
-	double			on_going;
-	double			height;
-	double			tick;
-	double			nb_frame;
-}					t_animation;
-
 
 /*
  **	Data to manipulate menus

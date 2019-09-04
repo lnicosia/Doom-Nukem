@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/14 18:21:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 09:47:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,60 @@
         PLAYER_YPOS = FUTURE_Y;
     }
 } */
-
-int     check_ceiling(t_env *env, t_movement motion)
+/*
+int     diff_sign(double nb1, double nb2)
 {
-    FUTURE_Z = env->player.eyesight + env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
-    if (FUTURE_Z > env->sectors[env->player.sector].ceiling + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].ceiling_slope - 1)
+    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
+        return (0);
+    return (1);
+}*/
+
+double     sector_height(t_env *env, t_movement motion, int sector_dest)
+{
+    FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    return (FUTURE_Z);
+}
+
+void        find_highest_sector(t_env *env, t_movement motion)
+{
+    int     i;
+    double  height;
+    double  s_height;
+    int     tmp;
+
+    i = 0;
+    tmp = env->player.sector;
+    height = sector_height(env, motion, env->player.sector);
+    while (i < env->nb_sectors)
+    {
+        if (env->sector_list[i])
+        {
+            s_height = sector_height(env, motion, i);
+            if (height < s_height)
+            {
+                height = s_height;
+                tmp = i;
+            }
+        }
+        i++;
+    }
+    //ft_printf("mov_collision.c l71\n");
+    env->player.highest_sect = tmp;
+}
+
+int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
+{
+    FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    if (FUTURE_Z > env->sectors[sector_dest].ceiling + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].ceiling_slope - 1)
         return (0);
     return (1);
 }
 
-int     check_floor(t_env *env, t_movement motion)
+int     check_floor(t_env *env, t_movement motion, int sector_dest)
 {
-    FUTURE_Z = env->sectors[env->player.sector].floor + (env->sectors[env->player.sector].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[env->player.sector].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[env->player.sector].floor_slope;
+    FUTURE_Z = env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
     if (FUTURE_Z > env->player.pos.z + 2)
-		        return (0);
+		return (0);
     return (1);
 }
 
@@ -61,7 +101,7 @@ double     distance_two_points(double x1, double y1, double x2, double y2)
     return (d);
 }
 
-int     hitbox_collision(double x1, double x2, double y1, double y2, t_movement motion)
+int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p)
 {
     double a;
     double b;
@@ -71,13 +111,13 @@ int     hitbox_collision(double x1, double x2, double y1, double y2, t_movement 
     double t1;
     double t2;
 
-    x1 -= FUTURE_X;
-    y1 -= FUTURE_Y;
-    x2 -= FUTURE_X;
-    y2 -= FUTURE_Y;
-    c = x1 * x1 + y1 * y1 - 0.5625;
-    b = 2 * (x1 * (x2 - x1) + y1*(y2 - y1));
-    a = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+    v1.x -= p.x;
+    v1.y -= p.y;
+    v2.x -= p.x;
+    v2.y -= p.y;
+    c = v1.x * v1.x + v1.y * v1.y - 0.5625;
+    b = 2 * (v1.x * (v2.x - v1.x) + v1.y *(v2.y - v1.y));
+    a = (v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y);
     delta = b * b - 4 * a * c;
     if (delta <= 0)
         return (0);
@@ -93,26 +133,27 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
 {
     short       i;
     t_movement  motion;
-    int         sector_tmp;
 
     i = 0;
     FUTURE_X = dest_x;
     FUTURE_Y = dest_y;
     motion.old_sector = wall.sector_or;
     env->sector_list[wall.sector_dest] = 1;
-    sector_tmp = env->player.sector;
-    env->player.sector = wall.sector_dest;
-    if (!check_ceiling(env, motion) || !check_floor(env, motion))
+    /*
+    ** Permet de faire segfault pthread_join facilement sur triple piece
+    **if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
+    **    return (1);
+    */
+    if (!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest))
     {
-        env->player.sector = sector_tmp;
+        //ft_printf("cheh you're stuck\n");
         return (0);
     }
-    env->player.sector = sector_tmp;
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
-        if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR < 0)
+        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR < 0)
             return (0);
-        else if (hitbox_collision(X1R, X2R, Y1R, Y2R, motion) && RNEIGHBOR >= 0 &&
+        else if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             wall.sector_or = wall.sector_dest;
@@ -130,10 +171,17 @@ int     check_collision(t_env *env, double x_move, double y_move)
     short       j;
     t_movement  motion;
     t_wall      wall;
-    int         sector_tmp;
 
-    if (env->options.wall_lover == 1)
-        return (1);
+    env->player.highest_sect = env->player.sector;
+    FUTURE_X = env->player.pos.x + x_move;
+    FUTURE_Y = env->player.pos.y + y_move;
+    if (env->player.stuck == 1)
+    {
+        env->player.stuck = 0;
+        if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
+            return (1);
+        return (0);
+    }
     i = 0;
     while (i < env->nb_sectors)
     {
@@ -144,17 +192,19 @@ int     check_collision(t_env *env, double x_move, double y_move)
         i++;
     }
     i = 0;
-    FUTURE_X = env->player.pos.x + x_move;
-    FUTURE_Y = env->player.pos.y + y_move;
-    if (!check_ceiling(env, motion) || !check_floor(env, motion))
-        return (0);
     while (i < env->sectors[env->player.sector].nb_vertices)
     {
-        motion.old_sector = env->player.sector;
-        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR < 0)
+        /*
+        ** If the player is inside a wall for some reason
+        */
+        if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
+        {
+            env->player.stuck = 1;
+            return (check_collision(env, x_move, y_move));
+        }
+        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
             return (0);
-        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(X1, X2, Y1, Y2, motion)) && NEIGHBOR >= 0
-            && check_floor(env, motion) && check_ceiling(env, motion))
+        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
             wall.sector_or = env->player.sector;
             wall.sector_dest = NEIGHBOR;
@@ -167,13 +217,12 @@ int     check_collision(t_env *env, double x_move, double y_move)
                     {
                         if (is_in_sector_no_z(env, j, new_v2(FUTURE_X, FUTURE_Y)))
                         {
-                            sector_tmp = env->player.sector;
-                            env->player.sector = j;
-                            if (!check_ceiling(env, motion) || !check_floor(env, motion))
+                            if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
                             {
-                                env->player.sector = sector_tmp;
-                                return (0);
+                                env->player.stuck = 1;
+                                return (check_collision(env, x_move, y_move));
                             }
+                            env->player.sector = j;
                             j = env->nb_sectors;
                         }
                     }
@@ -185,6 +234,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
         }
         i++;
     }
+    find_highest_sector(env, motion);
     return (1);
 }
 
@@ -205,11 +255,24 @@ void    objects_collision(t_env *env)
                 if (env->weapons[env->player.curr_weapon].ammo >= env->weapons[env->player.curr_weapon].max_ammo)
                     env->weapons[env->player.curr_weapon].ammo = env->weapons[env->player.curr_weapon].max_ammo;
             }
-            else if (env->objects[i].sprite == 1)
-            {
-                env->player.life -= 15;
-                env->objects[i].exists = 0;
-            }
+        }
+        i++;
+    }
+}
+
+void        enemy_collision(t_env *env)
+{
+    int i;
+
+    i = 0;
+    while (i < env->nb_enemies)
+    {
+        if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
+            && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1)
+        {
+            env->player.hit = 1;
+            env->player.life -= env->enemies[i].damage;
+            env->enemies[i].exists = 0;
         }
         i++;
     }

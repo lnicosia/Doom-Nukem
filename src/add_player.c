@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/21 13:42:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:19:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_player(t_env *env)
 	env->player.eyesight = 6;
 	env->player.speed = 0.5;
 	env->player.angle_cos = cos(env->player.angle);
-	env->player.angle_cos = sin(env->player.angle);
+	env->player.angle_sin = sin(env->player.angle);
 	env->player.perp_cos = cos(env->player.angle - M_PI / 2);
 	env->player.perp_sin = sin(env->player.angle - M_PI / 2);
 	env->player.sector = get_sector_no_z(env,

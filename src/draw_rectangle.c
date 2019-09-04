@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:03:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:26:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/04 11:35:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void		draw_rectangle(t_env *env, t_rectangle r, t_point pos, t_point size)
 			|| size.x <= 0 || size.y <= 0)
 		return ;
 	y = pos.y - 1;
-	while (++y < pos.y + size.y && y < env->h)
+	while (++y <= pos.y + size.y && y < env->h)
 	{
 		x = pos.x - 1;
-		while (++x < pos.x + size.x && x < env->w)
+		while (++x <= pos.x + size.x && x < env->w)
 			if (y < pos.y + r.line_size
 					|| y > pos.y + size.y - r.line_size
 					|| x < pos.x + r.line_size

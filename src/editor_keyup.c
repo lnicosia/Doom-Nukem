@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_options.c                                   :+:      :+:    :+:   */
+/*   editor_keyup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/13 15:42:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:26:02 by sipatry          ###   ########.fr       */
+/*   Created: 2019/09/03 13:19:36 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/09/04 11:33:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	editor_options(t_env *env)
+void	editor_keyup(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
@@ -38,4 +38,7 @@ void	editor_options(t_env *env)
 		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
+	confirmation_box_keyup(&env->confirmation_box, env);
+	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.select = 1;
 }
