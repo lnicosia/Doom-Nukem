@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 17:26:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/27 13:50:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:51:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ unsigned int	blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha)
 	(aalpha * (src >> 16 & 0xFF) / 255 + alpha * (dest >> 16 & 0xFF) / 255) << 16
 	| (aalpha * (src >> 8 & 0xFF) / 255 + alpha * (dest >> 8 & 0xFF) / 255) << 8
 	| (aalpha * (src & 0xFF) / 255 + alpha * (dest & 0xFF) / 255));
-
 }
 
 unsigned int	blend_add(unsigned int src, unsigned int dest, uint8_t alpha)

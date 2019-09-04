@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_object.c                                    :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 15:39:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:23:51 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/08/29 17:32:52 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/08/29 17:34:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "libft.h"
 
-int	delete_object(t_env *env, int object)
+int		main(void)
 {
-	env->objects = ft_delindex(env->objects,
-			sizeof(t_object) * env->nb_objects,
-			sizeof(t_object),
-			sizeof(t_object) * object);
-	env->nb_objects--;
-	env->editor.selected_object = -1;
+	ft_printf("un nombre: %d, un texte: %s, un nombre a virgule: %f\n", 4, "cc", 4.5454);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 16:59:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 12:10:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,19 +255,21 @@ static void	sort_objects(t_object *objects, int start, int end)
 void		draw_enemies(t_env *env)
 {
 	int	i;
+	int dying_sprite;
 
 	threaded_get_relative_pos(env);
 	//get_relative_pos(env);
 	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
+	dying_sprite = -1;
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].rotated_pos.z > 1 && env->enemies[i].exists)
 		{
 			if (env->enemies[i].health <= 0)
-				draw_enemy(&env->enemies[i], env, dying_enemy(env, i));
-			else
-				draw_enemy(&env->enemies[i], env, -1);
+				dying_sprite = dying_enemy(env, i);
+			if (env->enemies[i].exists)
+				draw_enemy(&env->enemies[i], env, dying_sprite);
 		}
 		i++;
 	}

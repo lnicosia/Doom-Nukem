@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 17:47:28 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 10:51:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		doom(t_env *env)
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
 			if (env->sdl.event.type == SDL_KEYUP)
-				options(env);
+				keyup(env);
 			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
 				weapon_change(env);
 		}

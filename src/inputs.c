@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 11:49:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/03 14:19:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_inputs(t_env *env)
 	env->inputs.enter = 0;
 	env->inputs.up = 0;
 	env->inputs.down = 0;
+	env->inputs.tab = 0;
 }
 
 int		button_leftclick(t_env *env, int nb)
@@ -99,6 +100,7 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.backspace = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.del)
 		env->inputs.del = mode;
+
 }
 
 void	update_inputs(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 11:19:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/26 17:50:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/08/30 15:56:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void	revert_sector(t_sector *sector, t_env *env)
 		i++;
 		j++;
 	}
-	if (!env->editor.reverted)
-		tmp[sector->nb_vertices] = tmp[0];
-	else
-		tmp[0] = tmp[sector->nb_vertices];
+	tmp[sector->nb_vertices] = tmp[0];
 	free(sector->vertices);
 	sector->vertices = tmp;
 }

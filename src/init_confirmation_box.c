@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_object.c                                    :+:      :+:    :+:   */
+/*   init_confirmation_box.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 15:39:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:23:51 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/09/03 11:16:07 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/09/03 11:18:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int	delete_object(t_env *env, int object)
+int		init_confirmation_box(t_env *env)
 {
-	env->objects = ft_delindex(env->objects,
-			sizeof(t_object) * env->nb_objects,
-			sizeof(t_object),
-			sizeof(t_object) * object);
-	env->nb_objects--;
-	env->editor.selected_object = -1;
-	return (0);
+	if (env.confirmation_box.font == NULL)
+		env.confirmation_box.font = env.sdl.fonts.montserrat20;
+	env.confirmation_box.yes_pressed = 0;
+	env.confirmation_box.no_pressed = 0;
+	env.confirmation_box.str = NULL;
 }
