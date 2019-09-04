@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/04 12:00:39 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/04 14:20:40 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,10 +57,11 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c map_parse_player.c create_portals.c \
 		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
-		   init_screen_pos.c draw_sprites.c sprites_maths.c \
+		   init_screen_pos.c draw_objects.c sprites_maths.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
+		   map_parse_enemies.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h

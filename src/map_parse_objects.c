@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:59:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/04 14:21:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 
 static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 {
+	env->objects[parser->objects_count].num = parser->objects_count;
 	if (parse_object_pos(env, &line, parser))
 		return (-1);
 		//return (custom_error("Error while parsing object pos"));
