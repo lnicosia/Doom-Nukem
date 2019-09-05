@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:00:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:02:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,23 @@ int		init_wallpapers_and_buttons(t_env *env)
 	return (0);
 }
 
+int		init_skyboxes(t_env *env)
+{
+	if (parse_bmp("images/skyboxes/bottom.bmp", 38, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/top.bmp", 39, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/back.bmp", 40, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/left.bmp", 41, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/front.bmp", 42, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/right.bmp", 43, env))
+		return (ft_printf("Failed to load skybox\n"));
+	return (0);
+}
+
 int		init_textures(t_env *env)
 {
 	if (parse_bmp("images/wall0.bmp", 0, env))
@@ -111,5 +128,8 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/rust.bmp", 37, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
+	if (init_skyboxes(env))
+		return (ft_printf("Could not load skyboxes textures\n"));
+		//ft_printf("Could not load skyboxes textures\n");
 	return (0);
 }

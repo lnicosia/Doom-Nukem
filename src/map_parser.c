@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 17:32:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:21:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	set_sectors_xmax(t_env *env)
 
 void	init_player(t_env *env)
 {
-	env->player.eyesight = 6;
+	env->player.eyesight = 5;
 	env->player.sector = -1;
 	env->player.angle_z_cos = cos(0);
 	env->player.angle_z_sin = sin(0);

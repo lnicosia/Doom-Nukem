@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 13:36:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:50:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 			sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
 		return (custom_error_with_line("Invalid ceiling texture", parser));
 	env->sectors[parser->sectors_count].skybox = 0;
+	if (env->sectors[parser->sectors_count].ceiling_texture > 37
+			&& env->sectors[parser->sectors_count].ceiling_texture < 43)
+	env->sectors[parser->sectors_count].skybox = 1;
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after ceiling texture",parser));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 13:41:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:01:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 38
+# define MAX_TEXTURE 44
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 2
@@ -57,10 +57,6 @@ typedef struct		s_circle
 	t_point			center;
 	int				radius;
 }					t_circle;
-
-/*
-** VERTICES = PLURIEL DE VERTEX
-*/
 
 typedef struct		s_sector
 {

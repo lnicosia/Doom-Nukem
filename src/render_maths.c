@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 12:05:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:57:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "render.h"
 
 /*
- **	Get the translated vertices coord for the current wall
- */
+**	Get the translated vertices coord for the current wall
+*/
 
 void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -34,8 +34,8 @@ void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int 
 }
 
 /*
- **	Get the rotated vertices coord for the current wall
- */
+**	Get the rotated vertices coord for the current wall
+*/
 
 void	get_rotated_vertices(t_render *render, t_env *env, int i)
 {
@@ -56,8 +56,8 @@ void	get_rotated_vertices(t_render *render, t_env *env, int i)
 }
 
 /*
- ** Translate and rotate vertices z into player's view
- */
+** Translate and rotate vertices z into player's view
+*/
 
 void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -77,8 +77,8 @@ void	get_relative_heights(t_render *render, t_env *env, t_sector sector, int i)
 }
 
 /*
- ** Translate and rotate vertices z into player's view
- */
+** Translate and rotate vertices z into player's view
+*/
 
 void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -96,8 +96,8 @@ void	get_relative_heights_preclip(t_render *render, t_env *env, t_sector sector,
 }
 
 /*
- ** Translate and rotate neighbor's vertices z into player's view
- */
+** Translate and rotate neighbor's vertices z into player's view
+*/
 
 void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighbor)
 {
@@ -115,8 +115,8 @@ void	get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighb
 }
 
 /*
- **	Get the floor and ceiling position on the screen
- */
+**	Get the floor and ceiling position on the screen
+*/
 
 void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i)
 {
@@ -149,8 +149,8 @@ void	project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, in
 }
 
 /*
- **	Get the neighbor floor and ceiling position on the screen
- */
+**	Get the neighbor floor and ceiling position on the screen
+*/
 
 void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor)
 {
@@ -166,8 +166,8 @@ void	project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector n
 }
 
 /*
- **	Get the floor and ceiling position on the screen before clipping
- */
+**	Get the floor and ceiling position on the screen before clipping
+*/
 
 void	project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector sector, int i)
 {

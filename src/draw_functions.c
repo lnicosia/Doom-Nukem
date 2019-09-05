@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 11:37:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:15:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			env->selected_object = -1;
 			env->selected_enemy = -1;
 		}
-		yalpha = 1 - (i - render.max_ceiling) / render.line_height;
+		yalpha = (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
 		while (y >= texture_h)
 			y -= texture_h;
@@ -181,6 +181,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)
 			x = ft_abs((int)x % texture_w);
+		x = texture_w - x;
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			if (!env->options.lighting)
@@ -271,6 +272,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)
 			x = ft_abs((int)x % texture_w);
+		y = texture_h - y;
+		x = texture_w - x;
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			if (!env->options.lighting)
@@ -314,12 +317,14 @@ void	draw_ceiling(t_render render, t_env *env)
 
 	vline.x = render.currentx;
 	vline.start = env->ymin[vline.x];
-	vline.end = ft_min(render.current_ceiling - 1, env->h - 1);
+	vline.end = ft_min(render.current_ceiling, env->h - 1);
 	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	if (env->sectors[render.sector].ceiling_slope)
 		draw_vline_color(vline, render, env);
+	/*else if (env->sectors[render.sector].skybox)
+		draw_skybox(vline, render, env);*/
 	else
 		draw_vline_ceiling(vline, render, env);
 }
@@ -333,7 +338,7 @@ void	draw_floor(t_render render,t_env *env)
 	t_vline	vline;
 
 	vline.x = render.currentx;
-	vline.start = ft_max(0, render.current_floor + 1);
+	vline.start = ft_max(0, render.current_floor);
 	vline.end = env->ymax[vline.x];
 	vline.color = 0xFF0B6484;
 	//vline.color = 0xFFFF0000;
