@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/04 16:55:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 10:44:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int     enemy_hurt(t_env *env, int i)
     int color;
 
     if (!env->enemies[i].hurt.start)
-    {
-        ft_printf("starting all over again\n");
         env->enemies[i].hurt.start = SDL_GetTicks();
-    }
     if (env->time.milli_s > env->enemies[i].hurt.start + 160)
     {
         env->enemies[i].hurt.start = 0;
@@ -73,6 +70,19 @@ int     enemy_hurt(t_env *env, int i)
         color = 40;
     //ft_printf("color %d\n", color);
     return (color);
+}
+
+void     resting_enemy(t_env *env, int i)
+{
+    double start;
+    double time_spent;
+
+    if (env->enemies[i].rest.start == 0)
+        env->enemies[i].rest.start = SDL_GetTicks();
+    start = env->enemies[i].rest.start;
+    time_spent = env->time.milli_s - start;
+    if ((int)time_spent % 340 > 170)
+        env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].rest_sprite;
 }
 
 int     dying_enemy(t_env *env, int i)

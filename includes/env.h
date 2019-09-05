@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 16:42:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 10:21:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 void	enemy_pursuit(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);
+void     resting_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i);
 
 #endif

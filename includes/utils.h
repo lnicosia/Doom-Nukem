@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 16:38:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 10:11:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,8 @@ typedef struct		s_sprite
 	t_point			end[8];
 	t_point			size[8];
 	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
 	int				death_counterpart;
 	double			width;
 	double			height;
@@ -370,6 +372,7 @@ typedef struct		s_enemies
 	int				num;
 	t_animation		death;
 	t_animation		hurt;
+	t_animation		rest;
 }					t_enemies;
 
 /*
