@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 16:40:52 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 17:33:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:35:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	add_enemy(t_env *env)
 	enemy.exists = 1;
 	enemy.sector = get_sector_no_z(env, new_v3(enemy.pos.x, enemy.pos.y, enemy.pos.z));
 	enemy.pos.z = env->sectors[enemy.sector].floor + 5;
+	enemy.speed = 40;
+	enemy.health = 40;
+	enemy.damage = 25;
 	if (enemy.sector != -1)
 		enemy.light = env->sectors[enemy.sector].light;
 	else
