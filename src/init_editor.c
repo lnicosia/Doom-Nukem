@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 15:42:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 14:47:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_editor_data(t_env *env)
 	env->selected_ceiling = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
+	env->time.tick = 0;
 }
 
 int	init_editor(int ac, char **av)
@@ -60,6 +61,7 @@ int	init_editor(int ac, char **av)
 	init_keys(&env);
 	init_editor_data(&env);
 	init_inputs(&env);
+	init_player(&env);
 	init_camera(&env);
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 17:49:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 10:27:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			env->selected_ceiling = -1;
 			env->selected_object = -1;
 			env->selected_enemy = -1;
-			//env->editor.select = 0;
 		}
 		yalpha = 1 - (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
@@ -81,7 +80,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
-		if (env->editor.in_game && render.selected)
+		if (env->editor.in_game && render.selected && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 		zbuffer[coord] = render.z;
 		/*if (i == (int)render.floor_horizon)
@@ -176,7 +175,6 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			env->selected_object = -1;
 			env->selected_enemy = -1;
 			env->editor.selected_wall = -1;
-			//env->editor.select = 0;
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
@@ -192,7 +190,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
-		if (env->editor.in_game && env->selected_ceiling == render.sector)
+		if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		/*if (i == (int)render.floor_horizon)
@@ -261,7 +259,6 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			env->selected_object = -1;
 			env->selected_enemy = -1;
 			env->editor.selected_wall = -1;
-			//env->editor.select = 0;
 		}
 		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
@@ -283,7 +280,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
-		if (env->editor.in_game && env->selected_floor == render.sector)
+		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		/*if (i == (int)render.floor_horizon)

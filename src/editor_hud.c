@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/04 17:50:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 13:44:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_wall_informations(t_env *env)
 	print_text(new_point(10, 390), new_printable_text("Wall ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->editor.selected_wall), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(220, 280), new_printable_text("Texture:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(220, 470), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 
 }
 
@@ -84,7 +85,7 @@ void	print_ceiling_informations(t_env *env)
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->selected_ceiling),
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 240), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(900, 470), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(90, 470), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(130, 240), new_printable_text("Ceiling slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(130, 470), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling_slope * CONVERT_DEGREES), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(170, 240), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);

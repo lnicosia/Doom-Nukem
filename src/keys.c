@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 17:50:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 14:50:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void		keys(t_env *env)
 {
+	double	time;
+
+	time = SDL_GetTicks();
+	if (!env->time.tick)
+		env->time.tick = SDL_GetTicks();
 	if (!env->jump.on_going && env->inputs.space)
 		update_floor(env);
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
@@ -40,25 +45,6 @@ void		keys(t_env *env)
 			update_sector_slope(env, &env->sectors[env->player.sector]);
 		}
 	}
-	/*
-	 * *	selection of textures on walls
-	 */
-
-	if (env->editor.tab && env->editor.in_game && (env->inputs.up || env->inputs.down)
-			&& env->editor.selected_wall != -1)
-	{
-		if (env->inputs.down
-				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 0)
-			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
-		else if (env->inputs.up
-				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
-			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
-	}
-	
-	/*
-	 * *	selection of textures on ceiling and floor
-	 */
-
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		env->editor.selected_wall = -1;
@@ -68,9 +54,16 @@ void		keys(t_env *env)
 		env->selected_ceiling = -1;
 		env->selected_floor = -1;
 	}
-	if (env->editor.tab && env->editor.in_game && (env->inputs.up || env->inputs.down)
-			&& env->editor.selected_wall != -1)
+
+	/*
+	 * *	selection of textures on walls
+	 */
+	if (env->editor.tab && env->editor.in_game
+			&& (env->inputs.up || env->inputs.down)
+			&& env->editor.selected_wall != -1
+			&& (time - env->time.tick > 200))
 	{
+		env->time.tick = time;
 		if (env->inputs.down
 				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 0)
 			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
@@ -79,8 +72,57 @@ void		keys(t_env *env)
 			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
 	}
 
+	/*
+	 * *	selection of textures on ceiling and floor
+	 */
 
-	if (env->inputs.down && !env->inputs.shift && !env->editor.tab)
+	if (env->editor.in_game && env->selected_ceiling != -1)
+	{
+		if (time - env->time.tick > 200)
+		{
+			env->time.tick = time;
+			if (env->inputs.down && env->editor.tab
+					&& env->sectors[env->selected_ceiling].ceiling_texture > 0)
+				env->sectors[env->selected_ceiling].ceiling_texture--;
+			else if (env->inputs.up && env->editor.tab
+					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
+				env->sectors[env->selected_ceiling].ceiling_texture++;
+		}
+		if (env->inputs.plus
+				&& env->sectors[env->selected_ceiling].ceiling > env->sectors[env->selected_ceiling].floor + 1)
+			env->sectors[env->selected_ceiling].ceiling += 0.05;
+		if (env->inputs.minus
+				&& env->sectors[env->selected_ceiling].ceiling)
+			env->sectors[env->selected_ceiling].ceiling -= 0.05;
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+
+	}
+	if (env->editor.in_game && env->selected_floor != -1)
+	{
+		if (time - env->time.tick > 200 && env->editor.tab)
+		{
+			env->time.tick = time;
+			if (env->inputs.down
+					&& env->sectors[env->selected_floor].floor_texture > 0)
+				env->sectors[env->selected_floor].floor_texture--;
+			if (env->inputs.up
+					&& env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 1)
+				env->sectors[env->selected_floor].floor_texture++;
+		}
+		if (env->inputs.plus
+				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)
+			env->sectors[env->selected_floor].floor += 0.05;
+		if (env->inputs.minus
+				&& env->sectors[env->selected_floor].floor)
+			env->sectors[env->selected_floor].floor -= 0.05;
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
+	}
+
+	/*
+	 * *	selection of slopes on floor and ceiling
+	 */
+
+	if (env->inputs.down && !env->inputs.shift && !env->editor.tab && env->editor.in_game)
 	{
 		env->sectors[env->player.sector].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
