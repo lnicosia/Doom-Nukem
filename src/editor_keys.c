@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 11:44:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 10:20:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int			editor_keys(t_env *env)
 			update_camera_position(env);
 			update_player_z(env);
 			update_floor(env);
-			env->sdl.mx = env->w / 2;
-			env->sdl.my = env->h / 2;
+			ft_bzero(&env->inputs, sizeof(env->inputs));
 			SDL_SetRelativeMouseMode(1);
+			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		}
 		env->inputs.enter = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:37:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:32:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			env->player.angle_sin = sin(env->player.angle);
 			env->player.perp_cos = cos(env->player.angle - M_PI / 2);
 			env->player.perp_sin = sin(env->player.angle - M_PI / 2);
+			env->editor.new_player = 1;
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("player declaration", parser));
