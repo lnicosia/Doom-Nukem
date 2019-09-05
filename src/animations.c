@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/05 10:44:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:49:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ void     resting_enemy(t_env *env, int i)
         env->enemies[i].rest.start = SDL_GetTicks();
     start = env->enemies[i].rest.start;
     time_spent = env->time.milli_s - start;
-    if ((int)time_spent % 340 > 170)
+    if ((int)time_spent % 680 > 340)
+    {
+        env->enemies[i].rest.start = 0;
         env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].rest_sprite;
+    }
 }
 
-int     dying_enemy(t_env *env, int i)
+int     dying_enemy(t_env *env, int i, int nb_sprites)
 {
     double start;
     double time_spent;
@@ -94,13 +97,13 @@ int     dying_enemy(t_env *env, int i)
         env->enemies[i].death.start = SDL_GetTicks();
     start = env->enemies[i].death.start;
     time_spent = env->time.milli_s - start;
-    if ((int)time_spent >= 70 && (int)time_spent / 70 < 6)
+    if ((int)time_spent >= 70 && (int)time_spent / 70 <= nb_sprites)
         return ((int)(time_spent / 70));
     else if ((int)time_spent < 70)
         return (0);
-    if (time_spent >= 6 * 70)
+    if (time_spent > nb_sprites * 70)
     {
-        start = 0;
+        env->enemies[i].death.start = 0;
         env->enemies[i].exists = 0;
     }
     return (-1);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 10:46:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:43:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,6 @@ void	enemy_pursuit(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);
 void     resting_enemy(t_env *env, int i);
-int		dying_enemy(t_env *env, int i);
+int		dying_enemy(t_env *env, int i, int nb_sprites);
 
 #endif

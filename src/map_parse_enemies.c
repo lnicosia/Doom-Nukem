@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 14:21:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:20:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before enemy speed", "a digit or space(s)",
 					**line, parser));
-	env->enemies[parser->enemies_count].speed = ft_atof(*line);
-	if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 1)
-		return (custom_error_with_line("Enemy must have speed between 0 and 0.5", parser));
+	env->enemies[parser->enemies_count].speed = ft_atoi(*line);
+	if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 100)
+		return (custom_error_with_line("Enemy must have speed between 0 and 100", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));

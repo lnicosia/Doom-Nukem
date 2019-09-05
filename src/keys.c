@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 11:44:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 15:29:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		keys(t_env *env)
 	}
 	if (env->inputs.right_click && !env->option)
 	{
+		ft_printf("y = %f x = %f\n", env->player.pos.y, env->player.pos.x);
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}

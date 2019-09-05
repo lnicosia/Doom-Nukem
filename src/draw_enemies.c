@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 10:46:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 15:15:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,8 @@ static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
 	t_sprite		sprite;
 
 	if (death_sprite >= 0)
-	{
 		enemy->sprite = env->sprites[enemy->sprite].death_counterpart;
-		sprite = env->sprites[enemy->sprite];
-	}
-	else
-		sprite = env->sprites[enemy->sprite];
+	sprite = env->sprites[enemy->sprite];	
 	project_enemy(&erender, *enemy, env);
 	if (sprite.oriented)
 		erender.index = get_sprite_direction(*enemy);
@@ -284,7 +280,7 @@ void		draw_enemies(t_env *env)
 		{
 			env->enemies[i].seen = 0;
 			if (env->enemies[i].health <= 0)
-				dying_sprite = dying_enemy(env, i);
+				dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
 			resting_enemy(env, i);
 			if (env->enemies[i].exists)
 				draw_enemy(&env->enemies[i], env, dying_sprite);
