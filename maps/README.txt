@@ -22,7 +22,8 @@ V  6
 # (vertex numbers in clockwise order)
 # (neighbors numbers in clockwise order) ('-1' = no neighbor)
 # (textures numbers)
-# light value between 0 and 100
+# light value between -255 and 255
+# (0 to get the raw texture, negative values to darken and positive values to lighten)
 # Space(s) between every section
 #
 S  2
