@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 15:37:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:20:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,11 @@ void	editor_hud(t_env *env)
 		center.y = 200;
 		draw_circle(new_circle(0xFFFFFF00, 0xFFFFFF00, center, (env->editor.scale / 2)), env);
 		print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		center.x = 100;
+		center.y = 300;
+		draw_circle(new_circle(0xFF0000FF, 0xFF0000FF, center, (env->editor.scale / 2)), env);
+		print_text(new_point(250, 60), new_printable_text("enemy", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+
 	}
 	if (env->editor.tab)
 	{

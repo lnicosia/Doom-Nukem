@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 15:40:36 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 15:46:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:19:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	enemy_selection(t_env *env)
 	if (env->inputs.left_click
 			&& env->sdl.mx > 80
 			&& env->sdl.mx < 120
-			&& env->sdl.my > 80
-			&& env->sdl.my < 220
+			&& env->sdl.my > 280
+			&& env->sdl.my < 320
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_object == -1
-			&&env->editor.dragged_enemy == -1)
+			&& env->editor.dragged_enemy == -1)
 	{
 		env->editor.dragged_enemy = env->nb_enemies;
 	}
-	if (!env->inputs.left_click && env->editor.dragged_object != -1)
+	if (!env->inputs.left_click && env->editor.dragged_enemy != -1)
 	{
 		if (env->sdl.mx > 200)
 		{

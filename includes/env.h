@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 15:52:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 17:00:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 int					add_vertex(t_env *env);
-int					add_ennemy(t_env *env);
+int					add_enemy(t_env *env);
 int					add_vertex_to_current_sector(t_env *env, int num);
 void				draw_circle(t_circle circle, t_env *env);
 t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
@@ -163,6 +163,7 @@ int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 int					editor_buttonup(t_env *env);
+int					delete_enemy(t_env *env, int enemy);
 
 /*
 ** Main functions
@@ -308,6 +309,8 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 ** enemies functions
 */
 
+void	draw_grid_enemies(t_env *env);
+void	enemy_selection(t_env *env);
 void	enemy_pursuit(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);

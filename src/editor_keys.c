@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 15:40:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 16:51:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			editor_keys(t_env *env)
 		if (delete_action(env))
 			return (-1);
 	player_selection(env);
+	enemy_selection(env);
 	objects_selection(env);
 	vertices_selection(env);
 	if (env->confirmation_box.state)
