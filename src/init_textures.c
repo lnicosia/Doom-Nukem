@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 18:00:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:55:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/rust.bmp", 37, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/cyber_demon.bmp", 38, env))
+		return (ft_printf("Failed to load cyber demon sprite sheet\n"));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 15:48:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 15:52:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 38
+# define MAX_TEXTURE 39
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 2
+# define MAX_SPRITES 3
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
@@ -315,9 +315,10 @@ typedef struct		s_sprite
 	t_point			end[8];
 	t_point			size[8];
 	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
 	int				death_counterpart;
-	double			width;
-	double			height;
+	int				nb_death_sprites;
 }					t_sprite;
 
 /*
@@ -352,13 +353,15 @@ typedef struct		s_enemies
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
-	float			speed;
+	int				speed;
+	int				hit;
 	int				left;
 	int				right;
 	int				top;
 	int				bottom;
 	int				sprite;
 	int				death_sprite;
+	int				seen;
 	double			scale;
 	double			angle;
 	double			light;
@@ -368,6 +371,8 @@ typedef struct		s_enemies
 	int				sector;
 	int				num;
 	t_animation		death;
+	t_animation		hurt;
+	t_animation		rest;
 }					t_enemies;
 
 /*

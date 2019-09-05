@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/04 13:18:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/05 15:51:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ void    shot(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i))
+		{
 			env->enemies[i].health -= damage_done(*env, i);
+			env->enemies[i].hit = 1;
+		}
 		i++;
 	}
-	/* if (env->enemies[i].health <= 0)
+ 	/* if (env->enemies[i].health <= 0)
 	   env->enemies[i].exists = 0; */
 	//break ;
 }
