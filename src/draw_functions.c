@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 15:15:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:37:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (!env->options.lighting)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
-			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+			//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
+			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
+		//ft_printf("light = %d\n", render.light);
 		if (env->editor.in_game && render.selected && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 		zbuffer[coord] = render.z;
+		//ft_printf("light = %d\n", (int)(255 * render.light));
 		/*if (i == (int)render.floor_horizon)
 			pixels[coord] = 0xFF00FF00;*/
 		/*if (i == (int)render.floor_horizon1)
@@ -183,7 +186,8 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			if (!env->options.lighting)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
-				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+				//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 		if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
@@ -272,7 +276,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			if (!env->options.lighting)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
-				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light);
+				//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
+				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
@@ -312,10 +317,10 @@ void	draw_ceiling(t_render render, t_env *env)
 	vline.end = ft_min(render.current_ceiling - 1, env->h - 1);
 	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light);
-	/*if (env->sectors[render.sector].ceiling_slope)
+		vline.color = apply_light(vline.color, render.light_color, render.brightness);
+	if (env->sectors[render.sector].ceiling_slope)
 		draw_vline_color(vline, render, env);
-	else*/
+	else
 		draw_vline_ceiling(vline, render, env);
 }
 
@@ -331,12 +336,12 @@ void	draw_floor(t_render render,t_env *env)
 	vline.start = ft_max(0, render.current_floor + 1);
 	vline.end = env->ymax[vline.x];
 	vline.color = 0xFF0B6484;
-	vline.color = 0xFFFF0000;
+	//vline.color = 0xFFFF0000;
 	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light);
-	/*if (env->sectors[render.sector].floor_slope)
+		vline.color = apply_light(vline.color, render.light_color, render.brightness);
+	if (env->sectors[render.sector].floor_slope)
 		draw_vline_color(vline, render, env);
-	else*/
+	else
 		draw_vline_floor(vline, render, env);
 }
 
@@ -352,9 +357,9 @@ void	draw_upper_wall(t_render render, t_env *env)
 	vline.start = render.current_ceiling;
 	vline.end = render.current_neighbor_ceiling;
 	vline.color = 0xFF0B6484;
-	vline.color = 0xFFFF0000;
+	//vline.color = 0xFFFF0000;
 	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light);
+		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	//ft_printf("floor end = %d\n", vline.end);
 	draw_vline(vline, render, env);
 	//draw_vline_color(vline, render, env);
@@ -381,7 +386,7 @@ void	draw_bottom_wall(t_render render,t_env *env)
 	vline.color = 0xFF444444;
 	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light);
+		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	//ft_printf("ceiling start = %d\n", vline.start);
 	draw_vline(vline, render, env);
 	//draw_vline_color(vline, render, env);

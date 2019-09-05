@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 14:21:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:23:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,10 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 			new_v3(env->objects[parser->objects_count].pos.x,
 				env->objects[parser->objects_count].pos.y,
 				env->objects[parser->objects_count].pos.z));
-	env->objects[parser->objects_count].light =
-		env->sectors[env->objects[parser->objects_count].sector].light;
+	env->objects[parser->objects_count].brightness =
+		env->sectors[env->objects[parser->objects_count].sector].brightness;
+	env->objects[parser->objects_count].light_color =
+		env->sectors[env->objects[parser->objects_count].sector].light_color;
 	return (0);
 }
 

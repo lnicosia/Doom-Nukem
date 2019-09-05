@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 14:21:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:24:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,10 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 			new_v3(env->enemies[parser->enemies_count].pos.x,
 				env->enemies[parser->enemies_count].pos.y,
 				env->enemies[parser->enemies_count].pos.z));
-	env->enemies[parser->enemies_count].light =
-		env->sectors[env->enemies[parser->enemies_count].sector].light;
+	env->enemies[parser->enemies_count].brightness =
+		env->sectors[env->enemies[parser->enemies_count].sector].brightness;
+	env->enemies[parser->enemies_count].light_color =
+		env->sectors[env->enemies[parser->enemies_count].sector].light_color;
 	return (0);
 }
 

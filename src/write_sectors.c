@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:07:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:27:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	write_sector(int fd, t_sector sector)
 	write_sector_vertices(fd, sector);
 	write_sector_neighbors(fd, sector);
 	write_sector_textures(fd, sector);
-	ft_dprintf(fd, "%d\n", (int)(sector.light * 100));
+	ft_dprintf(fd, "%d\n", (int)(sector.brightness));
 }
 
 void		write_sectors(int fd, t_env *env)

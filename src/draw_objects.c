@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 15:15:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:21:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static void		*object_loop(void *param)
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
-					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light);
+					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light_color, orender.brightness);
 				if (env->editor.in_game && !env->editor.select && env->selected_object == object.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
@@ -159,8 +159,8 @@ static void		draw_object(t_object *object, t_env *env)
 	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
 	orender.y2 = orender.screen_pos.y;
-	orender.light = 255 - ft_clamp(object->rotated_pos.z * 2, 0, 255);
-	orender.light = object->light;
+	orender.light_color = object->light_color;
+	orender.brightness = object->brightness;
 	orender.xstart = ft_clamp(orender.x1, 0, env->w - 1);
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);

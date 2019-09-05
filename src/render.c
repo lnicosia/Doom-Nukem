@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 15:15:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:19:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	render_sector(t_env *env, t_render render)
 			render.floor_xscale = env->textures[render.floor_texture].surface->w / 5.0;
 			render.ceiling_yscale = env->textures[render.ceiling_texture].surface->h / 5.0;
 			render.ceiling_xscale = env->textures[render.ceiling_texture].surface->w / 5.0;
-			render.light = sector.light;
+			render.brightness = sector.brightness;
+			render.light_color = sector.light_color;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 			{

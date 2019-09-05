@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 15:49:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:34:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	get_rotated_enemy_pos(t_env *env, t_enemies *enemy)
 		+ enemy->rotated_pos.z * env->player.angle_z;
 }
 
-void	project_enemy(t_render_enemy *erender, t_enemies enemy, t_env *env)
+void	project_enemy(t_render_object *erender, t_enemies enemy, t_env *env)
 {
 	double	scale;
 

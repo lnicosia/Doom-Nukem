@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 15:11:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:35:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct		s_render
 	double			clipped_vx2;
 	double			clipped_vy1;
 	double			clipped_vy2;
-	double			light;
 	double			z;
 	double			clipped_z;
 	double			dist1;
@@ -114,6 +113,8 @@ typedef struct		s_render
 	int				texture;
 	int				floor_texture;
 	int				ceiling_texture;
+	uint8_t			brightness;
+	Uint32			light_color;
 	double			x1z1;
 	double			x2z2;
 	double			y1z1;
@@ -154,29 +155,12 @@ typedef struct		s_render_object
 	int				xend;
 	int				yend;
 	int				index;
-	double			light;
+	uint8_t			brightness;
+	Uint32			light_color;
 	double			xrange;
 	double			yrange;
 	t_point			screen_pos;
 }					t_render_object;
-
-typedef struct		s_render_enemy
-{
-	double			dist;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				xstart;
-	int				ystart;
-	int				xend;
-	int				yend;
-	int				index;
-	double			light;
-	double			xrange;
-	double			yrange;
-	t_point			screen_pos;
-}					t_render_enemy;
 
 typedef struct		s_render_thread
 {
@@ -199,7 +183,7 @@ typedef struct		s_enemy_thread
 {
 	t_env			*env;
 	t_enemies		enemy;
-	t_render_enemy	erender;
+	t_render_object	orender;
 	int				xstart;
 	int				xend;
 }					t_enemy_thread;
@@ -234,7 +218,7 @@ int					get_screen_sectors(t_env *env);
 void				*get_enemy_relative_pos(void *param);
 void				get_translated_enemy_pos(t_env *env, t_enemies *enemy);
 void				get_rotated_enemy_pos(t_env *env, t_enemies *enemy);
-void				project_enemy(t_render_enemy *erender, t_enemies enemy, t_env *env);
+void				project_enemy(t_render_object *erender, t_enemies enemy, t_env *env);
 
 void				get_translated_object_pos(t_env *env, t_object *object);
 void				get_rotated_object_pos(t_env *env, t_object *object);
