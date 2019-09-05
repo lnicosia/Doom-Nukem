@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 11:58:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/05 13:41:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ typedef struct		s_sector
 	short			floor_texture;
 	short			num;
 	short			nb_vertices;
-	int				brightness;
 	int				skybox;
+	int				brightness;
 	Uint32			light_color;
 }					t_sector;
 
@@ -337,7 +337,7 @@ typedef struct		s_object
 	int				sprite;
 	double			scale;
 	double			angle;
-	uint8_t			brightness;
+	short			brightness;
 	Uint32			light_color;
 	int				pickable;
 	int				solid;
@@ -363,7 +363,7 @@ typedef struct		s_enemies
 	int				death_sprite;
 	double			scale;
 	double			angle;
-	uint8_t			brightness;
+	short			brightness;
 	Uint32			light_color;
 	int				health;
 	int				damage;
