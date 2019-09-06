@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 12:29:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:20:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct		s_render
 	int				texture;
 	int				floor_texture;
 	int				ceiling_texture;
+	int				skybox;
 	short			brightness;
 	Uint32			light_color;
 	double			x1z1;
@@ -212,7 +213,7 @@ void				handle_near(t_render *render, t_env *env);
 int					get_screen_sectors(t_env *env);
 void				render_sector(t_env *env, t_render render);
 //void				compute_skybox(t_render *render, t_env *env);
-void				draw_skybox(t_vline vline, t_render render, t_env *env);
+void				draw_skybox(t_render render, t_env *env);
 
 /*
 **	Sprite part

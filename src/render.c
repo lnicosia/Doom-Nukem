@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 12:34:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:20:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void	render_sector(t_env *env, t_render render)
 			sector = env->sectors[render.sector];
 			render.i = i;
 			render.selected = 0;
+			render.skybox = 0;
+			if (env->sectors[render.sector].skybox)
+				render.skybox = 1;
 			if (env->selected_wall1 == sector.vertices[i]
 					&& env->selected_wall2 == sector.vertices[i + 1])
 				render.selected = 1;

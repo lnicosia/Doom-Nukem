@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 09:57:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 14:57:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 13:45:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 void	get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i)
 {
 	if (i != 0)
-	{
-		render->v1.x = render->v2.x;
-		render->v1.z = render->v2.z;
-	}
+		render->v1 = render->v2;
 	else
 	{
 		render->v1.x = env->vertices[sector.vertices[i]].x - env->player.pos.x;
