@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:33:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 14:56:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 11:59:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			check_fov(t_render *render, t_env *env)
 	if ((render->vz1 < env->camera.near_z && render->vz2 < env->camera.near_z)
 			|| (render->vz1 > env->camera.far_z && render->vz2 > env->camera.far_z)
 			|| (render->vx1 < env->camera.far_left && render->vx2 < env->camera.far_left)
-			|| (render->vx2 > env->camera.far_right && render->vx2 > env->camera.far_right))
+			|| (render->vx1 > env->camera.far_right && render->vx2 > env->camera.far_right))
 		return (0);
 	get_intersections(render, env);
 	return (1);

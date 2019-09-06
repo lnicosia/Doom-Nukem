@@ -6,20 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/09/04 10:50:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 11:24:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-static void	swap_value(int *a, int *b)
-{
-	int		tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
 
 static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
@@ -34,73 +25,6 @@ static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
 				pixels[x + env->w * y] = color;
 		}
-	}
-}
-
-void	draw_line_minimap_2(t_env *env, t_line line)
-{
-	int		step;
-	float	error;
-	float	round_error;
-	int		y;
-	int		y_step;
-	int		i;
-
-	step = abs(line.p1.x - line.p0.x) < abs(line.p1.y - line.p0.y);
-	if (step)
-	{
-		swap_value(&(line.p0.x), &(line.p0.y));
-		swap_value(&(line.p1.x), &(line.p1.y));
-	}
-	if (line.p1.x < line.p0.x)
-	{
-		swap_value(&(line.p0.x), &(line.p1.x));
-		swap_value(&(line.p0.y), &(line.p1.y));
-	}
-	error = 0.0;
-	round_error = abs(line.p1.y - line.p0.y) / (line.p1.x - line.p0.x);
-	y = line.p0.y;
-	y_step = (line.p1.y > line.p0.y ? 1 : -1);
-	i = line.p0.x;
-	while (i < line.p1.x)
-	{
-		if (step)
-			put_pixel(env, y, i, line.color);
-		else
-			put_pixel(env, i, y, line.color);
-		error += round_error;
-		if (error >= 0.5)
-		{
-			y++;
-			error -= 1.0;
-		}
-		i++;
-	}
-}
-
-void		draw_line_minimap_3(t_env *env, t_line line)
-{
-	double			length;
-	double			addx;
-	double			addy;
-	int				i;
-
-	t_v2			ps2;
-
-	ps2.x = line.p1.x - line.p0.x;
-	ps2.y = line.p1.y - line.p0.y;
-	length = sqrt(ps2.x * ps2.x + ps2.y * ps2.y);
-	addx = ps2.x / length;
-	addy = ps2.y / length;
-	ps2.x = line.p0.x;
-	ps2.y = line.p0.y;
-	i = 0;
-	while (i < length)
-	{
-		put_pixel(env, ps2.x, ps2.y, line.color);
-		ps2.x += addx;
-		ps2.y += addy;
-		i++;
 	}
 }
 

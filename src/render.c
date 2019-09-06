@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 17:06:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 12:34:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,21 @@ void	render_sector(t_env *env, t_render render)
 	int			i;
 	t_sector	sector;
 	//t_vline		vline;
-	int			x;
 
 	if (!env->rendered_sectors[render.sector])
 	{
 		env->rendered_sectors[render.sector]++;
 		i = 0;
 		sector = env->sectors[render.sector];
+		render.floor_texture = sector.floor_texture;
+		render.ceiling_texture = sector.ceiling_texture;
+		render.floor_yscale = env->textures[render.floor_texture].surface->h / 10;
+		render.floor_xscale = env->textures[render.floor_texture].surface->w / 10;
+		render.ceiling_yscale = env->textures[render.ceiling_texture].surface->h / 10;
+		render.ceiling_xscale = env->textures[render.ceiling_texture].surface->w / 10;
+		render.brightness = sector.brightness;
+		render.light_color = sector.light_color;
+		render.wall_height = (sector.ceiling - sector.floor) / 10;
 		while (i < sector.nb_vertices)
 		{
 			sector = env->sectors[render.sector];
@@ -100,16 +108,7 @@ void	render_sector(t_env *env, t_render render)
 			render.v1_clipped = 0;
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 10;
-			render.wall_height = (sector.ceiling - sector.floor) / 10;
 			render.texture = sector.textures[i];
-			render.floor_texture = sector.floor_texture;
-			render.ceiling_texture = sector.ceiling_texture;
-			render.floor_yscale = env->textures[render.floor_texture].surface->h / 10;
-			render.floor_xscale = env->textures[render.floor_texture].surface->w / 10;
-			render.ceiling_yscale = env->textures[render.ceiling_texture].surface->h / 10;
-			render.ceiling_xscale = env->textures[render.ceiling_texture].surface->w / 10;
-			render.brightness = sector.brightness;
-			render.light_color = sector.light_color;
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 			{
@@ -147,19 +146,14 @@ void	render_sector(t_env *env, t_render render)
 						render.neighbor_ceil_range = render.neighbor_ceiling2 - render.neighbor_ceiling1;
 						render.neighbor_floor_range = render.neighbor_floor2 - render.neighbor_floor1;
 					}
-					if (sector.skybox && render.ceiling1 >= 0 && render.ceiling2 >= 0)
-					{
-						compute_skybox(&render, env);
-					}
-					x = render.xstart;
 					render.xrange = render.x2 - render.x1;
 					render.preclip_xrange = render.preclip_x2 - render.preclip_x1;
 					render.x1z1 = env->vertices[sector.vertices[i]].x / render.vz1;
 					render.x2z2 = env->vertices[sector.vertices[i + 1]].x / render.vz2;
 					render.y1z1 = env->vertices[sector.vertices[i]].y / render.vz1;
 					render.y2z2 = env->vertices[sector.vertices[i + 1]].y / render.vz2; 
-					render.ceil_range = render.ceiling2 - render.ceiling1;
 					render.floor_range = render.floor2 - render.floor1;
+					render.ceil_range = render.ceiling2 - render.ceiling1;
 					if (render.vz2)
 						render.projected_texture_w = env->textures[render.texture].surface->w
 							* render.wall_width / render.vz2;

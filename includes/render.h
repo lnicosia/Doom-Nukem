@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 16:01:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 12:29:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,6 @@ typedef struct		s_render
 	double			ceiling_xscale;
 	double			floor_yscale;
 	double			floor_xscale;
-	double			sky_x1;
-	double			sky_x2;
-	double			sky_angle_z1;
-	double			sky_angle_z2;
 }					t_render;
 
 typedef struct		s_render_object
@@ -214,8 +210,9 @@ void				handle_right(t_render *render, t_env *env);
 void				handle_far(t_render *render, t_env *env);
 void				handle_near(t_render *render, t_env *env);
 int					get_screen_sectors(t_env *env);
-void				compute_skybox(t_render *render, t_env *env);
 void				render_sector(t_env *env, t_render render);
+//void				compute_skybox(t_render *render, t_env *env);
+void				draw_skybox(t_vline vline, t_render render, t_env *env);
 
 /*
 **	Sprite part
@@ -233,6 +230,7 @@ void				project_object(t_render_object *orender, t_object object, t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
 void				*raycasting(void *param);
 void				threaded_raycasting(t_env *env, t_render render);
-void				draw_skybox(t_vline vline, t_render render, t_env *env);
+void				*skybox_thread(void *param);
+void				threaded_skybox(t_env *env, t_render render);
 
 #endif
