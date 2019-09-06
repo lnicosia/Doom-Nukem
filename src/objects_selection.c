@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 17:13:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 13:31:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	objects_selection(t_env *env)
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_object == -1)
+			&& env->editor.dragged_object == -1
+			&& env->editor.dragged_enemy == -1)
 	{
 		env->editor.dragged_object = env->nb_objects;
 	}

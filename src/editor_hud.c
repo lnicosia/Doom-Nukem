@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 17:20:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 16:22:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,28 @@ void	print_floor_informations(t_env *env)
 	print_text(new_point(170, 470), new_printable_text(ft_sitoa(env->sectors[env->selected_floor].floor_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 }
 
+void	select_informations(t_env *env)
+{
+	print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
+		env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
+}
+
 void	print_enemy_informations(t_env *env)
 {
 	print_text(new_point(10, 380), new_printable_text("enemy",
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->selected_enemy),
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(90, 260), new_printable_text("health: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(90, 280), new_printable_text("health: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 430), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].health), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 260), new_printable_text("speed: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(130, 280), new_printable_text("speed: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(130, 430), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].speed), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(170, 260), new_printable_text("damages: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(170, 280), new_printable_text("damages: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(170, 430), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].damage), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-
+	print_text(new_point(210, 280), new_printable_text("sprite: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(210, 430), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].sprite), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	if (env->editor.in_game)
+		select_informations(env);
 }
 
 void	editor_hud(t_env *env)

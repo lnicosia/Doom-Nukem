@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:41:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 17:31:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 14:37:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ void	draw_grid_objects(t_env *env)
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
-					&& env->editor.dragged_vertex == -1)
+					&& env->editor.dragged_vertex == -1
+					&& env->editor.dragged_enemy == -1)
 			{
 				env->editor.dragged_object = i;
 				env->editor.selected_object = i;
 				env->editor.selected_vertex = -1;
 				env->editor.selected_sector = -1;
 				env->editor.selected_player = -1;
+				env->selected_enemy = -1;
 			}
 		}
 		else

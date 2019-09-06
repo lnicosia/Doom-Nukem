@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 16:39:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 16:26:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			add_sector(t_env *env)
 {
 	t_sector	sector;
 
+	ft_printf("coucou\n");
 	sector = new_default_sector(env);
 	if (init_new_sector_arrays(&sector))
 		return (ft_printf("Error while initializing new sector arrays\n"));

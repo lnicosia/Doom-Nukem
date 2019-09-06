@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 16:56:49 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 17:09:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 14:37:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	draw_grid_enemies(t_env *env)
 				env->editor.selected_vertex = -1;
 				env->editor.selected_sector = -1;
 				env->editor.selected_player = -1;
+				env->editor.selected_object = -1;
 			}
 		}
 		else

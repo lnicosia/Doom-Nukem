@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/05 17:18:58 by sipatry          ###   ########.fr        #
+#    Updated: 2019/09/06 12:12:58 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c add_object.c editor_keyup.c \
+				 write_player.c write_enemies.c add_object.c editor_keyup.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
 				 draw_grid_player.c draw_grid_objects.c  \
 				 is_new_vertex_valid.c add_enemy.c enemy_selection.c\
@@ -82,8 +82,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast
+		  -flto -Ofast
+		  #-fsanitize=address -g3 \
 
 DEBUG ?= 0
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:39:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 12:31:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 16:19:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		save_map(char *file, t_env *env)
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
+	write_enemies(fd, env);
 	write_player(fd, env);
 	if (close(fd))
 		return (ft_printf("Could not close the file\n"));

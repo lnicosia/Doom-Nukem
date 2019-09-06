@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 16:49:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 16:47:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ typedef struct		s_audio
 typedef struct		s_time
 {
 	double			tick;
+	double			tick2;
 	double			start;
 	double			end;
 	double			minuts;

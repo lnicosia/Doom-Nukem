@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 15:51:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 16:41:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void		keys(t_env *env)
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
-	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+	if ((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
+			&& (((env->selected_enemy == -1 && env->editor.tab)
+			|| (env->selected_enemy != -1 && !env->editor.tab))
+			|| (env->selected_enemy == -1 && !env->editor.tab)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -53,6 +56,7 @@ void		keys(t_env *env)
 		env->selected_wall2 = -1;
 		env->selected_ceiling = -1;
 		env->selected_floor = -1;
+		env->selected_enemy = -1;
 	}
 
 	/*
@@ -112,8 +116,7 @@ void		keys(t_env *env)
 		if (env->inputs.plus
 				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)
 			env->sectors[env->selected_floor].floor += 0.05;
-		if (env->inputs.minus
-				&& env->sectors[env->selected_floor].floor)
+		else if (env->inputs.minus)
 			env->sectors[env->selected_floor].floor -= 0.05;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 	}
@@ -127,12 +130,12 @@ void		keys(t_env *env)
 		env->sectors[env->player.sector].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
 	}
-	if (env->inputs.up && env->inputs.shift)
+	if (env->inputs.up && !env->inputs.shift && !env->editor.tab && env->editor.in_game)
 	{
-		env->sectors[env->player.sector].ceiling_slope += 0.01;
+		env->sectors[env->player.sector].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
 	}
-	if (env->inputs.down && env->inputs.shift)
+/*	if (env->inputs.down && env->inputs.shift)
 	{
 		env->sectors[env->player.sector].ceiling_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
@@ -142,10 +145,70 @@ void		keys(t_env *env)
 			env->sectors[env->player.sector].ceiling_slope += 0.01;
 			update_sector_slope(env, &env->sectors[env->player.sector]);
 		}
-	}
+	}*/
 	if (env->inputs.right_click && !env->option)
 	{
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
+	}
+
+	/*
+	 * *	select the stats of an enemy
+	 */
+	
+	if (env->editor.tab && env->selected_enemy != -1 && env->editor.in_game)
+	{
+		time = SDL_GetTicks();
+		if (!env->time.tick2)
+			env->time.tick2 = SDL_GetTicks();
+		if (env->inputs.backward && env->selected_stat < 3 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			env->selected_stat++;
+		}
+		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			env->selected_stat--;
+		}
+		if (env->selected_stat == 0 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			if (env->inputs.left && env->enemies[env->selected_enemy].health > 5)
+				env->enemies[env->selected_enemy].health -= 5;
+			if (env->inputs.right && env->enemies[env->selected_enemy].health < 100)
+				env->enemies[env->selected_enemy].health += 5;
+		}
+		else if (env->selected_stat == 1 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			if (env->inputs.left && env->enemies[env->selected_enemy].speed > 5)
+				env->enemies[env->selected_enemy].speed -= 5;
+			if (env->inputs.right && env->enemies[env->selected_enemy].speed < 100)
+				env->enemies[env->selected_enemy].speed += 5;
+		}
+		else if (env->selected_stat == 2 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			if (env->inputs.left && env->enemies[env->selected_enemy].damage > 5)
+				env->enemies[env->selected_enemy].damage -= 5;
+			if (env->inputs.right && env->enemies[env->selected_enemy].damage < 100)
+				env->enemies[env->selected_enemy].damage += 5;
+		}
+		else if (env->selected_stat == 3 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			if (env->inputs.left && env->enemies[env->selected_enemy].sprite == 2)
+			{
+				env->enemies[env->selected_enemy].sprite--;
+				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor + 5;
+			}
+			if (env->inputs.right && env->enemies[env->selected_enemy].sprite == 1)
+			{
+				env->enemies[env->selected_enemy].sprite++;
+				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor;
+			}
+		}
+
 	}
 }
