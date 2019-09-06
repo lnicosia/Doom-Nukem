@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/05 11:17:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/06 12:26:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,16 +204,19 @@ void    enemy_pursuit(t_env *env)
                 env->sector_list[j] = 0;
             j++;
         }
-        if (enemy_view(env, i, env->enemies[i].sector) && env->enemies[i].exists)
+        env->enemies[i].state = 0;
+        if (env->enemies[i].exists && /*distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) <= 10 &&*/ enemy_view(env, i, env->enemies[i].sector))
         {
+            env->enemies[i].state = 1;
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
-            direction = sprite_movement(env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
-            direction.x = 0;
+            direction = sprite_movement(env->enemies[i].speed / 20, env->enemies[i].pos, env->player.pos);
+          direction.x = 0;
             direction.y = 0;
-            direction.z = 0;
+            direction.z = 0; 
             env->player.pos.z = tmp_z;
             //ft_printf("he saw me %d\n", a++);
+            //ft_printf("direction.x %f .y %f .z %f\n", direction.x, direction.y, direction.z);
 
             env->enemies[i].pos.x += direction.x;
             env->enemies[i].pos.y += direction.y;

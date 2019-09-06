@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 14:43:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:41:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
+double     			distance_two_points(double x1, double y1, double x2, double y2);
 
 /*
 ** enemies functions
@@ -310,7 +311,8 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 void	enemy_pursuit(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);
-void     resting_enemy(t_env *env, int i);
+void    resting_enemy(t_env *env, int i);
+void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 
 #endif
