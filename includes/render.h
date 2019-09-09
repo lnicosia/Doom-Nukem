@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 14:20:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 10:24:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct		s_render
 	t_v2			inter_left;
 	t_v2			inter_right;
 	t_v2			texel;
-	t_v2			player_texel;
+	t_v2			player_pos;
 	double			vx1;
 	double			vx2;
 	double			vz1;
@@ -200,6 +200,8 @@ void				get_relative_heights(t_render *render, t_env *env, t_sector sector, int 
 void				get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighbor);
 void				draw_vline(t_vline, t_render render, t_env *env);
 void				draw_vline_color(t_vline, t_render render, t_env *env);
+void				draw_vline_floor(t_vline, t_render render, t_env *env);
+void				draw_vline_ceiling(t_vline, t_render render, t_env *env);
 void				draw_ceiling(t_render render, t_env *env);
 void				draw_floor(t_render render, t_env *env);
 void				draw_upper_wall(t_render render, t_env *env);

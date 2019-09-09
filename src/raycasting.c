@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/28 14:29:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/09 10:56:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*raycasting(void *param)
 		render.alpha = (x - render.preclip_x1) / render.preclip_xrange;
 		render.clipped_alpha = (x - render.x1) / render.xrange;
 		render.z = 1.0 / ((1.0 - render.alpha) / render.vz1 + render.alpha / render.vz2);
-		render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.clipped_vz1 + render.clipped_alpha / render.vz2);
+		render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha) / render.clipped_vz1 + render.clipped_alpha / render.clipped_vz2);
 		// Lumiere
 		//render.light = 255 - ft_fclamp(render.z * 2.00, 0.00, 255.00);
 
@@ -58,10 +58,10 @@ void	*raycasting(void *param)
 		vline.color = 0xFF222222;
 		vline.color = 0xFFFF0000;
 		// Dessiner le plafond de ymin jusqu'au plafond
-		if (render.current_ceiling > 0)
+		if (render.current_ceiling > env->ymin[x])
 			draw_ceiling(render, env);
 		// Dessiner le sol du sol jusqu'a ymax
-		if (render.current_floor < env->h)
+		if (render.current_floor < env->ymax[x])
 			draw_floor(render, env);
 		if (sector.neighbors[render.i] >= 0)
 		{

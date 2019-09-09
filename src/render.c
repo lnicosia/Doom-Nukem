@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 14:20:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 12:25:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	render_sector(t_env *env, t_render render)
 		render.brightness = sector.brightness;
 		render.light_color = sector.light_color;
 		render.wall_height = (sector.ceiling - sector.floor) / 10;
+		render.player_pos.x = env->player.camera_x;
+		render.player_pos.y = env->player.camera_y;
 		while (i < sector.nb_vertices)
 		{
 			sector = env->sectors[render.sector];

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 14:20:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 12:24:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,10 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			env->selected_object = -1;
 			env->selected_enemy = -1;
 		}
-		y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
-		x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
+		y = alpha * render.texel.y + (1.0 - alpha) * render.player_pos.y;
+		x = alpha * render.texel.x + (1.0 - alpha) * render.player_pos.x;
+		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
+		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
 		y *= render.ceiling_yscale;
 		x *= render.ceiling_xscale;
 		if (y >= texture_h || y < 0)
