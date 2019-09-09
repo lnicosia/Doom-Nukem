@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 16:44:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 13:47:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		doom(t_env *env)
 	env->player.size_2d = 0.5;
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env->sound.background, -1);
-	ft_printf("Launching game loop..\n");
+	//ft_printf("launching game loop..\n");
 	env->flag = 0;
 	env->player.fall = 1;*/
 	while (env->running)
@@ -60,7 +60,6 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
-	//	SDL_Delay(5);
 	}
 	ft_printf("User quit the game\n");
 	free_all(env);

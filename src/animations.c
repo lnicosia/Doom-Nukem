@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/05 14:49:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/06 12:12:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,26 @@ void     resting_enemy(t_env *env, int i)
         env->enemies[i].rest.start = SDL_GetTicks();
     start = env->enemies[i].rest.start;
     time_spent = env->time.milli_s - start;
-    if ((int)time_spent % 680 > 340)
+    if ((int)time_spent % 340 > 170)
     {
         env->enemies[i].rest.start = 0;
         env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].rest_sprite;
+    }
+}
+
+void     pursuing_enemy(t_env *env, int i)
+{
+    double start;
+    double time_spent;
+
+    if (env->enemies[i].pursue.start == 0)
+        env->enemies[i].pursue.start = SDL_GetTicks();
+    start = env->enemies[i].pursue.start;
+    time_spent = env->time.milli_s - start;
+    if ((int)time_spent % 340 > 170)
+    {
+        env->enemies[i].pursue.start = 0;
+        env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].pursuit_sprite;
     }
 }
 
@@ -97,7 +113,7 @@ int     dying_enemy(t_env *env, int i, int nb_sprites)
         env->enemies[i].death.start = SDL_GetTicks();
     start = env->enemies[i].death.start;
     time_spent = env->time.milli_s - start;
-    if ((int)time_spent >= 70 && (int)time_spent / 70 <= nb_sprites)
+    if ((int)time_spent >= 70 && (int)time_spent / 70 < nb_sprites)
         return ((int)(time_spent / 70));
     else if ((int)time_spent < 70)
         return (0);

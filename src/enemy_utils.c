@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/05 11:17:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/06 15:37:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_v3    sprite_movement(double speed, t_v3 origin, t_v3 destination)
     t_v3    direction;
     double  distance;
 
+    //ft_printf("%f\n", speed);
     direction.x = destination.x - origin.x;
     direction.y = destination.y - origin.y;
     direction.z = destination.z - origin.z;
@@ -204,16 +205,19 @@ void    enemy_pursuit(t_env *env)
                 env->sector_list[j] = 0;
             j++;
         }
-        if (enemy_view(env, i, env->enemies[i].sector) && env->enemies[i].exists)
+        env->enemies[i].state = 0;
+        if (env->enemies[i].exists && /*distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) <= 10 &&*/ env->enemies[i].seen)
         {
+            env->enemies[i].state = 1;
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
-            direction = sprite_movement(env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
-            direction.x = 0;
+            direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
+            /*direction.x = 0;
             direction.y = 0;
-            direction.z = 0;
+            direction.z = 0;*/
             env->player.pos.z = tmp_z;
             //ft_printf("he saw me %d\n", a++);
+            //ft_printf("direction.x %f .y %f .z %f\n", direction.x, direction.y, direction.z);
 
             env->enemies[i].pos.x += direction.x;
             env->enemies[i].pos.y += direction.y;
@@ -221,9 +225,11 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].sector = get_sector(env, env->enemies[i].pos, env->enemies[i].sector);
 
             //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
-            /*ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);
-            ft_printf("enemy %f\n", env->objects[i].angle);
-            env->objects[i].angle = sprite_rotate(env->objects[i].angle, -env->player.angle * CONVERT_DEGREES);*/
+            //ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);
+            env->enemies[i].angle = (env->player.angle * CONVERT_DEGREES) + 180;
+            //ft_printf("enemy %f\n", env->enemies[i].angle);
+            //env->enemies[i].angle = 90;
+            //env->enemies[i].angle = sprite_rotate(env->enemies[i].angle, env->player.angle * CONVERT_DEGREES + 180);
         }
         i++;
     }

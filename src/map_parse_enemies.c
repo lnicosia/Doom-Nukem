@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:40:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:21:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before enemy damage", "a digit or space(s)",
 					**line, parser));
 	env->enemies[parser->enemies_count].damage = ft_atoi(*line);
-	if (env->enemies[parser->enemies_count].speed <= 0)
+	if (env->enemies[parser->enemies_count].damage <= 0)
 		return (custom_error_with_line("Enemy must do more than 0 damage", parser));
 	*line = skip_number(*line);
 	if (!**line)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:52:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:20:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,10 @@ void		draw_enemies(t_env *env)
 			{
 				if (env->enemies[i].health <= 0)
 					dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
-				resting_enemy(env, i);
+				if (!env->enemies[i].state)
+					resting_enemy(env, i);
+				else
+					pursuing_enemy(env, i);
 			}
 			if (env->enemies[i].exists)
 				draw_enemy(&env->enemies[i], env, dying_sprite);

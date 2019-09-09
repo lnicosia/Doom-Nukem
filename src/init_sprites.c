@@ -6,16 +6,19 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:47:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:20:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "map_parser.h"
+/*
+**
+*/
 
 int			init_sprites(t_env *env)
 {
-	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 7)))
+	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 9)))
 		return (ft_printf("Could not malloc sprites\n"));
 	env->sprites[0].texture = 33;
 	env->sprites[0].death_counterpart = 0;
@@ -31,6 +34,7 @@ int			init_sprites(t_env *env)
 	// Sprite oriente, lost soul
 	env->sprites[1].texture = 34;
 	env->sprites[1].death_counterpart = 4;
+	env->sprites[1].pursuit_sprite = 7;
 	env->sprites[1].rest_sprite = 3;
 	env->sprites[1].curr_sprite = 1;
 	env->sprites[1].oriented = 1;
@@ -104,6 +108,7 @@ int			init_sprites(t_env *env)
 
 	env->sprites[2].texture = 44;
 	env->sprites[2].death_counterpart = 6;
+	env->sprites[2].pursuit_sprite = 5;
 	env->sprites[2].rest_sprite = 5;
 	env->sprites[2].curr_sprite = 2;
 	env->sprites[2].oriented = 1;
@@ -176,6 +181,7 @@ int			init_sprites(t_env *env)
 	// animation repos lost soul
 	env->sprites[3].texture = 34;
 	env->sprites[3].death_counterpart = 4;
+	env->sprites[3].pursuit_sprite = 8;
 	env->sprites[3].rest_sprite = 1;
 	env->sprites[3].curr_sprite = 3;
 	env->sprites[3].oriented = 1;
@@ -248,6 +254,7 @@ int			init_sprites(t_env *env)
 	// death lost soul
 	env->sprites[4].texture = 34;
 	env->sprites[4].death_counterpart = 4;
+	env->sprites[4].pursuit_sprite = 4;
 	env->sprites[4].rest_sprite = 4;
 	env->sprites[4].curr_sprite = 4;
 	env->sprites[4].oriented = 0;
@@ -305,10 +312,11 @@ int			init_sprites(t_env *env)
 
 	env->sprites[5].texture = 44;
 	env->sprites[5].death_counterpart = 6;
+	env->sprites[5].pursuit_sprite = 2;
 	env->sprites[5].rest_sprite = 2;
 	env->sprites[5].curr_sprite = 5;
 	env->sprites[5].oriented = 1;
-	env->sprites[1].nb_death_sprites = 8;
+	env->sprites[5].nb_death_sprites = 8;
 
 	env->sprites[5].start[0].x = 44;
 	env->sprites[5].start[0].y = 608;
@@ -378,6 +386,7 @@ int			init_sprites(t_env *env)
 
 	env->sprites[6].texture = 44;
 	env->sprites[6].death_counterpart = 6;
+	env->sprites[6].pursuit_sprite = 6;
 	env->sprites[6].rest_sprite = 6;
 	env->sprites[6].curr_sprite = 6;
 	env->sprites[6].oriented = 0;
@@ -447,5 +456,152 @@ int			init_sprites(t_env *env)
 	env->sprites[6].size[7].y = 134;
 	env->sprites[6].reversed[7] = 0;
 
+	// lost soul pursuit 1
+
+	env->sprites[7].texture = 34;
+	env->sprites[7].death_counterpart = 4;
+	env->sprites[7].pursuit_sprite = 8;
+	env->sprites[7].rest_sprite = 1;
+	env->sprites[7].curr_sprite = 7;
+	env->sprites[7].oriented = 1;
+	env->sprites[7].nb_death_sprites = 6;
+
+	env->sprites[7].start[0].x = 44;
+	env->sprites[7].start[0].y = 207;
+	env->sprites[7].end[0].x = 87;
+	env->sprites[7].end[0].y = 250;
+	env->sprites[7].size[0].x = 44;
+	env->sprites[7].size[0].y = 44;
+	env->sprites[7].reversed[0] = 0;
+
+	env->sprites[7].start[1].x = 132;
+	env->sprites[7].start[1].y = 207;
+	env->sprites[7].end[1].x = 191;
+	env->sprites[7].end[1].y = 242;
+	env->sprites[7].size[1].x = 60;
+	env->sprites[7].size[1].y = 36;
+	env->sprites[7].reversed[1] = 0;
+
+	env->sprites[7].start[2].x = 236;
+	env->sprites[7].start[2].y = 207;
+	env->sprites[7].end[2].x = 302;
+	env->sprites[7].end[2].y = 239;
+	env->sprites[7].size[2].x = 67;
+	env->sprites[7].size[2].y = 33;
+	env->sprites[7].reversed[2] = 0;
+
+	env->sprites[7].start[3].x = 347;
+	env->sprites[7].start[3].y = 207;
+	env->sprites[7].end[3].x = 400;
+	env->sprites[7].end[3].y = 238;
+	env->sprites[7].size[3].x = 54;
+	env->sprites[7].size[3].y = 32;
+	env->sprites[7].reversed[3] = 0;
+
+	env->sprites[7].start[4].x = 445;
+	env->sprites[7].start[4].y = 207;
+	env->sprites[7].end[4].x = 488;
+	env->sprites[7].end[4].y = 232;
+	env->sprites[7].size[4].x = 44;
+	env->sprites[7].size[4].y = 26;
+	env->sprites[7].reversed[4] = 0;
+
+	env->sprites[7].start[5].x = 347;
+	env->sprites[7].start[5].y = 207;
+	env->sprites[7].end[5].x = 400;
+	env->sprites[7].end[5].y = 238;
+	env->sprites[7].size[5].x = 54;
+	env->sprites[7].size[5].y = 32;
+	env->sprites[7].reversed[5] = 1;
+
+	env->sprites[7].start[6].x = 236;
+	env->sprites[7].start[6].y = 207;
+	env->sprites[7].end[6].x = 302;
+	env->sprites[7].end[6].y = 239;
+	env->sprites[7].size[6].x = 67;
+	env->sprites[7].size[6].y = 33;
+	env->sprites[7].reversed[6] = 1;
+
+	env->sprites[7].start[7].x = 132;
+	env->sprites[7].start[7].y = 207;
+	env->sprites[7].end[7].x = 191;
+	env->sprites[7].end[7].y = 242;
+	env->sprites[7].size[7].x = 60;
+	env->sprites[7].size[7].y = 36;
+	env->sprites[7].reversed[7] = 1;
+
+	// lost soul pursuit 2
+
+	env->sprites[8].texture = 34;
+	env->sprites[8].death_counterpart = 4;
+	env->sprites[8].pursuit_sprite = 7;
+	env->sprites[8].rest_sprite = 3;
+	env->sprites[8].curr_sprite = 8;
+	env->sprites[8].oriented = 1;
+	env->sprites[8].nb_death_sprites = 6;
+
+	env->sprites[8].start[0].x = 44;
+	env->sprites[8].start[0].y = 284;
+	env->sprites[8].end[0].x = 87;
+	env->sprites[8].end[0].y = 327;
+	env->sprites[8].size[0].x = 44;
+	env->sprites[8].size[0].y = 44;
+	env->sprites[8].reversed[0] = 0;
+
+	env->sprites[8].start[1].x = 132;
+	env->sprites[8].start[1].y = 284;
+	env->sprites[8].end[1].x = 184;
+	env->sprites[8].end[1].y = 319;
+	env->sprites[8].size[1].x = 53;
+	env->sprites[8].size[1].y = 36;
+	env->sprites[8].reversed[1] = 0;
+
+	env->sprites[8].start[2].x = 229;
+	env->sprites[8].start[2].y = 284;
+	env->sprites[8].end[2].x = 295;
+	env->sprites[8].end[2].y = 316;
+	env->sprites[8].size[2].x = 67;
+	env->sprites[8].size[2].y = 33;
+	env->sprites[8].reversed[2] = 0;
+
+	env->sprites[8].start[3].x = 340;
+	env->sprites[8].start[3].y = 284;
+	env->sprites[8].end[3].x = 387;
+	env->sprites[8].end[3].y = 315;
+	env->sprites[8].size[3].x = 48;
+	env->sprites[8].size[3].y = 32;
+	env->sprites[8].reversed[3] = 0;
+
+	env->sprites[8].start[4].x = 433;
+	env->sprites[8].start[4].y = 284;
+	env->sprites[8].end[4].x = 475;
+	env->sprites[8].end[4].y = 309;
+	env->sprites[8].size[4].x = 44;
+	env->sprites[8].size[4].y = 26;
+	env->sprites[8].reversed[4] = 0;
+
+	env->sprites[8].start[5].x = 340;
+	env->sprites[8].start[5].y = 284;
+	env->sprites[8].end[5].x = 387;
+	env->sprites[8].end[5].y = 315;
+	env->sprites[8].size[5].x = 48;
+	env->sprites[8].size[5].y = 32;
+	env->sprites[8].reversed[5] = 1;
+
+	env->sprites[8].start[6].x = 229;
+	env->sprites[8].start[6].y = 284;
+	env->sprites[8].end[6].x = 295;
+	env->sprites[8].end[6].y = 316;
+	env->sprites[8].size[6].x = 67;
+	env->sprites[8].size[6].y = 33;
+	env->sprites[8].reversed[6] = 1;
+
+	env->sprites[8].start[7].x = 132;
+	env->sprites[8].start[7].y = 284;
+	env->sprites[8].end[7].x = 184;
+	env->sprites[8].end[7].y = 319;
+	env->sprites[8].size[7].x = 53;
+	env->sprites[8].size[7].y = 36;
+	env->sprites[8].reversed[7] = 1;
 	return (0);
 }
