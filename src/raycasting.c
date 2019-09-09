@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 10:56:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 15:31:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	*raycasting(void *param)
 		//render.current_ceiling = ft_clamp(render.max_ceiling, 0, env->h - 1);
 		render.current_ceiling = ft_clamp(render.max_ceiling, env->ymin[x], env->ymax[x]);
 		render.max_floor = render.clipped_alpha * render.floor_range + render.floor1;
-		render.line_height = render.max_floor - render.max_ceiling;
 		//render.current_floor = ft_clamp(render.max_floor, 0, env->h - 1);
 		render.current_floor = ft_clamp(render.max_floor, env->ymin[x], env->ymax[x]);
+		render.no_slope_current_ceiling = render.clipped_alpha * render.no_slope_ceil_range + render.no_slope_ceiling1;
+		render.no_slope_current_floor = render.clipped_alpha * render.no_slope_floor_range + render.no_slope_floor1;
+		render.line_height = render.no_slope_current_floor - render.no_slope_current_ceiling;
 		//render.floor_horizon = render.alpha * render.floor_horizon_range + render.floor_horizon1;
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
 		render.floor_start = render.max_floor - render.floor_horizon;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 12:25:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 15:29:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ void	render_sector(t_env *env, t_render render)
 					render.y2z2 = env->vertices[sector.vertices[i + 1]].y / render.vz2; 
 					render.floor_range = render.floor2 - render.floor1;
 					render.ceil_range = render.ceiling2 - render.ceiling1;
+					render.no_slope_floor_range = render.no_slope_floor2 - render.no_slope_floor1;
+					render.no_slope_ceil_range = render.no_slope_ceiling2 - render.no_slope_ceiling1;
 					if (render.vz2)
 						render.projected_texture_w = env->textures[render.texture].surface->w
 							* render.wall_width / render.vz2;
