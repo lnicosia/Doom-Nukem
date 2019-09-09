@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 15:08:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 15:28:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ typedef struct		s_render
 	double			preclip_xrange;
 	double			no_slope_floor1;
 	double			no_slope_floor2;
+	double			no_slope_floor_range;
+	double			no_slope_current_floor;
 	double			no_slope_ceiling1;
 	double			no_slope_ceiling2;
-	double			no_slope_current_floor;
+	double			no_slope_ceil_range;
 	double			no_slope_current_ceiling;
 	int				xstart;
 	int				xend;
