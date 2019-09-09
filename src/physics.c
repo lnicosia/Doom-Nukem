@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 16:54:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/09 15:12:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	jump(t_env *env)
 	env->gravity.on_going = 0;
 	env->player.state = 1;
 	new_time = env->time.milli_s;
-	if (check_collision(env, 0, 0))
-	{
+	/*if (check_collision(env, new_v2(0, 0)))
+	{*/
 		if (!env->jump.start)
 		{
 			//Mix_PlayChannel(1, env->sound.jump, 0);
@@ -74,7 +74,7 @@ void	jump(t_env *env)
 			env->jump.on_going = 0;
 			env->player.state = 0;
 		}
-	}
+	//}
 }
 
 void	climb(t_env *env)

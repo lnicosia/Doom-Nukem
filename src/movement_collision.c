@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/04 09:47:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/09 14:16:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
     return (1);
 }
 
-int     check_collision(t_env *env, double x_move, double y_move)
+t_v2     check_collision(t_env *env, t_v2 move)
 {
     short		i;
     short       j;
@@ -173,14 +173,14 @@ int     check_collision(t_env *env, double x_move, double y_move)
     t_wall      wall;
 
     env->player.highest_sect = env->player.sector;
-    FUTURE_X = env->player.pos.x + x_move;
-    FUTURE_Y = env->player.pos.y + y_move;
+    FUTURE_X = env->player.pos.x + move.x;
+    FUTURE_Y = env->player.pos.y + move.y;
     if (env->player.stuck == 1)
     {
         env->player.stuck = 0;
         if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
-            return (1);
-        return (0);
+            return (move);
+        return (new_v2(0, 0));
     }
     i = 0;
     while (i < env->nb_sectors)
@@ -200,10 +200,10 @@ int     check_collision(t_env *env, double x_move, double y_move)
         if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
         {
             env->player.stuck = 1;
-            return (check_collision(env, x_move, y_move));
+            return (check_collision(env, move));
         }
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
-            return (0);
+            return (new_v2(0,0));
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
             wall.sector_or = env->player.sector;
@@ -220,7 +220,7 @@ int     check_collision(t_env *env, double x_move, double y_move)
                             if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
                             {
                                 env->player.stuck = 1;
-                                return (check_collision(env, x_move, y_move));
+                                return (check_collision(env, move));
                             }
                             env->player.sector = j;
                             j = env->nb_sectors;
@@ -230,12 +230,12 @@ int     check_collision(t_env *env, double x_move, double y_move)
                 }
             }
             else
-                return (0);
+                return (new_v2(0, 0));
         }
         i++;
     }
     find_highest_sector(env, motion);
-    return (1);
+    return (move);
 }
 
 void    objects_collision(t_env *env)
