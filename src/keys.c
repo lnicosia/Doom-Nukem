@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 16:41:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 16:23:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void		keys(t_env *env)
 {
 	double	time;
+	int		i;
 
+	i = 0;
 	time = SDL_GetTicks();
 	if (!env->time.tick)
 		env->time.tick = SDL_GetTicks();
@@ -25,11 +27,11 @@ void		keys(t_env *env)
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
 	if ((env->inputs.forward || env->inputs.backward || env->inputs.left
-			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
+				|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
+				|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
 			&& (((env->selected_enemy == -1 && env->editor.tab)
-			|| (env->selected_enemy != -1 && !env->editor.tab))
-			|| (env->selected_enemy == -1 && !env->editor.tab)))
+					|| (env->selected_enemy != -1 && !env->editor.tab))
+				|| (env->selected_enemy == -1 && !env->editor.tab)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -37,17 +39,6 @@ void		keys(t_env *env)
 	if (env->inputs.minus && !env->inputs.shift
 			&& env->options.minimap_scale / 1.2 > 5)
 		env->options.minimap_scale /= 1.2;
-	if (env->inputs.up && !env->inputs.shift && !env->editor.tab)
-	{
-		env->sectors[env->player.sector].floor_slope += 0.01;
-		update_sector_slope(env, &env->sectors[env->player.sector]);
-		if (env->sectors[env->player.sector].floor_max
-				> env->sectors[env->player.sector].ceiling_min)
-		{
-			env->sectors[env->player.sector].floor_slope -= 0.01;
-			update_sector_slope(env, &env->sectors[env->player.sector]);
-		}
-	}
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		env->editor.selected_wall = -1;
@@ -125,37 +116,47 @@ void		keys(t_env *env)
 	 * *	selection of slopes on floor and ceiling
 	 */
 
-	if (env->inputs.down && !env->inputs.shift && !env->editor.tab && env->editor.in_game)
+	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
+			&& env->editor.in_game && env->selected_floor != -1)
 	{
-		env->sectors[env->player.sector].floor_slope -= 0.01;
+		env->sectors[env->selected_floor].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
 	}
-	if (env->inputs.up && !env->inputs.shift && !env->editor.tab && env->editor.in_game)
+	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
+			&& env->editor.in_game && env->selected_floor != -1)
 	{
-		env->sectors[env->player.sector].floor_slope += 0.01;
+		env->sectors[env->selected_floor].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->player.sector]);
+
 	}
-/*	if (env->inputs.down && env->inputs.shift)
+	if (env->selected_floor != -1 && env->editor.in_game)
 	{
-		env->sectors[env->player.sector].ceiling_slope -= 0.01;
-		update_sector_slope(env, &env->sectors[env->player.sector]);
-		if (env->sectors[env->player.sector].floor_max
-				> env->sectors[env->player.sector].ceiling_min)
+		if (!env->time.tick3)
+			env->time.tick3 = SDL_GetTicks();
+		if (env->inputs.left && time - env->time.tick3 > 300)
 		{
-			env->sectors[env->player.sector].ceiling_slope += 0.01;
-			update_sector_slope(env, &env->sectors[env->player.sector]);
+			env->sectors[env->selected_floor] = rotate_vertices(env, 1);
+			env->time.tick3 = time;
 		}
-	}*/
-	if (env->inputs.right_click && !env->option)
-	{
-		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
-			env->weapons[env->player.curr_weapon].ammo++;
+		else if (env->inputs.right && time - env->time.tick3 > 300)
+		{
+			env->sectors[env->selected_floor] = rotate_vertices(env, -1);
+			env->time.tick3 = time;
+		}
+		env->sectors[env->selected_floor].normal = get_sector_normal(env->sectors[env->selected_floor], env);
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		clear_portals(env);
+		while (i < env->nb_sectors)
+		{
+			create_portals(env, env->sectors[i]);
+			i++;
+		}
 	}
 
 	/*
 	 * *	select the stats of an enemy
 	 */
-	
+
 	if (env->editor.tab && env->selected_enemy != -1 && env->editor.in_game)
 	{
 		time = SDL_GetTicks();
@@ -209,6 +210,10 @@ void		keys(t_env *env)
 				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor;
 			}
 		}
-
+		if (env->inputs.right_click && !env->option)
+		{
+			if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+				env->weapons[env->player.curr_weapon].ammo++;
+		}
 	}
 }

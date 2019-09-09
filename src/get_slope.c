@@ -6,12 +6,47 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/15 14:16:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 16:23:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
+
+
+/*
+**	rotate vertices in selected sector wich make the slope rotate too
+*/
+
+t_sector	rotate_vertices(t_env *env, int i)
+{
+	t_sector	sector;
+	int			j;
+
+	sector = env->sectors[env->selected_floor];
+	if (i == 1)
+		j = 0;
+	else
+		j = sector.nb_vertices;
+	while ((j < sector.nb_vertices && i == 1) || (j > 0 && i == -1))
+	{
+		if (i == 1)
+		{
+			sector.vertices[j] = sector.vertices[j + 1];
+			j++;
+		}
+		if (i == -1)
+		{
+			sector.vertices[j] = sector.vertices[j - 1];
+			j--;
+		}
+	}
+	if (i == 1)
+		sector.vertices[sector.nb_vertices] = sector.vertices[0];
+	else if (i == -1)
+		sector.vertices[0] = sector.vertices[sector.nb_vertices];
+	return (sector);
+}
 
 /*
 ** Returns the given sector's normal starting from its first vertex.

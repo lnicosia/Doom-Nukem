@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 16:44:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 12:15:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_editor_data(t_env *env)
 	env->selected_stat = 0;
 	env->time.tick = 0;
 	env->time.tick2 = 0;
+	env->time.tick3 = 0;
 	env->gravity.on_going = 1;
 }
 

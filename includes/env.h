@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 12:11:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 12:13:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 int					editor_buttonup(t_env *env);
 int					delete_enemy(t_env *env, int enemy);
+t_sector			rotate_vertices(t_env *env, int i);
 
 /*
 ** Main functions
