@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 14:30:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 12:29:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 13:49:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int		clip_skybox(t_render *skybox, t_env *env)
 
 void	compute_skybox(t_render *skybox, t_env *env)
 {
-	skybox->vx1 = skybox->v1.x * env->player.angle_sin - skybox->v1.z * env->player.angle_cos;
-	skybox->vz1 = skybox->v1.x * env->player.angle_cos + skybox->v1.z * env->player.angle_sin;
-	skybox->vx2 = skybox->v2.x * env->player.angle_sin - skybox->v2.z * env->player.angle_cos;
-	skybox->vz2 = skybox->v2.x * env->player.angle_cos + skybox->v2.z * env->player.angle_sin;
+	skybox->vx1 = (skybox->v1.x - 5) * env->player.angle_sin - (skybox->v1.z - 5) * env->player.angle_cos;
+	skybox->vz1 = (skybox->v1.x - 5) * env->player.angle_cos + (skybox->v1.z - 5) * env->player.angle_sin;
+	skybox->vx2 = (skybox->v2.x - 5) * env->player.angle_sin - (skybox->v2.z - 5) * env->player.angle_cos;
+	skybox->vz2 = (skybox->v2.x - 5) * env->player.angle_cos + (skybox->v2.z - 5) * env->player.angle_sin;
 	//ft_printf("vertex 1 [%f][%f] vertex 2 [%f][%f]\n", skybox->v1.z, skybox->v1.x,
 	//skybox->v2.z, skybox->v2.x);
 	//ft_printf("vx1 = %f vx2 = %f\n", skybox->vx1, skybox->vx2);
@@ -104,27 +104,27 @@ void		set_v(t_render *skybox, int i)
 {
 	if (!i)
 	{
-		skybox->v1.x = -5;
-		skybox->v1.z = -5;
-		skybox->v2.x = 5;
-		skybox->v2.z = -5;
+		skybox->v1.x = 0;
+		skybox->v1.z = 0;
+		skybox->v2.x = 10;
+		skybox->v2.z = 0;
 	}
 	else
 		skybox->v1 = skybox->v2;
 	if (i == 1)
 	{
-		skybox->v2.x = 5;
-		skybox->v2.z = 5;
+		skybox->v2.x = 10;
+		skybox->v2.z = 10;
 	}
 	else if (i == 2)
 	{
-		skybox->v2.x = -5;
-		skybox->v2.z = 5;
+		skybox->v2.x = 0;
+		skybox->v2.z = 10;
 	}
 	else if (i == 3)
 	{
-		skybox->v2.x = -5;
-		skybox->v2.z = -5;
+		skybox->v2.x = 0;
+		skybox->v2.z = 0;
 	}
 }
 
@@ -145,10 +145,10 @@ void		draw_skybox(t_render render, t_env *env)
 	skybox.ceiling_texture = 39;
 	skybox.ceiling_xscale = env->textures[39].surface->w / 10;
 	skybox.ceiling_yscale = env->textures[39].surface->h / 10;
-	skybox.brightness = render.brightness;
+	skybox.brightness = 0;
 	skybox.light_color = render.light_color;
-	skybox.player_pos.x = 0;
-	skybox.player_pos.y = 0;
+	skybox.player_pos.x = 5;
+	skybox.player_pos.y = 5;
 	skybox.skybox = 0;
 	skybox.horizon = env->h_h - env->player.angle_z * env->camera.scale;
 	skybox.ceiling_horizon = skybox.horizon;
