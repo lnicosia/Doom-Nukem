@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:39:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:23:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 13:30:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	delete_object(t_env *env, int object)
 {
+	ft_printf("oui oui\n");
 	env->objects = ft_delindex(env->objects,
 			sizeof(t_object) * env->nb_objects,
 			sizeof(t_object),

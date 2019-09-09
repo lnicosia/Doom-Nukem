@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 11:41:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 16:52:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ static void		*enemy_loop(void *param)
 			yalpha = (y - orender.y1) / orender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 			if ((enemy.rotated_pos.z < zbuffer[x + y * env->w]
-					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
+				env->enemies[enemy.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
 					env->selected_wall1 = -1;
@@ -109,11 +110,14 @@ static void		*enemy_loop(void *param)
 					env->selected_ceiling = -1;
 					env->selected_object = -1;
 					env->selected_enemy = enemy.num;
+					env->editor.selected_wall = -1;
 				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
 					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light_color, orender.brightness);
+				if (env->enemies[enemy.num].hit)
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFFFF0000, enemy_hurt(env, enemy.num));
 				if (env->editor.in_game && !env->editor.select && env->selected_enemy == enemy.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
@@ -151,12 +155,8 @@ static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
 	t_sprite		sprite;
 
 	if (death_sprite >= 0)
-	{
 		enemy->sprite = env->sprites[enemy->sprite].death_counterpart;
-		sprite = env->sprites[enemy->sprite];
-	}
-	else
-		sprite = env->sprites[enemy->sprite];
+	sprite = env->sprites[enemy->sprite];	
 	project_enemy(&orender, *enemy, env);
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*enemy);
@@ -182,22 +182,22 @@ static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
 	orender.yrange = orender.y2 - orender.y1;
 	threaded_enemy_loop(*enemy, orender, env);
 	/*if (((orender.x1 + orender.x2) / 2) < env->w && ((orender.x1 + orender.x2) / 2) >= 0 && ((orender.y1 + orender.y2) / 2) < env->h && ((orender.y1 + orender.y2) / 2) >= 0)
-		if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
-			object->seen = 1;*/
+	  if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
+	  object->seen = 1;*/
 }
 /*
-static void	get_relative_pos(t_env *env)
-{
-	int	i;
-	
-	i = 0;
-	while (i < env->nb_enemies)
-	{
-		get_translated_enemy_pos(env, &env->enemies[i]);
-		get_rotated_enemy_pos(env, &env->enemies[i]);
-		i++;
-	}
-}*/
+   static void	get_relative_pos(t_env *env)
+   {
+   int	i;
+
+   i = 0;
+   while (i < env->nb_enemies)
+   {
+   get_translated_enemy_pos(env, &env->enemies[i]);
+   get_rotated_enemy_pos(env, &env->enemies[i]);
+   i++;
+   }
+   }*/
 
 static void	threaded_get_relative_pos(t_env *env)
 {
@@ -221,51 +221,52 @@ static void	threaded_get_relative_pos(t_env *env)
 }
 
 /*static void	swap_objects(t_object *o1, t_object *o2)
-{
-	t_object	tmp;
+  {
+  t_object	tmp;
 
-	tmp = *o1;
-	*o1 = *o2;
-	*o2 = tmp;
-}
+  tmp = *o1;
+ *o1 = *o2;
+ *o2 = tmp;
+ }
 
-static int	partition(t_object *objects, int start, int end)
-{
-	int	pivot;
-	int	i;
-	int	j;
-	
-	pivot = objects[end].rotated_pos.z;
-	i = start - 1;
-	j = start;
-	while (j < end)
-	{
-		if (objects[j].rotated_pos.z > pivot)
-		{
-			i++;
-			swap_objects(&objects[i], &objects[j]);
-		}
-		j++;
-	}
-	swap_objects(&objects[i + 1], &objects[end]);
-	return (i + 1);
-}
+ static int	partition(t_object *objects, int start, int end)
+ {
+ int	pivot;
+ int	i;
+ int	j;
 
-static void	sort_objects(t_object *objects, int start, int end)
-{
-	int	pi;
+ pivot = objects[end].rotated_pos.z;
+ i = start - 1;
+ j = start;
+ while (j < end)
+ {
+ if (objects[j].rotated_pos.z > pivot)
+ {
+ i++;
+ swap_objects(&objects[i], &objects[j]);
+ }
+ j++;
+ }
+ swap_objects(&objects[i + 1], &objects[end]);
+ return (i + 1);
+ }
 
-	if (start < end)
-	{
-		pi = partition(objects, start, end);
-		sort_objects(objects, start, pi - 1);
-		sort_objects(objects, pi + 1, end);
-	}
-}*/
+ static void	sort_objects(t_object *objects, int start, int end)
+ {
+ int	pi;
+
+ if (start < end)
+ {
+ pi = partition(objects, start, end);
+ sort_objects(objects, start, pi - 1);
+ sort_objects(objects, pi + 1, end);
+ }
+ }*/
 
 void		draw_enemies(t_env *env)
 {
 	int	i;
+	int dying_sprite;
 
 	threaded_get_relative_pos(env);
 	//get_relative_pos(env);
@@ -273,12 +274,18 @@ void		draw_enemies(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
+		dying_sprite = -1;
 		if (env->enemies[i].rotated_pos.z > 1 && env->enemies[i].exists)
 		{
-			if (env->enemies[i].health <= 0)
-				draw_enemy(&env->enemies[i], env, dying_enemy(env, i));
-			else
-				draw_enemy(&env->enemies[i], env, -1);
+			env->enemies[i].seen = 0;
+			if (!env->editor.in_game)
+			{
+				if (env->enemies[i].health <= 0)
+					dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
+				resting_enemy(env, i);
+			}
+			if (env->enemies[i].exists)
+				draw_enemy(&env->enemies[i], env, dying_sprite);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 11:28:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 16:48:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct		s_env
 	int					selected_ceiling;
 	int					selected_object;
 	int					selected_enemy;
+	int					selected_stat;
 	int					new_selection;
 	int					drawing;
 	double				horizon;
@@ -117,7 +118,7 @@ void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
 void				draw_vgrid(t_env *env);
 int					add_vertex(t_env *env);
-int					add_ennemy(t_env *env);
+int					add_enemy(t_env *env);
 int					add_vertex_to_current_sector(t_env *env, int num);
 void				draw_circle(t_circle circle, t_env *env);
 t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
@@ -163,6 +164,8 @@ int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 int					editor_buttonup(t_env *env);
+int					delete_enemy(t_env *env, int enemy);
+t_sector			rotate_vertices(t_env *env, int i);
 
 /*
 ** Main functions
@@ -269,7 +272,8 @@ void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
-void    			hitscan_shot(t_env *env);
+void    			shot(t_env *env);
+int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
@@ -308,8 +312,12 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 ** enemies functions
 */
 
+void	draw_grid_enemies(t_env *env);
+void	enemy_selection(t_env *env);
 void	enemy_pursuit(t_env *env);
 void	damage_anim(t_env *env);
-int		dying_enemy(t_env *env, int i);
+int		enemy_hurt(t_env *env, int i);
+void     resting_enemy(t_env *env, int i);
+int		dying_enemy(t_env *env, int i, int nb_sprites);
 
 #endif

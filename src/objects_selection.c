@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 18:44:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/06 13:31:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	objects_selection(t_env *env)
 	if (env->inputs.left_click
 			&& env->sdl.mx > 80
 			&& env->sdl.mx < 120
-			&& env->sdl.my > 80
+			&& env->sdl.my > 180
 			&& env->sdl.my < 220
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_object == -1)
+			&& env->editor.dragged_object == -1
+			&& env->editor.dragged_enemy == -1)
 	{
 		env->editor.dragged_object = env->nb_objects;
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 10:20:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:37:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			editor_keys(t_env *env)
 		if (delete_action(env))
 			return (-1);
 	player_selection(env);
+	enemy_selection(env);
 	objects_selection(env);
 	vertices_selection(env);
 	if (env->confirmation_box.state)
@@ -75,7 +76,8 @@ int			editor_keys(t_env *env)
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_vertex == -1)
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_enemy == -1)
 	{
 		env->editor.selected_sector = get_sector_no_z(env,
 				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
@@ -84,6 +86,7 @@ int			editor_keys(t_env *env)
 		env->editor.selected_vertex = -1;
 		env->editor.selected_object = -1;
 		env->editor.selected_player = -1;
+		env->selected_enemy = -1;
 	}
 	if (env->inputs.right_click)
 	{
@@ -94,6 +97,11 @@ int			editor_keys(t_env *env)
 	{
 		if (!valid_map(env))
 		{
+			env->editor.selected_vertex = -1;
+			env->editor.selected_sector = -1;
+			env->editor.selected_player = -1;
+			env->editor.selected_object = -1;
+			env->selected_enemy = -1;
 			env->editor.in_game = 1;
 			env->inputs.enter = 0;
 			free_screen_sectors(env);

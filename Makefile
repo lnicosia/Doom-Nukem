@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/09 10:59:18 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/09 16:48:12 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,11 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c add_object.c editor_keyup.c \
+				 write_player.c write_enemies.c add_object.c editor_keyup.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
 				 draw_grid_player.c draw_grid_objects.c  \
-				 is_new_vertex_valid.c \
-				 delete_object.c delete_action.c \
+				 is_new_vertex_valid.c add_enemy.c enemy_selection.c\
+				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c\
 				 fill_triangle.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
@@ -82,7 +82,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -flto -Ofast \
+		  -flto -Ofast
 		  #-fsanitize=address -g3 \
 
 DEBUG ?= 0

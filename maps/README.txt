@@ -41,7 +41,7 @@ O  1
 [7.5 7.5 1 45] [0 50]
 
 # Emtpy line after objects declaration
-# Enemies_nmber: "E + space + number"
+# Enemies_number: "E + space + number"
 # Enemies:
 # [y x z angle] [sprite_number scale] [health speed damage]
 # spaces between each section

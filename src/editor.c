@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 10:20:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:25:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ int		editor(t_env *env)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
 				draw_grid_objects(env);
+			if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)
+				draw_grid_enemies(env);
 			if (env->editor.start_vertex != -1)
 				draw_grid_current_sector(env);
 			draw_grid_sectors(env);
-			editor_hud(env);
 		}
 		else
 		{
@@ -58,6 +59,7 @@ int		editor(t_env *env)
 				return (crash("Render function failed\n", env));
 			//SDL_Delay(500);
 		}
+		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);
 		if (env->options.zbuffer && env->editor.in_game)

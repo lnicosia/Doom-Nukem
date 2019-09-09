@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 10:01:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/05 11:25:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 17:04:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling_slope = 0;
 	sector.ceiling_texture = 4;
 	sector.light_color = 0xFFFFFFFF;
-	sector.brightness = 128;
+	sector.brightness = 0;
 	sector.num = env->nb_sectors;
 	sector.x_max = -2147483648;
 	sector.nb_vertices = get_new_sector_len(env);

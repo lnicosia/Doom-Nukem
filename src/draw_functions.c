@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 12:24:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/09 17:03:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
+			if (env->editor.in_game)
+			{
+				env->editor.selected_sector = env->sectors[render.sector].num;
+				env->editor.selected_wall = render.i;
+			}
 			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
 			env->selected_floor = -1;
@@ -172,6 +177,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 			env->selected_floor = -1;
 			env->selected_object = -1;
 			env->selected_enemy = -1;
+			env->editor.selected_wall = -1;
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * render.player_pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * render.player_pos.x;
@@ -259,6 +265,7 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			env->selected_ceiling = -1;
 			env->selected_object = -1;
 			env->selected_enemy = -1;
+			env->editor.selected_wall = -1;
 		}
 		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
@@ -278,11 +285,13 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		x = texture_w - x;
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
-			if (!env->options.lighting)
+			if (!env->options.lighting && !env->sectors[render.sector].floor_slope)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			else
+			else if (!env->sectors[render.sector].floor_slope)
 				//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
+			else
+				pixels[coord] = vline.color;
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
@@ -323,9 +332,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	if (env->sectors[render.sector].ceiling_slope)
-		draw_vline_color(vline, render, env);
-	else if (render.skybox)
+	if (render.skybox)
 		draw_skybox(render, env);
 	else
 		draw_vline_ceiling(vline, render, env);
@@ -346,10 +353,7 @@ void	draw_floor(t_render render,t_env *env)
 	//vline.color = 0xFFFF0000;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	if (env->sectors[render.sector].floor_slope)
-		draw_vline_color(vline, render, env);
-	else
-		draw_vline_floor(vline, render, env);
+	draw_vline_floor(vline, render, env);
 }
 
 /*
