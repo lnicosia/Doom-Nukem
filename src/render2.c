@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 15:55:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:58:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		get_intersections2(int i, t_sector *sector, t_env *env)
 			env);
 }
 
-void		clip_walls2(int i, t_sector *sector, t_env *env)
+void		clip_wall2(int i, t_sector *sector, t_env *env)
 {
 	if ((sector->v[i].vz < env->camera.near_z
 				&& sector->v[i + 1].vz < env->camera.near_z)
@@ -59,7 +59,7 @@ void		clip_walls2(int i, t_sector *sector, t_env *env)
 	get_intersections2(i, sector, env);
 }
 
-void		compute_v(int i, t_sector *sector, t_env *env)
+void		compute_wall(int i, t_sector *sector, t_env *env)
 {
 	double	vx;
 	double	vz;
@@ -81,7 +81,10 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 	sector->v[i].draw = 1;
 	sector->v[i].floor_horizon = env->player.horizon;
 	sector->v[i].ceiling_horizon = env->player.horizon;
-	sector->v[i].xrange = sector->v[i + 1].x - sector->v[i].x;
+	sector->v[i].clipped_xrange = sector->v[i + 1].clipped_x
+		- sector->v[i].clipped_x;
+	sector->v[i].xrange = sector->v[i + 1].x
+		- sector->v[i].x;
 	sector->v[i].floor_range = sector->v[i + 1].f - sector->v[i].f;
 	sector->v[i].ceiling_range = sector->v[i + 1].c - sector->v[i].c;
 	sector->v[i].no_slope_floor_range = sector->v[i + 1].no_slope_f
@@ -101,22 +104,22 @@ void		precompute_sector(t_sector *sector, t_env *env)
 	i = -1;
 	sector->computed = 1;
 	while (++i < sector->nb_vertices)
-		compute_v(i, sector, env);
+		compute_wall(i, sector, env);
 	i = -1;
 	while (++i < sector->nb_vertices)
-		clip_walls2(i, sector, env);
+		clip_wall2(i, sector, env);
 	i = -1;
 	while (++i < sector->nb_vertices)
 	{
 		if (sector->v[i].draw)
-			if (project_walls(i, sector, env))
+			if (project_wall(i, sector, env))
 				sector->v[i].draw = 0;
 	}
 	i = -1;
 	while (++i < sector->nb_vertices)
 	{
 		sector->v[i].draw = 0;
-		if (sector->v[i].x >= sector->v[i + 1].x)
+		if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
 			continue;
 		precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
@@ -139,6 +142,8 @@ int			draw_walls2(t_env *env)
 	{
 		if (!env->sectors[i].computed)
 			precompute_sector(&env->sectors[i], env);
+		if (env->sectors[i].skybox && !env->skybox_computed)
+			precompute_skybox(env);
 		i++;
 	}
 	i = 0;

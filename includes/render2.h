@@ -6,24 +6,43 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 15:05:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:36:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER2_H
 # define RENDER2_H
-#include "env.h"
+# include "env.h"
 
 typedef struct	s_render2
 {
+	t_v2		texel;
+	double		alpha;
+	double		clipped_alpha;
+	double		z;
+	double		clipped_z;
+	double		max_floor;
+	double		current_floor;
+	double		no_slope_current_floor;
+	double		floor_start;
+	double		max_ceiling;
+	double		current_ceiling;
+	double		no_slope_current_ceiling;
+	double		ceiling_start;
+	double		line_height;
+	Uint32		light_color;
 	int			sector;
 	int			selected;
 	int			xmin;
 	int			xmax;
 	int			xstart;
 	int			xend;
+	int			x;
 }				t_render2;
 
-void		render_sector2(t_render2 render, t_env *env);
+void			render_sector2(t_render2 render, t_env *env);
+void			draw_ceiling2(t_render2 render, t_env *env);
+void			draw_skybox2(t_render2 render, t_env *env);
+void			precompute_skybox(t_env *env);
 
 #endif

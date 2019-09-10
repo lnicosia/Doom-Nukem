@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 15:50:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 18:05:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	t_render_vertex		skybox[5];
+	int					skybox_computed;
 	int					selected_wall1;
 	int					selected_wall2;
 	int					selected_floor;
@@ -309,7 +311,7 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
-int					project_walls(int i, t_sector *sector, t_env *env);
+int					project_wall(int i, t_sector *sector, t_env *env);
 
 /*
 ** enemies functions

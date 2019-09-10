@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 14:53:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:16:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void		reset_render_utils(t_env *env)
 	max = env->screen_sectors_size;
 	ymin = ft_max(env->h_h + env->camera.y1 * env->camera.scale, 0);
 	ymax = ft_min(env->h_h + env->camera.y2 * env->camera.scale, env->h - 1);
+	env->skybox_computed = 0;
 	i = 0;
 	while (i < max)
 	{

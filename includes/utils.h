@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 15:43:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:53:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ typedef struct		s_render_vertex
 	double			clipped_vz;
 	double			clipped_vf;
 	double			clipped_vc;
-	double			x;
+	double			clipped_x;
 	double			f;
 	double			c;
+	double			x;
 	double			no_slope_f;
 	double			no_slope_c;
 	double			scale;
@@ -77,6 +78,7 @@ typedef struct		s_render_vertex
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
+	double			clipped_xrange;
 	double			floor_range;
 	double			ceiling_range;
 	double			no_slope_floor_range;
