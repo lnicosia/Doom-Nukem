@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 16:53:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:27:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_circle
 
 typedef struct		s_render_vertex
 {
+	t_v2			texture_scale;
 	double			vx;
 	double			vz;
 	double			clipped_vx;

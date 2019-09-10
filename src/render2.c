@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 17:58:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:31:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,15 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 		/ sector->v[i].vz;
 	sector->v[i].yz = env->vertices[sector->vertices[i]].y
 		/ sector->v[i].vz;
+	if (sector->v[i + 1].vz)
+		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
+			surface->w * (sector->wall_width[i] / 10) / sector->v[i + 1].vz;
+	else
+		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
+			surface->w * (sector->wall_width[i] / 10)
+			/ sector->v[i + 1].clipped_vz;
+	sector->v[i].texture_scale.y = env->textures[sector->textures[i]].
+		surface->h * (sector->ceiling - sector->floor) / 10;
 }
 
 void		precompute_sector(t_sector *sector, t_env *env)
@@ -116,11 +125,14 @@ void		precompute_sector(t_sector *sector, t_env *env)
 				sector->v[i].draw = 0;
 	}
 	i = -1;
-	while (++i < sector->nb_vertices)
+	while (++i < sector->nb_vertices && sector->v[i].draw)
 	{
 		sector->v[i].draw = 0;
+		//ft_printf("i = %d x1 = %f x2 = %f\n", i, sector->v[i].clipped_x,
+				//sector->v[i + 1].clipped_x);
 		if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
 			continue;
+		//ft_printf("wall %d ok\n", i);
 		precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
 				&& !env->sectors[sector->neighbors[i]].computed)
