@@ -6,39 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/10 17:29:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:07:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-/*void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
-{
-    float xd;
-    float yd;
-    t_movement motion;
-    
-    xd = X2 - X1;
-    yd = Y2 - Y1;
-    x_move = xd * (x_move*xd + yd*y_move) / (xd*xd + yd*yd);
-    y_move = yd * (x_move*xd + yd*y_move) / (xd*xd + yd*yd);
-    FUTURE_X = PLAYER_XPOS + x_move;
-    FUTURE_Y = PLAYER_YPOS + y_move;
-    motion.old_sector = env->player.sector;
-    if (check_inside_sector(env, motion))
-    {
-        PLAYER_XPOS = FUTURE_X;
-        PLAYER_YPOS = FUTURE_Y;
-    }
-} */
-/*
-int     diff_sign(double nb1, double nb2)
-{
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
-        return (0);
-    return (1);
-}*/
 
 double     sector_height(t_env *env, t_movement motion, int sector_dest)
 {
@@ -129,14 +102,18 @@ int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p)
     return 0;
 }
 
-int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
+t_v2     collision_rec(t_env *env, t_v2 move, t_v3 pos, t_wall wall, int recu)
 {
     short       i;
     t_movement  motion;
+    double      tmp;
+    double      scalar;
+    double      norme_mov;
+    double      norme_wall;
 
     i = 0;
-    FUTURE_X = dest_x;
-    FUTURE_Y = dest_y;
+    FUTURE_X = move.x + pos.x;
+    FUTURE_Y = move.y + pos.y;
     motion.old_sector = wall.sector_or;
     env->sector_list[wall.sector_dest] = 1;
     /*
@@ -146,23 +123,41 @@ int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
     */
     if (!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest))
     {
-        //ft_printf("cheh you're stuck\n");
-        return (0);
+        return (new_v2(0, 0));
     }
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
         if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR < 0)
-            return (0);
+        {
+            norme_mov = sqrt(move.x * move.x + move.y * move.y);
+            norme_wall = sqrt((X2R - X1R) * (X2R - X1R) + (Y2R - Y1R) * (Y2R - Y1R));
+            scalar = (X2R - X1R) / norme_wall * move.x / norme_mov + (Y2R - Y1R) / norme_mov * move.y;
+            if (scalar > 0 && !recu)
+            {
+                tmp = move.x;
+                move.x = norme_mov * (X2R - X1R) / norme_wall * ft_fclamp(scalar, 0.1, 1);
+                move.y = norme_mov * (Y2R - Y1R) / norme_wall * ft_fclamp(scalar, 0.1, 1);
+                return (collision_rec(env, move, pos, wall, 1));
+            }
+            else if (scalar < 0 && !recu)
+            {
+                tmp = move.x;
+                move.x = norme_mov * (X2R - X1R) / norme_wall * ft_fclamp(scalar, -1, -0.1);
+                move.y = norme_mov * (Y2R - Y1R) / norme_wall * ft_fclamp(scalar, -1, -0.1);
+                return (collision_rec(env, move, pos, wall, 1));
+            }
+            return (new_v2(0, 0));
+        }
         else if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             wall.sector_or = wall.sector_dest;
             wall.sector_dest = RNEIGHBOR;
-            return (collision_rec(env, FUTURE_X, FUTURE_Y, wall));
+            return (collision_rec(env, move, pos, wall, 0));
         }
         i++;
     }
-    return (1);
+    return (move);
 }
 
 t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
@@ -223,18 +218,19 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
             else if (scalar < 0 && !recu)
             {
                 tmp = move.x;
-                ft_printf("negatif %d\n", a++);
                 move.x = norme_mov * (X2 - X1) / norme_wall * ft_fclamp(scalar, -1, -0.1);
                 move.y = norme_mov * (Y2 - Y1) / norme_wall * ft_fclamp(scalar, -1, -0.1);
                 return (check_collision(env, move, pos, sector, 1));
             }
+            //ft_printf("YOU SHALL NOT PASS!! %d\n", a++);
             return (new_v2(0,0));
         }
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
             wall.sector_or = sector;
             wall.sector_dest = NEIGHBOR;
-            if (collision_rec(env, FUTURE_X, FUTURE_Y, wall))
+            move = collision_rec(env, move, pos, wall, 0);
+            if (move.x != 0 || move.y != 0)
             {
                 j = 0;
                 while (j < env->nb_sectors)
