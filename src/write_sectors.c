@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:37:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:11:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static void	write_sector_textures(int fd, t_sector sector)
 	{
 		if (i != 0)
 			ft_dprintf(fd, " ");
-		ft_dprintf(fd, "%d", sector.textures[i]);
+		if (sector.textures[i] == 38)
+			ft_dprintf(fd, "%d", -1);
+		else
+			ft_dprintf(fd, "%d", sector.textures[i]);
 		i++;
 	}
 	ft_dprintf(fd, ") ");

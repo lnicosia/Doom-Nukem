@@ -6,7 +6,7 @@
 #    By: sipatry <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/10 14:00:29 by sipatry           #+#    #+#              #
-#    Updated: 2019/09/10 14:41:13 by sipatry          ###   ########.fr        #
+#    Updated: 2019/09/10 17:28:06 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
 				 write_player.c write_enemies.c add_object.c editor_keyup.c \
 				 player_selection.c objects_selection.c vertices_selection.c \
-				 draw_grid_player.c draw_grid_objects.c  \
+				 draw_grid_player.c draw_grid_objects.c \
 				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 				 fill_triangle.c
@@ -62,7 +62,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 			  free_all.c map_parser.c animations.c map_init_enemies.c \
 			  sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
 			  map_parse_enemies.c draw_skybox.c draw_line_free.c \
-			  skybox_draw_functions.c
+			  skybox_draw_functions.c selected_information.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h draw_skybox.h
@@ -83,8 +83,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast
+		  -flto -Ofast
+		  #-fsanitize=address -g3 \
 	
 DEBUG ?= 0
 

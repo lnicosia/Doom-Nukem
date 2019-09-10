@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 14:43:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:55:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		keys(t_env *env)
 	{
 		env->time.tick = time;
 		if (env->inputs.down
-				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 0)
+				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
 			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
 		else if (env->inputs.up
 				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
@@ -226,48 +226,7 @@ void		keys(t_env *env)
 			env->time.tick2 = time;
 			env->selected_stat--;
 		}
-		if (env->selected_stat == 0 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			if (env->inputs.left && env->enemies[env->selected_enemy].health > 5)
-				env->enemies[env->selected_enemy].health -= 5;
-			if (env->inputs.right && env->enemies[env->selected_enemy].health < 100)
-				env->enemies[env->selected_enemy].health += 5;
-		}
-		else if (env->selected_stat == 1 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			if (env->inputs.left && env->enemies[env->selected_enemy].speed > 5)
-				env->enemies[env->selected_enemy].speed -= 5;
-			if (env->inputs.right && env->enemies[env->selected_enemy].speed < 100)
-				env->enemies[env->selected_enemy].speed += 5;
-		}
-		else if (env->selected_stat == 2 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			if (env->inputs.left && env->enemies[env->selected_enemy].damage > 5)
-				env->enemies[env->selected_enemy].damage -= 5;
-			if (env->inputs.right && env->enemies[env->selected_enemy].damage < 100)
-				env->enemies[env->selected_enemy].damage += 5;
-		}
-		else if (env->selected_stat == 3 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			if (env->inputs.left && env->enemies[env->selected_enemy].sprite == 2)
-			{
-				env->enemies[env->selected_enemy].sprite--;
-				env->enemies[env->selected_enemy].pos.z = get_floor_at_pos(env->sectors[env->enemies[env->selected_enemy].sector], new_v2(env->enemies[env->selected_enemy].pos.x, env->enemies[env->selected_enemy].pos.y), env) + 5;
-			}
-			if (env->inputs.right && env->enemies[env->selected_enemy].sprite == 1)
-			{
-				env->enemies[env->selected_enemy].sprite++;
-				env->enemies[env->selected_enemy].pos.z = get_floor_at_pos(env->sectors[env->enemies[env->selected_enemy].sector], new_v2(env->enemies[env->selected_enemy].pos.x, env->enemies[env->selected_enemy].pos.y), env);
-			}
-		}
-		if (env->inputs.right_click && !env->option)
-		{
-			if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
-				env->weapons[env->player.curr_weapon].ammo++;
-		}
+		if (env->selected_enemy != -1)
+			selected_information_on_enemy(env);
 	}
 }
