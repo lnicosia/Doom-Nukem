@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/10 19:07:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:11:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
     double      scalar;
     double      norme_mov;
     double      norme_wall;
-    static int a = 0;
+    //static int a = 0;
 
     env->player.highest_sect = sector;
     FUTURE_X = pos.x + move.x;
