@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 13:55:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 14:43:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,17 @@ void		keys(t_env *env)
 	{
 		env->sectors[env->selected_floor].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		update_enemies_z(env);
+		update_enemies_z(env);
+		update_objects_z(env);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
 			&& env->editor.in_game && env->selected_floor != -1)
 	{
 		env->sectors[env->selected_floor].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		update_enemies_z(env);
+		update_objects_z(env);
 	}
 	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02
 			&& env->sectors[env->selected_floor].floor_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))

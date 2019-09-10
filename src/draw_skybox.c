@@ -6,12 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 14:30:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 13:49:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:31:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
+#include "draw_skybox.h"
 
 /*
 **	Check if the skybox current wall is in the player FOV
@@ -132,10 +133,12 @@ void		set_v(t_render *skybox, int i)
 **	Draw a skybox at the current wall's ceiling
 */
 
-void		draw_skybox(t_render render, t_env *env)
+void		draw_skybox(t_render render, int mode, t_env *env)
 {
 	t_render	skybox;
 	t_vline		vline;
+	int			max;
+	int			min;
 	int			i;
 
 	i = 0;
@@ -153,6 +156,23 @@ void		draw_skybox(t_render render, t_env *env)
 	skybox.horizon = env->h_h - env->player.angle_z * env->camera.scale;
 	skybox.ceiling_horizon = skybox.horizon;
 	skybox.floor_horizon = skybox.horizon;
+	skybox.sector = render.sector;
+	skybox.i = render.i;
+	skybox.selected = 0;
+	skybox.currentx = render.currentx;
+	if ((!mode && env->selected_ceiling == render.sector)
+			|| (mode && render.selected))
+		skybox.selected = 1;
+	if (!mode)
+	{
+		max = render.current_ceiling;
+		min = env->ymin[skybox.currentx];
+	}
+	else
+	{
+		max = render.current_floor;
+		min = render.current_ceiling;
+	}
 	while (i < 4)
 	{
 		//ft_printf("i = %d\n", i);
@@ -209,7 +229,6 @@ void		draw_skybox(t_render render, t_env *env)
 				  new_point(skybox.x1, skybox.ceiling1), *env, 0xFFFF0000);
 				  draw_line_free(new_point(skybox.x2, skybox.floor2),
 				  new_point(skybox.x2, skybox.ceiling2), *env, 0xFFFF0000);*/
-				skybox.currentx = render.currentx;
 				skybox.alpha = (skybox.currentx - skybox.preclip_x1) / skybox.preclip_xrange;
 				skybox.clipped_alpha = (skybox.currentx - skybox.x1) / skybox.xrange;
 				skybox.z = 1.0 / ((1.0 - skybox.alpha) / skybox.vz1 + skybox.alpha / skybox.vz2);
@@ -225,27 +244,27 @@ void		draw_skybox(t_render render, t_env *env)
 				skybox.ceiling_start = skybox.max_ceiling - skybox.horizon;
 				skybox.floor_start = skybox.max_floor - skybox.horizon;
 				vline.x = skybox.currentx;
-				/*if (skybox.current_floor < render.current_ceiling)
-				  {
+				if (min < skybox.current_ceiling)
+				{
+				  vline.start = min;
+				  vline.end = ft_min(skybox.current_ceiling, max);
+				  vline.color = 0xFF0B6484;
+				  draw_vline_ceiling_skybox(vline, mode, skybox, env);
+				}
+				if (skybox.current_ceiling < max)
+				{
+				  vline.start = ft_max(min, skybox.current_ceiling);
+				  vline.end = ft_min(skybox.current_floor, max);
+				  vline.color = 0xFF0B6484;
+				  draw_vline_skybox(vline, mode, skybox, env);
+				}
+				if (skybox.current_floor < max)
+				{
 				  vline.start = skybox.current_floor;
-				  vline.end = render.current_ceiling;
+				  vline.end = max;
 				  vline.color = 0xFF0B6484;
-				  draw_vline_floor(vline, skybox, env);
-				  }*/
-				if (skybox.current_ceiling < render.current_ceiling)
-				  {
-				  vline.start = skybox.current_ceiling;
-				  vline.end = ft_min(skybox.current_floor, render.current_ceiling);
-				  vline.color = 0xFF0B6484;
-				  draw_vline(vline, skybox, env);
-				  }
-				if (env->ymin[skybox.currentx] < skybox.current_ceiling)
-				  {
-				  vline.start = env->ymin[skybox.currentx];
-				  vline.end = ft_min(skybox.current_ceiling, render.current_ceiling);
-				  vline.color = 0xFF0B6484;
-				  draw_vline_ceiling(vline, skybox, env);
-				  }
+				  draw_vline_floor_skybox(vline, mode, skybox, env);
+				}
 			}
 		}
 		i++;

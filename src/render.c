@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 11:45:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 13:58:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ void	render_sector(t_env *env, t_render render)
 			render.v1_clipped = 0;
 			render.v2_clipped = 0;
 			render.wall_width = sector.wall_width[i] / 10;
-			render.texture = sector.textures[i];
+			if (sector.textures[i] == -1)
+				render.texture = -1;
+			else
+				render.texture = sector.textures[i];
 			// On continue uniquement si au moins un des deux vertex est dans le champ de vision
 			if (check_fov(&render, env))
 			{
@@ -161,14 +164,27 @@ void	render_sector(t_env *env, t_render render)
 					render.ceil_range = render.ceiling2 - render.ceiling1;
 					render.no_slope_floor_range = render.no_slope_floor2 - render.no_slope_floor1;
 					render.no_slope_ceil_range = render.no_slope_ceiling2 - render.no_slope_ceiling1;
-					if (render.vz2)
-						render.projected_texture_w = env->textures[render.texture].surface->w
-							* render.wall_width / render.vz2;
+					if (render.texture == -1)
+					{
+						if (render.vz2)
+							render.projected_texture_w = env->textures[38].surface->w
+								/ render.vz2;
+						else
+							render.projected_texture_w = env->textures[38].surface->w
+								/ render.clipped_vz2;
+						render.projected_texture_h = env->textures[38].surface->h;
+					}
 					else
-						render.projected_texture_w = env->textures[render.texture].surface->w
-							* render.wall_width / render.clipped_vz2;
-					render.projected_texture_h = env->textures[render.texture].surface->h
-						* render.wall_height;
+					{
+						if (render.vz2)
+							render.projected_texture_w = env->textures[render.texture].surface->w
+								* render.wall_width / render.vz2;
+						else
+							render.projected_texture_w = env->textures[render.texture].surface->w
+								* render.wall_width / render.clipped_vz2;
+						render.projected_texture_h = env->textures[render.texture].surface->h
+							* render.wall_height;
+					}
 
 					// Multithread
 					threaded_raycasting(env, render);

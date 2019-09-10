@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:37:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:10:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		{
 			if (env->editor.in_game)
 			{
-				env->editor.selected_sector = env->sectors[render.sector].num;
+				env->editor.selected_sector = render.sector;
 				env->editor.selected_wall = render.i;
 			}
 			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
@@ -403,7 +403,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	if (render.skybox)
-		draw_skybox(render, env);
+		draw_skybox(render, 0, env);
 	else if (env->sectors[render.sector].ceiling_slope)
 		draw_vline_ceiling_color(vline, render, env);
 	else
