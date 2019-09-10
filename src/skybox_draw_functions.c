@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_functions.c                                   :+:      :+:    :+:   */
+/*   skybox_draw_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 11:38:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:03:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline(t_vline vline, t_render render, t_env *env)
+void	draw_vline_skybox(t_vline vline, t_render render, t_env *env)
 {
 	int			i;
 	double		yalpha;
@@ -58,17 +58,13 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			if (env->editor.in_game)
-			{
-				env->editor.selected_sector = render.sector;
-				env->editor.selected_wall = render.i;
-			}
-			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
-			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+			env->selected_wall1 = -1;
+			env->selected_wall2 = -1;
+			env->selected_ceiling = render.sector;
 			env->selected_floor = -1;
-			env->selected_ceiling = -1;
 			env->selected_object = -1;
 			env->selected_enemy = -1;
+			env->editor.selected_wall = -1;
 		}
 		yalpha = (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
@@ -79,21 +75,10 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 		if (!env->options.lighting)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
-			//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
-		//ft_printf("light = %d\n", render.light);
 		if (env->editor.in_game && render.selected && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 		zbuffer[coord] = render.z;
-		//ft_printf("light = %d\n", (int)(255 * render.light));
-		/*if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;*/
-		/*if (i == (int)render.floor_horizon1)
-			pixels[coord] = 0xFF0000FF;
-		if (i == (int)render.floor_horizon2)
-			pixels[coord] = 0xFFFF0000;*/
-		/*if (i == (int)render.ceiling_horizon)
-			pixels[coord] = 0xFFFF0000;*/
 		i++;
 	}
 	if (env->options.zbuffer || env->options.contouring)
@@ -117,29 +102,7 @@ void	draw_vline(t_vline vline, t_render render, t_env *env)
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_color(t_vline vline, t_render render, t_env *env)
-{
-	int		coord;
-	Uint32	*pixels;
-	double	*zbuffer;
-
-	(void)render;
-	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
-	while (vline.start <= vline.end)
-	{
-		coord = vline.x + env->w * vline.start;
-		pixels[coord] = vline.color;
-		zbuffer[coord] = 100000000;
-		vline.start++;
-	}
-}
-
-/*
-**	Draw a vertical vline on the screen at vline.x
-*/
-
-void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
+void	draw_vline_ceiling_skybox(t_vline vline, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -181,8 +144,6 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * render.player_pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * render.player_pos.x;
-		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
-		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
 		y *= render.ceiling_yscale;
 		x *= render.ceiling_xscale;
 		if (y >= texture_h || y < 0)
@@ -200,10 +161,6 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 		if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
-		/*if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;*/
-		/*if (i == (int)render.ceiling_horizon)
-			pixels[coord] = 0xFFFF0000;*/
 		}
 		i++;
 	}
@@ -227,42 +184,7 @@ void	draw_vline_ceiling(t_vline vline, t_render render, t_env *env)
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling_color(t_vline vline, t_render render, t_env *env)
-{
-	int		coord;
-	Uint32	*pixels;
-	double	*zbuffer;
-
-	(void)render;
-	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
-	while (vline.start <= vline.end)
-	{
-		coord = vline.x + env->w * vline.start;
-		if (env->editor.select && vline.x == env->h_w && vline.start == env->h_h)
-		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
-			env->selected_ceiling = render.sector;
-			env->selected_floor = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
-		}
-		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(vline.color, 0xFF00FF00, 128);
-		else
-			pixels[coord] = vline.color;
-		zbuffer[coord] = 100000000;
-		vline.start++;
-	}
-}
-
-/*
-**	Draw a vertical vline on the screen at vline.x
-*/
-
-void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
+void	draw_vline_floor_skybox(t_vline vline, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -296,8 +218,8 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 		{
 			env->selected_wall1 = -1;
 			env->selected_wall2 = -1;
-			env->selected_floor = render.sector;
-			env->selected_ceiling = -1;
+			env->selected_ceiling = render.sector;
+			env->selected_floor = -1;
 			env->selected_object = -1;
 			env->selected_enemy = -1;
 			env->editor.selected_wall = -1;
@@ -350,137 +272,5 @@ void	draw_vline_floor(t_vline vline, t_render render, t_env *env)
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.end] = 100000000;
 		}
-	}
-}
-
-/*
-**	Draw a vertical vline on the screen at vline.x
-*/
-
-void	draw_vline_floor_color(t_vline vline, t_render render, t_env *env)
-{
-	int		coord;
-	Uint32	*pixels;
-	double	*zbuffer;
-
-	(void)render;
-	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
-	while (vline.start <= vline.end)
-	{
-		coord = vline.x + env->w * vline.start;
-		if (env->editor.select && vline.x == env->h_w && vline.start == env->h_h)
-		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
-			env->selected_floor = render.sector;
-			env->selected_ceiling = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
-		}
-		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(vline.color, 0xFF00FF00, 128);
-		else
-			pixels[coord] = vline.color;
-		zbuffer[coord] = 100000000;
-		vline.start++;
-	}
-}
-
-/*
-**	Draw the ceiling of the current wall
-*/
-
-void	draw_ceiling(t_render render, t_env *env)
-{
-	t_vline	vline;
-
-	vline.x = render.currentx;
-	vline.start = env->ymin[vline.x];
-	vline.end = ft_min(render.current_ceiling, env->h - 1);
-	vline.color = 0xFFFF0000;
-	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	if (render.skybox)
-		draw_skybox(render, env);
-	else if (env->sectors[render.sector].ceiling_slope)
-		draw_vline_ceiling_color(vline, render, env);
-	else
-		draw_vline_ceiling(vline, render, env);
-}
-
-/*
-**	Draw the floor of the current wall
-*/
-
-void	draw_floor(t_render render,t_env *env)
-{
-	t_vline	vline;
-
-	vline.x = render.currentx;
-	vline.start = ft_max(0, render.current_floor);
-	vline.end = env->ymax[vline.x];
-	vline.color = 0xFF0B6484;
-	//vline.color = 0xFFFF0000;
-	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	if (env->sectors[render.sector].floor_slope)
-		draw_vline_floor_color(vline, render, env);
-	else
-		draw_vline_floor(vline, render, env);
-}
-
-/*
-**	Draw the neighbor upper wall (corniche)
-*/
-
-void	draw_upper_wall(t_render render, t_env *env)
-{
-	t_vline	vline;
-
-	vline.x = render.currentx;
-	vline.start = render.current_ceiling;
-	vline.end = render.current_neighbor_ceiling;
-	vline.color = 0xFF0B6484;
-	//vline.color = 0xFFFF0000;
-	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	//ft_printf("floor end = %d\n", vline.end);
-	draw_vline(vline, render, env);
-	//draw_vline_color(vline, render, env);
-	if ((env->options.zbuffer || env->options.contouring) && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
-		draw_vline_color(vline, render, env);
-	if ((env->options.zbuffer || env->options.contouring) && vline.end == (int)render.max_neighbor_ceiling)
-	{
-		env->sdl.texture_pixels[env->w * (vline.end - 1) + vline.x] = 0xFFFF0000;
-		env->depth_array[env->w * (vline.end - 1) + vline.x] = 100000000;
-	}
-}
-
-/*
-**	Draw the neighbor bottom wall (marche)
-*/
-
-void	draw_bottom_wall(t_render render,t_env *env)
-{
-	t_vline	vline;
-
-	vline.x = render.currentx;
-	vline.start = render.current_neighbor_floor;
-	vline.end = render.current_floor;
-	vline.color = 0xFF444444;
-	vline.color = 0xFFFF0000;
-	if (env->options.lighting)
-		vline.color = apply_light(vline.color, render.light_color, render.brightness);
-	//ft_printf("ceiling start = %d\n", vline.start);
-	draw_vline(vline, render, env);
-	//draw_vline_color(vline, render, env);
-	if ((env->options.zbuffer || env->options.contouring) && (render.currentx == render.preclip_x1 || render.currentx == render.preclip_x2))
-		draw_vline_color(vline, render, env);
-	if ((env->options.zbuffer || env->options.contouring) && vline.start == (int)render.max_neighbor_floor)
-	{
-		env->sdl.texture_pixels[env->w * (vline.start + 1) + vline.x] = 0xFFFF0000;
-		env->depth_array[env->w * (vline.start + 1) + vline.x] = 100000000;
 	}
 }

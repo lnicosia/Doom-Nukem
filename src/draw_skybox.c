@@ -6,12 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 14:30:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 13:49:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 11:44:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
+#include "draw_skybox.h"
 
 /*
 **	Check if the skybox current wall is in the player FOV
@@ -153,6 +154,11 @@ void		draw_skybox(t_render render, t_env *env)
 	skybox.horizon = env->h_h - env->player.angle_z * env->camera.scale;
 	skybox.ceiling_horizon = skybox.horizon;
 	skybox.floor_horizon = skybox.horizon;
+	skybox.sector = render.sector;
+	skybox.i = render.i;
+	skybox.selected = 0;
+	if (env->selected_ceiling == render.sector)
+		skybox.selected = 1;
 	while (i < 4)
 	{
 		//ft_printf("i = %d\n", i);
@@ -225,27 +231,27 @@ void		draw_skybox(t_render render, t_env *env)
 				skybox.ceiling_start = skybox.max_ceiling - skybox.horizon;
 				skybox.floor_start = skybox.max_floor - skybox.horizon;
 				vline.x = skybox.currentx;
-				/*if (skybox.current_floor < render.current_ceiling)
-				  {
+				if (skybox.current_floor < render.current_ceiling)
+				{
 				  vline.start = skybox.current_floor;
 				  vline.end = render.current_ceiling;
 				  vline.color = 0xFF0B6484;
-				  draw_vline_floor(vline, skybox, env);
-				  }*/
+				  draw_vline_floor_skybox(vline, skybox, env);
+				}
 				if (skybox.current_ceiling < render.current_ceiling)
-				  {
+				{
 				  vline.start = skybox.current_ceiling;
 				  vline.end = ft_min(skybox.current_floor, render.current_ceiling);
 				  vline.color = 0xFF0B6484;
-				  draw_vline(vline, skybox, env);
-				  }
+				  draw_vline_skybox(vline, skybox, env);
+				}
 				if (env->ymin[skybox.currentx] < skybox.current_ceiling)
-				  {
+				{
 				  vline.start = env->ymin[skybox.currentx];
 				  vline.end = ft_min(skybox.current_ceiling, render.current_ceiling);
 				  vline.color = 0xFF0B6484;
-				  draw_vline_ceiling(vline, skybox, env);
-				  }
+				  draw_vline_ceiling_skybox(vline, skybox, env);
+				}
 			}
 		}
 		i++;
