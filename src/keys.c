@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:05:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:28:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		keys(t_env *env)
 				|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
 			&& (((env->selected_enemy == -1 && env->editor.tab)
 					|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab)))
+				|| (env->selected_enemy == -1 && !env->editor.tab)) && !env->inputs.ctrl)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -77,11 +77,19 @@ void		keys(t_env *env)
 		{
 			env->time.tick = time;
 			if (env->inputs.down && env->editor.tab
-					&& env->sectors[env->selected_ceiling].ceiling_texture > 0)
+					&& env->sectors[env->selected_ceiling].ceiling_texture > -1)
 				env->sectors[env->selected_ceiling].ceiling_texture--;
 			else if (env->inputs.up && env->editor.tab
 					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
 				env->sectors[env->selected_ceiling].ceiling_texture++;
+			if (env->sectors[env->selected_ceiling].ceiling_texture == -1)
+			{
+				env->sectors[env->selected_ceiling].skybox = 1;
+				env->sectors[env->selected_ceiling].ceiling_texture = 38;
+			}
+			else if (env->sectors[env->selected_ceiling].ceiling_texture != 38)
+				env->sectors[env->selected_ceiling].skybox = 0;
+
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_ceiling].ceiling > env->sectors[env->selected_ceiling].floor + 1)
@@ -115,32 +123,49 @@ void		keys(t_env *env)
 	/*
 	 * *	selection of slopes on floor and ceiling
 	 */
+	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
+			&& env->editor.in_game && env->selected_ceiling != -1)
+	{
+		env->sectors[env->selected_ceiling].ceiling_slope -= 0.01;
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+	}
+	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
+			&& env->editor.in_game && env->selected_ceiling != -1)
+	{
+		env->sectors[env->selected_ceiling].ceiling_slope += 0.01;
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+	}
+	if (env->selected_ceiling != -1 && env->sectors[env->selected_ceiling].ceiling_slope <= 0.02
+			&& env->sectors[env->selected_ceiling].ceiling_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
+		env->sectors[env->selected_ceiling].ceiling_slope = 0;
 
 	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
 			&& env->editor.in_game && env->selected_floor != -1)
 	{
 		env->sectors[env->selected_floor].floor_slope -= 0.01;
-		update_sector_slope(env, &env->sectors[env->player.sector]);
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
 			&& env->editor.in_game && env->selected_floor != -1)
 	{
 		env->sectors[env->selected_floor].floor_slope += 0.01;
-		update_sector_slope(env, &env->sectors[env->player.sector]);
-
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
 	}
+	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02
+			&& env->sectors[env->selected_floor].floor_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
+		env->sectors[env->selected_floor].floor_slope = 0;
 	if (env->selected_floor != -1 && env->editor.in_game && env->inputs.ctrl)
 	{
 		if (!env->time.tick3)
 			env->time.tick3 = SDL_GetTicks();
 		if (env->inputs.left && time - env->time.tick3 > 300)
 		{
-			env->sectors[env->selected_floor] = rotate_vertices(env, 1);
+			env->sectors[env->selected_floor] = rotate_vertices(env, 1, env->selected_floor);
 			env->time.tick3 = time;
 		}
 		else if (env->inputs.right && time - env->time.tick3 > 300)
 		{
-			env->sectors[env->selected_floor] = rotate_vertices(env, -1);
+			env->sectors[env->selected_floor] = rotate_vertices(env, -1, env->selected_floor);
 			env->time.tick3 = time;
 		}
 		env->sectors[env->selected_floor].normal = get_sector_normal(env->sectors[env->selected_floor], env);
@@ -151,6 +176,30 @@ void		keys(t_env *env)
 			create_portals(env, env->sectors[i]);
 			i++;
 		}
+	}
+	if (env->selected_ceiling != -1 && env->editor.in_game && env->inputs.ctrl)
+	{
+		if (!env->time.tick3)
+			env->time.tick3 = SDL_GetTicks();
+		if (env->inputs.left && time - env->time.tick3 > 300)
+		{
+			env->sectors[env->selected_ceiling] = rotate_vertices(env, 1, env->selected_ceiling);
+			env->time.tick3 = time;
+		}
+		else if (env->inputs.right && time - env->time.tick3 > 300)
+		{
+			env->sectors[env->selected_ceiling] = rotate_vertices(env, -1, env->selected_ceiling);
+			env->time.tick3 = time;
+		}
+		env->sectors[env->selected_ceiling].normal = get_sector_normal(env->sectors[env->selected_ceiling], env);
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+		clear_portals(env);
+		while (i < env->nb_sectors)
+		{
+			create_portals(env, env->sectors[i]);
+			i++;
+		}
+
 	}
 
 	/*

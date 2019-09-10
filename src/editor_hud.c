@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 16:22:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 10:53:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	print_sector_informations(t_env *env)
 	print_text(new_point(260, 470), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope * CONVERT_DEGREES), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(300, 240), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(300, 470), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(340, 240), new_printable_text("Brightness: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(340, 470), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+
 }
 
 void	print_object_informations(t_env *env)
@@ -48,12 +51,24 @@ void	print_object_informations(t_env *env)
 	print_text(new_point(10, 390), new_printable_text("object ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->editor.selected_object), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 280), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 300), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(170, 300), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(170, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(210, 300), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(210, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	if (env->editor.selected_object != -1)
+	{
+		print_text(new_point(130, 300), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(130, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(170, 300), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(170, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(210, 300), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(210, 430), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	}
+	else
+	{
+		print_text(new_point(130, 300), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(130, 430), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(170, 300), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(170, 430), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(210, 300), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		print_text(new_point(210, 430), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	}
 }
 
 void	print_player_informations(t_env *env)
@@ -109,7 +124,7 @@ void	print_floor_informations(t_env *env)
 void	select_informations(t_env *env)
 {
 	print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
-		env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
+				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 }
 
 void	print_enemy_informations(t_env *env)
@@ -165,7 +180,7 @@ void	editor_hud(t_env *env)
 			print_vertex_informations(env);
 		else if (env->editor.selected_player != -1)
 			print_player_informations(env);
-		else if (env->editor.selected_object != -1)
+		else if (env->editor.selected_object != -1 || env->selected_object != -1)
 			print_object_informations(env);
 		else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 			print_sector_informations(env);
