@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:28:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 13:55:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,12 +251,12 @@ void		keys(t_env *env)
 			if (env->inputs.left && env->enemies[env->selected_enemy].sprite == 2)
 			{
 				env->enemies[env->selected_enemy].sprite--;
-				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor + 5;
+				env->enemies[env->selected_enemy].pos.z = get_floor_at_pos(env->sectors[env->enemies[env->selected_enemy].sector], new_v2(env->enemies[env->selected_enemy].pos.x, env->enemies[env->selected_enemy].pos.y), env) + 5;
 			}
 			if (env->inputs.right && env->enemies[env->selected_enemy].sprite == 1)
 			{
 				env->enemies[env->selected_enemy].sprite++;
-				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor;
+				env->enemies[env->selected_enemy].pos.z = get_floor_at_pos(env->sectors[env->enemies[env->selected_enemy].sector], new_v2(env->enemies[env->selected_enemy].pos.x, env->enemies[env->selected_enemy].pos.y), env);
 			}
 		}
 		if (env->inputs.right_click && !env->option)
