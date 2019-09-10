@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/09 17:18:28 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:47:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int					init_game(int ac, char **av);
 int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
+void				reset_render_utils(t_env *env);
 
 /*
 ** Init functions
@@ -308,6 +309,7 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
+void				project_walls(int i, t_sector *sector, t_env *env);
 
 /*
 ** enemies functions

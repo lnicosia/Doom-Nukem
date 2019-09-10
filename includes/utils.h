@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:18:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 11:11:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,15 @@ typedef struct		s_circle
 typedef struct		s_sector
 {
 	t_v2			normal;
+	double			*vx;
+	double			*vz;
+	double			*clipped_vx;
+	double			*clipped_vz;
+	double			*clipped_vf;
+	double			*clipped_vc;
+	double			*f;
+	double			*scale;
+	int				*draw;
 	double			floor;
 	double			floor_slope;
 	double			ceiling;
@@ -86,6 +95,7 @@ typedef struct		s_sector
 	short			nb_vertices;
 	int				skybox;
 	int				brightness;
+	int				computed;
 	Uint32			light_color;
 }					t_sector;
 

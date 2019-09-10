@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:27:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:19:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	render_sector(t_env *env, t_render render)
 	}
 }
 
-static void		reset_render_utils(t_env *env)
+void		reset_render_utils(t_env *env)
 {
 	int	i;
 	int	max;
@@ -211,6 +211,7 @@ static void		reset_render_utils(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		env->rendered_sectors[i] = 0;
+		env->sectors[i].computed = 0;
 		i++;
 	}
 	i = 0;
