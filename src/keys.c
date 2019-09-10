@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:05:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:26:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,11 @@ void		keys(t_env *env)
 				env->enemies[env->selected_enemy].pos.z = env->sectors[env->enemies[env->selected_enemy].sector].floor;
 			}
 		}
-		if (env->inputs.right_click && !env->option)
-		{
-			if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
-				env->weapons[env->player.curr_weapon].ammo++;
-		}
+	}
+	if (env->inputs.right_click && !env->option)
+	{
+		ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);
+		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+			env->weapons[env->player.curr_weapon].ammo++;
 	}
 }

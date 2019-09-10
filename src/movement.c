@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:21:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:27:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	move_player(t_env *env)
 		env->time.start = env->time.end;
 		if (env->inputs.forward && !env->inputs.backward)
 		{
-			move = check_collision(env, new_v2(env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed));
+			move = check_collision(env, new_v2(env->player.angle_cos * env->player.speed, env->player.angle_sin * env->player.speed), env->player.pos, env->player.sector, 0);
 				env->player.pos.x += move.x;
 				env->player.pos.y += move.y;
 				if (move.x != 0 || move.y != 0)
@@ -63,7 +63,7 @@ void	move_player(t_env *env)
 		}
 		else if (env->inputs.backward && !env->inputs.forward)
 		{
-			move = check_collision(env, new_v2(env->player.angle_cos * -env->player.speed, env->player.angle_sin * -env->player.speed));
+			move = check_collision(env, new_v2(env->player.angle_cos * -env->player.speed, env->player.angle_sin * -env->player.speed), env->player.pos, env->player.sector, 0);
 				env->player.pos.x += move.x;
 				env->player.pos.y += move.y;
 				if (move.x != 0 || move.y != 0)
@@ -71,7 +71,7 @@ void	move_player(t_env *env)
 		}
 		if (env->inputs.left && !env->inputs.right)
 		{
-			move = check_collision(env, new_v2(env->player.angle_sin * env->player.speed, env->player.angle_cos * -env->player.speed));
+			move = check_collision(env, new_v2(env->player.angle_sin * env->player.speed, env->player.angle_cos * -env->player.speed), env->player.pos, env->player.sector, 0);
 				env->player.pos.x += move.x;
 				env->player.pos.y += move.y;
 				if (move.x != 0 || move.y != 0)
@@ -79,7 +79,7 @@ void	move_player(t_env *env)
 		}
 		else if (env->inputs.right && !env->inputs.left)
 		{
-			move = check_collision(env, new_v2(env->player.angle_sin * -env->player.speed, env->player.angle_cos * env->player.speed));
+			move = check_collision(env, new_v2(env->player.angle_sin * -env->player.speed, env->player.angle_cos * env->player.speed), env->player.pos, env->player.sector, 0);
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)

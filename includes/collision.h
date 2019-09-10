@@ -6,16 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/09 14:15:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:27:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLLISION_H
 # define COLLISION_H
-# define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
 # define SECTOR_X1 env->vertices[env->sectors[sector].vertices[i]].x
 # define SECTOR_X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define SECTOR_Y1 env->vertices[env->sectors[sector].vertices[i]].y
@@ -65,7 +61,7 @@ typedef struct  s_data
 }               t_data;
 
 
-t_v2				check_collision(t_env *env, t_v2 move);
+t_v2				check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
 void                enemy_collision(t_env *env);

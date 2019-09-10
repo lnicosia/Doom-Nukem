@@ -71,9 +71,9 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
 		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast
-	
+		  -flto -Ofast
+		  #-fsanitize=address -g3 \
+		  	
 DEBUG ?= 0
 
 #ifeq ($(DEBUG), 1)
