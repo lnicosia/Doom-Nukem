@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 15:27:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:38:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	if (draw_walls(env))
+	if (draw_walls2(env))
 		return (crash("Failed to draw walls\n", env));
 	if (env->options.wall_color)
 	{

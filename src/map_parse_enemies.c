@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:21:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:32:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("after enemy angle", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
-	env->enemies[parser->enemies_count].sector = get_sector_global(env,
+	env->enemies[parser->enemies_count].sector = get_sector_no_z(env,
 			new_v3(env->enemies[parser->enemies_count].pos.x,
 				env->enemies[parser->enemies_count].pos.y,
 				env->enemies[parser->enemies_count].pos.z));

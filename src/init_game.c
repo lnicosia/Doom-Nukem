@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/05 16:55:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:20:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	init_game(int ac, char **av)
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
+	if (init_textures(&env))
+		return (crash("Could not load textures\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
@@ -44,8 +46,6 @@ int	init_game(int ac, char **av)
 		return (crash("Could not init screen pos\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (init_textures(&env))
-		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
 		return (crash("Could not load sprites\n", &env));
 	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))

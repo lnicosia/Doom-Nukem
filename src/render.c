@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 10:19:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:53:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,6 @@ int				draw_walls(t_env *env)
 
 	i = 0;
 	//ft_printf("\n");
-	env->count = 0;
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
 	while (i < screen_sectors)

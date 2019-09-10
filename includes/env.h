@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 10:47:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:50:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct		s_env
 	int					nb_enemies;
 	double				flag;
 	int					reset;
-	int					count;
 	int					*ymax;
 	int					*ymin;
 	int					current_object;
@@ -258,6 +257,7 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_env *env);
+int					draw_walls2(t_env *env);
 void				draw_objects(t_env *env);
 void				draw_enemies(t_env *env);
 int					draw_game(t_env *env);
@@ -309,7 +309,7 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
-void				project_walls(int i, t_sector *sector, t_env *env);
+int					project_walls(int i, t_sector *sector, t_env *env);
 
 /*
 ** enemies functions

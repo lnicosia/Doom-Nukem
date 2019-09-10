@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 11:11:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:43:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,45 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
+typedef struct		s_render_vertex
+{
+	double			vx;
+	double			vz;
+	double			clipped_vx;
+	double			clipped_vz;
+	double			clipped_vf;
+	double			clipped_vc;
+	double			x;
+	double			f;
+	double			c;
+	double			no_slope_f;
+	double			no_slope_c;
+	double			scale;
+	double			angle_z;
+	int				draw;
+	double			floor_horizon;
+	double			ceiling_horizon;
+	double			xrange;
+	double			floor_range;
+	double			ceiling_range;
+	double			no_slope_floor_range;
+	double			no_slope_ceiling_range;
+	double			xz;
+	double			yz;
+}					t_render_vertex;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
-	double			*vx;
-	double			*vz;
-	double			*clipped_vx;
-	double			*clipped_vz;
-	double			*clipped_vf;
-	double			*clipped_vc;
-	double			*f;
-	double			*scale;
-	int				*draw;
+	t_render_vertex	*v;
 	double			floor;
 	double			floor_slope;
+	short			floor_texture;
+	t_v2			floor_scale;
 	double			ceiling;
 	double			ceiling_slope;
+	short			ceiling_texture;
+	t_v2			ceiling_scale;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
@@ -89,10 +112,9 @@ typedef struct		s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	short			ceiling_texture;
-	short			floor_texture;
 	short			num;
 	short			nb_vertices;
+	int				selected;
 	int				skybox;
 	int				brightness;
 	int				computed;
@@ -127,6 +149,7 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
+	double			horizon;
 	int				hit;
 	double			size_2d;
 	double			camera_x;
