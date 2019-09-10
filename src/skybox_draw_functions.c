@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:03:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:29:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "render.h"
 
 /*
-**	Draw a vertical vline on the screen at vline.x
-*/
+ **	Draw a vertical vline on the screen at vline.x
+ */
 
-void	draw_vline_skybox(t_vline vline, t_render render, t_env *env)
+void	draw_vline_skybox(t_vline vline, int mode, t_render render, t_env *env)
 {
 	int			i;
 	double		yalpha;
@@ -58,13 +58,30 @@ void	draw_vline_skybox(t_vline vline, t_render render, t_env *env)
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
-			env->selected_ceiling = render.sector;
-			env->selected_floor = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
+			if (!mode)
+			{
+				env->selected_wall1 = -1;
+				env->selected_wall2 = -1;
+				env->selected_ceiling = render.sector;
+				env->selected_floor = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+				env->editor.selected_wall = -1;
+			}
+			else
+			{
+				if (env->editor.in_game)
+				{
+					env->editor.selected_sector = render.sector;
+					env->editor.selected_wall = render.i;
+				}
+				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_floor = -1;
+				env->selected_ceiling = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+			}
 		}
 		yalpha = (i - render.max_ceiling) / render.line_height;
 		y = yalpha * render.projected_texture_h;
@@ -99,10 +116,10 @@ void	draw_vline_skybox(t_vline vline, t_render render, t_env *env)
 }
 
 /*
-**	Draw a vertical vline on the screen at vline.x
-*/
+ **	Draw a vertical vline on the screen at vline.x
+ */
 
-void	draw_vline_ceiling_skybox(t_vline vline, t_render render, t_env *env)
+void	draw_vline_ceiling_skybox(t_vline vline, int mode, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -134,13 +151,30 @@ void	draw_vline_ceiling_skybox(t_vline vline, t_render render, t_env *env)
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
-			env->selected_ceiling = render.sector;
-			env->selected_floor = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
+			if (!mode)
+			{
+				env->selected_wall1 = -1;
+				env->selected_wall2 = -1;
+				env->selected_ceiling = render.sector;
+				env->selected_floor = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+				env->editor.selected_wall = -1;
+			}
+			else
+			{
+				if (env->editor.in_game)
+				{
+					env->editor.selected_sector = render.sector;
+					env->editor.selected_wall = render.i;
+				}
+				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_floor = -1;
+				env->selected_ceiling = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+			}
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * render.player_pos.y;
 		x = alpha * render.texel.x + (1.0 - alpha) * render.player_pos.x;
@@ -158,8 +192,8 @@ void	draw_vline_ceiling_skybox(t_vline vline, t_render render, t_env *env)
 			else
 				//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
-		if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
-			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
+				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		}
 		i++;
@@ -181,10 +215,10 @@ void	draw_vline_ceiling_skybox(t_vline vline, t_render render, t_env *env)
 }
 
 /*
-**	Draw a vertical vline on the screen at vline.x
-*/
+ **	Draw a vertical vline on the screen at vline.x
+ */
 
-void	draw_vline_floor_skybox(t_vline vline, t_render render, t_env *env)
+void	draw_vline_floor_skybox(t_vline vline, int mode, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -216,22 +250,39 @@ void	draw_vline_floor_skybox(t_vline vline, t_render render, t_env *env)
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
-			env->selected_ceiling = render.sector;
-			env->selected_floor = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
+			if (!mode)
+			{
+				env->selected_wall1 = -1;
+				env->selected_wall2 = -1;
+				env->selected_ceiling = render.sector;
+				env->selected_floor = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+				env->editor.selected_wall = -1;
+			}
+			else
+			{
+				if (env->editor.in_game)
+				{
+					env->editor.selected_sector = render.sector;
+					env->editor.selected_wall = render.i;
+				}
+				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_floor = -1;
+				env->selected_ceiling = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+			}
 		}
 		//y = alpha * render.texel.y + (1.0 - alpha) * env->player.pos.y;
 		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
 		/*y = ((1.0 - alpha) * env->player.camera_y / env->camera.near_z + alpha * render.texel.y / render.z)
-			/ ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
+		  / ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
 		//x = alpha * render.texel.x + (1.0 - alpha) * env->player.pos.x;
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
 		/*x = ((1.0 - alpha) * env->player.camera_x / env->camera.near_z + alpha * render.texel.y / render.z)
-			/ ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
+		  / ((1.0 - alpha) / env->camera.near_z + alpha / render.z);*/
 		y *= render.floor_yscale;
 		x *= render.floor_xscale;
 		if (y >= texture_h || y < 0)
@@ -249,13 +300,13 @@ void	draw_vline_floor_skybox(t_vline vline, t_render render, t_env *env)
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 			else
 				pixels[coord] = vline.color;
-		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
+				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
-		/*if (i == (int)render.floor_horizon)
-			pixels[coord] = 0xFF00FF00;*/
-		/*if (i == (int)render.ceiling_horizon)
-			pixels[coord] = 0xFFFF0000;*/
+			/*if (i == (int)render.floor_horizon)
+			  pixels[coord] = 0xFF00FF00;*/
+			/*if (i == (int)render.ceiling_horizon)
+			  pixels[coord] = 0xFFFF0000;*/
 		}
 		i++;
 	}

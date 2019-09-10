@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 15:28:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:10:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void				handle_near(t_render *render, t_env *env);
 int					get_screen_sectors(t_env *env);
 void				render_sector(t_env *env, t_render render);
 //void				compute_skybox(t_render *render, t_env *env);
-void				draw_skybox(t_render render, t_env *env);
+void				draw_skybox(t_render render, int mode, t_env *env);
 
 /*
 **	Sprite part

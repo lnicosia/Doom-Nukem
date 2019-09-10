@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 15:31:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:12:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void	*raycasting(void *param)
 		}
 		else
 		{
-			draw_vline(vline, render, env);
+			if (render.texture == -1)
+				draw_skybox(render, 1, env);
+			else
+				draw_vline(vline, render, env);
 			if ((env->options.zbuffer || env->options.contouring)
 					&& (x == (int)render.preclip_x1
 						|| x == (int)render.preclip_x2))

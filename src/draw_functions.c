@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 11:38:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:10:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ void	draw_ceiling(t_render render, t_env *env)
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	if (render.skybox)
-		draw_skybox(render, env);
+		draw_skybox(render, 0, env);
 	else if (env->sectors[render.sector].ceiling_slope)
 		draw_vline_ceiling_color(vline, render, env);
 	else
