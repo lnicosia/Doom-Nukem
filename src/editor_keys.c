@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 12:15:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:16:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int			editor_keys(t_env *env)
 					if (add_sector(env))
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
+					get_new_floor_and_ceiling(env);
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);

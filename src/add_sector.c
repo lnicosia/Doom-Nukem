@@ -6,11 +6,43 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 12:15:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:16:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	get_new_floor_and_ceiling(t_env *env)
+{
+	t_sector sector;
+	int		i;
+	int		flag;
+
+	flag = 0;
+	i = 0;
+	sector = env->sectors[env->nb_sectors - 1];
+	ft_printf("test]\n");
+	while (i < sector.nb_vertices)
+	{
+		if (sector.neighbors[i] != -1)
+		{
+			if (!flag)
+			{
+				flag = 1;
+				sector.floor = env->sectors[sector.neighbors[i]].floor;
+				sector.ceiling = env->sectors[sector.neighbors[i]].ceiling;
+			}
+			if (sector.floor > env->sectors[sector.neighbors[i]].floor)
+				sector.floor = env->sectors[sector.neighbors[i]].floor;
+			if (sector.ceiling < env->sectors[sector.neighbors[i]].ceiling)
+				sector.ceiling = env->sectors[sector.neighbors[i]].ceiling;
+
+		}
+		i++;
+	}
+	env->sectors[env->nb_sectors - 1].floor = sector.floor;
+	env->sectors[env->nb_sectors - 1].ceiling = sector.ceiling;
+}
 
 int			init_new_sector_arrays(t_sector *sector)
 {
