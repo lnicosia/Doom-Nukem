@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 16:40:52 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/09 16:56:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:52:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	add_enemy(t_env *env)
 		enemy.light_color = env->sectors[enemy.sector].light_color;
 		enemy.brightness = env->sectors[enemy.sector].brightness;
 	}
+
+
 	else
 	{
 		enemy.light_color = 0xFFFFFFFF;

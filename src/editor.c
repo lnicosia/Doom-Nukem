@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 14:25:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 11:46:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		editor(t_env *env)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)
 					env->editor.scale *= 1.1;
-				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 10)
+				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 5)
 					env->editor.scale /= 1.1;
 			}
 		}

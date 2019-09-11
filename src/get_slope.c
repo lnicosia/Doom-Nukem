@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:23:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:05:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 **	rotate vertices in selected sector wich make the slope rotate too
 */
 
-t_sector	rotate_vertices(t_env *env, int i)
+t_sector	rotate_vertices(t_env *env, int i, int index)
 {
 	t_sector	sector;
 	int			j;
 
-	sector = env->sectors[env->selected_floor];
+	sector = env->sectors[index];
 	if (i == 1)
 		j = 0;
 	else

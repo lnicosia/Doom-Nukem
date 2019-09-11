@@ -6,12 +6,25 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:41:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/10 14:43:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
+
+void		update_objects_z(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].sector == env->sectors[env->selected_floor].num)
+			env->objects[i].pos.z = get_floor_at_pos(env->sectors[env->selected_floor], new_v2(env->objects[i].pos.x, env->objects[i].pos.y), env);
+		i++;
+	}
+}
 
 static int	get_sprite_direction(t_object object)
 {
@@ -99,7 +112,7 @@ static void		*object_loop(void *param)
 			yalpha = (y - orender.y1) / orender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
-					&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
@@ -173,23 +186,7 @@ static void		draw_object(t_object *object, t_env *env)
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
 	threaded_object_loop(*object, orender, env);
-	/*if (((orender.x1 + orender.x2) / 2) < env->w && ((orender.x1 + orender.x2) / 2) >= 0 && ((orender.y1 + orender.y2) / 2) < env->h && ((orender.y1 + orender.y2) / 2) >= 0)
-		if (env->depth_array[(orender.x1 + orender.x2) / 2 + env->w * ((orender.y1 + orender.y2) / 2)] == object->rotated_pos.z)
-			object->seen = 1;*/
 }
-/*
-static void	get_relative_pos(t_env *env)
-{
-	int	i;
-	
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		get_translated_object_pos(env, &env->objects[i]);
-		get_rotated_object_pos(env, &env->objects[i]);
-		i++;
-	}
-}*/
 
 static void	threaded_get_relative_pos(t_env *env)
 {
@@ -204,7 +201,6 @@ static void	threaded_get_relative_pos(t_env *env)
 		object_threads[i].env = env;
 		object_threads[i].xstart = env->nb_objects / (double)THREADS * i;
 		object_threads[i].xend = env->nb_objects / (double)THREADS * (i + 1);
-		//ft_printf("start = %d end = %d\n", object_threads[i].start, object_threads[i].end);
 		pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]);
 		i++;
 	}
@@ -212,56 +208,11 @@ static void	threaded_get_relative_pos(t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-/*static void	swap_objects(t_object *o1, t_object *o2)
-{
-	t_object	tmp;
-
-	tmp = *o1;
-	*o1 = *o2;
-	*o2 = tmp;
-}
-
-static int	partition(t_object *objects, int start, int end)
-{
-	int	pivot;
-	int	i;
-	int	j;
-	
-	pivot = objects[end].rotated_pos.z;
-	i = start - 1;
-	j = start;
-	while (j < end)
-	{
-		if (objects[j].rotated_pos.z > pivot)
-		{
-			i++;
-			swap_objects(&objects[i], &objects[j]);
-		}
-		j++;
-	}
-	swap_objects(&objects[i + 1], &objects[end]);
-	return (i + 1);
-}
-
-static void	sort_objects(t_object *objects, int start, int end)
-{
-	int	pi;
-
-	if (start < end)
-	{
-		pi = partition(objects, start, end);
-		sort_objects(objects, start, pi - 1);
-		sort_objects(objects, pi + 1, end);
-	}
-}*/
-
 void		draw_objects(t_env *env)
 {
 	int	i;
 
 	threaded_get_relative_pos(env);
-	//get_relative_pos(env);
-	//sort_objects(env->objects, 0, env->nb_objects - 1);
 	i = 0;
 	while (i < env->nb_objects)
 	{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/06 14:37:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 12:15:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int			editor_keys(t_env *env)
 {
 	int		clicked_vertex;
+	double time;
 
+	time = SDL_GetTicks();
 	if (env->inputs.space
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1
@@ -126,6 +128,23 @@ int			editor_keys(t_env *env)
 			return (ft_printf("Could not save the map\n"));
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
+	}
+	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
+	{
+		time = SDL_GetTicks();
+		if (!env->time.tick2)
+			env->time.tick2 = SDL_GetTicks();
+		if (env->inputs.backward && env->selected_stat < 2 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			env->selected_stat++;
+		}
+		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 300)
+		{
+			env->time.tick2 = time;
+			env->selected_stat--;
+		}
+		selected_information_in_sector(env);
 	}
 	return (0);
 }
