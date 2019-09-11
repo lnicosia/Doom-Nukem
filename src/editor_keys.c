@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 14:16:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:01:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			editor_keys(t_env *env)
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
 					get_new_floor_and_ceiling(env);
+					update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
@@ -123,7 +124,7 @@ int			editor_keys(t_env *env)
 		}
 		env->inputs.enter = 0;
 	}
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
+	if (env->inputs.s && env->inputs.ctrl && !valid_map(env) && !env->editor.in_game)
 	{
 		if (save_map("maps/test.map", env))
 			return (ft_printf("Could not save the map\n"));

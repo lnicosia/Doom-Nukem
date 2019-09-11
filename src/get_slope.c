@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:05:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:26:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 	int			j;
 
 	sector = env->sectors[index];
+	ft_printf("test\n");
 	if (i == 1)
 		j = 0;
 	else

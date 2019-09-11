@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 14:16:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:42:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	get_new_floor_and_ceiling(t_env *env)
 	flag = 0;
 	i = 0;
 	sector = env->sectors[env->nb_sectors - 1];
-	ft_printf("test]\n");
 	while (i < sector.nb_vertices)
 	{
 		if (sector.neighbors[i] != -1)
@@ -112,7 +111,6 @@ int			add_sector(t_env *env)
 		return (ft_printf("Error while initializing new sector arrays\n"));
 	fill_new_sector(&sector, env);
 	sector.normal = get_sector_normal(sector, env);
-	update_sector_slope(env, &sector);
 	if (!(env->sectors = (t_sector*)ft_realloc(env->sectors,
 					sizeof(t_sector) * env->nb_sectors,
 					sizeof(t_sector) * (env->nb_sectors + 1))))

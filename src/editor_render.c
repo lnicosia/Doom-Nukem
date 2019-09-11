@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 11:40:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:42:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		editor_render(t_env *env)
 	draw_objects(env);
 	draw_enemies(env);
 	draw_crosshair(env);
-	animations(env);
 	if (env->options.show_fps)
 		fps(env);
 	game_time(env);
