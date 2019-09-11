@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 21:21:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 15:31:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 17:38:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,10 @@ void	*raycasting(void *param)
 				draw_bottom_wall(render, env);
 			env->ymin[x] = ft_clamp(
 					ft_max(render.current_neighbor_ceiling, render.current_ceiling),
-					env->ymin[x],
-					env->ymax[x]);
+					env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(
 					ft_min(render.current_neighbor_floor, render.current_floor),
-					env->ymin[x],
-					env->ymax[x]);
+					env->ymin[x], env->ymax[x]);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 13:41:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 17:44:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,26 @@ void		draw_wall(t_sector sector, t_render2 render, t_env *env)
 
 	vline.x = render.x;
 	vline.start = render.current_ceiling;
+	vline.end = render.current_floor;
+	draw_vline_wall(sector, vline, render, env);
+}
+
+void		draw_upper_wall2(t_sector sector, t_render2 render, t_env *env)
+{
+	t_vline	vline;
+
+	vline.x = render.x;
+	vline.start = render.current_ceiling;
+	vline.end = render.neighbor_current_ceiling;
+	draw_vline_wall(sector, vline, render, env);
+}
+
+void		draw_bottom_wall2(t_sector sector, t_render2 render, t_env *env)
+{
+	t_vline	vline;
+
+	vline.x = render.x;
+	vline.start = render.neighbor_current_floor;
 	vline.end = render.current_floor;
 	draw_vline_wall(sector, vline, render, env);
 }

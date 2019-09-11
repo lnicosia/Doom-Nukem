@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 18:05:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:55:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_env
 	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
+	int					test_time;
 }					t_env;
 
 /*

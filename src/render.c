@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 12:22:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 17:02:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	render_sector(t_env *env, t_render render)
 							* render.wall_width / render.clipped_vz2;
 					render.projected_texture_h = env->textures[render.texture].surface->h
 						* render.wall_height;
-
+					//ft_printf("Precalcul d'1 mur = %d\n", SDL_GetTicks() - env->test_time);
 					// Multithread
 					threaded_raycasting(env, render);
 
