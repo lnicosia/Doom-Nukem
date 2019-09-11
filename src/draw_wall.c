@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 19:34:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 13:41:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "render2.h"
 
 /*
- * **	Draw a vertical vline on the screen at vline.x
- * */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *env)
 {
@@ -81,7 +81,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *en
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
 			//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
-			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], render.light_color, sector.brightness);
+			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
 		//ft_printf("light = %d\n", render.light);
 		if (env->editor.in_game && render.selected && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);

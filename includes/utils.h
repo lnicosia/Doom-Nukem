@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 19:27:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:23:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,29 @@ typedef struct		s_render_vertex
 	t_v2			texture_scale;
 	double			vx;
 	double			vz;
-	double			clipped_vx;
-	double			clipped_vz;
-	double			clipped_vf;
-	double			clipped_vc;
-	double			clipped_x;
-	double			f;
-	double			c;
+	double			clipped_vx1;
+	double			clipped_vz1;
+	double			clipped_vx2;
+	double			clipped_vz2;
+	double			clipped_vf1;
+	double			clipped_vc1;
+	double			clipped_vf2;
+	double			clipped_vc2;
+	double			clipped_x1;
+	double			clipped_x2;
+	double			f1;
+	double			f2;
+	double			c1;
+	double			c2;
 	double			x;
-	double			no_slope_f;
-	double			no_slope_c;
-	double			scale;
-	double			angle_z;
+	double			scale1;
+	double			scale2;
+	double			angle_z1;
+	double			angle_z2;
+	double			no_slope_f1;
+	double			no_slope_f2;
+	double			no_slope_c1;
+	double			no_slope_c2;
 	int				draw;
 	double			floor_horizon;
 	double			ceiling_horizon;

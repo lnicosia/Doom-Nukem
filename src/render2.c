@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 19:31:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:46:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void		get_intersections2(int i, t_sector *sector, t_env *env)
 {
 	t_v2	inter;
+	t_v2	clipped_pos;
 
 	inter = get_intersection(
 			new_v2(sector->v[i].vx, sector->v[i].vz),
@@ -25,20 +26,48 @@ void		get_intersections2(int i, t_sector *sector, t_env *env)
 			new_v2(env->camera.near_right, env->camera.near_z));
 	if (sector->v[i].vz < env->camera.near_z)
 	{
-		sector->v[i].clipped_vx = inter.x;
-		sector->v[i].clipped_vz = inter.y;
+		sector->v[i].clipped_vx1 = inter.x;
+		sector->v[i].clipped_vz1 = inter.y;
 	}
 	else
 	{
-		sector->v[i].clipped_vx = sector->v[i].vx;
-		sector->v[i].clipped_vz = sector->v[i].vz;
+		sector->v[i].clipped_vx1 = sector->v[i].vx;
+		sector->v[i].clipped_vz1 = sector->v[i].vz;
 	}
-	sector->v[i].clipped_vf = get_floor_at_pos(*sector,
-			new_v2(sector->v[i].clipped_vx, sector->v[i].clipped_vz),
+	if (sector->v[i + 1].vz < env->camera.near_z)
+	{
+		sector->v[i].clipped_vx2 = inter.x;
+		sector->v[i].clipped_vz2 = inter.y;
+	}
+	else
+	{
+		sector->v[i].clipped_vx2 = sector->v[i + 1].vx;
+		sector->v[i].clipped_vz2 = sector->v[i + 1].vz;
+	}
+	clipped_pos.x = sector->v[i].clipped_vx1 * env->player.angle_sin
+		+ sector->v[i].clipped_vz1 * env->player.angle_cos + env->player.pos.x;
+	clipped_pos.y = sector->v[i].clipped_vz1 * env->player.angle_sin
+		- sector->v[i].clipped_vx1 * env->player.angle_cos + env->player.pos.y;
+	sector->v[i].clipped_vf1 = get_floor_at_pos(*sector,
+			new_v2(clipped_pos.x, clipped_pos.y),
 			env);
-	sector->v[i].clipped_vc = get_ceiling_at_pos(*sector,
-			new_v2(sector->v[i].clipped_vx, sector->v[i].clipped_vz),
+	sector->v[i].clipped_vc1 = get_ceiling_at_pos(*sector,
+			new_v2(clipped_pos.x, clipped_pos.y),
 			env);
+	clipped_pos.x = sector->v[i].clipped_vx2 * env->player.angle_sin
+		+ sector->v[i].clipped_vz2 * env->player.angle_cos + env->player.pos.x;
+	clipped_pos.y = sector->v[i].clipped_vz2 * env->player.angle_sin
+		- sector->v[i].clipped_vx2 * env->player.angle_cos + env->player.pos.y;
+	sector->v[i].clipped_vf2 = get_floor_at_pos(*sector,
+			new_v2(clipped_pos.x, clipped_pos.y),
+			env);
+	sector->v[i].clipped_vc2 = get_ceiling_at_pos(*sector,
+			new_v2(clipped_pos.x, clipped_pos.y),
+			env);
+	sector->v[i].clipped_vf1 = sector->floors[i];
+	sector->v[i].clipped_vf2 = sector->floors[i + 1];
+	sector->v[i].clipped_vc1 = sector->ceilings[i];
+	sector->v[i].clipped_vc2 = sector->ceilings[i + 1];
 }
 
 void		clip_wall2(int i, t_sector *sector, t_env *env)
@@ -51,11 +80,9 @@ void		clip_wall2(int i, t_sector *sector, t_env *env)
 				&& sector->v[i + 1].vx < env->camera.far_left)
 			|| (sector->v[i].vx > env->camera.far_right
 				&& sector->v[i + 1].vx > env->camera.far_right))
-	{
 		sector->v[i].draw = 0;
-		return ;
-	}
-	sector->v[i].draw = 1;
+	else
+		sector->v[i].draw = 1;
 	get_intersections2(i, sector, env);
 }
 
@@ -78,30 +105,24 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
 		sector->selected = 1;
-	sector->v[i].draw = 1;
-	sector->v[i].floor_horizon = env->player.horizon;
-	sector->v[i].ceiling_horizon = env->player.horizon;
-	sector->v[i].clipped_xrange = sector->v[i + 1].clipped_x
-		- sector->v[i].clipped_x;
+	//sector->v[i].draw = 1;
+	sector->v[i].clipped_xrange = sector->v[i].clipped_x2
+		- sector->v[i].clipped_x1;
 	sector->v[i].xrange = sector->v[i + 1].x
 		- sector->v[i].x;
-	sector->v[i].floor_range = sector->v[i + 1].f - sector->v[i].f;
-	sector->v[i].ceiling_range = sector->v[i + 1].c - sector->v[i].c;
-	sector->v[i].no_slope_floor_range = sector->v[i + 1].no_slope_f
-		- sector->v[i].no_slope_f;
-	sector->v[i].no_slope_ceiling_range = sector->v[i + 1].no_slope_c
-		- sector->v[i].no_slope_c;
-	sector->v[i].xz = env->vertices[sector->vertices[i]].x
-		/ sector->v[i].vz;
-	sector->v[i].yz = env->vertices[sector->vertices[i]].y
-		/ sector->v[i].vz;
+	sector->v[i].floor_range = sector->v[i].f2 - sector->v[i].f1;
+	sector->v[i].ceiling_range = sector->v[i].c2 - sector->v[i].c1;
+	sector->v[i].no_slope_floor_range = sector->v[i].no_slope_f2
+		- sector->v[i].no_slope_f1;
+	sector->v[i].no_slope_ceiling_range = sector->v[i].no_slope_c2
+		- sector->v[i].no_slope_c1;
 	if (sector->v[i + 1].vz)
 		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
 			surface->w * (sector->wall_width[i] / 10) / sector->v[i + 1].vz;
 	else
 		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
 			surface->w * (sector->wall_width[i] / 10)
-			/ sector->v[i + 1].clipped_vz;
+			/ sector->v[i].clipped_vz2;
 	sector->v[i].texture_scale.y = env->textures[sector->textures[i]].
 		surface->h * (sector->ceiling - sector->floor) / 10;
 }
@@ -111,27 +132,27 @@ void		precompute_sector(t_sector *sector, t_env *env)
 	int		i;
 
 	i = -1;
+	//ft_printf("computing sector %d\n", sector->num);
 	sector->computed = 1;
 	while (++i < sector->nb_vertices)
 		compute_wall(i, sector, env);
+	sector->v[sector->nb_vertices] = sector->v[0];
 	i = -1;
 	while (++i < sector->nb_vertices)
 		clip_wall2(i, sector, env);
+	sector->v[sector->nb_vertices] = sector->v[0];
 	i = -1;
 	while (++i < sector->nb_vertices)
-	{
-		if (sector->v[i].draw)
-			if (project_wall(i, sector, env))
-				sector->v[i].draw = 0;
-	}
+		project_wall(i, sector, env);
+	sector->v[sector->nb_vertices] = sector->v[0];
 	i = -1;
-	while (++i < sector->nb_vertices && sector->v[i].draw)
+	while (++i < sector->nb_vertices)// && sector->v[i].draw)
 	{
-		sector->v[i].draw = 0;
+		//sector->v[i].draw = 0;
 		//ft_printf("i = %d x1 = %f x2 = %f\n", i, sector->v[i].clipped_x,
 				//sector->v[i + 1].clipped_x);
-		if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
-			continue;
+		/*if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
+			continue;*/
 		//ft_printf("wall %d ok\n", i);
 		precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
@@ -161,6 +182,7 @@ int			draw_walls2(t_env *env)
 	i = 0;
 	while (i < screen_sectors)
 	{
+		//ft_printf("loop %d\n", i);
 		render.sector = env->screen_sectors[i];
 		render.xmin = env->xmin[i];
 		render.xmax = env->xmax[i];
