@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/10 17:27:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:39:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define FUTURE_Y motion.future_y
 # define FUTURE_Z motion.future_z
 # define VERTICES_AMOUNT env->sectors[env->player.sector].nb_vertices
-# define NEIGHBOR env->sectors[env->player.sector].neighbors[i]
+# define NEIGHBOR env->sectors[sector].neighbors[i]
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define PLAYER_ZPOS env->player.pos.z
@@ -46,10 +46,9 @@ typedef struct  s_movement
 
 typedef struct  s_wall
 {
-    double      x1;
-    double      x2;
-    double      y1;
-    double      y2;
+    double      x;
+    double      y;
+    double      norme;
     short       sector_or;
     short       sector_dest;  
 }               t_wall;

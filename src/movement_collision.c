@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/10 19:11:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:38:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_v3 pos, t_wall wall, int recu)
     */
     if (!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest))
     {
+        ft_printf("ouch\n");
         return (new_v2(0, 0));
     }
     while (i < env->sectors[wall.sector_dest].nb_vertices)
@@ -175,14 +176,8 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
     env->player.highest_sect = sector;
     FUTURE_X = pos.x + move.x;
     FUTURE_Y = pos.y + move.y;
-    /*if (env->player.stuck == 1)
-    {
-        env->player.stuck = 0;
-        if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
-            return (move);
-        return (new_v2(0, 0));
-    }*/
     i = 0;
+    //ft_printf("l180\n");
     while (i < env->nb_sectors)
     {
         if (i == sector)
@@ -192,19 +187,21 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
         i++;
     }
     i = 0;
+    //ft_printf("l190\n");
     while (i < env->sectors[sector].nb_vertices)
     {
-        /*
-        ** If the player is inside a wall for some reason
-        
-        if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
-        {
-            env->player.stuck = 1;
-            return (check_collision(env, move));
-        }*/
-        //ft_printf("move.x %f y %f\n", move.x, move.y);
+        //ft_printf("l193\n");
+        //ft_printf("max_vertices = %d, i = %d\n", env->sectors[sector].nb_vertices, i);
+        X1 += 0;
+        X2 += 0;
+        Y1 += 0;
+        Y2 += 0;
+        FUTURE_X += 0;
+        FUTURE_Y += 0;
+        NEIGHBOR += 0;
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
         {
+            //ft_printf("l196\n");
             norme_mov = sqrt(move.x * move.x + move.y * move.y);
             norme_wall = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
             scalar = (X2 - X1) / norme_wall * move.x / norme_mov + (Y2 - Y1) / norme_mov * move.y;
@@ -213,6 +210,7 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
                 tmp = move.x;
                 move.x = norme_mov * (X2 - X1) / norme_wall * ft_fclamp(scalar, 0.1, 1);
                 move.y = norme_mov * (Y2 - Y1) / norme_wall * ft_fclamp(scalar, 0.1, 1);
+                //ft_printf("l205\n");
                 return (check_collision(env, move, pos, sector, 1));
             }
             else if (scalar < 0 && !recu)
@@ -220,15 +218,21 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
                 tmp = move.x;
                 move.x = norme_mov * (X2 - X1) / norme_wall * ft_fclamp(scalar, -1, -0.1);
                 move.y = norme_mov * (Y2 - Y1) / norme_wall * ft_fclamp(scalar, -1, -0.1);
+                //ft_printf("l213\n");
                 return (check_collision(env, move, pos, sector, 1));
             }
+            //ft_printf("l216\n");
             //ft_printf("YOU SHALL NOT PASS!! %d\n", a++);
             return (new_v2(0,0));
         }
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
+            //ft_printf("l222\n");
             wall.sector_or = sector;
             wall.sector_dest = NEIGHBOR;
+            wall.norme = sqrt(X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1);
+            wall.x = (X2 - X1) / wall.norme;
+            wall.y = (Y2 - Y1) / wall.norme;
             move = collision_rec(env, move, pos, wall, 0);
             if (move.x != 0 || move.y != 0)
             {
@@ -239,11 +243,6 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
                     {
                         if (is_in_sector_no_z(env, j, new_v2(FUTURE_X, FUTURE_Y)))
                         {
-                            /*if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
-                            {
-                                env->player.stuck = 1;
-                                return (check_collision(env, move));
-                            }*/
                             env->player.sector = j;
                             j = env->nb_sectors;
                         }
@@ -253,7 +252,9 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
             }
             else
                 return (new_v2(0, 0));
+            //ft_printf("l247\n");
         }
+        //ft_printf("l249\n");
         i++;
     }
     find_highest_sector(env, motion);
