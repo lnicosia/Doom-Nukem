@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 17:29:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 11:47:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,32 @@ void	selected_information_on_enemy(t_env *env)
 
 void	selected_information_in_sector(t_env *env)
 {
-	if (env->selected_stat == 0)
-	{
+	double	time;
 
-	}
-	if (env->selected_stat == 1)
+	time = SDL_GetTicks();
+	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 0 && time - env->time.tick2 > 250)
 	{
-
+		env->time.tick2 = time;
+		if (env->inputs.left)
+			env->sectors[env->editor.selected_sector].floor -= 2;
+		if (env->inputs.right)
+			env->sectors[env->editor.selected_sector].floor += 2;
 	}
-	if (env->selected_stat == 2)
+	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 1 && time - env->time.tick2 > 250)
 	{
-
+		env->time.tick2 = time;
+		if (env->inputs.left)
+			env->sectors[env->editor.selected_sector].ceiling -= 2;
+		if (env->inputs.right)
+			env->sectors[env->editor.selected_sector].ceiling += 2;
 	}
+	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 2 && time - env->time.tick2 > 250)
+	{
+		env->time.tick2 = time;
+		if (env->inputs.left)
+			env->sectors[env->editor.selected_sector].brightness -= 2;
+		if (env->inputs.right)
+			env->sectors[env->editor.selected_sector].brightness += 2;
+	}
+	update_sector_slope(env, &env->sectors[env->editor.selected_sector]);
 }

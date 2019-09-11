@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 17:55:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 12:16:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,12 @@ void		keys(t_env *env)
 	{
 		if (!env->time.tick3)
 			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 300)
+		if (env->inputs.left && time - env->time.tick3 > 250)
 		{
 			env->sectors[env->selected_floor] = rotate_vertices(env, 1, env->selected_floor);
 			env->time.tick3 = time;
 		}
-		else if (env->inputs.right && time - env->time.tick3 > 300)
+		else if (env->inputs.right && time - env->time.tick3 > 250)
 		{
 			env->sectors[env->selected_floor] = rotate_vertices(env, -1, env->selected_floor);
 			env->time.tick3 = time;
@@ -186,12 +186,12 @@ void		keys(t_env *env)
 	{
 		if (!env->time.tick3)
 			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 300)
+		if (env->inputs.left && time - env->time.tick3 > 250)
 		{
 			env->sectors[env->selected_ceiling] = rotate_vertices(env, 1, env->selected_ceiling);
 			env->time.tick3 = time;
 		}
-		else if (env->inputs.right && time - env->time.tick3 > 300)
+		else if (env->inputs.right && time - env->time.tick3 > 250)
 		{
 			env->sectors[env->selected_ceiling] = rotate_vertices(env, -1, env->selected_ceiling);
 			env->time.tick3 = time;
@@ -216,12 +216,12 @@ void		keys(t_env *env)
 		time = SDL_GetTicks();
 		if (!env->time.tick2)
 			env->time.tick2 = SDL_GetTicks();
-		if (env->inputs.backward && env->selected_stat < 3 && time - env->time.tick2 > 300)
+		if (env->inputs.backward && env->selected_stat < 3 && time - env->time.tick2 > 250)
 		{
 			env->time.tick2 = time;
 			env->selected_stat++;
 		}
-		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 300)
+		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 250)
 		{
 			env->time.tick2 = time;
 			env->selected_stat--;

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 17:55:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/11 11:15:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	select_informations(t_env *env)
 {
-	print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
+	if (env->selected_enemy != -1)
+		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
+	else if (env->editor.selected_sector != -1)
+		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|                             |<-",
+				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
+
 }
 
 void	print_vertex_informations(t_env *env)
@@ -35,19 +40,19 @@ void	print_sector_informations(t_env *env)
 {
 	print_text(new_point(10, 390), new_printable_text("sector ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->editor.selected_sector), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(90, 290), new_printable_text("floor: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(90, 280), new_printable_text("floor: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 290), new_printable_text("(f) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(130, 280), new_printable_text("(f) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(130, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_slope * CONVERT_DEGREES), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(170, 290), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(170, 280), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(170, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(210, 290), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(210, 280), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(210, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(250, 290), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(250, 280), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(250, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope * CONVERT_DEGREES), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(290, 290), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(290, 280), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(290, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(330, 290), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(330, 280), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(330, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	if (env->editor.tab)
 		select_informations(env);
