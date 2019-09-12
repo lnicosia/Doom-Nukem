@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 17:02:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:03:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,13 @@ void		precompute_sector(t_sector *sector, t_env *env)
 		if (sector->v[i].draw)
 		precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
-				&& !env->sectors[sector->neighbors[i]].computed)
-			precompute_sector(&env->sectors[sector->neighbors[i]], env);
+				&& sector->v[i].draw)
+		{
+			if (!env->sectors[sector->neighbors[i]].computed)
+				precompute_sector(&env->sectors[sector->neighbors[i]], env);
+			precompute_neighbors(i, sector,
+					env->sectors[sector->neighbors[i]], env);
+		}
 	}
 	//ft_printf("precalcul de tous les murs = %d\n", SDL_GetTicks() - env->test_time);
 	sector->v[sector->nb_vertices] = sector->v[0];
@@ -175,9 +180,10 @@ int			draw_walls2(t_env *env)
 	i = 0;
 	while (i < screen_sectors)
 	{
-		if (!env->sectors[i].computed)
-			precompute_sector(&env->sectors[i], env);
-		if (env->sectors[i].skybox && !env->skybox_computed)
+		if (!env->sectors[env->screen_sectors[i]].computed)
+			precompute_sector(&env->sectors[env->screen_sectors[i]], env);
+		if (env->sectors[env->screen_sectors[i]].skybox
+				&& !env->skybox_computed)
 			precompute_skybox(env);
 		i++;
 	}

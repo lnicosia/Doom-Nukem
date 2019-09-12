@@ -6,35 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 18:28:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:26:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render2.h"
-
-void		get_neighbor_ceiling_and_floor(t_sector sector, t_render2 *render,
-		t_env *env)
-{
-	t_sector	neighbor;
-	int			nv1;
-	int			nv2;
-
-	neighbor = env->sectors[sector.neighbors[render->i]];
-	nv1 = get_vertex_nb_in_sector(sector.vertices[render->i],
-			neighbor);
-	nv2 = get_vertex_nb_in_sector(sector.vertices[render->i + 1],
-			neighbor);
-	//ft_printf("nv1 = %d nv2 = %d\n", nv1, nv2);
-	render->neighbor_current_ceiling = render->clipped_alpha
-		* neighbor.v[nv1].ceiling_range + neighbor.v[nv1].c1;
-	/*render->neighbor_current_ceiling = render->clipped_alpha
-		* (neighbor.v[nv2].c1 - neighbor.v[nv2].c1) + neighbor.v[nv1].c1;*/
-	render->neighbor_current_floor = render->clipped_alpha
-		* neighbor.v[nv1].floor_range + neighbor.v[nv1].f1;
-	/*render->neighbor_current_floor = render->clipped_alpha
-		* (neighbor.v[nv2].f1 - neighbor.v[nv2].f1) + neighbor.v[nv1].f1;*/
-}
 
 void		wall_loop(t_render_vertex v1, t_sector sector, t_render2 render,
 		t_env *env)
@@ -74,10 +51,14 @@ void		wall_loop(t_render_vertex v1, t_sector sector, t_render2 render,
 			draw_ceiling2(sector, render, env);
 		if (render.current_floor < env->ymax[x])
 			draw_floor2(sector, render, env);
-		if (sector.neighbors[render.i] >= 0)
+		if (sector.neighbors[render.i] != -1)
 		{
-			get_neighbor_ceiling_and_floor(sector,
-					&render, env);
+			render.neighbor_current_ceiling = ft_clamp(render.clipped_alpha
+				* v1.neighbor_ceiling_range + v1.neighbor_c1,
+				env->ymin[x], env->ymax[x]);
+			render.neighbor_current_floor = ft_clamp(render.clipped_alpha
+				* v1.neighbor_floor_range + v1.neighbor_f1,
+				env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
 				draw_upper_wall2(sector, render, env);
 			if (render.neighbor_current_floor < render.current_floor)
@@ -107,8 +88,8 @@ void		render_sector2(t_render2 render, t_env *env)
 	//ft_printf("rendering sector %d\n", sector.num);
 	while (++i < sector.nb_vertices)
 	{
-		if (!sector.v[i].draw)
-			continue;
+		/*if (!sector.v[i].draw)
+			continue;*/
 		//ft_printf("rendering wall %d\n", i);
 		v1 = sector.v[i];
 		//ft_printf("min = %d max = %d\n", render.xmin, render.xmax);

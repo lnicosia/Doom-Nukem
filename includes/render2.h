@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 17:40:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 11:32:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void			draw_bottom_wall2(t_sector sector, t_render2 render,
 void			draw_skybox2(t_render2 render, t_env *env);
 void			precompute_skybox(t_env *env);
 short			get_vertex_nb_in_sector(short vertex, t_sector sector);
+void			precompute_neighbors(int i, t_sector *sector, t_sector neighbor,
+		t_env *env);
 
 #endif

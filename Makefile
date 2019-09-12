@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/11 17:44:22 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/12 12:26:17 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
 		   map_parse_enemies.c draw_skybox.c draw_line_free.c render2.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
-		   precompute_skybox.c draw_skybox2.c draw_floor.c
+		   precompute_skybox.c draw_skybox2.c draw_floor.c \
+		   precompute_neighbors.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h render2.h

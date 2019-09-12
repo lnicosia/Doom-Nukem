@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 17:03:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 11:14:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ typedef struct		s_render_vertex
 	double			c1;
 	double			c2;
 	double			x;
+	double			neighbor_f1;
+	double			neighbor_f2;
+	double			neighbor_floor_range;
+	double			neighbor_c1;
+	double			neighbor_c2;
+	double			neighbor_ceiling_range;
 	double			scale1;
 	double			scale2;
 	double			angle_z1;
