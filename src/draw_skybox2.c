@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 11:19:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:26:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	skybox_loop(t_render2 skybox, int mode, t_render2 render,
 
 	v1 = env->skybox[skybox.i];
 	x = render.x;
+	vline.color = 0xFFFF0000;
 	if ((!mode && env->selected_ceiling == render.sector)
 			|| (mode && env->sectors[render.sector].v[render.i].selected))
 		skybox.selected = 1;
@@ -70,6 +71,9 @@ void	skybox_loop(t_render2 skybox, int mode, t_render2 render,
 		vline.start = ft_max(min, skybox.current_ceiling);
 		vline.end = ft_min(skybox.current_floor, max);
 		draw_skybox_wall(vline, mode, skybox, env);
+		if ((env->options.zbuffer || env->options.contouring)
+				&& (x == (int)v1.x || x == (int)env->skybox[skybox.i + 1].x))
+			draw_vline_color2(vline, env);
 	}
 	if (skybox.current_floor < max)
 	{

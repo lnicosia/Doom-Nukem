@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/12 14:53:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 18:00:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 		x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
 		y *= sector.ceiling_scale.y;
 		x *= sector.ceiling_scale.x;
+		x = texture_w - x;
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)
 			x = ft_abs((int)x % texture_w);
-		x = texture_w - x;
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			if (!env->options.lighting)
@@ -82,10 +82,18 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 			  pixels[coord] = 0xFF00FF00;*/
 			/*if (i == (int)render.ceiling_horizon)
 			  pixels[coord] = 0xFFFF0000;*/
+			if (env->options.zbuffer || env->options.contouring)
+			{
+				if (i == (int)(render.max_ceiling) || i == vline.start)
+				{
+					pixels[vline.x + env->w * i] = 0xFFFF0000;
+					//zbuffer[vline.x + env->w * i] = 100000000;
+				}
+			}
 		}
 		i++;
 	}
-	if (env->options.zbuffer || env->options.contouring)
+	/*if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start >= 0 && vline.start < env->h - 1)
 		{
@@ -98,7 +106,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 			zbuffer[vline.x + env->w * vline.end] = 100000000;
 		}
-	}
+	}*/
 }
 
 /*

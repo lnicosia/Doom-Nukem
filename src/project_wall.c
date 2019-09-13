@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 10:46:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 15:43:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 16:29:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 		* sector->v[i].scale1;
 	sector->v[i].clipped_x2 = env->h_w + sector->v[i].clipped_vx2
 		* sector->v[i].scale2;
-	sector->v[i].clipped_x1 = ceil(sector->v[i].clipped_x1);
+	//sector->v[i].clipped_x1 = ceil(sector->v[i].clipped_x1);
 	sector->v[i].no_slope_f1 = env->h_h + (sector->floor - env->player.head_z
 			+ sector->v[i].angle_z1) * sector->v[i].scale1;
 	sector->v[i].no_slope_f2 = env->h_h + (sector->floor - env->player.head_z
@@ -43,7 +43,7 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 			+ sector->v[i].angle_z2) * sector->v[i].scale2;
 	sector->v[i].x = env->h_w + sector->v[i].vx
 		* env->camera.scale / -sector->v[i].vz;
-	sector->v[i].x = ceil(sector->v[i].x);
+	//sector->v[i].x = ceil(sector->v[i].x);
 	sector->v[i].floor_horizon = env->h_h + (sector->floor_slope
 			* (sector->floor_max + env->player.head_z) + sector->v[i].angle_z1)
 		* sector->v[i].scale1;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 11:25:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:30:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ void		get_intersections2(int i, t_sector *sector, t_env *env)
 	sector->v[i].clipped_vc2 = get_ceiling_at_pos(*sector,
 			new_v2(clipped_pos.x, clipped_pos.y),
 			env);
-	/*sector->v[i].clipped_vf1 = sector->floors[i];
-	  sector->v[i].clipped_vf2 = sector->floors[i + 1];
-	  sector->v[i].clipped_vc1 = sector->ceilings[i];
-	  sector->v[i].clipped_vc2 = sector->ceilings[i + 1];*/
 }
 
 void		clip_wall2(int i, t_sector *sector, t_env *env)
@@ -105,7 +101,6 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
 		sector->v[i].selected = 1;
-	//sector->v[i].draw = 1;
 	sector->v[i].clipped_xrange = sector->v[i].clipped_x2
 		- sector->v[i].clipped_x1;
 	sector->v[i].xrange = sector->v[i + 1].x
@@ -145,7 +140,6 @@ void		precompute_sector(t_sector *sector, t_env *env)
 	int		i;
 
 	i = -1;
-	//ft_printf("computing sector %d\n", sector->num);
 	sector->computed++;
 	while (++i < sector->nb_vertices)
 		compute_wall(i, sector, env);
@@ -159,14 +153,8 @@ void		precompute_sector(t_sector *sector, t_env *env)
 		project_wall(i, sector, env);
 	sector->v[sector->nb_vertices] = sector->v[0];
 	i = -1;
-	while (++i < sector->nb_vertices)// && sector->v[i].draw)
+	while (++i < sector->nb_vertices)
 	{
-		//sector->v[i].draw = 0;
-		//ft_printf("i = %d x1 = %f x2 = %f\n", i, sector->v[i].clipped_x,
-		//sector->v[i + 1].clipped_x);
-		/*if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
-		  continue;*/
-		//ft_printf("wall %d ok\n", i);
 		if (sector->v[i].draw)
 			precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
@@ -181,7 +169,8 @@ void		precompute_sector(t_sector *sector, t_env *env)
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}
-	//ft_printf("precalcul de tous les murs = %d\n", SDL_GetTicks() - env->test_time);
+	if (sector->skybox && !env->skybox_computed)
+		precompute_skybox(env);
 	sector->v[sector->nb_vertices] = sector->v[0];
 }
 
@@ -198,18 +187,15 @@ int			draw_walls2(t_env *env)
 	{
 		if (!env->sectors[env->screen_sectors[i]].computed)
 			precompute_sector(&env->sectors[env->screen_sectors[i]], env);
-		if (env->sectors[env->screen_sectors[i]].skybox
-				&& !env->skybox_computed)
-			precompute_skybox(env);
 		i++;
 	}
 	i = 0;
 	while (i < screen_sectors)
 	{
-		//ft_printf("loop %d\n", i);
 		render.xmin = env->xmin[i];
 		render.xmax = env->xmax[i];
 		render.sector = env->screen_sectors[i];
+		render.portal = 0;
 		render_sector2(render, env);
 		i++;
 	}
