@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/12 12:03:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:02:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void		get_intersections2(int i, t_sector *sector, t_env *env)
 			new_v2(clipped_pos.x, clipped_pos.y),
 			env);
 	/*sector->v[i].clipped_vf1 = sector->floors[i];
-	sector->v[i].clipped_vf2 = sector->floors[i + 1];
-	sector->v[i].clipped_vc1 = sector->ceilings[i];
-	sector->v[i].clipped_vc2 = sector->ceilings[i + 1];*/
+	  sector->v[i].clipped_vf2 = sector->floors[i + 1];
+	  sector->v[i].clipped_vc1 = sector->ceilings[i];
+	  sector->v[i].clipped_vc2 = sector->ceilings[i + 1];*/
 }
 
 void		clip_wall2(int i, t_sector *sector, t_env *env)
@@ -116,15 +116,28 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 		- sector->v[i].no_slope_f1;
 	sector->v[i].no_slope_ceiling_range = sector->v[i].no_slope_c2
 		- sector->v[i].no_slope_c1;
-	if (sector->v[i + 1].vz)
-		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
-			surface->w * (sector->wall_width[i] / 10) / sector->v[i + 1].vz;
+	if (sector->textures[i] == -1)
+	{
+		if (sector->v[i + 1].vz)
+			sector->v[i].texture_scale.x = env->textures[38].surface->w
+				/ sector->v[i + 1].vz;
+		else
+			sector->v[i].texture_scale.x = env->textures[38].surface->w
+				/ sector->v[i].clipped_vz2;
+		sector->v[i].texture_scale.y = env->textures[38].surface->h;
+	}
 	else
-		sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
-			surface->w * (sector->wall_width[i] / 10)
-			/ sector->v[i].clipped_vz2;
-	sector->v[i].texture_scale.y = env->textures[sector->textures[i]].
-		surface->h * (sector->ceiling - sector->floor) / 10;
+	{
+		if (sector->v[i + 1].vz)
+			sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
+				surface->w * (sector->wall_width[i] / 10) / sector->v[i + 1].vz;
+		else
+			sector->v[i].texture_scale.x = env->textures[sector->textures[i]].
+				surface->w * (sector->wall_width[i] / 10)
+				/ sector->v[i].clipped_vz2;
+		sector->v[i].texture_scale.y = env->textures[sector->textures[i]].
+			surface->h * (sector->ceiling - sector->floor) / 10;
+	}
 }
 
 void		precompute_sector(t_sector *sector, t_env *env)
@@ -150,12 +163,12 @@ void		precompute_sector(t_sector *sector, t_env *env)
 	{
 		//sector->v[i].draw = 0;
 		//ft_printf("i = %d x1 = %f x2 = %f\n", i, sector->v[i].clipped_x,
-				//sector->v[i + 1].clipped_x);
+		//sector->v[i + 1].clipped_x);
 		/*if (sector->v[i].clipped_x >= sector->v[i + 1].clipped_x)
-			continue;*/
+		  continue;*/
 		//ft_printf("wall %d ok\n", i);
 		if (sector->v[i].draw)
-		precompute_values(i, sector, env);
+			precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
 				&& sector->v[i].draw)
 		{
@@ -164,6 +177,9 @@ void		precompute_sector(t_sector *sector, t_env *env)
 			precompute_neighbors(i, sector,
 					env->sectors[sector->neighbors[i]], env);
 		}
+		if (sector->textures[i] == -1
+				&& !env->skybox_computed)
+			precompute_skybox(env);
 	}
 	//ft_printf("precalcul de tous les murs = %d\n", SDL_GetTicks() - env->test_time);
 	sector->v[sector->nb_vertices] = sector->v[0];

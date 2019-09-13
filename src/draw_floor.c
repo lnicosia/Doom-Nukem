@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 13:59:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 13:20:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ void	draw_vline_floor_color2(t_vline vline, t_render2 render, t_env *env)
 			env->editor.selected_wall = -1;
 		}
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(vline.color, 0xFF00FF00, 128);
+			pixels[coord] = blend_alpha(0xFF3F3D61, 0xFF00FF00, 128);
 		else
-			pixels[coord] = vline.color;
+			pixels[coord] = 0xFF3D3D61;
 		zbuffer[coord] = 100000000;
 		vline.start++;
 	}

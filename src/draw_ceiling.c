@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/12 11:56:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/12 14:53:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,9 @@ void	draw_vline_ceiling_color2(t_vline vline, t_render2 render, t_env *env)
 			env->editor.selected_wall = -1;
 		}
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(vline.color, 0xFF00FF00, 128);
+			pixels[coord] = blend_alpha(0xFF3D3D61, 0xFF00FF00, 128);
 		else
-			pixels[coord] = vline.color;
+			pixels[coord] = 0xFF3D3D61;
 		zbuffer[coord] = 100000000;
 		vline.start++;
 	}
@@ -143,7 +143,7 @@ void	draw_ceiling2(t_sector sector, t_render2 render, t_env *env)
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
 	if (sector.skybox)
-		draw_skybox2(render, env);
+		draw_skybox2(render, 0, env);
 	else if (sector.ceiling_slope)
 		draw_vline_ceiling_color2(vline, render, env);
 	else

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/12 12:26:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 10:55:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,12 @@ void		wall_loop(t_render_vertex v1, t_sector sector, t_render2 render,
 						render.current_floor), env->ymin[x], env->ymax[x]);
 		}
 		else
-			draw_wall(sector, render, env);
+		{
+			if (sector.textures[render.i] == -1)
+				draw_skybox2(render, 1, env);
+			else
+				draw_wall(sector, render, env);
+		}
 		//update_screen(env);
 		//SDL_Delay(50);
 		x++;
@@ -88,8 +93,8 @@ void		render_sector2(t_render2 render, t_env *env)
 	//ft_printf("rendering sector %d\n", sector.num);
 	while (++i < sector.nb_vertices)
 	{
-		/*if (!sector.v[i].draw)
-			continue;*/
+		if (!sector.v[i].draw)
+			continue;
 		//ft_printf("rendering wall %d\n", i);
 		v1 = sector.v[i];
 		//ft_printf("min = %d max = %d\n", render.xmin, render.xmax);
@@ -103,7 +108,10 @@ void		render_sector2(t_render2 render, t_env *env)
 		//ft_printf("start = %d end = %d\n", render.xstart, render.xend);
 		render.ceiling_horizon = sector.v[i].ceiling_horizon;
 		render.floor_horizon = sector.v[i].floor_horizon;
-		render.texture = sector.textures[i];
+		/*if (sector.textures[i].texture == -1)
+			render.texture = -1;
+		else*/
+			render.texture = sector.textures[i];
 		render.i = i;
 		wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)

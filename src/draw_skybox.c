@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 14:30:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 13:49:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 09:48:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,8 @@ void		draw_skybox(t_render render, t_env *env)
 				  new_point(skybox.x2, skybox.ceiling2), *env, 0xFFFF0000);*/
 				skybox.currentx = render.currentx;
 				skybox.alpha = (skybox.currentx - skybox.preclip_x1) / skybox.preclip_xrange;
+				//ft_printf("x = %d v1 = %f xrange = %f\n", skybox.currentx,
+						//skybox.preclip_x1, skybox.preclip_xrange);
 				skybox.clipped_alpha = (skybox.currentx - skybox.x1) / skybox.xrange;
 				skybox.z = 1.0 / ((1.0 - skybox.alpha) / skybox.vz1 + skybox.alpha / skybox.vz2);
 				skybox.clipped_z = 1.0 / ((1.0 - skybox.clipped_alpha)
