@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/06 15:37:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/12 15:23:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,9 +212,9 @@ void    enemy_pursuit(t_env *env)
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
-            /*direction.x = 0;
+            direction.x = 0;
             direction.y = 0;
-            direction.z = 0;*/
+            direction.z = 0;
             env->player.pos.z = tmp_z;
             //ft_printf("he saw me %d\n", a++);
             //ft_printf("direction.x %f .y %f .z %f\n", direction.x, direction.y, direction.z);
