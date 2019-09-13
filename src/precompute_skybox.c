@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 10:44:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:26:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ void	precompute_skybox(t_env *env)
 {
 	int	i;
 
-	env->skybox_computed = 1;
 	i = -1;
 	while (++i < 4)
 		compute_skybox2(set_v2(i), i, env);	

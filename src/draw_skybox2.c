@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 10:59:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:19:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	skybox_loop(t_render2 skybox, int mode, t_render2 render,
 	v1 = env->skybox[skybox.i];
 	x = render.x;
 	if ((!mode && env->selected_ceiling == render.sector)
-			|| (mode && render.selected))
+			|| (mode && env->sectors[render.sector].v[render.i].selected))
 		skybox.selected = 1;
 	if (!mode)
 	{
@@ -94,6 +94,8 @@ void	draw_skybox2(t_render2 render, int mode, t_env *env)
 			continue;
 		skybox.texture = 40 + i;
 		skybox.i = i;
+		skybox.selected = 0;
+		skybox.sector = render.sector;
 		skybox.ceiling_horizon = env->player.horizon;
 		skybox.floor_horizon = env->player.horizon;
 		skybox_loop(skybox, mode, render, env);

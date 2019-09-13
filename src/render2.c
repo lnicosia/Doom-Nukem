@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 11:02:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:25:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void		compute_wall(int i, t_sector *sector, t_env *env)
 
 void		precompute_values(int i, t_sector *sector, t_env *env)
 {
-	sector->selected = 0;
+	sector->v[i].selected = 0;
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
-		sector->selected = 1;
+		sector->v[i].selected = 1;
 	//sector->v[i].draw = 1;
 	sector->v[i].clipped_xrange = sector->v[i].clipped_x2
 		- sector->v[i].clipped_x1;
@@ -146,7 +146,7 @@ void		precompute_sector(t_sector *sector, t_env *env)
 
 	i = -1;
 	//ft_printf("computing sector %d\n", sector->num);
-	sector->computed = 1;
+	sector->computed++;
 	while (++i < sector->nb_vertices)
 		compute_wall(i, sector, env);
 	sector->v[sector->nb_vertices] = sector->v[0];

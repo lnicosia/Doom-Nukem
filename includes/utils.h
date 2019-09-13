@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/12 11:14:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/13 11:09:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_render_vertex
 	double			no_slope_c1;
 	double			no_slope_c2;
 	int				draw;
+	int				selected;
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
@@ -134,7 +135,6 @@ typedef struct		s_sector
 	short			*textures;
 	short			num;
 	short			nb_vertices;
-	int				selected;
 	int				skybox;
 	int				brightness;
 	int				computed;
