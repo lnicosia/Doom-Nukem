@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/11 15:39:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:28:51 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_v2				check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
 void                enemy_collision(t_env *env);
+int                 hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p);
+int                 find_highest_sector(t_env *env, t_v3 pos, int sector, double eyesight);
 int					diff_sign(double nb1, double nb2);
 int					diff_value(int nb1, int nb2, int a, int b);
 int					in_range(double nb, double val1, double val2);

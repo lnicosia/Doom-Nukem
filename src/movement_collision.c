@@ -6,45 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/13 17:34:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:26:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-double     sector_height(t_env *env, t_movement motion, int sector_dest)
-{
-    FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
-    return (FUTURE_Z);
-}
-
-void        find_highest_sector(t_env *env, t_movement motion)
-{
-    int     i;
-    double  height;
-    double  s_height;
-    int     tmp;
-
-    i = 0;
-    tmp = env->player.sector;
-    height = sector_height(env, motion, env->player.sector);
-    while (i < env->nb_sectors)
-    {
-        if (env->sector_list[i])
-        {
-            s_height = sector_height(env, motion, i);
-            if (height < s_height)
-            {
-                height = s_height;
-                tmp = i;
-            }
-        }
-        i++;
-    }
-    //ft_printf("mov_collision.c l71\n");
-    env->player.highest_sect = tmp;
-}
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
@@ -123,7 +90,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_v3 pos, t_wall wall, int recu)
         {
             move.x = norme_mov * wall.x / wall.norme * scalar;
             move.y = norme_mov * wall.y / wall.norme * scalar;
-            return (check_collision(env, move, pos, wall.sector_or, 1));
+            return (collision_rec(env, move, pos, wall, 1));
         }
         return (new_v2(0, 0));
     }
@@ -156,7 +123,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_v3 pos, t_wall wall, int recu)
 t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
 {
     short		i;
-    short       j;
+    //short       j;
     t_movement  motion;
     t_wall      wall;
     double      scalar;
@@ -200,28 +167,11 @@ t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
             wall.x = (X2 - X1);
             wall.y = (Y2 - Y1);
             move = collision_rec(env, move, pos, wall, 0);
-            if (move.x != 0 || move.y != 0)
-            {
-                j = 0;
-                while (j < env->nb_sectors)
-                {
-                    if (env->sector_list[j])
-                    {
-                        if (is_in_sector_no_z(env, j, new_v2(pos.x + move.x, pos.y + move.y)))
-                        {
-                            env->player.sector = j;
-                            j = env->nb_sectors;
-                        }
-                    }
-                    j++;
-                }
-            }
-            else
+            if (move.x == 0 && move.y == 0)
                 return (new_v2(0, 0));
         }
         i++;
     }
-    find_highest_sector(env, motion);
     return (move);
 }
 
