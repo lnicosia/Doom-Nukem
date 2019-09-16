@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 11:44:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:11:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
+# define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
 

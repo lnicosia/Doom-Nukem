@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 12:13:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:11:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,13 +229,11 @@ void		precompute_sectors(t_env *env)
 	int					i;
 
 	i = 0;
-	//ft_printf("%d visible sector(s)\n", env->visible_sectors);
 	while (i < THREADS)
 	{
 		pt[i].env = env;
 		pt[i].start = env->visible_sectors / (double)THREADS * i;
 		pt[i].end = env->visible_sectors / (double)THREADS * (i + 1);
-		//ft_printf("Thread %d: start = %d end = %d\n",i, pt[i].start, pt[i].end);
 		pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]);
 		i++;
 	}
@@ -260,7 +258,6 @@ int			draw_walls2(t_env *env)
 		render.xmin = env->xmin[i];
 		render.xmax = env->xmax[i];
 		render.sector = env->screen_sectors[i];
-		render.portal = 0;
 		render_sector2(render, env);
 		i++;
 	}

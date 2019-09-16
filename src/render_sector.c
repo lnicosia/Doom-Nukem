@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 18:01:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:11:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void		render_sector2(t_render2 render, t_env *env)
 			new = render;
 			new.xmin = render.xstart;
 			new.sector = sector.neighbors[i];
-			new.portal = 1;
 			new.xmax = render.xend;
 			render_sector2(new, env);
 		}
