@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 17:34:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:55:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		keys(t_env *env)
 				|| (env->selected_enemy == -1 && !env->editor.tab)))
 	
 			|| (!env->inputs.ctrl && env->editor.in_game))
+
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -232,5 +233,11 @@ void		keys(t_env *env)
 		}
 		if (env->selected_enemy != -1)
 			selected_information_on_enemy(env);
+	}
+	if (env->inputs.right_click && !env->option)
+	{
+		ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);
+		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
+			env->weapons[env->player.curr_weapon].ammo++;
 	}
 }

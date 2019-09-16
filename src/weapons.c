@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/05 15:51:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/14 16:16:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int     damage_done(t_env env, int i)
 
 int		hitscan(t_env *env, int i)
 {
-	if (env->enemies[i].exists)
+	if (env->enemies[i].exists && env->enemies[i].seen)
 	{
 		if ((env->enemies[i].left - env->enemies[i].left) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].left) * (env->enemies[i].top - env->enemies[i].bottom) < 0)
 			return (0);
@@ -32,7 +32,7 @@ int		hitscan(t_env *env, int i)
 			return (0);
 		if ((env->enemies[i].left - env->enemies[i].right) * (env->h / 2 - env->enemies[i].bottom) - (env->w / 2 - env->enemies[i].right) * (env->enemies[i].bottom - env->enemies[i].bottom) < 0)
 			return (0);
-		if (env->enemies[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range)
+		if (env->enemies[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range || env->enemies[i].rotated_pos.z < 0)
 			return (0);
 		return (1);
 	}
@@ -46,9 +46,11 @@ void    shot(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (hitscan(env, i))
+		if (hitscan(env, i) == 1)
 		{
+			ft_printf("I hit enemy nb %d | enemy_life before = %d |", i, env->enemies[i].health);
 			env->enemies[i].health -= damage_done(*env, i);
+			ft_printf(" and after = %d\n", env->enemies[i].health);
 			env->enemies[i].hit = 1;
 		}
 		i++;

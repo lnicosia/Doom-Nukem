@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 16:48:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:55:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[env->player.sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[env->player.sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[env->player.sector].vertices[i + 1]].y
+# define X1 env->vertices[env->sectors[sector].vertices[i]].x
+# define X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
+# define Y1 env->vertices[env->sectors[sector].vertices[i]].y
+# define Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_TEXTURE 45

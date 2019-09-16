@@ -6,72 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/09 14:16:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:26:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-/*void    move_alongside_wall(t_env *env, double x_move, double y_move, int i)
-{
-    float xd;
-    float yd;
-    t_movement motion;
-    
-    xd = X2 - X1;
-    yd = Y2 - Y1;
-    x_move = xd * (x_move*xd + yd*y_move) / (xd*xd + yd*yd);
-    y_move = yd * (x_move*xd + yd*y_move) / (xd*xd + yd*yd);
-    FUTURE_X = PLAYER_XPOS + x_move;
-    FUTURE_Y = PLAYER_YPOS + y_move;
-    motion.old_sector = env->player.sector;
-    if (check_inside_sector(env, motion))
-    {
-        PLAYER_XPOS = FUTURE_X;
-        PLAYER_YPOS = FUTURE_Y;
-    }
-} */
-/*
-int     diff_sign(double nb1, double nb2)
-{
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
-        return (0);
-    return (1);
-}*/
-
-double     sector_height(t_env *env, t_movement motion, int sector_dest)
-{
-    FUTURE_Z = env->player.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
-    return (FUTURE_Z);
-}
-
-void        find_highest_sector(t_env *env, t_movement motion)
-{
-    int     i;
-    double  height;
-    double  s_height;
-    int     tmp;
-
-    i = 0;
-    tmp = env->player.sector;
-    height = sector_height(env, motion, env->player.sector);
-    while (i < env->nb_sectors)
-    {
-        if (env->sector_list[i])
-        {
-            s_height = sector_height(env, motion, i);
-            if (height < s_height)
-            {
-                height = s_height;
-                tmp = i;
-            }
-        }
-        i++;
-    }
-    //ft_printf("mov_collision.c l71\n");
-    env->player.highest_sect = tmp;
-}
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
@@ -129,112 +69,109 @@ int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p)
     return 0;
 }
 
-int     collision_rec(t_env *env, double dest_x, double dest_y, t_wall wall)
+t_v2     collision_rec(t_env *env, t_v2 move, t_v3 pos, t_wall wall, int recu)
 {
     short       i;
     t_movement  motion;
+    double      scalar;
+    double      norme_mov;
+    double      norme_wall;
 
     i = 0;
-    FUTURE_X = dest_x;
-    FUTURE_Y = dest_y;
+    FUTURE_X = move.x + pos.x;
+    FUTURE_Y = move.y + pos.y;
     motion.old_sector = wall.sector_or;
     env->sector_list[wall.sector_dest] = 1;
-    /*
-    ** Permet de faire segfault pthread_join facilement sur triple piece
-    **if (is_in_sector(env, env->player.sector, FUTURE_X, FUTURE_Y))
-    **    return (1);
-    */
-    if (!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest))
+    norme_mov = sqrt(move.x * move.x + move.y * move.y);
+    if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest)) && !recu)
     {
-        //ft_printf("cheh you're stuck\n");
-        return (0);
+        scalar = wall.x / wall.norme * move.x / norme_mov + wall.y / wall.norme * move.y / norme_mov;
+        if (scalar != 0 && !recu)
+        {
+            move.x = norme_mov * wall.x / wall.norme * scalar;
+            move.y = norme_mov * wall.y / wall.norme * scalar;
+            return (collision_rec(env, move, pos, wall, 1));
+        }
+        return (new_v2(0, 0));
     }
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
         if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR < 0)
-            return (0);
+        {
+            norme_wall = sqrt((X2R - X1R) * (X2R - X1R) + (Y2R - Y1R) * (Y2R - Y1R));
+            scalar = (X2R - X1R) / norme_wall * move.x / norme_mov + (Y2R - Y1R) / norme_wall * move.y / norme_mov;
+            if (scalar != 0 && !recu)
+            {
+                move.x = norme_mov * (X2R - X1R) / norme_wall * scalar;
+                move.y = norme_mov * (Y2R - Y1R) / norme_wall * scalar;
+                return (collision_rec(env, move, pos, wall, 1));
+            }
+            return (new_v2(0, 0));
+        }
         else if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             wall.sector_or = wall.sector_dest;
             wall.sector_dest = RNEIGHBOR;
-            return (collision_rec(env, FUTURE_X, FUTURE_Y, wall));
+            return (collision_rec(env, move, pos, wall, 0));
         }
         i++;
     }
-    return (1);
+    return (move);
 }
 
-t_v2     check_collision(t_env *env, t_v2 move)
+t_v2     check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu)
 {
     short		i;
-    short       j;
+    //short       j;
     t_movement  motion;
     t_wall      wall;
+    double      scalar;
+    double      norme_mov;
+    double      norme_wall;
+    //static int a = 0;
 
-    env->player.highest_sect = env->player.sector;
-    FUTURE_X = env->player.pos.x + move.x;
-    FUTURE_Y = env->player.pos.y + move.y;
-    if (env->player.stuck == 1)
-    {
-        env->player.stuck = 0;
-        if (is_in_sector_no_z(env, env->player.sector, new_v2(FUTURE_X, FUTURE_Y)))
-            return (move);
-        return (new_v2(0, 0));
-    }
+    env->player.highest_sect = sector;
+    FUTURE_X = pos.x + move.x;
+    FUTURE_Y = pos.y + move.y;
     i = 0;
     while (i < env->nb_sectors)
     {
-        if (i == env->player.sector)
+        if (i == sector)
             env->sector_list[i] = 1;
         else
             env->sector_list[i] = 0;
         i++;
     }
     i = 0;
-    while (i < env->sectors[env->player.sector].nb_vertices)
+    while (i < env->sectors[sector].nb_vertices)
     {
-        /*
-        ** If the player is inside a wall for some reason
-        */
-        if ((distance_two_points(X1, Y1, env->player.pos.x, env->player.pos.y) <= 0.75 || distance_two_points(X2, Y2, env->player.pos.x, env->player.pos.y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(env->player.pos.x, env->player.pos.y))) && NEIGHBOR < 0)
-        {
-            env->player.stuck = 1;
-            return (check_collision(env, move));
-        }
         if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
+        {
+            norme_mov = sqrt(move.x * move.x + move.y * move.y);
+            norme_wall = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
+            scalar = (X2 - X1) / norme_wall * move.x / norme_mov + (Y2 - Y1) / norme_wall * move.y / norme_mov;
+            if (scalar != 0 && !recu)
+            {
+                move.x = norme_mov * (X2 - X1) / norme_wall * scalar;
+                move.y = norme_mov * (Y2 - Y1) / norme_wall * scalar;
+                return (check_collision(env, move, pos, sector, 1));
+            }
             return (new_v2(0,0));
+        }
         else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= 0.75 || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= 0.75 || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
-            wall.sector_or = env->player.sector;
+            wall.sector_or = sector;
             wall.sector_dest = NEIGHBOR;
-            if (collision_rec(env, FUTURE_X, FUTURE_Y, wall))
-            {
-                j = 0;
-                while (j < env->nb_sectors)
-                {
-                    if (env->sector_list[j])
-                    {
-                        if (is_in_sector_no_z(env, j, new_v2(FUTURE_X, FUTURE_Y)))
-                        {
-                            if (!check_ceiling(env, motion, j) || !check_floor(env, motion, j))
-                            {
-                                env->player.stuck = 1;
-                                return (check_collision(env, move));
-                            }
-                            env->player.sector = j;
-                            j = env->nb_sectors;
-                        }
-                    }
-                    j++;
-                }
-            }
-            else
+            wall.norme = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
+            wall.x = (X2 - X1);
+            wall.y = (Y2 - Y1);
+            move = collision_rec(env, move, pos, wall, 0);
+            if (move.x == 0 && move.y == 0)
                 return (new_v2(0, 0));
         }
         i++;
     }
-    find_highest_sector(env, motion);
     return (move);
 }
 
