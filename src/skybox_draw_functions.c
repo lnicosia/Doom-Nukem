@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 14:20:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:13:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_skybox_wall(t_vline vline, int mode, t_render2 render, t_env *env)
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		if (render.z >= zbuffer[coord])
+		if (render.render_z >= zbuffer[coord])
 		{
 			i++;
 			continue;
@@ -94,7 +94,7 @@ void	draw_skybox_wall(t_vline vline, int mode, t_render2 render, t_env *env)
 		pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		if (env->editor.in_game && render.selected && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
-		zbuffer[coord] = render.z;
+		zbuffer[coord] = render.render_z;
 		i++;
 	}
 	if (env->options.zbuffer || env->options.contouring)
@@ -103,13 +103,13 @@ void	draw_skybox_wall(t_vline vline, int mode, t_render2 render, t_env *env)
 		{
 			start_coord = vline.x + env->w * vline.start;
 			pixels[start_coord] = 0xFFFF0000;
-			zbuffer[start_coord] = 100000000;
+			//zbuffer[start_coord] = 100000000;
 		}
 		if (vline.end == (int)render.max_floor)
 		{
 			end_coord = vline.x + env->w * vline.end;
 			pixels[end_coord] = 0xFFFF0000;
-			zbuffer[end_coord] = 100000000;
+			//zbuffer[end_coord] = 100000000;
 		}
 	}
 }
@@ -130,7 +130,6 @@ void	draw_skybox_ceiling(t_vline vline, int mode, t_render2 render, t_env *env)
 	int		coord;
 	int		texture_w;
 	int		texture_h;
-	double	z;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
@@ -142,8 +141,7 @@ void	draw_skybox_ceiling(t_vline vline, int mode, t_render2 render, t_env *env)
 	{
 		coord = vline.x + env->w * i;
 		alpha = render.ceiling_start / (double)(i - render.ceiling_horizon);
-		z = alpha * render.z;
-		if (z >= zbuffer[coord])
+		if (render.render_z >= zbuffer[coord])
 		{
 			i++;
 			continue;
@@ -189,7 +187,7 @@ void	draw_skybox_ceiling(t_vline vline, int mode, t_render2 render, t_env *env)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
-			zbuffer[coord] = z;
+			zbuffer[coord] = render.render_z;
 		}
 		i++;
 	}
@@ -198,13 +196,13 @@ void	draw_skybox_ceiling(t_vline vline, int mode, t_render2 render, t_env *env)
 		if (vline.start >= 0 && vline.start < env->h - 1)
 		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.start] = 100000000;
+			//zbuffer[vline.x + env->w * vline.start] = 100000000;
 		}
 		if (vline.end == (int)render.max_ceiling - 1
 				&& vline.end >= 0 && vline.end < env->h)
 		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.end] = 100000000;
+			//zbuffer[vline.x + env->w * vline.end] = 100000000;
 		}
 	}
 }
@@ -225,7 +223,6 @@ void	draw_skybox_floor(t_vline vline, int mode, t_render2 render, t_env *env)
 	int		coord;
 	int		texture_w;
 	int		texture_h;
-	double	z;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
@@ -237,8 +234,7 @@ void	draw_skybox_floor(t_vline vline, int mode, t_render2 render, t_env *env)
 	{
 		coord = vline.x + env->w * i;
 		alpha = render.floor_start / (double)(i - render.floor_horizon);
-		z = alpha * render.z;
-		if (z >= zbuffer[coord])
+		if (render.render_z >= zbuffer[coord])
 		{
 			i++;
 			continue;
@@ -285,7 +281,7 @@ void	draw_skybox_floor(t_vline vline, int mode, t_render2 render, t_env *env)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
-			zbuffer[coord] = z;
+			zbuffer[coord] = render.render_z;
 		}
 		i++;
 	}
@@ -295,12 +291,12 @@ void	draw_skybox_floor(t_vline vline, int mode, t_render2 render, t_env *env)
 				&& vline.start >= 0 && vline.start < env->h)
 		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.start] = 100000000;
+			//zbuffer[vline.x + env->w * vline.start] = 100000000;
 		}
 		if (vline.end < env->h - 1 && vline.end >= 0)
 		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.end] = 100000000;
+			//zbuffer[vline.x + env->w * vline.end] = 100000000;
 		}
 	}
 }

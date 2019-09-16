@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 14:26:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:10:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	skybox_loop(t_render2 skybox, int mode, t_render2 render,
 	skybox.alpha = (x - v1.x) / v1.xrange;
 	//ft_printf("x = %d v1 = %f xrange = %f\n", x, v1.x, v1.xrange);
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
+	skybox.render_z = render.z;
 	skybox.z = 1.0 / ((1.0 - skybox.alpha) / v1.vz
 			+ skybox.alpha / env->skybox[skybox.i + 1].vz);
 	skybox.clipped_z = 1.0 / ((1.0 - skybox.clipped_alpha)

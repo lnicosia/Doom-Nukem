@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 15:30:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:10:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_render2
 	double		neighbor_max_ceiling;
 	double		neighbor_current_ceiling;
 	double		neighbor_max_floor;
+	double		render_z;
 	double		neighbor_current_floor;
 	int			portal;
 	int			nv1;
