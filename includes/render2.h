@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 10:06:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 14:07:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct	s_render2
 	double		neighbor_max_ceiling;
 	double		neighbor_current_ceiling;
 	double		neighbor_max_floor;
-	double		render_z;
 	double		neighbor_current_floor;
 	int			portal;
 	int			nv1;
@@ -51,6 +50,14 @@ typedef struct	s_render2
 	int			texture;
 	int			i;
 }				t_render2;
+
+typedef struct	s_skybox_data
+{
+	double		z;
+	double		ceiling_start;
+	double		ceiling_horizon;
+	int			mode;
+}				t_skybox_data;
 
 typedef struct	s_render_thread2
 {
@@ -81,11 +88,11 @@ void			precompute_skybox(t_env *env);
 short			get_vertex_nb_in_sector(short vertex, t_sector sector);
 void			precompute_neighbors(int i, t_sector *sector, t_sector neighbor,
 		t_env *env);
-void			draw_skybox_ceiling(t_vline vline, int mode,
+void			draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data,
 		t_render2 render, t_env *env);
-void			draw_skybox_wall(t_vline vline, int mode,
+void			draw_skybox_wall(t_vline vline, t_skybox_data wall_data,
 		t_render2 render, t_env *env);
-void			draw_skybox_floor(t_vline vline, int mode,
+void			draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
 		t_render2 render, t_env *env);
 void			draw_vline_color2(t_vline vline, t_env *env);
 
