@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:10:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:41:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,7 +443,7 @@ void	draw_upper_wall(t_render render, t_env *env)
 	vline.start = render.current_ceiling;
 	vline.end = render.current_neighbor_ceiling;
 	vline.color = 0xFF0B6484;
-	//vline.color = 0xFFFF0000;
+	vline.color = 0xFFFF0000;
 	if (env->options.lighting)
 		vline.color = apply_light(vline.color, render.light_color, render.brightness);
 	//ft_printf("floor end = %d\n", vline.end);

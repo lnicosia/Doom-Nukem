@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 14:55:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:41:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
 # define THREADS 4
+# define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
 
@@ -58,13 +59,66 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
+typedef struct		s_render_vertex
+{
+	t_v2			texture_scale;
+	double			vx;
+	double			vz;
+	double			clipped_vx1;
+	double			clipped_vz1;
+	double			clipped_vx2;
+	double			clipped_vz2;
+	double			clipped_vf1;
+	double			clipped_vc1;
+	double			clipped_vf2;
+	double			clipped_vc2;
+	double			clipped_x1;
+	double			clipped_x2;
+	double			f1;
+	double			f2;
+	double			c1;
+	double			c2;
+	double			x;
+	double			neighbor_f1;
+	double			neighbor_f2;
+	double			neighbor_floor_range;
+	double			neighbor_c1;
+	double			neighbor_c2;
+	double			neighbor_ceiling_range;
+	double			scale1;
+	double			scale2;
+	double			angle_z1;
+	double			angle_z2;
+	double			no_slope_f1;
+	double			no_slope_f2;
+	double			no_slope_c1;
+	double			no_slope_c2;
+	int				draw;
+	int				selected;
+	double			floor_horizon;
+	double			ceiling_horizon;
+	double			xrange;
+	double			clipped_xrange;
+	double			floor_range;
+	double			ceiling_range;
+	double			no_slope_floor_range;
+	double			no_slope_ceiling_range;
+	double			xz;
+	double			yz;
+}					t_render_vertex;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
+	t_render_vertex	*v;
 	double			floor;
 	double			floor_slope;
+	short			floor_texture;
+	t_v2			floor_scale;
 	double			ceiling;
 	double			ceiling_slope;
+	short			ceiling_texture;
+	t_v2			ceiling_scale;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
@@ -80,12 +134,11 @@ typedef struct		s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	short			ceiling_texture;
-	short			floor_texture;
 	short			num;
 	short			nb_vertices;
 	int				skybox;
 	int				brightness;
+	int				computed;
 	Uint32			light_color;
 }					t_sector;
 
@@ -117,6 +170,7 @@ typedef struct		s_player
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			speed;
+	double			horizon;
 	int				hit;
 	double			size_2d;
 	double			camera_x;
@@ -141,6 +195,7 @@ typedef struct		s_camera
 	double			far_z;
 	double			near_left;
 	double			near_right;
+	double			range;
 	double			near_up;
 	double			near_down;
 	double			far_left;

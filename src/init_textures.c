@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 16:46:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:51:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		init_wallpapers_and_buttons(t_env *env)
 
 int		init_skyboxes(t_env *env)
 {
-	if (parse_bmp("images/skyboxes/bottom.bmp", 38, env))
+	/*if (parse_bmp("images/skyboxes/bottom.bmp", 38, env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp("images/skyboxes/top.bmp", 39, env))
 		return (ft_printf("Failed to load skybox\n"));
@@ -98,6 +98,30 @@ int		init_skyboxes(t_env *env)
 	if (parse_bmp("images/skyboxes/front.bmp", 42, env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp("images/skyboxes/right.bmp", 43, env))
+		return (ft_printf("Failed to load skybox\n"));*/
+	/*if (parse_bmp("images/skyboxes/nebula_bottom.bmp", 38, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/nebula_top.bmp", 39, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/nebula_back.bmp", 40, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/nebula_left.bmp", 41, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/nebula_front.bmp", 42, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/nebula_right.bmp", 43, env))
+		return (ft_printf("Failed to load skybox\n"));*/
+	if (parse_bmp("images/skyboxes/night_bottom.bmp", 38, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/night_top.bmp", 39, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/night_back.bmp", 40, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/night_left.bmp", 41, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/night_front.bmp", 42, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp("images/skyboxes/night_right.bmp", 43, env))
 		return (ft_printf("Failed to load skybox\n"));
 	return (0);
 }

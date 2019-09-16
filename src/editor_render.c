@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 17:42:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:40:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		editor_render(t_env *env)
 	}
 	reset_clipped(env);
 	keys(env);
-	if (draw_walls(env))
+	if (draw_walls2(env))
 		return (crash("Failed to draw walls\n", env));
 	draw_objects(env);
 	draw_enemies(env);

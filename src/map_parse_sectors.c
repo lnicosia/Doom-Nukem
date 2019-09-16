@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:06:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 16:40:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
+	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10;
+	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after floor texture",parser));
@@ -138,6 +140,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].skybox = 1;
 		env->sectors[parser->sectors_count].ceiling_texture = 38;
 	}
+	env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
+	env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after ceiling texture",parser));
@@ -204,6 +208,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].wall_width = (double*)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector wall_size:"));
+	if (!(env->sectors[parser->sectors_count].v = (t_render_vertex*)
+				malloc(sizeof(t_render_vertex) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector walls:"));
 	return (0);
 }
 

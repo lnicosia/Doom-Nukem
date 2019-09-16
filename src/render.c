@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 13:58:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 16:40:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	clipped_slope2(t_env *env, t_sector sector, t_render render, int i)
 	env->vertices[sector.vertices[i + 1]].clipped_y[1] += env->player.pos.y;
 	env->vertices[sector.vertices[i + 1]].clipped[1] = 1;
 	if (sector.floor_slope)
-		env->sectors[render.sector].clipped_floors1[i + 1] = get_floor_at_pos(sector,
+		env->sectors[render.sector].clipped_floors2[i + 1] = get_floor_at_pos(sector,
 				new_v2(v.clipped_x[1], v.clipped_y[1]), env);
 	if (sector.ceiling_slope)
-		env->sectors[render.sector].clipped_ceilings1[i + 1] = get_ceiling_at_pos(sector,
+		env->sectors[render.sector].clipped_ceilings2[i + 1] = get_ceiling_at_pos(sector,
 				new_v2(v.clipped_x[1], v.clipped_y[1]), env);
 }
 
@@ -82,6 +82,7 @@ void	render_sector(t_env *env, t_render render)
 		env->rendered_sectors[render.sector]++;
 		i = 0;
 		sector = env->sectors[render.sector];
+		//ft_printf("rendering sector %d\n", sector.num);
 		render.floor_texture = sector.floor_texture;
 		render.ceiling_texture = sector.ceiling_texture;
 		render.floor_yscale = env->textures[render.floor_texture].surface->h / 10;
@@ -139,6 +140,7 @@ void	render_sector(t_env *env, t_render render)
 				// Obtenir les coordoonees du sol et du plafond sur l'ecran
 				project_floor_and_ceiling(&render, env, sector, i);
 
+				//ft_printf("v1.x = %f v2.x = %f\n", render.x1, render.x2);
 				if (render.x1 < render.x2
 						&& render.x1 <= render.xmax && render.x2 >= render.xmin)
 				{
@@ -175,17 +177,11 @@ void	render_sector(t_env *env, t_render render)
 						render.projected_texture_h = env->textures[38].surface->h;
 					}
 					else
-					{
-						if (render.vz2)
-							render.projected_texture_w = env->textures[render.texture].surface->w
-								* render.wall_width / render.vz2;
-						else
-							render.projected_texture_w = env->textures[render.texture].surface->w
-								* render.wall_width / render.clipped_vz2;
-						render.projected_texture_h = env->textures[render.texture].surface->h
-							* render.wall_height;
-					}
-
+						render.projected_texture_w = env->textures[render.texture].surface->w
+							* render.wall_width / render.clipped_vz2;
+					render.projected_texture_h = env->textures[render.texture].surface->h
+						* render.wall_height;
+					//ft_printf("Precalcul d'1 mur = %d\n", SDL_GetTicks() - env->test_time);
 					// Multithread
 					threaded_raycasting(env, render);
 
@@ -205,7 +201,7 @@ void	render_sector(t_env *env, t_render render)
 	}
 }
 
-static void		reset_render_utils(t_env *env)
+void		reset_render_utils(t_env *env)
 {
 	int	i;
 	int	max;
@@ -215,6 +211,7 @@ static void		reset_render_utils(t_env *env)
 	max = env->screen_sectors_size;
 	ymin = ft_max(env->h_h + env->camera.y1 * env->camera.scale, 0);
 	ymax = ft_min(env->h_h + env->camera.y2 * env->camera.scale, env->h - 1);
+	env->skybox_computed = 0;
 	i = 0;
 	while (i < max)
 	{
@@ -227,6 +224,7 @@ static void		reset_render_utils(t_env *env)
 	while (i < env->nb_sectors)
 	{
 		env->rendered_sectors[i] = 0;
+		env->sectors[i].computed = 0;
 		i++;
 	}
 	i = 0;
@@ -256,7 +254,6 @@ int				draw_walls(t_env *env)
 
 	i = 0;
 	//ft_printf("\n");
-	env->count = 0;
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
 	while (i < screen_sectors)
