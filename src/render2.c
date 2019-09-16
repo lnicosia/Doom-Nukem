@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 15:30:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:53:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,42 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 	}
 }
 
+void		get_rendered_neighbors(t_sector sector, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		if (sector.neighbors[i] != -1 && !env->sectors[sector.neighbors[i]].computed)
+		{
+			env->sectors[sector.neighbors[i]].computed = 1;
+			env->visible_sectors++;
+			get_rendered_neighbors(env->sectors[sector.neighbors[i]], env);
+		}
+		i++;
+	}
+}
+
+void		get_rendered_sectors_list(int screen_sectors, t_env *env)
+{
+	int			i;
+	t_sector	sector;
+
+	i = 0;
+	while (i < screen_sectors)
+	{
+		sector = env->sectors[env->screen_sectors[i]];
+		if (!sector.computed)
+		{
+			env->sectors[env->screen_sectors[i]].computed = 1;
+			env->visible_sectors++;
+		}
+		get_rendered_neighbors(sector, env);
+		i++;
+	}
+}
+
 void		precompute_sector(t_sector *sector, t_env *env)
 {
 	int		i;
@@ -159,12 +195,8 @@ void		precompute_sector(t_sector *sector, t_env *env)
 			precompute_values(i, sector, env);
 		if (sector->neighbors[i] != -1
 				&& sector->v[i].draw)
-		{
-			if (!env->sectors[sector->neighbors[i]].computed)
-				precompute_sector(&env->sectors[sector->neighbors[i]], env);
 			precompute_neighbors(i, sector,
 					env->sectors[sector->neighbors[i]], env);
-		}
 		if (sector->textures[i] == -1
 				&& !env->skybox_computed)
 			precompute_skybox(env);
@@ -174,21 +206,54 @@ void		precompute_sector(t_sector *sector, t_env *env)
 	sector->v[sector->nb_vertices] = sector->v[0];
 }
 
+void		*precompute_sectors_loop(void *param)
+{
+	int		i;
+	int		end;
+	t_env	*env;
+
+	i = ((t_precompute_thread*)param)->start - 1;
+	end = ((t_precompute_thread*)param)->end;
+	env = ((t_precompute_thread*)param)->env;
+	while (++i < end)
+	{
+		precompute_sector(&env->sectors[i], env);
+	}
+	return (NULL);
+}
+
+void		precompute_sectors(t_env *env)
+{
+	t_precompute_thread	pt[THREADS];
+	pthread_t			threads[THREADS];
+	int					i;
+
+	i = 0;
+	//ft_printf("%d visible sector(s)\n", env->visible_sectors);
+	while (i < THREADS)
+	{
+		pt[i].env = env;
+		pt[i].start = env->visible_sectors / (double)THREADS * i;
+		pt[i].end = env->visible_sectors / (double)THREADS * (i + 1);
+		//ft_printf("Thread %d: start = %d end = %d\n",i, pt[i].start, pt[i].end);
+		pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]);
+		i++;
+	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
+}
+
 int			draw_walls2(t_env *env)
 {
 	int			i;
 	int			screen_sectors;
 	t_render2	render;
 
+	env->visible_sectors = 0;
 	reset_render_utils(env);
 	screen_sectors = get_screen_sectors(env);
-	i = 0;
-	while (i < screen_sectors)
-	{
-		if (!env->sectors[env->screen_sectors[i]].computed)
-			precompute_sector(&env->sectors[env->screen_sectors[i]], env);
-		i++;
-	}
+	get_rendered_sectors_list(screen_sectors, env);
+	precompute_sectors(env);
 	i = 0;
 	while (i < screen_sectors)
 	{

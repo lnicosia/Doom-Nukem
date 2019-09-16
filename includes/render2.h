@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 09:10:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:06:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct	s_render_thread2
 	int				xstart;
 	int				xend;
 }				t_render_thread2;
+
+typedef struct	s_precompute_thread
+{
+	int			start;
+	int			end;
+	t_env		*env;
+}				t_precompute_thread;
 
 void			render_sector2(t_render2 render, t_env *env);
 void			draw_ceiling2(t_sector sector, t_render2 render, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/13 11:24:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:23:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_env
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
 	t_render_vertex		skybox[5];
+	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
 	int					selected_wall2;
