@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 11:54:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 11:44:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ typedef struct		s_camera
 	double			far_z;
 	double			near_left;
 	double			near_right;
+	double			range;
 	double			near_up;
 	double			near_down;
 	double			far_left;

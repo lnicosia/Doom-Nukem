@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/16 09:23:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 11:24:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ typedef struct		s_env
 	t_sprite			*sprites;
 	t_audio				sound;
 	t_texture			textures[MAX_TEXTURE];
-	t_v2				*screen_pos;
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
 	t_render_vertex		skybox[5];
+	int					*screen_pos;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
