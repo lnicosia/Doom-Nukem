@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 14:54:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/17 15:59:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	move_player(t_env *env)
 		}
 		if (movement)
 		{
-			env->player.sector = get_sector_no_z(env, env->player.pos);
+			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			env->player.highest_sect = find_highest_sector(env, env->player.pos, env->player.sector, env->player.eyesight);
 			update_camera_position(env);
 		}

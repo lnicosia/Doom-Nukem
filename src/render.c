@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:40:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:17:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	}
 	return (res);
 }
-
+/*
 void	clipped_slope1(t_env *env, t_sector sector, t_render render, int i)
 {
 	t_vertex	v;
@@ -200,7 +200,7 @@ void	render_sector(t_env *env, t_render render)
 		env->rendered_sectors[render.sector]--;
 	}
 }
-
+*/
 void		reset_render_utils(t_env *env)
 {
 	int	i;
@@ -245,7 +245,7 @@ void		reset_render_utils(t_env *env)
 /*
 **	Main draw function
 */
-
+/*
 int				draw_walls(t_env *env)
 {
 	int				i;
@@ -267,3 +267,4 @@ int				draw_walls(t_env *env)
 	}
 	return (0);
 }
+*/
