@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 18:00:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:30:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	int		i;
 	double	y;
 	double	x;
-	double	alpha;
 	Uint32	*pixels;
 	Uint32	*texture_pixels;
 	double	*zbuffer;
@@ -32,6 +31,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	int		texture_w;
 	int		texture_h;
 	double	z;
+	double	yalpha;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
@@ -42,8 +42,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = render.ceiling_start / (double)(i - render.ceiling_horizon);
-		z = alpha * render.z;
+		yalpha = (render.max_ceiling - i) / (render.max_ceiling - sector.head_y);
+		z = 1 / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
 		if (z >= zbuffer[coord])
 		{
 			i++;
@@ -59,8 +59,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 			env->selected_enemy = -1;
 			env->editor.selected_wall = -1;
 		}
-		y = alpha * render.texel.y + (1.0 - alpha) * env->player.camera_y;
-		x = alpha * render.texel.x + (1.0 - alpha) * env->player.camera_x;
+		y = ((1 - yalpha) * render.texel.y / render.z + yalpha * env->player.camera_y / env->camera.near_z) / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
+		x = ((1 - yalpha) * render.texel.x / render.z + yalpha * env->player.camera_x / env->camera.near_z) / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
 		y *= sector.ceiling_scale.y;
 		x *= sector.ceiling_scale.x;
 		x = texture_w - x;
@@ -73,40 +73,16 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 			if (!env->options.lighting)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
-				//pixels[coord] = blend_alpha(texture_pixels[(int)x + texture_w * (int)y], render.light_color, render.brightness);
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
 			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
-			/*if (i == (int)render.floor_horizon)
-			  pixels[coord] = 0xFF00FF00;*/
-			/*if (i == (int)render.ceiling_horizon)
-			  pixels[coord] = 0xFFFF0000;*/
 			if (env->options.zbuffer || env->options.contouring)
-			{
 				if (i == (int)(render.max_ceiling) || i == vline.start)
-				{
 					pixels[vline.x + env->w * i] = 0xFFFF0000;
-					//zbuffer[vline.x + env->w * i] = 100000000;
-				}
-			}
 		}
 		i++;
 	}
-	/*if (env->options.zbuffer || env->options.contouring)
-	{
-		if (vline.start >= 0 && vline.start < env->h - 1)
-		{
-			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.start] = 100000000;
-		}
-		if (vline.end == (int)render.max_ceiling - 1
-				&& vline.end >= 0 && vline.end < env->h)
-		{
-			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
-			zbuffer[vline.x + env->w * vline.end] = 100000000;
-		}
-	}*/
 }
 
 /*
@@ -152,8 +128,6 @@ void	draw_ceiling2(t_sector sector, t_render2 render, t_env *env)
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
 	if (sector.skybox)
 		draw_skybox2(render, 0, env);
-	else if (sector.ceiling_slope)
-		draw_vline_ceiling_color2(vline, render, env);
 	else
 		draw_vline_ceiling2(sector, vline, render, env);
 }

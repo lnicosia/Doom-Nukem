@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 14:15:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:33:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
 		min = render.current_ceiling;
 	}
 	skybox.alpha = (x - v1.x) / v1.xrange;
-	//ft_printf("x = %d v1 = %f xrange = %f\n", x, v1.x, v1.xrange);
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
 	skybox.z = 1.0 / ((1.0 - skybox.alpha) / v1.vz
 			+ skybox.alpha / env->skybox[skybox.i + 1].vz);

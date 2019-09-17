@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 10:46:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 16:29:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:04:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 			+ sector->v[i].angle_z1) * sector->v[i].scale1;
 	sector->v[i].no_slope_c2 = env->h_h + (sector->ceiling - env->player.head_z
 			+ sector->v[i].angle_z2) * sector->v[i].scale2;
+	sector->feet_y = env->h_h + (get_floor_at_pos(*sector,
+				new_v2(env->player.pos.x, env->player.pos.y), env)
+			- env->player.head_z + env->camera.near_z * env->player.angle_z)
+		* env->camera.scale / -env->camera.near_z;
+	sector->head_y = env->h_h + (get_ceiling_at_pos(*sector,
+				new_v2(env->player.pos.x, env->player.pos.y), env)
+			- env->player.head_z + env->camera.near_z * env->player.angle_z)
+		* env->camera.scale / -env->camera.near_z;
 	sector->v[i].x = env->h_w + sector->v[i].vx
 		* env->camera.scale / -sector->v[i].vz;
 	//sector->v[i].x = ceil(sector->v[i].x);
@@ -50,6 +58,8 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 	sector->v[i].ceiling_horizon = env->h_h + (sector->ceiling_slope
 			* (sector->ceiling_max + env->player.head_z) + sector->v[i].angle_z1)
 		* sector->v[i].scale1;
+	sector->v[i].floor_horizon = env->player.horizon;
+	sector->v[i].ceiling_horizon = env->player.horizon;
 	sector->v[i].xz = env->vertices[sector->vertices[i]].x
 		/ sector->v[i].vz;
 	sector->v[i].yz = env->vertices[sector->vertices[i]].y
