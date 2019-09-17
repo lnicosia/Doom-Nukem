@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:11:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:26:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		*wall_loop(void *param)
 	xend = ((t_render_thread2*)param)->xend;
 	while (x <= xend)
 	{
-		//ft_printf("x = %d\n", x);
 		render.x = x;
 		render.alpha = (x - v1.x) / v1.xrange;
 		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
@@ -86,8 +85,6 @@ void		*wall_loop(void *param)
 			else
 				draw_wall(sector, render, env);
 		}
-		//update_screen(env);
-		//SDL_Delay(50);
 		x++;
 	}
 	return (NULL);

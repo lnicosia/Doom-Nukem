@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/16 16:41:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 19:53:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	draw_game(t_env *env)
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
 	if (env->weapon_change.on_going && !env->shot.on_going)
 		weapon_change(env);
-	draw_crosshair(env);
+	//draw_crosshair(env);
 	print_ammo(env);
 	if (env->options.show_fps)
 		fps(env);

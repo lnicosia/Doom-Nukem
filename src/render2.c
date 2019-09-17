@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:11:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:57:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,14 @@ void		precompute_sector(t_sector *sector, t_env *env)
 
 	i = -1;
 	sector->computed++;
+	sector->feet_y = env->h_h + (get_floor_at_pos(*sector,
+				new_v2(env->player.pos.x, env->player.pos.y), env)
+			- env->player.head_z + env->camera.near_z * env->player.angle_z)
+		* env->camera.scale / -env->camera.near_z;
+	sector->head_y = env->h_h + (get_ceiling_at_pos(*sector,
+				new_v2(env->player.pos.x, env->player.pos.y), env)
+			- env->player.head_z + env->camera.near_z * env->player.angle_z)
+		* env->camera.scale / -env->camera.near_z;
 	while (++i < sector->nb_vertices)
 		compute_wall(i, sector, env);
 	sector->v[sector->nb_vertices] = sector->v[0];

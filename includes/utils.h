@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:41:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 18:59:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
+# define X1 env->vertices[env->sectors[motion.sector].vertices[i]].x
+# define X2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].x
+# define Y1 env->vertices[env->sectors[motion.sector].vertices[i]].y
+# define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_TEXTURE 45
@@ -131,6 +131,8 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
+	double			feet_y;
+	double			head_y;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
@@ -391,6 +393,7 @@ typedef struct		s_object
 	int				top;
 	int				bottom;
 	int				sprite;
+	double			size;
 	double			scale;
 	double			angle;
 	short			brightness;
@@ -419,6 +422,8 @@ typedef struct		s_enemies
 	int				sprite;
 	int				death_sprite;
 	int				seen;
+	double			eyesight;
+	double			size_2d;
 	double			scale;
 	double			angle;
 	short			brightness;
