@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 10:46:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 16:29:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:57:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 	sector->v[i].ceiling_horizon = env->h_h + (sector->ceiling_slope
 			* (sector->ceiling_max + env->player.head_z) + sector->v[i].angle_z1)
 		* sector->v[i].scale1;
+	sector->v[i].floor_horizon = env->player.horizon;
+	sector->v[i].ceiling_horizon = env->player.horizon;
 	sector->v[i].xz = env->vertices[sector->vertices[i]].x
 		/ sector->v[i].vz;
 	sector->v[i].yz = env->vertices[sector->vertices[i]].y

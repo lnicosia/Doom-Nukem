@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:27:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:23:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render2 render, 
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
 	x = render.alpha * env->skybox[render.i].texture_scale.x * render.z;
-	//ft_printf("x = %f\n", x);
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -109,13 +108,11 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render2 render, 
 		{
 			start_coord = vline.x + env->w * vline.start;
 			pixels[start_coord] = 0xFFFF0000;
-			//zbuffer[start_coord] = 100000000;
 		}
 		if (vline.end == (int)render.max_floor)
 		{
 			end_coord = vline.x + env->w * vline.end;
 			pixels[end_coord] = 0xFFFF0000;
-			//zbuffer[end_coord] = 100000000;
 		}
 	}
 }
@@ -206,16 +203,10 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render2 rende
 	if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start >= 0 && vline.start < env->h - 1)
-		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-			//zbuffer[vline.x + env->w * vline.start] = 100000000;
-		}
 		if (vline.end == (int)render.max_ceiling - 1
 				&& vline.end >= 0 && vline.end < env->h)
-		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
-			//zbuffer[vline.x + env->w * vline.end] = 100000000;
-		}
 	}
 }
 
@@ -307,14 +298,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render2 render,
 	{
 		if (vline.start == (int)render.max_floor + 1
 				&& vline.start >= 0 && vline.start < env->h)
-		{
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-			//zbuffer[vline.x + env->w * vline.start] = 100000000;
-		}
 		if (vline.end < env->h - 1 && vline.end >= 0)
-		{
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
-			//zbuffer[vline.x + env->w * vline.end] = 100000000;
-		}
 	}
 }
