@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:33:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 18:00:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
 	skybox.ceiling_start = skybox.max_ceiling - skybox.ceiling_horizon;
 	skybox.floor_start = skybox.max_floor - skybox.floor_horizon;
 	vline.x = x;
-	if (min < render.current_ceiling)
+	if (min < skybox.current_ceiling)
 	{
 		vline.start = min;
 		vline.end = ft_min(skybox.current_ceiling, max);
