@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:25:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:33:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct		s_render_vertex
 	double			no_slope_c1;
 	double			no_slope_c2;
 	int				draw;
-	int				selected;
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
@@ -116,7 +115,6 @@ typedef struct		s_render_vertex
 typedef struct		s_sector
 {
 	t_v2			normal;
-	t_render_vertex	*v;
 	double			floor;
 	double			floor_slope;
 	short			floor_texture;
@@ -137,16 +135,14 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
-	double			feet_y;
-	double			head_y;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
+	short			*selected;
 	short			num;
 	short			nb_vertices;
 	int				skybox;
 	int				brightness;
-	int				computed;
 	Uint32			light_color;
 }					t_sector;
 
@@ -160,45 +156,17 @@ typedef struct		s_vertex
 	short			num;
 }					t_vertex;
 
-typedef struct		s_player
-{
-	t_v3			pos;
-	t_v2			near_left;
-	t_v2			near_right;
-	int				stuck;
-	int				prev_sector;
-	double			gravity;
-	double			eyesight;
-	double			angle;
-	double			angle_cos;
-	double			angle_sin;
-	double			perp_cos;
-	double			perp_sin;
-	double			angle_z;
-	double			angle_z_cos;
-	double			angle_z_sin;
-	double			speed;
-	double			horizon;
-	int				hit;
-	double			size_2d;
-	double			camera_x;
-	double			camera_y;
-	double			rotation_speed;
-	short			sector;
-	double			state;
-	int				highest_sect;
-	int				curr_weapon;
-	int				life;
-	int				armor;
-	double			head_z;
-}					t_player;
-
 /*
 **	Camera values
 */
 
 typedef struct		s_camera
 {
+	t_v3			pos;
+	t_v2			near_left_pos;
+	t_v2			near_right_pos;
+	t_v2			near_pos;
+	t_render_vertex	**v;
 	double			near_z;
 	double			far_z;
 	double			near_left;
@@ -220,7 +188,47 @@ typedef struct		s_camera
 	double			y2;
 	double			hscale;
 	double			vscale;
+	double			angle;
+	double			angle_cos;
+	double			angle_sin;
+	double			perp_cos;
+	double			perp_sin;
+	double			angle_z;
+	double			angle_z_cos;
+	double			angle_z_sin;
+	double			horizon;
+	double			*feet_y;
+	double			*head_y;
+	int				*screen_sectors;
+	int				*screen_pos;
+	short			*rendered_sectors;
+	int				*xmin;
+	int				*xmax;
+	int				computed;
+	int				*sector_computed;
+	int				size;
 }					t_camera;
+
+typedef struct		s_player
+{
+	t_v3			pos;
+	t_camera		camera;
+	int				stuck;
+	int				prev_sector;
+	double			gravity;
+	double			eyesight;
+	double			speed;
+	int				hit;
+	double			size_2d;
+	double			rotation_speed;
+	short			sector;
+	double			state;
+	int				highest_sect;
+	int				curr_weapon;
+	int				life;
+	int				armor;
+	double			head_z;
+}					t_player;
 
 /*
 ** Player's keys configuration

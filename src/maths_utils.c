@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 17:35:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:48:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	update_player_z(t_env *env)
 		(sector.normal.x * (env->player.pos.x - v0.x)
 		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
+	env->player.camera.pos.z = env->player.head_z;
 }
 
 void	update_floor(t_env *env)

@@ -6,19 +6,19 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 10:30:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:53:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-#include "render2.h"
+#include "render.h"
 
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_floor2(t_sector sector, t_vline vline, t_render2 render, t_env *env)
+void	draw_vline_floor2(t_sector sector, t_vline vline, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -34,7 +34,7 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render2 render, t_env *
 	double	divider;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = env->textures[sector.floor_texture].surface->w;
 	texture_h = env->textures[sector.floor_texture].surface->h;
 	texture_pixels = env->textures[sector.floor_texture].str;
@@ -42,8 +42,8 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render2 render, t_env *
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = (i - render.max_floor) / (sector.feet_y - render.max_floor);
-		divider = 1 / (env->camera.near_z + alpha * render.zrange);
+		alpha = (i - render.max_floor) / (render.camera->feet_y[render.sector] - render.max_floor);
+		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= zbuffer[coord])
 		{
@@ -93,7 +93,7 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render2 render, t_env *
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_floor_color2(t_vline vline, t_render2 render, t_env *env)
+void	draw_vline_floor_color2(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
@@ -101,7 +101,7 @@ void	draw_vline_floor_color2(t_vline vline, t_render2 render, t_env *env)
 
 	(void)render;
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;
@@ -123,7 +123,7 @@ void	draw_vline_floor_color2(t_vline vline, t_render2 render, t_env *env)
 	}
 }
 
-void	draw_floor2(t_sector sector, t_render2 render, t_env *env)
+void	draw_floor2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 

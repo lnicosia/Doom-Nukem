@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 17:28:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:32:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	init_editor(int ac, char **av)
 	init_editor_data(&env);
 	init_inputs(&env);
 	init_player(&env);
-	init_camera(&env);
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
 	if (init_sound(&env))
@@ -103,5 +102,7 @@ int	init_editor(int ac, char **av)
 		precompute_slopes(&env);
 		ft_printf("{reset}");
 	}
+	if (init_camera(&env.player.camera, &env))
+		return (crash("Could not init camera\n", &env));
 	return (editor(&env));
 }

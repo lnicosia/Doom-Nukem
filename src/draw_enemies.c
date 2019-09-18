@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 12:29:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:32:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void		*enemy_loop(void *param)
 	texture = env->textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	x = ((t_enemy_thread*)param)->xstart;
 	xend = ((t_enemy_thread*)param)->xend;
 	yend = orender.yend;

@@ -6,12 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 09:58:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 13:40:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "render2.h"
+#include "render.h"
 
 t_v2	set_v2(int i)
 {
@@ -59,12 +59,12 @@ void	precompute_skybox_values(int i, t_env *env)
 
 int		project_skybox(int i, t_env *env)
 {
-	env->skybox[i].scale1 = env->camera.scale / -env->skybox[i].clipped_vz1;
-	env->skybox[i].scale2 = env->camera.scale / -env->skybox[i].clipped_vz2;
+	env->skybox[i].scale1 = env->player.camera.scale / -env->skybox[i].clipped_vz1;
+	env->skybox[i].scale2 = env->player.camera.scale / -env->skybox[i].clipped_vz2;
 	env->skybox[i].angle_z1 = env->skybox[i].clipped_vz1
-		* env->player.angle_z;
+		* env->player.camera.angle_z;
 	env->skybox[i].angle_z2 = env->skybox[i].clipped_vz2
-		* env->player.angle_z;
+		* env->player.camera.angle_z;
 	env->skybox[i].f1 = env->h_h + (-5 + env->skybox[i].angle_z1)
 		* env->skybox[i].scale1;
 	env->skybox[i].f2 = env->h_h + (-5 + env->skybox[i].angle_z2)
@@ -78,7 +78,7 @@ int		project_skybox(int i, t_env *env)
 	env->skybox[i].clipped_x2 = env->h_w + env->skybox[i].clipped_vx2
 		* env->skybox[i].scale2;
 	env->skybox[i].clipped_x1 = ceil(env->skybox[i].clipped_x1);
-	env->skybox[i].x = env->h_w + env->skybox[i].vx * env->camera.scale
+	env->skybox[i].x = env->h_w + env->skybox[i].vx * env->player.camera.scale
 		/ -env->skybox[i].vz;
 	return (0);
 }
@@ -90,9 +90,9 @@ void	get_skybox_intersections(int i, t_env *env)
 	inter = get_intersection(
 			new_v2(env->skybox[i].vx, env->skybox[i].vz),
 			new_v2(env->skybox[i + 1].vx, env->skybox[i + 1].vz),
-			new_v2(env->camera.near_left, env->camera.near_z),
-			new_v2(env->camera.near_right, env->camera.near_z));
-	if (env->skybox[i].vz < env->camera.near_z)
+			new_v2(env->player.camera.near_left, env->player.camera.near_z),
+			new_v2(env->player.camera.near_right, env->player.camera.near_z));
+	if (env->skybox[i].vz < env->player.camera.near_z)
 	{
 		env->skybox[i].clipped_vx1 = inter.x;
 		env->skybox[i].clipped_vz1 = inter.y;
@@ -102,7 +102,7 @@ void	get_skybox_intersections(int i, t_env *env)
 		env->skybox[i].clipped_vx1 = env->skybox[i].vx;
 		env->skybox[i].clipped_vz1 = env->skybox[i].vz;
 	}
-	if (env->skybox[i + 1].vz < env->camera.near_z)
+	if (env->skybox[i + 1].vz < env->player.camera.near_z)
 	{
 		env->skybox[i].clipped_vx2 = inter.x;
 		env->skybox[i].clipped_vz2 = inter.y;
@@ -116,14 +116,14 @@ void	get_skybox_intersections(int i, t_env *env)
 
 void	clip_skybox2(int i, t_env *env)
 {
-	if ((env->skybox[i].vz < env->camera.near_z
-				&& env->skybox[i + 1].vz < env->camera.near_z)
-			|| (env->skybox[i].vz > env->camera.far_z
-				&& env->skybox[i + 1].vz > env->camera.far_z)
-			|| (env->skybox[i].vx < env->camera.far_left
-				&& env->skybox[i + 1].vx < env->camera.far_left)
-			|| (env->skybox[i].vx > env->camera.far_right
-				&& env->skybox[i + 1].vx > env->camera.far_right))
+	if ((env->skybox[i].vz < env->player.camera.near_z
+				&& env->skybox[i + 1].vz < env->player.camera.near_z)
+			|| (env->skybox[i].vz > env->player.camera.far_z
+				&& env->skybox[i + 1].vz > env->player.camera.far_z)
+			|| (env->skybox[i].vx < env->player.camera.far_left
+				&& env->skybox[i + 1].vx < env->player.camera.far_left)
+			|| (env->skybox[i].vx > env->player.camera.far_right
+				&& env->skybox[i + 1].vx > env->player.camera.far_right))
 		env->skybox[i].draw = 0;
 	else
 		env->skybox[i].draw = 1;
@@ -132,10 +132,10 @@ void	clip_skybox2(int i, t_env *env)
 
 void	compute_skybox2(t_v2 pos, int i, t_env *env)
 {
-	env->skybox[i].vx = (pos.x - 5) * env->player.angle_sin
-		- (pos.y - 5) * env->player.angle_cos;
-	env->skybox[i].vz = (pos.x - 5) * env->player.angle_cos
-		+ (pos.y - 5) * env->player.angle_sin;
+	env->skybox[i].vx = (pos.x - 5) * env->player.camera.angle_sin
+		- (pos.y - 5) * env->player.camera.angle_cos;
+	env->skybox[i].vz = (pos.x - 5) * env->player.camera.angle_cos
+		+ (pos.y - 5) * env->player.camera.angle_sin;
 }
 
 void	precompute_skybox(t_env *env)

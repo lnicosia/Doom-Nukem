@@ -6,19 +6,19 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:23:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 13:44:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-#include "render2.h"
+#include "render.h"
 
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render2 render, t_env *env)
+void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
 {
 	int			i;
 	double		yalpha;
@@ -38,7 +38,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render2 render, 
 	texture = env->textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
 	x = render.alpha * env->skybox[render.i].texture_scale.x * render.z;
@@ -121,7 +121,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render2 render, 
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render2 render, t_env *env)
+void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -136,7 +136,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render2 rende
 	double	z;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = env->textures[39].surface->w;
 	texture_h = env->textures[39].surface->h;
 	texture_pixels = env->textures[39].str;
@@ -214,7 +214,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render2 rende
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render2 render, t_env *env)
+void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -229,7 +229,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render2 render,
 	double	z;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = env->textures[38].surface->w;
 	texture_h = env->textures[38].surface->h;
 	texture_pixels = env->textures[38].str;

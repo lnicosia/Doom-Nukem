@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/17 17:25:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 14:49:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector ceilings"));
 	if (!(sector->floors = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
@@ -65,8 +67,6 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector clipped_floors2"));
 	if (!(sector->wall_width = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("could not malloc sector vertices"));
-	if (!(sector->v = (t_render_vertex*)malloc(sizeof(t_render_vertex) * (sector->nb_vertices + 1))))
-		return (ft_perror("could not malloc v"));
 	return (0);
 }
 

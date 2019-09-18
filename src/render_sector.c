@@ -6,37 +6,37 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 10:27:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:16:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "render2.h"
+#include "render.h"
 
 void		*wall_loop(void *param)
 {
 	t_render_vertex	v1;
 	t_sector		sector;
-	t_render2		render;
+	t_render		render;
 	t_env			*env;
 	int				x;
 	int				xend;
 
-	v1 = ((t_render_thread2*)param)->v1;
-	sector = ((t_render_thread2*)param)->sector;
-	render = ((t_render_thread2*)param)->render;
-	env = ((t_render_thread2*)param)->env;
-	x = ((t_render_thread2*)param)->xstart;
-	xend = ((t_render_thread2*)param)->xend;
+	v1 = ((t_render_thread*)param)->v1;
+	sector = ((t_render_thread*)param)->sector;
+	render = ((t_render_thread*)param)->render;
+	env = ((t_render_thread*)param)->env;
+	x = ((t_render_thread*)param)->xstart;
+	xend = ((t_render_thread*)param)->xend;
 	while (x <= xend)
 	{
 		render.x = x;
 		render.alpha = (x - v1.x) / v1.xrange;
 		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
-		render.divider = 1 / (sector.v[render.i + 1].vz
+		render.divider = 1 / (render.camera->v[sector.num][render.i + 1].vz
 					+ render.alpha * v1.zrange);
 		render.z = v1.zcomb * render.divider;
-		render.z_near_z = render.z * env->camera.near_z;
+		render.z_near_z = render.z * render.camera->near_z;
 		render.max_ceiling = render.clipped_alpha * v1.ceiling_range + v1.c1;
 		render.current_ceiling = ft_clamp(render.max_ceiling,
 				env->ymin[x], env->ymax[x]);
@@ -58,15 +58,15 @@ void		*wall_loop(void *param)
 				* render.divider;
 			render.texel.y = (v1.y0z1 + render.alpha * v1.yzrange)
 				* render.divider;
-			render.texel_x_near_z = render.texel.x * env->camera.near_z;
-			render.texel_y_near_z = render.texel.y * env->camera.near_z;
-			render.camera_x_z = env->player.camera_x * render.z;
-			render.camera_y_z = env->player.camera_y * render.z;
+			render.texel_x_near_z = render.texel.x * render.camera->near_z;
+			render.texel_y_near_z = render.texel.y * render.camera->near_z;
+			render.camera_x_z = render.camera->pos.x * render.z;
+			render.camera_y_z = render.camera->pos.y * render.z;
 			render.texel_x_camera_range = render.camera_x_z
 				- render.texel_x_near_z;
 			render.texel_y_camera_range = render.camera_y_z
 				- render.texel_y_near_z;
-			render.zrange = render.z - env->camera.near_z;
+			render.zrange = render.z - render.camera->near_z;
 		}
 		if (render.current_ceiling > env->ymin[x])
 			draw_ceiling2(sector, render, env);
@@ -104,9 +104,9 @@ void		*wall_loop(void *param)
 }
 
 void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
-		t_render2 render, t_env *env)
+		t_render render, t_env *env)
 {
-	t_render_thread2	rt[THREADS];
+	t_render_thread	rt[THREADS];
 	pthread_t			threads[THREADS];
 	int					i;
 
@@ -134,31 +134,30 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	}
 }
 
-void		render_sector2(t_render2 render, t_env *env)
+void		render_sector2(t_render render, t_env *env)
 {
 	int				i;
 	t_sector		sector;
 	t_render_vertex	v1;
-	t_render2		new;
+	t_render		new;
 
 	i = -1;
 	sector = env->sectors[render.sector];
 	while (++i < sector.nb_vertices)
 	{
-		if (!sector.v[i].draw)
+		if (!render.camera->v[sector.num][i].draw)
 			continue;
-		v1 = sector.v[i];
+		v1 = render.camera->v[sector.num][i];
+		//ft_printf("wall %d x1 = %f x2 = %f\n", i, v1.clipped_x1, v1.clipped_x2);
 		if (v1.clipped_x1 >= v1.clipped_x2 || v1.clipped_x1 > render.xmax
 				|| v1.clipped_x2 < render.xmin)
 			continue;
+		//ft_printf("cc\n");
 		render.xstart = ft_max(v1.clipped_x1, render.xmin);
 		render.xend = ft_min(v1.clipped_x2, render.xmax);
-		render.ceiling_horizon = sector.v[i].ceiling_horizon;
-		render.floor_horizon = sector.v[i].floor_horizon;
-		/*if (sector.textures[i].texture == -1)
-			render.texture = -1;
-		else*/
-			render.texture = sector.textures[i];
+		render.ceiling_horizon = v1.ceiling_horizon;
+		render.floor_horizon = v1.floor_horizon;
+		render.texture = sector.textures[i];
 		render.i = i;
 		threaded_wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)

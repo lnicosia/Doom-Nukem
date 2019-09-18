@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 15:08:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:01:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,42 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].textures);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
-		if (env->sectors[i].v)
-			ft_memdel((void**)&env->sectors[i].v);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);
 }
 
-void		free_screen_sectors(t_env *env)
+void		free_camera(t_camera *camera)
 {
-	if (env->xmin)
-		ft_memdel((void**)&env->xmin);
-	if (env->xmax)
-		ft_memdel((void**)&env->xmax);
-	if (env->screen_sectors)
-		ft_memdel((void**)&env->screen_sectors);
-	if (env->rendered_sectors)
-		ft_memdel((void**)&env->rendered_sectors);
+	int	i;
+
+	if (camera->screen_sectors)
+		ft_memdel((void**)&camera->screen_sectors);
+	if (camera->screen_pos)
+		ft_memdel((void**)&camera->screen_pos);
+	if (camera->rendered_sectors)
+		ft_memdel((void**)&camera->rendered_sectors);
+	if (camera->xmin)
+		ft_memdel((void**)&camera->xmin);
+	if (camera->xmax)
+		ft_memdel((void**)&camera->xmax);
+	if (camera->feet_y)
+		ft_memdel((void**)&camera->feet_y);
+	if (camera->head_y)
+		ft_memdel((void**)&camera->head_y);
+	if (camera->sector_computed)
+		ft_memdel((void**)&camera->sector_computed);
+	i = 0;
+	if (camera->v)
+	{
+		while (i < camera->size)
+		{
+			if (camera->v[i])
+				ft_memdel((void**)&camera->v[i]);
+			i++;
+		}
+		ft_memdel((void**)&camera->v);
+	}
 }
 
 void		free_all_sdl_relative(t_env *env)
@@ -81,15 +100,8 @@ void		free_all_sdl_relative(t_env *env)
 		SDL_DestroyTexture(env->sdl.texture);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
-	if (env->depth_array)
-		ft_memdel((void**)&env->depth_array);
-	if (env->ymin)
-		ft_memdel((void**)&env->ymin);
-	if (env->ymax)
-		ft_memdel((void**)&env->ymax);
-	if (env->screen_pos)
-		ft_memdel((void**)&env->screen_pos);
-	free_screen_sectors(env);
+	if (env->zbuffer)
+		ft_memdel((void**)&env->zbuffer);
 
 }
 
@@ -147,6 +159,7 @@ void		free_all(t_env *env)
 		i++;
 	}
 	free_textures(env);
+	free_camera(&env->player.camera);
 	TTF_Quit();
 	Mix_CloseAudio();
 	SDL_Quit();

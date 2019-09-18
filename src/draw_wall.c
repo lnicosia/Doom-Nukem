@@ -6,19 +6,18 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:28:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 14:34:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-#include "render2.h"
 
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *env)
+void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env)
 {
 	int			i;
 	double		yalpha;
@@ -35,10 +34,10 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *en
 	texture = env->textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
-	x = render.alpha * sector.v[render.i].texture_scale.x * render.z;
+	x = render.alpha * render.camera->v[render.sector][render.i].texture_scale.x * render.z;
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -70,7 +69,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *en
 			env->selected_enemy = -1;
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
-		y = yalpha * sector.v[render.i].texture_scale.y;
+		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y;
 		while (y >= texture_h)
 			y -= texture_h;
 		while (y < 0)
@@ -79,7 +78,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render2 render, t_env *en
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
-		if (env->editor.in_game && sector.v[render.i].selected && !env->editor.select)
+		if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
 			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 		zbuffer[coord] = render.z;
 		if (env->options.zbuffer || env->options.contouring)
@@ -99,7 +98,7 @@ void	draw_vline_color2(t_vline vline, t_env *env)
 	double	*zbuffer;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;
@@ -108,7 +107,7 @@ void	draw_vline_color2(t_vline vline, t_env *env)
 	}
 }
 
-void		draw_wall(t_sector sector, t_render2 render, t_env *env)
+void		draw_wall(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -118,12 +117,12 @@ void		draw_wall(t_sector sector, t_render2 render, t_env *env)
 	vline.color = 0xFFFF0000;
 	draw_vline_wall(sector, vline, render, env);
 	if ((env->options.zbuffer || env->options.contouring)
-			&& (vline.x == (int)(sector.v[render.i].x)
-				|| vline.x == (int)(sector.v[render.i + 1].x)))
+			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
+				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
 		draw_vline_color2(vline, env);
 }
 
-void		draw_upper_wall2(t_sector sector, t_render2 render, t_env *env)
+void		draw_upper_wall2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -133,12 +132,12 @@ void		draw_upper_wall2(t_sector sector, t_render2 render, t_env *env)
 	vline.color = 0xFFFF0000;
 	draw_vline_wall(sector, vline, render, env);
 	if ((env->options.zbuffer || env->options.contouring)
-			&& (vline.x == (int)(sector.v[render.i].x)
-				|| vline.x == (int)(sector.v[render.i + 1].x)))
+			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
+				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
 		draw_vline_color2(vline, env);
 }
 
-void		draw_bottom_wall2(t_sector sector, t_render2 render, t_env *env)
+void		draw_bottom_wall2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -148,8 +147,8 @@ void		draw_bottom_wall2(t_sector sector, t_render2 render, t_env *env)
 	vline.color = 0xFFFF0000;
 	draw_vline_wall(sector, vline, render, env);
 	if ((env->options.zbuffer || env->options.contouring)
-			&& (vline.x == (int)(sector.v[render.i].x)
-				|| vline.x == (int)(sector.v[render.i + 1].x)))
+			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
+				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
 		draw_vline_color2(vline, env);
 	if (env->options.zbuffer || env->options.contouring)
 	{

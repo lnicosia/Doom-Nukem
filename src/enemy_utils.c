@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/17 19:49:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:32:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void    enemy_pursuit(t_env *env)
 
             //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
             //ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);
-            env->enemies[i].angle = (env->player.angle * CONVERT_DEGREES) + 180;
+            env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
             //ft_printf("enemy %f\n", env->enemies[i].angle);
             //env->enemies[i].angle = 90;
             //env->enemies[i].angle = sprite_rotate(env->enemies[i].angle, env->player.angle * CONVERT_DEGREES + 180);

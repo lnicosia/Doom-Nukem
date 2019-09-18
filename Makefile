@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/18 17:25:50 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/09/18 17:33:15 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,29 +46,29 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
-		   check_bmp_parsing.c keyup.c render.c movement.c \
+		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c maths_utils.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   render_maths.c minimap.c fps.c \
+		   minimap.c fps.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   fill_triangle_minimap.c color_utils.c clipping.c camera.c \
-		   print_debug.c intersections.c init_animations.c vertices_utils.c \
+		   fill_triangle_minimap.c color_utils.c camera.c \
+		   print_debug.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c map_parse_player.c create_portals.c \
 		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
-		   init_screen_pos.c draw_objects.c sprites_maths.c \
+		   draw_objects.c sprites_maths.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
-		   map_parse_enemies.c  draw_line_free.c render2.c \
+		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
-		   precompute_skybox.c draw_skybox2.c draw_floor.c \
+		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   selected_information.c movement_utils.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h create_portals.h render2.h
+		  editor.h env.h save.h create_portals.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
