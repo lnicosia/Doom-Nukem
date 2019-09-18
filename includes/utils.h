@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:41:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:00:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct		s_render_vertex
 	double			no_slope_c1;
 	double			no_slope_c2;
 	int				draw;
-	int				selected;
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
@@ -116,7 +115,6 @@ typedef struct		s_render_vertex
 typedef struct		s_sector
 {
 	t_v2			normal;
-	t_render_vertex	*v;
 	double			floor;
 	double			floor_slope;
 	short			floor_texture;
@@ -137,16 +135,14 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
-	double			feet_y;
-	double			head_y;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
+	short			*selected;
 	short			num;
 	short			nb_vertices;
 	int				skybox;
 	int				brightness;
-	int				computed;
 	Uint32			light_color;
 }					t_sector;
 
@@ -170,6 +166,7 @@ typedef struct		s_camera
 	t_v2			near_left_pos;
 	t_v2			near_right_pos;
 	t_v2			near_pos;
+	t_render_vertex	**v;
 	double			near_z;
 	double			far_z;
 	double			near_left;
@@ -200,6 +197,16 @@ typedef struct		s_camera
 	double			angle_z_cos;
 	double			angle_z_sin;
 	double			horizon;
+	double			*feet_y;
+	double			*head_y;
+	int				*screen_sectors;
+	int				*screen_pos;
+	short			*rendered_sectors;
+	int				*xmin;
+	int				*xmax;
+	int				computed;
+	int				*sector_computed;
+	int				size;
 }					t_camera;
 
 typedef struct		s_player

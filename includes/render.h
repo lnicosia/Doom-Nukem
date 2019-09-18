@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   render2.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 13:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:42:04 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/09/18 14:28:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_H
-# define DRAW_H
-# define MAX_SECTORS_TO_RENDER 32
+#ifndef RENDER2_H
+# define RENDER2_H
 # include "env.h"
+# include "render.h"
 
 typedef struct		s_vline
 {
@@ -23,134 +23,49 @@ typedef struct		s_vline
 	unsigned int	color;
 }					t_vline;
 
-/*
-**	Every variable needed for the rendering
-*/
-
-typedef struct		s_render
+typedef struct	s_render
 {
-	t_vline			vline;
-	t_v3			v1;
-	t_v3			v2;
-	t_v2			inter_near;
-	t_v2			inter_far;
-	t_v2			inter_left;
-	t_v2			inter_right;
-	t_v2			texel;
-	t_v2			player_pos;
-	double			vx1;
-	double			vx2;
-	double			vz1;
-	double			vz2;
-	double			vcy1;
-	double			vcy2;
-	double			vfy1;
-	double			vfy2;
-	double			nvcy1;
-	double			nvcy2;
-	double			nvfy1;
-	double			nvfy2;
-	double			clipped_vz1;
-	double			clipped_vz2;
-	double			clipped_vx1;
-	double			clipped_vx2;
-	double			clipped_vy1;
-	double			clipped_vy2;
-	double			z;
-	double			clipped_z;
-	double			dist1;
-	double			dist2;
-	double			floor_slope;
-	double			ceiling_slope;
-	double			alpha;
-	double			clipped_alpha;
-	double			wall_width;
-	double			wall_height;
-	double			angle_z1;
-	double			angle_z2;
-	double			preclip_angle_z1;
-	double			preclip_angle_z2;
-	double			scale1;
-	double			scale2;
-	int				xmin;
-	int				xmax;
-	int				currentx;
-	int				selected;
-	double			floor1;
-	double			floor2;
-	double			current_floor;
-	double			current_ceiling;
-	double			current_neighbor_floor;
-	double			current_neighbor_ceiling;
-	double			max_floor;
-	double			max_ceiling;
-	double			max_neighbor_floor;
-	double			max_neighbor_ceiling;
-	double			ceiling1;
-	double			ceiling2;
-	double			neighbor_floor1;
-	double			neighbor_floor2;
-	double			neighbor_ceiling1;
-	double			neighbor_ceiling2;
-	double			preclip_x1;
-	double			preclip_x2;
-	double			preclip_floor1;
-	double			preclip_floor2;
-	double			preclip_ceiling1;
-	double			preclip_ceiling2;
-	double			x1;
-	double			x2;
-	double			xrange;
-	double			preclip_xrange;
-	double			no_slope_floor1;
-	double			no_slope_floor2;
-	double			no_slope_floor_range;
-	double			no_slope_current_floor;
-	double			no_slope_ceiling1;
-	double			no_slope_ceiling2;
-	double			no_slope_ceil_range;
-	double			no_slope_current_ceiling;
-	int				xstart;
-	int				xend;
-	int				sector;
-	double			v1_clipped;
-	double			v2_clipped;
-	short			nv1;
-	short			nv2;
-	int				i;
-	int				texture;
-	int				floor_texture;
-	int				ceiling_texture;
-	int				skybox;
-	short			brightness;
-	Uint32			light_color;
-	double			x1z1;
-	double			x2z2;
-	double			y1z1;
-	double			y2z2;
-	double			ceil_range;
-	double			floor_range;
-	double			neighbor_ceil_range;
-	double			neighbor_floor_range;
-	double			line_height;
-	double			projected_texture_w;
-	double			projected_texture_h;
-	double			ceiling_start;
-	double			floor_start;
-	double			horizon;
-	double			floor_horizon;
-	double			floor_horizon1;
-	double			floor_horizon2;
-	double			floor_horizon_range;
-	double			ceiling_horizon;
-	double			ceiling_horizon1;
-	double			ceiling_horizon2;
-	double			ceiling_horizon_range;
-	double			ceiling_yscale;
-	double			ceiling_xscale;
-	double			floor_yscale;
-	double			floor_xscale;
-}					t_render;
+	t_camera	*camera;
+	t_v2		texel;
+	double		alpha;
+	double		clipped_alpha;
+	double		z;
+	double		max_floor;
+	double		current_floor;
+	double		no_slope_current_floor;
+	double		floor_start;
+	double		floor_horizon;
+	double		max_ceiling;
+	double		current_ceiling;
+	double		no_slope_current_ceiling;
+	double		ceiling_start;
+	double		ceiling_horizon;
+	double		line_height;
+	double		neighbor_max_ceiling;
+	double		neighbor_current_ceiling;
+	double		neighbor_max_floor;
+	double		neighbor_current_floor;
+	double		divider;
+	double		z_near_z;
+	double		texel_x_near_z;
+	double		texel_y_near_z;
+	double		camera_x_z;
+	double		camera_y_z;
+	double		texel_x_camera_range;
+	double		texel_y_camera_range;
+	double		zrange;
+	int			nv1;
+	int			nv2;
+	int			sector;
+	int			selected;
+	int			xmin;
+	int			xmax;
+	int			xstart;
+	int			xend;
+	int			x;
+	int			texture;
+	int			i;
+}				t_render;
 
 typedef struct		s_render_object
 {
@@ -171,13 +86,31 @@ typedef struct		s_render_object
 	t_point			screen_pos;
 }					t_render_object;
 
-typedef struct		s_render_thread
+typedef struct	s_skybox_data
 {
+	double		z;
+	double		ceiling_start;
+	double		ceiling_horizon;
+	int			mode;
+}				t_skybox_data;
+
+typedef struct	s_render_thread
+{
+	t_render_vertex	v1;
+	t_sector		sector;
 	t_render		render;
 	t_env			*env;
 	int				xstart;
 	int				xend;
-}					t_render_thread;
+}				t_render_thread;
+
+typedef struct	s_precompute_thread
+{
+	int			start;
+	int			end;
+	t_env		*env;
+	t_camera	*camera;
+}				t_precompute_thread;
 
 typedef struct		s_object_thread
 {
@@ -197,33 +130,26 @@ typedef struct		s_enemy_thread
 	int				xend;
 }					t_enemy_thread;
 
-void				get_translated_vertices(t_render *render, t_env *env, t_sector sector, int i);
-void				get_rotated_vertices(t_render *render, t_env *env, int i);
-int					check_fov(t_render *render, t_env *env);
-void				clip_walls(t_render *render, t_env *env);
-void				project_floor_and_ceiling(t_render *render, t_env *env, t_sector sector, int i);
-void				project_neighbor_floor_and_ceiling(t_render *render, t_env *env, t_sector neighbor);
-void				project_floor_and_ceiling_preclip(t_render *render, t_env *env, t_sector sector, int i);
-void				get_relative_heights(t_render *render, t_env *env, t_sector sector, int i);
-void				get_neighbor_relative_heights(t_render *render, t_env *env, t_sector neighbor);
-void				draw_vline(t_vline, t_render render, t_env *env);
-void				draw_vline_color(t_vline, t_render render, t_env *env);
-void				draw_vline_floor(t_vline, t_render render, t_env *env);
-void				draw_vline_ceiling(t_vline, t_render render, t_env *env);
-void				draw_ceiling(t_render render, t_env *env);
-void				draw_floor(t_render render, t_env *env);
-void				draw_upper_wall(t_render render, t_env *env);
-void				draw_bottom_wall(t_render render, t_env *env);
-t_v2				get_sector_normal(t_sector sector, t_env *env);
-double				cross_product(double x0, double y0, double x1, double y1);
-void				handle_left(t_render *render, t_env *env);
-void				handle_right(t_render *render, t_env *env);
-void				handle_far(t_render *render, t_env *env);
-void				handle_near(t_render *render, t_env *env);
-int					get_screen_sectors(t_env *env);
-void				render_sector(t_env *env, t_render render);
-//void				compute_skybox(t_render *render, t_env *env);
-void				draw_skybox(t_render render, int mode, t_env *env);
+void			render_sector2(t_render render, t_env *env);
+void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
+void			draw_floor2(t_sector sector, t_render render, t_env *env);
+void			draw_wall(t_sector sector, t_render render, t_env *env);
+void			draw_upper_wall2(t_sector sector, t_render render, t_env *env);
+void			draw_bottom_wall2(t_sector sector, t_render render,
+		t_env *env);
+void			draw_skybox2(t_render render, int mode, t_env *env);
+void			precompute_skybox(t_env *env);
+short			get_vertex_nb_in_sector(short vertex, t_sector sector);
+void			precompute_neighbors(int i, t_camera *camera, t_sector *sector,
+		t_env *env);
+void			draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data,
+		t_render render, t_env *env);
+void			draw_skybox_wall(t_vline vline, t_skybox_data wall_data,
+		t_render render, t_env *env);
+void			draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
+		t_render render, t_env *env);
+void			draw_vline_color2(t_vline vline, t_env *env);
+int				get_screen_sectors(t_camera *camera, t_env *env);
 
 /*
 **	Sprite part

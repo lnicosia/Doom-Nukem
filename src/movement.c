@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:54:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 16:08:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	animations(t_env *env)
 		jump(env);
 	if (((env->inputs.ctrl && !env->player.state && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
 		crouch(env);
+	env->player.camera.pos.z = env->player.head_z;
 }
 
 /*
@@ -119,6 +120,7 @@ void	move_player(t_env *env)
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			env->player.highest_sect = find_highest_sector(env, env->player.pos, env->player.sector, env->player.eyesight);
 			env->player.camera.pos = env->player.pos;
+			env->player.camera.pos.z = env->player.head_z;
 			update_camera_position(&env->player.camera);
 		}
 	}

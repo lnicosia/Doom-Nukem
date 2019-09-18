@@ -6,19 +6,19 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:21:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 15:53:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-#include "render2.h"
+#include "render.h"
 
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
+void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 		t_env *env)
 {
 	int		i;
@@ -35,7 +35,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	double	divider;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	texture_w = env->textures[sector.ceiling_texture].surface->w;
 	texture_h = env->textures[sector.ceiling_texture].surface->h;
 	texture_pixels = env->textures[sector.ceiling_texture].str;
@@ -43,8 +43,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = (render.max_ceiling - i) / (render.max_ceiling - sector.head_y);
-		divider = 1 / (env->player.camera.near_z + alpha * render.zrange);
+		alpha = (render.max_ceiling - i) / (render.max_ceiling - render.camera->head_y[render.sector]);
+		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= zbuffer[coord])
 		{
@@ -93,14 +93,14 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling_color2(t_vline vline, t_render2 render, t_env *env)
+void	draw_vline_ceiling_color2(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
 	double	*zbuffer;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;
@@ -123,7 +123,7 @@ void	draw_vline_ceiling_color2(t_vline vline, t_render2 render, t_env *env)
 	}
 }
 
-void	draw_ceiling2(t_sector sector, t_render2 render, t_env *env)
+void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:37:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:18:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,10 @@ int			editor_keys(t_env *env)
 			env->selected_enemy = -1;
 			env->editor.in_game = 1;
 			env->inputs.enter = 0;
-			free_screen_sectors(env);
-			if (init_screen_pos(env))
-				return (ft_printf("Could not init screen pos\n"));
+			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
+			free_camera(&env->player.camera);
+			if (init_camera_arrays(&env->player.camera, env))
+				return (ft_printf("Could not init camera arrays\n"));
 			if (env->sector_list)
 				ft_memdel((void**)&env->sector_list);
 			if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 16:40:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 14:48:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].wall_width = (double*)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector wall_size:"));
-	if (!(env->sectors[parser->sectors_count].v = (t_render_vertex*)
-				malloc(sizeof(t_render_vertex) * (parser->sector_vertices_count + 1))))
-		return (ft_perror("Could not malloc sector walls:"));
+	if (!(env->sectors[parser->sectors_count].selected = (short*)
+				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector vertices:"));
 	return (0);
 }
 

@@ -6,15 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:24:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 14:31:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-#include "render2.h"
+#include "render.h"
 
-void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
+void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 		t_env *env)
 {
 	t_vline			vline;
@@ -27,7 +27,7 @@ void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
 	x = render.x;
 	vline.color = 0xFFFF0000;
 	if ((!wall_data.mode && env->selected_ceiling == render.sector)
-			|| (wall_data.mode && env->sectors[render.sector].v[render.i].selected))
+			|| (wall_data.mode && env->sectors[render.sector].selected[render.i]))
 		skybox.selected = 1;
 	if (!wall_data.mode)
 	{
@@ -81,10 +81,10 @@ void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
 	}
 }
 
-void	draw_skybox2(t_render2 render, int mode, t_env *env)
+void	draw_skybox2(t_render render, int mode, t_env *env)
 {
 	int				i;
-	t_render2		skybox;
+	t_render		skybox;
 	t_skybox_data	wall_data;
 
 	i = -1;

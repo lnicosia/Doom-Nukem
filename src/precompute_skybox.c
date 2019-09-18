@@ -6,12 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:20:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 13:40:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "render2.h"
+#include "render.h"
 
 t_v2	set_v2(int i)
 {

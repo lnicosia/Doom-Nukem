@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 11:19:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 13:39:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 				return (invalid_char("sectors numbers",
 							"space or a digit", *line, parser));
 				env->nb_sectors = atoi(line);
+			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("sectors number declaration", parser));
@@ -100,7 +101,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 				if (env->nb_sectors < 1)
 				return (custom_error("You need at least one sector"));
 			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector)
-							* (env->nb_sectors))))
+							* env->nb_sectors)))
 				return (custom_error("Could not malloc sectors!"));
 			i = 0;
 			while (i < env->nb_sectors)
