@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/17 19:31:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:16:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,12 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
             }
             return (new_v2(0, 0));
         }
-        else if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
+        i++;
+    }
+    i = 0;
+    while (i < env->sectors[wall.sector_dest].nb_vertices)
+    {
+        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y)) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             motion.wall.sector_or = wall.sector_dest;
@@ -141,9 +146,11 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
         i++;
     }
     i = 0;
+    if (motion.sector == -1)
+        return (new_v2(0,0));
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= motion.size_2d || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= motion.size_2d || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
+        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR < 0)
         {
             norme_mov = sqrt(move.x * move.x + move.y * move.y);
             norme_wall = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
@@ -156,7 +163,12 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
             }
             return (new_v2(0,0));
         }
-        else if ((distance_two_points(X1, Y1, FUTURE_X, FUTURE_Y) <= motion.size_2d || distance_two_points(X2, Y2, FUTURE_X, FUTURE_Y) <= motion.size_2d || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
+        i++;
+    }
+    i = 0;
+    while (i < env->sectors[motion.sector].nb_vertices)
+    {
+        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y))) && NEIGHBOR >= 0)
         {
             motion.wall.sector_or = motion.sector;
             motion.wall.sector_dest = NEIGHBOR;
