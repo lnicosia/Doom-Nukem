@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 10:30:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:24:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render2 render, t_env *
 	{
 		coord = vline.x + env->w * i;
 		alpha = (i - render.max_floor) / (sector.feet_y - render.max_floor);
-		divider = 1 / (env->camera.near_z + alpha * render.zrange);
+		divider = 1 / (env->player.camera.near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= zbuffer[coord])
 		{

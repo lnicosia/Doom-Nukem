@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/10 15:20:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:36:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	init_game(int ac, char **av)
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
-	init_camera(&env);
+	init_camera(&env.player.camera, &env);
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
 	if (init_sound(&env))
@@ -61,7 +61,8 @@ int	init_game(int ac, char **av)
 		env.enemies[i].exists = 1;
 		i++;
 	}
-	update_camera_position(&env);
+	view(&env);
+	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
 	init_animations(&env);
 	init_weapons(&env);

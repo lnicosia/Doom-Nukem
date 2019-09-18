@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 13:27:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/21 18:10:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/18 11:17:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	check_parsing(t_env *env)
 		i++;
 	}
 	ft_printf("\nplayer	%f %f	%f %d\n{reset}", env->player.pos.y,
-			env->player.pos.x, env->player.angle, env->player.sector);
+			env->player.pos.x, env->player.camera.angle, env->player.sector);
 }

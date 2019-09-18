@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/17 15:59:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:36:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct		s_env
 	t_options			options;
 	t_keys				keys;
 	t_inputs			inputs;
-	t_camera			camera;
 	t_time				time;
 	t_animation			jump;
 	t_animation			crouch;
@@ -205,9 +204,9 @@ int					init_screen_pos(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
-void				init_camera(t_env *env);
+void				init_camera(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
-void				set_camera(t_env *env);
+void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 
 /*
@@ -294,7 +293,7 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
-void				update_camera_position(t_env *env);
+void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, short origin);
 int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);

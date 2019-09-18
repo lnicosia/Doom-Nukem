@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 10:29:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:21:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	{
 		coord = vline.x + env->w * i;
 		alpha = (render.max_ceiling - i) / (render.max_ceiling - sector.head_y);
-		divider = 1 / (env->camera.near_z + alpha * render.zrange);
+		divider = 1 / (env->player.camera.near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= zbuffer[coord])
 		{

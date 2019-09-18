@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 10:46:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 09:38:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:24:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int		project_wall(int i, t_sector *sector, t_env *env)
 {
-	sector->v[i].scale1 = env->camera.scale / -sector->v[i].clipped_vz1;
-	sector->v[i].scale2 = env->camera.scale / -sector->v[i].clipped_vz2;
+	sector->v[i].scale1 = env->player.camera.scale / -sector->v[i].clipped_vz1;
+	sector->v[i].scale2 = env->player.camera.scale / -sector->v[i].clipped_vz2;
 	sector->v[i].angle_z1 = sector->v[i].clipped_vz1
-		* env->player.angle_z;
+		* env->player.camera.angle_z;
 	sector->v[i].angle_z2 = sector->v[i].clipped_vz2
-		* env->player.angle_z;
+		* env->player.camera.angle_z;
 	sector->v[i].f1 = env->h_h + (sector->v[i].clipped_vf1 - env->player.head_z
 			+ sector->v[i].angle_z1) * sector->v[i].scale1;
 	sector->v[i].f2 = env->h_h + (sector->v[i].clipped_vf2 - env->player.head_z
@@ -42,7 +42,7 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 	sector->v[i].no_slope_c2 = env->h_h + (sector->ceiling - env->player.head_z
 			+ sector->v[i].angle_z2) * sector->v[i].scale2;
 	sector->v[i].x = env->h_w + sector->v[i].vx
-		* env->camera.scale / -sector->v[i].vz;
+		* env->player.camera.scale / -sector->v[i].vz;
 	//sector->v[i].x = ceil(sector->v[i].x);
 	sector->v[i].floor_horizon = env->h_h + (sector->floor_slope
 			* (sector->floor_max + env->player.head_z) + sector->v[i].angle_z1)
@@ -50,7 +50,7 @@ int		project_wall(int i, t_sector *sector, t_env *env)
 	sector->v[i].ceiling_horizon = env->h_h + (sector->ceiling_slope
 			* (sector->ceiling_max + env->player.head_z) + sector->v[i].angle_z1)
 		* sector->v[i].scale1;
-	sector->v[i].floor_horizon = env->player.horizon;
-	sector->v[i].ceiling_horizon = env->player.horizon;
+	sector->v[i].floor_horizon = env->player.camera.horizon;
+	sector->v[i].ceiling_horizon = env->player.camera.horizon;
 	return (0);
 }

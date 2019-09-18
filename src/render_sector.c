@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 10:27:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:23:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		*wall_loop(void *param)
 		render.divider = 1 / (sector.v[render.i + 1].vz
 					+ render.alpha * v1.zrange);
 		render.z = v1.zcomb * render.divider;
-		render.z_near_z = render.z * env->camera.near_z;
+		render.z_near_z = render.z * env->player.camera.near_z;
 		render.max_ceiling = render.clipped_alpha * v1.ceiling_range + v1.c1;
 		render.current_ceiling = ft_clamp(render.max_ceiling,
 				env->ymin[x], env->ymax[x]);
@@ -58,15 +58,15 @@ void		*wall_loop(void *param)
 				* render.divider;
 			render.texel.y = (v1.y0z1 + render.alpha * v1.yzrange)
 				* render.divider;
-			render.texel_x_near_z = render.texel.x * env->camera.near_z;
-			render.texel_y_near_z = render.texel.y * env->camera.near_z;
-			render.camera_x_z = env->player.camera_x * render.z;
-			render.camera_y_z = env->player.camera_y * render.z;
+			render.texel_x_near_z = render.texel.x * env->player.camera.near_z;
+			render.texel_y_near_z = render.texel.y * env->player.camera.near_z;
+			render.camera_x_z = env->player.camera.pos.x * render.z;
+			render.camera_y_z = env->player.camera.pos.y * render.z;
 			render.texel_x_camera_range = render.camera_x_z
 				- render.texel_x_near_z;
 			render.texel_y_camera_range = render.camera_y_z
 				- render.texel_y_near_z;
-			render.zrange = render.z - env->camera.near_z;
+			render.zrange = render.z - env->player.camera.near_z;
 		}
 		if (render.current_ceiling > env->ymin[x])
 			draw_ceiling2(sector, render, env);

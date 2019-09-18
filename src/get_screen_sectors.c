@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 11:57:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:16:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 	size = env->screen_sectors_size;
 	x = 0;
 	sect_count = 0;
-	camera_range = env->camera.near_right - env->camera.near_left;
+	camera_range = env->player.camera.near_right - env->player.camera.near_left;
 	while (x < env->w)
 	{
-		tmp = (x / (double)(env->w - 1)) * camera_range + env->camera.near_left;
-		curr.y = -env->camera.near_z;
+		tmp = (x / (double)(env->w - 1)) * camera_range + env->player.camera.near_left;
+		curr.y = -env->player.camera.near_z;
 		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
 		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
 		curr.z = env->player.head_z;
@@ -66,10 +66,10 @@ void	*get_screen_sectors_loop(void *param)
 	end = ((t_precompute_thread*)param)->end;
 	while (x < end)
 	{
-		tmp = (x / (double)(env->w - 1)) * env->camera.range + env->camera.near_left;
-		curr.y = -env->camera.near_z;
-		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
-		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
+		tmp = (x / (double)(env->w - 1)) * env->player.camera.range + env->player.camera.near_left;
+		curr.y = -env->player.camera.near_z;
+		curr.x = tmp * -env->player.camera.angle_sin - curr.y * env->player.camera.angle_cos + env->player.pos.x;
+		curr.y = tmp * env->player.camera.angle_cos - curr.y * env->player.camera.angle_sin + env->player.pos.y;
 		curr.z = env->player.head_z;
 		env->screen_pos[x] = get_sector(env, curr, env->player.sector);
 		x++;
