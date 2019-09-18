@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:30:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:29:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	int		texture_w;
 	int		texture_h;
 	double	z;
-	double	yalpha;
+	double	alpha;
+	double	divider;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->depth_array;
@@ -42,8 +43,9 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		yalpha = (render.max_ceiling - i) / (render.max_ceiling - sector.head_y);
-		z = 1 / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
+		alpha = (render.max_ceiling - i) / (render.max_ceiling - sector.head_y);
+		divider = 1 / (env->camera.near_z + alpha * render.zrange);
+		z = render.z_near_z * divider;
 		if (z >= zbuffer[coord])
 		{
 			i++;
@@ -59,8 +61,10 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render2 render,
 			env->selected_enemy = -1;
 			env->editor.selected_wall = -1;
 		}
-		y = ((1 - yalpha) * render.texel.y / render.z + yalpha * env->player.camera_y / env->camera.near_z) / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
-		x = ((1 - yalpha) * render.texel.x / render.z + yalpha * env->player.camera_x / env->camera.near_z) / ((1 - yalpha) / render.z + yalpha / env->camera.near_z);
+		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
+			* divider;
+		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
+			* divider;
 		y *= sector.ceiling_scale.y;
 		x *= sector.ceiling_scale.x;
 		x = texture_w - x;

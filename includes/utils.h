@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:03:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:58:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,14 @@ typedef struct		s_render_vertex
 	double			ceiling_range;
 	double			no_slope_floor_range;
 	double			no_slope_ceiling_range;
-	double			xz;
-	double			yz;
+	double			zrange;
+	double			zcomb;
+	double			x0z1;
+	double			x1z0;
+	double			xzrange;
+	double			y0z1;
+	double			y1z0;
+	double			yzrange;
 }					t_render_vertex;
 
 typedef struct		s_sector

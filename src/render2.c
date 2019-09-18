@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:57:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:42:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,19 @@ void		precompute_values(int i, t_sector *sector, t_env *env)
 		sector->v[i].selected = 1;
 	sector->v[i].clipped_xrange = sector->v[i].clipped_x2
 		- sector->v[i].clipped_x1;
-	sector->v[i].xrange = sector->v[i + 1].x
-		- sector->v[i].x;
+	sector->v[i].xrange = sector->v[i + 1].x - sector->v[i].x;
+	sector->v[i].zrange = sector->v[i].vz - sector->v[i + 1].vz;
+	sector->v[i].zcomb = sector->v[i + 1].vz * sector->v[i].vz;
+	sector->v[i].x0z1 = env->vertices[sector->vertices[i]].x
+		* sector->v[i + 1].vz;
+	sector->v[i].x1z0 = env->vertices[sector->vertices[i + 1]].x
+		* sector->v[i].vz;
+	sector->v[i].xzrange = sector->v[i].x1z0 - sector->v[i].x0z1;
+	sector->v[i].y0z1 = env->vertices[sector->vertices[i]].y
+		* sector->v[i + 1].vz;
+	sector->v[i].y1z0 = env->vertices[sector->vertices[i + 1]].y
+		* sector->v[i].vz;
+	sector->v[i].yzrange = sector->v[i].y1z0 - sector->v[i].y0z1;
 	sector->v[i].floor_range = sector->v[i].f2 - sector->v[i].f1;
 	sector->v[i].ceiling_range = sector->v[i].c2 - sector->v[i].c1;
 	sector->v[i].no_slope_floor_range = sector->v[i].no_slope_f2

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:26:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:27:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,10 @@ void		*wall_loop(void *param)
 		render.x = x;
 		render.alpha = (x - v1.x) / v1.xrange;
 		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
-		render.z = 1.0 / ((1.0 - render.alpha) / v1.vz
-				+ render.alpha / sector.v[render.i + 1].vz);
-		render.clipped_z = 1.0 / ((1.0 - render.clipped_alpha)
-				/ v1.clipped_vz1 + render.clipped_alpha / v1.clipped_vz2);
-		render.texel.x = ((1.0 - render.alpha) * v1.xz
-				+ render.alpha * sector.v[render.i + 1].xz) * render.z;
-		render.texel.y = ((1.0 - render.alpha) * v1.yz
-				+ render.alpha * sector.v[render.i + 1].yz) * render.z;
+		render.divider = 1 / (sector.v[render.i + 1].vz
+					+ render.alpha * v1.zrange);
+		render.z = v1.zcomb * render.divider;
+		render.z_near_z = render.z * env->camera.near_z;
 		render.max_ceiling = render.clipped_alpha * v1.ceiling_range + v1.c1;
 		render.current_ceiling = ft_clamp(render.max_ceiling,
 				env->ymin[x], env->ymax[x]);
@@ -55,6 +51,23 @@ void		*wall_loop(void *param)
 			- render.no_slope_current_ceiling;
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
 		render.floor_start = render.max_floor - render.floor_horizon;
+		if (render.current_ceiling > env->ymin[x]
+				|| render.current_floor < env->ymax[x])
+		{
+			render.texel.x = (v1.x0z1 + render.alpha * v1.xzrange)
+				* render.divider;
+			render.texel.y = (v1.y0z1 + render.alpha * v1.yzrange)
+				* render.divider;
+			render.texel_x_near_z = render.texel.x * env->camera.near_z;
+			render.texel_y_near_z = render.texel.y * env->camera.near_z;
+			render.camera_x_z = env->player.camera_x * render.z;
+			render.camera_y_z = env->player.camera_y * render.z;
+			render.texel_x_camera_range = render.camera_x_z
+				- render.texel_x_near_z;
+			render.texel_y_camera_range = render.camera_y_z
+				- render.texel_y_near_z;
+			render.zrange = render.z - env->camera.near_z;
+		}
 		if (render.current_ceiling > env->ymin[x])
 			draw_ceiling2(sector, render, env);
 		if (render.current_floor < env->ymax[x])

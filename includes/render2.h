@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 17:25:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:27:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct	s_render2
 	double		alpha;
 	double		clipped_alpha;
 	double		z;
-	double		clipped_z;
 	double		max_floor;
 	double		current_floor;
 	double		no_slope_current_floor;
@@ -37,6 +36,15 @@ typedef struct	s_render2
 	double		neighbor_current_ceiling;
 	double		neighbor_max_floor;
 	double		neighbor_current_floor;
+	double		divider;
+	double		z_near_z;
+	double		texel_x_near_z;
+	double		texel_y_near_z;
+	double		camera_x_z;
+	double		camera_y_z;
+	double		texel_x_camera_range;
+	double		texel_y_camera_range;
+	double		zrange;
 	int			nv1;
 	int			nv2;
 	int			sector;

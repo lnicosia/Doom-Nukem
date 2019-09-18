@@ -6,15 +6,34 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/13 12:05:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:58:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render2.h"
 
+t_v2	set_v2(int i)
+{
+	t_v2	res;
+
+	res = new_v2(0, 0);
+	if (i == 1)
+		res.x = 10;
+	else if (i == 2)
+		res = new_v2(10, 10);
+	else if (i == 3)
+		res.y = 10;
+	return (res);
+}
+
 void	precompute_skybox_values(int i, t_env *env)
 {
+	t_v2 pos1;
+	t_v2 pos2;
+
+	pos1 = set_v2(i);
+	pos2 = set_v2(i + 1);
 	env->skybox[i].clipped_xrange = env->skybox[i].clipped_x2
 		- env->skybox[i].clipped_x1;
 	env->skybox[i].xrange = env->skybox[i + 1].x
@@ -28,9 +47,17 @@ void	precompute_skybox_values(int i, t_env *env)
 		env->skybox[i].texture_scale.x = env->textures[40 + i].
 			surface->w / env->skybox[i].clipped_vz2;
 	env->skybox[i].texture_scale.y = env->textures[40 + i].surface->h;
+	env->skybox[i].x0z1 = pos1.x * env->skybox[i + 1].vz;
+	env->skybox[i].x1z0 = pos2.x * env->skybox[i].vz;
+	env->skybox[i].xzrange = env->skybox[i].x1z0 - env->skybox[i].x0z1;
+	env->skybox[i].y0z1 = pos1.y * env->skybox[i + 1].vz;
+	env->skybox[i].y1z0 = pos2.y * env->skybox[i].vz;
+	env->skybox[i].yzrange = env->skybox[i].y1z0 - env->skybox[i].y0z1;
+	env->skybox[i].zrange = env->skybox[i].vz - env->skybox[i + 1].vz;
+	env->skybox[i].zcomb = env->skybox[i].vz * env->skybox[i + 1].vz;
 }
 
-int		project_skybox(t_v2 pos, int i, t_env *env)
+int		project_skybox(int i, t_env *env)
 {
 	env->skybox[i].scale1 = env->camera.scale / -env->skybox[i].clipped_vz1;
 	env->skybox[i].scale2 = env->camera.scale / -env->skybox[i].clipped_vz2;
@@ -53,8 +80,6 @@ int		project_skybox(t_v2 pos, int i, t_env *env)
 	env->skybox[i].clipped_x1 = ceil(env->skybox[i].clipped_x1);
 	env->skybox[i].x = env->h_w + env->skybox[i].vx * env->camera.scale
 		/ -env->skybox[i].vz;
-	env->skybox[i].xz = pos.x / env->skybox[i].vz;
-	env->skybox[i].yz = pos.y / env->skybox[i].vz;
 	return (0);
 }
 
@@ -113,20 +138,6 @@ void	compute_skybox2(t_v2 pos, int i, t_env *env)
 		+ (pos.y - 5) * env->player.angle_sin;
 }
 
-t_v2	set_v2(int i)
-{
-	t_v2	res;
-
-	res = new_v2(0, 0);
-	if (i == 1)
-		res.x = 10;
-	else if (i == 2)
-		res = new_v2(10, 10);
-	else if (i == 3)
-		res.y = 10;
-	return (res);
-}
-
 void	precompute_skybox(t_env *env)
 {
 	int	i;
@@ -142,7 +153,7 @@ void	precompute_skybox(t_env *env)
 	env->skybox[4] = env->skybox[0];
 	i = -1;
 	while (++i < 4)
-		project_skybox(set_v2(i), i, env);
+		project_skybox(i, env);
 	env->skybox[4] = env->skybox[0];
 	i = -1;
 	while (++i < 4)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 18:00:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:57:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ void	skybox_loop(t_render2 skybox, t_skybox_data wall_data, t_render2 render,
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
 	skybox.z = 1.0 / ((1.0 - skybox.alpha) / v1.vz
 			+ skybox.alpha / env->skybox[skybox.i + 1].vz);
-	skybox.clipped_z = 1.0 / ((1.0 - skybox.clipped_alpha)
-			/ v1.clipped_vz1 + skybox.clipped_alpha / v1.clipped_vz2);
-	skybox.texel.x = ((1.0 - skybox.alpha) * v1.xz
-			+ skybox.alpha * env->skybox[skybox.i + 1].xz) * skybox.z;
-	skybox.texel.y = ((1.0 - skybox.alpha) * v1.yz
-			+ skybox.alpha * env->skybox[skybox.i + 1].yz) * skybox.z;
+	skybox.divider = 1 / (env->skybox[skybox.i + 1].vz
+			+ skybox.alpha * v1.zrange);
+	skybox.z = v1.zcomb * skybox.divider;
+	skybox.texel.x = (v1.x0z1 + skybox.alpha * v1.xzrange) * skybox.divider;
+	skybox.texel.y = (v1.y0z1 + skybox.alpha * v1.yzrange) * skybox.divider;
 	skybox.max_ceiling = skybox.clipped_alpha * v1.ceiling_range + v1.c1;
 	skybox.current_ceiling = ft_clamp(skybox.max_ceiling,
 			env->ymin[x], env->ymax[x]);
