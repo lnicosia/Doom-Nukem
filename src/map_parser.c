@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/09 16:39:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/18 17:21:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	init_player(t_env *env)
 	env->player.angle_z_sin = sin(0);
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
+	env->player.size_2d = 0.75;
 	env->player.life = 100;
 }
 

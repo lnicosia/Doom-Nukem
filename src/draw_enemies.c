@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 14:37:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/18 12:29:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,11 @@ void		draw_enemies(t_env *env)
 			if (env->enemies[i].exists)
 				draw_enemy(&env->enemies[i], env, dying_sprite);
 		}
+		else
+		{
+			//ft_printf("enemy doesn't exist\n");
+		}
+		
 		i++;
 	}
 }
