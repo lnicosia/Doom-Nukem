@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:54:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/29 17:31:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/18 13:27:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	clear_image(t_env *env)
 	double	*zbuffer;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->depth_array;
+	zbuffer = env->zbuffer;
 	y = 0;
 	xmax = env->w;
 	ymax = env->h;

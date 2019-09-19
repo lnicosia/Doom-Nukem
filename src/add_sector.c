@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/16 16:02:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:39:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector ceilings"));
 	if (!(sector->floors = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
@@ -93,6 +95,10 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling = 12;
 	sector.ceiling_slope = 0;
 	sector.ceiling_texture = 4;
+	sector.floor_scale.x = env->textures[sector.floor_texture].surface->w / 10;
+	sector.floor_scale.y = env->textures[sector.floor_texture].surface->h / 10;
+	sector.ceiling_scale.x = env->textures[sector.ceiling_texture].surface->w / 10;
+	sector.ceiling_scale.y = env->textures[sector.ceiling_texture].surface->h / 10;
 	sector.light_color = 0xFFFFFFFF;
 	sector.brightness = 0;
 	sector.skybox = 0;

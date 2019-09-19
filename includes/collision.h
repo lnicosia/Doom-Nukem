@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/13 19:28:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/19 15:26:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define FUTURE_Y motion.future_y
 # define FUTURE_Z motion.future_z
 # define VERTICES_AMOUNT env->sectors[env->player.sector].nb_vertices
-# define NEIGHBOR env->sectors[sector].neighbors[i]
+# define NEIGHBOR env->sectors[motion.sector].neighbors[i]
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define PLAYER_ZPOS env->player.pos.z
@@ -33,17 +33,6 @@
 # define RNEIGHBOR env->sectors[wall.sector_dest].neighbors[i]
 # include "env.h"
 
-typedef struct  s_movement
-{
-    double      old_z;
-    double      future_x;
-    double      future_y;
-    double      future_z;
-    int         wall_v1;
-    int         wall_v2;
-    int         old_sector;
-}               t_movement;
-
 typedef struct  s_wall
 {
     double      x;
@@ -53,6 +42,18 @@ typedef struct  s_wall
     short       sector_dest;  
 }               t_wall;
 
+typedef struct  s_movement
+{
+    double      future_x;
+    double      future_y;
+    double      future_z;
+    int         sector;
+    double      size_2d;
+    double      eyesight;
+    t_wall      wall;
+    t_v3        pos;
+}               t_movement;
+
 typedef struct  s_data
 {
     t_vertex    v0;
@@ -60,14 +61,16 @@ typedef struct  s_data
 }               t_data;
 
 
-t_v2				check_collision(t_env *env, t_v2 move, t_v3 pos, int sector, int recu);
+t_v2				check_collision(t_env *env, t_v2 move, t_movement motion, int rec);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
 void                enemy_collision(t_env *env);
 int                 hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p);
-int                 find_highest_sector(t_env *env, t_v3 pos, int sector, double eyesight);
+int                 find_highest_sector(t_env *env, t_movement motion);
 int					diff_sign(double nb1, double nb2);
 int					diff_value(int nb1, int nb2, int a, int b);
 int					in_range(double nb, double val1, double val2);
+t_movement          new_movement(int sector, double size_2d, double eyesight, t_v3 pos);
+int                 find_lowest_sector(t_env *env, t_movement motion);
 
 #endif

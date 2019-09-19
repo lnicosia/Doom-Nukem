@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/19 12:39:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 16:47:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct		s_env
 	t_options			options;
 	t_keys				keys;
 	t_inputs			inputs;
-	t_camera			camera;
 	t_time				time;
 	t_animation			jump;
 	t_animation			crouch;
@@ -42,12 +41,14 @@ typedef struct		s_env
 	t_sprite			*sprites;
 	t_audio				sound;
 	t_texture			textures[MAX_TEXTURE];
-	t_v2				*screen_pos;
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
 	t_elevator			elevator;
+	t_render_vertex		skybox[5];
+	int					visible_sectors;
+	int					skybox_computed;
 	int					selected_wall1;
 	int					selected_wall2;
 	int					selected_floor;
@@ -64,13 +65,9 @@ typedef struct		s_env
 	int					menu_edit;
 	int					aplicate_changes;
 	char				*fps;
-	double				*depth_array;
-	int					*xmin;
-	int					*xmax;
-	int					*screen_sectors;
+	double				*zbuffer;
 	int					*sector_list;
 	int					screen_sectors_size;
-	short				*rendered_sectors;
 	int					screen_w[3];
 	int					screen_h[3];
 	char				*res[3];
@@ -86,13 +83,13 @@ typedef struct		s_env
 	int					nb_enemies;
 	double				flag;
 	int					reset;
-	int					count;
 	int					*ymax;
 	int					*ymin;
 	int					current_object;
 	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
+	int					test_time;
 }					t_env;
 
 /*
@@ -141,6 +138,7 @@ int					add_sector(t_env *env);
 int					add_object(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
+void				free_camera(t_camera *camera);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -181,6 +179,7 @@ int					init_game(int ac, char **av);
 int					doom(t_env *env);
 void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
+void				reset_render_utils(t_camera *camera, t_env *env);
 
 /*
 ** Init functions
@@ -202,9 +201,10 @@ int					init_screen_pos(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
-void				init_camera(t_env *env);
+int					init_camera(t_camera *camera, t_env *env);
+int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
-void				set_camera(t_env *env);
+void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 
 /*
@@ -262,7 +262,7 @@ void				draw_button(t_env *env, t_button b);
  * ** Main pipeline functions
  * */
 
-int					draw_walls(t_env *env);
+int					draw_walls(t_camera *camera, t_env *env);
 void				draw_objects(t_env *env);
 void				draw_enemies(t_env *env);
 int					draw_game(t_env *env);
@@ -290,10 +290,11 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
-void				update_camera_position(t_env *env);
+void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, short origin);
 int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);
+int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -303,6 +304,7 @@ void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
+void				drop(t_env *env);
 void				jump(t_env *env);
 void				crouch(t_env *env);
 int					open_options(t_env *env);
@@ -321,6 +323,8 @@ int					create_levels(t_env *env, int nb_floors);
 int					get_nb_floors(t_env *env, t_sector *sector);
 void				climb(t_env *env);
 double				apply_climb(double vel);
+double				apply_drop(double vel);
+int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 
 /*
 ** enemies functions
