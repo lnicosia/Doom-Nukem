@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/10 14:00:29 by sipatry           #+#    #+#              #
-#    Updated: 2019/09/16 14:56:07 by sipatry          ###   ########.fr        #
+#    Updated: 2019/09/17 15:11:20 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 			  free_all.c map_parser.c animations.c map_init_enemies.c \
 			  sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
 			  map_parse_enemies.c draw_skybox.c draw_line_free.c \
-			  skybox_draw_functions.c selected_information.c movement_utils.c
+			  skybox_draw_functions.c selected_information.c movement_utils.c \
+			  interaction.c interactions_utils.c elevator_utils.c gravity.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h draw_skybox.h

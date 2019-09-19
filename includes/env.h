@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 14:16:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 12:39:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	t_elevator			elevator;
 	int					selected_wall1;
 	int					selected_wall2;
 	int					selected_floor;
@@ -313,6 +314,13 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
+void				interactions(t_env *env);
+void				activate_elevator(t_env *env);
+void				create_elevator(t_env *env);
+int					create_levels(t_env *env, int nb_floors);
+int					get_nb_floors(t_env *env, t_sector *sector);
+void				climb(t_env *env);
+double				apply_climb(double vel);
 
 /*
 ** enemies functions

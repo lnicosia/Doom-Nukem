@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 17:32:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:45:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							env->player.pos)) == -1)
 				return (custom_error_with_line("Player is not in any sector",
 							parser));
+			env->player.highest_sect = env->player.sector;
 		}
 		else if (line[0] != '#')
 			return (missing_data("player data", parser));

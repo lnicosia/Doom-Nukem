@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/09 16:39:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:11:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,10 @@ void	init_player(t_env *env)
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
 	env->player.life = 100;
+	env->player.velocity = 0;
+	env->player.acceleration = 0;
+	env->gravity.velocity = 0;
+	env->gravity.acceleration = 0;
 }
 
 int		parse_map(char *file, t_env *env)

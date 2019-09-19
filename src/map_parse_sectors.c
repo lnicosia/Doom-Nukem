@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/10 12:06:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/16 15:52:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,9 +348,28 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].brightness > 255)
 		return (custom_error("Light must be between -255 and 255"));
 	*line = skip_number(*line);
+	if (!**line)
+		return (missing_data("sector statue", parser));
+	if (**line != ' ')
+		return (invalid_char("after light data", "space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
+	return (0);
+}
+
+int			parse_sector_statue(t_env *env, char **line, t_map_parser *parser)
+{
+	if (!**line)
+		return (missing_data("sector statue", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before sector statue", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].statue = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].statue > 2 ||
+			env->sectors[parser->sectors_count].statue < 0)
+		return (custom_error_with_line("sector statue must be between 0 and 2", parser));
+	*line = skip_number(*line);
 	if (**line != '\0')
-		return (extra_data("light", parser));
+		return (extra_data(*line, parser));
 	return (0);
 }
 
@@ -386,6 +405,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	if (parse_sector_light(env, &line, parser))
 		return (-1);
 		//return (custom_error("Error while parsing sector light"));
+	if (parse_sector_statue(env, &line, parser))
+		return (-1);
 	return (0);
 }
 

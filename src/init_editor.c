@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/09 12:15:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/17 17:54:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	init_editor_data(t_env *env)
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
-	env->gravity.on_going = 1;
 }
 
 int	init_editor(int ac, char **av)

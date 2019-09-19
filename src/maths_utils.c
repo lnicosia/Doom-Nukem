@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 17:35:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:50:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	update_player_z(t_env *env)
 	t_sector	sector;
 	t_vertex	v0;
 
-	sector = env->sectors[env->player.sector];
+	sector = env->sectors[env->player.highest_sect];
 	v0 = env->vertices[sector.vertices[0]];
 	env->player.pos.z =
 		sector.floor +
@@ -39,5 +39,4 @@ void	update_floor(t_env *env)
 		sector.floor +
 		(sector.normal.x * (env->player.pos.x - v0.x)
 		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
-	env->gravity.floor = player_feet;
 }

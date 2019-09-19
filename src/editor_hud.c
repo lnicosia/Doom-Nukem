@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 11:15:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/16 15:56:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	print_sector_informations(t_env *env)
 	print_text(new_point(290, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(330, 280), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(330, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(370, 280), new_printable_text("Statue: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(370, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].statue), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+
 	if (env->editor.tab)
 		select_informations(env);
 }

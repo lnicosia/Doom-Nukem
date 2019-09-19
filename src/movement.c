@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 14:54:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:33:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	update_camera_position(t_env *env)
 void	animations(t_env *env)
 {
 	update_floor(env);
-	if (env->gravity.on_going)
+	if (env->player.pos.z > env->sectors[env->player.sector].floor && !env->player.state.climb)
 		gravity(env);
-	if (((env->inputs.space && !env->player.state) || env->jump.on_going))
+	if (env->inputs.space)
 		jump(env);
-	if (((env->inputs.ctrl && !env->player.state && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
-		crouch(env);
+	/*if (((env->inputs.ctrl && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
+		crouch(env);*/
 }
 
 /*
@@ -132,6 +132,9 @@ void	move_player(t_env *env)
 		{
 			env->player.sector = get_sector_no_z(env, env->player.pos);
 			env->player.highest_sect = find_highest_sector(env, env->player.pos, env->player.sector, env->player.eyesight);
+			if (env->sectors[env->player.highest_sect].floor > env->player.pos.z
+			&& env->sectors[env->player.highest_sect].floor - env->player.pos.z <= 2)
+				climb(env);
 			update_camera_position(env);
 		}
 	}
