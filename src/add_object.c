@@ -23,7 +23,7 @@ int	add_object(t_env *env)
 	object.scale = 50;
 	object.angle = 0;
 	object.exists = 1;
-	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, object.pos.z));
+	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, 0));
 	object.pos.z = env->sectors[object.sector].floor;
 	if (object.sector != -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 14:28:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 11:55:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct	s_render
 
 typedef struct		s_render_object
 {
-	double			dist;
+	t_camera		camera;
 	int				x1;
 	int				x2;
 	int				y1;
@@ -115,6 +115,7 @@ typedef struct	s_precompute_thread
 typedef struct		s_object_thread
 {
 	t_env			*env;
+	t_camera		camera;
 	t_object		object;
 	t_render_object	orender;
 	int				xstart;
@@ -124,6 +125,7 @@ typedef struct		s_object_thread
 typedef struct		s_enemy_thread
 {
 	t_env			*env;
+	t_camera		camera;
 	t_enemies		enemy;
 	t_render_object	orender;
 	int				xstart;
@@ -156,12 +158,12 @@ int				get_screen_sectors(t_camera *camera, t_env *env);
 */
 
 void				*get_enemy_relative_pos(void *param);
-void				get_translated_enemy_pos(t_env *env, t_enemies *enemy);
-void				get_rotated_enemy_pos(t_env *env, t_enemies *enemy);
+void				get_translated_enemy_pos(t_camera camera, t_enemies *enemy);
+void				get_rotated_enemy_pos(t_camera camera, t_enemies *enemy);
 void				project_enemy(t_render_object *erender, t_enemies enemy, t_env *env);
 
-void				get_translated_object_pos(t_env *env, t_object *object);
-void				get_rotated_object_pos(t_env *env, t_object *object);
+void				get_translated_object_pos(t_camera camera, t_object *object);
+void				get_rotated_object_pos(t_camera camera, t_object *object);
 void				*get_object_relative_pos(void *param);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
@@ -169,5 +171,6 @@ void				*raycasting(void *param);
 void				threaded_raycasting(t_env *env, t_render render);
 void				*skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
+void				draw_object(t_camera camera, t_object *object, t_env *env);
 
 #endif

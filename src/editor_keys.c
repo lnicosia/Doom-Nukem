@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:18:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 17:34:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,13 @@ int			editor_keys(t_env *env)
 		}
 		selected_information_in_sector(env);
 	}
+	if (env->inputs.left)
+		env->editor.center.x -= 3;
+	if (env->inputs.right)
+		env->editor.center.x += 3;
+	if (env->inputs.forward)
+		env->editor.center.y -= 3;
+	if (env->inputs.backward)
+		env->editor.center.y += 3;
 	return (0);
 }

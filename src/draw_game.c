@@ -6,23 +6,28 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 08:32:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+int	draw_render(t_camera *camera, t_env *env)
+{
+	if (draw_walls(camera, env))
+		return (crash("Failed to draw walls\n", env));
+	draw_objects(*camera, env);
+	draw_enemies(*camera, env);
+	draw_players(*camera, env);
+	return (0);
+}
+
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	env->test_time = SDL_GetTicks();
-	if (draw_walls(&env->player.camera, env))
-		return (crash("Failed to draw walls\n", env));
-	if (env->options.wall_color)
-	{
-		draw_objects(env);
-		draw_enemies(env);
-	}
+	if (draw_render(&env->player.camera, env))
+		return (crash("Failed to draw render\n", env));
 	if ((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going)
 		weapon_animation(env, env->player.curr_weapon);
 	else

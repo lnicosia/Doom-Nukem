@@ -15,12 +15,10 @@
 void	draw_grid_player(t_env *env)
 {
 	t_circle	circle;
-	double		scale;
 	t_v3		v[3];
 
 	circle.color = 0xFFFF0000;
 	circle.line_color = 0xFFFF0000;
-	scale = 0;
 	if (env->editor.dragged_player == 1)
 	{
 		circle.center.x = env->sdl.mx;

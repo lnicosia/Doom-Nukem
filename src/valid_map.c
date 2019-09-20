@@ -20,7 +20,6 @@ static int	is_inside(t_sector sector, t_env *env)
 {
 	short	*duplicates;
 	int		i;
-	int		j;
 
 	if (!(duplicates = ft_memalloc(sector.nb_vertices)))
 		return (ft_printf("Could not malloc duplicates array\n"));
@@ -29,7 +28,6 @@ static int	is_inside(t_sector sector, t_env *env)
 	{
 		if (i != sector.num)
 		{
-			j = 0;
 		}
 		i++;
 	}
@@ -47,6 +45,7 @@ static int	check_sector(t_sector sector, t_env *env)
 	int			i;
 	t_vertex	vertex;
 
+	(void)vertex;
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
 	if (sector.floor_max > sector.ceiling_min)

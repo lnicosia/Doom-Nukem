@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:30:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ void		keys(t_env *env)
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
-	if (((env->inputs.forward || env->inputs.backward || env->inputs.left
+	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going || env->inputs.ctrl)
+			|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
 			&& !env->editor.in_game)
 
-			||  ((((env->selected_enemy == -1 && env->editor.tab)
+			&& (((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab))
+				|| (env->selected_enemy == -1 && !env->editor.tab)))
+	
+			|| (!env->inputs.ctrl && env->editor.in_game))
 
-			&& (env->editor.in_game && !env->inputs.ctrl)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -58,17 +59,65 @@ void		keys(t_env *env)
 	 * *	selection of textures on walls
 	 */
 	if (env->editor.tab && env->editor.in_game
-			&& (env->inputs.up || env->inputs.down)
-			&& env->editor.selected_wall != -1
-			&& (time - env->time.tick > 200))
+			&& env->editor.selected_wall != -1)
 	{
 		env->time.tick = time;
 		if (env->inputs.down
+			&& (time - env->time.tick > 200)
 				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
 			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
 		else if (env->inputs.up
+			&& (time - env->time.tick > 200)
 				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
 			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+		if (env->inputs.comma)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y--;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y--;
+			else
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x--;
+		}
+		if (env->inputs.period)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y++;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y++;
+			else
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x++;
+		}
+		if (env->inputs.equals)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y--;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y--;
+			else
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x--;
+		}
+		if (env->inputs.minus1)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y++;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y++;
+			else
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x++;
+		}
 	}
 
 	/*
@@ -102,6 +151,54 @@ void		keys(t_env *env)
 				&& env->sectors[env->selected_ceiling].ceiling)
 			env->sectors[env->selected_ceiling].ceiling -= 0.05;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+		if (env->inputs.comma)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_ceiling].ceiling_align.y--;
+				env->sectors[env->selected_ceiling].ceiling_align.x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling_align.y--;
+			else
+				env->sectors[env->selected_ceiling].ceiling_align.x--;
+		}
+		if (env->inputs.period)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_ceiling].ceiling_align.y++;
+				env->sectors[env->selected_ceiling].ceiling_align.x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling_align.y++;
+			else
+				env->sectors[env->selected_ceiling].ceiling_align.x++;
+		}
+		if (env->inputs.equals)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_ceiling].ceiling_scale.y--;
+				env->sectors[env->selected_ceiling].ceiling_scale.x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling_scale.y--;
+			else
+				env->sectors[env->selected_ceiling].ceiling_scale.x--;
+		}
+		if (env->inputs.minus1)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_ceiling].ceiling_scale.y++;
+				env->sectors[env->selected_ceiling].ceiling_scale.x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling_scale.y++;
+			else
+				env->sectors[env->selected_ceiling].ceiling_scale.x++;
+		}
 
 	}
 	if (env->editor.in_game && env->selected_floor != -1)
@@ -122,6 +219,54 @@ void		keys(t_env *env)
 		else if (env->inputs.minus)
 			env->sectors[env->selected_floor].floor -= 0.05;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		if (env->inputs.comma)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_floor].floor_align.y--;
+				env->sectors[env->selected_floor].floor_align.x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor_align.y--;
+			else
+				env->sectors[env->selected_floor].floor_align.x--;
+		}
+		if (env->inputs.period)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_floor].floor_align.y++;
+				env->sectors[env->selected_floor].floor_align.x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor_align.y++;
+			else
+				env->sectors[env->selected_floor].floor_align.x++;
+		}
+		if (env->inputs.equals)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_floor].floor_scale.y--;
+				env->sectors[env->selected_floor].floor_scale.x--;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor_scale.y--;
+			else
+				env->sectors[env->selected_floor].floor_scale.x--;
+		}
+		if (env->inputs.minus1)
+		{
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				env->sectors[env->selected_floor].floor_scale.y++;
+				env->sectors[env->selected_floor].floor_scale.x++;
+			}
+			else if (env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor_scale.y++;
+			else
+				env->sectors[env->selected_floor].floor_scale.x++;
+		}
 	}
 
 	/*

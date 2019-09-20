@@ -14,8 +14,8 @@
 #include "map_parser.h"
 
 /*
-**	Chek if the current vertex already exists
-*/
+ **	Chek if the current vertex already exists
+ */
 
 static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 {
@@ -27,7 +27,7 @@ static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 		if (vertex.x == env->vertices[i].x && vertex.y == env->vertices[i].y)
 			return (ft_dprintf(STDERR_FILENO,
 						"Vertices %d and %d are identical\n", vertex.num, i));
-			i++;
+		i++;
 	}
 	return (0);
 }
@@ -104,7 +104,7 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 		parser->line_count++;
 		if (*line)
 			return (custom_error_with_line("Must be an empty line "
-						 "(every vertex has been declared)\n",
+						"(every vertex has been declared)\n",
 						parser));
 		ft_strdel(&line);
 	}

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 11:15:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 15:34:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,24 +154,20 @@ void	print_enemy_informations(t_env *env)
 void	editor_hud(t_env *env)
 {
 	t_point	center;
-	int		x;
-	int		y;
 
-	x = 0;
-	y = 0;
 	if (!env->editor.in_game)
 	{
 		center.x = 100;
 		center.y = 100;
-		draw_circle(new_circle(0xFFFF0000, 0xFFFF0000, center, (env->editor.scale / 2)), env);
+		draw_circle_free(new_circle(0xFFFF0000, 0xFFFF0000, center, 15), env);
 		print_text(new_point(50, 60), new_printable_text("Player", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		center.x = 100;
 		center.y = 200;
-		draw_circle(new_circle(0xFFFFFF00, 0xFFFFFF00, center, (env->editor.scale / 2)), env);
+		draw_circle_free(new_circle(0xFFFFFF00, 0xFFFFFF00, center, 15), env);
 		print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		center.x = 100;
 		center.y = 300;
-		draw_circle(new_circle(0xFF0000FF, 0xFF0000FF, center, (env->editor.scale / 2)), env);
+		draw_circle_free(new_circle(0xFF0000FF, 0xFF0000FF, center, 15), env);
 		print_text(new_point(250, 60), new_printable_text("enemy", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 
 	}

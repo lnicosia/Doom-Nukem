@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 14:48:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/20 10:25:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_map_parser
 	int				sector_vertices_count;
 	int				sector_neighbors_count;
 	int				sector_textures_count;
+	int				sector_sprites_count;
 }					t_map_parser;
 
 int					parse_vertices(t_env *env, t_map_parser *parser);
@@ -47,6 +48,7 @@ int					valid_number(char *line, t_map_parser *parser);
 int					count_vertices(char *line, t_map_parser *parser);
 int					count_neighbors(char *line, t_map_parser *parser);
 int					count_textures(char *line, t_map_parser *parser);
+int					count_sprites(char *line, t_map_parser *parser);
 
 /*
 **	Protection

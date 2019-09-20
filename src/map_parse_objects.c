@@ -106,7 +106,7 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	if (**line != ']')
 		return (invalid_char("after object angle", "a digit or ']'",
 					**line, parser));
-		(*line)++;
+	(*line)++;
 	if (!**line)
 		return (missing_data("object sprite and scale", parser));
 	if (**line != ' ')
@@ -129,10 +129,10 @@ static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 	env->objects[parser->objects_count].num = parser->objects_count;
 	if (parse_object_pos(env, &line, parser))
 		return (-1);
-		//return (custom_error("Error while parsing object pos"));
+	//return (custom_error("Error while parsing object pos"));
 	if (parse_object_sprite(env, &line, parser))
 		return (-1);
-		//return (custom_error("Error while parsing object pos"));
+	//return (custom_error("Error while parsing object pos"));
 	return (0);
 }
 

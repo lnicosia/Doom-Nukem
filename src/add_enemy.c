@@ -23,7 +23,7 @@ int	add_enemy(t_env *env)
 	enemy.scale = 50;
 	enemy.angle = 0;
 	enemy.exists = 1;
-	enemy.sector = get_sector_no_z(env, new_v3(enemy.pos.x, enemy.pos.y, enemy.pos.z));
+	enemy.sector = get_sector_no_z(env, new_v3(enemy.pos.x, enemy.pos.y, 0));
 	enemy.pos.z = env->sectors[enemy.sector].floor + 5;
 	enemy.speed = 40;
 	enemy.health = 40;

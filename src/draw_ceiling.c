@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 15:53:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:04:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		y *= sector.ceiling_scale.y;
-		x *= sector.ceiling_scale.x;
+		y = y * sector.ceiling_scale.y + sector.ceiling_align.y;
+		x = x * sector.ceiling_scale.x + sector.ceiling_align.x;
 		x = texture_w - x;
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);

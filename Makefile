@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/18 17:33:15 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/20 12:35:18 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ INCLUDES_DIR = includes
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
+SDL_DIR = SDL2-2.0.8/include
+SDL_TTF_DIR = SDL2_ttf-2.0.15
+SDL_MIXER_DIR = SDL2_mixer-2.0.4
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -40,16 +43,16 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid_player.c draw_grid_objects.c \
 				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-				 fill_triangle.c
+				 fill_triangle.c draw_circle_free.c
 
-SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs.c \
+SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c maths_utils.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c \
+		   minimap.c fps.c inputs.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c \
 		   print_debug.c init_animations.c vertices_utils.c \
@@ -57,7 +60,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c init_weapons.c map_parse_player.c create_portals.c \
 		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
-		   draw_objects.c sprites_maths.c \
+		   draw_objects.c sprites_maths.c draw_players.c \
 		   map_parse_objects.c draw_hud.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
@@ -65,7 +68,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
-		   selected_information.c movement_utils.c
+		   selected_information.c movement_utils.c update_sprites_state.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h
@@ -82,12 +85,32 @@ OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR) \
-		  -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
-		  -I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
-		  -I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-		  -flto -Ofast
+		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
+                  /usr/local/bin/SDL2.dll \
+                  /usr/local/bin/SDL2_mixer.dll \
+                  /usr/local/bin/SDL2_ttf.dll \
+                  -L/usr/local/lib -lcygwin -lSDL2main \
 		  #-fsanitize=address -g3 \
+                  #-L/usr/local/lib -lSDL2main
+                  #-L/usr/local/lib -lcygwin -mwindows
+		  #-I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
+		  #-I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
+		  #-I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
+                  #-Wl,-subsystem,windows
+                  #`sdl2-config --cflags --libs`
+                  #-L/usr/local/bin -lcygwin -lSDL2
+                  #/usr/local/lib/libSDL2.a \
+                  #/usr/local/lib/libSDL2main.a \
+                  #`sdl2-config --cflags --libs`
+                  #/usr/local/lib/libSDL2.a \
+                  #/usr/local/lib/libSDL2main.a \
+                  #/usr/local/lib/libSDL2_mixer.a \
+                  #/usr/local/lib/libSDL2.dll.a \
+                  #-L/usr/local/bin -L/usr/local/lib \
+                  #-I/usr/local/include/SDL2 -I/usr/include/mingw -Dmain=SDL_main \
+                  #-L/usr/local/lib -lcygwin -lSDL2main -lSDL2 -mwindows
+                  #`pkg-config --cflags --libs sdl2` \
+		  #-flto -Ofast
 	
 DEBUG ?= 0
 
@@ -139,11 +162,11 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(EDITOR_NAME)
+	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) #$(SDL)
 	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(GAME_NAME)
+	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) #$(SDL)
 	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
 
 clean: 

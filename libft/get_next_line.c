@@ -30,12 +30,12 @@ int		lst_contains(t_list *lst, t_read **curr, int fd)
 
 int		free_link(t_list **datas, t_read *curr)
 {
-	t_read	*read;
+	//t_read	*read;
 
 	(void)curr;
 	if (*datas == NULL)
 		return (-1);
-	read = (t_read*)((*datas)->content);
+	//read = (t_read*)((*datas)->content);
 	return (0);
 }
 

@@ -6,12 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/18 11:10:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "collision.h"
 
 /*static int     diff_sign(double nb1, double nb2)
 {
@@ -191,7 +190,6 @@ void    enemy_pursuit(t_env *env)
     int     i;
     int     j;
     t_v3    direction;
-    t_v2    move;
     double  tmp_z;
     //static int a = 0;
 
@@ -214,20 +212,17 @@ void    enemy_pursuit(t_env *env)
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
-            /*direction.x = 0;
+            direction.x = 0;
             direction.y = 0;
-            direction.z = 0;*/
-            move.x = direction.x;
-            move.y = direction.y;
-            move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
+            direction.z = 0;
             env->player.pos.z = tmp_z;
             //ft_printf("he saw me %d\n", a++);
             //ft_printf("direction.x %f .y %f .z %f\n", direction.x, direction.y, direction.z);
 
-            env->enemies[i].pos.x += move.x;
-            env->enemies[i].pos.y += move.y;
-            //env->enemies[i].pos.z += direction.z;
-            env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
+            env->enemies[i].pos.x += direction.x;
+            env->enemies[i].pos.y += direction.y;
+            env->enemies[i].pos.z += direction.z;
+            env->enemies[i].sector = get_sector(env, env->enemies[i].pos, env->enemies[i].sector);
 
             //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
             //ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);

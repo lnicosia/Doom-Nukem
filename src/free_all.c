@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:01:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 10:22:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,14 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].wall_width);
 		if (env->sectors[i].textures)
 			ft_memdel((void**)&env->sectors[i].textures);
+		if (env->sectors[i].align)
+			ft_memdel((void**)&env->sectors[i].align);
+		if (env->sectors[i].scale)
+			ft_memdel((void**)&env->sectors[i].scale);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
+		if (env->sectors[i].sprites)
+			ft_memdel((void**)&env->sectors[i].sprites);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);

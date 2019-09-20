@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 13:44:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 14:52:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,16 +159,17 @@ static void		threaded_object_loop(t_object object, t_render_object orender, t_en
 		pthread_join(threads[i], NULL);
 }
 
-static void		draw_object(t_object *object, t_env *env)
+void		draw_object(t_camera camera, t_object *object, t_env *env)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
 	sprite = env->sprites[object->sprite];
+	orender.camera = camera;
 	project_object(&orender, *object, env);
+	orender.index = 0;
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
-	orender.index = 0;
 	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
 	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
@@ -188,7 +189,7 @@ static void		draw_object(t_object *object, t_env *env)
 	threaded_object_loop(*object, orender, env);
 }
 
-static void	threaded_get_relative_pos(t_env *env)
+static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 {
 	int				i;
 	t_object_thread	object_threads[THREADS];
@@ -199,6 +200,7 @@ static void	threaded_get_relative_pos(t_env *env)
 	while (i < THREADS)
 	{
 		object_threads[i].env = env;
+		object_threads[i].camera = camera;
 		object_threads[i].xstart = env->nb_objects / (double)THREADS * i;
 		object_threads[i].xend = env->nb_objects / (double)THREADS * (i + 1);
 		pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]);
@@ -208,16 +210,16 @@ static void	threaded_get_relative_pos(t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_objects(t_env *env)
+void		draw_objects(t_camera camera, t_env *env)
 {
 	int	i;
 
-	threaded_get_relative_pos(env);
+	threaded_get_relative_pos(camera, env);
 	i = 0;
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
-			draw_object(&env->objects[i], env);
+			draw_object(camera, &env->objects[i], env);
 		i++;
 	}
 }

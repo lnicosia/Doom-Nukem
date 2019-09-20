@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:18:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 12:15:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,28 +124,22 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		- camera->v[sector->num][i].no_slope_f1;
 	camera->v[sector->num][i].no_slope_ceiling_range = camera->v[sector->num][i].no_slope_c2
 		- camera->v[sector->num][i].no_slope_c1;
-	if (sector->textures[i] == -1)
+	if (camera->v[sector->num][i + 1].vz)
 	{
-		if (camera->v[sector->num][i + 1].vz)
-			camera->v[sector->num][i].texture_scale.x = env->textures[38].surface->w
-				/ camera->v[sector->num][i + 1].vz;
-		else
-			camera->v[sector->num][i].texture_scale.x = env->textures[38].surface->w
-				/ camera->v[sector->num][i].clipped_vz2;
-		camera->v[sector->num][i].texture_scale.y = env->textures[38].surface->h;
+		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
+		if (sector->sprites[i].sprite != -1)
+			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].vz;
 	}
 	else
 	{
-		if (camera->v[sector->num][i + 1].vz)
-			camera->v[sector->num][i].texture_scale.x = env->textures[sector->textures[i]].
-				surface->w * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
-		else
-			camera->v[sector->num][i].texture_scale.x = env->textures[sector->textures[i]].
-				surface->w * (sector->wall_width[i] / 10)
-				/ camera->v[sector->num][i].clipped_vz2;
-		camera->v[sector->num][i].texture_scale.y = env->textures[sector->textures[i]].
-			surface->h * (sector->ceiling - sector->floor) / 10;
+		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10)
+			/ camera->v[sector->num][i].clipped_vz2;
+		if (sector->sprites[i].sprite != -1)
+			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].clipped_vz2;
 	}
+	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / 10;
+	if (sector->sprites[i].sprite != -1)
+		camera->v[sector->num][i].sprite_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale.y;
 }
 
 void		get_rendered_neighbors(t_camera *camera, t_sector sector, t_env *env)

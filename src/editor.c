@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 17:30:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 16:50:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ int		editor(t_env *env)
 				editor_keyup(env);
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
-				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 500)
+				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 100)
+				{
+					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) * 1.1);
+					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) * 1.1);
 					env->editor.scale *= 1.1;
-				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 5)
+				}
+				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 1)
+				{
+				
+					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) / 1.1);
+					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) / 1.1);
 					env->editor.scale /= 1.1;
+				}
 			}
 		}
 		if (!env->editor.in_game)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 15:23:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 14:54:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (custom_error_with_line("Player is not in any sector",
 							parser));
 			env->player.camera.pos = env->player.pos;
-			env->player.camera.pos.z = env->player.pos.z + 6;
+			env->player.camera.pos.z = env->player.pos.z + 8;
 		}
 		else if (line[0] != '#')
 			return (missing_data("player data", parser));

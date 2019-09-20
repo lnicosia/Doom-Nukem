@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:16:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 11:55:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,6 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	}
 	while (i-- > 0)
 		pthread_join(threads[i], NULL);
-	if (env->inputs.shift)
-	{
-		update_screen(env);
-		SDL_Delay(500);
-	}
 }
 
 void		render_sector2(t_render render, t_env *env)
@@ -143,6 +138,7 @@ void		render_sector2(t_render render, t_env *env)
 
 	i = -1;
 	sector = env->sectors[render.sector];
+	//ft_printf("rendering sector %d\n", sector.num);
 	while (++i < sector.nb_vertices)
 	{
 		if (!render.camera->v[sector.num][i].draw)

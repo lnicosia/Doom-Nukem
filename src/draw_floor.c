@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:38:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:05:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render render, t_env *e
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		y *= sector.floor_scale.y;
-		x *= sector.floor_scale.x;
+		y = y * sector.floor_scale.y + sector.floor_align.y;
+		x = x * sector.floor_scale.x + sector.floor_align.x;
 		y = texture_h - y;
 		x = texture_w - x;
 		if (y >= texture_h || y < 0)
@@ -97,11 +97,9 @@ void	draw_vline_floor_color2(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
-	double	*zbuffer;
 
 	(void)render;
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->zbuffer;
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;

@@ -15,9 +15,6 @@
 
 void	check_bmp_parsing(t_bmp_parser parser)
 {
-	int	i;
-
-	i = 0;
 	ft_printf("{yellow}");
 	ft_printf("File size = %d bytes\n", parser.size);
 	ft_printf("Image offset = %d\n", parser.start);
