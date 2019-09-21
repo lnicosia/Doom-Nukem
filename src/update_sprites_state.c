@@ -24,10 +24,8 @@ void	update_walls_sprites_state(t_env *env)
 	{
 		sector = env->sectors[i];
 		j = 0;
-		ft_printf("i = %d\n", i);
 		while (j < sector.nb_vertices)
 		{
-			ft_printf("j = %d\n", j);
 			diff = env->time.milli_s - sector.sprite_time;
 			if ((int)diff % 340 > 170)
 			{
@@ -45,10 +43,10 @@ void	update_walls_sprites_state(t_env *env)
 		}
 		i++;
 	}
-	ft_printf("fini\n");
 }
 
 void	update_sprites_state(t_env *env)
 {
-	update_walls_sprites_state(env);
+	(void)env;
+	//update_walls_sprites_state(env);
 }

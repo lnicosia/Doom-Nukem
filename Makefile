@@ -86,10 +86,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-                  /usr/local/bin/SDL2.dll \
-                  /usr/local/bin/SDL2_mixer.dll \
-                  /usr/local/bin/SDL2_ttf.dll \
-                  -L/usr/local/lib -lcygwin -lSDL2main -O3 \
+                  -flto -Ofast \
+                  #-g3 \
 		  #-fsanitize=address -g3 \
                   #-L/usr/local/lib -lSDL2main
                   #-L/usr/local/lib -lcygwin -mwindows
@@ -118,7 +116,12 @@ DEBUG ?= 0
 #	CFLAGS += -fsanitize=address
 #	#endif
 
-SDL = -F ~/Library/Frameworks/ -framework SDL2 \
+SDL_WINDOWS = /usr/local/bin/SDL2.dll \
+              /usr/local/bin/SDL2_mixer.dll \
+              /usr/local/bin/SDL2_ttf.dll \
+              -L/usr/local/lib -lcygwin -lSDL2main \
+
+SDL_MAC = -F ~/Library/Frameworks/ -framework SDL2 \
 	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  -F ~/Library/Frameworks/ -framework SDL2_mixer \
 	  #`sdl-config --cflags --libs` \
@@ -162,11 +165,11 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) #$(SDL)
+	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL_WINDOWS)
 	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) #$(SDL)
+	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL_WINDOWS)
 	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
 
 clean: 
