@@ -51,6 +51,12 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->sprites = (t_wall_sprite*)malloc(sizeof(t_wall_sprite) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector sprites pos"));
+	if (!(sector->scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector sprites scale"));
 	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))

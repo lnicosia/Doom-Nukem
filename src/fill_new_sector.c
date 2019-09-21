@@ -58,6 +58,10 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
 		sector->textures[index] = 0;
+		sector->sprites[index].sprite = -1;
+		sector->align[index] = new_v2(0, 0);
+		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,
+env->textures[sector->textures[index]].surface->h);
 		tmp = tmp->next;
 		i++;
 	}
