@@ -27,7 +27,9 @@ int		doom(t_env *env)
 	while (env->running)
 	{
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
+		ft_printf("reset clipping\n");
 		reset_clipped(env);
+		ft_printf("clear image\n");
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
@@ -44,11 +46,17 @@ int		doom(t_env *env)
 			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
 				weapon_change(env);
 		}
+		ft_printf("update sprites states\n");
 		update_sprites_state(env);
+		ft_printf("enemy_pursuit\n");
 		enemy_pursuit(env);
+		ft_printf("objects collision\n");
 		objects_collision(env);
+		ft_printf("enemy collision\n");
 		enemy_collision(env);
+		ft_printf("keys\n");
 		keys(env);
+		ft_printf("draw\n");
 		if (env->menu_start)
 			start_game_menu(env);
 		else
@@ -61,6 +69,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
+		ft_printf("draw ok\n");
 	}
 	ft_printf("User quit the game\n");
 	free_all(env);

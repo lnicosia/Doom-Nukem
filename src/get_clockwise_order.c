@@ -23,6 +23,7 @@ int		get_clockwise_order_sector(t_env *env, int index)
 	
 	res = 0;
 	i = 0;
+	vertex2 = env->vertices[0];
 	while (i < env->sectors[index].nb_vertices - 1)
 	{
 		num = env->sectors[index].vertices[i];

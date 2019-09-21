@@ -24,25 +24,28 @@ void	update_walls_sprites_state(t_env *env)
 	{
 		sector = env->sectors[i];
 		j = 0;
+		ft_printf("i = %d\n", i);
 		while (j < sector.nb_vertices)
 		{
+			ft_printf("j = %d\n", j);
 			diff = env->time.milli_s - sector.sprite_time;
 			if ((int)diff % 340 > 170)
 			{
 				env->sectors[i].sprite_time = 0;
-				env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-				//env->sectors[i].sprites[j].sprite = 3;
+				//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
+				env->sectors[i].sprites[j].sprite = 3;
 			}
 			else
 			{
 				env->sectors[i].sprite_time = 0;
-				env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-				//env->sectors[i].sprites[j].sprite = 1;
+				//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
+				env->sectors[i].sprites[j].sprite = 1;
 			}
 			j++;
 		}
 		i++;
 	}
+	ft_printf("fini\n");
 }
 
 void	update_sprites_state(t_env *env)

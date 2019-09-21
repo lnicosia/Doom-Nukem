@@ -26,6 +26,7 @@ void    damage_anim(t_env *env)
         env->player.hit = 0;
     }
     j = 0;
+    color = 0;
     time_spent = env->time.milli_s - env->player_hurt.start;
     if (time_spent > 0 && time_spent <= 30)
         color = 40;

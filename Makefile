@@ -89,7 +89,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
                   /usr/local/bin/SDL2.dll \
                   /usr/local/bin/SDL2_mixer.dll \
                   /usr/local/bin/SDL2_ttf.dll \
-                  -L/usr/local/lib -lcygwin -lSDL2main \
+                  -L/usr/local/lib -lcygwin -lSDL2main -O3 \
 		  #-fsanitize=address -g3 \
                   #-L/usr/local/lib -lSDL2main
                   #-L/usr/local/lib -lcygwin -mwindows

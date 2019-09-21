@@ -37,6 +37,10 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			draw_sprite;
 	t_sprite	sprite;
 
+	sprite = env->sprites[sector.sprites[render.i].sprite];
+	sprite_pixels = NULL;
+	sprite_x = 0;
+	sprite_w = 0;
 	if (sector.sprites[render.i].sprite != -1)
 	{
 		sprite = env->sprites[sector.sprites[render.i].sprite];
