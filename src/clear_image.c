@@ -14,30 +14,19 @@
 
 void	clear_image(t_env *env)
 {
-	int		y;
-	int		x;
-	int		y_env;
-	int		xmax;
-	int		ymax;
+	int	i;
+	int	max;
 	Uint32	*pixels;
 	double	*zbuffer;
 
+	i = 0;
+	max = env->w * env->h;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	y = 0;
-	xmax = env->w;
-	ymax = env->h;
-	while (y < ymax)
+	while (i < max)
 	{
-		x = 0;
-		y_env = y * xmax;
-		while (x < xmax)
-		{
-			//env->sdl.img_str[x + y * env->w] = 0xFF;
-			pixels[x + y_env] = 0xFF000000;
-			zbuffer[x + y_env] = 999999999;
-			x++;
-		}
-		y++;
+		pixels[i] = 0xFF000000;
+		zbuffer[i] = 999999999;
+		i++;
 	}
 }
