@@ -114,7 +114,7 @@ else
 		SDL = $(SDL_OSX)
 	else
 		echo "Can only compile on Windows or MacOS"
-		exit
+		exit 1
 	endif
 endif
 
