@@ -87,28 +87,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
                   -flto -Ofast \
-                  #-g3 \
 		  #-fsanitize=address -g3 \
-                  #-L/usr/local/lib -lSDL2main
-                  #-L/usr/local/lib -lcygwin -mwindows
-		  #-I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers/ \
-		  #-I ~/Library/Frameworks/SDL2_ttf.framework/Versions/A/Headers/ \
-		  #-I ~/Library/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ \
-                  #-Wl,-subsystem,windows
-                  #`sdl2-config --cflags --libs`
-                  #-L/usr/local/bin -lcygwin -lSDL2
-                  #/usr/local/lib/libSDL2.a \
-                  #/usr/local/lib/libSDL2main.a \
-                  #`sdl2-config --cflags --libs`
-                  #/usr/local/lib/libSDL2.a \
-                  #/usr/local/lib/libSDL2main.a \
-                  #/usr/local/lib/libSDL2_mixer.a \
-                  #/usr/local/lib/libSDL2.dll.a \
-                  #-L/usr/local/bin -L/usr/local/lib \
-                  #-I/usr/local/include/SDL2 -I/usr/include/mingw -Dmain=SDL_main \
-                  #-L/usr/local/lib -lcygwin -lSDL2main -lSDL2 -mwindows
-                  #`pkg-config --cflags --libs sdl2` \
-		  #-flto -Ofast
 	
 DEBUG ?= 0
 
@@ -121,11 +100,24 @@ SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
               -L/usr/local/lib -lcygwin -lSDL2main \
 
-SDL_MAC = -F ~/Library/Frameworks/ -framework SDL2 \
+SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  -F ~/Library/Frameworks/ -framework SDL2_mixer \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
+
+ifeq ($(OS), Windows_NT)
+	SDL = $(SDL_WINDOWS)
+else
+	UNAME_S = $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		SDL = $(SDL_OSX)
+	else
+		echo "Can only compile on Windows or MacOS"
+		exit
+	endif
+endif
+
 GREEN := "\033[0;32m"
 CYAN := "\033[0;36m"
 RESET :="\033[0m"
@@ -165,11 +157,11 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL_WINDOWS)
+	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL)
 	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL_WINDOWS)
+	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL)
 	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
 
 clean: 
