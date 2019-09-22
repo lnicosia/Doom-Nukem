@@ -59,6 +59,9 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 		sector->neighbors[index] = -1;
 		sector->textures[index] = 0;
 		sector->sprites[index].sprite = -1;
+		sector->sprites[index].pos = new_v2(0, 0);
+		sector->sprites[index].scale = new_v2(env->textures[sector->textures[index]].surface->w,
+env->textures[sector->textures[index]].surface->h);
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,
 env->textures[sector->textures[index]].surface->h);
@@ -70,11 +73,17 @@ env->textures[sector->textures[index]].surface->h);
 		sector->vertices[sector->nb_vertices] = sector->vertices[0];
 		sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
 		sector->textures[sector->nb_vertices] = sector->textures[0];
+		sector->sprites[sector->nb_vertices] = sector->sprites[0];
+		sector->align[sector->nb_vertices] = sector->align[0];
+		sector->scale[sector->nb_vertices] = sector->scale[0];
 	}
 	else
 	{
 		sector->vertices[0] = sector->vertices[sector->nb_vertices];
 		sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
 		sector->textures[0] = sector->textures[sector->nb_vertices];
+		sector->sprites[0] = sector->sprites[sector->nb_vertices];
+		sector->align[0] = sector->align[sector->nb_vertices];
+		sector->scale[0] = sector->scale[sector->nb_vertices];
 	}
 }
