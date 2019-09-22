@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:33:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 15:18:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,8 @@ typedef struct		s_enemies
 	int				sector;
 	int				num;
 	int				state;
+	int				dir;
+	t_animation		rand_dir;
 	t_animation		death;
 	t_animation		hurt;
 	t_animation		rest;

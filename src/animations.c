@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/06 12:12:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 11:56:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,21 @@ int     dying_enemy(t_env *env, int i, int nb_sprites)
         env->enemies[i].exists = 0;
     }
     return (-1);
+}
+
+int     rand_dir(t_env *env, int i)
+{
+    double start;
+    double time_spent;
+
+    if (env->enemies[i].rand_dir.start == 0)
+        env->enemies[i].rand_dir.start = SDL_GetTicks();
+    start = env->enemies[i].rand_dir.start;
+    time_spent = env->time.milli_s - start;
+    if ((int)time_spent > 250)
+    {
+        env->enemies[i].rand_dir.start = 0;
+        return ((int)env->time.milli_s % 2 == 0);
+    }
+    return (env->enemies[i].dir);
 }

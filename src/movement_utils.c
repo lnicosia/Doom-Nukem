@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/17 19:27:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 11:50:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double     sector_height(t_env *env, t_movement motion, int sector_dest)
     return (height);
 }
 
-void     iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall)
+void     iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall, double size_2d)
 {
     short       i;
 
@@ -41,12 +41,12 @@ void     iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall)
     env->sector_list[wall.sector_dest] = 1;
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
-        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(pos.x, pos.y)) && RNEIGHBOR >= 0 &&
+        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(pos.x, pos.y), size_2d) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
             wall.sector_or = wall.sector_dest;
             wall.sector_dest = RNEIGHBOR;
-            iter_sectors_rec(env, pos, wall);
+            iter_sectors_rec(env, pos, wall, size_2d);
         }
         i++;
     }
@@ -72,11 +72,11 @@ void     iter_sectors(t_env *env, t_movement motion)
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((distance_two_points(X1, Y1, motion.pos.x, motion.pos.y) <= motion.size_2d || distance_two_points(X2, Y2, motion.pos.x, motion.pos.y) <= motion.size_2d
-            || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y))) && NEIGHBOR >= 0)
+            || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), motion.size_2d)) && NEIGHBOR >= 0)
         {
             wall.sector_or = motion.sector;
             wall.sector_dest = NEIGHBOR;
-            iter_sectors_rec(env, motion.pos, wall);
+            iter_sectors_rec(env, motion.pos, wall, motion.size_2d);
         }
         i++;
     }

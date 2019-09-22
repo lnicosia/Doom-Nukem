@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:14:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = 0;
-        if (env->enemies[i].exists && /*distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) <= 10 &&*/ env->enemies[i].seen)
+        if (env->enemies[i].exists && env->enemies[i].health > 0 &&/*distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) <= 10 &&*/ env->enemies[i].seen)
         {
             env->enemies[i].state = 1;
             tmp_z = env->player.pos.z;
@@ -221,8 +221,26 @@ void    enemy_pursuit(t_env *env)
             move.y = direction.y;
             move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
             env->player.pos.z = tmp_z;
-            //ft_printf("he saw me %d\n", a++);
-            //ft_printf("direction.x %f .y %f .z %f\n", direction.x, direction.y, direction.z);
+            if (move.x == 0 && move.y == 0/* && move.y >= -0.001 && move.y <= 0.001*/)
+            {
+                env->enemies[i].dir = rand_dir(env, i);
+                if (env->enemies[i].dir == 0)
+                {
+                    //ft_printf("left %d\n", i);
+                    move.x = -direction.y;
+                    move.y = direction.x;
+                }
+                else if (env->enemies[i].dir == 1)
+                {
+                    //ft_printf("right %d\n", i);
+                    move.x = direction.y;
+                    move.y = -direction.x;
+                }
+                /*ft_printf("move.left\n");
+                move.x = -direction.y;
+                move.y = direction.x;*/
+                move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
+            }
 
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;

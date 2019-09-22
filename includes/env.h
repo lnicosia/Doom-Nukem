@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 17:01:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/22 10:45:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ void				init_inputs(t_env *env);
 int					init_camera(t_camera *camera, t_env *env);
 int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
+void				init_enemies_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 
@@ -328,5 +329,6 @@ int		enemy_hurt(t_env *env, int i);
 void    resting_enemy(t_env *env, int i);
 void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
+int     rand_dir(t_env *env, int index);
 
 #endif

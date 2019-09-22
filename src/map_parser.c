@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 17:31:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/22 11:58:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int		parse_map(char *file, t_env *env)
 	update_player_z(env);
 	update_floor(env);
 	set_sectors_xmax(env);
+	init_enemies_data(env);
 	if (close(parser.fd))
 		return (custom_error("Could not close the file"));
 	ft_printf("{reset}");
