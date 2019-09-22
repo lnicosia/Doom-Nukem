@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 15:18:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:26:51 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,6 +427,7 @@ typedef struct		s_enemies
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	int				ranged;
 	int				speed;
 	int				hit;
 	int				left;
