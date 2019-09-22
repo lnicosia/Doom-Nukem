@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 12:34:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 12:51:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void    enemy_pursuit(t_env *env)
 {
     int     i;
     int     j;
+    double  distance;
     t_v3    direction;
     t_v2    move;
     double  tmp_z;
@@ -208,7 +209,9 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = 0;
-        if (env->enemies[i].exists && env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) <= 50 && env->enemies[i].seen)
+        distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
+        if (env->enemies[i].exists && env->enemies[i].health > 0 && 
+            distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].seen)
         {
             env->enemies[i].state = 1;
             tmp_z = env->player.pos.z;
@@ -226,13 +229,11 @@ void    enemy_pursuit(t_env *env)
                 env->enemies[i].dir = rand_dir(env, i);
                 if (env->enemies[i].dir == 0)
                 {
-                    //ft_printf("left %d\n", i);
                     move.x = -direction.y;
                     move.y = direction.x;
                 }
                 else if (env->enemies[i].dir == 1)
                 {
-                    //ft_printf("right %d\n", i);
                     move.x = direction.y;
                     move.y = -direction.x;
                 }
@@ -244,13 +245,11 @@ void    enemy_pursuit(t_env *env)
             //env->enemies[i].pos.z += direction.z;
             env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 
-            //env->objects[i].angle = -env->player.angle * CONVERT_DEGREES;
-            //ft_printf("angle player %f\n", env->player.angle* CONVERT_DEGREES);
+
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
-            //ft_printf("enemy %f\n", env->enemies[i].angle);
-            //env->enemies[i].angle = 90;
-            //env->enemies[i].angle = sprite_rotate(env->enemies[i].angle, env->player.angle * CONVERT_DEGREES + 180);
         }
+        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
+            env->player.life -= env->enemies[i].damage; 
         i++;
     }
 }
