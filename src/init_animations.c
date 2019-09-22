@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/22 11:39:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 13:02:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_animations(t_env *env)
 		env->enemies[i].hurt.start = 0;
 		env->enemies[i].pursue.start = 0;
 		env->enemies[i].rand_dir.start = 0;
+		env->enemies[i].fire.start = 0;
 		i++;
 	}
 }

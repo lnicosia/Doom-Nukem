@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 11:56:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 13:03:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,21 @@ int     rand_dir(t_env *env, int i)
         return ((int)env->time.milli_s % 2 == 0);
     }
     return (env->enemies[i].dir);
+}
+
+int     enemy_firing(t_env *env, int i)
+{
+    double start;
+    double time_spent;
+
+    if (env->enemies[i].fire.start == 0)
+        env->enemies[i].fire.start = SDL_GetTicks();
+    start = env->enemies[i].fire.start;
+    time_spent = env->time.milli_s - start;
+    if ((int)time_spent > 1000)
+    {
+        env->enemies[i].fire.start = 0;
+        return (env->enemies[i].damage);
+    }
+    return (0);
 }

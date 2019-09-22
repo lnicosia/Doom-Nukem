@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/22 12:26:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 13:01:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,6 +455,7 @@ typedef struct		s_enemies
 	t_animation		hurt;
 	t_animation		rest;
 	t_animation		pursue;
+	t_animation		fire;
 }					t_enemies;
 
 /*
