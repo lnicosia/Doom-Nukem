@@ -13,6 +13,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# define SDL_MAIN_HANDLED
 # include "SDL.h"
 # include "SDL_ttf.h"
 # include "SDL_mixer.h"

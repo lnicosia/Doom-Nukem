@@ -18,11 +18,8 @@ int	init_game(int ac, char **av)
 	int		i;
 
 	i = 0;
-	(void)ac;
-	(void)av;
-	/*ft_printf("ac = %d\n", ac);
 	if (ac != 2)
-		return (ft_printf("No map file.\n"));*/
+		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.menu_select = 1;
 	env.running = 1;
@@ -41,8 +38,8 @@ int	init_game(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
-	//ft_printf("Parsing map \"%s\"..\n", av[1]);
-	if (parse_map("maps/piece.map", &env))
+	ft_printf("Parsing map \"%s\"..\n", av[1]);
+	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
