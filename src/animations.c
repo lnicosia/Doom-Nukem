@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 13:03:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 13:48:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,12 @@ int     enemy_firing(t_env *env, int i)
         env->enemies[i].fire.start = SDL_GetTicks();
     start = env->enemies[i].fire.start;
     time_spent = env->time.milli_s - start;
-    if ((int)time_spent > 1000)
+    if ((int)time_spent > 1000 && env->enemies[i].seen)
     {
         env->enemies[i].fire.start = 0;
         return (env->enemies[i].damage);
     }
+    if (!env->enemies[i].seen)
+        env->enemies[i].fire.start = 0;
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 13:01:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/22 13:48:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ void    enemy_pursuit(t_env *env)
 
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
         }
-        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
+        if (env->enemies[i].ranged && distance <= 31)
             env->player.life -= enemy_firing(env, i); 
         i++;
     }
