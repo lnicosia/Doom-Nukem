@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 10:56:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:48:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,7 +368,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 
 int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 {
-	/*int	i;
+	int	i;
 
 	if (!**line)
 		return (missing_data("sprites and light", parser));
@@ -415,8 +415,8 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (**line != ' ')
 		return (invalid_char("after sector sprites", "space(s)",
 					**line, parser));
-	*line = skip_spaces(*line);*/
-	(void)line;
+	*line = skip_spaces(*line);
+	/*(void)line;
 	int	i = 0;
 	while (i < parser->sector_vertices_count)
 	{
@@ -438,7 +438,7 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		}
 		env->sectors[parser->sectors_count].align[i] = new_v2(0, 0);
 		i++;
-	}
+	}*/
 	return (0);
 }
 
