@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:27:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 10:50:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			draw_sprite;
 	t_sprite	sprite;
 
-	sprite = env->sprites[sector.sprites[render.i].sprite];
-	sprite_pixels = NULL;
 	sprite_x = 0;
 	sprite_w = 0;
 	if (sector.sprites[render.i].sprite != -1)
 	{
+		ft_printf("sprite = %d\n", sector.sprites[render.i].sprite);
 		sprite = env->sprites[sector.sprites[render.i].sprite];
 		sprite_pixels = env->textures[sprite.texture].str;
 		sprite_w = env->textures[sprite.texture].surface->w;

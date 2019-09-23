@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 11:10:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 10:56:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,8 +344,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].textures[i] == -1)
 		{
 			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[env->sectors[parser->sectors_count].textures[38]].surface->w,
-					env->textures[env->sectors[parser->sectors_count].textures[38]].surface->h / 10);
+					env->textures[38].surface->w,
+					env->textures[38].surface->h / 10);
 		}
 		else
 		{
@@ -368,7 +368,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 
 int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 {
-	int	i;
+	/*int	i;
 
 	if (!**line)
 		return (missing_data("sprites and light", parser));
@@ -415,7 +415,30 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (**line != ' ')
 		return (invalid_char("after sector sprites", "space(s)",
 					**line, parser));
-	*line = skip_spaces(*line);
+	*line = skip_spaces(*line);*/
+	(void)line;
+	int	i = 0;
+	while (i < parser->sector_vertices_count)
+	{
+		env->sectors[parser->sectors_count].sprites[i].sprite = -1;
+		env->sectors[parser->sectors_count].sprites[i].pos = new_v2(0, 0);
+		if (env->sectors[parser->sectors_count].textures[i] == -1)
+		{
+			env->sectors[parser->sectors_count].sprites[i].scale = 
+				new_v2(env->textures[38].surface->w, env->textures[38].surface->h);
+			env->sectors[parser->sectors_count].scale[i] = 
+				new_v2(env->textures[38].surface->w, env->textures[38].surface->h);
+		}
+		else
+		{
+			env->sectors[parser->sectors_count].sprites[i].scale = 
+				new_v2(env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w, env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
+			env->sectors[parser->sectors_count].scale[i] = 
+				new_v2(env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w, env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
+		}
+		env->sectors[parser->sectors_count].align[i] = new_v2(0, 0);
+		i++;
+	}
 	return (0);
 }
 
@@ -441,6 +464,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 {
 	parser->sector_vertices_count = 0;
 	parser->sector_neighbors_count = 0;
+	parser->sector_textures_count = 0;
+	parser->sector_sprites_count = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
 	if (parse_floor(env, &line, parser))
 		return (-1);

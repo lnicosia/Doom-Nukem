@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 18:30:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 10:37:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,16 @@ void		keys(t_env *env)
 	if (env->editor.tab && env->editor.in_game
 			&& env->editor.selected_wall != -1)
 	{
-		env->time.tick = time;
-		if (env->inputs.down
-			&& (time - env->time.tick > 200)
-				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
-			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
-		else if (env->inputs.up
-			&& (time - env->time.tick > 200)
-				&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
-			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+		if (time - env->time.tick > 200)
+		{
+			env->time.tick = time;
+			if (env->inputs.down
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
+			else if (env->inputs.up
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+		}
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
