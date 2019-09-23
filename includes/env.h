@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 10:34:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 14:44:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,6 @@ int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
-void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, t_sector *sector);
 void				game_time(t_env *env);
 void				gravity(t_env *env);

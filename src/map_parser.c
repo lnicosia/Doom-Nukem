@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/19 14:36:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 16:14:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	init_player(t_env *env)
 	env->player.life = 100;
 	env->player.velocity = 0;
 	env->player.acceleration = 0;
+	env->player.drop_flag = 0;
 	env->gravity.velocity = 0;
 	env->gravity.acceleration = 0;
 }
@@ -205,7 +206,6 @@ int		parse_map(char *file, t_env *env)
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &parser));
 	update_player_z(env);
-	update_floor(env);
 	set_sectors_xmax(env);
 	if (close(parser.fd))
 		return (custom_error("Could not close the file"));

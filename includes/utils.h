@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 12:08:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 16:13:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct		s_state
 	int				crouch;
 	int				climb;
 	int				drop;
+	int				walk;
 }					t_state;
 
 typedef struct		s_render_vertex
@@ -251,6 +252,7 @@ typedef struct		s_player
 	double			velocity_start;
 	double			acceleration;
 	double			start_pos;
+	int				drop_flag;
 }					t_player;
 
 /*

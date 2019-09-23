@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 14:30:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 16:52:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 void	animations(t_env *env)
 {
-	update_floor(env);
-//	ft_printf("sector: %d | highest: %d | lowest: %d\n", env->player.sector, env->player.highest_sect, env->player.lowest_sect);
 	if ((env->player.pos.z > env->sectors[env->player.highest_sect].floor
 		|| env->player.state.fall)
 		&& !env->player.state.climb && !env->player.state.drop)
@@ -121,10 +119,14 @@ void	move_player(t_env *env)
 			if (move.x == 0 && move.y == 0)
 					check_blocage(env, motion, 4);
 		}
+		if (!movement && (env->player.state.climb || env->player.state.drop))
+			movement = 1;
 		if (movement)
 		{
-			ft_printf("player_z: %f | floor: %f\n", env->player.pos.z, env->sectors[env->player.highest_sect].floor);
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
+			if (find_highest_sector(env, motion) != env->player.highest_sect
+			&& env->sectors[find_highest_sector(env, motion)].floor < env->sectors[env->player.highest_sect].floor)
+				env->player.drop_flag = 1;
 			env->player.highest_sect = find_highest_sector(env, motion);
 			env->player.lowest_sect = find_lowest_sector(env, motion);
 			env->player.camera.pos = env->player.pos;
@@ -134,12 +136,15 @@ void	move_player(t_env *env)
 			|| (env->player.state.climb))
 			&& !env->player.state.drop && !env->player.state.jump)
 				climb(env);
-			else if (((env->sectors[env->player.sector].floor < env->player.pos.z
-			&& env->player.pos.z - env->sectors[env->player.sector].floor <= 2)
-			|| (env->player.state.drop))
-			&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb
-			&& env->sectors[env->player.highest_sect].floor == env->sectors[env->player.sector].floor)
+			else if ((((env->sectors[env->player.highest_sect].floor < env->player.pos.z
+			&& env->player.pos.z - env->sectors[env->player.highest_sect].floor <= 2)
+			|| env->player.state.drop)
+			&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
+			&& env->player.drop_flag)
 				drop(env);
+			else if (!env->player.state.climb && !env->player.state.jump
+			&& !env->player.state.drop && !env->player.state.fall)
+				update_player_z(env);
 			env->player.head_z = env->player.pos.z + env->player.eyesight;
 			update_camera_position(&env->player.camera);
 		}

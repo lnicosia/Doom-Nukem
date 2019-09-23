@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 14:30:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 16:49:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	climb(t_env *env)
 	double	time;
 
 	time = SDL_GetTicks() / 100.0;
-	ft_printf("climb\n");
 	if (!env->player.state.climb)
 	{
 		env->player.state.climb = 1;
@@ -44,6 +43,7 @@ void	climb(t_env *env)
 		env->player.state.climb = 0;
 		env->player.velocity = 0;
 		env->time.d_time = 0;
+		update_player_z(env);
 	}
 }
 
@@ -52,21 +52,25 @@ void	drop(t_env *env)
 	double	time;
 
 	time = SDL_GetTicks() / 100.0;
-	ft_printf("drop\n");
 	if (!env->player.state.drop)
 	{
 		env->player.state.drop = 1;
 		env->time.last_drop = SDL_GetTicks() / 100.0;
-		env->player.velocity = 0.02;
+		env->player.velocity = 0.2;
 	}
-	env->time.d_time = time - env->time.last_climb;
-	env->player.pos.z -= env->time.d_time * env->player.velocity;	
+	if (env->player.state.drop)
+	{
+		env->time.d_time = time - env->time.last_drop;
+		env->player.pos.z -= env->time.d_time * env->player.velocity;	
+	}
 	if (env->player.pos.z < env->sectors[env->player.highest_sect].floor)
 	{
 		env->player.pos.z = env->sectors[env->player.highest_sect].floor;
 		env->player.state.drop = 0;
 		env->player.velocity = 0;
 		env->time.d_time = 0;
+		env->player.drop_flag = 0;
+		update_player_z(env);
 	}
 
 }
@@ -79,9 +83,7 @@ void	jump(t_env *env)
 		env->player.state.jump = 1;
 		env->player.start_pos = env->player.pos.z;
 		env->player.pos.z += 0.00001;
-		ft_printf("start jump\n");
 	}
-	ft_printf("jump\n");
 }
 
 void	crouch(t_env *env)

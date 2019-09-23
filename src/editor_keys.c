@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 14:39:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 14:45:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int			editor_keys(t_env *env)
 				return (ft_printf("Could not allocate sector list\n", env));
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
-			update_floor(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
