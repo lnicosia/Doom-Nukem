@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 10:14:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:56:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define MAX_H 1440
 # define LOST_SOUL 1
 # define CYBER_DEMON 2
+# define RESTING 0
+# define PURSUING 1
+# define FIRING 2
 
 typedef struct		s_line_eq
 {
@@ -390,6 +393,7 @@ typedef struct		s_sprite
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
+	int				firing_sprite;
 	int				pursuit_sprite;
 	int				death_counterpart;
 	int				nb_death_sprites;
@@ -431,6 +435,7 @@ typedef struct		s_enemies
 	t_v3			rotated_pos;
 	int				ranged;
 	int				speed;
+	int				shot;
 	int				hit;
 	int				left;
 	int				right;
@@ -439,6 +444,7 @@ typedef struct		s_enemies
 	int				sprite;
 	int				main_sprite;
 	int				death_sprite;
+	int				firing_sprite;
 	int				seen;
 	double			eyesight;
 	double			size_2d;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 10:42:39 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 10:11:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:57:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void        init_enemies_data(t_env *env)
         env->enemies[i].hit = 0;
 		env->enemies[i].state = 0;
 		env->enemies[i].eyesight = 6;
+        env->enemies[i].shot = 0;
         if (env->enemies[i].sprite == 1 || env->enemies[i].sprite == 3 || 
             env->enemies[i].sprite == 7 || env->enemies[i].sprite == 8)
         {
@@ -32,6 +33,7 @@ void        init_enemies_data(t_env *env)
         else if (env->enemies[i].sprite == 2 || env->enemies[i].sprite == 5)
         {
             env->enemies[i].main_sprite = CYBER_DEMON;
+            env->enemies[i].firing_sprite = 10;
             env->enemies[i].ranged = 1;
             env->enemies[i].size_2d = 1.5;
         }

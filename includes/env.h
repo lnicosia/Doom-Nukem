@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/22 13:02:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:28:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,6 @@ void    resting_enemy(t_env *env, int i);
 void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
-int     enemy_firing(t_env *env, int i);
+void	enemy_firing_anim(t_env *env, int i);
 
 #endif

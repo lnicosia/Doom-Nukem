@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 13:48:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:58:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,24 @@ int     rand_dir(t_env *env, int i)
     return (env->enemies[i].dir);
 }
 
-int     enemy_firing(t_env *env, int i)
+void     enemy_firing_anim(t_env *env, int i)
+{
+    double start;
+    double time_spent;
+
+    if (env->enemies[i].fire.start == 0)
+        env->enemies[i].fire.start = SDL_GetTicks();
+    start = env->enemies[i].fire.start;
+    time_spent = env->time.milli_s - start;
+    if ((int)time_spent % 800 > 400)
+    {
+        env->enemies[i].fire.start = 0;
+        env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].firing_sprite;
+        env->enemies[i].shot = (env->enemies[i].sprite == 10) ? 1 : 0;
+    }
+}
+/*
+int     enemy_fire_delay(t_env *env, int i)
 {
     double start;
     double time_spent;
@@ -159,4 +176,4 @@ int     enemy_firing(t_env *env, int i)
     if (!env->enemies[i].seen)
         env->enemies[i].fire.start = 0;
     return (0);
-}
+}*/

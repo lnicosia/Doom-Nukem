@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 13:48:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:42:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,12 +208,12 @@ void    enemy_pursuit(t_env *env)
                 env->sector_list[j] = 0;
             j++;
         }
-        env->enemies[i].state = 0;
+        env->enemies[i].state = RESTING;
         distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].seen)
         {
-            env->enemies[i].state = 1;
+            env->enemies[i].state = PURSUING;
             tmp_z = env->player.pos.z;
             env->player.pos.z = env->player.eyesight;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
@@ -248,8 +248,12 @@ void    enemy_pursuit(t_env *env)
 
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
         }
-        if (env->enemies[i].ranged && distance <= 31)
-            env->player.life -= enemy_firing(env, i); 
+        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
+        {
+            env->enemies[i].state = FIRING;
+            env->player.life -= (env->enemies[i].shot) ? env->enemies[i].damage : 0;
+            env->enemies[i].shot = 0;
+        }
         i++;
     }
 }

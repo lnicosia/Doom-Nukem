@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 11:27:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,18 +233,20 @@ void		draw_enemies(t_env *env)
 			{
 				if (env->enemies[i].health <= 0)
 					dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
-				if (!env->enemies[i].state)
+				if (env->enemies[i].state == RESTING)
 					resting_enemy(env, i);
-				else
+				else if (env->enemies[i].state == PURSUING)
 					pursuing_enemy(env, i);
+				else if (env->enemies[i].state == FIRING)
+					enemy_firing_anim(env, i);
 			}
 			if (env->enemies[i].exists)
 				draw_enemy(&env->enemies[i], env, dying_sprite);
 		}
-		else
+		/*else
 		{
 			//ft_printf("enemy doesn't exist\n");
-		}
+		}*/
 		
 		i++;
 	}
