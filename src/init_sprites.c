@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 11:47:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 13:12:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -673,7 +673,7 @@ int			init_sprites(t_env *env)
 
 	env->sprites[9].start[6].x = 855;
 	env->sprites[9].start[6].y = 608;
-	env->sprites[9].end[6].x = 97;
+	env->sprites[9].end[6].x = 951;
 	env->sprites[9].end[6].y = 717;
 	env->sprites[9].size[6].x = 97;
 	env->sprites[9].size[6].y = 110;
@@ -732,9 +732,9 @@ int			init_sprites(t_env *env)
 
 	env->sprites[10].start[4].x = 653;
 	env->sprites[10].start[4].y = 751;
-	env->sprites[10].end[4].x = 89;
+	env->sprites[10].end[4].x = 741;
 	env->sprites[10].end[4].y = 860;
-	env->sprites[10].size[4].x = 741;
+	env->sprites[10].size[4].x = 89;
 	env->sprites[10].size[4].y = 110;
 	env->sprites[10].reversed[4] = 0;
 

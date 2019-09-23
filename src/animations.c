@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 11:58:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 13:05:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,25 +155,6 @@ void     enemy_firing_anim(t_env *env, int i)
     {
         env->enemies[i].fire.start = 0;
         env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].firing_sprite;
-        env->enemies[i].shot = (env->enemies[i].sprite == 10) ? 1 : 0;
+        env->enemies[i].shot = (env->enemies[i].sprite == env->enemies[i].firing_sprite) ? 1 : 0;
     }
 }
-/*
-int     enemy_fire_delay(t_env *env, int i)
-{
-    double start;
-    double time_spent;
-
-    if (env->enemies[i].fire.start == 0)
-        env->enemies[i].fire.start = SDL_GetTicks();
-    start = env->enemies[i].fire.start;
-    time_spent = env->time.milli_s - start;
-    if ((int)time_spent > 1000 && env->enemies[i].seen)
-    {
-        env->enemies[i].fire.start = 0;
-        return (env->enemies[i].damage);
-    }
-    if (!env->enemies[i].seen)
-        env->enemies[i].fire.start = 0;
-    return (0);
-}*/
