@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/22 13:01:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 10:14:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
+# define LOST_SOUL 1
+# define CYBER_DEMON 2
 
 typedef struct		s_line_eq
 {
@@ -435,6 +437,7 @@ typedef struct		s_enemies
 	int				top;
 	int				bottom;
 	int				sprite;
+	int				main_sprite;
 	int				death_sprite;
 	int				seen;
 	double			eyesight;
