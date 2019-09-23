@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 11:28:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 17:49:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_env
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
 	t_render_vertex		skybox[5];
+	t_camera			fixed_camera;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
@@ -118,6 +119,7 @@ int					add_vertex(t_env *env);
 int					add_enemy(t_env *env);
 int					add_vertex_to_current_sector(t_env *env, int num);
 void				draw_circle(t_circle circle, t_env *env);
+void				draw_circle_free(t_circle circle, t_env *env);
 t_circle			new_circle(Uint32 line_color, Uint32 color, t_point center, int radius);
 void				draw_grid_vertices(t_env *env);
 void				print_vertex(t_env *env, int num);
@@ -263,8 +265,9 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
-void				draw_objects(t_env *env);
-void				draw_enemies(t_env *env);
+void				draw_objects(t_camera camera, t_env *env);
+void				draw_enemies(t_camera camera, t_env *env);
+int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 void				keyup(t_env *env);
@@ -316,6 +319,7 @@ int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
+void				update_sprites_state(t_env *env);
 
 /*
 ** enemies functions

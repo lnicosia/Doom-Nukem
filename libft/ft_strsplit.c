@@ -96,9 +96,7 @@ char			**ft_strsplit(char const *str, char charset)
 {
 	int		words;
 	char	**res;
-	char	last_str;
 
-	last_str = 0;
 	if (str == NULL || charset == '\0')
 	{
 		if (!(res = (char**)malloc(sizeof(char*))))

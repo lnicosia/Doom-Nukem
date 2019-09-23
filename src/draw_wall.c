@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 14:34:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 12:05:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,47 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	double		yalpha;
 	double		y;
 	double		x;
+	double		sprite_y;
+	double		sprite_x;
 	Uint32		*pixels;
 	Uint32		*texture_pixels;
+	Uint32		*sprite_pixels;
 	double		*zbuffer;
 	t_texture	texture;
 	int			texture_w;
 	int			texture_h;
+	int			sprite_w;
 	int			coord;
+	int			draw_sprite;
+	t_sprite	sprite;
 
+	sprite_x = 0;
+	sprite_w = 0;
+	if (sector.sprites[render.i].sprite != -1)
+	{
+		sprite = env->sprites[sector.sprites[render.i].sprite];
+		sprite_pixels = env->textures[sprite.texture].str;
+		sprite_w = env->textures[sprite.texture].surface->w;
+		draw_sprite = 1;
+	}
+	else
+	{
+		(void)sprite;
+		draw_sprite = 0;
+	}
 	texture = env->textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
-	x = render.alpha * render.camera->v[render.sector][render.i].texture_scale.x * render.z;
+	x = render.alpha
+		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
+			+ sector.align[render.i].x;
+	if (draw_sprite)
+		sprite_x = render.alpha
+			* render.camera->v[render.sector][render.i].sprite_scale.x * render.z
+					+ sector.sprites[render.i].pos.x;
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -69,7 +95,12 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			env->selected_enemy = -1;
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y;
+		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+			+ sector.align[render.i].y;
+		if (draw_sprite)
+			sprite_y = yalpha
+				* render.camera->v[render.sector][render.i].sprite_scale.y
+					+ sector.sprites[render.i].pos.y;
 		while (y >= texture_h)
 			y -= texture_h;
 		while (y < 0)
@@ -87,6 +118,16 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 					|| i == (int)(render.max_floor)
 					|| i == (int)(render.neighbor_max_floor))
 				pixels[coord] = 0xFFFF0000;
+		if (draw_sprite && sprite_x >= sprite.start[0].x
+				&& sprite_y >= sprite.start[0].y
+				&& sprite_x < sprite.end[0].x
+				&& sprite_y < sprite.end[0].y
+				&& sprite_pixels[(int)sprite_x + sprite_w * (int)sprite_y]
+				!= 0xFFC10099)
+		{
+			pixels[coord] = sprite_pixels[(int)sprite_x
+				+ sprite_w * (int)sprite_y];
+		}
 		i++;
 	}
 }
@@ -95,10 +136,8 @@ void	draw_vline_color2(t_vline vline, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
-	double	*zbuffer;
 
 	pixels = env->sdl.texture_pixels;
-	zbuffer = env->zbuffer;
 	while (vline.start <= vline.end)
 	{
 		coord = vline.x + env->w * vline.start;

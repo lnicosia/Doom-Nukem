@@ -46,9 +46,7 @@ static void	set_padding(t_data *data, char *s)
 static char	*cast(t_data *data)
 {
 	char	*s;
-	int		i;
 
-	i = 0;
 	s = va_arg(data->ap, char *);
 	return (s);
 }

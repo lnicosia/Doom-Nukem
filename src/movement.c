@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:33:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:05:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	check_blocage(t_env *env, t_movement motion, int index)
 			nb++;
 	}
 	if (nb == 3)
-		ft_printf("I'm stuck .... . .-.. .--.   ... --- ...%d\n", a++);
+		ft_printf("I'm stuck %d\n", a++);
 }
 
 void	move_player(t_env *env)
@@ -80,12 +80,12 @@ void	move_player(t_env *env)
 		if (env->inputs.forward && !env->inputs.backward)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_cos * env->player.speed, env->player.camera.angle_sin * env->player.speed), motion, 0);
-			env->player.pos.x += move.x;
-			env->player.pos.y += move.y;
-			if (move.x != 0 || move.y != 0)
-				movement = 1;
-			if (move.x == 0 && move.y == 0)
-				check_blocage(env, motion, 1);
+				env->player.pos.x += move.x;
+				env->player.pos.y += move.y;
+				if (move.x != 0 || move.y != 0)
+					movement = 1;
+				if (move.x == 0 && move.y == 0)
+					check_blocage(env, motion, 1);
 		}
 		else if (env->inputs.backward && !env->inputs.forward)
 		{

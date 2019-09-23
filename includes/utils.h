@@ -6,16 +6,17 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 11:56:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:12:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include <SDL.h>
-# include <SDL_ttf.h>
-# include <SDL_mixer.h>
+# define SDL_MAIN_HANDLED
+# include "SDL.h"
+# include "SDL_ttf.h"
+# include "SDL_mixer.h"
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
@@ -67,6 +68,7 @@ typedef struct		s_circle
 typedef struct		s_render_vertex
 {
 	t_v2			texture_scale;
+	t_v2			sprite_scale;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -117,6 +119,13 @@ typedef struct		s_render_vertex
 	double			yzrange;
 }					t_render_vertex;
 
+typedef struct		s_wall_sprite
+{
+	short			sprite;
+	t_v2			pos;
+	t_v2			scale;
+}					t_wall_sprite;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
@@ -124,10 +133,12 @@ typedef struct		s_sector
 	double			floor_slope;
 	short			floor_texture;
 	t_v2			floor_scale;
+	t_v2			floor_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
 	t_v2			ceiling_scale;
+	t_v2			ceiling_align;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
@@ -143,6 +154,10 @@ typedef struct		s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
+	t_wall_sprite	*sprites;
+	double			sprite_time;
+	t_v2			*align;
+	t_v2			*scale;
 	short			*selected;
 	short			num;
 	short			nb_vertices;
@@ -262,6 +277,10 @@ typedef struct		s_keys
 	int				s;
 	int				del;
 	int				tab;
+	int				comma;
+	int				period;
+	int				minus1;
+	int				equals;
 }					t_keys;
 
 /*
@@ -289,6 +308,10 @@ typedef struct		s_inputs
 	uint8_t			s;
 	uint8_t			del;
 	uint8_t			tab;
+	uint8_t			comma;
+	uint8_t			period;
+	uint8_t			minus1;
+	uint8_t			equals;
 }					t_inputs;
 
 /*
@@ -413,7 +436,6 @@ typedef struct		s_object
 	int				top;
 	int				bottom;
 	int				sprite;
-	double			size;
 	double			scale;
 	double			angle;
 	short			brightness;
@@ -446,10 +468,10 @@ typedef struct		s_enemies
 	int				death_sprite;
 	int				firing_sprite;
 	int				seen;
-	double			eyesight;
-	double			size_2d;
 	double			scale;
 	double			angle;
+	double			size_2d;
+	double			eyesight;
 	short			brightness;
 	Uint32			light_color;
 	int				health;

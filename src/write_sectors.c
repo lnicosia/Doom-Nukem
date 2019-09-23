@@ -63,6 +63,25 @@ static void	write_sector_vertices(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
+static void	write_sector_wall_sprites(int fd, t_sector sector)
+{
+	int	i;
+
+	i = 0;
+	ft_dprintf(fd, "(");
+	while (i < sector.nb_vertices)
+	{
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+			sector.sprites[i].sprite,
+			sector.sprites[i].pos.x,
+			sector.sprites[i].pos.y,
+			sector.sprites[i].scale.x,
+			sector.sprites[i].scale.y);
+		i++;
+	}
+	ft_dprintf(fd, ") ");
+}
+
 static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.f %d] ",
@@ -80,6 +99,7 @@ static void	write_sector(int fd, t_sector sector)
 			write_sector_vertices(fd, sector);
 		write_sector_neighbors(fd, sector);
 		write_sector_textures(fd, sector);
+		write_sector_wall_sprites(fd, sector);
 		ft_dprintf(fd, "%d\n", (int)(sector.brightness));
 }
 

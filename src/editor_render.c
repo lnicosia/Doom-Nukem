@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 17:13:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 10:21:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		editor_render(t_env *env)
 	keys(env);
 	if (draw_walls(&env->player.camera, env))
 		return (crash("Failed to draw walls\n", env));
-	draw_objects(env);
-	draw_enemies(env);
+	draw_objects(env->player.camera, env);
+	draw_enemies(env->player.camera, env);
 	draw_crosshair(env);
 	if (env->options.show_fps)
 		fps(env);

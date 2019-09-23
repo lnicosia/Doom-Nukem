@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 17:32:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 15:18:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	init_editor_data(t_env *env)
 int	init_editor(int ac, char **av)
 {
 	t_env	env;
-	int		i;
 
-	i = 0;
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
@@ -88,17 +86,6 @@ int	init_editor(int ac, char **av)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
-	while (i < env.nb_objects)
-	{
-		env.objects[i].exists = 1;
-		i++;
-	}
-	i = 0;
-	while (i < env.nb_enemies)
-	{
-		env.enemies[i].exists = 1;
-		i++;
-	}
 		precompute_slopes(&env);
 		ft_printf("{reset}");
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:47:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/20 10:48:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "map_parser.h"
 
 /*
-**	Check if a sector has duplicate vertices
-*/
+ **	Check if a sector has duplicate vertices
+ */
 
 int		check_vertices_uniqueness(t_sector sector)
 {
@@ -40,8 +40,8 @@ int		check_vertices_uniqueness(t_sector sector)
 }
 
 /*
-**	Check if 2 sectors have exactly the same vertices
-*/
+ **	Check if 2 sectors have exactly the same vertices
+ */
 
 int		sector_eq(t_sector s1, t_sector s2)
 {
@@ -60,29 +60,27 @@ int		sector_eq(t_sector s1, t_sector s2)
 }
 
 /*
-**	Check if the current sector already exists
-*/
+ **	Check if the current sector already exists
+ */
 
 int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 {
 	int			i;
-	t_sector	current;
 
 	i = 0;
 	while (i < num)
 	{
-		current = env->sectors[i];
 		if (sector_eq(sector, env->sectors[i]))
 			return (ft_dprintf(STDERR_FILENO,
 						"Sectors %d and %d are identical\n", sector.num, i));
-			i++;
+		i++;
 	}
 	return (0);
 }
 
 /*
-**	Counts the numbers of vertices in between two parenthesis
-*/
+ **	Counts the numbers of vertices in between two parenthesis
+ */
 
 int		count_vertices(char *line, t_map_parser *parser)
 {
@@ -96,7 +94,7 @@ int		count_vertices(char *line, t_map_parser *parser)
 		if (valid_number(line, parser))
 			return (invalid_char("in sector vertices", "a digit, a ')'"
 						"or space(s)", *line, parser));
-			line = skip_number(line);
+		line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
 	}
@@ -104,8 +102,8 @@ int		count_vertices(char *line, t_map_parser *parser)
 }
 
 /*
-**	Counts the numbers of neighbors in between two parenthesis
-*/
+ **	Counts the numbers of neighbors in between two parenthesis
+ */
 
 int		count_neighbors(char *line, t_map_parser *parser)
 {
@@ -127,8 +125,8 @@ int		count_neighbors(char *line, t_map_parser *parser)
 }
 
 /*
-**	Counts the numbers of textures in between two parenthesis
-*/
+ **	Counts the numbers of textures in between two parenthesis
+ */
 
 int		count_textures(char *line, t_map_parser *parser)
 {
@@ -150,8 +148,100 @@ int		count_textures(char *line, t_map_parser *parser)
 }
 
 /*
-**	Prints an error message with sector and line number and your message
-*/
+ **	Checks if a sprite is valid
+ */
+
+int		valid_sprite(char *line, t_map_parser *parser)
+{
+	if (*line != '[')
+		return (invalid_char("in sector sprites", "'['", *line, parser));
+	line++;
+	if (!*line)
+		return (missing_data("sprite number", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before sprite number", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("sprite pos and scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after sprite number", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("sprites pos and scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before sprite x pos", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("sprite y pos and scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after sprite x pos", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("sprite y pos and scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before sprite y pos", "a digit",
+					*line, parser));
+	line = skip_number(line);
+
+	if (!*line)
+		return (missing_data("sprite scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after sprite y pos", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("sprite scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before sprite x scale", "a digit",
+					*line, parser));
+	line = skip_number(line);
+
+	if (!*line)
+		return (missing_data("sprite y scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after sprite x scale", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("sprite y scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before sprite y scale", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("']' after sprite y scale", parser));
+	if (*line != ']')
+		return (invalid_char("after sprite y scale", "']'",
+					*line, parser));
+	return (0);
+}
+
+/*
+ **	Counts the numbers of sprites in between two parenthesis
+ */
+
+int		count_sprites(char *line, t_map_parser *parser)
+{
+	int i;
+
+	i = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector sprites", parser));
+		if (valid_sprite(line, parser))
+			return (-1);
+		while (*line != ']')
+			line++;
+		line++;
+		i++;
+	}
+	return (i);
+}
+
+/*
+ **	Prints an error message with sector and line number and your message
+ */
 
 int		sector_error(const char *message, int sector, t_map_parser *parser)
 {

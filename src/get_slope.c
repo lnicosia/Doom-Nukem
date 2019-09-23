@@ -144,7 +144,6 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 {
 	int			i;
 	t_vertex	v1;
-	t_vertex	v2;
 
 	if (sector->num < 0 || sector->num > env->nb_sectors)
 	{
@@ -158,7 +157,6 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 	while (i < sector->nb_vertices)
 	{
 		v1 = env->vertices[sector->vertices[i]];
-		v2 = env->vertices[sector->vertices[i + 1]];
 		if (sector->floor_slope != 0)
 			sector->floors[i] = get_floor_at_pos(*sector,
 					new_v2(v1.x, v1.y), env);

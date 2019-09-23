@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/18 13:42:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/19 11:18:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,15 @@ int	init_game(int ac, char **av)
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
+	if (init_camera(&env.fixed_camera, &env))
+		return (crash("Could not init fixed camera\n", &env));
+	env.fixed_camera.pos = new_v3(3, 3, 7);
+	env.fixed_camera.angle = 45 * CONVERT_RADIANS;
+	env.fixed_camera.angle_cos = cos(env.fixed_camera.angle);
+	env.fixed_camera.angle_sin = sin(env.fixed_camera.angle);
+	env.fixed_camera.angle_z = 10 * CONVERT_RADIANS;
+	env.fixed_camera.angle_z_cos = cos(env.fixed_camera.angle_z);
+	env.fixed_camera.angle_z_sin = sin(env.fixed_camera.angle_z);
+	update_camera_position(&env.fixed_camera);
 	return (doom(&env));
 }

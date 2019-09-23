@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 11:27:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 17:45:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,13 +162,14 @@ static void		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env
 		pthread_join(threads[i], NULL);
 }
 
-static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
+static void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
 	if (death_sprite >= 0)
 		enemy->sprite = env->sprites[enemy->sprite].death_counterpart;
+	orender.camera = camera;
 	sprite = env->sprites[enemy->sprite];	
 	project_enemy(&orender, *enemy, env);
 	if (sprite.oriented)
@@ -196,7 +197,7 @@ static void		draw_enemy(t_enemies *enemy, t_env *env, int death_sprite)
 	threaded_enemy_loop(*enemy, orender, env);
 }
 
-static void	threaded_get_relative_pos(t_env *env)
+static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 {
 	int				i;
 	t_enemy_thread	enemies_threads[THREADS];
@@ -207,6 +208,7 @@ static void	threaded_get_relative_pos(t_env *env)
 	while (i < THREADS)
 	{
 		enemies_threads[i].env = env;
+		enemies_threads[i].camera = camera;
 		enemies_threads[i].xstart = env->nb_enemies / (double)THREADS * i;
 		enemies_threads[i].xend = env->nb_enemies / (double)THREADS * (i + 1);
 		pthread_create(&threads[i], NULL, get_enemy_relative_pos, &enemies_threads[i]);
@@ -216,12 +218,12 @@ static void	threaded_get_relative_pos(t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_enemies(t_env *env)
+void		draw_enemies(t_camera camera, t_env *env)
 {
 	int	i;
 	int dying_sprite;
 
-	threaded_get_relative_pos(env);
+	threaded_get_relative_pos(camera, env);
 	i = 0;
 	while (i < env->nb_enemies)
 	{
@@ -241,13 +243,8 @@ void		draw_enemies(t_env *env)
 					enemy_firing_anim(env, i);
 			}
 			if (env->enemies[i].exists)
-				draw_enemy(&env->enemies[i], env, dying_sprite);
+				draw_enemy(camera, &env->enemies[i], env, dying_sprite);
 		}
-		/*else
-		{
-			//ft_printf("enemy doesn't exist\n");
-		}*/
-		
 		i++;
 	}
 }

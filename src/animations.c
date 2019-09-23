@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 13:05:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 17:45:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void    damage_anim(t_env *env)
         env->player.hit = 0;
     }
     j = 0;
+    color = 0;
     time_spent = env->time.milli_s - env->player_hurt.start;
     if (time_spent > 0 && time_spent <= 30)
         color = 40;

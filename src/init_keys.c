@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 12:24:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:56:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,8 @@ void	init_keys(t_env *env)
 	env->keys.backspace = SDLK_BACKSPACE;
 	env->keys.del = SDLK_DELETE;
 	env->keys.tab = SDLK_TAB;
+	env->keys.comma = SDLK_COMMA;
+	env->keys.period = SDLK_PERIOD;
+	env->keys.minus1 = SDLK_MINUS;
+	env->keys.equals = SDLK_EQUALS;
 }

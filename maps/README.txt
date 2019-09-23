@@ -22,13 +22,14 @@ V  6
 # (vertex numbers in clockwise order)
 # (neighbors numbers in clockwise order) ('-1' = no neighbor)
 # (textures numbers)
+# (sprites data: [sprite_number x y x_scale y_scale])
 # light value between -255 and 255
 # (0 to get the raw texture, negative values to darken and positive values to lighten)
 # Space(s) between every section
 #
 S  2
-[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  1  -1 -1) (0  1  2  3) 70
-[2  0  4]  [14 0 4]   (1 4 5 3)  (-1  -1  -1  0) (0  1  2  3) 95
+[0  0  5]  [12 0 4]   (0 1 3 2)  (-1  1  -1 -1) (0  1  2  3) ([-1 0 0 50 50][-1 0 0 50 50][-1 0 0 50 50][-1 0 0 50 50]) 0
+[2  0  4]  [14 0 4]   (1 4 5 3)  (-1  -1  -1  0) (0  1  2  3) ([-1 0 0 50 50][-1 0 0 50 50][-1 0 0 50 50][-1 0 0 50 50]) -150
 
 # Emtpy line after sectors declaration
 # Objects_number: "O + space + number"

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/22 11:58:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:30:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 			if (*line != ' ')
 				return (invalid_char("at vertices number", "space or a digit",
 							*line, parser));
-				line = skip_spaces(line);
+			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("before vertices number", parser));
 			if (valid_number(line, parser) == WRONG_CHAR)
 				return (invalid_char("before vertices number",
 							"space or a digit", *line, parser));
-				env->nb_vertices = ft_atoi(line);
+			env->nb_vertices = ft_atoi(line);
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("vertices number", parser));
@@ -48,7 +48,7 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 				return (invalid_char("after vertices number",
 							"a digit or the end of the line",
 							*line, parser));
-				if (env->nb_vertices < 3)
+			if (env->nb_vertices < 3)
 				return (custom_error("You can not declare less than 3 walls."));
 			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
@@ -84,13 +84,13 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			if (*line != ' ')
 				return (invalid_char("sectors number",
 							"space or a digit", *line, parser));
-				line = skip_spaces(line);
+			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("sectors number", parser));
 			if (valid_number(line, parser) == WRONG_CHAR)
 				return (invalid_char("sectors numbers",
 							"space or a digit", *line, parser));
-				env->nb_sectors = atoi(line);
+			env->nb_sectors = atoi(line);
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			line = skip_number(line);
 			if (*line && *line == ' ')
@@ -98,7 +98,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			if (*line)
 				return (invalid_char("sectors number",
 							"a digit", *line, parser));
-				if (env->nb_sectors < 1)
+			if (env->nb_sectors < 1)
 				return (custom_error("You need at least one sector"));
 			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector)
 							* env->nb_sectors)))
@@ -144,12 +144,12 @@ void	set_sectors_xmax(t_env *env)
 void	init_player(t_env *env)
 {
 	env->player.eyesight = 6;
+	env->player.size_2d = 0.75;
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
-	env->player.size_2d = 0.75;
 	env->player.life = 100;
 }
 
@@ -172,32 +172,32 @@ int		parse_map(char *file, t_env *env)
 	}
 	if (init_vertices(env, &parser))
 		return (-1);
-		//return (custom_error("Could not init vertices"));
+	//return (custom_error("Could not init vertices"));
 	if (parse_vertices(env, &parser))
 		return (-1);
-		//return (custom_error("Error while parsing vertices"));
+	//return (custom_error("Error while parsing vertices"));
 	if (init_sectors(env, &parser))
 		return (-1);
-		//return (custom_error("Could not init sectors"));
+	//return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &parser))
 		return (-1);
-		//return (custom_error("Error while parsing sectors"));
+	//return (custom_error("Error while parsing sectors"));
 	precompute_slopes(env);
 	if (init_objects(env, &parser))
 		return (-1);
-		//return (custom_error("Could not init objects"));
+	//return (custom_error("Could not init objects"));
 	if (parse_objects(env, &parser))
 		return (-1);
-		//return (custom_error("Error while parsing objects"));
+	//return (custom_error("Error while parsing objects"));
 	if (init_enemies(env, &parser))
 		return (-1);
-		//return (custom_error("Could not init objects"));
+	//return (custom_error("Could not init objects"));
 	if (parse_enemies(env, &parser))
 		return (-1);
-		//return (custom_error("Error while parsing creatures"));
+	//return (custom_error("Error while parsing creatures"));
 	if (parse_player(env, &parser))
 		return (-1);
-		//return (custom_error("Error while parsing player"));
+	//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &parser));
 	update_player_z(env);

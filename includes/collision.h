@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 11:47:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:13:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct  s_movement
     double      future_x;
     double      future_y;
     double      future_z;
+    t_wall      wall;
     int         sector;
     double      size_2d;
     double      eyesight;
-    t_wall      wall;
     t_v3        pos;
 }               t_movement;
 
@@ -61,7 +61,7 @@ typedef struct  s_data
 }               t_data;
 
 
-t_v2				check_collision(t_env *env, t_v2 move, t_movement motion, int rec);
+t_v2				check_collision(t_env *env, t_v2 move, t_movement motion, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
 void                enemy_collision(t_env *env);
