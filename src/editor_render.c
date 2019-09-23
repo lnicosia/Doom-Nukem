@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 14:39:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/20 10:27:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		editor_render(t_env *env)
 		fps(env);
 	game_time(env);
 	interactions(env);
-	update_player_z(env);
 	view(env);
 	env->editor.select = 0;
 	return (0);

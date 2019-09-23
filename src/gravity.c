@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/19 17:45:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 14:30:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	gravity(t_env *env)
 	double	new_velocity;
 
 	time = SDL_GetTicks() / 1000.0;
-	ft_printf("fall\n");
+	ft_printf("player_z: %f\n", env->player.pos.z);
 	if (!env->player.state.fall)
 	{
 		env->time.last_fall = SDL_GetTicks() / 1000.0;
@@ -62,15 +62,27 @@ void	gravity(t_env *env)
 	new_velocity = env->player.velocity_start + env->gravity.acceleration * env->time.d_time;
 	env->player.pos.z = new_pos;
 	env->gravity.velocity = new_velocity;
-	if (env->player.pos.z <= env->sectors[env->player.highest_sect].floor)
+	if (env->player.pos.z < env->sectors[env->player.highest_sect].floor && env->player.state.fall)
 	{
+		ft_printf("end fall\n");
 		env->player.pos.z = env->sectors[env->player.highest_sect].floor;
 		env->gravity.velocity = 0;
 		env->gravity.acceleration = 0;
-		env->player.state.jump =0;
+		env->player.state.jump = 0;
 		env->time.d_time = 0;
-		ft_printf("stop fall\n");
 		env->player.state.fall = 0;
 	}
+	else if (env->player.pos.z > env->sectors[env->player.sector].floor && env->player.state.jump
+			&& env->player.pos.z < env->sectors[env->player.highest_sect].floor)
+	{
+		ft_printf("end fall 2\n");
+		env->player.pos.z = env->sectors[env->player.sector].floor;
+		env->gravity.velocity = 0;
+		env->gravity.acceleration = 0;
+		env->player.state.jump = 0;
+		env->time.d_time = 0;
+		env->player.state.fall = 0;
+	}
+
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }

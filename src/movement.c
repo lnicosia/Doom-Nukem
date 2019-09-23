@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 18:14:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 14:30:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	animations(t_env *env)
 {
 	update_floor(env);
 //	ft_printf("sector: %d | highest: %d | lowest: %d\n", env->player.sector, env->player.highest_sect, env->player.lowest_sect);
-	if (env->player.pos.z > env->sectors[env->player.highest_sect].floor)
+	if ((env->player.pos.z > env->sectors[env->player.highest_sect].floor
+		|| env->player.state.fall)
+		&& !env->player.state.climb && !env->player.state.drop)
 		gravity(env);
-	if (env->inputs.space)
+	if ((env->inputs.space || env->player.state.jump)
+		&& !env->player.state.climb && !env->player.state.drop)
 		jump(env);
 /*	if (((env->inputs.ctrl && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
 		crouch(env);*/
@@ -120,18 +123,24 @@ void	move_player(t_env *env)
 		}
 		if (movement)
 		{
+			ft_printf("player_z: %f | floor: %f\n", env->player.pos.z, env->sectors[env->player.highest_sect].floor);
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			env->player.highest_sect = find_highest_sector(env, motion);
 			env->player.lowest_sect = find_lowest_sector(env, motion);
 			env->player.camera.pos = env->player.pos;
 			env->player.camera.pos.z = env->player.head_z;
-			if (env->sectors[env->player.highest_sect].floor > env->player.pos.z)
+			if (((env->sectors[env->player.highest_sect].floor > env->player.pos.z
+			&& env->sectors[env->player.highest_sect].floor - env->player.pos.z <= 2)
+			|| (env->player.state.climb))
+			&& !env->player.state.drop && !env->player.state.jump)
 				climb(env);
-	/*		else if (((env->sectors[env->player.highest_sect].floor < env->player.pos.z
-			&& env->player.pos.z - env->sectors[env->player.highest_sect].floor <= 2)
-					&& (env->sectors[env->player.sector].floor - env->sectors[env->player.lowest_sect].floor <= 2))
-			&& !env->player.state.jump && !env->player.state.fall)
-				drop(env);*/
+			else if (((env->sectors[env->player.sector].floor < env->player.pos.z
+			&& env->player.pos.z - env->sectors[env->player.sector].floor <= 2)
+			|| (env->player.state.drop))
+			&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb
+			&& env->sectors[env->player.highest_sect].floor == env->sectors[env->player.sector].floor)
+				drop(env);
+			env->player.head_z = env->player.pos.z + env->player.eyesight;
 			update_camera_position(&env->player.camera);
 		}
 	}
