@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 17:20:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:44:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int			init_sprites(t_env *env)
 {
-	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 9)))
+	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 10)))
 		return (ft_printf("Could not malloc sprites\n"));
 	env->sprites[0].texture = 33;
 	env->sprites[0].death_counterpart = 0;
@@ -603,5 +603,20 @@ int			init_sprites(t_env *env)
 	env->sprites[8].size[7].x = 53;
 	env->sprites[8].size[7].y = 36;
 	env->sprites[8].reversed[7] = 1;
+
+	env->sprites[9].texture = 45;
+	env->sprites[9].death_counterpart = 9;
+	env->sprites[9].pursuit_sprite = 9;
+	env->sprites[9].rest_sprite = 9;
+	env->sprites[9].curr_sprite = 9;
+	env->sprites[9].oriented = 0;
+	env->sprites[9].nb_death_sprites = 9;
+	env->sprites[9].start[0].x = 0;
+	env->sprites[9].start[0].y = 0;
+	env->sprites[9].end[0].x = 128;
+	env->sprites[9].end[0].y = 256;
+	env->sprites[9].size[0].x = 128;
+	env->sprites[9].size[0].y = 256;
+	env->sprites[9].reversed[0] = 0;
 	return (0);
 }

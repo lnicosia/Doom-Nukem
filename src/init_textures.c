@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 13:51:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:41:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,7 @@ int		init_textures(t_env *env)
 		return (ft_printf("Could not load skyboxes textures\n"));
 	if (parse_bmp("images/cyber_demon.bmp", 44, env))
 		return (ft_printf("Failed to load cyber demon sprite sheet\n"));
+	if (parse_bmp("images/MIDSPACE.bmp", 45, env))
+		return (ft_printf("Failed to load midspace\n"));
 	return (0);
 }

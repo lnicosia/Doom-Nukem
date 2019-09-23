@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:41:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:47:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 45
+# define MAX_TEXTURE 46
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 3
+# define MAX_SPRITES 9
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
