@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 18:04:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:53:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
+void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		t_env *env)
 {
 	int		i;
@@ -93,7 +93,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling_color2(t_vline vline, t_render render, t_env *env)
+void	draw_vline_ceiling_color(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
@@ -123,7 +123,7 @@ void	draw_vline_ceiling_color2(t_vline vline, t_render render, t_env *env)
 	}
 }
 
-void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
+void	draw_ceiling(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -131,7 +131,7 @@ void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
 	if (sector.skybox)
-		draw_skybox2(render, 0, env);
+		draw_skybox(render, 0, env);
 	else
-		draw_vline_ceiling2(sector, vline, render, env);
+		draw_vline_ceiling(sector, vline, render, env);
 }

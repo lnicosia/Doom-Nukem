@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 12:05:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:53:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	}
 }
 
-void	draw_vline_color2(t_vline vline, t_env *env)
+void	draw_vline_color(t_vline vline, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
@@ -158,10 +158,10 @@ void		draw_wall(t_sector sector, t_render render, t_env *env)
 	if ((env->options.zbuffer || env->options.contouring)
 			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
 				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
-		draw_vline_color2(vline, env);
+		draw_vline_color(vline, env);
 }
 
-void		draw_upper_wall2(t_sector sector, t_render render, t_env *env)
+void		draw_upper_wall(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -173,10 +173,10 @@ void		draw_upper_wall2(t_sector sector, t_render render, t_env *env)
 	if ((env->options.zbuffer || env->options.contouring)
 			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
 				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
-		draw_vline_color2(vline, env);
+		draw_vline_color(vline, env);
 }
 
-void		draw_bottom_wall2(t_sector sector, t_render render, t_env *env)
+void		draw_bottom_wall(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
@@ -188,7 +188,7 @@ void		draw_bottom_wall2(t_sector sector, t_render render, t_env *env)
 	if ((env->options.zbuffer || env->options.contouring)
 			&& (vline.x == (int)(render.camera->v[render.sector][render.i].x)
 				|| vline.x == (int)(render.camera->v[render.sector][render.i + 1].x)))
-		draw_vline_color2(vline, env);
+		draw_vline_color(vline, env);
 	if (env->options.zbuffer || env->options.contouring)
 	{
 		if (vline.start == (int)(render.neighbor_max_floor)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 18:05:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:54:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_floor2(t_sector sector, t_vline vline, t_render render, t_env *env)
+void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -93,7 +93,7 @@ void	draw_vline_floor2(t_sector sector, t_vline vline, t_render render, t_env *e
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_floor_color2(t_vline vline, t_render render, t_env *env)
+void	draw_vline_floor_color(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
@@ -121,12 +121,12 @@ void	draw_vline_floor_color2(t_vline vline, t_render render, t_env *env)
 	}
 }
 
-void	draw_floor2(t_sector sector, t_render render, t_env *env)
+void	draw_floor(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
 	vline.x = render.x;
 	vline.start = ft_max(0, (int)(render.current_floor));
 	vline.end = env->ymax[vline.x];
-	draw_vline_floor2(sector, vline, render, env);
+	draw_vline_floor(sector, vline, render, env);
 }

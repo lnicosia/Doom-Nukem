@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:15:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:54:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ int			draw_walls(t_camera *camera, t_env *env)
 		render.xmax = camera->xmax[i];
 		render.sector = camera->screen_sectors[i];
 		render.camera = camera;
-		render_sector2(render, env);
+		render_sector(render, env);
 		i++;
 	}
 	return (0);

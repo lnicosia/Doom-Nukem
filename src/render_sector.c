@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 11:55:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:54:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void		*wall_loop(void *param)
 			render.zrange = render.z - render.camera->near_z;
 		}
 		if (render.current_ceiling > env->ymin[x])
-			draw_ceiling2(sector, render, env);
+			draw_ceiling(sector, render, env);
 		if (render.current_floor < env->ymax[x])
-			draw_floor2(sector, render, env);
+			draw_floor(sector, render, env);
 		if (sector.neighbors[render.i] != -1)
 		{
 			render.neighbor_max_ceiling = render.clipped_alpha
@@ -83,9 +83,9 @@ void		*wall_loop(void *param)
 			render.neighbor_current_floor = ft_clamp(
 					render.neighbor_max_floor, env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
-				draw_upper_wall2(sector, render, env);
+				draw_upper_wall(sector, render, env);
 			if (render.neighbor_current_floor < render.current_floor)
-				draw_bottom_wall2(sector, render, env);
+				draw_bottom_wall(sector, render, env);
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
@@ -94,7 +94,7 @@ void		*wall_loop(void *param)
 		else
 		{
 			if (sector.textures[render.i] == -1)
-				draw_skybox2(render, 1, env);
+				draw_skybox(render, 1, env);
 			else
 				draw_wall(sector, render, env);
 		}
@@ -129,7 +129,7 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 		pthread_join(threads[i], NULL);
 }
 
-void		render_sector2(t_render render, t_env *env)
+void		render_sector(t_render render, t_env *env)
 {
 	int				i;
 	t_sector		sector;
@@ -162,7 +162,7 @@ void		render_sector2(t_render render, t_env *env)
 			new.xmin = render.xstart;
 			new.sector = sector.neighbors[i];
 			new.xmax = render.xend;
-			render_sector2(new, env);
+			render_sector(new, env);
 		}
 	}
 }
