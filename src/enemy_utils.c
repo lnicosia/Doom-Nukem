@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:32:12 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 18:49:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,9 @@ void    enemy_pursuit(t_env *env)
           /*  direction.x = 0;
             direction.y = 0;
             direction.z = 0;*/
+            move.x = direction.x;
+            move.y = direction.y;
+            move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
             env->player.pos.z = tmp_z;
             if (move.x == 0 && move.y == 0)
             {
@@ -237,9 +240,9 @@ void    enemy_pursuit(t_env *env)
                 move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
             }
 
-            env->enemies[i].pos.x += direction.x;
-            env->enemies[i].pos.y += direction.y;
-            env->enemies[i].pos.z += direction.z;
+            env->enemies[i].pos.x += move.x;
+            env->enemies[i].pos.y += move.y;
+            //env->enemies[i].pos.z += direction.z;
             env->enemies[i].sector = get_sector(env, env->enemies[i].pos, env->enemies[i].sector);
 
 
