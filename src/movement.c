@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 16:52:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 18:56:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@
 void	animations(t_env *env)
 {
 	if ((env->player.pos.z > env->sectors[env->player.highest_sect].floor
-		|| env->player.state.fall)
-		&& !env->player.state.climb && !env->player.state.drop)
+				|| env->player.state.fall)
+			&& !env->player.state.climb && !env->player.state.drop)
 		gravity(env);
 	if ((env->inputs.space || env->player.state.jump)
-		&& !env->player.state.climb && !env->player.state.drop)
+			&& !env->player.state.climb && !env->player.state.drop)
 		jump(env);
-/*	if (((env->inputs.ctrl && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
+	/*	if (((env->inputs.ctrl && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
 		crouch(env);*/
+	if (!env->player.state.jump && !env->player.state.fall
+			&& !env->player.state.climb && !env->player.state.drop)
+		update_player_z(env);
 	env->player.camera.pos.z = env->player.head_z;
 }
 
@@ -72,7 +75,11 @@ void	move_player(t_env *env)
 	int			movement;
 	t_movement	motion;
 	t_v2		move;
+	t_v2		pos;
+	t_v2		old_pos;
 
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
 	movement = 0;
 	env->time.end = env->time.milli_s / 10;
 	if (env->time.end - env->time.start >= 1)
@@ -82,6 +89,8 @@ void	move_player(t_env *env)
 		if (env->inputs.forward && !env->inputs.backward)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_cos * env->player.speed, env->player.camera.angle_sin * env->player.speed), motion, 0);
+			old_pos.x = env->player.pos.x;
+			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
@@ -92,32 +101,38 @@ void	move_player(t_env *env)
 		else if (env->inputs.backward && !env->inputs.forward)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_cos * -env->player.speed, env->player.camera.angle_sin * -env->player.speed), motion, 0);
-				env->player.pos.x += move.x;
-				env->player.pos.y += move.y;
-				if (move.x != 0 || move.y != 0)
-					movement = 1;
-				if (move.x == 0 && move.y == 0)
-					check_blocage(env, motion, 2);
-		}
-		if (env->inputs.left && !env->inputs.right)
-		{
-			move = check_collision(env, new_v2(env->player.camera.angle_sin * env->player.speed, env->player.camera.angle_cos * -env->player.speed), motion, 0);
-				env->player.pos.x += move.x;
-				env->player.pos.y += move.y;
-				if (move.x != 0 || move.y != 0)
-					movement = 1;
-				if (move.x == 0 && move.y == 0)
-					check_blocage(env, motion, 3);
-		}
-		else if (env->inputs.right && !env->inputs.left)
-		{
-			move = check_collision(env, new_v2(env->player.camera.angle_sin * -env->player.speed, env->player.camera.angle_cos * env->player.speed), motion, 0);
+			old_pos.x = env->player.pos.x;
+			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
 				movement = 1;
 			if (move.x == 0 && move.y == 0)
-					check_blocage(env, motion, 4);
+				check_blocage(env, motion, 2);
+		}
+		if (env->inputs.left && !env->inputs.right)
+		{
+			move = check_collision(env, new_v2(env->player.camera.angle_sin * env->player.speed, env->player.camera.angle_cos * -env->player.speed), motion, 0);
+			old_pos.x = env->player.pos.x;
+			old_pos.y = env->player.pos.y;
+			env->player.pos.x += move.x;
+			env->player.pos.y += move.y;
+			if (move.x != 0 || move.y != 0)
+				movement = 1;
+			if (move.x == 0 && move.y == 0)
+				check_blocage(env, motion, 3);
+		}
+		else if (env->inputs.right && !env->inputs.left)
+		{
+			move = check_collision(env, new_v2(env->player.camera.angle_sin * -env->player.speed, env->player.camera.angle_cos * env->player.speed), motion, 0);
+			old_pos.x = env->player.pos.x;
+			old_pos.y = env->player.pos.y;
+			env->player.pos.x += move.x;
+			env->player.pos.y += move.y;
+			if (move.x != 0 || move.y != 0)
+				movement = 1;
+			if (move.x == 0 && move.y == 0)
+				check_blocage(env, motion, 4);
 		}
 		if (!movement && (env->player.state.climb || env->player.state.drop))
 			movement = 1;
@@ -125,25 +140,25 @@ void	move_player(t_env *env)
 		{
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			if (find_highest_sector(env, motion) != env->player.highest_sect
-			&& env->sectors[find_highest_sector(env, motion)].floor < env->sectors[env->player.highest_sect].floor)
+					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
 				env->player.drop_flag = 1;
 			env->player.highest_sect = find_highest_sector(env, motion);
 			env->player.lowest_sect = find_lowest_sector(env, motion);
 			env->player.camera.pos = env->player.pos;
 			env->player.camera.pos.z = env->player.head_z;
-			if (((env->sectors[env->player.highest_sect].floor > env->player.pos.z
-			&& env->sectors[env->player.highest_sect].floor - env->player.pos.z <= 2)
-			|| (env->player.state.climb))
-			&& !env->player.state.drop && !env->player.state.jump)
+			if (((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) > env->player.pos.z
+				&& get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) - env->player.pos.z <= 2)
+				|| (env->player.state.climb))
+				&& !env->player.state.drop && !env->player.state.jump)
 				climb(env);
-			else if ((((env->sectors[env->player.highest_sect].floor < env->player.pos.z
-			&& env->player.pos.z - env->sectors[env->player.highest_sect].floor <= 2)
-			|| env->player.state.drop)
-			&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
-			&& env->player.drop_flag)
+			else if ((((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) < env->player.pos.z
+					&& env->player.pos.z - get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) <= 2)
+					|| env->player.state.drop)
+					&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
+					&& env->player.drop_flag)
 				drop(env);
 			else if (!env->player.state.climb && !env->player.state.jump
-			&& !env->player.state.drop && !env->player.state.fall)
+					&& !env->player.state.drop && !env->player.state.fall)
 				update_player_z(env);
 			env->player.head_z = env->player.pos.z + env->player.eyesight;
 			update_camera_position(&env->player.camera);

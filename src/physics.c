@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 16:49:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 18:56:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,50 +27,67 @@ void	game_time(t_env *env)
 void	climb(t_env *env)
 {
 	double	time;
+	double	slope;
+	t_v2		pos;
 
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
+	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.climb)
 	{
+		ft_printf("climb\n");
 		env->player.state.climb = 1;
 		env->time.last_climb = SDL_GetTicks() / 100.0;
 		env->player.velocity = 0.2;
 	}
-	env->time.d_time = time - env->time.last_climb;
-	env->player.pos.z += env->time.d_time * env->player.velocity;	
-	if (env->player.pos.z > env->sectors[env->player.highest_sect].floor)
+	if (env->player.state.climb)
 	{
-		env->player.pos.z = env->sectors[env->player.highest_sect].floor;
+		ft_printf("climbing\n");
+		env->time.d_time = time - env->time.last_climb;
+		env->player.pos.z += env->time.d_time * env->player.velocity;	
+	}
+	if (env->player.pos.z > slope)
+	{
+		ft_printf("adjustement\n");
+		env->player.pos.z = slope;
 		env->player.state.climb = 0;
 		env->player.velocity = 0;
 		env->time.d_time = 0;
-		update_player_z(env);
 	}
 }
 
 void	drop(t_env *env)
 {
 	double	time;
+	double	slope;
+	t_v2		pos;
 
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
+	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.drop)
 	{
+		ft_printf("drop\n");
 		env->player.state.drop = 1;
 		env->time.last_drop = SDL_GetTicks() / 100.0;
 		env->player.velocity = 0.2;
 	}
 	if (env->player.state.drop)
 	{
+		ft_printf("dropping\n");
 		env->time.d_time = time - env->time.last_drop;
 		env->player.pos.z -= env->time.d_time * env->player.velocity;	
 	}
-	if (env->player.pos.z < env->sectors[env->player.highest_sect].floor)
+	if (env->player.pos.z < slope)
 	{
-		env->player.pos.z = env->sectors[env->player.highest_sect].floor;
+		ft_printf("adjustement\n");
+		env->player.pos.z = slope;
 		env->player.state.drop = 0;
 		env->player.velocity = 0;
 		env->time.d_time = 0;
 		env->player.drop_flag = 0;
-		update_player_z(env);
 	}
 
 }

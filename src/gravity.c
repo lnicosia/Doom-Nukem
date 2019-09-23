@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 16:49:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/23 18:56:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,15 @@ void	gravity(t_env *env)
 	double	time;
 	double	new_pos;
 	double	new_velocity;
+	t_v2	pos;
+	double	slope;
 
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
+	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
 	if ((!env->player.state.fall
-	&& env->player.pos.z > env->sectors[env->player.highest_sect].floor + 2)
+	&& env->player.pos.z > slope + 2)
 	|| (env->player.state.jump && !env->player.state.fall))
 	{
 		env->player.state.walk = 0;
@@ -67,8 +72,6 @@ void	gravity(t_env *env)
 		env->player.pos.z = new_pos;
 		env->gravity.velocity = new_velocity;
 	}
-	else
-		update_player_z(env);
 	if (env->player.pos.z < env->sectors[env->player.highest_sect].floor && env->player.state.fall)
 	{
 		env->player.pos.z = env->sectors[env->player.highest_sect].floor;
@@ -77,7 +80,6 @@ void	gravity(t_env *env)
 		env->player.state.jump = 0;
 		env->time.d_time = 0;
 		env->player.state.fall = 0;
-		update_player_z(env);
 	}
 	else if (env->player.pos.z > env->sectors[env->player.sector].floor && env->player.state.jump
 			&& env->player.pos.z < env->sectors[env->player.highest_sect].floor)
@@ -88,7 +90,6 @@ void	gravity(t_env *env)
 		env->player.state.jump = 0;
 		env->time.d_time = 0;
 		env->player.state.fall = 0;
-		update_player_z(env);
 	}
 
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
