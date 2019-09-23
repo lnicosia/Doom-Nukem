@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 10:37:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/23 16:40:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
         if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) && RNEIGHBOR >= 0 &&
             env->sector_list[RNEIGHBOR] == 0)
         {
+            if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, RNEIGHBOR)))
+                return (new_v2(0, 0));
             motion.wall.sector_or = wall.sector_dest;
             motion.wall.sector_dest = RNEIGHBOR;
             return (collision_rec(env, move, motion, 0));
