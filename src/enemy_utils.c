@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:49:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:31:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,11 +239,10 @@ void    enemy_pursuit(t_env *env)
                 }
                 move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
             }
-
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;
             //env->enemies[i].pos.z += direction.z;
-            env->enemies[i].sector = get_sector(env, env->enemies[i].pos, env->enemies[i].sector);
+            env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 
 
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
@@ -251,7 +250,11 @@ void    enemy_pursuit(t_env *env)
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
         {
             env->enemies[i].state = FIRING;
-            env->player.life -= (env->enemies[i].shot) ? env->enemies[i].damage : 0;
+            if (env->enemies[i].shot)
+            {
+                env->player.life -= env->enemies[i].damage;
+                env->player.hit = 1;
+            }
             env->enemies[i].shot = 0;
         }
         i++;

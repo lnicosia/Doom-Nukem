@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 10:42:39 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:57:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:25:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void        init_enemies_data(t_env *env)
         }
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;
+        env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
         i++;
     }
 }

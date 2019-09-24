@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:26:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:22:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,10 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
     }
     i = 0;
     if (motion.sector == -1)
+    {
+        ft_printf("l153\n");
         return (new_v2(0,0));
+    }
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)
