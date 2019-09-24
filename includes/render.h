@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:53:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 12:15:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_render
 	double		texel_x_camera_range;
 	double		texel_y_camera_range;
 	double		zrange;
+	int			neighbor;
 	int			nv1;
 	int			nv2;
 	int			sector;
@@ -62,7 +63,10 @@ typedef struct	s_render
 	int			xmax;
 	int			xstart;
 	int			xend;
+	int			ystart;
+	int			yend;
 	int			x;
+	int			y;
 	int			texture;
 	int			i;
 }				t_render;
@@ -133,9 +137,13 @@ typedef struct		s_enemy_thread
 }					t_enemy_thread;
 
 void			render_sector(t_render render, t_env *env);
+void			render_sector2(t_render render, t_env *env);
 void			draw_ceiling(t_sector sector, t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
+void			draw_wall2(t_sector sector, t_render render, t_env *env);
+void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
+void			draw_floor2(t_sector sector, t_render render, t_env *env);
 void			draw_upper_wall(t_sector sector, t_render render, t_env *env);
 void			draw_bottom_wall(t_sector sector, t_render render,
 		t_env *env);

@@ -437,10 +437,10 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/Lucas/Doom-Nukem/SDL2-2.0.8'
-srcdir='/home/Lucas/Doom-Nukem/SDL2-2.0.8'
+ac_pwd='/Users/lnicosia/Projects/Doom/SDL2-2.0.8'
+srcdir='/Users/lnicosia/Projects/Doom/SDL2-2.0.8'
 INSTALL='/usr/bin/install -c'
-AWK='gawk'
+AWK='awk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
 ac_need_defaults=:
@@ -550,7 +550,7 @@ delay_variable_subst='s/\\\\\\\\\\\$/\\\\\\$/g'
 macro_version='2.4.2'
 macro_revision='1.3337'
 AS='as'
-DLLTOOL='dlltool'
+DLLTOOL='false'
 OBJDUMP='objdump'
 enable_shared='yes'
 enable_static='yes'
@@ -560,20 +560,20 @@ SHELL='/bin/sh'
 ECHO='printf %s\n'
 PATH_SEPARATOR=':'
 host_alias=''
-host='x86_64-unknown-cygwin'
-host_os='cygwin'
+host='x86_64-apple-darwin16.7.0'
+host_os='darwin16.7.0'
 build_alias=''
-build='x86_64-unknown-cygwin'
-build_os='cygwin'
+build='x86_64-apple-darwin16.7.0'
+build_os='darwin16.7.0'
 SED='/usr/bin/sed'
 Xsed='/usr/bin/sed -e 1s/^X//'
 GREP='/usr/bin/grep'
 EGREP='/usr/bin/grep -E'
 FGREP='/usr/bin/grep -F'
-LD='/usr/x86_64-pc-cygwin/bin/ld.exe'
+LD='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld'
 NM='/usr/bin/nm -B'
 LN_S='ln -s'
-max_cmd_len='8192'
+max_cmd_len='196608'
 ac_objext='o'
 exeext=''
 lt_unset='unset'
@@ -582,178 +582,156 @@ lt_NL2SP='tr \015\012 \040\040'
 lt_cv_to_host_file_cmd='func_convert_file_noop'
 lt_cv_to_tool_file_cmd='func_convert_file_noop'
 reload_flag=' -r'
-reload_cmds='$LD$reload_flag -o $output$reload_objs'
+reload_cmds='$LTCC $LTCFLAGS -nostdlib ${wl}-r -o $output$reload_objs'
 deplibs_check_method='pass_all'
-file_magic_cmd='func_win32_libid'
+file_magic_cmd='$MAGIC_CMD'
 file_magic_glob=''
 want_nocaseglob='no'
-sharedlib_from_linklib_cmd='func_cygming_dll_for_implib'
+sharedlib_from_linklib_cmd='printf %s\n'
 AR='ar'
 AR_FLAGS='cru'
-archiver_list_spec='@'
+archiver_list_spec=''
 STRIP='strip'
 RANLIB='ranlib'
 old_postinstall_cmds='chmod 644 $oldlib~$RANLIB $tool_oldlib'
 old_postuninstall_cmds=''
 old_archive_cmds='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $tool_oldlib'
-lock_old_archive_extraction='no'
+lock_old_archive_extraction='yes'
 CC='gcc'
-CFLAGS='-g -O2 -Iinclude -I/home/Lucas/Doom-Nukem/SDL2-2.0.8/include -idirafter /home/Lucas/Doom-Nukem/SDL2-2.0.8/src/video/khronos  -I/usr/include/mingw'
+CFLAGS='-g -O2 -Iinclude -I/Users/lnicosia/Projects/Doom/SDL2-2.0.8/include -idirafter /Users/lnicosia/Projects/Doom/SDL2-2.0.8/src/video/khronos '
 compiler='g++'
 GCC='yes'
-lt_cv_sys_global_symbol_pipe='sed -n -e '\''s/^.*[	 ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p'\'' | sed '\''/ __gnu_lto/d'\'''
-lt_cv_sys_global_symbol_to_cdecl='sed -n -e '\''s/^T .* \(.*\)$/extern int \1();/p'\'' -e '\''s/^[ABCDGIRSTW]* .* \(.*\)$/extern char \1;/p'\'''
-lt_cv_sys_global_symbol_to_c_name_address='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \([^ ]*\)$/  {"\2", (void *) \&\2},/p'\'''
-lt_cv_sys_global_symbol_to_c_name_address_lib_prefix='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \(lib[^ ]*\)$/  {"\2", (void *) \&\2},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \([^ ]*\)$/  {"lib\2", (void *) \&\2},/p'\'''
-nm_file_list_spec='@'
+lt_cv_sys_global_symbol_pipe='sed -n -e '\''s/^.*[	 ]\([BCDEGRST][BCDEGRST]*\)[	 ][	 ]*_\([_A-Za-z][_A-Za-z0-9]*\)$/\1 _\2 \2/p'\'' | sed '\''/ __gnu_lto/d'\'''
+lt_cv_sys_global_symbol_to_cdecl='sed -n -e '\''s/^T .* \(.*\)$/extern int \1();/p'\'' -e '\''s/^[BCDEGRST]* .* \(.*\)$/extern char \1;/p'\'''
+lt_cv_sys_global_symbol_to_c_name_address='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[BCDEGRST]* \([^ ]*\) \([^ ]*\)$/  {"\2", (void *) \&\2},/p'\'''
+lt_cv_sys_global_symbol_to_c_name_address_lib_prefix='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[BCDEGRST]* \([^ ]*\) \(lib[^ ]*\)$/  {"\2", (void *) \&\2},/p'\'' -e '\''s/^[BCDEGRST]* \([^ ]*\) \([^ ]*\)$/  {"lib\2", (void *) \&\2},/p'\'''
+nm_file_list_spec=''
 lt_sysroot=''
 objdir='.libs'
 MAGIC_CMD='file'
-lt_prog_compiler_no_builtin_flag=' -fno-builtin'
-lt_prog_compiler_pic=' -DDLL_EXPORT -DPIC'
+lt_prog_compiler_no_builtin_flag=' -fno-builtin -fno-rtti -fno-exceptions'
+lt_prog_compiler_pic=' -fno-common -DPIC'
 lt_prog_compiler_wl='-Wl,'
-lt_prog_compiler_static='-static'
+lt_prog_compiler_static=''
 lt_cv_prog_compiler_c_o='yes'
 need_locks='no'
 MANIFEST_TOOL=':'
-DSYMUTIL=''
-NMEDIT=''
-LIPO=''
-OTOOL=''
-OTOOL64=''
+DSYMUTIL='dsymutil'
+NMEDIT='nmedit'
+LIPO='lipo'
+OTOOL='otool'
+OTOOL64=':'
 libext='a'
-shrext_cmds='.dll'
+shrext_cmds='`test .$module = .yes && echo .so || echo .dylib`'
 extract_expsyms_cmds=''
-archive_cmds_need_lc='yes'
-enable_shared_with_static_runtimes='yes'
-export_dynamic_flag_spec='${wl}--export-all-symbols'
-whole_archive_flag_spec='${wl}--whole-archive$convenience ${wl}--no-whole-archive'
+archive_cmds_need_lc='no'
+enable_shared_with_static_runtimes='no'
+export_dynamic_flag_spec=''
+whole_archive_flag_spec='`for conv in $convenience\"\"; do test  -n \"$conv\" && new_convenience=\"$new_convenience ${wl}-force_load,$conv\"; done; func_echo_all \"$new_convenience\"`'
 compiler_needs_object='no'
 old_archive_from_new_cmds=''
 old_archive_from_expsyms_cmds=''
-archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags -o $output_objdir/$soname ${wl}--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
-archive_expsym_cmds='if test "x`$SED 1q $export_symbols`" = xEXPORTS; then
-	  cp $export_symbols $output_objdir/$soname.def;
-	else
-	  echo EXPORTS > $output_objdir/$soname.def;
-	  cat $export_symbols >> $output_objdir/$soname.def;
-	fi~
-	$CC -shared $output_objdir/$soname.def $libobjs $deplibs $compiler_flags -o $output_objdir/$soname ${wl}--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
-module_cmds=''
-module_expsym_cmds=''
-with_gnu_ld='yes'
-allow_undefined_flag='unsupported'
+archive_cmds='$CC -dynamiclib $allow_undefined_flag -o $lib $libobjs $deplibs $compiler_flags -install_name $rpath/$soname $verstring $single_module'
+archive_expsym_cmds='sed '\''s,^,_,'\'' < $export_symbols > $output_objdir/${libname}-symbols.expsym~$CC -dynamiclib $allow_undefined_flag -o $lib $libobjs $deplibs $compiler_flags -install_name $rpath/$soname $verstring $single_module ${wl}-exported_symbols_list,$output_objdir/${libname}-symbols.expsym'
+module_cmds='$CC $allow_undefined_flag -o $lib -bundle $libobjs $deplibs $compiler_flags'
+module_expsym_cmds='sed -e '\''s,^,_,'\'' < $export_symbols > $output_objdir/${libname}-symbols.expsym~$CC $allow_undefined_flag -o $lib -bundle $libobjs $deplibs $compiler_flags ${wl}-exported_symbols_list,$output_objdir/${libname}-symbols.expsym'
+with_gnu_ld='no'
+allow_undefined_flag='${wl}-undefined ${wl}dynamic_lookup'
 no_undefined_flag=''
-hardcode_libdir_flag_spec='-L$libdir'
+hardcode_libdir_flag_spec=''
 hardcode_libdir_separator=''
 hardcode_direct='no'
 hardcode_direct_absolute='no'
 hardcode_minus_L='no'
 hardcode_shlibpath_var='unsupported'
-hardcode_automatic='no'
+hardcode_automatic='yes'
 inherit_rpath='no'
-link_all_deplibs='unknown'
+link_all_deplibs='yes'
 always_export_symbols='no'
-export_symbols_cmds='$NM $libobjs $convenience | $global_symbol_pipe | $SED -e '\''/^[BCDGRS][ ]/s/.*[ ]\([^ ]*\)/\1 DATA/;s/^.*[ ]__nm__\([^ ]*\)[ ][^ ]*/\1 DATA/;/^I[ ]/d;/^[AITW][ ]/s/.* //'\'' | sort | uniq > $export_symbols'
-exclude_expsyms='[_]+GLOBAL_OFFSET_TABLE_|[_]+GLOBAL__[FID]_.*|[_]+head_[A-Za-z0-9_]+_dll|[A-Za-z0-9_]+_dll_iname'
+export_symbols_cmds='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
+exclude_expsyms='_GLOBAL_OFFSET_TABLE_|_GLOBAL__F[ID]_.*'
 include_expsyms=''
 prelink_cmds=''
 postlink_cmds=''
 file_list_spec=''
-variables_saved_for_relink='PATH PATH LD_RUN_PATH GCC_EXEC_PREFIX COMPILER_PATH LIBRARY_PATH'
+variables_saved_for_relink='PATH DYLD_LIBRARY_PATH  GCC_EXEC_PREFIX COMPILER_PATH LIBRARY_PATH'
 need_lib_prefix='no'
 need_version='no'
-version_type='windows'
-runpath_var='LD_RUN_PATH'
-shlibpath_var='PATH'
+version_type='darwin'
+runpath_var=''
+shlibpath_var='DYLD_LIBRARY_PATH'
 shlibpath_overrides_runpath='yes'
 libname_spec='lib$name'
-library_names_spec='$libname.dll.a'
-soname_spec='`echo ${libname} | sed -e s/^lib//`${shared_ext}'
+library_names_spec='${libname}${release}${major}$shared_ext ${libname}$shared_ext'
+soname_spec='${libname}${release}${major}$shared_ext'
 install_override_mode=''
-postinstall_cmds='base_file=`basename \${file}`~
-      dlpath=`$SHELL 2>&1 -c '\''. $dir/'\''\${base_file}'\''i; echo \$dlname'\''`~
-      dldir=$destdir/`dirname \$dlpath`~
-      test -d \$dldir || mkdir -p \$dldir~
-      $install_prog $dir/$dlname \$dldir/$dlname~
-      chmod a+x \$dldir/$dlname~
-      if test -n '\''$stripme'\'' && test -n '\''$striplib'\''; then
-        eval '\''$striplib \$dldir/$dlname'\'' || exit \$?;
-      fi'
-postuninstall_cmds='dldll=`$SHELL 2>&1 -c '\''. $file; echo \$dlname'\''`~
-      dlpath=$dir/\$dldll~
-       $RM \$dlpath'
+postinstall_cmds=''
+postuninstall_cmds=''
 finish_cmds=''
 finish_eval=''
 hardcode_into_libs='no'
-sys_lib_search_path_spec='/usr/lib/gcc/x86_64-pc-cygwin/7.4.0 /usr/x86_64-pc-cygwin/lib /usr/lib /lib  /usr/lib/w32api'
-sys_lib_dlsearch_path_spec='/lib /usr/lib'
+sys_lib_search_path_spec='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0  /usr/local/lib'
+sys_lib_dlsearch_path_spec='/usr/local/lib /lib /usr/lib'
 hardcode_action='immediate'
 enable_dlopen='unknown'
 enable_dlopen_self='unknown'
 enable_dlopen_self_static='unknown'
-old_striplib='strip --strip-debug'
-striplib='strip --strip-unneeded'
+old_striplib='strip -S'
+striplib='strip -x'
 compiler_lib_search_dirs=''
 predep_objects=''
 postdep_objects=''
 predeps=''
 postdeps=''
 compiler_lib_search_path=''
-LD_CXX='/usr/x86_64-pc-cygwin/bin/ld.exe'
+LD_CXX='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld'
 reload_flag_CXX=' -r'
-reload_cmds_CXX='$LD$reload_flag -o $output$reload_objs'
+reload_cmds_CXX='$LTCC $LTCFLAGS -nostdlib ${wl}-r -o $output$reload_objs'
 old_archive_cmds_CXX='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $tool_oldlib'
 compiler_CXX='g++'
 GCC_CXX='yes'
 lt_prog_compiler_no_builtin_flag_CXX=' -fno-builtin'
-lt_prog_compiler_pic_CXX=' -DDLL_EXPORT -DPIC'
+lt_prog_compiler_pic_CXX=' -fno-common -DPIC'
 lt_prog_compiler_wl_CXX='-Wl,'
-lt_prog_compiler_static_CXX='-static'
+lt_prog_compiler_static_CXX=''
 lt_cv_prog_compiler_c_o_CXX='yes'
 archive_cmds_need_lc_CXX='no'
-enable_shared_with_static_runtimes_CXX='yes'
-export_dynamic_flag_spec_CXX='${wl}--export-all-symbols'
-whole_archive_flag_spec_CXX='${wl}--whole-archive$convenience ${wl}--no-whole-archive'
+enable_shared_with_static_runtimes_CXX='no'
+export_dynamic_flag_spec_CXX=''
+whole_archive_flag_spec_CXX='`for conv in $convenience\"\"; do test  -n \"$conv\" && new_convenience=\"$new_convenience ${wl}-force_load,$conv\"; done; func_echo_all \"$new_convenience\"`'
 compiler_needs_object_CXX='no'
 old_archive_from_new_cmds_CXX=''
 old_archive_from_expsyms_cmds_CXX=''
-archive_cmds_CXX='$CC -shared -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $output_objdir/$soname ${wl}--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
-archive_expsym_cmds_CXX='if test "x`$SED 1q $export_symbols`" = xEXPORTS; then
-	      cp $export_symbols $output_objdir/$soname.def;
-	    else
-	      echo EXPORTS > $output_objdir/$soname.def;
-	      cat $export_symbols >> $output_objdir/$soname.def;
-	    fi~
-	    $CC -shared -nostdlib $output_objdir/$soname.def $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $output_objdir/$soname ${wl}--enable-auto-image-base -Xlinker --out-implib -Xlinker $lib'
-module_cmds_CXX=''
-module_expsym_cmds_CXX=''
-with_gnu_ld_CXX='yes'
-allow_undefined_flag_CXX='unsupported'
+archive_cmds_CXX='$CC -dynamiclib $allow_undefined_flag -o $lib $libobjs $deplibs $compiler_flags -install_name $rpath/$soname $verstring $single_module'
+archive_expsym_cmds_CXX='sed '\''s,^,_,'\'' < $export_symbols > $output_objdir/${libname}-symbols.expsym~$CC -dynamiclib $allow_undefined_flag -o $lib $libobjs $deplibs $compiler_flags -install_name $rpath/$soname $verstring $single_module ${wl}-exported_symbols_list,$output_objdir/${libname}-symbols.expsym'
+module_cmds_CXX='$CC $allow_undefined_flag -o $lib -bundle $libobjs $deplibs $compiler_flags'
+module_expsym_cmds_CXX='sed -e '\''s,^,_,'\'' < $export_symbols > $output_objdir/${libname}-symbols.expsym~$CC $allow_undefined_flag -o $lib -bundle $libobjs $deplibs $compiler_flags ${wl}-exported_symbols_list,$output_objdir/${libname}-symbols.expsym'
+with_gnu_ld_CXX='no'
+allow_undefined_flag_CXX='${wl}-undefined ${wl}dynamic_lookup'
 no_undefined_flag_CXX=''
-hardcode_libdir_flag_spec_CXX='-L$libdir'
+hardcode_libdir_flag_spec_CXX=''
 hardcode_libdir_separator_CXX=''
 hardcode_direct_CXX='no'
 hardcode_direct_absolute_CXX='no'
 hardcode_minus_L_CXX='no'
 hardcode_shlibpath_var_CXX='unsupported'
-hardcode_automatic_CXX='no'
+hardcode_automatic_CXX='yes'
 inherit_rpath_CXX='no'
-link_all_deplibs_CXX='unknown'
+link_all_deplibs_CXX='yes'
 always_export_symbols_CXX='no'
-export_symbols_cmds_CXX='$NM $libobjs $convenience | $global_symbol_pipe | $SED -e '\''/^[BCDGRS][ ]/s/.*[ ]\([^ ]*\)/\1 DATA/;s/^.*[ ]__nm__\([^ ]*\)[ ][^ ]*/\1 DATA/;/^I[ ]/d;/^[AITW][ ]/s/.* //'\'' | sort | uniq > $export_symbols'
-exclude_expsyms_CXX='[_]+GLOBAL_OFFSET_TABLE_|[_]+GLOBAL__[FID]_.*|[_]+head_[A-Za-z0-9_]+_dll|[A-Za-z0-9_]+_dll_iname'
+export_symbols_cmds_CXX='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
+exclude_expsyms_CXX='_GLOBAL_OFFSET_TABLE_|_GLOBAL__F[ID]_.*'
 include_expsyms_CXX=''
 prelink_cmds_CXX=''
 postlink_cmds_CXX=''
 file_list_spec_CXX=''
 hardcode_action_CXX='immediate'
-compiler_lib_search_dirs_CXX='/usr/lib/gcc/x86_64-pc-cygwin/7.4.0 /usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../x86_64-pc-cygwin/lib/../lib /usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib /lib/../lib /usr/lib/../lib /usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../x86_64-pc-cygwin/lib /usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../..'
-predep_objects_CXX='/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/crtbeginS.o'
-postdep_objects_CXX='/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/crtend.o'
+compiler_lib_search_dirs_CXX=''
+predep_objects_CXX=''
+postdep_objects_CXX=''
 predeps_CXX=''
-postdeps_CXX='-lstdc++ -lgcc_s -lgcc -lcygwin -ladvapi32 -lshell32 -luser32 -lkernel32 -lgcc_s -lgcc'
-compiler_lib_search_path_CXX='-L/usr/lib/gcc/x86_64-pc-cygwin/7.4.0 -L/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../x86_64-pc-cygwin/lib/../lib -L/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../x86_64-pc-cygwin/lib -L/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../..'
+postdeps_CXX=''
+compiler_lib_search_path_CXX=''
 
 LTCC='gcc'
 LTCFLAGS='-g -O2'
@@ -812,7 +790,7 @@ fi
 
 
 
-SUMMARY="SDL2 Configure Summary:\nBuilding Shared Libraries\nBuilding Static Libraries\nEnabled modules : atomic audio video render events joystick haptic power filesystem threads timers file loadso cpuinfo assembly\nAssembly Math   : mmx 3dnow sse sse2 sse3\nAudio drivers   : disk dummy directx\nVideo drivers   : dummy opengl opengl_es1 opengl_es2 vulkan directx\nInput drivers   :\nUsing libsamplerate : NO\nUsing libudev       : NO\nUsing dbus          : NO\nUsing ime           : NO\nUsing ibus          : NO\nUsing fcitx         : NO\n"
+SUMMARY="SDL2 Configure Summary:\nBuilding Shared Libraries\nBuilding Static Libraries\nEnabled modules : atomic audio video render events joystick haptic power filesystem threads timers file loadso cpuinfo assembly\nAssembly Math   : mmx 3dnow sse sse2 sse3\nAudio drivers   : disk dummy coreaudio\nVideo drivers   : dummy cocoa metal opengl vulkan\nInput drivers   :\nUsing libsamplerate : NO\nUsing libudev       : NO\nUsing dbus          : NO\nUsing ime           : NO\nUsing ibus          : NO\nUsing fcitx         : NO\n"
 
 
 # Handling of arguments.
@@ -895,17 +873,19 @@ echo 'BEGIN {' >"$ac_tmp/subs1.awk" &&
 cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
 S["LTLIBOBJS"]=""
 S["WAYLAND_SCANNER"]=""
-S["EXTRA_LDFLAGS"]=" -Wl,--no-undefined -lm -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion /lib/w32api/libuuid.a -static-libgcc"
+S["EXTRA_LDFLAGS"]=" -lm -liconv  -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,CoreVideo -Wl,-framework,Cocoa"\
+" -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-weak_framework,QuartzCore -Wl,-weak_framework,Metal"
 S["BUILD_LDFLAGS"]=""
-S["EXTRA_CFLAGS"]="-Iinclude -I/home/Lucas/Doom-Nukem/SDL2-2.0.8/include -idirafter /home/Lucas/Doom-Nukem/SDL2-2.0.8/src/video/khronos  -I/usr/include/mingw -mmmx -m3"\
-"dnow -msse -msse2 -msse3 -Wall -Wdeclaration-after-statement -Werror=declaration-after-statement"
+S["EXTRA_CFLAGS"]="-Iinclude -I/Users/lnicosia/Projects/Doom/SDL2-2.0.8/include -idirafter /Users/lnicosia/Projects/Doom/SDL2-2.0.8/src/video/khronos  -mmmx -m3dnow -m"\
+"sse -msse2 -msse3 -Wall -DTARGET_API_MAC_CARBON -DTARGET_API_MAC_OSX -fvisibility=hidden -Wdeclaration-after-statement -Werror=declaration-after-sta"\
+"tement -D_THREAD_SAFE"
 S["BUILD_CFLAGS"]="-g -O3 -DUSING_GENERATED_CONFIG_H"
 S["SDLTEST_OBJECTS"]="$(objects)/SDL_test_assert.lo $(objects)/SDL_test_common.lo $(objects)/SDL_test_compare.lo $(objects)/SDL_test_crc32.lo $(objects)/SDL_test_font.lo "\
 "$(objects)/SDL_test_fuzzer.lo $(objects)/SDL_test_harness.lo $(objects)/SDL_test_imageBlit.lo $(objects)/SDL_test_imageBlitBlend.lo $(objects)/SDL_t"\
 "est_imageFace.lo $(objects)/SDL_test_imagePrimitives.lo $(objects)/SDL_test_imagePrimitivesBlend.lo $(objects)/SDL_test_log.lo $(objects)/SDL_test_m"\
 "d5.lo $(objects)/SDL_test_memory.lo $(objects)/SDL_test_random.lo"
-S["SDLMAIN_OBJECTS"]="$(objects)/SDL_windows_main.lo"
-S["VERSION_OBJECTS"]="$(objects)/version.o"
+S["SDLMAIN_OBJECTS"]="$(objects)/SDL_dummy_main.lo"
+S["VERSION_OBJECTS"]=""
 S["GEN_OBJECTS"]=""
 S["GEN_HEADERS"]=""
 S["OBJECTS"]="$(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_dataqueue.lo $(objects)/SDL_error.lo $(objects)/SDL_hints.lo $(objects)/SDL_log.lo $(objec"\
@@ -926,25 +906,23 @@ S["OBJECTS"]="$(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_dataqueu
 ")/SDL_clipboard.lo $(objects)/SDL_egl.lo $(objects)/SDL_fillrect.lo $(objects)/SDL_pixels.lo $(objects)/SDL_rect.lo $(objects)/SDL_shape.lo $(object"\
 "s)/SDL_stretch.lo $(objects)/SDL_surface.lo $(objects)/SDL_video.lo $(objects)/SDL_vulkan_utils.lo $(objects)/SDL_yuv.lo $(objects)/yuv_rgb.lo $(obj"\
 "ects)/SDL_nullevents.lo $(objects)/SDL_nullframebuffer.lo $(objects)/SDL_nullvideo.lo $(objects)/SDL_diskaudio.lo $(objects)/SDL_dummyaudio.lo $(obj"\
-"ects)/SDL_windows.lo $(objects)/SDL_xinput.lo $(objects)/SDL_windowsclipboard.lo $(objects)/SDL_windowsevents.lo $(objects)/SDL_windowsframebuffer.l"\
-"o $(objects)/SDL_windowskeyboard.lo $(objects)/SDL_windowsmessagebox.lo $(objects)/SDL_windowsmodes.lo $(objects)/SDL_windowsmouse.lo $(objects)/SDL"\
-"_windowsopengl.lo $(objects)/SDL_windowsopengles.lo $(objects)/SDL_windowsshape.lo $(objects)/SDL_windowsvideo.lo $(objects)/SDL_windowsvulkan.lo $("\
-"objects)/SDL_windowswindow.lo $(objects)/SDL_winmm.lo $(objects)/SDL_directsound.lo $(objects)/SDL_wasapi.lo $(objects)/SDL_wasapi_win32.lo $(object"\
-"s)/SDL_dinputjoystick.lo $(objects)/SDL_mmjoystick.lo $(objects)/SDL_windowsjoystick.lo $(objects)/SDL_xinputjoystick.lo $(objects)/SDL_dinputhaptic"\
-".lo $(objects)/SDL_windowshaptic.lo $(objects)/SDL_xinputhaptic.lo $(objects)/SDL_syspower.lo $(objects)/SDL_sysfilesystem.lo $(objects)/SDL_sysmute"\
-"x.lo $(objects)/SDL_syssem.lo $(objects)/SDL_systhread.lo $(objects)/SDL_systls.lo $(objects)/SDL_syscond.lo $(objects)/SDL_systimer.lo $(objects)/S"\
-"DL_sysloadso.lo"
-S["INCLUDE"]="-Iinclude -I/home/Lucas/Doom-Nukem/SDL2-2.0.8/include -idirafter /home/Lucas/Doom-Nukem/SDL2-2.0.8/src/video/khronos"
+"ects)/SDL_sysloadso.lo $(objects)/SDL_cocoaclipboard.lo $(objects)/SDL_cocoaevents.lo $(objects)/SDL_cocoakeyboard.lo $(objects)/SDL_cocoamessagebox"\
+".lo $(objects)/SDL_cocoametalview.lo $(objects)/SDL_cocoamodes.lo $(objects)/SDL_cocoamouse.lo $(objects)/SDL_cocoamousetap.lo $(objects)/SDL_cocoao"\
+"pengl.lo $(objects)/SDL_cocoaopengles.lo $(objects)/SDL_cocoashape.lo $(objects)/SDL_cocoavideo.lo $(objects)/SDL_cocoavulkan.lo $(objects)/SDL_coco"\
+"awindow.lo $(objects)/SDL_render_metal.lo $(objects)/SDL_systhread.lo $(objects)/SDL_syssem.lo $(objects)/SDL_sysmutex.lo $(objects)/SDL_syscond.lo "\
+"$(objects)/SDL_systls.lo $(objects)/SDL_coreaudio.lo $(objects)/SDL_sysjoystick.lo $(objects)/SDL_syshaptic.lo $(objects)/SDL_syspower.lo $(objects)"\
+"/SDL_sysfilesystem.lo $(objects)/SDL_systimer.lo $(objects)/SDL_rwopsbundlesupport.lo $(objects)/SDL_poll.lo"
+S["INCLUDE"]="-Iinclude -I/Users/lnicosia/Projects/Doom/SDL2-2.0.8/include -idirafter /Users/lnicosia/Projects/Doom/SDL2-2.0.8/src/video/khronos"
 S["ac_aux_dir"]="build-scripts"
 S["ENABLE_STATIC_FALSE"]="#"
 S["ENABLE_STATIC_TRUE"]=""
 S["ENABLE_SHARED_FALSE"]="#"
 S["ENABLE_SHARED_TRUE"]=""
 S["SDL_RLD_FLAGS"]=""
-S["SDL_STATIC_LIBS"]="-lcygwin -lSDL2main -lSDL2  -mwindows  -Wl,--no-undefined -lm -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion /lib/w32api/li"\
-"buuid.a -static-libgcc"
-S["SDL_LIBS"]="-lcygwin -lSDL2main -lSDL2  -mwindows"
-S["SDL_CFLAGS"]=" -I/usr/include/mingw -Dmain=SDL_main"
+S["SDL_STATIC_LIBS"]="-lSDL2   -lm -liconv  -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,CoreVideo -Wl,-framewo"\
+"rk,Cocoa -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-weak_framework,QuartzCore -Wl,-weak_framework,Metal"
+S["SDL_LIBS"]="-lSDL2 "
+S["SDL_CFLAGS"]=" -D_THREAD_SAFE"
 S["DIRECTFBCONFIG"]=""
 S["X_EXTRA_LIBS"]=""
 S["X_LIBS"]=""
@@ -961,7 +939,7 @@ S["ALSA_CFLAGS"]=""
 S["POW_LIB"]=""
 S["LIBOBJS"]=""
 S["ALLOCA"]=""
-S["WINDRES"]="windres"
+S["WINDRES"]=":"
 S["SET_MAKE"]=""
 S["INSTALL_DATA"]="${INSTALL} -m 644"
 S["INSTALL_SCRIPT"]="${INSTALL}"
@@ -975,13 +953,13 @@ S["LT_REVISION"]="0"
 S["LT_CURRENT"]="8"
 S["LT_RELEASE"]="2.0"
 S["CPP"]="gcc -E"
-S["OTOOL64"]=""
-S["OTOOL"]=""
-S["LIPO"]=""
-S["NMEDIT"]=""
-S["DSYMUTIL"]=""
+S["OTOOL64"]=":"
+S["OTOOL"]="otool"
+S["LIPO"]="lipo"
+S["NMEDIT"]="nmedit"
+S["DSYMUTIL"]="dsymutil"
 S["MANIFEST_TOOL"]=":"
-S["AWK"]="gawk"
+S["AWK"]="awk"
 S["RANLIB"]="ranlib"
 S["STRIP"]="strip"
 S["ac_ct_AR"]="ar"
@@ -990,29 +968,29 @@ S["LN_S"]="ln -s"
 S["NM"]="/usr/bin/nm -B"
 S["ac_ct_DUMPBIN"]=""
 S["DUMPBIN"]=""
-S["LD"]="/usr/x86_64-pc-cygwin/bin/ld.exe"
+S["LD"]="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld"
 S["FGREP"]="/usr/bin/grep -F"
 S["EGREP"]="/usr/bin/grep -E"
 S["GREP"]="/usr/bin/grep"
 S["SED"]="/usr/bin/sed"
 S["OBJEXT"]="o"
-S["EXEEXT"]=".exe"
+S["EXEEXT"]=""
 S["ac_ct_CC"]="gcc"
-S["CPPFLAGS"]=" -Iinclude -I/home/Lucas/Doom-Nukem/SDL2-2.0.8/include -idirafter /home/Lucas/Doom-Nukem/SDL2-2.0.8/src/video/khronos  -I/usr/include/mingw"
+S["CPPFLAGS"]=" -Iinclude -I/Users/lnicosia/Projects/Doom/SDL2-2.0.8/include -idirafter /Users/lnicosia/Projects/Doom/SDL2-2.0.8/src/video/khronos "
 S["LDFLAGS"]=" "
-S["CFLAGS"]="-g -O2 -Iinclude -I/home/Lucas/Doom-Nukem/SDL2-2.0.8/include -idirafter /home/Lucas/Doom-Nukem/SDL2-2.0.8/src/video/khronos  -I/usr/include/mingw"
+S["CFLAGS"]="-g -O2 -Iinclude -I/Users/lnicosia/Projects/Doom/SDL2-2.0.8/include -idirafter /Users/lnicosia/Projects/Doom/SDL2-2.0.8/src/video/khronos "
 S["CC"]="gcc"
-S["host_os"]="cygwin"
-S["host_vendor"]="unknown"
+S["host_os"]="darwin16.7.0"
+S["host_vendor"]="apple"
 S["host_cpu"]="x86_64"
-S["host"]="x86_64-unknown-cygwin"
-S["build_os"]="cygwin"
-S["build_vendor"]="unknown"
+S["host"]="x86_64-apple-darwin16.7.0"
+S["build_os"]="darwin16.7.0"
+S["build_vendor"]="apple"
 S["build_cpu"]="x86_64"
-S["build"]="x86_64-unknown-cygwin"
+S["build"]="x86_64-apple-darwin16.7.0"
 S["LIBTOOL"]="$(SHELL) $(top_builddir)/libtool"
 S["OBJDUMP"]="objdump"
-S["DLLTOOL"]="dlltool"
+S["DLLTOOL"]="false"
 S["AS"]="as"
 S["SDL_VERSION"]="2.0.8"
 S["SDL_BINARY_AGE"]="8"
@@ -1023,10 +1001,10 @@ S["SDL_MAJOR_VERSION"]="2"
 S["target_alias"]=""
 S["host_alias"]=""
 S["build_alias"]=""
-S["LIBS"]=" -lm"
+S["LIBS"]=" -lm -liconv"
 S["ECHO_T"]=""
-S["ECHO_N"]="-n"
-S["ECHO_C"]=""
+S["ECHO_N"]=""
+S["ECHO_C"]="\\c"
 S["DEFS"]="-DHAVE_CONFIG_H"
 S["mandir"]="${datarootdir}/man"
 S["localedir"]="${datarootdir}/locale"
@@ -1124,7 +1102,6 @@ D["HAVE_STDIO_H"]=" 1"
 D["HAVE_STDLIB_H"]=" 1"
 D["HAVE_STDDEF_H"]=" 1"
 D["HAVE_STDARG_H"]=" 1"
-D["HAVE_MALLOC_H"]=" 1"
 D["HAVE_MEMORY_H"]=" 1"
 D["HAVE_STRING_H"]=" 1"
 D["HAVE_STRINGS_H"]=" 1"
@@ -1138,6 +1115,8 @@ D["HAVE_FLOAT_H"]=" 1"
 D["HAVE_ICONV_H"]=" 1"
 D["HAVE_SIGNAL_H"]=" 1"
 D["HAVE_M_PI"]=" /**/"
+D["HAVE_ALLOCA_H"]=" 1"
+D["HAVE_ALLOCA"]=" 1"
 D["HAVE_MEMCMP"]=" 1"
 D["HAVE_STRTOD"]=" 1"
 D["HAVE_MPROTECT"]=" 1"
@@ -1180,6 +1159,7 @@ D["HAVE_SIGACTION"]=" 1"
 D["HAVE_SETJMP"]=" 1"
 D["HAVE_NANOSLEEP"]=" 1"
 D["HAVE_SYSCONF"]=" 1"
+D["HAVE_SYSCTLBYNAME"]=" 1"
 D["HAVE_POLL"]=" 1"
 D["HAVE_ACOS"]=" 1"
 D["HAVE_ACOSF"]=" 1"
@@ -1215,40 +1195,32 @@ D["HAVE_SQRT"]=" 1"
 D["HAVE_SQRTF"]=" 1"
 D["HAVE_TAN"]=" 1"
 D["HAVE_TANF"]=" 1"
+D["HAVE_ICONV"]=" 1"
 D["HAVE_SA_SIGACTION"]=" 1"
+D["HAVE_LIBUNWIND_H"]=" 1"
 D["HAVE_GCC_ATOMICS"]=" 1"
 D["SDL_ASSEMBLY_ROUTINES"]=" 1"
 D["HAVE_IMMINTRIN_H"]=" 1"
 D["SDL_VIDEO_DRIVER_DUMMY"]=" 1"
 D["SDL_AUDIO_DRIVER_DISK"]=" 1"
 D["SDL_AUDIO_DRIVER_DUMMY"]=" 1"
+D["SDL_LOADSO_DLOPEN"]=" 1"
+D["SDL_VIDEO_DRIVER_COCOA"]=" 1"
+D["SDL_VIDEO_RENDER_METAL"]=" 1"
+D["X_DISPLAY_MISSING"]=" 1"
 D["SDL_VIDEO_OPENGL"]=" 1"
-D["SDL_VIDEO_OPENGL_WGL"]=" 1"
+D["SDL_VIDEO_OPENGL_CGL"]=" 1"
 D["SDL_VIDEO_RENDER_OGL"]=" 1"
-D["SDL_VIDEO_OPENGL"]=" 1"
-D["SDL_VIDEO_OPENGL_EGL"]=" 1"
-D["SDL_VIDEO_OPENGL"]=" 1"
-D["SDL_VIDEO_OPENGL_ES2"]=" 1"
-D["SDL_VIDEO_RENDER_OGL_ES2"]=" 1"
 D["SDL_VIDEO_VULKAN"]=" 1"
-D["HAVE_DDRAW_H"]=" 1"
-D["HAVE_DINPUT_H"]=" 1"
-D["HAVE_DSOUND_H"]=" 1"
-D["HAVE_DXGI_H"]=" 1"
-D["HAVE_XINPUT_H"]=" 1"
-D["SDL_VIDEO_DRIVER_WINDOWS"]=" 1"
-D["SDL_VIDEO_RENDER_D3D"]=" 1"
-D["SDL_VIDEO_RENDER_D3D11"]=" 1"
-D["SDL_AUDIO_DRIVER_WINMM"]=" 1"
-D["SDL_AUDIO_DRIVER_DSOUND"]=" 1"
-D["SDL_AUDIO_DRIVER_WASAPI"]=" 1"
-D["SDL_JOYSTICK_XINPUT"]=" 1"
-D["SDL_HAPTIC_XINPUT"]=" 1"
-D["SDL_POWER_WINDOWS"]=" 1"
-D["SDL_FILESYSTEM_WINDOWS"]=" 1"
-D["SDL_THREAD_WINDOWS"]=" 1"
-D["SDL_TIMER_WINDOWS"]=" 1"
-D["SDL_LOADSO_WINDOWS"]=" 1"
+D["SDL_THREAD_PTHREAD"]=" 1"
+D["SDL_THREAD_PTHREAD_RECURSIVE_MUTEX"]=" 1"
+D["HAVE_PTHREAD_SETNAME_NP"]=" 1"
+D["SDL_AUDIO_DRIVER_COREAUDIO"]=" 1"
+D["SDL_JOYSTICK_IOKIT"]=" 1"
+D["SDL_HAPTIC_IOKIT"]=" 1"
+D["SDL_POWER_MACOSX"]=" 1"
+D["SDL_FILESYSTEM_COCOA"]=" 1"
+D["SDL_TIMER_UNIX"]=" 1"
   for (key in D) D_is_set[key] = 1
   FS = ""
 }

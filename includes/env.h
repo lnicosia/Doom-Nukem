@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/20 12:40:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:30:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,29 @@ typedef struct		s_env
 	int					reset;
 	int					*ymax;
 	int					*ymin;
+	double				*max_ceiling;
+	double				*max_floor;
+	double				*current_ceiling;
+	double				*current_floor;
+	double				*alpha;
+	double				*clipped_alpha;
+	double				*z;
+	double				*divider;
+	double				*line_height;
+	double				*no_slope_current_floor;
+	double				*no_slope_current_ceiling;
+	double				*ceiling_start;
+	double				*floor_start;
+	double				*z_near_z;
+	double				*neighbor_max_ceiling;
+	double				*neighbor_max_floor;
+	double				*neighbor_current_ceiling;
+	double				*neighbor_current_floor;
+	t_v2				*texel;
+	t_v2				*texel_near_z;
+	t_v2				*camera_z;
+	t_v2				*texel_camera_range;
+	double				*zrange;
 	int					current_object;
 	int					current_enemy;
 	int					objects_start;

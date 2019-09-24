@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 13:27:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:31:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,52 @@ int		set_sdl(t_env *env)
 	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
 		return (ft_printf("Could not malloc ymax array\n"));
 	if (!(env->zbuffer = (double*)malloc(sizeof(double) * env->w * env->h)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->current_ceiling = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->current_floor = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->max_ceiling = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->max_floor = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->z = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->alpha = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->clipped_alpha = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->line_height = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->divider = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->no_slope_current_floor = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->no_slope_current_ceiling = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->ceiling_start = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->floor_start = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->z_near_z = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->neighbor_current_floor = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->neighbor_current_ceiling = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->neighbor_max_floor = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->neighbor_max_ceiling = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->zrange = (double*)malloc(sizeof(double) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->texel = (t_v2*)malloc(sizeof(t_v2) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->texel_near_z = (t_v2*)malloc(sizeof(t_v2) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->texel_camera_range = (t_v2*)malloc(sizeof(t_v2) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->camera_z = (t_v2*)malloc(sizeof(t_v2) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	clear_image(env);
 	if (SDL_RenderCopy(
