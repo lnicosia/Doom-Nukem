@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 11:31:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_v3    sprite_movement(double speed, t_v3 origin, t_v3 destination)
     distance = sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
     direction.x = direction.x * speed / distance;
     direction.y = direction.y * speed / distance;
-    direction.z = direction.y * speed / distance;
+    direction.z = direction.z * speed / distance;
     return (direction);
 }
 
@@ -215,7 +215,7 @@ void    enemy_pursuit(t_env *env)
         {
             env->enemies[i].state = PURSUING;
             tmp_z = env->player.pos.z;
-            env->player.pos.z = env->player.eyesight;
+            env->player.pos.z += env->player.eyesight;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
           /*  direction.x = 0;
             direction.y = 0;
@@ -239,9 +239,10 @@ void    enemy_pursuit(t_env *env)
                 }
                 move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
             }
+            //ft_printf("direction.z = %f\n", direction.z);
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;
-            //env->enemies[i].pos.z += direction.z;
+            env->enemies[i].pos.z += direction.z;
             env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 
 
@@ -252,7 +253,7 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].state = FIRING;
             if (env->enemies[i].shot)
             {
-                env->player.life -= env->enemies[i].damage;
+                env->player.health -= env->enemies[i].damage;
                 env->player.hit = 1;
             }
             env->enemies[i].shot = 0;

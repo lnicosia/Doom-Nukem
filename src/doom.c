@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:40:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:55:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		doom(t_env *env)
 		objects_collision(env);
 		enemy_collision(env);
 		keys(env);
+		if (env->player.health <= 0)
+			death(env);
 		if (env->menu_start)
 			start_game_menu(env);
 		else

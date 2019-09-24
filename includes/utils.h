@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:12:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:07:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,10 +229,21 @@ typedef struct		s_camera
 	int				size;
 }					t_camera;
 
+typedef	struct		s_init_data
+{
+	t_v3			pos;
+	t_camera		camera;
+	int				sector;
+	double			angle;
+	int				health;	
+	int				main_sprite;
+}					t_init_data;
+
 typedef struct		s_player
 {
 	t_v3			pos;
 	t_camera		camera;
+	t_init_data		player_init_data;
 	int				stuck;
 	int				prev_sector;
 	double			gravity;
@@ -245,7 +256,7 @@ typedef struct		s_player
 	double			state;
 	int				highest_sect;
 	int				curr_weapon;
-	int				life;
+	int				health;
 	int				armor;
 	double			head_z;
 }					t_player;
@@ -431,6 +442,7 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	t_init_data		object_init_data;
 	int				left;
 	int				right;
 	int				top;
@@ -455,6 +467,8 @@ typedef struct		s_enemies
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	t_init_data		enemies_init_data;
+	int				flying;
 	int				ranged;
 	int				speed;
 	int				shot;

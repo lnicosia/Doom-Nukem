@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 17:49:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:02:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
+void				death(t_env *env);
 
 /*
 ** enemies functions

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 10:42:39 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 11:25:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 11:53:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void        init_enemies_data(t_env *env)
             env->enemies[i].sprite == 7 || env->enemies[i].sprite == 8)
         {
             env->enemies[i].main_sprite = LOST_SOUL;
+            env->enemies[i].flying = 1;
             env->enemies[i].ranged = 0;
 		    env->enemies[i].size_2d = 0.5;
         }
@@ -35,6 +36,7 @@ void        init_enemies_data(t_env *env)
         {
             env->enemies[i].main_sprite = CYBER_DEMON;
             env->enemies[i].firing_sprite = 10;
+            env->enemies[i].flying = 0;
             env->enemies[i].ranged = 1;
             env->enemies[i].size_2d = 1.5;
         }

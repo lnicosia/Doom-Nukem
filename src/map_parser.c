@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 18:58:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	init_player(t_env *env)
 	env->player.camera.angle_z_sin = sin(0);
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
-	env->player.life = 100;
+	env->player.health = 100;
 }
 
 int		parse_map(char *file, t_env *env)

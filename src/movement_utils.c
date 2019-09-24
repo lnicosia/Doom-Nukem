@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:20:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 13:49:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int        find_highest_sector(t_env *env, t_movement motion)
     int     tmp;
 
     i = 0;
+    if (motion.sector == -1)
+        return (0);
     iter_sectors(env, motion);
     tmp = motion.sector;
     height = sector_height(env, motion, motion.sector);

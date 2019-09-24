@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 10:33:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/17 15:50:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 13:55:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		get_sector_no_z_origin(t_env *env, t_v3 pos, int origin)
 	int		i;
 
 	if (origin < 0 || origin >= env->nb_sectors)
-		return (-1);
+		return (get_sector_no_z(env, pos));
 	if (is_in_sector_no_z(env, origin, new_v2(pos.x, pos.y)))
 		return (origin);
 	i = 0;

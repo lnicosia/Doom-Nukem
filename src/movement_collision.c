@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 11:22:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
     //static int a = 0;
 
     //env->player.highest_sect = motion.sector;
+    if (env->options.test)
+        return (move);
     FUTURE_X = motion.pos.x + move.x;
     FUTURE_Y = motion.pos.y + move.y;
     i = 0;
@@ -222,7 +224,7 @@ void        enemy_collision(t_env *env)
             && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && !env->enemies[i].ranged)
         {
             env->player.hit = 1;
-            env->player.life -= env->enemies[i].damage;
+            env->player.health -= env->enemies[i].damage;
             env->enemies[i].exists = 0;
         }
         i++;

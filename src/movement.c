@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:05:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 13:42:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	move_player(t_env *env)
 			if (move.x != 0 || move.y != 0)
 				movement = 1;
 			if (move.x == 0 && move.y == 0)
-					check_blocage(env, motion, 4);
+				check_blocage(env, motion, 4);
 		}
 		if (movement)
 		{

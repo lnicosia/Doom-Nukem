@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/08/14 17:38:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    draw_hud(t_env *env)
 {
 	char *str;
 
-	str = ft_sitoa(env->player.life);
+	str = ft_sitoa(env->player.health);
 	armor_life_hud(env);
 	ammo_hud(env);
 	print_text(new_point(830, 300), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
