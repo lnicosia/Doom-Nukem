@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 18:55:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 17:02:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 17:30:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void	set_yrange(t_render *render, t_env *env)
 			max = env->ymax[x];
 		x++;
 	}
+	render->ystart = min;
+	render->yend = max;
 }
 
 void	render_sector2(t_render render, t_env *env)
