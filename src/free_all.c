@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 11:30:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 16:15:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,14 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->texel_camera_range);
 	if (env->zrange)
 		ft_memdel((void**)&env->zrange);
+	if (env->xmin)
+		ft_memdel((void**)&env->xmin);
+	if (env->xmax)
+		ft_memdel((void**)&env->xmax);
+	if (env->ymin)
+		ft_memdel((void**)&env->ymin);
+	if (env->ymax)
+		ft_memdel((void**)&env->ymax);
 }
 
 void		free_all(t_env *env)

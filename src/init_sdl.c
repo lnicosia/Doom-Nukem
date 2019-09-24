@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 11:31:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 16:17:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int		set_sdl(t_env *env)
 	if (!(env->ymin = (int*)malloc(sizeof(int) * env->w)))
 		return (ft_printf("Could not malloc ymin array\n"));
 	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
+		return (ft_printf("Could not malloc ymax array\n"));
+	if (!(env->xmin = (int*)malloc(sizeof(int) * env->h)))
+		return (ft_printf("Could not malloc ymin array\n"));
+	if (!(env->xmax = (int*)malloc(sizeof(int) * env->h)))
 		return (ft_printf("Could not malloc ymax array\n"));
 	if (!(env->zbuffer = (double*)malloc(sizeof(double) * env->w * env->h)))
 		return (ft_printf("Could not malloc depth array\n"));

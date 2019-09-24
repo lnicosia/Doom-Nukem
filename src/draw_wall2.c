@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 08:48:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 12:21:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 17:16:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,49 @@
 
 void	draw_wall2(t_sector sector, t_render render, t_env *env)
 {
-	(void)sector;
-	(void)render;
-	(void)env;
-	Uint32	*pixels;
-	int		x;
-	int		xend;
-	int		line;
-	Uint32	color;
-	Uint8	value;
+	Uint32		*pixels;
+	Uint32		*texture_pixels;
+	t_texture	texture;
+	double		*zbuffer;
+	int			texture_w;
+	int			texture_h;
+	int			x;
+	int			xend;
+	int			line;
 
 	x = render.xstart - 1;
+	//x = ft_max(render.xstart, env->xmin[render.y]);
 	xend = render.xend;
+	//xend = ft_min(render.xend, env->xmax[render.y]);
 	pixels = env->sdl.texture_pixels;
+	texture = env->textures[render.texture];
+	texture_pixels = texture.str;
+	texture_w = texture.surface->w;
+	texture_h = texture.surface->h;
+	zbuffer = env->zbuffer;
 	line = render.y * env->w;
 	while (++x <= xend)
 	{
-		/*if (render.y < env->ymin[x] || render.y > env->ymax[x])
-			continue;*/
-		value = ft_clamp(5 * 0xFF / env->z[x], 0, 0xFF);
-		color = 0xFF << 24
-			| value << 16
-			| value << 8
-			| value;
-		if (!render.neighbor && render.y >= env->current_ceiling[x]
+		if (render.y < env->ymin[x] || render.y > env->ymax[x]
+				|| env->z[x] >= zbuffer[line + x])
+			continue;
+		if ((!render.neighbor && render.y >= env->current_ceiling[x]
 				&& render.y <= env->current_floor[x])
+			|| (render.neighbor
+				&& ((render.y < env->neighbor_current_ceiling[x]
+					&& render.y > env->current_ceiling[x])
+					|| (render.y > env->neighbor_current_floor[x]
+						&& render.y < env->current_floor[x]))))
 		{
-			env->sdl.texture_pixels[line + x] = ft_clamp(color, 0xFF000000, 0xFFFFFFFF);
+			pixels[line + x] = apply_light(0xFFAAAAAA, sector.light_color, sector.brightness);
+			zbuffer[line + x] = env->z[x];
 		}
-		/*if (render.neighbor
-				&& ((env->current_ceiling[x] < env->neighbor_current_ceiling[x])
-					|| env->current_floor[x] > env->neighbor_current_floor[x]))
-			env->sdl.texture_pixels[line + x] = ft_clamp(color, 0xFF000000, 0xFFFFFFFF);*/
-		/*else// if (render.y < env->current_ceiling[x])
+		if (render.y < env->current_ceiling[x]
+				|| render.y > env->current_floor[x])
 		{
-			env->sdl.texture_pixels[line + x] = 0xFFAA4422;
+			pixels[line + x] = apply_light(0xFFAA4422, sector.light_color, sector.brightness);
+			zbuffer[line + x] = env->z[x];
 		}
-			//env->sdl.texture_pixels[line + x] = 0xFFAAAAAA;*/
 	}
+	//update_screen(env);
 }

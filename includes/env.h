@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/24 11:30:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/24 16:13:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct		s_env
 	int					reset;
 	int					*ymax;
 	int					*ymin;
+	int					*xmax;
+	int					*xmin;
 	double				*max_ceiling;
 	double				*max_floor;
 	double				*current_ceiling;
