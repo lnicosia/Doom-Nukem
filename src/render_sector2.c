@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 18:55:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 16:07:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:59:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		render.floor_xend = 0;
 		render.calpha = (y - v1.c1) / v1.ceiling_range;
 		render.falpha = (y - v1.f1) / v1.floor_range;
+		//render.current_ceiling = ft_clamp(render.calpha * v1.clipped_xrange + v1.clipped_x1, render.xstart, render.xend);
 		render.current_ceiling = render.calpha * v1.clipped_xrange + v1.clipped_x1;
+		//render.current_floor = ft_clamp(render.falpha * v1.clipped_xrange + v1.clipped_x1, render.xstart, render.xend);
 		render.current_floor = render.falpha * v1.clipped_xrange + v1.clipped_x1;
 		//ft_printf("y = %d c1 = %f c2 = %f\nx1 = %f x2 = %f\nwall_xstart = %d\n",
 			//	y, v1.c1, v1.c2, v1.clipped_x1, v1.clipped_x2, render.wall_xstart);
@@ -77,31 +79,79 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 			render.floor_xstart = render.current_floor;
 			render.floor_xend = render.xend;
 		}
-		/*if (v1.ceiling_range > 0)
-		{
-			render.ceiling_xstart = render.current_ceiling;
-			render.ceiling_xend = render.xend;
-		}
-		else
-		{
-			render.ceiling_xstart = render.xstart;
-			render.ceiling_xend = render.current_ceiling;
-		}*/
 		render.wall_xstart = ft_max(render.wall_xstart, render.xstart);
 		render.wall_xend = ft_min(render.wall_xend, render.xend);
 		render.ceiling_xstart = ft_max(render.ceiling_xstart, render.xstart);
 		render.ceiling_xend = ft_min(render.ceiling_xend, render.xend);
 		render.floor_xstart = ft_max(render.floor_xstart, render.xstart);
 		render.floor_xend = ft_min(render.floor_xend, render.xend);
+		if (render.neighbor)
+		{
+			render.neighbor_calpha = (y - v1.neighbor_c1) / v1.neighbor_ceiling_range;
+			render.neighbor_falpha = (y - v1.neighbor_f1) / v1.neighbor_floor_range;
+			render.neighbor_current_ceiling = render.neighbor_calpha * v1.clipped_xrange + v1.clipped_x1;
+			render.neighbor_current_floor = render.neighbor_falpha * v1.clipped_xrange + v1.clipped_x1;
+			/*if ((y >= v1.neighbor_c1 && y <= v1.c1) || (y >= v1.f1 && y <= v1.neighbor_f1))
+			{
+				render.wall_xstart = render.xstart;
+			}
+			else if ((v1.neighbor_ceiling_range < 0 && y < v1.c1 && y > v1.neighbor_c1))
+			{
+				render.wall_xstart = render.neighbor_current_ceiling;
+				render.wall_xstart = render.xstart;
+				render.wall_xend = render.neighbor_current_ceiling;
+			}
+			else if ((v1.neighbor_floor_range > 0 && y > v1.neighbor_f1 && y < v1.neighbor_f1))
+			{
+				render.wall_xstart = render.neighbor_current_floor;
+				render.wall_xstart = render.xstart;
+				render.wall_xend = render.neighbor_current_floor;
+			}
+			if ((y >= v1.neighbor_c2 && y <= v1.c2) || (y >= v1.f2 && y <= v1.neighbor_f2))
+			{
+				render.wall_xend = render.xend;
+			}
+			else if ((v1.neighbor_ceiling_range > 0 && y < v1.neighbor_c2 && y > v1.neighbor_c2))
+			{
+				render.wall_xend = render.neighbor_current_ceiling;
+				render.wall_xstart = render.neighbor_current_ceiling;
+				render.wall_xend = render.xend;
+			}
+			else if ((v1.neighbor_floor_range < 0 && y > v1.neighbor_f2 && y < v1.neighbor_f2))
+			{
+				render.wall_xend = render.neighbor_current_floor;
+				render.wall_xstart = render.neighbor_current_floor;
+				render.wall_xend = render.xend;
+			}*/
+			if (v1.neighbor_ceiling_range < 0)// && (y > v1.c1 || y > v1.neighbor_c1))
+			{
+				render.wall_xend = ft_min(render.neighbor_current_ceiling, render.xend);
+			}
+			else
+			{
+				render.wall_xstart = ft_max(render.neighbor_current_ceiling, render.xstart);
+			}
+			draw_wall2(sector, render, env);
+			if (v1.neighbor_floor_range > 0)// && (y > v1.c1 || y > v1.neighbor_c1))
+			{
+				render.wall_xend = ft_min(render.neighbor_current_floor, render.xend);
+			}
+			else
+			{
+				render.wall_xstart = ft_max(render.neighbor_current_floor, render.xstart);
+			}
+			draw_wall2(sector, render, env);
+		}
 		//ft_printf("xstart = %d\n", render.xstart);
 		//ft_printf("xend = %d\n", render.xend);
 		//render.alpha = (y - v1.y) / v1.yrange;
 		//render.clipped_alpha = (y - v1.clipped_y1) / v1.clipped_yrange;
+		draw_floor2(sector, render, env);
+		draw_ceiling2(sector, render, env);
 		if (!render.neighbor)
 		{
-			draw_floor2(sector, render, env);
-			draw_ceiling2(sector, render, env);
-			draw_wall2(sector, render, env);
+			if (!env->options.test)
+				draw_wall2(sector, render, env);
 		}
 		//update_screen(env);
 	}
@@ -177,9 +227,9 @@ void	get_wall_heights(t_render_vertex v1, t_sector sector,
 **	so we can not draw out of this range
 */
 
-void	set_yrange(t_render *render, t_env *env)
+void	set_yrange(t_render_vertex v1, t_render *render, t_env *env)
 {
-	int	x;
+	/*int	x;
 	int	min;
 	int	max;
 
@@ -197,9 +247,20 @@ void	set_yrange(t_render *render, t_env *env)
 		if (max < env->ymax[x])
 			max = env->ymax[x];
 		x++;
-}
+	}
 	render->ystart = min;
-	render->yend = max;
+	render->yend = max;*/
+	int	ymin;
+	int	ymax;
+	int	nymin;
+	int	nymax;
+
+	ymin = ft_min(v1.c1, v1.c2);
+	ymax = ft_max(v1.f1, v1.f2);
+	nymin = ft_min(v1.neighbor_c1, v1.neighbor_c2);
+	nymax = ft_max(v1.neighbor_f1, v1.neighbor_f2);
+	render->ystart = ft_max(ft_max(ymin, nymin), 0);
+	render->yend = ft_min(ft_min(ymax, nymax), env->h - 1);
 }
 
 void	render_sector2(t_render render, t_env *env)
@@ -250,12 +311,10 @@ void	render_sector2(t_render render, t_env *env)
 		if (render.neighbor)
 		{
 			new = render;
-			//set_yrange(&new, env);
-			//new.ystart = ft_max(ft_min(v1.neighbor_c1, v1.neighbor_c2), 0);
-			//new.yend = ft_min(ft_max(v1.neighbor_f1, v1.neighbor_f2), env->h - 1);
 			new.xmin = render.xstart;
 			new.xmax = render.xend;
 			new.sector = sector.neighbors[i];
+			set_yrange(v1, &new, env);
 			render_sector2(new, env);
 		}
 	}

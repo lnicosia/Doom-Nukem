@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 15:30:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:15:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ typedef struct	s_render
 	double		zrange;
 	double		falpha;
 	double		calpha;
+	double		neighbor_falpha;
+	double		neighbor_calpha;
 	int			wall_xstart;
 	int			wall_xend;
 	int			floor_xstart;
 	int			floor_xend;
 	int			ceiling_xstart;
 	int			ceiling_xend;
+	int			nfloor_xstart;
+	int			nfloor_xend;
+	int			nceiling_xstart;
+	int			nceiling_xend;
 	int			neighbor;
 	int			nv1;
 	int			nv2;
