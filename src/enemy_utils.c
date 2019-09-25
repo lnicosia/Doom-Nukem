@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:03:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,9 +254,31 @@ void    enemy_pursuit(t_env *env)
             if (env->enemies[i].shot)
             {
                 env->player.health -= env->enemies[i].damage;
+                if (env->player.health < 0)
+                    env->player.health = 0;
                 env->player.hit = 1;
             }
             env->enemies[i].shot = 0;
+        }
+        i++;
+    }
+}
+
+void        enemy_collision(t_env *env)
+{
+    int i;
+
+    i = 0;
+    while (i < env->nb_enemies)
+    {
+        if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
+            && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && !env->enemies[i].ranged)
+        {
+            env->player.hit = 1;
+            env->player.health -= env->enemies[i].damage;
+            if (env->player.health < 0)
+                env->player.health = 0;
+            env->enemies[i].exists = 0;
         }
         i++;
     }

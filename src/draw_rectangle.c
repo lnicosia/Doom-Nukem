@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rectangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:03:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 11:35:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/25 16:38:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		draw_rectangle(t_env *env, t_rectangle r, t_point pos, t_point size)
 	{
 		x = pos.x - 1;
 		while (++x <= pos.x + size.x && x < env->w)
+		{
 			if (y < pos.y + r.line_size
 					|| y > pos.y + size.y - r.line_size
 					|| x < pos.x + r.line_size
@@ -54,5 +55,6 @@ void		draw_rectangle(t_env *env, t_rectangle r, t_point pos, t_point size)
 				env->sdl.texture_pixels[x + y * env->w] = r.line_color;
 			else if (r.filled)
 				env->sdl.texture_pixels[x + y * env->w] = r.inside_color;
+		}
 	}
 }

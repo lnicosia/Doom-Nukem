@@ -6,15 +6,16 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 14:55:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 15:17:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:41:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "collision.h"
 
-void        death(t_env *env)
+void		respawn(t_env *env)
 {
-    int i;
+	int i;
 
     i = 0;
 	while (i < env->nb_enemies)
@@ -23,7 +24,7 @@ void        death(t_env *env)
 		env->enemies[i].health = env->enemies[i].enemies_init_data.health;
 		env->enemies[i].sector = env->enemies[i].enemies_init_data.sector;
 		env->enemies[i].angle = env->enemies[i].enemies_init_data.angle;
-        env->enemies[i].sprite = env->enemies[i].main_sprite;
+		env->enemies[i].sprite = env->enemies[i].main_sprite;
 		i++;
 	}
 	env->player.pos = env->player.player_init_data.pos;
@@ -42,4 +43,22 @@ void        death(t_env *env)
     init_enemies_data(env);
     init_animations(env);
     update_player_z(env);
+	env->player.highest_sect = find_highest_sector(env, new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));
+}
+
+void        death(t_env *env)
+{
+	int i;
+
+	i = 0;
+	if (!env->confirmation_box.state)
+	{
+		env->confirmation_box.state = 1;
+		if (!(env->confirmation_box.str = ft_strdup("You Died...Respawn?")))
+			ft_perror("Could not malloc confirmation box str");
+		new_confirmation_box(&env->confirmation_box, env);
+		SDL_SetRelativeMouseMode(0);
+		while (++i < env->nb_enemies)
+			env->enemies[i].state = RESTING;
+	}
 }

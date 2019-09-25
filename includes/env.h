@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/24 15:02:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:34:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_env
 	t_confirmation_box	confirmation_box;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
+	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
@@ -273,6 +274,7 @@ void				check_parsing(t_env *env);
 void				keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
+void				confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
@@ -321,6 +323,7 @@ double     			distance_two_points(double x1, double y1, double x2, double y2);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
+void				respawn(t_env *env);
 
 /*
 ** enemies functions

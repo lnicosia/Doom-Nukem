@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 13:42:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:06:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	animations(t_env *env)
 	update_floor(env);
 	if (env->gravity.on_going)
 		gravity(env);
-	if (((env->inputs.space && !env->player.state) || env->jump.on_going))
+	if (((env->inputs.space && !env->player.state && env->player.health > 0) || env->jump.on_going))
 		jump(env);
-	if (((env->inputs.ctrl && !env->player.state && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
+	if (((env->inputs.ctrl && !env->player.state && env->player.eyesight == 6 && env->player.health > 0) || env->crouch.on_going) && !env->jump.on_going)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
 }

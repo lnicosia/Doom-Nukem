@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:02:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,24 +208,6 @@ void    objects_collision(t_env *env)
                 if (env->weapons[env->player.curr_weapon].ammo >= env->weapons[env->player.curr_weapon].max_ammo)
                     env->weapons[env->player.curr_weapon].ammo = env->weapons[env->player.curr_weapon].max_ammo;
             }
-        }
-        i++;
-    }
-}
-
-void        enemy_collision(t_env *env)
-{
-    int i;
-
-    i = 0;
-    while (i < env->nb_enemies)
-    {
-        if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-            && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && !env->enemies[i].ranged)
-        {
-            env->player.hit = 1;
-            env->player.health -= env->enemies[i].damage;
-            env->enemies[i].exists = 0;
         }
         i++;
     }

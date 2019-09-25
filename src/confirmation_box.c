@@ -3,14 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   confirmation_box.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:38:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/04 11:45:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/25 16:38:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	if (((env->sdl.event.button.button == SDL_BUTTON_LEFT
+					&& env->sdl.my >= box->no.pos.y
+					&& env->sdl.my <= box->no.pos.y + box->no.size.y
+					&& env->sdl.mx >= box->yes.pos.x
+					&& env->sdl.mx <= box->yes.pos.x + box->yes.size.x)
+				|| env->sdl.event.key.keysym.sym == SDLK_RETURN))
+		{
+			box->state = 0;
+			ft_strdel(&box->str);
+			SDL_SetRelativeMouseMode(1);
+			SDL_GetRelativeMouseState(&env->sdl.mx, &env->sdl.my);
+			respawn(env);
+		}
+	else
+		box->yes.state = 0;
+	if ((env->sdl.event.button.button == SDL_BUTTON_LEFT
+					&& env->sdl.my >= box->no.pos.y
+					&& env->sdl.my <= box->no.pos.y + box->no.size.y
+					&& env->sdl.mx >= box->no.pos.x
+					&& env->sdl.mx <= box->no.pos.x + box->no.size.x)
+			|| env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		{
+			box->state = 0;
+			ft_strdel(&box->str);
+			env->running = 0;
+		}
+	else
+		box->no.state = 0;
+}
 
 void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 {
@@ -108,7 +143,6 @@ int		get_box_size(t_confirmation_box *box)
 	box->size.x = ft_max(yes_size.x * 3, text_size.x + 20);
 	box->size.y = ft_max(yes_size.y * 3, 50);
 	//box->size.y = box->size.x;
-	//ft_printf("size.x = %d size.y = %d\n", size.x, size.y);
 	return (yes_size.y);
 }
 

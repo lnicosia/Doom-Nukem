@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 14:55:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:30:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,23 @@ int		doom(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (env->sdl.event.type == SDL_KEYUP)
+			if (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP)
 				keyup(env);
-			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going)
+			if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going && !env->shot.on_going && env->player.health > 0)
 				weapon_change(env);
 		}
 		update_sprites_state(env);
-		enemy_pursuit(env);
-		objects_collision(env);
-		enemy_collision(env);
-		keys(env);
+		if (env->player.health > 0)
+		{
+			enemy_pursuit(env);
+			objects_collision(env);
+			enemy_collision(env);
+			keys(env);
+		}
 		if (env->player.health <= 0)
 			death(env);
+		if (env->confirmation_box.state)
+			confirmation_box_keys(&env->confirmation_box, env);
 		if (env->menu_start)
 			start_game_menu(env);
 		else
