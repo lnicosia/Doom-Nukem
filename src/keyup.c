@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 13:43:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/26 10:12:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	keyup(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_p)
+		env->options.p = env->options.p ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 	{
 		env->option = env->option ? 0 : 1;

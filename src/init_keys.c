@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 17:56:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/26 10:10:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	init_keys(t_env *env)
 	env->keys.period = SDLK_PERIOD;
 	env->keys.minus1 = SDLK_MINUS;
 	env->keys.equals = SDLK_EQUALS;
+	env->keys.p = SDLK_p;
 }

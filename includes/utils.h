@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 09:57:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/26 10:11:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
+	int				*xmin;
+	int				*xmax;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
@@ -278,6 +280,7 @@ typedef struct		s_keys
 	int				period;
 	int				minus1;
 	int				equals;
+	int				p;
 }					t_keys;
 
 /*
@@ -309,6 +312,7 @@ typedef struct		s_inputs
 	uint8_t			period;
 	uint8_t			minus1;
 	uint8_t			equals;
+	uint8_t			p;
 }					t_inputs;
 
 /*
@@ -531,6 +535,7 @@ typedef struct		s_options
 	int				clipping;
 	int				show_ennemies;
 	int				zbuffer;
+	int				p;
 }					t_options;
 
 /*
