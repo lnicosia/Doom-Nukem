@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 16:15:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:05:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ typedef struct	s_render
 	int			nfloor_xend;
 	int			nceiling_xstart;
 	int			nceiling_xend;
+	int			neighbor_ceiling_ystart;
+	int			neighbor_ceiling_yend;
+	int			neighbor_floor_ystart;
+	int			neighbor_floor_yend;
 	int			neighbor;
 	int			nv1;
 	int			nv2;
@@ -174,6 +178,10 @@ void			draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
 		t_render render, t_env *env);
 void			draw_vline_color(t_vline vline, t_env *env);
 int				get_screen_sectors(t_camera *camera, t_env *env);
+void			restrict_floor(t_render_vertex v1, t_render *render,
+		t_sector sector, t_env *env);
+void			restrict_ceiling(t_render_vertex v1, t_render *render,
+		t_sector sector, t_env *env);
 
 /*
 **	Sprite part

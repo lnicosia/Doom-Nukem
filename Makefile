@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/26 09:45:15 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/26 17:03:08 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c render_sector2.c \
 		   selected_information.c movement_utils.c update_sprites_state.c \
-		   draw_wall2.c draw_floor2.c draw_ceiling2.c
+		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h
