@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/25 15:02:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:34:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
-    FUTURE_Z = motion.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
-    if (FUTURE_Z > env->sectors[sector_dest].ceiling + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].ceiling_slope - 1)
+    double curr_z;
+
+    //FUTURE_Z = motion.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    curr_z = motion.pos.z + motion.eyesight;
+    if (curr_z > env->sectors[sector_dest].ceiling + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].ceiling_slope - 1)
         return (0);
     return (1);
 }
