@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/25 15:58:12 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:41:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	draw_game(t_env *env)
 		draw_hud(env);
 		print_ammo(env);
 	}
+	else
+		print_results(env);
 	if (env->player.hit)
 		damage_anim(env);
 	int i = 0;

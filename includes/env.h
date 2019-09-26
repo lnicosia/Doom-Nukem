@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/25 16:34:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:42:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,7 @@ int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
 void				respawn(t_env *env);
+void				print_results(t_env *env);
 
 /*
 ** enemies functions

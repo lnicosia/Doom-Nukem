@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 15:07:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:46:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,10 @@ typedef struct		s_player
 	int				curr_weapon;
 	int				health;
 	int				armor;
+	int				killed;
+	double			nb_shots;
+	double			touched;
+	int				accuracy;
 	double			head_z;
 }					t_player;
 

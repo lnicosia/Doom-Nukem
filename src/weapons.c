@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 12:15:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:30:18 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,29 @@ int		hitscan(t_env *env, int i)
 void    shot(t_env *env)
 {
 	int	i;
+	int	hit;
 
 	i = 0;
+	hit = 0;
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)
 		{
-			ft_printf("I hit enemy nb %d | enemy_life before = %d |", i, env->enemies[i].health);
+			if (env->options.test)
+				ft_printf("I hit enemy nb %d | enemy_life before = %d |", i, env->enemies[i].health);
 			env->enemies[i].health -= damage_done(*env, i);
-			ft_printf(" and after = %d\n", env->enemies[i].health);
+			hit = 1;
+			if (env->enemies[i].health <= 0)
+				env->player.killed++;
+			if (env->options.test)
+				ft_printf(" and after = %d\n", env->enemies[i].health);
 			env->enemies[i].hit = 1;
 		}
 		i++;
 	}
- 	/* if (env->enemies[i].health <= 0)
-	   env->enemies[i].exists = 0; */
-	//break ;
+	if (hit)
+		env->player.touched += 1;
+	env->player.nb_shots += 1;
 }
 
 void    draw_weapon(t_env *env, int sprite)

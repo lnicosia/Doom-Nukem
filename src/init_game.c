@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/25 16:27:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 11:28:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		init_game(int ac, char **av)
 	env.fixed_camera.angle_z_sin = sin(env.fixed_camera.angle_z);
 	update_camera_position(&env.fixed_camera);
 	save_init_data(&env);
-	env.confirmation_box.font = env.sdl.fonts.amazdoom50;
+	env.confirmation_box.font = env.sdl.fonts.alice30;
 	env.confirmation_box.state = 0;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
 	return (doom(&env));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 13:46:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ void	init_player(t_env *env)
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
 	env->player.health = 100;
+	env->player.killed = 0;
+	env->player.touched = 0;
+	env->player.nb_shots = 0;
+	env->player.accuracy = 0;
 }
 
 int		parse_map(char *file, t_env *env)
