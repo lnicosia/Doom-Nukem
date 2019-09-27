@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 15:48:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/26 15:15:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	update_player_z(t_env *env)
 		 - sector.normal.y * (env->player.pos.y - v0.y)) * sector.floor_slope;
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 	env->player.camera.pos.z = env->player.head_z;
+}
+
+void	update_enemy_z(t_env *env, int i)
+{
+	t_sector	sector;
+	t_vertex	v0;
+
+	sector = env->sectors[env->enemies[i].sector];
+	v0 = env->vertices[sector.vertices[0]];
+	env->enemies[i].pos.z =
+		sector.floor +
+		(sector.normal.x * (env->enemies[i].pos.x - v0.x)
+		 - sector.normal.y * (env->enemies[i].pos.y - v0.y)) * sector.floor_slope;
 }
 
 void	update_floor(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/26 13:46:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:01:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -469,6 +469,7 @@ typedef struct		s_object
 typedef struct		s_enemies
 {
 	t_v3			pos;
+	t_v3			last_player_pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
 	t_init_data		enemies_init_data;

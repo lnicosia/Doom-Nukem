@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 10:42:39 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/26 14:37:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:01:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void        init_enemies_data(t_env *env)
             env->enemies[i].main_sprite = LOST_SOUL;
             env->enemies[i].flying = 1;
             env->enemies[i].ranged = 0;
-		    env->enemies[i].size_2d = 0.5;
+		    env->enemies[i].size_2d = 0.75;
             env->enemies[i].eyesight = 1;
         }
         else if (env->enemies[i].sprite == 2 || env->enemies[i].sprite == 5)
@@ -44,6 +44,7 @@ void        init_enemies_data(t_env *env)
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;
         env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
+        env->enemies[i].last_player_pos = env->enemies[i].pos;
         i++;
     }
 }

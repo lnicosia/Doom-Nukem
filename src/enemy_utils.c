@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/25 15:03:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:32:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,19 @@ void    enemy_pursuit(t_env *env)
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].seen)
         {
+            env->enemies[i].last_player_pos.x = env->player.pos.x;
+            env->enemies[i].last_player_pos.y = env->player.pos.y;
+            env->enemies[i].last_player_pos.z = env->player.head_z;
+        }
+        if (env->enemies[i].last_player_pos.x != env->enemies[i].pos.x &&
+            env->enemies[i].last_player_pos.y != env->enemies[i].pos.y &&
+            env->enemies[i].last_player_pos.z != env->enemies[i].pos.z &&
+            (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].seen))
+        {
             env->enemies[i].state = PURSUING;
             tmp_z = env->player.pos.z;
             env->player.pos.z += env->player.eyesight;
-            direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->player.pos);
-          /*  direction.x = 0;
-            direction.y = 0;
-            direction.z = 0;*/
+            direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->enemies[i].last_player_pos);
             move.x = direction.x;
             move.y = direction.y;
             move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
@@ -242,10 +248,11 @@ void    enemy_pursuit(t_env *env)
             //ft_printf("direction.z = %f\n", direction.z);
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;
-            env->enemies[i].pos.z += direction.z;
             env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
-
-
+            if (env->enemies[i].flying)
+                env->enemies[i].pos.z += direction.z;
+            else
+                update_enemy_z(env, i);
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
         }
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
