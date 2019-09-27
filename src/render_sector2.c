@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 18:55:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 15:12:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 16:41:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 	while (++y <= yend)
 	{
 		render.y = y;
-		//ft_printf("i = %d y = %d\n", render.i, y);
-		//ft_printf("ceiling = %f floor = %f\n", render.current_ceiling, render.current_floor);
-		/*if (y < ft_min(v1.c1, v1.c2)
-		  || y > ft_max(v1.f1, v1.f2))
-		  continue;*/
 		render.wall_xstart = 0;
 		render.wall_xend = 0;
 		render.ceiling_xstart = 0;
@@ -41,12 +36,8 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		render.floor_xend = 0;
 		render.calpha = (y - v1.c1) / v1.ceiling_range;
 		render.falpha = (y - v1.f1) / v1.floor_range;
-		//render.current_ceiling = ft_clamp(render.calpha * v1.clipped_xrange + v1.clipped_x1, render.xstart, render.xend);
 		render.current_ceiling = render.calpha * v1.clipped_xrange + v1.clipped_x1;
-		//render.current_floor = ft_clamp(render.falpha * v1.clipped_xrange + v1.clipped_x1, render.xstart, render.xend);
 		render.current_floor = render.falpha * v1.clipped_xrange + v1.clipped_x1;
-		//ft_printf("y = %d c1 = %f c2 = %f\nx1 = %f x2 = %f\nwall_xstart = %d\n",
-		//	y, v1.c1, v1.c2, v1.clipped_x1, v1.clipped_x2, render.wall_xstart);
 		if (y >= v1.c1 && y <= v1.f1)
 		{
 			render.wall_xstart = render.xstart;
@@ -54,7 +45,7 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		else if (v1.ceiling_range < 0 && y < v1.c1)
 		{
 			render.wall_xstart = render.current_ceiling;
-			render.ceiling_xstart = render.xstart;
+			render.ceiling_xstart = ft_min(render.xstart, sector.xmin[y]);
 			render.ceiling_xend = render.current_ceiling;
 			if (render.neighbor)
 				env->sectors[sector.neighbors[render.i]].xmin[y] = ft_max(render.current_ceiling, render.xstart);
@@ -62,7 +53,7 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		else if (v1.floor_range > 0 && y > v1.f1)
 		{
 			render.wall_xstart = render.current_floor;
-			render.floor_xstart = render.xstart;
+			render.floor_xstart = ft_min(render.xstart, sector.xmin[y]);
 			render.floor_xend = render.current_floor;
 			if (render.neighbor)
 				env->sectors[sector.neighbors[render.i]].xmin[y] = ft_max(render.current_floor, render.xstart);
@@ -75,7 +66,7 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		{
 			render.wall_xend = render.current_ceiling;
 			render.ceiling_xstart = render.current_ceiling;
-			render.ceiling_xend = render.xend;
+			render.ceiling_xend = ft_max(render.xend, sector.xmax[y]);
 			if (render.neighbor)
 				env->sectors[sector.neighbors[render.i]].xmax[y] = ft_min(render.current_ceiling, render.xend);
 		}
@@ -83,7 +74,7 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 		{
 			render.wall_xend = render.current_floor;
 			render.floor_xstart = render.current_floor;
-			render.floor_xend = render.xend;
+			render.floor_xend = ft_max(render.xend, sector.xmax[y]);
 			if (render.neighbor)
 				env->sectors[sector.neighbors[render.i]].xmax[y] = ft_min(render.current_floor, render.xend);
 		}
@@ -93,11 +84,9 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 			draw_floor2(sector, render, env);
 		if (render.neighbor)
 		{
-			/*if ((y > render.neighbor_ceiling_ystart && y < render.neighbor_ceiling_yend)
-					|| (y > render.neighbor_floor_ystart && y < render.neighbor_floor_yend))*/
 			if ((y >= ft_min(ft_min(v1.c1, v1.c2), ft_min(v1.neighbor_c1, v1.neighbor_c2))
-						&& y < ft_max(ft_max(v1.c1, v1.c2), ft_max(v1.neighbor_c1, v1.neighbor_c2)))
-					|| (y > ft_min(ft_min(v1.f1, v1.f2), ft_min(v1.neighbor_f1, v1.neighbor_f2))
+						&& y <= ft_max(ft_max(v1.c1, v1.c2), ft_max(v1.neighbor_c1, v1.neighbor_c2)))
+					|| (y >= ft_min(ft_min(v1.f1, v1.f2), ft_min(v1.neighbor_f1, v1.neighbor_f2))
 						&& y <= ft_max(ft_max(v1.f1, v1.f2), ft_max(v1.neighbor_f1, v1.neighbor_f2))))
 
 			{
@@ -107,40 +96,39 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 				render.neighbor_current_floor = render.neighbor_falpha * v1.clipped_xrange + v1.clipped_x1;
 				//Top wall
 				if (y >= ft_min(ft_min(v1.c1, v1.c2), ft_min(v1.neighbor_c1, v1.neighbor_c2))
-							&& y < ft_max(ft_max(v1.c1, v1.c2), ft_max(v1.neighbor_c1, v1.neighbor_c2)))
+							&& y <= ft_max(ft_max(v1.c1, v1.c2), ft_max(v1.neighbor_c1, v1.neighbor_c2)))
 				{
-					if (y >= v1.c1 && y <= v1.neighbor_c1)
+					if (y > v1.c1 && y < v1.neighbor_c1)
 					{
 						render.wall_xstart = render.xstart;
 					}
-					else if (v1.neighbor_ceiling_range > 0 && y > v1.neighbor_c1 && y < v1.neighbor_c2)
+					else if (v1.neighbor_ceiling_range > 0 && y >= v1.neighbor_c1 && y <= v1.neighbor_c2)
 					{
 						if (v1.ceiling_range > 0)
 							render.wall_xstart = render.neighbor_current_ceiling;
 						else
 							render.wall_xstart = ft_fmax(render.neighbor_current_ceiling,
 									render.current_ceiling);
-						if (y > render.neighbor_ceiling_ystart && y < render.neighbor_ceiling_yend
+						if (y >= render.neighbor_ceiling_ystart && y <= render.neighbor_ceiling_yend
 								&& render.wall_xend - render.wall_xstart >= 1)
 							env->sectors[sector.neighbors[render.i]].xmax[y] = render.wall_xstart;
 					}
-					if (y >= v1.c2 && y <= v1.neighbor_c2)
+					if (y > v1.c2 && y < v1.neighbor_c2)
 					{
 						render.wall_xend = render.xend;
 					}
-					else if (v1.neighbor_ceiling_range < 0 && y > v1.neighbor_c2 && y < v1.neighbor_c1)
+					else if (v1.neighbor_ceiling_range < 0 && y >= v1.neighbor_c2 && y <= v1.neighbor_c1)
 					{
 						if (v1.ceiling_range < 0)
 							render.wall_xend = render.neighbor_current_ceiling;
 						else
 							render.wall_xend = ft_fmin(render.neighbor_current_ceiling,
 									render.current_ceiling);
-						if (y > render.neighbor_ceiling_ystart && y < render.neighbor_ceiling_yend
+						if (y >= render.neighbor_ceiling_ystart && y <= render.neighbor_ceiling_yend
 								&& render.wall_xend - render.wall_xstart >= 1)
 							env->sectors[sector.neighbors[render.i]].xmin[y] = render.wall_xend;
 					}
-					//restrict_ceiling(v1, &render, sector, env);
-					if (y > render.neighbor_ceiling_ystart && y < render.neighbor_ceiling_yend
+					if (y >= render.neighbor_ceiling_ystart && y <= render.neighbor_ceiling_yend
 							&& render.wall_xend - render.wall_xstart >= 1)
 						draw_wall2(sector, render, env);
 				}
@@ -178,7 +166,6 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 							&& render.wall_xend - render.wall_xstart >= 1)
 							env->sectors[sector.neighbors[render.i]].xmin[y] = render.wall_xend;
 					}
-					//restrict_floor(v1, &render, sector, env);
 					if (y > render.neighbor_floor_ystart && y < render.neighbor_floor_yend
 							&& render.wall_xend - render.wall_xstart >= 1)
 					{
@@ -222,7 +209,7 @@ void	get_wall_heights(t_render_vertex v1, t_sector sector,
 		env->max_floor[x] = env->clipped_alpha[x] * v1.floor_range + v1.f1;
 		env->current_floor[x] = ft_clamp(env->max_floor[x],
 				env->ymin[x], env->ymax[x]);
-		/*env->divider[x] = 1 / (render.camera->v[sector.num][render.i + 1].vz
+		env->divider[x] = 1 / (render.camera->v[sector.num][render.i + 1].vz
 		  + env->alpha[x] * v1.zrange);
 		  env->z[x] = v1.zcomb * env->divider[x];
 		  env->z_near_z[x] = env->z[x] * render.camera->near_z;
@@ -250,9 +237,9 @@ void	get_wall_heights(t_render_vertex v1, t_sector sector,
 		 env->texel_camera_range[x].y = env->camera_z[x].y
 		 - env->texel_near_z[x].y;
 		 env->zrange[x] = env->z[x] - render.camera->near_z;
-		 }*/
-		//if (render.neighbor)
-		//{
+		 }
+		if (render.neighbor)
+		{
 		env->neighbor_max_ceiling[x] = env->clipped_alpha[x]
 			* v1.neighbor_ceiling_range + v1.neighbor_c1;
 		env->neighbor_max_floor[x] = env->clipped_alpha[x]
@@ -265,7 +252,7 @@ void	get_wall_heights(t_render_vertex v1, t_sector sector,
 					env->current_ceiling[x]), env->ymin[x], env->ymax[x]);
 		env->ymax[x] = ft_clamp(ft_min(env->neighbor_current_floor[x],
 					env->current_floor[x]), env->ymin[x], env->ymax[x]);
-		//}
+		}
 		x++;
 	}
 }
@@ -360,6 +347,7 @@ void	render_sector2(t_render render, t_env *env)
 		render.neighbor = 0;
 		render.xstart = ft_max(v1.clipped_x1, render.xmin);
 		render.xend = ft_min(v1.clipped_x2, render.xmax);
+		get_wall_heights(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)
 		{
 			set_yrange(v1, &render, env);
@@ -385,7 +373,6 @@ void	render_sector2(t_render render, t_env *env)
 		}
 		if (render.neighbor)
 		{
-			//get_wall_heights(v1, sector, render, env);
 			new = render;
 			new.ystart = ft_max(ft_min(ft_min(v1.c1, v1.c2), render.neighbor_ceiling_ystart), render.ystart);
 			//new.yend = ft_min(ft_min(ft_min(v1.f1, v1.f2), ft_max(v1.neighbor_f1, v1.neighbor_f2)), render.yend);
