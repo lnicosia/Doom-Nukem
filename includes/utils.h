@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/26 17:01:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:14:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,7 @@ typedef struct		s_enemies
 	int				death_sprite;
 	int				firing_sprite;
 	int				seen;
+	int				saw_player;
 	double			scale;
 	double			angle;
 	double			size_2d;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 14:55:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/26 13:46:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:13:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		respawn(t_env *env)
 		env->enemies[i].sector = env->enemies[i].enemies_init_data.sector;
 		env->enemies[i].angle = env->enemies[i].enemies_init_data.angle;
 		env->enemies[i].sprite = env->enemies[i].main_sprite;
+		env->enemies[i].saw_player = 0;
 		i++;
 	}
 	env->player.pos = env->player.player_init_data.pos;

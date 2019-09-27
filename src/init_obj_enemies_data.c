@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 10:42:39 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/26 17:01:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:13:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void        init_enemies_data(t_env *env)
 		env->enemies[i].state = 0;
         env->enemies[i].shot = 0;
         env->enemies[i].exists = 1;
+        env->enemies[i].saw_player = 0;
         if (env->enemies[i].sprite == 1 || env->enemies[i].sprite == 3 || 
             env->enemies[i].sprite == 7 || env->enemies[i].sprite == 8)
         {

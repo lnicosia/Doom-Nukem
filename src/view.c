@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 11:36:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:58:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 void	view(t_env *env)
 {
 	env->player.camera.angle += env->sdl.mouse_x * env->player.rotation_speed;
+	env->player.camera.angle *= CONVERT_DEGREES;
+	while (env->player.camera.angle > 360)
+		env->player.camera.angle -= 360;
+	while (env->player.camera.angle < 0)
+		env->player.camera.angle += 360;
+	env->player.camera.angle *= CONVERT_RADIANS;
 	env->player.camera.angle_cos = cos(env->player.camera.angle);
 	env->player.camera.angle_sin = sin(env->player.camera.angle);
 	env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);

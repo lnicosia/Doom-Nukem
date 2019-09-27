@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 16:18:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:21:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,8 @@ void		draw_enemies(t_camera camera, t_env *env)
 	while (i < env->nb_enemies)
 	{
 		dying_sprite = -1;
+		if (env->enemies[i].state == FIRING)
+			enemy_firing_anim(env, i);
 		if (env->enemies[i].rotated_pos.z > 1 && env->enemies[i].exists)
 		{
 			env->enemies[i].seen = 0;
@@ -239,8 +241,6 @@ void		draw_enemies(t_camera camera, t_env *env)
 					resting_enemy(env, i);
 				else if (env->enemies[i].state == PURSUING)
 					pursuing_enemy(env, i);
-				else if (env->enemies[i].state == FIRING)
-					enemy_firing_anim(env, i);
 			}
 			if (env->enemies[i].exists)
 				draw_enemy(camera, &env->enemies[i], env, dying_sprite);

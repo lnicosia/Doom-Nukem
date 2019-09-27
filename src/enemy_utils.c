@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/26 17:32:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:49:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,16 +169,6 @@ int    enemy_view(t_env *env, int nb, int sector)
             env->sector_list[env->sectors[sector].neighbors[i]] = 1;
             return (enemy_view(env, nb, env->sectors[sector].neighbors[i]));
         }
-        /*start_pos = (enemy.pos.x - OX1) * (OY2 - OY1) - (enemy.pos.y - OY1) * (OX2 - OX1);
-        end_pos = (env->player.pos.x - OX1) * (OY2 - OY1) - (env->player.pos.y - OY1) * (OX2 - OX1);
-        if (diff_sign(start_pos, end_pos) && check_wall(env, i, enemy, sector) && env->sectors[sector].neighbors[i] < 0)
-            return (0);
-        else if (diff_sign(start_pos, end_pos) && check_wall(env, i, enemy, sector) && env->sectors[sector].neighbors[i] >= 0 &&
-            env->sector_list[env->sectors[sector].neighbors[i]] == 0 && end_pos != 0)
-        {
-            env->sector_list[env->sectors[sector].neighbors[i]] = 1;
-            return (enemy_view(env, nb, env->sectors[sector].neighbors[i]));
-        }*/
         i++;
     }
     /*if (sector != env->player.sector)
@@ -209,9 +199,10 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = RESTING;
+        env->enemies[i].saw_player = enemy_view(env, i, env->enemies[i].sector);
         distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
-            distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].seen)
+            distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
         {
             env->enemies[i].last_player_pos.x = env->player.pos.x;
             env->enemies[i].last_player_pos.y = env->player.pos.y;
@@ -220,7 +211,7 @@ void    enemy_pursuit(t_env *env)
         if (env->enemies[i].last_player_pos.x != env->enemies[i].pos.x &&
             env->enemies[i].last_player_pos.y != env->enemies[i].pos.y &&
             env->enemies[i].last_player_pos.z != env->enemies[i].pos.z &&
-            (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].seen))
+            (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
         {
             env->enemies[i].state = PURSUING;
             tmp_z = env->player.pos.z;
@@ -254,8 +245,10 @@ void    enemy_pursuit(t_env *env)
             else
                 update_enemy_z(env, i);
             env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
+            ft_printf("player angle %f\n", env->player.camera.angle * CONVERT_DEGREES);
+            ft_printf("enemy angle %f\n", env->enemies[i].angle);
         }
-        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].seen)
+        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
         {
             env->enemies[i].state = FIRING;
             if (env->enemies[i].shot)
