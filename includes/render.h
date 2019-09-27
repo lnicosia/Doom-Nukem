@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/26 17:05:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 10:22:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ typedef struct	s_render
 	double		calpha;
 	double		neighbor_falpha;
 	double		neighbor_calpha;
-	int			wall_xstart;
-	int			wall_xend;
-	int			floor_xstart;
-	int			floor_xend;
-	int			ceiling_xstart;
-	int			ceiling_xend;
-	int			nfloor_xstart;
-	int			nfloor_xend;
-	int			nceiling_xstart;
-	int			nceiling_xend;
-	int			neighbor_ceiling_ystart;
-	int			neighbor_ceiling_yend;
-	int			neighbor_floor_ystart;
-	int			neighbor_floor_yend;
+	double		wall_xstart;
+	double		wall_xend;
+	double		floor_xstart;
+	double		floor_xend;
+	double		ceiling_xstart;
+	double		ceiling_xend;
+	double		nfloor_xstart;
+	double		nfloor_xend;
+	double		nceiling_xstart;
+	double		nceiling_xend;
+	double		neighbor_ceiling_ystart;
+	double		neighbor_ceiling_yend;
+	double		neighbor_floor_ystart;
+	double		neighbor_floor_yend;
 	int			neighbor;
 	int			nv1;
 	int			nv2;
@@ -182,6 +182,7 @@ void			restrict_floor(t_render_vertex v1, t_render *render,
 		t_sector sector, t_env *env);
 void			restrict_ceiling(t_render_vertex v1, t_render *render,
 		t_sector sector, t_env *env);
+void			reset_x_restrictions(t_sector *sector, t_env *env);
 
 /*
 **	Sprite part

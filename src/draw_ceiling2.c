@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:21:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/26 09:48:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 11:37:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 	int		*ymax;
 
 	(void)sector;
-	x = render.ceiling_xstart - 1;
-	xend = render.ceiling_xend;
+	x = ft_max(render.ceiling_xstart, ft_max(render.xstart, sector.xmin[render.y])) - 1;
+	xend = ft_min(render.ceiling_xend, ft_min(render.xend, sector.xmax[render.y]));
 	pixels = env->sdl.texture_pixels;
 	line = render.y * env->w;
 	ymin = env->ymin;
