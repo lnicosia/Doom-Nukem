@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/26 09:44:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:45:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,10 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->ymin);
 	if (env->ymax)
 		ft_memdel((void**)&env->ymax);
+	if (env->wall_texel)
+		ft_memdel((void**)&env->wall_texel);
+	if (env->vline_data)
+		ft_memdel((void**)&env->vline_data);
 }
 
 void		free_all(t_env *env)

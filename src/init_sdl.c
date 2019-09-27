@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 16:38:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:44:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,10 @@ int		set_sdl(t_env *env)
 	if (!(env->texel_camera_range = (t_v2*)malloc(sizeof(t_v2) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->camera_z = (t_v2*)malloc(sizeof(t_v2) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->wall_texel = (t_v2*)malloc(sizeof(t_v2) * env->w)))
+		return (ft_printf("Could not malloc depth array\n"));
+	if (!(env->vline_data = (t_vline_data*)malloc(sizeof(t_vline_data) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	clear_image(env);
 	if (SDL_RenderCopy(

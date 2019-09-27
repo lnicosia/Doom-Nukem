@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/27 14:12:22 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/09/27 17:48:27 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c maths_utils.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c \
+		   minimap.c fps.c inputs.c get_vline_data.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c \
 		   print_debug.c init_animations.c vertices_utils.c \

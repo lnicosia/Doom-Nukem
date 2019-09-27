@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 10:22:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:49:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_render
 {
 	t_camera	*camera;
 	t_v2		texel;
+	t_v2		texture_scale;
 	double		alpha;
 	double		clipped_alpha;
 	double		z;
@@ -183,6 +184,8 @@ void			restrict_floor(t_render_vertex v1, t_render *render,
 void			restrict_ceiling(t_render_vertex v1, t_render *render,
 		t_sector sector, t_env *env);
 void			reset_x_restrictions(t_sector *sector, t_env *env);
+void			get_vline_data(t_render_vertex v1, t_sector sector,
+		t_render render, t_env *env);
 
 /*
 **	Sprite part
