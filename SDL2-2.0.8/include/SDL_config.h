@@ -60,7 +60,7 @@
 /* #undef HAVE_ALLOCA_H */
 #define HAVE_CTYPE_H 1
 #define HAVE_FLOAT_H 1
-#define HAVE_ICONV_H 1
+/* #undef HAVE_ICONV_H */
 #define HAVE_INTTYPES_H 1
 #define HAVE_LIMITS_H 1
 #define HAVE_MALLOC_H 1
@@ -366,7 +366,7 @@
 #define SDL_VIDEO_OPENGL_ES2 1
 /* #undef SDL_VIDEO_OPENGL_BGL */
 /* #undef SDL_VIDEO_OPENGL_CGL */
-#define SDL_VIDEO_OPENGL_EGL 1
+/* #undef SDL_VIDEO_OPENGL_EGL */
 /* #undef SDL_VIDEO_OPENGL_GLX */
 #define SDL_VIDEO_OPENGL_WGL 1
 /* #undef SDL_VIDEO_OPENGL_OSMESA */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 12:05:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:51:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			draw_sprite;
 	t_sprite	sprite;
 
+	sprite = env->sprites[sector.sprites[render.i].sprite];
+	sprite_pixels = NULL;
 	sprite_x = 0;
 	sprite_w = 0;
 	if (sector.sprites[render.i].sprite != -1)

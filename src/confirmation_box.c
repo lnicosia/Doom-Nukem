@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   confirmation_box.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 16:38:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 16:38:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:41:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env)
 {
-	int	i;
-
-	i = 0;
 	if (((env->sdl.event.button.button == SDL_BUTTON_LEFT
 					&& env->sdl.my >= box->no.pos.y
 					&& env->sdl.my <= box->no.pos.y + box->no.size.y

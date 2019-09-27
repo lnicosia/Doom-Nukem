@@ -2,7 +2,7 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status () 2.0.4
-# Libtool was configured on host DESKTOP-9QSIHE9:
+# Libtool was configured on host Pc-gabriel:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,
@@ -137,7 +137,8 @@ old_postuninstall_cmds=""
 # A C compiler.
 LTCC="gcc"
 
-# LTCC compiler flags.
+# LTCC compiler flags.\
+# -mno-cygwin deleted
 LTCFLAGS="-g -O2  -I/usr/include/mingw"
 
 # Take the output of nm and produce a listing of raw symbols and C names.
