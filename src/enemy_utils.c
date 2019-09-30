@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/28 16:52:21 by marvin           ###   ########.fr       */
+/*   Updated: 2019/09/30 16:05:28 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int    enemy_view(t_env *env, int nb, int sector)
     return (1);
 }
 
-double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos)
+double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos, double distance)
 {
     t_v2    o_pos;
     double  angle;
@@ -190,6 +190,10 @@ double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos)
     p = distance_two_points(o_pos.x, o_pos.y, e_pos.x, e_pos.y);
     o = distance_two_points(e_pos.x, e_pos.y, p_pos.x, p_pos.y);
     angle = acos((e * e - p * p - o * o) / (-2 * p * o)) * CONVERT_DEGREES;
+    //(void)e_pos;
+    //angle = acos(p_pos.x / distance) * CONVERT_DEGREES;
+    angle = atan2(p_pos.y - e_pos.y, p_pos.x - e_pos.x) * CONVERT_DEGREES;
+    (void)distance;
     return (angle);
 }
 
@@ -225,7 +229,8 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].last_player_pos.y = env->player.pos.y;
             env->enemies[i].last_player_pos.z = env->player.head_z;
         }
-        if (env->enemies[i].last_player_pos.x != env->enemies[i].pos.x &&
+        if (env->enemies[i].exists &&
+            env->enemies[i].last_player_pos.x != env->enemies[i].pos.x &&
             env->enemies[i].last_player_pos.y != env->enemies[i].pos.y &&
             env->enemies[i].last_player_pos.z != env->enemies[i].pos.z &&
             (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
@@ -261,12 +266,11 @@ void    enemy_pursuit(t_env *env)
                 env->enemies[i].pos.z += direction.z;
             else
                 update_enemy_z(env, i);
-            env->enemies[i].angle = get_enemy_angle(env->enemies[i].pos, env->player.pos);
-            env->enemies[i].angle = 45.19;
-            //env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
-            ft_printf("enemy pos x %f, y %f\n", env->enemies[i].pos.x, env->enemies[i].pos.y);
-            ft_printf("player pos x %f, y %f\n", env->player.pos.x, env->player.pos.y);
-            ft_printf("enemy angle %f\n", env->enemies[i].angle);
+            env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
+            /*ft_printf("Player pos x %f, y %f\n", env->player.pos.x, env->player.pos.y);
+            ft_printf("Player angle %f\n", env->player.camera.angle * CONVERT_DEGREES);
+            ft_printf("Enemy pos x %f, y %f\n", env->enemies[i].pos.x, env->enemies[i].pos.y);
+            ft_printf("Enemy angle %f\n<|----------------------|>\n", env->enemies[i].angle);*/
         }
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
         {

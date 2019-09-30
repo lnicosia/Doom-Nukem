@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/09/25 17:42:14 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/09/30 14:40:23 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
+				 draw_grid_walls.c draw_grid_vertices.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
@@ -44,7 +44,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid_player.c draw_grid_objects.c \
 				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-				 fill_triangle.c draw_circle_free.c
+				 fill_triangle.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -70,7 +70,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   selected_information.c movement_utils.c init_obj_enemies_data.c \
-		   update_sprites_state.c
+		   update_sprites_state.c draw_circle_free.c draw_circle.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h

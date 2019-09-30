@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   selected_information.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/11 11:47:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/09/30 12:12:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	selected_information_on_enemy(t_env *env)
 	else if (env->selected_stat == 1 && time - env->time.tick2 > 300)
 	{
 		env->time.tick2 = time;
-		if (env->inputs.left && env->enemies[env->selected_enemy].speed > 5)
+		if (env->inputs.left && env->enemies[env->selected_enemy].speed > 0)
 			env->enemies[env->selected_enemy].speed -= 5;
 		if (env->inputs.right && env->enemies[env->selected_enemy].speed < 100)
 			env->enemies[env->selected_enemy].speed += 5;
