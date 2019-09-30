@@ -6,25 +6,30 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 18:55:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 10:59:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 15:28:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-void	wall_loop2(t_render_vertex v1, t_sector sector,
-		t_render render, t_env *env)
+void	*wall_loop2(void *param)
 {
 	int	y;
 	int	yend;
+	t_render_vertex	v1;
+	t_sector		sector;
+	t_render		render;
+	t_env			*env;
 
-	(void)v1;
-	(void)sector;
-	(void)render;
-	(void)env;
-	y = render.ystart - 1;
-	yend = render.yend;
+	env = ((t_render_thread*)param)->env;
+	v1 = ((t_render_thread*)param)->v1;
+	sector = ((t_render_thread*)param)->sector;
+	render = ((t_render_thread*)param)->render;
+	y = ((t_render_thread*)param)->ystart - 1;
+	yend = ((t_render_thread*)param)->yend;
+	/*y = render.ystart - 1;
+	yend = render.yend;*/
 	while (++y <= yend)
 	{
 		render.y = y;
@@ -180,6 +185,7 @@ void	wall_loop2(t_render_vertex v1, t_sector sector,
 			draw_wall2(sector, render, env);
 		}
 	}
+	return (NULL);
 }
 
 /*
@@ -203,6 +209,31 @@ void	set_yrange(t_render_vertex v1, t_render *render, t_env *env)
 	ymax = ft_max(v1.f1, v1.f2);
 	nymin = ft_min(v1.neighbor_c1, v1.neighbor_c2);
 	nymax = ft_max(v1.neighbor_f1, v1.neighbor_f2);
+}
+
+void	threaded_wall_loop2(t_render_vertex v1, t_sector sector,
+		t_render render, t_env *env)
+{
+	t_render_thread		rt[THREADS];
+	pthread_t			threads[THREADS];
+	int					i;
+
+	i = -1;
+	while (++i < THREADS)
+	{
+		rt[i].env = env;
+		rt[i].v1 = v1;
+		rt[i].sector = sector;
+		rt[i].render = render;
+		rt[i].ystart = render.ystart + (render.yend - render.ystart)
+			/ (double)THREADS * i;
+		rt[i].yend = render.ystart + (render.yend - render.ystart)
+			/ (double)THREADS * (i + 1);
+		if (pthread_create(&threads[i], NULL, &wall_loop2, &rt[i]) != 0)
+			return ;
+	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
 }
 
 void	render_sector2(t_render render, t_env *env)
@@ -244,7 +275,7 @@ void	render_sector2(t_render render, t_env *env)
 		render.texture = sector.textures[i];
 		//get_wall_heights(v1, sector, render, env);
 		get_vline_data(v1, sector, render, env);
-		wall_loop2(v1, sector, render, env);
+		threaded_wall_loop2(v1, sector, render, env);
 		if (env->options.contouring)
 		{
 			draw_line_free(new_point(render.xstart, render.ystart),

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 12:29:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 13:27:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,6 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		i++;
 	}
 }
-
-/*void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env)
-{
-}*/
 
 void	draw_vline_color(t_vline vline, t_env *env)
 {

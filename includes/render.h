@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 10:56:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 14:52:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef struct	s_render_thread
 	t_env			*env;
 	int				xstart;
 	int				xend;
+	int				ystart;
+	int				yend;
 }				t_render_thread;
 
 typedef struct	s_precompute_thread

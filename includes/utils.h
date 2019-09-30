@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 12:28:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 15:27:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define NB_BUTTON 10
 # define AMMO_HUD 36
 # define ARMOR_LIFE_HUD 35
-# define THREADS 1
+# define THREADS 4
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
