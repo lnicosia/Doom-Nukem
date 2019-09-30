@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:53:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 09:33:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		t_env *env)
 {
 	int		i;
-	double	y;
-	double	x;
 	Uint32	*pixels;
 	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		coord;
 	int		texture_w;
 	int		texture_h;
+	double	y;
+	double	x;
 	double	z;
 	double	alpha;
 	double	divider;
 
+	(void)render;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	texture_w = env->textures[sector.ceiling_texture].surface->w;
@@ -85,6 +86,7 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 				if (i == (int)(render.max_ceiling) || i == vline.start)
 					pixels[vline.x + env->w * i] = 0xFFFF0000;
 		}
+		//pixels[coord] = apply_light(0xFAA2200, sector.light_color, sector.brightness);
 		i++;
 	}
 }

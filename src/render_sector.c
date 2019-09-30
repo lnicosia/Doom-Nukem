@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:54:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 12:27:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		*wall_loop(void *param)
 void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 		t_render render, t_env *env)
 {
-	t_render_thread	rt[THREADS];
+	/*t_render_thread	rt[THREADS];
 	pthread_t			threads[THREADS];
 	int					i;
 
@@ -126,7 +126,15 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		pthread_join(threads[i], NULL);*/
+	t_render_thread	rt;
+	rt.v1 = v1;
+	rt.sector = sector;
+	rt.render = render;
+	rt.env = env;
+	rt.xstart = render.xstart;
+	rt.xend = render.xend;
+	wall_loop(&rt);
 }
 
 void		render_sector(t_render render, t_env *env)

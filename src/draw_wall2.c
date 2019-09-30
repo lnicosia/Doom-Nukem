@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 08:48:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 18:08:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 10:59:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 void	draw_wall2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline_data	vline_data;
-	t_texture		texture;
-	Uint32			*pixels;
-	Uint32			*texture_pixels;
-	double			*zbuffer;
 	double			z;
 	double			yalpha;
 	double			texel_y;
+	Uint32			*pixels;
+	Uint32			*texture_pixels;
+	double			*zbuffer;
+	t_texture		texture;
 	int				x;
 	int				xend;
 	int				line;
@@ -46,7 +46,8 @@ void	draw_wall2(t_sector sector, t_render render, t_env *env)
 		if (z >= zbuffer[line + x])
 			continue;
 		zbuffer[line + x] = z;
-		yalpha = (render.y - vline_data.no_slope_current_ceiling) / vline_data.line_height;
+		yalpha = (render.y - vline_data.no_slope_current_ceiling)
+			* vline_data.inv_line_height;
 		texel_y = yalpha * render.texture_scale.y + sector.align[render.i].y;
 		while (texel_y >= texture_h)
 			texel_y -= texture_h;
@@ -55,5 +56,6 @@ void	draw_wall2(t_sector sector, t_render render, t_env *env)
 		pixels[line + x] = apply_light(texture_pixels[(int)vline_data.wall_texel
 				+ texture_w * (int)texel_y], sector.light_color,
 				sector.brightness);
+		//pixels[line + x] = apply_light(0xFFAAAAAA, sector.light_color, sector.brightness);
 	}
 }

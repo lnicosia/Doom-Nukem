@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 17:44:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 12:28:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,11 +241,13 @@ typedef struct		s_vline_data
 	double			z_near_z;
 	double			no_slope_current_floor;
 	double			no_slope_current_ceiling;
-	double			line_height;
+	double			inv_line_height;
 	double			ceiling_start;
 	double			floor_start;
 	double			wall_texel;
 	double			zrange;
+	double			falpha_divider;
+	double			calpha_divider;
 	t_v2			texel;
 	t_v2			texel_near_z;
 	t_v2			camera_z;

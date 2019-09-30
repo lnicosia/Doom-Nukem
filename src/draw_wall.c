@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:18:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:53:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 12:29:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			i;
 	double		yalpha;
 	double		y;
-	double		x;
 	double		sprite_y;
+	double		x;
 	double		sprite_x;
 	Uint32		*pixels;
 	Uint32		*texture_pixels;
@@ -128,9 +128,14 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			pixels[coord] = sprite_pixels[(int)sprite_x
 				+ sprite_w * (int)sprite_y];
 		}
+		//pixels[coord] = apply_light(0xFFAAAAAA, sector.light_color, sector.brightness);
 		i++;
 	}
 }
+
+/*void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env)
+{
+}*/
 
 void	draw_vline_color(t_vline vline, t_env *env)
 {

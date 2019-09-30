@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:47:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 17:59:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 11:03:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ void	get_vline_data(t_render_vertex v1, t_sector sector,
 			* v1.no_slope_floor_range + v1.no_slope_f1;
 		env->vline_data[x].no_slope_current_ceiling = env->vline_data[x].clipped_alpha
 			* v1.no_slope_ceiling_range + v1.no_slope_c1;
-		env->vline_data[x].line_height = env->vline_data[x].no_slope_current_floor
-			- env->vline_data[x].no_slope_current_ceiling;
+		env->vline_data[x].inv_line_height = 1 / (env->vline_data[x].no_slope_current_floor - env->vline_data[x].no_slope_current_ceiling);
 		env->vline_data[x].ceiling_start = env->vline_data[x].max_ceiling - render.ceiling_horizon;
 		env->vline_data[x].floor_start = env->vline_data[x].max_floor - render.floor_horizon;
 		env->vline_data[x].wall_texel = env->vline_data[x].alpha * render.texture_scale.x
 			* env->vline_data[x].z + sector.align[render.i].x;
+		env->vline_data[x].falpha_divider = 1 / (render.camera->feet_y[render.sector] - env->vline_data[x].max_floor);
+		env->vline_data[x].calpha_divider = 1 / (env->vline_data[x].max_ceiling - render.camera->head_y[render.sector]);
 		if (!(env->vline_data[x].wall_texel != env->vline_data[x].wall_texel))
 		{
 			while (env->vline_data[x].wall_texel >= texture_w)
@@ -72,21 +73,6 @@ void	get_vline_data(t_render_vertex v1, t_sector sector,
 				- env->vline_data[x].texel_near_z.y;
 			env->vline_data[x].zrange = env->vline_data[x].z - render.camera->near_z;
 		}
-		 /*if (render.neighbor)
-		 {
-		 env->vline_data[x].neighbor_max_ceiling[x] = env->vline_data[x].clipped_alpha[x]
-		 * v1.neighbor_ceiling_range + v1.neighbor_c1;
-		 env->vline_data[x].neighbor_max_floor[x] = env->vline_data[x].clipped_alpha[x]
-		 * v1.neighbor_floor_range + v1.neighbor_f1;
-		 env->vline_data[x].neighbor_current_ceiling[x] = ft_clamp(
-		 env->vline_data[x].neighbor_max_ceiling[x], env->vline_data[x].ymin[x], env->vline_data[x].ymax[x]);
-		 env->vline_data[x].neighbor_current_floor[x] = ft_clamp(
-		 env->vline_data[x].neighbor_max_floor[x], env->vline_data[x].ymin[x], env->vline_data[x].ymax[x]);
-		 env->vline_data[x].ymin[x] = ft_clamp(ft_max(env->vline_data[x].neighbor_current_ceiling[x],
-		 env->vline_data[x].current_ceiling[x]), env->vline_data[x].ymin[x], env->vline_data[x].ymax[x]);
-		 env->vline_data[x].ymax[x] = ft_clamp(ft_min(env->vline_data[x].neighbor_current_floor[x],
-		 env->vline_data[x].current_floor[x]), env->vline_data[x].ymin[x], env->vline_data[x].ymax[x]);
-		 }*/
 		x++;
 	}
 }

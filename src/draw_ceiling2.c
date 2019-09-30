@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:21:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 18:23:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 11:04:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 {
 	t_vline_data	vline_data;
-	t_texture		texture;
 	t_v2			texel;
-	Uint32			*pixels;
-	Uint32			*texture_pixels;
-	double			*zbuffer;
 	double			alpha;
 	double			divider;
 	double			z;
+	t_texture		texture;
+	Uint32			*pixels;
+	Uint32			*texture_pixels;
+	double			*zbuffer;
 	int				x;
 	int				xend;
 	int				line;
@@ -42,8 +42,7 @@ void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 	while (++x <= xend)
 	{
 		vline_data = env->vline_data[x];
-		alpha = (vline_data.max_ceiling - render.y) / (vline_data.max_ceiling
-				- render.camera->head_y[render.sector]);
+		alpha = (vline_data.max_ceiling - render.y) * vline_data.calpha_divider;
 		divider = 1 / (render.camera->near_z + alpha * vline_data.zrange);
 		z = vline_data.z_near_z * divider;
 		if (z >= zbuffer[line + x])
@@ -56,13 +55,11 @@ void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 		texel.y = texel.y * sector.ceiling_scale.y + sector.ceiling_align.y;
 		texel.x = texel.x * sector.ceiling_scale.x + sector.ceiling_align.x;
 		texel.x = texture_w - texel.x;
-		if (texel.y >= texture_h || texel.y < 0)
-			texel.y = ft_abs((int)texel.y % texture_h);
-		if (texel.x >= texture_w || texel.x < 0)
-			texel.x = ft_abs((int)texel.x % texture_w);
-		//pixels[line + x] = apply_light(0xFFAA4422, sector.light_color, sector.brightness);
+		texel.y = ft_abs((int)texel.y % texture_h);
+		texel.x = ft_abs((int)texel.x % texture_w);
 		pixels[line + x] = apply_light(texture_pixels[(int)texel.x
 				+ texture_w * (int)texel.y], sector.light_color,
 				sector.brightness);
+		//pixels[line + x] = apply_light(0xFFAA2200, sector.light_color, sector.brightness);
 	}
 }

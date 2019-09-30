@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:54:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 09:33:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,19 @@
 void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *env)
 {
 	int		i;
-	double	y;
-	double	x;
 	Uint32	*pixels;
 	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		coord;
 	int		texture_w;
 	int		texture_h;
+	double	y;
+	double	x;
 	double	z;
 	double	alpha;
 	double	divider;
 
+	(void)render;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	texture_w = env->textures[sector.floor_texture].surface->w;
@@ -85,6 +86,7 @@ void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *en
 				if (i == (int)(render.max_floor) || i == vline.end)
 					pixels[vline.x + env->w * i] = 0xFFFF0000;
 		}
+		//pixels[coord] = apply_light(0xFFAA4422, sector.light_color, sector.brightness);
 		i++;
 	}
 }

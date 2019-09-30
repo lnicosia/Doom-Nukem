@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 17:44:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/09/30 12:23:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int		set_sdl(t_env *env)
 		return (ft_printf("SDL_CreateTextureFromSurface error: %s\n", SDL_GetError()));
 	if (!(env->sdl.texture_pixels = (Uint32*)malloc(sizeof(Uint32) * env->w * env->h)))
 		return (ft_printf("Could not malloc texture pixels\n"));
+	if (!(env->zbuffer = (double*)malloc(sizeof(double) * env->w * env->h)))
+		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->ymin = (int*)malloc(sizeof(int) * env->w)))
 		return (ft_printf("Could not malloc ymin array\n"));
 	if (!(env->ymax = (int*)malloc(sizeof(int) * env->w)))
@@ -65,8 +67,6 @@ int		set_sdl(t_env *env)
 		return (ft_printf("Could not malloc ymin array\n"));
 	if (!(env->xmax = (int*)malloc(sizeof(int) * env->h)))
 		return (ft_printf("Could not malloc ymax array\n"));
-	if (!(env->zbuffer = (double*)malloc(sizeof(double) * env->w * env->h)))
-		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->current_ceiling = (double*)malloc(sizeof(double) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->current_floor = (double*)malloc(sizeof(double) * env->w)))
