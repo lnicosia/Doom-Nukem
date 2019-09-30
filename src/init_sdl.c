@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 15:36:29 by marvin           ###   ########.fr       */
+/*   Updated: 2019/09/28 15:55:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		set_sdl(t_env *env)
 {
+	env->w = 1280;
+	env->h = 720;
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Dookme",
 					SDL_WINDOWPOS_CENTERED,

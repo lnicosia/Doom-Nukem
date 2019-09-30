@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/27 17:49:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:52:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,23 @@ int    enemy_view(t_env *env, int nb, int sector)
     return (1);
 }
 
+double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos)
+{
+    t_v2    o_pos;
+    double  angle;
+    double  e;
+    double  p;
+    double  o;
+
+    o_pos.x = 0;
+    o_pos.y = e_pos.y;
+    e = distance_two_points(p_pos.x, p_pos.y, o_pos.x, o_pos.y);
+    p = distance_two_points(o_pos.x, o_pos.y, e_pos.x, e_pos.y);
+    o = distance_two_points(e_pos.x, e_pos.y, p_pos.x, p_pos.y);
+    angle = acos((e * e - p * p - o * o) / (-2 * p * o)) * CONVERT_DEGREES;
+    return (angle);
+}
+
 void    enemy_pursuit(t_env *env)
 {
     int     i;
@@ -244,8 +261,11 @@ void    enemy_pursuit(t_env *env)
                 env->enemies[i].pos.z += direction.z;
             else
                 update_enemy_z(env, i);
-            env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
-            ft_printf("player angle %f\n", env->player.camera.angle * CONVERT_DEGREES);
+            env->enemies[i].angle = get_enemy_angle(env->enemies[i].pos, env->player.pos);
+            env->enemies[i].angle = 45.19;
+            //env->enemies[i].angle = (env->player.camera.angle * CONVERT_DEGREES) + 180;
+            ft_printf("enemy pos x %f, y %f\n", env->enemies[i].pos.x, env->enemies[i].pos.y);
+            ft_printf("player pos x %f, y %f\n", env->player.pos.x, env->player.pos.y);
             ft_printf("enemy angle %f\n", env->enemies[i].angle);
         }
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
