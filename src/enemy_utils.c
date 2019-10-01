@@ -106,7 +106,7 @@ int direction(t_v2 a, t_v2 b, t_v2 c)
         return (2);    //anti-clockwise direction
     return (1);    //clockwise direction
 }
-
+/*
 int intersect(t_segment l1, t_segment l2) {
    //four direction for two lines and points of other line
    int dir1;
@@ -131,7 +131,7 @@ int intersect(t_segment l1, t_segment l2) {
       return (1);
     //ft_printf("hello?%d\n", a++);
    return (0);
-}
+}*/
 
 int    enemy_view(t_env *env, int nb, int sector)
 {
@@ -195,6 +195,20 @@ double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos, double distance)
     angle = atan2(p_pos.y - e_pos.y, p_pos.x - e_pos.x) * CONVERT_DEGREES;
     (void)distance;
     return (angle);
+}
+
+int     enemy_line_of_sight(t_env *env, int nb, int sector)
+{
+    int i;
+
+    i = 0;
+    while (i < env->sectors[sector].nb_vertices)
+    {
+        if (env->sectors[sector].neighbors[i] >= 0)
+
+        i++;
+    }
+    return (0);
 }
 
 void    enemy_pursuit(t_env *env)
