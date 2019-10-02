@@ -6,32 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/30 16:05:28 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/02 18:09:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-/*static int     diff_sign(double nb1, double nb2)
-{
-    if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0) || nb1 == 0)
-        return (0);
-    return (1);
-}*/
-/*
-static int     check_wall(t_env *env, int i, t_object enemy, int sector)
-{
-    if ((enemy.pos.x >= OX1 && enemy.pos.x <= OX2) || (enemy.pos.x >= OX2 && enemy.pos.x <= OX1))
-        return (1);
-    if ((enemy.pos.y >= OY1 && enemy.pos.y <= OY2) || (enemy.pos.y >= OY2 && enemy.pos.y <= OY1))
-        return (1);
-    if ((env->player.pos.y >= OY1 && env->player.pos.y <= OY2) || (env->player.pos.y >= OY2 && env->player.pos.y <= OY1))
-        return (1);
-    if ((env->player.pos.x >= OX1 && env->player.pos.x <= OX2) || (env->player.pos.x >= OX2 && env->player.pos.x <= OX1))
-        return (1);
-    return (0);
-}*/
 
 /*
 ** Function needs to be moved to another file
@@ -70,142 +50,139 @@ double    sprite_rotate(double a_origin, double a_dest)
     return (a_origin);
 }
 
-double  min_val(double nb1, double nb2)
+double  max(double a, double b)
 {
-    if (nb1 <= nb2)
-        return (nb1);
-    else
-        return (nb2);
+    return ((a > b) ? a : b);
 }
 
-double  max_val(double nb1, double nb2)
+double  min(double a, double b)
 {
-    if (nb1 >= nb2)
-        return (nb1);
-    else
-        return (nb2);
+    return ((a < b) ? a : b);
 }
 
-int onLine(t_segment l1, t_v2 p)
-{
-    //check whether p is on the line or not
-    if(p.x <= max_val(l1.p1.x, l1.p2.x) && p.x <= min_val(l1.p1.x, l1.p2.x) &&
-        (p.y <= max_val(l1.p1.y, l1.p2.y) && p.y <= min_val(l1.p1.y, l1.p2.y)))
-      return (1);
-   return (0);
-}
-
-int direction(t_v2 a, t_v2 b, t_v2 c)
-{
+int onSegment(t_v2 p, t_v2 q, t_v2 r) 
+{ 
+    if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) && 
+        q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y)) 
+       return (1); 
+  
+    return (0); 
+} 
+  
+// To find orientation of ordered triplet (p, q, r). 
+// The function returns following values 
+// 0 --> p, q and r are colinear 
+// 1 --> Clockwise 
+// 2 --> Counterclockwise 
+int orientation(t_v2 p, t_v2 q, t_v2 r) 
+{ 
     int val;
-
-    val = (b.y - a.y) * (c.x - b.x) - (b.x - a.x) * (c.y - b.y);
+    
+    val = (q.y - p.y) * (r.x - q.x) - 
+              (q.x - p.x) * (r.y - q.y); 
     if (val == 0)
-        return (0);     //colinear
-    else if (val < 0)
-        return (2);    //anti-clockwise direction
-    return (1);    //clockwise direction
-}
-/*
-int intersect(t_segment l1, t_segment l2) {
-   //four direction for two lines and points of other line
-   int dir1;
-   int dir2;
-   int dir3;
-   int dir4;
-//   static int a=0;
-   
-   dir1 = direction(l1.p1, l1.p2, l2.p1);
-   dir2 = direction(l1.p1, l1.p2, l2.p2);
-   dir3 = direction(l2.p1, l2.p2, l1.p1);
-   dir4 = direction(l2.p1, l2.p2, l1.p2);
-   if (dir1 != dir2 && dir3 != dir4)
-      return (1); //they are intersecting
-   if (dir1 == 0 && onLine(l1, l2.p1)) //when p2 of line2 are on the line1
-      return (1);
-   if (dir2 == 0 && onLine(l1, l2.p2)) //when p1 of line2 are on the line1
-      return (1);
-   if(dir3 == 0 && onLine(l2, l1.p1)) //when p2 of line1 are on the line2
-        return (1);
-   if(dir4 == 0 && onLine(l2, l1.p2)) //when p1 of line1 are on the line2
-      return (1);
-    //ft_printf("hello?%d\n", a++);
-   return (0);
-}*/
+        return 0;  // colinear 
+    return ((val > 0) ? -1: 1); // clock or counterclock wise 
+} 
+  
+// The main function that returns true if line segment 'p1q1' 
+// and 'p2q2' intersect. 
+int doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2) 
+{ 
+    // Find the four orientations needed for general and 
+    // special cases 
+    int o1 = orientation(p1, q1, p2); 
+    int o2 = orientation(p1, q1, q2); 
+    int o3 = orientation(p2, q2, p1); 
+    int o4 = orientation(p2, q2, q1); 
+  
+    // General case 
+    if (o1 != o2 && o3 != o4) 
+        return 1; 
+  
+    // Special Cases 
+    // p1, q1 and p2 are colinear and p2 lies on segment p1q1 
+    if (o1 == 0 && onSegment(p1, p2, q1)) return 1; 
+  
+    // p1, q1 and q2 are colinear and q2 lies on segment p1q1 
+    if (o2 == 0 && onSegment(p1, q2, q1)) return 1; 
+  
+    // p2, q2 and p1 are colinear and p1 lies on segment p2q2 
+    if (o3 == 0 && onSegment(p2, p1, q2)) return 1; 
+  
+     // p2, q2 and q1 are colinear and q1 lies on segment p2q2 
+    if (o4 == 0 && onSegment(p2, q1, q2)) return 1; 
+  
+    return 0; // Doesn't fall in any of the above cases 
+} 
 
-int    enemy_view(t_env *env, int nb, int sector)
+
+
+int     check_segment_in_sector(t_env *env, t_v2 enemy, t_v2 player, int sector)
 {
-    t_enemies    enemy;
     int         i;
-    t_segment   line_1;
-    t_segment   line_2;
-    //double      start_pos;
-    //double      end_pos;
-    //static int  a = 0;
+    int         count;
+    t_segment   ray;
+    t_segment   wall;
 
-    //ft_printf("test sector %d\n", sector);
     i = 0;
-    enemy = env->enemies[nb];
-    if (sector == env->player.sector)
-        return (1);
+    count = 0;
+    ray.p1.x = enemy.x;
+    ray.p1.y = enemy.y;
+    ray.p2.x = player.x;
+    ray.p2.y = player.y;
     while (i < env->sectors[sector].nb_vertices)
     {
-        line_1.p1.x = OX1;
-        line_1.p1.y = OY1;
-        line_1.p2.x = OX2;
-        line_1.p2.y = OY2;
-        line_2.p1.x = enemy.pos.x;
-        line_2.p1.y = enemy.pos.y;
-        line_2.p2.x = env->player.pos.x;
-        line_2.p2.y = env->player.pos.y;
-        if (intersect(line_1, line_2) && env->sectors[sector].neighbors[i] < 0)
+        wall.p1.x = env->vertices[env->sectors[sector].vertices[i]].x;
+        wall.p1.y = env->vertices[env->sectors[sector].vertices[i]].y;
+        wall.p2.x = env->vertices[env->sectors[sector].vertices[i + 1]].x;
+        wall.p2.y = env->vertices[env->sectors[sector].vertices[i + 1]].y;
+        if (doIntersect(ray.p1, ray.p2, wall.p1, wall.p2))
         {
-            //ft_printf("collision%d\n", a++);
-            return (0);}
-        else if (intersect(line_1, line_2) && env->sectors[sector].neighbors[i] >= 0 &&
-            env->sector_list[env->sectors[sector].neighbors[i]] == 0)
-        {
-            //ft_printf("sector testes = %d\n", env->sectors[sector].neighbors[i]);
-            env->sector_list[env->sectors[sector].neighbors[i]] = 1;
-            return (enemy_view(env, nb, env->sectors[sector].neighbors[i]));
+            if (env->sectors[sector].neighbors[i] < 0)
+                return (-1);
+            else
+                count++;
         }
+        if (count == 2)
+            return (1);
         i++;
     }
-    /*if (sector != env->player.sector)
-        return (0);*/
-    return (1);
+    return (0);
 }
 
-double  get_enemy_angle(t_v3 e_pos, t_v3 p_pos, double distance)
-{
-    t_v2    o_pos;
-    double  angle;
-    double  e;
-    double  p;
-    double  o;
-
-    o_pos.x = 0;
-    o_pos.y = e_pos.y;
-    e = distance_two_points(p_pos.x, p_pos.y, o_pos.x, o_pos.y);
-    p = distance_two_points(o_pos.x, o_pos.y, e_pos.x, e_pos.y);
-    o = distance_two_points(e_pos.x, e_pos.y, p_pos.x, p_pos.y);
-    angle = acos((e * e - p * p - o * o) / (-2 * p * o)) * CONVERT_DEGREES;
-    //(void)e_pos;
-    //angle = acos(p_pos.x / distance) * CONVERT_DEGREES;
-    angle = atan2(p_pos.y - e_pos.y, p_pos.x - e_pos.x) * CONVERT_DEGREES;
-    (void)distance;
-    return (angle);
-}
-
-int     enemy_line_of_sight(t_env *env, int nb, int sector)
+int     enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
 {
     int i;
+    int sector_check;
 
+    i = 0;
+    while (i < env->nb_sectors)
+    {
+        env->sector_list[i] = 0;
+        if (i == sector)
+            env->sector_list[i] = 1;
+        i++;
+    }
     i = 0;
     while (i < env->sectors[sector].nb_vertices)
     {
-        if (env->sectors[sector].neighbors[i] >= 0)
-
+        if (sector == env->player.sector)
+            return (1);
+        if (env->sector_list[env->sectors[sector].neighbors[i]] == 0 && env->sectors[sector].neighbors[i] >= 0)
+        {
+            if (env->player.sector == env->sectors[sector].neighbors[i])
+                return (1);
+            env->sector_list[env->sectors[sector].neighbors[i]] = 1;
+            sector_check = check_segment_in_sector(env, enemy, player, env->sectors[sector].neighbors[i]);
+            if (sector_check == -1)
+                return (0);
+            else if (sector_check == 1)
+            {
+                sector = env->sectors[sector].neighbors[i];
+                i = -1;
+            }
+        }
         i++;
     }
     return (0);
@@ -219,7 +196,7 @@ void    enemy_pursuit(t_env *env)
     t_v3    direction;
     t_v2    move;
     double  tmp_z;
-    //static int a = 0;
+//   static int a = 0;
 
     i = 0;
     while (i < env->nb_enemies)
@@ -234,7 +211,7 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = RESTING;
-        env->enemies[i].saw_player = enemy_view(env, i, env->enemies[i].sector);
+        env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
         distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
@@ -244,9 +221,12 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].last_player_pos.z = env->player.head_z;
         }
         if (env->enemies[i].exists &&
-            env->enemies[i].last_player_pos.x != env->enemies[i].pos.x &&
-            env->enemies[i].last_player_pos.y != env->enemies[i].pos.y &&
-            env->enemies[i].last_player_pos.z != env->enemies[i].pos.z &&
+            (env->enemies[i].last_player_pos.x <= env->enemies[i].pos.x - 0.1 ||
+            env->enemies[i].last_player_pos.x >= env->enemies[i].pos.x + 0.1) &&
+            (env->enemies[i].last_player_pos.y <= env->enemies[i].pos.y - 0.1 ||
+            env->enemies[i].last_player_pos.y >= env->enemies[i].pos.y + 0.1) &&
+            (env->enemies[i].last_player_pos.z <= env->enemies[i].pos.z - 0.1 ||
+            env->enemies[i].last_player_pos.z >= env->enemies[i].pos.z) + 0.1 &&
             (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
         {
             env->enemies[i].state = PURSUING;
@@ -272,7 +252,6 @@ void    enemy_pursuit(t_env *env)
                 }
                 move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
             }
-            //ft_printf("direction.z = %f\n", direction.z);
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;
             env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
@@ -281,10 +260,6 @@ void    enemy_pursuit(t_env *env)
             else
                 update_enemy_z(env, i);
             env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
-            /*ft_printf("Player pos x %f, y %f\n", env->player.pos.x, env->player.pos.y);
-            ft_printf("Player angle %f\n", env->player.camera.angle * CONVERT_DEGREES);
-            ft_printf("Enemy pos x %f, y %f\n", env->enemies[i].pos.x, env->enemies[i].pos.y);
-            ft_printf("Enemy angle %f\n<|----------------------|>\n", env->enemies[i].angle);*/
         }
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
         {
