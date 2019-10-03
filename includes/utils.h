@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 17:14:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:24:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,6 +472,8 @@ typedef struct		s_enemies
 	t_v3			last_player_pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	t_v2			far_left;
+	t_v2			far_right;
 	t_init_data		enemies_init_data;
 	int				flying;
 	int				ranged;

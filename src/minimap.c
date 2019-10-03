@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/09/30 16:02:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:00:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	draw_player(t_env *env)
 	{
 		p1.x = triangle[0].x;
 		p1.y = triangle[0].y;
-		draw_line_minimap(p0, p1, *env, 0xFFFFFF00);
+		draw_line_minimap(p0, p1, *env, 0xFF00FF00);
 	}
 	triangle[2] = new_v3(
 			(env->player.camera.angle_cos * env->player.camera.far_z - env->player.camera.angle_sin * env->player.camera.far_right) * env->options.minimap_scale + start.x,

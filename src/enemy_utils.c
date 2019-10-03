@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/02 18:09:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/03 18:37:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int onSegment(t_v2 p, t_v2 q, t_v2 r)
 // To find orientation of ordered triplet (p, q, r). 
 // The function returns following values 
 // 0 --> p, q and r are colinear 
-// 1 --> Clockwise 
-// 2 --> Counterclockwise 
+// -1 --> Clockwise 
+// 1 --> Counterclockwise 
 int orientation(t_v2 p, t_v2 q, t_v2 r) 
 { 
     int val;
@@ -188,6 +188,88 @@ int     enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
     return (0);
 }
 
+int     directionOfPoint(t_v2 A, t_v2 B, t_v2 P) 
+{ 
+    int cross_product;
+
+    B.x -= A.x; 
+    B.y -= A.y; 
+    P.x -= A.x; 
+    P.y -= A.y;   
+    cross_product = B.x * P.y - B.y * P.x; 
+    if (cross_product > 0) 
+        return 1; 
+    if (cross_product < 0) 
+        return -1;  
+    return 0;
+}
+
+void    enemy_far_left_right(t_env *env, int nb)
+{
+    double angle_left;
+    double angle_right;
+
+    angle_left = env->enemies[nb].angle + 45;
+    angle_right = env->enemies[nb].angle - 45;
+    angle_left -= (angle_left > 360) ? 360 : 0;
+    angle_right += (angle_right < 360) ? 360 : 0;
+    env->enemies[nb].far_left.x = 50 * cos(angle_left * CONVERT_RADIANS);
+    env->enemies[nb].far_left.y = 50 * sin(angle_left * CONVERT_RADIANS);
+    env->enemies[nb].far_right.x = 50 * cos(angle_right * CONVERT_RADIANS);
+    env->enemies[nb].far_right.y = 50 * sin(angle_right * CONVERT_RADIANS);
+}
+
+int     is_in_enemy_fov(t_enemies enemy, t_player player)
+{
+    t_v2    player_pos;
+    t_v2    enemy_pos;
+    int     direction;
+    int     left;
+    int     right;
+
+    player_pos = new_v2(player.pos.x, player.pos.y);
+    enemy_pos = new_v2(enemy.pos.x, enemy.pos.y);
+    right = 0;
+    left = 0;
+    ft_printf("far left x=%f  y=%f\n", enemy.far_left.x, enemy.far_left.y);
+    ft_printf("far right x=%f  y=%f\n", enemy.far_right.x, enemy.far_right.y);
+    ft_printf("enemy_pos x= %f  y= %f\n", enemy_pos.x, enemy_pos.y);
+    ft_printf("player pos x= %f  y= %f\n\n", player_pos.x, player_pos.y);
+    direction = directionOfPoint(enemy_pos, enemy.far_left, player_pos);
+    if (direction < 0)
+        left++;
+    else if (direction > 0)
+        right++;
+    else
+    {
+        right++;
+        left++;
+    }
+    direction = directionOfPoint(enemy.far_left, enemy.far_right, player_pos);
+    if (direction < 0)
+        left++;
+    else if (direction > 0)
+        right++;
+    else
+    {
+        right++;
+        left++;
+    }
+    direction = directionOfPoint(enemy.far_right, enemy_pos, player_pos);
+    if (direction < 0)
+        left++;
+    else if (direction > 0)
+        right++;
+    else
+    {
+        right++;
+        left++;
+    }
+    if (right == 3 || left == 3)
+        return (1);
+    return (0);
+}
+
 void    enemy_pursuit(t_env *env)
 {
     int     i;
@@ -211,7 +293,10 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = RESTING;
-        env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
+        enemy_far_left_right(env, i);
+        env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player);
+        if (env->enemies[i].saw_player)
+            env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
         distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
