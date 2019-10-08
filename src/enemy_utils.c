@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/07 18:34:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/08 17:56:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,6 @@ void    enemy_pursuit(t_env *env)
     t_v3    direction;
     t_v2    move;
     double  tmp_z;
-    static int a = 0;
 
     i = 0;
     while (i < env->nb_enemies)
@@ -300,6 +299,8 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].saw_player = 1;
         if (env->enemies[i].saw_player)
             env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
+        if (env->enemies[i].hit)
+            env->enemies[i].saw_player = 1; //obligé de mettre ça apres pour eviter de pouvoir tirer sur un ennemi en restant a moitié caché
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
         {
@@ -307,17 +308,10 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].last_player_pos.y = env->player.pos.y;
             env->enemies[i].last_player_pos.z = env->player.head_z;
         }
-        if (distance <= 30 && a == 0)
-            ft_printf("ATTENTION\n");
-        if (a <= 1)
-        ft_printf("distance two points %f\n", distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].last_player_pos.x, env->enemies[i].last_player_pos.y));
         if (env->enemies[i].exists &&
             distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].last_player_pos.x, env->enemies[i].last_player_pos.y) > 0.1 &&
             (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
         {
-            a++;
-            if (a == 1)
-                ft_printf("COURSE POURSUITE\n");
             env->enemies[i].state = PURSUING;
             tmp_z = env->player.pos.z;
             env->player.pos.z += env->player.eyesight;
@@ -350,6 +344,12 @@ void    enemy_pursuit(t_env *env)
                 update_enemy_z(env, i);
             env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
         }
+        env->enemies[i].saw_player = 0;
+        env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player);
+        if (distance <= 30)
+            env->enemies[i].saw_player = 1;
+        if (env->enemies[i].saw_player)
+            env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
         {
             env->enemies[i].state = FIRING;
