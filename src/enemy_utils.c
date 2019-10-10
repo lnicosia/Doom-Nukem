@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/08 17:56:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/10 15:41:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,13 @@ void    enemy_far_left_right(t_env *env, int nb)
     angle_right = env->enemies[nb].angle - 65;
     angle_left -= (angle_left > 360) ? 360 : 0;
     angle_right += (angle_right < 360) ? 360 : 0;
-    env->enemies[nb].far_left.x = 50 * cos(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.x;
-    env->enemies[nb].far_left.y = 50 * sin(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.y;
-    env->enemies[nb].far_right.x = 50 * cos(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.x;
-    env->enemies[nb].far_right.y = 50 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
+    env->enemies[nb].far_left.x = 1000 * cos(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.x;
+    env->enemies[nb].far_left.y = 1000 * sin(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.y;
+    env->enemies[nb].far_right.x = 1000 * cos(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.x;
+    env->enemies[nb].far_right.y = 1000 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
 }
 
-int     is_in_enemy_fov(t_enemies enemy, t_player player)
+int     is_in_enemy_fov(t_enemies enemy, t_player player, double distance)
 {
     t_v2    player_pos;
     t_v2    enemy_pos;
@@ -231,10 +231,6 @@ int     is_in_enemy_fov(t_enemies enemy, t_player player)
     enemy_pos = new_v2(enemy.pos.x, enemy.pos.y);
     right = 0;
     left = 0;
-    /*ft_printf("enemy_pos x= %f  y= %f\n", enemy_pos.x, enemy_pos.y);
-    ft_printf("far left x=%f  y=%f\n", enemy.far_left.x, enemy.far_left.y);
-    ft_printf("far right x=%f  y=%f\n\n", enemy.far_right.x, enemy.far_right.y);
-    ft_printf("player pos x= %f  y= %f\n\n", player_pos.x, player_pos.y);*/
     direction = directionOfPoint(enemy_pos, enemy.far_left, player_pos);
     if (direction < 0)
         left++;
@@ -265,9 +261,25 @@ int     is_in_enemy_fov(t_enemies enemy, t_player player)
         right++;
         left++;
     }
-    if (right == 3 || left == 3)
+    if (distance <= 50 && (right == 3 || left == 3))
         return (1);
     return (0);
+}
+
+double    enemy_sight(t_env *env, int i, int shot_flag)
+{
+    double  distance;
+
+    enemy_far_left_right(env, i);
+    distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
+    env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player, distance);
+    if (distance <= 30)
+        env->enemies[i].saw_player = 1;
+    if (env->enemies[i].saw_player)
+        env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
+    if (env->enemies[i].hit && !shot_flag)
+        env->enemies[i].saw_player = 1; //obligé de mettre ça apres pour eviter de pouvoir tirer sur un ennemi en restant a moitié caché
+    return (distance);
 }
 
 void    enemy_pursuit(t_env *env)
@@ -277,7 +289,6 @@ void    enemy_pursuit(t_env *env)
     double  distance;
     t_v3    direction;
     t_v2    move;
-    double  tmp_z;
 
     i = 0;
     while (i < env->nb_enemies)
@@ -292,15 +303,8 @@ void    enemy_pursuit(t_env *env)
             j++;
         }
         env->enemies[i].state = RESTING;
-        enemy_far_left_right(env, i);
-        env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player);
-        distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
-        if (distance <= 30)
-            env->enemies[i].saw_player = 1;
-        if (env->enemies[i].saw_player)
-            env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
-        if (env->enemies[i].hit)
-            env->enemies[i].saw_player = 1; //obligé de mettre ça apres pour eviter de pouvoir tirer sur un ennemi en restant a moitié caché
+        distance = enemy_sight(env, i, 0);
+        ft_printf("distance = %f\n", distance);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && 
             distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
         {
@@ -313,13 +317,10 @@ void    enemy_pursuit(t_env *env)
             (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
         {
             env->enemies[i].state = PURSUING;
-            tmp_z = env->player.pos.z;
-            env->player.pos.z += env->player.eyesight;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->enemies[i].last_player_pos);
             move.x = direction.x;
             move.y = direction.y;
             move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
-            env->player.pos.z = tmp_z;
             if (move.x == 0 && move.y == 0)
             {
                 env->enemies[i].dir = rand_dir(env, i);
@@ -345,11 +346,7 @@ void    enemy_pursuit(t_env *env)
             env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
         }
         env->enemies[i].saw_player = 0;
-        env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player);
-        if (distance <= 30)
-            env->enemies[i].saw_player = 1;
-        if (env->enemies[i].saw_player)
-            env->enemies[i].saw_player = enemy_line_of_sight(env, new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector);
+        enemy_sight(env, i, 1);
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
         {
             env->enemies[i].state = FIRING;
