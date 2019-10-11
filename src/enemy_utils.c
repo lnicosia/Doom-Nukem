@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/10 15:41:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/11 15:55:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,9 +304,8 @@ void    enemy_pursuit(t_env *env)
         }
         env->enemies[i].state = RESTING;
         distance = enemy_sight(env, i, 0);
-        ft_printf("distance = %f\n", distance);
-        if (env->enemies[i].exists && env->enemies[i].health > 0 && 
-            distance <= 50 && (distance >= 30 || !env->enemies[i].ranged) && env->enemies[i].saw_player)
+        //ft_printf("distance = %f\n", distance);
+        if (env->enemies[i].exists && env->enemies[i].health > 0 && env->enemies[i].saw_player)
         {
             env->enemies[i].last_player_pos.x = env->player.pos.x;
             env->enemies[i].last_player_pos.y = env->player.pos.y;
@@ -343,8 +342,9 @@ void    enemy_pursuit(t_env *env)
                 env->enemies[i].pos.z += direction.z;
             else
                 update_enemy_z(env, i);
-            env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
         }
+        if (env->enemies[i].saw_player)
+            env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
         env->enemies[i].saw_player = 0;
         enemy_sight(env, i, 1);
         if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
