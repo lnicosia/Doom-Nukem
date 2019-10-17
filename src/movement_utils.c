@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 13:49:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 13:51:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,7 @@ void     iter_sectors(t_env *env, t_movement motion)
     //static int a = 0;
 
     i = 0;
-    while (i < env->nb_sectors)
-    {
-        if (i == motion.sector)
-            env->sector_list[i] = 1;
-        else
-            env->sector_list[i] = 0;
-        i++;
-    }
-    i = 0;
+    init_sector_list(env, motion.sector);
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((distance_two_points(X1, Y1, motion.pos.x, motion.pos.y) <= motion.size_2d || distance_two_points(X2, Y2, motion.pos.x, motion.pos.y) <= motion.size_2d

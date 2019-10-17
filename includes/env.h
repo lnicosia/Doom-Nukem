@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/26 15:36:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 12:14:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ int					init_camera(t_camera *camera, t_env *env);
 int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
 void				init_enemies_data(t_env *env);
+void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 
@@ -333,7 +334,7 @@ void				print_results(t_env *env);
 
 void	draw_grid_enemies(t_env *env);
 void	enemy_selection(t_env *env);
-void	enemy_pursuit(t_env *env);
+void	enemy_ai(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);
 void    resting_enemy(t_env *env, int i);

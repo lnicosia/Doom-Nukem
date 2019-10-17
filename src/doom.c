@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:26:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 16:30:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 13:53:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		doom(t_env *env)
 		update_sprites_state(env);
 		if (env->player.health > 0)
 		{
-			enemy_pursuit(env);
+			enemy_ai(env);
 			objects_collision(env);
 			enemy_collision(env);
 			keys(env);

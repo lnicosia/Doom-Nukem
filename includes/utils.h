@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/03 17:24:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 11:24:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,32 @@
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
-# define LOST_SOUL 1
-# define CYBER_DEMON 2
-# define RESTING 0
-# define PURSUING 1
-# define FIRING 2
+
+typedef enum		e_enemy_state
+{
+	RESTING,
+	PURSUING,
+	FIRING
+}					t_enemy_state;
+
+typedef enum		e_entity_sprite
+{
+	LOST_SOUL = 1,
+	CYBER_DEMON
+}					t_entity_sprite;
+
+typedef enum		e_enemy_behavior
+{
+	MELEE,
+	RANGED
+}					t_enemy_behavior;
+
+typedef enum		e_enemy_type
+{
+	TERRESTRIAL,
+	AERIAL,
+	AQUATIC
+}					t_enemy_type;
 
 typedef struct		s_line_eq
 {

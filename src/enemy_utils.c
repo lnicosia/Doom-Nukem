@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/11 15:55:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 13:52:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,14 +156,7 @@ int     enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
     int i;
     int sector_check;
 
-    i = 0;
-    while (i < env->nb_sectors)
-    {
-        env->sector_list[i] = 0;
-        if (i == sector)
-            env->sector_list[i] = 1;
-        i++;
-    }
+    init_sector_list(env, sector);
     i = 0;
     while (i < env->sectors[sector].nb_vertices)
     {
@@ -282,10 +275,9 @@ double    enemy_sight(t_env *env, int i, int shot_flag)
     return (distance);
 }
 
-void    enemy_pursuit(t_env *env)
+void    enemy_ai(t_env *env)
 {
     int     i;
-    int     j;
     double  distance;
     t_v3    direction;
     t_v2    move;
@@ -293,18 +285,8 @@ void    enemy_pursuit(t_env *env)
     i = 0;
     while (i < env->nb_enemies)
     {
-        j = 0;
-        while (j < env->nb_sectors)
-        {
-            if (j == env->enemies[i].sector)
-                env->sector_list[j] = 1;
-            else
-                env->sector_list[j] = 0;
-            j++;
-        }
         env->enemies[i].state = RESTING;
         distance = enemy_sight(env, i, 0);
-        //ft_printf("distance = %f\n", distance);
         if (env->enemies[i].exists && env->enemies[i].health > 0 && env->enemies[i].saw_player)
         {
             env->enemies[i].last_player_pos.x = env->player.pos.x;
