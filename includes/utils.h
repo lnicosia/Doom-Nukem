@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/17 11:24:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 15:15:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -496,8 +496,8 @@ typedef struct		s_enemies
 	t_v2			far_left;
 	t_v2			far_right;
 	t_init_data		enemies_init_data;
-	int				flying;
-	int				ranged;
+	int				type;
+	int				behavior;
 	int				speed;
 	int				shot;
 	int				hit;

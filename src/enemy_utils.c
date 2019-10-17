@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/17 13:52:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/17 15:40:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ void    enemy_ai(t_env *env)
         }
         if (env->enemies[i].exists &&
             distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].last_player_pos.x, env->enemies[i].last_player_pos.y) > 0.1 &&
-            (distance >= 30 || !env->enemies[i].ranged || !env->enemies[i].saw_player))
+            (distance >= 30 || env->enemies[i].behavior == MELEE || !env->enemies[i].saw_player))
         {
             env->enemies[i].state = PURSUING;
             direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->enemies[i].last_player_pos);
@@ -320,7 +320,7 @@ void    enemy_ai(t_env *env)
             env->enemies[i].pos.x += move.x;
             env->enemies[i].pos.y += move.y;
             env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
-            if (env->enemies[i].flying)
+            if (env->enemies[i].type == AERIAL)
                 env->enemies[i].pos.z += direction.z;
             else
                 update_enemy_z(env, i);
@@ -329,7 +329,7 @@ void    enemy_ai(t_env *env)
             env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
         env->enemies[i].saw_player = 0;
         enemy_sight(env, i, 1);
-        if (env->enemies[i].ranged && distance <= 31 && env->enemies[i].saw_player)
+        if (env->enemies[i].behavior == RANGED && distance <= 31 && env->enemies[i].saw_player)
         {
             env->enemies[i].state = FIRING;
             if (env->enemies[i].shot)
@@ -353,7 +353,7 @@ void        enemy_collision(t_env *env)
     while (i < env->nb_enemies)
     {
         if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-            && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && !env->enemies[i].ranged)
+            && env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && env->enemies[i].behavior == MELEE)
         {
             env->player.hit = 1;
             env->player.health -= env->enemies[i].damage;
