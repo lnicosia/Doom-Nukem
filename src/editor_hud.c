@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   editor_hud.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/19 15:34:31 by lnicosia         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   editor_hud.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/07/29 15:44:44 by sipatry		   #+#	#+#			 */
+/*   Updated: 2019/09/19 15:34:31 by lnicosia		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -15,10 +15,10 @@
 void	select_informations(t_env *env)
 {
 	if (env->selected_enemy != -1)
-		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
+		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|							 |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 	else if (env->editor.selected_sector != -1)
-		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|                             |<-",
+		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|							 |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_hud.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 15:45:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   draw_hud.c										 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/06/19 15:45:52 by gaerhard		  #+#	#+#			 */
+/*   Updated: 2019/09/24 14:46:31 by gaerhard		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
 
-void    armor_life_hud(t_env *env)
+void	armor_life_hud(t_env *env)
 {
 	int x;
 	int y;
@@ -37,7 +37,7 @@ void    armor_life_hud(t_env *env)
 	}
 }
 
-void    ammo_hud(t_env *env)
+void	ammo_hud(t_env *env)
 {
 	int x;
 	int y;
@@ -61,7 +61,7 @@ void    ammo_hud(t_env *env)
 	}
 }
 
-void    draw_hud(t_env *env)
+void	draw_hud(t_env *env)
 {
 	char *str;
 

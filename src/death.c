@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   death.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/24 14:55:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/27 17:13:49 by gaerhard         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   death.c											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/09/24 14:55:11 by gaerhard		  #+#	#+#			 */
+/*   Updated: 2019/09/27 17:13:49 by gaerhard		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -17,7 +17,7 @@ void		respawn(t_env *env)
 {
 	int i;
 
-    i = 0;
+	i = 0;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].pos = env->enemies[i].enemies_init_data.pos;
@@ -44,14 +44,14 @@ void		respawn(t_env *env)
 		env->objects[i].angle = env->objects[i].object_init_data.angle;
 		i++;
 	}
-    init_weapons(env);
-    init_enemies_data(env);
-    init_animations(env);
-    update_player_z(env);
+	init_weapons(env);
+	init_enemies_data(env);
+	init_animations(env);
+	update_player_z(env);
 	env->player.highest_sect = find_highest_sector(env, new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));
 }
 
-void        death(t_env *env)
+void		death(t_env *env)
 {
 	int		i;
 
