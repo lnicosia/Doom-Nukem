@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 16:03:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/17 15:40:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:05:29 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,11 @@ double    enemy_sight(t_env *env, int i, int shot_flag)
     return (distance);
 }
 
+/*void    melee_ai(t_env *env, t_enemies enemy)
+{
+    
+}*/
+
 void    enemy_ai(t_env *env)
 {
     int     i;
@@ -293,6 +298,10 @@ void    enemy_ai(t_env *env)
             env->enemies[i].last_player_pos.y = env->player.pos.y;
             env->enemies[i].last_player_pos.z = env->player.head_z;
         }
+        /*if (env->enemies[i].behavior == MELEE)
+            melee_ai(env, env->enemies[i]);
+        else if (env->enemies[i].behavior == RANGED)
+            ranged_ai(env, env->enemies[i]);*/
         if (env->enemies[i].exists &&
             distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].last_player_pos.x, env->enemies[i].last_player_pos.y) > 0.1 &&
             (distance >= 30 || env->enemies[i].behavior == MELEE || !env->enemies[i].saw_player))
@@ -310,7 +319,7 @@ void    enemy_ai(t_env *env)
                     move.x = -direction.y;
                     move.y = direction.x;
                 }
-                else if (env->enemies[i].dir == 1)
+            	else if (env->enemies[i].dir == 1)
                 {
                     move.x = direction.y;
                     move.y = -direction.x;
