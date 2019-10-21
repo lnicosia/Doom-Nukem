@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 10:54:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/17 15:22:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 18:11:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	activate_elevator(t_env *env)
 		}
 		else if (env->elevator.up)
 		{
-			ft_printf("up\n");
+		//	ft_printf("up\n");
 		/*	while (sector.floor < 20)
 			{
 				env->sectors[env->player.sector].floor += 0.05;

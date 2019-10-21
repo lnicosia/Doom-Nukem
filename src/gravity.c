@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/21 17:46:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 18:08:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ void	gravity(t_env *env)
 	pos.y = env->player.pos.y;
 	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
-	ft_printf("i'm graviting\n");
 	if ((!env->player.state.fall
 	&& env->player.pos.z > slope + 2)
 	|| (env->player.state.jump && !env->player.state.fall))
 	{
-		ft_printf("fall\n");
 		env->player.state.walk = 0;
 		env->time.last_fall = SDL_GetTicks() / 1000.0;
 		env->player.state.fall = 1;
@@ -66,7 +64,6 @@ void	gravity(t_env *env)
 	}
 	if (env->player.state.fall)
 	{
-		ft_printf("falling\n");
 		env->time.d_time = time - env->time.last_fall;
 		env->gravity.acceleration = -9.81 * 3.3;
 		new_pos = env->player.start_pos +  (env->gravity.velocity * env->time.d_time)
@@ -77,7 +74,6 @@ void	gravity(t_env *env)
 	}
 	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
 	{
-		ft_printf("adjustement\n");
 		env->player.pos.z = slope;
 		env->gravity.velocity = 0;
 		env->gravity.acceleration = 0;

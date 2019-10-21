@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/21 17:54:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 18:10:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	animations(t_env *env)
 			&& !env->player.state.climb && !env->player.state.drop)
 		update_player_z(env);
 	if (((env->inputs.ctrl&& env->player.eyesight > 3)
-	|| env->player.state.crouch))
+	|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
 }
@@ -144,7 +144,6 @@ void	move_player(t_env *env)
 			movement = 1;
 		if (movement)
 		{
-			ft_printf("i'm moving here\n");
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			if (find_highest_sector(env, motion) != env->player.highest_sect
 					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
