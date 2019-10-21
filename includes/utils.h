@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 16:13:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:41:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,7 @@ typedef struct		s_time
 	double			last_fall;
 	double			last_jump;
 	double			last_climb;
+	double			last_crouch;
 	double			last_drop;
 	double			d_time;
 }					t_time;

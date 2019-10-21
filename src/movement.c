@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:56:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 17:54:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,24 @@
 
 void	animations(t_env *env)
 {
-	if ((env->player.pos.z > env->sectors[env->player.highest_sect].floor
-				|| env->player.state.fall)
-			&& !env->player.state.climb && !env->player.state.drop)
+	double	slope;
+	t_v2	pos;
+
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
+	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	if ((env->player.pos.z > slope || env->player.state.fall || env->player.state.jump)
+	&& !env->player.state.climb && !env->player.state.drop)
 		gravity(env);
 	if ((env->inputs.space || env->player.state.jump)
 			&& !env->player.state.climb && !env->player.state.drop)
 		jump(env);
-	/*	if (((env->inputs.ctrl && env->player.eyesight == 6) || env->crouch.on_going) && !env->jump.on_going)
-		crouch(env);*/
 	if (!env->player.state.jump && !env->player.state.fall
 			&& !env->player.state.climb && !env->player.state.drop)
 		update_player_z(env);
+	if (((env->inputs.ctrl&& env->player.eyesight > 3)
+	|| env->player.state.crouch))
+		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
 }
 
@@ -138,6 +144,7 @@ void	move_player(t_env *env)
 			movement = 1;
 		if (movement)
 		{
+			ft_printf("i'm moving here\n");
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			if (find_highest_sector(env, motion) != env->player.highest_sect
 					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
@@ -157,9 +164,6 @@ void	move_player(t_env *env)
 					&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
 					&& env->player.drop_flag)
 				drop(env);
-			else if (!env->player.state.climb && !env->player.state.jump
-					&& !env->player.state.drop && !env->player.state.fall)
-				update_player_z(env);
 			env->player.head_z = env->player.pos.z + env->player.eyesight;
 			update_camera_position(&env->player.camera);
 		}

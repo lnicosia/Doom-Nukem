@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 16:14:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:48:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,12 @@ void	init_player(t_env *env)
 	env->player.drop_flag = 0;
 	env->gravity.velocity = 0;
 	env->gravity.acceleration = 0;
+	env->player.state.drop = 0;
+	env->player.state.fall = 0;
+	env->player.state.climb = 0;
+	env->player.state.jump = 0;
+	env->player.state.crouch = 0;
+	env->player.state.walk = 0;
 }
 
 int		parse_map(char *file, t_env *env)

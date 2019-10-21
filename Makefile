@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/10 14:00:29 by sipatry           #+#    #+#              #
-#    Updated: 2019/09/19 16:58:26 by sipatry          ###   ########.fr        #
+#    Updated: 2019/10/21 14:36:19 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 			  print_text.c bmp_parser.c bmp_parser_utils.c \
 			  bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 			  check_bmp_parsing.c keyup.c render_utils.c movement.c \
-			  get_slope.c maths_utils.c movement_collision.c weapons.c \
+			  get_slope.c update_player_z.c movement_collision.c weapons.c \
 			  get_screen_sectors.c check_parsing.c view.c init_options.c \
 			  minimap.c fps.c \
 			  valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
@@ -140,11 +140,11 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(EDITOR_NAME)
+	@gcc  $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(EDITOR_NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@gcc  -pg $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(GAME_NAME)
+	@gcc  $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) $(SDL) -o $(GAME_NAME)
 	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
 
 clean: 

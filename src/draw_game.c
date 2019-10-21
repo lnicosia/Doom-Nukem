@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 16:44:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 17:43:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ int	draw_game(t_env *env)
 			i++;
 		}
 	}
+	t_v2	pos;
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
+	double	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	ft_printf("climb: %d | crouch: %d | fall: %d | jump: %d | drop: %d | player_z: %f | slope: %f\n",
+	env->player.state.climb, env->player.state.crouch, env->player.state.fall, env->player.state.jump, env->player.state.drop, env->player.pos.z, slope);
 	if (env->options.zbuffer)
 		update_screen_zbuffer(env);
 	else

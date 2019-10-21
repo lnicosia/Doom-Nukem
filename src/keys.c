@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 16:40:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:52:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void		keys(t_env *env)
 				|| (env->selected_enemy == -1 && !env->editor.tab))
 	
 			&& (env->editor.in_game && !env->inputs.ctrl))
-			|| (env->player.state.climb | env->player.state.drop)))
-
+			|| (env->player.state.climb || env->player.state.drop)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
