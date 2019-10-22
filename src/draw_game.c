@@ -57,12 +57,6 @@ int	draw_game(t_env *env)
 			i++;
 		}
 	}
-	t_v2	pos;
-	pos.x = env->player.pos.x;
-	pos.y = env->player.pos.y;
-	double	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
-	ft_printf("climb: %d | crouch: %d | fall: %d | jump: %d | drop: %d | player_z: %f | slope: %f\n",
-	env->player.state.climb, env->player.state.crouch, env->player.state.fall, env->player.state.jump, env->player.state.drop, env->player.pos.z, slope);
 	if (env->options.zbuffer)
 		update_screen_zbuffer(env);
 	else

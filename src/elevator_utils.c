@@ -12,71 +12,118 @@
 
 #include "env.h"
 /*
-void	create_activationg_list_sectors(t_env *env)
-{
+   void	create_activationg_list_sectors(t_env *env)
+   {
 
-}
+   }
 
-void	create_elevator(t_env *env)
-{
-	get_nb_floors(env, &env->sectors[env->player.sector]);
-	create_activating_list_sectors(env);
-}
-*/
+   void	create_elevator(t_env *env)
+   {
+   get_nb_floors(env, &env->sectors[env->player.sector]);
+   create_activating_list_sectors(env);
+   }
+ */
+
 void	call_elevator(t_env *env)
 {
 	t_sector	sector;
 	int			i;
 	int			calling;
+	int			elevator;
 
-	i= 0;
-	sector = env->sectors[env->player.sector];
+	i = 0;
 	while (env->sectors[sector.neighbors[i]].statue != 1)
 		i++;
-	calling = env->sectors[sector.neighbors[i]].floor > sector.floor ? 0 : 1;
-	if (calling)
+	elevator = sector.neighbors[i];	
+	if (env->elevator.down)
 	{
-		while (env->sectors[sector.neighbors[i]].floor > sector.floor)
-			env->sectors[sector.neighbors[i]].floor -= 0.05;
+		env->sectors[elevator].floor -= 0.1;
+		env->sectors[elevator].ceiling
+			= env->sectors[elevator].floor + 10;
 	}
-	else
+	else if (env->elevator.up)
 	{
-		while (env->sectors[sector.neighbors[i]].floor < sector.floor)
-			env->sectors[sector.neighbors[i]].floor += 0.05;
+		env->sectors[elevator].floor += 0.1;
+		env->sectors[elevator].ceiling
+			= env->sectors[elevator].floor + 10;
 	}
+	if ((env->sectors[elevator].floor > env->elevator.next_stop && env->elevator.up)
+	|| (env->sectors[elevator].floor < env->elevator.next_stop && env->elevator.down))
+	{
+		env->sectors[env->player.sector].floor = env->elevator.next_stop;	
+		env->elevator.next_stop = 0;
+		env->elevator.on = 0;
+		env->elevator.up = 0;
+		env->elevator.down = 0;
+		env->elevator.off = 1;
+	}
+}
+
+void	check_up_down(t_env *env, t_sector sector)
+{
+	int	i;
+
+	i = 0;
+	if (!env->elevator.on)
+	{
+		while (i < sector.nb_vertices)
+		{
+			if (sector.neighbors[i] != -1)
+			{
+				if (env->sectors[sector.neighbors[i]].statue == 2
+						&& env->sectors[sector.neighbors[i]].floor != sector.floor)
+					env->elevator.next_stop = env->sectors[sector.neighbors[i]].floor;
+			}
+			i++;
+		}
+		if (env->elevator.next_stop > sector.floor)
+		{
+			env->elevator.down = 0;
+			env->elevator.up = 1;
+		}
+		if (env->elevator.next_stop < sector.floor)
+		{
+			env->elevator.up = 0;
+			env->elevator.down = 1;	
+		}
+	}
+
 }
 
 void	activate_elevator(t_env *env)
 {
 	int	i;
-	int	on;
 	t_sector sector;
 
 	i = 0;
-	on = 0;
 	sector = env->sectors[env->player.sector];
-	env->elevator.up = 1;
-	env->elevator.down = 0;
 	if (sector.statue == 1)
 	{
+		check_up_down(env, sector);
+		env->elevator.on = 1;
 		if (env->elevator.down)
 		{
-			while (sector.floor > 6)
-				env->sectors[sector.neighbors[i]].floor -= 0.05;
+			env->sectors[env->player.sector].floor -= 0.1;
+			env->sectors[env->player.sector].ceiling
+				= env->sectors[env->player.sector].floor + 10;
 		}
 		else if (env->elevator.up)
 		{
-		//	ft_printf("up\n");
-		/*	while (sector.floor < 20)
-			{
-				env->sectors[env->player.sector].floor += 0.05;
-				env->sectors[env->player.sector].ceiling
+			env->sectors[env->player.sector].floor += 0.1;
+			env->sectors[env->player.sector].ceiling
 				= env->sectors[env->player.sector].floor + 10;
-			}*/
+		}
+		if ((env->sectors[env->player.sector].floor > env->elevator.next_stop && env->elevator.up)
+				|| (env->sectors[env->player.sector].floor < env->elevator.next_stop && env->elevator.down))
+		{
+			env->sectors[env->player.sector].floor = env->elevator.next_stop;	
+			env->elevator.next_stop = 0;
+			env->elevator.on = 0;
+			env->elevator.up = 0;
+			env->elevator.down = 0;
+			env->elevator.off = 1;
 		}
 	}
 	else
 		call_elevator(env);
-	env->elevator.down = 1;
-	env->elevator.up = 0;
 }

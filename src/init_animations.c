@@ -33,6 +33,9 @@ void	init_animations(t_env *env)
 	env->player_hurt.start = 0;
 	env->weapon_change.on_going = 0;
 	env->weapon_change.start = 0;
+	env->elevator.next_stop = 0;
+	env->elevator.on = 0;
+	env->elevator.off = 0;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].death.start = 0;

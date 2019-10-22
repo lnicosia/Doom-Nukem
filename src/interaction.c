@@ -19,15 +19,10 @@ void	interactions(t_env *env)
 
 	i = 0;
 	sector = env->sectors[env->player.sector];
-	if (sector.statue == 1)
+	if ((sector.statue == 1 || sector.statue == 2) && !env->elevator.off)
 		activate_elevator(env);
-	while (i < sector.nb_vertices)
-	{
-		if (env->sectors[sector.neighbors[i]].statue == 1
-		&& env->sectors[sector.neighbors[i]].floor != sector.floor)
-			activate_elevator(env);
-		i++;
-	}
+	else if (sector.statue != 1)
+		env->elevator.off = 0;
 //	else if (env->sectors[env->player.sector].statue == 2)
 //		activate_teleport(env);
 }
