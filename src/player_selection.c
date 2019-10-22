@@ -35,4 +35,5 @@ void	player_selection(t_env *env)
 		else
 			env->editor.new_player = 0;
 	}
+	update_player_z(env);
 }

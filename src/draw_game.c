@@ -39,6 +39,7 @@ int	draw_game(t_env *env)
 		minimap(env);
 	game_time(env);
 	animations(env);
+	interactions(env);
 	draw_hud(env);
 	if (env->player.hit)
 		damage_anim(env);
