@@ -23,6 +23,6 @@ void	interactions(t_env *env)
 		activate_elevator(env);
 	else if (sector.statue != 1)
 		env->elevator.off = 0;
-//	else if (env->sectors[env->player.sector].statue == 2)
-//		activate_teleport(env);
+/*	else if (env->sectors[env->player.sector].statue == 2)
+		activate_teleport(env);*/
 }
