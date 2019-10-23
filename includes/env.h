@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/23 14:44:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/23 14:38:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,7 @@ void				climb(t_env *env);
 double				apply_climb(double vel);
 double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
+void				activate_teleport(t_env *env);
 
 /*
 ** enemies functions

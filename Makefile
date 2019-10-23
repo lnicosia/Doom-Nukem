@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/10 14:00:29 by sipatry           #+#    #+#              #
-#    Updated: 2019/10/21 14:36:19 by sipatry          ###   ########.fr        #
+#    Updated: 2019/10/23 14:37:01 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c inputs
 			  precompute_skybox.c draw_skybox.c draw_floor.c \
 			  precompute_neighbors.c skybox_draw_functions.c \
 			  selected_information.c movement_utils.c interaction.c \
-			  interactions_utils.c elevator_utils.c gravity.c
+			  interactions_utils.c elevator.c gravity.c teleporter.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h
