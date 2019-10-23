@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/17 15:15:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/19 21:44:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,8 @@ typedef struct		s_enemies
 	t_v3			rotated_pos;
 	t_v2			far_left;
 	t_v2			far_right;
+	t_v2			left_arm;
+	t_v2			right_arm;
 	t_init_data		enemies_init_data;
 	int				type;
 	int				behavior;

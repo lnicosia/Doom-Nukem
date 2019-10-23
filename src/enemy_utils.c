@@ -212,6 +212,23 @@ void	enemy_far_left_right(t_env *env, int nb)
 	env->enemies[nb].far_right.y = 1000 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
 }
 
+void	enemy_arms(t_env *env, int nb)
+{
+	double	angle_left;
+	double	angle_right;
+	double	radius;
+
+	angle_left = env->enemies[nb].angle + 90;
+	angle_right = env->enemies[nb].angle - 90;
+	angle_left -= (angle_left > 360) ? 360 : 0;
+	angle_right += (angle_right < 360) ? 360 : 0;
+	radius = env->enemies[nb].size_2d / 2;
+	env->enemies[nb].left_arm.x = radius * cos(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.x;
+	env->enemies[nb].left_arm.y = radius * sin(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.y;
+	env->enemies[nb].right_arm.x = radius * cos(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.x;
+	env->enemies[nb].right_arm.y = radius * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
+}
+
 int	 is_in_enemy_fov(t_enemies enemy, t_player player, double distance)
 {
 	t_v2	player_pos;
@@ -357,7 +374,10 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 		env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
 	env->enemies[i].saw_player = 0;
 	enemy_sight(env, i, 1);
-	if (distance <= 31 && env->enemies[i].saw_player)
+	//enemy_arms(env, i);
+	if (distance <= 31 && env->enemies[i].saw_player/*
+		&& enemy_line_of_sight(env, new_v2(env->enemies[i].left_arm.x, env->enemies[i].left_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)
+		&& enemy_line_of_sight(env, new_v2(env->enemies[i].right_arm.x, env->enemies[i].right_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)*/)
 	{
 		env->enemies[i].state = FIRING;
 		if (env->enemies[i].shot)
@@ -375,8 +395,6 @@ void	enemy_ai(t_env *env)
 {
 	int	 i;
 	double  distance;
-	//t_v3	direction;
-	//t_v2	move;
 
 	i = 0;
 	while (i < env->nb_enemies)
@@ -393,54 +411,6 @@ void	enemy_ai(t_env *env)
 			melee_ai(env, env->enemies[i], distance, i);
 		else if (env->enemies[i].behavior == RANGED)
 			ranged_ai(env, env->enemies[i], distance, i);
-		/*if (env->enemies[i].exists &&
-			distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].last_player_pos.x, env->enemies[i].last_player_pos.y) > 0.1 &&
-			(distance >= 30 || env->enemies[i].behavior == MELEE || !env->enemies[i].saw_player))
-		{
-			env->enemies[i].state = PURSUING;
-			direction = sprite_movement((double)env->enemies[i].speed / 200, env->enemies[i].pos, env->enemies[i].last_player_pos);
-			move.x = direction.x;
-			move.y = direction.y;
-			move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 0);
-			if (move.x == 0 && move.y == 0)
-			{
-				env->enemies[i].dir = rand_dir(env, i);
-				if (env->enemies[i].dir == 0)
-				{
-					move.x = -direction.y;
-					move.y = direction.x;
-				}
-				else if (env->enemies[i].dir == 1)
-				{
-					move.x = direction.y;
-					move.y = -direction.x;
-				}
-				move = check_collision(env, move, new_movement(env->enemies[i].sector, env->enemies[i].size_2d, env->enemies[i].eyesight, env->enemies[i].pos), 1);
-			}
-			env->enemies[i].pos.x += move.x;
-			env->enemies[i].pos.y += move.y;
-			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
-			if (env->enemies[i].type == AERIAL)
-				env->enemies[i].pos.z += direction.z;
-			else
-				update_enemy_z(env, i);
-		}
-		if (env->enemies[i].saw_player)
-			env->enemies[i].angle = atan2(env->enemies[i].last_player_pos.y - env->enemies[i].pos.y, env->enemies[i].last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
-		env->enemies[i].saw_player = 0;
-		enemy_sight(env, i, 1);
-		if (env->enemies[i].behavior == RANGED && distance <= 31 && env->enemies[i].saw_player)
-		{
-			env->enemies[i].state = FIRING;
-			if (env->enemies[i].shot)
-			{
-				env->player.health -= env->enemies[i].damage;
-				if (env->player.health < 0)
-					env->player.health = 0;
-				env->player.hit = 1;
-			}
-			env->enemies[i].shot = 0;
-		}*/
 		i++;
 	}
 }
