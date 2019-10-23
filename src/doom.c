@@ -26,6 +26,7 @@ int		doom(t_env *env)
 	env->player.fall = 1;*/
 	while (env->running)
 	{
+		env->player.health = 100;
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);
