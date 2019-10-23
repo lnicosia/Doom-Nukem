@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/17 12:14:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 15:58:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
 	int					playing;
@@ -311,6 +312,7 @@ void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
+void				drop(t_env *env);
 void				jump(t_env *env);
 void				crouch(t_env *env);
 int					open_options(t_env *env);
@@ -322,11 +324,20 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
+void				interactions(t_env *env);
+void				activate_elevator(t_env *env);
+void				create_elevator(t_env *env);
+int					create_levels(t_env *env, int nb_floors);
+int					get_nb_floors(t_env *env, t_sector *sector);
+void				climb(t_env *env);
+double				apply_climb(double vel);
+double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
 void				respawn(t_env *env);
 void				print_results(t_env *env);
+void				activate_teleport(t_env *env);
 
 /*
 ** enemies functions

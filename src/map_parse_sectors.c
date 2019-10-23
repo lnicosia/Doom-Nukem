@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:23:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:03:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor slope", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
-	if (env->sectors[parser->sectors_count].floor_slope > 45
+		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
+/*	if (env->sectors[parser->sectors_count].floor_slope > 45
 			|| env->sectors[parser->sectors_count].floor_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"
-					"and 45 degrees", parser));
-	env->sectors[parser->sectors_count].floor_slope = tan(env->
-			sectors[parser->sectors_count].floor_slope * CONVERT_RADIANS);
+					"and 45 degrees", parser));*/
+		env->sectors[parser->sectors_count].floor_slope = env->
+				sectors[parser->sectors_count].floor_slope;
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor texture", parser));
@@ -454,9 +454,28 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].brightness > 255)
 		return (custom_error("Light must be between -255 and 255"));
 	*line = skip_number(*line);
+	if (!**line)
+		return (missing_data("sector statue", parser));
+	if (**line != ' ')
+		return (invalid_char("after light data", "space(s)",
+					**line, parser));
 	*line = skip_spaces(*line);
+	return (0);
+}
+
+int			parse_sector_statue(t_env *env, char **line, t_map_parser *parser)
+{
+	if (!**line)
+		return (missing_data("sector statue", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before sector statue", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].statue = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].statue > 2 ||
+			env->sectors[parser->sectors_count].statue < 0)
+		return (custom_error_with_line("sector statue must be between 0 and 2", parser));
+	*line = skip_number(*line);
 	if (**line != '\0')
-		return (extra_data("light", parser));
+		return (extra_data(*line, parser));
 	return (0);
 }
 
@@ -495,7 +514,9 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (-1);
 	if (parse_sector_light(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing sector light"));
+		//return (custom_error("Error while parsing sector light"));
+	if (parse_sector_statue(env, &line, parser))
+		return (-1);
 	return (0);
 }
 

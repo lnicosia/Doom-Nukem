@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/17 13:47:08 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/10/23 16:22:18 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
-		   get_slope.c maths_utils.c movement_collision.c weapons.c \
+		   get_slope.c update_player_z.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
@@ -71,7 +71,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   selected_information.c movement_utils.c init_obj_enemies_data.c \
 		   update_sprites_state.c draw_circle_free.c draw_circle.c death.c \
-		   objects_utils.c misc_utils.c
+		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
+		   elevator.c gravity.c teleporter.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h
@@ -91,7 +92,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
 		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
-	
+
 DEBUG ?= 0
 
 #ifeq ($(DEBUG), 1)

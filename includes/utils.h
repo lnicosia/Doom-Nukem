@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/19 21:44:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 15:59:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,26 @@ typedef struct		s_circle
 	t_point			center;
 	int				radius;
 }					t_circle;
+
+typedef struct		s_elevator
+{
+	int				up;
+	int				down;
+	int				on;
+	int				off;
+	double				next_stop;
+}					t_elevator;
+
+typedef struct		s_state
+{
+	int				fall;
+	int				jump;
+	int				run;
+	int				crouch;
+	int				climb;
+	int				drop;
+	int				walk;
+}					t_state;
 
 typedef struct		s_render_vertex
 {
@@ -183,7 +203,9 @@ typedef struct		s_sector
 	short			num;
 	short			nb_vertices;
 	int				skybox;
+	int				statue;
 	int				brightness;
+	int				*levels;
 	Uint32			light_color;
 }					t_sector;
 
@@ -274,7 +296,7 @@ typedef struct		s_player
 	double			size_2d;
 	double			rotation_speed;
 	short			sector;
-	double			state;
+	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;
 	int				health;
@@ -284,6 +306,12 @@ typedef struct		s_player
 	double			touched;
 	int				accuracy;
 	double			head_z;
+	t_state			state;
+	double			velocity;
+	double			velocity_start;
+	double			acceleration;
+	double			start_pos;
+	int				drop_flag;
 }					t_player;
 
 /*
@@ -386,6 +414,8 @@ typedef struct		s_audio
 **	Contains every data needed for an animation on the screen
 */
 
+
+
 typedef struct		s_time
 {
 	double			tick;
@@ -396,15 +426,18 @@ typedef struct		s_time
 	double			minuts;
 	double			tenth_s;
 	double			milli_s;
+	double			last_fall;
+	double			last_jump;
+	double			last_climb;
+	double			last_crouch;
+	double			last_drop;
+	double			d_time;
 }					t_time;
 
 typedef struct		s_gravity
 {
-	double			start;
-	double			end;
-	double			floor;
-	double			weight;
-	double			on_going;
+	double			velocity;
+	double			acceleration;	
 }					t_gravity;
 
 typedef struct		s_animation

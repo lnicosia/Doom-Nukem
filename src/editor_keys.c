@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   editor_keys.c									  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/29 15:07:41 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/24 18:08:59 by gaerhard		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_keys.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/10/23 16:14:48 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -118,7 +118,6 @@ int			editor_keys(t_env *env)
 				return (ft_printf("Could not allocate sector list\n", env));
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
-			update_floor(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);

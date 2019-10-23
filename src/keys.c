@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/25 16:03:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:17:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void		keys(t_env *env)
 	time = SDL_GetTicks();
 	if (!env->time.tick)
 		env->time.tick = SDL_GetTicks();
-	if (!env->jump.on_going && env->inputs.space)
-		update_floor(env);
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
@@ -34,9 +32,9 @@ void		keys(t_env *env)
 			||  ((((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
 				|| (env->selected_enemy == -1 && !env->editor.tab))
-
-			&& (env->editor.in_game && !env->inputs.ctrl))/*
-			|| (env->player.state.climb | env->player.state.drop)*/))
+	
+			&& (env->editor.in_game && !env->inputs.ctrl))
+			|| (env->player.state.climb || env->player.state.drop)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/23 18:13:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 15:57:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int					diff_sign(double nb1, double nb2);
 int					diff_value(int nb1, int nb2, int a, int b);
 int					in_range(double nb, double val1, double val2);
 t_movement          new_movement(int sector, double size_2d, double eyesight, t_v3 pos);
+int                 find_lowest_sector(t_env *env, t_movement motion);
 
 #endif

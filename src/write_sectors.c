@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_sectors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/11 14:43:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/23 16:09:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 
 static void	write_sector(int fd, t_sector sector)
 {
-	ft_dprintf(fd, "[%.5f %.f %d] ",
-			sector.floor, sector.floor_slope * CONVERT_DEGREES, sector.floor_texture);
+	ft_dprintf(fd, "[%.5f %.5f %d] ",
+			sector.floor, sector.floor_slope, sector.floor_texture);
 	if (sector.ceiling_texture == 38)
 	{
 		ft_dprintf(fd, "[%.5f %.5f %d] ",
@@ -100,7 +100,8 @@ static void	write_sector(int fd, t_sector sector)
 		write_sector_neighbors(fd, sector);
 		write_sector_textures(fd, sector);
 		write_sector_wall_sprites(fd, sector);
-		ft_dprintf(fd, "%d\n", (int)(sector.brightness));
+		ft_dprintf(fd, "%d ", (int)(sector.brightness));
+		ft_dprintf(fd, "%d\n", (int)(sector.statue));
 }
 
 void		write_sectors(int fd, t_env *env)

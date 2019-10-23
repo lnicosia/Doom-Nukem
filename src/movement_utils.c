@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/17 13:51:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:06:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,33 @@ int        find_highest_sector(t_env *env, t_movement motion)
         {
             s_height = sector_height(env, motion, i);
             if (height < s_height)
+            {
+                height = s_height;
+                tmp = i;
+            }
+        }
+        i++;
+    }
+    return (tmp);
+}
+
+int        find_lowest_sector(t_env *env, t_movement motion)
+{
+    int     i;
+    double  height;
+    double  s_height;
+    int     tmp;
+
+    i = 0;
+    iter_sectors(env, motion);
+    tmp = motion.sector;
+    height = sector_height(env, motion, motion.sector);
+    while (i < env->nb_sectors)
+    {
+        if (env->sector_list[i])
+        {
+            s_height = sector_height(env, motion, i);
+            if (height > s_height)
             {
                 height = s_height;
                 tmp = i;
