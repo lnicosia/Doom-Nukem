@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:58:10 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 15:32:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/23 18:08:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	interactions(t_env *env)
 	t_sector sector;
 
 	i = 0;
+	if (env->player.sector == -1)
+		return ;
 	sector = env->sectors[env->player.sector];
 	if ((sector.statue == 1 || sector.statue == 2) && !env->elevator.off)
 		activate_elevator(env);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/23 16:15:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:26:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	 enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
 	{
 		if (sector == env->player.sector)
 			return (1);
-		if (env->sector_list[env->sectors[sector].neighbors[i]] == 0 && env->sectors[sector].neighbors[i] >= 0)
+		if (env->sectors[sector].neighbors[i] >= 0 && env->sector_list[env->sectors[sector].neighbors[i]] == 0)
 		{
 			if (env->player.sector == env->sectors[sector].neighbors[i])
 				return (1);
