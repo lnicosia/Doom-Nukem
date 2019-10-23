@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/16 15:54:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/23 13:39:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	write_sector_vertices(int fd, t_sector sector)
 
 static void	write_sector(int fd, t_sector sector)
 {
-	ft_dprintf(fd, "[%.5f %.f %d] ",
-			sector.floor, sector.floor_slope * CONVERT_DEGREES, sector.floor_texture);
+	ft_dprintf(fd, "[%.5f %.5f %d] ",
+			sector.floor, sector.floor_slope, sector.floor_texture);
 	if (sector.ceiling_texture == 38)
 	{
 		ft_dprintf(fd, "[%.5f %.5f %d] ",

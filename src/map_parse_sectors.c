@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 14:37:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/23 14:16:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before floor slope", "a digit or space(s)",
 					**line, parser));
 		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
-	if (env->sectors[parser->sectors_count].floor_slope > 45
+/*	if (env->sectors[parser->sectors_count].floor_slope > 45
 			|| env->sectors[parser->sectors_count].floor_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"
-					"and 45 degrees", parser));
-		env->sectors[parser->sectors_count].floor_slope = tan(env->
-				sectors[parser->sectors_count].floor_slope * CONVERT_RADIANS);
+					"and 45 degrees", parser));*/
+		env->sectors[parser->sectors_count].floor_slope = /*tan(*/env->
+				sectors[parser->sectors_count].floor_slope;//);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor texture", parser));
