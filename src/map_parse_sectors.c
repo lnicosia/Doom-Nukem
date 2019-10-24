@@ -410,8 +410,6 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		i++;
 	}
 	(*line)++;
-	if (!**line)
-		return (missing_data("light", parser));
 	if (**line != ' ')
 		return (invalid_char("after sector sprites", "space(s)",
 					**line, parser));
@@ -444,6 +442,9 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 
 int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 {
+	if (**line != '[')
+		return (invalid_char("before sector light", "'['", **line, parser));
+	(*line)++;
 	if (!**line)
 		return (missing_data("light", parser));
 	if (valid_number(*line, parser))
@@ -454,6 +455,9 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].brightness > 255)
 		return (custom_error("Light must be between -255 and 255"));
 	*line = skip_number(*line);
+	if (**line != ']')
+		return (invalid_char("after sector light", "']'", **line, parser));
+	(*line)++;
 	if (!**line)
 		return (missing_data("sector statue", parser));
 	if (**line != ' ')
@@ -465,15 +469,41 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 
 int			parse_sector_statue(t_env *env, char **line, t_map_parser *parser)
 {
+	if (**line != '[')
+		return (invalid_char("before sector status", "'['", **line, parser));	
+	(*line)++;
 	if (!**line)
 		return (missing_data("sector statue", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before sector statue", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].statue = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].statue > 2 ||
+	if (env->sectors[parser->sectors_count].statue > 3 ||
 			env->sectors[parser->sectors_count].statue < 0)
-		return (custom_error_with_line("sector statue must be between 0 and 2", parser));
+		return (custom_error_with_line("sector statue must be between 0 and 3", parser));
 	*line = skip_number(*line);
+	if (**line != ' ')
+		return (invalid_char("after sector sprites", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line)
+		return (missing_data("coordonates missing after sector statue", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before first coordonate", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].tp.x = ft_atoi(*line);
+	*line = skip_number(*line);
+	if (**line != ' ')
+		return (invalid_char("after sector sprites", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line)
+		return (missing_data("coordonates missing after sector statue", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before second coordonate", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].tp.y = ft_atoi(*line);
+	*line = skip_number(*line);
+	if (**line != ']')
+		return (invalid_char("after sector light", "']'", **line, parser));
+	(*line)++;
 	if (**line != '\0')
 		return (extra_data(*line, parser));
 	return (0);

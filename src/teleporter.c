@@ -12,6 +12,14 @@
 
 #include "env.h"
 
+void	create_teleporter(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	(void)env;	
+}
+
 void	activate_teleport(t_env *env)
 {
 	(void)env;

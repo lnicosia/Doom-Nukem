@@ -156,5 +156,23 @@ int			editor_keys(t_env *env)
 		}
 		selected_information_in_sector(env);
 	}
+	if ((env->inputs.plus || env->inputs.minus) && !env->editor.in_game)
+	{
+		if (!env->time.tick4)
+			env->time.tick4 = SDL_GetTicks();
+		time = SDL_GetTicks();
+		if (env->inputs.plus && env->selected_stat < 3 && time - env->time.tick2 > 200)
+		{
+			env->sectors[env->editor.selected_sector].statue++;
+			env->time.tick4 = time;
+		}
+		if (env->inputs.minus && env->selected_stat > 0 && time - env->time.tick2 > 200)
+		{
+			env->sectors[env->editor.selected_sector].statue--;
+			env->time.tick4 = time;
+		}
+/*		if (env->sectors[env->editor.selected_sector].statue == 3)
+			create_teleporter(env);*/
+	}
 	return (0);
 }

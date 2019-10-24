@@ -199,6 +199,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	t_v2			tp;
 	short			*selected;
 	short			num;
 	short			nb_vertices;
@@ -421,6 +422,7 @@ typedef struct		s_time
 	double			tick;
 	double			tick2;
 	double			tick3;
+	double			tick4;
 	double			start;
 	double			end;
 	double			minuts;

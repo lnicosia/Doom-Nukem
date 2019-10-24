@@ -36,4 +36,5 @@ void	player_selection(t_env *env)
 			env->editor.new_player = 0;
 	}
 	update_player_z(env);
+	env->player.camera.pos.z = env->player.head_z;
 }
