@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 15:31:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 16:06:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	call_elevator(t_env *env)
 				|| (env->sectors[env->elevator.sector].floor < env->sectors[env->elevator.called_from].floor && env->elevator.down))
 		{
 			env->sectors[env->elevator.sector].floor = env->sectors[env->elevator.called_from].floor;	
+			update_sector_slope(env, &env->sectors[env->elevator.sector]);
 			env->elevator.next_stop = 0;
 			env->elevator.on = 0;
 			env->elevator.up = 0;
@@ -119,7 +120,7 @@ void	call_elevator(t_env *env)
 			env->elevator.sector = -1;
 			env->elevator.call = 0;
 			env->elevator.called_from = -1;
-		}
+		}	
 	}
 	else
 	{
@@ -134,10 +135,13 @@ void	activate_elevator(t_env *env)
 
 	i = 0;
 	sector = env->sectors[env->player.sector];
-	if (sector.statue == 1 && !env->elevator.call)
+	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
 	{
+		if (env->elevator.sector == -1)
+			env->elevator.sector = env->player.sector;
 		check_up_down(env, sector);
 		env->elevator.on = 1;
+		env->elevator.used = 1;
 		if (env->elevator.down)
 		{
 			env->sectors[env->elevator.sector].floor -= 0.1;
@@ -150,19 +154,21 @@ void	activate_elevator(t_env *env)
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->elevator.sector].floor + 10;
 		}
+		update_sector_slope(env, &env->sectors[env->elevator.sector]);
 		if ((env->sectors[env->elevator.sector].floor > env->elevator.next_stop && env->elevator.up)
 				|| (env->sectors[env->elevator.sector].floor < env->elevator.next_stop && env->elevator.down))
 		{
 			env->sectors[env->elevator.sector].floor = env->elevator.next_stop;	
+			update_sector_slope(env, &env->sectors[env->elevator.sector]);
 			env->elevator.next_stop = 0;
 			env->elevator.on = 0;
 			env->elevator.up = 0;
 			env->elevator.down = 0;
 			env->elevator.off = 1;
 			env->elevator.sector = -1;
+			env->elevator.used  = 0;
 		}
-		update_sector_slope(env, &env->sectors[env->player.sector]);
 	}
-	else
+	else if (!env->elevator.used)
 		call_elevator(env);
 }
