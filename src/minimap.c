@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by aherriau          #+#    #+#             */
-/*   Updated: 2019/09/18 11:36:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:00:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	draw_player(t_env *env)
 	{
 		p1.x = triangle[0].x;
 		p1.y = triangle[0].y;
-		draw_line_minimap(p0, p1, *env, 0xFFFFFF00);
+		draw_line_minimap(p0, p1, *env, 0xFF00FF00);
 	}
 	triangle[2] = new_v3(
 			(env->player.camera.angle_cos * env->player.camera.far_z - env->player.camera.angle_sin * env->player.camera.far_right) * env->options.minimap_scale + start.x,
@@ -231,4 +231,23 @@ void		minimap(t_env *env)
 	}
 	draw_sprites_minimap(env);
 	draw_player(env);
+	/*int i = 0;
+	t_point	enemy_start;
+	t_point enemy_end;
+	while (i < env->nb_enemies)
+	{
+		enemy_start.x = env->w - 150 + (env->enemies[i].pos.x - env->player.pos.x) * env->options.minimap_scale;
+		enemy_start.y = 150 + (env->enemies[i].pos.y - env->player.pos.y) * env->options.minimap_scale;
+		enemy_end.x = enemy_start.x + 500*cos(env->enemies[i].angle * CONVERT_RADIANS);
+		enemy_end.y = enemy_start.y + 500*sin(env->enemies[i].angle * CONVERT_RADIANS);
+		draw_line_minimap(enemy_start, enemy_end, *env, 0xFFAA8844);
+		enemy_end.x = enemy_start.x + 500*cos(env->enemies[i].angle * CONVERT_RADIANS - 24.5);
+		enemy_end.y = enemy_start.y + 500*sin(env->enemies[i].angle * CONVERT_RADIANS - 24.5);
+		draw_line_minimap(enemy_start, enemy_end, *env, 0xFFAA8844);
+		enemy_end.x = enemy_start.x + 500*cos(env->enemies[i].angle * CONVERT_RADIANS + 24.5);
+		enemy_end.y = enemy_start.y + 500*sin(env->enemies[i].angle * CONVERT_RADIANS + 24.5);
+		draw_line_minimap(enemy_start, enemy_end, *env, 0xFFAA8844);
+		draw_circle_free(new_circle(0xFFFF0000, 0xFFFF0000, enemy_start, 2), env);
+		i++;
+	}*/
 }

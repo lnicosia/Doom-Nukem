@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/27 17:44:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 15:58:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ typedef struct		s_env
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
 	t_confirmation_box	confirmation_box;
+	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
 	t_vline_data		*vline_data;
+	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
@@ -239,6 +241,8 @@ void				init_inputs(t_env *env);
 int					init_camera(t_camera *camera, t_env *env);
 int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
+void				init_enemies_data(t_env *env);
+void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 
@@ -306,6 +310,7 @@ void				check_parsing(t_env *env);
 void				keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
+void				confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
@@ -334,12 +339,14 @@ int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
 void				set_sectors_xmax(t_env *env);
 void				keys(t_env *env);
 void				update_player_z(t_env *env);
+void				update_enemy_z(t_env *env, int i);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, t_sector *sector);
 void				game_time(t_env *env);
 void				gravity(t_env *env);
 void				animations(t_env *env);
 void				fall(t_env *env);
+void				drop(t_env *env);
 void				jump(t_env *env);
 void				crouch(t_env *env);
 int					open_options(t_env *env);
@@ -351,8 +358,20 @@ void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
 double     			distance_two_points(double x1, double y1, double x2, double y2);
+void				interactions(t_env *env);
+void				activate_elevator(t_env *env);
+void				create_elevator(t_env *env);
+int					create_levels(t_env *env, int nb_floors);
+int					get_nb_floors(t_env *env, t_sector *sector);
+void				climb(t_env *env);
+double				apply_climb(double vel);
+double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
+void				death(t_env *env);
+void				respawn(t_env *env);
+void				print_results(t_env *env);
+void				activate_teleport(t_env *env);
 
 /*
 ** enemies functions
@@ -360,11 +379,13 @@ void				update_sprites_state(t_env *env);
 
 void	draw_grid_enemies(t_env *env);
 void	enemy_selection(t_env *env);
-void	enemy_pursuit(t_env *env);
+void	enemy_ai(t_env *env);
 void	damage_anim(t_env *env);
 int		enemy_hurt(t_env *env, int i);
 void    resting_enemy(t_env *env, int i);
 void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
+int     rand_dir(t_env *env, int index);
+void	enemy_firing_anim(t_env *env, int i);
 
 #endif

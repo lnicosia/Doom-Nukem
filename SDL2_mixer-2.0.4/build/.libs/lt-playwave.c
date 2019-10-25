@@ -255,7 +255,7 @@ static const char *script_text_part2 =
   "\n"
   "  if test -f \"$progdir/$program\"; then\n"
   "    # Add our own library path to PATH\n"
-  "    PATH=\"/home/Lucas/Doom-Nukem/SDL2_mixer-2.0.4/build/.libs:/usr/local/lib:$PATH\"\n"
+  "    PATH=\"/home/gabriel/DM2/SDL2_mixer-2.0.4/build/.libs:/usr/local/lib:$PATH\"\n"
   "\n"
   "    # Some systems cannot cope with colon-terminated PATH\n"
   "    # The second colon is a workaround for a bug in BeOS R4 sed\n"
@@ -264,7 +264,7 @@ static const char *script_text_part2 =
   "    export PATH\n"
   "\n"
   "    # Add the dll search path components to the executable PATH\n"
-  "    PATH=/usr/local/lib:/usr/local/bin:/home/Lucas/Doom-Nukem/SDL2_mixer-2.0.4/build/.libs:$PATH\n"
+  "    PATH=/usr/local/lib:/usr/local/bin:/home/gabriel/DM2/SDL2_mixer-2.0.4/build/.libs:$PATH\n"
   "\n"
   "    if test \"$libtool_execute_magic\" != \"%%%MAGIC variable%%%\"; then\n"
   "      # Run the actual program with our arguments.\n"
@@ -285,9 +285,9 @@ static const char *script_text_part2 =
 ;
 const char * MAGIC_EXE = "%%%MAGIC EXE variable%%%";
 const char * LIB_PATH_VARNAME = "PATH";
-const char * LIB_PATH_VALUE   = "/home/Lucas/Doom-Nukem/SDL2_mixer-2.0.4/build/.libs:/usr/local/lib:";
+const char * LIB_PATH_VALUE   = "/home/gabriel/DM2/SDL2_mixer-2.0.4/build/.libs:/usr/local/lib:";
 const char * EXE_PATH_VARNAME = "PATH";
-const char * EXE_PATH_VALUE   = "/usr/local/lib:/usr/local/bin:/home/Lucas/Doom-Nukem/SDL2_mixer-2.0.4/build/.libs:";
+const char * EXE_PATH_VALUE   = "/usr/local/lib:/usr/local/bin:/home/gabriel/DM2/SDL2_mixer-2.0.4/build/.libs:";
 const char * TARGET_PROGRAM_NAME = "playwave"; /* hopefully, no .exe */
 
 #define LTWRAPPER_OPTION_PREFIX         "--lt-"

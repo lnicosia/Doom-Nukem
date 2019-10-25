@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/19 15:18:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:16:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	init_editor_data(t_env *env)
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
-	env->gravity.on_going = 1;
 }
 
 int	init_editor(int ac, char **av)
@@ -66,6 +65,7 @@ int	init_editor(int ac, char **av)
 	env.min_fps2 = 300;
 	env.avrg_fps2 = 0;
 	env.max_fps2 = 0;
+	env.playing = 0;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

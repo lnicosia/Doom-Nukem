@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_enemies.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 15:04:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 10:14:26 by lnicosia         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   draw_enemies.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
+/*   Updated: 2019/09/30 13:40:50 by gaerhard		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -30,6 +30,16 @@ static int	get_sprite_direction(t_enemies enemy)
 {
 	double	angle;
 
+	/*
+	** 0 = front sprite
+	** 1 = front right sprite
+	** 2 = right sprite
+	** 3 = back right sprite
+	** 4 = back sprite
+	** 5 = back left sprite
+	** 6 = left sprite
+	** 7 = front left
+	*/
 	angle = (int)((atan2(enemy.translated_pos.z, enemy.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle >= enemy.angle - 22.5 && angle < enemy.angle + 22.5)
 		return (4);
@@ -228,6 +238,8 @@ void		draw_enemies(t_camera camera, t_env *env)
 	while (i < env->nb_enemies)
 	{
 		dying_sprite = -1;
+		if (env->enemies[i].state == FIRING)
+			enemy_firing_anim(env, i);
 		if (env->enemies[i].rotated_pos.z > 1 && env->enemies[i].exists)
 		{
 			env->enemies[i].seen = 0;
@@ -235,9 +247,9 @@ void		draw_enemies(t_camera camera, t_env *env)
 			{
 				if (env->enemies[i].health <= 0)
 					dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
-				if (!env->enemies[i].state)
+				if (env->enemies[i].state == RESTING)
 					resting_enemy(env, i);
-				else
+				else if (env->enemies[i].state == PURSUING)
 					pursuing_enemy(env, i);
 			}
 			if (env->enemies[i].exists)

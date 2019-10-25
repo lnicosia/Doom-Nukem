@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/26 09:04:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:19:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,29 @@ void	set_sectors_xmax(t_env *env)
 void	init_player(t_env *env)
 {
 	env->player.eyesight = 6;
+	env->player.size_2d = 0.75;
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
 	env->player.speed = 0.5;
 	env->player.pos.z = 0;
-	env->player.life = 100;
+	env->player.health = 100;
+	env->player.killed = 0;
+	env->player.touched = 0;
+	env->player.nb_shots = 0;
+	env->player.accuracy = 0;
+	env->player.size_2d = 0.75;
+	env->player.velocity = 0;
+	env->player.acceleration = 0;
+	env->player.drop_flag = 0;
+	env->gravity.velocity = 0;
+	env->gravity.acceleration = 0;
+	env->player.state.drop = 0;
+	env->player.state.fall = 0;
+	env->player.state.climb = 0;
+	env->player.state.jump = 0;
+	env->player.state.crouch = 0;
+	env->player.state.walk = 0;
 }
 
 int		parse_map(char *file, t_env *env)
@@ -200,8 +217,8 @@ int		parse_map(char *file, t_env *env)
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &parser));
 	update_player_z(env);
-	update_floor(env);
 	set_sectors_xmax(env);
+	init_enemies_data(env);
 	if (close(parser.fd))
 		return (custom_error("Could not close the file"));
 	ft_printf("{reset}");

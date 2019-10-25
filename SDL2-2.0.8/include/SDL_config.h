@@ -60,7 +60,7 @@
 #define HAVE_ALLOCA_H 1
 #define HAVE_CTYPE_H 1
 #define HAVE_FLOAT_H 1
-#define HAVE_ICONV_H 1
+/* #undef HAVE_ICONV_H */
 #define HAVE_INTTYPES_H 1
 #define HAVE_LIMITS_H 1
 /* #undef HAVE_MALLOC_H */

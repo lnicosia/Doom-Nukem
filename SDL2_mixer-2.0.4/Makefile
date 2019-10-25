@@ -21,8 +21,10 @@ EXE	= .exe
 SHELL	= /bin/sh
 CC      = gcc
 CFLAGS  = -g -O2 
+# -mno-cygwin deleted after -I/usr/include/mingw
 EXTRA_CFLAGS =  -I/usr/include/mingw -I/usr/local/include/SDL2 -I/usr/include/mingw -Dmain=SDL_main -DMUSIC_WAV -DMUSIC_MID -DMUSIC_MID_TIMIDITY -I$(srcdir)/timidity -DMUSIC_MID_NATIVE -I$(srcdir)/native_midi
 LDFLAGS = 
+# -mno-cygwin deleted before -L/usr/local/lib
 EXTRA_LDFLAGS = -L/usr/local/lib -lcygwin -lSDL2main -lSDL2 -mwindows -lwinmm 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 INSTALL = /usr/bin/install -c

@@ -104,7 +104,7 @@ else
 
   if test -f "$progdir/$program"; then
     # Add our own library path to PATH
-    PATH="/home/Lucas/Doom-Nukem/SDL2_ttf-2.0.15/.libs:/usr/local/lib:$PATH"
+    PATH="/home/gabriel/DM2/SDL2_ttf-2.0.15/.libs:/usr/local/lib:$PATH"
 
     # Some systems cannot cope with colon-terminated PATH
     # The second colon is a workaround for a bug in BeOS R4 sed
@@ -113,7 +113,7 @@ else
     export PATH
 
     # Add the dll search path components to the executable PATH
-    PATH=/usr/local/lib:/usr/local/bin:/home/Lucas/Doom-Nukem/SDL2_ttf-2.0.15/.libs:$PATH
+    PATH=/usr/local/lib:/usr/local/bin:/home/gabriel/DM2/SDL2_ttf-2.0.15/.libs:$PATH
 
     if test "$libtool_execute_magic" != "%%%MAGIC variable%%%"; then
       # Run the actual program with our arguments.

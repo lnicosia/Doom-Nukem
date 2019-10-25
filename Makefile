@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/09 09:47:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/23 19:19:16 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,11 @@ SDL_MIXER_DIR = SDL2_mixer-2.0.4
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
+				print_results.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-				 draw_grid_walls.c draw_circle.c draw_grid_vertices.c \
+				 draw_grid_walls.c draw_grid_vertices.c \
 				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
 				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 				 save_map.c write_vertices.c write_sectors.c write_objects.c \
@@ -43,14 +44,14 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid_player.c draw_grid_objects.c \
 				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-				 fill_triangle.c draw_circle_free.c
+				 fill_triangle.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
-		   get_slope.c maths_utils.c movement_collision.c weapons.c \
+		   get_slope.c update_player_z.c movement_collision.c weapons.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c get_vline_data.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
@@ -71,6 +72,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   selected_information.c movement_utils.c update_sprites_state.c \
 		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
 		   benchmark.c \
+		   init_obj_enemies_data.c \
+		   draw_circle_free.c draw_circle.c death.c \
+		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
+		   elevator.c gravity.c teleporter.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h

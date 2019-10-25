@@ -431,7 +431,7 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/Lucas/Doom-Nukem/SDL2_mixer-2.0.4'
+ac_pwd='/home/gabriel/DM2/SDL2_mixer-2.0.4'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 test -n "$AWK" || AWK=awk

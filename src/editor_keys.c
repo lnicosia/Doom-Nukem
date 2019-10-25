@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 17:34:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:14:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,20 @@ int			editor_keys(t_env *env)
 				return (ft_printf("Could not allocate sector list\n", env));
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
-			update_floor(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		}
 		env->inputs.enter = 0;
 	}
+	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.x -= 3;
+	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.x += 3;
+	if (env->inputs.forward && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.y -= 3;
+	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.y += 3;
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env) && !env->editor.in_game)
 	{
 		if (save_map("maps/test.map", env))
@@ -149,13 +156,5 @@ int			editor_keys(t_env *env)
 		}
 		selected_information_in_sector(env);
 	}
-	if (env->inputs.left)
-		env->editor.center.x -= 3;
-	if (env->inputs.right)
-		env->editor.center.x += 3;
-	if (env->inputs.forward)
-		env->editor.center.y -= 3;
-	if (env->inputs.backward)
-		env->editor.center.y += 3;
 	return (0);
 }

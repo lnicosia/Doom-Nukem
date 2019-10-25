@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 15:27:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 15:59:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
+# define X1 env->vertices[env->sectors[motion.sector].vertices[i]].x
+# define X2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].x
+# define Y1 env->vertices[env->sectors[motion.sector].vertices[i]].y
+# define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_TEXTURE 46
@@ -38,6 +38,32 @@
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
+
+typedef enum		e_enemy_state
+{
+	RESTING,
+	PURSUING,
+	FIRING
+}					t_enemy_state;
+
+typedef enum		e_entity_sprite
+{
+	LOST_SOUL = 1,
+	CYBER_DEMON
+}					t_entity_sprite;
+
+typedef enum		e_enemy_behavior
+{
+	MELEE,
+	RANGED
+}					t_enemy_behavior;
+
+typedef enum		e_enemy_type
+{
+	TERRESTRIAL,
+	AERIAL,
+	AQUATIC
+}					t_enemy_type;
 
 typedef struct		s_line_eq
 {
@@ -59,6 +85,26 @@ typedef struct		s_circle
 	t_point			center;
 	int				radius;
 }					t_circle;
+
+typedef struct		s_elevator
+{
+	int				up;
+	int				down;
+	int				on;
+	int				off;
+	double				next_stop;
+}					t_elevator;
+
+typedef struct		s_state
+{
+	int				fall;
+	int				jump;
+	int				run;
+	int				crouch;
+	int				climb;
+	int				drop;
+	int				walk;
+}					t_state;
 
 typedef struct		s_render_vertex
 {
@@ -161,7 +207,9 @@ typedef struct		s_sector
 	short			num;
 	short			nb_vertices;
 	int				skybox;
+	int				statue;
 	int				brightness;
+	int				*levels;
 	Uint32			light_color;
 }					t_sector;
 
@@ -254,10 +302,21 @@ typedef struct		s_vline_data
 	t_v2			texel_camera_range;
 }					t_vline_data;
 
+typedef	struct		s_init_data
+{
+	t_v3			pos;
+	t_camera		camera;
+	int				sector;
+	double			angle;
+	int				health;	
+	int				main_sprite;
+}					t_init_data;
+
 typedef struct		s_player
 {
 	t_v3			pos;
 	t_camera		camera;
+	t_init_data		player_init_data;
 	int				stuck;
 	int				prev_sector;
 	double			gravity;
@@ -267,12 +326,22 @@ typedef struct		s_player
 	double			size_2d;
 	double			rotation_speed;
 	short			sector;
-	double			state;
+	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;
-	int				life;
+	int				health;
 	int				armor;
+	int				killed;
+	double			nb_shots;
+	double			touched;
+	int				accuracy;
 	double			head_z;
+	t_state			state;
+	double			velocity;
+	double			velocity_start;
+	double			acceleration;
+	double			start_pos;
+	int				drop_flag;
 }					t_player;
 
 /*
@@ -377,6 +446,8 @@ typedef struct		s_audio
 **	Contains every data needed for an animation on the screen
 */
 
+
+
 typedef struct		s_time
 {
 	double			tick;
@@ -387,15 +458,18 @@ typedef struct		s_time
 	double			minuts;
 	double			tenth_s;
 	double			milli_s;
+	double			last_fall;
+	double			last_jump;
+	double			last_climb;
+	double			last_crouch;
+	double			last_drop;
+	double			d_time;
 }					t_time;
 
 typedef struct		s_gravity
 {
-	double			start;
-	double			end;
-	double			floor;
-	double			weight;
-	double			on_going;
+	double			velocity;
+	double			acceleration;	
 }					t_gravity;
 
 typedef struct		s_animation
@@ -443,6 +517,7 @@ typedef struct		s_sprite
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
+	int				firing_sprite;
 	int				pursuit_sprite;
 	int				death_counterpart;
 	int				nb_death_sprites;
@@ -457,6 +532,7 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	t_init_data		object_init_data;
 	int				left;
 	int				right;
 	int				top;
@@ -479,19 +555,33 @@ typedef struct		s_object
 typedef struct		s_enemies
 {
 	t_v3			pos;
+	t_v3			last_player_pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
+	t_v2			far_left;
+	t_v2			far_right;
+	t_v2			left_arm;
+	t_v2			right_arm;
+	t_init_data		enemies_init_data;
+	int				type;
+	int				behavior;
 	int				speed;
+	int				shot;
 	int				hit;
 	int				left;
 	int				right;
 	int				top;
 	int				bottom;
 	int				sprite;
+	int				main_sprite;
 	int				death_sprite;
+	int				firing_sprite;
 	int				seen;
+	int				saw_player;
 	double			scale;
 	double			angle;
+	double			size_2d;
+	double			eyesight;
 	short			brightness;
 	Uint32			light_color;
 	int				health;
@@ -500,10 +590,13 @@ typedef struct		s_enemies
 	int				sector;
 	int				num;
 	int				state;
+	int				dir;
+	t_animation		rand_dir;
 	t_animation		death;
 	t_animation		hurt;
 	t_animation		rest;
 	t_animation		pursue;
+	t_animation		fire;
 }					t_enemies;
 
 /*

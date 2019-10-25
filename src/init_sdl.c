@@ -14,6 +14,8 @@
 
 int		set_sdl(t_env *env)
 {
+	/*env->w = 1280;
+	env->h = 720;*/
 	if (!(env->sdl.window = SDL_CreateWindow(
 					"Dookme",
 					SDL_WINDOWPOS_CENTERED,
@@ -125,6 +127,7 @@ int		set_sdl(t_env *env)
 				NULL) != 0)
 		return (ft_printf("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);
+	SDL_SetWindowDisplayMode(env->sdl.window, NULL);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	return (0);
 }

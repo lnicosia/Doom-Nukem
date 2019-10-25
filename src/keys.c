@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 10:37:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:17:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,20 @@ void		keys(t_env *env)
 	time = SDL_GetTicks();
 	if (!env->time.tick)
 		env->time.tick = SDL_GetTicks();
-	if (!env->jump.on_going && env->inputs.space)
-		update_floor(env);
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going || env->inputs.ctrl || env->gravity.on_going)
-			&& !env->editor.in_game)
+			|| env->crouch.on_going || env->inputs.ctrl)
+			&& !env->editor.in_game && env->player.health > 0)
 
-			&& (((env->selected_enemy == -1 && env->editor.tab)
+			||  ((((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab)))
+				|| (env->selected_enemy == -1 && !env->editor.tab))
 	
-			|| (!env->inputs.ctrl && env->editor.in_game))
-
+			&& (env->editor.in_game && !env->inputs.ctrl))
+			|| (env->player.state.climb || env->player.state.drop)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
