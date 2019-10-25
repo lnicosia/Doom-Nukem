@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 12:48:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 14:26:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	call_elevator(t_env *env)
 	i = 0;
 	sector = env->sectors[env->player.sector];
 	if (env->elevator.sector == -1)
-	{
+	{	
 		while (i < sector.nb_vertices)
 		{
 			if (sector.neighbors[i] != -1 && env->sectors[sector.neighbors[i]].statue == 1)
@@ -87,7 +87,6 @@ void	call_elevator(t_env *env)
 			i++;
 		}
 	}
-	ft_printf("elevator: %d\n", env->elevator.sector);
 	if (env->sectors[env->elevator.sector].floor != env->sectors[env->player.sector].floor)
 	{
 		find_call(env, sector, env->elevator.sector);
@@ -104,6 +103,7 @@ void	call_elevator(t_env *env)
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->elevator.sector].floor + 10;
 		}
+		update_sector_slope(env, &env->sectors[env->elevator.sector]);
 		if ((env->sectors[env->elevator.sector].floor > env->sectors[env->player.sector].floor && env->elevator.up)
 				|| (env->sectors[env->elevator.sector].floor < env->sectors[env->player.sector].floor && env->elevator.down))
 		{
@@ -114,7 +114,6 @@ void	call_elevator(t_env *env)
 			env->elevator.down = 0;
 			env->elevator.sector = -1;
 		}
-		update_sector_slope(env, &env->sectors[env->elevator.sector]);
 	}
 }
 
@@ -124,12 +123,9 @@ void	activate_elevator(t_env *env)
 	t_sector sector;
 
 	i = 0;
-	if (env->elevator.sector == -1)
-		env->elevator.sector = env->player.sector;
-	sector = env->sectors[env->elevator.sector];
+	sector = env->sectors[env->player.sector];
 	if (sector.statue == 1)
 	{
-		ft_printf("test\n");
 		check_up_down(env, sector);
 		env->elevator.on = 1;
 		if (env->elevator.down)
