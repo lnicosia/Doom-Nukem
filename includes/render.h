@@ -114,6 +114,7 @@ typedef struct	s_skybox_data
 	double		z;
 	double		ceiling_start;
 	double		ceiling_horizon;
+	int		i;
 	int			mode;
 }				t_skybox_data;
 

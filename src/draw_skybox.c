@@ -92,6 +92,7 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 	wall_data.z = render.z;
 	wall_data.ceiling_start = render.ceiling_start;
 	wall_data.ceiling_horizon = render.ceiling_horizon;
+	wall_data.i = render.i;
 	while (++i < 4)
 	{
 		if (!env->skybox[i].draw
