@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 15:58:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 11:59:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_env
 	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
+	t_teleport			teleport;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;

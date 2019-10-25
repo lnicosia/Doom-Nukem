@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 15:59:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 11:59:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,12 @@ typedef struct		s_render_vertex
 	double			y1z0;
 	double			yzrange;
 }					t_render_vertex;
+
+typedef	struct		s_teleport
+{
+	int		create;
+	t_v2		tmp_pos;
+}			t_teleport;
 
 typedef struct		s_wall_sprite
 {
