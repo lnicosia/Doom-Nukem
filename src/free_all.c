@@ -12,6 +12,8 @@
 
 #include "env.h"
 
+int		save_benchmark(t_env *env);
+
 static void	free_textures(t_env *env)
 {
 	int	i;
@@ -231,6 +233,7 @@ void		free_all(t_env *env)
 	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
+	save_benchmark(env);
 }
 
 int			crash(char *str, t_env *env)

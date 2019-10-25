@@ -117,6 +117,13 @@ typedef struct		s_env
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
+	double				avrg_fps;
+	int				min_fps;
+	int				max_fps;
+	double				avrg_fps2;
+	int				min_fps2;
+	int				max_fps2;
+	double				render_swap_time;
 }					t_env;
 
 /*

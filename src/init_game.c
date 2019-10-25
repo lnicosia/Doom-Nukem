@@ -21,6 +21,13 @@ int	init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
+	env.min_fps = 300;
+	env.avrg_fps = 0;
+	env.max_fps = 0;
+	env.min_fps2 = 300;
+	env.avrg_fps2 = 0;
+	env.max_fps2 = 0;
+	env.render_swap_time = 0;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.new_player = 1;

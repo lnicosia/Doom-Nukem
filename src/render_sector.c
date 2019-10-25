@@ -145,6 +145,9 @@ void		render_sector(t_render render, t_env *env)
 	t_render		new;
 
 	i = -1;
+	if (render.camera->rendered_sectors[render.sector])
+		return ;
+	render.camera->rendered_sectors[render.sector]++;
 	sector = env->sectors[render.sector];
 	//ft_printf("rendering sector %d\n", sector.num);
 	while (++i < sector.nb_vertices)
@@ -173,4 +176,5 @@ void		render_sector(t_render render, t_env *env)
 			render_sector(new, env);
 		}
 	}
+	render.camera->rendered_sectors[render.sector]--;
 }

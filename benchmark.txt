@@ -1,0 +1,8 @@
+OLD RENDER
+Average fps = 30.039736
+Min fps = 28.000000
+Min fps = 37.000000
+NEW RENDER
+Average fps = 32.179028
+Min fps = 31.000000
+Max fps = 40.000000
