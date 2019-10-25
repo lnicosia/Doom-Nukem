@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 16:06:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 16:21:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,30 @@ void	check_blocage(t_env *env, t_movement motion, int index)
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
+	(void)a;
 	if (nb == 3)
-		ft_printf("I'm stuck %d\n", a++);
+	{
+		ft_printf("stuck\n");
+		env->player.stuck = 1;
+	}
 }
 
 void	move_player(t_env *env)
 {
 	int			movement;
-	int		old_sector;
 	t_movement	motion;
 	t_v2		move;
 	t_v2		pos;
-	t_v2		old_pos;
+	int			prev_sector;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	old_sector = env->player.sector;
+	if (env->player.sector >= 0)
+	{
+		env->player.old_pos.x = pos.x;
+		env->player.old_pos.y = pos.y;
+	}
+	prev_sector = env->player.sector;
 	movement = 0;
 	env->time.end = env->time.milli_s / 10;
 	if (env->time.end - env->time.start >= 1)
@@ -97,8 +105,6 @@ void	move_player(t_env *env)
 		if (env->inputs.forward && !env->inputs.backward)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_cos * env->player.speed, env->player.camera.angle_sin * env->player.speed), motion, 0);
-			old_pos.x = env->player.pos.x;
-			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
@@ -109,8 +115,6 @@ void	move_player(t_env *env)
 		else if (env->inputs.backward && !env->inputs.forward)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_cos * -env->player.speed, env->player.camera.angle_sin * -env->player.speed), motion, 0);
-			old_pos.x = env->player.pos.x;
-			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
@@ -121,8 +125,6 @@ void	move_player(t_env *env)
 		if (env->inputs.left && !env->inputs.right)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_sin * env->player.speed, env->player.camera.angle_cos * -env->player.speed), motion, 0);
-			old_pos.x = env->player.pos.x;
-			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
@@ -133,14 +135,19 @@ void	move_player(t_env *env)
 		else if (env->inputs.right && !env->inputs.left)
 		{
 			move = check_collision(env, new_v2(env->player.camera.angle_sin * -env->player.speed, env->player.camera.angle_cos * env->player.speed), motion, 0);
-			old_pos.x = env->player.pos.x;
-			old_pos.y = env->player.pos.y;
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (move.x != 0 || move.y != 0)
 				movement = 1;
 			if (move.x == 0 && move.y == 0)
 				check_blocage(env, motion, 4);
+		}
+		if (env->player.stuck || get_sector_no_z_origin(env, env->player.pos, env->player.sector) == -1)
+		{
+			env->player.stuck = 0;
+			env->player.pos.x = env->player.old_pos.x;
+			env->player.pos.y = env->player.old_pos.y;
+			env->player.sector = get_sector_no_z_origin(env, env->player.pos, prev_sector);
 		}
 		if (!movement && (env->player.state.climb || env->player.state.drop))
 			movement = 1;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 15:59:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 16:21:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 46
+# define MAX_TEXTURE 47
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 11
+# define MAX_SPRITES 12
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
@@ -315,6 +315,7 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
+	t_v2			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
 	int				stuck;
