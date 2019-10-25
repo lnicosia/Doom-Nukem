@@ -54,6 +54,8 @@ int		save_benchmark(t_env *env)
 		env->avrg_fps, env->min_fps, env->max_fps);
 	ft_printf("Average NEW RENDER fps: %f\nMin fps = %d\nMax fps = %d\n",
 		env->avrg_fps2, env->min_fps2, env->max_fps2);
+	if (!env->avrg_fps)
+		return (-1);
 	if ((fd = open("benchmark.txt", O_RDONLY)) < 0)
 	{
 		ft_printf("New benchmark file\n");

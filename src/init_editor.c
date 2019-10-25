@@ -60,6 +60,12 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
+	env.min_fps = 300;
+	env.avrg_fps = 0;
+	env.max_fps = 0;
+	env.min_fps2 = 300;
+	env.avrg_fps2 = 0;
+	env.max_fps2 = 0;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
