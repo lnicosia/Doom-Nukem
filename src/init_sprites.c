@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 13:12:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/24 20:16:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -761,6 +761,81 @@ int			init_sprites(t_env *env)
 	env->sprites[10].size[7].x = 130;
 	env->sprites[10].size[7].y = 110;
 	env->sprites[10].reversed[7] = 0;
+
+	// rocket sprites
+
+	env->sprites[11].texture = 45;
+	env->sprites[11].death_counterpart = 11;
+	env->sprites[11].pursuit_sprite = 11;
+	env->sprites[11].firing_sprite = 11;
+	env->sprites[11].rest_sprite = 11;
+	env->sprites[11].curr_sprite = 11;
+	env->sprites[11].oriented = 1;
+	env->sprites[11].nb_death_sprites = 8;
+
+	env->sprites[11].start[0].x = 1;
+	env->sprites[11].start[0].y = 817;
+	env->sprites[11].end[0].x = 15;
+	env->sprites[11].end[0].y = 830;
+	env->sprites[11].size[0].x = 15;
+	env->sprites[11].size[0].y = 14;
+	env->sprites[11].reversed[0] = 0;
+
+	env->sprites[11].start[1].x = 17;
+	env->sprites[11].start[1].y = 817;
+	env->sprites[11].end[1].x = 31;
+	env->sprites[11].end[1].y = 830;
+	env->sprites[11].size[1].x = 15;
+	env->sprites[11].size[1].y = 14;
+	env->sprites[11].reversed[1] = 0;
+
+	env->sprites[11].start[2].x = 33;
+	env->sprites[11].start[2].y = 817;
+	env->sprites[11].end[2].x = 58;
+	env->sprites[11].end[2].y = 830;
+	env->sprites[11].size[2].x = 26;
+	env->sprites[11].size[2].y = 14;
+	env->sprites[11].reversed[2] = 0;
+
+	env->sprites[11].start[3].x = 60;
+	env->sprites[11].start[3].y = 817;
+	env->sprites[11].end[3].x = 108;
+	env->sprites[11].end[3].y = 830;
+	env->sprites[11].size[3].x = 49;
+	env->sprites[11].size[3].y = 14;
+	env->sprites[11].reversed[3] = 0;
+
+	env->sprites[11].start[4].x = 110;
+	env->sprites[11].start[4].y = 817;
+	env->sprites[11].end[4].x = 141;
+	env->sprites[11].end[4].y = 830;
+	env->sprites[11].size[4].x = 32;
+	env->sprites[11].size[4].y = 14;
+	env->sprites[11].reversed[4] = 0;
+
+	env->sprites[11].start[5].x = 110;
+	env->sprites[11].start[5].y = 817;
+	env->sprites[11].end[5].x = 141;
+	env->sprites[11].end[5].y = 830;
+	env->sprites[11].size[5].x = 32;
+	env->sprites[11].size[5].y = 14;
+	env->sprites[11].reversed[5] = 1;
+
+	env->sprites[11].start[6].x = 60;
+	env->sprites[11].start[6].y = 817;
+	env->sprites[11].end[6].x = 108;
+	env->sprites[11].end[6].y = 830;
+	env->sprites[11].size[6].x = 49;
+	env->sprites[11].size[6].y = 14;
+	env->sprites[11].reversed[6] = 1;
+
+	env->sprites[11].start[7].x = 33;
+	env->sprites[11].start[7].y = 817;
+	env->sprites[11].end[7].x = 58;
+	env->sprites[11].end[7].y = 830;
+	env->sprites[11].size[7].x = 26;
+	env->sprites[11].size[7].y = 14;
+	env->sprites[11].reversed[7] = 1;
 
 	return (0);
 }
