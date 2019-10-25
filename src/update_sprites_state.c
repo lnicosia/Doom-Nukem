@@ -48,5 +48,5 @@ void	update_walls_sprites_state(t_env *env)
 void	update_sprites_state(t_env *env)
 {
 	(void)env;
-	//update_walls_sprites_state(env);
+	update_walls_sprites_state(env);
 }

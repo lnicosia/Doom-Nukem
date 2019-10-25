@@ -63,9 +63,14 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
 			+ sector.align[render.i].x;
 	if (draw_sprite)
+		/*sprite_x = render.alpha
+			* render.camera->v[render.sector][render.i].sprite_scale.x * render.z
+					- sector.sprites[render.i].pos.x;*/
 		sprite_x = render.alpha
 			* render.camera->v[render.sector][render.i].sprite_scale.x * render.z
-					+ sector.sprites[render.i].pos.x;
+					+ sprite.start[0].x
+					- sector.sprites[render.i].pos.x * texture_w / 10.0;
+			//* sprite_w;
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -102,7 +107,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		if (draw_sprite)
 			sprite_y = yalpha
 				* render.camera->v[render.sector][render.i].sprite_scale.y
-					+ sector.sprites[render.i].pos.y;
+					+ sprite.start[0].y
+					- sector.sprites[render.i].pos.y * texture_h / 10.0;
 		while (y >= texture_h)
 			y -= texture_h;
 		while (y < 0)
