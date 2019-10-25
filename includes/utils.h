@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 11:59:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 12:33:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_elevator
 	int				on;
 	int				off;
 	double				next_stop;
+	int				sector;
 }					t_elevator;
 
 typedef struct		s_state

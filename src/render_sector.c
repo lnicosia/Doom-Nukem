@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 11:55:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/23 19:17:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ void		render_sector2(t_render render, t_env *env)
 	t_render		new;
 
 	i = -1;
+	if (render.camera->rendered_sectors[render.sector])
+		return ;
+	render.camera->rendered_sectors[render.sector]++;
 	sector = env->sectors[render.sector];
 	//ft_printf("rendering sector %d\n", sector.num);
 	while (++i < sector.nb_vertices)
@@ -165,4 +168,5 @@ void		render_sector2(t_render render, t_env *env)
 			render_sector2(new, env);
 		}
 	}
+	render.camera->rendered_sectors[render.sector]--;
 }

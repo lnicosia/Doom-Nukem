@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_wall.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: marvin <marvin@student.42.fr>			  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/10 19:18:31 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/27 14:51:16 by marvin		   ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_wall.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
+/*   Updated: 2019/10/23 17:54:01 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -37,7 +37,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			draw_sprite;
 	t_sprite	sprite;
 
-	sprite = env->sprites[sector.sprites[render.i].sprite];
+	sprite = env->sprites[0];
 	sprite_pixels = NULL;
 	sprite_x = 0;
 	sprite_w = 0;
