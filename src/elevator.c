@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 16:47:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 17:55:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	call_elevator(t_env *env)
 {
 	t_sector	sector;
 	int			i;
+	double		time;
 
 	i = 0;
 	if (env->elevator.called_from == -1)
@@ -91,9 +92,15 @@ void	call_elevator(t_env *env)
 	}
 	if ((env->sectors[env->elevator.sector].floor != env->sectors[env->elevator.called_from].floor) || env->elevator.call)
 	{
+		time = SDL_GetTicks();
 		env->elevator.call = 1;
 		find_call(env, sector, env->elevator.sector);
 		env->elevator.on = 1;
+		if (!env->elevator.time)
+		{
+			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
+			env->elevator.time = SDL_GetTicks();
+		}
 		if (env->elevator.down)
 		{
 			env->sectors[env->elevator.sector].floor -= 0.1;
@@ -110,7 +117,9 @@ void	call_elevator(t_env *env)
 		if ((env->sectors[env->elevator.sector].floor > env->sectors[env->elevator.called_from].floor && env->elevator.up)
 				|| (env->sectors[env->elevator.sector].floor < env->sectors[env->elevator.called_from].floor && env->elevator.down))
 		{
-			env->sectors[env->elevator.sector].floor = env->sectors[env->elevator.called_from].floor;	
+			env->sectors[env->elevator.sector].floor = env->sectors[env->elevator.called_from].floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
 			update_sector_slope(env, &env->sectors[env->elevator.sector]);
 			env->elevator.next_stop = 0;
 			env->elevator.on = 0;
@@ -125,34 +134,45 @@ void	call_elevator(t_env *env)
 	else
 	{
 		env->elevator.called_from = -1;
+		env->elevator.sector = -1;
 	}
 }
 
 void	activate_elevator(t_env *env)
 {
-	int	i;
-	double	time;
-	t_sector sector;
+	int		i;
+	double		time;
+	t_sector	sector;
+	double		new_floor;
 
 	i = 0;
 	time = SDL_GetTicks();
 	sector = env->sectors[env->player.sector];
 	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
 	{
+
 		if (env->elevator.sector == -1)
 			env->elevator.sector = env->player.sector;
+		if (!env->elevator.time)
+		{
+			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
+			env->elevator.time = SDL_GetTicks();
+		}
+		env->time.d_time = time - env->elevator.time;
 		check_up_down(env, sector);
 		env->elevator.on = 1;
 		env->elevator.used = 1;
 		if (env->elevator.down)
 		{
-			env->sectors[env->elevator.sector].floor -= 0.1;
+			new_floor = env->elevator.start_floor - (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->player.sector].floor + 10;
 		}
 		else if (env->elevator.up)
 		{
-			env->sectors[env->elevator.sector].floor += 0.1;
+			new_floor = env->elevator.start_floor + (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->elevator.sector].floor + 10;
 		}
@@ -160,7 +180,9 @@ void	activate_elevator(t_env *env)
 		if ((env->sectors[env->elevator.sector].floor > env->elevator.next_stop && env->elevator.up)
 				|| (env->sectors[env->elevator.sector].floor < env->elevator.next_stop && env->elevator.down))
 		{
-			env->sectors[env->elevator.sector].floor = env->elevator.next_stop;	
+			env->sectors[env->elevator.sector].floor = env->elevator.next_stop;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
 			update_sector_slope(env, &env->sectors[env->elevator.sector]);
 			env->elevator.next_stop = 0;
 			env->elevator.on = 0;
@@ -169,7 +191,9 @@ void	activate_elevator(t_env *env)
 			env->elevator.off = 1;
 			env->elevator.sector = -1;
 			env->elevator.used  = 0;
+			env->time.d_time = 0;
 			env->elevator.time = 0;
+			env->elevator.start_floor = 0;
 		}
 	}
 	else if (!env->elevator.used)
