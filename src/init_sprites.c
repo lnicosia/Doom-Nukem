@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/24 20:16:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 14:53:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int			init_sprites(t_env *env)
 {
-	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 11)))
+	if (!(env->sprites = (t_sprite*)malloc(sizeof(t_sprite) * 12)))
 		return (ft_printf("Could not malloc sprites\n"));
 	env->sprites[0].texture = 33;
 	env->sprites[0].death_counterpart = 0;

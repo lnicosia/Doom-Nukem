@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/24 20:01:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 16:21:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
+	t_v2			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
 	int				stuck;

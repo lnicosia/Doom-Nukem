@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 11:41:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 15:40:51 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	player_selection(t_env *env)
 		else
 			env->editor.new_player = 0;
 	}
-	update_player_z(env);
+	if (env->editor.new_player)
+		update_player_z(env);
 }
