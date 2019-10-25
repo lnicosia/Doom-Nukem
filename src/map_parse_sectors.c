@@ -39,7 +39,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor slope", "a digit or space(s)",
 					**line, parser));
-		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
+		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line) * CONVERT_RADIANS;
 /*	if (env->sectors[parser->sectors_count].floor_slope > 45
 			|| env->sectors[parser->sectors_count].floor_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"
@@ -112,7 +112,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling slope", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
+	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line) * CONVERT_RADIANS;
 	if (env->sectors[parser->sectors_count].ceiling_slope > 45
 			|| env->sectors[parser->sectors_count].ceiling_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"

@@ -273,6 +273,8 @@ void	render_sector2(t_render render, t_env *env)
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];
+		if (render.texture == -1)
+			render.texture = 38;
 		//get_wall_heights(v1, sector, render, env);
 		get_vline_data(v1, sector, render, env);
 		threaded_wall_loop2(v1, sector, render, env);

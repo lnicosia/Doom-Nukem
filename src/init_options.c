@@ -29,4 +29,5 @@ void	init_options(t_env *env)
 	env->option = 0;
 	env->options.show_ennemies = 1;
 	env->options.zbuffer = 0;
+	env->options.p = 1;
 }

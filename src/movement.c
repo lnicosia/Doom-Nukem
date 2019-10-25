@@ -79,6 +79,7 @@ void	check_blocage(t_env *env, t_movement motion, int index)
 void	move_player(t_env *env)
 {
 	int			movement;
+	int		old_sector;
 	t_movement	motion;
 	t_v2		move;
 	t_v2		pos;
@@ -86,6 +87,7 @@ void	move_player(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
+	old_sector = env->player.sector;
 	movement = 0;
 	env->time.end = env->time.milli_s / 10;
 	if (env->time.end - env->time.start >= 1)
@@ -147,8 +149,11 @@ void	move_player(t_env *env)
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			if (env->player.sector == -1)
 			{
-				crash("PLAYER SECTOR = -1\n", env);
-				exit(0);
+				/*env->player.pos.x = old_pos.x;
+				env->player.pos.y = old_pos.y;
+				env->player.sector = old_sector;*/
+				ft_printf("PLAYER SECTOR = -1\n");
+				//exit(0);
 			}
 			if (find_highest_sector(env, motion) != env->player.highest_sect
 					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))

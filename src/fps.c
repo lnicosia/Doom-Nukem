@@ -45,7 +45,7 @@ void	fps(t_env *env)
 	}
 	if (new_time - env->render_swap_time > 1000)
 	{
-		env->options.p = env->options.p ? 0 : 1;
+	//	env->options.p = env->options.p ? 0 : 1;
 		env->render_swap_time = new_time;
 	}
 	if (env->options.show_fps)

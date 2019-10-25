@@ -612,20 +612,6 @@ int			init_sprites(t_env *env)
 	env->sprites[8].size[7].y = 36;
 	env->sprites[8].reversed[7] = 1;
 
-	/*env->sprites[9].texture = 45;
-	env->sprites[9].death_counterpart = 9;
-	env->sprites[9].pursuit_sprite = 9;
-	env->sprites[9].rest_sprite = 9;
-	env->sprites[9].curr_sprite = 9;
-	env->sprites[9].oriented = 0;
-	env->sprites[9].nb_death_sprites = 9;
-	env->sprites[9].start[0].x = 0;
-	env->sprites[9].start[0].y = 0;
-	env->sprites[9].end[0].x = 128;
-	env->sprites[9].end[0].y = 256;
-	env->sprites[9].size[0].x = 128;
-	env->sprites[9].size[0].y = 256;
-	env->sprites[9].reversed[0] = 0;*/
 	//cyber_demon firing anim 1
 
 	env->sprites[9].texture = 44;
@@ -776,5 +762,19 @@ int			init_sprites(t_env *env)
 	env->sprites[10].size[7].y = 110;
 	env->sprites[10].reversed[7] = 0;
 
+	env->sprites[11].texture = 45;
+	env->sprites[11].death_counterpart = 9;
+	env->sprites[11].pursuit_sprite = 9;
+	env->sprites[11].rest_sprite = 9;
+	env->sprites[11].curr_sprite = 9;
+	env->sprites[11].oriented = 0;
+	env->sprites[11].nb_death_sprites = 9;
+	env->sprites[11].start[0].x = 0;
+	env->sprites[11].start[0].y = 0;
+	env->sprites[11].end[0].x = 128;
+	env->sprites[11].end[0].y = 256;
+	env->sprites[11].size[0].x = 128;
+	env->sprites[11].size[0].y = 256;
+	env->sprites[11].reversed[0] = 0;
 	return (0);
 }

@@ -92,10 +92,12 @@ void    draw_weapon(t_env *env, int sprite)
 		{
 			//ft_printf("Player sector = %d\n", env->player.sector);
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
-				pixels[(window_w + x) + env->w * (window_h + y)] = 
+				/*pixels[(window_w + x) + env->w * (window_h + y)] = 
 					apply_light(texture_pixels[x + texture_w * y],
 							env->sectors[env->player.sector].light_color,
-							env->sectors[env->player.sector].brightness);
+							env->sectors[env->player.sector].brightness);*/
+				pixels[(window_w + x) + env->w * (window_h + y)] = 
+					texture_pixels[x + texture_w * y];
 			x++;
 		}
 		y++;

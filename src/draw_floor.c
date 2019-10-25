@@ -75,7 +75,7 @@ void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *en
 			x = ft_abs((int)x % texture_w);
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
-			if (!env->options.lighting)
+			if (!env->options.lighting && !env->playing)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);

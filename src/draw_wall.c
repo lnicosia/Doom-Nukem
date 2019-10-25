@@ -107,7 +107,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			y -= texture_h;
 		while (y < 0)
 			y += texture_h;
-		if (!env->options.lighting)
+		if (!env->options.lighting && !env->playing)
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
