@@ -336,7 +336,6 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	i = 0;
 	while (i < parser->sector_textures_count)
 	{
-		(*line)++;
 		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
 		if (env->sectors[parser->sectors_count].textures[i] < -1 || env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURE)
 		{
@@ -362,22 +361,6 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		}
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].align[i].x = ft_atof(*line);
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].align[i].y = ft_atof(*line);
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].x <= 0)
-			return (custom_error_with_line("Wall scale must be positive", parser));
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
-			return (custom_error_with_line("Wall scale must be positive", parser));
-		*line = skip_number(*line);
-		(*line)++;
 		i++;
 	}
 	(*line)++;

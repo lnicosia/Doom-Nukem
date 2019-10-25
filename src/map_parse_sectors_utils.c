@@ -126,9 +126,10 @@ int		count_neighbors(char *line, t_map_parser *parser)
 
 /*
  **	Counts the numbers of textures in between two parenthesis
+ **	OLD VERSION
  */
 
-int		count_textures(char *line, t_map_parser *parser)
+/*int		count_textures(char *line, t_map_parser *parser)
 {
 	int i;
 
@@ -142,6 +143,98 @@ int		count_textures(char *line, t_map_parser *parser)
 						"or space(s)", *line, parser));
 		line = skip_number(line);
 		line = skip_spaces(line);
+		i++;
+	}
+	return (i);
+}*/
+
+/*
+ **	Checks if a texture is valid
+ */
+
+int		valid_texture(char *line, t_map_parser *parser)
+{
+	if (*line != '[')
+		return (invalid_char("in sector texture", "'['", *line, parser));
+	line++;
+	if (!*line)
+		return (missing_data("texture number", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before texture number", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("texture pos and scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after texture number", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("textures pos and scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before texture x pos", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("texture y pos and scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after texture x pos", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("texture y pos and scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before texture y pos", "a digit",
+					*line, parser));
+	line = skip_number(line);
+
+	if (!*line)
+		return (missing_data("texture scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after texture y pos", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("texture scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before texture x scale", "a digit",
+					*line, parser));
+	line = skip_number(line);
+
+	if (!*line)
+		return (missing_data("texture y scale", parser));
+	if (*line != ' ')
+		return (invalid_char("after texture x scale", "space(s)", *line, parser));
+	line = skip_spaces(line);
+	if (!*line)
+		return (missing_data("texture y scale", parser));
+	if (valid_number(line, parser))
+		return (invalid_char("before texture y scale", "a digit",
+					*line, parser));
+	line = skip_number(line);
+	if (!*line)
+		return (missing_data("']' after texture y scale", parser));
+	if (*line != ']')
+		return (invalid_char("after texture y scale", "']'",
+					*line, parser));
+	return (0);
+}
+
+/*
+ **	Counts the numbers of sprites in between two parenthesis
+ */
+
+int		count_textures(char *line, t_map_parser *parser)
+{
+	int i;
+
+	i = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector textures", parser));
+		if (valid_texture(line, parser))
+			return (-1);
+		while (*line != ']')
+			line++;
+		line++;
 		i++;
 	}
 	return (i);

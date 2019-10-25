@@ -20,12 +20,18 @@ static void	write_sector_textures(int fd, t_sector sector)
 	ft_dprintf(fd, "(");
 	while (i < sector.nb_vertices)
 	{
-		if (i != 0)
+		/*if (i != 0)
 			ft_dprintf(fd, " ");
 		if (sector.textures[i] == 38)
 			ft_dprintf(fd, "%d", -1);
 		else
-			ft_dprintf(fd, "%d", sector.textures[i]);
+			ft_dprintf(fd, "%d", sector.textures[i]);*/
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+			sector.textures[i],
+			sector.align[i].x,
+			sector.align[i].y,
+			sector.scale[i].x,
+			sector.scale[i].y);
 		i++;
 	}
 	ft_dprintf(fd, ") ");
