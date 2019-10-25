@@ -93,6 +93,10 @@ typedef struct		s_elevator
 	int				on;
 	int				off;
 	double				next_stop;
+	int				sector;
+	int				call;
+	int				called_from;
+	int				used;
 }					t_elevator;
 
 typedef struct		s_state
@@ -162,6 +166,12 @@ typedef struct		s_render_vertex
 	double			yzrange;
 }					t_render_vertex;
 
+typedef	struct		s_teleport
+{
+	int		create;
+	t_v2		tmp_pos;
+}			t_teleport;
+
 typedef struct		s_wall_sprite
 {
 	short			sprite;
@@ -203,6 +213,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	t_v2			tp;
 	short			*selected;
 	short			num;
 	short			nb_vertices;
@@ -454,6 +465,7 @@ typedef struct		s_time
 	double			tick;
 	double			tick2;
 	double			tick3;
+	double			tick4;
 	double			start;
 	double			end;
 	double			minuts;

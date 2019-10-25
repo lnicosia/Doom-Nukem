@@ -100,8 +100,9 @@ static void	write_sector(int fd, t_sector sector)
 		write_sector_neighbors(fd, sector);
 		write_sector_textures(fd, sector);
 		write_sector_wall_sprites(fd, sector);
-		ft_dprintf(fd, "%d ", (int)(sector.brightness));
-		ft_dprintf(fd, "%d\n", (int)(sector.statue));
+		ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
+		ft_dprintf(fd, "[%d %d %d]\n", (int)(sector.statue),
+		(int)(sector.tp.x), (int)(sector.tp.y));
 }
 
 void		write_sectors(int fd, t_env *env)

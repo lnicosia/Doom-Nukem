@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:58:10 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 18:08:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 15:52:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	interactions(t_env *env)
 	if (env->player.sector == -1)
 		return ;
 	sector = env->sectors[env->player.sector];
-	if ((sector.statue == 1 || sector.statue == 2) && !env->elevator.off)
+	if ((sector.statue == 1 || sector.statue == 2 || env->elevator.on) && !env->elevator.off)
 		activate_elevator(env);
 	else if (sector.statue != 1 && env->elevator.off)
 		env->elevator.off = 0;
