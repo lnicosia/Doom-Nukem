@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 14:07:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 15:08:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_animations(t_env *env)
 	env->elevator.on = 0;
 	env->elevator.off = 0;
 	env->elevator.sector = -1;
+	env->elevator.called_from = -1;
+	env->elevator.call = 0;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].death.start = 0;
