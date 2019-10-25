@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 16:06:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/25 16:47:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,11 @@ void	call_elevator(t_env *env)
 void	activate_elevator(t_env *env)
 {
 	int	i;
+	double	time;
 	t_sector sector;
 
 	i = 0;
+	time = SDL_GetTicks();
 	sector = env->sectors[env->player.sector];
 	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
 	{
@@ -167,6 +169,7 @@ void	activate_elevator(t_env *env)
 			env->elevator.off = 1;
 			env->elevator.sector = -1;
 			env->elevator.used  = 0;
+			env->elevator.time = 0;
 		}
 	}
 	else if (!env->elevator.used)
