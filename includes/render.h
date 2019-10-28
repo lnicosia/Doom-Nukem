@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 14:52:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/28 15:36:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct		s_vline
 	int				start;
 	int				end;
 	int				x;
+	int				draw_wall;
 	unsigned int	color;
 }					t_vline;
 
@@ -88,6 +89,7 @@ typedef struct	s_render
 	int			y;
 	int			texture;
 	int			i;
+	int			thread;
 }				t_render;
 
 typedef struct		s_render_object

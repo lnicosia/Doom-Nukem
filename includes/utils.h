@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 16:21:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/28 15:11:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct		s_state
 typedef struct		s_render_vertex
 {
 	t_v2			texture_scale;
-	t_v2			sprite_scale;
+	t_v2			*sprite_scale;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -172,12 +172,38 @@ typedef	struct		s_teleport
 	t_v2		tmp_pos;
 }			t_teleport;
 
-typedef struct		s_wall_sprite
+/*
+** Sprite structure with associated texture
+** and 1 to 8 image cut on this texture
+*/
+
+typedef struct		s_sprite
 {
-	short			sprite;
-	t_v2			pos;
-	t_v2			scale;
-}					t_wall_sprite;
+	int				oriented;
+	int				texture;
+	t_point			start[8];
+	t_point			end[8];
+	t_point			size[8];
+	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
+	int				firing_sprite;
+	int				pursuit_sprite;
+	int				death_counterpart;
+	int				nb_death_sprites;
+}					t_sprite;
+
+typedef struct		s_wall_sprites
+{
+	short			*sprite;
+	t_v2			*pos;
+	t_v2			*scale;
+	double			**x;
+	double			**y;
+	Uint32			**pixels;
+	t_sprite		*sprite_data;
+	int			*w;
+}					t_wall_sprites;
 
 typedef struct		s_sector
 {
@@ -209,7 +235,7 @@ typedef struct		s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	t_wall_sprite	*sprites;
+	t_wall_sprites	*sprites;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
@@ -217,6 +243,7 @@ typedef struct		s_sector
 	short			*selected;
 	short			num;
 	short			nb_vertices;
+	short			*nb_sprites;
 	int				skybox;
 	int				statue;
 	int				brightness;
@@ -514,27 +541,6 @@ typedef struct		s_weapons
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
-
-/*
-** Sprite structure with associated texture
-** and 1 to 8 image cut on this texture
-*/
-
-typedef struct		s_sprite
-{
-	int				oriented;
-	int				texture;
-	t_point			start[8];
-	t_point			end[8];
-	t_point			size[8];
-	int				reversed[8];
-	int				rest_sprite;
-	int				curr_sprite;
-	int				firing_sprite;
-	int				pursuit_sprite;
-	int				death_counterpart;
-	int				nb_death_sprites;
-}					t_sprite;
 
 /*
 ** Object structure

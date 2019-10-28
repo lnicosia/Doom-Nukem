@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 16:03:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/28 15:52:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,8 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].textures = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	if (!(env->sectors[parser->sectors_count].sprites = (t_wall_sprite*)
-				malloc(sizeof(t_wall_sprite) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].sprites = (t_wall_sprites*)
+				malloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].align = (t_v2*)
 				malloc(sizeof(t_v2) * (parser->sector_vertices_count + 1))))
@@ -220,6 +220,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector wall_size:"));
 	if (!(env->sectors[parser->sectors_count].selected = (short*)
+				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector vertices:"));
+	if (!(env->sectors[parser->sectors_count].nb_sprites = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].xmin = (int*)
@@ -318,6 +321,8 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	return (0);
 }
 
+//	New version
+
 int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
@@ -389,9 +394,66 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	return (0);
 }
 
+//	Old version
+
+/*int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
+{
+	int	i;
+
+	if (!**line)
+		return (missing_data("textures, sprite and light", parser));
+	if (**line != '(')
+		return (invalid_char("before sector textures", "'('", **line, parser));
+	(*line)++;
+	if ((parser->sector_textures_count = count_textures(*line, parser)) == -1)
+		return (custom_error("Error while counting textures"));
+	if (parser->sector_textures_count < parser->sector_vertices_count)
+		return (sector_error("is missing one or more textures", parser->sectors_count, parser));
+	if (parser->sector_textures_count > parser->sector_vertices_count)
+		return (sector_error("has too much textures", parser->sectors_count, parser));
+	i = 0;
+	while (i < parser->sector_textures_count)
+	{
+		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
+		if (env->sectors[parser->sectors_count].textures[i] < -1 || env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURE)
+		{
+			ft_dprintf(STDERR_FILENO,
+					"[Line %d] Texture \'%d\' in sector %d does not exist\n",
+					parser->line_count,
+					env->sectors[parser->sectors_count].textures[i],
+					parser->sectors_count);
+			return (-1);
+		}
+		env->sectors[parser->sectors_count].align[i] = new_v2(0, 0);
+		if (env->sectors[parser->sectors_count].textures[i] == -1)
+		{
+			env->sectors[parser->sectors_count].scale[i] = new_v2(
+					env->textures[38].surface->w,
+					env->textures[38].surface->h / 10);
+		}
+		else
+		{
+			env->sectors[parser->sectors_count].scale[i] = new_v2(
+					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w,
+					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
+		}
+		*line = skip_number(*line);
+		*line = skip_spaces(*line);
+		i++;
+	}
+	(*line)++;
+	if (!**line)
+		return (missing_data("sprite and light", parser));
+	if (**line != ' ')
+		return (invalid_char("after textures data", "space(s)", **line, parser));
+	*line = skip_spaces(*line);
+	return (0);
+}*/
+
 int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
+	int	j;
 
 	if (!**line)
 		return (missing_data("sprites and light", parser));
@@ -407,29 +469,68 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 	i = 0;
 	while (i < parser->sector_sprites_count)
 	{
-		(*line)++;
-		env->sectors[parser->sectors_count].sprites[i].sprite = ft_atoi(*line);
-		if (env->sectors[parser->sectors_count].sprites[i].sprite < -1
-				|| env->sectors[parser->sectors_count].sprites[i].sprite > MAX_SPRITES)
-			return (custom_error_with_line("Invalid sprite texture", parser));
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].sprites[i].pos.x = ft_atof(*line);
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].sprites[i].pos.y = ft_atof(*line);
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].sprites[i].scale.x = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].sprites[i].scale.x <= 0)
-			return (custom_error_with_line("Sprite scale must be positive", parser));
-		*line = skip_number(*line);
-		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].sprites[i].scale.y = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].sprites[i].scale.y <= 0)
-			return (custom_error_with_line("Sprite scale must be positive", parser));
-		*line = skip_number(*line);
-		(*line)++;
+		env->sectors[parser->sectors_count].nb_sprites[i] = 1;
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)malloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].w = (int*)malloc(sizeof(int) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].x = (double**)malloc(sizeof(double*) * THREADS)))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].y = (double**)malloc(sizeof(double*) * THREADS)))
+			return (-1);
+		j = 0;
+		while (j < THREADS)
+		{
+			if (!(env->sectors[parser->sectors_count].sprites[i].x[j] = (double*)malloc(sizeof(double) * env->sectors[parser->sectors_count].nb_sprites[i])))
+				return (-1);
+			if (!(env->sectors[parser->sectors_count].sprites[i].y[j] = (double*)malloc(sizeof(double) * env->sectors[parser->sectors_count].nb_sprites[i])))
+				return (-1);
+			j++;
+		}
+		if (!(env->sectors[parser->sectors_count].sprites[i].pixels = (Uint32**)malloc(sizeof(Uint32*) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite_data = (t_sprite*)malloc(sizeof(t_sprite) * env->sectors[parser->sectors_count].nb_sprites[i])))
+			return (-1);
+		j = 0;
+		while (j < env->sectors[parser->sectors_count].nb_sprites[i])
+		{
+			(*line)++;
+			env->sectors[parser->sectors_count].sprites[i].sprite[j] = ft_atoi(*line);
+			if (env->sectors[parser->sectors_count].sprites[i].sprite[j] < -1
+					|| env->sectors[parser->sectors_count].sprites[i].sprite[j] > MAX_SPRITES)
+				return (custom_error_with_line("Invalid sprite texture", parser));
+			*line = skip_number(*line);
+			*line = skip_spaces(*line);
+			env->sectors[parser->sectors_count].sprites[i].pos[j].x = ft_atof(*line);
+			*line = skip_number(*line);
+			*line = skip_spaces(*line);
+			env->sectors[parser->sectors_count].sprites[i].pos[j].y = ft_atof(*line);
+			*line = skip_number(*line);
+			*line = skip_spaces(*line);
+			env->sectors[parser->sectors_count].sprites[i].scale[j].x = ft_atof(*line);
+			if (env->sectors[parser->sectors_count].sprites[i].scale[j].x <= 0)
+				return (custom_error_with_line("Sprite scale must be positive", parser));
+			*line = skip_number(*line);
+			*line = skip_spaces(*line);
+			env->sectors[parser->sectors_count].sprites[i].scale[j].y = ft_atof(*line);
+			if (env->sectors[parser->sectors_count].sprites[i].scale[j].y <= 0)
+				return (custom_error_with_line("Sprite scale must be positive", parser));
+	
+			if (env->sectors[parser->sectors_count].sprites[i].sprite[j] != -1)
+			{
+				env->sectors[parser->sectors_count].sprites[i].sprite_data[j] = env->sprites[env->sectors[parser->sectors_count].sprites[i].sprite[j]];
+				env->sectors[parser->sectors_count].sprites[i].pixels[j] = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].str;
+				env->tmp_first_sprite = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].str;
+				env->sectors[parser->sectors_count].sprites[i].w[j] = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].surface->w;
+			}
+			*line = skip_number(*line);
+			(*line)++;
+			j++;
+		}
 		i++;
 	}
 	(*line)++;

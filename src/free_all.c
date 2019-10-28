@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 17:45:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/28 09:18:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].xmin);
 		if (env->sectors[i].xmax)
 			ft_memdel((void**)&env->sectors[i].xmax);
+		if (env->sectors[i].nb_sprites)
+			ft_memdel((void**)&env->sectors[i].nb_sprites);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);

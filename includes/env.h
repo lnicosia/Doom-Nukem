@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 15:36:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 14:08:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct		s_env
 	int				min_fps2;
 	int				max_fps2;
 	double				render_swap_time;
+	Uint32*				tmp_first_sprite;
 }					t_env;
 
 /*

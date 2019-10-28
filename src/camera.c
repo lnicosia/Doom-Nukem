@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/05/08 16:15:58 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/18 17:00:53 by lnicosia		 ###   ########.fr	   */
+/*   Updated: 2019/10/28 10:54:04 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	set_camera(t_camera *camera, t_env *env)
 int		init_camera_arrays(t_camera *camera, t_env *env)
 {
 	int	i;
+	int	j;
 
 	if (!(camera->screen_pos = (int*)malloc(sizeof(int) * (env->w))))
 		return (ft_printf("Could not malloc screen pos!\n", env));
@@ -90,6 +91,13 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 		if (!(camera->v[i] = (t_render_vertex*)
 					malloc(sizeof(t_render_vertex) * (env->sectors[i].nb_vertices + 1))))
 			return (ft_perror("Could not malloc camera sectors"));
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (!(camera->v[i][j].sprite_scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[i].nb_sprites[j])))
+				return (ft_perror("Could not malloc camera sprites scales"));
+			j++;
+		}
 		i++;
 	}
 	camera->size = env->nb_sectors;

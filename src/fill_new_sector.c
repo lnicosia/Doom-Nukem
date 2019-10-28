@@ -6,11 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/07/29 11:19:19 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/08/30 15:56:01 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2019/10/28 15:17:00 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
+
+//	PROTECTION!!
 
 void	revert_sector(t_sector *sector, t_env *env)
 {
@@ -39,6 +41,8 @@ void	revert_sector(t_sector *sector, t_env *env)
 	sector->vertices = tmp;
 }
 
+//	PROTECTION!!
+
 void	fill_new_sector(t_sector *sector, t_env *env)
 {
 	int			i;
@@ -58,9 +62,28 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
 		sector->textures[index] = 0;
-		sector->sprites[index].sprite = -1;
-		sector->sprites[index].pos = new_v2(0, 0);
-		sector->sprites[index].scale = new_v2(env->textures[sector->textures[index]].surface->w,
+		sector->nb_sprites[index] = 1;
+		//	1 SPRITE PAR MUR POUR LE MOMENT
+		//	A RETIRER QUAND ON POURRA EN AJOUTER
+		if (!(sector->sprites[index].sprite = (short*)malloc(sizeof(short))))
+			return ;
+		if (!(sector->sprites[index].w = (int*)malloc(sizeof(int))))
+			return ;
+		if (!(sector->sprites[index].pos = (t_v2*)malloc(sizeof(t_v2))))
+			return ;
+		if (!(sector->sprites[index].scale = (t_v2*)malloc(sizeof(t_v2))))
+			return ;
+		if (!(sector->sprites[index].x = (double**)malloc(sizeof(double) * THREADS)))
+			return ;
+		if (!(sector->sprites[index].y = (double**)malloc(sizeof(double) * THREADS)))
+			return ;
+		if (!(sector->sprites[index].pixels = (Uint32**)malloc(sizeof(Uint32*))))
+			return ;
+		if (!(sector->sprites[index].sprite_data = (t_sprite*)malloc(sizeof(t_sprite))))
+			return ;
+		sector->sprites[index].sprite[0] = -1;
+		sector->sprites[index].pos[0] = new_v2(0, 0);
+		sector->sprites[index].scale[0] = new_v2(env->textures[sector->textures[index]].surface->w,
 env->textures[sector->textures[index]].surface->h);
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,

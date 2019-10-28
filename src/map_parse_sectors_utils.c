@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 10:48:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/28 09:08:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int		count_neighbors(char *line, t_map_parser *parser)
 	return (i);
 }
 
+//	Old version
+
 /*
  **	Counts the numbers of textures in between two parenthesis
  **	OLD VERSION
@@ -147,6 +149,8 @@ int		count_neighbors(char *line, t_map_parser *parser)
 	}
 	return (i);
 }*/
+
+//	New version
 
 /*
  **	Checks if a texture is valid

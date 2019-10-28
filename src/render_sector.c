@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 19:30:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/28 15:41:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ void		*wall_loop(void *param)
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
 						render.current_floor), env->ymin[x], env->ymax[x]);
 		}
-		else
-		{
+		//else
+		//{
 			if (sector.textures[render.i] == -1)
 				draw_skybox(render, 1, env);
-			else
+			//else
 				draw_wall(sector, render, env);
-		}
+		//}
 		x++;
 	}
 	return (NULL);
@@ -113,6 +113,7 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	i = 0;
 	while (i < THREADS)
 	{
+		render.thread = i;
 		rt[i].v1 = v1;
 		rt[i].sector = sector;
 		rt[i].render = render;
