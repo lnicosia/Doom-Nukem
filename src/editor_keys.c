@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 13:41:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 19:10:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,14 @@ int			editor_keys(t_env *env)
 			env->sectors[env->editor.selected_sector].statue--;
 			env->time.tick4 = time;
 		}
-/*		if (env->sectors[env->editor.selected_sector].statue == 3)
-			create_teleporter(env);*/
+		if (env->sectors[env->editor.selected_sector].statue == 3)
+			create_teleport(env);
+	}
+	if (env->inputs.left_click && env->teleport.create)
+	{
+		env->teleport.tmp_pos.x = env->sdl.mouse_x;
+		env->teleport.tmp_pos.y = env->sdl.mouse_y;
+		env->teleport.selected = 1;
 	}
 	return (0);
 }

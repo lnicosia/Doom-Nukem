@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 15:36:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 18:35:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@ void				death(t_env *env);
 void				respawn(t_env *env);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
+void				create_teleport(t_env *env);
 
 /*
 ** enemies functions
