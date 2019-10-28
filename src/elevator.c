@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 15:52:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 16:20:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ void	activate_elevator(t_env *env)
 	time = 0;
 	new_floor = 0;
 	sector = env->sectors[env->player.sector];
-	ft_printf("d_time: %f | elevator.time: %f | time: %f\n", env->time.d_time, env->elevator.time, time);
 	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
 	{
 		check_up_down(env, sector);
@@ -168,7 +167,6 @@ void	activate_elevator(t_env *env)
 			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
 			env->elevator.time = SDL_GetTicks();
 		}
-		//ft_printf("elevator.time: %f | time: %f\n", env->elevator.time, time)
 ;		env->time.d_time = time - env->elevator.time;
 		if (env->elevator.down)
 		{
@@ -203,8 +201,6 @@ void	activate_elevator(t_env *env)
 			env->elevator.time = 0;
 			env->elevator.start_floor = 0;
 		}
-		//ft_printf("d_time: %f | new_floor: %f | sect_floor: %f\n", env->time.d_time, new_floor, env->sectors[env->elevator.sector].floor);
-		//ft_printf("player_z: %f | floor: %f\n", env->player.pos.z, sector.floor);
 		update_player_z(env);
 	}
 	else if (!env->elevator.used)
