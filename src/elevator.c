@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 16:20:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 17:53:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	call_elevator(t_env *env)
 	t_sector	sector;
 	int			i;
 	double		time;
+	double		new_floor;
 
 	i = 0;
 	if (env->elevator.called_from == -1)
@@ -97,20 +98,23 @@ void	call_elevator(t_env *env)
 		env->elevator.call = 1;
 		find_call(env, sector, env->elevator.sector);
 		env->elevator.on = 1;
-			if (!env->elevator.time)
+		if (!env->elevator.time)
 		{
 			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
 			env->elevator.time = SDL_GetTicks();
 		}
+		env->time.d_time = time - env->elevator.time;
 		if (env->elevator.down)
 		{
-			env->sectors[env->elevator.sector].floor -= 0.1;
+			new_floor = env->elevator.start_floor - (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->elevator.sector].floor + 10;
 		}
 		else if (env->elevator.up)
 		{
-			env->sectors[env->elevator.sector].floor += 0.1;
+			new_floor = env->elevator.start_floor + (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
 			env->sectors[env->elevator.sector].ceiling
 				= env->sectors[env->elevator.sector].floor + 10;
 		}
