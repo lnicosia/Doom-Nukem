@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/28 15:48:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/28 16:01:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,10 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
-	texture_w = texture.surface->w;
-	texture_h = texture.surface->h;
+	texture_w = 0;
+	texture_h = 0;
 	x = 0;
 	y = 0;
-	if (vline.draw_wall)
-		x = render.alpha
-			* render.camera->v[render.sector][render.i].texture_scale.x * render.z
-				+ sector.align[render.i].x;
 	j = 0;
 	while (j < sector.nb_sprites[render.i])
 	{
@@ -58,6 +54,11 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	}
 	if (vline.draw_wall)
 	{
+		texture_w = texture.surface->w;
+		texture_h = texture.surface->h;
+		x = render.alpha
+			* render.camera->v[render.sector][render.i].texture_scale.x * render.z
+				+ sector.align[render.i].x;
 		if (x != x)
 			return ;
 		while (x >= texture_w)
@@ -70,7 +71,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		if (render.z >= zbuffer[coord])
+		if (render.z > zbuffer[coord])
 		{
 			i++;
 			continue;
