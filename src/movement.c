@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 12:27:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 14:03:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	move_player(t_env *env)
 			if (((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) > env->player.pos.z
 				&& get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) - env->player.pos.z <= 2)
 				|| (env->player.state.climb))
-				&& !env->player.state.drop && !env->player.state.jump)
+				&& !env->player.state.drop && !env->player.state.jump && !env->elevator.on)
 				climb(env);
 			else if ((((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) < env->player.pos.z
 					&& env->player.pos.z - get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) <= 2)

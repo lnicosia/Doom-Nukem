@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 17:55:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 14:49:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_animations(t_env *env)
 	env->elevator.call = 0;
 	env->elevator.used = 0;
 	env->elevator.speed = 0.01;
+	env->elevator.time = 0;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].death.start = 0;

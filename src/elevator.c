@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elevator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 17:55:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 15:52:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	check_up_down(t_env *env, t_sector sector)
 			if (sector.neighbors[i] != -1)
 			{
 				if ((env->sectors[sector.neighbors[i]].statue == 2
-							|| env->sectors[sector.neighbors[i]].statue == 1 )
-						&& env->sectors[sector.neighbors[i]].floor != sector.floor)
+				|| env->sectors[sector.neighbors[i]].statue == 1 )
+				&& env->sectors[sector.neighbors[i]].floor != sector.floor)
 					env->elevator.next_stop = env->sectors[sector.neighbors[i]].floor;
 			}
 			i++;
@@ -90,13 +90,14 @@ void	call_elevator(t_env *env)
 			i++;
 		}
 	}
-	if ((env->sectors[env->elevator.sector].floor != env->sectors[env->elevator.called_from].floor) || env->elevator.call)
+	if ((env->sectors[env->elevator.sector].floor
+	!= env->sectors[env->elevator.called_from].floor) || env->elevator.call)
 	{
 		time = SDL_GetTicks();
 		env->elevator.call = 1;
 		find_call(env, sector, env->elevator.sector);
 		env->elevator.on = 1;
-		if (!env->elevator.time)
+			if (!env->elevator.time)
 		{
 			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
 			env->elevator.time = SDL_GetTicks();
@@ -129,6 +130,7 @@ void	call_elevator(t_env *env)
 			env->elevator.sector = -1;
 			env->elevator.call = 0;
 			env->elevator.called_from = -1;
+			env->elevator.time = 0;
 		}	
 	}
 	else
@@ -146,11 +148,19 @@ void	activate_elevator(t_env *env)
 	double		new_floor;
 
 	i = 0;
-	time = SDL_GetTicks();
+	time = 0;
+	new_floor = 0;
 	sector = env->sectors[env->player.sector];
+	ft_printf("d_time: %f | elevator.time: %f | time: %f\n", env->time.d_time, env->elevator.time, time);
 	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
 	{
-
+		check_up_down(env, sector);
+		env->elevator.on = 1;
+		env->elevator.used = 1;
+		if (env->elevator.used)
+		{
+			time = SDL_GetTicks();
+		}
 		if (env->elevator.sector == -1)
 			env->elevator.sector = env->player.sector;
 		if (!env->elevator.time)
@@ -158,10 +168,8 @@ void	activate_elevator(t_env *env)
 			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
 			env->elevator.time = SDL_GetTicks();
 		}
-		env->time.d_time = time - env->elevator.time;
-		check_up_down(env, sector);
-		env->elevator.on = 1;
-		env->elevator.used = 1;
+		//ft_printf("elevator.time: %f | time: %f\n", env->elevator.time, time)
+;		env->time.d_time = time - env->elevator.time;
 		if (env->elevator.down)
 		{
 			new_floor = env->elevator.start_floor - (env->elevator.speed * env->time.d_time);
@@ -195,6 +203,9 @@ void	activate_elevator(t_env *env)
 			env->elevator.time = 0;
 			env->elevator.start_floor = 0;
 		}
+		//ft_printf("d_time: %f | new_floor: %f | sect_floor: %f\n", env->time.d_time, new_floor, env->sectors[env->elevator.sector].floor);
+		//ft_printf("player_z: %f | floor: %f\n", env->player.pos.z, sector.floor);
+		update_player_z(env);
 	}
 	else if (!env->elevator.used)
 		call_elevator(env);
