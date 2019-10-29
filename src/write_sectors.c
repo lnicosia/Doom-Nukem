@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 10:59:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:44:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, "(");
 	while (i < sector.nb_vertices)
 	{
+		ft_dprintf(fd, "{");
 		j = 0;
 		while (j < sector.nb_sprites[i])
 		{
@@ -89,6 +90,7 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 				sector.sprites[i].scale[j].y);
 			j++;
 		}
+		ft_dprintf(fd, "}");
 		i++;
 	}
 	ft_dprintf(fd, ") ");

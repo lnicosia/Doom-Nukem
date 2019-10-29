@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 09:08:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 15:51:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,10 +314,68 @@ int		valid_sprite(char *line, t_map_parser *parser)
 }
 
 /*
+ **	Counts the numbers of sprites in between one wall
+ */
+
+int		count_wall_sprites(char *line, t_map_parser *parser)
+{
+	int	i;
+	
+	i = 0;
+	while (*line != '}')
+	{
+		if (!*line)
+			return (missing_data("'}' after sector sprites", parser));
+		if (valid_sprite(line, parser))
+			return (-1);
+		while (*line != ']')
+			line++;
+		line++;
+		i++;
+	}
+	return (i);
+}
+
+//	NEW VERSION
+
+/*
  **	Counts the numbers of sprites in between two parenthesis
  */
 
 int		count_sprites(char *line, t_map_parser *parser)
+{
+	int	open;
+	int	count;
+
+	open = 0;
+	count = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector sprites", parser));
+		if (*line == '{')
+		{
+			if (open)
+				return (sector_error("Unbalanced \'{\' and \'}\'",
+				parser->sectors_count, parser));
+			open++;
+			count++;
+		}
+		if (*line == '}')
+		{
+			if (!open)
+				return (sector_error("Unbalanced \'{\' and \'}\'",
+				parser->sectors_count, parser));
+			open--;
+		}
+		line++;
+	}
+	return (count);
+}
+
+//	OLD VERSION
+
+/*int		count_sprites(char *line, t_map_parser *parser)
 {
 	int i;
 
@@ -334,7 +392,7 @@ int		count_sprites(char *line, t_map_parser *parser)
 		i++;
 	}
 	return (i);
-}
+}*/
 
 /*
  **	Prints an error message with sector and line number and your message
