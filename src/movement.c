@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 12:27:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 17:25:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,14 +154,14 @@ void	move_player(t_env *env)
 		if (movement)
 		{
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
-			if (env->player.sector == -1)
+			/*if (env->player.sector == -1)
 			{
-				/*env->player.pos.x = old_pos.x;
-				env->player.pos.y = old_pos.y;
-				env->player.sector = old_sector;*/
+				//env->player.pos.x = old_pos.x;
+				//env->player.pos.y = old_pos.y;
+				//env->player.sector = old_sector;
 				ft_printf("PLAYER SECTOR = -1\n");
 				//exit(0);
-			}
+			}*/
 			if (find_highest_sector(env, motion) != env->player.highest_sect
 					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
 				env->player.drop_flag = 1;

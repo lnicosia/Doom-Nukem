@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 10:58:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:32:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->nb_sprites = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
@@ -73,6 +75,10 @@ int			init_new_sector_arrays(t_sector *sector)
 		return (ft_perror("Could not malloc sector clipped_floors2"));
 	if (!(sector->wall_width = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("could not malloc sector vertices"));
+	if (!(sector->xmin = (int*)malloc(sizeof(int) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector textures"));
+	if (!(sector->xmax = (int*)malloc(sizeof(int) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector textures"));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/27 08:55:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:35:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void		reset_render_utils(t_camera *camera, t_env *env)
 		env->xmax[i] = env->w - 1;
 		i++;
 	}
+	if (env->options.p)
+		return ;
 	i = -1;
 	while (++i < env->nb_sectors)
 		reset_x_restrictions(&env->sectors[i], env);
