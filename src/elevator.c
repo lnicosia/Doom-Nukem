@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 17:53:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	check_up_down(t_env *env, t_sector sector)
 		{
 			if (sector.neighbors[i] != -1)
 			{
-				if ((env->sectors[sector.neighbors[i]].statue == 2
-				|| env->sectors[sector.neighbors[i]].statue == 1 )
+				if ((env->sectors[sector.neighbors[i]].status == 2
+				|| env->sectors[sector.neighbors[i]].status == 1 )
 				&& env->sectors[sector.neighbors[i]].floor != sector.floor)
 					env->elevator.next_stop = env->sectors[sector.neighbors[i]].floor;
 			}
@@ -86,7 +86,7 @@ void	call_elevator(t_env *env)
 	{	
 		while (i < sector.nb_vertices)
 		{
-			if (sector.neighbors[i] != -1 && env->sectors[sector.neighbors[i]].statue == 1)
+			if (sector.neighbors[i] != -1 && env->sectors[sector.neighbors[i]].status == 1)
 				env->elevator.sector = sector.neighbors[i];
 			i++;
 		}
@@ -155,7 +155,7 @@ void	activate_elevator(t_env *env)
 	time = 0;
 	new_floor = 0;
 	sector = env->sectors[env->player.sector];
-	if ((sector.statue == 1 && !env->elevator.call) || env->elevator.used)
+	if ((sector.status == 1 && !env->elevator.call) || env->elevator.used)
 	{
 		check_up_down(env, sector);
 		env->elevator.on = 1;

@@ -23,7 +23,8 @@ void	enemy_selection(t_env *env)
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_enemy == -1)
+			&& env->editor.dragged_enemy == -1
+			&& !env->teleport.create)
 	{
 		env->editor.dragged_enemy = env->nb_enemies;
 	}

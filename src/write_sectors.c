@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_sectors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 16:09:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	write_sector(int fd, t_sector sector)
 		write_sector_textures(fd, sector);
 		write_sector_wall_sprites(fd, sector);
 		ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
-		ft_dprintf(fd, "[%d %d %d]\n", (int)(sector.statue),
+		ft_dprintf(fd, "[%d %d %d]\n", (int)(sector.status),
 		(int)(sector.tp.x), (int)(sector.tp.y));
 }
 

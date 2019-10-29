@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 18:58:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ typedef struct		s_sector
 	short			num;
 	short			nb_vertices;
 	int				skybox;
-	int				statue;
+	int				status;
 	int				brightness;
 	int				*levels;
 	Uint32			light_color;

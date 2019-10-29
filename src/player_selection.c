@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 15:39:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 11:57:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	player_selection(t_env *env)
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_object == -1)
+			&& env->editor.dragged_object == -1
+			&& !env->teleport.create)
 		env->editor.dragged_player = 1;
 	if (!env->inputs.left_click && env->editor.dragged_player == 1)
 	{

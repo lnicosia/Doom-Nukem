@@ -40,7 +40,8 @@ void	draw_grid_player(t_env *env)
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
-					&& env->editor.dragged_vertex == -1)
+					&& env->editor.dragged_vertex == -1
+					&& !env->teleport.create)
 			{
 				env->editor.dragged_player = 1;
 				env->editor.selected_player = 1;

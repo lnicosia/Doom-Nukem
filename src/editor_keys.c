@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 19:10:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 12:34:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int			editor_keys(t_env *env)
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1
 			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_enemy == -1)
+			&& env->editor.dragged_enemy == -1
+			&& !env->teleport.create)
 	{
 		env->editor.selected_sector = get_sector_no_z(env,
 				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
@@ -161,26 +162,26 @@ int			editor_keys(t_env *env)
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
 		time = SDL_GetTicks();
-		if (env->inputs.plus && env->sectors[env->editor.selected_sector].statue < 3
+		if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 3
 		&& time - env->time.tick4 > 300)
 		{
-			env->sectors[env->editor.selected_sector].statue++;
+			env->sectors[env->editor.selected_sector].status++;
 			env->time.tick4 = time;
 		}
-		if (env->inputs.minus && env->sectors[env->editor.selected_sector].statue > 0
+		if (env->inputs.minus && env->sectors[env->editor.selected_sector].status > 0
 		&& time - env->time.tick4 > 300)
 		{
-			env->sectors[env->editor.selected_sector].statue--;
+			env->sectors[env->editor.selected_sector].status--;
 			env->time.tick4 = time;
 		}
-		if (env->sectors[env->editor.selected_sector].statue == 3)
-			create_teleport(env);
+		if (env->sectors[env->editor.selected_sector].status == 3)
+			env->teleport.create = 1;
 	}
 	if (env->inputs.left_click && env->teleport.create)
 	{
-		env->teleport.tmp_pos.x = env->sdl.mouse_x;
-		env->teleport.tmp_pos.y = env->sdl.mouse_y;
-		env->teleport.selected = 1;
+		env->teleport.tmp_pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
+		env->teleport.tmp_pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
+		create_teleport(env);
 	}
 	return (0);
 }

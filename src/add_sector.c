@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:18:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_sector	new_default_sector(t_env *env)
 	sector.num = env->nb_sectors;
 	sector.x_max = -2147483648;
 	sector.nb_vertices = get_new_sector_len(env);
-	sector.statue = 0;
+	sector.status = 0;
 	return (sector);
 }
 

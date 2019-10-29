@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/23 17:54:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:32:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			if (env->editor.in_game)
+			if (env->editor.in_game && !env->teleport.create)
 			{
 				env->editor.selected_sector = env->sectors[render.sector].num;
 				env->editor.selected_wall = render.i;
