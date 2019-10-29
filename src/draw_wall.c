@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/28 16:01:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:00:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,37 @@
 #include "render.h"
 
 /*
-**	Draw a vertical vline on the screen at vline.x
-*/
+ **	Draw a vertical vline on the screen at vline.x
+ */
 
 void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env)
 {
 	int			i;
-	int			j;
 	double		yalpha;
 	double		y;
 	double		x;
 	Uint32		*pixels;
 	Uint32		*texture_pixels;
 	double		*zbuffer;
-	t_texture	texture;
-	int			texture_w;
-	int			texture_h;
 	int			coord;
-	t_wall_sprites	sprites;
 
-	sprites = sector.sprites[render.i];
-	texture = env->textures[render.texture];
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = texture.str;
+	texture_pixels = env->textures[render.texture].str;
 	zbuffer = env->zbuffer;
-	texture_w = 0;
-	texture_h = 0;
+	yalpha = 0;
+	coord = 0;
 	x = 0;
 	y = 0;
-	j = 0;
-	while (j < sector.nb_sprites[render.i])
-	{
-		if (sprites.sprite[j] != -1)
-			sprites.x[render.thread][j] = render.alpha
-				* render.camera->v[render.sector][render.i].sprite_scale[j].x * render.z
-						+ sprites.sprite_data[j].start[0].x
-						- sprites.pos[j].x * texture_w / 10.0;
-		j++;
-	}
-	if (vline.draw_wall)
-	{
-		texture_w = texture.surface->w;
-		texture_h = texture.surface->h;
-		x = render.alpha
-			* render.camera->v[render.sector][render.i].texture_scale.x * render.z
-				+ sector.align[render.i].x;
-		if (x != x)
-			return ;
-		while (x >= texture_w)
-			x -= texture_w;
-		while (x < 0)
-			x += texture_w;
-		x = ft_fclamp(x, 0, texture_w);
-	}
+	x = render.alpha
+		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
+		+ sector.align[render.i].x;
+	if (x != x)
+		return ;
+	while (x >= render.texture_w)
+		x -= render.texture_w;
+	while (x < 0)
+		x += render.texture_w;
+	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -93,54 +71,23 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
 			+ sector.align[render.i].y;
-		j = 0;
-		while (j < sector.nb_sprites[render.i])
-		{
-			if (sprites.sprite[j] != -1)
-				sprites.y[render.thread][j] = yalpha
-					* render.camera->v[render.sector][render.i].sprite_scale[j].y
-						+ sprites.sprite_data[j].start[0].y
-						- sprites.pos[j].y * texture_h / 10.0;
-			j++;
-		}
-		if (vline.draw_wall)
-		{
-			while (y >= texture_h)
-				y -= texture_h;
-			while (y < 0)
-				y += texture_h;
-			if (!env->options.lighting && !env->playing)
-				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			else
-				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
-			if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
-			zbuffer[coord] = render.z;
-		}
+		while (y >= render.texture_h)
+			y -= render.texture_h;
+		while (y < 0)
+			y += render.texture_h;
+		if (!env->options.lighting && !env->playing)
+			pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
+		else
+			pixels[coord] = apply_light(texture_pixels[(int)x + render.texture_w * (int)y], sector.light_color, sector.brightness);
+		if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
+			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+		zbuffer[coord] = render.z;
 		if (env->options.zbuffer || env->options.contouring)
 			if (i == (int)(render.max_ceiling)
 					|| i == (int)(render.neighbor_max_ceiling)
 					|| i == (int)(render.max_floor)
 					|| i == (int)(render.neighbor_max_floor))
 				pixels[coord] = 0xFFFF0000;
-		j = 0;
-		while (j < sector.nb_sprites[render.i])
-		{
-			if (sprites.sprite[j] != -1
-				&& sprites.x[render.thread][j] >= sprites.sprite_data[j].start[0].x
-				&& sprites.y[render.thread][j] >= sprites.sprite_data[j].start[0].y
-				&& sprites.x[render.thread][j] < sprites.sprite_data[j].end[0].x
-				&& sprites.y[render.thread][j] < sprites.sprite_data[j].end[0].y
-				&& sprites.pixels[j][(int)sprites.x[render.thread][j] + sprites.w[j] * (int)sprites.y[render.thread][j]]
-				!= 0xFFC10099)
-			{
-				pixels[coord] = sprites.pixels[j][(int)sprites.x[render.thread][j]
-					+ sprites.w[j] * (int)sprites.y[render.thread][j]];
-				zbuffer[coord] = render.z;
-			}
-			j++;
-		}
-		//pixels[coord] = apply_light(0xFFAAAAAA, sector.light_color, sector.brightness);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 15:11:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:25:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,11 +198,6 @@ typedef struct		s_wall_sprites
 	short			*sprite;
 	t_v2			*pos;
 	t_v2			*scale;
-	double			**x;
-	double			**y;
-	Uint32			**pixels;
-	t_sprite		*sprite_data;
-	int			*w;
 }					t_wall_sprites;
 
 typedef struct		s_sector

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 15:36:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 10:24:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct	s_render
 	double		neighbor_ceiling_yend;
 	double		neighbor_floor_ystart;
 	double		neighbor_floor_yend;
+	double		sprite_x;
 	int			neighbor;
 	int			nv1;
 	int			nv2;
@@ -90,6 +91,8 @@ typedef struct	s_render
 	int			texture;
 	int			i;
 	int			thread;
+	int			texture_w;
+	int			texture_h;
 }				t_render;
 
 typedef struct		s_render_object
@@ -165,6 +168,7 @@ void			render_sector2(t_render render, t_env *env);
 void			draw_ceiling(t_sector sector, t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
+void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
 void			draw_wall2(t_sector sector, t_render render, t_env *env);
 void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
 void			draw_floor2(t_sector sector, t_render render, t_env *env);

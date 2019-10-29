@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 15:52:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:25:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,28 +472,9 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].nb_sprites[i] = 1;
 		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)malloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].w = (int*)malloc(sizeof(int) * env->sectors[parser->sectors_count].nb_sprites[i])))
-			return (-1);
 		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
-			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].x = (double**)malloc(sizeof(double*) * THREADS)))
-			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].y = (double**)malloc(sizeof(double*) * THREADS)))
-			return (-1);
-		j = 0;
-		while (j < THREADS)
-		{
-			if (!(env->sectors[parser->sectors_count].sprites[i].x[j] = (double*)malloc(sizeof(double) * env->sectors[parser->sectors_count].nb_sprites[i])))
-				return (-1);
-			if (!(env->sectors[parser->sectors_count].sprites[i].y[j] = (double*)malloc(sizeof(double) * env->sectors[parser->sectors_count].nb_sprites[i])))
-				return (-1);
-			j++;
-		}
-		if (!(env->sectors[parser->sectors_count].sprites[i].pixels = (Uint32**)malloc(sizeof(Uint32*) * env->sectors[parser->sectors_count].nb_sprites[i])))
-			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite_data = (t_sprite*)malloc(sizeof(t_sprite) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		j = 0;
 		while (j < env->sectors[parser->sectors_count].nb_sprites[i])
@@ -519,14 +500,6 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].sprites[i].scale[j].y = ft_atof(*line);
 			if (env->sectors[parser->sectors_count].sprites[i].scale[j].y <= 0)
 				return (custom_error_with_line("Sprite scale must be positive", parser));
-	
-			if (env->sectors[parser->sectors_count].sprites[i].sprite[j] != -1)
-			{
-				env->sectors[parser->sectors_count].sprites[i].sprite_data[j] = env->sprites[env->sectors[parser->sectors_count].sprites[i].sprite[j]];
-				env->sectors[parser->sectors_count].sprites[i].pixels[j] = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].str;
-				env->tmp_first_sprite = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].str;
-				env->sectors[parser->sectors_count].sprites[i].w[j] = env->textures[env->sectors[parser->sectors_count].sprites[i].sprite_data[j].texture].surface->w;
-			}
 			*line = skip_number(*line);
 			(*line)++;
 			j++;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 15:41:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 10:25:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,14 @@ void		*wall_loop(void *param)
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
 						render.current_floor), env->ymin[x], env->ymax[x]);
 		}
-		//else
-		//{
+		else
+		{
 			if (sector.textures[render.i] == -1)
 				draw_skybox(render, 1, env);
-			//else
+			else
 				draw_wall(sector, render, env);
-		//}
+		}
+		draw_wall_sprites(sector, render, env);
 		x++;
 	}
 	return (NULL);
@@ -166,6 +167,16 @@ void		render_sector(t_render render, t_env *env)
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];
+		if (render.texture == -1)
+		{
+			render.texture_w = env->textures[38].surface->w;
+			render.texture_h = env->textures[38].surface->h;
+		}
+		else
+		{
+			render.texture_w = env->textures[render.texture].surface->w;
+			render.texture_h = env->textures[render.texture].surface->h;
+		}
 		render.i = i;
 		threaded_wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)

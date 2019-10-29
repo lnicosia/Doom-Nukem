@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 14:53:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:14:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int			init_sprites(t_env *env)
 	env->sprites[0].texture = 33;
 	env->sprites[0].death_counterpart = 0;
 	env->sprites[0].oriented = 0;
+	env->sprites[0].rest_sprite = 0;
 	env->sprites[0].reversed[0] = 0;
 	env->sprites[0].start[0].x = 511;
 	env->sprites[0].start[0].y = 78;
@@ -837,11 +838,12 @@ int			init_sprites(t_env *env)
 	env->sprites[11].size[7].y = 14;
 	env->sprites[11].reversed[7] = 1;
 
+	// Grille
 	env->sprites[12].texture = 46;
-	env->sprites[12].death_counterpart = 9;
-	env->sprites[12].pursuit_sprite = 9;
-	env->sprites[12].rest_sprite = 9;
-	env->sprites[12].curr_sprite = 9;
+	env->sprites[12].death_counterpart = 12;
+	env->sprites[12].pursuit_sprite = 12;
+	env->sprites[12].rest_sprite = 12;
+	env->sprites[12].curr_sprite = 12;
 	env->sprites[12].oriented = 0;
 	env->sprites[12].nb_death_sprites = 9;
 	env->sprites[12].start[0].x = 0;
