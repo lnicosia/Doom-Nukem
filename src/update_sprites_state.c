@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:26:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:33:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,9 @@ void	update_walls_sprites_state(t_env *env)
 			{
 				if (sector.sprites[j].sprite[k] == -1)
 					continue;
-				if (diff > 10000)
+				if (diff > 200)
 				{
-					env->sectors[i].sprite_time = 0;
-					//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-					//env->sectors[i].sprites[j].sprite[k] = 3;
-					env->sectors[i].sprites[j].sprite[k] = env->sprites[env->sectors[i].sprites[j].sprite[k]].rest_sprite;
-				}
-				else
-				{
-					env->sectors[i].sprite_time = 0;
-					//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-					//env->sectors[i].sprites[j].sprite[k] = 1;
+					env->sectors[i].sprite_time = env->time.milli_s;
 					env->sectors[i].sprites[j].sprite[k] = env->sprites[env->sectors[i].sprites[j].sprite[k]].rest_sprite;
 				}
 			}

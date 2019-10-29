@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:25:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:31:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -612,6 +612,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	parser->sector_neighbors_count = 0;
 	parser->sector_textures_count = 0;
 	parser->sector_sprites_count = 0;
+	env->sectors[parser->sectors_count].sprite_time = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
 	if (parse_floor(env, &line, parser))
 		return (-1);
