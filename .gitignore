@@ -67,3 +67,5 @@ photoshop_sprite
 # Windows objects
 doom.exe.stackdump
 doom_editor.exe.stackdump
+
+benchmark.txt
