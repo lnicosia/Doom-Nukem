@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_sprites.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:24:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:36:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ t_env *env)
 			&& sprite_pixels[(int)render.sprite_x
 			+ sprite_w * (int)y] != 0xFFC10099)
 		{
+			/*if (env->editor.select && render.sprite_x == env->h_w && y == env->h_h)
+			{
+				env->selected_wall1 = -1;
+				env->selected_wall2 = -1;
+				env->selected_floor = -1;
+				env->selected_ceiling = -1;
+				env->selected_object = -1;
+				env->selected_enemy = -1;
+				env->editor.selected_wall = -1;
+				env->selected_wall_sprite_wall = render.i;
+				env->selected_wall_sprite_sprite = sprite;
+
+			}*/
 			if (!env->options.lighting && !env->playing)
 				pixels[coord] = sprite_pixels[
 				(int)render.sprite_x + sprite_w * (int)y];
@@ -59,6 +72,11 @@ t_env *env)
 				pixels[coord] = apply_light(sprite_pixels[
 				(int)render.sprite_x + sprite_w * (int)y],
 				sector.light_color, sector.brightness);
+			if (env->editor.in_game && !env->editor.select
+				&& env->selected_wall_sprite_wall == render.i
+				&& env->selected_wall_sprite_sprite == sprite)
+			{
+			}
 			zbuffer[coord] = render.z;
 		}
 	}
