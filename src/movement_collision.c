@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_collision.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/25 14:31:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:38:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,23 @@ int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
     double curr_z;
 
-    //FUTURE_Z = motion.eyesight + env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    //FUTURE_Z = motion.eyesight + env->sectors[sector_dest].floor
+    //+ (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
     curr_z = motion.pos.z + motion.eyesight;
-    if (curr_z > env->sectors[sector_dest].ceiling + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].ceiling_slope - 1)
+    if (curr_z > env->sectors[sector_dest].ceiling
+    + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X)
+    - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y))
+    * env->sectors[sector_dest].ceiling_slope - 1)
         return (0);
     return (1);
 }
 
 int     check_floor(t_env *env, t_movement motion, int sector_dest)
 {
-    FUTURE_Z = env->sectors[sector_dest].floor + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+    FUTURE_Z = env->sectors[sector_dest].floor
+    + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X)
+    - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y))
+    * env->sectors[sector_dest].floor_slope;
 	if (env->player.state.jump && FUTURE_Z > motion.pos.z)
 		return (0);
     if (FUTURE_Z > motion.pos.z + 2)

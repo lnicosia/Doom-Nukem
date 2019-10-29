@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 17:01:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:33:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		keys(t_env *env)
 	/*
 	 * *	selection of textures on walls
 	 */
+	 
 	if (env->editor.tab && env->editor.in_game
 			&& env->editor.selected_wall != -1)
 	{
@@ -271,6 +272,7 @@ void		keys(t_env *env)
 	/*
 	 * *	selection of slopes on floor and ceiling
 	 */
+	 
 	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
 			&& env->editor.in_game && env->selected_ceiling != -1)
 	{
@@ -286,6 +288,10 @@ void		keys(t_env *env)
 	if (env->selected_ceiling != -1 && env->sectors[env->selected_ceiling].ceiling_slope <= 0.02
 			&& env->sectors[env->selected_ceiling].ceiling_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
 		env->sectors[env->selected_ceiling].ceiling_slope = 0;
+
+/*
+**	Control of the slopes in 3D mode of the editor
+*/
 
 	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
 			&& env->editor.in_game && env->selected_floor != -1)
@@ -304,9 +310,19 @@ void		keys(t_env *env)
 		update_enemies_z(env);
 		update_objects_z(env);
 	}
+
+/*
+**	adjustement of the slope cause of the lack of precision around 0 degrees
+*/
+
 	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02
 			&& env->sectors[env->selected_floor].floor_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
 		env->sectors[env->selected_floor].floor_slope = 0;
+
+/*
+**	Rotation of the slope from a vertex to another control with arrows (<- î -> \|/  ||  w-a-s-d)
+*/
+
 	if (env->selected_floor != -1 && env->editor.in_game && env->inputs.ctrl)
 	{
 		if (!env->time.tick3)
@@ -377,6 +393,11 @@ void		keys(t_env *env)
 		if (env->selected_enemy != -1)
 			selected_information_on_enemy(env);
 	}
+
+/*
+**	realonding the weapons
+*/
+
 	if (env->inputs.right_click && !env->option)
 	{
 		//ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);

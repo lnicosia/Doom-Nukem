@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:34:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:17:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int			editor_keys(t_env *env)
 	vertices_selection(env);
 	if (env->confirmation_box.state)
 		confirmation_box_keys(&env->confirmation_box, env);
+
+/*
+**	Sector selection
+*/
+
 	if (env->sdl.mx > 200 && env->inputs.left_click
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
@@ -93,11 +98,21 @@ int			editor_keys(t_env *env)
 		env->editor.selected_player = -1;
 		env->selected_enemy = -1;
 	}
+
+	/*
+	**	Drag and drop on of the 2D map
+	*/
+
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
 		env->editor.center.y += env->sdl.mouse_y;
 	}
+
+	/*
+	** Going out of the 3D mode
+	*/
+
 	if (env->inputs.enter && !env->confirmation_box.state)
 	{
 		if (!valid_map(env))
@@ -125,6 +140,11 @@ int			editor_keys(t_env *env)
 		}
 		env->inputs.enter = 0;
 	}
+
+	/*
+	**	Moving the map with arrows
+	*/
+
 	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.x -= 3;
 	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
@@ -133,6 +153,11 @@ int			editor_keys(t_env *env)
 		env->editor.center.y -= 3;
 	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.y += 3;
+
+	/*
+	**	ctrl + s: save the map (it actually move the map too..)
+	*/
+
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env) && !env->editor.in_game)
 	{
 		if (save_map("maps/test.map", env))
@@ -140,6 +165,13 @@ int			editor_keys(t_env *env)
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
+
+	/*
+	**	control of the selection the stats in 2D mode editor iwh include:
+	**	floor | ceiling | brightness control on arrows or keybord usual binding (w-a-s-d)
+	**	control of the sector status with +/-
+	*/
+
 	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
 	{
 		time = SDL_GetTicks();
