@@ -13,7 +13,7 @@
 #include "env.h"
 
 int		main(int ac, char **av)
-{	
+{
 	init_game(ac, av);
 	return (0);
 }

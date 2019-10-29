@@ -62,6 +62,8 @@ void	keyup(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_p)
+		env->options.p = env->options.p ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 	{
 		env->option = env->option ? 0 : 1;

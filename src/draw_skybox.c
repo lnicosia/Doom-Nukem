@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_skybox.c									  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/10 18:09:18 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/18 14:31:59 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_skybox.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/09/23 18:54:39 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -71,7 +71,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 		draw_skybox_wall(vline, wall_data, skybox, env);
 		if ((env->options.zbuffer || env->options.contouring)
 				&& (x == (int)v1.x || x == (int)env->skybox[skybox.i + 1].x))
-			draw_vline_color2(vline, env);
+			draw_vline_color(vline, env);
 	}
 	if (skybox.current_floor < max)
 	{
@@ -81,7 +81,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	}
 }
 
-void	draw_skybox2(t_render render, int mode, t_env *env)
+void	draw_skybox(t_render render, int mode, t_env *env)
 {
 	int				i;
 	t_render		skybox;
@@ -92,6 +92,7 @@ void	draw_skybox2(t_render render, int mode, t_env *env)
 	wall_data.z = render.z;
 	wall_data.ceiling_start = render.ceiling_start;
 	wall_data.ceiling_horizon = render.ceiling_horizon;
+	wall_data.i = render.i;
 	while (++i < 4)
 	{
 		if (!env->skybox[i].draw

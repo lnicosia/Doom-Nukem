@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:15:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/28 12:57:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void		compute_wall(int i, t_camera *camera, t_sector *sector, t_env *env)
 void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
+	int	j;
+
 	sector->selected[i] = 0;
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
@@ -127,19 +129,34 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	if (camera->v[sector->num][i + 1].vz)
 	{
 		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
-		if (sector->sprites[i].sprite != -1)
-			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].vz;
+		j = 0;
+		while (j < sector->nb_sprites[i])
+		{
+			if (sector->sprites[i].sprite[j] != -1)
+				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].vz;
+			j++;
+		}
 	}
 	else
 	{
 		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10)
 			/ camera->v[sector->num][i].clipped_vz2;
-		if (sector->sprites[i].sprite != -1)
-			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].clipped_vz2;
+		j = 0;
+		while (j < sector->nb_sprites[i])
+		{
+			if (sector->sprites[i].sprite[j] != -1)
+				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].clipped_vz2;
+			j++;
+		}
 	}
 	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / 10;
-	if (sector->sprites[i].sprite != -1)
-		camera->v[sector->num][i].sprite_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale.y;
+	j = 0;
+	while (j < sector->nb_sprites[i])
+	{
+		if (sector->sprites[i].sprite[j] != -1)
+			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale[j].y;
+		j++;
+	}
 }
 
 void		get_rendered_neighbors(t_camera *camera, t_sector sector, t_env *env)
@@ -277,7 +294,12 @@ int			draw_walls(t_camera *camera, t_env *env)
 		render.xmax = camera->xmax[i];
 		render.sector = camera->screen_sectors[i];
 		render.camera = camera;
-		render_sector2(render, env);
+		render.ystart = 0;
+		render.yend = env->h - 1;
+		if (env->options.p)
+			render_sector(render, env);
+		else
+			render_sector2(render, env);
 		i++;
 	}
 	return (0);

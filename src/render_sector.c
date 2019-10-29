@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 19:17:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/29 10:25:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void		*wall_loop(void *param)
 			render.zrange = render.z - render.camera->near_z;
 		}
 		if (render.current_ceiling > env->ymin[x])
-			draw_ceiling2(sector, render, env);
+			draw_ceiling(sector, render, env);
 		if (render.current_floor < env->ymax[x])
-			draw_floor2(sector, render, env);
+			draw_floor(sector, render, env);
 		if (sector.neighbors[render.i] != -1)
 		{
 			render.neighbor_max_ceiling = render.clipped_alpha
@@ -83,9 +83,9 @@ void		*wall_loop(void *param)
 			render.neighbor_current_floor = ft_clamp(
 					render.neighbor_max_floor, env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
-				draw_upper_wall2(sector, render, env);
+				draw_upper_wall(sector, render, env);
 			if (render.neighbor_current_floor < render.current_floor)
-				draw_bottom_wall2(sector, render, env);
+				draw_bottom_wall(sector, render, env);
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
@@ -94,10 +94,11 @@ void		*wall_loop(void *param)
 		else
 		{
 			if (sector.textures[render.i] == -1)
-				draw_skybox2(render, 1, env);
+				draw_skybox(render, 1, env);
 			else
 				draw_wall(sector, render, env);
 		}
+		draw_wall_sprites(sector, render, env);
 		x++;
 	}
 	return (NULL);
@@ -113,6 +114,7 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	i = 0;
 	while (i < THREADS)
 	{
+		render.thread = i;
 		rt[i].v1 = v1;
 		rt[i].sector = sector;
 		rt[i].render = render;
@@ -127,9 +129,17 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	}
 	while (i-- > 0)
 		pthread_join(threads[i], NULL);
+	/*t_render_thread	rt;
+	rt.v1 = v1;
+	rt.sector = sector;
+	rt.render = render;
+	rt.env = env;
+	rt.xstart = render.xstart;
+	rt.xend = render.xend;
+	wall_loop(&rt);*/
 }
 
-void		render_sector2(t_render render, t_env *env)
+void		render_sector(t_render render, t_env *env)
 {
 	int				i;
 	t_sector		sector;
@@ -157,6 +167,16 @@ void		render_sector2(t_render render, t_env *env)
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];
+		if (render.texture == -1)
+		{
+			render.texture_w = env->textures[38].surface->w;
+			render.texture_h = env->textures[38].surface->h;
+		}
+		else
+		{
+			render.texture_w = env->textures[render.texture].surface->w;
+			render.texture_h = env->textures[render.texture].surface->h;
+		}
 		render.i = i;
 		threaded_wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)
@@ -165,7 +185,7 @@ void		render_sector2(t_render render, t_env *env)
 			new.xmin = render.xstart;
 			new.sector = sector.neighbors[i];
 			new.xmax = render.xend;
-			render_sector2(new, env);
+			render_sector(new, env);
 		}
 	}
 	render.camera->rendered_sectors[render.sector]--;

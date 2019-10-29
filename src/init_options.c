@@ -17,7 +17,7 @@ void	init_options(t_env *env)
 	ft_printf("Initializing options..\n");
 	env->options.contouring = 0;
 	env->options.render_sectors = 1;
-	env->options.lighting = 0;
+	env->options.lighting = 1;
 	env->options.show_minimap = 1;
 	env->options.wall_lover = 0;
 	env->options.show_fps = 1;
@@ -29,4 +29,5 @@ void	init_options(t_env *env)
 	env->option = 0;
 	env->options.show_ennemies = 1;
 	env->options.zbuffer = 0;
+	env->options.p = 1;
 }

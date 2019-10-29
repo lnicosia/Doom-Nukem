@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 13:58:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/28 11:11:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ int		init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
+	env.min_fps = 300;
+	env.avrg_fps = 0;
+	env.max_fps = 0;
+	env.min_fps2 = 300;
+	env.avrg_fps2 = 0;
+	env.max_fps2 = 0;
+	env.render_swap_time = 0;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.new_player = 1;
@@ -68,6 +75,8 @@ int		init_game(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (init_sprites(&env))
+		return (crash("Could not load sprites\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
@@ -75,8 +84,6 @@ int		init_game(int ac, char **av)
 		return (crash("Could not init camera\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (init_sprites(&env))
-		return (crash("Could not load sprites\n", &env));
 	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not allocate sector list\n", &env));
 	while (i < env.nb_objects)

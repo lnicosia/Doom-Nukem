@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 11:55:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 10:24:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct		s_vline
 	int				start;
 	int				end;
 	int				x;
+	int				draw_wall;
 	unsigned int	color;
 }					t_vline;
 
@@ -27,6 +28,7 @@ typedef struct	s_render
 {
 	t_camera	*camera;
 	t_v2		texel;
+	t_v2		texture_scale;
 	double		alpha;
 	double		clipped_alpha;
 	double		z;
@@ -54,6 +56,26 @@ typedef struct	s_render
 	double		texel_x_camera_range;
 	double		texel_y_camera_range;
 	double		zrange;
+	double		falpha;
+	double		calpha;
+	double		neighbor_falpha;
+	double		neighbor_calpha;
+	double		wall_xstart;
+	double		wall_xend;
+	double		floor_xstart;
+	double		floor_xend;
+	double		ceiling_xstart;
+	double		ceiling_xend;
+	double		nfloor_xstart;
+	double		nfloor_xend;
+	double		nceiling_xstart;
+	double		nceiling_xend;
+	double		neighbor_ceiling_ystart;
+	double		neighbor_ceiling_yend;
+	double		neighbor_floor_ystart;
+	double		neighbor_floor_yend;
+	double		sprite_x;
+	int			neighbor;
 	int			nv1;
 	int			nv2;
 	int			sector;
@@ -62,9 +84,15 @@ typedef struct	s_render
 	int			xmax;
 	int			xstart;
 	int			xend;
+	int			ystart;
+	int			yend;
 	int			x;
+	int			y;
 	int			texture;
 	int			i;
+	int			thread;
+	int			texture_w;
+	int			texture_h;
 }				t_render;
 
 typedef struct		s_render_object
@@ -91,6 +119,7 @@ typedef struct	s_skybox_data
 	double		z;
 	double		ceiling_start;
 	double		ceiling_horizon;
+	int		i;
 	int			mode;
 }				t_skybox_data;
 
@@ -102,6 +131,8 @@ typedef struct	s_render_thread
 	t_env			*env;
 	int				xstart;
 	int				xend;
+	int				ystart;
+	int				yend;
 }				t_render_thread;
 
 typedef struct	s_precompute_thread
@@ -132,14 +163,19 @@ typedef struct		s_enemy_thread
 	int				xend;
 }					t_enemy_thread;
 
+void			render_sector(t_render render, t_env *env);
 void			render_sector2(t_render render, t_env *env);
+void			draw_ceiling(t_sector sector, t_render render, t_env *env);
+void			draw_floor(t_sector sector, t_render render, t_env *env);
+void			draw_wall(t_sector sector, t_render render, t_env *env);
+void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_wall2(t_sector sector, t_render render, t_env *env);
 void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
 void			draw_floor2(t_sector sector, t_render render, t_env *env);
-void			draw_wall(t_sector sector, t_render render, t_env *env);
-void			draw_upper_wall2(t_sector sector, t_render render, t_env *env);
-void			draw_bottom_wall2(t_sector sector, t_render render,
+void			draw_upper_wall(t_sector sector, t_render render, t_env *env);
+void			draw_bottom_wall(t_sector sector, t_render render,
 		t_env *env);
-void			draw_skybox2(t_render render, int mode, t_env *env);
+void			draw_skybox(t_render render, int mode, t_env *env);
 void			precompute_skybox(t_env *env);
 short			get_vertex_nb_in_sector(short vertex, t_sector sector);
 void			precompute_neighbors(int i, t_camera *camera, t_sector *sector,
@@ -150,8 +186,15 @@ void			draw_skybox_wall(t_vline vline, t_skybox_data wall_data,
 		t_render render, t_env *env);
 void			draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
 		t_render render, t_env *env);
-void			draw_vline_color2(t_vline vline, t_env *env);
+void			draw_vline_color(t_vline vline, t_env *env);
 int				get_screen_sectors(t_camera *camera, t_env *env);
+void			restrict_floor(t_render_vertex v1, t_render *render,
+		t_sector sector, t_env *env);
+void			restrict_ceiling(t_render_vertex v1, t_render *render,
+		t_sector sector, t_env *env);
+void			reset_x_restrictions(t_sector *sector, t_env *env);
+void			get_vline_data(t_render_vertex v1, t_sector sector,
+		t_render render, t_env *env);
 
 /*
 **	Sprite part

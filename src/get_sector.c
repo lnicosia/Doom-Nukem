@@ -114,5 +114,9 @@ int		get_sector_no_z_origin(t_env *env, t_v3 pos, int origin)
 			return (i);
 		i++;
 	}
+	ft_printf("NO SECTOR FOUND\n");
+	ft_printf("Player current sector = %d\n", env->player.sector);
+	ft_printf("Pos = [%f][%f]\n", pos.x, pos.y);
+	ft_printf("Origin = %d\n", origin);
 	return (-1);
 }

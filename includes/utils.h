@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 14:08:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 17:11:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 45
+# define MAX_TEXTURE 47
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 3
+# define MAX_SPRITES 12
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
@@ -116,7 +116,7 @@ typedef struct		s_state
 typedef struct		s_render_vertex
 {
 	t_v2			texture_scale;
-	t_v2			sprite_scale;
+	t_v2			*sprite_scale;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -134,6 +134,7 @@ typedef struct		s_render_vertex
 	double			c1;
 	double			c2;
 	double			x;
+	double			y;
 	double			neighbor_f1;
 	double			neighbor_f2;
 	double			neighbor_floor_range;
@@ -152,6 +153,7 @@ typedef struct		s_render_vertex
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
+	double			yrange;
 	double			clipped_xrange;
 	double			floor_range;
 	double			ceiling_range;
@@ -175,12 +177,33 @@ typedef	struct		s_teleport
 	t_v3		tmp_pos;
 }			t_teleport;
 
-typedef struct		s_wall_sprite
+/*
+** Sprite structure with associated texture
+** and 1 to 8 image cut on this texture
+*/
+
+typedef struct		s_sprite
 {
-	short			sprite;
-	t_v2			pos;
-	t_v2			scale;
-}					t_wall_sprite;
+	int				oriented;
+	int				texture;
+	t_point			start[8];
+	t_point			end[8];
+	t_point			size[8];
+	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
+	int				firing_sprite;
+	int				pursuit_sprite;
+	int				death_counterpart;
+	int				nb_death_sprites;
+}					t_sprite;
+
+typedef struct		s_wall_sprites
+{
+	short			*sprite;
+	t_v2			*pos;
+	t_v2			*scale;
+}					t_wall_sprites;
 
 typedef struct		s_sector
 {
@@ -207,10 +230,12 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
+	int				*xmin;
+	int				*xmax;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	t_wall_sprite	*sprites;
+	t_wall_sprites	*sprites;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
@@ -218,6 +243,7 @@ typedef struct		s_sector
 	short			*selected;
 	short			num;
 	short			nb_vertices;
+	short			*nb_sprites;
 	int				skybox;
 	int				status;
 	int				brightness;
@@ -288,6 +314,32 @@ typedef struct		s_camera
 	int				size;
 }					t_camera;
 
+typedef struct		s_vline_data
+{
+	double			alpha;
+	double			clipped_alpha;
+	double			divider;
+	double			z;
+	double			current_ceiling;
+	double			current_floor;
+	double			max_ceiling;
+	double			max_floor;
+	double			z_near_z;
+	double			no_slope_current_floor;
+	double			no_slope_current_ceiling;
+	double			inv_line_height;
+	double			ceiling_start;
+	double			floor_start;
+	double			wall_texel;
+	double			zrange;
+	double			falpha_divider;
+	double			calpha_divider;
+	t_v2			texel;
+	t_v2			texel_near_z;
+	t_v2			camera_z;
+	t_v2			texel_camera_range;
+}					t_vline_data;
+
 typedef	struct		s_init_data
 {
 	t_v3			pos;
@@ -301,6 +353,7 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
+	t_v2			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
 	int				stuck;
@@ -361,6 +414,7 @@ typedef struct		s_keys
 	int				period;
 	int				minus1;
 	int				equals;
+	int				p;
 }					t_keys;
 
 /*
@@ -392,6 +446,7 @@ typedef struct		s_inputs
 	uint8_t			period;
 	uint8_t			minus1;
 	uint8_t			equals;
+	uint8_t			p;
 }					t_inputs;
 
 /*
@@ -486,27 +541,6 @@ typedef struct		s_weapons
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
-
-/*
-** Sprite structure with associated texture
-** and 1 to 8 image cut on this texture
-*/
-
-typedef struct		s_sprite
-{
-	int				oriented;
-	int				texture;
-	t_point			start[8];
-	t_point			end[8];
-	t_point			size[8];
-	int				reversed[8];
-	int				rest_sprite;
-	int				curr_sprite;
-	int				firing_sprite;
-	int				pursuit_sprite;
-	int				death_counterpart;
-	int				nb_death_sprites;
-}					t_sprite;
 
 /*
 ** Object structure
@@ -639,6 +673,7 @@ typedef struct		s_options
 	int				clipping;
 	int				show_ennemies;
 	int				zbuffer;
+	int				p;
 }					t_options;
 
 /*

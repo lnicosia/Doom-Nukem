@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 17:13:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,18 @@ static void	write_sector_textures(int fd, t_sector sector)
 	ft_dprintf(fd, "(");
 	while (i < sector.nb_vertices)
 	{
-		if (i != 0)
+		/*if (i != 0)
 			ft_dprintf(fd, " ");
 		if (sector.textures[i] == 38)
 			ft_dprintf(fd, "%d", -1);
 		else
-			ft_dprintf(fd, "%d", sector.textures[i]);
+			ft_dprintf(fd, "%d", sector.textures[i]);*/
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+			sector.textures[i],
+			sector.align[i].x,
+			sector.align[i].y,
+			sector.scale[i].x,
+			sector.scale[i].y);
 		i++;
 	}
 	ft_dprintf(fd, ") ");
@@ -66,17 +72,25 @@ static void	write_sector_vertices(int fd, t_sector sector)
 static void	write_sector_wall_sprites(int fd, t_sector sector)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	ft_dprintf(fd, "(");
 	while (i < sector.nb_vertices)
 	{
-		ft_dprintf(fd, "[%d %f %f %f %f]",
-			sector.sprites[i].sprite,
-			sector.sprites[i].pos.x,
-			sector.sprites[i].pos.y,
-			sector.sprites[i].scale.x,
-			sector.sprites[i].scale.y);
+		ft_dprintf(fd, "{");
+		j = 0;
+		while (j < sector.nb_sprites[i])
+		{
+			ft_dprintf(fd, "[%d %f %f %f %f]",
+				sector.sprites[i].sprite[j],
+				sector.sprites[i].pos[j].x,
+				sector.sprites[i].pos[j].y,
+				sector.sprites[i].scale[j].x,
+				sector.sprites[i].scale[j].y);
+			j++;
+		}
+		ft_dprintf(fd, "}");
 		i++;
 	}
 	ft_dprintf(fd, ") ");

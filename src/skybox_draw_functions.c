@@ -82,8 +82,8 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 					env->editor.selected_sector = render.sector;
 					env->editor.selected_wall = render.i;
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				env->selected_floor = -1;
 				env->selected_ceiling = -1;
 				env->selected_object = -1;
@@ -174,8 +174,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 					env->editor.selected_sector = render.sector;
 					env->editor.selected_wall = render.i;
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				env->selected_floor = -1;
 				env->selected_ceiling = -1;
 				env->selected_object = -1;
@@ -194,7 +194,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
+			if (env->editor.in_game && render.selected && !env->editor.select)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		}
@@ -267,8 +267,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 					env->editor.selected_sector = render.sector;
 					env->editor.selected_wall = render.i;
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				env->selected_floor = -1;
 				env->selected_ceiling = -1;
 				env->selected_object = -1;
@@ -288,7 +288,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
+			if (env->editor.in_game && render.selected && !env->editor.select)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;
 		}

@@ -1,16 +1,18 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   free_all.c										 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/03 15:39:19 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/20 10:22:33 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/10/28 09:18:42 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		save_benchmark(t_env *env);
 
 static void	free_textures(t_env *env)
 {
@@ -58,6 +60,12 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		if (env->sectors[i].sprites)
 			ft_memdel((void**)&env->sectors[i].sprites);
+		if (env->sectors[i].xmin)
+			ft_memdel((void**)&env->sectors[i].xmin);
+		if (env->sectors[i].xmax)
+			ft_memdel((void**)&env->sectors[i].xmax);
+		if (env->sectors[i].nb_sprites)
+			ft_memdel((void**)&env->sectors[i].nb_sprites);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);
@@ -108,7 +116,64 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->zbuffer)
 		ft_memdel((void**)&env->zbuffer);
-
+	if (env->max_ceiling)
+		ft_memdel((void**)&env->max_ceiling);
+	if (env->max_floor)
+		ft_memdel((void**)&env->max_floor);
+	if (env->current_ceiling)
+		ft_memdel((void**)&env->current_ceiling);
+	if (env->current_floor)
+		ft_memdel((void**)&env->current_floor);
+	if (env->z)
+		ft_memdel((void**)&env->z);
+	if (env->z_near_z)
+		ft_memdel((void**)&env->z_near_z);
+	if (env->alpha)
+		ft_memdel((void**)&env->alpha);
+	if (env->clipped_alpha)
+		ft_memdel((void**)&env->clipped_alpha);
+	if (env->line_height)
+		ft_memdel((void**)&env->line_height);
+	if (env->no_slope_current_ceiling)
+		ft_memdel((void**)&env->no_slope_current_ceiling);
+	if (env->no_slope_current_floor)
+		ft_memdel((void**)&env->no_slope_current_floor);
+	if (env->ceiling_start)
+		ft_memdel((void**)&env->ceiling_start);
+	if (env->floor_start)
+		ft_memdel((void**)&env->floor_start);
+	if (env->divider)
+		ft_memdel((void**)&env->divider);
+	if (env->neighbor_max_ceiling)
+		ft_memdel((void**)&env->neighbor_max_ceiling);
+	if (env->neighbor_max_floor)
+		ft_memdel((void**)&env->neighbor_max_floor);
+	if (env->neighbor_current_ceiling)
+		ft_memdel((void**)&env->neighbor_current_ceiling);
+	if (env->neighbor_current_floor)
+		ft_memdel((void**)&env->neighbor_current_floor);
+	if (env->texel)
+		ft_memdel((void**)&env->texel);
+	if (env->texel_near_z)
+		ft_memdel((void**)&env->texel_near_z);
+	if (env->camera_z)
+		ft_memdel((void**)&env->camera_z);
+	if (env->texel_camera_range)
+		ft_memdel((void**)&env->texel_camera_range);
+	if (env->zrange)
+		ft_memdel((void**)&env->zrange);
+	if (env->xmin)
+		ft_memdel((void**)&env->xmin);
+	if (env->xmax)
+		ft_memdel((void**)&env->xmax);
+	if (env->ymin)
+		ft_memdel((void**)&env->ymin);
+	if (env->ymax)
+		ft_memdel((void**)&env->ymax);
+	if (env->wall_texel)
+		ft_memdel((void**)&env->wall_texel);
+	if (env->vline_data)
+		ft_memdel((void**)&env->vline_data);
 }
 
 void		free_all(t_env *env)
@@ -170,6 +235,7 @@ void		free_all(t_env *env)
 	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
+	save_benchmark(env);
 }
 
 int			crash(char *str, t_env *env)
