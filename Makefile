@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/29 17:55:47 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/10/29 18:43:25 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,9 +101,9 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 	
 DEBUG ?= 0
 
-#ifeq ($(DEBUG), 1)
-#	CFLAGS += -fsanitize=address
-#	#endif
+ifeq ($(DEBUG), 1)
+	CFLAGS += -fsanitize=address -g3
+endif
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_mixer.dll \

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 15:57:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 19:02:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,22 @@ void		keys(t_env *env)
 		if (time - env->time.tick > 200)
 		{
 			env->time.tick = time;
-			if (env->inputs.down
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
-			else if (env->inputs.up
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
+			if (env->inputs.down)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 9)
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
+				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
+			}
+			else if (env->inputs.up)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 10)
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
+				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+			}
 		}
 		if (env->inputs.comma)
 		{
@@ -128,12 +138,22 @@ void		keys(t_env *env)
 		if (time - env->time.tick > 200)
 		{
 			env->time.tick = time;
-			if (env->inputs.down && env->editor.tab
-					&& env->sectors[env->selected_ceiling].ceiling_texture > -1)
-				env->sectors[env->selected_ceiling].ceiling_texture--;
-			else if (env->inputs.up && env->editor.tab
-					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
-				env->sectors[env->selected_ceiling].ceiling_texture++;
+			if (env->inputs.down && env->editor.tab)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->selected_ceiling].ceiling_texture > 9)
+					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
+				else if (env->sectors[env->selected_ceiling].ceiling_texture > -1)
+					env->sectors[env->selected_ceiling].ceiling_texture--;
+			}
+			else if (env->inputs.up && env->editor.tab)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 10)
+					env->sectors[env->selected_ceiling].ceiling_texture += 10;
+				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
+					env->sectors[env->selected_ceiling].ceiling_texture++;
+			}
 			if (env->sectors[env->selected_ceiling].ceiling_texture == -1)
 			{
 				env->sectors[env->selected_ceiling].skybox = 1;
@@ -205,12 +225,22 @@ void		keys(t_env *env)
 		if (time - env->time.tick > 200 && env->editor.tab)
 		{
 			env->time.tick = time;
-			if (env->inputs.down
-					&& env->sectors[env->selected_floor].floor_texture > 0)
-				env->sectors[env->selected_floor].floor_texture--;
-			if (env->inputs.up
-					&& env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 1)
-				env->sectors[env->selected_floor].floor_texture++;
+			if (env->inputs.down && env->editor.tab)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->selected_floor].floor_texture > 9)
+					env->sectors[env->selected_floor].floor_texture -= 10;
+				else if (env->sectors[env->selected_floor].floor_texture > -1)
+					env->sectors[env->selected_floor].floor_texture--;
+			}
+			else if (env->inputs.up && env->editor.tab)
+			{
+				if (env->inputs.shift
+					&& env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 10)
+					env->sectors[env->selected_floor].floor_texture += 10;
+				else if (env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 1)
+					env->sectors[env->selected_floor].floor_texture++;
+			}
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)

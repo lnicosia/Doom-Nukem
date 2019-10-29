@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/07/29 11:19:19 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/10/29 12:26:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:18:38 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
-		sector->textures[index] = 0;
+		sector->textures[index] = 32;
 		sector->nb_sprites[index] = 1;
 		//	1 SPRITE PAR MUR POUR LE MOMENT
 		//	A RETIRER QUAND ON POURRA EN AJOUTER

@@ -1,0 +1,8 @@
+Selectionner les bonnes textures beaucoup trop long
+sauvegarde des scale + pos marche pas
+Quand on met une skybox ensuite la texture est a 38
+Selection skybox toujours bugguee
+Une seule skybox (ca pue)
+Les echelles, les pos, trop chiant a aligner
+Multi selection
+Crash lors skybox sur mur
