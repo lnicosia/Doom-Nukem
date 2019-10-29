@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 14:05:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	activate_elevator(t_env *env)
 			env->elevator.time = 0;
 			env->elevator.start_floor = 0;
 		}
+		ft_printf("player_z: %f | floor: %f\n", env->player.pos.z, env->sectors[env->elevator.sector].floor);
 		update_player_z(env);
 	}
 	else if (!env->elevator.used)

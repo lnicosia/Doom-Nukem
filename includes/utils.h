@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 12:13:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/29 14:08:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,8 @@ typedef	struct		s_teleport
 {
 	int		create;
 	int		selected;
-	t_v2		tmp_pos;
+	int		sector;
+	t_v3		tmp_pos;
 }			t_teleport;
 
 typedef struct		s_wall_sprite
@@ -213,7 +214,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
-	t_v2			tp;
+	t_v3			tp;
 	short			*selected;
 	short			num;
 	short			nb_vertices;
