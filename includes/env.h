@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 17:37:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/30 15:02:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,6 +377,7 @@ void				respawn(t_env *env);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
 void				create_teleport(t_env *env);
+int					check_player_z(t_env *env);
 
 /*
 ** enemies functions

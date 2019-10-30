@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 17:10:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:08:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,17 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load projectiles sprite sheet\n"));
 	if (parse_bmp("images/MIDSPACE.bmp", 46, env))
 		return (ft_printf("Failed to load midspace\n"));
+	if (parse_bmp("images/black_tiles.bmp", 47, env))
+		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/rock.bmp", 48, env))
+		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/grass1.bmp", 49, env))
+		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/grass2.bmp", 50, env))
+		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/grass3.bmp", 51, env))
+		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/tiles.bmp", 52, env))
+		return (ft_printf("Failed to load black_tiles\n"));
 	return (0);
 }
