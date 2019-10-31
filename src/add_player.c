@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/30 15:20:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/30 17:15:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	check_player_z(t_env *env)
 		env->player.sector = -1;
 		env->player.camera.angle = 0;
 		env->player.camera.angle_z = 0;
-		env->player.camera.pos = 0;
 		env->player.camera.pos.z = 0;
 		env->player.eyesight = 0;
 		return (0);
