@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 15:33:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:01:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,28 @@ void		keys(t_env *env)
 			env->time.tick = time;
 			if (env->inputs.down
 					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
+			{
+				if (env->inputs.shift &&
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 10)
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
+				else
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]--;
+			}
 			else if (env->inputs.up
 					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+			{
+				if (env->inputs.shift &&
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 10)
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
+				else
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+			}
 		}
+	
+	/*
+	**	alignment of textures
+	*/
+
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
@@ -214,10 +231,10 @@ void		keys(t_env *env)
 				env->sectors[env->selected_floor].floor_texture++;
 		}
 		if (env->inputs.plus
-				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)
-			env->sectors[env->selected_floor].floor += 0.05;
+				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling)
+			env->sectors[env->selected_floor].floor += 0.1;
 		else if (env->inputs.minus)
-			env->sectors[env->selected_floor].floor -= 0.05;
+			env->sectors[env->selected_floor].floor -= 0.1;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		if (env->inputs.comma)
 		{
@@ -274,13 +291,15 @@ void		keys(t_env *env)
 	 */
 	 
 	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_ceiling != -1)
+			&& env->editor.in_game && env->selected_ceiling != -1
+			&& (env->sectors[env->selected_ceiling].ceiling_slope * CONVERT_DEGREES) > -45)
 	{
 		env->sectors[env->selected_ceiling].ceiling_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_ceiling != -1)
+			&& env->editor.in_game && env->selected_ceiling != -1
+			&& (env->sectors[env->selected_ceiling].ceiling_slope * CONVERT_DEGREES) < 45)
 	{
 		env->sectors[env->selected_ceiling].ceiling_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
@@ -294,7 +313,8 @@ void		keys(t_env *env)
 */
 
 	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_floor != -1)
+			&& env->editor.in_game && env->selected_floor != -1
+			&& (env->sectors[env->selected_floor].floor_slope * CONVERT_DEGREES) > -45)
 	{
 		env->sectors[env->selected_floor].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
@@ -303,8 +323,10 @@ void		keys(t_env *env)
 		update_objects_z(env);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_floor != -1)
+			&& env->editor.in_game && env->selected_floor != -1
+			&& (env->sectors[env->selected_floor].floor_slope * CONVERT_DEGREES) < 45)
 	{
+		ft_printf("floor_slope: %f\n", (env->sectors[env->selected_floor].floor_slope * CONVERT_DEGREES));
 		env->sectors[env->selected_floor].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_enemies_z(env);

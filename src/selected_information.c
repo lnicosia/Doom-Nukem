@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   selected_information.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/30 12:12:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/31 17:01:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,19 @@ void	selected_information_in_sector(t_env *env)
 	{
 		env->time.tick2 = time;
 		if (env->inputs.left)
-			env->sectors[env->editor.selected_sector].floor -= 2;
+		{
+			if (env->inputs.shift)
+				env->sectors[env->editor.selected_sector].floor -= 10;
+			else
+				env->sectors[env->editor.selected_sector].floor -= 2;
+		}
 		if (env->inputs.right)
-			env->sectors[env->editor.selected_sector].floor += 2;
+		{
+			if (env->inputs.shift)
+				env->sectors[env->editor.selected_sector].floor += 10;
+			else
+				env->sectors[env->editor.selected_sector].floor += 2;
+		}
 	}
 	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 1 && time - env->time.tick2 > 250)
 	{

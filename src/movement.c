@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/30 17:15:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:01:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void	move_player(t_env *env)
 		env->player.old_pos.x = pos.x;
 		env->player.old_pos.y = pos.y;
 	}
+	if (env->inputs.shift)
+		env->player.speed = env->player.start_speed + 0.2;
+	else 
+		env->player.speed = env->player.start_speed;
 	prev_sector = env->player.sector;
 	movement = 0;
 	env->time.end = env->time.milli_s / 10;

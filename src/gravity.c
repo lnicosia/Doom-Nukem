@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 12:30:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 13:54:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	gravity(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	ft_printf("gravity force: %f | player_z: %f\n", env->gravity.force, env->player.pos.z);
 	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
 	if (env->sectors[env->player.sector].status == 4)

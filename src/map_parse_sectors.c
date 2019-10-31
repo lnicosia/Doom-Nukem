@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 12:30:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:01:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -621,9 +621,9 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before sector status", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].status = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].status > 4 ||
+	if (env->sectors[parser->sectors_count].status > 5 ||
 			env->sectors[parser->sectors_count].status < 0)
-		return (custom_error_with_line("sector status must be between 0 and 3", parser));
+		return (custom_error_with_line("sector status must be between 0 and 5", parser));
 	*line = skip_number(*line);
 	if (**line != ' ')
 		return (invalid_char("after sector sprites", "space(s)",

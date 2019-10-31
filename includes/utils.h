@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 11:48:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:01:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,8 @@ typedef struct		s_camera
 	int				computed;
 	int				*sector_computed;
 	int				size;
+	int				enemy_flag;
+
 }					t_camera;
 
 typedef struct		s_vline_data
@@ -361,6 +363,7 @@ typedef struct		s_player
 	double			gravity;
 	double			eyesight;
 	double			speed;
+	double			start_speed;
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
