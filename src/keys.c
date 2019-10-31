@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:54:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,9 +232,15 @@ void		keys(t_env *env)
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling)
+		{
 			env->sectors[env->selected_floor].floor += 0.1;
+			env->sectors[env->selected_floor].start_floor = env->sectors[env->selected_floor].floor;
+		}
 		else if (env->inputs.minus)
+		{
 			env->sectors[env->selected_floor].floor -= 0.1;
+			env->sectors[env->selected_floor].start_floor = env->sectors[env->selected_floor].floor;
+		}
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		if (env->inputs.comma)
 		{

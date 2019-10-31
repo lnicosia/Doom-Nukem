@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 18:00:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ typedef struct		s_circle
 	t_point			center;
 	int				radius;
 }					t_circle;
+
+typedef struct		s_hidden_sect
+{
+	int				sector;
+	int				selected_enemy;
+	
+}					t_hidden_sect;
 
 typedef struct		s_elevator
 {
@@ -248,6 +255,9 @@ typedef struct		s_sector
 	int				status;
 	int				brightness;
 	int				*levels;
+	int				start_floor;
+	int				enemy_flag;
+	int				activated;
 	Uint32			light_color;
 }					t_sector;
 
@@ -312,8 +322,6 @@ typedef struct		s_camera
 	int				computed;
 	int				*sector_computed;
 	int				size;
-	int				enemy_flag;
-
 }					t_camera;
 
 typedef struct		s_vline_data

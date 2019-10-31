@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/29 19:00:52 by sipatry          ###   ########.fr        #
+#    Updated: 2019/10/31 17:57:46 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   init_obj_enemies_data.c \
 		   draw_circle_free.c draw_circle.c death.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
-		   elevator.c gravity.c teleporter.c \
+		   elevator.c gravity.c teleporter.c hidden_sectors.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h

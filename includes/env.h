@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 17:58:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_env
 	t_camera			fixed_camera;
 	t_vline_data		*vline_data;
 	t_teleport			teleport;
+	t_hidden_sect		hidden_sect;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -378,6 +379,8 @@ void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
 void				create_teleport(t_env *env);
 int					check_player_z(t_env *env);
+void				hidden_sectors(t_env *env);
+void				create_hidden_setor(t_env *env);
 
 /*
 ** enemies functions
