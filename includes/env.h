@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 17:26:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:28:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct		s_env
 	double				avrg_fps2;
 	int				min_fps2;
 	int				max_fps2;
+	int				contains_skybox;
 	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 }					t_env;

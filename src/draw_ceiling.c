@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 09:33:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 12:51:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,11 @@ void	draw_ceiling(t_sector sector, t_render render, t_env *env)
 	vline.x = render.x;
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
-	if (sector.skybox)
+	/*if (sector.skybox)
+		draw_skybox(render, 0, env);
+	else
+		draw_vline_ceiling(sector, vline, render, env);*/
+	if (sector.ceiling_texture == -1)
 		draw_skybox(render, 0, env);
 	else
 		draw_vline_ceiling(sector, vline, render, env);

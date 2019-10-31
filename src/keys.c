@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 19:02:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:34:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void		keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
-	if (!env->time.tick)
-		env->time.tick = SDL_GetTicks();
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
@@ -59,16 +57,16 @@ void		keys(t_env *env)
 	if (env->editor.tab && env->editor.in_game
 			&& env->editor.selected_wall != -1)
 	{
-		if (time - env->time.tick > 200)
+		if (time - env->time.scroll_tick > 200)
 		{
-			env->time.tick = time;
+			env->time.scroll_tick = time;
 			if (env->inputs.down)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 9)
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 8)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
 				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
+				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 1;
 			}
 			else if (env->inputs.up)
 			{
@@ -107,25 +105,25 @@ void		keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y--;
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x--;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y /= 1.1;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x /= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y--;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y /= 1.1;
 			else
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x--;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x /= 1.1;
 		}
 		if (env->inputs.minus1)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y++;
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x++;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y *= 1.1;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y++;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y *= 1.1;
 			else
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x++;
+				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
 		}
 	}
 
@@ -135,13 +133,13 @@ void		keys(t_env *env)
 
 	if (env->editor.in_game && env->selected_ceiling != -1)
 	{
-		if (time - env->time.tick > 200)
+		if (time - env->time.scroll_tick > 200)
 		{
-			env->time.tick = time;
+			env->time.scroll_tick = time;
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture > 9)
+					&& env->sectors[env->selected_ceiling].ceiling_texture > 8)
 					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture > -1)
 					env->sectors[env->selected_ceiling].ceiling_texture--;
@@ -156,11 +154,11 @@ void		keys(t_env *env)
 			}
 			if (env->sectors[env->selected_ceiling].ceiling_texture == -1)
 			{
-				env->sectors[env->selected_ceiling].skybox = 1;
-				env->sectors[env->selected_ceiling].ceiling_texture = 38;
+				//env->sectors[env->selected_ceiling].skybox = 1;
+				//env->sectors[env->selected_ceiling].ceiling_texture = 38;
 			}
-			else if (env->sectors[env->selected_ceiling].ceiling_texture != 38)
-				env->sectors[env->selected_ceiling].skybox = 0;
+			//else if (env->sectors[env->selected_ceiling].ceiling_texture != 38)
+				//env->sectors[env->selected_ceiling].skybox = 0;
 
 		}
 		if (env->inputs.plus
@@ -198,25 +196,25 @@ void		keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_scale.y--;
-				env->sectors[env->selected_ceiling].ceiling_scale.x--;
+				env->sectors[env->selected_ceiling].ceiling_scale.y /= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_scale.x /= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_scale.y--;
+				env->sectors[env->selected_ceiling].ceiling_scale.y /= 1.1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_scale.x--;
+				env->sectors[env->selected_ceiling].ceiling_scale.x /= 1.1;
 		}
 		if (env->inputs.minus1)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_scale.y++;
-				env->sectors[env->selected_ceiling].ceiling_scale.x++;
+				env->sectors[env->selected_ceiling].ceiling_scale.y *= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_scale.x *= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_scale.y++;
+				env->sectors[env->selected_ceiling].ceiling_scale.y *= 1.1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_scale.x++;
+				env->sectors[env->selected_ceiling].ceiling_scale.x *= 1.1;
 		}
 
 	}
@@ -230,7 +228,7 @@ void		keys(t_env *env)
 				if (env->inputs.shift
 					&& env->sectors[env->selected_floor].floor_texture > 9)
 					env->sectors[env->selected_floor].floor_texture -= 10;
-				else if (env->sectors[env->selected_floor].floor_texture > -1)
+				else if (env->sectors[env->selected_floor].floor_texture > 0)
 					env->sectors[env->selected_floor].floor_texture--;
 			}
 			else if (env->inputs.up && env->editor.tab)
@@ -276,25 +274,25 @@ void		keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_scale.y--;
-				env->sectors[env->selected_floor].floor_scale.x--;
+				env->sectors[env->selected_floor].floor_scale.y /= 1.1;
+				env->sectors[env->selected_floor].floor_scale.x /= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_scale.y--;
+				env->sectors[env->selected_floor].floor_scale.y /= 1.1;
 			else
-				env->sectors[env->selected_floor].floor_scale.x--;
+				env->sectors[env->selected_floor].floor_scale.x /= 1.1;
 		}
 		if (env->inputs.minus1)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_scale.y++;
-				env->sectors[env->selected_floor].floor_scale.x++;
+				env->sectors[env->selected_floor].floor_scale.y *= 1.1;
+				env->sectors[env->selected_floor].floor_scale.x *= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_scale.y++;
+				env->sectors[env->selected_floor].floor_scale.y *= 1.1;
 			else
-				env->sectors[env->selected_floor].floor_scale.x++;
+				env->sectors[env->selected_floor].floor_scale.x *= 1.1;
 		}
 	}
 

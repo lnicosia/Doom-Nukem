@@ -6,3 +6,6 @@ Une seule skybox (ca pue)
 Les echelles, les pos, trop chiant a aligner
 Multi selection
 Crash lors skybox sur mur
+Ajouter des secteurs
+Ecrire des valeurs/noms de fichier dans l'editeur
+Pre affichage des sprites dans un dossier pour les selectionner

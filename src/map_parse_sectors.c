@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 15:51:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:29:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
-	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10;
-	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
+	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w;
+	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h;
 	env->sectors[parser->sectors_count].floor_align = new_v2(0, 0);
 	*line = skip_number(*line);
 	if (!**line)
@@ -135,14 +135,19 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].ceiling_texture < -1 || env->
 			sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
 		return (custom_error_with_line("Invalid ceiling texture", parser));
-	env->sectors[parser->sectors_count].skybox = 0;
 	if (env->sectors[parser->sectors_count].ceiling_texture == -1)
 	{
-		env->sectors[parser->sectors_count].skybox = 1;
-		env->sectors[parser->sectors_count].ceiling_texture = 38;
+		env->contains_skybox = 1;
+		//env->sectors[parser->sectors_count].ceiling_texture = 38;
+			env->sectors[parser->sectors_count].ceiling_scale = new_v2(
+					env->textures[38].surface->w,
+					env->textures[38].surface->h / 10);
 	}
-	env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
-	env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
+	else
+	{
+		env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w;
+		env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h;
+	}
 	env->sectors[parser->sectors_count].ceiling_align = new_v2(0, 0);
 	*line = skip_number(*line);
 	if (!**line)

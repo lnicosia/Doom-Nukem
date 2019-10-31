@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 17:26:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:08:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_editor_data(t_env *env)
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	env->selected_stat = 0;
+	env->time.scroll_tick = 0;
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;

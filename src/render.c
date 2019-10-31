@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/28 12:57:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:47:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,33 +128,33 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		- camera->v[sector->num][i].no_slope_c1;
 	if (camera->v[sector->num][i + 1].vz)
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
+		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x / 10.0 / camera->v[sector->num][i + 1].vz;
 		j = 0;
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].vz;
+				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x / sector->sprites[i].scale[j].x / camera->v[sector->num][i + 1].vz;
 			j++;
 		}
 	}
 	else
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10)
+		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x / 10.0
 			/ camera->v[sector->num][i].clipped_vz2;
 		j = 0;
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].clipped_vz2;
+				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x / sector->sprites[i].scale[j].x / camera->v[sector->num][i + 1].clipped_vz2;
 			j++;
 		}
 	}
-	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / 10;
+	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y / 10.0;
 	j = 0;
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] != -1)
-			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale[j].y;
+			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y / sector->sprites[i].scale[j].y;
 		j++;
 	}
 }
@@ -234,7 +234,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}
-	if (sector->skybox && !env->skybox_computed)
+	if (env->contains_skybox && !env->skybox_computed)
 		precompute_skybox(env);
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 }
