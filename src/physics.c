@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 15:00:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 10:34:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	climb(t_env *env)
 	{
 		env->player.state.climb = 1;
 		env->time.last_climb = SDL_GetTicks() / 100.0;
-		env->player.velocity = 0.2;
+		env->player.velocity = 0.4;
 	}
 	if (env->player.state.climb)
 	{
@@ -68,7 +68,7 @@ void	drop(t_env *env)
 	{
 		env->player.state.drop = 1;
 		env->time.last_drop = SDL_GetTicks() / 100.0;
-		env->player.velocity = 0.2;
+		env->player.velocity = 0.4;
 	}
 	if (env->player.state.drop)
 	{
