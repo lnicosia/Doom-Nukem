@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 15:35:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 11:50:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void	init_player(t_env *env)
 	env->player.state.jump = 0;
 	env->player.state.crouch = 0;
 	env->player.state.walk = 0;
+	env->gravity.force = -9.81;
 }
 
 int		parse_map(char *file, t_env *env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/21 18:08:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 12:30:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ void	gravity(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
+	ft_printf("gravity force: %f | player_z: %f\n", env->gravity.force, env->player.pos.z);
 	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
+	if (env->sectors[env->player.sector].status == 4)
+		env->gravity.force = -1.06;
+	else
+		env->gravity.force = -9.81;
 	if ((!env->player.state.fall
 	&& env->player.pos.z > slope + 2)
 	|| (env->player.state.jump && !env->player.state.fall))
@@ -65,7 +70,7 @@ void	gravity(t_env *env)
 	if (env->player.state.fall)
 	{
 		env->time.d_time = time - env->time.last_fall;
-		env->gravity.acceleration = -9.81 * 3.3;
+		env->gravity.acceleration = env->gravity.force * 3.3;
 		new_pos = env->player.start_pos +  (env->gravity.velocity * env->time.d_time)
 			+ env->gravity.acceleration * env->time.d_time * env->time.d_time * 0.5;
 		new_velocity = env->player.velocity_start + env->gravity.acceleration * env->time.d_time;

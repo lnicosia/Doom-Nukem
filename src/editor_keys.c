@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 17:34:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 11:52:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int			editor_keys(t_env *env)
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
 		time = SDL_GetTicks();
-		if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 3
+		if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 4
 		&& time - env->time.tick4 > 300)
 		{
 			env->sectors[env->editor.selected_sector].status++;

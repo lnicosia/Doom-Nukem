@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/30 12:14:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/10/31 11:48:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,7 +509,8 @@ typedef struct		s_time
 typedef struct		s_gravity
 {
 	double			velocity;
-	double			acceleration;	
+	double			acceleration;
+	double			force;
 }					t_gravity;
 
 typedef struct		s_animation
