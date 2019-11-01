@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 12:16:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:41:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,6 @@ int			editor_keys(t_env *env)
 	enemy_selection(env);
 	objects_selection(env);
 	vertices_selection(env);
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))// && !env->editor.in_game)
-	{
-		if (save_map("maps/test.map", env))
-			return (ft_printf("Could not save the map\n"));
-		env->inputs.s = 0;
-		env->inputs.ctrl = 0;
-	}
 	if (env->confirmation_box.state)
 		confirmation_box_keys(&env->confirmation_box, env);
 	if (env->sdl.mx > 200 && env->inputs.left_click
@@ -139,6 +132,13 @@ int			editor_keys(t_env *env)
 		env->editor.center.y -= 3;
 	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.y += 3;
+	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))// && !env->editor.in_game)
+	{
+		if (save_map("maps/test.map", env))
+			return (ft_printf("Could not save the map\n"));
+		env->inputs.s = 0;
+		//env->inputs.ctrl = 0;
+	}
 	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
 	{
 		time = SDL_GetTicks();
