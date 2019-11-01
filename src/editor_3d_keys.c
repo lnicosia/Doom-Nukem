@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 14:32:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:02:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,7 @@ void		editor_3d_keys(t_env *env)
 			&& env->options.minimap_scale / 1.2 > 5)
 		env->options.minimap_scale /= 1.2;
 	if (env->editor.in_game && env->inputs.right_click)
-	{
-		env->editor.selected_wall = -1;
-		env->editor.selected_sector = -1;
-		env->selected_wall1 = -1;
-		env->selected_wall2 = -1;
-		env->selected_ceiling = -1;
-		env->selected_floor = -1;
-		env->selected_enemy = -1;
-	}
+		reset_selection(env);
 
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
@@ -63,9 +55,11 @@ void		editor_3d_keys(t_env *env)
 	}
 	/*
 	 * *	selection of textures on walls
+	 **	"&& (env->inputs.down || env->inputs.up))": reset time only if those keys are pressed
 	 */
 	if (env->editor.tab && env->editor.in_game
-			&& env->editor.selected_wall != -1)
+			&& env->editor.selected_wall != -1
+			&& (env->inputs.down || env->inputs.up))
 	{
 		if (time - env->time.scroll_tick > 200)
 		{
@@ -155,9 +149,14 @@ void		editor_3d_keys(t_env *env)
 
 	/*
 	 * *	selection of textures on ceiling and floor
+	 **	All the || conditions: reset time only if those keys are pressed
 	 */
 
-	if (env->editor.in_game && env->selected_ceiling != -1)
+	if (env->editor.in_game && env->selected_ceiling != -1
+			&& (env->inputs.down || env->inputs.up
+			|| env->inputs.plus || env->inputs.minus
+			|| env->inputs.comma || env->inputs.period
+			|| env->inputs.equals || env->inputs.minus1))
 	{
 		if (time - env->time.scroll_tick > 200)
 		{
@@ -178,14 +177,6 @@ void		editor_3d_keys(t_env *env)
 				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
 			}
-			if (env->sectors[env->selected_ceiling].ceiling_texture == -1)
-			{
-				//env->sectors[env->selected_ceiling].skybox = 1;
-				//env->sectors[env->selected_ceiling].ceiling_texture = 38;
-			}
-			//else if (env->sectors[env->selected_ceiling].ceiling_texture != 38)
-				//env->sectors[env->selected_ceiling].skybox = 0;
-
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_ceiling].ceiling > env->sectors[env->selected_ceiling].floor + 1)
@@ -244,7 +235,17 @@ void		editor_3d_keys(t_env *env)
 		}
 
 	}
-	if (env->editor.in_game && env->selected_floor != -1)
+	
+	/*
+	 * *	selection of textures on ceiling and floor
+	 **	All the || conditions: reset time only if those keys are pressed
+	 */
+
+	if (env->editor.in_game && env->selected_floor != -1
+			&& (env->inputs.down || env->inputs.up
+			|| env->inputs.plus || env->inputs.minus
+			|| env->inputs.comma || env->inputs.period
+			|| env->inputs.equals || env->inputs.minus1))
 	{
 		if (time - env->time.tick > 200 && env->editor.tab)
 		{

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 15:29:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:07:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
-	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w;
-	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h;
+	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10;
+	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
 	env->sectors[parser->sectors_count].floor_align = new_v2(0, 0);
 	*line = skip_number(*line);
 	if (!**line)
@@ -145,8 +145,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	}
 	else
 	{
-		env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w;
-		env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h;
+		env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
+		env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
 	}
 	env->sectors[parser->sectors_count].ceiling_align = new_v2(0, 0);
 	*line = skip_number(*line);

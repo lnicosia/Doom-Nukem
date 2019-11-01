@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>			  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/08/30 16:38:58 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/27 14:41:51 by marvin		   ###   ########.fr	   */
+/*   Updated: 2019/11/01 16:16:27 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 				create_portals(env, env->sectors[i]);
 				i++;
 			}
+			env->player.sector = get_sector_global(env, env->player.pos);
 		}
 	else
 		box->yes.state = 0;
