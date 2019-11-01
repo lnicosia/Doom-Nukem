@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 12:27:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:11:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void		editor_3d_keys(t_env *env)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
 			}
 		}
+	}
+	if (env->editor.in_game
+			&& env->editor.selected_wall != -1)
+	{
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
