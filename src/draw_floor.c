@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 09:33:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:26:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,8 @@ void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *en
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
+			reset_selection(env);
 			env->selected_floor = render.sector;
-			env->selected_ceiling = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
 		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
 			* divider;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/01 12:10:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:25:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
+			reset_selection(env);
 			env->editor.selected_sector = env->sectors[render.sector].num;
 			env->editor.selected_wall = render.i;
 			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
-			env->selected_floor = -1;
-			env->selected_ceiling = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y

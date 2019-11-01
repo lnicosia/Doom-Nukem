@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/19 14:52:02 by lnicosia		 ###   ########.fr	   */
+/*   Updated: 2019/11/01 13:27:27 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -116,13 +116,8 @@ static void		*object_loop(void *param)
 			{
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
-					env->selected_wall1 = -1;
-					env->selected_wall2 = -1;
-					env->selected_floor = -1;
-					env->selected_ceiling = -1;
+					reset_selection(env);
 					env->selected_object = object.num;
-					env->selected_enemy = -1;
-					env->editor.selected_wall = -1;
 				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];

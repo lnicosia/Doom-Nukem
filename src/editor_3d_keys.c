@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 13:11:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:20:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,18 @@ void		editor_3d_keys(t_env *env)
 			else
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
 		}
+	}
+
+
+	/*
+	 * *	Sprites on wall 
+	 */
+
+
+	if (env->editor.in_game
+			&& env->selected_wall_sprite_wall != -1
+			&& env->selected_wall_sprite_sprite != -1)
+	{
 	}
 
 	/*

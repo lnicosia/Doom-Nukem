@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/01 12:19:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:23:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void				update_objects_z(t_env *env);
 void				selected_information_on_enemy(t_env *env);
 void				selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
+void				reset_selection(t_env *env);
 
 /*
 ** Main functions
