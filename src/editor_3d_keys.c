@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 16:02:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:35:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,25 @@ void		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y--;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x--;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y--;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x--;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y++;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x++;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y++;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x++;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
 		}
 		if (env->inputs.equals)
 		{
@@ -189,25 +189,25 @@ void		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y--;
-				env->sectors[env->selected_ceiling].ceiling_align.x--;
+				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
+				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y--;
+				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x--;
+				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y++;
-				env->sectors[env->selected_ceiling].ceiling_align.x++;
+				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
+				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y++;
+				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x++;
+				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
 		}
 		if (env->inputs.equals)
 		{
@@ -277,25 +277,25 @@ void		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y--;
-				env->sectors[env->selected_floor].floor_align.x--;
+				env->sectors[env->selected_floor].floor_align.y -= 10;
+				env->sectors[env->selected_floor].floor_align.x -= 10;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y--;
+				env->sectors[env->selected_floor].floor_align.y -= 10;
 			else
-				env->sectors[env->selected_floor].floor_align.x--;
+				env->sectors[env->selected_floor].floor_align.x -= 10;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y++;
-				env->sectors[env->selected_floor].floor_align.x++;
+				env->sectors[env->selected_floor].floor_align.y += 10;
+				env->sectors[env->selected_floor].floor_align.x += 10;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y++;
+				env->sectors[env->selected_floor].floor_align.y += 10;
 			else
-				env->sectors[env->selected_floor].floor_align.x++;
+				env->sectors[env->selected_floor].floor_align.x += 10;
 		}
 		if (env->inputs.equals)
 		{
