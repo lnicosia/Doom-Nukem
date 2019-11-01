@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 12:11:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,10 @@ t_env *env)
 		{
 			if (env->editor.select && render.x == env->h_w && i == env->h_h)
 			{
-				env->selected_wall1 = -1;
-				env->selected_wall2 = -1;
-				env->selected_floor = -1;
-				env->selected_ceiling = -1;
-				env->selected_object = -1;
-				env->selected_enemy = -1;
-				env->editor.selected_wall = -1;
+				reset_selection(env);
 				env->selected_wall_sprite_wall = render.i;
 				env->selected_wall_sprite_sprite = sprite;
+				env->editor.selected_sector = sector.num;
 
 			}
 			if (!env->options.lighting && !env->playing)
@@ -75,9 +70,7 @@ t_env *env)
 			if (env->editor.in_game && !env->editor.select
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
-			{
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
-			}
 			zbuffer[coord] = render.z;
 		}
 	}

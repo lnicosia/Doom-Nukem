@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 13:19:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:44:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] != -1)
-			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale[j].y;
+			//camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale[j].y;
+			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / 1000 * sector->sprites[i].scale[j].y;
 		j++;
 	}
 }

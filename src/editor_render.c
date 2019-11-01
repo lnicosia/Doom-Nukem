@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 12:19:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:41:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		editor_render(t_env *env)
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
+	if (env->options.animations)
+		update_sprites_state(env);
 	reset_clipped(env);
 	editor_3d_keys(env);
 	animations(env);

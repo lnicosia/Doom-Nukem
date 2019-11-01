@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 13:20:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:32:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ void		editor_3d_keys(t_env *env)
 
 
 	if (env->editor.in_game
+			&& env->editor.selected_sector != -1
 			&& env->selected_wall_sprite_wall != -1
 			&& env->selected_wall_sprite_sprite != -1)
-	{
-	}
+		wall_sprites_keys(env);
 
 	/*
 	 * *	selection of textures on ceiling and floor
