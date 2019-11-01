@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 14:36:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 15:42:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_env *env)
 		/ render.line_height;
 		y = yalpha * render.camera->v[render.sector]
 		[render.i].sprite_scale[sprite].y + start
-		- pos * render.texture_h / 10.0;
+		- pos;
 		if (y >= start && y < end
 			&& sprite_pixels[(int)render.sprite_x
 			+ sprite_w * (int)y] != 0xFFC10099)
@@ -68,6 +68,7 @@ t_env *env)
 				(int)render.sprite_x + sprite_w * (int)y],
 				sector.light_color, sector.brightness);
 			if (env->editor.in_game && !env->editor.select
+				&& env->editor.selected_sector == sector.num
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
