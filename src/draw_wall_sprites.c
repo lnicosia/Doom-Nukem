@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 17:27:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 12:11:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_env *env)
 			&& sprite_pixels[(int)render.sprite_x
 			+ sprite_w * (int)y] != 0xFFC10099)
 		{
-			/*if (env->editor.select && render.sprite_x == env->h_w && y == env->h_h)
+			if (env->editor.select && render.x == env->h_w && i == env->h_h)
 			{
 				env->selected_wall1 = -1;
 				env->selected_wall2 = -1;
@@ -64,7 +64,7 @@ t_env *env)
 				env->selected_wall_sprite_wall = render.i;
 				env->selected_wall_sprite_sprite = sprite;
 
-			}*/
+			}
 			if (!env->options.lighting && !env->playing)
 				pixels[coord] = sprite_pixels[
 				(int)render.sprite_x + sprite_w * (int)y];
@@ -76,6 +76,7 @@ t_env *env)
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
 			{
+				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			}
 			zbuffer[coord] = render.z;
 		}
@@ -100,7 +101,7 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 			render.sprite_x = render.alpha * render.camera->v[render.sector]
 			[render.i].sprite_scale[i].x * render.z
 			+ start
-			- pos * render.texture_w / 10.0;
+			- pos;
 			if (render.sprite_x >= start
 				&& render.sprite_x < end)
 				draw_vline_sprite(i, sector, render, env);
