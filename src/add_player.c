@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:18:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:02:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	add_player(t_env *env)
 			env->player.pos);
 	if (env->player.sector != -1)
 		update_player_z(env);
-	env->player.highest_sect = env->player.pos.z;
-	env->player.lowest_sect = env->player.pos.z;
+	env->player.highest_sect = env->player.sector;
+	env->player.lowest_sect = env->player.sector;
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 17:57:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:00:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,8 @@ void		vertices_selection(t_env *env)
 		}
 		else
 		{
-			ft_printf("old vertex pos = [%f][%f]\n",
-			env->vertices[env->editor.selected_vertex].x,
-			env->vertices[env->editor.selected_vertex].y);
 			env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->vertices[env->editor.selected_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-			ft_printf("new vertex pos = [%f][%f]\n",
-			env->vertices[env->editor.selected_vertex].x,
-			env->vertices[env->editor.selected_vertex].y);
 			check_sector_order(env);
 			clear_portals(env);
 			while (i < env->nb_sectors)
