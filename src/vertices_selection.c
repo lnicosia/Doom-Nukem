@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 16:38:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/01 16:20:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		vertices_selection(t_env *env)
 			while (i < env->nb_sectors)
 			{
 				create_portals(env, env->sectors[i]);
+				update_sector_slope(env, &env->sectors[i]);
 				i++;
 			}
 		}
