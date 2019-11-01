@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 16:21:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/10/25 20:54:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
+# define LOST_SOUL 11
+# define CYBER_DEMON 2
 
 typedef enum		e_enemy_state
 {
@@ -45,12 +47,12 @@ typedef enum		e_enemy_state
 	PURSUING,
 	FIRING
 }					t_enemy_state;
-
+/*
 typedef enum		e_entity_sprite
 {
 	LOST_SOUL = 1,
 	CYBER_DEMON
-}					t_entity_sprite;
+}					t_entity_sprite;*/
 
 typedef enum		e_enemy_behavior
 {
