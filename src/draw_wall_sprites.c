@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 15:42:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 19:12:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_env *env)
 	.sprite[sprite]].texture].str;
 	sprite_w = env->textures[env->sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].surface->w;
-	pos = sector.sprites[render.i].pos[sprite].y;
+	pos = sector.sprites[render.i].pos[sprite].y / 100;
 	start = env->sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
 	end = env->sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
 	while (++i <= render.current_floor)
@@ -44,10 +44,9 @@ t_env *env)
 		if (render.z > zbuffer[coord])
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
-		/ render.line_height;
+		/ render.line_height - pos;
 		y = yalpha * render.camera->v[render.sector]
-		[render.i].sprite_scale[sprite].y + start
-		- pos;
+		[render.i].sprite_scale[sprite].y + start;
 		if (y >= start && y < end
 			&& sprite_pixels[(int)render.sprite_x
 			+ sprite_w * (int)y] != 0xFFC10099)
@@ -91,9 +90,13 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 		{
 			start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].x;
 			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].x;
-			pos = sector.sprites[render.i].pos[i].x;
+			pos = sector.sprites[render.i].pos[i].x;//  / (render.camera->v[render.sector][render.i].sprite_scale[i].x * render.z);
+			/*if (render.camera->v[sector.num][render.i + 1].vz)
+				pos = pos / render.camera->v[sector.num][render.i + 1].vz * sector.wall_width[render.i];
+			else
+				pos = pos / render.camera->v[sector.num][render.i].clipped_vz2 * sector.wall_width[render.i];*/
 			render.sprite_x = render.alpha * render.camera->v[render.sector]
-			[render.i].sprite_scale[i].x * render.z
+			[render.i].sprite_scale[i].x  * render.z
 			+ start
 			- pos;
 			if (render.sprite_x >= start
