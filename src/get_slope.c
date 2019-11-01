@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 16:06:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/01 17:10:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,6 @@ void	precompute_slopes(t_env *env)
 		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}
+	ft_printf("{reset}");
 	//check_slopes(env);
 }

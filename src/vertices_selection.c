@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 16:20:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:09:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	check_sector_order(t_env *env)
 			if (env->editor.dragged_vertex == env->sectors[i].vertices[j])
 			{
 				env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
+				if (env->editor.reverted)
+					ft_printf("sector is reverted\n");
 				revert_sector(&env->sectors[i], env);
 				break;
 			}
@@ -51,16 +53,22 @@ void		vertices_selection(t_env *env)
 		}
 		else
 		{
+			ft_printf("old vertex pos = [%f][%f]\n",
+			env->vertices[env->editor.selected_vertex].x,
+			env->vertices[env->editor.selected_vertex].y);
 			env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 			env->vertices[env->editor.selected_vertex].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+			ft_printf("new vertex pos = [%f][%f]\n",
+			env->vertices[env->editor.selected_vertex].x,
+			env->vertices[env->editor.selected_vertex].y);
 			check_sector_order(env);
 			clear_portals(env);
 			while (i < env->nb_sectors)
 			{
 				create_portals(env, env->sectors[i]);
-				update_sector_slope(env, &env->sectors[i]);
 				i++;
 			}
+			precompute_slopes(env);
 		}
 		env->editor.dragged_vertex = -1;
 	}

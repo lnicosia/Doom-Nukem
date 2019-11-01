@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 09:47:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 13:33:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:12:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ int     is_in_sector_no_z(t_env *env, short sector, t_v2 pos)
 	i = 0;
 	count = 0;
 	//ft_printf("Checking sector %d\n", sector);
+	ft_printf("tested pos: x = %f y = %f\n", pos.x, pos.y);
 	if (sector < 0 || sector >= env->nb_sectors)
 		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{
+		ft_printf("tested values: x = %f y = %f\n", SECTOR_X1, SECTOR_Y1);
 		start_pos = (pos.x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (pos.y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
 		end_pos = (env->sectors[sector].x_max + 1 - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1) - (pos.y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
 		if (diff_sign(start_pos, end_pos) && in_range(pos.y, SECTOR_Y1, SECTOR_Y2))
