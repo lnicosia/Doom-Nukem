@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 17:09:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:57:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		vertices_selection(t_env *env)
 				create_portals(env, env->sectors[i]);
 				i++;
 			}
+			set_sectors_xmax(env);
 			precompute_slopes(env);
 		}
 		env->editor.dragged_vertex = -1;
