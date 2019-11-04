@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 11:10:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:50:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		editor(t_env *env)
 					env->editor.scale /= 1.1;
 				}
 			}
+			if (env->input_box.state)
+				input_box_keys(&env->input_box, env);
 		}
 		if (!env->editor.in_game)
 		{
@@ -55,8 +57,6 @@ int		editor(t_env *env)
 				if (editor_keys(env))
 					return (ft_printf("Error in inputs\n"));
 			}
-			else
-				input_box_keys(&env->input_box, env);
 			if (env->editor.new_player || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)

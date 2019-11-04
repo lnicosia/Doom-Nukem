@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/01 14:36:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:55:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		x += render.texture_w;
 	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
-	while (i <= vline.end)
+	while (i < vline.end)
 	{
 		coord = vline.x + env->w * i;
 		if (render.z > zbuffer[coord])

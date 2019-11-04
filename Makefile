@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/04 11:44:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/04 13:37:25 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
-		   draw_circle_free.c draw_circle.c death.c \
+		   draw_circle_free.c draw_circle.c death.c ft_getchar.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 

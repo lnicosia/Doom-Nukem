@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 11:48:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:55:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
 void				input_box_keys(t_input_box *box, t_env *env);
 int				init_input_box(t_input_box *box, t_env *env);
+int				del_char(t_input_box *box, int mode);
+char				ft_getchar(int input, int shift);
 
 /*
 ** Main functions

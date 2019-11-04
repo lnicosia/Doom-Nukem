@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 11:59:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:51:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -755,9 +755,17 @@ typedef struct		s_input_box
 	int			state;
 	int			type;
 	int			caps;
+	size_t			cursor;
+	int			cursor_state;
 	char			*str;
 	Uint32			del_timer;
 	Uint32			del_delay;
+	Uint32			cursor_timer;
+	Uint32			cursor_delay;
+	Uint32			move_cursor_timer;
+	Uint32			move_cursor_delay;
+	Uint32			input_timer;
+	Uint32			input_delay;
 	char			*str_target;
 	int			*int_target;
 	double			*double_target;

@@ -6,11 +6,80 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 12:12:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:10:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
+
+/*
+**	Delete a char at cursor position
+**	If mode == 0, it's a backspace, delete the previous char
+**	else if mode == 1, it's a del, delete the next char
+*/
+
+int		del_char(t_input_box *box, int mode)
+{
+	char	*s1;
+	char	*s2;
+	char	*res;
+
+	box->del_timer = SDL_GetTicks();
+	if (!mode)
+	{
+		s1 = ft_strsub(box->str, 0, box->cursor - 1);
+		s2 = ft_strsub(box->str,
+		box->cursor, ft_strlen(box->str) - box->cursor);
+		box->cursor--;
+	}
+	else
+	{
+		s1 = ft_strsub(box->str, 0, box->cursor);
+		s2 = ft_strsub(box->str,
+		box->cursor + 1, ft_strlen(box->str) - (box->cursor + 1));
+	}
+	if (!(res = ft_strnew(ft_strlen(box->str) - 1)))
+		return (-1);
+	res = ft_strcpy(res, s1);
+	res = ft_strcat(res, s2);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+	ft_strdel(&box->str);
+	box->str = res;
+	return (0);
+}
+
+/*
+**	Add the char contained in c (string of 1 char)
+**	at cursor position
+*/
+
+int		add_char(t_input_box *box, char c)
+{
+	char	*s1;
+	char	*s2;
+	char	*res;
+
+	if (!box->str)
+	{
+		if (!(box->str = ft_strnew(1)))
+			return (-1);
+		box->str[0] = c;
+		return (0);
+	}
+	s1 = ft_strsub(box->str, 0, box->cursor);
+	s2 = ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);
+	if (!(res = ft_strnew(ft_strlen(box->str) + 1)))
+		return (-1);
+	res = ft_strcpy(res, s1);
+	res[box->cursor] = c;
+	res = ft_strcat(res, s2);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+	ft_strdel(&box->str);
+	box->str = res;
+	return (0);
+}
 
 int		parse_integer_input(t_input_box *box, t_env *env)
 {
@@ -33,27 +102,18 @@ int		parse_double_input(t_input_box *box, t_env *env)
 
 int		parse_str_input(t_input_box *box, t_env *env)
 {
-	char	*new;
+	char	new;
 
-	if (env->sdl.event.key.keysym.sym == SDLK_KP_0)
-		ft_printf("input = %d\n", env->sdl.event.key.keysym.sym);
-	if (ft_isprint(env->sdl.event.key.keysym.sym))
-	{
-		/*if (env->sdl.event.key.keysym.sym >= SDLK_KP_0
-			&& env->sdl.event.key.keysym.sym <= SDLK_KP_1)
-			ft_printf("input = %d\n", env->sdl.event.key.keysym.sym);*/
-		new = ft_getchar(env->sdl.event.key.keysym.sym,
-		env->inputs.shift);
-		if (!box->str || (box->str && box->str[0] == '|'))
-		{
-			if (box->str)
-				ft_strdel(&box->str);
-			if (!(box->str = ft_strdup(new)))
-				return (-1);
-		}
-		else if (!(box->str = ft_strjoin_free(box->str, new)))
-			return (-1);
-		env->sdl.event.key.keysym.sym = 0;
-	}
+	new = ft_getchar(env->sdl.event.key.keysym.sym,
+			env->inputs.shift);
+	if (!new)
+		return (0);
+	env->sdl.event.key.keysym.sym = 0;
+	if (!(ft_isalnum(new) || new == '-' || new == '.'
+		|| new == '_' || new == '/'))
+		return (0);
+	if (add_char(box, new))
+		return (-1);
+	box->cursor++;
 	return (0);
 }

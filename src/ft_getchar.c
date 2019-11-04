@@ -6,12 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 12:13:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:55:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <SDL.h>
 #include "libft.h"
-#include "mlx_keycode.h"
 
 /*
 **	Returns a string of you keyboard input (+ '\0')
@@ -19,6 +19,52 @@
 **	TODO
 **	Only works with qwerty mac keyboard and SDL inputs
 **	Add other possibilities
+*/
+
+static char	keypad_numkey(int input)
+{
+	char	res;
+	
+	(void)input;
+	res = 0;
+	//ft_printf("Keypad number\n");
+	if (input == SDLK_KP_0)
+		res = '0';
+	else if (input == SDLK_KP_1)
+		res = '1';
+	else if (input == SDLK_KP_2)
+		res = '2';
+	else if (input == SDLK_KP_3)
+		res = '3';
+	else if (input == SDLK_KP_4)
+		res = '4';
+	else if (input == SDLK_KP_5)
+		res = '5';
+	else if (input == SDLK_KP_6)
+		res = '6';
+	else if (input == SDLK_KP_7)
+		res = '7';
+	else if (input == SDLK_KP_8)
+		res = '8';
+	else if (input == SDLK_KP_9)
+		res = '9';
+	if (input == SDLK_KP_PERIOD)
+		res = '.';
+	if (input == SDLK_KP_DIVIDE)
+		res = '/';
+	if (input == SDLK_KP_MULTIPLY)
+		res = '*';
+	if (input == SDLK_KP_EQUALS)
+		res = '=';
+	if (input == SDLK_KP_PLUS)
+		res = '+';
+	if (input == SDLK_KP_MINUS)
+		res = '-';
+	return (res);
+}
+
+/*
+**	Get every keyboard input with shift
 */
 
 static char	maj_key(int input)
@@ -49,17 +95,38 @@ static char	maj_key(int input)
 		res = ')';
 	if (input == '-')
 		res = '_';
+	if (input == '=')
+		res = '+';
+	if (input == '[')
+		res = '{';
+	if (input == ']')
+		res = '}';
+	if (input == '\\')
+		res = '|';
+	if (input == ';')
+		res = ':';
+	if (input == '\'')
+		res = '"';
+	if (input == ',')
+		res = '<';
+	if (input == '.')
+		res = '>';
+	if (input == '/')
+		res = '?';
 	return (res);
 }
 
-char		*ft_getchar(int input, int shift)
+char		ft_getchar(int input, int shift)
 {
-	static char	res[2];
+	char	res;
 
-	res[1] = '\0';
+	res = '\0';
+	//res[1] = '\0';
 	if (shift)
-		res[0] = maj_key(input);
-	else
-		res[0] = input;
+		res = maj_key(input);
+	else if ((res = keypad_numkey(input)))
+		return (res);
+	else if (ft_isprint(input))
+		res = input;
 	return (res);
 }
