@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:08:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:39:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 int	init_input_box(t_input_box *box, t_env *env)
 {
 	box->state = 1;
-	box->type = 2;
-	box->del_delay = 100;
+	box->type = 1;
+	box->del_delay = 25;
 	box->input_delay = 100;
 	box->move_cursor_delay = 100;
 	box->cursor_delay = 500;
+	if (!(box->str = ft_strnew(0)))
+		return (-1);
 	box->cursor_state = 0;
 	box->pos = new_point(env->h_w, env->h_h);
 	box->font = env->sdl.fonts.playfair_display20;
@@ -48,8 +50,8 @@ void	draw_cursor(t_input_box *box, t_env *env)
 
 	sub = ft_strsub(box->str, 0, box->cursor);
 	TTF_SizeText(box->font, sub, &size.x, &size.y);
-	y = box->pos.y + 3;
-	while (y < box->pos.y + box->size.y - 3)
+	y = box->pos.y + 5;
+	while (y < box->pos.y + box->size.y - 4)
 	{
 		env->sdl.texture_pixels[box->pos.x + size.x + 5 + env->w * y] = 0xFF606060;
 		y++;
@@ -125,7 +127,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->cursor++;
 		box->move_cursor_timer = SDL_GetTicks();
 	}
-	else if (SDL_GetTicks() - box->input_timer > box->input_delay)
+	else if (env->sdl.event.type == SDL_KEYUP)
 	{
 		if (box->type == 0)
 			parse_integer_input(box, env);

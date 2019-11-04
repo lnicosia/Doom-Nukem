@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 16:55:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:40:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 **	Add other possibilities
 */
 
+/*
+**	Get keys from keypad
+*/
+
 static char	keypad_numkey(int input)
 {
 	char	res;
 	
-	(void)input;
 	res = 0;
-	//ft_printf("Keypad number\n");
 	if (input == SDLK_KP_0)
 		res = '0';
 	else if (input == SDLK_KP_1)
@@ -121,7 +123,6 @@ char		ft_getchar(int input, int shift)
 	char	res;
 
 	res = '\0';
-	//res[1] = '\0';
 	if (shift)
 		res = maj_key(input);
 	else if ((res = keypad_numkey(input)))
