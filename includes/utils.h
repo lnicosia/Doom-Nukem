@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/25 20:54:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:54:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -493,6 +493,19 @@ typedef struct		s_sprite
 	int				death_counterpart;
 	int				nb_death_sprites;
 }					t_sprite;
+
+/*
+** Projectile structure
+*/
+
+typedef	struct		s_projectile
+{
+	t_v3			pos;
+	t_v3			dest;
+	int				speed;
+	int				sprite;
+	int				damage;
+}					t_projectile;
 
 /*
 ** Object structure

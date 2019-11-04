@@ -26,8 +26,6 @@ int		doom(t_env *env)
 	env->player.fall = 1;*/
 	while (env->running)
 	{
-		if (env->player.sector == -1)
-			ft_printf("Rip :/ \n");
 		env->player.health = 100;
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);

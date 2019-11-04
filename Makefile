@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/10/25 20:55:47 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/11/04 15:35:35 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SDL_MIXER_DIR = SDL2_mixer-2.0.4
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
-				print_results.c
+				print_results.c projectile.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \

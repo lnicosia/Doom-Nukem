@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 15:58:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/04 15:36:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct		s_env
 	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
+	t_projectile		projectile;
+	t_list				*projectiles;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -286,6 +288,7 @@ void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
+int					create_projectile(t_env *env, int sprite, t_v3 pos, t_v3 dest);
 int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
