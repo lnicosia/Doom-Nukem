@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 15:08:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:49:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.playfair_display20;
 	env.confirmation_box.state = 0;
+	if (init_input_box(&env.input_box, &env))
+		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))

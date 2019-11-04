@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 14:06:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 11:10:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP)
+			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP))
 				editor_keyup(env);
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
@@ -50,8 +50,13 @@ int		editor(t_env *env)
 		{
 			draw_grid(env);
 			draw_grid_vertices(env);
-			if (editor_keys(env))
-				return (ft_printf("Error in inputs\n"));
+			if (!env->input_box.state)
+			{
+				if (editor_keys(env))
+					return (ft_printf("Error in inputs\n"));
+			}
+			else
+				input_box_keys(&env->input_box, env);
 			if (env->editor.new_player || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
@@ -70,6 +75,8 @@ int		editor(t_env *env)
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);
+		if (env->input_box.state)
+			draw_input_box(&env->input_box, env);
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

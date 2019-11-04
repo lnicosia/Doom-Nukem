@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 14:42:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:59:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,6 +396,7 @@ typedef struct		s_keys
 	int				plus;
 	int				minus;
 	int				shift;
+	int				shift2;
 	int				ctrl;
 	int				space;
 	int				down;
@@ -739,5 +740,27 @@ typedef struct		s_confirmation_box
 	int				yes_pressed;
 	int				no_pressed;
 }					t_confirmation_box;
+  
+/*
+**	Data for input box
+**	str = string content. User has to strdup and strdel it correctly
+**	type = input type: 0 = int, 1 = double, 2 = string
+*/
 
+typedef struct		s_input_box
+{
+	TTF_Font		*font;
+	t_point			size;
+	t_point			pos;
+	int			state;
+	int			type;
+	int			caps;
+	char			*str;
+	Uint32			del_timer;
+	Uint32			del_delay;
+	char			*str_target;
+	int			*int_target;
+	double			*double_target;
+}					t_input_box;
+  
 #endif

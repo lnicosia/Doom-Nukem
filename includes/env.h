@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/01 14:29:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:48:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ typedef struct		s_env
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
-	t_confirmation_box	confirmation_box;
 	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
 	t_vline_data		*vline_data;
 	t_teleport			teleport;
+	t_confirmation_box	confirmation_box;
+	t_input_box			input_box;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -215,6 +216,9 @@ void				selected_information_on_enemy(t_env *env);
 void				selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
+void				draw_input_box(t_input_box *box, t_env *env);
+void				input_box_keys(t_input_box *box, t_env *env);
+int				init_input_box(t_input_box *box, t_env *env);
 
 /*
 ** Main functions

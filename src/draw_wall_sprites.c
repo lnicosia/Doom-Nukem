@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 19:12:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 09:47:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,15 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 		{
 			start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].x;
 			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].x;
-			pos = sector.sprites[render.i].pos[i].x;//  / (render.camera->v[render.sector][render.i].sprite_scale[i].x * render.z);
+			pos = sector.sprites[render.i].pos[i].x;
+			// render.camera->v[sector.num][render.i].xrange;
+			//  / (render.camera->v[render.sector][render.i].sprite_scale[i].x * render.z);
 			/*if (render.camera->v[sector.num][render.i + 1].vz)
 				pos = pos / render.camera->v[sector.num][render.i + 1].vz * sector.wall_width[render.i];
 			else
 				pos = pos / render.camera->v[sector.num][render.i].clipped_vz2 * sector.wall_width[render.i];*/
-			render.sprite_x = render.alpha * render.camera->v[render.sector]
-			[render.i].sprite_scale[i].x  * render.z
+			render.sprite_x = (render.alpha) * render.camera->v[render.sector]
+			[render.i].sprite_scale[i].x * render.z
 			+ start
 			- pos;
 			if (render.sprite_x >= start
