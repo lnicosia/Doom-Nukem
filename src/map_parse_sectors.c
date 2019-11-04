@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 15:56:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -614,7 +614,7 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (invalid_char("before sector status", "'['", **line, parser));	
+		return (invalid_char("before sector status", "'['", **line, parser));
 	(*line)++;
 	if (!**line)
 		return (missing_data("sector status", parser));
@@ -626,17 +626,20 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error_with_line("sector status must be between 0 and 5", parser));
 	*line = skip_number(*line);
 	if (**line != ' ')
-		return (invalid_char("after sector sprites", "space(s)",
+		return (invalid_char("after sector status", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line)
 		return (missing_data("coordinates missing after sector status", parser));
+	if (**line != '(')
+		return (invalid_char("before sector potential telportation pos", "'('", **line, parser));
+	(*line)++;
 	if (valid_number(*line, parser))
 		return (invalid_char("before first coordinate", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].tp.x = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (**line != ' ')
-		return (invalid_char("after sector status", "space(s)",
+		return (invalid_char("after sector first coordonate for teleportation", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line)
@@ -645,8 +648,45 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before second coordinate", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].tp.y = ft_atoi(*line);
 	*line = skip_number(*line);
+	if (**line != ')')
+		return (invalid_char("after sector status", "')'", **line, parser));
+	(*line)++;
+	if (**line != ' ')
+		return (invalid_char("after sector telportation coordonates", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (**line != '(')
+		return (invalid_char("before sector data for hiding it", "'('", **line, parser));
+	(*line)++;
+	if (valid_number(*line, parser))
+		return (invalid_char("before enemy reference to hide sector", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].enemy_flag = ft_atoi(*line);
+	*line = skip_number(*line);
+	if (**line != ' ')
+		return (invalid_char("after enemy reference to hide sector", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line)
+		return (missing_data("coordinates missing after sector enemy reference", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before sector flag of activation to reveal sector", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].activated = ft_atoi(*line);
+	*line = skip_number(*line);
+	if (**line != ' ')
+		return (invalid_char("after activation reference to hide sector", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line)
+		return (missing_data("data missing after sector activation reference", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before floor reference to reveal sector", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].start_floor = ft_atof(*line);
+	*line = skip_number(*line);
+	if (**line != ')')
+		return (invalid_char("after sector data for hiding", "')'", **line, parser));
+	(*line)++;
 	if (**line != ']')
-		return (invalid_char("after sector status", "']'", **line, parser));
+		return (invalid_char("before sector status", "']'", **line, parser));
 	(*line)++;
 	if (**line != '\0')
 		return (extra_data(*line, parser));
@@ -668,7 +708,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (-1);
 	//return (custom_error("Error while parsing ceiling"));
 	if (env->sectors[parser->sectors_count].ceiling
-			<= env->sectors[parser->sectors_count].floor)
+			< env->sectors[parser->sectors_count].floor)
 		return (-1);
 	//return (sector_error("ceiling must be higher than its floor",
 	//parser->sectors_count, parser));

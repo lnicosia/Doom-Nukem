@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 15:33:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,8 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	//return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &parser))
-		return (-1);
-	//return (custom_error("Error while parsing sectors"));
+		return (custom_error("Error while parsing sectors"));
+				//return (-1);
 	precompute_slopes(env);
 	if (init_objects(env, &parser))
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 10:25:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 15:33:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ void		render_sector(t_render render, t_env *env)
 			render_sector(new, env);
 		}
 	}
+	//ft_printf("sector %d ok\n", sector.num);
 	render.camera->rendered_sectors[render.sector]--;
 }

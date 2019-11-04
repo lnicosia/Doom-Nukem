@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 15:58:10 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 17:01:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 12:29:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	interactions(t_env *env)
 		env->elevator.off = 0;
 	else if (env->sectors[env->player.sector].status == 3)
 		activate_teleport(env);
-	hidden_sectors(env);
+	if (!env->hidden_sect.create)
+		hidden_sectors(env);
 }

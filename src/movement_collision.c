@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/30 17:15:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 14:21:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
         return (new_v2(0,0));
+    if (!check_ceiling(env, motion, motion.sector))
+		return (new_v2(0, 0));
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)

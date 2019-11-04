@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/31 14:21:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 14:06:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		x += render.texture_w;
 	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
-	while (i <= vline.end)
+	//ft_printf("line height = %d\n", render.line_height);
+	while (i < vline.end)
 	{
 		coord = vline.x + env->w * i;
 		if (render.z > zbuffer[coord])

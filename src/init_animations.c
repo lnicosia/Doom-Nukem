@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 14:49:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 15:05:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	init_animations(t_env *env)
 	env->elevator.used = 0;
 	env->elevator.speed = 0.01;
 	env->elevator.time = 0;
+	env->hidden_sect.sector = -1;
+	env->hidden_sect.create = 0;
+	env->hidden_sect.selected_enemy = -1;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].death.start = 0;

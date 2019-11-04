@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 17:37:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 14:32:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,9 @@ t_sector	new_default_sector(t_env *env)
 	sector.x_max = -2147483648;
 	sector.nb_vertices = get_new_sector_len(env);
 	sector.status = 0;
+	sector.enemy_flag = -1;
+	sector.activated = 0;
+	sector.start_floor = sector.floor;
 	return (sector);
 }
 

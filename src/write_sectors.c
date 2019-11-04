@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 17:13:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 15:47:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
+static void	write_interactions_related_data(int fd, t_sector sector)
+{
+	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
+		(int)(sector.status),
+		(int)(sector.tp.x),
+		(int)(sector.tp.y),
+		sector.enemy_flag,
+		sector.activated,
+		sector.start_floor);
+}
 static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d] ",
@@ -110,13 +120,12 @@ static void	write_sector(int fd, t_sector sector)
 		ft_dprintf(fd, "[%.5f %.5f %d] ",
 				sector.ceiling, sector.ceiling_slope, sector.ceiling_texture);
 	}
-			write_sector_vertices(fd, sector);
+		write_sector_vertices(fd, sector);
 		write_sector_neighbors(fd, sector);
 		write_sector_textures(fd, sector);
 		write_sector_wall_sprites(fd, sector);
 		ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
-		ft_dprintf(fd, "[%d %d %d]\n", (int)(sector.status),
-		(int)(sector.tp.x), (int)(sector.tp.y));
+		write_interactions_related_data(fd, sector);
 }
 
 void		write_sectors(int fd, t_env *env)

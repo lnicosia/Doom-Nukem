@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/31 18:00:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 15:45:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef struct		s_hidden_sect
 {
 	int				sector;
 	int				selected_enemy;
-	
+	int				create;
+	t_v2			get_sect;
 }					t_hidden_sect;
 
 typedef struct		s_elevator
@@ -255,9 +256,10 @@ typedef struct		s_sector
 	int				status;
 	int				brightness;
 	int				*levels;
-	int				start_floor;
+	double			start_floor;
 	int				enemy_flag;
 	int				activated;
+	int				hidden;
 	Uint32			light_color;
 }					t_sector;
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 17:58:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 10:12:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,7 +380,8 @@ void				activate_teleport(t_env *env);
 void				create_teleport(t_env *env);
 int					check_player_z(t_env *env);
 void				hidden_sectors(t_env *env);
-void				create_hidden_setor(t_env *env);
+void				create_hidden_sector(t_env *env);
+void				activate_sector(t_env *env, int i);
 
 /*
 ** enemies functions
