@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 15:56:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 17:27:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -629,6 +629,17 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("after sector status", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
+/*	if (valid_number(*line, parser))
+		return (invalid_char("before first coordinate", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].tp.x = ft_atoi(*line);
+	*line = skip_number(*line);
+	*line = skip_spaces(*line);
+	if (!**line)
+		return (missing_data("coordinates missing after sector status", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before second coordinate", "a digit", **line, parser));
+	env->sectors[parser->sectors_count].tp.y = ft_atoi(*line);
+	*line = skip_number(*line);*/
 	if (!**line)
 		return (missing_data("coordinates missing after sector status", parser));
 	if (**line != '(')
