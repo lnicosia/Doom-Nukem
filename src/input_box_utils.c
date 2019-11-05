@@ -31,12 +31,32 @@ int		del_char(t_input_box *box, int mode)
 		s2 = ft_strsub(box->str,
 		box->cursor, ft_strlen(box->str) - box->cursor);
 		box->cursor--;
+		if (box->type == 1)
+		{
+			if (box->str[box->cursor] == '.')
+			{
+				box->float_cursor = 0;
+				box->period--;
+			}
+			else if (box->float_cursor > 0)
+				box->float_cursor--;
+		}
 	}
 	else
 	{
 		s1 = ft_strsub(box->str, 0, box->cursor);
 		s2 = ft_strsub(box->str,
 		box->cursor + 1, ft_strlen(box->str) - (box->cursor + 1));
+		if (box->type == 1)
+		{
+			if (box->str[box->cursor] == '.')
+			{
+				box->float_cursor = 0;
+				box->period--;
+			}
+			else if (box->float_cursor > 0)
+				box->float_cursor--;
+		}
 	}
 	if (!(res = ft_strnew(ft_strlen(box->str) - 1)))
 		return (-1);
@@ -104,21 +124,26 @@ int		parse_double_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
+	if (box->float_cursor >= 5)
+		return (0);
+	new = ft_getchar(env->sdl.event.key.keysym.sym,
+			env->inputs.shift);
+	if (!new)
+		return (0);
 	if (ft_strlen(box->str) >= 9 && !box->period)
 	{
 		if (add_char(box, '.'))
 			return (-1);
 		box->period++;
 	}
-	new = ft_getchar(env->sdl.event.key.keysym.sym,
-			env->inputs.shift);
-	if (!new)
-		return (0);
 	env->sdl.event.key.keysym.sym = 0;
-	if (!ft_isdigit(new) || (new == '.' && box->period))
+	if ((!ft_isdigit(new) && (new != '.'))
+		|| (new == '.' && box->period))
 		return (0);
 	if (add_char(box, new))
 		return (-1);
+	if (box->period)
+		box->float_cursor++;
 	if (new == '.')
 		box->period++;
 	return (0);
