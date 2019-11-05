@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:14:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/05 15:59:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,6 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 static void	write_interactions_related_data(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
-		(int)(sector.status),
-		(int)(sector.tp.x),
-		(int)(sector.tp.y),
-		-1,
-		sector.activated,
-		sector.start_floor);
-	ft_printf("[%d (%d %d) (%d %d %f)]\n",
 		(int)(sector.status),
 		(int)(sector.tp.x),
 		(int)(sector.tp.y),

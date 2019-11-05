@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 15:45:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/05 09:57:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ typedef	struct		s_teleport
 	int		selected;
 	int		sector;
 	t_v3		tmp_pos;
-}			t_teleport;
+}				t_teleport;
 
 /*
 ** Sprite structure with associated texture
@@ -524,6 +524,7 @@ typedef struct		s_gravity
 	double			velocity;
 	double			acceleration;
 	double			force;
+	double			collision;
 }					t_gravity;
 
 typedef struct		s_animation

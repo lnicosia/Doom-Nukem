@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 14:21:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/05 16:00:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void	jump(t_env *env)
 void	crouch(t_env *env)
 {
 	double	time;
+	t_v2	pos;
 
+	pos.x = env->player.pos.x;
+	pos.y = env->player.pos.y;
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.crouch)
 	{
@@ -114,18 +117,29 @@ void	crouch(t_env *env)
 	if (env->player.state.crouch && !env->inputs.ctrl)
 	{
 		env->time.d_time = time - env->time.last_crouch;
-		env->player.eyesight += env->time.d_time * 0.3;	
+		env->player.eyesight += env->time.d_time * 0.2;	
 	}
 	if ((env->player.eyesight <= 3 && env->inputs.ctrl)
-	|| (env->player.eyesight >= 6 && !env->inputs.ctrl))
+	|| (env->player.eyesight >= 6 && !env->inputs.ctrl)
+	|| ((env->player.pos.z + env->player.eyesight >
+	get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1)
+	&& env->player.eyesight < 6))
 	{
 		if (env->inputs.ctrl)
 			env->player.eyesight = 3;
 		else
 		{
-			env->player.state.crouch = 0;	
-			env->player.eyesight = 6;
+			if (env->player.pos.z + env->player.eyesight >
+			get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1
+			&& env->player.eyesight < 6)
+				env->player.eyesight = get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1 - env->player.pos.z;
+			else if (env->player.eyesight > 6)
+			{
+				env->player.state.crouch = 0;
+				env->player.eyesight = 6;
+			}
 		}
+
 		env->time.d_time = 0;
 	}
 }

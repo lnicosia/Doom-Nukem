@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/04 14:21:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/04 17:55:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
         return (new_v2(0,0));
-    if (!check_ceiling(env, motion, motion.sector))
+    if (!check_ceiling(env, motion, motion.sector) && !env->player.state.jump)
 		return (new_v2(0, 0));
     while (i < env->sectors[motion.sector].nb_vertices)
     {
