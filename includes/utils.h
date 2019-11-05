@@ -420,6 +420,8 @@ typedef struct		s_keys
 	int				minus1;
 	int				equals;
 	int				p;
+	int				a;
+	int				lgui;
 }					t_keys;
 
 /*
@@ -454,6 +456,8 @@ typedef struct		s_inputs
 	uint8_t			p;
 	uint8_t			home;
 	uint8_t			end;
+	uint8_t			a;
+	uint8_t			lgui;
 }					t_inputs;
 
 /*
@@ -767,14 +771,15 @@ typedef struct		s_input_box
 	int			type;
 	int			caps;
 	int			period;
+	int			selecting;
+	int			cursor_state;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
 	size_t			period_index;
 	size_t			minus;
-	size_t			selec_start;
-	size_t			selec_end;
-	int			cursor_state;
+	size_t			select_start;
+	size_t			select_end;
 	char			*str;
 	Uint32			del_timer;
 	Uint32			del_delay;

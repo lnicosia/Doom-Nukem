@@ -115,6 +115,10 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.home = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.end)
 		env->inputs.end = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.a)
+		env->inputs.a = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.lgui)
+		env->inputs.lgui = mode;
 
 }
 

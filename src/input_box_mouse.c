@@ -17,7 +17,6 @@ int	input_box_mouse(t_input_box *box, t_env *env)
 	while (box->str[i])
 	{
 		sub = ft_strsub(box->str, 0, i + 1);
-		//ft_printf("sub = %s\n", sub);
 		TTF_SizeText(box->font, sub, &size2.x, &size2.y);
 		if (sub)
 			ft_strdel(&sub);
@@ -28,11 +27,18 @@ int	input_box_mouse(t_input_box *box, t_env *env)
 				box->cursor = i;
 			else
 				box->cursor = i + 1;
+			if (!box->selecting)
+			{
+				box->select_start = box->cursor;
+				box->selecting = 1;
+			}
+			box->select_end = box->cursor;
 			return (0);
 		}
 		size = size2;
 		i++;
 	}
 	box->cursor = ft_strlen(box->str);
+	box->select_end = box->cursor;
 	return (0);
 }

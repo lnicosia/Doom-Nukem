@@ -59,6 +59,48 @@ void	draw_cursor(t_input_box *box, t_env *env)
 	ft_strdel(&sub);
 }
 
+void	draw_box_selection(t_input_box *box, t_env *env)
+{
+	t_point	size1;
+	t_point	size2;
+	size_t	start;
+	size_t	end;
+	int	x;
+	int	y;
+	char	*sub;
+
+	if (box->select_start > box->select_end)
+	{
+		start = box->select_end;
+		end = box->select_start;
+	}
+	else
+	{
+		start = box->select_start;
+		end = box->select_end;
+	}
+	sub = ft_strsub(box->str, 0, start);
+	TTF_SizeText(box->font, sub, &size1.x, &size1.y);
+	if (sub)
+		ft_strdel(&sub);
+	sub = ft_strsub(box->str, 0, end);
+	TTF_SizeText(box->font, sub, &size2.x, &size2.y);
+	if (sub)
+		ft_strdel(&sub);
+	y = box->pos.y + 5;
+	while (y < box->pos.y + box->size.y - 4)
+	{
+		x = box->pos.x + 5 + size1.x;
+		while (x < box->pos.x + 5 + size2.x)
+		{
+			//env->sdl.texture_pixels[x + y * env->w] = blend_alpha(env->sdl.texture_pixels[x + y * env->w], 0xFF71B3D1, 128);
+			env->sdl.texture_pixels[x + y * env->w] = 0xFF71B3D1;
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_input_box(t_input_box *box, t_env *env)
 {
 	int	x;
@@ -79,12 +121,15 @@ void	draw_input_box(t_input_box *box, t_env *env)
 		}
 		y++;
 	}
+	if (box->select_start != box->select_end)
+		draw_box_selection(box, env);
 	draw_input_box_content(box, env);
 	if (box->cursor_state
 		|| env->inputs.home
 		|| env->inputs.end
 		|| env->inputs.right
-		|| env->inputs.left)
+		|| env->inputs.left
+		|| env->inputs.left_click)
 		draw_cursor(box, env);
 	if (SDL_GetTicks() - box->cursor_timer > box->cursor_delay)
 	{
@@ -137,7 +182,13 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->cursor = ft_strlen(box->str);
 	else if (env->inputs.home)
 		box->cursor = 0;
-	else if (env->sdl.event.type == SDL_KEYUP)
+	else if (env->inputs.a && env->inputs.lgui)
+	{
+		box->select_start = 0;
+		box->select_end = ft_strlen(box->str);
+		return ;
+	}
+	else if (env->sdl.event.type == SDL_KEYUP && !env->inputs.lgui)
 	{
 		if (box->type == 0)
 			parse_integer_input(box, env);
@@ -146,20 +197,23 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		else if (box->type == 2)
 			parse_str_input(box, env);
 	}
-	else if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
+	else if (env->inputs.left_click)
 	{
-		if (env->sdl.mx < box->pos.x
+		input_box_mouse(box, env);
+		if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN
+			&& (env->sdl.mx < box->pos.x
 			|| env->sdl.mx > box->pos.x + box->size.x
 			|| env->sdl.my < box->pos.y
-			|| env->sdl.my > box->pos.y + box->size.y)
+			|| env->sdl.my > box->pos.y + box->size.y))
 		{
 			box->state = 0;
 			if (box->str)
 				ft_strdel(&box->str);
 		}
-		else
-			input_box_mouse(box, env);
 	}
+	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
+		box->selecting = 0;
+
 	else
 		return ;
 	/*ft_printf("size = %d\n", ft_strlen(box->str));

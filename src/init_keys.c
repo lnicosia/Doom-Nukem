@@ -43,4 +43,6 @@ void	init_keys(t_env *env)
 	env->keys.p = SDLK_p;
 	env->keys.end = SDLK_END;
 	env->keys.home = SDLK_HOME;
+	env->keys.a = 'a';
+	env->keys.lgui = SDLK_LGUI;
 }
