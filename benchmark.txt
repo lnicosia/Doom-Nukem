@@ -1,7 +1,7 @@
 OLD RENDER
-Average fps = 28.032315
-Min fps = 0.000000
-Min fps = 55.500000
+Average fps = 20.492172
+Min fps = 13.000000
+Min fps = 29.000000
 NEW RENDER
 Average fps = 0.000000
 Min fps = 150.000000
