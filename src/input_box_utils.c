@@ -134,15 +134,16 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	if (ft_strlen(box->str) - box->minus >= 9 || (box->minus && !box->cursor))
-		return (0);
 	new = ft_getchar(env->sdl.event.key.keysym.sym,
 			env->inputs.shift);
 	if (!new)
 		return (0);
-	env->sdl.event.key.keysym.sym = 0;
-	if ((!ft_isdigit(new) && new != '-')
-		|| (new == '-' && box->cursor))
+	if (!ft_isdigit(new))
+	{
+		if (new != '-' || (new == '-' && box->cursor))
+		return (0);
+	}
+	if (ft_strlen(box->str) - box->minus >= 9 || (box->minus && !box->cursor))
 		return (0);
 	if (add_char(box, new))
 		return (-1);
@@ -155,14 +156,21 @@ int		parse_double_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	if ((box->float_count >= 5 && box->cursor > box->period_index)
-		|| (box->minus && !box->cursor)
-		|| (box->int_count >= 9
-		&& box->cursor <= box->period_index))
-		return (0);
 	new = ft_getchar(env->sdl.event.key.keysym.sym,
 			env->inputs.shift);
 	if (!new)
+		return (0);
+	if (!ft_isdigit(new))
+	{
+		if ((new != '.' && new != '-')
+			|| (new == '.' && box->period)
+			|| (new == '-' && box->cursor))
+		return (0);
+	}
+	else if ((box->float_count >= 5 && box->cursor > box->period_index)
+		|| (box->minus && !box->cursor)
+		|| (box->int_count >= 9
+		&& box->cursor <= box->period_index))
 		return (0);
 	if (ft_strlen(box->str) - box->minus >= 9 && !box->period)
 	{
@@ -172,11 +180,6 @@ int		parse_double_input(t_input_box *box, t_env *env)
 			return (-1);
 		box->period++;
 	}
-	env->sdl.event.key.keysym.sym = 0;
-	if ((!ft_isdigit(new) && new != '.' && new != '-')
-		|| (new == '.' && box->period)
-		|| (new == '-' && box->cursor))
-		return (0);
 	if (add_char(box, new))
 		return (-1);
 	if (ft_isdigit(new))

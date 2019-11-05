@@ -81,6 +81,8 @@ void	draw_input_box(t_input_box *box, t_env *env)
 	}
 	draw_input_box_content(box, env);
 	if (box->cursor_state
+		|| env->inputs.home
+		|| env->inputs.end
 		|| env->inputs.right
 		|| env->inputs.left)
 		draw_cursor(box, env);
@@ -131,6 +133,10 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->cursor++;
 		box->move_cursor_timer = SDL_GetTicks();
 	}
+	else if (env->inputs.end)
+		box->cursor = ft_strlen(box->str);
+	else if (env->inputs.home)
+		box->cursor = 0;
 	else if (env->sdl.event.type == SDL_KEYUP)
 	{
 		if (box->type == 0)
@@ -139,11 +145,10 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			parse_double_input(box, env);
 		else if (box->type == 2)
 			parse_str_input(box, env);
-		box->input_timer = SDL_GetTicks();
 	}
 	else
 		return ;
-	ft_printf("size = %d\n", ft_strlen(box->str));
+	/*ft_printf("size = %d\n", ft_strlen(box->str));
 	ft_printf("cursor index = %d\n", box->cursor);
 	ft_printf("period index = %d\n", box->period_index);
 	ft_printf("del char = '%c'\n", box->str[box->cursor]);
@@ -156,5 +161,5 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	ft_printf("total digit count = %d\n", box->float_count + box->int_count);
 	ft_printf("minus state = %d\n", box->minus);
 	ft_printf("period state = %d\n", box->period);
-	ft_printf("\n");
+	ft_printf("\n");*/
 }

@@ -41,4 +41,6 @@ void	init_keys(t_env *env)
 	env->keys.minus1 = SDLK_MINUS;
 	env->keys.equals = SDLK_EQUALS;
 	env->keys.p = SDLK_p;
+	env->keys.end = SDLK_END;
+	env->keys.home = SDLK_HOME;
 }

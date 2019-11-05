@@ -39,6 +39,13 @@
 # define MAX_W 2560
 # define MAX_H 1440
 
+typedef enum		e_input_box_type
+{
+	INT,
+	DOUBLE,
+	STRING
+}			t_input_box_type;
+
 typedef enum		e_enemy_state
 {
 	RESTING,
@@ -398,6 +405,8 @@ typedef struct		s_keys
 	int				shift;
 	int				shift2;
 	int				ctrl;
+	int				home;
+	int				end;
 	int				space;
 	int				down;
 	int				up;
@@ -443,6 +452,8 @@ typedef struct		s_inputs
 	uint8_t			minus1;
 	uint8_t			equals;
 	uint8_t			p;
+	uint8_t			home;
+	uint8_t			end;
 }					t_inputs;
 
 /*
