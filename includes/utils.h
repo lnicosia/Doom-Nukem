@@ -757,7 +757,10 @@ typedef struct		s_input_box
 	int			caps;
 	int			period;
 	size_t			cursor;
-	size_t			float_cursor;
+	size_t			float_count;
+	size_t			int_count;
+	size_t			period_index;
+	size_t			minus;
 	int			cursor_state;
 	char			*str;
 	Uint32			del_timer;

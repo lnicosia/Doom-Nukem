@@ -105,13 +105,17 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		&& SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor > 0)
 	{
-		del_char(box, 0);
+		if (box->str[box->cursor - 1] != '.'
+			|| (box->float_count + box->int_count <= 9))
+			del_char(box, 0);
 	}
 	else if (env->inputs.del
 		&& SDL_GetTicks() - box->del_timer > box->del_delay
-		&& box->cursor < ft_strlen(box->str))
+		&& box->cursor < ft_strlen(box->str)
+		&& (box->str[box->cursor] != '.'
+			|| (box->float_count + box->int_count <= 9)))
 	{
-		del_char(box, 1);
+			del_char(box, 1);
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT
 		&& box->cursor > 0 && SDL_GetTicks()
@@ -137,4 +141,20 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			parse_str_input(box, env);
 		box->input_timer = SDL_GetTicks();
 	}
+	else
+		return ;
+	ft_printf("size = %d\n", ft_strlen(box->str));
+	ft_printf("cursor index = %d\n", box->cursor);
+	ft_printf("period index = %d\n", box->period_index);
+	ft_printf("del char = '%c'\n", box->str[box->cursor]);
+	if (box->cursor > 0)
+		ft_printf("backspace char = '%c'\n", box->str[box->cursor - 1]);
+	else
+		ft_printf("backspace char = ''\n");
+	ft_printf("int count = %d\n", box->int_count);
+	ft_printf("float count = %d\n", box->float_count);
+	ft_printf("total digit count = %d\n", box->float_count + box->int_count);
+	ft_printf("minus state = %d\n", box->minus);
+	ft_printf("period state = %d\n", box->period);
+	ft_printf("\n");
 }

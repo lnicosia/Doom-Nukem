@@ -24,22 +24,39 @@ int		del_char(t_input_box *box, int mode)
 	char	*s2;
 	char	*res;
 
+	/*if ((!mode && box->str[box->cursor] == '.'
+		&& box->float_count + box->int_count >= 9)
+		|| (mode && box->str[box->cursor] == '.'
+		&& box->float_count + box->int_count >= 9))
+		return (0);*/
 	box->del_timer = SDL_GetTicks();
 	if (!mode)
 	{
 		s1 = ft_strsub(box->str, 0, box->cursor - 1);
 		s2 = ft_strsub(box->str,
 		box->cursor, ft_strlen(box->str) - box->cursor);
+		if (box->cursor == 1 && box->minus)
+			box->minus--;
 		box->cursor--;
 		if (box->type == 1)
 		{
 			if (box->str[box->cursor] == '.')
 			{
-				box->float_cursor = 0;
+				box->int_count += box->float_count;
+				box->float_count = 0;
+				box->period_index = 0;
 				box->period--;
+				ft_printf("period deleted\n");
 			}
-			else if (box->float_cursor > 0)
-				box->float_cursor--;
+			else if (box->float_count > 0
+				&& box->cursor > box->period_index)
+				box->float_count--;
+			else if (box->cursor <= box->period_index)
+				box->period_index--;
+			if (ft_isdigit(box->str[box->cursor])
+				&& (!box->period
+				|| (box->cursor <= box->period_index)))
+				box->int_count--;
 		}
 	}
 	else
@@ -47,15 +64,26 @@ int		del_char(t_input_box *box, int mode)
 		s1 = ft_strsub(box->str, 0, box->cursor);
 		s2 = ft_strsub(box->str,
 		box->cursor + 1, ft_strlen(box->str) - (box->cursor + 1));
+		if (!box->cursor && box->minus)
+			box->minus--;
 		if (box->type == 1)
 		{
 			if (box->str[box->cursor] == '.')
 			{
-				box->float_cursor = 0;
+				box->int_count += box->float_count;
+				box->float_count = 0;
+				box->period_index = 0;
 				box->period--;
 			}
-			else if (box->float_cursor > 0)
-				box->float_cursor--;
+			else if (box->float_count > 0
+				&& box->cursor > box->period_index)
+				box->float_count--;
+			else if (box->cursor <= box->period_index)
+				box->period_index--;
+			if (ft_isdigit(box->str[box->cursor])
+				&& (!box->period
+				|| (box->cursor <= box->period_index)))
+				box->int_count--;
 		}
 	}
 	if (!(res = ft_strnew(ft_strlen(box->str) - 1)))
@@ -106,17 +134,20 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	if (ft_strlen(box->str) >= 9)
+	if (ft_strlen(box->str) - box->minus >= 9 || (box->minus && !box->cursor))
 		return (0);
 	new = ft_getchar(env->sdl.event.key.keysym.sym,
 			env->inputs.shift);
 	if (!new)
 		return (0);
 	env->sdl.event.key.keysym.sym = 0;
-	if (!ft_isdigit(new))
+	if ((!ft_isdigit(new) && new != '-')
+		|| (new == '-' && box->cursor))
 		return (0);
 	if (add_char(box, new))
 		return (-1);
+	if (new == '-')
+		box->minus++;
 	return (0);
 }
 
@@ -124,28 +155,58 @@ int		parse_double_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	if (box->float_cursor >= 5)
+	if ((box->float_count >= 5 && box->cursor > box->period_index)
+		|| (box->minus && !box->cursor)
+		|| (box->int_count >= 9
+		&& box->cursor <= box->period_index))
 		return (0);
 	new = ft_getchar(env->sdl.event.key.keysym.sym,
 			env->inputs.shift);
 	if (!new)
 		return (0);
-	if (ft_strlen(box->str) >= 9 && !box->period)
+	if (ft_strlen(box->str) - box->minus >= 9 && !box->period)
 	{
+		box->cursor = 9 + box->minus;
+		box->period_index = box->cursor;
 		if (add_char(box, '.'))
 			return (-1);
 		box->period++;
 	}
 	env->sdl.event.key.keysym.sym = 0;
-	if ((!ft_isdigit(new) && (new != '.'))
-		|| (new == '.' && box->period))
+	if ((!ft_isdigit(new) && new != '.' && new != '-')
+		|| (new == '.' && box->period)
+		|| (new == '-' && box->cursor))
 		return (0);
 	if (add_char(box, new))
 		return (-1);
-	if (box->period)
-		box->float_cursor++;
+	if (ft_isdigit(new))
+	{
+		if (box->cursor - 1 <= box->period_index || !box->period)
+		{
+			box->int_count++;
+			box->period_index++;
+		}
+		if (box->period && box->cursor - 1 > box->period_index)
+			box->float_count++;
+	}
 	if (new == '.')
+	{
+		box->period_index = box->cursor - 1;
+		box->float_count = ft_strlen(box->str) - box->period_index
+		- 1;
+		box->int_count -= box->float_count;
 		box->period++;
+	}
+	if (new == '-')
+		box->minus++;
+	if (ft_strlen(box->str) - box->minus >= 9 && !box->period)
+	{
+		box->cursor = 9 + box->minus;
+		box->period_index = box->cursor;
+		if (add_char(box, '.'))
+			return (-1);
+		box->period++;
+	}
 	return (0);
 }
 
