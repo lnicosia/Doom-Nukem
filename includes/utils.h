@@ -772,6 +772,8 @@ typedef struct		s_input_box
 	size_t			int_count;
 	size_t			period_index;
 	size_t			minus;
+	size_t			selec_start;
+	size_t			selec_end;
 	int			cursor_state;
 	char			*str;
 	Uint32			del_timer;

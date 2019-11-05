@@ -16,7 +16,7 @@
 int	init_input_box(t_input_box *box, t_env *env)
 {
 	box->state = 1;
-	box->type = 1;
+	box->type = STRING;
 	box->del_delay = 25;
 	box->input_delay = 100;
 	box->move_cursor_delay = 100;
@@ -24,9 +24,9 @@ int	init_input_box(t_input_box *box, t_env *env)
 	if (!(box->str = ft_strnew(0)))
 		return (-1);
 	box->cursor_state = 0;
-	box->pos = new_point(env->h_w, env->h_h);
-	box->font = env->sdl.fonts.playfair_display20;
 	box->size = new_point(200, 30);
+	box->pos = new_point(env->h_w - box->size.x / 2, env->h_h - box->size.y / 2);
+	box->font = env->sdl.fonts.playfair_display20;
 	return (0);
 }
 
@@ -145,6 +145,20 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			parse_double_input(box, env);
 		else if (box->type == 2)
 			parse_str_input(box, env);
+	}
+	else if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		if (env->sdl.mx < box->pos.x
+			|| env->sdl.mx > box->pos.x + box->size.x
+			|| env->sdl.my < box->pos.y
+			|| env->sdl.my > box->pos.y + box->size.y)
+		{
+			box->state = 0;
+			if (box->str)
+				ft_strdel(&box->str);
+		}
+		else
+			input_box_mouse(box, env);
 	}
 	else
 		return ;

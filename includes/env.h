@@ -219,6 +219,7 @@ void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
 void				input_box_keys(t_input_box *box, t_env *env);
 int				init_input_box(t_input_box *box, t_env *env);
+int				input_box_mouse(t_input_box *box, t_env *env);
 int				del_char(t_input_box *box, int mode);
 char				ft_getchar(int input, int shift);
 
