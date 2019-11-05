@@ -221,6 +221,7 @@ void				input_box_keys(t_input_box *box, t_env *env);
 int				init_input_box(t_input_box *box, t_env *env);
 int				input_box_mouse(t_input_box *box, t_env *env);
 int				del_char(t_input_box *box, int mode);
+int				delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 
 /*

@@ -148,20 +148,23 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		if (box->str)
 			ft_strdel(&box->str);
 	}
-	else if (env->inputs.backspace
-		&& SDL_GetTicks() - box->del_timer > box->del_delay
-		&& box->cursor > 0)
+	else if (env->inputs.backspace)
 	{
-		if (box->str[box->cursor - 1] != '.'
-			|| (box->float_count + box->int_count <= 9))
+		if (box->select_start != box->select_end)
+			delete_box_selection(box);
+		else if (SDL_GetTicks() - box->del_timer > box->del_delay
+		&& box->cursor > 0 && (box->str[box->cursor - 1] != '.'
+			|| box->float_count + box->int_count <= 9))
 			del_char(box, 0);
 	}
-	else if (env->inputs.del
-		&& SDL_GetTicks() - box->del_timer > box->del_delay
+	else if (env->inputs.del)
+	{
+		if (box->select_start != box->select_end)
+			delete_box_selection(box);
+		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor < ft_strlen(box->str)
 		&& (box->str[box->cursor] != '.'
-			|| (box->float_count + box->int_count <= 9)))
-	{
+			|| box->float_count + box->int_count <= 9))
 			del_char(box, 1);
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT
@@ -186,10 +189,11 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	{
 		box->select_start = 0;
 		box->select_end = ft_strlen(box->str);
-		return ;
 	}
 	else if (env->sdl.event.type == SDL_KEYUP && !env->inputs.lgui)
 	{
+		//if (box->select_start != box->select_end)
+			//delete_box_selection(box);
 		if (box->type == 0)
 			parse_integer_input(box, env);
 		else if (box->type == 1)

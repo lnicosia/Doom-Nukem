@@ -76,7 +76,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_circle_free.c draw_circle.c death.c ft_getchar.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
-		   input_box_mouse.c
+		   input_box_mouse.c delete_box_selection.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

@@ -24,11 +24,6 @@ int		del_char(t_input_box *box, int mode)
 	char	*s2;
 	char	*res;
 
-	/*if ((!mode && box->str[box->cursor] == '.'
-		&& box->float_count + box->int_count >= 9)
-		|| (mode && box->str[box->cursor] == '.'
-		&& box->float_count + box->int_count >= 9))
-		return (0);*/
 	box->del_timer = SDL_GetTicks();
 	if (!mode)
 	{
@@ -90,8 +85,11 @@ int		del_char(t_input_box *box, int mode)
 		return (-1);
 	res = ft_strcpy(res, s1);
 	res = ft_strcat(res, s2);
-	ft_strdel(&s1);
-	ft_strdel(&s2);
+	if (s1)
+		ft_strdel(&s1);
+	if (s2)
+		ft_strdel(&s2);
+	if (box->str)
 	ft_strdel(&box->str);
 	box->str = res;
 	return (0);
@@ -115,6 +113,8 @@ int		add_char(t_input_box *box, char c)
 		box->str[0] = c;
 		return (0);
 	}
+	if (box->select_start != box->select_end)
+		delete_box_selection(box);
 	s1 = ft_strsub(box->str, 0, box->cursor);
 	s2 = ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);
 	if (!(res = ft_strnew(ft_strlen(box->str) + 1)))
