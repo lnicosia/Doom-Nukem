@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 15:48:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:46:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 54
+# define MAX_TEXTURE 56
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 12
@@ -45,6 +45,19 @@ typedef enum		e_input_box_type
 	DOUBLE,
 	STRING
 }			t_input_box_type;
+
+typedef enum		e_button_state
+{
+	UP,
+	DOWN
+}			t_button_state;
+
+typedef enum		e_button_anim_state
+{
+	REST,
+	PRESSED,
+	HOVER
+}			t_button_anim_state;
 
 typedef enum		e_enemy_state
 {
@@ -474,6 +487,7 @@ typedef struct		s_fonts
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
+	TTF_Font		*lato20;
 }					t_fonts;
 
 /*
@@ -725,7 +739,7 @@ typedef struct		s_rectangle
 	int				filled;
 	int				line_size;
 }					t_rectangle;
-
+ 
 /*
 **	Data for button
 */
@@ -733,15 +747,25 @@ typedef struct		s_rectangle
 typedef struct		s_button
 {
 	t_rectangle		up;
+	t_rectangle		hover;
 	t_rectangle		pressed;
 	t_rectangle		down;
-	t_texture		tup;
-	t_texture		thovered;
-	t_texture		tpressed;
-	t_texture		tdown;
+	t_texture		*img_up;
+	t_texture		*img_hover;
+	t_texture		*img_pressed;
+	t_texture		*img_down;
+	Uint32			up_color;
+	Uint32			hover_color;
+	Uint32			pressed_color;
+	Uint32			down_color;
 	t_point			pos;
 	t_point			size;
+	char			*str;
+	TTF_Font		*font;
 	int				state;
+	int				anim_state;
+	void			(*down_action)(void *);
+	void			(*press_action)(void *);
 }					t_button;
 
 /*
@@ -759,7 +783,7 @@ typedef struct		s_confirmation_box
 	int				yes_pressed;
 	int				no_pressed;
 }					t_confirmation_box;
-  
+
 /*
 **	Data for input box
 **	str = string content. User has to strdup and strdel it correctly

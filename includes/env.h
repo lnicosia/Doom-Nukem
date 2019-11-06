@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 14:48:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:19:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_env
 	t_teleport			teleport;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
+	t_button			test_button;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -155,6 +156,9 @@ void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
+int					editor_mouse(t_env *env);
+int				editor_keyup(t_env *env);
+int				editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
@@ -187,8 +191,6 @@ void				free_camera(t_camera *camera);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
-int				editor_keyup(t_env *env);
-int				editor_mouseup(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
@@ -313,7 +315,9 @@ t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
 		t_point size);
 t_button			new_button(t_rectangle up, t_rectangle pressed,
-		t_rectangle down);
+t_rectangle down, t_rectangle hover);
+t_button			new_button_img(t_texture *up, t_texture *pressed,
+t_texture *down, t_texture *hover);
 void				draw_button(t_env *env, t_button b);
 
 /*
@@ -391,6 +395,8 @@ void				death(t_env *env);
 void				respawn(t_env *env);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
+void				button_event(t_button *b, t_env *env);
+void				button_mouseup(t_button *b, t_env *env);
 
 /*
 ** enemies functions

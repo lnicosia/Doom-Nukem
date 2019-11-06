@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 14:33:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:04:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_input_box_content(t_input_box *box, t_env *env)
 	t_printable_text	text;
 	t_point			pos;
 
-	if (!box->str || (box->str && box->str[0] == 0))
+	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
 		return ;
 	pos = new_point(box->pos.y, box->pos.x + 5);
 	text = new_printable_text(box->str, box->font, 0x000000, box->size.x);

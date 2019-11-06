@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/06 14:45:25 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/06 17:32:42 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,17 +34,18 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c keys.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
-				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-				 draw_grid_walls.c draw_grid_vertices.c \
-				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
-				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
-				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c write_enemies.c add_object.c editor_keyup.c \
-				 player_selection.c objects_selection.c vertices_selection.c \
-				 draw_grid_player.c draw_grid_objects.c \
-				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
-				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-				 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c
+		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
+		 draw_grid_walls.c draw_grid_vertices.c \
+		 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
+		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
+		 save_map.c write_vertices.c write_sectors.c write_objects.c \
+		 write_player.c write_enemies.c add_object.c editor_keyup.c \
+		 player_selection.c objects_selection.c vertices_selection.c \
+		 draw_grid_player.c draw_grid_objects.c \
+		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
+		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
+		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
+		 editor_mouseup.c editor_mouse.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -77,7 +78,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c \
-		   validate_input.c editor_mouseup.c
+		   validate_input.c button_event.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h
@@ -95,8 +96,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-                  -flto -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+                  #-flto -Ofast \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

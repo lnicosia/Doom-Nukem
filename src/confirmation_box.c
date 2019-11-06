@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>			  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/08/30 16:38:58 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/01 16:16:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 16:15:42 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 				|| env->sdl.event.key.keysym.sym == SDLK_RETURN)
 			&& env->editor.selected_sector != -1)
 		{
+			if (env->player.sector == env->editor.selected_sector)
+				env->player.sector = -1;
 			delete_sector(env, env->editor.selected_sector);
 			delete_invalid_sectors(env);
 			delete_invalid_vertices(env);
@@ -107,12 +109,14 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 {
 	box->no = new_button(new_rectangle(0xFFDD0000, 0xFF990000, 1, 2),
 			new_rectangle(0xFF990000, 0xFF990000, 1, 2),
+			new_rectangle(0xFF990000, 0xFF990000, 1, 2),
 			new_rectangle(0xFF990000, 0xFF990000, 1, 2));
 	box->no.size.x = box->size.x / 2;
 	box->no.size.y = height + 5;
 	box->no.pos.x = env->w / 2 - box->size.x / 2;
 	box->no.pos.y = env->h / 2 + box->size.y / 2 - height - 5;
 	box->yes = new_button(new_rectangle(0xFF00DD00, 0xFF009900, 1, 2),
+			new_rectangle(0xFF009900, 0xFF009900, 1, 2),
 			new_rectangle(0xFF009900, 0xFF009900, 1, 2),
 			new_rectangle(0xFF009900, 0xFF009900, 1, 2));
 	box->yes.size.x = box->size.x / 2;

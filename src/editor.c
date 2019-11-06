@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 14:49:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:16:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,21 @@ int		editor(t_env *env)
 			}
 			if (env->input_box.state)
 				input_box_keys(&env->input_box, env);
+			if (!env->editor.in_game)
+			{
+				if (!env->input_box.state)
+				{
+					if (editor_keys(env))
+						return (ft_printf("Error in inputs\n"));
+				}
+				if (editor_mouse(env))
+					return (ft_printf("Error in inputs\n"));
+			}
 		}
 		if (!env->editor.in_game)
 		{
 			draw_grid(env);
 			draw_grid_vertices(env);
-			if (!env->input_box.state)
-			{
-				if (editor_keys(env))
-					return (ft_printf("Error in inputs\n"));
-			}
 			if (env->editor.new_player || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
@@ -85,6 +90,7 @@ int		editor(t_env *env)
 			draw_confirmation_box(env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
+		draw_button(env, env->test_button);
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

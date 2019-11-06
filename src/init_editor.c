@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 11:49:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:57:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ void	init_editor_data(t_env *env)
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
+	
+}
+
+void	coucou(void *param)
+{
+	(void)param;
+	ft_printf("cc\n");
 }
 
 int	init_editor(int ac, char **av)
@@ -104,5 +111,13 @@ int	init_editor(int ac, char **av)
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
+	env.test_button = new_button_img(&env.textures[53],
+	&env.textures[54], &env.textures[54], &env.textures[55]);
+	env.test_button.pos = new_point(env.h_w, env.h_h);
+	env.test_button.str = ft_strdup("Test button");
+	env.test_button.font = env.sdl.fonts.lato20;
+	env.test_button.pressed_color = 0xEEEEEEEE;
+	env.test_button.down_color = 0xEEEEEEEE;
+	env.test_button.press_action = &coucou;
 	return (editor(&env));
 }
