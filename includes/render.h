@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render2.h                                          :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 11:55:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:16:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ typedef struct	s_render
 	int			i;
 }				t_render;
 
+typedef struct		s_render_projectile
+{
+	t_camera		camera;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				xstart;
+	int				ystart;
+	int				xend;
+	int				yend;
+	int				index;
+	short			brightness;
+	Uint32			light_color;
+	double			xrange;
+	double			yrange;
+	t_point			screen_pos;
+}					t_render_projectile;
+
 typedef struct		s_render_object
 {
 	t_camera		camera;
@@ -122,6 +141,16 @@ typedef struct		s_object_thread
 	int				xend;
 }					t_object_thread;
 
+typedef struct		s_projectile_thread
+{
+	t_env				*env;
+	t_camera			camera;
+	t_projectile		projectile;
+	t_render_projectile	prender;
+	int					xstart;
+	int					xend;
+}					t_projectile_thread;
+
 typedef struct		s_enemy_thread
 {
 	t_env			*env;
@@ -161,6 +190,11 @@ void				*get_enemy_relative_pos(void *param);
 void				get_translated_enemy_pos(t_camera camera, t_enemies *enemy);
 void				get_rotated_enemy_pos(t_camera camera, t_enemies *enemy);
 void				project_enemy(t_render_object *erender, t_enemies enemy, t_env *env);
+
+void				*get_projectile_relative_pos(t_camera camera, t_env *env);
+void				get_translated_projectile_pos(t_camera camera, t_projectile *projectile);
+void				get_rotated_projectile_pos(t_camera camera, t_projectile *projectile);
+void				project_projectile(t_render_projectile *prender, t_projectile projectile, t_env *env);
 
 void				get_translated_object_pos(t_camera camera, t_object *object);
 void				get_rotated_object_pos(t_camera camera, t_object *object);

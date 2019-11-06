@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 14:54:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/05 15:40:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,7 +501,19 @@ typedef struct		s_sprite
 typedef	struct		s_projectile
 {
 	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
 	t_v3			dest;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
+	double			scale;
+	double			angle;
+	short			brightness;
+	Uint32			light_color;
+	int				sector;
+	int				exists;
 	int				speed;
 	int				sprite;
 	int				damage;

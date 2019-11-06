@@ -97,20 +97,20 @@ static void		*object_loop(void *param)
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
-	x = ((t_object_thread*)param)->xstart;
 	xend = ((t_object_thread*)param)->xend;
+	y = orender.ystart;
 	yend = orender.yend;
-	while (++x <= xend)
+	while (++y <= yend)
 	{
-		xalpha = (x - orender.x1) / orender.xrange;
-		if (sprite.reversed[orender.index])
-			xalpha = 1.0 - xalpha;
-		textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
-		y = orender.ystart;
-		while (y < yend)
+		yalpha = (y - orender.y1) / orender.yrange;
+		texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
+		x = ((t_object_thread*)param)->xstart;
+		while (x < xend)
 		{
-			yalpha = (y - orender.y1) / orender.yrange;
-			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
+			xalpha = (x - orender.x1) / orender.xrange;
+			if (sprite.reversed[orender.index])
+				xalpha = 1.0 - xalpha;
+			textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
 						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
@@ -132,7 +132,7 @@ static void		*object_loop(void *param)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
 			}
-			y++;
+			x++;
 		}
 	}
 	return (NULL);

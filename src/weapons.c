@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/04 16:49:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:20:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ void    shot(t_env *env)
 	tmp = env->projectiles;
 	int j = 2;
 	if (tmp)
-		ft_printf("missile 1\n");
-	while (tmp->next)
 	{
-		ft_printf("missile %d\n", j++);
-		ft_printf("sprite = %d", ((t_projectile*)env->projectiles->content)->sprite);
-		tmp = tmp->next;
+		ft_printf("missile 1\n");
+		ft_printf("angle %f\n", ((t_projectile*)tmp->content)->angle);
+		while (tmp->next)
+		{
+			tmp = tmp->next;
+			ft_printf("missile %d\n", j++);
+			ft_printf("angle %f\n", ((t_projectile*)tmp->content)->angle);
+		}
 	}
 	while (i < env->nb_enemies)
 	{

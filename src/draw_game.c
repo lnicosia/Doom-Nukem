@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:18:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:25:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	draw_render(t_camera *camera, t_env *env)
 	if (draw_walls(camera, env))
 		return (crash("Failed to draw walls\n", env));
 	draw_objects(*camera, env);
+	draw_projectiles(*camera, env);
 	draw_enemies(*camera, env);
 	draw_players(*camera, env);
 	return (0);
