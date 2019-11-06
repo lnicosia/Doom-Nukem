@@ -39,6 +39,7 @@ int	input_box_mouse(t_input_box *box, t_env *env)
 		i++;
 	}
 	box->cursor = ft_strlen(box->str);
-	box->select_end = box->cursor;
+	if (box->selecting)
+		box->select_end = box->cursor;
 	return (0);
 }

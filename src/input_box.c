@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:39:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:45:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	init_input_box(t_input_box *box, t_env *env)
 {
 	box->state = 1;
-	box->type = STRING;
+	box->type = DOUBLE;
 	box->del_delay = 25;
 	box->input_delay = 100;
 	box->move_cursor_delay = 100;
@@ -156,6 +156,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		&& box->cursor > 0 && (box->str[box->cursor - 1] != '.'
 			|| box->float_count + box->int_count <= 9))
 			del_char(box, 0);
+		env->inputs.backspace = 0;
 	}
 	else if (env->inputs.del)
 	{
@@ -166,8 +167,10 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		&& (box->str[box->cursor] != '.'
 			|| box->float_count + box->int_count <= 9))
 			del_char(box, 1);
+		env->inputs.del = 0;
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT
+		&& box->select_start == box->select_end
 		&& box->cursor > 0 && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
@@ -175,6 +178,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->move_cursor_timer = SDL_GetTicks();
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_RIGHT
+		&& box->select_start == box->select_end
 		&& box->cursor < ft_strlen(box->str) && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
@@ -192,13 +196,11 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->sdl.event.type == SDL_KEYUP && !env->inputs.lgui)
 	{
-		//if (box->select_start != box->select_end)
-			//delete_box_selection(box);
-		if (box->type == 0)
+		if (box->type == INT)
 			parse_integer_input(box, env);
-		else if (box->type == 1)
+		else if (box->type == DOUBLE)
 			parse_double_input(box, env);
-		else if (box->type == 2)
+		else if (box->type == STRING)
 			parse_str_input(box, env);
 	}
 	else if (env->inputs.left_click)
@@ -220,18 +222,20 @@ void	input_box_keys(t_input_box *box, t_env *env)
 
 	else
 		return ;
-	/*ft_printf("size = %d\n", ft_strlen(box->str));
+	if (!box->state)
+		return ;
+	ft_printf("size = %d\n", ft_strlen(box->str));
 	ft_printf("cursor index = %d\n", box->cursor);
 	ft_printf("period index = %d\n", box->period_index);
-	ft_printf("del char = '%c'\n", box->str[box->cursor]);
 	if (box->cursor > 0)
 		ft_printf("backspace char = '%c'\n", box->str[box->cursor - 1]);
 	else
 		ft_printf("backspace char = ''\n");
+	ft_printf("del char = '%c'\n", box->str[box->cursor]);
 	ft_printf("int count = %d\n", box->int_count);
 	ft_printf("float count = %d\n", box->float_count);
 	ft_printf("total digit count = %d\n", box->float_count + box->int_count);
 	ft_printf("minus state = %d\n", box->minus);
 	ft_printf("period state = %d\n", box->period);
-	ft_printf("\n");*/
+	ft_printf("\n");
 }

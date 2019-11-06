@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:42:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:03:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		del_char(t_input_box *box, int mode)
 		if (box->cursor == 1 && box->minus)
 			box->minus--;
 		box->cursor--;
-		if (box->type == 1)
+		if (box->type == DOUBLE)
 		{
 			if (box->str[box->cursor] == '.')
 			{
@@ -41,7 +41,6 @@ int		del_char(t_input_box *box, int mode)
 				box->float_count = 0;
 				box->period_index = 0;
 				box->period--;
-				ft_printf("period deleted\n");
 			}
 			else if (box->float_count > 0
 				&& box->cursor > box->period_index)
@@ -61,7 +60,7 @@ int		del_char(t_input_box *box, int mode)
 		box->cursor + 1, ft_strlen(box->str) - (box->cursor + 1));
 		if (!box->cursor && box->minus)
 			box->minus--;
-		if (box->type == 1)
+		if (box->type == DOUBLE)
 		{
 			if (box->str[box->cursor] == '.')
 			{
@@ -149,6 +148,8 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 		return (-1);
 	if (new == '-')
 		box->minus++;
+	if (box->int_count >= 9)
+		box->cursor = ft_strlen(box->str);
 	return (0);
 }
 
@@ -210,6 +211,8 @@ int		parse_double_input(t_input_box *box, t_env *env)
 			return (-1);
 		box->period++;
 	}
+	if (box->int_count >= 9)
+		box->cursor = ft_strlen(box->str);
 	return (0);
 }
 

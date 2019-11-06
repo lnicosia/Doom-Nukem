@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:37:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:42:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -773,6 +773,7 @@ typedef struct		s_input_box
 	int			period;
 	int			selecting;
 	int			cursor_state;
+	int			add_period;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
