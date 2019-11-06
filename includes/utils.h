@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 11:42:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:48:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 53
+# define MAX_TEXTURE 54
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 12
@@ -735,6 +735,10 @@ typedef struct		s_button
 	t_rectangle		up;
 	t_rectangle		pressed;
 	t_rectangle		down;
+	t_texture		tup;
+	t_texture		thovered;
+	t_texture		tpressed;
+	t_texture		tdown;
 	t_point			pos;
 	t_point			size;
 	int				state;

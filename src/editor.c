@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 16:50:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:49:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP))
-				editor_keyup(env);
+			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP))
+			{
+				if (editor_keyup(env))
+					return (-1);
+			}
+			if (!env->input_box.state && (env->sdl.event.type == SDL_MOUSEBUTTONUP))
+			{
+				if (editor_mouseup(env))
+					return (-1);
+			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 100)
@@ -36,10 +44,10 @@ int		editor(t_env *env)
 					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) * 1.1);
 					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) * 1.1);
 					env->editor.scale *= 1.1;
-				}
+			}
 				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 1)
 				{
-				
+	
 					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) / 1.1);
 					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) / 1.1);
 					env->editor.scale /= 1.1;

@@ -6,16 +6,41 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:24:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:33:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "env.h"
 #include "input_box_utils.h"
 
+int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
+{
+	if (type < 0 || type > 2 || !target)
+		return (-1);
+	box->pos = pos;
+	if (type == INT)
+	{
+		box->int_target = (int*)target;
+		if (!(box->str = ft_itoa(*((int*)target))))
+			return (-1);
+	}
+	else if (type == DOUBLE)
+	{
+		box->double_target = (double*)target;
+		if (!(box->str = ft_itoa((int)*((double*)target))))
+			return (-1);
+	}
+	else if (type == STRING)
+	{
+		box->str_target = (char*)target;
+		box->str = (char*)target;
+	}
+	return (0);
+}
+
 int	init_input_box(t_input_box *box, t_env *env)
 {
-	box->state = 1;
+	box->state = 0;
 	box->type = DOUBLE;
 	box->del_delay = 25;
 	box->input_delay = 100;
@@ -143,7 +168,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	if (env->inputs.enter
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
 	{
-		box->state = 0;
+		validate_input(box, env);
 		env->inputs.enter = 0;
 	}
 	else if (env->inputs.backspace)
@@ -221,7 +246,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			|| env->sdl.mx > box->pos.x + box->size.x
 			|| env->sdl.my < box->pos.y
 			|| env->sdl.my > box->pos.y + box->size.y))
-			box->state = 0;
+			validate_input(box, env);
 	}
 	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		box->selecting = 0;

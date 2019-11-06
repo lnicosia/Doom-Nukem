@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 10:56:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:48:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,8 @@ void				free_camera(t_camera *camera);
 int					editor_render(t_env *env);
 int					save_map(char *file, t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
-void				editor_keyup(t_env *env);
+int				editor_keyup(t_env *env);
+int				editor_mouseup(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
@@ -220,6 +221,7 @@ void				draw_input_box(t_input_box *box, t_env *env);
 void				input_box_keys(t_input_box *box, t_env *env);
 int				init_input_box(t_input_box *box, t_env *env);
 int				input_box_mouse(t_input_box *box, t_env *env);
+int				validate_input(t_input_box *box, t_env *env);
 int				del_char(t_input_box *box, int mode);
 int				delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
