@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 11:45:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:12:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,19 +170,31 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		env->inputs.del = 0;
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT
-		&& box->select_start == box->select_end
 		&& box->cursor > 0 && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
-		box->cursor--;
+		if (box->select_start == box->select_end)
+			box->cursor--;
+		else
+		{
+			box->cursor = ft_min(box->select_end, box->select_start);
+			box->select_start = 0;
+			box->select_end = 0;
+		}
 		box->move_cursor_timer = SDL_GetTicks();
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_RIGHT
-		&& box->select_start == box->select_end
 		&& box->cursor < ft_strlen(box->str) && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
-		box->cursor++;
+		if (box->select_start == box->select_end)
+			box->cursor++;
+		else
+		{
+			box->cursor = ft_max(box->select_end, box->select_start);
+			box->select_start = 0;
+			box->select_end = 0;
+		}
 		box->move_cursor_timer = SDL_GetTicks();
 	}
 	else if (env->inputs.end)
