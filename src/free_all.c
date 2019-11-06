@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 10:10:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:25:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ void		free_all(t_env *env)
 		ft_strdel(&env->res[1]);
 	if (env->res[2])
 		ft_strdel(&env->res[2]);
+	if (env->input_box.str)
+		ft_strdel(&env->input_box.str);
 	i = 0;
 	while (i < NB_WEAPONS)
 	{

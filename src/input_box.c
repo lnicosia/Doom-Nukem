@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:12:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:24:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	{
 		box->state = 0;
 		env->inputs.enter = 0;
-		if (box->str)
-			ft_strdel(&box->str);
 	}
 	else if (env->inputs.backspace)
 	{
@@ -223,11 +221,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			|| env->sdl.mx > box->pos.x + box->size.x
 			|| env->sdl.my < box->pos.y
 			|| env->sdl.my > box->pos.y + box->size.y))
-		{
 			box->state = 0;
-			if (box->str)
-				ft_strdel(&box->str);
-		}
 	}
 	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		box->selecting = 0;
@@ -236,7 +230,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		return ;
 	if (!box->state)
 		return ;
-	ft_printf("size = %d\n", ft_strlen(box->str));
+	/*ft_printf("size = %d\n", ft_strlen(box->str));
 	ft_printf("cursor index = %d\n", box->cursor);
 	ft_printf("period index = %d\n", box->period_index);
 	if (box->cursor > 0)
@@ -249,5 +243,5 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	ft_printf("total digit count = %d\n", box->float_count + box->int_count);
 	ft_printf("minus state = %d\n", box->minus);
 	ft_printf("period state = %d\n", box->period);
-	ft_printf("\n");
+	ft_printf("\n");*/
 }

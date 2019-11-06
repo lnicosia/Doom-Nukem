@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 17:41:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:22:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int			editor_keys(t_env *env)
 		}
 		selected_information_in_sector(env);
 	}
+	if (env->inputs.p)
+		env->input_box.state = 1;
 	if ((env->inputs.plus || env->inputs.minus) && !env->editor.in_game && env->editor.selected_sector != -1)
 	{
 		if (!env->time.tick4)

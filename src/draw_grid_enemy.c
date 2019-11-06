@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/05 16:56:49 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/09/06 14:37:39 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2019/11/06 13:42:23 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	draw_grid_enemies(t_env *env)
 			color = 0xFF0000FF;
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
+					&& !env->input_box.state
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_enemy == -1
