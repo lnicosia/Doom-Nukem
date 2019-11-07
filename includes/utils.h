@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 18:46:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 10:50:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -759,10 +759,14 @@ typedef struct		s_button
 	Uint32			pressed_color;
 	Uint32			down_color;
 	t_point			pos;
-	t_point			size;
+	t_point			size_up;
+	t_point			size_pressed;
+	t_point			size_down;
+	t_point			size_hover;
 	char			*str;
 	TTF_Font		*font;
 	int				state;
+	int			draw;
 	int				anim_state;
 	void			(*down_action)(void *);
 	void			(*press_action)(void *);

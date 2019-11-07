@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 18:19:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 10:44:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,6 +397,9 @@ void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
 void				button_event(t_button *b, t_env *env);
 void				button_mouseup(t_button *b, t_env *env);
+void				draw_button_text(t_button b, t_env *env);
+int				is_mouse_on_button(t_button b, t_point mouse);
+t_point				get_button_current_size(t_button b);
 
 /*
 ** enemies functions

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 18:57:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 10:51:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ int	init_editor(int ac, char **av)
 	env.test_button.pressed_color = 0xEEEEEEEE;
 	env.test_button.down_color = 0xEEEEEEEE;
 	env.test_button.press_action = &coucou;
+	env.test_button.draw = 0;
 	return (editor(&env));
 }

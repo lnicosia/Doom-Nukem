@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:31:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 17:42:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 10:50:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	editor_mouse(t_env *env)
 {
 	(void)env;
-	button_event(&env->test_button, env);
+	if (env->test_button.draw)
+		button_event(&env->test_button, env);
 	return (0);
 }
