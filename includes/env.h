@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 10:44:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:04:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,8 +308,8 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 src, Uint32 color, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
-int					new_confirmation_box(t_confirmation_box *box, t_env *env);
-int					draw_confirmation_box(t_confirmation_box box, t_env *env);
+int				update_confirmation_box(t_confirmation_box *box, char *str, t_env *env);
+int				draw_confirmation_box(t_confirmation_box box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
@@ -318,6 +318,10 @@ t_button			new_button(t_rectangle up, t_rectangle pressed,
 t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
+t_button			new_image_button(int type, void (*action)(void *),
+void *target, t_env *env);
+t_button			new_rectangle_button(int type, void (*action)(void *),
+void *target, t_env *env);
 void				draw_button(t_env *env, t_button b);
 
 /*
@@ -333,7 +337,6 @@ void				check_parsing(t_env *env);
 void				keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
-void				confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
@@ -392,11 +395,11 @@ double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
-void				respawn(t_env *env);
+void				respawn(void *param);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
-void				button_event(t_button *b, t_env *env);
-void				button_mouseup(t_button *b, t_env *env);
+void				button_keys(t_button *b, t_env *env);
+void				button_keyup(t_button *b, t_env *env);
 void				draw_button_text(t_button b, t_env *env);
 int				is_mouse_on_button(t_button b, t_point mouse);
 t_point				get_button_current_size(t_button b);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 12:26:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:54:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,6 @@ void		keys(t_env *env)
 	if (env->inputs.minus && !env->inputs.shift
 			&& env->options.minimap_scale / 1.2 > 5)
 		env->options.minimap_scale /= 1.2;
+	if (env->confirmation_box.state)
+		confirmation_box_keys(&env->confirmation_box, env);
 }

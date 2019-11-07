@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   button.c										   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/02 15:43:06 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/07 10:56:21 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   button.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/07 15:04:49 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -25,22 +25,22 @@ void		draw_button_text(t_button b, t_env *env)
 	color = 0xFFFFFFFF;
 	if (b.anim_state == HOVER)
 	{
-		color = b.hover_color;
+		color = b.hover_text_color;
 		button_size = b.size_hover;
 	}
 	else if (b.anim_state == PRESSED)
 	{
-		color = b.pressed_color;
+		color = b.pressed_text_color;
 		button_size = b.size_pressed;
 	}
 	else if (b.state == UP)
 	{
-		color = b.up_color;
+		color = b.up_text_color;
 		button_size = b.size_up;
 	}
 	else if (b.state == DOWN)
 	{
-		color = b.down_color;
+		color = b.down_text_color;
 		button_size = b.size_down;
 	}
 	TTF_SizeText(b.font, b.str, &text_size.x, &text_size.y);
@@ -50,62 +50,67 @@ void		draw_button_text(t_button b, t_env *env)
 	print_text(pos, text, env);
 }
 
-t_button	new_button(t_rectangle up, t_rectangle pressed, t_rectangle down, t_rectangle hover)
+t_button	init_button(int type, void (*action)(void *), void *target,
+t_env *env)
 {
 	t_button	new;
 
-	new.up = up;
-	new.hover = hover;
-	new.pressed = pressed;
-	new.down = down;
-	new.img_up = NULL;
-	new.img_hover = NULL;
-	new.img_pressed = NULL;
-	new.img_down = NULL;
-	new.up_color = 0xFFFFFFFF;
-	new.hover_color = 0xFFFFFFFF;
-	new.pressed_color = 0xFFFFFFFF;
-	new.down_color = 0xFFFFFFFF;
+	ft_bzero(&new, sizeof(t_button));
+	new.pos = new_point(env->h_w - 111, env->h_h - 23);
+	new.up_text_color = 0xFFFFFFFF;
+	new.hover_text_color = 0xFFFFFFFF;
+	new.pressed_text_color = 0xEEEEEEFF;
+	new.down_text_color = 0xEEEEEEFF;
+	if (!env->sdl.fonts.lato20)
+		ft_dprintf(STDERR_FILENO, "Button font has not been init yet!\n");
+	new.font = env->sdl.fonts.lato20;
+	new.target = target;
+	new.draw = 1;
 	new.state = UP;
 	new.anim_state = REST;
-	new.pos = new_point(0, 0);
-	new.size_up = new_point(0, 0);
-	new.size_pressed = new_point(0, 0);
-	new.size_down = new_point(0, 0);
-	new.size_hover = new_point(0, 0);
-	new.str = NULL;
-	new.font = NULL;
-	new.down_action = NULL;
-	new.press_action = NULL;
+	if (type == ON_PRESS)
+		new.press_action = action;
+	else if (type == WHEN_DOWN)
+		new.down_action = action;
 	return (new);
 }
 
-t_button	new_button_img(t_texture *up,
-t_texture *pressed, t_texture *down, t_texture *hover)
+t_button	new_rectangle_button(int type, void (*action)(void *), void *target, t_env *env)
 {
 	t_button	new;
 
-	if (!up || !pressed || !down || !hover)
-		ft_printf("Null texture!\n");
-	new.img_up = up;
-	new.img_hover = hover;
-	new.img_pressed = pressed;
-	new.img_down = down;
-	new.up_color = 0xFFFFFFFF;
-	new.hover_color = 0xFFFFFFFF;
-	new.pressed_color = 0xFFFFFFFF;
-	new.down_color = 0xFFFFFFFF;
-	new.state = UP;
-	new.anim_state = REST;
-	new.down_action = NULL;
-	new.press_action = NULL;
-	new.str = NULL;
-	new.font = NULL;
-	new.pos = new_point(0, 0);
-	new.size_up = new_point(up->surface->w, up->surface->h);
-	new.size_down = new_point(down->surface->w, down->surface->h);
-	new.size_hover = new_point(hover->surface->w, hover->surface->h);
-	new.size_pressed = new_point(pressed->surface->w, pressed->surface->h);
+	new = init_button(type, action, target, env);
+	new.up = new_rectangle(0xFFAAAAAA, 0xFF666666, 1, 2);
+	new.down = new_rectangle(0xFF888888, 0xFF444444, 1, 2);
+	new.pressed = new_rectangle(0xFF888888, 0xFF444444, 1, 2);
+	new.hover = new_rectangle(0xFFBBBBBB, 0xFF888888, 1, 2);
+	new.size_up = new_point(212, 45);
+	new.size_pressed = new_point(212, 45);
+	new.size_down = new_point(212, 45);
+	new.size_hover = new_point(212, 45);
+	return (new);
+}
+
+t_button	new_image_button(int type, void (*action)(void *), void *target, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, target, env);
+	if (!env->textures[53].surface || !env->textures[54].surface
+		|| !env->textures[55].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = &env->textures[53];
+	new.img_pressed = &env->textures[54];
+	new.img_down = &env->textures[54];
+	new.img_hover = &env->textures[55];
+	new.size_up = new_point(new.img_up->surface->w,
+	new.img_up->surface->h);
+	new.size_down = new_point(new.img_down->surface->w,
+	new.img_down->surface->h);
+	new.size_hover = new_point(new.img_hover->surface->w,
+	new.img_hover->surface->h);
+	new.size_pressed = new_point(new.img_pressed->surface->w,
+	new.img_pressed->surface->h);
 	return (new);
 }
 

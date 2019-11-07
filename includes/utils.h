@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 10:50:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:36:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ typedef enum		e_input_box_type
 	DOUBLE,
 	STRING
 }			t_input_box_type;
+
+typedef enum		e_button_action_type
+{
+	ON_PRESS,
+	WHEN_DOWN
+}			t_button_action_type;
 
 typedef enum		e_button_state
 {
@@ -754,10 +760,10 @@ typedef struct		s_button
 	t_texture		*img_hover;
 	t_texture		*img_pressed;
 	t_texture		*img_down;
-	Uint32			up_color;
-	Uint32			hover_color;
-	Uint32			pressed_color;
-	Uint32			down_color;
+	Uint32			up_text_color;
+	Uint32			hover_text_color;
+	Uint32			pressed_text_color;
+	Uint32			down_text_color;
 	t_point			pos;
 	t_point			size_up;
 	t_point			size_pressed;
@@ -770,6 +776,7 @@ typedef struct		s_button
 	int				anim_state;
 	void			(*down_action)(void *);
 	void			(*press_action)(void *);
+	void			*target;
 }					t_button;
 
 /*
@@ -786,6 +793,10 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
+	void			(*yes_action)(void *);
+	void			*yes_target;
+	void			(*no_action)(void *);
+	void			*no_target;
 }					t_confirmation_box;
 
 /*

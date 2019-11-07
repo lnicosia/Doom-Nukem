@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 10:51:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:32:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,10 @@ int	init_editor(int ac, char **av)
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
-	env.test_button = new_button_img(&env.textures[53],
-	&env.textures[54], &env.textures[54], &env.textures[55]);
-	env.test_button.pos = new_point(env.h_w, env.h_h);
-	env.test_button.str = ft_strdup("Test button");
-	env.test_button.font = env.sdl.fonts.lato20;
-	env.test_button.pressed_color = 0xEEEEEEEE;
-	env.test_button.down_color = 0xEEEEEEEE;
-	env.test_button.press_action = &coucou;
+
+	env.test_button = new_image_button(WHEN_DOWN, &coucou, NULL, &env);
+	env.test_button.str = "Coucou button";
 	env.test_button.draw = 0;
+
 	return (editor(&env));
 }
