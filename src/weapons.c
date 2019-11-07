@@ -43,24 +43,25 @@ void    shot(t_env *env)
 {
 	int	i;
 	int	hit;
-	t_list	*tmp;
+	//t_list	*tmp;
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, 11, env->player.pos, env->player.pos);
-	tmp = env->projectiles;
-	int j = 2;
-	if (tmp)
+	create_projectile(env, 11, env->player.pos, env->player.camera.angle * CONVERT_DEGREES);
+	//tmp = env->projectiles;
+	//int j = 2;
+	/*if (tmp)
 	{
 		ft_printf("missile 1\n");
-		ft_printf("angle %f\n", ((t_projectile*)tmp->content)->angle);
+		ft_printf("player pos = %f\n", env->player.pos.x);
+		ft_printf("pos.x %f\n", ((t_projectile*)tmp->content)->pos.x);
 		while (tmp->next)
 		{
 			tmp = tmp->next;
 			ft_printf("missile %d\n", j++);
-			ft_printf("angle %f\n", ((t_projectile*)tmp->content)->angle);
+			ft_printf("pos.x %f\n", ((t_projectile*)tmp->content)->pos.x);
 		}
-	}
+	}*/
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)

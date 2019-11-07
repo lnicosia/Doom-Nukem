@@ -283,13 +283,15 @@ void				confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
+t_v3				sprite_movement(double speed, t_v3 origin, t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
-int					create_projectile(t_env *env, int sprite, t_v3 pos, t_v3 dest);
+int					create_projectile(t_env *env, int sprite, t_v3 pos, double angle);
+void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);

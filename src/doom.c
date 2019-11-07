@@ -53,6 +53,7 @@ int		doom(t_env *env)
 			enemy_collision(env);
 			keys(env);
 		}
+		projectiles_movement(env);
 		if (env->player.health <= 0)
 			death(env);
 		if (env->confirmation_box.state)
