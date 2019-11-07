@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 15:04:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:32:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct		s_env
 	t_teleport			teleport;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
-	t_button			test_button;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;

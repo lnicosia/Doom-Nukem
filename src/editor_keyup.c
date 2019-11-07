@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/03 13:19:36 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/07 14:08:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:32:18 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	editor_keyup(t_env *env)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
-	if (env->test_button.draw)
-		button_keyup(&env->test_button, env);
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1
