@@ -31,6 +31,8 @@ static int	get_sprite_direction(t_object object)
 	double	angle;
 
 	angle = (int)((atan2(object.translated_pos.z, object.translated_pos.x)) * CONVERT_DEGREES) % 360;
+	if (angle < 0)
+		angle += 360;
 	if (angle >= object.angle - 22.5 && angle < object.angle + 22.5)
 		return (4);
 	else if (angle >= object.angle + 22.5 && angle < object.angle + 67.5)
@@ -48,7 +50,7 @@ static int	get_sprite_direction(t_object object)
 	else if (angle >= object.angle + 292.5 && angle < object.angle + 337.5)
 		return (3);
 	else if (angle >= object.angle + 337.5)
-		return (0);
+		return (4);
 	else if (angle < object.angle - 22.5 && angle >= object.angle - 67.5)
 		return (3);
 	else if (angle < object.angle - 67.5 && angle >= object.angle - 112.5)

@@ -15,12 +15,10 @@
 int	create_projectile(t_env *env, int sprite, t_v3 pos, t_v3 dest)
 {
 	t_list	*new;
-	t_list	*tmp;
 
 	if (!(new = ft_lstnew(&env->projectile, sizeof(t_projectile))))
 		return (ft_printf("Error when creating new projectile\n"));
 	ft_lstpushback(&env->projectiles, new);
-	tmp = env->projectiles;
 	((t_projectile*)new->content)->sprite = sprite;
 	((t_projectile*)new->content)->pos.x = pos.x;
 	((t_projectile*)new->content)->pos.y = pos.y;

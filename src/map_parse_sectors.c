@@ -36,9 +36,9 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope", parser));
-	if (valid_number(*line, parser))
+	if (valid_number(*line, parser)){
 		return (invalid_char("before floor slope", "a digit or space(s)",
-					**line, parser));
+					**line, parser));}
 		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 /*	if (env->sectors[parser->sectors_count].floor_slope > 45
 			|| env->sectors[parser->sectors_count].floor_slope < -45)

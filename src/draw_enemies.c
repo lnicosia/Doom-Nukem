@@ -43,8 +43,6 @@ static int	get_sprite_direction(t_enemies enemy)
 	angle = (int)((atan2(enemy.translated_pos.z, enemy.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle < 0)
 		angle += 360;
-	if (enemy.health == 50)
-		ft_printf("angle = %f\t|\tenemy angle = %f\t|\tsub = %f\n", angle, enemy.angle, angle - enemy.angle);
 	if (angle >= enemy.angle - 22.5 && angle < enemy.angle + 22.5)
 		return (4);
 	else if (angle >= enemy.angle + 22.5 && angle < enemy.angle + 67.5)

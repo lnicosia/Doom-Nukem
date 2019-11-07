@@ -78,6 +78,7 @@ void	call_elevator(t_env *env)
 	int			elevator;
 
 	i = 0;
+	elevator = 0;
 	sector = env->sectors[env->player.sector];
 	while (i < sector.nb_vertices)
 	{
@@ -116,10 +117,8 @@ void	call_elevator(t_env *env)
 
 void	activate_elevator(t_env *env)
 {
-	int	i;
 	t_sector sector;
 
-	i = 0;
 	sector = env->sectors[env->player.sector];
 	if (sector.statue == 1)
 	{

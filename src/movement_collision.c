@@ -148,7 +148,9 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
     i = 0;
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
+    {
         return (new_v2(0, 0));
+    }
 	if (!check_ceiling(env, motion, motion.sector))
 		return (new_v2(0, 0));
     while (i < env->sectors[motion.sector].nb_vertices)
