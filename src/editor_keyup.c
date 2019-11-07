@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/03 13:19:36 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/07 15:32:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:22:01 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	editor_keyup(t_env *env)
 {
 	int	clicked_vertex;
 
+	if (env->editor.in_game
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.select = 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_r)
@@ -44,6 +47,23 @@ int	editor_keyup(t_env *env)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
+	if (env->sdl.mx > 200 && env->sdl.event.button.button == SDL_BUTTON_LEFT
+			&& !env->confirmation_box.state
+			&& env->editor.start_vertex == -1
+			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_object == -1
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_enemy == -1)
+	{
+		env->editor.selected_sector = get_sector_no_z(env,
+				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
+					(env->sdl.my - env->editor.center.y) / env->editor.scale,
+					0));
+		env->editor.selected_vertex = -1;
+		env->editor.selected_object = -1;
+		env->editor.selected_player = -1;
+		env->selected_enemy = -1;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1

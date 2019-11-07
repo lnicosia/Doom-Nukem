@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 17:04:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:06:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	if (type < 0 || type > 2 || !target)
 		return (-1);
 	box->pos = pos;
+	box->state = 1;
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
@@ -35,6 +36,8 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		box->str_target = (char*)target;
 		box->str = (char*)target;
 	}
+	set_double_stats(box);
+	box->cursor = ft_strlen(box->str);
 	return (0);
 }
 
@@ -51,7 +54,7 @@ int	init_input_box(t_input_box *box, t_env *env)
 	box->cursor_state = 0;
 	box->size = new_point(200, 30);
 	box->pos = new_point(env->h_w - box->size.x / 2, env->h_h - box->size.y / 2);
-	box->font = env->sdl.fonts.playfair_display20;
+	box->font = env->sdl.fonts.lato20;
 	return (0);
 }
 
@@ -59,10 +62,13 @@ void	draw_input_box_content(t_input_box *box, t_env *env)
 {
 	t_printable_text	text;
 	t_point			pos;
+	t_point			size;
 
 	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
 		return ;
-	pos = new_point(box->pos.y, box->pos.x + 5);
+	TTF_SizeText(box->font, box->str, &size.x, &size.y);
+	pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
+	box->pos.x + 6);
 	text = new_printable_text(box->str, box->font, 0x000000, box->size.x);
 	print_text(pos, text, env);
 }
@@ -167,10 +173,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 {
 	if (env->inputs.enter
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
-	{
 		validate_input(box, env);
-		env->inputs.enter = 0;
-	}
 	else if (env->inputs.backspace)
 	{
 		if (box->select_start != box->select_end)

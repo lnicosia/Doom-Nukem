@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 10:52:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:07:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:03:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	find_period(t_input_box *box)
 	return (0);
 }
 
-static int	set_double_stats(t_input_box *box)
+int		set_double_stats(t_input_box *box)
 {
 	if (box->period)
 	{

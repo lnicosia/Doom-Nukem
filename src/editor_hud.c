@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 18:23:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/07 17:23:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	editor_hud(t_env *env)
 			print_object_informations(env);
 		else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 			print_sector_informations(env);
-		else if (env->editor.selected_wall != -1)
+		else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
 			print_wall_informations(env);
 		else if (env->selected_ceiling != -1)
 			print_ceiling_informations(env);
