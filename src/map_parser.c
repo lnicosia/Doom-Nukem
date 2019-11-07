@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/05 09:58:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 17:59:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ void	init_player(t_env *env)
 	env->player.state.fall = 0;
 	env->player.state.climb = 0;
 	env->player.state.jump = 0;
+	env->player.state.fly = 0;
 	env->player.state.crouch = 0;
 	env->player.state.walk = 0;
 	env->gravity.force = -9.81;

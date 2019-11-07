@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/05 16:00:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 14:14:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	climb(t_env *env)
 {
 	double	time;
 	double	slope;
-	t_v2		pos;
+	t_v3		pos;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
@@ -58,7 +58,7 @@ void	drop(t_env *env)
 {
 	double	time;
 	double	slope;
-	t_v2		pos;
+	t_v3		pos;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
@@ -99,7 +99,7 @@ void	jump(t_env *env)
 void	crouch(t_env *env)
 {
 	double	time;
-	t_v2	pos;
+	t_v3	pos;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;

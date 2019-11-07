@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_in_sector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 09:47:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/09 13:33:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 11:57:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int     is_in_sector(t_env *env, short sector, t_v3 pos)
 	//ft_printf("Checking sector %d\n", sector);
 	if (sector < 0 || sector >= env->nb_sectors)
 		return (0);
-	if (pos.z < get_floor_at_pos(env->sectors[sector], new_v2(pos.x, pos.y), env)
-			|| pos.z > get_ceiling_at_pos(env->sectors[sector], new_v2(pos.x, pos.y), env))
+	if (pos.z < get_floor_at_pos(env->sectors[sector], new_v3(pos.x, pos.y, 0), env)
+			|| pos.z > get_ceiling_at_pos(env->sectors[sector], new_v3(pos.x, pos.y, 02), env))
 		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{

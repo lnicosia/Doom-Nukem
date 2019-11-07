@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/04 17:55:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/07 17:46:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,32 @@
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
-    double curr_z;
+    t_v3    pos;
 
-    //FUTURE_Z = motion.eyesight + env->sectors[sector_dest].floor
-    //+ (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X) - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
-    curr_z = motion.pos.z + motion.eyesight;
-    if (curr_z > env->sectors[sector_dest].ceiling
-    + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X)
-    - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y))
-    * env->sectors[sector_dest].ceiling_slope - 1)
+    pos.x = FUTURE_X;
+    pos.y = FUTURE_Y;
+    pos.z = FUTURE_Z;
+    if (pos.z + env->player.eyesight > get_ceiling_at_pos(env->sectors[sector_dest], pos,env) - 1)
         return (0);
     return (1);
 }
 
 int     check_floor(t_env *env, t_movement motion, int sector_dest)
 {
-    FUTURE_Z = env->sectors[sector_dest].floor
-    + (env->sectors[sector_dest].normal.x * (FUTURE_X - FUTURE_V0X)
-    - env->sectors[sector_dest].normal.y * (FUTURE_Y - FUTURE_V0Y))
-    * env->sectors[sector_dest].floor_slope;
-	if (env->player.state.jump && FUTURE_Z > motion.pos.z)
+    t_v3    pos;
+    double  floor;
+
+    pos.x = FUTURE_X;
+    pos.y = FUTURE_Y;
+    pos.z = FUTURE_Z;
+    floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
+    if (floor > motion.pos.z + 2)
 		return (0);
-    if (FUTURE_Z > motion.pos.z + 2)
-		return (0);
+    if (env->player.state.fly && FUTURE_Z < floor)
+    {
+        ft_printf("hitting the floor\n");
+        return (0);
+    }
     return (1);
 }
 
@@ -81,7 +84,7 @@ int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
     return 0;
 }
 
-t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
+t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 {
     short       i;
     t_wall      wall;
@@ -93,6 +96,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
     wall = motion.wall;
     FUTURE_X = move.x + motion.pos.x;
     FUTURE_Y = move.y + motion.pos.y;
+    FUTURE_Z = motion.pos.z + move.z;
     env->sector_list[wall.sector_dest] = 1;
     norme_mov = sqrt(move.x * move.x + move.y * move.y);
     if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest)) && !recu)
@@ -104,7 +108,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
             move.y = norme_mov * wall.y / wall.norme * scalar;
             return (collision_rec(env, move, motion, 1));
         }
-        return (new_v2(0, 0));
+        return (new_v3(0,0,0));
     }
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
@@ -118,7 +122,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
                 move.y = norme_mov * (Y2R - Y1R) / norme_wall * scalar;
                 return (collision_rec(env, move, motion, 1));
             }
-            return (new_v2(0, 0));
+            return (new_v3(0,0,0));
         }
         i++;
     }
@@ -129,7 +133,7 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
             env->sector_list[RNEIGHBOR] == 0)
         {
             if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, RNEIGHBOR)))
-                return (new_v2(0, 0));
+                return (new_v3(0,0,0));
             motion.wall.sector_or = wall.sector_dest;
             motion.wall.sector_dest = RNEIGHBOR;
             return (collision_rec(env, move, motion, 0));
@@ -139,12 +143,13 @@ t_v2     collision_rec(t_env *env, t_v2 move, t_movement motion, int recu)
     return (move);
 }
 
-t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
+t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 {
     short		i;
     double      scalar;
     double      norme_mov;
     double      norme_wall;
+    t_v3        pos;
     //static int a = 0;
 
     //env->player.highest_sect = motion.sector;
@@ -152,12 +157,20 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
         return (move);
     FUTURE_X = motion.pos.x + move.x;
     FUTURE_Y = motion.pos.y + move.y;
+    FUTURE_Z = motion.pos.z + move.z;
     i = 0;
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
-        return (new_v2(0,0));
-    if (!check_ceiling(env, motion, motion.sector) && !env->player.state.jump)
-		return (new_v2(0, 0));
+        return (new_v3(0,0,0));
+    if ((!check_ceiling(env, motion, motion.sector) || !check_floor(env, motion, motion.sector)))
+    {
+        if (!check_ceiling(env, motion, motion.sector))
+	        move.z = get_ceiling_at_pos(env->sectors[motion.sector], motion.pos, env) - 1 - (env->player.pos.z + env->player.eyesight);
+        if (!check_floor(env, motion, motion.sector))
+	        move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - env->player.pos.z;
+        ft_printf("NOPE | z: %f\n", move.z);
+    }
+    (void)pos;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)
@@ -171,7 +184,7 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
                 move.y = norme_mov * (Y2 - Y1) / norme_wall * scalar;
                 return (check_collision(env, move, motion, 1));
             }
-            return (new_v2(0,0));
+            return (new_v3(0,0,0));
         }
         i++;
     }
@@ -187,7 +200,7 @@ t_v2     check_collision(t_env *env, t_v2 move, t_movement motion, int rec)
             motion.wall.y = (Y2 - Y1);
             move = collision_rec(env, move, motion, 0);
             if (move.x == 0 && move.y == 0)
-                return (new_v2(0, 0));
+                return (new_v3(0,0,0));
         }
         i++;
     }

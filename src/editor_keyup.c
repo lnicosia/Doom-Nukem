@@ -36,6 +36,8 @@ void	editor_keyup(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_f)
+		env->player.state.fly = env->player.state.fly ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
 	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_z)

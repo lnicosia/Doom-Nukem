@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/30 14:10:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/05 18:07:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct  s_data
 }               t_data;
 
 
-t_v2				check_collision(t_env *env, t_v2 move, t_movement motion, int recu);
+t_v3				check_collision(t_env *env, t_v3 move, t_movement motion, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
 void                enemy_collision(t_env *env);

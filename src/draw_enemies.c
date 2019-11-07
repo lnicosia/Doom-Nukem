@@ -21,7 +21,7 @@ void		update_enemies_z(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].sector == env->sectors[env->selected_floor].num)
-			env->enemies[i].pos.z = get_floor_at_pos(env->sectors[env->selected_floor], new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), env);
+			env->enemies[i].pos.z = get_floor_at_pos(env->sectors[env->selected_floor], new_v3(env->enemies[i].pos.x, env->enemies[i].pos.y, 0), env);
 		i++;
 	}
 }

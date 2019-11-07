@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 12:34:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 14:15:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,20 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 	clipped_pos.y = camera->v[sector->num][i].clipped_vz1 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx1 * camera->angle_cos + camera->pos.y;
 	camera->v[sector->num][i].clipped_vf1 = get_floor_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	camera->v[sector->num][i].clipped_vc1 = get_ceiling_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	clipped_pos.x = camera->v[sector->num][i].clipped_vx2 * camera->angle_sin
 		+ camera->v[sector->num][i].clipped_vz2 * camera->angle_cos + camera->pos.x;
 	clipped_pos.y = camera->v[sector->num][i].clipped_vz2 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx2 * camera->angle_cos + camera->pos.y;
 	camera->v[sector->num][i].clipped_vf2 = get_floor_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	camera->v[sector->num][i].clipped_vc2 = get_ceiling_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 }
 
@@ -204,11 +204,11 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 	i = -1;
 	camera->sector_computed[sector->num] = 1;
 	camera->feet_y[sector->num] = env->h_h + (get_floor_at_pos(*sector,
-				new_v2(camera->pos.x, camera->pos.y), env)
+				new_v3(camera->pos.x, camera->pos.y, 0), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;
 	camera->head_y[sector->num] = env->h_h + (get_ceiling_at_pos(*sector,
-				new_v2(camera->pos.x, camera->pos.y), env)
+				new_v3(camera->pos.x, camera->pos.y,0 ), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;
 	while (++i < sector->nb_vertices)

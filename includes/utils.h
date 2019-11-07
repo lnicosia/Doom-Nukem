@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/05 09:57:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 15:58:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct		s_state
 	int				climb;
 	int				drop;
 	int				walk;
+	int				fly;
 }					t_state;
 
 typedef struct		s_render_vertex

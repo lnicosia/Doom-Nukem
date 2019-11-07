@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/05 16:00:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 12:34:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	gravity(t_env *env)
 	double	time;
 	double	new_pos;
 	double	new_velocity;
-	t_v2	pos;
+	t_v3	pos;
 	double	slope;
 
 	pos.x = env->player.pos.x;
