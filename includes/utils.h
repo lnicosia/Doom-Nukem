@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:44:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:17:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,9 @@ typedef struct		s_sector
 	int				activated;
 	int				hidden;
 	Uint32			light_color;
+	void			(**walk_action)(void*);
+	void			**target;
+	size_t			nb_walk_actions;
 }					t_sector;
 
 typedef struct		s_vertex

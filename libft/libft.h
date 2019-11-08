@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 13:37:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:29:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int				ft_lstlen(t_list *lst);
+void				ft_lstpopfront(t_list **alst);
 void			ft_lstpushback(t_list **alst, t_list *new);
 int				ft_abs(int	nb);
 int				ft_clamp(int nb, int min, int max);

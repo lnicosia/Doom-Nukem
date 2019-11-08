@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:45:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:25:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct		s_env
 	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
+	t_list				*events;
 }					t_env;
 
 /*

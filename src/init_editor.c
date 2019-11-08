@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:21:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,20 @@ void	init_editor_data(t_env *env)
 	env->save_file = ft_strdup("maps/test.map");
 }
 
-void	coucou(void *param)
+/*
+**	Interaction test function
+*/
+
+void	move_sector(void *param)
 {
 	(void)param;
-	ft_printf("cc\n");
+	ft_printf("Hola\n");
+}
+
+void	hit_player(void *param)
+{
+	(void)param;
+	ft_printf("Aie\n");
 }
 
 int	init_editor(int ac, char **av)
@@ -107,6 +117,16 @@ int	init_editor(int ac, char **av)
 			return (crash("Error while parsing the map\n", &env));
 		precompute_slopes(&env);
 		ft_printf("{reset}");
+		if (ft_strequ(av[1], "maps/triple_piece.map"))
+		{
+			env.sectors[1].nb_walk_actions = 2;
+			env.sectors[1].walk_action = malloc(sizeof(void *));
+			env.sectors[1].target = (void **)malloc(sizeof(void *));
+			env.sectors[1].walk_action[0] = &move_sector;
+			env.sectors[1].target[0] = NULL;
+			env.sectors[1].walk_action[1] = &hit_player;
+			env.sectors[1].target[1] = NULL;
+		}
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
