@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:19:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:54:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		create_projectile(t_env *env, int sprite, t_v3 pos, double angle)
 	projectile_coord(pos, ((t_projectile*)new->content), env->player.camera.angle_z);
 	((t_projectile*)new->content)->scale = 50;
 	((t_projectile*)new->content)->exists = 1;
-	ft_printf("<-------------->\n");
 	return (0);
 }
 
@@ -49,9 +48,9 @@ void	projectiles_movement(t_env *env)
 		if (tmp)
 		{
 			move = sprite_movement(0.8, ((t_projectile*)tmp->content)->pos, ((t_projectile*)tmp->content)->dest);
-			((t_projectile*)tmp->content)->pos.x += move.x * 0;
-			((t_projectile*)tmp->content)->pos.y += move.y * 0;
-			((t_projectile*)tmp->content)->pos.z += move.z * 0;
+			((t_projectile*)tmp->content)->pos.x += move.x;
+			((t_projectile*)tmp->content)->pos.y += move.y;
+			((t_projectile*)tmp->content)->pos.z += move.z;
 		}
 		while (tmp->next)
 		{
