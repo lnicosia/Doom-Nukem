@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:37:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:40:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	precompute_slopes(t_env *env)
 {
 	int	i;
 
-	ft_printf("{reset}Computing map slopes..\n{red}");
+	//ft_printf("{reset}Computing map slopes..\n{red}");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -206,5 +206,6 @@ void	precompute_slopes(t_env *env)
 		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}
+	//ft_printf("{reset}");
 	//check_slopes(env);
 }

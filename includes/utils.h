@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 15:58:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:44:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 53
+# define MAX_TEXTURE 56
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define MAX_SPRITES 12
@@ -38,6 +38,32 @@
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
+
+typedef enum		e_input_box_type
+{
+	INT,
+	DOUBLE,
+	STRING
+}			t_input_box_type;
+
+typedef enum		e_button_action_type
+{
+	ON_PRESS,
+	WHEN_DOWN
+}			t_button_action_type;
+
+typedef enum		e_button_state
+{
+	UP,
+	DOWN
+}			t_button_state;
+
+typedef enum		e_button_anim_state
+{
+	REST,
+	PRESSED,
+	HOVER
+}			t_button_anim_state;
 
 typedef enum		e_enemy_state
 {
@@ -415,7 +441,10 @@ typedef struct		s_keys
 	int				plus;
 	int				minus;
 	int				shift;
+	int				shift2;
 	int				ctrl;
+	int				home;
+	int				end;
 	int				space;
 	int				down;
 	int				up;
@@ -429,6 +458,8 @@ typedef struct		s_keys
 	int				minus1;
 	int				equals;
 	int				p;
+	int				a;
+	int				lgui;
 }					t_keys;
 
 /*
@@ -461,6 +492,10 @@ typedef struct		s_inputs
 	uint8_t			minus1;
 	uint8_t			equals;
 	uint8_t			p;
+	uint8_t			home;
+	uint8_t			end;
+	uint8_t			a;
+	uint8_t			lgui;
 }					t_inputs;
 
 /*
@@ -477,6 +512,7 @@ typedef struct		s_fonts
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
+	TTF_Font		*lato20;
 }					t_fonts;
 
 /*
@@ -504,6 +540,7 @@ typedef struct		s_audio
 typedef struct		s_time
 {
 	double			tick;
+	double			scroll_tick;
 	double			tick2;
 	double			tick3;
 	double			tick4;
@@ -690,6 +727,7 @@ typedef struct		s_options
 	int				show_ennemies;
 	int				zbuffer;
 	int				p;
+	int				animations;
 }					t_options;
 
 /*
@@ -728,7 +766,7 @@ typedef struct		s_rectangle
 	int				filled;
 	int				line_size;
 }					t_rectangle;
-
+ 
 /*
 **	Data for button
 */
@@ -736,11 +774,30 @@ typedef struct		s_rectangle
 typedef struct		s_button
 {
 	t_rectangle		up;
+	t_rectangle		hover;
 	t_rectangle		pressed;
 	t_rectangle		down;
+	t_texture		*img_up;
+	t_texture		*img_hover;
+	t_texture		*img_pressed;
+	t_texture		*img_down;
+	Uint32			up_text_color;
+	Uint32			hover_text_color;
+	Uint32			pressed_text_color;
+	Uint32			down_text_color;
 	t_point			pos;
-	t_point			size;
+	t_point			size_up;
+	t_point			size_pressed;
+	t_point			size_down;
+	t_point			size_hover;
+	char			*str;
+	TTF_Font		*font;
 	int				state;
+	int			draw;
+	int				anim_state;
+	void			(*down_action)(void *);
+	void			(*press_action)(void *);
+	void			*target;
 }					t_button;
 
 /*
@@ -757,6 +814,52 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
+	void			(*yes_action)(void *);
+	void			*yes_target;
+	void			(*no_action)(void *);
+	void			*no_target;
 }					t_confirmation_box;
 
+/*
+**	Data for input box
+**	str = string content. User has to strdup and strdel it correctly
+**	type = INT, DOUBLE, STRING
+*/
+
+typedef struct		s_input_box
+{
+	TTF_Font		*font;
+	t_point			size;
+	t_point			pos;
+	int			state;
+	int			type;
+	int			caps;
+	int			period;
+	int			selecting;
+	int			cursor_state;
+	int			add_period;
+	size_t			cursor;
+	size_t			float_count;
+	size_t			int_count;
+	size_t			period_index;
+	size_t			minus;
+	size_t			select_start;
+	size_t			select_end;
+	char			*str;
+	Uint32			del_timer;
+	Uint32			del_delay;
+	Uint32			cursor_timer;
+	Uint32			cursor_delay;
+	Uint32			move_cursor_timer;
+	Uint32			move_cursor_delay;
+	Uint32			input_timer;
+	Uint32			input_delay;
+	Uint32			same_touch_timer;
+	char			**str_target;
+	int			*int_target;
+	double			*double_target;
+	void			*target;
+	void			(*action)(void *);
+}					t_input_box;
+  
 #endif

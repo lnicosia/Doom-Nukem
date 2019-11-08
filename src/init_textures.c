@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 18:08:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:59:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,5 +172,11 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load black_tiles\n"));
 	if (parse_bmp("images/tiles.bmp", 52, env))
 		return (ft_printf("Failed to load black_tiles\n"));
+	if (parse_bmp("images/button-default-up.bmp", 53, env))
+		return (ft_printf("Failed to load default button\n"));
+	if (parse_bmp("images/button-default-pressed.bmp", 54, env))
+		return (ft_printf("Failed to load default button\n"));
+	if (parse_bmp("images/button-default-hover.bmp", 55, env))
+		return (ft_printf("Failed to load default button\n"));
 	return (0);
 }

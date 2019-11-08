@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 18:54:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:43:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 	wall_data.ceiling_start = render.ceiling_start;
 	wall_data.ceiling_horizon = render.ceiling_horizon;
 	wall_data.i = render.i;
+	skybox.sector = render.sector;
+	skybox.ceiling_horizon = env->player.camera.horizon;
+	skybox.floor_horizon = env->player.camera.horizon;
 	while (++i < 4)
 	{
 		if (!env->skybox[i].draw
@@ -103,9 +106,6 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 		skybox.texture = 40 + i;
 		skybox.i = i;
 		skybox.selected = 0;
-		skybox.sector = render.sector;
-		skybox.ceiling_horizon = env->player.camera.horizon;
-		skybox.floor_horizon = env->player.camera.horizon;
 		skybox_loop(skybox, wall_data, render, env);
 	}
 }

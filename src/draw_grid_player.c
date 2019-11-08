@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/08/21 13:40:49 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/18 11:26:28 by lnicosia		 ###   ########.fr	   */
+/*   Updated: 2019/11/06 12:38:15 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ void	draw_grid_player(t_env *env)
 		{
 			circle.radius = env->editor.scale;
 			if (env->inputs.left_click
+					&& !env->input_box.state
 					&& !env->confirmation_box.state
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
+					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1
 					&& !env->teleport.create)

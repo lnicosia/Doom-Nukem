@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/04 14:06:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:43:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		x += render.texture_w;
 	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
-	//ft_printf("line height = %d\n", render.line_height);
 	while (i < vline.end)
 	{
 		coord = vline.x + env->w * i;
@@ -57,17 +56,11 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			if (env->editor.in_game && !env->teleport.create)
-			{
-				env->editor.selected_sector = env->sectors[render.sector].num;
-				env->editor.selected_wall = render.i;
-			}
+			reset_selection(env);
+			env->editor.selected_sector = sector.num;
+			env->editor.selected_wall = render.i;
 			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
-			env->selected_floor = -1;
-			env->selected_ceiling = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y

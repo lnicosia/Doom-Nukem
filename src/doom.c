@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/04/03 15:26:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/10/17 14:25:22 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2019/11/07 15:00:44 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		doom(t_env *env)
 	{
 		if (env->player.sector == -1)
 			ft_printf("Rip :/ \n");
-		env->player.health = 100;
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);

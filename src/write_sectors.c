@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/05 17:11:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:38:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,8 @@ static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d] ",
 			sector.floor, sector.floor_slope, sector.floor_texture);
-	if (sector.ceiling_texture == 38)
-	{
-		ft_dprintf(fd, "[%.5f %.5f %d] ",
-				sector.ceiling, sector.ceiling_slope, -1);
-	}
-	else
-	{
-		ft_dprintf(fd, "[%.5f %.5f %d] ",
-				sector.ceiling, sector.ceiling_slope, sector.ceiling_texture);
-	}
+	ft_dprintf(fd, "[%.5f %.5f %d] ",
+			sector.ceiling, sector.ceiling_slope, sector.ceiling_texture);
 		write_sector_vertices(fd, sector);
 		write_sector_neighbors(fd, sector);
 		write_sector_textures(fd, sector);

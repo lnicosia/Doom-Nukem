@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/30 15:18:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:47:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ void	player_selection(t_env *env)
 		}
 		else
 		{
-			ft_printf("Couldn't add mew player\n");
+			ft_printf("Couldn't add new player\n");
 			env->editor.new_player = 0;
 		}
+		if (env->editor.new_player && env->player.sector != -1)
+			update_player_z(env);
 	}
+	env->player.camera.pos.z = env->player.head_z;
 }

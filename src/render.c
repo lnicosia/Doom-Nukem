@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 14:15:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:39:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].vz;
+				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i + 1].vz * sector->wall_width[i];
 			j++;
 		}
 	}
@@ -145,7 +145,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale[j].x) / camera->v[sector->num][i + 1].clipped_vz2;
+				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i].clipped_vz2 * sector->wall_width[i];
 			j++;
 		}
 	}
@@ -154,7 +154,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] != -1)
-			camera->v[sector->num][i].sprite_scale[j].y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale[j].y;
+			camera->v[sector->num][i].sprite_scale[j].y = sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
 		j++;
 	}
 }
@@ -234,7 +234,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}
-	if (sector->skybox && !env->skybox_computed)
+	if (env->contains_skybox && !env->skybox_computed)
 		precompute_skybox(env);
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 }

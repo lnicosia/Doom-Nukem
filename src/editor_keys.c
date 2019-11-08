@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 12:24:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:42:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,9 @@
 
 int			editor_keys(t_env *env)
 {
-	int		clicked_vertex;
 	double time;
 
 	time = SDL_GetTicks();
-	if (env->inputs.space
-			&& env->editor.dragged_player == -1
-			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_vertex == -1)
-	{
-		clicked_vertex = get_existing_vertex(env);
-		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
-		{
-			if (add_vertex(env))
-				return (ft_printf("Could not add new vertex\n"));
-			add_vertex_to_current_sector(env, env->nb_vertices - 1);
-			if (env->editor.start_vertex == -1) //Nouveau secteur
-			{
-				env->editor.start_vertex = env->nb_vertices - 1;
-			}
-		}
-		else if (clicked_vertex >= 0)
-		{
-			if (env->editor.start_vertex == -1)
-			{
-				env->editor.start_vertex = clicked_vertex;
-				add_vertex_to_current_sector(env, clicked_vertex);
-			}
-			else
-			{
-				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
-						&& ft_lstlen(env->editor.current_vertices) > 2
-						&& is_new_vertex_valid(env, clicked_vertex))
-				{
-					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
-					env->editor.start_vertex = -1;
-					if (add_sector(env))
-						return (ft_printf("Error while creating new sector\n"));
-					free_current_vertices(env);
-					get_new_floor_and_ceiling(env);
-					update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
-				}
-				else if (is_new_vertex_valid(env, clicked_vertex))
-					add_vertex_to_current_sector(env, clicked_vertex);
-			}
-		}
-		env->inputs.space = 0;
-	}
 	if (env->inputs.backspace && !env->confirmation_box.state)
 	{
 		del_last_vertex(env);
@@ -75,34 +31,6 @@ int			editor_keys(t_env *env)
 	vertices_selection(env);
 	if (env->confirmation_box.state)
 		confirmation_box_keys(&env->confirmation_box, env);
-
-/*
-**	Sector selection
-*/
-
-	if (env->sdl.mx > 200 && env->inputs.left_click
-			&& !env->confirmation_box.state
-			&& env->editor.start_vertex == -1
-			&& env->editor.dragged_player == -1
-			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_enemy == -1
-			&& !env->teleport.create)
-	{
-		env->editor.selected_sector = get_sector_no_z(env,
-				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
-					(env->sdl.my - env->editor.center.y) / env->editor.scale,
-					0));
-		env->editor.selected_vertex = -1;
-		env->editor.selected_object = -1;
-		env->editor.selected_player = -1;
-		env->selected_enemy = -1;
-	}
-
-	/*
-	**	Drag and drop on of the 2D map
-	*/
-
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
@@ -113,7 +41,8 @@ int			editor_keys(t_env *env)
 	** Going out of the 3D mode
 	*/
 
-	if (env->inputs.enter && !env->confirmation_box.state)
+	if (env->inputs.enter && !env->confirmation_box.state
+		&& !env->input_box.state)
 	{
 		if (!valid_map(env))
 		{
@@ -126,6 +55,7 @@ int			editor_keys(t_env *env)
 			env->inputs.enter = 0;
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			free_camera(&env->player.camera);
+			precompute_slopes(env);
 			if (init_camera_arrays(&env->player.camera, env))
 				return (ft_printf("Could not init camera arrays\n"));
 			if (env->sector_list)
@@ -153,15 +83,11 @@ int			editor_keys(t_env *env)
 		env->editor.center.y -= 3;
 	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.y += 3;
-
-	/*
-	**	ctrl + s: save the map (it actually move the map too..)
-	*/
-
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env) && !env->editor.in_game)
+	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
-		if (save_map("maps/test.map", env))
-			return (ft_printf("Could not save the map\n"));
+		env->saving = 1;
+		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+		STRING, &env->save_file);
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}

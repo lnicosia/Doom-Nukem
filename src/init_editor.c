@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/29 17:26:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,18 @@ void	init_editor_data(t_env *env)
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	env->selected_stat = 0;
+	env->time.scroll_tick = 0;
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
+	
+	env->save_file = ft_strdup("maps/test.map");
+}
+
+void	coucou(void *param)
+{
+	(void)param;
+	ft_printf("cc\n");
 }
 
 int	init_editor(int ac, char **av)
@@ -83,8 +92,8 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
-	env.confirmation_box.font = env.sdl.fonts.playfair_display20;
-	env.confirmation_box.state = 0;
+	if (init_input_box(&env.input_box, &env))
+		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
@@ -101,5 +110,6 @@ int	init_editor(int ac, char **av)
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
+	env.confirmation_box.font = env.sdl.fonts.lato20;
 	return (editor(&env));
 }

@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/08 10:35:44 by sipatry          ###   ########.fr        #
+#    Updated: 2019/11/08 10:46:02 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,22 +31,22 @@ SDL_MIXER_DIR = SDL2_mixer-2.0.4
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
-				print_results.c
+				print_results.c keys.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
-				 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-				 draw_grid_walls.c draw_grid_vertices.c \
-				 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
-				 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
-				 save_map.c write_vertices.c write_sectors.c write_objects.c \
-				 write_player.c write_enemies.c add_object.c editor_keyup.c \
-				 player_selection.c objects_selection.c vertices_selection.c \
-				 draw_grid_player.c draw_grid_objects.c \
-				 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
-				 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-				 fill_triangle.c
+		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
+		 draw_grid_walls.c draw_grid_vertices.c \
+		 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
+		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
+		 save_map.c write_vertices.c write_sectors.c write_objects.c \
+		 write_player.c write_enemies.c add_object.c editor_keyup.c \
+		 player_selection.c objects_selection.c vertices_selection.c \
+		 draw_grid_player.c draw_grid_objects.c \
+		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
+		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
+		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 
-SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
+SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
@@ -71,14 +71,16 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c keys.c \
 		   precompute_neighbors.c skybox_draw_functions.c render_sector2.c \
 		   selected_information.c movement_utils.c update_sprites_state.c \
 		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
-		   benchmark.c draw_wall_sprites.c \
-		   init_obj_enemies_data.c \
-		   draw_circle_free.c draw_circle.c death.c \
+		   benchmark.c draw_wall_sprites.c input_box.c \
+		   init_obj_enemies_data.c reset_selection.c \
+		   draw_circle_free.c draw_circle.c death.c ft_getchar.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
-		   elevator.c gravity.c teleporter.c hidden_sectors.c\
+		   elevator.c gravity.c teleporter.c input_box_utils.c \
+		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
+		   validate_input.c button_event.c player_keys.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h create_portals.h
+		  editor.h env.h save.h create_portals.h input_box_utils.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -101,9 +103,9 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 	
 DEBUG ?= 0
 
-#ifeq ($(DEBUG), 1)
-#	CFLAGS += -fsanitize=address
-#	#endif
+ifeq ($(DEBUG), 1)
+	CFLAGS += -fsanitize=address -g3
+endif
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_mixer.dll \
