@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:16:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_editor_data(t_env *env)
 	env->editor.selected_vertex = -1;
 	env->editor.selected_player = -1;
 	env->editor.selected_wall = -1;
+	env->editor.selected_wall_sprite = -1;
 	env->editor.dragged_object = -1;
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
@@ -44,12 +45,23 @@ void	init_editor_data(t_env *env)
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;
 	env->selected_ceiling = -1;
+	env->selected_wall_sprite_sprite = -1;
+	env->selected_wall_sprite_wall = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	env->selected_stat = 0;
+	env->time.scroll_tick = 0;
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
+	
+	env->save_file = ft_strdup("maps/test.map");
+}
+
+void	coucou(void *param)
+{
+	(void)param;
+	ft_printf("cc\n");
 }
 
 int	init_editor(int ac, char **av)
@@ -59,6 +71,12 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
+	env.min_fps = 300;
+	env.avrg_fps = 0;
+	env.max_fps = 0;
+	env.min_fps2 = 300;
+	env.avrg_fps2 = 0;
+	env.max_fps2 = 0;
 	env.playing = 0;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
@@ -67,14 +85,15 @@ int	init_editor(int ac, char **av)
 	init_editor_data(&env);
 	init_inputs(&env);
 	init_player(&env);
+	init_animations(&env);
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
 	if (init_sound(&env))
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
-	env.confirmation_box.font = env.sdl.fonts.playfair_display20;
-	env.confirmation_box.state = 0;
+	if (init_input_box(&env.input_box, &env))
+		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
 	if (init_sprites(&env))
@@ -91,5 +110,6 @@ int	init_editor(int ac, char **av)
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
+	env.confirmation_box.font = env.sdl.fonts.lato20;
 	return (editor(&env));
 }

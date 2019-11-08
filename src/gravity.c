@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/21 18:08:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/06 12:34:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ void	gravity(t_env *env)
 	double	time;
 	double	new_pos;
 	double	new_velocity;
-	t_v2	pos;
+	t_v3	pos;
 	double	slope;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
 	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
+	if (env->sectors[env->player.sector].status == 4)
+		env->gravity.force = -1.06;
+	else
+		env->gravity.force = -9.81;
 	if ((!env->player.state.fall
 	&& env->player.pos.z > slope + 2)
 	|| (env->player.state.jump && !env->player.state.fall))
@@ -65,12 +69,23 @@ void	gravity(t_env *env)
 	if (env->player.state.fall)
 	{
 		env->time.d_time = time - env->time.last_fall;
-		env->gravity.acceleration = -9.81 * 3.3;
+		env->gravity.acceleration = env->gravity.force * 3.3;
 		new_pos = env->player.start_pos +  (env->gravity.velocity * env->time.d_time)
 			+ env->gravity.acceleration * env->time.d_time * env->time.d_time * 0.5;
 		new_velocity = env->player.velocity_start + env->gravity.acceleration * env->time.d_time;
-		env->player.pos.z = new_pos;
 		env->gravity.velocity = new_velocity;
+		if (new_pos + env->player.eyesight > get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1)
+		{
+			new_pos = get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1 - env->player.eyesight;
+			env->time.d_time = 0;
+			env->gravity.velocity = 0;
+			env->player.velocity_start = 0;
+			env->gravity.acceleration = 0;
+			env->player.state.jump = 0;
+			env->player.start_pos = env->player.pos.z;
+			env->time.last_fall = SDL_GetTicks() / 1000.0;
+		}
+		env->player.pos.z = new_pos;
 	}
 	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
 	{

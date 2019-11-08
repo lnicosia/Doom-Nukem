@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/30 13:40:50 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2019/11/01 13:27:42 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		update_enemies_z(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].sector == env->sectors[env->selected_floor].num)
-			env->enemies[i].pos.z = get_floor_at_pos(env->sectors[env->selected_floor], new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), env);
+			env->enemies[i].pos.z = get_floor_at_pos(env->sectors[env->selected_floor], new_v3(env->enemies[i].pos.x, env->enemies[i].pos.y, 0), env);
 		i++;
 	}
 }
@@ -129,13 +129,8 @@ static void		*enemy_loop(void *param)
 				env->enemies[enemy.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
-					env->selected_wall1 = -1;
-					env->selected_wall2 = -1;
-					env->selected_floor = -1;
-					env->selected_ceiling = -1;
-					env->selected_object = -1;
+					reset_selection(env);
 					env->selected_enemy = enemy.num;
-					env->editor.selected_wall = -1;
 				}
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];

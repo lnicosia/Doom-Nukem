@@ -5,19 +5,19 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='../bin/SDL2.dll'
+dlname='libSDL2-2.0.0.dylib'
 
 # Names of this library.
-library_names='libSDL2.dll.a'
+library_names='libSDL2-2.0.0.dylib libSDL2.dylib'
 
 # The name of the static archive.
 old_library='libSDL2.a'
 
 # Linker flags that can not go in dependency_libs.
-inherited_linker_flags=''
+inherited_linker_flags=' '
 
 # Libraries that this one depends upon.
-dependency_libs=' -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion'
+dependency_libs=' -lm -liconv -lobjc'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

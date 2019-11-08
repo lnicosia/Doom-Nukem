@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/05 15:40:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:59:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 46
+# define MAX_TEXTURE 56
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 3
+# define MAX_SPRITES 12
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
@@ -40,6 +40,32 @@
 # define MAX_H 1440
 # define LOST_SOUL 11
 # define CYBER_DEMON 2
+
+typedef enum		e_input_box_type
+{
+	INT,
+	DOUBLE,
+	STRING
+}			t_input_box_type;
+
+typedef enum		e_button_action_type
+{
+	ON_PRESS,
+	WHEN_DOWN
+}			t_button_action_type;
+
+typedef enum		e_button_state
+{
+	UP,
+	DOWN
+}			t_button_state;
+
+typedef enum		e_button_anim_state
+{
+	REST,
+	PRESSED,
+	HOVER
+}			t_button_anim_state;
 
 typedef enum		e_enemy_state
 {
@@ -88,6 +114,14 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
+typedef struct		s_hidden_sect
+{
+	int				sector;
+	int				selected_enemy;
+	int				create;
+	t_v2			get_sect;
+}					t_hidden_sect;
+
 typedef struct		s_elevator
 {
 	int				up;
@@ -95,6 +129,13 @@ typedef struct		s_elevator
 	int				on;
 	int				off;
 	double				next_stop;
+	double				start_floor;;
+	int				sector;
+	int				call;
+	int				called_from;
+	int				used;
+	double				time;
+	double				speed;
 }					t_elevator;
 
 typedef struct		s_state
@@ -106,12 +147,13 @@ typedef struct		s_state
 	int				climb;
 	int				drop;
 	int				walk;
+	int				fly;
 }					t_state;
 
 typedef struct		s_render_vertex
 {
 	t_v2			texture_scale;
-	t_v2			sprite_scale;
+	t_v2			*sprite_scale;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -129,6 +171,7 @@ typedef struct		s_render_vertex
 	double			c1;
 	double			c2;
 	double			x;
+	double			y;
 	double			neighbor_f1;
 	double			neighbor_f2;
 	double			neighbor_floor_range;
@@ -147,6 +190,7 @@ typedef struct		s_render_vertex
 	double			floor_horizon;
 	double			ceiling_horizon;
 	double			xrange;
+	double			yrange;
 	double			clipped_xrange;
 	double			floor_range;
 	double			ceiling_range;
@@ -162,12 +206,41 @@ typedef struct		s_render_vertex
 	double			yzrange;
 }					t_render_vertex;
 
-typedef struct		s_wall_sprite
+typedef	struct		s_teleport
 {
-	short			sprite;
-	t_v2			pos;
-	t_v2			scale;
-}					t_wall_sprite;
+	int		create;
+	int		selected;
+	int		sector;
+	t_v3		tmp_pos;
+}				t_teleport;
+
+/*
+** Sprite structure with associated texture
+** and 1 to 8 image cut on this texture
+*/
+
+typedef struct		s_sprite
+{
+	int				oriented;
+	int				texture;
+	t_point			start[8];
+	t_point			end[8];
+	t_point			size[8];
+	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
+	int				firing_sprite;
+	int				pursuit_sprite;
+	int				death_counterpart;
+	int				nb_death_sprites;
+}					t_sprite;
+
+typedef struct		s_wall_sprites
+{
+	short			*sprite;
+	t_v2			*pos;
+	t_v2			*scale;
+}					t_wall_sprites;
 
 typedef struct		s_sector
 {
@@ -194,20 +267,28 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
+	int				*xmin;
+	int				*xmax;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	t_wall_sprite	*sprites;
+	t_wall_sprites	*sprites;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	t_v3			tp;
 	short			*selected;
 	short			num;
 	short			nb_vertices;
+	short			*nb_sprites;
 	int				skybox;
-	int				statue;
+	int				status;
 	int				brightness;
 	int				*levels;
+	double			start_floor;
+	int				enemy_flag;
+	int				activated;
+	int				hidden;
 	Uint32			light_color;
 }					t_sector;
 
@@ -274,6 +355,32 @@ typedef struct		s_camera
 	int				size;
 }					t_camera;
 
+typedef struct		s_vline_data
+{
+	double			alpha;
+	double			clipped_alpha;
+	double			divider;
+	double			z;
+	double			current_ceiling;
+	double			current_floor;
+	double			max_ceiling;
+	double			max_floor;
+	double			z_near_z;
+	double			no_slope_current_floor;
+	double			no_slope_current_ceiling;
+	double			inv_line_height;
+	double			ceiling_start;
+	double			floor_start;
+	double			wall_texel;
+	double			zrange;
+	double			falpha_divider;
+	double			calpha_divider;
+	t_v2			texel;
+	t_v2			texel_near_z;
+	t_v2			camera_z;
+	t_v2			texel_camera_range;
+}					t_vline_data;
+
 typedef	struct		s_init_data
 {
 	t_v3			pos;
@@ -295,6 +402,7 @@ typedef struct		s_player
 	double			gravity;
 	double			eyesight;
 	double			speed;
+	double			start_speed;
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
@@ -335,7 +443,10 @@ typedef struct		s_keys
 	int				plus;
 	int				minus;
 	int				shift;
+	int				shift2;
 	int				ctrl;
+	int				home;
+	int				end;
 	int				space;
 	int				down;
 	int				up;
@@ -348,6 +459,9 @@ typedef struct		s_keys
 	int				period;
 	int				minus1;
 	int				equals;
+	int				p;
+	int				a;
+	int				lgui;
 }					t_keys;
 
 /*
@@ -379,6 +493,11 @@ typedef struct		s_inputs
 	uint8_t			period;
 	uint8_t			minus1;
 	uint8_t			equals;
+	uint8_t			p;
+	uint8_t			home;
+	uint8_t			end;
+	uint8_t			a;
+	uint8_t			lgui;
 }					t_inputs;
 
 /*
@@ -395,6 +514,7 @@ typedef struct		s_fonts
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
+	TTF_Font		*lato20;
 }					t_fonts;
 
 /*
@@ -422,8 +542,10 @@ typedef struct		s_audio
 typedef struct		s_time
 {
 	double			tick;
+	double			scroll_tick;
 	double			tick2;
 	double			tick3;
+	double			tick4;
 	double			start;
 	double			end;
 	double			minuts;
@@ -440,7 +562,9 @@ typedef struct		s_time
 typedef struct		s_gravity
 {
 	double			velocity;
-	double			acceleration;	
+	double			acceleration;
+	double			force;
+	double			collision;
 }					t_gravity;
 
 typedef struct		s_animation
@@ -472,27 +596,6 @@ typedef struct		s_weapons
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
-
-/*
-** Sprite structure with associated texture
-** and 1 to 8 image cut on this texture
-*/
-
-typedef struct		s_sprite
-{
-	int				oriented;
-	int				texture;
-	t_point			start[8];
-	t_point			end[8];
-	t_point			size[8];
-	int				reversed[8];
-	int				rest_sprite;
-	int				curr_sprite;
-	int				firing_sprite;
-	int				pursuit_sprite;
-	int				death_counterpart;
-	int				nb_death_sprites;
-}					t_sprite;
 
 /*
 ** Projectile structure
@@ -650,6 +753,8 @@ typedef struct		s_options
 	int				clipping;
 	int				show_ennemies;
 	int				zbuffer;
+	int				p;
+	int				animations;
 }					t_options;
 
 /*
@@ -688,7 +793,7 @@ typedef struct		s_rectangle
 	int				filled;
 	int				line_size;
 }					t_rectangle;
-
+ 
 /*
 **	Data for button
 */
@@ -696,11 +801,30 @@ typedef struct		s_rectangle
 typedef struct		s_button
 {
 	t_rectangle		up;
+	t_rectangle		hover;
 	t_rectangle		pressed;
 	t_rectangle		down;
+	t_texture		*img_up;
+	t_texture		*img_hover;
+	t_texture		*img_pressed;
+	t_texture		*img_down;
+	Uint32			up_text_color;
+	Uint32			hover_text_color;
+	Uint32			pressed_text_color;
+	Uint32			down_text_color;
 	t_point			pos;
-	t_point			size;
+	t_point			size_up;
+	t_point			size_pressed;
+	t_point			size_down;
+	t_point			size_hover;
+	char			*str;
+	TTF_Font		*font;
 	int				state;
+	int			draw;
+	int				anim_state;
+	void			(*down_action)(void *);
+	void			(*press_action)(void *);
+	void			*target;
 }					t_button;
 
 /*
@@ -717,6 +841,52 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
+	void			(*yes_action)(void *);
+	void			*yes_target;
+	void			(*no_action)(void *);
+	void			*no_target;
 }					t_confirmation_box;
 
+/*
+**	Data for input box
+**	str = string content. User has to strdup and strdel it correctly
+**	type = INT, DOUBLE, STRING
+*/
+
+typedef struct		s_input_box
+{
+	TTF_Font		*font;
+	t_point			size;
+	t_point			pos;
+	int			state;
+	int			type;
+	int			caps;
+	int			period;
+	int			selecting;
+	int			cursor_state;
+	int			add_period;
+	size_t			cursor;
+	size_t			float_count;
+	size_t			int_count;
+	size_t			period_index;
+	size_t			minus;
+	size_t			select_start;
+	size_t			select_end;
+	char			*str;
+	Uint32			del_timer;
+	Uint32			del_delay;
+	Uint32			cursor_timer;
+	Uint32			cursor_delay;
+	Uint32			move_cursor_timer;
+	Uint32			move_cursor_delay;
+	Uint32			input_timer;
+	Uint32			input_delay;
+	Uint32			same_touch_timer;
+	char			**str_target;
+	int			*int_target;
+	double			*double_target;
+	void			*target;
+	void			(*action)(void *);
+}					t_input_box;
+  
 #endif

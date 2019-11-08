@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/10/23 17:26:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:07:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
 	t_v3 direction;
-	t_v2 move;
+	t_v3 move;
 
 	(void)distance;
 	if (enemy.exists &&
@@ -336,7 +336,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
 	t_v3 direction;
-	t_v2 move;
+	t_v3 move;
 
 	if (enemy.exists &&
 		distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1 &&

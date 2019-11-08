@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_ceiling.c									 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/10 16:56:56 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/19 18:04:15 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_ceiling.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/08 17:45:41 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -18,22 +18,23 @@
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
+void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		t_env *env)
 {
 	int		i;
-	double	y;
-	double	x;
 	Uint32	*pixels;
 	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		coord;
 	int		texture_w;
 	int		texture_h;
+	double	y;
+	double	x;
 	double	z;
 	double	alpha;
 	double	divider;
 
+	(void)render;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	texture_w = env->textures[sector.ceiling_texture].surface->w;
@@ -53,13 +54,8 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 		}
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
-			env->selected_wall1 = -1;
-			env->selected_wall2 = -1;
+			reset_selection(env);
 			env->selected_ceiling = render.sector;
-			env->selected_floor = -1;
-			env->selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.selected_wall = -1;
 		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
 			* divider;
@@ -74,7 +70,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 			x = ft_abs((int)x % texture_w);
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
-			if (!env->options.lighting)
+			if (!env->options.lighting && !env->playing)
 				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
@@ -85,6 +81,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 				if (i == (int)(render.max_ceiling) || i == vline.start)
 					pixels[vline.x + env->w * i] = 0xFFFF0000;
 		}
+		//pixels[coord] = apply_light(0xFAA2200, sector.light_color, sector.brightness);
 		i++;
 	}
 }
@@ -93,7 +90,7 @@ void	draw_vline_ceiling2(t_sector sector, t_vline vline, t_render render,
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_ceiling_color2(t_vline vline, t_render render, t_env *env)
+void	draw_vline_ceiling_color(t_vline vline, t_render render, t_env *env)
 {
 	int		coord;
 	Uint32	*pixels;
@@ -123,15 +120,19 @@ void	draw_vline_ceiling_color2(t_vline vline, t_render render, t_env *env)
 	}
 }
 
-void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
+void	draw_ceiling(t_sector sector, t_render render, t_env *env)
 {
 	t_vline	vline;
 
 	vline.x = render.x;
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
-	if (sector.skybox)
-		draw_skybox2(render, 0, env);
+	/*if (sector.skybox)
+		draw_skybox(render, 0, env);
 	else
-		draw_vline_ceiling2(sector, vline, render, env);
+		draw_vline_ceiling(sector, vline, render, env);*/
+	if (sector.ceiling_texture == -1)
+		draw_skybox(render, 0, env);
+	else
+		draw_vline_ceiling(sector, vline, render, env);
 }

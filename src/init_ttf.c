@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/03 15:49:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:44:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		init_ttf(t_env *env)
 	env->sdl.fonts.bebasneue = TTF_OpenFont("fonts/bebas_neue/BebasNeue-Regular.ttf", 20);
 	env->sdl.fonts.montserrat20 = TTF_OpenFont("fonts/montserrat/Montserrat-Regular.ttf", 20);
 	env->sdl.fonts.playfair_display20 = TTF_OpenFont("fonts/playfair-display/PlayfairDisplay-Regular.ttf", 20);
+	env->sdl.fonts.lato20 = TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20);
 	return (0);
 }

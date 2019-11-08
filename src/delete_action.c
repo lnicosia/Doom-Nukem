@@ -1,16 +1,36 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   delete_action.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/30 15:41:33 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/04 11:38:12 by sipatry		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delete_action.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
+/*   Updated: 2019/11/08 17:44:47 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void		delete_selected_sector(void *param)
+{
+	t_env	*env;
+	int	i;
+
+	env = (t_env *)param;
+	delete_sector(env, env->editor.selected_sector);
+	delete_invalid_sectors(env);
+	delete_invalid_vertices(env);
+	env->editor.selected_sector = -1;
+	clear_portals(env);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		create_portals(env, env->sectors[i]);
+		i++;
+	}
+	env->player.sector = get_sector_global(env, env->player.pos);
+}
 
 int		delete_action(t_env *env)
 {
@@ -31,15 +51,13 @@ int		delete_action(t_env *env)
 			i++;
 		}
 	}
-	if (env->editor.selected_sector != -1)
+	if (env->editor.selected_sector != -1 && !env->confirmation_box.state)
 	{
-		if (!env->confirmation_box.state)
-		{
-			env->confirmation_box.state = 1;
-			if (!(env->confirmation_box.str = ft_strdup("Delete the selected sector?")))
-				return (ft_perror("Could not malloc confirmation box str"));
-			new_confirmation_box(&env->confirmation_box, env);
-		}
+		if (update_confirmation_box(&env->confirmation_box,
+			"Delete the selected sector?", env))
+			return (-1);
+		env->confirmation_box.yes_action = delete_selected_sector;
+		env->confirmation_box.yes_target = env;
 	}
 	if (env->editor.selected_object != -1)
 	{

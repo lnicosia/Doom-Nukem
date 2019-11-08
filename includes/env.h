@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/05 18:08:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:56:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,25 @@ typedef struct		s_env
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;
-	t_confirmation_box	confirmation_box;
 	t_elevator			elevator;
 	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
+	t_vline_data		*vline_data;
+	t_teleport			teleport;
+	t_hidden_sect		hidden_sect;
+	t_confirmation_box	confirmation_box;
+	t_input_box			input_box;
+	int					saving;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
 	int					selected_wall2;
 	int					selected_floor;
+	int					selected_wall_sprite_sprite;
+	int					selected_wall_sprite_wall;
 	int					selected_ceiling;
 	int					selected_object;
 	int					selected_enemy;
@@ -89,11 +96,47 @@ typedef struct		s_env
 	int					reset;
 	int					*ymax;
 	int					*ymin;
+	int					*xmax;
+	int					*xmin;
+	double				*max_ceiling;
+	double				*max_floor;
+	double				*current_ceiling;
+	double				*current_floor;
+	double				*alpha;
+	double				*clipped_alpha;
+	double				*z;
+	double				*divider;
+	double				*line_height;
+	double				*no_slope_current_floor;
+	double				*no_slope_current_ceiling;
+	double				*ceiling_start;
+	double				*floor_start;
+	double				*z_near_z;
+	double				*neighbor_max_ceiling;
+	double				*neighbor_max_floor;
+	double				*neighbor_current_ceiling;
+	double				*neighbor_current_floor;
+	t_v2				*texel;
+	t_v2				*wall_texel;
+	t_v2				*texel_near_z;
+	t_v2				*camera_z;
+	t_v2				*texel_camera_range;
+	double				*zrange;
 	int					current_object;
 	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
+	double				avrg_fps;
+	int				min_fps;
+	int				max_fps;
+	double				avrg_fps2;
+	int				min_fps2;
+	int				max_fps2;
+	int				contains_skybox;
+	double				render_swap_time;
+	Uint32*				tmp_first_sprite;
+	char				*save_file;
 }					t_env;
 
 /*
@@ -111,10 +154,15 @@ typedef struct		s_env
 
 int					init_editor(int ac, char **av);
 int					editor(t_env *env);
+void				editor_3d_keys(t_env *env);
+void				wall_sprites_keys(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
+int					editor_mouse(t_env *env);
+int				editor_keyup(t_env *env);
+int				editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
@@ -145,9 +193,8 @@ void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 void				free_camera(t_camera *camera);
 int					editor_render(t_env *env);
-int					save_map(char *file, t_env *env);
+int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
-void				editor_keyup(t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
@@ -175,6 +222,19 @@ void				update_objects_z(t_env *env);
 void				selected_information_on_enemy(t_env *env);
 void				selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
+void				reset_selection(t_env *env);
+void				draw_input_box(t_input_box *box, t_env *env);
+void				input_box_keys(t_input_box *box, t_env *env);
+int				init_input_box(t_input_box *box, t_env *env);
+int				input_box_mouse(t_input_box *box, t_env *env);
+int				new_input_box(t_input_box *box, t_point pos,
+int type, void *target);
+int				set_double_stats(t_input_box *box);
+int				validate_input(t_input_box *box, t_env *env);
+int				del_char(t_input_box *box, int mode);
+int				delete_box_selection(t_input_box *box);
+char				ft_getchar(int input, int shift);
+int				add_char(t_input_box *box, char c);
 
 /*
 ** Main functions
@@ -255,14 +315,20 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 src, Uint32 color, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
-int					new_confirmation_box(t_confirmation_box *box, t_env *env);
-int					draw_confirmation_box(t_confirmation_box box, t_env *env);
+int				update_confirmation_box(t_confirmation_box *box, char *str, t_env *env);
+int				draw_confirmation_box(t_confirmation_box box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
 		t_point size);
 t_button			new_button(t_rectangle up, t_rectangle pressed,
-		t_rectangle down);
+t_rectangle down, t_rectangle hover);
+t_button			new_button_img(t_texture *up, t_texture *pressed,
+t_texture *down, t_texture *hover);
+t_button			new_image_button(int type, void (*action)(void *),
+void *target, t_env *env);
+t_button			new_rectangle_button(int type, void (*action)(void *),
+void *target, t_env *env);
 void				draw_button(t_env *env, t_button b);
 
 /*
@@ -279,7 +345,6 @@ void				check_parsing(t_env *env);
 void				keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
-void				confirmation_box_keyup_ig(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
@@ -296,8 +361,8 @@ int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
-double				get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env);
-double				get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env);
+double				get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env);
+double				get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env);
 t_v2				get_sector_normal(t_sector sector, t_env *env);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
@@ -341,9 +406,19 @@ double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector, t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
-void				respawn(t_env *env);
+void				respawn(void *param);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
+void				create_teleport(t_env *env);
+int					check_player_z(t_env *env);
+void				hidden_sectors(t_env *env);
+void				create_hidden_sector(t_env *env);
+void				activate_sector(t_env *env, int i);
+void				button_keys(t_button *b, t_env *env);
+void				button_keyup(t_button *b, t_env *env);
+void				draw_button_text(t_button b, t_env *env);
+int				is_mouse_on_button(t_button b, t_point mouse);
+t_point				get_button_current_size(t_button b);
 
 /*
 ** enemies functions

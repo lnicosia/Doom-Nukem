@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/06 11:20:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:54:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,23 @@ void    draw_weapon(t_env *env, int sprite)
 	texture_h = env->textures[sprite].surface->h;
 	window_w = (int)(env->w - texture_w) / 1.5;
 	window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
-	x = 0;
-	while (x < texture_w)
+	y = 0;
+	while (y < texture_h)
 	{
-		y = 0;
-		while (y < texture_h  && (window_h + y) < env->h)
+		x = 0;
+		while (x < texture_w  && (window_h + y) < env->h)
 		{
+			//ft_printf("Player sector = %d\n", env->player.sector);
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
 				pixels[(window_w + x) + env->w * (window_h + y)] = 
-					texture_pixels[x + texture_w * y];
-			y++;
+					apply_light(texture_pixels[x + texture_w * y],
+							env->sectors[env->player.sector].light_color,
+							env->sectors[env->player.sector].brightness);
+				//pixels[(window_w + x) + env->w * (window_h + y)] = 
+					//texture_pixels[x + texture_w * y];
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 

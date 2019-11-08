@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 15:29:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:49:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ int		init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
+	env.min_fps = 300;
+	env.avrg_fps = 0;
+	env.max_fps = 0;
+	env.min_fps2 = 300;
+	env.avrg_fps2 = 0;
+	env.max_fps2 = 0;
+	env.render_swap_time = 0;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.new_player = 1;
@@ -68,6 +75,8 @@ int		init_game(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (init_sprites(&env))
+		return (crash("Could not load sprites\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
@@ -75,8 +84,6 @@ int		init_game(int ac, char **av)
 		return (crash("Could not init camera\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (init_sprites(&env))
-		return (crash("Could not load sprites\n", &env));
 	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not allocate sector list\n", &env));
 	while (i < env.nb_objects)
@@ -112,8 +119,8 @@ int		init_game(int ac, char **av)
 	update_camera_position(&env.fixed_camera);
 	save_init_data(&env);
 	env.projectiles = NULL;
-	env.confirmation_box.font = env.sdl.fonts.alice30;
 	env.confirmation_box.state = 0;
+	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
 	return (doom(&env));
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:17:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:50:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_r)
-	{
-		ft_printf("player angle = %f\n", env->player.camera.angle * CONVERT_DEGREES);
-		ft_printf("will reload on day\n");
-	}
+		ft_printf("will reload one day\n");
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
@@ -65,6 +62,8 @@ void	keyup(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_p)
+		env->options.p = env->options.p ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 	{
 		env->option = env->option ? 0 : 1;
@@ -75,8 +74,10 @@ void	keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
+	//if (env->confirmation_box.state)
+		//confirmation_box_keyup_ig(&env->confirmation_box, env);
 	if (env->confirmation_box.state)
-		confirmation_box_keyup_ig(&env->confirmation_box, env);
+		confirmation_box_keyup(&env->confirmation_box, env);
 }
 
 void	screen_options(t_env *env)

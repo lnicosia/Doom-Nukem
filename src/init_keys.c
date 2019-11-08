@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   init_keys.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/24 15:22:49 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/19 17:56:12 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_keys.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/04 11:59:27 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -26,6 +26,7 @@ void	init_keys(t_env *env)
 	env->keys.plus = SDLK_KP_PLUS;
 	env->keys.minus = SDLK_KP_MINUS;
 	env->keys.shift = SDLK_LSHIFT;
+	env->keys.shift2 = SDLK_RSHIFT;
 	env->keys.ctrl = SDLK_LCTRL;
 	env->keys.space = SDLK_SPACE;
 	env->keys.up = SDLK_PAGEUP;
@@ -39,4 +40,9 @@ void	init_keys(t_env *env)
 	env->keys.period = SDLK_PERIOD;
 	env->keys.minus1 = SDLK_MINUS;
 	env->keys.equals = SDLK_EQUALS;
+	env->keys.p = SDLK_p;
+	env->keys.end = SDLK_END;
+	env->keys.home = SDLK_HOME;
+	env->keys.a = 'a';
+	env->keys.lgui = SDLK_LGUI;
 }

@@ -67,3 +67,9 @@ photoshop_sprite
 # Windows objects
 doom.exe.stackdump
 doom_editor.exe.stackdump
+
+# Perf log file
+benchmark.txt
+
+# Pre commit file
+done.txt

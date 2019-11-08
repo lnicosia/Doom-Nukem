@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:15:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:39:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,20 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 	clipped_pos.y = camera->v[sector->num][i].clipped_vz1 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx1 * camera->angle_cos + camera->pos.y;
 	camera->v[sector->num][i].clipped_vf1 = get_floor_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	camera->v[sector->num][i].clipped_vc1 = get_ceiling_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	clipped_pos.x = camera->v[sector->num][i].clipped_vx2 * camera->angle_sin
 		+ camera->v[sector->num][i].clipped_vz2 * camera->angle_cos + camera->pos.x;
 	clipped_pos.y = camera->v[sector->num][i].clipped_vz2 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx2 * camera->angle_cos + camera->pos.y;
 	camera->v[sector->num][i].clipped_vf2 = get_floor_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 	camera->v[sector->num][i].clipped_vc2 = get_ceiling_at_pos(*sector,
-			new_v2(clipped_pos.x, clipped_pos.y),
+			new_v3(clipped_pos.x, clipped_pos.y, 0),
 			env);
 }
 
@@ -99,6 +99,8 @@ void		compute_wall(int i, t_camera *camera, t_sector *sector, t_env *env)
 void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
+	int	j;
+
 	sector->selected[i] = 0;
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
@@ -127,19 +129,34 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	if (camera->v[sector->num][i + 1].vz)
 	{
 		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
-		if (sector->sprites[i].sprite != -1)
-			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].vz;
+		j = 0;
+		while (j < sector->nb_sprites[i])
+		{
+			if (sector->sprites[i].sprite[j] != -1)
+				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i + 1].vz * sector->wall_width[i];
+			j++;
+		}
 	}
 	else
 	{
 		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10)
 			/ camera->v[sector->num][i].clipped_vz2;
-		if (sector->sprites[i].sprite != -1)
-			camera->v[sector->num][i].sprite_scale.x = sector->scale[i].x * (sector->wall_width[i] / sector->sprites[i].scale.x) / camera->v[sector->num][i + 1].clipped_vz2;
+		j = 0;
+		while (j < sector->nb_sprites[i])
+		{
+			if (sector->sprites[i].sprite[j] != -1)
+				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i].clipped_vz2 * sector->wall_width[i];
+			j++;
+		}
 	}
 	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / 10;
-	if (sector->sprites[i].sprite != -1)
-		camera->v[sector->num][i].sprite_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / sector->sprites[i].scale.y;
+	j = 0;
+	while (j < sector->nb_sprites[i])
+	{
+		if (sector->sprites[i].sprite[j] != -1)
+			camera->v[sector->num][i].sprite_scale[j].y = sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
+		j++;
+	}
 }
 
 void		get_rendered_neighbors(t_camera *camera, t_sector sector, t_env *env)
@@ -187,11 +204,11 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 	i = -1;
 	camera->sector_computed[sector->num] = 1;
 	camera->feet_y[sector->num] = env->h_h + (get_floor_at_pos(*sector,
-				new_v2(camera->pos.x, camera->pos.y), env)
+				new_v3(camera->pos.x, camera->pos.y, 0), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;
 	camera->head_y[sector->num] = env->h_h + (get_ceiling_at_pos(*sector,
-				new_v2(camera->pos.x, camera->pos.y), env)
+				new_v3(camera->pos.x, camera->pos.y,0 ), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;
 	while (++i < sector->nb_vertices)
@@ -217,7 +234,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}
-	if (sector->skybox && !env->skybox_computed)
+	if (env->contains_skybox && !env->skybox_computed)
 		precompute_skybox(env);
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 }
@@ -277,7 +294,12 @@ int			draw_walls(t_camera *camera, t_env *env)
 		render.xmax = camera->xmax[i];
 		render.sector = camera->screen_sectors[i];
 		render.camera = camera;
-		render_sector2(render, env);
+		render.ystart = 0;
+		render.yend = env->h - 1;
+		if (env->options.p)
+			render_sector(render, env);
+		else
+			render_sector2(render, env);
 		i++;
 	}
 	return (0);

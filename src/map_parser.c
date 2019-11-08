@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/25 15:40:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:39:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ void	init_player(t_env *env)
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
-	env->player.speed = 0.5;
+	env->player.speed = 0.3;
+	env->player.start_speed = 0.3;
 	env->player.pos.z = 0;
 	env->player.health = 100;
 	env->player.killed = 0;
@@ -165,8 +166,11 @@ void	init_player(t_env *env)
 	env->player.state.fall = 0;
 	env->player.state.climb = 0;
 	env->player.state.jump = 0;
+	env->player.state.fly = 0;
 	env->player.state.crouch = 0;
 	env->player.state.walk = 0;
+	env->gravity.force = -9.81;
+	env->gravity.collision = 0;
 }
 
 int		parse_map(char *file, t_env *env)
@@ -196,8 +200,8 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	//return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &parser))
-		return (-1);
-	//return (custom_error("Error while parsing sectors"));
+		return (custom_error("Error while parsing sectors"));
+				//return (-1);
 	precompute_slopes(env);
 	if (init_objects(env, &parser))
 		return (-1);

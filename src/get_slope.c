@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_slope.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 16:15:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:40:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ double	get_distance(t_sector sector, short vertex_nb, t_env *env)
 ** (according to the sector's slope)
 */
 
-double	get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env)
+double	get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
@@ -108,7 +108,7 @@ double	get_floor_at_pos(t_sector sector, t_v2 pos, t_env *env)
 ** (according to the sector's slope)
 */
 
-double	get_ceiling_at_pos(t_sector sector, t_v2 pos, t_env *env)
+double	get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
@@ -159,12 +159,12 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 		v1 = env->vertices[sector->vertices[i]];
 		if (sector->floor_slope != 0)
 			sector->floors[i] = get_floor_at_pos(*sector,
-					new_v2(v1.x, v1.y), env);
+					new_v3(v1.x, v1.y, 0), env);
 		else
 			sector->floors[i] = sector->floor;
 		if (sector->ceiling_slope != 0)
 			sector->ceilings[i] = get_ceiling_at_pos(*sector,
-					new_v2(v1.x, v1.y), env);
+					new_v3(v1.x, v1.y, 0), env);
 		else
 			sector->ceilings[i] = sector->ceiling;
 		if (sector->floors[i]
@@ -198,7 +198,7 @@ void	precompute_slopes(t_env *env)
 {
 	int	i;
 
-	ft_printf("{reset}Computing map slopes..\n{red}");
+	//ft_printf("{reset}Computing map slopes..\n{red}");
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -206,5 +206,6 @@ void	precompute_slopes(t_env *env)
 		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}
+	//ft_printf("{reset}");
 	//check_slopes(env);
 }

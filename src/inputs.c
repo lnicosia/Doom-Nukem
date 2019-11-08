@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 17:56:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:58:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.plus = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.minus)
 		env->inputs.minus = mode;
-	if (env->sdl.event.key.keysym.sym == env->keys.shift)
+	if (env->sdl.event.key.keysym.sym == env->keys.shift
+			|| env->sdl.event.key.keysym.sym == env->keys.shift2)
 		env->inputs.shift = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.space)
 		env->inputs.space = mode;
@@ -108,6 +109,16 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.minus1 = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.equals)
 		env->inputs.equals = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.p)
+		env->inputs.p = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.home)
+		env->inputs.home = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.end)
+		env->inputs.end = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.a)
+		env->inputs.a = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.lgui)
+		env->inputs.lgui = mode;
 
 }
 

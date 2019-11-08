@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 12:53:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 12:33:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	update_walls_sprites_state(t_env *env)
 	t_sector	sector;
 	int			i;
 	int			j;
+	int			k;
 	double		diff;
 
 	i = 0;
@@ -27,17 +28,16 @@ void	update_walls_sprites_state(t_env *env)
 		while (j < sector.nb_vertices)
 		{
 			diff = env->time.milli_s - sector.sprite_time;
-			if ((int)diff % 340 > 170)
+			k = -1;
+			while (++k < sector.nb_sprites[j])
 			{
-				env->sectors[i].sprite_time = 0;
-				//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-				env->sectors[i].sprites[j].sprite = 3;
-			}
-			else
-			{
-				env->sectors[i].sprite_time = 0;
-				//env->sectors[i].sprites[j].sprite = env->sprites[sector.sprites[j].sprite].rest_sprite;
-				env->sectors[i].sprites[j].sprite = 1;
+				if (sector.sprites[j].sprite[k] == -1)
+					continue;
+				if (diff > 200)
+				{
+					env->sectors[i].sprite_time = env->time.milli_s;
+					env->sectors[i].sprites[j].sprite[k] = env->sprites[env->sectors[i].sprites[j].sprite[k]].rest_sprite;
+				}
 			}
 			j++;
 		}
@@ -48,5 +48,5 @@ void	update_walls_sprites_state(t_env *env)
 void	update_sprites_state(t_env *env)
 {
 	(void)env;
-	//update_walls_sprites_state(env);
+	update_walls_sprites_state(env);
 }

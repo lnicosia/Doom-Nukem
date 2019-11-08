@@ -1,16 +1,18 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   fill_new_sector.c								  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/29 11:19:19 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/08/30 15:56:01 by sipatry		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_new_sector.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/01 17:37:03 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+//	PROTECTION!!
 
 void	revert_sector(t_sector *sector, t_env *env)
 {
@@ -39,6 +41,8 @@ void	revert_sector(t_sector *sector, t_env *env)
 	sector->vertices = tmp;
 }
 
+//	PROTECTION!!
+
 void	fill_new_sector(t_sector *sector, t_env *env)
 {
 	int			i;
@@ -57,11 +61,8 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
-		sector->textures[index] = 0;
-		sector->sprites[index].sprite = -1;
-		sector->sprites[index].pos = new_v2(0, 0);
-		sector->sprites[index].scale = new_v2(env->textures[sector->textures[index]].surface->w,
-env->textures[sector->textures[index]].surface->h);
+		sector->textures[index] = 32;
+		sector->nb_sprites[index] = 0;
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,
 env->textures[sector->textures[index]].surface->h);

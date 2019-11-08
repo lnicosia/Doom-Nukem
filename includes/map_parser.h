@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/20 10:25:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:02:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int					count_vertices(char *line, t_map_parser *parser);
 int					count_neighbors(char *line, t_map_parser *parser);
 int					count_textures(char *line, t_map_parser *parser);
 int					count_sprites(char *line, t_map_parser *parser);
+int					count_wall_sprites(char *line, t_map_parser *parser);
 
 /*
 **	Protection

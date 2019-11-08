@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elevator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 14:34:12 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 14:34:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 17:47:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	check_up_down(t_env *env, t_sector sector)
 		{
 			if (sector.neighbors[i] != -1)
 			{
-				if ((env->sectors[sector.neighbors[i]].statue == 2
-							|| env->sectors[sector.neighbors[i]].statue == 1 )
-						&& env->sectors[sector.neighbors[i]].floor != sector.floor)
+				if ((env->sectors[sector.neighbors[i]].status == 2
+				|| env->sectors[sector.neighbors[i]].status == 1 )
+				&& env->sectors[sector.neighbors[i]].floor != sector.floor)
 					env->elevator.next_stop = env->sectors[sector.neighbors[i]].floor;
 			}
 			i++;
@@ -75,79 +75,138 @@ void	call_elevator(t_env *env)
 {
 	t_sector	sector;
 	int			i;
-	int			elevator;
+	double		time;
+	double		new_floor;
 
 	i = 0;
-	elevator = 0;
-	sector = env->sectors[env->player.sector];
-	while (i < sector.nb_vertices)
-	{
-		if (env->sectors[sector.neighbors[i]].statue == 1)
-			elevator = sector.neighbors[i];
-		i++;
+	if (env->elevator.called_from == -1)
+		env->elevator.called_from = env->player.sector;
+	sector = env->sectors[env->elevator.called_from];
+	if (env->elevator.sector == -1)
+	{	
+		while (i < sector.nb_vertices)
+		{
+			if (sector.neighbors[i] != -1 && env->sectors[sector.neighbors[i]].status == 1)
+				env->elevator.sector = sector.neighbors[i];
+			i++;
+		}
 	}
-	if (env->sectors[elevator].floor != env->sectors[env->player.sector].floor)
+	if ((env->sectors[env->elevator.sector].floor
+	!= env->sectors[env->elevator.called_from].floor) || env->elevator.call)
 	{
-		find_call(env, sector, elevator);
+		time = SDL_GetTicks();
+		env->elevator.call = 1;
+		find_call(env, sector, env->elevator.sector);
 		env->elevator.on = 1;
+		if (!env->elevator.time)
+		{
+			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
+			env->elevator.time = SDL_GetTicks();
+		}
+		env->time.d_time = time - env->elevator.time;
 		if (env->elevator.down)
 		{
-			env->sectors[elevator].floor -= 0.1;
-			env->sectors[elevator].ceiling
-				= env->sectors[elevator].floor + 10;
+			new_floor = env->elevator.start_floor - (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
 		}
 		else if (env->elevator.up)
 		{
-			env->sectors[elevator].floor += 0.1;
-			env->sectors[elevator].ceiling
-				= env->sectors[elevator].floor + 10;
+			new_floor = env->elevator.start_floor + (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
 		}
-		if ((env->sectors[elevator].floor > env->sectors[env->player.sector].floor && env->elevator.up)
-				|| (env->sectors[elevator].floor < env->sectors[env->player.sector].floor && env->elevator.down))
+		update_sector_slope(env, &env->sectors[env->elevator.sector]);
+		if ((env->sectors[env->elevator.sector].floor > env->sectors[env->elevator.called_from].floor && env->elevator.up)
+				|| (env->sectors[env->elevator.sector].floor < env->sectors[env->elevator.called_from].floor && env->elevator.down))
 		{
-			env->sectors[elevator].floor = env->sectors[env->player.sector].floor;	
-			env->elevator.next_stop = 0;
-			env->elevator.on = 0;
-			env->elevator.up = 0;
-			env->elevator.down = 0;
-		}
-		update_sector_slope(env, &env->sectors[elevator]);
-	}
-}
-
-void	activate_elevator(t_env *env)
-{
-	t_sector sector;
-
-	sector = env->sectors[env->player.sector];
-	if (sector.statue == 1)
-	{
-		check_up_down(env, sector);
-		env->elevator.on = 1;
-		if (env->elevator.down)
-		{
-			env->sectors[env->player.sector].floor -= 0.1;
-			env->sectors[env->player.sector].ceiling
-				= env->sectors[env->player.sector].floor + 10;
-		}
-		else if (env->elevator.up)
-		{
-			env->sectors[env->player.sector].floor += 0.1;
-			env->sectors[env->player.sector].ceiling
-				= env->sectors[env->player.sector].floor + 10;
-		}
-		if ((env->sectors[env->player.sector].floor > env->elevator.next_stop && env->elevator.up)
-				|| (env->sectors[env->player.sector].floor < env->elevator.next_stop && env->elevator.down))
-		{
-			env->sectors[env->player.sector].floor = env->elevator.next_stop;	
+			env->sectors[env->elevator.sector].floor = env->sectors[env->elevator.called_from].floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
+			update_sector_slope(env, &env->sectors[env->elevator.sector]);
 			env->elevator.next_stop = 0;
 			env->elevator.on = 0;
 			env->elevator.up = 0;
 			env->elevator.down = 0;
 			env->elevator.off = 1;
-		}
-		update_sector_slope(env, &env->sectors[env->player.sector]);
+			env->elevator.sector = -1;
+			env->elevator.call = 0;
+			env->elevator.called_from = -1;
+			env->elevator.time = 0;
+		}	
 	}
 	else
+	{
+		env->elevator.called_from = -1;
+		env->elevator.sector = -1;
+	}
+}
+
+void	activate_elevator(t_env *env)
+{
+	int		i;
+	double		time;
+	t_sector	sector;
+	double		new_floor;
+
+	i = 0;
+	time = 0;
+	new_floor = 0;
+	sector = env->sectors[env->player.sector];
+	if ((sector.status == 1 && !env->elevator.call) || env->elevator.used)
+	{
+		check_up_down(env, sector);
+		env->elevator.on = 1;
+		env->elevator.used = 1;
+		if (env->elevator.used)
+		{
+			time = SDL_GetTicks();
+		}
+		if (env->elevator.sector == -1)
+			env->elevator.sector = env->player.sector;
+		if (!env->elevator.time)
+		{
+			env->elevator.start_floor = env->sectors[env->elevator.sector].floor;
+			env->elevator.time = SDL_GetTicks();
+		}
+;		env->time.d_time = time - env->elevator.time;
+		if (env->elevator.down)
+		{
+			new_floor = env->elevator.start_floor - (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->player.sector].floor + 10;
+		}
+		else if (env->elevator.up)
+		{
+			new_floor = env->elevator.start_floor + (env->elevator.speed * env->time.d_time);
+			env->sectors[env->elevator.sector].floor = new_floor;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
+		}
+		update_sector_slope(env, &env->sectors[env->elevator.sector]);
+		if ((env->sectors[env->elevator.sector].floor > env->elevator.next_stop && env->elevator.up)
+				|| (env->sectors[env->elevator.sector].floor < env->elevator.next_stop && env->elevator.down))
+		{
+			env->sectors[env->elevator.sector].floor = env->elevator.next_stop;
+			env->sectors[env->elevator.sector].ceiling
+				= env->sectors[env->elevator.sector].floor + 10;
+			update_sector_slope(env, &env->sectors[env->elevator.sector]);
+			env->elevator.next_stop = 0;
+			env->elevator.on = 0;
+			env->elevator.up = 0;
+			env->elevator.down = 0;
+			env->elevator.off = 1;
+			env->elevator.sector = -1;
+			env->elevator.used  = 0;
+			env->time.d_time = 0;
+			env->elevator.time = 0;
+			env->elevator.start_floor = 0;
+		}
+		update_player_z(env);
+	}
+	else if (!env->elevator.used)
 		call_elevator(env);
 }

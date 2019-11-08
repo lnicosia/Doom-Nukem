@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:14:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:42:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	select_informations(t_env *env)
 {
 	if (env->selected_enemy != -1)
-		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|							 |<-",
+		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                              |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 	else if (env->editor.selected_sector != -1)
-		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|							 |<-",
+		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|                             |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 
 }
@@ -54,8 +54,8 @@ void	print_sector_informations(t_env *env)
 	print_text(new_point(290, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(330, 280), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(330, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(370, 280), new_printable_text("Statue: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(370, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].statue), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(370, 280), new_printable_text("status: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(370, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].status), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 
 	if (env->editor.tab)
 		select_informations(env);
@@ -189,7 +189,7 @@ void	editor_hud(t_env *env)
 			print_object_informations(env);
 		else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 			print_sector_informations(env);
-		else if (env->editor.selected_wall != -1)
+		else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
 			print_wall_informations(env);
 		else if (env->selected_ceiling != -1)
 			print_ceiling_informations(env);
