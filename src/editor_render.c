@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:10:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:35:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		editor_render(t_env *env)
 	if (env->options.show_fps)
 		fps(env);
 	game_time(env);
+	draw_hud(env);
 	interactions(env);
 	if (!env->input_box.state)
 		view(env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:17:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 20:25:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,17 @@ typedef struct		s_wall_sprites
 	t_v2			*scale;
 }					t_wall_sprites;
 
+typedef struct		s_event
+{
+	void		*target;
+	double		goal;
+	double		start_value;
+	double		incr;
+	Uint32		start_time;
+	Uint32		duration;
+	int		type;
+}			t_event;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
@@ -288,9 +299,8 @@ typedef struct		s_sector
 	int				activated;
 	int				hidden;
 	Uint32			light_color;
-	void			(**walk_action)(void*);
-	void			**target;
-	size_t			nb_walk_actions;
+	size_t			nb_walk_events;
+	t_event			*walk_on_me_event;
 }					t_sector;
 
 typedef struct		s_vertex

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 17:21:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 20:11:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,17 @@ int	init_editor(int ac, char **av)
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
-			env.sectors[1].nb_walk_actions = 2;
-			env.sectors[1].walk_action = malloc(sizeof(void *));
-			env.sectors[1].target = (void **)malloc(sizeof(void *));
-			env.sectors[1].walk_action[0] = &move_sector;
-			env.sectors[1].target[0] = NULL;
-			env.sectors[1].walk_action[1] = &hit_player;
-			env.sectors[1].target[1] = NULL;
+			env.sectors[1].nb_walk_events = 2;
+			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+			env.sectors[1].walk_on_me_event[0] =
+			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 2000);
+			env.sectors[1].walk_on_me_event[1] =
+			new_event(INT, &env.player.health, 50, 10000);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
+	env.player.health = 100;
 	return (editor(&env));
 }

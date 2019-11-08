@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:20:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 20:21:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	move_player(t_env *env)
 	t_v3		pos;
 	int			prev_sector;
 	int		new_sector;
-	size_t		i;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
@@ -183,20 +182,12 @@ void	move_player(t_env *env)
 				//env->player.pos.x = old_pos.x;
 				//env->player.pos.y = old_pos.y;
 				//env->player.sector = old_sector;
-				ft_printf("PLAYER SECTOR = -1\n");
+				ft_printf("player sector = -1\n");
 				//exit(0);
 			}*/
 			if (new_sector != env->player.sector && new_sector != -1)
-			{
-				env->player.sector = new_sector;
-				i = 0;
-				while (i < env->sectors[env->player.sector].nb_walk_actions)
-				{
-					if (env->sectors[env->player.sector].walk_action[i])
-						env->sectors[env->player.sector].walk_action[i](env->sectors[env->player.sector].target[i]);
-					i++;
-				}
-			}
+				start_event(&env->sectors[new_sector], env);
+			env->player.sector = new_sector;
 			if (find_highest_sector(env, motion) != env->player.highest_sect
 					&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
 				env->player.drop_flag = 1;
