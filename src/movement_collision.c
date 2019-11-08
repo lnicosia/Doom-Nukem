@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/07 17:46:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:33:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
 		return (0);
     if (env->player.state.fly && FUTURE_Z < floor)
     {
-        ft_printf("hitting the floor\n");
         return (0);
     }
     return (1);
@@ -168,7 +167,6 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 	        move.z = get_ceiling_at_pos(env->sectors[motion.sector], motion.pos, env) - 1 - (env->player.pos.z + env->player.eyesight);
         if (!check_floor(env, motion, motion.sector))
 	        move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - env->player.pos.z;
-        ft_printf("NOPE | z: %f\n", move.z);
     }
     (void)pos;
     while (i < env->sectors[motion.sector].nb_vertices)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 17:46:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/08 10:33:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	animations(t_env *env)
 	|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
-	ft_printf("player_z: %f\n", env->player.pos.z);
 }
 
 /*
@@ -142,7 +141,7 @@ void	move_player(t_env *env)
 		if (env->inputs.left && !env->inputs.right)
 		{
 			move = check_collision(env, new_v3(env->player.camera.angle_sin * env->player.speed,
-			env->player.camera.angle_cos * -env->player.speed, -env->player.camera.angle_z * env->player.speed), motion, 0);
+			env->player.camera.angle_cos * -env->player.speed, 0), motion, 0);
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (env->player.state.fly)
@@ -155,7 +154,7 @@ void	move_player(t_env *env)
 		else if (env->inputs.right && !env->inputs.left)
 		{
 			move = check_collision(env, new_v3(env->player.camera.angle_sin * -env->player.speed,
-			env->player.camera.angle_cos * env->player.speed, -env->player.camera.angle_z * env->player.speed), motion, 0);
+			env->player.camera.angle_cos * env->player.speed, 0), motion, 0);
 			env->player.pos.x += move.x;
 			env->player.pos.y += move.y;
 			if (env->player.state.fly)
@@ -176,7 +175,6 @@ void	move_player(t_env *env)
 			movement = 1;
 		if (movement)
 		{
-			ft_printf("movement allowed\n");
 			env->player.sector = get_sector_no_z_origin(env, env->player.pos, env->player.sector);
 			/*if (env->player.sector == -1)
 			{
