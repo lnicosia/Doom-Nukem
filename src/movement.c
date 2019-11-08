@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 14:51:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:15:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ void	move_player(t_env *env)
 	prev_sector = env->player.sector;
 	movement = 0;
 	env->time.end = env->time.milli_s / 10;
+	if (env->inputs.ctrl)
+		env->player.speed -= 0.2;
+	else if (env->inputs.shift)
+		env->player.speed += 0.2;
 	if (env->time.end - env->time.start >= 1)
 	{
 		env->time.start = env->time.end;
