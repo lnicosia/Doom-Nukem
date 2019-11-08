@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 15:50:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 08:56:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
+		if (!env->input_box.state && env->saving)
+			save_map(env);
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);

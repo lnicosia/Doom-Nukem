@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 16:08:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:19:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	validate_input(t_input_box *box, t_env *env)
 {
 	(void)env;
-	ft_printf("validating\n");
 	if (box->type == INT)
 	{
 		if (!box->int_target)
@@ -41,11 +40,10 @@ int	validate_input(t_input_box *box, t_env *env)
 			ft_printf("Error: no string target for input box\n");
 			return (-1);
 		}
-		box->str_target = box->str;
+		if (box->str_target)
+			ft_strdel(box->str_target);
+		*(box->str_target) = ft_strdup(box->str);
 	}
-	if (box->str_target)
-		ft_strdel(&box->str_target);
 	box->state = 0;
-	precompute_slopes(env);
 	return (0);
 }

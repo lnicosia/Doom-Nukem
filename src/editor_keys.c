@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 16:07:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:32:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int			editor_keys(t_env *env)
 			env->inputs.enter = 0;
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			free_camera(&env->player.camera);
+			precompute_slopes(env);
 			if (init_camera_arrays(&env->player.camera, env))
 				return (ft_printf("Could not init camera arrays\n"));
 			if (env->sector_list)
@@ -72,12 +73,13 @@ int			editor_keys(t_env *env)
 		env->editor.center.y -= 3;
 	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.y += 3;
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))// && !env->editor.in_game)
+	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
-		if (save_map("maps/test.map", env))
-			return (ft_printf("Could not save the map\n"));
+		env->saving = 1;
+		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+		STRING, &env->save_file);
 		env->inputs.s = 0;
-		//env->inputs.ctrl = 0;
+		env->inputs.ctrl = 0;
 	}
 	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
 	{

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 16:03:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:50:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_env
 	t_teleport			teleport;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
+	int					saving;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -132,6 +133,7 @@ typedef struct		s_env
 	int				contains_skybox;
 	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
+	char				*save_file;
 }					t_env;
 
 /*
@@ -188,7 +190,7 @@ void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 void				free_camera(t_camera *camera);
 int					editor_render(t_env *env);
-int					save_map(char *file, t_env *env);
+int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);

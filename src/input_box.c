@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 16:06:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:19:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,36 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	if (type < 0 || type > 2 || !target)
 		return (-1);
 	box->pos = pos;
+	box->type = type;
 	box->state = 1;
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
+		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
 	{
 		box->double_target = (double*)target;
 		if (!(box->str = ft_itoa((int)*((double*)target))))
 			return (-1);
+		set_double_stats(box);
 	}
 	else if (type == STRING)
 	{
-		box->str_target = (char*)target;
-		box->str = (char*)target;
+		box->str_target = (char**)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		box->str = ft_strdup(*(char**)target);
 	}
-	set_double_stats(box);
 	box->cursor = ft_strlen(box->str);
 	return (0);
 }
 
 int	init_input_box(t_input_box *box, t_env *env)
 {
-	box->state = 0;
+	ft_bzero(box, sizeof(*box));
 	box->type = DOUBLE;
 	box->del_delay = 25;
 	box->input_delay = 100;
@@ -51,7 +55,6 @@ int	init_input_box(t_input_box *box, t_env *env)
 	box->cursor_delay = 500;
 	if (!(box->str = ft_strnew(0)))
 		return (-1);
-	box->cursor_state = 0;
 	box->size = new_point(200, 30);
 	box->pos = new_point(env->h_w - box->size.x / 2, env->h_h - box->size.y / 2);
 	box->font = env->sdl.fonts.lato20;
@@ -173,7 +176,10 @@ void	input_box_keys(t_input_box *box, t_env *env)
 {
 	if (env->inputs.enter
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
+	{
 		validate_input(box, env);
+		env->inputs.enter = 0;
+	}
 	else if (env->inputs.backspace)
 	{
 		if (box->select_start != box->select_end)
@@ -245,6 +251,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	{
 		input_box_mouse(box, env);
 		if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN
+			&& box->type != STRING
 			&& (env->sdl.mx < box->pos.x
 			|| env->sdl.mx > box->pos.x + box->size.x
 			|| env->sdl.my < box->pos.y

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 15:36:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_editor_data(t_env *env)
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
 	
+	env->save_file = ft_strdup("maps/test.map");
 }
 
 void	coucou(void *param)

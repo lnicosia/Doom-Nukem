@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 14:36:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:23:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -802,7 +802,7 @@ typedef struct		s_confirmation_box
 /*
 **	Data for input box
 **	str = string content. User has to strdup and strdel it correctly
-**	type = input type: 0 = int, 1 = double, 2 = string
+**	type = INT, DOUBLE, STRING
 */
 
 typedef struct		s_input_box
@@ -834,9 +834,11 @@ typedef struct		s_input_box
 	Uint32			input_timer;
 	Uint32			input_delay;
 	Uint32			same_touch_timer;
-	char			*str_target;
+	char			**str_target;
 	int			*int_target;
 	double			*double_target;
+	void			*target;
+	void			(*action)(void *);
 }					t_input_box;
   
 #endif

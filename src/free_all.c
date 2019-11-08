@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 12:45:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:00:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,6 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato20);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
-	/*if (env->confirmation_box.str)
-		ft_strdel(&env->confirmation_box.str);*/
 	if (env->sectors)
 		free_sectors(env);
 	if (env->vertices)
@@ -208,6 +206,8 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->objects);
 	if (env->sprites)
 		ft_memdel((void**)&env->sprites);
+	if (env->save_file)
+		ft_strdel(&env->save_file);
 	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)

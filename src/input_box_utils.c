@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 12:03:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 10:04:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,12 @@ int		add_char(t_input_box *box, char c)
 	res = ft_strcpy(res, s1);
 	res[box->cursor] = c;
 	res = ft_strcat(res, s2);
-	ft_strdel(&s1);
-	ft_strdel(&s2);
-	ft_strdel(&box->str);
+	if (s1)
+		ft_strdel(&s1);
+	if (s2)
+		ft_strdel(&s2);
+	if (box->str)
+		ft_strdel(&box->str);
 	box->str = res;
 	box->cursor++;
 	return (0);
