@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   bmp_parser.c									   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/30 11:47:52 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/07/30 11:34:21 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp_parser.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
+/*   Updated: 2019/11/11 16:44:27 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -24,7 +24,7 @@ static int	parse(int fd, int index, t_env *env)
 {
 	t_bmp_parser	parser;
 
-	if (index >= MAX_TEXTURE)
+	if (index >= env->init_max)
 		return (ft_printf("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
 		return (ft_printf("Error in file header\n"));

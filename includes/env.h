@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 13:59:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/11 15:45:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ typedef struct		s_env
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemies			*enemies;
-	t_sprite			*sprites;
+	t_sprite			*wall_sprites;
+	t_sprite			*enemies_sprites;
+	t_sprite			*objects_sprites;
+	t_sprite			*hud_sprites;
+	t_sprite			*ui_sprites;
 	t_audio				sound;
-	t_texture			textures[MAX_TEXTURE];
+	t_texture			wall_textures[MAX_SURFACE_TEXTURE];
+	t_texture			_textures[MAX_TEXTURE];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_editor 			editor;

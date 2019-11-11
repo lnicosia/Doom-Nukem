@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:44:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:36:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_TEXTURE 56
+# define MAX_WALL_TEXTURE 16
+# define MAX_RAYGUN_SPRITE 7
+# define MAX_SHOTGUN_SPRITE 15
+# define MAX_SKYBOX_SPRITE 6
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_SPRITES 12
 # define NB_WEAPONS 2
 # define NB_BUTTON 10
 # define AMMO_HUD 36
@@ -216,6 +218,22 @@ typedef	struct		s_teleport
 ** Sprite structure with associated texture
 ** and 1 to 8 image cut on this texture
 */
+
+typedef struct		s_sprite
+{
+	int				oriented;
+	int				texture;
+	t_point			start[8];
+	t_point			end[8];
+	t_point			size[8];
+	int				reversed[8];
+	int				rest_sprite;
+	int				curr_sprite;
+	int				firing_sprite;
+	int				pursuit_sprite;
+	int				death_counterpart;
+	int				nb_death_sprites;
+}					t_sprite;
 
 typedef struct		s_sprite
 {

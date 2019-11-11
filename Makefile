@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/11 14:01:50 by sipatry          ###   ########.fr        #
+#    Updated: 2019/11/11 16:12:30 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
-		   validate_input.c button_event.c player_keys.c \
+		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h
