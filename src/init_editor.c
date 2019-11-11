@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 11:51:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_editor_data(t_env *env)
 	env->nb_objects = 0;
 	env->player.sector = -1;
 	env->editor.select = 0;
-
+	env->editor.game = 0;
 	env->editor.start_pos.x = 0;
 	env->editor.start_pos.y = 0;
 	env->editor.selected_sector = -1;
@@ -54,8 +54,6 @@ void	init_editor_data(t_env *env)
 	env->time.tick = 0;
 	env->time.tick2 = 0;
 	env->time.tick3 = 0;
-	
-	env->save_file = ft_strdup("maps/test.map");
 }
 
 void	coucou(void *param)
@@ -78,6 +76,7 @@ int	init_editor(int ac, char **av)
 	env.avrg_fps2 = 0;
 	env.max_fps2 = 0;
 	env.playing = 0;
+	env.save_file = ft_strdup(av[1]);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

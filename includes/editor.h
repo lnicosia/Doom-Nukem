@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 14:21:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/11 11:21:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_editor
 	t_list		*current_vertices;
 	int			reverted;
 	int			in_game;
+	int			game;
 }				t_editor;
 
 #endif

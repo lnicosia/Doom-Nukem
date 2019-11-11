@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:45:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 13:59:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,8 +411,9 @@ void				activate_sector(t_env *env, int i);
 void				button_keys(t_button *b, t_env *env);
 void				button_keyup(t_button *b, t_env *env);
 void				draw_button_text(t_button b, t_env *env);
-int				is_mouse_on_button(t_button b, t_point mouse);
+int					is_mouse_on_button(t_button b, t_point mouse);
 t_point				get_button_current_size(t_button b);
+int					editor_start_game(t_env *env);
 
 /*
 ** enemies functions

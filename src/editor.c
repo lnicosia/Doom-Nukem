@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:42:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:27:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,11 @@ int		editor(t_env *env)
 			draw_input_box(&env->input_box, env);
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
+
 		else
 			update_screen(env);
+		if (env->editor.game)
+			editor_start_game(env);
 	}
 	free_all(env);
 	return (0);

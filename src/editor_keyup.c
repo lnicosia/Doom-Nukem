@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keyup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 17:35:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 11:21:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	editor_keyup(t_env *env)
 		env->editor.tab = env->editor.tab ? 0 : 1;
 	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_z)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
+	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_g)
+		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
 	if (env->sdl.mx > 200 && env->sdl.event.button.button == SDL_BUTTON_LEFT
@@ -69,7 +71,8 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1
-		&& env->editor.dragged_vertex == -1)
+		&& env->editor.dragged_vertex == -1
+		&& !env->editor.in_game)
 	{
 		clicked_vertex = get_existing_vertex(env);
 		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
