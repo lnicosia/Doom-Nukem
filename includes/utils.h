@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 20:25:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:00:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct		s_event
 	Uint32		start_time;
 	Uint32		duration;
 	int		type;
+	int		running;
 }			t_event;
 
 typedef struct		s_sector
@@ -405,9 +406,11 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
-	t_v2			old_pos;
+	t_v3			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
+	Uint32			start_move;
+	int			moving;
 	int				stuck;
 	int				prev_sector;
 	double			gravity;
@@ -701,7 +704,7 @@ typedef struct		s_sdl
 	int				mouse_y;
 	int				mx;
 	int				my;
-	int				time;
+	Uint32				time;
 	int				pitch;
 }					t_sdl;
 
@@ -851,6 +854,7 @@ typedef struct		s_input_box
 	int			selecting;
 	int			cursor_state;
 	int			add_period;
+	int			accept_inputs;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;

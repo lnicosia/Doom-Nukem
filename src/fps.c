@@ -1,23 +1,24 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   fps.c											  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/17 11:07:32 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/07/24 14:58:11 by sipatry		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fps.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/11 12:21:11 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/11 14:53:06 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 void	fps(t_env *env)
 {
-	int			new_time;
+	Uint32			new_time;
 	double			fps;
 
 	new_time = SDL_GetTicks();
+	//ft_printf("time = %d\n", (int)(new_time - env->sdl.time));
 	fps = 1000 / (new_time - env->sdl.time);
 	env->fps = ft_sitoa(fps);
 	if (new_time > 2000)

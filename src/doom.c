@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/04/03 15:26:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/07 15:00:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:21:53 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
+		env->frame_timer = SDL_GetTicks();
 	}
 	ft_printf("User quit the game\n");
 	free_all(env);

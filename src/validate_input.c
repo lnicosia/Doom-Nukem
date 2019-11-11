@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:19:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:10:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	validate_input(t_input_box *box, t_env *env)
 		if (box->str_target)
 			ft_strdel(box->str_target);
 		*(box->str_target) = ft_strdup(box->str);
+		env->saving = 1;
 	}
 	box->state = 0;
 	return (0);

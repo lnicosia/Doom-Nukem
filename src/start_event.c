@@ -6,23 +6,45 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 20:26:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:18:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	start_event(t_sector *sector, t_env *env)
+void	update_event(t_event *event)
+{
+	if (event->type == DOUBLE)
+	{
+		event->incr = (event->goal - *(double*)(event->target))
+		/ event->duration;
+		event->start_value = *(double*)(event->target);
+	}
+	else if (event->type == INT)
+	{
+		event->incr = (event->goal - *(int*)(event->target))
+		/ event->duration;
+		event->start_value = *(int*)(event->target);
+	}
+	event->start_time = SDL_GetTicks();
+	event->running = 1;
+	ft_printf("incr = %f\n", event->incr);
+}
+
+void	start_event(t_event *events, size_t size, t_env *env)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < sector->nb_walk_events)
+	while (i < size)
 	{
-		update_event(&sector->walk_on_me_event[i]);
-		ft_lstpushback(&env->events,
-			ft_lstnew(&sector->walk_on_me_event[i],
-			sizeof(t_event)));
+		if (events[i].running == 0)
+		{
+			update_event(&events[i]);
+			ft_lstpushback(&env->events,
+				ft_lstnew(&events[i],
+				sizeof(t_event)));
+		}
 		i++;
 
 	}

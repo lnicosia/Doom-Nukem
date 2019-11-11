@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 20:27:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:16:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_env
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
+	Uint32				frame_timer;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -339,7 +340,8 @@ void				update_event(t_event *event);
 void				pop_events(t_env *env);
 t_event				new_event(int type, void *target, double goal,
 Uint32 duration);
-void				start_event(t_sector *sector, t_env *env);
+void				start_event(t_event *events, size_t size,
+t_env *env);
 int					draw_walls(t_camera *camera, t_env *env);
 void				draw_objects(t_camera camera, t_env *env);
 void				draw_enemies(t_camera camera, t_env *env);
