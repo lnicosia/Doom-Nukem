@@ -29,10 +29,8 @@ void		keys(t_env *env)
 
 			&&  (((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab))
-	
-			&& !env->inputs.ctrl)
-			|| (env->player.state.climb || env->player.state.drop)))
+				|| (env->selected_enemy == -1 && !env->editor.tab)))
+		|| (env->player.state.climb || env->player.state.drop)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)

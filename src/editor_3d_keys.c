@@ -29,9 +29,7 @@ void		editor_3d_keys(t_env *env)
 
 			&&  (((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab))
-	
-			&& !env->inputs.ctrl)
+				|| (env->selected_enemy == -1 && !env->editor.tab)))
 			|| (env->player.state.climb || env->player.state.drop))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
