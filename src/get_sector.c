@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:11:36 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/28 18:11:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/11 17:50:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ int		get_sector_no_z_origin(t_env *env, t_v3 pos, int origin)
 			return (i);
 		i++;
 	}
-	ft_printf("NO SECTOR FOUND\n");
-	ft_printf("Player current sector = %d\n", env->player.sector);
-	ft_printf("Pos = [%f][%f]\n", pos.x, pos.y);
-	ft_printf("Origin = %d\n", origin);
+	//ft_printf("NO SECTOR FOUND\n");
+	//ft_printf("Player current sector = %d\n", env->player.sector);
+	//ft_printf("Pos = [%f][%f]\n", pos.x, pos.y);
+	//ft_printf("Origin = %d\n", origin);
 	return (-1);
 }

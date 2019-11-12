@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:46:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:20:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_player(t_env *env)
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6;
-	env->player.speed = 0.5;
+	env->player.speed = 0.0002;
 	env->player.camera.angle_cos = cos(env->player.camera.angle);
 	env->player.camera.angle_sin = sin(env->player.camera.angle);
 	env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);

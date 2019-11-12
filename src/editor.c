@@ -58,6 +58,7 @@ int		editor(t_env *env)
 				if (editor_keys(env))
 					return (ft_printf("Error in inputs\n"));
 			}
+			env->frame_timer = SDL_GetTicks();
 			draw_grid(env);
 			draw_grid_vertices(env);
 			if (env->editor.new_player || env->editor.dragged_player == 1)

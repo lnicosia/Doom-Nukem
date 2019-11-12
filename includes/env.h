@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 14:16:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:41:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ typedef struct		s_env
 	t_v2				*texel_near_z;
 	t_v2				*camera_z;
 	t_v2				*texel_camera_range;
+	t_point				minimap_pos;
+	t_point				minimap_size;
+	t_point				crosshair_pos;
 	double				*zrange;
 	int					current_object;
 	int					current_enemy;

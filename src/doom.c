@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   doom.c											 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/03 15:26:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/11 12:21:53 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doom.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/11 17:59:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/11 18:00:02 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -15,15 +15,6 @@
 
 int		doom(t_env *env)
 {
-	/*init_animations(env);
-	init_weapons(env);
-	env->player.speed = 0.5;
-	env->player.size_2d = 0.5;
-	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env->sound.background, -1);
-	//ft_printf("launching game loop..\n");
-	env->flag = 0;
-	env->player.fall = 1;*/
 	while (env->running)
 	{
 		if (env->player.sector == -1)
@@ -70,7 +61,6 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
-		env->frame_timer = SDL_GetTicks();
 	}
 	ft_printf("User quit the game\n");
 	free_all(env);

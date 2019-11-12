@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 14:53:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:17:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	animations(t_env *env)
  **	TODO Protection / return values??
  */
 
-void	check_blocage(t_env *env, t_movement motion, int index)
+void	check_blocage(t_env *env, t_movement motion, double speed, int index)
 {
 	int nb;
 	t_v3 move;
@@ -51,29 +51,29 @@ void	check_blocage(t_env *env, t_movement motion, int index)
 	nb = 0;
 	if (index != 1)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * env->player.speed,
-					env->player.camera.angle_sin * env->player.speed, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,
+					env->player.camera.angle_sin * speed, 0), motion, 0);
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
 	if (index != 2)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * -env->player.speed,
-					env->player.camera.angle_sin * -env->player.speed, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,
+					env->player.camera.angle_sin * -speed, 0), motion, 0);
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
 	if (index != 3)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * -env->player.speed,
-					env->player.camera.angle_sin * -env->player.speed, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * -speed,
+					env->player.camera.angle_sin * -speed, 0), motion, 0);
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
 	if (index != 4)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * -env->player.speed,
-					env->player.camera.angle_sin * -env->player.speed, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * -speed,
+					env->player.camera.angle_sin * -speed, 0), motion, 0);
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
@@ -94,31 +94,28 @@ void	move_player(t_env *env)
 	int			prev_sector;
 	int		new_sector;
 	Uint32		time;
+	double		speed;
 
-	//pos.x = env->player.pos.x;
-	//pos.y = env->player.pos.y;
-	//pos.z = env->player.pos.z;
-	// XD?????
 	pos = env->player.pos;
-	time = SDL_GetTicks() - env->frame_timer;
+	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->player.sector >= 0)
 	{
-		//env->player.old_pos.x = pos.x;
-		//env->player.old_pos.y = pos.y;
-		// XD encore??
 		env->player.old_pos = env->player.pos;
 	}
 	if (env->inputs.shift)
-		env->player.speed = env->player.start_speed + 0.2;
+		speed = env->player.speed + 0.2;
 	else 
-		env->player.speed = env->player.start_speed;
+		speed = env->player.speed;
+	speed *= time;
+	//ft_printf("time = %d\n", time);
+	//ft_printf("speed = %f\n", speed);
 	prev_sector = env->player.sector;
 	movement = 0;
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
 	if (env->inputs.forward && !env->inputs.backward)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * env->player.speed * time,
-					env->player.camera.angle_sin * env->player.speed * time, -env->player.camera.angle_z * env->player.speed * time), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,
+					env->player.camera.angle_sin * speed, -env->player.camera.angle_z * speed), motion, 0);
 		env->player.pos.x += move.x;
 		env->player.pos.y += move.y;
 		if (env->player.state.fly)
@@ -126,12 +123,12 @@ void	move_player(t_env *env)
 		if (move.x != 0 || move.y != 0)
 			movement = 1;
 		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, 1);
+			check_blocage(env, motion, time, 1);
 	}
 	else if (env->inputs.backward && !env->inputs.forward)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * -env->player.speed * time,
-					env->player.camera.angle_sin * -env->player.speed * time, env->player.camera.angle_z * env->player.speed * time), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_cos * -speed,
+					env->player.camera.angle_sin * -speed, env->player.camera.angle_z * speed), motion, 0);
 		env->player.pos.x += move.x;
 		env->player.pos.y += move.y;
 		if (env->player.state.fly)
@@ -139,12 +136,12 @@ void	move_player(t_env *env)
 		if (move.x != 0 || move.y != 0)
 			movement = 1;
 		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, 2);
+			check_blocage(env, motion, time, 2);
 	}
 	if (env->inputs.left && !env->inputs.right)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_sin * env->player.speed * time,
-					env->player.camera.angle_cos * -env->player.speed * time, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_sin * speed,
+					env->player.camera.angle_cos * -speed, 0), motion, 0);
 		env->player.pos.x += move.x;
 		env->player.pos.y += move.y;
 		if (env->player.state.fly)
@@ -152,12 +149,12 @@ void	move_player(t_env *env)
 		if (move.x != 0 || move.y != 0)
 			movement = 1;
 		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, 3);
+			check_blocage(env, motion, time, 3);
 	}
 	else if (env->inputs.right && !env->inputs.left)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_sin * -env->player.speed * time,
-					env->player.camera.angle_cos * env->player.speed * time, 0), motion, 0);
+		move = check_collision(env, new_v3(env->player.camera.angle_sin * -speed,
+					env->player.camera.angle_cos * speed, 0), motion, 0);
 		env->player.pos.x += move.x;
 		env->player.pos.y += move.y;
 		if (env->player.state.fly)
@@ -165,14 +162,11 @@ void	move_player(t_env *env)
 		if (move.x != 0 || move.y != 0)
 			movement = 1;
 		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, 4);
+			check_blocage(env, motion, time, 4);
 	}
 	if (env->player.stuck || get_sector_no_z_origin(env, env->player.pos, env->player.sector) == -1)
 	{
 		env->player.stuck = 0;
-		//env->player.pos.x = env->player.old_pos.x;
-		//env->player.pos.y = env->player.old_pos.y;
-		// XD v3 ??
 		env->player.pos = env->player.old_pos;
 		env->player.sector = get_sector_no_z_origin(env, env->player.pos, prev_sector);
 	}
@@ -180,7 +174,6 @@ void	move_player(t_env *env)
 		movement = 1;
 	if (movement)
 	{
-		//ft_printf("time = %d\n", time);
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
@@ -208,5 +201,4 @@ void	move_player(t_env *env)
 		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		update_camera_position(&env->player.camera);
 	}
-	env->frame_timer = SDL_GetTicks();
 }
