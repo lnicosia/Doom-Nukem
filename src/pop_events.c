@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 17:37:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 20:25:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_event	new_event(int type, void *target, double goal, Uint32 duration)
 	new.type = type;
 	new.goal = goal;
 	new.start_time = 0;
-	new.running = 0;
 	return (new);
 }
 
@@ -49,7 +48,6 @@ int	double_event(t_event *curr)
 		|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		curr->running = 0;
 		//ft_printf("{green}Goal reached: target = %f{reset}\n", *target);
 		return (1);
 	}
@@ -76,60 +74,42 @@ int	int_event(t_event *curr)
 		|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		curr->running = 0;
-		//ft_printf("target = %d\n", *target);
+		//ft_printf("{green}Goal reached: target = %d{reset}\n", *target);
 		return (1);
 	}
 	return (0);
 }
 
-void	pop_current(t_list **list, t_list *curr)
-{
-	while (*list)
-	{
-		if (*list == curr)
-		{
-			((t_event*)(*list)->content)->running = 0;
-			ft_lstpopfront(list);
-			return ; 
-		}
-		else
-			*list = (*list)->next;
-	}
-}
+//	TODO
+//	Protection
 
 void	pop_events(t_env *env)
 {
 	t_event	*curr;
-	t_list	*tmp;
-	t_list	*start;
-	t_list	*del;
+	t_list	*next_events;
+	t_list	*next_values;
 	int	res;
 	
-	tmp = env->events;
-	start = env->events;
-	//ft_printf("new call\n");
-	while (tmp)
+	next_events = NULL;
+	next_values = NULL;
+	while (env->events)
 	{
-		//ft_printf("curr node = %p\n", tmp);
-		curr = (t_event*)tmp->content;
+		curr = (t_event*)env->events->content;
 		if (curr->type == DOUBLE)
 			res = double_event(curr);
 		else if (curr->type == INT)
 			res = int_event(curr);
-		if (res)
+		if (!res)
 		{
-			del = tmp;
-			tmp = tmp->next;
-			//ft_printf("{red}poping node %p{reset}\n", tmp);
-			pop_current(&env->events, del);
-			//ft_lstpopfront(&tmp);
+				ft_lstpushback(&next_events, ft_lstnew(curr,
+				sizeof(*curr)));
+				ft_lstpushback(&next_values, ft_lstnew(&curr->target,
+				sizeof(curr->target)));
 		}
-		else
-		{
-			tmp = tmp->next;
-		}
-		//ft_printf("node after = %p\n", tmp);
+		ft_lstpopfront(&env->events);
+		ft_lstpopfront(&env->queued_values);
 	}
 	precompute_slopes(env);
+	env->events = next_events;
+	env->queued_values = next_values;
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 18:00:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 20:26:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ int	init_editor(int ac, char **av)
 			env.sectors[1].nb_walk_events = 2;
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
-			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 10000);
+			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 1000);
 			env.sectors[1].walk_on_me_event[1] =
-			new_event(INT, &env.player.health, 50, 1000);
+			new_event(INT, &env.player.health, 50, 800);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

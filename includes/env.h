@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 17:41:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:48:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct		s_env
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
 	t_list				*events;
+	t_list				*queued_values;
 }					t_env;
 
 /*
@@ -339,7 +340,7 @@ void				draw_button(t_env *env, t_button b);
  * ** Main pipeline functions
  * */
 
-void				update_event(t_event *event);
+int					update_event(t_event *event);
 void				pop_events(t_env *env);
 t_event				new_event(int type, void *target, double goal,
 Uint32 duration);
