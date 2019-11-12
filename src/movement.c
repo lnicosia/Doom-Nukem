@@ -102,8 +102,10 @@ void	move_player(t_env *env)
 	{
 		env->player.old_pos = env->player.pos;
 	}
-	if (env->inputs.shift)
-		speed = env->player.speed + 0.2;
+	if (env->inputs.shift && !env->inputs.ctrl)
+		speed = env->player.speed * 2;
+	else if (env->inputs.ctrl)
+		speed = env->player.speed / 2;
 	else 
 		speed = env->player.speed;
 	speed *= time;
