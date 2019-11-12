@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:53:12 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:02:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
     pos.x = FUTURE_X;
     pos.y = FUTURE_Y;
     pos.z = FUTURE_Z;
-    if (pos.z + env->player.eyesight > get_ceiling_at_pos(env->sectors[sector_dest], pos,env) - 1)
+    if (pos.z + motion.eyesight > get_ceiling_at_pos(env->sectors[sector_dest], pos,env) - 1)
         return (0);
     return (1);
 }
@@ -36,10 +36,6 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
     if (floor > motion.pos.z + 2)
 		return (0);
-    if (env->player.state.fly && FUTURE_Z < floor)
-    {
-        return (0);
-    }
     return (1);
 }
 
