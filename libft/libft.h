@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 14:56:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:26:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,6 @@ t_v2			get_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				check_line_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				custom_error(const char *message);
+void			ft_lstdelnode(t_list **list, t_list *node);
 
 #endif

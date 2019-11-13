@@ -1,14 +1,15 @@
-Selectionner les bonnes textures beaucoup trop long		| Mieux (maj += 10)
-sauvegarde des scale + pos marche pas				| Uniquement pour le sol/plafond. A rajouter au parser
-Quand on met une skybox ensuite la texture est a 38		| Fixed
-Selection skybox toujours bugguee				| Fixed
-Une seule skybox (ca pue)					|
-Les echelles, les pos, trop chiant a aligner			| Mieux
-Multi selection							|
-Crash lors skybox sur mur					|
-Ajouter des vertex						|
-Ecrire des valeurs/noms de fichier dans l'editeur		|
+Selectionner les bonnes textures beaucoup trop long				| Mieux (maj += 10)
+sauvegarde des scale + pos marche pas							| Uniquement pour le sol/plafond. A rajouter au parser
+Quand on met une skybox ensuite la texture est a 38				| Fixed
+Selection skybox toujours bugguee								| Fixed
+Une seule skybox (ca pue)										|
+Les echelles, les pos, trop chiant a aligner					| Mieux
+> Harmoniser echelles											|
+Multi selection?												|
+Crash lors skybox sur mur										|
+Ajouter des vertex/modifier secteur								|
+Ecrire des valeurs/noms de fichier dans l'editeur				| Fonction done
 Pre affichage des sprites dans un dossier pour les selectionner	|
-Des boutons pour certaines actions?				|
-Decrocher minimap						|
-Minimap transparente						|
+Des boutons pour certaines actions?								|
+Decrocher minimap												| Done
+Minimap transparente											| Done
