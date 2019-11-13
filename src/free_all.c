@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:00:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:42:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,10 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.jump);
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
+	if (env->events)
+			ft_lstdelfront(&env->events);
+	if (env->queued_values)
+			ft_lstdelfront(&env->queued_values);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])
