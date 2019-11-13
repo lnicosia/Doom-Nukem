@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 10:43:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:13:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,17 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	coord = 0;
 	x = 0;
 	y = 0;
-	x = render.alpha
+	y = render.alpha
+		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
+		+ sector.align[render.i].x;
+	if (y != y)
+		return ;
+	while (y >= render.texture_h)
+		y -= render.texture_h;
+	while (y < 0)
+		y += render.texture_h;
+	y = ft_fclamp(y, 0, render.texture_h);
+	/*x = render.alpha
 		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
 		+ sector.align[render.i].x;
 	if (x != x)
@@ -44,7 +54,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		x -= render.texture_w;
 	while (x < 0)
 		x += render.texture_w;
-	x = ft_fclamp(x, 0, render.texture_w);
+	x = ft_fclamp(x, 0, render.texture_w);*/
 	i = vline.start;
 	while (i < vline.end)
 	{
@@ -63,12 +73,18 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+		x = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+			+ sector.align[render.i].y;
+		while (x >= render.texture_w)
+			x -= render.texture_w;
+		while (x < 0)
+			x += render.texture_w;
+		/*y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
 			+ sector.align[render.i].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;
-		while (y < 0)
-			y += render.texture_h;
+		while (x < 0)
+			y += render.texture_h;*/
 		if (!env->options.lighting && !env->playing)
 			pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 		else
