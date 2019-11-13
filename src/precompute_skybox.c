@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   precompute_skybox.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/18 13:40:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:07:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	precompute_skybox_values(int i, t_env *env)
 	env->skybox[i].floor_range = env->skybox[i].f2 - env->skybox[i].f1;
 	env->skybox[i].ceiling_range = env->skybox[i].c2 - env->skybox[i].c1;
 	if (env->skybox[i + 1].vz)
-		env->skybox[i].texture_scale.x = env->textures[40 + i].
+		env->skybox[i].texture_scale.x = env->textures[32 + i].
 			surface->w / env->skybox[i + 1].vz;
 	else
-		env->skybox[i].texture_scale.x = env->textures[40 + i].
+		env->skybox[i].texture_scale.x = env->textures[32 + i].
 			surface->w / env->skybox[i].clipped_vz2;
-	env->skybox[i].texture_scale.y = env->textures[40 + i].surface->h;
+	env->skybox[i].texture_scale.y = env->textures[32 + i].surface->h;
 	env->skybox[i].x0z1 = pos1.x * env->skybox[i + 1].vz;
 	env->skybox[i].x1z0 = pos2.x * env->skybox[i].vz;
 	env->skybox[i].xzrange = env->skybox[i].x1z0 - env->skybox[i].x0z1;

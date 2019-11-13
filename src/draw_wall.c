@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 10:43:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:33:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			coord;
 
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = env->textures[render.texture].str;
+	texture_pixels = env->wall_textures[render.texture].str;
 	zbuffer = env->zbuffer;
 	yalpha = 0;
 	coord = 0;

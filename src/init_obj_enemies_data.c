@@ -24,16 +24,18 @@ void		init_enemies_data(t_env *env)
 		env->enemies[i].shot = 0;
 		env->enemies[i].exists = 1;
 		env->enemies[i].saw_player = 0;
-		if (env->enemies[i].sprite == 1 || env->enemies[i].sprite == 3 || 
-			env->enemies[i].sprite == 7 || env->enemies[i].sprite == 8)
+		if (i > 0 && i <= 4)
 		{
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE;
 			env->enemies[i].size_2d = 0.75;
 			env->enemies[i].eyesight = 1;
+			env->enemies[i].nb_rest_state = 2;
+			env->enemies[i].nb_pursuit_state = 2;
+			env->enemies[i].nb_firing_state = 0;
 		}
-		else if (env->enemies[i].sprite == 2 || env->enemies[i].sprite == 5)
+		else if (i > 4 && i <= 9)
 		{
 			env->enemies[i].eyesight = 6;
 			env->enemies[i].main_sprite = CYBER_DEMON;
@@ -41,6 +43,9 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].type = TERRESTRIAL;
 			env->enemies[i].behavior = RANGED;
 			env->enemies[i].size_2d = 1.5;
+			env->enemies[i].nb_rest_state = 2;
+			env->enemies[i].nb_pursuit_state = 2;
+			env->enemies[i].nb_firing_state = 0;
 		}
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;

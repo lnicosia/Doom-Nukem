@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:42:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:50:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ t_env *env)
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
-	sprite_pixels = env->textures[env->sprites[sector.sprites[render.i]
+	sprite_pixels = env->textures[env->wall_sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].str;
-	sprite_w = env->textures[env->sprites[sector.sprites[render.i]
+	sprite_w = env->textures[env->wall_sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].surface->w;
 	pos = sector.sprites[render.i].pos[sprite].y / 100;
-	start = env->sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
-	end = env->sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
+	start = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
+	end = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
 	while (++i <= render.current_floor)
 	{
 		coord = render.x + env->w * i;
@@ -88,8 +88,8 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 	{
 		if (sector.sprites[render.i].sprite[i] != -1)
 		{
-			start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].x;
-			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].x;
+			start = env->wall_sprites[sector.sprites[render.i].sprite[i]].start[0].x;
+			end = env->wall_sprites[sector.sprites[render.i].sprite[i]].end[0].x;
 			pos = sector.sprites[render.i].pos[i].x;
 			// render.camera->v[sector.num][render.i].xrange;
 			//  / (render.camera->v[render.sector][render.i].sprite_scale[i].x * render.z);

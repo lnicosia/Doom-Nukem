@@ -92,7 +92,7 @@ static void		*object_loop(void *param)
 	orender = ((t_object_thread*)param)->orender;
 	env = ((t_object_thread*)param)->env;
 	object = ((t_object_thread*)param)->object;
-	sprite = env->sprites[object.sprite];
+	sprite = env->object_sprites[object.sprite];
 	texture = env->textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
@@ -159,7 +159,7 @@ void		draw_object(t_camera camera, t_object *object, t_env *env)
 	t_render_object	orender;
 	t_sprite		sprite;
 
-	sprite = env->sprites[object->sprite];
+	sprite = env->object_sprites[object->sprite];
 	orender.camera = camera;
 	project_object(&orender, *object, env);
 	orender.index = 0;

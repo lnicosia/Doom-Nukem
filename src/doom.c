@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   doom.c											 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/03 15:26:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/07 15:00:44 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doom.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
+/*   Updated: 2019/11/13 17:40:02 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -54,7 +54,7 @@ int		doom(t_env *env)
 			enemy_collision(env);
 			keys(env);
 		}
-		if (env->player.health <= 0)
+				if (env->player.health <= 0)
 			death(env);
 		if (env->confirmation_box.state)
 			confirmation_box_keys(&env->confirmation_box, env);
@@ -70,8 +70,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
-	}
-	ft_printf("User quit the game\n");
+			}
 	free_all(env);
 	return (0);
 }

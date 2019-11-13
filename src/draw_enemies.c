@@ -102,7 +102,7 @@ static void		*enemy_loop(void *param)
 	orender = ((t_enemy_thread*)param)->orender;
 	env = ((t_enemy_thread*)param)->env;
 	enemy = ((t_enemy_thread*)param)->enemy;
-	sprite = env->sprites[enemy.sprite];
+	sprite = env->enemy_sprites[enemy.sprite];
 	texture = env->textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
@@ -167,15 +167,15 @@ static void		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env
 		pthread_join(threads[i], NULL);
 }
 
-static void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
+void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
 	if (death_sprite >= 0)
-		enemy->sprite = env->sprites[enemy->sprite].death_counterpart;
+		enemy->sprite = env->enemy_sprites[enemy->sprite].death_counterpart;
 	orender.camera = camera;
-	sprite = env->sprites[enemy->sprite];	
+	sprite = env->enemy_sprites[enemy->sprite];	
 	project_enemy(&orender, *enemy, env);
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*enemy);
@@ -216,7 +216,8 @@ static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 		enemies_threads[i].camera = camera;
 		enemies_threads[i].xstart = env->nb_enemies / (double)THREADS * i;
 		enemies_threads[i].xend = env->nb_enemies / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, get_enemy_relative_pos, &enemies_threads[i]);
+		pthread_create(&threads[i], NULL, get_enemy_relative_pos,
+		&enemies_threads[i]);
 		i++;
 	}
 	while (i-- > 0)
@@ -241,7 +242,8 @@ void		draw_enemies(t_camera camera, t_env *env)
 			if (!env->editor.in_game)
 			{
 				if (env->enemies[i].health <= 0)
-					dying_sprite = dying_enemy(env, i, env->sprites[env->enemies[i].sprite].nb_death_sprites);
+					dying_sprite = dying_enemy(env, i,
+					env->enemy_sprites[env->enemies[i].sprite].nb_death_sprites);
 				if (env->enemies[i].state == RESTING)
 					resting_enemy(env, i);
 				else if (env->enemies[i].state == PURSUING)

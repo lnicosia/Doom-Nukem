@@ -44,7 +44,7 @@ void	init_pointers(t_env *env)
 	env->res[1] = NULL;
 	env->res[2] = NULL;
 	i = 0;
-	while (i < MAX_TEXTURE)
+	while (i < MAX_TEXTURES)
 	{
 		env->textures[i].surface = NULL;
 		env->textures[i].str = NULL;

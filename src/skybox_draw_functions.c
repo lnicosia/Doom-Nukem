@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox_draw_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 13:47:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:10:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->textures[39].surface->w;
-	texture_h = env->textures[39].surface->h;
-	texture_pixels = env->textures[39].str;
+	texture_w = env->textures[33].surface->w;
+	texture_h = env->textures[33].surface->h;
+	texture_pixels = env->textures[33].str;
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -162,8 +162,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
 		x = alpha * render.texel.x + (1.0 - alpha) * 5;
-		y *= env->textures[39].surface->h / 10;
-		x *= env->textures[39].surface->w / 10;
+		y *= env->textures[33].surface->h / 10;
+		x *= env->textures[33].surface->w / 10;
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)
@@ -208,9 +208,9 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->textures[38].surface->w;
-	texture_h = env->textures[38].surface->h;
-	texture_pixels = env->textures[38].str;
+	texture_w = env->textures[32].surface->w;
+	texture_h = env->textures[32].surface->h;
+	texture_pixels = env->textures[32].str;
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -244,8 +244,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
 		x = alpha * render.texel.x + (1.0 - alpha) * 5;
-		y *= env->textures[38].surface->h / 10;
-		x *= env->textures[38].surface->w / 10;
+		y *= env->textures[32].surface->h / 10;
+		x *= env->textures[32].surface->w / 10;
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)

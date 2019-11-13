@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 13:26:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:09:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 	(void)render;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->textures[sector.ceiling_texture].surface->w;
-	texture_h = env->textures[sector.ceiling_texture].surface->h;
-	texture_pixels = env->textures[sector.ceiling_texture].str;
+	texture_w = env->wall_textures[sector.ceiling_texture].surface->w;
+	texture_h = env->wall_textures[sector.ceiling_texture].surface->h;
+	texture_pixels = env->wall_textures[sector.ceiling_texture].str;
 	i = vline.start;
 	while (i <= vline.end)
 	{

@@ -15,20 +15,21 @@
 
 int			draw_players(t_camera camera, t_env *env)
 {
-	t_object	player;
+	t_enemies	player;
 
 	if (camera.pos.x == env->player.pos.x && camera.pos.y == env->player.pos.y
 			&& camera.pos.z == env->player.head_z)
 		return (1);
+	ft_printf("cc\n");
 	player.pos = env->player.pos;
-	player.sprite = 2;
+	player.sprite = 5;
 	player.scale = 50;
 	if (env->player.camera.angle < 0)
 		player.angle = 360 + (int)(env->player.camera.angle * CONVERT_DEGREES) % 360;
 	else
 		player.angle = (int)(env->player.camera.angle * CONVERT_DEGREES) % 360;
-	get_translated_object_pos(camera, &player);
-	get_rotated_object_pos(camera, &player);
-	draw_object(camera, &player, env);
+	get_translated_enemy_pos(camera, &player);
+	get_rotated_enemy_pos(camera, &player);
+	draw_enemy(camera, &player, env, 9);
 	return (0);
 }

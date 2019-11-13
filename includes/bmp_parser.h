@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/24 15:10:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/12 14:23:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int					parse_image_header(int fd, t_bmp_parser *parser);
 int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env);
-
+int					parse_pixel_data_wall(int fd, t_bmp_parser *parser, int index, t_env *env);
 #endif

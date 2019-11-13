@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:19:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:14:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void		editor_3d_keys(t_env *env)
 			else if (env->inputs.up)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 10)
+					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 10)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
-				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_TEXTURE - 1)
+				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 1)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
 			}
 		}
@@ -172,9 +172,9 @@ void		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 10)
+					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE- 10)
 					env->sectors[env->selected_ceiling].ceiling_texture += 10;
-				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_TEXTURE - 1)
+				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
 			}
 		}
@@ -261,9 +261,9 @@ void		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 10)
+					&& env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 10)
 					env->sectors[env->selected_floor].floor_texture += 10;
-				else if (env->sectors[env->selected_floor].floor_texture < MAX_TEXTURE - 1)
+				else if (env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_floor].floor_texture++;
 			}
 		}

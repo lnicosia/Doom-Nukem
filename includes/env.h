@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 15:45:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/13 15:59:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,18 @@ typedef struct		s_env
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemies			*enemies;
+	t_sprite			*sprites;
+	t_sprite			*enemy_sprites;
+	t_sprite			*object_sprites;
 	t_sprite			*wall_sprites;
-	t_sprite			*enemies_sprites;
-	t_sprite			*objects_sprites;
-	t_sprite			*hud_sprites;
-	t_sprite			*ui_sprites;
-	t_audio				sound;
-	t_texture			wall_textures[MAX_SURFACE_TEXTURE];
-	t_texture			_textures[MAX_TEXTURE];
+	t_texture			textures[MAX_TEXTURES];
+	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
+	t_render_vertex		skybox[NB_SKYBOX];
+	t_audio				sound;
 	t_editor 			editor;
 	t_elevator			elevator;
-	t_render_vertex		skybox[5];
 	t_camera			fixed_camera;
 	t_vline_data		*vline_data;
 	t_teleport			teleport;
@@ -264,7 +263,9 @@ int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
-int					init_sprites(t_env *env);
+int					init_enemy_sprites(t_env *env);
+int					init_object_sprites(t_env *env);
+int					init_wall_sprites(t_env *env);
 int					init_screen_pos(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
@@ -282,6 +283,7 @@ int					valid_map(t_env *env);
 */
 
 int					parse_bmp(char *file, int index, t_env *env);
+int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
 char				*skip_spaces(char *line);
@@ -419,6 +421,8 @@ void				draw_button_text(t_button b, t_env *env);
 int					is_mouse_on_button(t_button b, t_point mouse);
 t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
+int					init_raygun(t_env *env);
+int					init_shotgun(t_env *env);
 
 /*
 ** enemies functions
@@ -434,5 +438,6 @@ void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
+void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
 
 #endif

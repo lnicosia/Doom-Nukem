@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 16:36:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/13 18:19:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,23 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
-# define MAX_WALL_TEXTURE 16
-# define MAX_RAYGUN_SPRITE 7
-# define MAX_SHOTGUN_SPRITE 15
-# define MAX_SKYBOX_SPRITE 6
+# define MAX_WALL_TEXTURE 15
+# define MAX_TEXTURES 38
+# define MAX_SPRITES 12
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
+# define NB_SKYBOX 5
 # define NB_BUTTON 10
-# define AMMO_HUD 36
-# define ARMOR_LIFE_HUD 35
+# define AMMO_HUD 27
+# define ARMOR_LIFE_HUD 27
 # define THREADS 4
 # define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
+# define LOST_SOUL 0
+# define CYBER_DEMON 5
+
 
 typedef enum		e_input_box_type
 {
@@ -73,12 +76,6 @@ typedef enum		e_enemy_state
 	PURSUING,
 	FIRING
 }					t_enemy_state;
-
-typedef enum		e_entity_sprite
-{
-	LOST_SOUL = 1,
-	CYBER_DEMON
-}					t_entity_sprite;
 
 typedef enum		e_enemy_behavior
 {
@@ -218,22 +215,6 @@ typedef	struct		s_teleport
 ** Sprite structure with associated texture
 ** and 1 to 8 image cut on this texture
 */
-
-typedef struct		s_sprite
-{
-	int				oriented;
-	int				texture;
-	t_point			start[8];
-	t_point			end[8];
-	t_point			size[8];
-	int				reversed[8];
-	int				rest_sprite;
-	int				curr_sprite;
-	int				firing_sprite;
-	int				pursuit_sprite;
-	int				death_counterpart;
-	int				nb_death_sprites;
-}					t_sprite;
 
 typedef struct		s_sprite
 {
@@ -666,6 +647,9 @@ typedef struct		s_enemies
 	int				main_sprite;
 	int				death_sprite;
 	int				firing_sprite;
+	int				nb_rest_state;
+	int				nb_pursuit_state;
+	int				nb_firing_state;
 	int				seen;
 	int				saw_player;
 	double			scale;

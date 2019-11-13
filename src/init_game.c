@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 15:38:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:22:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,12 @@ int		init_game(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
-	if (init_sprites(&env))
-		return (crash("Could not load sprites\n", &env));
+	if (init_wall_sprites(&env))
+		return (crash("Could not load wall sprites\n", &env));
+	if (init_object_sprites(&env))
+		return (crash("Could not load object sprites\n", &env));
+	if (init_enemy_sprites(&env))
+		return (crash("Could not load enemy sprites\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));

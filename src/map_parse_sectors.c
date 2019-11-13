@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:40:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:13:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,14 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].floor_texture < 0
-			|| env->sectors[parser->sectors_count].floor_texture >= MAX_TEXTURE)
+			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
-	env->sectors[parser->sectors_count].floor_scale.x = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10;
-	env->sectors[parser->sectors_count].floor_scale.y = env->textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
+/*	ft_printf("%d | %d | %d\n", parser->sectors_count, env->sectors[parser->sectors_count].floor_texture,
+	env->wall_textures[env->sectors[parser->sectors_count].floor_texture]);*/
+	env->sectors[parser->sectors_count].floor_scale.x =
+	env->wall_textures[4].surface->w / 10;
+	env->sectors[parser->sectors_count].floor_scale.y =
+	env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
 	env->sectors[parser->sectors_count].floor_align = new_v2(0, 0);
 	*line = skip_number(*line);
 	if (!**line)
@@ -96,10 +100,10 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before ceiling height", "a digit",
 					**line, parser));
 	env->sectors[parser->sectors_count].ceiling = ft_atof(*line);
-	env->sectors[parser->sectors_count].ceiling_min = env->sectors[parser->
-		sectors_count].ceiling;
-	env->sectors[parser->sectors_count].ceiling_max = env->sectors[parser->
-		sectors_count].ceiling;
+	env->sectors[parser->sectors_count].ceiling_min =
+	env->sectors[parser->sectors_count].ceiling;
+	env->sectors[parser->sectors_count].ceiling_max =
+	env->sectors[parser->sectors_count].ceiling;
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling slope", parser));
@@ -133,20 +137,22 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	env->sectors[parser->sectors_count].ceiling_texture = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].ceiling_texture < -1 || env->
-			sectors[parser->sectors_count].ceiling_texture >= MAX_TEXTURE)
+			sectors[parser->sectors_count].ceiling_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid ceiling texture", parser));
 	if (env->sectors[parser->sectors_count].ceiling_texture == -1)
 	{
 		env->contains_skybox = 1;
 		//env->sectors[parser->sectors_count].ceiling_texture = 38;
 			env->sectors[parser->sectors_count].ceiling_scale = new_v2(
-					env->textures[38].surface->w,
-					env->textures[38].surface->h / 10);
+					env->textures[32].surface->w,
+					env->textures[32].surface->h / 10);
 	}
 	else
 	{
-		env->sectors[parser->sectors_count].ceiling_scale.x = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
-		env->sectors[parser->sectors_count].ceiling_scale.y = env->textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
+		env->sectors[parser->sectors_count].ceiling_scale.x =
+		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
+		env->sectors[parser->sectors_count].ceiling_scale.y =
+		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
 	}
 	env->sectors[parser->sectors_count].ceiling_align = new_v2(0, 0);
 	*line = skip_number(*line);
@@ -348,7 +354,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	{
 		(*line)++;
 		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
-		if (env->sectors[parser->sectors_count].textures[i] < -1 || env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURE)
+		if (env->sectors[parser->sectors_count].textures[i] < -1
+		|| env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURES)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"[Line %d] Texture \'%d\' in sector %d does not exist\n",
@@ -361,8 +368,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].textures[i] == -1)
 		{
 			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[38].surface->w,
-					env->textures[38].surface->h / 10);
+					env->textures[32].surface->w,
+					env->textures[32].surface->h / 10);
 		}
 		else
 		{
@@ -734,7 +741,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	line++;
 	if (parse_sector_vertices(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing sector vertices"));
+	//return (custom_error("Error while parsing sector vertices"));z
 	if (parse_sector_neighbors(env, &line, parser))
 		return (-1);
 	//return (custom_error("Error while parsing sector neighbors"));

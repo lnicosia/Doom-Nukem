@@ -72,3 +72,46 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env)
 	ft_memdel((void**)&str);
 	return (0);
 }
+
+int					parse_pixel_data_wall(int fd, t_bmp_parser *parser, int index, t_env *env)
+{
+	double			byte;
+	double			trash;
+	int				x;
+	int				y;
+	int				ret;
+	int				size;
+	unsigned char	*str;
+
+	ft_printf("{cyan}");
+	if (parser->image_size)
+		size = parser->image_size;
+	else
+		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
+	//ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
+	if (!(str = (unsigned char*)malloc(sizeof(unsigned char) * size)))
+		return (ft_printf("Could not malloc buffer for pixel data\n"));
+	if ((ret = read(fd, str, size)) > 0)
+	{
+		byte = 0;
+		x = 0;
+		y = parser->h - 1;
+		while (byte + 4 < ret)
+		{
+			env->wall_textures[index].str[x + y * parser->w] = get_pixel(byte, str, parser); 
+			byte += parser->bpp / 8.0;
+			x++;
+			if (x >= parser->w)
+			{
+				while (modf(byte, &trash) != 0)
+					byte += parser->bpp / 8.0;
+				while ((int)byte % 4 != 0)
+					byte ++;
+				x = 0;
+				y--;
+			}
+		}
+	}
+	ft_memdel((void**)&str);
+	return (0);
+}

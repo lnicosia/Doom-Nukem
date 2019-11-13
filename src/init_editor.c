@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 11:51:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/13 14:23:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int	init_editor(int ac, char **av)
 	env.avrg_fps2 = 0;
 	env.max_fps2 = 0;
 	env.playing = 0;
-	env.save_file = ft_strdup(av[1]);
+	if (av[1])
+		env.save_file = ft_strdup(av[1]);
+	else
+		env.save_file = ft_strdup("new_map.map");
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -95,8 +98,12 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
-	if (init_sprites(&env))
-		return (crash("Could not load sprites\n", &env));
+	if (init_wall_sprites(&env))
+		return (crash("Could not load wall sprites\n", &env));
+	if (init_object_sprites(&env))
+		return (crash("Could not load object sprites\n", &env));
+	if (init_enemy_sprites(&env))
+		return (crash("Could not load enemy sprites\n", &env));
 	if (ac == 1)
 		ft_printf("Creating a new map\n");
 	else if (ac == 2)

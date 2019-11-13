@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/07 15:04:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:06:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ t_button	new_image_button(int type, void (*action)(void *), void *target, t_env 
 	t_button	new;
 
 	new = init_button(type, action, target, env);
-	if (!env->textures[53].surface || !env->textures[54].surface
-		|| !env->textures[55].surface)
+	if (!env->textures[28].surface || !env->textures[29].surface
+		|| !env->textures[30].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = &env->textures[53];
-	new.img_pressed = &env->textures[54];
-	new.img_down = &env->textures[54];
-	new.img_hover = &env->textures[55];
+	new.img_up = &env->textures[28];
+	new.img_pressed = &env->textures[29];
+	new.img_down = &env->textures[29];
+	new.img_hover = &env->textures[30];
 	new.size_up = new_point(new.img_up->surface->w,
 	new.img_up->surface->h);
 	new.size_down = new_point(new.img_down->surface->w,

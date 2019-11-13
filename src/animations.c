@@ -85,7 +85,7 @@ void	 resting_enemy(t_env *env, int i)
 	if ((int)time_spent % 340 > 170)
 	{
 		env->enemies[i].rest.start = 0;
-		env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].rest_sprite;
+		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].rest_sprite;
 	}
 }
 
@@ -101,7 +101,7 @@ void	 pursuing_enemy(t_env *env, int i)
 	if ((int)time_spent % 340 > 170)
 	{
 		env->enemies[i].pursue.start = 0;
-		env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].pursuit_sprite;
+		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].pursuit_sprite;
 	}
 }
 
@@ -155,7 +155,7 @@ void	 enemy_firing_anim(t_env *env, int i)
 	if ((int)time_spent % 800 > 400)
 	{
 		env->enemies[i].fire.start = 0;
-		env->enemies[i].sprite = env->sprites[env->enemies[i].sprite].firing_sprite;
+		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].firing_sprite;
 		env->enemies[i].shot = (env->enemies[i].sprite == env->enemies[i].firing_sprite) ? 1 : 0;
 	}
 }
