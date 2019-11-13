@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstpopfront.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 17:02:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 20:06:41 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/11/08 17:27:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/08 17:46:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+void	ft_lstpopfront(t_list **alst)
 {
 	t_list	*new;
 
-	if (!(new = (t_list*)malloc(sizeof(*new))))
-		return (0);
-	if (content == NULL)
-	{
-		new->content = NULL;
-		new->content_size = 0;
-		new->next = NULL;
-		return (new);
-	}
-	if (!(new->content = malloc(content_size)))
-		return (0);
-	ft_memmove(new->content, content, content_size);
-	new->content_size = content_size;
-	new->next = NULL;
-	return (new);
+	if (!alst)
+		return ;
+	new = (*alst)->next;
+	if ((*alst)->content)
+		free((*alst)->content);
+	free(*alst);
+	*alst = new;
 }

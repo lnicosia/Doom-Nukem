@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:19:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:10:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	box->pos = pos;
 	box->type = type;
 	box->state = 1;
+	box->accept_inputs = 0;
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
@@ -240,23 +241,32 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->sdl.event.type == SDL_KEYUP && !env->inputs.lgui)
 	{
-		if (box->type == INT)
-			parse_integer_input(box, env);
-		else if (box->type == DOUBLE)
-			parse_double_input(box, env);
-		else if (box->type == STRING)
-			parse_str_input(box, env);
+		if (box->accept_inputs)
+		{
+			if (box->type == INT)
+				parse_integer_input(box, env);
+			else if (box->type == DOUBLE)
+				parse_double_input(box, env);
+			else if (box->type == STRING)
+				parse_str_input(box, env);
+		}
+		else if (env->sdl.event.key.keysym.sym == 's')
+			box->accept_inputs = 1;
 	}
 	else if (env->inputs.left_click)
 	{
 		input_box_mouse(box, env);
 		if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN
-			&& box->type != STRING
 			&& (env->sdl.mx < box->pos.x
 			|| env->sdl.mx > box->pos.x + box->size.x
 			|| env->sdl.my < box->pos.y
 			|| env->sdl.my > box->pos.y + box->size.y))
-			validate_input(box, env);
+		{
+			if (box->type != STRING)
+				validate_input(box, env);
+			else
+				box->state = 0;
+		}
 	}
 	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		box->selecting = 0;

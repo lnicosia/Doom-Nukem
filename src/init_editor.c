@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/07 17:57:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:34:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,20 @@ void	init_editor_data(t_env *env)
 	env->save_file = ft_strdup("maps/test.map");
 }
 
-void	coucou(void *param)
+/*
+**	Interaction test function
+*/
+
+void	move_sector(void *param)
 {
 	(void)param;
-	ft_printf("cc\n");
+	ft_printf("Hola\n");
+}
+
+void	hit_player(void *param)
+{
+	(void)param;
+	ft_printf("Aie\n");
 }
 
 int	init_editor(int ac, char **av)
@@ -107,9 +117,27 @@ int	init_editor(int ac, char **av)
 			return (crash("Error while parsing the map\n", &env));
 		precompute_slopes(&env);
 		ft_printf("{reset}");
+		if (ft_strequ(av[1], "maps/triple_piece.map"))
+		{
+			env.sectors[1].nb_walk_events = 2;
+			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+			env.sectors[1].walk_on_me_event[0] =
+			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
+			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
+			2, new_v3(0, 0, 0)); 
+			env.sectors[1].walk_on_me_event[1] =
+			new_event(INT, &env.player.health, 1, 0);
+			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
+			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
+			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
+			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
+			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
+		}
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
+	env.player.health = 100;
 	return (editor(&env));
 }

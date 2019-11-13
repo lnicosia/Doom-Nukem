@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   fill_triangle_minimap.c							:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/05/07 15:18:51 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/04 10:56:44 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_triangle_minimap.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/11 17:53:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/11 17:53:57 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -75,8 +75,7 @@ static void		compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		if (pixels[coord] == 0)
-			pixels[coord] = 0xFF3a7499;
+		pixels[coord] = blend_alpha(pixels[coord], 0xFF3a7499, 128);
 	}
 }
 
@@ -87,15 +86,23 @@ void		fill_triangle_minimap(t_v3 v[3], t_env *data)
 	t_v2	p;
 
 	max.x = max_3(v[0].x, v[1].x, v[2].x);
+	max.x = max.x < data->minimap_pos.x + data->minimap_size.x / 2 ? max.x :
+	data->minimap_pos.x + data->minimap_size.x / 2;
 	max.x = max.x < data->w ? max.x : data->w;
 	max.y = max_3(v[0].y, v[1].y, v[2].y);
-	max.y = max.y < 300 ? max.y : 300;
+	max.y = max.y < data->minimap_pos.y + data->minimap_size.y / 2 ? max.y :
+	data->minimap_pos.y + data->minimap_size.y / 2;
+	max.y = max.y < data->h ? max.y : data->h;
 	min.x = min_3(v[0].x, v[1].x, v[2].x);
+	min.x = min.x < 0 ? 0 : min.x;
 	min.y = min_3(v[0].y, v[1].y, v[2].y);
-	p.y = min.y < 0 ? 0 : min.y;
+	min.y = min.y < 0 ? 0 : min.y;
+	p.y = min.y < data->minimap_pos.y - data->minimap_size.y / 2 ?
+	data->minimap_pos.y - data->minimap_size.y / 2 : min.y;
 	while (p.y < max.y)
 	{
-		p.x = min.x < data->w - 300 ? data->w - 300 : min.x;
+		p.x = min.x < data->minimap_pos.x - data->minimap_size.x / 2 ?
+		data->minimap_pos.x - data->minimap_size.x / 2 : min.x;
 		while (p.x < max.x)
 		{
 			compute_triangle(v, p, data);

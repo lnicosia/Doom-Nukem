@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/31 14:21:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/13 13:57:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_editor
 	int			new_player;
 	int			tab;
 	int			select;
+	int			current_texture;
 	t_v2		center;
 	double		scale;
 	t_list		*vertices;

@@ -1,20 +1,13 @@
-/* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_line_minimap.c								:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/30 10:23:10 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/07/30 10:25:07 by lnicosia		 ###   ########.fr	   */
-/*																			*/
-/* ************************************************************************** */
-
 #include "env.h"
 
 void	fill_img_minimap(t_point c, t_env data, Uint32 color)
 {
-	if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
+	//if (c.x >= data.w - 300 && c.x < data.w && c.y >= 0 && c.y <= 300
+	if (c.x >= 0 && c.x < data.w && c.y >= 0 && c.y < data.h
+		&& c.x >= data.minimap_pos.x - data.minimap_size.x / 2
+		&& c.x < data.minimap_pos.x + data.minimap_size.x / 2
+		&& c.y >= data.minimap_pos.y - data.minimap_size.y / 2
+		&& c.y < data.minimap_pos.y + data.minimap_size.y / 2
 			&& (color == 0xFFFF0000 || color == 0xFF00FF00
 				|| (data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFF00FF00)))
 		data.sdl.texture_pixels[c.x + c.y * data.w] = color;

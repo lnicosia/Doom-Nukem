@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/13 14:41:41 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/11/13 17:19:50 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
 		   validate_input.c button_event.c player_keys.c \
+		   pop_events.c start_event.c event_updaters.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

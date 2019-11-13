@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 17:56:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:52:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_env
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
+	Uint32				frame_timer;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -121,6 +122,9 @@ typedef struct		s_env
 	t_v2				*texel_near_z;
 	t_v2				*camera_z;
 	t_v2				*texel_camera_range;
+	t_point				minimap_pos;
+	t_point				minimap_size;
+	t_point				crosshair_pos;
 	double				*zrange;
 	int					current_object;
 	int					current_enemy;
@@ -137,6 +141,8 @@ typedef struct		s_env
 	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
+	t_list				*events;
+	t_list				*queued_values;
 }					t_env;
 
 /*
@@ -235,6 +241,7 @@ int				del_char(t_input_box *box, int mode);
 int				delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int				add_char(t_input_box *box, char c);
+void				hit_player(void *param);
 
 /*
 ** Main functions
@@ -368,6 +375,7 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
+void				update_player_pos(t_env *env);
 void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, short origin);
 int					get_sector_global(t_env *env, t_v3 p);
@@ -434,5 +442,20 @@ void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
+
+/*
+**	Event function
+*/
+int					update_event(t_event *event);
+void				pop_events(t_env *env);
+void				pop_events2(t_env *env);
+t_event				new_event(int type, void *target, double goal,
+Uint32 duration);
+void				start_event(t_event *events, size_t size,
+t_env *env);
+t_event_param		*new_event_param(int num, t_v3 move);
+void				update_sector_event(t_event_param *param, void *penv);
+void				update_player_event(t_event_param *param, void *penv);
+int					check_collision_event(t_event_param *param, void *penv);
 
 #endif

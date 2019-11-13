@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:19:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:11:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,26 @@ void		editor_3d_keys(t_env *env)
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
-	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
+	if (((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going || env->inputs.ctrl)
-			&& !env->editor.in_game && env->player.health > 0)
+			&& env->player.health > 0
 
-			||  ((((env->selected_enemy == -1 && env->editor.tab)
+			&&  (((env->selected_enemy == -1 && env->editor.tab)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab))
-	
-			&& (env->editor.in_game && !env->inputs.ctrl))
-			|| (env->player.state.climb || env->player.state.drop)))
+				|| (env->selected_enemy == -1 && !env->editor.tab)))
+			|| (env->player.state.climb || env->player.state.drop))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;
 	if (env->inputs.minus && !env->inputs.shift
-			&& env->options.minimap_scale / 1.2 > 5)
+			&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
 	if (env->editor.in_game && env->inputs.right_click)
 		reset_selection(env);
-
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
-		env->saving = 1;
 		SDL_SetRelativeMouseMode(0);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),

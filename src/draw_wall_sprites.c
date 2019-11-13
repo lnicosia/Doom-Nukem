@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:42:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:36:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_env *env)
 	Uint32	*sprite_pixels;
 	double	yalpha;
 	double	y;
+	double	x;
 	double	pos;
 
 	i = render.current_ceiling - 1;
@@ -36,8 +37,12 @@ t_env *env)
 	sprite_w = env->textures[env->sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].surface->w;
 	pos = sector.sprites[render.i].pos[sprite].y / 100;
-	start = env->sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
+	start = env->sprites[sector.sprites[render.i].sprite[sprite]].start[0].x;
+	end = env->sprites[sector.sprites[render.i].sprite[sprite]].end[0].x;
+	y = render.sprite_x;
+	/*start = env->sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
 	end = env->sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
+	x = render.sprite_x;*/
 	while (++i <= render.current_floor)
 	{
 		coord = render.x + env->w * i;
@@ -45,11 +50,16 @@ t_env *env)
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 		/ render.line_height - pos;
-		y = yalpha * render.camera->v[render.sector]
+		x = yalpha * render.camera->v[render.sector]
+		[render.i].sprite_scale[sprite].y + start;
+		if (x >= start && x < end
+			&& sprite_pixels[(int)x
+			+ sprite_w * (int)y] != 0xFFC10099)
+		/*y = yalpha * render.camera->v[render.sector]
 		[render.i].sprite_scale[sprite].y + start;
 		if (y >= start && y < end
-			&& sprite_pixels[(int)render.sprite_x
-			+ sprite_w * (int)y] != 0xFFC10099)
+			&& sprite_pixels[(int)x
+			+ sprite_w * (int)y] != 0xFFC10099)*/
 		{
 			if (env->editor.select && render.x == env->h_w && i == env->h_h)
 			{
@@ -61,10 +71,10 @@ t_env *env)
 			}
 			if (!env->options.lighting && !env->playing)
 				pixels[coord] = sprite_pixels[
-				(int)render.sprite_x + sprite_w * (int)y];
+				(int)x + sprite_w * (int)y];
 			else
 				pixels[coord] = apply_light(sprite_pixels[
-				(int)render.sprite_x + sprite_w * (int)y],
+				(int)x + sprite_w * (int)y],
 				sector.light_color, sector.brightness);
 			if (env->editor.in_game && !env->editor.select
 				&& env->editor.selected_sector == sector.num
@@ -88,8 +98,10 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 	{
 		if (sector.sprites[render.i].sprite[i] != -1)
 		{
-			start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].x;
-			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].x;
+			/*start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].x;
+			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].x;*/
+			start = env->sprites[sector.sprites[render.i].sprite[i]].start[0].y;
+			end = env->sprites[sector.sprites[render.i].sprite[i]].end[0].y;
 			pos = sector.sprites[render.i].pos[i].x;
 			// render.camera->v[sector.num][render.i].xrange;
 			//  / (render.camera->v[render.sector][render.i].sprite_scale[i].x * render.z);

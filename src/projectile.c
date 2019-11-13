@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 12:27:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:14:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	projectiles_movement(t_env *env)
 	if (env->projectiles)
 	{
 		tmp = env->projectiles;
-		if (tmp)
+		while (tmp)
 		{
 			projectile = (t_projectile*)tmp->content;
 			move = sprite_movement(0.8, projectile->pos, projectile->dest);
@@ -58,25 +58,13 @@ void	projectiles_movement(t_env *env)
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;
 				projectile->sector = get_sector_no_z_origin(env, projectile->pos, projectile->sector);
+				tmp = tmp->next;
 			}
 			else
-				ft_printf("BOOOOM!!!!!!\n");
-		}
-		while (tmp->next)
-		{
-			tmp = tmp->next;
-			projectile = (t_projectile*)tmp->content;
-			move = sprite_movement(0.8, projectile->pos, projectile->dest);
-			if (collision_projectiles(env, move, new_movement(projectile->sector, projectile->size_2d,
-				0, projectile->pos)))
 			{
-				projectile->pos.x += move.x;
-				projectile->pos.y += move.y;
-				projectile->pos.z += move.z;
-				projectile->sector = get_sector_no_z_origin(env, projectile->pos, projectile->sector);
-			}
-			else
+				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				ft_printf("EXPLOSIOOOON!!!!\n");
+			}
 		}
 	}
 }

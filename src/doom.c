@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:45:05 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:45:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:50:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 
 int		doom(t_env *env)
 {
-	/*init_animations(env);
-	init_weapons(env);
-	env->player.speed = 0.5;
-	env->player.size_2d = 0.5;
-	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env->sound.background, -1);
-	//ft_printf("launching game loop..\n");
-	env->flag = 0;
-	env->player.fall = 1;*/
 	while (env->running)
 	{
 		env->player.health = 100;
@@ -58,6 +49,8 @@ int		doom(t_env *env)
 			death(env);
 		if (env->confirmation_box.state)
 			confirmation_box_keys(&env->confirmation_box, env);
+		if (env->events)
+				pop_events(env);
 		if (env->menu_start)
 			start_game_menu(env);
 		else
