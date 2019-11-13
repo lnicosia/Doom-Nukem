@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 17:14:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:23:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	projectiles_movement(t_env *env)
 			else
 			{
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
-				ft_printf("EXPLOSIOOOON!!!!\n");
+				//ft_printf("EXPLOSIOOOON!!!!\n");
 			}
 		}
 	}
