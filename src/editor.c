@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 14:52:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:08:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		editor(t_env *env)
 		if (!env->input_box.state && env->saving)
 			save_map(env);
 		if (env->events)
-			pop_events(env);
+			pop_events2(env);
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);

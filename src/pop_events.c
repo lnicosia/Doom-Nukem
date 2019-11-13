@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 20:25:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:33:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,55 @@ void	pop_events(t_env *env)
 	precompute_slopes(env);
 	env->events = next_events;
 	env->queued_values = next_values;
+}
+
+void	pop_events2(t_env *env)
+{
+		t_event	*curr;
+		t_list	*prec;
+		t_list	*tmp;
+		t_list	*prec_values;
+		t_list	*tmp_values;
+		int		res;
+		
+		tmp = env->events;
+		tmp_values = env->queued_values;
+		prec_values = NULL;
+		prec = NULL;
+		//ft_printf("\n{cyan}[NEW CALL]{reset}\n");
+		while (tmp)
+		{
+			//ft_printf("\ncurr = %p\n", tmp);
+			curr = (t_event*)tmp->content;
+			if (curr->type == DOUBLE)
+				res = double_event(curr);
+			else if (curr->type == INT)
+				res = int_event(curr);
+			if (res)
+			{
+					//ft_printf("poping %p\n", tmp);
+					ft_lstpopfront(&tmp);
+					//ft_printf("prec = %p\n", prec);
+					if (prec)
+						prec->next = tmp;
+					else
+						env->events = tmp;
+					ft_lstpopfront(&tmp_values);
+					//ft_printf("prec = %p\n", prec);
+					if (prec_values)
+						prec_values->next = tmp_values;
+					else
+						env->queued_values = tmp_values;
+			}
+			else
+			{
+				prec = tmp;
+				tmp = tmp->next;
+				prec_values = tmp_values;
+				tmp_values = tmp_values->next;
+				//ft_printf("next = %p\n", tmp);
+			}
+		}
+		precompute_slopes(env);
+		//ft_printf("\n{cyan}[END OF CALL]{reset}\n");
 }

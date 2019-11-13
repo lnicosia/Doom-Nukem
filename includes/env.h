@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/12 19:48:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:05:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,7 @@ void				draw_button(t_env *env, t_button b);
 
 int					update_event(t_event *event);
 void				pop_events(t_env *env);
+void				pop_events2(t_env *env);
 t_event				new_event(int type, void *target, double goal,
 Uint32 duration);
 void				start_event(t_event *events, size_t size,

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 20:26:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:35:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	start_event(t_event *events, size_t size, t_env *env)
 				//ft_printf("adding %p to queued_values\n", events[i].target);
 				ft_lstpushback(&env->queued_values, ft_lstnew(&events[i].target,
 				sizeof(events[i].target)));
-				ft_printf("{yellow}starting event{reset}\n");
+				//ft_printf("{yellow}starting event{reset}\n");
 			}
 		i++;
 	}
