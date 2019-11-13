@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:59:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:08:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -613,6 +613,7 @@ typedef	struct		s_projectile
 	int				bottom;
 	double			scale;
 	double			angle;
+	double			size_2d;
 	short			brightness;
 	Uint32			light_color;
 	int				sector;

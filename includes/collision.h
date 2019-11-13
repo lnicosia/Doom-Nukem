@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/05 18:07:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/13 14:42:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int					in_range(double nb, double val1, double val2);
 t_movement          new_movement(int sector, double size_2d, double eyesight, t_v3 pos);
 int                 find_lowest_sector(t_env *env, t_movement motion);
 int                 check_ceiling(t_env *env, t_movement motion, int sector_dest);
+int     			collision_projectiles(t_env *env, t_v3 move, t_movement motion);
 
 #endif
