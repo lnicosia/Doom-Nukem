@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:51:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:48:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef enum		e_button_action_type
 	ON_PRESS,
 	WHEN_DOWN
 }			t_button_action_type;
+
+typedef enum	e_event_mod_type
+{
+	FIXED,
+	INCR
+}				t_event_mod_type;
 
 typedef enum		e_button_state
 {
@@ -235,16 +241,11 @@ typedef struct		s_sprite
 	int				nb_death_sprites;
 }					t_sprite;
 
-typedef struct		s_wall_sprites
-{
-	short			*sprite;
-	t_v2			*pos;
-	t_v2			*scale;
-}					t_wall_sprites;
-
 typedef struct		s_event_param
 {
 		int			num;
+		double		equ_value;
+		double		diff_value;
 		t_v3		move;
 }					t_event_param;
 
@@ -256,12 +257,21 @@ typedef struct		s_event
 	double			incr;
 	Uint32			start_time;
 	Uint32			duration;
+	Uint32			delay;
+	int				mod_type;
 	int				type;
-	int				(*check_func)(t_event_param *, void *);
+	int				(*check_func)(struct s_event *, void *);
 	t_event_param	*check_param;
-	void			(*update_func)(t_event_param *, void *);
+	void			(*update_func)(struct s_event *, void *);
 	t_event_param	*update_param;
 }			t_event;
+
+typedef struct		s_wall_sprites
+{
+	short			*sprite;
+	t_v2			*pos;
+	t_v2			*scale;
+}					t_wall_sprites;
 
 typedef struct		s_sector
 {

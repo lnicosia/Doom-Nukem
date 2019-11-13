@@ -6,24 +6,43 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 14:16:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:59:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-t_event	new_event(int type, void *target, double goal, Uint32 duration)
+t_event	new_fixed_event(int type, void *target, double goal, Uint32 duration)
 {
 	t_event	new;
 
 	ft_bzero(&new, sizeof(new));
 	new.target = target;
+	new.mod_type = FIXED;
 	if (duration)
 		new.duration = duration;
 	else
 		new.duration = 1;
 	new.type = type;
 	new.goal = goal;
+	new.start_time = 0;
+	update_event(&new);
+	return (new);
+}
+
+t_event	new_incr_event(int type, void *target, double incr, Uint32 duration)
+{
+	t_event	new;
+
+	ft_bzero(&new, sizeof(new));
+	new.target = target;
+	new.mod_type = INCR;
+	if (duration)
+		new.duration = duration;
+	else
+		new.duration = 1;
+	new.type = type;
+	new.incr = incr;
 	new.start_time = 0;
 	update_event(&new);
 	return (new);
@@ -79,14 +98,14 @@ int		execute_event(t_event *event, t_env *env)
 
 	res = 1;
 	if (event->check_func)
-		if (!event->check_func(event->check_param, env))
+		if (!event->check_func(event, env))
 				return (1);
 	if (event->type == DOUBLE)
 		res = double_event(event);
 	else if (event->type == INT)
 		res = int_event(event);
 	if (event->update_func)
-		event->update_func(event->update_param, env);
+		event->update_func(event, env);
 	return (res);
 }
 

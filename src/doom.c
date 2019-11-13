@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:45:05 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:50:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:58:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,18 @@ int		doom(t_env *env)
 			enemy_collision(env);
 			keys(env);
 		}
+		if (env->player.sector != -1)
+				start_event(env->sectors[env->player.sector].walk_on_me_event,
+				env->sectors[env->player.sector].nb_walk_events, env);
+		if (env->global_events)
+				start_event(env->global_events, env->nb_global_events, env);
 		projectiles_movement(env);
 		if (env->player.health <= 0)
 			death(env);
 		if (env->confirmation_box.state)
 			confirmation_box_keys(&env->confirmation_box, env);
 		if (env->events)
-				pop_events(env);
+				pop_events2(env);
 		if (env->menu_start)
 			start_game_menu(env);
 		else

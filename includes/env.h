@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 16:52:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:54:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct		s_env
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
 	Uint32				frame_timer;
+	t_event				*global_events;
+	size_t				nb_global_events;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -449,13 +451,18 @@ void	enemy_firing_anim(t_env *env, int i);
 int					update_event(t_event *event);
 void				pop_events(t_env *env);
 void				pop_events2(t_env *env);
-t_event				new_event(int type, void *target, double goal,
+t_event				new_fixed_event(int type, void *target, double goal,
+Uint32 duration);
+t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
 void				start_event(t_event *events, size_t size,
 t_env *env);
-t_event_param		*new_event_param(int num, t_v3 move);
-void				update_sector_event(t_event_param *param, void *penv);
-void				update_player_event(t_event_param *param, void *penv);
-int					check_collision_event(t_event_param *param, void *penv);
+t_event_param		*new_event_param(int num, double equ_value, 
+double diff_value, t_v3 move);
+void				update_sector_event(t_event *event, void *penv);
+void				update_player_event(t_event *event, void *penv);
+int					check_collision_event(t_event *event, void *penv);
+int					check_diff_value_event(t_event *event, void *penv);
+int					check_equ_value_event(t_event *event, void *penv);
 
 #endif
