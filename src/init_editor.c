@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 10:27:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:34:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,16 @@ int	init_editor(int ac, char **av)
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
 			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
+			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
+			2, new_v3(0, 0, 0)); 
 			env.sectors[1].walk_on_me_event[1] =
-			new_event(INT, &env.player.health, 50, 1000);
+			new_event(INT, &env.player.health, 1, 0);
+			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
+			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
+			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
+			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
+			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

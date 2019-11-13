@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 10:42:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:09:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	free_textures(t_env *env)
 
 static void	free_sectors(t_env *env)
 {
-	int	i;
+	int		i;
+	size_t	j;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -66,6 +67,19 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
+		j = 0;
+		while (j < env->sectors[i].nb_walk_events)
+		{
+				if (env->sectors[i].walk_on_me_event[j].check_param)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
+					check_param);
+				if (env->sectors[i].walk_on_me_event[j].update_param)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
+					update_param);
+				j++;
+		}
+		if (env->sectors[i].walk_on_me_event)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);

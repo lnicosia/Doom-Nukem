@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 10:33:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:16:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_event	new_event(int type, void *target, double goal, Uint32 duration)
 {
 	t_event	new;
 
+	ft_bzero(&new, sizeof(new));
 	new.target = target;
 	if (duration)
 		new.duration = duration;
@@ -24,6 +25,7 @@ t_event	new_event(int type, void *target, double goal, Uint32 duration)
 	new.type = type;
 	new.goal = goal;
 	new.start_time = 0;
+	update_event(&new);
 	return (new);
 }
 
@@ -39,16 +41,11 @@ int	double_event(t_event *curr)
 		type = 0;
 	else
 		type = 1;
-	//ft_printf("type = %d\n", type);
-	//ft_printf("goal is %f\n", curr->goal);
-	//ft_printf("actual value = %f\n", *target);
 	*target = curr->start_value + (time - curr->start_time) * curr->incr;
-	//ft_printf("new value = %f\n", *target);
 	if ((!type && *target >= curr->goal)
 		|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		//ft_printf("{green}Goal reached: target = %f{reset}\n", *target);
 		return (1);
 	}
 	return (0);
@@ -62,26 +59,44 @@ int	int_event(t_event *curr)
 
 	time = SDL_GetTicks();
 	target = (int*)curr->target;
-	//ft_printf("goal is %d\n", curr->goal);
-	//ft_printf("actual value = %d\n", *target);
 	if (*target < curr->goal)
 		type = 0;
 	else
 		type = 1;
 	*target = curr->start_value + (time - curr->start_time) * curr->incr;
-	//ft_printf("new value = %d\n", *target);
 	if ((!type && *target >= curr->goal)
 		|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		//ft_printf("{green}Goal reached: target = %d{reset}\n", *target);
 		return (1);
 	}
 	return (0);
 }
 
+int		execute_event(t_event *event, t_env *env)
+{
+	int	res;
+
+	res = 1;
+	if (event->check_func)
+		if (!event->check_func(event->check_param, env))
+				return (1);
+	if (event->type == DOUBLE)
+		res = double_event(event);
+	else if (event->type == INT)
+		res = int_event(event);
+	if (event->update_func)
+		event->update_func(event->update_param, env);
+	return (res);
+}
+
 //	TODO
 //	Protection
+
+/*
+**	This function executes every event as a queue
+**	and sets a new queue for the next frame
+*/
 
 void	pop_events(t_env *env)
 {
@@ -114,9 +129,16 @@ void	pop_events(t_env *env)
 	env->queued_values = next_values;
 }
 
+//	TODO
+//	Protection
+
+/*
+**	This one executes every event in the list
+**	and delete a node when the event is done
+*/
+
 void	pop_events2(t_env *env)
 {
-		t_event	*curr;
 		t_list	*prec;
 		t_list	*tmp;
 		t_list	*prec_values;
@@ -127,26 +149,17 @@ void	pop_events2(t_env *env)
 		tmp_values = env->queued_values;
 		prec_values = NULL;
 		prec = NULL;
-		//ft_printf("\n{cyan}[NEW CALL]{reset}\n");
 		while (tmp)
 		{
-			//ft_printf("\ncurr = %p\n", tmp);
-			curr = (t_event*)tmp->content;
-			if (curr->type == DOUBLE)
-				res = double_event(curr);
-			else if (curr->type == INT)
-				res = int_event(curr);
+			res = execute_event((t_event*)tmp->content, env);
 			if (res)
 			{
-					//ft_printf("poping %p\n", tmp);
 					ft_lstpopfront(&tmp);
-					//ft_printf("prec = %p\n", prec);
 					if (prec)
 						prec->next = tmp;
 					else
 						env->events = tmp;
 					ft_lstpopfront(&tmp_values);
-					//ft_printf("prec = %p\n", prec);
 					if (prec_values)
 						prec_values->next = tmp_values;
 					else
@@ -158,9 +171,6 @@ void	pop_events2(t_env *env)
 				tmp = tmp->next;
 				prec_values = tmp_values;
 				tmp_values = tmp_values->next;
-				//ft_printf("next = %p\n", tmp);
 			}
 		}
-		precompute_slopes(env);
-		//ft_printf("\n{cyan}[END OF CALL]{reset}\n");
 }

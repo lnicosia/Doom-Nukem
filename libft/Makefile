@@ -6,7 +6,7 @@
 #    By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/13 10:41:31 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/13 14:55:44 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_clamp.c ft_fclamp.c ft_fclamp.c ft_atof.c ft_getlen.c \
 		  ft_sitoa.c ft_realloc.c ft_getsize.c ft_delindex.c ft_perror.c \
 		  ft_lstcontains.c vector_utils.c segments_intersect.c \
-		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c
+		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c \
 
 HEADERS = libft.h
 

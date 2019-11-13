@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 18:17:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:46:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,40 @@ void	check_blocage(t_env *env, t_movement motion, double speed, int index)
 	}
 }
 
+void	update_player_pos(t_env *env)
+{
+		int		new_sector;
+		t_movement	motion;
+
+		motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
+		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
+		new_sector = get_sector_no_z_origin(env,
+				env->player.pos, env->player.sector);
+		if (new_sector != env->player.sector && new_sector != -1)
+			start_event(env->sectors[new_sector].walk_on_me_event, env->sectors[new_sector].nb_walk_events, env);
+		env->player.sector = new_sector;
+		if (find_highest_sector(env, motion) != env->player.highest_sect
+				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env))
+			env->player.drop_flag = 1;
+		env->player.highest_sect = find_highest_sector(env, motion);
+		env->player.lowest_sect = find_lowest_sector(env, motion);
+		env->player.camera.pos = env->player.pos;
+		env->player.camera.pos.z = env->player.head_z;
+		if (((get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) > env->player.pos.z
+						&& get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) - env->player.pos.z <= 2)
+					|| (env->player.state.climb))
+				&& !env->player.state.drop && !env->player.state.jump && !env->elevator.on && !env->player.state.fly)
+			climb(env);
+		else if ((((get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) < env->player.pos.z
+							&& env->player.pos.z - get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) <= 2)
+						|| env->player.state.drop)
+					&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
+				&& env->player.drop_flag && !env->player.state.fly)
+			drop(env);
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
+		update_camera_position(&env->player.camera);
+}
+
 void	move_player(t_env *env)
 {
 	int			movement;
@@ -92,7 +126,6 @@ void	move_player(t_env *env)
 	t_v3		move;
 	t_v3		pos;
 	int			prev_sector;
-	int		new_sector;
 	Uint32		time;
 	double		speed;
 
@@ -175,32 +208,5 @@ void	move_player(t_env *env)
 	if (!movement && (env->player.state.climb || env->player.state.drop))
 		movement = 1;
 	if (movement)
-	{
-		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
-		new_sector = get_sector_no_z_origin(env,
-				env->player.pos, env->player.sector);
-		if (new_sector != env->player.sector && new_sector != -1)
-			start_event(env->sectors[new_sector].walk_on_me_event, env->sectors[new_sector].nb_walk_events, env);
-		env->player.sector = new_sector;
-		if (find_highest_sector(env, motion) != env->player.highest_sect
-				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env))
-			env->player.drop_flag = 1;
-		env->player.highest_sect = find_highest_sector(env, motion);
-		env->player.lowest_sect = find_lowest_sector(env, motion);
-		env->player.camera.pos = env->player.pos;
-		env->player.camera.pos.z = env->player.head_z;
-		if (((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) > env->player.pos.z
-						&& get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) - env->player.pos.z <= 2)
-					|| (env->player.state.climb))
-				&& !env->player.state.drop && !env->player.state.jump && !env->elevator.on && !env->player.state.fly)
-			climb(env);
-		else if ((((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) < env->player.pos.z
-							&& env->player.pos.z - get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) <= 2)
-						|| env->player.state.drop)
-					&& !env->player.state.jump && !env->player.state.fall && !env->player.state.climb)
-				&& env->player.drop_flag && !env->player.state.fly)
-			drop(env);
-		env->player.head_z = env->player.pos.z + env->player.eyesight;
-		update_camera_position(&env->player.camera);
-	}
+			update_player_pos(env);
 }

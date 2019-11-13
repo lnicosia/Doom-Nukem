@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 19:56:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:00:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,15 +240,25 @@ typedef struct		s_wall_sprites
 	t_v2			*scale;
 }					t_wall_sprites;
 
+typedef struct		s_event_param
+{
+		int			num;
+		t_v3		move;
+}					t_event_param;
+
 typedef struct		s_event
 {
-	void		*target;
-	double		goal;
-	double		start_value;
-	double		incr;
-	Uint32		start_time;
-	Uint32		duration;
-	int		type;
+	void			*target;
+	double			goal;
+	double			start_value;
+	double			incr;
+	Uint32			start_time;
+	Uint32			duration;
+	int				type;
+	int				(*check_func)(t_event_param *, void *);
+	t_event_param	*check_param;
+	void			(*update_func)(t_event_param *, void *);
+	t_event_param	*update_param;
 }			t_event;
 
 typedef struct		s_sector

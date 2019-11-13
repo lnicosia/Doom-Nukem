@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/13 10:14:04 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/13 14:45:18 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
 		   validate_input.c button_event.c player_keys.c \
-		   pop_events.c start_event.c
+		   pop_events.c start_event.c event_updaters.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h
@@ -96,8 +96,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -flto -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-flto -Ofast \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \
