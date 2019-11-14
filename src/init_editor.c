@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 13:32:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:53:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	init_editor_data(t_env *env)
 {
-	env->editor.center.x = env->h_w;
-	env->editor.center.y = env->h_h;
-	env->editor.scale = 20;
+	env->editor.scale = 10;
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
 	env->player.sector = -1;
@@ -67,6 +65,7 @@ int	init_editor(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.min_fps = 300;
+	env.i = 1;
 	env.min_fps2 = 300;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
@@ -121,5 +120,9 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init camera\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
+	//if (env.editor.new_player)
+	//{
+		env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+		env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	return (editor(&env));
 }

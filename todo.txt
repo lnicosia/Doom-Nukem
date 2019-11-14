@@ -3,9 +3,9 @@ sauvegarde des scale + pos marche pas							| Uniquement pour le sol/plafond. A 
 Quand on met une skybox ensuite la texture est a 38				| Fixed
 Selection skybox toujours bugguee								| Fixed
 Une seule skybox (ca pue)										|
-Les echelles, les pos, trop chiant a aligner					| Mieux
-> Harmoniser echelles											|
-Multi selection?												|
+Les echelles, les pos, trop chiant a aligner					| Better
+> Harmoniser echelles											| Done
+Multi selection?												| Probably not
 Crash lors skybox sur corniche									|
 Ajouter des vertex/modifier secteur								|
 Ecrire des valeurs/noms de fichier dans l'editeur				| Fonction done

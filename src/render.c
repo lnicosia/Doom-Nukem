@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:39:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:02:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		- camera->v[sector->num][i].no_slope_c1;
 	if (camera->v[sector->num][i + 1].vz)
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
+		camera->v[sector->num][i].texture_scale.x = (1 / sector->scale[i].x) * (sector->wall_width[i] / 10) / camera->v[sector->num][i + 1].vz;
 		j = 0;
 		while (j < sector->nb_sprites[i])
 		{
@@ -139,7 +139,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	}
 	else
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i] / 10)
+		camera->v[sector->num][i].texture_scale.x = (1 / sector->scale[i].x) * (sector->wall_width[i] / 10)
 			/ camera->v[sector->num][i].clipped_vz2;
 		j = 0;
 		while (j < sector->nb_sprites[i])
@@ -149,7 +149,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			j++;
 		}
 	}
-	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor) / 10;
+	camera->v[sector->num][i].texture_scale.y = (1 / sector->scale[i].y) * (sector->ceiling - sector->floor) / 10;
 	j = 0;
 	while (j < sector->nb_sprites[i])
 	{

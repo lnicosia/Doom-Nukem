@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 10:49:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 13:34:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:07:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		generate_mipmaps(t_env *env)
 	t_texture	*texture;
 
 	i = 0;
+	ft_printf("Generating mipmaps..\n");
 	while (i < MAX_TEXTURE)
 	{
 		texture = &env->textures[i];

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:51:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:28:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,19 +357,6 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 					parser->sectors_count);
 			return (-1);
 		}
-		env->sectors[parser->sectors_count].align[i] = new_v2(0, 0);
-		if (env->sectors[parser->sectors_count].textures[i] == -1)
-		{
-			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[38].surface->w,
-					env->textures[38].surface->h / 10);
-		}
-		else
-		{
-			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w,
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
-		}
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].align[i].x = ft_atof(*line);
@@ -387,6 +374,24 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
+		if (env->sectors[parser->sectors_count].textures[i] == -1)
+		{
+			env->sectors[parser->sectors_count].scale[i].x /= env->textures[38].surface->w * 10;
+			env->sectors[parser->sectors_count].scale[i].y /= env->textures[38].surface->h * 10;
+			env->sectors[parser->sectors_count].align[i].x *= env->textures[38].surface->w;
+			env->sectors[parser->sectors_count].align[i].y *= env->textures[38].surface->h;
+			env->sectors[parser->sectors_count].align[i].x /= 10;
+			env->sectors[parser->sectors_count].align[i].y /= 10;
+		}
+		else
+		{
+			env->sectors[parser->sectors_count].scale[i].x /= env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w * 10;
+			env->sectors[parser->sectors_count].scale[i].y /= env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h * 10;
+			env->sectors[parser->sectors_count].align[i].x *= env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w;
+			env->sectors[parser->sectors_count].align[i].y *= env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
+			env->sectors[parser->sectors_count].align[i].x /= 10;
+			env->sectors[parser->sectors_count].align[i].y /= 10;
+		}
 		(*line)++;
 		i++;
 	}

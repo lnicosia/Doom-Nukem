@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 15:33:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 15:19:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void		render_sector(t_render render, t_env *env)
 		//ft_printf("cc\n");
 		render.xstart = ft_max(v1.clipped_x1, render.xmin);
 		render.xend = ft_min(v1.clipped_x2, render.xmax);
+		render.i = i;
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];
@@ -177,7 +178,23 @@ void		render_sector(t_render render, t_env *env)
 			render.texture_w = env->textures[render.texture].surface->w;
 			render.texture_h = env->textures[render.texture].surface->h;
 		}
-		render.i = i;
+		render.map_lvl = 0;
+		/*if (env->options.mipmapping)
+			render.map_lvl = get_current_map(sector.textures[i], render, env);
+		else
+			render.map_lvl = 0;
+		if (render.texture == -1)
+		{
+			render.texture_w = env->textures[38].maps[render.map_lvl]->w;
+			render.texture_h = env->textures[38].maps[render.map_lvl]->h;
+		}
+		else
+		{
+			render.texture_w = env->textures[render.texture].
+			maps[render.map_lvl]->w;
+			render.texture_h = env->textures[render.texture].
+			maps[render.map_lvl]->h;
+		}*/
 		threaded_wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)
 		{
@@ -187,6 +204,8 @@ void		render_sector(t_render render, t_env *env)
 			new.xmax = render.xend;
 			render_sector(new, env);
 		}
+		if (i == 1)
+			get_current_map(sector.textures[i], render, env);
 	}
 	//ft_printf("sector %d ok\n", sector.num);
 	render.camera->rendered_sectors[render.sector]--;

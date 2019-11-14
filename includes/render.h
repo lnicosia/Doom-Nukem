@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:56:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:11:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_render
 	int			x;
 	int			y;
 	int			texture;
+	int			map_lvl;
 	int			i;
 	int			thread;
 	int			texture_w;
@@ -224,6 +225,7 @@ void			restrict_ceiling(t_render_vertex v1, t_render *render,
 void			reset_x_restrictions(t_sector *sector, t_env *env);
 void			get_vline_data(t_render_vertex v1, t_sector sector,
 		t_render render, t_env *env);
+int				get_current_map(int texture, t_render render, t_env *env);
 
 /*
 **	Sprite part
