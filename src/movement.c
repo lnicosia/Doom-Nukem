@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:49:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:36:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ void	move_player(t_env *env)
 	else 
 		speed = env->player.speed;
 	speed *= time;
-	//ft_printf("time = %d\n", time);
-	//ft_printf("speed = %f\n", speed);
 	prev_sector = env->player.sector;
 	movement = 0;
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);

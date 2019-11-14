@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 14:09:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:39:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,7 +356,7 @@ void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
-t_v3				sprite_movement(double speed, t_v3 origin, t_v3 destination);
+t_v3				sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);

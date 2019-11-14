@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 15:51:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:25:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 ** Function needs to be moved to another file
 */
 
-t_v3	sprite_movement(double speed, t_v3 origin, t_v3 destination)
+t_v3	sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination)
 {
+	Uint32	time;
 	t_v3	direction;
 	double  distance;
 
-	//ft_printf("%f\n", speed);
+	time = SDL_GetTicks() - env->time.milli_s;
+	speed *= time / 3;
 	direction.x = destination.x - origin.x;
 	direction.y = destination.y - origin.y;
 	direction.z = destination.z - origin.z;
@@ -302,7 +304,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 			distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
 		{
 			env->enemies[i].state = PURSUING;
-			direction = sprite_movement((double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
+			direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
 			move.x = direction.x;
 			move.y = direction.y;
 			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
@@ -343,7 +345,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 		(distance >= 30 || !enemy.saw_player))
 	{
 		env->enemies[i].state = PURSUING;
-		direction = sprite_movement((double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
+		direction = sprite_movement(env, (double)enemy.speed / 400, enemy.pos, enemy.last_player_pos);
 		move.x = direction.x;
 		move.y = direction.y;
 		move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
@@ -447,7 +449,6 @@ int			enemy_collision(t_env *env, t_v3 pos, double radius)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		ft_printf("enemies.eyesight %f\n", env->enemies[i].eyesight);
 		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < env->enemies[i].size_2d + radius && env->enemies[i].exists
 			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
 			return (i);

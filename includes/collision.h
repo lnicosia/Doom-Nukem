@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 10:14:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:10:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ t_movement          new_movement(int sector, double size_2d, double eyesight, t_
 int                 find_lowest_sector(t_env *env, t_movement motion);
 int                 check_ceiling(t_env *env, t_movement motion, int sector_dest);
 int     			collision_projectiles(t_env *env, t_v3 move, t_movement motion);
+int					projectile_player_collision(t_env *env, t_v3 pos, double radius);
 
 #endif

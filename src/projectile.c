@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 14:36:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:25:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 		return (ft_printf("Error when creating new projectile\n"));
 	ft_lstpushback(&env->projectiles, new);
 	((t_projectile*)new->content)->sprite = data.sprite;
+	((t_projectile*)new->content)->speed = stats.speed;
 	((t_projectile*)new->content)->angle = data.angle;
 	projectile_coord(data.pos, ((t_projectile*)new->content), angle_z);
 	((t_projectile*)new->content)->scale = data.scale;
@@ -53,12 +54,19 @@ void	projectiles_movement(t_env *env)
 		while (tmp)
 		{
 			projectile = (t_projectile*)tmp->content;
-			move = sprite_movement(0.8, projectile->pos, projectile->dest);
+			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
 			nb = enemy_collision(env, projectile->pos, projectile->size_2d);
 			if (nb >= 0)
 			{
 				env->enemies[nb].health -= projectile->damage;
-				ft_printf("touché\n");
+				env->enemies[nb].hit = 1;
+				tmp = ft_lstdelnode(&env->projectiles, tmp);
+				continue ;
+			}
+			if (projectile_player_collision(env, projectile->pos, projectile->size_2d))
+			{
+				env->player.hit = 1;
+				env->player.health -= projectile->damage;
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}

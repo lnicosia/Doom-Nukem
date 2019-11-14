@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 14:03:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:25:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -658,7 +658,7 @@ typedef	struct		s_projectile
 	Uint32			light_color;
 	int				sector;
 	int				exists;
-	int				speed;
+	double			speed;
 	int				sprite;
 	int				damage;
 }					t_projectile;
