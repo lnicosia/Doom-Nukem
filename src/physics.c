@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 18:33:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 10:55:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	climb(t_env *env)
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.climb)
 	{
-		ft_printf("start climb\n");
 		env->player.state.climb = 1;
 		env->time.last_climb = SDL_GetTicks() / 100.0;
 		env->player.velocity = 0.4;
@@ -45,11 +44,9 @@ void	climb(t_env *env)
 	{
 		env->time.d_time = time - env->time.last_climb;
 		env->player.pos.z += env->time.d_time * env->player.velocity;
-		ft_printf("slope : %f | playr_z: %f\n", slope, env->player.pos.z);
 	}
 	if (env->player.pos.z >= slope)
 	{
-		ft_printf("end climb\n");
 		env->player.pos.z = slope;
 		env->player.state.climb = 0;
 		env->player.velocity = 0;

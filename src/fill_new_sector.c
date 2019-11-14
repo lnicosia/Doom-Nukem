@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_new_sector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 17:37:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:30:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
-		sector->textures[index] = 32;
+		sector->textures[index] = 4;
 		sector->nb_sprites[index] = 0;
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,
@@ -70,21 +70,23 @@ env->textures[sector->textures[index]].surface->h);
 		i++;
 	}
 	if (!env->editor.reverted)
-	{
-		sector->vertices[sector->nb_vertices] = sector->vertices[0];
-		sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
-		sector->textures[sector->nb_vertices] = sector->textures[0];
-		sector->sprites[sector->nb_vertices] = sector->sprites[0];
-		sector->align[sector->nb_vertices] = sector->align[0];
-		sector->scale[sector->nb_vertices] = sector->scale[0];
-	}
-	else
-	{
-		sector->vertices[0] = sector->vertices[sector->nb_vertices];
-		sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
-		sector->textures[0] = sector->textures[sector->nb_vertices];
-		sector->sprites[0] = sector->sprites[sector->nb_vertices];
-		sector->align[0] = sector->align[sector->nb_vertices];
-		sector->scale[0] = sector->scale[sector->nb_vertices];
-	}
+    {
+        sector->vertices[sector->nb_vertices] = sector->vertices[0];
+        sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
+        sector->textures[sector->nb_vertices] = sector->textures[0];
+        sector->sprites[sector->nb_vertices] = sector->sprites[0];
+        sector->align[sector->nb_vertices] = sector->align[0];
+        sector->scale[sector->nb_vertices] = sector->scale[0];
+        sector->nb_sprites[sector->nb_vertices] = 0;
+    }
+    else
+    {
+        sector->vertices[0] = sector->vertices[sector->nb_vertices];
+        sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
+        sector->textures[0] = sector->textures[sector->nb_vertices];
+        sector->sprites[0] = sector->sprites[sector->nb_vertices];
+        sector->align[0] = sector->align[sector->nb_vertices];
+        sector->scale[0] = sector->scale[sector->nb_vertices];
+        sector->nb_sprites[0] = 0;
+    }
 }

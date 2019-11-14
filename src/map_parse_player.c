@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/23 16:17:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:50:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			env->player.camera.angle_sin = sin(env->player.camera.angle);
 			env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);
 			env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
-			env->editor.new_player = 1;
+			env->editor.player_exist = 1;
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("player declaration", parser));

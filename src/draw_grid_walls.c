@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_grid_walls.c								  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/25 13:22:35 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/09/02 14:09:45 by sipatry		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_walls.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
+/*   Updated: 2019/11/14 12:25:45 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -76,6 +76,8 @@ void	draw_grid_sectors(t_env *env)
 	int	i;
 
 	i = 0;
+	if (!env->editor.player_exist && env->nb_sectors == 1)
+		add_player(env);
 	while (i < env->nb_sectors)
 	{
 		if (i == env->editor.selected_sector)

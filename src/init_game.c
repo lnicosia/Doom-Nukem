@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 14:22:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:47:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		init_game(int ac, char **av)
 	env.render_swap_time = 0;
 	env.menu_select = 1;
 	env.running = 1;
-	env.editor.new_player = 1;
+	env.editor.player_exist = 1;
 	env.playing = 1;
 	init_player(&env);
 	if (init_screen_size(&env))

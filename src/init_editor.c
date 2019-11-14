@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 14:23:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:50:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_editor_data(t_env *env)
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
 	env->editor.reverted = 0;
-	env->editor.new_player = 0;
+	env->editor.player_exist = 0;
 	env->nb_vertices = 0;
 	env->nb_sectors = 0;
 	env->nb_objects = 0;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 11:21:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:43:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct	s_editor
 	int			dragged_enemy;
 	int			start_vertex;
 	int			nb_vertex;
-	int			new_player;
+	int			player_exist;
 	int			tab;
 	int			select;
 	t_v2		center;

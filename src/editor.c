@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/11 12:27:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:52:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		editor(t_env *env)
 			}
 			draw_grid(env);
 			draw_grid_vertices(env);
-			if (env->editor.new_player || env->editor.dragged_player == 1)
+			if (env->editor.player_exist || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
 				draw_grid_objects(env);

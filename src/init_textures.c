@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 18:06:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:33:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		init_skyboxes(t_env *env)
 
 int		init_wall_textures(t_env *env)
 {
-	ft_printf("loading textures for walls ciling and floor\n");
 	if (parse_bmp_wall_textures("images/textures/wall0.bmp", 0, env))
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp_wall_textures("images/textures/wall1.bmp", 1, env))

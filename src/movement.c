@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 18:33:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 10:55:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,6 @@ void	move_player(t_env *env)
 				env->player.drop_flag = 1;
 			env->player.highest_sect = find_highest_sector(env, motion);
 			env->player.lowest_sect = find_lowest_sector(env, motion);
-			ft_printf("jump: %d | drop: %d | fall: %d | climb: %d\n", env->player.state.jump, env->player.state.drop,
-			env->player.state.fall, env->player.state.climb);
 			if (((get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) > env->player.pos.z
 				&& get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env) - env->player.pos.z <= 2)
 				|| env->player.state.climb) && !env->player.state.drop && !env->player.state.jump && !env->player.state.fly

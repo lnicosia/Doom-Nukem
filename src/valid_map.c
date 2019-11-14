@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 17:24:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:50:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			valid_map(t_env *env)
 	env->player.sector = get_sector_no_z(env, env->player.pos);
 	if (!env->nb_sectors)
 		return (ft_printf("You need at least one sector to go in 3d mode{reset}\n"));
-	if (!env->editor.new_player)
+	if (!env->editor.player_exist)
 		return (ft_printf("You need to place the player\n"));
 	if (env->player.sector == -1)
 		return (ft_printf("Player position is not valid{reset}\n"));

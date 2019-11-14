@@ -64,11 +64,6 @@ int		delete_action(t_env *env)
 		delete_object(env, env->editor.selected_object);
 		env->editor.selected_object = -1;
 	}
-	if (env->editor.selected_player != -1)
-	{
-		env->editor.new_player = 0;
-		env->editor.selected_player = -1;
-	}
 	env->inputs.del = 0;
 	return (0);
 }
