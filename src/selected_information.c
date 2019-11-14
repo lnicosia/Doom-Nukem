@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/06 12:32:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 08:51:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	selected_information_on_enemy(t_env *env)
 void	selected_information_in_sector(t_env *env)
 {
 	double	time;
+	int		i;
 
 	time = SDL_GetTicks();
 	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 0 && time - env->time.tick2 > 250)
@@ -98,5 +99,17 @@ void	selected_information_in_sector(t_env *env)
 		if (env->inputs.right)
 			env->sectors[env->editor.selected_sector].brightness += 2;
 	}
+	if (env->selected_stat == 3)
+	{
+			if (env->inputs.left)
+			{
+					i = 0;
+			}
+			if (env->inputs.right)
+			{
+					i = 0;
+			}
+	}
+					
 	update_sector_slope(env, &env->sectors[env->editor.selected_sector]);
 }

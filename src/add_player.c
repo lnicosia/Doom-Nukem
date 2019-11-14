@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 16:48:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 08:57:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 int	check_player_z(t_env *env)
 {
+	int	sector;
+
+	sector = get_sector_no_z(env, env->player.pos);
+	if (sector == -1)
+			return (1);
+	env->player.sector = sector;
 	env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	env->player.sector = get_sector_no_z(env, env->player.pos);
 	env->player.camera.angle = 0;
 	env->player.camera.angle_z = 0;
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6.0;
-	ft_printf("player_z: %f | sector_height: %f\n", env->player.eyesight,
-	env->sectors[env->player.sector].ceiling - env->sectors[env->player.sector].floor);
+	env->player.highest_sect = env->player.sector;
+	env->player.lowest_sect = env->player.sector;
+	/*ft_printf("player_z: %f | sector_height: %f\n", env->player.eyesight,
+	env->sectors[env->player.sector].ceiling - env->sectors[env->player.sector].floor);*/
 	if ((env->sectors[env->player.sector].ceiling
 	- env->sectors[env->player.sector].floor) < env->player.eyesight)
 	{
@@ -41,7 +48,7 @@ int	check_player_z(t_env *env)
 
 void	add_player(t_env *env)
 {
-	ft_printf("adding a player\n");
+	//ft_printf("adding a player\n");
 	env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	env->player.pos.z = 0;
@@ -57,8 +64,8 @@ void	add_player(t_env *env)
 	env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
 	env->player.sector = get_sector_no_z(env,
 			env->player.pos);
-	if (env->player.sector != -1)
-		update_player_z(env);
 	env->player.highest_sect = env->player.sector;
 	env->player.lowest_sect = env->player.sector;
+	if (env->player.sector != -1)
+		update_player_z(env);
 }
