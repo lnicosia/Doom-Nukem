@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 18:48:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:41:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ typedef enum		e_button_anim_state
 	PRESSED,
 	HOVER
 }			t_button_anim_state;
+
+typedef enum		e_confirmation_box_type
+{
+		YESNO,
+		INFO,
+		ERROR,
+		CONFIRM,
+		WARNING
+}					t_confirmation_box_type;
 
 typedef enum		e_enemy_state
 {
@@ -872,6 +881,7 @@ typedef struct		s_confirmation_box
 	t_button		no;
 	TTF_Font		*font;
 	t_point			size;
+	int				type;
 	int				state;
 	char			*str;
 	int				yes_pressed;

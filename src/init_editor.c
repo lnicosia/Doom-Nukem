@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 18:54:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:37:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,13 @@
 
 void	init_editor_data(t_env *env)
 {
-	env->editor.in_game = 0;
 	env->editor.center.x = env->h_w;
 	env->editor.center.y = env->h_h;
 	env->editor.scale = 20;
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
-	env->editor.reverted = 0;
-	env->editor.new_player = 0;
-	env->nb_vertices = 0;
-	env->nb_sectors = 0;
-	env->nb_objects = 0;
 	env->player.sector = -1;
-	env->editor.select = 0;
 
-	env->editor.start_pos.x = 0;
-	env->editor.start_pos.y = 0;
 	env->editor.selected_sector = -1;
 	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;
@@ -40,7 +31,6 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
 	env->editor.dragged_enemy = -1;
-	env->editor.tab = 0;
 	env->selected_wall1 = -1;
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;
@@ -49,11 +39,6 @@ void	init_editor_data(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
-	env->selected_stat = 0;
-	env->time.scroll_tick = 0;
-	env->time.tick = 0;
-	env->time.tick2 = 0;
-	env->time.tick3 = 0;
 	
 	env->save_file = ft_strdup("maps/test.map");
 }
@@ -82,12 +67,7 @@ int	init_editor(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.min_fps = 300;
-	env.avrg_fps = 0;
-	env.max_fps = 0;
 	env.min_fps2 = 300;
-	env.avrg_fps2 = 0;
-	env.max_fps2 = 0;
-	env.playing = 0;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

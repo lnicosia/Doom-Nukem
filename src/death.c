@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:44:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:42:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		death(t_env *env)
 		while (++i < env->nb_enemies)
 			env->enemies[i].state = RESTING;
 		if (update_confirmation_box(&env->confirmation_box,
-			"You died... Respawn?", env))
+			"You died... Respawn?", YESNO, env))
 			return ;
 		env->confirmation_box.yes_action = respawn;
 		env->confirmation_box.yes_target = env;
