@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 17:29:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:26:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,14 @@ void    shot(t_env *env)
 {
 	int	i;
 	int	hit;
-	//t_list	*tmp;
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, 11, env->player.pos, env->player.camera.angle * CONVERT_DEGREES);
-	//tmp = env->projectiles;
-	//int j = 2;
-	/*if (tmp)
-	{
-		ft_printf("missile 1\n");
-		ft_printf("player pos = %f\n", env->player.pos.x);
-		ft_printf("pos.x %f\n", ((t_projectile*)tmp->content)->pos.x);
-		while (tmp->next)
-		{
-			tmp = tmp->next;
-			ft_printf("missile %d\n", j++);
-			ft_printf("pos.x %f\n", ((t_projectile*)tmp->content)->pos.x);
-		}
-	}*/
+	/*new_projectile_data(sprite, damage, speed)
+	new_projectile_math(pos, angle, scale, size)*/
+	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 11),
+		new_projectile_stats(0.5, 50, 0.8),
+		env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)

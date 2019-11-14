@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:51:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:03:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -620,6 +620,22 @@ typedef struct		s_weapons
 	Mix_Chunk		*sound;
 	Mix_Chunk		*empty;
 }					t_weapons;
+
+typedef struct		s_projectile_stats
+{
+	int				damage;
+	double			size_2d;
+	double			speed;
+
+}					t_projectile_stats;
+
+typedef struct		s_projectile_data
+{
+	t_v3			pos;
+	double			scale;
+	double			angle;
+	int				sprite;
+}					t_projectile_data;
 
 /*
 ** Projectile structure

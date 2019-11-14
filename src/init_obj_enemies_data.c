@@ -31,11 +31,11 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE;
 			env->enemies[i].size_2d = 0.75;
-			env->enemies[i].eyesight = 1;
+			env->enemies[i].eyesight = 2;
 		}
 		else if (env->enemies[i].sprite == 2 || env->enemies[i].sprite == 5)
 		{
-			env->enemies[i].eyesight = 6;
+			env->enemies[i].eyesight = 6.2;
 			env->enemies[i].main_sprite = CYBER_DEMON;
 			env->enemies[i].firing_sprite = 10;
 			env->enemies[i].type = TERRESTRIAL;

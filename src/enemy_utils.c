@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 10:39:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:51:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,6 +437,7 @@ void		enemy_melee_hit(t_env *env)
 
 /*
 ** This function checks if the pos is within an enemy radius and returns which enemy
+** was hit
 */
 
 int			enemy_collision(t_env *env, t_v3 pos, double radius)
@@ -446,8 +447,9 @@ int			enemy_collision(t_env *env, t_v3 pos, double radius)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < radius && env->enemies[i].exists
-			&& pos.z <= env->enemies[i].eyesight + pos.z && pos.z >= env->enemies[i].pos.z)
+		ft_printf("enemies.eyesight %f\n", env->enemies[i].eyesight);
+		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < env->enemies[i].size_2d + radius && env->enemies[i].exists
+			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
 			return (i);
 		i++;
 	}
