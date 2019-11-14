@@ -6,13 +6,13 @@ Une seule skybox (ca pue)										|
 Les echelles, les pos, trop chiant a aligner					| Mieux
 > Harmoniser echelles											|
 Multi selection?												|
-Crash lors skybox sur mur										|
+Crash lors skybox sur corniche									|
 Ajouter des vertex/modifier secteur								|
 Ecrire des valeurs/noms de fichier dans l'editeur				| Fonction done
 Pre affichage des sprites dans un dossier pour les selectionner	|
-Des boutons pour certaines actions?								|
+Des boutons pour certaines actions?								| Oui
 Decrocher minimap												| Done
 Minimap transparente											| Done
 Texture courante												| Function done
-Confirmation box avec juste ok									|
+Confirmation box avec juste ok									| Done mais il faut creer les boites (graphiquement parlant)
 Changer toutes les textures d'un secteur						| Done

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 18:59:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 12:30:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,19 @@ int		editor(t_env *env)
 			draw_confirmation_box(env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
+		/*
+		**	Show the result of the mipmap generation
+		*/
+		size_t	i = 0;
+		t_point	pos = new_point(0, 0);
+		while (i < env->textures[0].nb_maps)
+		{
+			apply_surface(env->textures[0].maps[i], pos,
+			new_point(env->textures[0].maps[i]->w, env->textures[0].maps[i]->h),
+			env);
+			pos.y += env->textures[0].maps[i]->w;
+			i++;
+		}
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

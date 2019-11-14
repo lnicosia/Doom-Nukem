@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 09:37:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:31:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (generate_mipmaps(&env))
+		return (crash("Could not generate mipmaps\n", &env));
 	if (init_sprites(&env))
 		return (crash("Could not load sprites\n", &env));
 	if (ac == 1)

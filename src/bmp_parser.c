@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   bmp_parser.c									   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/04/30 11:47:52 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/07/30 11:34:21 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp_parser.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/14 11:56:41 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/14 11:56:54 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -35,12 +35,10 @@ static int	parse(int fd, int index, t_env *env)
 //	check_bmp_parsing(parser);
 	ft_printf("{red}");
 	if (!(env->textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
-					0,
-					parser.w,
-					parser.h,
-					parser.bpp,
+					0, parser.w, parser.h, parser.bpp,
 					SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
+		return (ft_printf("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
 	env->textures[index].str = env->textures[index].surface->pixels;
 	env->textures[index].scale = 1;
 	env->textures[index].xpadding = 0;

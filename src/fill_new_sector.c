@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 17:37:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:10:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ env->textures[sector->textures[index]].surface->h);
 		sector->sprites[sector->nb_vertices] = sector->sprites[0];
 		sector->align[sector->nb_vertices] = sector->align[0];
 		sector->scale[sector->nb_vertices] = sector->scale[0];
+		sector->nb_sprites[sector->nb_vertices] = 0;
 	}
 	else
 	{
@@ -86,5 +87,6 @@ env->textures[sector->textures[index]].surface->h);
 		sector->sprites[0] = sector->sprites[sector->nb_vertices];
 		sector->align[0] = sector->align[sector->nb_vertices];
 		sector->scale[0] = sector->scale[sector->nb_vertices];
+		sector->nb_sprites[0] = 0;
 	}
 }

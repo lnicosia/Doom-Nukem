@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 09:48:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 10:15:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 	{
 		box->yes.pos.x = env->w / 2 - box->yes.size_up.x / 2;
 		box->yes.pos.y = env->h / 2 + box->size.y / 2 - height - 10;
-		box->yes.str = "Yes";
+		box->yes.str = "Ok";
 	}
 }
 
