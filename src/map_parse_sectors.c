@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 17:13:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:52:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		env->contains_skybox = 1;
 		//env->sectors[parser->sectors_count].ceiling_texture = 38;
 			env->sectors[parser->sectors_count].ceiling_scale = new_v2(
-					env->textures[32].surface->w,
-					env->textures[32].surface->h / 10);
+					env->skyboxes[0].textures[0].surface->w,
+					env->skyboxes[0].textures[0].surface->h / 10);
 	}
 	else
 	{
@@ -368,8 +368,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].textures[i] == -1)
 		{
 			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[32].surface->w,
-					env->textures[32].surface->h / 10);
+					env->skyboxes[0].textures[0].surface->w,
+					env->skyboxes[0].textures[0].surface->h / 10);
 		}
 		else
 		{

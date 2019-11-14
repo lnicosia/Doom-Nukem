@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:33:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:48:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int		init_skyboxes(t_env *env)
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp("images/skyboxes/nebula_right.bmp", 43, env))
 		return (ft_printf("Failed to load skybox\n"));*/
-	if (parse_bmp("images/skyboxes/night_bottom.bmp", 32, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_bottom.bmp", 0, 0, env))
 		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/night_top.bmp", 33, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_top.bmp", 0, 1, env))
 		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/night_back.bmp", 34, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_back.bmp", 0, 2, env))
 		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/night_left.bmp", 35, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_left.bmp", 0, 3, env))
 		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/night_front.bmp", 36, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_front.bmp", 0, 4, env))
 		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/night_right.bmp", 37, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/night_right.bmp", 0, 5, env))
 		return (ft_printf("Failed to load skybox\n"));
 	return (0);
 }

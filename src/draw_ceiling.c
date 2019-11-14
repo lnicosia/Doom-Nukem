@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 17:09:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 17:54:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,11 @@ void	draw_ceiling(t_sector sector, t_render render, t_env *env)
 		draw_skybox(render, 0, env);
 	else
 		draw_vline_ceiling(sector, vline, render, env);*/
-	if (sector.ceiling_texture == -1)
+	if (sector.ceiling_texture < 0)
+	{
+		//env->selected_skybox = abs(sector.ceiling_texture) - 1;
 		draw_skybox(render, 0, env);
+	}
 	else
 		draw_vline_ceiling(sector, vline, render, env);
 }

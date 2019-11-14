@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:07:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:48:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 38
+# define MAX_TEXTURES 32
 # define MAX_SPRITES 12
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
 # define NB_SKYBOX 5
+# define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
 # define AMMO_HUD 27
 # define ARMOR_LIFE_HUD 27
@@ -42,7 +43,6 @@
 # define MAX_H 1440
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
-
 
 typedef enum		e_input_box_type
 {
@@ -708,6 +708,12 @@ typedef struct		s_texture
 	unsigned int	w;
 	unsigned int	h;
 }					t_texture;
+
+typedef struct s_skybox
+{
+	char		*name;
+	t_texture	textures[6];
+}				t_skybox;
 
 /*
 **	Contains a list of options for the game

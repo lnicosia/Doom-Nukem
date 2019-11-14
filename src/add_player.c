@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 13:37:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:37:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,20 @@ static void	calcul_player_pos(t_env *env)
 		if (env->vertices[sector.vertices[i]].x < min || min == -2147483647)
 			min = env->vertices[sector.vertices[i]].x;
 		i++;
-	ft_printf("min: %d | max :%d\n", min, max);
 	}
 	env->player.pos.x = min + ((max - min) / 2);
-	ft_printf("%d\n", min + ((max - min) / 2));
 	i = 0;
 	max = 2147483647;
 	min = -2147483647;
-	ft_printf("nb_sectors: %d\n", env->nb_sectors);
 	while (i < sector.nb_vertices)
 	{
 		if (env->vertices[sector.vertices[i]].y > max || max == 2147483647)
 			max = env->vertices[sector.vertices[i]].y;
 		if (env->vertices[sector.vertices[i]].y < min || min == -2147483647)
 			min = env->vertices[sector.vertices[i]].y;
-		ft_printf("min: %d | max :%d\n", min, max);
 		i++;
 	}
 	env->player.pos.y = min + ((max - min) / 2);
-	ft_printf("x: %f | y: %f\n", env->player.pos.x, env->player.pos.y);
 }
 
 int			check_player_z(t_env *env)
@@ -78,7 +73,6 @@ int			check_player_z(t_env *env)
 
 void		add_player(t_env *env)
 {
-	ft_printf("adding a player\n");
 	if (!env->editor.player_exist)
 	{
 		env->editor.player_exist = 1;

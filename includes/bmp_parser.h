@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 14:23:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 15:50:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env);
 int					parse_pixel_data_wall(int fd, t_bmp_parser *parser, int index, t_env *env);
+int					parse_pixel_data_skybox(int fd, t_bmp_parser *parser, int index, int num_sky, t_env *env);
+
 #endif

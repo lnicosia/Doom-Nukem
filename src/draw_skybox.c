@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 17:31:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 17:54:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 				|| env->skybox[i].clipped_x1 > render.x
 				|| env->skybox[i].clipped_x2 < render.x)
 			continue;
-		skybox.texture = 34 + i;
+		skybox.texture = 2 + i;
 		skybox.i = i;
 		skybox.selected = 0;
 		skybox_loop(skybox, wall_data, render, env);

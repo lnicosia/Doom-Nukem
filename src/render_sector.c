@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:57:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:45:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ void		render_sector(t_render render, t_env *env)
 		render.texture = sector.textures[i];
 		if (render.texture == -1)
 		{
-			render.texture_w = env->textures[32].surface->w;
-			render.texture_h = env->textures[32].surface->h;
+			render.texture_w = env->skyboxes[0].textures[0].surface->w;
+			render.texture_h = env->skyboxes[0].textures[0].surface->h;
 		}
 		else
 		{

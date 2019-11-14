@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 15:59:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 17:29:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_env
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
+	t_skybox			skyboxes[NB_SKYBOX];
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -284,6 +285,7 @@ int					valid_map(t_env *env);
 
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
+int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
 char				*skip_spaces(char *line);
