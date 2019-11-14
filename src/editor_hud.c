@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 08:48:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:07:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	select_informations(t_env *env)
 		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                              |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 	else if (env->editor.selected_sector != -1)
-		print_text(new_point(90 + env->selected_stat * 120, 240), new_printable_text("->|                             |<-",
+		print_text(new_point(90 + env->selected_stat * 40, 240), new_printable_text("->|                             |<-",
 				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
 
 }
@@ -42,21 +42,18 @@ void	print_sector_informations(t_env *env)
 	print_text(new_point(10, 480), new_printable_text(ft_sitoa(env->editor.selected_sector), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 280), new_printable_text("floor: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(90, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 280), new_printable_text("(f) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(130, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(130, 280), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(130, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(170, 280), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(170, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(210, 280), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(210, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(250, 280), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(250, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(290, 280), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(290, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(330, 280), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(330, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(370, 280), new_printable_text("status: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(370, 420), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].status), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-
+	print_text(new_point(210, 280), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(210, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(250, 280), new_printable_text("(f) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(250, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(290, 280), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(290, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(330, 280), new_printable_text("status: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(330, 440), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].status), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	if (env->editor.tab)
 		select_informations(env);
 }
