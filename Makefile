@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/14 08:49:43 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/14 09:33:13 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
+		 apply_texture.c selected_information.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -71,7 +72,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c render_sector2.c \
-		   selected_information.c movement_utils.c update_sprites_state.c \
+		   movement_utils.c update_sprites_state.c \
 		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \

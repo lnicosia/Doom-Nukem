@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 18:54:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:31:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ int				delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int				add_char(t_input_box *box, char c);
 void				hit_player(void *param);
+void				apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
 ** Main functions

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 09:21:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 09:35:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	selected_information_on_enemy(t_env *env)
 void	selected_information_in_sector(t_env *env)
 {
 	double	time;
-	int		i;
 	int		texture;
 
 	time = SDL_GetTicks();
@@ -92,37 +91,16 @@ void	selected_information_in_sector(t_env *env)
 		if (env->inputs.right)
 			env->sectors[env->editor.selected_sector].ceiling += 2;
 	}
-	//if (env->selected_stat == 2 && time - env->time.tick2 > 250)
 	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 2 && time - env->time.tick2 > 250)
 	{
 		env->time.tick2 = time;
 		texture = env->sectors[env->editor.selected_sector].floor_texture;
 		if (env->inputs.left && texture > 0)
-		{
-			texture--;
-			i = 0;
-			while (i < env->sectors[env->editor.selected_sector].nb_vertices)
-			{
-					env->sectors[env->editor.selected_sector].
-					textures[i] = texture;
-					i++;
-			}
-			env->sectors[env->editor.selected_sector].floor_texture = texture;
-			env->sectors[env->editor.selected_sector].ceiling_texture = texture;
-		}
+			apply_texture(texture - 1,
+			&env->sectors[env->editor.selected_sector], env);
 		if (env->inputs.right && texture < MAX_TEXTURE - 1)
-		{
-			texture++;
-			i = 0;
-			while (i < env->sectors[env->editor.selected_sector].nb_vertices)
-			{
-					env->sectors[env->editor.selected_sector].
-					textures[i] = texture;
-					i++;
-			}
-			env->sectors[env->editor.selected_sector].floor_texture = texture;
-			env->sectors[env->editor.selected_sector].ceiling_texture = texture;
-		}
+			apply_texture(texture + 1,
+			&env->sectors[env->editor.selected_sector], env);
 	}
 	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 3 && time - env->time.tick2 > 250)
 	{

@@ -13,6 +13,6 @@ Pre affichage des sprites dans un dossier pour les selectionner	|
 Des boutons pour certaines actions?								|
 Decrocher minimap												| Done
 Minimap transparente											| Done
-Texture courante												|
+Texture courante												| Function done
 Confirmation box avec juste ok									|
-Changer toutes les textures d'un secteur						|
+Changer toutes les textures d'un secteur						| Done
