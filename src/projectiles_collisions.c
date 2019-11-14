@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 15:07:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 10:43:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
     i = 0;
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
+        return (0);
+    if ((!projectiles_ceil(env, motion, motion.sector) || !projectiles_floor(env, motion, motion.sector)))
         return (0);
     while (i < env->sectors[motion.sector].nb_vertices)
     {

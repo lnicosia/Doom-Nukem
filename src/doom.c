@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:45:05 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:50:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:40:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		doom(t_env *env)
 		{
 			enemy_ai(env);
 			objects_collision(env);
-			enemy_collision(env);
+			enemy_melee_hit(env);
 			keys(env);
 		}
 		projectiles_movement(env);

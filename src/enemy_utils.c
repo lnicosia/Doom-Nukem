@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/05 18:07:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 10:39:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,7 +415,7 @@ void	enemy_ai(t_env *env)
 	}
 }
 
-void		enemy_collision(t_env *env)
+void		enemy_melee_hit(t_env *env)
 {
 	int i;
 
@@ -423,7 +423,7 @@ void		enemy_collision(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.eyesight + env->player.pos.z + 1 && env->enemies[i].behavior == MELEE)
+			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && env->enemies[i].behavior == MELEE)
 		{
 			env->player.hit = 1;
 			env->player.health -= env->enemies[i].damage;
@@ -433,4 +433,23 @@ void		enemy_collision(t_env *env)
 		}
 		i++;
 	}
+}
+
+/*
+** This function checks if the pos is within an enemy radius and returns which enemy
+*/
+
+int			enemy_collision(t_env *env, t_v3 pos, double radius)
+{
+	int i;
+
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < radius && env->enemies[i].exists
+			&& pos.z <= env->enemies[i].eyesight + pos.z && pos.z >= env->enemies[i].pos.z)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

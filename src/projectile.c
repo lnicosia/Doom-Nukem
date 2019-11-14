@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 17:14:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 10:14:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		create_projectile(t_env *env, int sprite, t_v3 pos, double angle)
 
 void	projectiles_movement(t_env *env)
 {
+	int				nb;
 	t_v3			move;
 	t_list			*tmp;
 	t_projectile	*projectile;
@@ -51,6 +52,12 @@ void	projectiles_movement(t_env *env)
 		{
 			projectile = (t_projectile*)tmp->content;
 			move = sprite_movement(0.8, projectile->pos, projectile->dest);
+			nb = enemy_collision(env, projectile->pos, 1);
+			if (nb >= 0)
+			{
+				ft_printf("enemy shot\n");
+				env->enemies[nb].health -= 30;
+			}
 			if (collision_projectiles(env, move, new_movement(projectile->sector, projectile->size_2d,
 				0, projectile->pos)))
 			{
