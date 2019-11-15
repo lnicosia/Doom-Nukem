@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 09:07:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:32:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	init_editor_data(t_env *env)
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	
-	env->save_file = ft_strdup("maps/test.map");
 }
 
 /*
@@ -90,9 +89,13 @@ int	init_editor(int ac, char **av)
 	if (init_sprites(&env))
 		return (crash("Could not load sprites\n", &env));
 	if (ac == 1)
+	{
 		ft_printf("Creating a new map\n");
+		env.save_file = ft_strdup("maps/test.map");
+	}
 	else if (ac == 2)
 	{
+		env.save_file = ft_strdup(av[1]);
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:20:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:32:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ int		editor(t_env *env)
 		**	Show the result of the mipmap generation
 		*/
 		/*size_t	i = 0;
-		t_point	pos = new_point(env->h_h - env->textures[1].surface->h / 2,
-		env->h_w - env->textures[1].surface->w / 2);
-		while (i < env->textures[1].nb_maps)
+		t_point	pos = new_point(env->h_h - env->textures[4].surface->h / 2,
+		env->h_w - env->textures[4].surface->w / 2);
+		while (i < env->textures[4].nb_maps)
 		{
-			apply_surface(env->textures[1].maps[i], pos,
-			new_point(env->textures[1].maps[i]->w, env->textures[1].maps[i]->h),
+			apply_surface(env->textures[4].maps[i], pos,
+			new_point(env->textures[4].maps[i]->w, env->textures[4].maps[i]->h),
 			env);
-			pos.y += env->textures[1].maps[i]->w;
+			pos.y += env->textures[4].maps[i]->w;
 			i++;
 		}*/
 		if (env->options.zbuffer && env->editor.in_game)
