@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 12:25:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:01:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	get_floor_current_map(double z, t_sector sector, t_env *env)
 	int		line;
 
 	i = 0;
-	line = env->textures[sector.floor_texture].maps[0]->w * 10 / z;
+	line = env->textures[sector.floor_texture].maps[0]->w * 20 / z;
 	while (i < env->textures[sector.floor_texture].nb_maps
 		&& env->textures[sector.floor_texture].maps[i]->w > line)
 		i++;
