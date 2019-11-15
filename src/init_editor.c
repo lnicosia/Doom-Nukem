@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 16:53:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 09:07:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	init_editor(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.min_fps = 300;
-	env.i = 1;
+	//env.i = 1;
 	env.min_fps2 = 300;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
