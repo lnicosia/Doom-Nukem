@@ -33,8 +33,6 @@ int	add_enemy(t_env *env)
 		enemy.light_color = env->sectors[enemy.sector].light_color;
 		enemy.brightness = env->sectors[enemy.sector].brightness;
 	}
-
-
 	else
 	{
 		enemy.light_color = 0xFFFFFFFF;

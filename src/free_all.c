@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 13:59:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:35:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	free_textures(t_env *env)
 
 static void	free_sectors(t_env *env)
 {
-	int	i;
+	int		i;
+	size_t	j;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -66,6 +67,19 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
+		j = 0;
+		while (j < env->sectors[i].nb_walk_events)
+		{
+				if (env->sectors[i].walk_on_me_event[j].check_param)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
+					check_param);
+				if (env->sectors[i].walk_on_me_event[j].update_param)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
+					update_param);
+				j++;
+		}
+		if (env->sectors[i].walk_on_me_event)
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);
@@ -178,7 +192,8 @@ void		free_all_sdl_relative(t_env *env)
 
 void		free_all(t_env *env)
 {
-	int i;
+	int 	i;
+	t_list	*tmplst;
 
 	ft_printf("Freeing data..\n");
 	if (!env)
@@ -216,6 +231,10 @@ void		free_all(t_env *env)
 		Mix_FreeChunk(env->sound.jump);
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
+	if (env->events)
+			ft_lstdelfront(&env->events);
+	if (env->queued_values)
+			ft_lstdelfront(&env->queued_values);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])
@@ -232,6 +251,16 @@ void		free_all(t_env *env)
 		if (env->weapons[i].sound)
 			Mix_FreeChunk(env->weapons[i].sound);
 		i++;
+	}
+	if (env->projectiles)
+	{
+		while (env->projectiles)
+		{
+			tmplst = env->projectiles;
+			tmplst = tmplst->next;
+			free(env->projectiles);
+			env->projectiles = tmplst;
+		}
 	}
 	free_textures(env);
 	free_camera(&env->player.camera);

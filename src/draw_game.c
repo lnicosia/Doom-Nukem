@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/10/23 16:18:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:50:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	draw_render(t_camera *camera, t_env *env)
 	if (draw_walls(camera, env))
 		return (crash("Failed to draw walls\n", env));
 	draw_objects(*camera, env);
+	draw_projectiles(*camera, env);
 	draw_enemies(*camera, env);
 	draw_players(*camera, env);
 	return (0);
@@ -39,8 +40,6 @@ int	draw_game(t_env *env)
 		fps(env);
 	if (env->options.test)
 		print_debug(env);
-	if (env->options.show_minimap)
-		minimap(env);
 	game_time(env);
 	animations(env);
 	if (env->player.health > 0)
@@ -68,6 +67,8 @@ int	draw_game(t_env *env)
 			i++;
 		}
 	}
+	if (env->options.show_minimap)
+		minimap(env);
 	if (env->confirmation_box.state)
 		draw_confirmation_box(env->confirmation_box, env);
 	if (env->options.zbuffer)

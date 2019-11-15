@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:50:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:50:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ t_env *env)
 	Uint32	*sprite_pixels;
 	double	yalpha;
 	double	y;
+	double	x;
 	double	pos;
 
+	y = 0.0;
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
@@ -45,11 +47,16 @@ t_env *env)
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 		/ render.line_height - pos;
-		y = yalpha * render.camera->v[render.sector]
+		x = yalpha * render.camera->v[render.sector]
+		[render.i].sprite_scale[sprite].y + start;
+		if (x >= start && x < end
+			&& sprite_pixels[(int)x
+			+ sprite_w * (int)y] != 0xFFC10099)
+		/*y = yalpha * render.camera->v[render.sector]
 		[render.i].sprite_scale[sprite].y + start;
 		if (y >= start && y < end
-			&& sprite_pixels[(int)render.sprite_x
-			+ sprite_w * (int)y] != 0xFFC10099)
+			&& sprite_pixels[(int)x
+			+ sprite_w * (int)y] != 0xFFC10099)*/
 		{
 			if (env->editor.select && render.x == env->h_w && i == env->h_h)
 			{
@@ -61,10 +68,10 @@ t_env *env)
 			}
 			if (!env->options.lighting && !env->playing)
 				pixels[coord] = sprite_pixels[
-				(int)render.sprite_x + sprite_w * (int)y];
+				(int)x + sprite_w * (int)y];
 			else
 				pixels[coord] = apply_light(sprite_pixels[
-				(int)render.sprite_x + sprite_w * (int)y],
+				(int)x + sprite_w * (int)y],
 				sector.light_color, sector.brightness);
 			if (env->editor.in_game && !env->editor.select
 				&& env->editor.selected_sector == sector.num

@@ -37,7 +37,7 @@ void		init_enemies_data(t_env *env)
 		}
 		else if (i > 4 && i <= 9)
 		{
-			env->enemies[i].eyesight = 6;
+			env->enemies[i].eyesight = 6.2;
 			env->enemies[i].main_sprite = CYBER_DEMON;
 			env->enemies[i].firing_sprite = 10;
 			env->enemies[i].type = TERRESTRIAL;

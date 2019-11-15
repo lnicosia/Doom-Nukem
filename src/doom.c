@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 17:40:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:33:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,9 @@
 
 int		doom(t_env *env)
 {
-	/*init_animations(env);
-	init_weapons(env);
-	env->player.speed = 0.5;
-	env->player.size_2d = 0.5;
-	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env->sound.background, -1);
-	//ft_printf("launching game loop..\n");
-	env->flag = 0;
-	env->player.fall = 1;*/
 	while (env->running)
 	{
-		if (env->player.sector == -1)
-			ft_printf("Rip :/ \n");
+		env->player.health = 100;
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);
@@ -51,13 +41,16 @@ int		doom(t_env *env)
 		{
 			enemy_ai(env);
 			objects_collision(env);
-			enemy_collision(env);
+			enemy_melee_hit(env);
 			keys(env);
 		}
-				if (env->player.health <= 0)
+		projectiles_movement(env);
+		if (env->player.health <= 0)
 			death(env);
 		if (env->confirmation_box.state)
 			confirmation_box_keys(&env->confirmation_box, env);
+		if (env->events)
+				pop_events(env);
 		if (env->menu_start)
 			start_game_menu(env);
 		else

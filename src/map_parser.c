@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:39:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:33:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,7 @@ void	init_player(t_env *env)
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
-	env->player.speed = 0.3;
-	env->player.start_speed = 0.3;
+	env->player.speed = 0.05;
 	env->player.pos.z = 0;
 	env->player.health = 100;
 	env->player.killed = 0;

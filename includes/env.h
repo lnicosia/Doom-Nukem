@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 17:29:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:31:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ typedef struct		s_env
 	t_editor 			editor;
 	t_elevator			elevator;
 	t_camera			fixed_camera;
+	t_projectile		projectile;
+	t_list				*projectiles;
 	t_vline_data		*vline_data;
 	t_teleport			teleport;
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
 	t_skybox			skyboxes[NB_SKYBOX];
+	Uint32				frame_timer;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -124,6 +127,9 @@ typedef struct		s_env
 	t_v2				*texel_near_z;
 	t_v2				*camera_z;
 	t_v2				*texel_camera_range;
+	t_point				minimap_pos;
+	t_point				minimap_size;
+	t_point				crosshair_pos;
 	double				*zrange;
 	int					current_object;
 	int					current_enemy;
@@ -140,6 +146,8 @@ typedef struct		s_env
 	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
+	t_list				*events;
+	t_list				*queued_values;
 }					t_env;
 
 /*
@@ -228,16 +236,17 @@ void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
 void				input_box_keys(t_input_box *box, t_env *env);
-int				init_input_box(t_input_box *box, t_env *env);
-int				input_box_mouse(t_input_box *box, t_env *env);
-int				new_input_box(t_input_box *box, t_point pos,
-int type, void *target);
-int				set_double_stats(t_input_box *box);
-int				validate_input(t_input_box *box, t_env *env);
-int				del_char(t_input_box *box, int mode);
-int				delete_box_selection(t_input_box *box);
+int					init_input_box(t_input_box *box, t_env *env);
+int					input_box_mouse(t_input_box *box, t_env *env);
+int					new_input_box(t_input_box *box, t_point pos,
+						int type, void *target);
+int					set_double_stats(t_input_box *box);
+int					validate_input(t_input_box *box, t_env *env);
+int					del_char(t_input_box *box, int mode);
+int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
-int				add_char(t_input_box *box, char c);
+int					add_char(t_input_box *box, char c);
+void				hit_player(void *param);
 
 /*
 ** Main functions
@@ -278,7 +287,8 @@ void				init_enemies_data(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
-
+t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
+t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed);
 /*
 **	Parser functions
 */
@@ -343,6 +353,7 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
+void				draw_projectiles(t_camera camera, t_env *env);
 void				draw_objects(t_camera camera, t_env *env);
 void				draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
@@ -354,12 +365,15 @@ void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
+t_v3				sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
+int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
+void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
@@ -371,6 +385,7 @@ void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
 void				move_player(t_env *env);
+void				update_player_pos(t_env *env);
 void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, short origin);
 int					get_sector_global(t_env *env, t_v3 p);
@@ -441,5 +456,20 @@ int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
 void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+
+/*
+**	Event function
+*/
+int					update_event(t_event *event);
+void				pop_events(t_env *env);
+void				pop_events2(t_env *env);
+t_event				new_event(int type, void *target, double goal,
+Uint32 duration);
+void				start_event(t_event *events, size_t size,
+t_env *env);
+t_event_param		*new_event_param(int num, t_v3 move);
+void				update_sector_event(t_event_param *param, void *penv);
+void				update_player_event(t_event_param *param, void *penv);
+int					check_collision_event(t_event_param *param, void *penv);
 
 #endif

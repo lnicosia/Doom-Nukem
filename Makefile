@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/14 15:07:34 by sipatry          ###   ########.fr        #
+#    Updated: 2019/11/15 11:46:12 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SDL_MIXER_DIR = SDL2_mixer-2.0.4
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
-				print_results.c keys.c
+				print_results.c projectile.c projectiles_maths.c draw_projectiles.c \
+				keys.c init_weapons.c weapons.c draw_hud.c death.c \
+				projectiles_collisions.c projectiles_utils.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -53,7 +55,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
-		   get_slope.c update_player_z.c movement_collision.c weapons.c \
+		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c get_vline_data.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
@@ -61,10 +63,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   print_debug.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
-		   physics.c init_weapons.c map_parse_player.c create_portals.c \
+		   physics.c map_parse_player.c create_portals.c \
 		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
 		   draw_objects.c sprites_maths.c draw_players.c \
-		   map_parse_objects.c draw_hud.c map_init_objects.c delete_vertex.c \
+		   map_parse_objects.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
@@ -75,11 +77,12 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
-		   draw_circle_free.c draw_circle.c death.c ft_getchar.c \
+		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
 		   elevator.c gravity.c teleporter.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
+		   pop_events.c start_event.c event_updaters.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

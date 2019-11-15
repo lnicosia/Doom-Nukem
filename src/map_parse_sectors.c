@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 16:52:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:38:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope", parser));
-	if (valid_number(*line, parser))
+	if (valid_number(*line, parser)){
 		return (invalid_char("before floor slope", "a digit or space(s)",
-					**line, parser));
-		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);// * CONVERT_RADIANS;
+					**line, parser));}
+		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 /*	if (env->sectors[parser->sectors_count].floor_slope > 45
 			|| env->sectors[parser->sectors_count].floor_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"

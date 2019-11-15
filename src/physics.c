@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 10:55:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:45:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	game_time(t_env *env)
 
 	new_time = env->time.milli_s;
 	env->time.milli_s = SDL_GetTicks();
-	env->player.speed = ((env->time.milli_s - new_time) / 1000.0) * 15;
 	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000.0) * 0.2;
 	env->time.tenth_s = env->time.milli_s / 100.0;
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 16:48:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:32:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,27 @@ typedef struct		s_wall_sprites
 	t_v2			*scale;
 }					t_wall_sprites;
 
+typedef struct		s_event_param
+{
+		int			num;
+		t_v3		move;
+}					t_event_param;
+
+typedef struct		s_event
+{
+	void			*target;
+	double			goal;
+	double			start_value;
+	double			incr;
+	Uint32			start_time;
+	Uint32			duration;
+	int				type;
+	int				(*check_func)(t_event_param *, void *);
+	t_event_param	*check_param;
+	void			(*update_func)(t_event_param *, void *);
+	t_event_param	*update_param;
+}			t_event;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
@@ -287,6 +308,8 @@ typedef struct		s_sector
 	int				activated;
 	int				hidden;
 	Uint32			light_color;
+	size_t			nb_walk_events;
+	t_event			*walk_on_me_event;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -391,15 +414,16 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
-	t_v2			old_pos;
+	t_v3			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
+	Uint32			start_move;
+	int			moving;
 	int				stuck;
 	int				prev_sector;
 	double			gravity;
 	double			eyesight;
 	double			speed;
-	double			start_speed;
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
@@ -594,6 +618,48 @@ typedef struct		s_weapons
 	Mix_Chunk		*empty;
 }					t_weapons;
 
+typedef struct		s_projectile_stats
+{
+	int				damage;
+	double			size_2d;
+	double			speed;
+
+}					t_projectile_stats;
+
+typedef struct		s_projectile_data
+{
+	t_v3			pos;
+	double			scale;
+	double			angle;
+	int				sprite;
+}					t_projectile_data;
+
+/*
+** Projectile structure
+*/
+
+typedef	struct		s_projectile
+{
+	t_v3			pos;
+	t_v3			translated_pos;
+	t_v3			rotated_pos;
+	t_v3			dest;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
+	double			scale;
+	double			angle;
+	double			size_2d;
+	short			brightness;
+	Uint32			light_color;
+	int				sector;
+	int				exists;
+	double			speed;
+	int				sprite;
+	int				damage;
+}					t_projectile;
+
 /*
 ** Object structure
 */
@@ -690,7 +756,7 @@ typedef struct		s_sdl
 	int				mouse_y;
 	int				mx;
 	int				my;
-	int				time;
+	Uint32				time;
 	int				pitch;
 }					t_sdl;
 
@@ -846,6 +912,7 @@ typedef struct		s_input_box
 	int			selecting;
 	int			cursor_state;
 	int			add_period;
+	int			accept_inputs;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;

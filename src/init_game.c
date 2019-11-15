@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 11:47:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 11:35:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,30 @@ int		init_game(int ac, char **av)
 	env.fixed_camera.angle_z_sin = sin(env.fixed_camera.angle_z);
 	update_camera_position(&env.fixed_camera);
 	save_init_data(&env);
+	env.projectiles = NULL;
+	env.confirmation_box.state = 0;
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
+		if (ft_strequ(av[1], "maps/triple_piece.map"))
+		{
+			env.sectors[1].nb_walk_events = 4;
+			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+			env.sectors[1].walk_on_me_event[0] =
+			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
+			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
+			2, new_v3(0, 0, 0)); 
+			env.sectors[1].walk_on_me_event[1] =
+			new_event(INT, &env.player.health, 50, 1000);
+			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
+			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
+			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
+			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
+			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
+			env.sectors[1].walk_on_me_event[2] =
+			new_event(INT, &env.sectors[2].brightness, -128, 0);
+			env.sectors[1].walk_on_me_event[3] =
+			new_event(INT, &env.sectors[2].brightness, 0, 0);
+		}
 	return (doom(&env));
 }

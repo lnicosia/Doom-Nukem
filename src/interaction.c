@@ -14,10 +14,8 @@
 
 void	interactions(t_env *env)
 {
-	int	i;
 	t_sector sector;
 
-	i = 0;
 	if (env->player.sector == -1)
 		return ;
 	sector = env->sectors[env->player.sector];

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   color_utils.c									  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/05/07 17:26:56 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/12 10:51:56 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 17:50:28 by lnicosia          #+#    #+#             */
+/*   Updated: 2019/11/12 17:56:47 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -16,11 +16,15 @@ unsigned int	blend_alpha(unsigned int src, unsigned int dest, uint8_t alpha)
 {
 	int	aalpha;
 
-	aalpha = 255 - alpha;
+	aalpha = 256 - alpha;
 	return (
-	(aalpha * (src >> 16 & 0xFF) / 255 + alpha * (dest >> 16 & 0xFF) / 255) << 16
-	| (aalpha * (src >> 8 & 0xFF) / 255 + alpha * (dest >> 8 & 0xFF) / 255) << 8
-	| (aalpha * (src & 0xFF) / 255 + alpha * (dest & 0xFF) / 255));
+	(aalpha * (src >> 16 & 0xFF) / 256 + alpha * (dest >> 16 & 0xFF) / 256) << 16
+	| (aalpha * (src >> 8 & 0xFF) / 256 + alpha * (dest >> 8 & 0xFF) / 256) << 8
+	| (aalpha * (src & 0xFF) / 256 + alpha * (dest & 0xFF) / 256));
+	/*return (
+	(aalpha * (src >> 16 & 0xFF) + alpha * (dest >> 16 & 0xFF)) / 256 << 16
+	| (aalpha * (src >> 8 & 0xFF) + alpha * (dest >> 8 & 0xFF)) / 265 << 8
+	| (aalpha * (src & 0xFF) + alpha * (dest & 0xFF)) / 256);*/
 }
 
 unsigned int	blend_add(unsigned int src, unsigned int dest, uint8_t alpha)

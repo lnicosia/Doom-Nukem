@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/05 18:07:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/14 16:10:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct  s_data
 t_v3				check_collision(t_env *env, t_v3 move, t_movement motion, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
 void                objects_collision(t_env *env);
-void                enemy_collision(t_env *env);
+int                	enemy_collision(t_env *env, t_v3 pos, double radius);
+void				enemy_melee_hit(t_env *env);
 int                 hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size);
 int                 find_highest_sector(t_env *env, t_movement motion);
 int					diff_sign(double nb1, double nb2);
@@ -73,5 +74,7 @@ int					in_range(double nb, double val1, double val2);
 t_movement          new_movement(int sector, double size_2d, double eyesight, t_v3 pos);
 int                 find_lowest_sector(t_env *env, t_movement motion);
 int                 check_ceiling(t_env *env, t_movement motion, int sector_dest);
+int     			collision_projectiles(t_env *env, t_v3 move, t_movement motion);
+int					projectile_player_collision(t_env *env, t_v3 pos, double radius);
 
 #endif
