@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 15:39:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:55:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		(*line)++;
 		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
 		if (env->sectors[parser->sectors_count].textures[i] < -1
-		|| env->sectors[parser->sectors_count].textures[i] >= MAX_TEXTURES)
+		|| env->sectors[parser->sectors_count].textures[i] >= MAX_WALL_TEXTURE)
 		{
 			ft_dprintf(STDERR_FILENO,
 					"[Line %d] Texture \'%d\' in sector %d does not exist\n",
