@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 08:55:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:12:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector sprites pos"));
+		return (ft_perror("Could not malloc sector align"));
 	if (!(sector->scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector sprites scale"));
+		return (ft_perror("Could not malloc sector scale"));
+	if (!(sector->map_scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector map scale"));
 	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))

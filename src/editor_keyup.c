@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 09:35:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:00:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	editor_keyup(t_env *env)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_l)
+		env->options.l = env->options.l ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->player.state.fly = env->player.state.fly ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)

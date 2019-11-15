@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:17:55 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 18:25:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:44:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].align);
 		if (env->sectors[i].scale)
 			ft_memdel((void**)&env->sectors[i].scale);
+		if (env->sectors[i].map_scale)
+			ft_memdel((void**)&env->sectors[i].map_scale);
+		if (env->sectors[i].map_lvl)
+			ft_memdel((void**)&env->sectors[i].map_lvl);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		if (env->sectors[i].sprites)

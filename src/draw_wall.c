@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 11:19:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:24:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	if (!env->options.test)
 	x = render.alpha
 		* render.camera->v[render.sector][render.i].texture_scale.x
-		/ pow(2, render.map_lvl) * render.z - sector.align[render.i].x;
+		/ pow(2, env->textures[render.texture].nb_maps - 1 - render.map_lvl)
+		* render.z - sector.align[render.i].x;
 	else
 	x = render.alpha
 		* render.camera->v[render.sector][render.i].texture_scale.x
@@ -91,7 +92,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			x += render.texture_w;*/
 		if (!env->options.test)
 		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
-		/ pow(2, render.map_lvl)	- sector.align[render.i].y;
+		/ pow(2, env->textures[render.texture].nb_maps - 1 - render.map_lvl)
+		- sector.align[render.i].y;
 		else
 		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
 		- sector.align[render.i].y;

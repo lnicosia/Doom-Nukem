@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 14:45:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:03:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,20 @@ int		editor(t_env *env)
 		/*
 		**	Show the result of the mipmap generation
 		*/
-		/*size_t	i = 0;
-		t_point	pos = new_point(env->h_h - env->textures[4].surface->h / 2,
-		env->h_w - env->textures[4].surface->w / 2);
-		while (i < env->textures[4].nb_maps)
+		if (env->options.l)
 		{
-			apply_surface(env->textures[4].maps[i], pos,
-			new_point(env->textures[4].maps[i]->w, env->textures[4].maps[i]->h),
-			env);
-			pos.y += env->textures[4].maps[i]->w;
-			i++;
-		}*/
+			size_t	i = 0;
+			t_point	pos = new_point(0,
+			0);
+			while (i < env->textures[48].nb_maps)
+			{
+				apply_surface(env->textures[48].maps[i], pos,
+				new_point(env->textures[48].maps[i]->w, env->textures[48].maps[i]->h),
+				env);
+				pos.y += env->textures[48].maps[i]->w;
+				i++;
+			}
+		}
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

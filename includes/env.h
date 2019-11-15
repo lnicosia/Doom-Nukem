@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 11:28:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:07:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,8 @@ void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
+int					set_sector_map_array(t_sector *sector, t_texture texture,
+int i, t_env *env);
 
 /*
 **	Parser functions
