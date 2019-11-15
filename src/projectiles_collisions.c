@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 16:29:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:23:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,17 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
     return (1);
 }
 
-int			projectile_player_collision(t_env *env, t_v3 pos, double radius)
+int			projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 {
 	int i;
 
 	i = 0;
 	if (env->player.health > 0 && distance_two_points(env->player.pos.x, env->player.pos.y, pos.x, pos.y) < env->player.size_2d + radius
-		&& pos.z <= env->player.eyesight + env->player.pos.z && pos.z >= env->player.pos.z)
+		&& pos.z <= env->player.head_z && pos.z >= env->player.pos.z)
 		return (1);
+	if (env->player.health > 0 && hitbox_collision(new_v2(pos.x, pos.y), new_v2(dest.x, dest.y),
+			new_v2(env->player.pos.x, env->player.pos.y), radius + env->player.size_2d)
+			&& pos.z <= env->player.head_z && pos.z >= env->player.pos.z)
 	i++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 18:25:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:26:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	((t_projectile*)new->content)->exists = 1;
 	return (0);
 }
-#include "stdio.h"
+
 void	projectiles_movement(t_env *env)
 {
 	int				nb;
@@ -55,7 +55,9 @@ void	projectiles_movement(t_env *env)
 		{
 			projectile = (t_projectile*)tmp->content;
 			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
-			nb = enemy_collision(env, projectile->pos, projectile->size_2d);
+			nb = enemy_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d);
 			if (nb >= 0)
 			{
 				env->enemies[nb].health -= projectile->damage;
@@ -63,7 +65,9 @@ void	projectiles_movement(t_env *env)
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}
-			if (projectile_player_collision(env, projectile->pos, projectile->size_2d))
+			if (projectile_player_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d))
 			{
 				env->player.hit = 1;
 				env->player.health -= projectile->damage;
