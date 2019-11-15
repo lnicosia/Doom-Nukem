@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 18:25:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:08:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	projectiles_movement(t_env *env)
 			else
 			{
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
-				ft_printf("EXPLOSIOOOON!!!!\n");
 			}
 		}
 	}
