@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 19:00:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:57:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,15 @@ int				check_equ_value_event(t_event *event, void *penv)
 		env = (t_env*)penv;
 		if (event->type == INT
 				&& event->check_param->equ_value == *(int*)event->target)
+		{
 				return (1);
-		else if (event->type == DOUBLE
+		}
+		if (event->type == DOUBLE
 				&& event->check_param->equ_value == *(double*)event->target)
+		{
+				ft_printf("value is equal\n");
 				return (1);
+		}
 		return (0);
 }
 
@@ -79,7 +84,7 @@ int				check_diff_value_event(t_event *event, void *penv)
 		if (event->type == INT
 				&& event->check_param->diff_value != *(int*)event->target)
 				return (1);
-		else if (event->type == DOUBLE
+		if (event->type == DOUBLE
 				&& event->check_param->diff_value != *(double*)event->target)
 				return (1);
 		return (0);

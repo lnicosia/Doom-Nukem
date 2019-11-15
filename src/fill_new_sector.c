@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:30:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:46:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 		sector->textures[index] = 4;
 		sector->nb_sprites[index] = 0;
 		sector->align[index] = new_v2(0, 0);
-		sector->scale[index] = new_v2(env->textures[sector->textures[index]].surface->w,
-env->textures[sector->textures[index]].surface->h);
+		sector->scale[index] = new_v2(env->wall_textures[sector->textures[index]].surface->w,
+env->wall_textures[sector->textures[index]].surface->h);
 		tmp = tmp->next;
 		i++;
 	}

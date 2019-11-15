@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:33:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:43:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,30 @@
 #include "render.h"
 #include "render.h"
 
+size_t	get_floor_current_map(double z, t_sector sector, t_env *env)
+{
+	size_t	i;
+	int		line;
+
+	i = 0;
+	line = env->wall_textures[sector.floor_texture].maps[0]->w * 20 / z;
+	while (i < env->wall_textures[sector.floor_texture].nb_maps
+		&& env->wall_textures[sector.floor_texture].maps[i]->w > line)
+		i++;
+	//i = env->wall_textures[sector.floor_texture].nb_maps - i;
+	i = ft_clamp(i, 0, env->wall_textures[sector.floor_texture].nb_maps - 1);
+	//ft_printf("line = %d\n", line);
+	//ft_printf("map_lvl = %d\n", env->wall_textures[sector.floor_texture].nb_maps);
+	//ft_printf("i = %d\n", i);
+	return (i);
+}
+
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *env)
+void	draw_vline_floor(t_sector sector, t_vline vline,
+t_render render, t_env *env)
 {
 	int		i;
 	Uint32	*pixels;
@@ -32,20 +51,25 @@ void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *en
 	double	z;
 	double	alpha;
 	double	divider;
+	size_t	map_lvl;
 
-	(void)render;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->wall_textures[sector.floor_texture].surface->w;
-	texture_h = env->wall_textures[sector.floor_texture].surface->h;
-	texture_pixels = env->wall_textures[sector.floor_texture].str;
+	map_lvl = 0;
 	i = vline.start;
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
+		// Peut etre opti
 		alpha = (i - render.max_floor) / (render.camera->feet_y[render.sector] - render.max_floor);
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
+		if (env->options.show_minimap)
+			map_lvl = get_floor_current_map(z, sector, env);
+		texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
+		texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
+		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].
+		maps[map_lvl]->pixels;
 		if (z >= zbuffer[coord])
 		{
 			i++;
@@ -60,8 +84,18 @@ void	draw_vline_floor(t_sector sector, t_vline vline, t_render render, t_env *en
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		y = y * sector.floor_scale.y + sector.floor_align.y;
-		x = x * sector.floor_scale.x + sector.floor_align.x;
+		if (!env->options.test)
+		{
+			y = y / sector.floor_scale.y / pow(2, map_lvl)
+			+ sector.floor_align.y;
+			x = x / sector.floor_scale.x / pow(2, map_lvl)
+			+ sector.floor_align.x;
+		}
+		else
+		{
+			y = y / sector.floor_scale.y + sector.floor_align.y;
+			x = x / sector.floor_scale.x + sector.floor_align.x;
+		}
 		y = texture_h - y;
 		x = texture_w - x;
 		if (y >= texture_h || y < 0)

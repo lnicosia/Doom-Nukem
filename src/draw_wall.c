@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 11:34:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:31:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			coord;
 
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = env->wall_textures[render.texture].str;
+	texture_pixels = (Uint32*)env->wall_textures[render.texture].str;
 	zbuffer = env->zbuffer;
 	yalpha = 0;
 	coord = 0;
 	x = 0;
 	y = 0;
-	y = render.alpha
+	/*y = render.alpha
 		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
 		+ sector.align[render.i].x;
 	if (y != y)
@@ -44,18 +44,28 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		y -= render.texture_h;
 	while (y < 0)
 		y += render.texture_h;
-	y = ft_fclamp(y, 0, render.texture_h);
-	/*x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale.x * render.z
-		+ sector.align[render.i].x;
+	y = ft_fclamp(y, 0, render.texture_h);*/
+	if (!env->options.test)
+	x = render.alpha
+		* render.camera->v[render.sector][render.i].texture_scale.x
+		/ pow(2, render.map_lvl) * render.z - sector.align[render.i].x;
+	else
+	x = render.alpha
+		* render.camera->v[render.sector][render.i].texture_scale.x
+		* render.z - sector.align[render.i].x;
 	if (x != x)
 		return ;
 	while (x >= render.texture_w)
 		x -= render.texture_w;
 	while (x < 0)
 		x += render.texture_w;
-	x = ft_fclamp(x, 0, render.texture_w);*/
+	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
+	//ft_printf("map lvl = %d\n", render.map_lvl);
+	//ft_printf("texture_w = %d\n", render.texture_w);
+	//ft_printf("texture_h = %d\n", render.texture_h);
+	//ft_printf("first pixel = 0x%X\n", texture_pixels[0]);
+	//ft_printf("x = %d\n", (int)x);
 	while (i < vline.end)
 	{
 		coord = vline.x + env->w * i;
@@ -73,18 +83,23 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
-		x = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+		/*x = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
 			+ sector.align[render.i].y;
 		while (x >= render.texture_w)
 			x -= render.texture_w;
 		while (x < 0)
-			x += render.texture_w;
-		/*y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
-			+ sector.align[render.i].y;
+			x += render.texture_w;*/
+		if (!env->options.test)
+		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+		/ pow(2, render.map_lvl)	- sector.align[render.i].y;
+		else
+		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+		- sector.align[render.i].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;
-		while (x < 0)
-			y += render.texture_h;*/
+		while (y < 0)
+			y += render.texture_h;
+		//ft_printf("y = %d\n", (int)y);
 		if (!env->options.lighting && !env->playing)
 			pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 		else

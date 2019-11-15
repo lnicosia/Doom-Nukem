@@ -15,10 +15,12 @@ void	init_options(t_env *env)
 	env->options.minimap_scale = 2.5;
 	env->options.clipping = 1;
 	env->option = 0;
+	env->options.gamma_filter = 1;
 	env->options.show_ennemies = 1;
 	env->options.zbuffer = 0;
 	env->options.p = 1;
 	env->options.animations = 1;
+	env->options.mipmapping = 1;
 	env->minimap_size = new_point(300, 300);
 	env->minimap_pos = new_point(env->w - env->minimap_size.x / 2 - 20,
 	env->minimap_size.y / 2 + 20);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:35:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:31:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int		editor(t_env *env)
 		}
 		else
 		{
+			if (env->player.sector != -1)
+				start_event(env->sectors[env->player.sector].walk_on_me_event,
+				env->sectors[env->player.sector].nb_walk_events, env);
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
@@ -85,6 +88,29 @@ int		editor(t_env *env)
 			draw_confirmation_box(env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
+		print_text(new_point(env->h - 50, 300), new_printable_text("Mipmapping",
+		env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
+		if (env->options.show_minimap)
+		print_text(new_point(env->h - 50, 450), new_printable_text("[ON]",
+		env->sdl.fonts.lato20, 0x00FF00FF, 20), env);
+		else
+		print_text(new_point(env->h - 50, 450), new_printable_text("[OFF]",
+		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
+
+		/*
+		**	Show the result of the mipmap generation
+		*/
+		/*size_t	i = 0;
+		t_point	pos = new_point(env->h_h - env->textures[4].surface->h / 2,
+		env->h_w - env->textures[4].surface->w / 2);
+		while (i < env->textures[4].nb_maps)
+		{
+			apply_surface(env->textures[4].maps[i], pos,
+			new_point(env->textures[4].maps[i]->w, env->textures[4].maps[i]->h),
+			env);
+			pos.y += env->textures[4].maps[i]->w;
+			i++;
+		}*/
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 

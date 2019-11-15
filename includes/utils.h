@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:32:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:47:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef enum		e_button_action_type
 	WHEN_DOWN
 }			t_button_action_type;
 
+typedef enum	e_event_mod_type
+{
+	FIXED,
+	INCR
+}				t_event_mod_type;
+
 typedef enum		e_button_state
 {
 	UP,
@@ -69,6 +75,15 @@ typedef enum		e_button_anim_state
 	PRESSED,
 	HOVER
 }			t_button_anim_state;
+
+typedef enum		e_confirmation_box_type
+{
+		YESNO,
+		INFO,
+		ERROR,
+		CONFIRM,
+		WARNING
+}					t_confirmation_box_type;
 
 typedef enum		e_enemy_state
 {
@@ -232,16 +247,11 @@ typedef struct		s_sprite
 	int				nb_death_sprites;
 }					t_sprite;
 
-typedef struct		s_wall_sprites
-{
-	short			*sprite;
-	t_v2			*pos;
-	t_v2			*scale;
-}					t_wall_sprites;
-
 typedef struct		s_event_param
 {
 		int			num;
+		double		equ_value;
+		double		diff_value;
 		t_v3		move;
 }					t_event_param;
 
@@ -253,12 +263,21 @@ typedef struct		s_event
 	double			incr;
 	Uint32			start_time;
 	Uint32			duration;
+	Uint32			delay;
+	int				mod_type;
 	int				type;
-	int				(*check_func)(t_event_param *, void *);
+	int				(*check_func)(struct s_event *, void *);
 	t_event_param	*check_param;
-	void			(*update_func)(t_event_param *, void *);
+	void			(*update_func)(struct s_event *, void *);
 	t_event_param	*update_param;
 }			t_event;
+
+typedef struct		s_wall_sprites
+{
+	short			*sprite;
+	t_v2			*pos;
+	t_v2			*scale;
+}					t_wall_sprites;
 
 typedef struct		s_sector
 {
@@ -767,12 +786,14 @@ typedef struct		s_sdl
 typedef struct		s_texture
 {
 	SDL_Surface		*surface;
+	SDL_Surface		**maps;
 	Uint32			*str;
 	double			scale;
 	int				xpadding;
 	int				ypadding;
 	unsigned int	w;
 	unsigned int	h;
+	size_t			nb_maps;
 }					t_texture;
 
 typedef struct s_skybox
@@ -802,6 +823,8 @@ typedef struct		s_options
 	int				zbuffer;
 	int				p;
 	int				animations;
+	int				gamma_filter;
+	int				mipmapping;
 }					t_options;
 
 /*
@@ -884,6 +907,7 @@ typedef struct		s_confirmation_box
 	t_button		no;
 	TTF_Font		*font;
 	t_point			size;
+	int				type;
 	int				state;
 	char			*str;
 	int				yes_pressed;

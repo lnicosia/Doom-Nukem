@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 16:50:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/14 10:16:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		delete_action(t_env *env)
 	if (env->editor.selected_sector != -1 && !env->confirmation_box.state)
 	{
 		if (update_confirmation_box(&env->confirmation_box,
-			"Delete the selected sector?", env))
+			"Delete the selected sector?", YESNO, env))
 			return (-1);
 		env->confirmation_box.yes_action = delete_selected_sector;
 		env->confirmation_box.yes_target = env;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 16:45:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 17:43:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void		*wall_loop(void *param)
 			- render.no_slope_current_ceiling;
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
 		render.floor_start = render.max_floor - render.floor_horizon;
+		if (env->options.show_minimap)
+		render.map_lvl = get_current_map(sector.textures[render.i],
+		&render, env);
 		if (render.current_ceiling > env->ymin[x]
 				|| render.current_floor < env->ymax[x])
 		{
@@ -164,6 +167,7 @@ void		render_sector(t_render render, t_env *env)
 		//ft_printf("cc\n");
 		render.xstart = ft_max(v1.clipped_x1, render.xmin);
 		render.xend = ft_min(v1.clipped_x2, render.xmax);
+		render.i = i;
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];
@@ -177,7 +181,7 @@ void		render_sector(t_render render, t_env *env)
 			render.texture_w = env->wall_textures[render.texture].surface->w;
 			render.texture_h = env->wall_textures[render.texture].surface->h;
 		}
-		render.i = i;
+		render.map_lvl = 0;
 		threaded_wall_loop(v1, sector, render, env);
 		if (sector.neighbors[i] != -1)
 		{

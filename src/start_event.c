@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 10:35:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:07:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,26 @@
 
 int		update_event(t_event *event)
 {
+	if (SDL_GetTicks() - event->start_time < event->delay)
+			return (0);
 	if (event->type == DOUBLE)
 	{
-		if (event->goal == *(double*)(event->target))
+		if (event->mod_type == FIXED
+				&& event->goal == *(double*)(event->target))
 				return (0);
+		else if (event->mod_type == INCR)
+				event->goal = *(double*)event->target + event->incr;
 		event->incr = (event->goal - *(double*)(event->target))
 		/ event->duration;
 		event->start_value = *(double*)(event->target);
 	}
 	else if (event->type == INT)
 	{
-		if (event->goal == *(int*)(event->target))
+		if (event->mod_type == FIXED
+				&& event->goal == *(int*)(event->target))
 				return (0);
+		else if (event->mod_type == INCR)
+				event->goal = *(int*)event->target + event->incr;
 		event->incr = (event->goal - *(int*)(event->target))
 		/ event->duration;
 		event->start_value = *(int*)(event->target);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:31:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 16:50:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct		s_env
 	t_input_box			input_box;
 	t_skybox			skyboxes[NB_SKYBOX];
 	Uint32				frame_timer;
+	t_event				*global_events;
+	size_t				nb_global_events;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -247,6 +249,7 @@ int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 void				hit_player(void *param);
+void				apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
 ** Main functions
@@ -287,8 +290,10 @@ void				init_enemies_data(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
+int					generate_mipmaps(t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed);
+
 /*
 **	Parser functions
 */
@@ -332,7 +337,8 @@ void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 src, Uint32 color, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
-int				update_confirmation_box(t_confirmation_box *box, char *str, t_env *env);
+int				update_confirmation_box(t_confirmation_box *box, char *str,
+int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
@@ -463,13 +469,18 @@ void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 int					update_event(t_event *event);
 void				pop_events(t_env *env);
 void				pop_events2(t_env *env);
-t_event				new_event(int type, void *target, double goal,
+t_event				new_fixed_event(int type, void *target, double goal,
+Uint32 duration);
+t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
 void				start_event(t_event *events, size_t size,
 t_env *env);
-t_event_param		*new_event_param(int num, t_v3 move);
-void				update_sector_event(t_event_param *param, void *penv);
-void				update_player_event(t_event_param *param, void *penv);
-int					check_collision_event(t_event_param *param, void *penv);
+t_event_param		*new_event_param(int num, double equ_value, 
+double diff_value, t_v3 move);
+void				update_sector_event(t_event *event, void *penv);
+void				update_player_event(t_event *event, void *penv);
+int					check_collision_event(t_event *event, void *penv);
+int					check_diff_value_event(t_event *event, void *penv);
+int					check_equ_value_event(t_event *event, void *penv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/13 16:50:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 12:28:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	draw_game(t_env *env)
 			i++;
 		}
 	}
-	if (env->options.show_minimap)
+	//if (env->options.show_minimap)
 		minimap(env);
 	if (env->confirmation_box.state)
 		draw_confirmation_box(env->confirmation_box, env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:32:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:28:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,23 @@ static void	calcul_player_pos(t_env *env)
 
 int			check_player_z(t_env *env)
 {
+	int	sector;
+
+	sector = get_sector_no_z(env, env->player.pos);
+	if (sector == -1)
+			return (1);
+	env->player.sector = sector;
 	env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	env->player.sector = get_sector_no_z(env, env->player.pos);
 	env->player.camera.angle = 0;
 	env->player.camera.angle_z = 0;
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6.0;
+	env->player.highest_sect = env->player.sector;
+	env->player.lowest_sect = env->player.sector;
+	/*ft_printf("player_z: %f | sector_height: %f\n", env->player.eyesight,
+	env->sectors[env->player.sector].ceiling - env->sectors[env->player.sector].floor);*/
 	if ((env->sectors[env->player.sector].ceiling
 	- env->sectors[env->player.sector].floor) < env->player.eyesight)
 	{

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/08 10:43:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/14 08:55:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_sector	new_default_sector(t_env *env)
 {
 	t_sector	sector;
 
+	ft_bzero(&sector, sizeof(sector));
 	sector.floor = 0;
 	sector.floor_slope = 0;
 	sector.floor_texture = 4;

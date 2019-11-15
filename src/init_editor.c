@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:35:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:40:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,10 @@
 
 void	init_editor_data(t_env *env)
 {
-	env->editor.in_game = 0;
-	env->editor.center.x = env->h_w;
-	env->editor.center.y = env->h_h;
-	env->editor.scale = 20;
+	env->editor.scale = 10;
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
-	env->editor.reverted = 0;
-	env->editor.player_exist = 0;
-	env->nb_vertices = 0;
-	env->nb_sectors = 0;
-	env->nb_objects = 0;
 	env->player.sector = -1;
-	env->editor.select = 0;
-	env->editor.game = 0;
-	env->editor.start_pos.x = 0;
-	env->editor.start_pos.y = 0;
 	env->editor.selected_sector = -1;
 	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;
@@ -40,7 +28,6 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
 	env->editor.dragged_enemy = -1;
-	env->editor.tab = 0;
 	env->selected_wall1 = -1;
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;
@@ -49,11 +36,7 @@ void	init_editor_data(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
-	env->selected_stat = 0;
-	env->time.scroll_tick = 0;
-	env->time.tick = 0;
-	env->time.tick2 = 0;
-	env->time.tick3 = 0;
+	
 }
 
 /*
@@ -80,16 +63,8 @@ int	init_editor(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.min_fps = 300;
-	env.avrg_fps = 0;
-	env.max_fps = 0;
+	//env.i = 1;
 	env.min_fps2 = 300;
-	env.avrg_fps2 = 0;
-	env.max_fps2 = 0;
-	env.playing = 0;
-	if (av[1])
-		env.save_file = ft_strdup(av[1]);
-	else
-		env.save_file = ft_strdup("new_map.map");
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -114,10 +89,17 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load object sprites\n", &env));
 	if (init_enemy_sprites(&env))
 		return (crash("Could not load enemy sprites\n", &env));
+	if (generate_mipmaps(&env))
+		return (crash("Could not generate mipmaps\n", &env));
+
 	if (ac == 1)
+	{
 		ft_printf("Creating a new map\n");
+		env.save_file = ft_strdup("maps/test.map");
+	}
 	else if (ac == 2)
 	{
+		env.save_file = ft_strdup(av[1]);
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
@@ -128,12 +110,12 @@ int	init_editor(int ac, char **av)
 			env.sectors[1].nb_walk_events = 2;
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
-			new_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
+			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
 			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
 			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
-			2, new_v3(0, 0, 0)); 
+			2, 0, 0, new_v3(0, 0, 0)); 
 			env.sectors[1].walk_on_me_event[1] =
-			new_event(INT, &env.player.health, 1, 0);
+			new_fixed_event(INT, &env.player.health, 1, 0);
 			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
 			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
@@ -145,5 +127,9 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init camera\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
+	//if (env.editor.new_player)
+	//{
+		env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+		env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	return (editor(&env));
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:38:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:39:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,19 +364,6 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 					parser->sectors_count);
 			return (-1);
 		}
-		env->sectors[parser->sectors_count].align[i] = new_v2(0, 0);
-		if (env->sectors[parser->sectors_count].textures[i] == -1)
-		{
-			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->skyboxes[0].textures[0].surface->w,
-					env->skyboxes[0].textures[0].surface->h / 10);
-		}
-		else
-		{
-			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w,
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
-		}
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].align[i].x = ft_atof(*line);
@@ -394,6 +381,24 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
+		if (env->sectors[parser->sectors_count].textures[i] == -1)
+		{
+			env->sectors[parser->sectors_count].scale[i].x /= env->skyboxes[0].textures[0].surface->w * 10;
+			env->sectors[parser->sectors_count].scale[i].y /= env->skyboxes[0].textures[0].surface->h * 10;
+			env->sectors[parser->sectors_count].align[i].x *= env->skyboxes[0].textures[0].surface->w;
+			env->sectors[parser->sectors_count].align[i].y *= env->skyboxes[0].textures[0].surface->h;
+			env->sectors[parser->sectors_count].align[i].x /= 10;
+			env->sectors[parser->sectors_count].align[i].y /= 10;
+		}
+		else
+		{
+			env->sectors[parser->sectors_count].scale[i].x /= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w * 10;
+			env->sectors[parser->sectors_count].scale[i].y /= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h * 10;
+			env->sectors[parser->sectors_count].align[i].x *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w;
+			env->sectors[parser->sectors_count].align[i].y *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
+			env->sectors[parser->sectors_count].align[i].x /= 10;
+			env->sectors[parser->sectors_count].align[i].y /= 10;
+		}
 		(*line)++;
 		i++;
 	}
@@ -440,14 +445,14 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].textures[i] == -1)
 		{
 			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[38].surface->w,
-					env->textures[38].surface->h / 10);
+					env->skyboxes[0].textures[0].surface->w,
+					env->skyboxes[0].textures[0].surface->h / 10);
 		}
 		else
 		{
 			env->sectors[parser->sectors_count].scale[i] = new_v2(
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->w,
-					env->textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
+					env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w,
+					env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h);
 		}
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);

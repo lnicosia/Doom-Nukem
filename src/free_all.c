@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:35:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:33:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ static void	free_textures(t_env *env)
 			SDL_FreeSurface(env->textures[i].surface);
 		i++;
 	}
+}
+
+void		free_events(t_event	*events, size_t size)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < size)
+	{
+		if (events[j].check_param)
+			ft_memdel((void**)&events[j].check_param);
+		if (events[j].update_param)
+			ft_memdel((void**)&events[j].update_param);
+			j++;
+	}
+	if (events)
+		ft_memdel((void**)&events);
 }
 
 static void	free_sectors(t_env *env)
@@ -68,7 +85,7 @@ static void	free_sectors(t_env *env)
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
 		j = 0;
-		while (j < env->sectors[i].nb_walk_events)
+		/*while (j < env->sectors[i].nb_walk_events)
 		{
 				if (env->sectors[i].walk_on_me_event[j].check_param)
 					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
@@ -79,7 +96,9 @@ static void	free_sectors(t_env *env)
 				j++;
 		}
 		if (env->sectors[i].walk_on_me_event)
-					ft_memdel((void**)&env->sectors[i].walk_on_me_event);
+					ft_memdel((void**)&env->sectors[i].walk_on_me_event);*/
+		free_events(env->sectors[i].walk_on_me_event,
+		env->sectors[i].nb_walk_events);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);
@@ -262,6 +281,7 @@ void		free_all(t_env *env)
 			env->projectiles = tmplst;
 		}
 	}
+	free_events(env->global_events, env->nb_global_events);
 	free_textures(env);
 	free_camera(&env->player.camera);
 	TTF_Quit();

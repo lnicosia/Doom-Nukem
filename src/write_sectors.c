@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:38:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:03:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,22 @@ static void	write_sector_textures(int fd, t_sector sector)
 	ft_dprintf(fd, "(");
 	while (i < sector.nb_vertices)
 	{
-		/*if (i != 0)
-			ft_dprintf(fd, " ");
-		if (sector.textures[i] == 38)
-			ft_dprintf(fd, "%d", -1);
-		else
-			ft_dprintf(fd, "%d", sector.textures[i]);*/
-		ft_dprintf(fd, "[%d %f %f %f %f]",
+		// Use to save with real scale
+		// !!! NOT DONE YET !!!
+		/*ft_dprintf(fd, "[%d %f %f %f %f]",
 			sector.textures[i],
 			sector.align[i].x,
 			sector.align[i].y,
 			sector.scale[i].x,
-			sector.scale[i].y);
+			sector.scale[i].y);*/
+
+		// Use to save with default scale
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+			sector.textures[i],
+			sector.align[i].x,
+			sector.align[i].y,
+			10.0,
+			10.0);
 		i++;
 	}
 	ft_dprintf(fd, ") ");

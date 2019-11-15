@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 15:08:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/15 15:30:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ static int	parse(int fd, int index, t_env *env)
 //	check_bmp_parsing(parser);
 	ft_printf("{red}");
 	if (!(env->textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
-					0,
-					parser.w,
-					parser.h,
-					parser.bpp,
+					0, parser.w, parser.h, parser.bpp,
 					SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
+		return (ft_printf("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
 	env->textures[index].str = env->textures[index].surface->pixels;
 	env->textures[index].scale = 1;
 	env->textures[index].xpadding = 0;
