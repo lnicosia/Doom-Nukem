@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 16:25:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:07:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -626,6 +626,7 @@ typedef struct		s_projectile_stats
 	int				damage;
 	double			size_2d;
 	double			speed;
+	double			height;
 
 }					t_projectile_stats;
 

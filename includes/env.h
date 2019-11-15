@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 17:39:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:07:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
-t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed);
+t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 /*
 **	Parser functions
 */
