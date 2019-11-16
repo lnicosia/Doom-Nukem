@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:11 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 18:17:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:01:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		init_camera(t_camera *camera, t_env *env)
 {
 	camera->hfov = 90;
 	camera->near_z = 0.1;
-	camera->far_z = 1000;
+	camera->far_z = 100000;
 	camera->ratio_w = 16;
 	camera->ratio_h = 9;
 	camera->ratio = camera->ratio_w / camera->ratio_h;

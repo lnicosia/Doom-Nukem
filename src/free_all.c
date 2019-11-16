@@ -205,7 +205,8 @@ void		free_all_sdl_relative(t_env *env)
 
 void		free_all(t_env *env)
 {
-	int i;
+	int 	i;
+	t_list	*tmplst;
 
 	ft_printf("Freeing data..\n");
 	if (!env)
@@ -265,6 +266,16 @@ void		free_all(t_env *env)
 		i++;
 	}
 	free_events(env->global_events, env->nb_global_events);
+	if (env->projectiles)
+	{
+		while (env->projectiles)
+		{
+			tmplst = env->projectiles;
+			tmplst = tmplst->next;
+			free(env->projectiles);
+			env->projectiles = tmplst;
+		}
+	}
 	free_textures(env);
 	free_camera(&env->player.camera);
 	TTF_Quit();

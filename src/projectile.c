@@ -6,40 +6,44 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/13 17:23:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:04:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z)
+void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z, double height)
 {
-	projectile->pos.x = 3 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
-	projectile->pos.y = 3 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
-	projectile->pos.z = 3 * -angle_z + pos.z + 5.6;
+	projectile->pos.x = 2.5 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
+	projectile->pos.y = 2.5 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
+	projectile->pos.z = 2.5 * -angle_z + pos.z + height;
 	projectile->dest.x = 100000 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
 	projectile->dest.y = 100000 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
-	projectile->dest.z = 100000 * -angle_z + pos.z + 5.6;
+	projectile->dest.z = 100000 * -angle_z + pos.z + height;
 }
 
-int		create_projectile(t_env *env, int sprite, t_v3 pos, double angle)
+int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, double angle_z)
 {
 	t_list	*new;
 
 	if (!(new = ft_lstnew(&env->projectile, sizeof(t_projectile))))
 		return (ft_printf("Error when creating new projectile\n"));
 	ft_lstpushback(&env->projectiles, new);
-	((t_projectile*)new->content)->sprite = sprite;
-	((t_projectile*)new->content)->angle = angle;
-	projectile_coord(pos, ((t_projectile*)new->content), env->player.camera.angle_z);
-	((t_projectile*)new->content)->scale = 50;
+	((t_projectile*)new->content)->sprite = data.sprite;
+	((t_projectile*)new->content)->speed = stats.speed;
+	((t_projectile*)new->content)->angle = data.angle;
+	projectile_coord(data.pos, ((t_projectile*)new->content), angle_z, stats.height);
+	((t_projectile*)new->content)->scale = data.scale;
+	((t_projectile*)new->content)->damage = stats.damage;
+	((t_projectile*)new->content)->size_2d = stats.size_2d;
 	((t_projectile*)new->content)->exists = 1;
 	return (0);
 }
 
 void	projectiles_movement(t_env *env)
 {
+	int				nb;
 	t_v3			move;
 	t_list			*tmp;
 	t_projectile	*projectile;
@@ -50,7 +54,26 @@ void	projectiles_movement(t_env *env)
 		while (tmp)
 		{
 			projectile = (t_projectile*)tmp->content;
-			move = sprite_movement(0.8, projectile->pos, projectile->dest);
+			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
+			nb = enemy_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d);
+			if (nb >= 0)
+			{
+				env->enemies[nb].health -= projectile->damage;
+				env->enemies[nb].hit = 1;
+				tmp = ft_lstdelnode(&env->projectiles, tmp);
+				continue ;
+			}
+			if (projectile_player_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d))
+			{
+				env->player.hit = 1;
+				env->player.health -= projectile->damage;
+				tmp = ft_lstdelnode(&env->projectiles, tmp);
+				continue ;
+			}
 			if (collision_projectiles(env, move, new_movement(projectile->sector, projectile->size_2d,
 				0, projectile->pos)))
 			{

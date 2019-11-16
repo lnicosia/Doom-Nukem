@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 20:07:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:07:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,16 +233,16 @@ void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
 void				input_box_keys(t_input_box *box, t_env *env);
-int				init_input_box(t_input_box *box, t_env *env);
-int				input_box_mouse(t_input_box *box, t_env *env);
-int				new_input_box(t_input_box *box, t_point pos,
-int type, void *target);
-int				set_double_stats(t_input_box *box);
-int				validate_input(t_input_box *box, t_env *env);
-int				del_char(t_input_box *box, int mode);
-int				delete_box_selection(t_input_box *box);
+int					init_input_box(t_input_box *box, t_env *env);
+int					input_box_mouse(t_input_box *box, t_env *env);
+int					new_input_box(t_input_box *box, t_point pos,
+						int type, void *target);
+int					set_double_stats(t_input_box *box);
+int					validate_input(t_input_box *box, t_env *env);
+int					del_char(t_input_box *box, int mode);
+int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
-int				add_char(t_input_box *box, char c);
+int					add_char(t_input_box *box, char c);
 void				hit_player(void *param);
 void				apply_texture(int texture, t_sector *sector, t_env *env);
 
@@ -286,6 +286,8 @@ int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
 int					set_sector_map_array(t_sector *sector, t_texture texture,
 int i, t_env *env);
+t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
+t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 
 /*
 **	Parser functions
@@ -362,14 +364,14 @@ void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
-t_v3				sprite_movement(double speed, t_v3 origin, t_v3 destination);
+t_v3				sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
 void				weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
-int					create_projectile(t_env *env, int sprite, t_v3 pos, double angle);
+int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
 void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 
