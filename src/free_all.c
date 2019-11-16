@@ -35,9 +35,13 @@ void		free_events(t_event	*events, size_t size)
 	while (j < size)
 	{
 		if (events[j].check_param)
+		{
 			ft_memdel((void**)&events[j].check_param);
+		}
 		if (events[j].update_param)
+		{
 			ft_memdel((void**)&events[j].update_param);
+		}
 			j++;
 	}
 	if (events)
@@ -47,7 +51,6 @@ void		free_events(t_event	*events, size_t size)
 static void	free_sectors(t_env *env)
 {
 	int		i;
-	size_t	j;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -88,19 +91,6 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
-		j = 0;
-		/*while (j < env->sectors[i].nb_walk_events)
-		{
-				if (env->sectors[i].walk_on_me_event[j].check_param)
-					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
-					check_param);
-				if (env->sectors[i].walk_on_me_event[j].update_param)
-					ft_memdel((void**)&env->sectors[i].walk_on_me_event[j].
-					update_param);
-				j++;
-		}
-		if (env->sectors[i].walk_on_me_event)
-					ft_memdel((void**)&env->sectors[i].walk_on_me_event);*/
 		free_events(env->sectors[i].walk_on_me_event,
 		env->sectors[i].nb_walk_events);
 		i++;

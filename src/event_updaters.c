@@ -59,9 +59,7 @@ int				check_collision_event(t_event *event, void *penv)
 
 int				check_equ_value_event(t_event *event, void *penv)
 {
-		t_env	*env;
-
-		env = (t_env*)penv;
+		(void)penv;
 		if (event->type == INT
 				&& event->check_param->equ_value == *(int*)event->target)
 				return (1);
@@ -73,9 +71,7 @@ int				check_equ_value_event(t_event *event, void *penv)
 
 int				check_diff_value_event(t_event *event, void *penv)
 {
-		t_env	*env;
-
-		env = (t_env*)penv;
+		(void)penv;
 		if (event->type == INT
 				&& event->check_param->diff_value != *(int*)event->target)
 				return (1);

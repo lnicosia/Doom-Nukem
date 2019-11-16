@@ -16,13 +16,11 @@ int		set_sector_map_array(t_sector *sector, t_texture texture, int i,
 t_env *env)
 {
 	size_t		j;
-	double		z;
 
 	(void)sector;
 	(void)i;
 	(void)env;
 	j = 0;
-	z =  0;
 	while (j < texture.nb_maps - 1)
 	{
 		j++;

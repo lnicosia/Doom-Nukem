@@ -146,12 +146,10 @@ void	call_elevator(t_env *env)
 
 void	activate_elevator(t_env *env)
 {
-	int		i;
 	double		time;
 	t_sector	sector;
 	double		new_floor;
 
-	i = 0;
 	time = 0;
 	new_floor = 0;
 	sector = env->sectors[env->player.sector];

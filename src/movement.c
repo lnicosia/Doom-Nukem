@@ -121,12 +121,10 @@ void	move_player(t_env *env)
 	int			movement;
 	t_movement	motion;
 	t_v3		move;
-	t_v3		pos;
 	int			prev_sector;
 	Uint32		time;
 	double		speed;
 
-	pos = env->player.pos;
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->player.sector >= 0)
 	{

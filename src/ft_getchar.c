@@ -73,6 +73,7 @@ static char	maj_key(int input)
 {
 	char	res;
 
+	res = 0;
 	if (ft_isalpha(input))
 		res = ft_toupper(input);
 	if (input == '1')

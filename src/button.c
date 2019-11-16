@@ -23,6 +23,7 @@ void		draw_button_text(t_button b, t_env *env)
 	if (!b.str || !b.font)
 		return ;
 	color = 0xFFFFFFFF;
+	button_size = new_point(0, 0);
 	if (b.anim_state == HOVER)
 	{
 		color = b.hover_text_color;
