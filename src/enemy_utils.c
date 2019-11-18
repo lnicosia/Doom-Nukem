@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 10:15:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 17:30:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,15 +300,59 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 	t_v3 move;
 
 	(void)distance;
-	if (enemy.exists &&
-			distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
+	if (enemy.exists )
+	{
+		if (distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
+			{
+				env->enemies[i].state = PURSUING;
+				direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
+				move.x = direction.x;
+				move.y = direction.y;
+				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
+				if (move.x == 0 && move.y == 0 && enemy.speed != 0)
+				{
+					env->enemies[i].dir = rand_dir(env, i);
+					if (env->enemies[i].dir == 0)
+					{
+						move.x = -direction.y;
+						move.y = direction.x;
+					}
+					else if (env->enemies[i].dir == 1)
+					{
+						move.x = direction.y;
+						move.y = -direction.x;
+					}
+					move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+				}
+				env->enemies[i].pos.x += move.x;
+				env->enemies[i].pos.y += move.y;
+				if (env->enemies[i].type == AERIAL)
+					env->enemies[i].pos.z += direction.z;
+				else
+					update_enemy_z(env, i);
+				env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
+			}
+			if (enemy.saw_player)
+				env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
+	}
+}
+
+void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
+{
+	t_v3 direction;
+	t_v3 move;
+
+	if (enemy.exists)
+	{
+		if (distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1 &&
+			(distance >= 30 || !enemy.saw_player))
 		{
 			env->enemies[i].state = PURSUING;
-			direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
+			direction = sprite_movement(env, (double)enemy.speed / 100 , enemy.pos, enemy.last_player_pos);
 			move.x = direction.x;
 			move.y = direction.y;
 			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
-			if (move.x == 0 && move.y == 0 && enemy.speed != 0)
+			if (move.x == 0 && move.y == 0)
 			{
 				env->enemies[i].dir = rand_dir(env, i);
 				if (env->enemies[i].dir == 0)
@@ -325,71 +369,31 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 			}
 			env->enemies[i].pos.x += move.x;
 			env->enemies[i].pos.y += move.y;
+			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 			if (env->enemies[i].type == AERIAL)
 				env->enemies[i].pos.z += direction.z;
 			else
 				update_enemy_z(env, i);
-			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 		}
-		if (enemy.saw_player)
+		if (env->enemies[i].saw_player)
 			env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
-}
-
-void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
-{
-	t_v3 direction;
-	t_v3 move;
-
-	if (enemy.exists &&
-		distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1 &&
-		(distance >= 30 || !enemy.saw_player))
-	{
-		env->enemies[i].state = PURSUING;
-		direction = sprite_movement(env, (double)enemy.speed / 400, enemy.pos, enemy.last_player_pos);
-		move.x = direction.x;
-		move.y = direction.y;
-		move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
-		if (move.x == 0 && move.y == 0)
+		env->enemies[i].saw_player = 0;
+		enemy_sight(env, i, 1);
+		//enemy_arms(env, i);
+		if (distance <= 31 && env->enemies[i].saw_player/*
+			&& enemy_line_of_sight(env, new_v2(env->enemies[i].left_arm.x, env->enemies[i].left_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)
+			&& enemy_line_of_sight(env, new_v2(env->enemies[i].right_arm.x, env->enemies[i].right_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)*/)
 		{
-			env->enemies[i].dir = rand_dir(env, i);
-			if (env->enemies[i].dir == 0)
+			env->enemies[i].state = FIRING;
+			if (env->enemies[i].shot)
 			{
-				move.x = -direction.y;
-				move.y = direction.x;
+				env->player.health -= env->enemies[i].damage;
+				if (env->player.health < 0)
+					env->player.health = 0;
+				env->player.hit = 1;
 			}
-			else if (env->enemies[i].dir == 1)
-			{
-				move.x = direction.y;
-				move.y = -direction.x;
-			}
-			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+			env->enemies[i].shot = 0;
 		}
-		env->enemies[i].pos.x += move.x;
-		env->enemies[i].pos.y += move.y;
-		env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
-		if (env->enemies[i].type == AERIAL)
-			env->enemies[i].pos.z += direction.z;
-		else
-			update_enemy_z(env, i);
-	}
-	if (env->enemies[i].saw_player)
-		env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
-	env->enemies[i].saw_player = 0;
-	enemy_sight(env, i, 1);
-	//enemy_arms(env, i);
-	if (distance <= 31 && env->enemies[i].saw_player/*
-		&& enemy_line_of_sight(env, new_v2(env->enemies[i].left_arm.x, env->enemies[i].left_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)
-		&& enemy_line_of_sight(env, new_v2(env->enemies[i].right_arm.x, env->enemies[i].right_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)*/)
-	{
-		env->enemies[i].state = FIRING;
-		if (env->enemies[i].shot)
-		{
-			env->player.health -= env->enemies[i].damage;
-			if (env->player.health < 0)
-				env->player.health = 0;
-			env->player.hit = 1;
-		}
-		env->enemies[i].shot = 0;
 	}
 }
 
@@ -401,7 +405,7 @@ void	enemy_ai(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		env->enemies[i].state = RESTING;
+;		env->enemies[i].state = RESTING;
 		distance = enemy_sight(env, i, 0);
 		if (env->enemies[i].exists && env->enemies[i].health > 0 && env->enemies[i].saw_player)
 		{

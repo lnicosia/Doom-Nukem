@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 12:25:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:47:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[0].rest_sprite = 1;
 	env->enemy_sprites[0].curr_sprite = 0;
 	env->enemy_sprites[0].oriented = 1;
-	env->enemy_sprites[0].nb_death_sprites = 4;
+	env->enemy_sprites[0].nb_death_sprites = 6;
 
 	env->enemy_sprites[0].start[0].x = 44;
 	env->enemy_sprites[0].start[0].y = 120;
@@ -217,7 +217,7 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[1].rest_sprite = 0;
 	env->enemy_sprites[1].curr_sprite = 1;
 	env->enemy_sprites[1].oriented = 1;
-	env->enemy_sprites[1].nb_death_sprites = 4;
+	env->enemy_sprites[1].nb_death_sprites = 6;
 
 	env->enemy_sprites[1].start[0].x = 44;
 	env->enemy_sprites[1].start[0].y = 33;
@@ -288,11 +288,11 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[2].texture = 23;
 	env->enemy_sprites[2].death_counterpart = 4;
 	env->enemy_sprites[2].pursuit_sprite = 3;
-	env->enemy_sprites[2].firing_sprite = 2;
+	env->enemy_sprites[2].firing_sprite = 3;
 	env->enemy_sprites[2].rest_sprite = 0;
 	env->enemy_sprites[2].curr_sprite = 2;
 	env->enemy_sprites[2].oriented = 1;
-	env->enemy_sprites[2].nb_death_sprites = 4;
+	env->enemy_sprites[2].nb_death_sprites = 6;
 
 	env->enemy_sprites[2].start[0].x = 44;
 	env->enemy_sprites[2].start[0].y = 207;
@@ -363,11 +363,11 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[3].texture = 23;
 	env->enemy_sprites[3].death_counterpart = 4;
 	env->enemy_sprites[3].pursuit_sprite = 2;
-	env->enemy_sprites[3].firing_sprite = 3;
+	env->enemy_sprites[3].firing_sprite = 2;
 	env->enemy_sprites[3].rest_sprite = 0;
 	env->enemy_sprites[3].curr_sprite = 3;
 	env->enemy_sprites[3].oriented = 1;
-	env->enemy_sprites[3].nb_death_sprites = 4;
+	env->enemy_sprites[3].nb_death_sprites = 6;
 
 	env->enemy_sprites[3].start[0].x = 44;
 	env->enemy_sprites[3].start[0].y = 284;
@@ -436,12 +436,12 @@ int			init_enemy_sprites(t_env *env)
 	// death lost soul
 	env->enemy_sprites[4].texture = 23;
 	env->enemy_sprites[4].death_counterpart = 4;
-	env->enemy_sprites[4].pursuit_sprite = 2;
+	env->enemy_sprites[4].pursuit_sprite = 4;
 	env->enemy_sprites[4].firing_sprite = 4;
-	env->enemy_sprites[4].rest_sprite = 0;
+	env->enemy_sprites[4].rest_sprite = 4;
 	env->enemy_sprites[4].curr_sprite = 4;
 	env->enemy_sprites[4].oriented = 0;
-	env->enemy_sprites[4].nb_death_sprites = 4;
+	env->enemy_sprites[4].nb_death_sprites = 6;
 
 	env->enemy_sprites[4].start[0].x = 44;
 	env->enemy_sprites[4].start[0].y = 448;
@@ -493,11 +493,11 @@ int			init_enemy_sprites(t_env *env)
 
 	// cyber_demon enemy_sprites
 	env->enemy_sprites[5].texture = 24;
-	env->enemy_sprites[5].death_counterpart = 6;
+	env->enemy_sprites[5].death_counterpart = 9;
 	env->enemy_sprites[5].pursuit_sprite = 5;
-	env->enemy_sprites[5].firing_sprite = 9;
-	env->enemy_sprites[5].rest_sprite = 5;
-	env->enemy_sprites[5].curr_sprite = 2;
+	env->enemy_sprites[5].firing_sprite = 7;
+	env->enemy_sprites[5].rest_sprite = 6;
+	env->enemy_sprites[5].curr_sprite = 5;
 	env->enemy_sprites[5].oriented = 1;
 	env->enemy_sprites[5].nb_death_sprites = 8;
 
@@ -567,11 +567,11 @@ int			init_enemy_sprites(t_env *env)
 	
 	// cyber_demnon rest
 	env->enemy_sprites[6].texture = 24;
-	env->enemy_sprites[6].death_counterpart = 6;
-	env->enemy_sprites[6].pursuit_sprite = 2;
-	env->enemy_sprites[6].firing_sprite = 9;
-	env->enemy_sprites[6].rest_sprite = 2;
-	env->enemy_sprites[6].curr_sprite = 5;
+	env->enemy_sprites[6].death_counterpart = 9;
+	env->enemy_sprites[6].pursuit_sprite = 6;
+	env->enemy_sprites[6].firing_sprite = 7;
+	env->enemy_sprites[6].rest_sprite = 5;
+	env->enemy_sprites[6].curr_sprite = 6;
 	env->enemy_sprites[6].oriented = 1;
 	env->enemy_sprites[6].nb_death_sprites = 8;
 
@@ -641,11 +641,11 @@ int			init_enemy_sprites(t_env *env)
 
 	//cyber_demon firing anim 1
 	env->enemy_sprites[7].texture = 24;
-	env->enemy_sprites[7].death_counterpart = 6;
-	env->enemy_sprites[7].pursuit_sprite = 2;
-	env->enemy_sprites[7].firing_sprite = 10;
-	env->enemy_sprites[7].rest_sprite = 2;
-	env->enemy_sprites[7].curr_sprite = 9;
+	env->enemy_sprites[7].death_counterpart = 9;
+	env->enemy_sprites[7].pursuit_sprite = 5;
+	env->enemy_sprites[7].firing_sprite = 8;
+	env->enemy_sprites[7].rest_sprite = 5;
+	env->enemy_sprites[7].curr_sprite = 7;
 	env->enemy_sprites[7].oriented = 1;
 	env->enemy_sprites[7].nb_death_sprites = 8;
 
@@ -715,11 +715,11 @@ int			init_enemy_sprites(t_env *env)
 
 	//cyber_demon firing anim 2
 	env->enemy_sprites[8].texture = 24;
-	env->enemy_sprites[8].death_counterpart = 6;
+	env->enemy_sprites[8].death_counterpart = 9;
 	env->enemy_sprites[8].pursuit_sprite = 5;
-	env->enemy_sprites[8].firing_sprite = 9;
+	env->enemy_sprites[8].firing_sprite = 7;
 	env->enemy_sprites[8].rest_sprite = 5;
-	env->enemy_sprites[8].curr_sprite = 10;
+	env->enemy_sprites[8].curr_sprite = 8;
 	env->enemy_sprites[8].oriented = 1;
 	env->enemy_sprites[8].nb_death_sprites = 8;
 
@@ -789,11 +789,11 @@ int			init_enemy_sprites(t_env *env)
 
 	// death cyber_demon
 	env->enemy_sprites[9].texture = 24;
-	env->enemy_sprites[9].death_counterpart = 6;
-	env->enemy_sprites[9].pursuit_sprite = 6;
-	env->enemy_sprites[9].firing_sprite = 6;
-	env->enemy_sprites[9].rest_sprite = 6;
-	env->enemy_sprites[9].curr_sprite = 6;
+	env->enemy_sprites[9].death_counterpart = 9;
+	env->enemy_sprites[9].pursuit_sprite = 5;
+	env->enemy_sprites[9].firing_sprite = 7;
+	env->enemy_sprites[9].rest_sprite = 5;
+	env->enemy_sprites[9].curr_sprite = 9;
 	env->enemy_sprites[9].oriented = 0;
 	env->enemy_sprites[9].nb_death_sprites = 8;
 

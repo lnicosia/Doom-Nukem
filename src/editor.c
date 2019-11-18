@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 10:51:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:54:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int		editor(t_env *env)
 		}
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
-
 		else
 			update_screen(env);
 		if (env->editor.game)
