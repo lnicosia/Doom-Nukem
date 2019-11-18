@@ -18,12 +18,10 @@ void	get_vline_data(t_render_vertex v1, t_sector sector,
 {
 	int	x;
 	int	texture_w;
-	int	texture_h;
 
 	(void)sector;
 	x = render.xstart;
 	texture_w = env->textures[render.texture].surface->w;
-	texture_h = env->textures[render.texture].surface->h;
 	while (x <= render.xend)
 	{
 		env->vline_data[x].alpha = (x - v1.x) / v1.xrange;

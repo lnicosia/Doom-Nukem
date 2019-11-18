@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:33:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:17:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	set_camera(t_camera *camera, t_env *env)
 	camera->hscale = env->h_w / camera->x2;
 	camera->vscale = env->h_h / camera->y2;
 	camera->scale = camera->vscale;
+	//ft_printf("camera scale = %f\n", camera->scale);
 	/*ft_printf("near_z = %f\nnear_left = %f near_right = %f\nfar_left = %f far_right = %f\n",
 			camera->near_z,
 			camera->near_left,
@@ -108,7 +109,7 @@ int		init_camera(t_camera *camera, t_env *env)
 {
 	camera->hfov = 90;
 	camera->near_z = 0.1;
-	camera->far_z = 1000;
+	camera->far_z = 100000;
 	camera->ratio_w = 16;
 	camera->ratio_h = 9;
 	camera->ratio = camera->ratio_w / camera->ratio_h;

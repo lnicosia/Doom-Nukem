@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 15:46:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 12:34:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void	fill_new_sector(t_sector *sector, t_env *env)
 		sector->textures[index] = 4;
 		sector->nb_sprites[index] = 0;
 		sector->align[index] = new_v2(0, 0);
-		sector->scale[index] = new_v2(env->wall_textures[sector->textures[index]].surface->w,
-env->wall_textures[sector->textures[index]].surface->h);
+		sector->map_scale[index] = new_v2(10.0, 10.0);
+		sector->scale[index] = new_v2((env->wall_textures[sector->textures[index]].surface->w / sector->map_scale[index].x),
+(env->wall_textures[sector->textures[index]].surface->h / sector->map_scale[index].y));
 		tmp = tmp->next;
 		i++;
 	}
@@ -77,6 +78,7 @@ env->wall_textures[sector->textures[index]].surface->h);
         sector->sprites[sector->nb_vertices] = sector->sprites[0];
         sector->align[sector->nb_vertices] = sector->align[0];
         sector->scale[sector->nb_vertices] = sector->scale[0];
+		sector->map_scale[sector->nb_vertices] = sector->map_scale[0];
         sector->nb_sprites[sector->nb_vertices] = 0;
     }
     else
@@ -87,6 +89,7 @@ env->wall_textures[sector->textures[index]].surface->h);
         sector->sprites[0] = sector->sprites[sector->nb_vertices];
         sector->align[0] = sector->align[sector->nb_vertices];
         sector->scale[0] = sector->scale[sector->nb_vertices];
+		sector->map_scale[0] = sector->map_scale[sector->nb_vertices];
         sector->nb_sprites[0] = 0;
     }
 }

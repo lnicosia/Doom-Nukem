@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 16:12:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:05:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-		new_projectile_stats(0.5, 50, 0.7),
+	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 11),
+		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
 		env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{

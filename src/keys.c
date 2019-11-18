@@ -14,11 +14,6 @@
 
 void		keys(t_env *env)
 {
-	double	time;
-	int		i;
-
-	i = 0;
-	time = SDL_GetTicks();
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);

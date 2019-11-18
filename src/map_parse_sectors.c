@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 18:55:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 11:56:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
-/*	ft_printf("%d | %d | %d\n", parser->sectors_count, env->sectors[parser->sectors_count].floor_texture,
-	env->wall_textures[env->sectors[parser->sectors_count].floor_texture]);*/
-	env->sectors[parser->sectors_count].floor_scale.x =
-	env->wall_textures[4].surface->w / 10;
-	env->sectors[parser->sectors_count].floor_scale.y =
-	env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10;
+	env->sectors[parser->sectors_count].floor_scale.x = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10.0;
+	env->sectors[parser->sectors_count].floor_scale.y = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10.0;
 	env->sectors[parser->sectors_count].floor_align = new_v2(0, 0);
 	*line = skip_number(*line);
 	if (!**line)
@@ -143,16 +139,14 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	{
 		env->contains_skybox = 1;
 		//env->sectors[parser->sectors_count].ceiling_texture = 38;
-			env->sectors[parser->sectors_count].ceiling_scale = new_v2(
-					env->skyboxes[0].textures[0].surface->w,
-					env->skyboxes[0].textures[0].surface->h / 10);
+		env->sectors[parser->sectors_count].ceiling_scale = new_v2(
+			env->skyboxes[0].textures[0].surface->w / 10.0,
+			env->skyboxes[0].textures[0].surface->h / 10.0);
 	}
 	else
 	{
-		env->sectors[parser->sectors_count].ceiling_scale.x =
-		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10;
-		env->sectors[parser->sectors_count].ceiling_scale.y =
-		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10;
+		env->sectors[parser->sectors_count].ceiling_scale.x = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10.0;
+		env->sectors[parser->sectors_count].ceiling_scale.y = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10.0;
 	}
 	env->sectors[parser->sectors_count].ceiling_align = new_v2(0, 0);
 	*line = skip_number(*line);
@@ -209,6 +203,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].scale = (t_v2*)
 				malloc(sizeof(t_v2) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc textures scale:"));
+	if (!(env->sectors[parser->sectors_count].map_scale = (t_v2*)
+				malloc(sizeof(t_v2) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc textures map scale:"));
 	if (!(env->sectors[parser->sectors_count].ceilings = (double*)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector ceilings:"));
@@ -372,19 +369,21 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].align[i].y = ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].x <= 0)
+		env->sectors[parser->sectors_count].map_scale[i].x = ft_atof(*line);
+		if (env->sectors[parser->sectors_count].map_scale[i].x <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
+		env->sectors[parser->sectors_count].map_scale[i].y = ft_atof(*line);
+		if (env->sectors[parser->sectors_count].map_scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
 		if (env->sectors[parser->sectors_count].textures[i] == -1)
 		{
-			env->sectors[parser->sectors_count].scale[i].x /= env->skyboxes[0].textures[0].surface->w * 10;
-			env->sectors[parser->sectors_count].scale[i].y /= env->skyboxes[0].textures[0].surface->h * 10;
+			env->sectors[parser->sectors_count].scale[i].x = env->skyboxes[0].textures[0].surface->w
+			/ env->sectors[parser->sectors_count].map_scale[i].x;
+			env->sectors[parser->sectors_count].scale[i].y = env->skyboxes[0].textures[0].surface->h
+			/ env->sectors[parser->sectors_count].map_scale[i].y;
 			env->sectors[parser->sectors_count].align[i].x *= env->skyboxes[0].textures[0].surface->w;
 			env->sectors[parser->sectors_count].align[i].y *= env->skyboxes[0].textures[0].surface->h;
 			env->sectors[parser->sectors_count].align[i].x /= 10;
@@ -392,13 +391,19 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		}
 		else
 		{
-			env->sectors[parser->sectors_count].scale[i].x /= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w * 10;
-			env->sectors[parser->sectors_count].scale[i].y /= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h * 10;
+			env->sectors[parser->sectors_count].scale[i].x = env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w
+			/ env->sectors[parser->sectors_count].map_scale[i].x;
+			env->sectors[parser->sectors_count].scale[i].y = env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h
+			/ env->sectors[parser->sectors_count].map_scale[i].y;
 			env->sectors[parser->sectors_count].align[i].x *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->w;
 			env->sectors[parser->sectors_count].align[i].y *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
 			env->sectors[parser->sectors_count].align[i].x /= 10;
 			env->sectors[parser->sectors_count].align[i].y /= 10;
 		}
+		/*if (set_sector_map_array(&env->sectors[parser->sectors_count], 
+			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
+			env))
+			return (-1);*/
 		(*line)++;
 		i++;
 	}

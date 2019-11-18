@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 16:50:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:18:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,8 +291,10 @@ void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
+int					set_sector_map_array(t_sector *sector, t_texture texture,
+int i, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
-t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed);
+t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 
 /*
 **	Parser functions

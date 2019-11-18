@@ -6,21 +6,21 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 15:26:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:06:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z)
+void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z, double height)
 {
-	projectile->pos.x = 3 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
-	projectile->pos.y = 3 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
-	projectile->pos.z = 3 * -angle_z + pos.z + 5.6;
+	projectile->pos.x = 2.5 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
+	projectile->pos.y = 2.5 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
+	projectile->pos.z = 2.5 * -angle_z + pos.z + height;
 	projectile->dest.x = 100000 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
 	projectile->dest.y = 100000 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
-	projectile->dest.z = 100000 * -angle_z + pos.z + 5.6;
+	projectile->dest.z = 100000 * -angle_z + pos.z + height;
 }
 
 int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, double angle_z)
@@ -33,14 +33,14 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	((t_projectile*)new->content)->sprite = data.sprite;
 	((t_projectile*)new->content)->speed = stats.speed;
 	((t_projectile*)new->content)->angle = data.angle;
-	projectile_coord(data.pos, ((t_projectile*)new->content), angle_z);
+	projectile_coord(data.pos, ((t_projectile*)new->content), angle_z, stats.height);
 	((t_projectile*)new->content)->scale = data.scale;
 	((t_projectile*)new->content)->damage = stats.damage;
 	((t_projectile*)new->content)->size_2d = stats.size_2d;
 	((t_projectile*)new->content)->exists = 1;
 	return (0);
 }
-#include "stdio.h"
+
 void	projectiles_movement(t_env *env)
 {
 	int				nb;
@@ -55,7 +55,9 @@ void	projectiles_movement(t_env *env)
 		{
 			projectile = (t_projectile*)tmp->content;
 			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
-			nb = enemy_collision(env, projectile->pos, projectile->size_2d);
+			nb = enemy_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d);
 			if (nb >= 0)
 			{
 				env->enemies[nb].health -= projectile->damage;
@@ -63,7 +65,9 @@ void	projectiles_movement(t_env *env)
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}
-			if (projectile_player_collision(env, projectile->pos, projectile->size_2d))
+			if (projectile_player_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d))
 			{
 				env->player.hit = 1;
 				env->player.health -= projectile->damage;

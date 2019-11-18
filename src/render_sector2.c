@@ -195,20 +195,11 @@ void	*wall_loop2(void *param)
 
 void	set_yrange(t_render_vertex v1, t_render *render, t_env *env)
 {
-	int	ymin;
-	int	ymax;
-	int	nymin;
-	int	nymax;
-
 	(void)env;
 	render->neighbor_ceiling_ystart = ft_min(v1.c1, v1.c2);
 	render->neighbor_ceiling_yend = ft_max(v1.neighbor_c1, v1.neighbor_c2);
 	render->neighbor_floor_ystart = ft_min(v1.neighbor_f1, v1.neighbor_f2);
 	render->neighbor_floor_yend = ft_max(v1.f1, v1.f2);
-	ymin = ft_min(v1.c1, v1.c2);
-	ymax = ft_max(v1.f1, v1.f2);
-	nymin = ft_min(v1.neighbor_c1, v1.neighbor_c2);
-	nymax = ft_max(v1.neighbor_f1, v1.neighbor_f2);
 }
 
 void	threaded_wall_loop2(t_render_vertex v1, t_sector sector,

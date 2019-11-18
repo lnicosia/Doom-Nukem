@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 15:41:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:17:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	map_lvl = 0;
+	map_lvl = env->wall_textures[sector.ceiling_texture].nb_maps - 1;
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -64,7 +64,8 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)
-			map_lvl = get_ceiling_current_map(z, sector, env);
+			//map_lvl = get_floor_current_map(z, sector, env);
+			map_lvl = get_current_map(sector.ceiling_texture, z, &render, env);
 		texture_w = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->w;
 		texture_h = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->h;
 		texture_pixels = env->wall_textures[sector.ceiling_texture].
@@ -86,13 +87,17 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		// Opti
 		if (!env->options.test)
 		{
-			y = y / sector.ceiling_scale.y / pow(2, map_lvl) + sector.ceiling_align.y;
-			x = x / sector.ceiling_scale.x / pow(2, map_lvl) + sector.ceiling_align.x;
+			y = y * sector.ceiling_scale.y
+			/ pow(2, env->wall_textures[sector.ceiling_texture].nb_maps - 1 -map_lvl)
+			+ sector.ceiling_align.y;
+			x = x * sector.ceiling_scale.x
+			/ pow(2, env->wall_textures[sector.ceiling_texture].nb_maps - 1 -map_lvl)
+			+ sector.ceiling_align.x;
 		}
 		else
 		{
-			y = y / sector.ceiling_scale.y + sector.ceiling_align.y;
-			x = x / sector.ceiling_scale.x + sector.ceiling_align.x;
+			y = y * sector.ceiling_scale.y + sector.ceiling_align.y;
+			x = x * sector.ceiling_scale.x + sector.ceiling_align.x;
 		}
 		x = texture_w - x;
 		if (y >= texture_h || y < 0)

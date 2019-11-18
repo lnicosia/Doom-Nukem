@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 11:35:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:15:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,17 +442,40 @@ void		enemy_melee_hit(t_env *env)
 ** was hit
 */
 
-int			enemy_collision(t_env *env, t_v3 pos, double radius)
+int			enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 {
-	int i;
+	int		i;
+	int		enemy;
+	double	nearest_dist;
+	double	distance;
 
 	i = 0;
+	enemy = -1;
+	nearest_dist = 2147483647;
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < env->enemies[i].size_2d + radius && env->enemies[i].exists
 			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
-			return (i);
+		{
+			distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				enemy = i;
+			}
+		}
+		if (hitbox_collision(new_v2(pos.x, pos.y), new_v2(dest.x, dest.y),
+			new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), radius + env->enemies[i].size_2d) && env->enemies[i].exists
+			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
+		{
+			distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				enemy = i;
+			}
+		}
 		i++;
 	}
-	return (-1);
+	return (enemy);;
 }

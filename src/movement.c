@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 18:00:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:06:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,10 @@ void	move_player(t_env *env)
 	int			movement;
 	t_movement	motion;
 	t_v3		move;
-	t_v3		pos;
 	int			prev_sector;
 	Uint32		time;
 	double		speed;
 
-	pos = env->player.pos;
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->player.sector >= 0)
 	{

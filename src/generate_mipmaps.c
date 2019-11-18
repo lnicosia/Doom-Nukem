@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 10:49:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 17:06:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:14:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		get_color(int x, int y, int w, Uint32 *prec_pixels)
 	return (res);
 }
 
-int		fill_map_at_lvl(t_texture *texture, size_t lvl)
+int		fill_map_at_lvl(t_texture *texture, int lvl)
 {
 	Uint32	*pixels;
 	Uint32	*prec_pixels;
@@ -64,7 +64,7 @@ int		fill_map_at_lvl(t_texture *texture, size_t lvl)
 	int		y;
 
 	pixels = texture->maps[lvl]->pixels;
-	prec_pixels = texture->maps[lvl - 1]->pixels;
+	prec_pixels = texture->maps[lvl + 1]->pixels;
 	y = 0;
 	while (y < texture->maps[lvl]->h)
 	{
@@ -72,7 +72,7 @@ int		fill_map_at_lvl(t_texture *texture, size_t lvl)
 		while (x < texture->maps[lvl]->w)
 		{
 			pixels[x + y * texture->maps[lvl]->w] = get_color(
-					x, y, texture->maps[lvl - 1]->w, prec_pixels);
+					x, y, texture->maps[lvl + 1]->w, prec_pixels);
 			x++;
 		}
 		y++;
@@ -80,14 +80,17 @@ int		fill_map_at_lvl(t_texture *texture, size_t lvl)
 	return (0);
 }
 
-int		generate_map_at_lvl(t_texture *texture, size_t lvl)
+int		generate_map_at_lvl(t_texture *texture, int lvl)
 {
+	//ft_printf("lvl = %d\n", lvl);
 	if (!(texture->maps[lvl] = SDL_CreateRGBSurfaceWithFormat(0,
-					(int)(texture->maps[0]->w / (pow(2, lvl))),
-					(int)(texture->maps[0]->h / (pow(2, lvl))),
+					(int)(texture->maps[texture->nb_maps - 1]->w
+					/ (pow(2, texture->nb_maps - 1 - lvl))),
+					(int)(texture->maps[texture->nb_maps - 1]->h
+					/ (pow(2, texture->nb_maps - 1 - lvl))),
 					24, SDL_PIXELFORMAT_ARGB8888)))
 		return (custom_error("Can not malloc one of the texture maps"));
-	//ft_printf("created size of lvl %d: [%d][%d]\n", lvl,
+	//ft_printf("size of lvl %d: [%d][%d]\n", lvl,
 	//		texture->maps[lvl]->w, texture->maps[lvl]->h);
 	fill_map_at_lvl(texture, lvl);
 	return (0);
@@ -95,19 +98,20 @@ int		generate_map_at_lvl(t_texture *texture, size_t lvl)
 
 int		generate_maps_for_texture(t_texture *texture)
 {
-	size_t	i;
+	int	i;
 
 	if (!(texture->maps = (SDL_Surface**)malloc(sizeof(SDL_Surface*)
 					* texture->nb_maps)))
 		return (custom_error("Can not malloc textures maps array\n"));
-	texture->maps[0] = texture->surface;
-	//ft_printf("texture original size = [%d][%d]\n",
-	//		texture->maps[0]->w, texture->maps[0]->h);
-	i = 1;
-	while (i < texture->nb_maps)
+	texture->maps[texture->nb_maps - 1] = texture->surface;
+	/*ft_printf("texture original size = [%d][%d]\n",
+			texture->maps[texture->nb_maps - 1]->w,
+			texture->maps[texture->nb_maps - 1]->h);*/
+	i = texture->nb_maps - 2;
+	while (i >= 0)
 	{
 		generate_map_at_lvl(texture, i);
-		i++;
+		i--;
 	}
 	return (0);
 }

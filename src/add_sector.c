@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 08:55:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 12:19:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector sprites pos"));
+		return (ft_perror("Could not malloc sector align"));
 	if (!(sector->scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector sprites scale"));
+		return (ft_perror("Could not malloc sector scale"));
+	if (!(sector->map_scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector map scale"));
 	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
@@ -108,8 +110,8 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling = 12;
 	sector.ceiling_slope = 0;
 	sector.ceiling_texture = 4;
-	sector.floor_scale.x = env->textures[sector.floor_texture].surface->w / 10;
-	sector.floor_scale.y = env->textures[sector.floor_texture].surface->h / 10;
+	sector.floor_scale.x = env->wall_textures[sector.floor_texture].surface->w / 10;
+	sector.floor_scale.y = env->wall_textures[sector.floor_texture].surface->h / 10;
 	sector.ceiling_scale = sector.floor_scale;
 	sector.floor_align = new_v2(0, 0);
 	sector.ceiling_align = new_v2(0, 0);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 11:40:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 16:14:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 10:06:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ t_projectile_data		new_projectile_data(t_v3 pos, double angle, double scale, int
 	return (new);
 }
 
-t_projectile_stats		new_projectile_stats(double size_2d, int damage, double speed)
+t_projectile_stats		new_projectile_stats(double size_2d, int damage, double speed, double height)
 {
 	t_projectile_stats new;
 
 	new.size_2d = size_2d;
 	new.speed = speed;
 	new.damage = damage;
+	new.height = height;
 	return (new);
 }
