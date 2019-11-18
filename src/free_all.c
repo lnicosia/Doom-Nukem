@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:15:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:32:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		free_events(t_event	*events, size_t size)
 static void	free_sectors(t_env *env)
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -79,8 +80,6 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].scale);
 		if (env->sectors[i].map_scale)
 			ft_memdel((void**)&env->sectors[i].map_scale);
-		if (env->sectors[i].map_lvl)
-			ft_memdel((void**)&env->sectors[i].map_lvl);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
 		if (env->sectors[i].sprites)
@@ -91,6 +90,20 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
+		if (env->sectors[i].walls_map_lvl)
+		{
+			j = 0;
+			while (j < env->sectors[i].nb_vertices)
+			{
+				ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
+				j++;
+			}
+			ft_memdel((void**)&env->sectors[i].walls_map_lvl);
+		}
+		if (env->sectors[i].floor_map_lvl)
+			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
+		if (env->sectors[i].ceiling_map_lvl)
+			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
 		free_events(env->sectors[i].walk_on_me_event,
 		env->sectors[i].nb_walk_events);
 		i++;

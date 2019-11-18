@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:17:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:34:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)
+		{
+			//ft_printf("{green}[CEILING]{reset}\n");
 			//map_lvl = get_floor_current_map(z, sector, env);
-			map_lvl = get_current_map(sector.ceiling_texture, z, &render, env);
+			map_lvl = get_current_ceiling_map(sector.ceiling_texture, z, &render, env);
+		}
 		texture_w = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->w;
 		texture_h = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->h;
 		texture_pixels = env->wall_textures[sector.ceiling_texture].

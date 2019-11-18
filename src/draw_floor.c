@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 12:28:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:34:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ t_render render, t_env *env)
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)
+		{
+			//ft_printf("{yellow}[FLOOR]{reset}\n");
 			//map_lvl = get_floor_current_map(z, sector, env);
-			map_lvl = get_current_map(sector.floor_texture, z, &render, env);
+			map_lvl = get_current_floor_map(sector.floor_texture, z, &render, env);
+		}
 		texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
 		texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
 		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].

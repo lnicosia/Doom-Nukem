@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:06:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 14:44:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void		*wall_loop(void *param)
 			- render.no_slope_current_ceiling;
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
 		render.floor_start = render.max_floor - render.floor_horizon;
-		if (env->options.show_minimap)
-		render.map_lvl = get_current_map(render.texture, render.z, &render, env);
 		if (render.current_ceiling > env->ymin[x]
 				|| render.current_floor < env->ymax[x])
 		{

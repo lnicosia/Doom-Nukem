@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:15:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 14:05:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	editor_keyup(t_env *env)
 		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.l = env->options.l ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_o)
+		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->player.state.fly = env->player.state.fly ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)

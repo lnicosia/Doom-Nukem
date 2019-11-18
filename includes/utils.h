@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:17:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 16:57:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,11 +286,13 @@ typedef struct		s_sector
 	double			floor_slope;
 	short			floor_texture;
 	t_v2			floor_scale;
+	t_v2			floor_map_scale;
 	t_v2			floor_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
 	t_v2			ceiling_scale;
+	t_v2			ceiling_map_scale;
 	t_v2			ceiling_align;
 	double			x_max;
 	double			floor_min;
@@ -314,7 +316,9 @@ typedef struct		s_sector
 	t_v2			*align;
 	t_v2			*scale;
 	t_v2			*map_scale;
-	int				*map_lvl;
+	double			**walls_map_lvl;
+	double			*floor_map_lvl;
+	double			*ceiling_map_lvl;
 	t_v3			tp;
 	short			*selected;
 	short			num;
@@ -826,6 +830,7 @@ typedef struct		s_options
 	int				zbuffer;
 	int				p;
 	int				l;
+	int				o;
 	int				animations;
 	int				gamma_filter;
 	int				mipmapping;

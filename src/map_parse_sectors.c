@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 11:56:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:31:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,17 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
-	env->sectors[parser->sectors_count].floor_scale.x = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->w / 10.0;
-	env->sectors[parser->sectors_count].floor_scale.y = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h / 10.0;
+	env->sectors[parser->sectors_count].floor_map_scale = new_v2(10, 10);
+	env->sectors[parser->sectors_count].floor_scale.x = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->w / env->sectors[parser->sectors_count].floor_map_scale.x;
+	env->sectors[parser->sectors_count].floor_scale.y = env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h / env->sectors[parser->sectors_count].floor_map_scale.y;
 	env->sectors[parser->sectors_count].floor_align = new_v2(0, 0);
+	if (!(env->sectors[parser->sectors_count].floor_map_lvl = (double*)malloc(
+		sizeof(double) * env->wall_textures[env->sectors[parser->sectors_count].floor_texture].nb_maps)))
+		return (custom_error("Could not malloc a sector map_lvl array"));
+	if (set_sector_floor_map_array(&env->sectors[parser->sectors_count], 
+		env->wall_textures[env->sectors[parser->sectors_count].floor_texture],
+		env))
+		return (-1);
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after floor texture",parser));
@@ -145,10 +153,18 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	}
 	else
 	{
-		env->sectors[parser->sectors_count].ceiling_scale.x = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / 10.0;
-		env->sectors[parser->sectors_count].ceiling_scale.y = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / 10.0;
+		env->sectors[parser->sectors_count].ceiling_map_scale = new_v2(10, 10);
+		env->sectors[parser->sectors_count].ceiling_scale.x = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->w / env->sectors[parser->sectors_count].ceiling_map_scale.x;
+		env->sectors[parser->sectors_count].ceiling_scale.y = env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h / env->sectors[parser->sectors_count].ceiling_map_scale.y;
 	}
 	env->sectors[parser->sectors_count].ceiling_align = new_v2(0, 0);
+	if (!(env->sectors[parser->sectors_count].ceiling_map_lvl = (double*)malloc(
+		sizeof(double) * env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].nb_maps)))
+		return (custom_error("Could not malloc a sector map_lvl array"));
+	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
+		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture], 
+		env))
+		return (-1);
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after ceiling texture",parser));
@@ -196,6 +212,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].sprites = (t_wall_sprites*)
 				malloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector vertices:"));
+	if (!(env->sectors[parser->sectors_count].walls_map_lvl = (double**)
+				malloc(sizeof(double*) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].align = (t_v2*)
 				malloc(sizeof(t_v2) * (parser->sector_vertices_count + 1))))
@@ -400,10 +419,13 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].align[i].x /= 10;
 			env->sectors[parser->sectors_count].align[i].y /= 10;
 		}
-		/*if (set_sector_map_array(&env->sectors[parser->sectors_count], 
+		if (!(env->sectors[parser->sectors_count].walls_map_lvl[i] = (double*)malloc(
+			sizeof(double) * env->wall_textures[env->sectors[parser->sectors_count].textures[i]].nb_maps)))
+			return (custom_error("Could not malloc a sector map_lvl array"));
+		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
 			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
 			env))
-			return (-1);*/
+			return (-1);
 		(*line)++;
 		i++;
 	}

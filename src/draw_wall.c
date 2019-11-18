@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 12:00:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:34:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			coord;
 
 	pixels = env->sdl.texture_pixels;
+	if (env->options.show_minimap)
+	{
+		//ft_printf("{cyan}[WALL]{reset}\n");
+		render.map_lvl = get_current_wall_map(render.texture, render.z, &render, env);
+	}
 	texture_pixels = (Uint32*)env->wall_textures[render.texture].maps[render.map_lvl]->pixels;
 	zbuffer = env->zbuffer;
 	yalpha = 0;
