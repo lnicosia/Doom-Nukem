@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 15:34:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 20:17:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		//ft_printf("{cyan}[WALL]{reset}\n");
 		render.map_lvl = get_current_wall_map(render.texture, render.z, &render, env);
 	}
-	texture_pixels = (Uint32*)env->wall_textures[render.texture].maps[render.map_lvl]->pixels;
+	texture_pixels = env->wall_textures[render.texture].maps[render.map_lvl]->pixels;
 	zbuffer = env->zbuffer;
 	yalpha = 0;
 	coord = 0;
@@ -50,14 +50,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	while (y < 0)
 		y += render.texture_h;
 	y = ft_fclamp(y, 0, render.texture_h);*/
-	if (!env->options.test)
 	x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale.x
-		/ pow(2, env->wall_textures[render.texture].nb_maps - 1 - render.map_lvl)
-		* render.z - sector.align[render.i].x;
-	else
-	x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale.x
+		* render.camera->v[render.sector][render.i].texture_scale[render.map_lvl].x
 		* render.z - sector.align[render.i].x;
 	if (x != x)
 		return ;
@@ -95,12 +89,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			x -= render.texture_w;
 		while (x < 0)
 			x += render.texture_w;*/
-		if (!env->options.test)
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
-		/ pow(2, env->wall_textures[render.texture].nb_maps - 1 - render.map_lvl)
-		- sector.align[render.i].y;
-		else
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
+		y = yalpha * render.camera->v[render.sector][render.i].texture_scale[render.map_lvl].y
 		- sector.align[render.i].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;

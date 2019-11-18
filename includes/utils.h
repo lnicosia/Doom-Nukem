@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 16:57:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:40:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ typedef struct		s_state
 
 typedef struct		s_render_vertex
 {
-	t_v2			texture_scale;
+	t_v2			*texture_scale;
 	t_v2			*sprite_scale;
 	double			vx;
 	double			vz;

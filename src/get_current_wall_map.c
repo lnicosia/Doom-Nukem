@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:51:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 17:29:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:10:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		set_sector_wall_map_array(t_sector *sector, t_texture texture, int i,
 int		get_current_wall_map(int texture, double z, t_render *render, t_env *env)
 {
 	size_t		j;
-	double		res;
+	int			res;
 	//int			res2;
 	t_texture	text;
 	t_sector	sector;
@@ -61,12 +61,11 @@ int		get_current_wall_map(int texture, double z, t_render *render, t_env *env)
 	res = 0;
 	if (env->options.o)
 	{
-		res = log2(fmax(
+		res = ceil(log2(fmax(
 			env->w * sector.map_scale[render->i].x
 			/ (2 * z),
 			env->h * sector.map_scale[render->i].y
-			/ (1.25 * z)));
-		res = ceil(res);
+			/ (1.25 * z))));
 	}
 	else
 	{

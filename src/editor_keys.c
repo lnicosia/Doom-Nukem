@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 09:01:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 20:10:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			editor_keys(t_env *env)
 			env->editor.in_game = 1;
 			env->inputs.enter = 0;
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
-			free_camera(&env->player.camera);
+			free_camera(&env->player.camera, env);
 			precompute_slopes(env);
 			if (init_camera_arrays(&env->player.camera, env))
 				return (ft_printf("Could not init camera arrays\n"));

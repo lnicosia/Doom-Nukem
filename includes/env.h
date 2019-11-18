@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 15:30:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 20:09:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ int					add_sector(t_env *env);
 int					add_object(t_env *env);
 void				fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
-void				free_camera(t_camera *camera);
+void				free_camera(t_camera *camera, t_env *env);
 int					editor_render(t_env *env);
 int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -275,6 +275,8 @@ int					init_sdl(t_env *env);
 int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
+int					init_skybox(t_env *env);
+int					init_sprites(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);
 int					init_object_sprites(t_env *env);

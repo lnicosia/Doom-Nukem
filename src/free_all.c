@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 15:32:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 20:21:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	free_sectors(t_env *env)
 			j = 0;
 			while (j < env->sectors[i].nb_vertices)
 			{
+				if (env->sectors[i].walls_map_lvl[j])
 				ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
 				j++;
 			}
@@ -111,9 +112,10 @@ static void	free_sectors(t_env *env)
 	ft_memdel((void**)&env->sectors);
 }
 
-void		free_camera(t_camera *camera)
+void		free_camera(t_camera *camera, t_env *env)
 {
 	int	i;
+	int	j;
 
 	if (camera->screen_sectors)
 		ft_memdel((void**)&camera->screen_sectors);
@@ -137,7 +139,18 @@ void		free_camera(t_camera *camera)
 		while (i < camera->size)
 		{
 			if (camera->v[i])
+			{
+				j = 0;
+				while (j < env->sectors[i].nb_vertices)
+				{
+					if (camera->v[i][j].sprite_scale)
+						ft_memdel((void**)&camera->v[i][j].sprite_scale);
+					if (camera->v[i][j].texture_scale)
+						ft_memdel((void**)&camera->v[i][j].texture_scale);
+					j++;
+				}
 				ft_memdel((void**)&camera->v[i]);
+			}
 			i++;
 		}
 		ft_memdel((void**)&camera->v);
@@ -239,8 +252,17 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato20);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
+	free_camera(&env->player.camera, env);
 	if (env->sectors)
 		free_sectors(env);
+	i = 0;
+	// Leak peut etre si index 5 pas free
+	while (i < 4)
+	{
+		if (env->skybox[i].texture_scale)
+			ft_memdel((void**)&env->skybox[i].texture_scale);
+		i++;
+	};
 	if (env->vertices)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
@@ -290,7 +312,6 @@ void		free_all(t_env *env)
 		}
 	}
 	free_textures(env);
-	free_camera(&env->player.camera);
 	TTF_Quit();
 	Mix_CloseAudio();
 	SDL_Quit();

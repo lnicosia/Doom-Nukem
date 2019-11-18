@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 10:17:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 20:17:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 		{
 			if (!(camera->v[i][j].sprite_scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[i].nb_sprites[j])))
 				return (ft_perror("Could not malloc camera sprites scales"));
+			if (!(camera->v[i][j].texture_scale = (t_v2*)malloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+				return (ft_perror("Could not malloc camera sprites scales"));
 			j++;
 		}
 		i++;
@@ -109,7 +111,7 @@ int		init_camera(t_camera *camera, t_env *env)
 {
 	camera->hfov = 90;
 	camera->near_z = 0.1;
-	camera->far_z = 100000;
+	camera->far_z = 1000;
 	camera->ratio_w = 16;
 	camera->ratio_h = 9;
 	camera->ratio = camera->ratio_w / camera->ratio_h;

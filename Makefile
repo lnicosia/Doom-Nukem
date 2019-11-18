@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/18 17:55:54 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/18 20:32:12 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
-		   get_current_ceiling_map.c
+		   get_current_ceiling_map.c init_skybox.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h
