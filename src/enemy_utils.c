@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 17:35:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 15:46:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ int	 enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
 
 	init_sector_list(env, sector);
 	i = 0;
+	if (sector < 0)
+		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{
 		if (sector == env->player.sector)
@@ -308,6 +310,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 				direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
 				move.x = direction.x;
 				move.y = direction.y;
+				move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
 				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
 				if (move.x == 0 && move.y == 0 && enemy.speed != 0)
 				{
@@ -327,7 +330,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 				env->enemies[i].pos.x += move.x;
 				env->enemies[i].pos.y += move.y;
 				if (env->enemies[i].type == AERIAL)
-					env->enemies[i].pos.z += direction.z;
+					env->enemies[i].pos.z += move.z;
 				else
 					update_enemy_z(env, i);
 				env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
@@ -351,6 +354,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			direction = sprite_movement(env, (double)enemy.speed / 100 , enemy.pos, enemy.last_player_pos);
 			move.x = direction.x;
 			move.y = direction.y;
+			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
 			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
 			if (move.x == 0 && move.y == 0)
 			{
@@ -371,7 +375,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			env->enemies[i].pos.y += move.y;
 			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 			if (env->enemies[i].type == AERIAL)
-				env->enemies[i].pos.z += direction.z;
+				env->enemies[i].pos.z += move.z;
 			else
 				update_enemy_z(env, i);
 		}

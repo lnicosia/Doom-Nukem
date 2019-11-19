@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 16:49:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 18:10:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE;
 			env->enemies[i].size_2d = 0.75;
-			env->enemies[i].eyesight = 1;
+			env->enemies[i].eyesight = 2;
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;

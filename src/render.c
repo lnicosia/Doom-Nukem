@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:06:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 13:12:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,10 +296,10 @@ int			draw_walls(t_camera *camera, t_env *env)
 		render.camera = camera;
 		render.ystart = 0;
 		render.yend = env->h - 1;
-		if (env->options.p)
+		//if (env->options.p)
 			render_sector(render, env);
-		else
-			render_sector2(render, env);
+		//else
+		//	render_sector2(render, env);
 		i++;
 	}
 	return (0);
