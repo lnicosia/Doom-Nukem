@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 10:51:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 15:38:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ int		editor(t_env *env)
 				update_inputs(env);
 			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP))
 			{
-				if (editor_keyup(env))
-					return (-1);
+				if (!env->editor.in_game)
+				{
+					if (editor_keyup(env))
+						return (-1);
+				}
+				else
+				{
+					if (editor_3d_keyup(env))
+						return (-1);
+				}
 			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{

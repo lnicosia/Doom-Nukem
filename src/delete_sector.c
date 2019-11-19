@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:44:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/19 14:20:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,27 @@ int		delete_sector(t_env *env, int sector)
 	ft_memdel((void**)&env->sectors[sector].clipped_floors1);
 	ft_memdel((void**)&env->sectors[sector].clipped_floors2);
 	ft_memdel((void**)&env->sectors[sector].wall_width);
+	ft_memdel((void**)&env->sectors[sector].xmin);
+	ft_memdel((void**)&env->sectors[sector].xmax);
+	ft_memdel((void**)&env->sectors[sector].scale);
+	ft_memdel((void**)&env->sectors[sector].align);
+	ft_memdel((void**)&env->sectors[sector].nb_sprites);
+	ft_memdel((void**)&env->sectors[sector].floor_map_lvl);
+	ft_memdel((void**)&env->sectors[sector].ceiling_map_lvl);
+	i = 0;
+	while (i < env->sectors[sector].nb_vertices)
+	{
+		ft_memdel((void**)&env->sectors[sector].walls_map_lvl[i]);
+		if (env->sectors[sector].sprites[i].sprite)
+			ft_memdel((void**)&env->sectors[sector].sprites[i].sprite);
+		if (env->sectors[sector].sprites[i].pos)
+			ft_memdel((void**)&env->sectors[sector].sprites[i].pos);
+		if (env->sectors[sector].sprites[i].scale)
+			ft_memdel((void**)&env->sectors[sector].sprites[i].scale);
+		i++;
+	}
+	ft_memdel((void**)&env->sectors[sector].walls_map_lvl);
+	ft_memdel((void**)&env->sectors[sector].sprites);
 	env->sectors = ft_delindex(env->sectors,
 			 sizeof(t_sector) * env->nb_sectors,
 			 sizeof(t_sector),

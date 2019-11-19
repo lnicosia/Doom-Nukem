@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 20:21:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:14:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,18 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].align);
 		if (env->sectors[i].scale)
 			ft_memdel((void**)&env->sectors[i].scale);
-		if (env->sectors[i].map_scale)
-			ft_memdel((void**)&env->sectors[i].map_scale);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
-		if (env->sectors[i].sprites)
-			ft_memdel((void**)&env->sectors[i].sprites);
 		if (env->sectors[i].xmin)
 			ft_memdel((void**)&env->sectors[i].xmin);
 		if (env->sectors[i].xmax)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
+		if (env->sectors[i].floor_map_lvl)
+			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
+		if (env->sectors[i].ceiling_map_lvl)
+			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
 		if (env->sectors[i].walls_map_lvl)
 		{
 			j = 0;
@@ -101,10 +101,20 @@ static void	free_sectors(t_env *env)
 			}
 			ft_memdel((void**)&env->sectors[i].walls_map_lvl);
 		}
-		if (env->sectors[i].floor_map_lvl)
-			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
-		if (env->sectors[i].ceiling_map_lvl)
-			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
+		if (env->sectors[i].sprites)
+		{
+			j = 0;
+			while (j < env->sectors[i].nb_vertices)
+			{
+				if (env->sectors[i].sprites[j].sprite)
+					ft_memdel((void**)&env->sectors[i].sprites[j].sprite);
+				if (env->sectors[i].sprites[j].pos)
+					ft_memdel((void**)&env->sectors[i].sprites[j].pos);
+				if (env->sectors[i].sprites[j].scale)
+					ft_memdel((void**)&env->sectors[i].sprites[j].scale);
+				j++;
+			}
+		}
 		free_events(env->sectors[i].walk_on_me_event,
 		env->sectors[i].nb_walk_events);
 		i++;
@@ -117,6 +127,7 @@ void		free_camera(t_camera *camera, t_env *env)
 	int	i;
 	int	j;
 
+	(void)env;
 	if (camera->screen_sectors)
 		ft_memdel((void**)&camera->screen_sectors);
 	if (camera->screen_pos)
@@ -136,12 +147,14 @@ void		free_camera(t_camera *camera, t_env *env)
 	i = 0;
 	if (camera->v)
 	{
+		i = 0;
 		while (i < camera->size)
 		{
 			if (camera->v[i])
 			{
 				j = 0;
-				while (j < env->sectors[i].nb_vertices)
+				// Va poser probleme si sector_nb_vertices est NULL
+				while (j < camera->sectors_size[i])
 				{
 					if (camera->v[i][j].sprite_scale)
 						ft_memdel((void**)&camera->v[i][j].sprite_scale);
@@ -155,6 +168,8 @@ void		free_camera(t_camera *camera, t_env *env)
 		}
 		ft_memdel((void**)&camera->v);
 	}
+	if (camera->sectors_size)
+		ft_memdel((void**)&camera->sectors_size);
 }
 
 void		free_all_sdl_relative(t_env *env)

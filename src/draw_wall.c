@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 20:17:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 11:03:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		y += render.texture_h;
 	y = ft_fclamp(y, 0, render.texture_h);*/
 	x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale[render.map_lvl].x
-		* render.z - sector.align[render.i].x;
+		* render.camera->v[render.sector][render.i]
+		.texture_scale[render.map_lvl].x * render.z - sector.align[render.i].x;
 	if (x != x)
 		return ;
 	while (x >= render.texture_w)
@@ -89,8 +89,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			x -= render.texture_w;
 		while (x < 0)
 			x += render.texture_w;*/
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale[render.map_lvl].y
-		- sector.align[render.i].y;
+		y = yalpha * render.camera->v[render.sector][render.i]
+		.texture_scale[render.map_lvl].y - sector.align[render.i].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;
 		while (y < 0)

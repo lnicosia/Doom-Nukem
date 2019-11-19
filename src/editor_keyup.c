@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 14:05:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:24:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,8 @@ int	editor_keyup(t_env *env)
 {
 	int	clicked_vertex;
 
-	if (env->editor.in_game
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.select = 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_c)
-		env->options.contouring = env->options.contouring ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_r)
-		ft_printf("will reload one day\n");
-	if (env->sdl.event.key.keysym.sym == SDLK_l)
-		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_f)
-		env->options.show_fps = env->options.show_fps ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_x)
-		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_j)
-		env->options.color_clipping = env->options.color_clipping ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->options.wall_color = env->options.wall_color ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
 	{
 		env->options.test = env->options.test ? 0 : 1;
@@ -46,20 +29,12 @@ int	editor_keyup(t_env *env)
 				&env->sectors[env->editor.selected_sector], env);
 		}
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_i)
-		env->options.clipping = env->options.clipping ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_n)
-		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.l = env->options.l ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->options.o = env->options.o ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_f)
-		env->player.state.fly = env->player.state.fly ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
-	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_z)
-		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_g)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
@@ -124,6 +99,38 @@ int	editor_keyup(t_env *env)
 			}
 		}
 		env->inputs.space = 0;
+	}
+	/*
+	** Going in the 3D mode
+	*/
+
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& !env->confirmation_box.state && !env->input_box.state)
+	{
+		if (!valid_map(env))
+		{
+			env->editor.selected_vertex = -1;
+			env->editor.selected_sector = -1;
+			env->editor.selected_player = -1;
+			env->editor.selected_object = -1;
+			env->selected_enemy = -1;
+			env->editor.in_game = 1;
+			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
+			free_camera(&env->player.camera, env);
+			precompute_slopes(env);
+			if (init_camera_arrays(&env->player.camera, env))
+				return (ft_printf("Could not init camera arrays\n"));
+			if (env->sector_list)
+				ft_memdel((void**)&env->sector_list);
+			if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))
+				return (ft_printf("Could not allocate sector list\n", env));
+			update_camera_position(&env->player.camera);
+			update_player_z(env);
+			ft_bzero(&env->inputs, sizeof(env->inputs));
+			SDL_SetRelativeMouseMode(1);
+			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+		}
 	}
 	return (0);
 }

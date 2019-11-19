@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 19:38:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 09:11:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,8 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		// Opti
-		if (!env->options.test)
-		{
-			y = y * sector.ceiling_scale.y
-			/ pow(2, env->wall_textures[sector.ceiling_texture].nb_maps - 1 -map_lvl)
-			+ sector.ceiling_align.y;
-			x = x * sector.ceiling_scale.x
-			/ pow(2, env->wall_textures[sector.ceiling_texture].nb_maps - 1 -map_lvl)
-			+ sector.ceiling_align.x;
-		}
-		else
-		{
-			y = y * sector.ceiling_scale.y + sector.ceiling_align.y;
-			x = x * sector.ceiling_scale.x + sector.ceiling_align.x;
-		}
+		y = y * sector.ceiling_scale[map_lvl].y + sector.ceiling_align.y;
+		x = x * sector.ceiling_scale[map_lvl].x + sector.ceiling_align.x;
 		x = render.texture_w - x;
 		if (y >= render.texture_h || y < 0)
 			y = ft_abs((int)y % render.texture_h);

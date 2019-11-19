@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 20:10:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:34:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,6 @@ int			editor_keys(t_env *env)
 		env->editor.center.y += env->sdl.mouse_y;
 	}
 
-	/*
-	** Going out of the 3D mode
-	*/
-
-	if (env->inputs.enter && !env->confirmation_box.state
-		&& !env->input_box.state)
-	{
-		if (!valid_map(env))
-		{
-			env->editor.selected_vertex = -1;
-			env->editor.selected_sector = -1;
-			env->editor.selected_player = -1;
-			env->editor.selected_object = -1;
-			env->selected_enemy = -1;
-			env->editor.in_game = 1;
-			env->inputs.enter = 0;
-			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
-			free_camera(&env->player.camera, env);
-			precompute_slopes(env);
-			if (init_camera_arrays(&env->player.camera, env))
-				return (ft_printf("Could not init camera arrays\n"));
-			if (env->sector_list)
-				ft_memdel((void**)&env->sector_list);
-			if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))
-				return (ft_printf("Could not allocate sector list\n", env));
-			update_camera_position(&env->player.camera);
-			update_player_z(env);
-			ft_bzero(&env->inputs, sizeof(env->inputs));
-			SDL_SetRelativeMouseMode(1);
-			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-		}
-		env->inputs.enter = 0;
-	}
 
 	/*
 	**	Moving the map with arrows

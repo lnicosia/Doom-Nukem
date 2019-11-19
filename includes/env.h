@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 20:09:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:08:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,15 +167,16 @@ typedef struct		s_env
 
 int					init_editor(int ac, char **av);
 int					editor(t_env *env);
-void				editor_3d_keys(t_env *env);
 void				wall_sprites_keys(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
+int					editor_3d_keys(t_env *env);
 int					editor_mouse(t_env *env);
-int				editor_keyup(t_env *env);
-int				editor_mouseup(t_env *env);
+int					editor_keyup(t_env *env);
+int					editor_3d_keyup(t_env *env);
+int					editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
@@ -202,7 +203,7 @@ int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
 int					add_object(t_env *env);
-void				fill_new_sector(t_sector *sector, t_env *env);
+int					fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
 void				free_camera(t_camera *camera, t_env *env);
 int					editor_render(t_env *env);
@@ -276,7 +277,6 @@ int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_skybox(t_env *env);
-int					init_sprites(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);
 int					init_object_sprites(t_env *env);
@@ -293,6 +293,8 @@ void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
+int					set_camera_map_array(t_camera *camera, int i,
+int j, t_env *env);
 int					set_sector_wall_map_array(t_sector *sector,
 t_texture texture, int i, t_env *env);
 int					set_sector_floor_map_array(t_sector *sector,
