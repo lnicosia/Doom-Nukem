@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 15:47:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 09:56:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int			init_wall_sprites(t_env *env)
 	
 	// Grille
 	env->wall_sprites[0].texture = 31;
-	env->wall_sprites[0].death_counterpart = 12;
-	env->wall_sprites[0].pursuit_sprite = 12;
-	env->wall_sprites[0].rest_sprite = 12;
-	env->wall_sprites[0].curr_sprite = 12;
+	env->wall_sprites[0].death_counterpart = 0;
+	env->wall_sprites[0].pursuit_sprite = 0;
+	env->wall_sprites[0].rest_sprite = 0;
+	env->wall_sprites[0].curr_sprite = 0;
 	env->wall_sprites[0].oriented = 0;
 	env->wall_sprites[0].nb_death_sprites = 9;
 	env->wall_sprites[0].start[0].x = 0;
