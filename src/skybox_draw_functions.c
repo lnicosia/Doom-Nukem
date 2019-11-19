@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 17:56:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 09:19:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	int			coord;
 	double		z;
 
-	texture = env->skyboxes[0].textures[render.texture];
+	texture = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
@@ -126,8 +126,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->skyboxes[0].textures[1].surface->w;
-	texture_h = env->skyboxes[0].textures[1].surface->h;
+	texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w;
+	texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h;
 	texture_pixels = env->skyboxes[0].textures[1].str;
 	i = vline.start;
 	while (i <= vline.end)
@@ -208,8 +208,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->skyboxes[0].textures[0].surface->w;
-	texture_h = env->skyboxes[0].textures[0].surface->h;
+	texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w;
+	texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h;
 	texture_pixels = env->skyboxes[0].textures[0].str;
 	i = vline.start;
 	while (i <= vline.end)

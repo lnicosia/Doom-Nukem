@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 10:28:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 09:46:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	init_editor(int ac, char **av)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
-		ft_printf("6\n");
 		precompute_slopes(&env);
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
