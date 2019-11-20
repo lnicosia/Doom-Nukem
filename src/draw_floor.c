@@ -6,31 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 12:28:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 09:10:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 #include "render.h"
-
-size_t	get_floor_current_map(double z, t_sector sector, t_env *env)
-{
-	size_t	i;
-	int		line;
-
-	i = 0;
-	line = env->wall_textures[sector.floor_texture].maps[0]->w * 20 / z;
-	while (i < env->wall_textures[sector.floor_texture].nb_maps
-		&& env->wall_textures[sector.floor_texture].maps[i]->w > line)
-		i++;
-	//i = env->wall_textures[sector.floor_texture].nb_maps - i;
-	i = ft_clamp(i, 0, env->wall_textures[sector.floor_texture].nb_maps - 1);
-	//ft_printf("line = %d\n", line);
-	//ft_printf("map_lvl = %d\n", env->wall_textures[sector.floor_texture].nb_maps);
-	//ft_printf("i = %d\n", i);
-	return (i);
-}
 
 /*
 **	Draw a vertical vline on the screen at vline.x
@@ -44,8 +26,6 @@ t_render render, t_env *env)
 	Uint32	*texture_pixels;
 	double	*zbuffer;
 	int		coord;
-	int		texture_w;
-	int		texture_h;
 	double	y;
 	double	x;
 	double	z;
@@ -56,6 +36,11 @@ t_render render, t_env *env)
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	map_lvl = env->wall_textures[sector.floor_texture].nb_maps - 1;
+	if (!env->options.show_minimap)
+	{
+		render.texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
+		render.texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
+	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -65,10 +50,7 @@ t_render render, t_env *env)
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)
-			//map_lvl = get_floor_current_map(z, sector, env);
-			map_lvl = get_current_map(sector.floor_texture, z, &render, env);
-		texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
-		texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
+			map_lvl = get_current_floor_map(sector.floor_texture, z, &render, env);
 		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].
 		maps[map_lvl]->pixels;
 		if (z >= zbuffer[coord])
@@ -85,32 +67,20 @@ t_render render, t_env *env)
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		if (!env->options.test)
-		{
-			y = y * sector.floor_scale.y
-			/ pow(2, env->wall_textures[sector.floor_texture].nb_maps - 1 - map_lvl)
-			+ sector.floor_align.y;
-			x = x * sector.floor_scale.x
-			/ pow(2, env->wall_textures[sector.floor_texture].nb_maps - 1 - map_lvl)
-			+ sector.floor_align.x;
-		}
-		else
-		{
-			y = y * sector.floor_scale.y + sector.floor_align.y;
-			x = x * sector.floor_scale.x + sector.floor_align.x;
-		}
-		y = texture_h - y;
-		x = texture_w - x;
-		if (y >= texture_h || y < 0)
-			y = ft_abs((int)y % texture_h);
-		if (x >= texture_w || x < 0)
-			x = ft_abs((int)x % texture_w);
-		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
+		y = y * sector.floor_scale[map_lvl].y + sector.floor_align.y;
+		x = x * sector.floor_scale[map_lvl].x + sector.floor_align.x;
+		y = render.texture_h - y;
+		x = render.texture_w - x;
+		if (y >= render.texture_h || y < 0)
+			y = ft_abs((int)y % render.texture_h);
+		if (x >= render.texture_w || x < 0)
+			x = ft_abs((int)x % render.texture_w);
+		if (x >= 0 && x < render.texture_w && y >= 0 && y < render.texture_h)
 		{
 			if (!env->options.lighting && !env->playing)
-				pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
+				pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 			else
-				pixels[coord] = apply_light(texture_pixels[(int)x + texture_w * (int)y], sector.light_color, sector.brightness);
+				pixels[coord] = apply_light(texture_pixels[(int)x + render.texture_w * (int)y], sector.light_color, sector.brightness);
 			if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
 				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
 			zbuffer[coord] = z;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 08:48:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:27:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	int			coord;
 
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = (Uint32*)env->wall_textures[render.texture].maps[render.map_lvl]->pixels;
+	if (env->options.show_minimap)
+	{
+		//ft_printf("{cyan}[WALL]{reset}\n");
+		render.map_lvl = get_current_wall_map(render.texture, render.z, &render, env);
+	}
+	texture_pixels = env->wall_textures[render.texture].maps[render.map_lvl]->pixels;
 	zbuffer = env->zbuffer;
 	yalpha = 0;
 	coord = 0;
@@ -45,15 +50,9 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	while (y < 0)
 		y += render.texture_h;
 	y = ft_fclamp(y, 0, render.texture_h);*/
-	if (!env->options.test)
 	x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale.x
-		/ pow(2, env->wall_textures[render.texture].nb_maps - 1 - render.map_lvl)
-		* render.z - sector.align[render.i].x;
-	else
-	x = render.alpha
-		* render.camera->v[render.sector][render.i].texture_scale.x
-		* render.z - sector.align[render.i].x;
+		* render.camera->v[render.sector][render.i]
+		.texture_scale[render.map_lvl].x * render.z - sector.align[render.i].x;
 	if (x != x)
 		return ;
 	while (x >= render.texture_w)
@@ -90,13 +89,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			x -= render.texture_w;
 		while (x < 0)
 			x += render.texture_w;*/
-		if (!env->options.test)
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
-		/ pow(2, env->wall_textures[render.texture].nb_maps - 1 - render.map_lvl)
-		- sector.align[render.i].y;
-		else
-		y = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
-		- sector.align[render.i].y;
+		y = yalpha * render.camera->v[render.sector][render.i]
+		.texture_scale[render.map_lvl].y - sector.align[render.i].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;
 		while (y < 0)

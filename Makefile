@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/19 17:53:05 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/11/20 14:59:50 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c selected_information.c
+		 editor_start_game.c apply_texture.c selected_information.c \
+		 editor_3d_keyup.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -64,7 +65,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c \
-		   init_sound.c init_sprites.c draw_rectangle.c confirmation_box.c\
+		   init_sound.c draw_rectangle.c confirmation_box.c\
 		   draw_objects.c sprites_maths.c draw_players.c \
 		   map_parse_objects.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
@@ -83,7 +84,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
-		   generate_mipmaps.c get_current_map.c
+		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
+		   get_current_ceiling_map.c init_skybox.c init_sprites.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

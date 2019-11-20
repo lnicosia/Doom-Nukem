@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 10:18:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 10:19:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct		s_env
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
-	t_skybox			skyboxes[NB_SKYBOX];
+	t_skybox			skyboxes[MAX_SKYBOX];
 	Uint32				frame_timer;
 	t_event				*global_events;
 	size_t				nb_global_events;
@@ -167,15 +167,16 @@ typedef struct		s_env
 
 int					init_editor(int ac, char **av);
 int					editor(t_env *env);
-void				editor_3d_keys(t_env *env);
 void				wall_sprites_keys(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
+int					editor_3d_keys(t_env *env);
 int					editor_mouse(t_env *env);
-int				editor_keyup(t_env *env);
-int				editor_mouseup(t_env *env);
+int					editor_keyup(t_env *env);
+int					editor_3d_keyup(t_env *env);
+int					editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
@@ -202,9 +203,9 @@ int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
 int					add_object(t_env *env);
-void				fill_new_sector(t_sector *sector, t_env *env);
+int					fill_new_sector(t_sector *sector, t_env *env);
 void				free_current_vertices(t_env *env);
-void				free_camera(t_camera *camera);
+void				free_camera(t_camera *camera, t_env *env);
 int					editor_render(t_env *env);
 int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -275,6 +276,7 @@ int					init_sdl(t_env *env);
 int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
+int					init_skybox(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);
 int					init_object_sprites(t_env *env);
@@ -291,8 +293,14 @@ void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
-int					set_sector_map_array(t_sector *sector, t_texture texture,
-int i, t_env *env);
+int					set_camera_map_array(t_camera *camera, int i,
+int j, t_env *env);
+int					set_sector_wall_map_array(t_sector *sector,
+t_texture texture, int i, t_env *env);
+int					set_sector_floor_map_array(t_sector *sector,
+t_texture texture,t_env *env);
+int					set_sector_ceiling_map_array(t_sector *sector,
+t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 

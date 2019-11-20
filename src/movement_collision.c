@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 14:34:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 14:58:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     double      scalar;
     double      norme_mov;
     double      norme_wall;
-    t_v3        pos;
     //static int a = 0;
 
     //env->player.highest_sect = motion.sector;
@@ -159,17 +158,10 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
         return (new_v3(0,0,0));
-    //if ((!check_ceiling(env, motion, motion.sector) || !check_floor(env, motion, motion.sector)))
-    //{
-        if (!check_ceiling(env, motion, motion.lowest_ceiling))
-		{
-			//ft_printf("motion.sector %d lowest ceiling sector %d\n", motion.sector, motion.lowest_ceiling);
-	        move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
-		}
-        else if (!check_floor(env, motion, motion.sector))
-	        move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
-    //}
-    (void)pos;
+    if (!check_ceiling(env, motion, motion.lowest_ceiling))
+    	move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
+	else if (!check_floor(env, motion, motion.sector))
+    	move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)

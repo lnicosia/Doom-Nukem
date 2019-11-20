@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 14:00:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 14:56:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,23 @@
 
 static void	calcul_player_pos(t_env *env)
 {
-	int	i;
-	int	max;
-	int	min;
+	int		i;
+	t_v2	pos;
 	t_sector	sector;
 
 	i = 0;
-	sector = env->sectors[0]
-;	max = 2147483647;
-	min = -2147483647;
+	sector = env->sectors[0];
+	pos = new_v2(0, 0);
 	while (i < sector.nb_vertices)
 	{
-		if (env->vertices[sector.vertices[i]].x > max || max == 2147483647)
-			max = env->vertices[sector.vertices[i]].x;
-		if (env->vertices[sector.vertices[i]].x < min || min == -2147483647)
-			min = env->vertices[sector.vertices[i]].x;
+		pos.x += (env->vertices[sector.vertices[i]].x - env->player.pos.x);
+		pos.y += (env->vertices[sector.vertices[i]].y - env->player.pos.y);
 		i++;
 	}
-	env->player.pos.x = min + ((max - min) / 2);
-	i = 0;
-	max = 2147483647;
-	min = -2147483647;
-	while (i < sector.nb_vertices)
-	{
-		if (env->vertices[sector.vertices[i]].y > max || max == 2147483647)
-			max = env->vertices[sector.vertices[i]].y;
-		if (env->vertices[sector.vertices[i]].y < min || min == -2147483647)
-			min = env->vertices[sector.vertices[i]].y;
-		i++;
-	}
-	env->player.pos.y = min + ((max - min) / 2);
+	pos.x /= sector.nb_vertices;
+	pos.y /= sector.nb_vertices;
+	env->player.pos.x = pos.x;
+	env->player.pos.y = pos.y;
 }
 
 int			check_player_z(t_env *env)
@@ -96,7 +83,7 @@ void		add_player(t_env *env)
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6;
-	env->player.speed = 0.05;
+	env->player.speed = 0.1;
 	env->player.camera.angle_cos = cos(env->player.camera.angle);
 	env->player.camera.angle_sin = sin(env->player.camera.angle);
 	env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);

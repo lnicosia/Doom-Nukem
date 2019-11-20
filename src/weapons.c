@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 14:34:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 15:02:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void    shot(t_env *env)
 			hit = 1;
 			if (env->enemies[i].health <= 0)
 				env->player.killed++;
-			if (env->options.test)
-				ft_printf(" and after = %d\n", env->enemies[i].health);
 			env->enemies[i].hit = 1;
 		}
 		i++;
@@ -91,14 +89,11 @@ void    draw_weapon(t_env *env, int sprite)
 		x = 0;
 		while (x < texture_w  && (window_h + y) < env->h)
 		{
-			//ft_printf("Player sector = %d\n", env->player.sector);
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
 				pixels[(window_w + x) + env->w * (window_h + y)] = 
 					apply_light(texture_pixels[x + texture_w * y],
 							env->sectors[env->player.sector].light_color,
 							env->sectors[env->player.sector].brightness);
-				//pixels[(window_w + x) + env->w * (window_h + y)] = 
-					//texture_pixels[x + texture_w * y];
 			x++;
 		}
 		y++;

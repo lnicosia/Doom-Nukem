@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:38:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 10:17:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,6 @@
 
 int		init_skyboxes(t_env *env)
 {
-	/*if (parse_bmp("images/skyboxes/bottom.bmp", 38, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/top.bmp", 39, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/back.bmp", 40, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/left.bmp", 41, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/front.bmp", 42, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/right.bmp", 43, env))
-		return (ft_printf("Failed to load skybox\n"));*/
-	/*if (parse_bmp("images/skyboxes/nebula_bottom.bmp", 38, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/nebula_top.bmp", 39, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/nebula_back.bmp", 40, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/nebula_left.bmp", 41, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/nebula_front.bmp", 42, env))
-		return (ft_printf("Failed to load skybox\n"));
-	if (parse_bmp("images/skyboxes/nebula_right.bmp", 43, env))
-		return (ft_printf("Failed to load skybox\n"));*/
 	if (parse_bmp_skybox_textures("images/skyboxes/night_bottom.bmp", 0, 0, env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/night_top.bmp", 0, 1, env))
@@ -49,6 +25,30 @@ int		init_skyboxes(t_env *env)
 	if (parse_bmp_skybox_textures("images/skyboxes/night_front.bmp", 0, 4, env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/night_right.bmp", 0, 5, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_bottom.bmp", 1, 0, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_top.bmp", 1, 1, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_back.bmp", 1, 2, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_left.bmp", 1, 3, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_front.bmp", 1, 4, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/nebula_right.bmp", 1, 5, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/bottom.bmp", 2, 0, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/top.bmp", 2, 1, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/back.bmp", 2, 2, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/left.bmp", 2, 3, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/front.bmp", 2, 4, env))
+		return (ft_printf("Failed to load skybox\n"));
+	if (parse_bmp_skybox_textures("images/skyboxes/right.bmp", 2, 5, env))
 		return (ft_printf("Failed to load skybox\n"));
 	return (0);
 }
@@ -72,15 +72,15 @@ int		init_wall_textures(t_env *env)
 	if (parse_bmp_wall_textures("images/textures/black_tiles.bmp", 7, env))
 		return (ft_printf("Failed to load black_tiles\n"));
 	if (parse_bmp_wall_textures("images/textures/rock.bmp", 8, env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (ft_printf("Failed to load rock\n"));
 	if (parse_bmp_wall_textures("images/textures/grass1.bmp", 9, env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (ft_printf("Failed to load grass1\n"));
 	if (parse_bmp_wall_textures("images/textures/grass2.bmp", 10, env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (ft_printf("Failed to load grass2\n"));
 	if (parse_bmp_wall_textures("images/textures/grass3.bmp", 11, env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (ft_printf("Failed to load grass3\n"));
 	if (parse_bmp_wall_textures("images/textures/tiles.bmp", 12, env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (ft_printf("Failed to load tiles\n"));
 	if (parse_bmp_wall_textures("images/textures/sand.bmp", 13, env))
 		return (ft_printf("Failed to load sand\n"));
 	if (parse_bmp_wall_textures("images/textures/grey.bmp", 14, env))

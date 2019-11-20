@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 11:50:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 10:50:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_env *env)
 	pos = sector.sprites[render.i].pos[sprite].y / 100;
 	start = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
 	end = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
+	x = render.sprite_x;
 	while (++i <= render.current_floor)
 	{
 		coord = render.x + env->w * i;
@@ -47,16 +48,16 @@ t_env *env)
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 		/ render.line_height - pos;
-		x = yalpha * render.camera->v[render.sector]
+		/*x = yalpha * render.camera->v[render.sector]
 		[render.i].sprite_scale[sprite].y + start;
 		if (x >= start && x < end
 			&& sprite_pixels[(int)x
-			+ sprite_w * (int)y] != 0xFFC10099)
-		/*y = yalpha * render.camera->v[render.sector]
+			+ sprite_w * (int)y] != 0xFFC10099)*/
+		y = yalpha * render.camera->v[render.sector]
 		[render.i].sprite_scale[sprite].y + start;
 		if (y >= start && y < end
 			&& sprite_pixels[(int)x
-			+ sprite_w * (int)y] != 0xFFC10099)*/
+			+ sprite_w * (int)y] != 0xFFC10099)
 		{
 			if (env->editor.select && render.x == env->h_w && i == env->h_h)
 			{
@@ -104,7 +105,7 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 				pos = pos / render.camera->v[sector.num][render.i + 1].vz * sector.wall_width[render.i];
 			else
 				pos = pos / render.camera->v[sector.num][render.i].clipped_vz2 * sector.wall_width[render.i];*/
-			render.sprite_x = (render.alpha) * render.camera->v[render.sector]
+			render.sprite_x = render.alpha * render.camera->v[render.sector]
 			[render.i].sprite_scale[i].x * render.z
 			+ start
 			- pos;

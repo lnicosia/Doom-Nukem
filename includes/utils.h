@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:17:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 10:18:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 32
 # define MAX_SPRITES 12
+# define MAX_WALL_SPRITES 1
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
+# define MAX_SKYBOX 3
 # define NB_SKYBOX 5
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
@@ -164,7 +166,7 @@ typedef struct		s_state
 
 typedef struct		s_render_vertex
 {
-	t_v2			texture_scale;
+	t_v2			*texture_scale;
 	t_v2			*sprite_scale;
 	double			vx;
 	double			vz;
@@ -285,12 +287,14 @@ typedef struct		s_sector
 	double			floor;
 	double			floor_slope;
 	short			floor_texture;
-	t_v2			floor_scale;
+	t_v2			*floor_scale;
+	t_v2			floor_map_scale;
 	t_v2			floor_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
-	t_v2			ceiling_scale;
+	t_v2			*ceiling_scale;
+	t_v2			ceiling_map_scale;
 	t_v2			ceiling_align;
 	double			x_max;
 	double			floor_min;
@@ -313,8 +317,9 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
-	t_v2			*map_scale;
-	int				*map_lvl;
+	double			**walls_map_lvl;
+	double			*floor_map_lvl;
+	double			*ceiling_map_lvl;
 	t_v3			tp;
 	short			*selected;
 	short			num;
@@ -394,6 +399,7 @@ typedef struct		s_camera
 	int				computed;
 	int				*sector_computed;
 	int				size;
+	int				*sectors_size;
 }					t_camera;
 
 typedef struct		s_vline_data
@@ -826,6 +832,7 @@ typedef struct		s_options
 	int				zbuffer;
 	int				p;
 	int				l;
+	int				o;
 	int				animations;
 	int				gamma_filter;
 	int				mipmapping;

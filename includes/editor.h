@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:31:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 08:51:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_editor
 	int			reverted;
 	int			in_game;
 	int			game;
+	int			enter_locked;
 }				t_editor;
 
 #endif
