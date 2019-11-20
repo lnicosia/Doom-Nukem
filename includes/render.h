@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 15:12:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:13:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void			draw_ceiling(t_sector sector, t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
 void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);
 void			draw_wall2(t_sector sector, t_render render, t_env *env);
 void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
 void			draw_floor2(t_sector sector, t_render render, t_env *env);

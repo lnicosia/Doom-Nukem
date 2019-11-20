@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 14:44:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:01:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,19 @@ void		*wall_loop(void *param)
 			render.neighbor_current_floor = ft_clamp(
 					render.neighbor_max_floor, env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
-				draw_upper_wall(sector, render, env);
+			{
+				if (sector.textures[render.i] == -1)
+					draw_skybox(render, 1, env);
+				else
+					draw_upper_wall(sector, render, env);
+			}
 			if (render.neighbor_current_floor < render.current_floor)
-				draw_bottom_wall(sector, render, env);
+			{
+				if (sector.textures[render.i] == -1)
+					draw_skybox(render, 1, env);
+				else
+					draw_bottom_wall(sector, render, env);
+			}
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,

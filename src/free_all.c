@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:14:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 09:37:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,6 @@ void		free_all(t_env *env)
 	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
-	save_benchmark(env);
 }
 
 int			crash(char *str, t_env *env)

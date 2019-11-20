@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 16:46:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:22:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,8 @@ typedef struct		s_sector
 	short			*neighbors;
 	short			*textures;
 	t_wall_sprites	*sprites;
+	t_wall_sprites	floor_sprite;
+	t_wall_sprites	ceiling_sprite;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
