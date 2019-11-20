@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 15:49:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 20:11:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int		init_game(int ac, char **av)
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.fixed_camera, &env))
 		return (crash("Could not init fixed camera\n", &env));
+	if (init_skybox(&env))
+		return (crash("Could not init skybox\n", &env));
 	env.fixed_camera.pos = new_v3(3, 3, 7);
 	env.fixed_camera.angle = 45 * CONVERT_RADIANS;
 	env.fixed_camera.angle_cos = cos(env.fixed_camera.angle);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:06:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/19 11:45:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
 	int	j;
+	size_t	k;
 
 	sector->selected[i] = 0;
 	if (env->selected_wall1 == sector->vertices[i]
@@ -128,33 +129,65 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		- camera->v[sector->num][i].no_slope_c1;
 	if (camera->v[sector->num][i + 1].vz)
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i]) / camera->v[sector->num][i + 1].vz;
+		k = 0;
+		while (k < env->wall_textures[sector->textures[i]].nb_maps)
+		{
+			if (!env->options.test)
+			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].surface->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz)
+			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+			else
+			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
+			k++;
+		}
 		j = 0;
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i + 1].vz * sector->wall_width[i];
+				camera->v[sector->num][i].sprite_scale[j].x =
+				(env->wall_textures[sector->textures[i]].surface->w
+				/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+				/ camera->v[sector->num][i + 1].vz;
 			j++;
 		}
 	}
 	else
 	{
-		camera->v[sector->num][i].texture_scale.x = sector->scale[i].x * (sector->wall_width[i])
-			/ camera->v[sector->num][i].clipped_vz2;
+		k = 0;
+		while (k < env->wall_textures[sector->textures[i]].nb_maps)
+		{
+			if (!env->options.test)
+			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].surface->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2)
+			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+			else
+			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
+			k++;
+		}
 		j = 0;
 		while (j < sector->nb_sprites[i])
 		{
 			if (sector->sprites[i].sprite[j] != -1)
-				camera->v[sector->num][i].sprite_scale[j].x = sector->sprites[i].scale[j].x / camera->v[sector->num][i].clipped_vz2 * sector->wall_width[i];
+				camera->v[sector->num][i].sprite_scale[j].x = 
+		(env->wall_textures[sector->textures[i]].surface->w
+		/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
 		}
 	}
-	camera->v[sector->num][i].texture_scale.y = sector->scale[i].y * (sector->ceiling - sector->floor);
+	k = 0;
+	while (k < env->wall_textures[sector->textures[i]].nb_maps)
+	{
+		if (!env->options.test)
+		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor)
+			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+		else
+		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
+		k++;
+	}
 	j = 0;
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] != -1)
-			camera->v[sector->num][i].sprite_scale[j].y = sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
+			camera->v[sector->num][i].sprite_scale[j].y = (env->wall_textures[sector->textures[i]].surface->h / sector->sprites[i].scale[j].y) * (sector->ceiling - sector->floor);
 		j++;
 	}
 }
@@ -296,10 +329,7 @@ int			draw_walls(t_camera *camera, t_env *env)
 		render.camera = camera;
 		render.ystart = 0;
 		render.yend = env->h - 1;
-		if (env->options.p)
-			render_sector(render, env);
-		else
-			render_sector2(render, env);
+		render_sector(render, env);
 		i++;
 	}
 	return (0);

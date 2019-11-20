@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 10:15:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 09:04:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,41 @@
 void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN
-		&& box->no.anim_state == REST)
+		&& box->no.anim_state != PRESSED)
 	{
 		if (box->yes_action)
 			box->yes_action(box->yes_target);
 		box->state = 0;
+		env->editor.enter_locked = 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
-		&& box->yes.anim_state == REST)
+		&& box->yes.anim_state != PRESSED)
 	{
 		if (box->no_action)
 			box->no_action(box->no_target);
 		box->state = 0;
 	}
-	if (box->yes.anim_state == REST)
-		button_keyup(&box->no, env);
-	if (box->no.anim_state == REST)
-		button_keyup(&box->yes, env);
+	if (env->sdl.event.type == SDL_MOUSEBUTTONUP
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	{
+		if (box->yes.anim_state != PRESSED)
+			button_keyup(&box->no, env);
+		if (box->no.anim_state != PRESSED)
+			button_keyup(&box->yes, env);
+	}
 }
 
 void	confirmation_box_keys(t_confirmation_box *box, t_env *env)
 {
-	if (box->yes.anim_state == REST)
+	if (box->yes.anim_state != PRESSED)
 		button_keys(&box->no, env);
-	if (box->no.anim_state == REST)
+	if (box->no.anim_state != PRESSED)
 		button_keys(&box->yes, env);
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN
-		&& box->no.anim_state == REST)
+		&& box->no.anim_state != PRESSED)
 		box->yes.anim_state = PRESSED;
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
-		&& box->yes.anim_state == REST)
+		&& box->yes.anim_state != PRESSED)
 		box->no.anim_state = PRESSED;
 }
 

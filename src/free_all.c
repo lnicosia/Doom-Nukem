@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:15:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:30:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		free_events(t_event	*events, size_t size)
 static void	free_sectors(t_env *env)
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	while (i < env->nb_sectors)
@@ -77,20 +78,43 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].align);
 		if (env->sectors[i].scale)
 			ft_memdel((void**)&env->sectors[i].scale);
-		if (env->sectors[i].map_scale)
-			ft_memdel((void**)&env->sectors[i].map_scale);
-		if (env->sectors[i].map_lvl)
-			ft_memdel((void**)&env->sectors[i].map_lvl);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
-		if (env->sectors[i].sprites)
-			ft_memdel((void**)&env->sectors[i].sprites);
 		if (env->sectors[i].xmin)
 			ft_memdel((void**)&env->sectors[i].xmin);
 		if (env->sectors[i].xmax)
 			ft_memdel((void**)&env->sectors[i].xmax);
 		if (env->sectors[i].nb_sprites)
 			ft_memdel((void**)&env->sectors[i].nb_sprites);
+		if (env->sectors[i].floor_map_lvl)
+			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
+		if (env->sectors[i].ceiling_map_lvl)
+			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
+		if (env->sectors[i].walls_map_lvl)
+		{
+			j = 0;
+			while (j < env->sectors[i].nb_vertices)
+			{
+				if (env->sectors[i].walls_map_lvl[j])
+				ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
+				j++;
+			}
+			ft_memdel((void**)&env->sectors[i].walls_map_lvl);
+		}
+		if (env->sectors[i].sprites)
+		{
+			j = 0;
+			while (j < env->sectors[i].nb_vertices)
+			{
+				if (env->sectors[i].sprites[j].sprite)
+					ft_memdel((void**)&env->sectors[i].sprites[j].sprite);
+				if (env->sectors[i].sprites[j].pos)
+					ft_memdel((void**)&env->sectors[i].sprites[j].pos);
+				if (env->sectors[i].sprites[j].scale)
+					ft_memdel((void**)&env->sectors[i].sprites[j].scale);
+				j++;
+			}
+		}
 		free_events(env->sectors[i].walk_on_me_event,
 		env->sectors[i].nb_walk_events);
 		i++;
@@ -98,10 +122,12 @@ static void	free_sectors(t_env *env)
 	ft_memdel((void**)&env->sectors);
 }
 
-void		free_camera(t_camera *camera)
+void		free_camera(t_camera *camera, t_env *env)
 {
 	int	i;
+	int	j;
 
+	(void)env;
 	if (camera->screen_sectors)
 		ft_memdel((void**)&camera->screen_sectors);
 	if (camera->screen_pos)
@@ -121,14 +147,29 @@ void		free_camera(t_camera *camera)
 	i = 0;
 	if (camera->v)
 	{
+		i = 0;
 		while (i < camera->size)
 		{
 			if (camera->v[i])
+			{
+				j = 0;
+				// Va poser probleme si sector_nb_vertices est NULL
+				while (j < camera->sectors_size[i])
+				{
+					if (camera->v[i][j].sprite_scale)
+						ft_memdel((void**)&camera->v[i][j].sprite_scale);
+					if (camera->v[i][j].texture_scale)
+						ft_memdel((void**)&camera->v[i][j].texture_scale);
+					j++;
+				}
 				ft_memdel((void**)&camera->v[i]);
+			}
 			i++;
 		}
 		ft_memdel((void**)&camera->v);
 	}
+	if (camera->sectors_size)
+		ft_memdel((void**)&camera->sectors_size);
 }
 
 void		free_all_sdl_relative(t_env *env)
@@ -226,8 +267,17 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato20);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
+	free_camera(&env->player.camera, env);
 	if (env->sectors)
 		free_sectors(env);
+	i = 0;
+	// Leak peut etre si index 5 pas free
+	while (i < 4)
+	{
+		if (env->skybox[i].texture_scale)
+			ft_memdel((void**)&env->skybox[i].texture_scale);
+		i++;
+	};
 	if (env->vertices)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
@@ -277,12 +327,10 @@ void		free_all(t_env *env)
 		}
 	}
 	free_textures(env);
-	free_camera(&env->player.camera);
 	TTF_Quit();
 	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
-	save_benchmark(env);
 }
 
 int			crash(char *str, t_env *env)

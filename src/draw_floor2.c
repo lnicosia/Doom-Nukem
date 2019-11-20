@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 10:21:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 11:04:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 09:10:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	draw_floor2(t_sector sector, t_render render, t_env *env)
 				* vline_data.texel_camera_range.y) * divider;
 		texel.x = (vline_data.texel_near_z.x + alpha
 				* vline_data.texel_camera_range.x) * divider;
-		texel.y = texel.y * sector.floor_scale.y + sector.floor_align.y;
-		texel.x = texel.x * sector.floor_scale.x + sector.floor_align.x;
+		// Bon index != 0
+		texel.y = texel.y * sector.floor_scale[0].y + sector.floor_align.y;
+		texel.x = texel.x * sector.floor_scale[0].x + sector.floor_align.x;
 		texel.y = texture_h - texel.y;
 		texel.x = texture_w - texel.x;
 		texel.y = ft_abs((int)texel.y % texture_h);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:25:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int			init_wall_sprites(t_env *env)
 {
 	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 1)))
-		return (ft_printf("Could not malloc enemy_sprites\n"));
+		return (ft_printf("Could not malloc wall sprites\n"));
 	
 	// Grille
 	env->wall_sprites[0].texture = 31;
@@ -25,7 +25,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[0].rest_sprite = 0;
 	env->wall_sprites[0].curr_sprite = 0;
 	env->wall_sprites[0].oriented = 0;
-	env->wall_sprites[0].nb_death_sprites = 9;
+	env->wall_sprites[0].nb_death_sprites = 0;
 	env->wall_sprites[0].start[0].x = 0;
 	env->wall_sprites[0].start[0].y = 0;
 	env->wall_sprites[0].end[0].x = 128;
@@ -39,7 +39,7 @@ int			init_wall_sprites(t_env *env)
 int			init_object_sprites(t_env *env)
 {
 	if (!(env->object_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 2)))
-		return (ft_printf("Could not malloc enemy_sprites\n"));
+		return (ft_printf("Could not malloc enemy sprites\n"));
 	
 	//	objects sprite sheet
 	env->object_sprites[0].texture = 22;

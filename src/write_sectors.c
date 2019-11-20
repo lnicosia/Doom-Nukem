@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 10:03:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 11:27:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	write_sector_textures(int fd, t_sector sector)
 			sector.textures[i],
 			sector.align[i].x,
 			sector.align[i].y,
-			sector.scale[i].x,
-			sector.scale[i].y);*/
+			sector.map_scale[i].x,
+			sector.map_scale[i].y);*/
 
 		// Use to save with default scale
 		ft_dprintf(fd, "[%d %f %f %f %f]",

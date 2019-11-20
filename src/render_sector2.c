@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 18:55:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 15:28:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:51:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,8 +259,8 @@ void	render_sector2(t_render render, t_env *env)
 		//set_yrange(v1, &render, env);
 		/*render.ystart = 0;
 		  render.yend = env->h - 1;*/
-		render.texture_scale = render.camera->v[render.sector]
-			[render.i].texture_scale;
+		//render.texture_scale = render.camera->v[render.sector]
+			//[render.i].texture_scale;
 		render.ceiling_horizon = v1.ceiling_horizon;
 		render.floor_horizon = v1.floor_horizon;
 		render.texture = sector.textures[i];

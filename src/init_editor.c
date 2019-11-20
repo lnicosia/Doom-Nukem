@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/19 09:50:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:25:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_editor_data(t_env *env)
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
 	env->player.sector = -1;
+
 	env->editor.selected_sector = -1;
 	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;
@@ -83,14 +84,14 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init input box\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
+	if (generate_mipmaps(&env))
+		return (crash("Could not generate mipmaps\n", &env));
 	if (init_wall_sprites(&env))
 		return (crash("Could not load wall sprites\n", &env));
 	if (init_object_sprites(&env))
 		return (crash("Could not load object sprites\n", &env));
 	if (init_enemy_sprites(&env))
 		return (crash("Could not load enemy sprites\n", &env));
-	if (generate_mipmaps(&env))
-		return (crash("Could not generate mipmaps\n", &env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -98,10 +99,10 @@ int	init_editor(int ac, char **av)
 	}
 	else if (ac == 2)
 	{
-		env.save_file = ft_strdup(av[1]);
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
+		env.save_file = ft_strdup(av[1]);
 		precompute_slopes(&env);
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
@@ -124,6 +125,8 @@ int	init_editor(int ac, char **av)
 	}
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
+	if (init_skybox(&env))
+		return (crash("Could not init skybox\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
 	//if (env.editor.new_player)

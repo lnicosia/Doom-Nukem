@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 17:14:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:24:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 
 int		editor_render(t_env *env)
 {
-	if (env->inputs.enter)
-	{
-		env->editor.in_game = 0;
-		env->selected_floor = -1;
-		env->selected_ceiling = -1;
-		env->selected_object = -1;
-		env->selected_enemy = -1;
-		env->selected_wall1 = -1;
-		env->selected_wall2 = -1;
-		env->inputs.enter = 0;
-		SDL_SetRelativeMouseMode(0);
-		return (0);
-	}
 	if (env->options.animations)
 		update_sprites_state(env);
 	reset_clipped(env);

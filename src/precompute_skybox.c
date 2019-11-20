@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 17:36:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/18 19:50:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	precompute_skybox_values(int i, t_env *env)
 	env->skybox[i].floor_range = env->skybox[i].f2 - env->skybox[i].f1;
 	env->skybox[i].ceiling_range = env->skybox[i].c2 - env->skybox[i].c1;
 	if (env->skybox[i + 1].vz)
-		env->skybox[i].texture_scale.x = env->skyboxes[0].textures[0 + i].
+		env->skybox[i].texture_scale[0].x = env->skyboxes[0].textures[0 + i].
 			surface->w / env->skybox[i + 1].vz;
 	else
-		env->skybox[i].texture_scale.x = env->skyboxes[0].textures[0 + i].
+		env->skybox[i].texture_scale[0].x = env->skyboxes[0].textures[0 + i].
 			surface->w / env->skybox[i].clipped_vz2;
-	env->skybox[i].texture_scale.y = env->skyboxes[0].textures[0 + i].surface->h;
+	env->skybox[i].texture_scale[0].y = env->skyboxes[0].textures[0 + i].surface->h;
 	env->skybox[i].x0z1 = pos1.x * env->skybox[i + 1].vz;
 	env->skybox[i].x1z0 = pos2.x * env->skybox[i].vz;
 	env->skybox[i].xzrange = env->skybox[i].x1z0 - env->skybox[i].x0z1;

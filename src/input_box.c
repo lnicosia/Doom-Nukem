@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 15:10:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:52:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	{
 		validate_input(box, env);
 		env->inputs.enter = 0;
+		env->editor.enter_locked = 1;
 	}
 	else if (env->inputs.backspace)
 	{

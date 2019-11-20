@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:45:46 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:45:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/19 09:11:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void	draw_ceiling2(t_sector sector, t_render render, t_env *env)
 				* vline_data.texel_camera_range.y) * divider;
 		texel.x = (vline_data.texel_near_z.x + alpha
 				* vline_data.texel_camera_range.x) * divider;
-		texel.y = texel.y * sector.ceiling_scale.y + sector.ceiling_align.y;
-		texel.x = texel.x * sector.ceiling_scale.x + sector.ceiling_align.x;
+		// Bon index != 0
+		texel.y = texel.y * sector.ceiling_scale[0].y + sector.ceiling_align.y;
+		texel.x = texel.x * sector.ceiling_scale[0].x + sector.ceiling_align.x;
 		texel.x = texture_w - texel.x;
 		texel.y = ft_abs((int)texel.y % texture_h);
 		texel.x = ft_abs((int)texel.x % texture_w);

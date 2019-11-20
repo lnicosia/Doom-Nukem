@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/06 16:28:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/19 10:21:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	update_screen_zbuffer(t_env *env)
 /*
 **	Copy a surface into our main texture
 **	TODO Protection
+**	ex: si size depasse la taille de la surface
 */
 
 void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
@@ -114,7 +115,7 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 		ft_printf("apply_surface error: surface is NULL\n");
 		return ;
 	}
-	pixels = surface->pixels;
+	pixels = (Uint32*)surface->pixels;
 	fmt = surface->format;
 	y = 0;
 	while (y < size.y)

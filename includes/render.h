@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/15 18:32:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:12:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,11 @@ void			restrict_ceiling(t_render_vertex v1, t_render *render,
 void			reset_x_restrictions(t_sector *sector, t_env *env);
 void			get_vline_data(t_render_vertex v1, t_sector sector,
 		t_render render, t_env *env);
-int				get_current_map(int texture, double z, t_render *render,
+int				get_current_wall_map(int texture, double z, t_render *render,
+t_env *env);
+int				get_current_floor_map(int texture, double z, t_render *render,
+t_env *env);
+int				get_current_ceiling_map(int texture, double z, t_render *render,
 t_env *env);
 
 /*
