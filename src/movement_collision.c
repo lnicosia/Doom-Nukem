@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 14:58:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 15:46:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     if (floor > FUTURE_Z + 2 && sector_dest != motion.sector)
 		return (0);
 	else if (floor > FUTURE_Z && sector_dest == motion.sector)
+		return (0);
+	if (env->player.state.jump && FUTURE_Z < floor)
 		return (0);
     return (1);
 }
@@ -146,7 +148,6 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     double      scalar;
     double      norme_mov;
     double      norme_wall;
-    //static int a = 0;
 
     //env->player.highest_sect = motion.sector;
     /*if (env->options.test)
