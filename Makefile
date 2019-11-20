@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/20 10:13:23 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/20 10:51:00 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,9 +73,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
-		   precompute_neighbors.c skybox_draw_functions.c render_sector2.c \
+		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c \
-		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
+		   restrict_portals.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
@@ -104,8 +104,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

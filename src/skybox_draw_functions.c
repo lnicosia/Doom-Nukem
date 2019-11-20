@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 19:51:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 09:25:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	int			coord;
 	double		z;
 
-	texture = env->skyboxes[0].textures[render.texture];
+	if (!wall_data.mode)
+		texture = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture];
+	if (wall_data.mode)
+		texture = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[render.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
@@ -126,9 +129,18 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->skyboxes[0].textures[1].surface->w;
-	texture_h = env->skyboxes[0].textures[1].surface->h;
-	texture_pixels = env->skyboxes[0].textures[1].str;
+	if (!wall_data.mode)
+	{
+		texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].str;
+	}
+	if (wall_data.mode)
+	{
+		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].str;
+	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -162,8 +174,16 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
 		x = alpha * render.texel.x + (1.0 - alpha) * 5;
-		y *= env->skyboxes[0].textures[1].surface->h / 10;
-		x *= env->skyboxes[0].textures[1].surface->w / 10;
+		if (!wall_data.mode)
+		{
+			y *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w / 10;
+		}
+		if (wall_data.mode)
+		{
+			y *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w / 10;
+		}
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)
@@ -208,9 +228,12 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
-	texture_w = env->skyboxes[0].textures[0].surface->w;
-	texture_h = env->skyboxes[0].textures[0].surface->h;
-	texture_pixels = env->skyboxes[0].textures[0].str;
+//	if (wall_data.mode)
+//	{
+		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].str;
+//	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
@@ -244,8 +267,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
 		x = alpha * render.texel.x + (1.0 - alpha) * 5;
-		y *= env->skyboxes[0].textures[0].surface->h / 10;
-		x *= env->skyboxes[0].textures[0].surface->w / 10;
+		y *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h / 10;
+		x *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w / 10;
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
 		if (x >= texture_w || x < 0)

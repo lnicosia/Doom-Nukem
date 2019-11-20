@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 18:09:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:18:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		editor_3d_keys(t_env *env)
 				if (env->inputs.shift
 					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 8)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
-				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -1)
+				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -MAX_SKYBOX)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 1;
 			}
 			else if (env->inputs.up)
@@ -168,7 +168,7 @@ int		editor_3d_keys(t_env *env)
 				if (env->inputs.shift
 					&& env->sectors[env->selected_ceiling].ceiling_texture > 8)
 					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
-				else if (env->sectors[env->selected_ceiling].ceiling_texture > -1)
+				else if (env->sectors[env->selected_ceiling].ceiling_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture--;
 			}
 			else if (env->inputs.up && env->editor.tab)

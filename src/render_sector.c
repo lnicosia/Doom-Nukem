@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:01:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:23:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		*wall_loop(void *param)
 		}
 		else
 		{
-			if (sector.textures[render.i] == -1)
+			if (sector.textures[render.i] < 0)
 				draw_skybox(render, 1, env);
 			else
 				draw_wall(sector, render, env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/19 18:08:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:19:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct		s_env
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
-	t_skybox			skyboxes[NB_SKYBOX];
+	t_skybox			skyboxes[MAX_SKYBOX];
 	Uint32				frame_timer;
 	t_event				*global_events;
 	size_t				nb_global_events;

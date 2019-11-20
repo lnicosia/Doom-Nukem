@@ -19,7 +19,7 @@ int	add_enemy(t_env *env)
 	enemy.num = env->nb_enemies;
 	enemy.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	enemy.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	enemy.sprite = 1;
+	enemy.sprite = 0;
 	enemy.scale = 50;
 	enemy.angle = 0;
 	enemy.exists = 1;

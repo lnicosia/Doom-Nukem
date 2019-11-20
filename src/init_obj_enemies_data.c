@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   init_obj_enemies_data.c							:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/22 10:42:39 by gaerhard		  #+#	#+#			 */
-/*   Updated: 2019/10/17 15:18:02 by gaerhard		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
+/*   Updated: 2019/11/19 17:01:21 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -24,7 +24,7 @@ void		init_enemies_data(t_env *env)
 		env->enemies[i].shot = 0;
 		env->enemies[i].exists = 1;
 		env->enemies[i].saw_player = 0;
-		if (i > 0 && i <= 4)
+		if (env->enemies[i].sprite >= 0 && env->enemies[i].sprite < 5)
 		{
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
@@ -35,17 +35,17 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;
 		}
-		else if (i > 4 && i <= 9)
+		else if (env->enemies[i].sprite >= 5 && env->enemies[i].sprite < 10)
 		{
 			env->enemies[i].eyesight = 6.2;
 			env->enemies[i].main_sprite = CYBER_DEMON;
-			env->enemies[i].firing_sprite = 10;
+			env->enemies[i].firing_sprite = 7;
 			env->enemies[i].type = TERRESTRIAL;
 			env->enemies[i].behavior = RANGED;
 			env->enemies[i].size_2d = 1.5;
 			env->enemies[i].nb_rest_state = 2;
-			env->enemies[i].nb_pursuit_state = 2;
-			env->enemies[i].nb_firing_state = 0;
+			env->enemies[i].nb_pursuit_state = 0;
+			env->enemies[i].nb_firing_state = 2;
 		}
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;

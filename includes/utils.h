@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:22:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:47:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
+# define MAX_SKYBOX 3
 # define NB_SKYBOX 5
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
@@ -313,8 +314,11 @@ typedef struct		s_sector
 	short			*neighbors;
 	short			*textures;
 	t_wall_sprites	*sprites;
-	t_wall_sprites	floor_sprite;
-	t_wall_sprites	ceiling_sprite;
+	t_wall_sprites	floor_sprites;
+	t_wall_sprites	ceiling_sprites;
+	short			*nb_sprites;
+	short			nb_floor_sprites;
+	short			nb_ceiling_sprites;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
@@ -325,7 +329,6 @@ typedef struct		s_sector
 	short			*selected;
 	short			num;
 	short			nb_vertices;
-	short			*nb_sprites;
 	int				skybox;
 	int				status;
 	int				brightness;
