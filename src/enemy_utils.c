@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 15:46:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 14:33:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,8 +298,9 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 
 void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
-	t_v3 direction;
-	t_v3 move;
+	t_v3 		direction;
+	t_v3 		move;
+	t_movement	motion;
 
 	(void)distance;
 	if (enemy.exists )
@@ -311,7 +312,9 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 				move.x = direction.x;
 				move.y = direction.y;
 				move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
-				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
+				motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+				motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+				move = check_collision(env, move, motion, 0);
 				if (move.x == 0 && move.y == 0 && enemy.speed != 0)
 				{
 					env->enemies[i].dir = rand_dir(env, i);
@@ -325,7 +328,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 						move.x = direction.y;
 						move.y = -direction.x;
 					}
-					move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+					move = check_collision(env, move, motion, 1);
 				}
 				env->enemies[i].pos.x += move.x;
 				env->enemies[i].pos.y += move.y;
@@ -342,8 +345,9 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 
 void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
-	t_v3 direction;
-	t_v3 move;
+	t_v3		direction;
+	t_v3 		move;
+	t_movement 	motion;
 
 	if (enemy.exists)
 	{
@@ -355,7 +359,9 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			move.x = direction.x;
 			move.y = direction.y;
 			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
-			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
+			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+			move = check_collision(env, move, motion, 0);
 			if (move.x == 0 && move.y == 0)
 			{
 				env->enemies[i].dir = rand_dir(env, i);
@@ -369,7 +375,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 					move.x = direction.y;
 					move.y = -direction.x;
 				}
-				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+				move = check_collision(env, move, motion, 1);
 			}
 			env->enemies[i].pos.x += move.x;
 			env->enemies[i].pos.y += move.y;
@@ -383,10 +389,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
 		env->enemies[i].saw_player = 0;
 		enemy_sight(env, i, 1);
-		//enemy_arms(env, i);
-		if (distance <= 31 && env->enemies[i].saw_player/*
-			&& enemy_line_of_sight(env, new_v2(env->enemies[i].left_arm.x, env->enemies[i].left_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)
-			&& enemy_line_of_sight(env, new_v2(env->enemies[i].right_arm.x, env->enemies[i].right_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)*/)
+		if (distance <= 31 && env->enemies[i].saw_player)
 		{
 			env->enemies[i].state = FIRING;
 			if (env->enemies[i].shot)

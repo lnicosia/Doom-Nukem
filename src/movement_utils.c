@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/05 18:07:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:09:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_movement  new_movement(int sector, double size_2d, double eyesight, t_v3 pos)
     return (motion);
 }
 
-double     sector_height(t_env *env, t_movement motion, int sector_dest)
+double     floor_height(t_env *env, t_movement motion, int sector_dest)
 {
     double  height;
     
@@ -87,12 +87,12 @@ int        find_highest_sector(t_env *env, t_movement motion)
         return (0);
     iter_sectors(env, motion);
     tmp = motion.sector;
-    height = sector_height(env, motion, motion.sector);
+    height = floor_height(env, motion, motion.sector);
     while (i < env->nb_sectors)
     {
         if (env->sector_list[i])
         {
-            s_height = sector_height(env, motion, i);
+            s_height = floor_height(env, motion, i);
             if (height < s_height)
             {
                 height = s_height;
@@ -104,7 +104,7 @@ int        find_highest_sector(t_env *env, t_movement motion)
     return (tmp);
 }
 
-int        find_lowest_sector(t_env *env, t_movement motion)
+int        find_lowest_ceiling(t_env *env, t_movement motion)
 {
     int     i;
     double  height;
@@ -114,12 +114,12 @@ int        find_lowest_sector(t_env *env, t_movement motion)
     i = 0;
     iter_sectors(env, motion);
     tmp = motion.sector;
-    height = sector_height(env, motion, motion.sector);
+    height = get_ceiling_at_pos(env->sectors[motion.sector], motion.pos, env);
     while (i < env->nb_sectors)
     {
         if (env->sector_list[i])
         {
-            s_height = sector_height(env, motion, i);
+            s_height = get_ceiling_at_pos(env->sectors[i], motion.pos, env);
             if (height > s_height)
             {
                 height = s_height;

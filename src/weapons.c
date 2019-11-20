@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 13:59:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 14:34:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void    shot(t_env *env)
 	{
 		if (hitscan(env, i) == 1)
 		{
-			if (env->options.test)
-				ft_printf("I hit enemy nb %d | enemy_life before = %d |", i, env->enemies[i].health);
 			env->enemies[i].health -= damage_done(*env, i);
 			hit = 1;
 			if (env->enemies[i].health <= 0)

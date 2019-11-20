@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 15:46:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 14:34:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,16 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
         return (new_v3(0,0,0));
-    if ((!check_ceiling(env, motion, motion.sector) || !check_floor(env, motion, motion.sector)))
-    {
-        if (!check_ceiling(env, motion, motion.sector))
-	        move.z = get_ceiling_at_pos(env->sectors[motion.sector], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
-        if (!check_floor(env, motion, motion.sector))
+    //if ((!check_ceiling(env, motion, motion.sector) || !check_floor(env, motion, motion.sector)))
+    //{
+        if (!check_ceiling(env, motion, motion.lowest_ceiling))
+		{
+			//ft_printf("motion.sector %d lowest ceiling sector %d\n", motion.sector, motion.lowest_ceiling);
+	        move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
+		}
+        else if (!check_floor(env, motion, motion.sector))
 	        move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
-    }
+    //}
     (void)pos;
     while (i < env->sectors[motion.sector].nb_vertices)
     {

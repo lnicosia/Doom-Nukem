@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:50:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:05:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (custom_error_with_line("Player is not in any sector",
 							parser));
 			env->player.highest_sect = env->player.sector;
-			env->player.lowest_sect = env->player.sector;
 			env->player.camera.pos = env->player.pos;
 			env->player.camera.pos.z = env->player.pos.z + 8;
 		}
