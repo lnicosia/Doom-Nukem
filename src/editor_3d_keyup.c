@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:31:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:57:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int		editor_3d_keyup(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& !env->confirmation_box.state && !env->input_box.state)
+		&& !env->confirmation_box.state && !env->input_box.state
+		&& !env->editor.enter_locked)
 	{
 		env->editor.in_game = 0;
 		env->selected_floor = -1;
@@ -64,9 +65,12 @@ int		editor_3d_keyup(t_env *env)
 		env->player.state.fly = env->player.state.fly ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
-	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_z)
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
+	if (env->sdl.event.key.keysym.sym == SDLK_z)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
-	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_g)
+	if (env->sdl.event.key.keysym.sym == SDLK_g)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);

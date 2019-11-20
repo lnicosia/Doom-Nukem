@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/19 18:11:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 09:10:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 	int	i;
 	int	j;
 
+	camera->size = env->nb_sectors;
 	if (!(camera->screen_pos = (int*)malloc(sizeof(int) * (env->w))))
 		return (ft_printf("Could not malloc screen pos!\n", env));
 	if (!(camera->v = (t_render_vertex**)
@@ -127,7 +128,6 @@ int		init_camera(t_camera *camera, t_env *env)
 	camera->ratio_w = 16;
 	camera->ratio_h = 9;
 	camera->ratio = camera->ratio_w / camera->ratio_h;
-	camera->size = env->nb_sectors;
 	set_camera(camera, env);
 	if (init_camera_arrays(camera, env))
 		return (ft_printf("Could not init camera arrays\n"));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 15:32:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 09:04:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 		if (box->yes_action)
 			box->yes_action(box->yes_target);
 		box->state = 0;
+		env->editor.enter_locked = 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
 		&& box->yes.anim_state != PRESSED)
@@ -102,7 +103,6 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 	box->yes.size_pressed = box->yes.size_up;
 	box->yes.size_down = box->yes.size_up;
 	box->yes.size_hover = box->yes.size_up;
-	box->yes.down_action = 0;
 	if (box->type == YESNO)
 	{
 		box->yes.pos.x = env->w / 2;

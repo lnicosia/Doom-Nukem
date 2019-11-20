@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:49:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:48:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 	if (!(sector->floor_map_lvl = (double*)malloc(
 		sizeof(double) * texture.nb_maps)))
 		return (custom_error("Could not malloc a sector map_lvl array"));
-	//ft_printf("sector %d floor has %d maps\n", sector->num,	texture.nb_maps);
 	if (sector->floor_map_scale.x * env->w >
 			sector->floor_map_scale.y * env->h)
 	{
@@ -55,10 +54,6 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 	while (j < texture.nb_maps)
 	{
 		sector->floor_map_lvl[j] = size / (double)(pow(2, j) * divider);
-		//ft_printf("z = %f at map %d\n", sector->floor_map_lvl[j], (int)j);
-		/*ft_printf("map %d at z = %f\n", 
-		(int)ceil(log2(size / (double)(divider * sector->map_lvl[j]))),
-		sector->map_lvl[j]);*/
 		j++;
 	}
 	return (0);

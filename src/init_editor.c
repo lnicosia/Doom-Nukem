@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 20:31:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:38:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	init_editor_data(t_env *env)
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	
-	env->save_file = ft_strdup("maps/test.map");
 }
 
 /*
@@ -94,12 +93,16 @@ int	init_editor(int ac, char **av)
 	if (init_enemy_sprites(&env))
 		return (crash("Could not load enemy sprites\n", &env));
 	if (ac == 1)
+	{
 		ft_printf("Creating a new map\n");
+		env.save_file = ft_strdup("maps/test.map");
+	}
 	else if (ac == 2)
 	{
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
+		env.save_file = ft_strdup(av[1]);
 		precompute_slopes(&env);
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))

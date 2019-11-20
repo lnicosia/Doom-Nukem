@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 18:24:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:58:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	editor_keyup(t_env *env)
 					if (add_sector(env))
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
-					get_new_floor_and_ceiling(env);
-					update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
+					//get_new_floor_and_ceiling(env);
+					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
@@ -105,7 +105,8 @@ int	editor_keyup(t_env *env)
 	*/
 
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& !env->confirmation_box.state && !env->input_box.state)
+		&& !env->confirmation_box.state && !env->input_box.state
+		&& !env->editor.enter_locked)
 	{
 		if (!valid_map(env))
 		{
@@ -132,5 +133,8 @@ int	editor_keyup(t_env *env)
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		}
 	}
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
 	return (0);
 }

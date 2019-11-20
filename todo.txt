@@ -19,10 +19,4 @@ Skybox partout													|
 Sprites sur sol/plafond?										|
 
 Mip mapping:
--update write_sector							| Done
--update add_sector								| NON LOL
--update delete_sector							| Done
--update texture change (walls + floor/ceiling)	| Done 
--update floor/ceiling scale change				| Done
--update draw_wall_sprite						| Done
--update wall sprite scales						| Done
+-Faire tourner les tableaux de mipmap quand on tourne les pentes

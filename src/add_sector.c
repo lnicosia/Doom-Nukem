@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/19 18:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 08:47:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int			init_new_sector_arrays(t_sector *sector, t_env *env)
 		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector ceiling"));
-	if (!(sector->ceiling_map_lvl = (double*)malloc(sizeof(double) * env->wall_textures[sector->ceiling_texture].nb_maps)))
+	(void)env;
+	/*if (!(sector->ceiling_map_lvl = (double*)malloc(sizeof(double) * env->wall_textures[sector->ceiling_texture].nb_maps)))
 		return (ft_perror("Could not malloc sector ceiling texture"));
 	if (!(sector->ceiling_scale = (t_v2*)malloc(
 		sizeof(t_v2) * env->wall_textures[sector->ceiling_texture].nb_maps)))
@@ -72,7 +73,7 @@ int			init_new_sector_arrays(t_sector *sector, t_env *env)
 		return (ft_perror("Could not malloc sector ceiling texture"));
 	if (!(sector->floor_scale = (t_v2*)malloc(
 		sizeof(t_v2) * env->wall_textures[sector->floor_texture].nb_maps)))
-		return (custom_error("Could not malloc sector floor_scale array"));
+		return (custom_error("Could not malloc sector floor_scale array"));*/
 	if (!(sector->floors = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
 	if (!(sector->clipped_ceilings1 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
@@ -159,7 +160,7 @@ int			add_sector(t_env *env)
 	if (fill_new_sector(&sector, env))
 		return (-1);
 	sector.normal = get_sector_normal(sector, env);
-	//update_sector_slope(env, &sector);
+	update_sector_slope(env, &sector);
 	if (!(env->sectors = (t_sector*)ft_realloc(env->sectors,
 					sizeof(t_sector) * env->nb_sectors,
 					sizeof(t_sector) * (env->nb_sectors + 1))))
@@ -168,6 +169,6 @@ int			add_sector(t_env *env)
 	create_portals(env, sector);
 	set_sectors_xmax(env);
 	env->nb_sectors++;
-	//get_new_floor_and_ceiling(env);
+	get_new_floor_and_ceiling(env);
 	return (0);
 }
