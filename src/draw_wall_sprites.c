@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 17:12:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:59:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_env *env)
 	while (++i <= render.current_floor)
 	{
 		coord = render.x + env->w * i;
-		if (render.z > zbuffer[coord])
+		if (render.z >= zbuffer[coord])
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 		/ render.line_height;

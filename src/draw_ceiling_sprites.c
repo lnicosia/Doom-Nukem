@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_floor_sprites.c                               :+:      :+:    :+:   */
+/*   draw_ceiling_sprites.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 14:57:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:28:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-void	draw_floor_sprites(t_sector sector, t_render render, t_env *env)
+void	draw_ceiling_sprites(t_sector sector, t_render render, t_env *env)
 {
 	int			j;
 	int			i;
@@ -30,15 +30,15 @@ void	draw_floor_sprites(t_sector sector, t_render render, t_env *env)
 	Uint32*		pixels;
 	int			coord;
 
-	i = ft_max(0, (int)render.current_floor);
-	end = env->ymax[render.x];
+	i = env->ymin[render.x];
+	end = ft_min(render.current_ceiling, env->ymax[render.x]);
 	pixels = env->sdl.texture_pixels;
 	while (i <= end)
 	{
 		coord = render.x + env->w * i;
 		// Opti ce truc
-		alpha = (i - render.max_floor) / (render.camera->feet_y[render.sector]
-				- render.max_floor);
+		alpha = (render.max_ceiling - i) / (render.max_ceiling
+		- render.camera->head_y[render.sector]);
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= env->zbuffer[coord])
@@ -51,16 +51,16 @@ void	draw_floor_sprites(t_sector sector, t_render render, t_env *env)
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
 		j = 0;
-		while (j < sector.nb_floor_sprites)
+		while (j < sector.nb_ceiling_sprites)
 		{
-			if (sector.floor_sprites.sprite[j] != -1)
+			if (sector.ceiling_sprites.sprite[j] != -1)
 			{
-				sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
+				sprite = env->wall_sprites[sector.ceiling_sprites.sprite[j]];
 				sprite_pixels = (Uint32*)env->textures[sprite.texture].str;
-				sprite_x = (x - sector.floor_sprites.pos[j].x)
-					* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;
-				sprite_y = (y - sector.floor_sprites.pos[j].y)
-					* (sprite.size[0].y) / sector.floor_sprites.scale[j].y;
+				sprite_x = (x - sector.ceiling_sprites.pos[j].x)
+					* (sprite.size[0].x) / sector.ceiling_sprites.scale[j].x;
+				sprite_y = (y - sector.ceiling_sprites.pos[j].y)
+					* (sprite.size[0].y) / sector.ceiling_sprites.scale[j].y;
 				if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
 						&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
 						&& sprite_pixels[(int)sprite_x

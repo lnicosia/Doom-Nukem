@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:25:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:39:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	int			end_coord;
 	int			coord;
 	double		z;
+	double		alpha;
+	double		divider;
 
 	if (!wall_data.mode)
 		texture = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture];
@@ -56,10 +58,16 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		if (!wall_data.mode)
+		if (wall_data.mode == CEILING)
+		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-		else
+			alpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
+			- render.camera->head_y[render.sector]);
+			divider = 1 / (render.camera->near_z + alpha * render.zrange);
+			z = render.z_near_z * divider;
+		}
+		else if (wall_data.mode == WALL)
 			z = wall_data.z;
 		if (z >= zbuffer[coord])
 		{
@@ -126,6 +134,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	int		texture_w;
 	int		texture_h;
 	double	z;
+	double	salpha;
+	double	divider;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
@@ -146,10 +156,16 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	{
 		coord = vline.x + env->w * i;
 		alpha = render.ceiling_start / (double)(i - render.ceiling_horizon);
-		if (!wall_data.mode)
+		if (wall_data.mode == CEILING)
+		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-		else
+			salpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
+			- render.camera->head_y[render.sector]);
+			divider = 1 / (render.camera->near_z + salpha * render.zrange);
+			z = render.z_near_z * divider;
+		}
+		else if (wall_data.mode == WALL)
 			z = wall_data.z;
 		if (z >= zbuffer[coord])
 		{
@@ -225,6 +241,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	int		texture_w;
 	int		texture_h;
 	double	z;
+	double	salpha;
+	double	divider;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
@@ -239,10 +257,16 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	{
 		coord = vline.x + env->w * i;
 		alpha = render.floor_start / (double)(i - render.floor_horizon);
-		if (!wall_data.mode)
+		if (wall_data.mode == CEILING)
+		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-		else
+			salpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
+			- render.camera->head_y[render.sector]);
+			divider = 1 / (render.camera->near_z + salpha * render.zrange);
+			z = render.z_near_z * divider;
+		}
+		else if (wall_data.mode == WALL)
 			z = wall_data.z;
 		if (z >= zbuffer[coord])
 		{

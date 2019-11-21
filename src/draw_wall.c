@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 09:27:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:00:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	while (i < vline.end)
 	{
 		coord = vline.x + env->w * i;
-		if (render.z > zbuffer[coord])
+		if (render.z >= zbuffer[coord])
 		{
 			i++;
 			continue;

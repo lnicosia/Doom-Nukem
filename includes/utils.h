@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 12:25:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:14:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,15 @@ typedef enum		e_enemy_type
 	AERIAL,
 	AQUATIC
 }					t_enemy_type;
+
+typedef enum		e_skybox_source
+{
+	CEILING,
+	WALL,
+	BOTTOM_WALL,
+	UPPER_WALL,
+	FLOOR
+}					t_skybox_source;
 
 typedef struct		s_line_eq
 {

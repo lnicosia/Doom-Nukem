@@ -11,10 +11,13 @@ Texture courante												| Function done
 Confirmation box avec juste ok									| Done
 Changer toutes les textures d'un secteur						| Done
 Skybox partout													|
-Sprites sur sol/plafond?										|
+Sprites sur sol/plafond?										| Done
 Wall sprites glitch corniches									|
 Update map parser												|
 Multi selection?												| 
 Ajouter des vertex/modifier secteur								|
 Pre affichage des sprites dans un dossier pour les selectionner	|
 Fix sprites pos + scale											|
+
+Opti sprites:
+-Pour sol/plafond, stocker l'alpha et z de chaque y de la ligne en cours dans un tableau pour eviter de les recalculer

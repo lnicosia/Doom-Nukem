@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 14:17:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:57:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,18 @@ void	draw_vline_floor(t_sector sector, t_vline vline,
 t_render render, t_env *env)
 {
 	int		i;
-	int		j;
 	Uint32	*pixels;
 	Uint32	*texture_pixels;
-	Uint32	*sprite_pixels;
 	double	*zbuffer;
 	int		coord;
 	double	y;
 	double	x;
 	double	text_y;
 	double	text_x;
-	double	sprite_y;
-	double	sprite_x;
 	double	z;
 	double	alpha;
 	double	divider;
 	size_t	map_lvl;
-	t_sprite	sprite;
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
@@ -93,26 +88,6 @@ t_render render, t_env *env)
 			if (env->options.zbuffer || env->options.contouring)
 				if (i == (int)(render.max_floor) || i == vline.end)
 					pixels[vline.x + env->w * i] = 0xFFFF0000;
-		}
-		j = 0;
-		while (j < sector.nb_floor_sprites)
-		{
-			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
-			sprite_pixels = (Uint32*)env->textures[sprite.texture].str;
-			sprite_x = (x - sector.floor_sprites.pos[j].x)
-			* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;
-			sprite_y = (y - sector.floor_sprites.pos[j].y)
-			 * (sprite.size[0].y) / sector.floor_sprites.scale[j].y;
-			if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
-				&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
-				&& sprite_pixels[(int)sprite_x
-				+ env->textures[sprite.texture].surface->w
-				* (int)sprite_y] != 0xFFC10099)
-			{
-					pixels[coord] = apply_light(sprite_pixels[(int)sprite_x + env->textures[sprite.texture].surface->w * (int)sprite_y], sector.light_color, sector.brightness);
-					//break;
-			}
-			j++;
 		}
 		i++;
 	}
