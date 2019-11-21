@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 10:06:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:02:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	((t_projectile*)new->content)->damage = stats.damage;
 	((t_projectile*)new->content)->size_2d = stats.size_2d;
 	((t_projectile*)new->content)->exists = 1;
+	((t_projectile*)new->content)->sector = get_sector_no_z(env, ((t_projectile*)new->content)->pos);
 	return (0);
 }
 
