@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:23:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:13:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,8 +282,6 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
 		ft_memdel((void**)&env->objects);
-	if (env->sprites)
-		ft_memdel((void**)&env->sprites);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
 	if (env->sound.background)

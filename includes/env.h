@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 10:19:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:13:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct		s_env
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemies			*enemies;
-	t_sprite			*sprites;
 	t_sprite			*enemy_sprites;
 	t_sprite			*object_sprites;
 	t_sprite			*wall_sprites;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:17:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 12:25:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,10 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/UI/button-default-hover.bmp", 30, env))
 		return (ft_printf("Failed to load default button\n"));
 	if (parse_bmp("images/wall_sprites/MIDSPACE.bmp", 31, env))
+		return (ft_printf("Failed to load midspace\n"));
+	if (parse_bmp("images/wall_sprites/button_off.bmp", 32, env))
+		return (ft_printf("Failed to load midspace\n"));
+	if (parse_bmp("images/wall_sprites/button_on.bmp", 33, env))
 		return (ft_printf("Failed to load midspace\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));

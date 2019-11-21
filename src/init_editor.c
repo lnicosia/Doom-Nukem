@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 10:52:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:29:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,19 @@ int	init_editor(int ac, char **av)
 		}
 		if (ft_strequ(av[1], "maps/piece.map"))
 		{
-			env.sectors[0].nb_floor_sprites = 1;
-			env.sectors[0].floor_sprites.sprite = (short*)malloc(sizeof(short));
-			env.sectors[0].floor_sprites.scale = (t_v2*)malloc(sizeof(t_v2));
-			env.sectors[0].floor_sprites.pos = (t_v2*)malloc(sizeof(t_v2));
-			env.sectors[0].floor_sprites.sprite[0] = 0;
-			env.sectors[0].floor_sprites.scale[0] = new_v2(0, 0);
-			env.sectors[0].floor_sprites.pos[0] = new_v2(0, 0);
+			env.sectors[0].nb_floor_sprites = 2;
+			env.sectors[0].floor_sprites.sprite = (short*)malloc(sizeof(short) *
+			env.sectors[0].nb_floor_sprites);
+			env.sectors[0].floor_sprites.scale = (t_v2*)malloc(sizeof(t_v2) *
+			env.sectors[0].nb_floor_sprites);
+			env.sectors[0].floor_sprites.pos = (t_v2*)malloc(sizeof(t_v2) *
+			env.sectors[0].nb_floor_sprites);
+			env.sectors[0].floor_sprites.sprite[0] = 1;
+			env.sectors[0].floor_sprites.scale[0] = new_v2(10, 10);
+			env.sectors[0].floor_sprites.pos[0] = new_v2(5, 5);
+			env.sectors[0].floor_sprites.sprite[1] = 0;
+			env.sectors[0].floor_sprites.scale[1] = new_v2(5, 10);
+			env.sectors[0].floor_sprites.pos[1] = new_v2(0, 10);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))
@@ -139,9 +145,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init skybox\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
-	//if (env.editor.new_player)
-	//{
-		env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
-		env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
+	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+	env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	return (editor(&env));
 }

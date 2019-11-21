@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:25:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 12:27:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			init_wall_sprites(t_env *env)
 {
-	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 1)))
+	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite) * MAX_WALL_SPRITES)))
 		return (ft_printf("Could not malloc wall sprites\n"));
 	
 	// Grille
@@ -33,6 +33,38 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[0].size[0].x = 128;
 	env->wall_sprites[0].size[0].y = 256;
 	env->wall_sprites[0].reversed[0] = 0;
+	
+	// Bouton OFF
+	env->wall_sprites[1].texture = 32;
+	env->wall_sprites[1].death_counterpart = 1;
+	env->wall_sprites[1].pursuit_sprite = 1;
+	env->wall_sprites[1].rest_sprite = 1;
+	env->wall_sprites[1].curr_sprite = 1;
+	env->wall_sprites[1].oriented = 1;
+	env->wall_sprites[1].nb_death_sprites = 1;
+	env->wall_sprites[1].start[0].x = 0;
+	env->wall_sprites[1].start[0].y = 0;
+	env->wall_sprites[1].end[0].x = 64;
+	env->wall_sprites[1].end[0].y = 64;
+	env->wall_sprites[1].size[0].x = 64;
+	env->wall_sprites[1].size[0].y = 64;
+	env->wall_sprites[1].reversed[0] = 0;
+
+	// Bouton ON
+	env->wall_sprites[2].texture = 33;
+	env->wall_sprites[2].death_counterpart = 2;
+	env->wall_sprites[2].pursuit_sprite = 2;
+	env->wall_sprites[2].rest_sprite = 2;
+	env->wall_sprites[2].curr_sprite = 0;
+	env->wall_sprites[2].oriented = 2;
+	env->wall_sprites[2].nb_death_sprites = 2;
+	env->wall_sprites[2].start[0].x = 0;
+	env->wall_sprites[2].start[0].y = 0;
+	env->wall_sprites[2].end[0].x = 64;
+	env->wall_sprites[2].end[0].y = 64;
+	env->wall_sprites[2].size[0].x = 64;
+	env->wall_sprites[2].size[0].y = 64;
+	env->wall_sprites[2].reversed[0] = 0;
 	return (0);
 }
 
