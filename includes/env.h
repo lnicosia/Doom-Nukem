@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 10:19:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 12:27:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 void				hit_player(void *param);
 void				apply_texture(int texture, t_sector *sector, t_env *env);
+int					add_vertex_in_sector(t_env *env);
 
 /*
 ** Main functions

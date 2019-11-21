@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 16:14:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	vline.x = x;
 	if (min < skybox.current_ceiling)
 	{
+		ft_printf("draw_ceiling\n");
 		vline.start = min;
 		vline.end = ft_min(skybox.current_ceiling, max);
 		draw_skybox_ceiling(vline, wall_data, skybox, env);
