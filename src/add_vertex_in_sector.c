@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 17:15:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:23:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,29 +87,45 @@ void	modify_vertices_in_sector(t_env *env, int index, int sector)
 {
 	int	i;
 
-	i = 0;
-	ft_printf("show sector old vertices | nb: %d\n", env->sectors[sector].nb_vertices);
-	while (i < env->sectors[sector].nb_vertices)
-	{
-		ft_printf("vertex: %d\n", env->sectors[sector].vertices[i]);
-		i++;
-	}
+	env->sectors[sector].nb_vertices++;
 	if (!(env->sectors[sector].vertices = (short *)ft_realloc(env->sectors[sector].vertices, sizeof(short)
 	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
 		return ;
-	env->sectors[sector].nb_vertices++;
 	i = env->sectors[sector].nb_vertices - 1;
 	while (i > index)
 	{
 		env->sectors[sector].vertices[i] = 	env->sectors[sector].vertices[i - 1];
 		i--;
 	}
-	env->sectors[sector].vertices[i] = env->nb_vertices - 1;
+	env->sectors[sector].vertices[i] = env->sectors[sector].vertices[0];
+}
+
+void	modify_textures(t_env *env, int index, int sector)
+{
+	int	i;
+
 	i = 0;
-	ft_printf("\nshow sector new vertices | nb: %d\n", env->sectors[sector].nb_vertices);
+	ft_printf("\nshow sector old textures | nb: %d\n", env->sectors[sector].nb_vertices);
 	while (i < env->sectors[sector].nb_vertices)
 	{
-		ft_printf("vertex: %d\n", env->sectors[sector].vertices[i]);
+		ft_printf("texture[%d]: %d\n", i, env->sectors[sector].textures[i]);
+		i++;
+	}
+	if (!(env->sectors[sector].textures = (short *)ft_realloc(env->sectors[sector].textures, sizeof(short)
+	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
+		return ;
+	i = env->sectors[sector].nb_vertices;
+	while (i > index)
+	{
+		env->sectors[sector].textures[i] = env->sectors[sector].textures[i - 1];
+		i--;
+	}
+	env->sectors[sector].textures[i] = env->sectors[sector].textures[i + 1];
+	i = 0;
+	ft_printf("\nshow sector new textures | nb: %d\n", env->sectors[sector].nb_vertices);
+	while (i < env->sectors[sector].nb_vertices + 1)
+	{
+		ft_printf("texture: %d\n", env->sectors[sector].textures[i]);
 		i++;
 	}
 }
@@ -119,7 +135,7 @@ void	modify_neighbors(t_env *env, int index, int sector)
 	int	i;
 
 	if (!(env->sectors[sector].neighbors = (short *)ft_realloc(env->sectors[sector].neighbors, sizeof(short)
-	* env->sectors[sector].nb_vertices - 1, sizeof(short) * (env->sectors[sector].nb_vertices))))
+	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
 		return ;
 	i = 0;
 /*	while (i < env->sectors[sector].nb_vertices)
@@ -134,36 +150,6 @@ void	modify_neighbors(t_env *env, int index, int sector)
 		i--;
 	}
 	env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i +1];
-}
-
-void	modify_textures(t_env *env, int index, int sector)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("\nshow sector new textures | nb: %d\n", env->sectors[sector].nb_vertices - 1);
-	while (i < env->sectors[sector].nb_vertices - 1)
-	{
-		ft_printf("texture: %d\n", env->sectors[sector].textures[i]);
-		i++;
-	}
-	if (!(env->sectors[sector].textures = (short *)ft_realloc(env->sectors[sector].textures, sizeof(short)
-	* env->sectors[sector].nb_vertices - 1, sizeof(short) * (env->sectors[sector].nb_vertices))))
-		return ;
-	i = env->sectors[sector].nb_vertices - 1;
-	while (i > index)
-	{
-		env->sectors[sector].textures[i] = env->sectors[sector].textures[i - 1];
-		i--;
-	}
-	env->sectors[sector].textures[i] = env->sectors[sector].textures[i + 1];
-	i = 0;
-	ft_printf("\nshow sector new textures | nb: %d\n", env->sectors[sector].nb_vertices);
-	while (i < env->sectors[sector].nb_vertices)
-	{
-		ft_printf("texture: %d\n", env->sectors[sector].textures[i]);
-		i++;
-	}
 }
 
 int     modify_sector(t_env *env, int sector)
@@ -189,14 +175,14 @@ int     modify_sector(t_env *env, int sector)
 }
 
 void	modify_vertices(t_env *env)
-{
+{	
 	if (!(env->vertices = (t_vertex *)ft_realloc(env->vertices, sizeof(t_vertex)
 			* env->nb_vertices, sizeof(t_vertex) * (env->nb_vertices + 1))))
 		return ;
 	env->nb_vertices++;
 	env->vertices[env->nb_vertices -1].num = env->nb_vertices - 1;
-	env->vertices[env->nb_vertices -1].x =	(env->vertices[env->editor.add.v1].x - env->vertices[env->editor.add.v2].x) / 2;
-	env->vertices[env->nb_vertices -1].y = 	(env->vertices[env->editor.add.v1].y - env->vertices[env->editor.add.v2].y) / 2;
+	env->vertices[env->nb_vertices -1].x =	;
+	env->vertices[env->nb_vertices -1].y = 	;
 }
 
 int     add_vertex_in_sector(t_env *env)
