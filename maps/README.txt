@@ -17,12 +17,18 @@ V  6
 # Emtpy line after vertices declaration
 # Sectors_number: "S + space + number"
 # Sectors:
-# [floor_height floor_slope floor_texture] 
-# [ceiling_height ceiling_slope ceiling_texture]
-# (vertex numbers in clockwise order)
-# (neighbors numbers in clockwise order) ('-1' = no neighbor)
-# (textures numbers)
-# (sprites data: [sprite_number x y x_scale y_scale])
+# [floor_height floor_slope floor_texture align.x align.y scale.x scale.y] 
+# Floor sprites:
+# ([index pos.x pos.y scale.x scale.y][index pos.x pos.y scale.x scale.y]....)
+# [ceiling_height ceiling_slope ceiling_texture align.x align.y scale.x scale.y]
+# Ceiling sprites:
+# ([index pos.x pos.y scale.x scale.y][index pos.x pos.y scale.x scale.y]....)
+# (vertex_index in clockwise order)
+# (neighbors_index in clockwise order) ('-1' = no neighbor)
+# Textures:
+# ([index align.x align.y scale.x scale.y] for every wall....)
+# Wall sprites:
+# ({[index pos.x pos.y scale.x scale.y] for every sprite on this wall...} for every wall..)
 # light value between -255 and 255
 # (0 to get the raw texture, negative values to darken and positive values to lighten)
 # Space(s) between every section
