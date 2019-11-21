@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 15:07:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:34:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	init_editor(int ac, char **av)
 			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
 			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
 		}
-		if (ft_strequ(av[1], "maps/piece.map"))
+		if (ft_strequ(av[1], "maps/exterieur.map"))
 		{
 			env.sectors[0].nb_floor_sprites = 2;
 			env.sectors[0].floor_sprites.sprite = (short*)malloc(sizeof(short) *

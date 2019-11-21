@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 12:13:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:02:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,6 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->z);
 	if (env->z_near_z)
 		ft_memdel((void**)&env->z_near_z);
-	if (env->alpha)
-		ft_memdel((void**)&env->alpha);
 	if (env->clipped_alpha)
 		ft_memdel((void**)&env->clipped_alpha);
 	if (env->line_height)

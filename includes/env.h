@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 12:13:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:01:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct		s_env
 	double				*max_floor;
 	double				*current_ceiling;
 	double				*current_floor;
-	double				*alpha;
 	double				*clipped_alpha;
 	double				*z;
 	double				*divider;

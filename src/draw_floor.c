@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 14:57:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:03:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ t_render render, t_env *env)
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		// Peut etre opti
-		alpha = (i - render.max_floor) / (render.camera->feet_y[render.sector] - render.max_floor);
+		alpha = (i - render.max_floor) / render.floor_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)

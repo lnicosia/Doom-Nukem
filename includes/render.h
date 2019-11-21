@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:21:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:55:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct	s_render
 	double		ceiling_start;
 	double		ceiling_horizon;
 	double		line_height;
+	double		ceiling_height;
+	double		floor_height;
 	double		neighbor_max_ceiling;
 	double		neighbor_current_ceiling;
 	double		neighbor_max_floor;
