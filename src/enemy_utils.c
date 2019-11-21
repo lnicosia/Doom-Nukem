@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 17:32:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:53:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,13 +392,19 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			env->enemies[i].state = FIRING;
 			if (env->enemies[i].shot)
 			{
-				create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle, 50, 1),
-					new_projectile_stats(0.6, env->enemies[i].damage, 0.8, env->enemies[i].eyesight - 2.2),
-					enemy_angle_z(env, i));
-				//env->player.health -= env->enemies[i].damage;
+				if (env->enemies[i].behavior == RANGED_PROJECTILE)
+				{
+					create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle, 50, 1),
+						new_projectile_stats(0.6, env->enemies[i].damage, 0.8, env->enemies[i].eyesight - 2.2),
+						enemy_angle_z(env, i));
+				}
+				else if (env->enemies[i].behavior == RANGED_AIMBOT)
+				{
+					env->player.hit = 1;
+					env->player.health -= env->enemies[i].damage;
+				}
 				if (env->player.health < 0)
 					env->player.health = 0;
-				//env->player.hit = 1;
 			}
 			env->enemies[i].shot = 0;
 		}
@@ -423,7 +429,8 @@ void	enemy_ai(t_env *env)
 		}
 		if (env->enemies[i].behavior == MELEE)
 			melee_ai(env, env->enemies[i], distance, i);
-		else if (env->enemies[i].behavior == RANGED)
+		else if (env->enemies[i].behavior == RANGED_AIMBOT
+			|| env->enemies[i].behavior == RANGED_PROJECTILE)
 			ranged_ai(env, env->enemies[i], distance, i);
 		i++;
 	}

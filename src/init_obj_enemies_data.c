@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 19:02:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:53:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].main_sprite = CYBER_DEMON;
 			env->enemies[i].firing_sprite = 8;
 			env->enemies[i].type = TERRESTRIAL;
-			env->enemies[i].behavior = RANGED;
+			env->enemies[i].behavior = RANGED_PROJECTILE;
 			env->enemies[i].size_2d = 1.5;
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 0;

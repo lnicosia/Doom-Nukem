@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:18:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:52:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ typedef enum		e_enemy_state
 typedef enum		e_enemy_behavior
 {
 	MELEE,
-	RANGED
+	RANGED_AIMBOT,
+	RANGED_PROJECTILE
 }					t_enemy_behavior;
 
 typedef enum		e_enemy_type
@@ -728,6 +729,7 @@ typedef struct		s_enemies
 	t_v2			left_arm;
 	t_v2			right_arm;
 	t_init_data		enemies_init_data;
+	int				firing_type;
 	int				type;
 	int				behavior;
 	int				speed;
