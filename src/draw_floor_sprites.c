@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 17:02:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:23:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	draw_floor_sprites(t_sector sector, t_render render, t_env *env)
 	while (i <= end)
 	{
 		coord = render.x + env->w * i;
-		alpha = (i - render.max_floor) / (render.camera->feet_y[render.sector]
-				- render.max_floor);
+		alpha = (i - render.max_floor) / render.floor_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= env->zbuffer[coord])

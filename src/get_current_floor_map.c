@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:48:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:48:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 		/ pow(2, texture.nb_maps - 1 - i);
 		i++;
 	}
-	sector->floor_align = new_v2(0, 0);
 	if (sector->floor_map_lvl)
 		free(sector->floor_map_lvl);
 	if (!(sector->floor_map_lvl = (double*)malloc(

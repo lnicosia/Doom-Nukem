@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:24:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:53:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 	skybox.camera = render.camera;
 	skybox.zrange = render.zrange;
 	skybox.z_near_z = render.z_near_z;
+	skybox.ceiling_height = render.ceiling_height;
+	skybox.floor_height = render.floor_height;
 	skybox.ceiling_horizon = env->player.camera.horizon;
 	skybox.floor_horizon = env->player.camera.horizon;
 	while (++i < 4)

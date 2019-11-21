@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:28:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:24:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	draw_ceiling_sprites(t_sector sector, t_render render, t_env *env)
 	{
 		coord = render.x + env->w * i;
 		// Opti ce truc
-		alpha = (render.max_ceiling - i) / (render.max_ceiling
-		- render.camera->head_y[render.sector]);
+		alpha = (render.max_ceiling - i) / render.ceiling_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (z >= env->zbuffer[coord])

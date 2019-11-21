@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 11:27:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 19:04:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static void	write_sector_textures(int fd, t_sector sector)
 		// Use to save with real scale
 		// !!! NOT DONE YET !!!
 		/*ft_dprintf(fd, "[%d %f %f %f %f]",
-			sector.textures[i],
-			sector.align[i].x,
-			sector.align[i].y,
-			sector.map_scale[i].x,
-			sector.map_scale[i].y);*/
+		  sector.textures[i],
+		  sector.align[i].x,
+		  sector.align[i].y,
+		  sector.map_scale[i].x,
+		  sector.map_scale[i].y);*/
 
 		// Use to save with default scale
 		ft_dprintf(fd, "[%d %f %f %f %f]",
-			sector.textures[i],
-			sector.align[i].x,
-			sector.align[i].y,
-			10.0,
-			10.0);
+				sector.textures[i],
+				sector.align[i].x,
+				sector.align[i].y,
+				10.0,
+				10.0);
 		i++;
 	}
 	ft_dprintf(fd, ") ");
@@ -87,11 +87,11 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 		while (j < sector.nb_sprites[i])
 		{
 			ft_dprintf(fd, "[%d %f %f %f %f]",
-				sector.sprites[i].sprite[j],
-				sector.sprites[i].pos[j].x,
-				sector.sprites[i].pos[j].y,
-				sector.sprites[i].scale[j].x,
-				sector.sprites[i].scale[j].y);
+					sector.sprites[i].sprite[j],
+					sector.sprites[i].pos[j].x,
+					sector.sprites[i].pos[j].y,
+					sector.sprites[i].scale[j].x,
+					sector.sprites[i].scale[j].y);
 			j++;
 		}
 		ft_dprintf(fd, "}");
@@ -100,28 +100,72 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
+static void	write_sector_floor_sprites(int fd, t_sector sector)
+{
+	int	i;
+
+	ft_dprintf(fd, "(");
+	i = 0;
+	while (i < sector.nb_floor_sprites)
+	{
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+				sector.floor_sprites.sprite[i],
+				sector.floor_sprites.pos[i].x,
+				sector.floor_sprites.pos[i].y,
+				sector.floor_sprites.scale[i].x,
+				sector.floor_sprites.scale[i].y);
+		i++;
+	}
+	ft_dprintf(fd, ") ");
+}
+
+static void	write_sector_ceiling_sprites(int fd, t_sector sector)
+{
+	int	i;
+
+	ft_dprintf(fd, "(");
+	i = 0;
+	while (i < sector.nb_ceiling_sprites)
+	{
+		ft_dprintf(fd, "[%d %f %f %f %f]",
+				sector.ceiling_sprites.sprite[i],
+				sector.ceiling_sprites.pos[i].x,
+				sector.ceiling_sprites.pos[i].y,
+				sector.ceiling_sprites.scale[i].x,
+				sector.ceiling_sprites.scale[i].y);
+		i++;
+	}
+	ft_dprintf(fd, ") ");
+}
+
 static void	write_interactions_related_data(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
-		(int)(sector.status),
-		(int)(sector.tp.x),
-		(int)(sector.tp.y),
-		sector.enemy_flag,
-		sector.activated,
-		sector.start_floor);
+			(int)(sector.status),
+			(int)(sector.tp.x),
+			(int)(sector.tp.y),
+			sector.enemy_flag,
+			sector.activated,
+			sector.start_floor);
 }
 static void	write_sector(int fd, t_sector sector)
 {
-	ft_dprintf(fd, "[%.5f %.5f %d] ",
-			sector.floor, sector.floor_slope, sector.floor_texture);
-	ft_dprintf(fd, "[%.5f %.5f %d] ",
-			sector.ceiling, sector.ceiling_slope, sector.ceiling_texture);
-		write_sector_vertices(fd, sector);
-		write_sector_neighbors(fd, sector);
-		write_sector_textures(fd, sector);
-		write_sector_wall_sprites(fd, sector);
-		ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
-		write_interactions_related_data(fd, sector);
+	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
+			sector.floor, sector.floor_slope, sector.floor_texture,
+			sector.floor_align.x, sector.floor_align.y,
+			sector.floor_map_scale.x, sector.floor_map_scale.y);
+	write_sector_floor_sprites(fd, sector);
+	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
+			sector.ceiling, sector.ceiling_slope, sector.ceiling_texture,
+			sector.ceiling_align.x, sector.ceiling_align.y,
+			sector.ceiling_map_scale.x, sector.ceiling_map_scale.y);
+	write_sector_ceiling_sprites(fd, sector);
+	write_sector_vertices(fd, sector);
+	write_sector_neighbors(fd, sector);
+	write_sector_textures(fd, sector);
+	write_sector_wall_sprites(fd, sector);
+	ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
+	write_interactions_related_data(fd, sector);
 }
 
 void		write_sectors(int fd, t_env *env)

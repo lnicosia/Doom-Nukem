@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 16:34:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:49:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,36 +121,6 @@ int	init_editor(int ac, char **av)
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
 			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
 			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
-		}
-		if (ft_strequ(av[1], "maps/exterieur.map"))
-		{
-			env.sectors[0].nb_floor_sprites = 2;
-			env.sectors[0].floor_sprites.sprite = (short*)malloc(sizeof(short) *
-			env.sectors[0].nb_floor_sprites);
-			env.sectors[0].floor_sprites.scale = (t_v2*)malloc(sizeof(t_v2) *
-			env.sectors[0].nb_floor_sprites);
-			env.sectors[0].floor_sprites.pos = (t_v2*)malloc(sizeof(t_v2) *
-			env.sectors[0].nb_floor_sprites);
-			env.sectors[0].floor_sprites.sprite[0] = 1;
-			env.sectors[0].floor_sprites.scale[0] = new_v2(10, 10);
-			env.sectors[0].floor_sprites.pos[0] = new_v2(5, 5);
-			env.sectors[0].floor_sprites.sprite[1] = 0;
-			env.sectors[0].floor_sprites.scale[1] = new_v2(5, 10);
-			env.sectors[0].floor_sprites.pos[1] = new_v2(0, 10);
-
-			env.sectors[0].nb_ceiling_sprites = 2;
-			env.sectors[0].ceiling_sprites.sprite = (short*)malloc(sizeof(short) *
-			env.sectors[0].nb_ceiling_sprites);
-			env.sectors[0].ceiling_sprites.scale = (t_v2*)malloc(sizeof(t_v2) *
-			env.sectors[0].nb_ceiling_sprites);
-			env.sectors[0].ceiling_sprites.pos = (t_v2*)malloc(sizeof(t_v2) *
-			env.sectors[0].nb_ceiling_sprites);
-			env.sectors[0].ceiling_sprites.sprite[0] = 1;
-			env.sectors[0].ceiling_sprites.scale[0] = new_v2(10, 10);
-			env.sectors[0].ceiling_sprites.pos[0] = new_v2(5, 5);
-			env.sectors[0].ceiling_sprites.sprite[1] = 0;
-			env.sectors[0].ceiling_sprites.scale[1] = new_v2(5, 10);
-			env.sectors[0].ceiling_sprites.pos[1] = new_v2(0, 10);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

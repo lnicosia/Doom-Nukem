@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:39:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:53:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-			alpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
-			- render.camera->head_y[render.sector]);
+			alpha = (wall_data.max_ceiling - i) / render.ceiling_height;
 			divider = 1 / (render.camera->near_z + alpha * render.zrange);
 			z = render.z_near_z * divider;
 		}
@@ -160,8 +159,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-			salpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
-			- render.camera->head_y[render.sector]);
+			salpha = (wall_data.max_ceiling - i) / render.ceiling_height;
 			divider = 1 / (render.camera->near_z + salpha * render.zrange);
 			z = render.z_near_z * divider;
 		}
@@ -261,8 +259,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		{
 			z = wall_data.ceiling_start
 				/ (double)(i - wall_data.ceiling_horizon) * wall_data.z;
-			salpha = (wall_data.max_ceiling - i) / (wall_data.max_ceiling
-			- render.camera->head_y[render.sector]);
+			salpha = (wall_data.max_ceiling - i) / render.ceiling_height;
 			divider = 1 / (render.camera->near_z + salpha * render.zrange);
 			z = render.z_near_z * divider;
 		}
