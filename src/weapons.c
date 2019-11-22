@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 16:37:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:28:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-		env->player.camera.angle_z);
+	//create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
+	//	new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+	//	env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)
@@ -104,7 +104,6 @@ void    weapon_animation(t_env *env, int nb)
 {
 	if (env->shot.start == 0)
 	{
-		shot(env);
 		env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
 		if (env->weapons[nb].ammo <= 0)
@@ -114,6 +113,7 @@ void    weapon_animation(t_env *env, int nb)
 		}
 		else
 		{
+			shot(env);
 			env->weapons[nb].no_ammo = 0;
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
 			env->weapons[nb].ammo--;
