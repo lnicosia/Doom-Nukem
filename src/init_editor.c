@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 14:25:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/22 12:06:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init skybox\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
-	//if (env.editor.new_player)
-	//{
-		env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
-		env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
+	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+	env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	return (editor(&env));
 }

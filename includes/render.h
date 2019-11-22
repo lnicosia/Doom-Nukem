@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 15:12:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:55:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct	s_render
 	double		ceiling_start;
 	double		ceiling_horizon;
 	double		line_height;
+	double		ceiling_height;
+	double		floor_height;
 	double		neighbor_max_ceiling;
 	double		neighbor_current_ceiling;
 	double		neighbor_max_floor;
@@ -139,6 +141,8 @@ typedef struct	s_skybox_data
 	double		z;
 	double		ceiling_start;
 	double		ceiling_horizon;
+	double		max_ceiling;
+	double		max_floor;
 	int		i;
 	int			mode;
 }				t_skybox_data;
@@ -194,14 +198,12 @@ typedef struct		s_enemy_thread
 }					t_enemy_thread;
 
 void			render_sector(t_render render, t_env *env);
-void			render_sector2(t_render render, t_env *env);
 void			draw_ceiling(t_sector sector, t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
 void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
-void			draw_wall2(t_sector sector, t_render render, t_env *env);
-void			draw_ceiling2(t_sector sector, t_render render, t_env *env);
-void			draw_floor2(t_sector sector, t_render render, t_env *env);
+void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_ceiling_sprites(t_sector sector, t_render render, t_env *env);
 void			draw_upper_wall(t_sector sector, t_render render, t_env *env);
 void			draw_bottom_wall(t_sector sector, t_render render,
 		t_env *env);

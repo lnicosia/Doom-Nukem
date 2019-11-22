@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 19:32:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:50:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
-		return (missing_data("floor align.y", parser));
+		return (missing_data("floor alin.y", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.y", "a digit or space(s)",
 					**line, parser));

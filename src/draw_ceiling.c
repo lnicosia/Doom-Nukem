@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 14:43:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/22 12:05:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = (render.max_ceiling - i) / (render.max_ceiling - render.camera->head_y[render.sector]);
+		alpha = (render.max_ceiling - i) / render.ceiling_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
 		if (env->options.show_minimap)

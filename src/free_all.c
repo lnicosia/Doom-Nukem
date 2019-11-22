@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:30:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:02:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,6 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->z);
 	if (env->z_near_z)
 		ft_memdel((void**)&env->z_near_z);
-	if (env->alpha)
-		ft_memdel((void**)&env->alpha);
 	if (env->clipped_alpha)
 		ft_memdel((void**)&env->clipped_alpha);
 	if (env->line_height)
@@ -282,8 +280,6 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->vertices);
 	if (env->objects)
 		ft_memdel((void**)&env->objects);
-	if (env->sprites)
-		ft_memdel((void**)&env->sprites);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
 	if (env->sound.background)

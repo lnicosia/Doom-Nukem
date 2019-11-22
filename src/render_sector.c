@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:21:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:58:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,22 @@ void		*wall_loop(void *param)
 			render.zrange = render.z - render.camera->near_z;
 		}
 		if (render.current_ceiling > env->ymin[x])
+		{
+			render.ceiling_height = render.max_ceiling
+			- render.camera->head_y[render.sector];
+			if (sector.nb_ceiling_sprites > 0)
+				draw_ceiling_sprites(sector, render, env);
 			draw_ceiling(sector, render, env);
+		}
 		if (render.current_floor < env->ymax[x])
+		{
+			render.floor_height = render.camera->feet_y[render.sector]
+			- render.max_floor;
+			if (sector.nb_floor_sprites > 0)
+				draw_floor_sprites(sector, render, env);
 			draw_floor(sector, render, env);
+		}
+		draw_wall_sprites(sector, render, env);
 		if (sector.neighbors[render.i] != -1)
 		{
 			render.neighbor_max_ceiling = render.clipped_alpha
@@ -83,9 +96,19 @@ void		*wall_loop(void *param)
 			render.neighbor_current_floor = ft_clamp(
 					render.neighbor_max_floor, env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
-				draw_upper_wall(sector, render, env);
+			{
+				if (sector.textures[render.i] == -1)
+					draw_skybox(render, 1, env);
+				else
+					draw_upper_wall(sector, render, env);
+			}
 			if (render.neighbor_current_floor < render.current_floor)
-				draw_bottom_wall(sector, render, env);
+			{
+				if (sector.textures[render.i] == -1)
+					draw_skybox(render, 1, env);
+				else
+					draw_bottom_wall(sector, render, env);
+			}
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
@@ -98,7 +121,6 @@ void		*wall_loop(void *param)
 			else
 				draw_wall(sector, render, env);
 		}
-		draw_wall_sprites(sector, render, env);
 		x++;
 	}
 	return (NULL);

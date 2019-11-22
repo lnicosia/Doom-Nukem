@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 10:18:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:19:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		editor_3d_keys(t_env *env)
 				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 1)
 				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
 			}
+			if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < 0)
+				env->contains_skybox = 1;
 			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
 			env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
 				return (-1);
@@ -179,6 +181,8 @@ int		editor_3d_keys(t_env *env)
 				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
 			}
+			if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
+				env->contains_skybox = 1;
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_ceiling].ceiling > env->sectors[env->selected_ceiling].floor + 1)
@@ -269,6 +273,8 @@ int		editor_3d_keys(t_env *env)
 				else if (env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_floor].floor_texture++;
 			}
+			if (env->sectors[env->selected_floor].floor_texture < 0)
+				env->contains_skybox = 1;
 		}
 		if (env->inputs.plus
 				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)

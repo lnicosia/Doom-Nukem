@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/04/25 13:25:06 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2019/11/20 12:13:53 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_pointers(t_env *env)
 	env->sectors = NULL;
 	env->vertices = NULL;
 	env->objects = NULL;
-	env->sprites = NULL;
 	env->sdl.window = NULL;
 	env->sdl.renderer = NULL;
 	env->sdl.texture = NULL;

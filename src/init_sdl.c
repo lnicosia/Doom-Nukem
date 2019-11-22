@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/30 12:23:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:02:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int		set_sdl(t_env *env)
 	if (!(env->max_floor = (double*)malloc(sizeof(double) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->z = (double*)malloc(sizeof(double) * env->w)))
-		return (ft_printf("Could not malloc depth array\n"));
-	if (!(env->alpha = (double*)malloc(sizeof(double) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));
 	if (!(env->clipped_alpha = (double*)malloc(sizeof(double) * env->w)))
 		return (ft_printf("Could not malloc depth array\n"));

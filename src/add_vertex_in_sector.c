@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 18:23:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/22 17:28:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,26 +130,50 @@ void	modify_textures(t_env *env, int index, int sector)
 	}
 }
 
+void	modify_double_tab_in_sector(t_env *env, int index, int sector, double **tab)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("\nmodifying a tab | but first print it\n");
+	while (i < env->sectors[sector].nb_vertices)
+	{
+		ft_printf("tab[%d]: %f\n", i, *tab[i]);
+		i++;
+	}
+	ft_printf("\nmodifying a tab\n");
+	if (!(*tab = (double *)ft_realloc(*tab, sizeof(double)
+	* env->sectors[sector].nb_vertices - 1, sizeof(double) * (env->sectors[sector].nb_vertices))))
+		return ;
+	i = env->sectors[sector].nb_vertices - 1;
+	while (i > index)
+	{
+		tab[i] = tab[i - 1];
+		i--;
+	}
+	tab[i] = tab[i + 1];
+	i = 0;
+	while (i < env->sectors[sector].nb_vertices)
+	{
+		ft_printf("tab[%d]: %f\n", i, *tab[i]);
+		i++;
+	}
+}
+
 void	modify_neighbors(t_env *env, int index, int sector)
 {
 	int	i;
 
 	if (!(env->sectors[sector].neighbors = (short *)ft_realloc(env->sectors[sector].neighbors, sizeof(short)
-	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
+	* env->sectors[sector].nb_vertices - 1, sizeof(short) * (env->sectors[sector].nb_vertices))))
 		return ;
-	i = 0;
-/*	while (i < env->sectors[sector].nb_vertices)
-	{
-		ft_printf("vertex: %d\n", env->sectors[sector].vertices[i]);
-		i++;
-	}*/
 	i = env->sectors[sector].nb_vertices - 1;
 	while (i > index)
 	{
 		env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i - 1];
 		i--;
 	}
-	env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i +1];
+	env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i + 1];
 }
 
 int     modify_sector(t_env *env, int sector)
@@ -165,8 +189,13 @@ int     modify_sector(t_env *env, int sector)
 		{
 			modify_vertices_in_sector(env, j, sector);
 			modify_textures(env, j, sector);
-		/*	modify_neighbors(env, j, sector);*/
-
+			modify_neighbors(env, j, sector);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].ceilings);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].clipped_floors1);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].clipped_floors2);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].clipped_ceilings1);
+			modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].clipped_ceilings2);
 			break;
 		}
         j++;
@@ -175,14 +204,21 @@ int     modify_sector(t_env *env, int sector)
 }
 
 void	modify_vertices(t_env *env)
-{	
+{
+	double min;
+	double max;
+
+	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ? env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
+	max = env->vertices[env->editor.add.v1].x > env->vertices[env->editor.add.v2].x ? env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
 	if (!(env->vertices = (t_vertex *)ft_realloc(env->vertices, sizeof(t_vertex)
 			* env->nb_vertices, sizeof(t_vertex) * (env->nb_vertices + 1))))
 		return ;
 	env->nb_vertices++;
 	env->vertices[env->nb_vertices -1].num = env->nb_vertices - 1;
-	env->vertices[env->nb_vertices -1].x =	;
-	env->vertices[env->nb_vertices -1].y = 	;
+	env->vertices[env->nb_vertices -1].x =	min + ((max - min) / 2);
+	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ? env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
+	max = env->vertices[env->editor.add.v1].x > env->vertices[env->editor.add.v2].x ? env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
+	env->vertices[env->nb_vertices -1].y = 	min + ((max - min) / 2);
 }
 
 int     add_vertex_in_sector(t_env *env)

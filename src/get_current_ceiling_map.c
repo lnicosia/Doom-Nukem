@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:50:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:12:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 		/ pow(2, texture.nb_maps - 1 - i);
 		i++;
 	}
-	sector->ceiling_align = new_v2(0, 0);
 	if (sector->ceiling_map_lvl)
 		free(sector->ceiling_map_lvl);
 	if (!(sector->ceiling_map_lvl = (double*)malloc(
 		sizeof(double) * texture.nb_maps)))
 		return (custom_error("Could not malloc a sector map_lvl array"));
-	//ft_printf("sector %d ceiling has %d maps\n", sector->num,	texture.nb_maps);
 	if (sector->ceiling_map_scale.x * env->w >
 			sector->ceiling_map_scale.y * env->h)
 	{
@@ -55,10 +53,6 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 	while (j < texture.nb_maps)
 	{
 		sector->ceiling_map_lvl[j] = size / (double)(pow(2, j) * divider);
-		//ft_printf("z = %f at map %d\n", sector->ceiling_map_lvl[j], (int)j);
-		/*ft_printf("map %d at z = %f\n", 
-		(int)ceil(log2(size / (double)(divider * sector->map_lvl[j]))),
-		sector->map_lvl[j]);*/
 		j++;
 	}
 	return (0);
@@ -68,7 +62,6 @@ int		get_current_ceiling_map(int texture, double z, t_render *render, t_env *env
 {
 	size_t		j;
 	double			res;
-	//int			res2;
 	t_texture	text;
 	t_sector	sector;
 
