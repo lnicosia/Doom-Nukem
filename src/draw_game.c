@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/22 12:29:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:19:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ int	draw_game(t_env *env)
 		update_screen(env);
 	if (env->player.health > 0)
 		view(env);
+	env->first_frame = 1;
 	return (0);
 }

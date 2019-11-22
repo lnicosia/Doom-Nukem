@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 18:53:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:38:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		init_enemies_data(t_env *env)
 		{
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
-			env->enemies[i].behavior = MELEE;
+			env->enemies[i].behavior = MELEE_KAMIKAZE;
 			env->enemies[i].size_2d = 0.75;
 			env->enemies[i].eyesight = 2;
 			env->enemies[i].nb_rest_state = 2;

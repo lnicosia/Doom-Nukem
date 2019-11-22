@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 18:53:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:52:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 	double  distance;
 
 	enemy_far_left_right(env, i);
+	env->enemies[i].saw_player = 0;
 	distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
 	env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player, distance);
 	if (distance <= 30)
@@ -427,7 +428,7 @@ void	enemy_ai(t_env *env)
 			env->enemies[i].last_player_pos.y = env->player.pos.y;
 			env->enemies[i].last_player_pos.z = env->player.head_z;
 		}
-		if (env->enemies[i].behavior == MELEE)
+		if (env->enemies[i].behavior == MELEE_KAMIKAZE || env->enemies[i].behavior == MELEE_FIGHTER)
 			melee_ai(env, env->enemies[i], distance, i);
 		else if (env->enemies[i].behavior == RANGED_AIMBOT
 			|| env->enemies[i].behavior == RANGED_PROJECTILE)
@@ -444,12 +445,14 @@ void		enemy_melee_hit(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && env->enemies[i].behavior == MELEE)
+			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
+			env->enemies[i].behavior == MELEE_FIGHTER))
 		{
 			env->player.hit = 1;
 			env->player.health -= env->enemies[i].damage;
 			if (env->player.health < 0)
 				env->player.health = 0;
+			if (env->enemies[i].behavior == MELEE_KAMIKAZE)
 			env->enemies[i].exists = 0;
 		}
 		i++;

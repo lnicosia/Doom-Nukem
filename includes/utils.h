@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:52:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:38:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define NB_SKYBOX 5
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
-# define AMMO_HUD 27
+# define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
 # define THREADS 4
 # define MAX_QUEUE 32
@@ -96,7 +96,8 @@ typedef enum		e_enemy_state
 
 typedef enum		e_enemy_behavior
 {
-	MELEE,
+	MELEE_FIGHTER,
+	MELEE_KAMIKAZE,
 	RANGED_AIMBOT,
 	RANGED_PROJECTILE
 }					t_enemy_behavior;
