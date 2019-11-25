@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/22 17:26:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/25 16:19:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 			sector->floors[i] = get_floor_at_pos(*sector,
 					new_v3(v1.x, v1.y, 0), env);
 		else
-			sector->floors[i] = sector->floor;
+			 sector->floors[i] = sector->floor;
 		if (sector->ceiling_slope != 0)
 			sector->ceilings[i] = get_ceiling_at_pos(*sector,
 					new_v3(v1.x, v1.y, 0), env);

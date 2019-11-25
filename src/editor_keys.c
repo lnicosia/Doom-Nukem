@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 14:35:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/25 16:08:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,16 @@ int			editor_keys(t_env *env)
 		if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
 			env->editor.select_vertex_on_going = 1;
 		if (env->editor.selected_vertex != -1)
+		{
 			add_vertex_in_sector(env);
+			int	j = 0;
+			ft_printf("\n");
+			while (j < env->sectors[0].nb_vertices + 1)
+			{
+				ft_printf("OUT vertices[%d]: %d\n", j, env->sectors[0].vertices[j]);
+				j++;
+			}
+		}
 	}
 
 	/*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/25 17:08:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void		reset_clipped(t_env *env)
 		{
 			env->sectors[i].clipped_floors1[j] = env->sectors[i].floors[j];
 			env->sectors[i].clipped_ceilings1[j] = env->sectors[i].ceilings[j];
-			env->sectors[i].clipped_floors2[j] = env->sectors[i].floors[j];
 			env->sectors[i].clipped_ceilings2[j] = env->sectors[i].ceilings[j];
+			env->sectors[i].clipped_floors2[j] = env->sectors[i].floors[j];
 			j++;
 		}
 		i++;
