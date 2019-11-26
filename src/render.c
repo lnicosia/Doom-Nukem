@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:58:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 18:39:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 		if (sector->neighbors[i] != -1
 				&& camera->v[sector->num][i].draw)
 			precompute_neighbors(i, camera, sector, env);
-		if (sector->textures[i] == -1
+		if (sector->textures[i] < 0
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}

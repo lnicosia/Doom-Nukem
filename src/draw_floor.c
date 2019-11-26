@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:13:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:35:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ void	draw_floor(t_sector sector, t_render render, t_env *env)
 	vline.x = render.x;
 	vline.start = ft_max(0, (int)(render.current_floor));
 	vline.end = env->ymax[vline.x];
-	draw_vline_floor(sector, vline, render, env);
+	if (sector.floor_texture < 0)
+		draw_skybox(render, FLOOR, env);
+	else
+		draw_vline_floor(sector, vline, render, env);
 }

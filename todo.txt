@@ -19,4 +19,4 @@ Ajouter des vertex/modifier secteur								|
 Pre affichage des sprites dans un dossier pour les selectionner	|
 Fix sprites pos + scale X										|
 Selection sprites mur/sol										| Done
-Modifier scale/pos sprites mur/sol								|
+Fix petite ligne bug quand sprite sur corniche					|

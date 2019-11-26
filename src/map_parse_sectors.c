@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:48:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 18:25:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before floor texture", "a digit or space(s)",
 					**line, parser));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].floor_texture < 0
+	if (env->sectors[parser->sectors_count].floor_texture < -MAX_SKYBOX
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
 	*line = skip_number(*line);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:54:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:42:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture > 8)
+					&& env->sectors[env->selected_ceiling].ceiling_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture--;
@@ -217,7 +217,7 @@ int		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE- 10)
+					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 10)
 					env->sectors[env->selected_ceiling].ceiling_texture += 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
@@ -302,9 +302,9 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_floor].floor_texture > 9)
+					&& env->sectors[env->selected_floor].floor_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture -= 10;
-				else if (env->sectors[env->selected_floor].floor_texture > 0)
+				else if (env->sectors[env->selected_floor].floor_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture--;
 			}
 			else if (env->inputs.up && env->editor.tab)

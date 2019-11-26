@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:53:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 18:53:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,37 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	v1 = env->skybox[skybox.i];
 	x = render.x;
 	vline.color = 0xFFFF0000;
-	if ((!wall_data.mode && env->selected_ceiling == render.sector)
-			|| (wall_data.mode && env->sectors[render.sector].selected[render.i]))
+	if ((wall_data.mode == CEILING && env->selected_ceiling == render.sector)
+			|| (wall_data.mode == FLOOR && env->selected_floor == render.sector)
+			|| ((wall_data.mode == WALL || wall_data.mode == UPPER_WALL
+			|| wall_data.mode == BOTTOM_WALL)
+			&& env->sectors[render.sector].selected[render.i]))
 		skybox.selected = 1;
-	if (!wall_data.mode)
+	if (wall_data.mode == CEILING)
 	{
-		max = render.current_ceiling;
 		min = env->ymin[x];
+		max = render.current_ceiling;
+		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture].surface->w / env->skybox[skybox.i + 1].vz;
+	}
+	else if (wall_data.mode == FLOOR)
+	{
+		min = render.current_floor;
+		max = env->ymax[x];
+	}
+	else if (wall_data.mode == WALL)
+	{
+		min = render.current_ceiling;
+		max = render.current_floor;
+	}
+	else if (wall_data.mode == BOTTOM_WALL)
+	{
+		min = render.neighbor_current_floor;
+		max = render.current_floor;
 	}
 	else
 	{
-		max = render.current_floor;
 		min = render.current_ceiling;
+		max = render.neighbor_current_ceiling;
 	}
 	skybox.alpha = (x - v1.x) / v1.xrange;
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
@@ -75,7 +94,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	}
 	if (skybox.current_floor < max)
 	{
-		vline.start = skybox.current_floor;
+		vline.start = ft_max(min, skybox.current_floor);
 		vline.end = max;
 		draw_skybox_floor(vline, wall_data, skybox, env);
 	}

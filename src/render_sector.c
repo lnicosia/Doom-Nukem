@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 16:58:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 18:23:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,15 @@ void		*wall_loop(void *param)
 					render.neighbor_max_floor, env->ymin[x], env->ymax[x]);
 			if (render.neighbor_current_ceiling > render.current_ceiling)
 			{
-				if (sector.textures[render.i] == -1)
-					draw_skybox(render, 1, env);
+				if (sector.textures[render.i] < 0)
+					draw_skybox(render, UPPER_WALL, env);
 				else
 					draw_upper_wall(sector, render, env);
 			}
 			if (render.neighbor_current_floor < render.current_floor)
 			{
-				if (sector.textures[render.i] == -1)
-					draw_skybox(render, 1, env);
+				if (sector.textures[render.i] < 0)
+					draw_skybox(render, BOTTOM_WALL, env);
 				else
 					draw_bottom_wall(sector, render, env);
 			}
@@ -117,7 +117,7 @@ void		*wall_loop(void *param)
 		else
 		{
 			if (sector.textures[render.i] < 0)
-				draw_skybox(render, 1, env);
+				draw_skybox(render, WALL, env);
 			else
 				draw_wall(sector, render, env);
 		}
