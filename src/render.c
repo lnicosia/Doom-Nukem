@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 14:35:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:40:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,10 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
 		else
 		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
+		camera->v[sector->num][i].texture_align[k].x = (sector->align[i].x
+			* env->wall_textures[sector->textures[i]].maps[k]->w) / 10.0;
+		camera->v[sector->num][i].texture_align[k].y = (sector->align[i].y
+			* env->wall_textures[sector->textures[i]].maps[k]->h) / 10.0;
 		k++;
 	}
 	j = 0;

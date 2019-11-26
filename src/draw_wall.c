@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/26 13:28:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:36:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	y = ft_fclamp(y, 0, render.texture_h);*/
 	x = render.alpha
 		* render.camera->v[render.sector][render.i]
-		.texture_scale[render.map_lvl].x * render.z - sector.align[render.i].x;
+		.texture_scale[render.map_lvl].x * render.z
+		- render.camera->v[render.sector][render.i]
+		.texture_align[render.map_lvl].x;
 	if (x != x)
 		return ;
 	while (x >= render.texture_w)

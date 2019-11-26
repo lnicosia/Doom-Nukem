@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:48:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:32:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	free_sectors(t_env *env)
 			while (j < env->sectors[i].nb_vertices)
 			{
 				if (env->sectors[i].walls_map_lvl[j])
-				ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
+					ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
 				j++;
 			}
 			ft_memdel((void**)&env->sectors[i].walls_map_lvl);
@@ -160,6 +160,8 @@ void		free_camera(t_camera *camera, t_env *env)
 						ft_memdel((void**)&camera->v[i][j].sprite_scale);
 					if (camera->v[i][j].texture_scale)
 						ft_memdel((void**)&camera->v[i][j].texture_scale);
+					if (camera->v[i][j].texture_align)
+						ft_memdel((void**)&camera->v[i][j].texture_align);
 					j++;
 				}
 				ft_memdel((void**)&camera->v[i]);

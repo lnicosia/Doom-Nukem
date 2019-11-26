@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 14:22:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:35:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,37 +93,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
-			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
-				return (-1);
-			if (set_camera_map_array(&env->player.camera,
-				env->editor.selected_sector, env->editor.selected_wall, env))
-				return (-1);
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
-			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
-				return (-1);
-			if (set_camera_map_array(&env->player.camera,
-				env->editor.selected_sector, env->editor.selected_wall, env))
-				return (-1);
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
 		}
 		if (env->inputs.equals)
 		{

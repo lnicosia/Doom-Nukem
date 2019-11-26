@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 19:32:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:24:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -525,7 +525,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
-		if (env->sectors[parser->sectors_count].textures[i] < 0)
+		/*if (env->sectors[parser->sectors_count].textures[i] < 0)
 		{
 			env->sectors[parser->sectors_count].align[i].x *= env->skyboxes[0].textures[0].surface->w;
 			env->sectors[parser->sectors_count].align[i].y *= env->skyboxes[0].textures[0].surface->h;
@@ -538,7 +538,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].align[i].y *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
 			env->sectors[parser->sectors_count].align[i].x /= 10;
 			env->sectors[parser->sectors_count].align[i].y /= 10;
-		}
+		}*/
 		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
 			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
 			env))

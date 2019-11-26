@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 09:10:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:34:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int		set_camera_map_array(t_camera *camera, int i, int j, t_env *env)
 		free(camera->v[i][j].texture_scale);
 	if (!(camera->v[i][j].texture_scale = (t_v2*)malloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
+	if (camera->v[i][j].texture_align)
+		free(camera->v[i][j].texture_align);
+	if (!(camera->v[i][j].texture_align = (t_v2*)malloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+		return (ft_perror("Could not malloc camera sprites scales"));
 	return (0);
 }
 
@@ -111,6 +115,7 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 			if (!(camera->v[i][j].sprite_scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[i].nb_sprites[j])))
 				return (ft_perror("Could not malloc camera sprites scales"));
 			camera->v[i][j].texture_scale = 0;
+			camera->v[i][j].texture_align = 0;
 			if (set_camera_map_array(camera, i, j, env))
 				return (-1);
 			j++;
