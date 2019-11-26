@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 13:45:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:29:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
 void				selected_information_on_enemy(t_env *env);
-void				selected_information_in_sector(t_env *env);
+int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
@@ -250,7 +250,7 @@ int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 void				hit_player(void *param);
-void				apply_texture(int texture, t_sector *sector, t_env *env);
+int					apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
 ** Main functions

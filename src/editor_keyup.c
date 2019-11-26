@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:58:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:28:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	editor_keyup(t_env *env)
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{
-				apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env);
+				if (apply_texture(env->editor.current_texture,
+				&env->sectors[env->editor.selected_sector], env))
+					return (-1);
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
