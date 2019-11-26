@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/22 14:52:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:48:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,5 +499,5 @@ int			enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 		}
 		i++;
 	}
-	return (enemy);;
+	return (enemy);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:25:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 15:17:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			init_object_sprites(t_env *env)
 }
 int			init_enemy_sprites(t_env *env)
 {
-	if (!(env->enemy_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 10)))
+	if (!(env->enemy_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 13)))
 		return (ft_printf("Could not malloc enemy_sprites\n"));
 
 	// Sprite oriente, lost soul
@@ -493,9 +493,9 @@ int			init_enemy_sprites(t_env *env)
 
 	// cyber_demon enemy_sprites
 	env->enemy_sprites[5].texture = 24;
-	env->enemy_sprites[5].death_counterpart = 9;
-	env->enemy_sprites[5].pursuit_sprite = 5;
-	env->enemy_sprites[5].firing_sprite = 7;
+	env->enemy_sprites[5].death_counterpart = 12;
+	env->enemy_sprites[5].pursuit_sprite = 6;
+	env->enemy_sprites[5].firing_sprite = 9;
 	env->enemy_sprites[5].rest_sprite = 6;
 	env->enemy_sprites[5].curr_sprite = 5;
 	env->enemy_sprites[5].oriented = 1;
@@ -565,300 +565,528 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[5].size[7].y = 107;
 	env->enemy_sprites[5].reversed[7] = 0;
 	
-	// cyber_demnon rest
+	// cyber_demon pursuit 2
+
 	env->enemy_sprites[6].texture = 24;
-	env->enemy_sprites[6].death_counterpart = 9;
-	env->enemy_sprites[6].pursuit_sprite = 6;
-	env->enemy_sprites[6].firing_sprite = 7;
-	env->enemy_sprites[6].rest_sprite = 5;
+	env->enemy_sprites[6].death_counterpart = 12;
+	env->enemy_sprites[6].pursuit_sprite = 7;
+	env->enemy_sprites[6].firing_sprite = 9;
+	env->enemy_sprites[6].rest_sprite = 7;
 	env->enemy_sprites[6].curr_sprite = 6;
 	env->enemy_sprites[6].oriented = 1;
 	env->enemy_sprites[6].nb_death_sprites = 8;
 
 	env->enemy_sprites[6].start[0].x = 44;
-	env->enemy_sprites[6].start[0].y = 608;
-	env->enemy_sprites[6].end[0].x = 129;
-	env->enemy_sprites[6].end[0].y = 717;
-	env->enemy_sprites[6].size[0].x = 86;
-	env->enemy_sprites[6].size[0].y = 110;
+	env->enemy_sprites[6].start[0].y = 176;
+	env->enemy_sprites[6].end[0].x = 128;
+	env->enemy_sprites[6].end[0].y = 284;
+	env->enemy_sprites[6].size[0].x = 85;
+	env->enemy_sprites[6].size[0].y = 109;
 	env->enemy_sprites[6].reversed[0] = 0;
 
-	env->enemy_sprites[6].start[1].x = 996;
-	env->enemy_sprites[6].start[1].y = 608;
-	env->enemy_sprites[6].end[1].x = 1110;
-	env->enemy_sprites[6].end[1].y = 717;
-	env->enemy_sprites[6].size[1].x = 115;
-	env->enemy_sprites[6].size[1].y = 110;
+	env->enemy_sprites[6].start[1].x = 873;
+	env->enemy_sprites[6].start[1].y = 176;
+	env->enemy_sprites[6].end[1].x = 955;
+	env->enemy_sprites[6].end[1].y = 284;
+	env->enemy_sprites[6].size[1].x = 83;
+	env->enemy_sprites[6].size[1].y = 109;
 	env->enemy_sprites[6].reversed[1] = 0;
 
-	env->enemy_sprites[6].start[2].x = 855;
-	env->enemy_sprites[6].start[2].y = 608;
-	env->enemy_sprites[6].end[2].x = 951;
-	env->enemy_sprites[6].end[2].y = 717;
-	env->enemy_sprites[6].size[2].x = 97;
-	env->enemy_sprites[6].size[2].y = 110;
+	env->enemy_sprites[6].start[2].x = 770;
+	env->enemy_sprites[6].start[2].y = 176;
+	env->enemy_sprites[6].end[2].x = 828;
+	env->enemy_sprites[6].end[2].y = 284;
+	env->enemy_sprites[6].size[2].x = 59;
+	env->enemy_sprites[6].size[2].y = 109;
 	env->enemy_sprites[6].reversed[2] = 0;
 
-	env->enemy_sprites[6].start[3].x = 729;
-	env->enemy_sprites[6].start[3].y = 608;
-	env->enemy_sprites[6].end[3].x = 810;
-	env->enemy_sprites[6].end[3].y = 717;
-	env->enemy_sprites[6].size[3].x = 82;
-	env->enemy_sprites[6].size[3].y = 110;
+	env->enemy_sprites[6].start[3].x = 651;
+	env->enemy_sprites[6].start[3].y = 176;
+	env->enemy_sprites[6].end[3].x = 725;
+	env->enemy_sprites[6].end[3].y = 283;
+	env->enemy_sprites[6].size[3].x = 75;
+	env->enemy_sprites[6].size[3].y = 108;
 	env->enemy_sprites[6].reversed[3] = 0;
 
-	env->enemy_sprites[6].start[4].x = 600;
-	env->enemy_sprites[6].start[4].y = 608;
-	env->enemy_sprites[6].end[4].x = 684;
-	env->enemy_sprites[6].end[4].y = 717;
-	env->enemy_sprites[6].size[4].x = 85;
-	env->enemy_sprites[6].size[4].y = 110;
+	env->enemy_sprites[6].start[4].x = 523;
+	env->enemy_sprites[6].start[4].y = 176;
+	env->enemy_sprites[6].end[4].x = 606;
+	env->enemy_sprites[6].end[4].y = 283;
+	env->enemy_sprites[6].size[4].x = 84;
+	env->enemy_sprites[6].size[4].y = 108;
 	env->enemy_sprites[6].reversed[4] = 0;
 
-	env->enemy_sprites[6].start[5].x = 451;
-	env->enemy_sprites[6].start[5].y = 608;
-	env->enemy_sprites[6].end[5].x = 555;
-	env->enemy_sprites[6].end[5].y = 716;
-	env->enemy_sprites[6].size[5].x = 106;
-	env->enemy_sprites[6].size[5].y = 109;
+	env->enemy_sprites[6].start[5].x = 394;
+	env->enemy_sprites[6].start[5].y = 176;
+	env->enemy_sprites[6].end[5].x = 478;
+	env->enemy_sprites[6].end[5].y = 285;
+	env->enemy_sprites[6].size[5].x = 85;
+	env->enemy_sprites[6].size[5].y = 110;
 	env->enemy_sprites[6].reversed[5] = 0;
 
-	env->enemy_sprites[6].start[6].x = 301;
-	env->enemy_sprites[6].start[6].y = 608;
-	env->enemy_sprites[6].end[6].x = 405;
-	env->enemy_sprites[6].end[6].y = 717;
-	env->enemy_sprites[6].size[6].x = 105;
-	env->enemy_sprites[6].size[6].y = 110;
+	env->enemy_sprites[6].start[6].x = 291;
+	env->enemy_sprites[6].start[6].y = 176;
+	env->enemy_sprites[6].end[6].x = 349;
+	env->enemy_sprites[6].end[6].y = 283;
+	env->enemy_sprites[6].size[6].x = 59;
+	env->enemy_sprites[6].size[6].y = 108;
 	env->enemy_sprites[6].reversed[6] = 0;
 
-	env->enemy_sprites[6].start[7].x = 174;
-	env->enemy_sprites[6].start[7].y = 608;
-	env->enemy_sprites[6].end[7].x = 256;
-	env->enemy_sprites[6].end[7].y = 717;
-	env->enemy_sprites[6].size[7].x = 83;
-	env->enemy_sprites[6].size[7].y = 110;
+	env->enemy_sprites[6].start[7].x = 173;
+	env->enemy_sprites[6].start[7].y = 176;
+	env->enemy_sprites[6].end[7].x = 246;
+	env->enemy_sprites[6].end[7].y = 283;
+	env->enemy_sprites[6].size[7].x = 74;
+	env->enemy_sprites[6].size[7].y = 108;
 	env->enemy_sprites[6].reversed[7] = 0;
 
-	//cyber_demon firing anim 1
+	//cyber demon pursuit 3
+
 	env->enemy_sprites[7].texture = 24;
-	env->enemy_sprites[7].death_counterpart = 9;
-	env->enemy_sprites[7].pursuit_sprite = 5;
-	env->enemy_sprites[7].firing_sprite = 8;
-	env->enemy_sprites[7].rest_sprite = 5;
+	env->enemy_sprites[7].death_counterpart = 12;
+	env->enemy_sprites[7].pursuit_sprite = 8;
+	env->enemy_sprites[7].firing_sprite = 9;
+	env->enemy_sprites[7].rest_sprite = 8;
 	env->enemy_sprites[7].curr_sprite = 7;
 	env->enemy_sprites[7].oriented = 1;
 	env->enemy_sprites[7].nb_death_sprites = 8;
 
 	env->enemy_sprites[7].start[0].x = 44;
-	env->enemy_sprites[7].start[0].y = 608;
-	env->enemy_sprites[7].end[0].x = 129;
-	env->enemy_sprites[7].end[0].y = 717;
-	env->enemy_sprites[7].size[0].x = 86;
+	env->enemy_sprites[7].start[0].y = 319;
+	env->enemy_sprites[7].end[0].x = 125;
+	env->enemy_sprites[7].end[0].y = 428;
+	env->enemy_sprites[7].size[0].x = 82;
 	env->enemy_sprites[7].size[0].y = 110;
 	env->enemy_sprites[7].reversed[0] = 0;
 
-	env->enemy_sprites[7].start[1].x = 174;
-	env->enemy_sprites[7].start[1].y = 608;
-	env->enemy_sprites[7].end[1].x = 256;
-	env->enemy_sprites[7].end[1].y = 717;
-	env->enemy_sprites[7].size[1].x = 83;
-	env->enemy_sprites[7].size[1].y = 110;
+	env->enemy_sprites[7].start[1].x = 926;
+	env->enemy_sprites[7].start[1].y = 319;
+	env->enemy_sprites[7].end[1].x = 1020;
+	env->enemy_sprites[7].end[1].y = 430;
+	env->enemy_sprites[7].size[1].x = 95;
+	env->enemy_sprites[7].size[1].y = 112;
 	env->enemy_sprites[7].reversed[1] = 0;
 
-	env->enemy_sprites[7].start[2].x = 301;
-	env->enemy_sprites[7].start[2].y = 608;
-	env->enemy_sprites[7].end[2].x = 405;
-	env->enemy_sprites[7].end[2].y = 717;
-	env->enemy_sprites[7].size[2].x = 105;
-	env->enemy_sprites[7].size[2].y = 110;
+	env->enemy_sprites[7].start[2].x = 806;
+	env->enemy_sprites[7].start[2].y = 319;
+	env->enemy_sprites[7].end[2].x = 881;
+	env->enemy_sprites[7].end[2].y = 429;
+	env->enemy_sprites[7].size[2].x = 76;
+	env->enemy_sprites[7].size[2].y = 111;
 	env->enemy_sprites[7].reversed[2] = 0;
 
-	env->enemy_sprites[7].start[3].x = 450;
-	env->enemy_sprites[7].start[3].y = 608;
-	env->enemy_sprites[7].end[3].x = 555;
-	env->enemy_sprites[7].end[3].y = 716;
-	env->enemy_sprites[7].size[3].x = 106;
-	env->enemy_sprites[7].size[3].y = 109;
+	env->enemy_sprites[7].start[3].x = 682;
+	env->enemy_sprites[7].start[3].y = 319;
+	env->enemy_sprites[7].end[3].x = 761;
+	env->enemy_sprites[7].end[3].y = 428;
+	env->enemy_sprites[7].size[3].x = 80;
+	env->enemy_sprites[7].size[3].y = 110;
 	env->enemy_sprites[7].reversed[3] = 0;
 
-	env->enemy_sprites[7].start[4].x = 600;
-	env->enemy_sprites[7].start[4].y = 608;
-	env->enemy_sprites[7].end[4].x = 684;
-	env->enemy_sprites[7].end[4].y = 717;
-	env->enemy_sprites[7].size[4].x = 85;
+	env->enemy_sprites[7].start[4].x = 555;
+	env->enemy_sprites[7].start[4].y = 319;
+	env->enemy_sprites[7].end[4].x = 637;
+	env->enemy_sprites[7].end[4].y = 428;
+	env->enemy_sprites[7].size[4].x = 83;
 	env->enemy_sprites[7].size[4].y = 110;
 	env->enemy_sprites[7].reversed[4] = 0;
 
-	env->enemy_sprites[7].start[5].x = 729;
-	env->enemy_sprites[7].start[5].y = 608;
-	env->enemy_sprites[7].end[5].x = 810;
-	env->enemy_sprites[7].end[5].y = 717;
-	env->enemy_sprites[7].size[5].x = 82;
-	env->enemy_sprites[7].size[5].y = 110;
+	env->enemy_sprites[7].start[5].x = 419;
+	env->enemy_sprites[7].start[5].y = 319;
+	env->enemy_sprites[7].end[5].x = 510;
+	env->enemy_sprites[7].end[5].y = 429;
+	env->enemy_sprites[7].size[5].x = 92;
+	env->enemy_sprites[7].size[5].y = 111;
 	env->enemy_sprites[7].reversed[5] = 0;
 
-	env->enemy_sprites[7].start[6].x = 855;
-	env->enemy_sprites[7].start[6].y = 608;
-	env->enemy_sprites[7].end[6].x = 951;
-	env->enemy_sprites[7].end[6].y = 717;
-	env->enemy_sprites[7].size[6].x = 97;
-	env->enemy_sprites[7].size[6].y = 110;
+	env->enemy_sprites[7].start[6].x = 295;
+	env->enemy_sprites[7].start[6].y = 319;
+	env->enemy_sprites[7].end[6].x = 374;
+	env->enemy_sprites[7].end[6].y = 425;
+	env->enemy_sprites[7].size[6].x = 80;
+	env->enemy_sprites[7].size[6].y = 107;
 	env->enemy_sprites[7].reversed[6] = 0;
 
-	env->enemy_sprites[7].start[7].x = 996;
-	env->enemy_sprites[7].start[7].y = 608;
-	env->enemy_sprites[7].end[7].x = 1110;
-	env->enemy_sprites[7].end[7].y = 717;
-	env->enemy_sprites[7].size[7].x = 115;
-	env->enemy_sprites[7].size[7].y = 110;
+	env->enemy_sprites[7].start[7].x = 170;
+	env->enemy_sprites[7].start[7].y = 319;
+	env->enemy_sprites[7].end[7].x = 250;
+	env->enemy_sprites[7].end[7].y = 427;
+	env->enemy_sprites[7].size[7].x = 81;
+	env->enemy_sprites[7].size[7].y = 109;
 	env->enemy_sprites[7].reversed[7] = 0;
 
-	//cyber_demon firing anim 2
+	//cyber demon pursuit 4
+
 	env->enemy_sprites[8].texture = 24;
-	env->enemy_sprites[8].death_counterpart = 9;
+	env->enemy_sprites[8].death_counterpart = 12;
 	env->enemy_sprites[8].pursuit_sprite = 5;
-	env->enemy_sprites[8].firing_sprite = 7;
+	env->enemy_sprites[8].firing_sprite = 9;
 	env->enemy_sprites[8].rest_sprite = 5;
 	env->enemy_sprites[8].curr_sprite = 8;
 	env->enemy_sprites[8].oriented = 1;
 	env->enemy_sprites[8].nb_death_sprites = 8;
 
 	env->enemy_sprites[8].start[0].x = 44;
-	env->enemy_sprites[8].start[0].y = 751;
-	env->enemy_sprites[8].end[0].x = 142;
-	env->enemy_sprites[8].end[0].y = 860;
-	env->enemy_sprites[8].size[0].x = 99;
-	env->enemy_sprites[8].size[0].y = 110;
+	env->enemy_sprites[8].start[0].y = 464;
+	env->enemy_sprites[8].end[0].x = 128;
+	env->enemy_sprites[8].end[0].y = 572;
+	env->enemy_sprites[8].size[0].x = 85;
+	env->enemy_sprites[8].size[0].y = 109;
 	env->enemy_sprites[8].reversed[0] = 0;
 
-	env->enemy_sprites[8].start[1].x = 187;
-	env->enemy_sprites[8].start[1].y = 751;
-	env->enemy_sprites[8].end[1].x = 280;
-	env->enemy_sprites[8].end[1].y = 860;
-	env->enemy_sprites[8].size[1].x = 94;
-	env->enemy_sprites[8].size[1].y = 110;
+	env->enemy_sprites[8].start[1].x = 873;
+	env->enemy_sprites[8].start[1].y = 464;
+	env->enemy_sprites[8].end[1].x = 955;
+	env->enemy_sprites[8].end[1].y = 574;
+	env->enemy_sprites[8].size[1].x = 83;
+	env->enemy_sprites[8].size[1].y = 111;
 	env->enemy_sprites[8].reversed[1] = 0;
 
-	env->enemy_sprites[8].start[2].x = 325;
-	env->enemy_sprites[8].start[2].y = 751;
-	env->enemy_sprites[8].end[2].x = 445;
-	env->enemy_sprites[8].end[2].y = 860;
-	env->enemy_sprites[8].size[2].x = 121;
-	env->enemy_sprites[8].size[2].y = 110;
+	env->enemy_sprites[8].start[2].x = 770;
+	env->enemy_sprites[8].start[2].y = 464;
+	env->enemy_sprites[8].end[2].x = 828;
+	env->enemy_sprites[8].end[2].y = 574;
+	env->enemy_sprites[8].size[2].x = 59;
+	env->enemy_sprites[8].size[2].y = 111;
 	env->enemy_sprites[8].reversed[2] = 0;
 
-	env->enemy_sprites[8].start[3].x = 490;
-	env->enemy_sprites[8].start[3].y = 751;
-	env->enemy_sprites[8].end[3].x = 608;
-	env->enemy_sprites[8].end[3].y = 859;
-	env->enemy_sprites[8].size[3].x = 119;
-	env->enemy_sprites[8].size[3].y = 109;
+	env->enemy_sprites[8].start[3].x = 651;
+	env->enemy_sprites[8].start[3].y = 464;
+	env->enemy_sprites[8].end[3].x = 725;
+	env->enemy_sprites[8].end[3].y = 573;
+	env->enemy_sprites[8].size[3].x = 75;
+	env->enemy_sprites[8].size[3].y = 110;
 	env->enemy_sprites[8].reversed[3] = 0;
 
-	env->enemy_sprites[8].start[4].x = 653;
-	env->enemy_sprites[8].start[4].y = 751;
-	env->enemy_sprites[8].end[4].x = 741;
-	env->enemy_sprites[8].end[4].y = 860;
-	env->enemy_sprites[8].size[4].x = 89;
-	env->enemy_sprites[8].size[4].y = 110;
+	env->enemy_sprites[8].start[4].x = 523;
+	env->enemy_sprites[8].start[4].y = 464;
+	env->enemy_sprites[8].end[4].x = 606;
+	env->enemy_sprites[8].end[4].y = 572;
+	env->enemy_sprites[8].size[4].x = 84;
+	env->enemy_sprites[8].size[4].y = 109;
 	env->enemy_sprites[8].reversed[4] = 0;
 
-	env->enemy_sprites[8].start[5].x = 786;
-	env->enemy_sprites[8].start[5].y = 751;
-	env->enemy_sprites[8].end[5].x = 878;
-	env->enemy_sprites[8].end[5].y = 860;
-	env->enemy_sprites[8].size[5].x = 93;
+	env->enemy_sprites[8].start[5].x = 394;
+	env->enemy_sprites[8].start[5].y = 464;
+	env->enemy_sprites[8].end[5].x = 478;
+	env->enemy_sprites[8].end[5].y = 573;
+	env->enemy_sprites[8].size[5].x = 85;
 	env->enemy_sprites[8].size[5].y = 110;
 	env->enemy_sprites[8].reversed[5] = 0;
 
-	env->enemy_sprites[8].start[6].x = 923;
-	env->enemy_sprites[8].start[6].y = 751;
-	env->enemy_sprites[8].end[6].x = 1036;
-	env->enemy_sprites[8].end[6].y = 860;
-	env->enemy_sprites[8].size[6].x = 114;
-	env->enemy_sprites[8].size[6].y = 110;
+	env->enemy_sprites[8].start[6].x = 291;
+	env->enemy_sprites[8].start[6].y = 464;
+	env->enemy_sprites[8].end[6].x = 349;
+	env->enemy_sprites[8].end[6].y = 571;
+	env->enemy_sprites[8].size[6].x = 59;
+	env->enemy_sprites[8].size[6].y = 108;
 	env->enemy_sprites[8].reversed[6] = 0;
 
-	env->enemy_sprites[8].start[7].x = 1081;
-	env->enemy_sprites[8].start[7].y = 751;
-	env->enemy_sprites[8].end[7].x = 1210;
-	env->enemy_sprites[8].end[7].y = 860;
-	env->enemy_sprites[8].size[7].x = 130;
-	env->enemy_sprites[8].size[7].y = 110;
+	env->enemy_sprites[8].start[7].x = 173;
+	env->enemy_sprites[8].start[7].y = 464;
+	env->enemy_sprites[8].end[7].x = 246;
+	env->enemy_sprites[8].end[7].y = 571;
+	env->enemy_sprites[8].size[7].x = 74;
+	env->enemy_sprites[8].size[7].y = 108;
 	env->enemy_sprites[8].reversed[7] = 0;
 
-	// death cyber_demon
+	//cyber_demon firing anim 1
+
 	env->enemy_sprites[9].texture = 24;
-	env->enemy_sprites[9].death_counterpart = 9;
+	env->enemy_sprites[9].death_counterpart = 12;
 	env->enemy_sprites[9].pursuit_sprite = 5;
-	env->enemy_sprites[9].firing_sprite = 7;
+	env->enemy_sprites[9].firing_sprite = 10;
 	env->enemy_sprites[9].rest_sprite = 5;
 	env->enemy_sprites[9].curr_sprite = 9;
-	env->enemy_sprites[9].oriented = 0;
+	env->enemy_sprites[9].oriented = 1;
 	env->enemy_sprites[9].nb_death_sprites = 8;
 
 	env->enemy_sprites[9].start[0].x = 44;
-	env->enemy_sprites[9].start[0].y = 1038;
-	env->enemy_sprites[9].end[0].x = 165;
-	env->enemy_sprites[9].end[0].y = 1148;
-	env->enemy_sprites[9].size[0].x = 122;
-	env->enemy_sprites[9].size[0].y = 111;
+	env->enemy_sprites[9].start[0].y = 608;
+	env->enemy_sprites[9].end[0].x = 129;
+	env->enemy_sprites[9].end[0].y = 717;
+	env->enemy_sprites[9].size[0].x = 86;
+	env->enemy_sprites[9].size[0].y = 110;
 	env->enemy_sprites[9].reversed[0] = 0;
 
-	env->enemy_sprites[9].start[1].x = 210;
-	env->enemy_sprites[9].start[1].y = 1038;
-	env->enemy_sprites[9].end[1].x = 320;
-	env->enemy_sprites[9].end[1].y = 1150;
-	env->enemy_sprites[9].size[1].x = 111;
-	env->enemy_sprites[9].size[1].y = 113;
+	env->enemy_sprites[9].start[1].x = 174;
+	env->enemy_sprites[9].start[1].y = 608;
+	env->enemy_sprites[9].end[1].x = 256;
+	env->enemy_sprites[9].end[1].y = 717;
+	env->enemy_sprites[9].size[1].x = 83;
+	env->enemy_sprites[9].size[1].y = 110;
 	env->enemy_sprites[9].reversed[1] = 0;
 
-	env->enemy_sprites[9].start[2].x = 365;
-	env->enemy_sprites[9].start[2].y = 1038;
-	env->enemy_sprites[9].end[2].x = 464;
-	env->enemy_sprites[9].end[2].y = 1153;
-	env->enemy_sprites[9].size[2].x = 100;
-	env->enemy_sprites[9].size[2].y = 116;
+	env->enemy_sprites[9].start[2].x = 301;
+	env->enemy_sprites[9].start[2].y = 608;
+	env->enemy_sprites[9].end[2].x = 405;
+	env->enemy_sprites[9].end[2].y = 717;
+	env->enemy_sprites[9].size[2].x = 105;
+	env->enemy_sprites[9].size[2].y = 110;
 	env->enemy_sprites[9].reversed[2] = 0;
 
-	env->enemy_sprites[9].start[3].x = 509;
-	env->enemy_sprites[9].start[3].y = 1038;
-	env->enemy_sprites[9].end[3].x = 621;
-	env->enemy_sprites[9].end[3].y = 1154;
-	env->enemy_sprites[9].size[3].x = 113;
-	env->enemy_sprites[9].size[3].y = 117;
+	env->enemy_sprites[9].start[3].x = 450;
+	env->enemy_sprites[9].start[3].y = 608;
+	env->enemy_sprites[9].end[3].x = 555;
+	env->enemy_sprites[9].end[3].y = 716;
+	env->enemy_sprites[9].size[3].x = 106;
+	env->enemy_sprites[9].size[3].y = 109;
 	env->enemy_sprites[9].reversed[3] = 0;
 
-	env->enemy_sprites[9].start[4].x = 666;
-	env->enemy_sprites[9].start[4].y = 1038;
-	env->enemy_sprites[9].end[4].x = 790;
-	env->enemy_sprites[9].end[4].y = 1161;
-	env->enemy_sprites[9].size[4].x = 125;
-	env->enemy_sprites[9].size[4].y = 124;
+	env->enemy_sprites[9].start[4].x = 600;
+	env->enemy_sprites[9].start[4].y = 608;
+	env->enemy_sprites[9].end[4].x = 684;
+	env->enemy_sprites[9].end[4].y = 717;
+	env->enemy_sprites[9].size[4].x = 85;
+	env->enemy_sprites[9].size[4].y = 110;
 	env->enemy_sprites[9].reversed[4] = 0;
 
-	env->enemy_sprites[9].start[5].x = 836;
-	env->enemy_sprites[9].start[5].y = 1038;
-	env->enemy_sprites[9].end[5].x = 970;
-	env->enemy_sprites[9].end[5].y = 1168;
-	env->enemy_sprites[9].size[5].x = 136;
-	env->enemy_sprites[9].size[5].y = 131;
+	env->enemy_sprites[9].start[5].x = 729;
+	env->enemy_sprites[9].start[5].y = 608;
+	env->enemy_sprites[9].end[5].x = 810;
+	env->enemy_sprites[9].end[5].y = 717;
+	env->enemy_sprites[9].size[5].x = 82;
+	env->enemy_sprites[9].size[5].y = 110;
 	env->enemy_sprites[9].reversed[5] = 0;
 
-	env->enemy_sprites[9].start[6].x = 1015;
-	env->enemy_sprites[9].start[6].y = 1038;
-	env->enemy_sprites[9].end[6].x = 1155;
-	env->enemy_sprites[9].end[6].y = 1171;
-	env->enemy_sprites[9].size[6].x = 141;
-	env->enemy_sprites[9].size[6].y = 134;
+	env->enemy_sprites[9].start[6].x = 855;
+	env->enemy_sprites[9].start[6].y = 608;
+	env->enemy_sprites[9].end[6].x = 951;
+	env->enemy_sprites[9].end[6].y = 717;
+	env->enemy_sprites[9].size[6].x = 97;
+	env->enemy_sprites[9].size[6].y = 110;
 	env->enemy_sprites[9].reversed[6] = 0;
 
-	env->enemy_sprites[9].start[7].x = 1200;
-	env->enemy_sprites[9].start[7].y = 1038;
-	env->enemy_sprites[9].end[7].x = 1338;
-	env->enemy_sprites[9].end[7].y = 1171;
-	env->enemy_sprites[9].size[7].x = 139;
-	env->enemy_sprites[9].size[7].y = 134;
+	env->enemy_sprites[9].start[7].x = 996;
+	env->enemy_sprites[9].start[7].y = 608;
+	env->enemy_sprites[9].end[7].x = 1110;
+	env->enemy_sprites[9].end[7].y = 717;
+	env->enemy_sprites[9].size[7].x = 115;
+	env->enemy_sprites[9].size[7].y = 110;
 	env->enemy_sprites[9].reversed[7] = 0;
+
+	//cyber_demon firing anim 2
+
+	env->enemy_sprites[10].texture = 24;
+	env->enemy_sprites[10].death_counterpart = 12;
+	env->enemy_sprites[10].pursuit_sprite = 5;
+	env->enemy_sprites[10].firing_sprite = 11;
+	env->enemy_sprites[10].rest_sprite = 5;
+	env->enemy_sprites[10].curr_sprite = 10;
+	env->enemy_sprites[10].oriented = 1;
+	env->enemy_sprites[10].nb_death_sprites = 8;
+
+	env->enemy_sprites[10].start[0].x = 44;
+	env->enemy_sprites[10].start[0].y = 751;
+	env->enemy_sprites[10].end[0].x = 142;
+	env->enemy_sprites[10].end[0].y = 860;
+	env->enemy_sprites[10].size[0].x = 99;
+	env->enemy_sprites[10].size[0].y = 110;
+	env->enemy_sprites[10].reversed[0] = 0;
+
+	env->enemy_sprites[10].start[1].x = 187;
+	env->enemy_sprites[10].start[1].y = 751;
+	env->enemy_sprites[10].end[1].x = 280;
+	env->enemy_sprites[10].end[1].y = 860;
+	env->enemy_sprites[10].size[1].x = 94;
+	env->enemy_sprites[10].size[1].y = 110;
+	env->enemy_sprites[10].reversed[1] = 0;
+
+	env->enemy_sprites[10].start[2].x = 325;
+	env->enemy_sprites[10].start[2].y = 751;
+	env->enemy_sprites[10].end[2].x = 445;
+	env->enemy_sprites[10].end[2].y = 860;
+	env->enemy_sprites[10].size[2].x = 121;
+	env->enemy_sprites[10].size[2].y = 110;
+	env->enemy_sprites[10].reversed[2] = 0;
+
+	env->enemy_sprites[10].start[3].x = 490;
+	env->enemy_sprites[10].start[3].y = 751;
+	env->enemy_sprites[10].end[3].x = 608;
+	env->enemy_sprites[10].end[3].y = 859;
+	env->enemy_sprites[10].size[3].x = 119;
+	env->enemy_sprites[10].size[3].y = 109;
+	env->enemy_sprites[10].reversed[3] = 0;
+
+	env->enemy_sprites[10].start[4].x = 653;
+	env->enemy_sprites[10].start[4].y = 751;
+	env->enemy_sprites[10].end[4].x = 741;
+	env->enemy_sprites[10].end[4].y = 860;
+	env->enemy_sprites[10].size[4].x = 89;
+	env->enemy_sprites[10].size[4].y = 110;
+	env->enemy_sprites[10].reversed[4] = 0;
+
+	env->enemy_sprites[10].start[5].x = 786;
+	env->enemy_sprites[10].start[5].y = 751;
+	env->enemy_sprites[10].end[5].x = 878;
+	env->enemy_sprites[10].end[5].y = 860;
+	env->enemy_sprites[10].size[5].x = 93;
+	env->enemy_sprites[10].size[5].y = 110;
+	env->enemy_sprites[10].reversed[5] = 0;
+
+	env->enemy_sprites[10].start[6].x = 923;
+	env->enemy_sprites[10].start[6].y = 751;
+	env->enemy_sprites[10].end[6].x = 1036;
+	env->enemy_sprites[10].end[6].y = 860;
+	env->enemy_sprites[10].size[6].x = 114;
+	env->enemy_sprites[10].size[6].y = 110;
+	env->enemy_sprites[10].reversed[6] = 0;
+
+	env->enemy_sprites[10].start[7].x = 1081;
+	env->enemy_sprites[10].start[7].y = 751;
+	env->enemy_sprites[10].end[7].x = 1210;
+	env->enemy_sprites[10].end[7].y = 860;
+	env->enemy_sprites[10].size[7].x = 130;
+	env->enemy_sprites[10].size[7].y = 110;
+	env->enemy_sprites[10].reversed[7] = 0;
+
+//FIRING ANIM 3
+
+	env->enemy_sprites[11].texture = 24;
+	env->enemy_sprites[11].death_counterpart = 12;
+	env->enemy_sprites[11].pursuit_sprite = 5;
+	env->enemy_sprites[11].firing_sprite = 9;
+	env->enemy_sprites[11].rest_sprite = 5;
+	env->enemy_sprites[11].curr_sprite = 11;
+	env->enemy_sprites[11].oriented = 1;
+	env->enemy_sprites[11].nb_death_sprites = 8;
+
+	env->enemy_sprites[11].start[0].x = 44;
+	env->enemy_sprites[11].start[0].y = 894;
+	env->enemy_sprites[11].end[0].x = 166;
+	env->enemy_sprites[11].end[0].y = 1003;
+	env->enemy_sprites[11].size[0].x = 123;
+	env->enemy_sprites[11].size[0].y = 110;
+	env->enemy_sprites[11].reversed[0] = 0;
+
+	env->enemy_sprites[11].start[1].x = 211;
+	env->enemy_sprites[11].start[1].y = 894;
+	env->enemy_sprites[11].end[1].x = 301;
+	env->enemy_sprites[11].end[1].y = 1004;
+	env->enemy_sprites[11].size[1].x = 91;
+	env->enemy_sprites[11].size[1].y = 111;
+	env->enemy_sprites[11].reversed[1] = 0;
+
+	env->enemy_sprites[11].start[2].x = 346;
+	env->enemy_sprites[11].start[2].y = 894;
+	env->enemy_sprites[11].end[2].x = 439;
+	env->enemy_sprites[11].end[2].y = 1003;
+	env->enemy_sprites[11].size[2].x = 94;
+	env->enemy_sprites[11].size[2].y = 110;
+	env->enemy_sprites[11].reversed[2] = 0;
+
+	env->enemy_sprites[11].start[3].x = 484;
+	env->enemy_sprites[11].start[3].y = 894;
+	env->enemy_sprites[11].end[3].x = 601;
+	env->enemy_sprites[11].end[3].y = 1003;
+	env->enemy_sprites[11].size[3].x = 118;
+	env->enemy_sprites[11].size[3].y = 110;
+	env->enemy_sprites[11].reversed[3] = 0;
+
+	env->enemy_sprites[11].start[4].x = 646;
+	env->enemy_sprites[11].start[4].y = 894;
+	env->enemy_sprites[11].end[4].x = 747;
+	env->enemy_sprites[11].end[4].y = 1002;
+	env->enemy_sprites[11].size[4].x = 102;
+	env->enemy_sprites[11].size[4].y = 109;
+	env->enemy_sprites[11].reversed[4] = 0;
+
+	env->enemy_sprites[11].start[5].x = 792;
+	env->enemy_sprites[11].start[5].y = 894;
+	env->enemy_sprites[11].end[5].x = 882;
+	env->enemy_sprites[11].end[5].y = 1003;
+	env->enemy_sprites[11].size[5].x = 91;
+	env->enemy_sprites[11].size[5].y = 110;
+	env->enemy_sprites[11].reversed[5] = 0;
+
+	env->enemy_sprites[11].start[6].x = 927;
+	env->enemy_sprites[11].start[6].y = 894;
+	env->enemy_sprites[11].end[6].x = 1001;
+	env->enemy_sprites[11].end[6].y = 1003;
+	env->enemy_sprites[11].size[6].x = 75;
+	env->enemy_sprites[11].size[6].y = 110;
+	env->enemy_sprites[11].reversed[6] = 0;
+
+	env->enemy_sprites[11].start[7].x = 1046;
+	env->enemy_sprites[11].start[7].y = 894;
+	env->enemy_sprites[11].end[7].x = 1152;
+	env->enemy_sprites[11].end[7].y = 1002;
+	env->enemy_sprites[11].size[7].x = 107;
+	env->enemy_sprites[11].size[7].y = 109;
+	env->enemy_sprites[11].reversed[7] = 0;
+
+	// death cyber_demon
+	env->enemy_sprites[12].texture = 24;
+	env->enemy_sprites[12].death_counterpart = 12;
+	env->enemy_sprites[12].pursuit_sprite = 12;
+	env->enemy_sprites[12].firing_sprite = 12;
+	env->enemy_sprites[12].rest_sprite = 12;
+	env->enemy_sprites[12].curr_sprite = 12;
+	env->enemy_sprites[12].oriented = 0;
+	env->enemy_sprites[12].nb_death_sprites = 8;
+
+	env->enemy_sprites[12].start[0].x = 44;
+	env->enemy_sprites[12].start[0].y = 1038;
+	env->enemy_sprites[12].end[0].x = 165;
+	env->enemy_sprites[12].end[0].y = 1148;
+	env->enemy_sprites[12].size[0].x = 122;
+	env->enemy_sprites[12].size[0].y = 111;
+	env->enemy_sprites[12].reversed[0] = 0;
+
+	env->enemy_sprites[12].start[1].x = 210;
+	env->enemy_sprites[12].start[1].y = 1038;
+	env->enemy_sprites[12].end[1].x = 320;
+	env->enemy_sprites[12].end[1].y = 1150;
+	env->enemy_sprites[12].size[1].x = 111;
+	env->enemy_sprites[12].size[1].y = 113;
+	env->enemy_sprites[12].reversed[1] = 0;
+
+	env->enemy_sprites[12].start[2].x = 365;
+	env->enemy_sprites[12].start[2].y = 1038;
+	env->enemy_sprites[12].end[2].x = 464;
+	env->enemy_sprites[12].end[2].y = 1153;
+	env->enemy_sprites[12].size[2].x = 100;
+	env->enemy_sprites[12].size[2].y = 116;
+	env->enemy_sprites[12].reversed[2] = 0;
+
+	env->enemy_sprites[12].start[3].x = 509;
+	env->enemy_sprites[12].start[3].y = 1038;
+	env->enemy_sprites[12].end[3].x = 621;
+	env->enemy_sprites[12].end[3].y = 1154;
+	env->enemy_sprites[12].size[3].x = 113;
+	env->enemy_sprites[12].size[3].y = 117;
+	env->enemy_sprites[12].reversed[3] = 0;
+
+	env->enemy_sprites[12].start[4].x = 666;
+	env->enemy_sprites[12].start[4].y = 1038;
+	env->enemy_sprites[12].end[4].x = 790;
+	env->enemy_sprites[12].end[4].y = 1161;
+	env->enemy_sprites[12].size[4].x = 125;
+	env->enemy_sprites[12].size[4].y = 124;
+	env->enemy_sprites[12].reversed[4] = 0;
+
+	env->enemy_sprites[12].start[5].x = 836;
+	env->enemy_sprites[12].start[5].y = 1038;
+	env->enemy_sprites[12].end[5].x = 970;
+	env->enemy_sprites[12].end[5].y = 1168;
+	env->enemy_sprites[12].size[5].x = 136;
+	env->enemy_sprites[12].size[5].y = 131;
+	env->enemy_sprites[12].reversed[5] = 0;
+
+	env->enemy_sprites[12].start[6].x = 1015;
+	env->enemy_sprites[12].start[6].y = 1038;
+	env->enemy_sprites[12].end[6].x = 1155;
+	env->enemy_sprites[12].end[6].y = 1171;
+	env->enemy_sprites[12].size[6].x = 141;
+	env->enemy_sprites[12].size[6].y = 134;
+	env->enemy_sprites[12].reversed[6] = 0;
+
+	env->enemy_sprites[12].start[7].x = 1200;
+	env->enemy_sprites[12].start[7].y = 1038;
+	env->enemy_sprites[12].end[7].x = 1338;
+	env->enemy_sprites[12].end[7].y = 1171;
+	env->enemy_sprites[12].size[7].x = 139;
+	env->enemy_sprites[12].size[7].y = 134;
+	env->enemy_sprites[12].reversed[7] = 0;
 	return (0);
 }
