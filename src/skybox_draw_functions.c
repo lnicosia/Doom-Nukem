@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/22 12:06:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:36:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,12 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	zbuffer = env->zbuffer;
 	if (!wall_data.mode)
 	{
-		ft_printf("from ceiling\n");
 		texture_w = env->skyboxes[0].textures[1].surface->w;
 		texture_h = env->skyboxes[0].textures[1].surface->h;
 		texture_pixels = env->skyboxes[0].textures[1].str;
 	}
 	if (wall_data.mode)
 	{
-		ft_printf("from wall\n");
 		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w;
 		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h;
 		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].str;

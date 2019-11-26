@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/22 12:06:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:17:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	init_editor_data(t_env *env)
 	env->editor.select_vertex_on_going = 0;
 	env->editor.add.v1 = -1;
 	env->editor.add.v2 = -1;
+	env->editor.existing_vertex = 0;
+	env->editor.divide_sector = 0;
+	env->editor.split.sector = -1;
 }
 
 /*

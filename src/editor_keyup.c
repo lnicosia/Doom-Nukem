@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 14:40:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:29:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,47 @@ int	editor_keyup(t_env *env)
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
 			if (env->editor.start_vertex == -1) //Nouveau secteur
-			{
 				env->editor.start_vertex = env->nb_vertices - 1;
-			}
 		}
 		else if (clicked_vertex >= 0)
 		{
-			if (env->editor.start_vertex == -1)
+			/*if (!env->editor.existing_vertex)
+				env->editor.existing_vertex = 1;
+			else 
 			{
-				env->editor.start_vertex = clicked_vertex;
-				add_vertex_to_current_sector(env, clicked_vertex);
-			}
-			else
-			{
-				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
-						&& ft_lstlen(env->editor.current_vertices) > 2
-						&& is_new_vertex_valid(env, clicked_vertex))
-				{
-					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
-					env->editor.start_vertex = -1;
-					if (add_sector(env))
-						return (ft_printf("Error while creating new sector\n"));
-					free_current_vertices(env);
-					//get_new_floor_and_ceiling(env);
-					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
+				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 2)
+				{	
+					if (check_pos_vertices(env))
+						env->editor.divide_sector = 1;
 				}
-				else if (is_new_vertex_valid(env, clicked_vertex))
-					add_vertex_to_current_sector(env, clicked_vertex);
 			}
+			if (env->editor.divide_sector)
+				split_sector(env);
+			else
+			{*/
+				if (env->editor.start_vertex == -1)
+				{
+					env->editor.start_vertex = clicked_vertex;
+					add_vertex_to_current_sector(env, clicked_vertex);
+				}
+				else
+				{
+					if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
+							&& ft_lstlen(env->editor.current_vertices) > 2
+							&& is_new_vertex_valid(env, clicked_vertex))
+					{
+						env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
+						env->editor.start_vertex = -1;
+						if (add_sector(env))
+							return (ft_printf("Error while creating new sector\n"));
+						free_current_vertices(env);
+						//get_new_floor_and_ceiling(env);
+						//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
+					}
+					else if (is_new_vertex_valid(env, clicked_vertex))
+						add_vertex_to_current_sector(env, clicked_vertex);
+				}
+			//}
 		}
 		env->inputs.space = 0;
 	}

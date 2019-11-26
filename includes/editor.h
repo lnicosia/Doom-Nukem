@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 14:22:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:23:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,20 @@ typedef struct  s_add_vertex
     int v2;
 }               t_add_vertex;
 
+typedef	struct	s_split
+{
+	int	v1;
+	int	v2;
+	int	sector;
+
+}				t_split;
+
 typedef struct	s_editor
 {
 	t_v2			start_pos;
+	int				existing_vertex;
+	int				divide_sector;
+	int				split_sector;
 	int				selected_sector;
 	int				selected_object;
 	int				selected_player;
@@ -70,6 +81,7 @@ typedef struct	s_editor
 	int				game;
 	int				enter_locked;
 	t_add_vertex	add;
+	t_split			split;
 	int				select_vertex_on_going;
 }				t_editor;
 
