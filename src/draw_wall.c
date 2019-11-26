@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 15:57:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:28:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			pixels[coord] = apply_light(texture_pixels[(int)x
 			+ render.texture_w * (int)y], sector.light_color, sector.brightness);
 		if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
-			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		zbuffer[coord] = render.z;
 		if (env->options.zbuffer || env->options.contouring)
 			if (i == (int)(render.max_ceiling)

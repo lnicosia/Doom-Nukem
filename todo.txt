@@ -17,7 +17,6 @@ Update map parser												|
 Multi selection?												| 
 Ajouter des vertex/modifier secteur								|
 Pre affichage des sprites dans un dossier pour les selectionner	|
-Fix sprites pos + scale											|
-
-Opti sprites:
--precalculer scales/pos
+Fix sprites pos + scale X										|
+Selection sprites mur/sol										| Done
+Modifier scale/pos sprites mur/sol								|

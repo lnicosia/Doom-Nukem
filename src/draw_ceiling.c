@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 16:58:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:28:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 				pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + render.texture_w * (int)y], sector.light_color, sector.brightness);
-			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && !env->editor.select
+				&& env->selected_ceiling == render.sector
+				&& env->selected_ceiling_sprite == -1)
+				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = z;
 			if (env->options.zbuffer || env->options.contouring)
 				if (i == (int)(render.max_ceiling) || i == vline.start)
@@ -117,7 +119,7 @@ void	draw_vline_ceiling_color(t_vline vline, t_render render, t_env *env)
 			env->editor.selected_wall = -1;
 		}
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(0xFF3D3D61, 0xFF00FF00, 128);
+			pixels[coord] = blend_alpha(0xFF3D3D61, 0x1ABC9C, 128);
 		else
 			pixels[coord] = 0xFF3D3D61;
 		zbuffer[coord] = 100000000;

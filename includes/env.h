@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 17:01:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 12:29:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct		s_env
 	int					selected_floor;
 	int					selected_wall_sprite_sprite;
 	int					selected_wall_sprite_wall;
+	int					selected_floor_sprite;
+	int					selected_ceiling_sprite;
 	int					selected_ceiling;
 	int					selected_object;
 	int					selected_enemy;

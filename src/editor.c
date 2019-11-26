@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 09:24:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:22:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		editor(t_env *env)
 		/*
 		**	Show the result of the mipmap generation
 		*/
-		if (env->options.l)
+		/*if (env->options.l)
 		{
 			size_t	i = 0;
 			t_point	pos = new_point(0,
@@ -121,7 +121,7 @@ int		editor(t_env *env)
 				pos.y += env->wall_textures[8].maps[i]->w;
 				i++;
 			}
-		}
+		}*/
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

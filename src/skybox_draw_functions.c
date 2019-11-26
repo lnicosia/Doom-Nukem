@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:53:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:35:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 		while (y < 0)
 			y += texture_h;
 		pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-		if (env->editor.in_game && render.selected && !env->editor.select)
-			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+		if (env->editor.in_game && render.selected && !env->editor.select
+			&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
+			&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
+			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		zbuffer[coord] = z;
 		i++;
 	}
@@ -206,8 +208,10 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && render.selected && !env->editor.select)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && render.selected && !env->editor.select
+				&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
+				&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
+				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = z;
 		}
 		i++;
@@ -299,8 +303,10 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && render.selected && !env->editor.select)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && render.selected && !env->editor.select
+				&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
+				&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
+				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = z;
 		}
 		i++;

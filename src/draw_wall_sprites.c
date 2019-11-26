@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:57:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:27:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ t_env *env)
 				pixels[coord] = apply_light(sprite_pixels[
 				(int)x + sprite_w * (int)y],
 				sector.light_color, sector.brightness);
-			if (env->editor.in_game && !env->editor.select
+			if (!env->editor.select
 				&& env->editor.selected_sector == sector.num
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = render.z;
 		}
 	}
