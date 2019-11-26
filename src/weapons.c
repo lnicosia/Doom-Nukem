@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:46:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void    draw_weapon(t_env *env, int sprite)
 	Uint32		*texture_pixels;
 
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = env->textures[sprite].str;
-	texture_w = env->textures[sprite].surface->w;
-	texture_h = env->textures[sprite].surface->h;
+	texture_pixels = env->sprite_textures[sprite].str;
+	texture_w = env->sprite_textures[sprite].surface->w;
+	texture_h = env->sprite_textures[sprite].surface->h;
 	window_w = (int)(env->w - texture_w) / 1.5;
 	window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
 	y = 0;

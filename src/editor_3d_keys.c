@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:19:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:02:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,35 @@ int		editor_3d_keys(t_env *env)
 			&& env->editor.selected_sector != -1
 			&& env->selected_wall_sprite_wall != -1
 			&& env->selected_wall_sprite_sprite != -1)
-		wall_sprites_keys(env);
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->editor.selected_sector].
+		sprites[env->selected_wall_sprite_wall].
+		pos[env->selected_wall_sprite_sprite],
+		&env->sectors[env->editor.selected_sector].
+		sprites[env->selected_wall_sprite_wall].
+		scale[env->selected_wall_sprite_sprite]);
+	}
+	if (env->editor.in_game
+		&& env->selected_ceiling != -1
+		&& env->selected_ceiling_sprite != -1)
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->selected_ceiling].
+		ceiling_sprites.pos[env->selected_ceiling_sprite],
+		&env->sectors[env->selected_ceiling].
+		ceiling_sprites.scale[env->selected_ceiling_sprite]);
+	}
+	if (env->editor.in_game
+		&& env->selected_floor != -1
+		&& env->selected_floor_sprite != -1)
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->selected_floor].
+		floor_sprites.pos[env->selected_floor_sprite],
+		&env->sectors[env->selected_floor].
+		floor_sprites.scale[env->selected_floor_sprite]);
+	}
 
 	/*
 	 * *	selection of textures on ceiling and floor
@@ -157,6 +185,7 @@ int		editor_3d_keys(t_env *env)
 	 */
 
 	if (env->editor.in_game && env->selected_ceiling != -1
+		&& env->selected_ceiling_sprite == -1
 			&& (env->inputs.down || env->inputs.up
 			|| env->inputs.plus || env->inputs.minus
 			|| env->inputs.comma || env->inputs.period
@@ -249,6 +278,7 @@ int		editor_3d_keys(t_env *env)
 	 */
 
 	if (env->editor.in_game && env->selected_floor != -1
+		&& env->selected_floor_sprite == -1
 			&& (env->inputs.down || env->inputs.up
 			|| env->inputs.plus || env->inputs.minus
 			|| env->inputs.comma || env->inputs.period

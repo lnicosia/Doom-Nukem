@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 17:02:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:48:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	free_textures(t_env *env)
 	i = 0;
 	while (i < MAX_TEXTURES)
 	{
-		if (env->textures[i].surface)
-			SDL_FreeSurface(env->textures[i].surface);
+		if (env->sprite_textures[i].surface)
+			SDL_FreeSurface(env->sprite_textures[i].surface);
 		i++;
 	}
 }

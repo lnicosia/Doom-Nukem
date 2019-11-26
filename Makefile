@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/21 19:37:19 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/11/26 13:47:56 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c
 
-SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
+SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_wall.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c \
@@ -58,7 +58,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c get_vline_data.c \
+		   minimap.c fps.c inputs.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c \
 		   print_debug.c init_animations.c vertices_utils.c \

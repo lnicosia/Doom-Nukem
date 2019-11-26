@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:27:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:49:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_env *env)
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
-	sprite_pixels = env->textures[env->wall_sprites[sector.sprites[render.i]
+	sprite_pixels = env->sprite_textures[env->wall_sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].str;
-	sprite_w = env->textures[env->wall_sprites[sector.sprites[render.i]
+	sprite_w = env->sprite_textures[env->wall_sprites[sector.sprites[render.i]
 	.sprite[sprite]].texture].surface->w;
 	pos = sector.sprites[render.i].pos[sprite].y / (sector.ceiling - sector.floor);
 	start = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;

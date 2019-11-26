@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/18 14:00:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:47:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void		*projectile_loop(void *param)
 	env = ((t_projectile_thread*)param)->env;
 	projectile = ((t_projectile_thread*)param)->projectile;
 	sprite = env->object_sprites[projectile.sprite];
-	texture = env->textures[sprite.texture];
+	texture = env->sprite_textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;

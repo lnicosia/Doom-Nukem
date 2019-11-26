@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 12:29:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:45:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_env
 	t_sprite			*enemy_sprites;
 	t_sprite			*object_sprites;
 	t_sprite			*wall_sprites;
-	t_texture			textures[MAX_TEXTURES];
+	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
@@ -167,7 +167,7 @@ typedef struct		s_env
 
 int					init_editor(int ac, char **av);
 int					editor(t_env *env);
-void				wall_sprites_keys(t_env *env);
+void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);

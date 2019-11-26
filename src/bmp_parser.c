@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 15:30:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:47:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static int	parse(int fd, int index, t_env *env)
 		return (ft_printf("Error in image header\n"));
 //	check_bmp_parsing(parser);
 	ft_printf("{red}");
-	if (!(env->textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
+	if (!(env->sprite_textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
 					0, parser.w, parser.h, parser.bpp,
 					SDL_PIXELFORMAT_ARGB8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n",
 		SDL_GetError()));
-	env->textures[index].str = env->textures[index].surface->pixels;
-	env->textures[index].scale = 1;
-	env->textures[index].xpadding = 0;
-	env->textures[index].ypadding = 0;
+	env->sprite_textures[index].str = env->sprite_textures[index].surface->pixels;
+	env->sprite_textures[index].scale = 1;
+	env->sprite_textures[index].xpadding = 0;
+	env->sprite_textures[index].ypadding = 0;
 	if (parser.color_used || parser.bpp <= 8)
 	{
 		if (set_color_table(fd, &parser))
