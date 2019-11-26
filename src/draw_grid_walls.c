@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/25 16:50:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 12:01:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,8 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	Uint32	c;
 
 	i = 0;
-	/*ft_printf("\nsector: %d | nb_certices: %d\n", sector.num, sector.nb_vertices);
 	while (i < sector.nb_vertices)
 	{
-		ft_printf("vertex[%d]: %d | x: %f | y: %f\n", i, sector.vertices[i],
-		env->vertices[sector.vertices[i]].x, env->vertices[sector.vertices[i]].y);
-		i++;
-	}*/
-	i = 0;
-	ft_printf("\n");
-	while (i < sector.nb_vertices)
-	{
-		int	j = 0;
-		while (j < sector.nb_vertices + 1)
-		{
-			ft_printf("vertices[%d]: %d\n", j, sector.vertices[j]);
-			j++;
-		}
-		ft_printf("\n");
 	/*	ft_printf("v1.x: %f v1.y: %f | ", env->vertices[sector.vertices[i]].x,
 		env->vertices[sector.vertices[i]].y);
 		ft_printf("v2.x: %f v2.y: %f\n", env->vertices[sector.vertices[i + 1]].x,
@@ -86,7 +70,7 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 			c = color;
 		else
 			c = 0xFFFF0000;
-		//draw_line(v1, v2, *env, c);
+		draw_line(v1, v2, *env, c);
 		i++;
 	}
 }
