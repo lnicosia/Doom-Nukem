@@ -6,11 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:58:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:40:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "add_vertex.h"
 
 int	editor_keyup(t_env *env)
 {
@@ -136,5 +136,21 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
+
+	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	&& env->editor.selected_vertex != -1)
+	{
+		if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
+			env->editor.select_vertex_on_going = 1;
+		if ((select_vertices(env)))
+		{
+			if (add_vertex_in_sector(env))
+			{
+				env->editor.add.v1 = -1;
+				env->editor.add.v2 = -1;
+				return (0);
+			}
+		}
+	}
 	return (0);
 }

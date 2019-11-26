@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:12:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:14:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@ int			editor_keys(t_env *env)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
 		env->editor.center.y += env->sdl.mouse_y;
-	}
-
-	/*
-	**	Adding a vertex
-	*/
-
-	if (env->inputs.ctrl && env->inputs.left_click)
-	{
-		if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
-			env->editor.select_vertex_on_going = 1;
-		if (env->editor.selected_vertex != -1)
-		{
-			if (add_vertex_in_sector(env))
-				return (-1);
-		}
 	}
 
 	/*

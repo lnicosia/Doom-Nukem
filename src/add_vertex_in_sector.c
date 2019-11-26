@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 13:12:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 15:22:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		*get_sectors_list(t_env *env, int v1, int v2)
 		i++;
 	}
 	sectors[0] = k - 1;
-    if (k)
+    if (k != 1)
 	    return (sectors);
     return (NULL);
 }
@@ -56,13 +56,13 @@ int		select_vertices(t_env *env)
 	{
 		if (env->editor.add.v1 == -1)
 	        env->editor.add.v1 = env->editor.selected_vertex;
-	    else if(env->editor.selected_vertex != env->editor.add.v1 && env->editor.add.v2 == -1)
+		else if(env->editor.selected_vertex != env->editor.add.v1 && env->editor.add.v2 == -1)
 		{
 	        env->editor.add.v2 = env->editor.selected_vertex;
 			env->editor.select_vertex_on_going = 0;
 		}
 	}
-	else if (env->editor.add.v1 != -1 && env->editor.add.v2 != -1)
+	if (env->editor.add.v1 != -1 && env->editor.add.v2 != -1)
     	return (1);
 	return (0);
 }
@@ -83,12 +83,6 @@ int		modify_vertices_in_sector(t_env *env, int index, int sector)
 	}
 	env->sectors[sector].vertices[i] = env->vertices[env->nb_vertices - 1].num;
 	env->sectors[sector].vertices[env->sectors[sector].nb_vertices] = env->sectors[sector].vertices[0];
-	int	j = 0;
-	while (j <= env->sectors[0].nb_vertices)
-	{
-		ft_printf("IN vertices[%d]: %d\n", j, env->sectors[sector].vertices[j]);
-		j++;
-	}
 	return (0);
 }
 
@@ -106,7 +100,7 @@ int		modify_textures(t_env *env, int index, int sector)
 		env->sectors[sector].textures[i] = env->sectors[sector].textures[i - 1];
 		i--;
 	}
-	env->sectors[sector].textures[i] = env->sectors[sector].textures[i + 1];
+	env->sectors[sector].textures[i] = env->sectors[sector].textures[i - 1];
 	return (0);
 }
 
@@ -124,13 +118,86 @@ int		modify_double_tab_in_sector(t_env *env, int index, int sector, double **tab
 		(*tab)[i] = (*tab)[i - 1];
 		i--;
 	}
-	(*tab)[i] = (*tab)[i + 1];
+	(*tab)[i] = (*tab)[i - 1];
 	return (0);
 }
 
-int		modify_wall_map_level(t_env *env, int index, int sector, double **tab)
+int		modify_short_tab_in_sector(t_env *env, int index, int sector, short **tab)
 {
+	int	i;
 
+	if (!(*tab = (short*)ft_realloc(*tab, sizeof(short)
+	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc short tab"));
+	i = 0;
+	i = env->sectors[sector].nb_vertices;
+	while (i > index + 1)
+	{
+		(*tab)[i] = (*tab)[i - 1];
+		i--;
+	}
+	(*tab)[i] = (*tab)[i - 1];
+	return (0);
+}
+
+int		modify_t_v2_tab_in_sector(t_env *env, int index, int sector,t_v2 **tab)
+{
+	int	i;
+
+	if (!(*tab = (t_v2*)ft_realloc(*tab, sizeof(t_v2)
+	* env->sectors[sector].nb_vertices, sizeof(t_v2) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc short tab"));
+	i = 0;
+	i = env->sectors[sector].nb_vertices;
+	while (i > index + 1)
+	{
+		(*tab)[i] = (*tab)[i - 1];
+		i--;
+	}
+	(*tab)[i] = (*tab)[i - 1];
+	return (0);
+}
+
+int		modify_t_wall_sprites_tab_in_sector(t_env *env, int index, int sector,t_wall_sprites **tab)
+{
+	int	i;
+
+	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
+	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc short tab"));
+	i = 0;
+	i = env->sectors[sector].nb_vertices;
+	while (i > index + 1)
+	{
+		(*tab)[i] = (*tab)[i - 1];
+		i--;
+	}
+	(*tab)[i] = (*tab)[i - 1];
+	return (0);
+}
+
+int		modify_walls_map_lvl(t_env *env, int sector)
+{
+	int	j;
+
+	j = 0;
+	while (j < env->sectors[sector].nb_vertices - 1)
+	{
+		if (env->sectors[sector].walls_map_lvl[j])
+			ft_memdel((void**)&env->sectors[sector].walls_map_lvl[j]);
+		j++;
+	}
+	ft_memdel((void**)&env->sectors[sector].walls_map_lvl);
+	j = 0;
+	if (!(env->sectors[sector].walls_map_lvl = (double **)ft_realloc(env->sectors[sector].walls_map_lvl, sizeof(double*)
+	* env->sectors[sector].nb_vertices, sizeof(double*) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc walls_map_lvl"));
+	while(j < env->sectors[sector].nb_vertices)
+	{
+		set_sector_wall_map_array(&env->sectors[sector], env->wall_textures[env->sectors[sector].textures[j]], j, env);
+		j++;
+	}
+	return (0);
 }
 
 int		modify_neighbors(t_env *env, int index, int sector)
@@ -146,7 +213,7 @@ int		modify_neighbors(t_env *env, int index, int sector)
 		env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i - 1];
 		i--;
 	}
-	env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i + 1];
+	env->sectors[sector].neighbors[i] = env->sectors[sector].neighbors[i - 1];
 	return (0);
 }
 
@@ -172,6 +239,10 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_neighbors(env, j, sector))
 				return (-1);
+			if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
+				return (-1);
+			if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
+				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors))
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].ceilings))
@@ -186,7 +257,13 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].wall_width))
 				return (-1);
-			if (modify_wall_map_lvl(env, j, &env->sectors[sector].walls_map_lvl))
+			if (modify_t_v2_tab_in_sector(env, j, sector, &env->sectors[sector].scale))
+				return (-1);
+			if (modify_t_v2_tab_in_sector(env, j, sector, &env->sectors[sector].align))
+				return (-1);
+			if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].sprites))
+				return (-1);
+			if (modify_walls_map_lvl(env, sector))
 				return (-1);
 			break;
 		}
@@ -223,21 +300,18 @@ int     add_vertex_in_sector(t_env *env)
     int             i;
 
 	i = 1;
-    if ((select_vertices(env)))
-    {
-        if (!(env->editor.add.sector_list = get_sectors_list(env, env->editor.add.v1, env->editor.add.v2)))
-            return (printf("selected vertices aren't in the same sector or not next to each others\n"));
-		if (modify_vertices(env))
-			return (-1);
-		i = 1;
-		while (i <= env->editor.add.sector_list[0])
-        {
-            if (modify_sector(env, env->editor.add.sector_list[i]))
-				return (-1);
-            i++;
-        }
-		env->editor.add.v1 = -1;
-		env->editor.add.v2 = -1;
-    }
+    if (!(env->editor.add.sector_list = get_sectors_list(env, env->editor.add.v1, env->editor.add.v2)))
+         return (printf("selected vertices aren't in the same sector or not next to each others\n"));
+	if (modify_vertices(env))
+		return (-1);
+	i = 1;
+	while (i <= env->editor.add.sector_list[0])
+		{
+    		if (modify_sector(env, env->editor.add.sector_list[i]))
+		   return (-1);
+			i++;
+		}
+	env->editor.add.v1 = -1;
+	env->editor.add.v2 = -1;
     return (0);
 }

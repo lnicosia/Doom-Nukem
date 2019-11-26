@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:02:23 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 11:43:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:22:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define ADD_VERTEX_H
 
 # include "env.h"
-
-
 
 int					add_vertex_in_sector(t_env *env);
 int					modify_vertices(t_env *env);
