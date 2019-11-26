@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/26 15:36:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:53:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		while (x < 0)
 			x += render.texture_w;*/
 		y = yalpha * render.camera->v[render.sector][render.i]
-		.texture_scale[render.map_lvl].y - sector.align[render.i].y;
+		.texture_scale[render.map_lvl].y 
+		- render.camera->v[render.sector][render.i]
+		.texture_align[render.map_lvl].y;
 		while (y >= render.texture_h)
 			y -= render.texture_h;
 		while (y < 0)

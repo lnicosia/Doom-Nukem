@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:35:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:54:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,25 +236,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
-				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
-				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 		}
 		if (env->inputs.equals)
 		{
@@ -328,25 +328,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y -= 10;
-				env->sectors[env->selected_floor].floor_align.x -= 10;
+				env->sectors[env->selected_floor].floor_map_align.y -= 1;
+				env->sectors[env->selected_floor].floor_map_align.x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y -= 10;
+				env->sectors[env->selected_floor].floor_map_align.y -= 1;
 			else
-				env->sectors[env->selected_floor].floor_align.x -= 10;
+				env->sectors[env->selected_floor].floor_map_align.x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y += 10;
-				env->sectors[env->selected_floor].floor_align.x += 10;
+				env->sectors[env->selected_floor].floor_map_align.y += 1;
+				env->sectors[env->selected_floor].floor_map_align.x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y += 10;
+				env->sectors[env->selected_floor].floor_map_align.y += 1;
 			else
-				env->sectors[env->selected_floor].floor_align.x += 10;
+				env->sectors[env->selected_floor].floor_map_align.x += 1;
 		}
 		if (env->inputs.equals)
 		{

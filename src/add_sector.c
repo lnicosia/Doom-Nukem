@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 08:47:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:16:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ t_sector	new_default_sector(t_env *env)
 	//sector.floor_scale.x = env->wall_textures[sector.floor_texture].surface->w / 10;
 	//sector.floor_scale.y = env->wall_textures[sector.floor_texture].surface->h / 10;
 	//sector.ceiling_scale = sector.floor_scale;
-	sector.floor_align = new_v2(0, 0);
-	sector.ceiling_align = new_v2(0, 0);
+	sector.floor_map_align = new_v2(0, 0);
+	sector.ceiling_map_align = new_v2(0, 0);
 	sector.light_color = 0xFFFFFFFF;
 	sector.brightness = 0;
 	sector.skybox = 0;

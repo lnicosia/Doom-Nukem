@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:32:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:10:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
 		if (env->sectors[i].ceiling_map_lvl)
 			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
+		if (env->sectors[i].floor_align)
+			ft_memdel((void**)&env->sectors[i].floor_align);
+		if (env->sectors[i].floor_scale)
+			ft_memdel((void**)&env->sectors[i].floor_scale);
+		if (env->sectors[i].ceiling_align)
+			ft_memdel((void**)&env->sectors[i].ceiling_align);
+		if (env->sectors[i].ceiling_scale)
+			ft_memdel((void**)&env->sectors[i].ceiling_scale);
 		if (env->sectors[i].walls_map_lvl)
 		{
 			j = 0;

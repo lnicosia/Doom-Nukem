@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:28:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:13:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ t_render render, t_env *env)
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		text_y = y * sector.floor_scale[map_lvl].y + sector.floor_align.y;
-		text_x = x * sector.floor_scale[map_lvl].x + sector.floor_align.x;
+		text_y = y * sector.floor_scale[map_lvl].y + sector.floor_align[map_lvl].y;
+		text_x = x * sector.floor_scale[map_lvl].x + sector.floor_align[map_lvl].x;
 		text_y = render.texture_h - text_y;
 		text_x = render.texture_w - text_x;
 		if (text_y >= render.texture_h || text_y < 0)

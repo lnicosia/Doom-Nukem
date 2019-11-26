@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:30:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:09:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,13 +298,15 @@ typedef struct		s_sector
 	short			floor_texture;
 	t_v2			*floor_scale;
 	t_v2			floor_map_scale;
-	t_v2			floor_align;
+	t_v2			*floor_align;
+	t_v2			floor_map_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
 	t_v2			*ceiling_scale;
 	t_v2			ceiling_map_scale;
-	t_v2			ceiling_align;
+	t_v2			*ceiling_align;
+	t_v2			ceiling_map_align;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
