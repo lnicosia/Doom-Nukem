@@ -20,3 +20,4 @@ Pre affichage des sprites dans un dossier pour les selectionner	|
 Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
 Opti sprites sol/plafond										|
+Fix lignes bugs a cause du zbuffer								|

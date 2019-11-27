@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:50:28 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/12 17:56:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:06:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ Uint32			apply_light(Uint32 src, Uint32 color, short brightness)
 	//src = blend_alpha(src, color, 75);
 	if (!brightness)
 		return (src);
+	//src = blend_alpha(src, color, 16);
 	if (brightness > 0)
 		src = blend_alpha(src, 0xFFFFFFFF, brightness);
 	if (brightness < 0)

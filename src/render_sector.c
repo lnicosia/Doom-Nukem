@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 14:10:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:43:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,6 @@ void		*wall_loop(void *param)
 				draw_skybox(render, WALL, env);
 			else
 				draw_wall(sector, render, env);
-		}
-		if (!env->options.lighting)
-		{
-			update_screen(env);
 		}
 		x++;
 	}
