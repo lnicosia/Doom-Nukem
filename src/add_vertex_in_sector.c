@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 15:24:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:49:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,9 @@ int		modify_vertices(t_env *env)
 	env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
 	env->vertices[env->nb_vertices - 1].num = env->nb_vertices - 1;
 	env->vertices[env->nb_vertices - 1].x =	min + ((max - min) / 2);
-	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ?
+	min = env->vertices[env->editor.add.v1].y < env->vertices[env->editor.add.v2].y ?
 	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
-	max = env->vertices[env->editor.add.v1].x > env->vertices[env->editor.add.v2].x ?
+	max = env->vertices[env->editor.add.v1].y > env->vertices[env->editor.add.v2].y ?
 	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
 	env->vertices[env->nb_vertices - 1].y = min + ((max - min) / 2);
 	return (0);

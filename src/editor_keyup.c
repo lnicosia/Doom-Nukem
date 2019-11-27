@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 11:04:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 18:09:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,12 @@ int	editor_keyup(t_env *env)
 				{
 					add_vertex_to_current_sector(env, clicked_vertex);
 					env->editor.start_vertex = clicked_vertex;
-					if (check_pos_vertices(env))
-						env->editor.divide_sector = 1;
+					if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
+						&& is_new_vertex_valid(env, clicked_vertex))
+					{
+						if (check_pos_vertices(env))
+							env->editor.divide_sector = 1;
+					}
 				}
 			}
 			if (env->editor.divide_sector)

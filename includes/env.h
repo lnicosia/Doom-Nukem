@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 09:56:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:58:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,10 @@ void				apply_texture(int texture, t_sector *sector, t_env *env);
 int					add_vertex_in_sector(t_env *env);
 void				split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
+void				update_neighbors(t_env *env, int index, int num, t_sector *sector);
+void				update_vertices(int index, t_sector *sector);
+void				update_textures(int index, t_sector *sector);
+void				update_double_tab(int index, double size, double **tab);
 
 /*
 ** Main functions
