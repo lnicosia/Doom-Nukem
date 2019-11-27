@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 12:09:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:18:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ void		init_enemies_data(t_env *env)
 		env->enemies[i].dir = 0;
 		env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
 		env->enemies[i].last_player_pos = env->enemies[i].pos;
+		i++;
+	}
+}
+
+void		init_objects_data(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
 		i++;
 	}
 }

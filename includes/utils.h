@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/22 14:38:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:47:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 32
-# define MAX_SPRITES 12
+# define MAX_TEXTURES 33
+# define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 1
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
@@ -40,7 +40,6 @@
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
 # define THREADS 4
-# define MAX_QUEUE 32
 # define MAX_W 2560
 # define MAX_H 1440
 # define LOST_SOUL 0

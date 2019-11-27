@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/22 14:18:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:19:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ int					init_camera(t_camera *camera, t_env *env);
 int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
 void				init_enemies_data(t_env *env);
+void				init_objects_data(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);

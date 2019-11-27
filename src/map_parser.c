@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 13:19:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 15:18:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ int		parse_map(char *file, t_env *env)
 	update_player_z(env);
 	set_sectors_xmax(env);
 	init_enemies_data(env);
+	init_objects_data(env);
 	if (close(parser.fd))
 		return (custom_error("Could not close the file"));
 	ft_printf("{reset}");
