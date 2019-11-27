@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:04:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 08:44:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	zbuffer = env->zbuffer;
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
-	x = render.alpha * env->skybox[render.i].texture_scale[0].x * render.z;
+	x = render.alpha * render.texture_w * render.z;
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -98,7 +98,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 			}
 		}
 		yalpha = (i - render.max_ceiling) / render.line_height;
-		y = yalpha * env->skybox[render.i].texture_scale[0].y;
+		y = yalpha * render.texture_h;
 		while (y >= texture_h)
 			y -= texture_h;
 		while (y < 0)

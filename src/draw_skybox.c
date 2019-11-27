@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:53:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 08:44:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,45 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	{
 		min = env->ymin[x];
 		max = render.current_ceiling;
-		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture].surface->w / env->skybox[skybox.i + 1].vz;
+		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].
+		ceiling_texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(env->sectors[render.sector].
+		ceiling_texture) - 1].textures[skybox.texture].surface->h;
 	}
 	else if (wall_data.mode == FLOOR)
 	{
 		min = render.current_floor;
 		max = env->ymax[x];
+		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].
+		floor_texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(env->sectors[render.sector].
+		floor_texture) - 1].textures[skybox.texture].surface->h;
 	}
 	else if (wall_data.mode == WALL)
 	{
 		min = render.current_ceiling;
 		max = render.current_floor;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
 	}
 	else if (wall_data.mode == BOTTOM_WALL)
 	{
 		min = render.neighbor_current_floor;
 		max = render.current_floor;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
 	}
 	else
 	{
 		min = render.current_ceiling;
 		max = render.neighbor_current_ceiling;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
 	}
+	if (env->skybox[skybox.i + 1].vz)
+		skybox.texture_w /= env->skybox[skybox.i + 1].vz;
+	else
+		skybox.texture_w /= env->skybox[skybox.i].clipped_vz2;
 	skybox.alpha = (x - v1.x) / v1.xrange;
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
 	skybox.z = 1.0 / ((1.0 - skybox.alpha) / v1.vz
