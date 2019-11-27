@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 11:53:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:10:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_render render, t_env *env)
 		alpha = (i - render.max_floor) / render.floor_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
-		if (z >= zbuffer[coord])
+		if (z >= zbuffer[coord] - 1)
 		{
 			i++;
 			continue;

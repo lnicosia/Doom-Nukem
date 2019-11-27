@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 12:26:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:10:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void		*wall_loop(void *param)
 			* v1.no_slope_floor_range + v1.no_slope_f1;
 		render.no_slope_current_ceiling = render.clipped_alpha
 			* v1.no_slope_ceiling_range + v1.no_slope_c1;
-		render.line_height = render.no_slope_current_floor
-			- render.no_slope_current_ceiling;
+		render.line_height = (render.no_slope_current_floor
+			- render.no_slope_current_ceiling);
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
 		render.floor_start = render.max_floor - render.floor_horizon;
 		if (render.current_ceiling > env->ymin[x]
@@ -109,10 +109,6 @@ void		*wall_loop(void *param)
 				else
 					draw_bottom_wall(sector, render, env);
 			}
-			render.ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
-						render.current_ceiling), env->ymin[x], env->ymax[x]);
-			render.ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
-						render.current_floor), env->ymin[x], env->ymax[x]);
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
@@ -220,8 +216,6 @@ void		render_sector(t_render render, t_env *env)
 			render.map_lvl = env->wall_textures[render.texture].nb_maps - 1;
 		}
 		threaded_wall_loop(v1, sector, render, env);
-		if (!env->options.lighting)
-			SDL_Delay(2000);
 		if (sector.neighbors[i] != -1)
 		{
 			new = render;
@@ -229,12 +223,12 @@ void		render_sector(t_render render, t_env *env)
 			new.sector = sector.neighbors[i];
 			new.xmax = render.xend;
 			render_sector(new, env);
-		}
-		j = -1;
-		while (++j < env->w)
-		{
-			env->ymax[j] = tmp_max[j];
-			env->ymin[j] = tmp_min[j];
+			j = -1;
+			while (++j < env->w)
+			{
+				env->ymax[j] = tmp_max[j];
+				env->ymin[j] = tmp_min[j];
+			}
 		}
 	}
 	//ft_printf("sector %d ok\n", sector.num);

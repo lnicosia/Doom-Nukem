@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 12:09:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:46:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ typedef struct	s_render
 	int			thread;
 	int			texture_w;
 	int			texture_h;
-	int			ymin[2560];
-	int			ymax[2560];
 }				t_render;
 
 typedef struct		s_render_projectile

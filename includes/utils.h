@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 12:26:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:31:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define NB_BUTTON 10
 # define AMMO_HUD 27
 # define ARMOR_LIFE_HUD 27
-# define THREADS 4
+# define THREADS 1
 # define MAX_W 2560
 # define MAX_H 1440
 # define LOST_SOUL 0
