@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 09:11:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 12:26:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ void		*wall_loop(void *param)
 				else
 					draw_bottom_wall(sector, render, env);
 			}
+			render.ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
+						render.current_ceiling), env->ymin[x], env->ymax[x]);
+			render.ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
+						render.current_floor), env->ymin[x], env->ymax[x]);
 			env->ymin[x] = ft_clamp(ft_max(render.neighbor_current_ceiling,
 						render.current_ceiling), env->ymin[x], env->ymax[x]);
 			env->ymax[x] = ft_clamp(ft_min(render.neighbor_current_floor,
@@ -120,6 +124,10 @@ void		*wall_loop(void *param)
 				draw_skybox(render, WALL, env);
 			else
 				draw_wall(sector, render, env);
+		}
+		if (!env->options.lighting)
+		{
+			update_screen(env);
 		}
 		x++;
 	}
@@ -164,16 +172,25 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 void		render_sector(t_render render, t_env *env)
 {
 	int				i;
+	int				j;
 	t_sector		sector;
 	t_render_vertex	v1;
 	t_render		new;
+	int				tmp_max[2560];
+	int				tmp_min[2560];
 
-	i = -1;
 	if (render.camera->rendered_sectors[render.sector])
 		return ;
 	render.camera->rendered_sectors[render.sector]++;
 	sector = env->sectors[render.sector];
 	//ft_printf("rendering sector %d\n", sector.num);
+	j = -1;
+	while (++j < env->w)
+	{
+		tmp_max[j] = env->ymax[j];
+		tmp_min[j] = env->ymin[j];
+	}
+	i = -1;
 	while (++i < sector.nb_vertices)
 	{
 		if (!render.camera->v[sector.num][i].draw)
@@ -199,10 +216,12 @@ void		render_sector(t_render render, t_env *env)
 		else
 		{
 			render.texture_w = env->wall_textures[render.texture].surface->w;
-			render.texture_h = env->wall_textures[render.texture].surface->h;\
+			render.texture_h = env->wall_textures[render.texture].surface->h;
 			render.map_lvl = env->wall_textures[render.texture].nb_maps - 1;
 		}
 		threaded_wall_loop(v1, sector, render, env);
+		if (!env->options.lighting)
+			SDL_Delay(2000);
 		if (sector.neighbors[i] != -1)
 		{
 			new = render;
@@ -210,6 +229,12 @@ void		render_sector(t_render render, t_env *env)
 			new.sector = sector.neighbors[i];
 			new.xmax = render.xend;
 			render_sector(new, env);
+		}
+		j = -1;
+		while (++j < env->w)
+		{
+			env->ymax[j] = tmp_max[j];
+			env->ymin[j] = tmp_min[j];
 		}
 	}
 	//ft_printf("sector %d ok\n", sector.num);
