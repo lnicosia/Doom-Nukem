@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:45:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:50:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before floor texture", "a digit or space(s)",
 					**line, parser));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].floor_texture < -MAX_SKYBOX
+	if (env->sectors[parser->sectors_count].floor_texture < 0
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
 	*line = skip_number(*line);
@@ -75,7 +75,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].floor_align.x = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor align.y", parser));
@@ -84,15 +84,13 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
-		return (missing_data("floor align.y", parser));
+		return (missing_data("floor alin.y", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_align.y = ft_atoi(*line);
+	env->sectors[parser->sectors_count].floor_align.y = ft_atoi(*line);
 
 	if (env->sectors[parser->sectors_count].floor_texture < 0)
-		env->contains_skybox = 1;
-	/*if (env->sectors[parser->sectors_count].floor_texture < 0)
 	{
 		env->contains_skybox = 1;
 		env->sectors[parser->sectors_count].floor_align.x *= env->skyboxes[0].textures[0].surface->w;
@@ -106,7 +104,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].floor_align.y *= env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h;
 		env->sectors[parser->sectors_count].floor_align.x /= 10;
 		env->sectors[parser->sectors_count].floor_align.y /= 10;
-	}*/
+	}
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.x", parser));
@@ -225,7 +223,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_align.x = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling align.y", parser));
@@ -238,11 +236,9 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_align.y = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_align.y = ft_atoi(*line);
 
 	if (env->sectors[parser->sectors_count].ceiling_texture < 0)
-		env->contains_skybox = 1;
-	/*if (env->sectors[parser->sectors_count].ceiling_texture < 0)
 	{
 		env->contains_skybox = 1;
 		env->sectors[parser->sectors_count].ceiling_align.x *= env->skyboxes[0].textures[0].surface->w;
@@ -256,7 +252,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].ceiling_align.y *= env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h;
 		env->sectors[parser->sectors_count].ceiling_align.x /= 10;
 		env->sectors[parser->sectors_count].ceiling_align.y /= 10;
-	}*/
+	}
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.x", parser));
@@ -287,8 +283,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_map_scale.y = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].ceiling_map_scale.y <= 0)
 		return (custom_error_with_line("Ceiling scale must be positive", parser));
-	
-	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
+
+	 if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
 		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture], 
 		env))
 		return (-1);
@@ -529,7 +525,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
-		/*if (env->sectors[parser->sectors_count].textures[i] < 0)
+		if (env->sectors[parser->sectors_count].textures[i] < 0)
 		{
 			env->sectors[parser->sectors_count].align[i].x *= env->skyboxes[0].textures[0].surface->w;
 			env->sectors[parser->sectors_count].align[i].y *= env->skyboxes[0].textures[0].surface->h;
@@ -542,7 +538,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].align[i].y *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
 			env->sectors[parser->sectors_count].align[i].x /= 10;
 			env->sectors[parser->sectors_count].align[i].y /= 10;
-		}*/
+		}
 		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
 			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
 			env))

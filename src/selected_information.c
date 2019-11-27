@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 15:41:35 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 15:12:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:30:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	selected_information_on_enemy(t_env *env)
 	}
 }
 
-void	selected_information_in_sector(t_env *env)
+int		selected_information_in_sector(t_env *env)
 {
 	double	time;
 	int		texture;
@@ -96,11 +96,17 @@ void	selected_information_in_sector(t_env *env)
 		env->time.tick2 = time;
 		texture = env->sectors[env->editor.selected_sector].floor_texture;
 		if (env->inputs.left && texture > 0)
-			apply_texture(texture - 1,
-			&env->sectors[env->editor.selected_sector], env);
+		{
+			if (apply_texture(texture - 1,
+			&env->sectors[env->editor.selected_sector], env))
+				return (-1);
+		}
 		if (env->inputs.right && texture < MAX_WALL_TEXTURE - 1)
-			apply_texture(texture + 1,
-			&env->sectors[env->editor.selected_sector], env);
+		{
+			if (apply_texture(texture + 1,
+			&env->sectors[env->editor.selected_sector], env))
+				return (-1);
+		}
 	}
 	if ((env->inputs.left || env->inputs.right) && env->selected_stat == 3 && time - env->time.tick2 > 250)
 	{
@@ -112,6 +118,6 @@ void	selected_information_in_sector(t_env *env)
 				&& env->sectors[env->editor.selected_sector].brightness < 254)
 			env->sectors[env->editor.selected_sector].brightness += 2;
 	}
-					
 	update_sector_slope(env, &env->sectors[env->editor.selected_sector]);
+	return (0);
 }

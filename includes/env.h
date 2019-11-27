@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 15:19:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:34:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ typedef struct		s_env
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemies			*enemies;
-	t_sprite			*sprites;
 	t_sprite			*enemy_sprites;
 	t_sprite			*object_sprites;
 	t_sprite			*wall_sprites;
-	t_texture			textures[MAX_TEXTURES];
+	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
@@ -71,6 +70,8 @@ typedef struct		s_env
 	int					selected_floor;
 	int					selected_wall_sprite_sprite;
 	int					selected_wall_sprite_wall;
+	int					selected_floor_sprite;
+	int					selected_ceiling_sprite;
 	int					selected_ceiling;
 	int					selected_object;
 	int					selected_enemy;
@@ -110,7 +111,6 @@ typedef struct		s_env
 	double				*max_floor;
 	double				*current_ceiling;
 	double				*current_floor;
-	double				*alpha;
 	double				*clipped_alpha;
 	double				*z;
 	double				*divider;
@@ -166,8 +166,9 @@ typedef struct		s_env
  * */
 
 int					init_editor(int ac, char **av);
+void				init_editor_data(t_env *env);
 int					editor(t_env *env);
-void				wall_sprites_keys(t_env *env);
+void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
@@ -234,7 +235,7 @@ t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
 void				selected_information_on_enemy(t_env *env);
-void				selected_information_in_sector(t_env *env);
+int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
@@ -250,7 +251,7 @@ int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 void				hit_player(void *param);
-void				apply_texture(int texture, t_sector *sector, t_env *env);
+int					apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
 ** Main functions

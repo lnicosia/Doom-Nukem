@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 15:15:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:37:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		init_game(int ac, char **av)
 	env.playing = 1;
 	env.first_frame = 0; //flag value = 1 once the first frame is shown
 	init_player(&env);
+	init_editor_data(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

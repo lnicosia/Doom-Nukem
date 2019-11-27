@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:28:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:02:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:53:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	button_keyup(t_button *b, t_env *env)
 		b->anim_state = REST;
 		return ;
 	}
-	ft_printf("yo\n");
 	b->anim_state = REST;
 	b->state = b->state == UP ? DOWN : UP;
 	if (b->state == DOWN)

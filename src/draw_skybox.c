@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 08:44:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,55 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	v1 = env->skybox[skybox.i];
 	x = render.x;
 	vline.color = 0xFFFF0000;
-	if ((!wall_data.mode && env->selected_ceiling == render.sector)
-			|| (wall_data.mode && env->sectors[render.sector].selected[render.i]))
+	if ((wall_data.mode == CEILING && env->selected_ceiling == render.sector)
+			|| (wall_data.mode == FLOOR && env->selected_floor == render.sector)
+			|| ((wall_data.mode == WALL || wall_data.mode == UPPER_WALL
+			|| wall_data.mode == BOTTOM_WALL)
+			&& env->sectors[render.sector].selected[render.i]))
 		skybox.selected = 1;
-	if (!wall_data.mode)
+	if (wall_data.mode == CEILING)
 	{
-		max = render.current_ceiling;
 		min = env->ymin[x];
+		max = render.current_ceiling;
+		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].
+		ceiling_texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(env->sectors[render.sector].
+		ceiling_texture) - 1].textures[skybox.texture].surface->h;
+	}
+	else if (wall_data.mode == FLOOR)
+	{
+		min = render.current_floor;
+		max = env->ymax[x];
+		skybox.texture_w = env->skyboxes[abs(env->sectors[render.sector].
+		floor_texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(env->sectors[render.sector].
+		floor_texture) - 1].textures[skybox.texture].surface->h;
+	}
+	else if (wall_data.mode == WALL)
+	{
+		min = render.current_ceiling;
+		max = render.current_floor;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
+	}
+	else if (wall_data.mode == BOTTOM_WALL)
+	{
+		min = render.neighbor_current_floor;
+		max = render.current_floor;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
 	}
 	else
 	{
-		max = render.current_floor;
 		min = render.current_ceiling;
+		max = render.neighbor_current_ceiling;
+		skybox.texture_w = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->w;
+		skybox.texture_h = env->skyboxes[abs(render.texture) - 1].textures[skybox.texture].surface->h;
 	}
+	if (env->skybox[skybox.i + 1].vz)
+		skybox.texture_w /= env->skybox[skybox.i + 1].vz;
+	else
+		skybox.texture_w /= env->skybox[skybox.i].clipped_vz2;
 	skybox.alpha = (x - v1.x) / v1.xrange;
 	skybox.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
 	skybox.z = 1.0 / ((1.0 - skybox.alpha) / v1.vz
@@ -75,7 +111,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 	}
 	if (skybox.current_floor < max)
 	{
-		vline.start = skybox.current_floor;
+		vline.start = ft_max(min, skybox.current_floor);
 		vline.end = max;
 		draw_skybox_floor(vline, wall_data, skybox, env);
 	}
@@ -93,7 +129,14 @@ void	draw_skybox(t_render render, int mode, t_env *env)
 	wall_data.ceiling_start = render.ceiling_start;
 	wall_data.ceiling_horizon = render.ceiling_horizon;
 	wall_data.i = render.i;
+	wall_data.max_ceiling = render.max_ceiling;
+	wall_data.max_floor = render.max_floor;
 	skybox.sector = render.sector;
+	skybox.camera = render.camera;
+	skybox.zrange = render.zrange;
+	skybox.z_near_z = render.z_near_z;
+	skybox.ceiling_height = render.ceiling_height;
+	skybox.floor_height = render.floor_height;
 	skybox.ceiling_horizon = env->player.camera.horizon;
 	skybox.floor_horizon = env->player.camera.horizon;
 	while (++i < 4)

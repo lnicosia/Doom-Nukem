@@ -6,52 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/24 15:22:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 12:19:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
-
-/*int		get_screen_sectors(t_env *env)
-{
-	int		size;
-	t_v3	curr;
-	double	tmp;
-	int		sect;
-	int		sect_count;
-	int		x;
-	int		i;
-	double	camera_range;
-
-	size = env->screen_sectors_size;
-	x = 0;
-	sect_count = 0;
-	camera_range = env->player.camera.near_right - env->player.camera.near_left;
-	while (x < env->w)
-	{
-		tmp = (x / (double)(env->w - 1)) * camera_range + env->player.camera.near_left;
-		curr.y = -env->player.camera.near_z;
-		curr.x = tmp * -env->player.angle_sin - curr.y * env->player.angle_cos + env->player.pos.x;
-		curr.y = tmp * env->player.angle_cos - curr.y * env->player.angle_sin + env->player.pos.y;
-		curr.z = env->player.head_z;
-		i = 0;
-		sect = get_sector(env, curr, env->player.sector);
-		env->screen_pos[x] = sect;
-		while (i < size && env->screen_sectors[i] != -1 && env->screen_sectors[i] != sect)
-			i++;
-		if (i < size && env->screen_sectors[i] == -1 && sect != -1)
-		{
-			env->screen_sectors[i] = sect;
-			env->xmin[i] = x;
-			sect_count++;
-		}
-		else if (i < size && env->screen_sectors[i] == sect)
-			env->xmax[i] = x;
-		x++;
-	}
-	return (sect_count);
-}*/
 
 void	*get_screen_sectors_loop(void *param)
 {

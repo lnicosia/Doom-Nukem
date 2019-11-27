@@ -6,39 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 09:25:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 16:00:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-void	init_editor_data(t_env *env)
-{
-	env->editor.scale = 10;
-	env->editor.current_vertices = NULL;
-	env->editor.start_vertex = -1;
-	env->player.sector = -1;
-
-	env->editor.selected_sector = -1;
-	env->editor.selected_object = -1;
-	env->editor.selected_vertex = -1;
-	env->editor.selected_player = -1;
-	env->editor.selected_wall = -1;
-	env->editor.selected_wall_sprite = -1;
-	env->editor.dragged_object = -1;
-	env->editor.dragged_vertex = -1;
-	env->editor.dragged_player = -1;
-	env->editor.dragged_enemy = -1;
-	env->selected_wall1 = -1;
-	env->selected_wall2 = -1;
-	env->selected_floor = -1;
-	env->selected_ceiling = -1;
-	env->selected_wall_sprite_sprite = -1;
-	env->selected_wall_sprite_wall = -1;
-	env->selected_enemy = -1;
-	env->selected_object = -1;
-	
-}
 
 /*
 **	Interaction test function
@@ -121,6 +93,7 @@ int	init_editor(int ac, char **av)
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
 			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
 			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
+			env.sectors[2].light_color = blend_alpha(0xFFd35400, 0, 0);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))
@@ -129,9 +102,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init skybox\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
-	//if (env.editor.new_player)
-	//{
-		env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
-		env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
+	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+	env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	return (editor(&env));
 }

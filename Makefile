@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/27 15:55:46 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/11/27 16:39:43 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c
 
-SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
+SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
 		   print_text.c bmp_parser.c bmp_parser_wall.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c \
@@ -58,7 +58,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c get_vline_data.c \
+		   minimap.c fps.c inputs.c init_editor_data.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c \
 		   print_debug.c init_animations.c vertices_utils.c \
@@ -73,9 +73,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
-		   precompute_neighbors.c skybox_draw_functions.c render_sector2.c \
+		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c \
-		   draw_wall2.c draw_floor2.c draw_ceiling2.c restrict_portals.c \
+		   restrict_portals.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
@@ -85,7 +85,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_pointers.c init_keys.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
-		   get_current_ceiling_map.c init_skybox.c init_sprites.c
+		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
+		   draw_floor_sprites.c draw_ceiling_sprites.c \
+		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

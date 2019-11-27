@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 14:59:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:39:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
 			if (!env->options.test)
-			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].surface->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz)
-			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
 			else
 			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
 			k++;
@@ -144,7 +143,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		{
 			if (sector->sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
-				(env->wall_textures[sector->textures[i]].surface->w
+				(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
 				/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			j++;
@@ -156,8 +155,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
 			if (!env->options.test)
-			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].surface->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2)
-			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
 			else
 			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
 			k++;
@@ -167,7 +165,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		{
 			if (sector->sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x = 
-		(env->wall_textures[sector->textures[i]].surface->w
+		(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
 		/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
@@ -177,17 +175,22 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	while (k < env->wall_textures[sector->textures[i]].nb_maps)
 	{
 		if (!env->options.test)
-		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor)
-			/ pow(2, env->wall_textures[sector->textures[i]].nb_maps - 1 - k);
+		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].maps[k]->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
 		else
 		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
+		camera->v[sector->num][i].texture_align[k].x = (sector->align[i].x
+			* env->wall_textures[sector->textures[i]].maps[k]->w) / 10.0;
+		camera->v[sector->num][i].texture_align[k].y = (sector->align[i].y
+			* env->wall_textures[sector->textures[i]].maps[k]->h) / 10.0;
 		k++;
 	}
 	j = 0;
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] != -1)
-			camera->v[sector->num][i].sprite_scale[j].y = (env->wall_textures[sector->textures[i]].surface->h / sector->sprites[i].scale[j].y) * (sector->ceiling - sector->floor);
+			camera->v[sector->num][i].sprite_scale[j].y =
+		env->wall_sprites[sector->sprites[i].sprite[j]].size[0].y
+			/ sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
 		j++;
 	}
 }
@@ -263,7 +266,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 		if (sector->neighbors[i] != -1
 				&& camera->v[sector->num][i].draw)
 			precompute_neighbors(i, camera, sector, env);
-		if (sector->textures[i] == -1
+		if (sector->textures[i] < 0
 				&& !env->skybox_computed)
 			precompute_skybox(env);
 	}

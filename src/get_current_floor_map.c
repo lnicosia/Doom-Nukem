@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:48:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:23:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 		free(sector->floor_scale);
 	if (!(sector->floor_scale = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector floor_scale array"));
+	if (sector->floor_align)
+		free(sector->floor_align);
+	if (!(sector->floor_align = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+		return (custom_error("Could not malloc sector floor_scale array"));
 	i = 0;
 	while (i < texture.nb_maps)
 	{
-		sector->floor_scale[i].x = (texture.surface->w / sector->floor_map_scale.x)
-		/ pow(2, texture.nb_maps - 1 - i);
-		sector->floor_scale[i].y = (texture.surface->h / sector->floor_map_scale.y)
-		/ pow(2, texture.nb_maps - 1 - i);
+		sector->floor_scale[i].x = (texture.maps[i]->w / sector->floor_map_scale.x);
+		sector->floor_scale[i].y = (texture.maps[i]->h / sector->floor_map_scale.y);
+		sector->floor_align[i].x = (texture.maps[i]->w * sector->floor_map_align.x) / 10;
+		sector->floor_align[i].y = (texture.maps[i]->h * sector->floor_map_align.y) / 10;
 		i++;
 	}
-	sector->floor_align = new_v2(0, 0);
 	if (sector->floor_map_lvl)
 		free(sector->floor_map_lvl);
 	if (!(sector->floor_map_lvl = (double*)malloc(

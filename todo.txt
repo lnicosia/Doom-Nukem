@@ -1,22 +1,23 @@
 Selectionner les bonnes textures beaucoup trop long				| Mieux (maj += 10)
-sauvegarde des scale + pos marche pas							| Uniquement pour le sol/plafond. A rajouter au parser
 Quand on met une skybox ensuite la texture est a 38				| Fixed
 Selection skybox toujours bugguee								| Fixed
 Une seule skybox (ca pue)										| Done
 Les echelles, les pos, trop chiant a aligner					| Done
 > Harmoniser echelles											| Done
-Multi selection?												| ?
-Ajouter des vertex/modifier secteur								|
 Ecrire des valeurs/noms de fichier dans l'editeur				| Done
-Pre affichage des sprites dans un dossier pour les selectionner	|
-Des boutons pour certaines actions?								| Oui
 Decrocher minimap												| Done
 Minimap transparente											| Done
 Texture courante												| Function done
-Confirmation box avec juste ok									| Done mais il faut creer les boites (graphiquement parlant)
+Confirmation box avec juste ok									| Done
 Changer toutes les textures d'un secteur						| Done
-Skybox partout													|
-Sprites sur sol/plafond?										|
-
-Mip mapping:
--Faire tourner les tableaux de mipmap quand on tourne les pentes
+Skybox partout													| Done
+Sprites sur sol/plafond?										| Done
+Wall sprites glitch corniches									| Done
+Update map parser												| Done
+Multi selection?												| 
+Ajouter des vertex/modifier secteur								|
+Pre affichage des sprites dans un dossier pour les selectionner	|
+Fix sprites pos + scale X										| Done
+Selection sprites mur/sol										| Done
+Opti sprites sol/plafond										|
+Fix lignes bugs a cause du zbuffer								|

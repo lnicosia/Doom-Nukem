@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 15:51:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:24:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,7 @@ int		count_sprites(char *line, t_map_parser *parser)
 
 //	OLD VERSION
 
-/*int		count_sprites(char *line, t_map_parser *parser)
+int		count_floor_sprites(char *line, t_map_parser *parser)
 {
 	int i;
 
@@ -392,7 +392,7 @@ int		count_sprites(char *line, t_map_parser *parser)
 		i++;
 	}
 	return (i);
-}*/
+}
 
 /*
  **	Prints an error message with sector and line number and your message

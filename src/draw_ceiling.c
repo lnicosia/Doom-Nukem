@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:24:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:10:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,24 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	map_lvl = env->wall_textures[sector.ceiling_texture].nb_maps - 1;
-	if (!env->options.show_minimap)
-	{
-		render.texture_w = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->w;
-		render.texture_h = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->h;
-	}
+	render.texture_w = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->w;
+	render.texture_h = env->wall_textures[sector.ceiling_texture].maps[map_lvl]->h;
 	i = vline.start;
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = (render.max_ceiling - i) / (render.max_ceiling - render.camera->head_y[render.sector]);
+		alpha = (render.max_ceiling - i) / render.ceiling_height;
 		divider = 1 / (render.camera->near_z + alpha * render.zrange);
 		z = render.z_near_z * divider;
-		if (env->options.show_minimap)
-			map_lvl = get_current_ceiling_map(sector.ceiling_texture, z, &render, env);
-		texture_pixels = env->wall_textures[sector.ceiling_texture].
-		maps[map_lvl]->pixels;
-		if (z >= zbuffer[coord])
+		if (z >= zbuffer[coord] - 1)
 		{
 			i++;
 			continue;
 		}
+		if (env->options.show_minimap)
+			map_lvl = get_current_ceiling_map(sector.ceiling_texture, z, &render, env);
+		texture_pixels = env->wall_textures[sector.ceiling_texture].
+		maps[map_lvl]->pixels;
 		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
 		{
 			reset_selection(env);
@@ -66,8 +63,8 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
-		y = y * sector.ceiling_scale[map_lvl].y + sector.ceiling_align.y;
-		x = x * sector.ceiling_scale[map_lvl].x + sector.ceiling_align.x;
+		y = y * sector.ceiling_scale[map_lvl].y + sector.ceiling_align[map_lvl].y;
+		x = x * sector.ceiling_scale[map_lvl].x + sector.ceiling_align[map_lvl].x;
 		x = render.texture_w - x;
 		if (y >= render.texture_h || y < 0)
 			y = ft_abs((int)y % render.texture_h);
@@ -79,8 +76,10 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 				pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 			else
 				pixels[coord] = apply_light(texture_pixels[(int)x + render.texture_w * (int)y], sector.light_color, sector.brightness);
-			if (env->editor.in_game && !env->editor.select && env->selected_ceiling == render.sector)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+			if (env->editor.in_game && !env->editor.select
+				&& env->selected_ceiling == render.sector
+				&& env->selected_ceiling_sprite == -1)
+				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = z;
 			if (env->options.zbuffer || env->options.contouring)
 				if (i == (int)(render.max_ceiling) || i == vline.start)
@@ -117,7 +116,7 @@ void	draw_vline_ceiling_color(t_vline vline, t_render render, t_env *env)
 			env->editor.selected_wall = -1;
 		}
 		if (env->editor.in_game && !env->editor.select && env->selected_floor == render.sector)
-			pixels[coord] = blend_alpha(0xFF3D3D61, 0xFF00FF00, 128);
+			pixels[coord] = blend_alpha(0xFF3D3D61, 0x1ABC9C, 128);
 		else
 			pixels[coord] = 0xFF3D3D61;
 		zbuffer[coord] = 100000000;
@@ -132,15 +131,8 @@ void	draw_ceiling(t_sector sector, t_render render, t_env *env)
 	vline.x = render.x;
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render.current_ceiling, env->ymax[vline.x]);
-	/*if (sector.skybox)
-		draw_skybox(render, 0, env);
-	else
-		draw_vline_ceiling(sector, vline, render, env);*/
 	if (sector.ceiling_texture < 0)
-	{
-		//env->selected_skybox = abs(sector.ceiling_texture) - 1;
-		draw_skybox(render, 0, env);
-	}
+		draw_skybox(render, CEILING, env);
 	else
 		draw_vline_ceiling(sector, vline, render, env);
 }

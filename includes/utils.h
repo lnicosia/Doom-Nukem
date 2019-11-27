@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 15:47:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:36:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 33
+# define MAX_TEXTURES 35
 # define MAX_SPRITES 22
-# define MAX_WALL_SPRITES 1
+# define MAX_WALL_SPRITES 3
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
@@ -108,6 +108,15 @@ typedef enum		e_enemy_type
 	AQUATIC
 }					t_enemy_type;
 
+typedef enum		e_skybox_source
+{
+	CEILING,
+	WALL,
+	BOTTOM_WALL,
+	UPPER_WALL,
+	FLOOR
+}					t_skybox_source;
+
 typedef struct		s_line_eq
 {
 	double a;
@@ -169,6 +178,7 @@ typedef struct		s_render_vertex
 {
 	t_v2			*texture_scale;
 	t_v2			*sprite_scale;
+	t_v2			*texture_align;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -290,13 +300,15 @@ typedef struct		s_sector
 	short			floor_texture;
 	t_v2			*floor_scale;
 	t_v2			floor_map_scale;
-	t_v2			floor_align;
+	t_v2			*floor_align;
+	t_v2			floor_map_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
 	t_v2			*ceiling_scale;
 	t_v2			ceiling_map_scale;
-	t_v2			ceiling_align;
+	t_v2			*ceiling_align;
+	t_v2			ceiling_map_align;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
@@ -315,6 +327,11 @@ typedef struct		s_sector
 	short			*neighbors;
 	short			*textures;
 	t_wall_sprites	*sprites;
+	t_wall_sprites	floor_sprites;
+	t_wall_sprites	ceiling_sprites;
+	short			*nb_sprites;
+	short			nb_floor_sprites;
+	short			nb_ceiling_sprites;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
@@ -325,7 +342,6 @@ typedef struct		s_sector
 	short			*selected;
 	short			num;
 	short			nb_vertices;
-	short			*nb_sprites;
 	int				skybox;
 	int				status;
 	int				brightness;
