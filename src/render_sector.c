@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:11:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		*wall_loop(void *param)
 				- render.texel_y_near_z;
 			render.zrange = render.z - render.camera->near_z;
 		}
+		draw_wall_sprites(sector, render, env);
 		if (render.current_ceiling > env->ymin[x])
 		{
 			render.ceiling_height = render.max_ceiling
@@ -84,7 +85,6 @@ void		*wall_loop(void *param)
 				draw_floor_sprites(sector, render, env);
 			draw_floor(sector, render, env);
 		}
-		draw_wall_sprites(sector, render, env);
 		if (sector.neighbors[render.i] != -1)
 		{
 			render.neighbor_max_ceiling = render.clipped_alpha

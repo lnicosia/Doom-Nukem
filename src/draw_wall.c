@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/26 16:53:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:40:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		.texture_align[render.map_lvl].x;
 	if (x != x)
 		return ;
-	while (x >= render.texture_w)
+	/*while (x >= render.texture_w)
 		x -= render.texture_w;
 	while (x < 0)
-		x += render.texture_w;
+		x += render.texture_w;*/
+	if (x >= render.texture_w || x < 0)
+		x = ft_abs((int)x % render.texture_w);
 	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
 	//ft_printf("map lvl = %d\n", render.map_lvl);
@@ -95,10 +97,12 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		.texture_scale[render.map_lvl].y 
 		- render.camera->v[render.sector][render.i]
 		.texture_align[render.map_lvl].y;
-		while (y >= render.texture_h)
+		/*while (y >= render.texture_h)
 			y -= render.texture_h;
 		while (y < 0)
-			y += render.texture_h;
+			y += render.texture_h;*/
+		if (y >= render.texture_h || y < 0)
+			y = ft_abs((int)y % render.texture_h);
 		//ft_printf("y = %d\n", (int)y);
 		if (!env->options.lighting && !env->playing)
 			pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];

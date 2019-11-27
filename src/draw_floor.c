@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 17:35:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:33:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ t_render render, t_env *env)
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	map_lvl = env->wall_textures[sector.floor_texture].nb_maps - 1;
-	if (!env->options.show_minimap)
-	{
-		render.texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
-		render.texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
-	}
+	render.texture_w = env->wall_textures[sector.floor_texture].maps[map_lvl]->w;
+	render.texture_h = env->wall_textures[sector.floor_texture].maps[map_lvl]->h;
 	i = vline.start;
 	while (i <= vline.end)
 	{

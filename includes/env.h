@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 14:29:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:04:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct		s_env
  * */
 
 int					init_editor(int ac, char **av);
+void				init_editor_data(t_env *env);
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);

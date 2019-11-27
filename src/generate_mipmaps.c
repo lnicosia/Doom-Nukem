@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 10:49:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 10:14:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 09:32:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,20 @@ int		get_color(int x, int y, int w, Uint32 *prec_pixels)
 	uint8_t		blue;
 	uint32_t	res;
 
-	// RAW
-	/*red = ((prec_pixels[x * 2 + (y * 2) * w] >> 16 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2) * w] >> 16 & 0xFF) +
-	(prec_pixels[x * 2 + (y * 2 + 1) * w] >> 16 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 16 & 0xFF)) / 4;
-	//ft_printf("red = 0x%X\n", red);
-	green = ((prec_pixels[x * 2 + (y * 2) * w] >> 8 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2) * w] >> 8 & 0xFF) +
-	(prec_pixels[x * 2 + (y * 2 + 1) * w] >> 8 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 8 & 0xFF)) / 4;
-	//ft_printf("green = 0x%X\n", green);
-	blue = ((prec_pixels[x * 2 + (y * 2) * w] >> 0 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2) * w] >> 0 & 0xFF) +
-	(prec_pixels[x * 2 + (y * 2 + 1) * w] >> 0 & 0xFF) +
-	(prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 0 & 0xFF)) / 4;*/
-	//ft_printf("blue = 0x%X\n", blue);
-
 	// GAMMA FILTER
 	red = sqrt((pow((prec_pixels[x * 2 + (y * 2) * w] >> 16 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2) * w] >> 16 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + (y * 2 + 1) * w] >> 16 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 16 & 0xFF), 2)) / 4);
-	//ft_printf("red = 0x%X\n", red);
 	green = sqrt((pow((prec_pixels[x * 2 + (y * 2) * w] >> 8 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2) * w] >> 8 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + (y * 2 + 1) * w] >> 8 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 8 & 0xFF), 2)) / 4);
-	//ft_printf("green = 0x%X\n", green);
 	blue = sqrt((pow((prec_pixels[x * 2 + (y * 2) * w] >> 0 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2) * w] >> 0 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + (y * 2 + 1) * w] >> 0 & 0xFF), 2) +
 	pow((prec_pixels[x * 2 + 1 + (y * 2 + 1) * w] >> 0 & 0xFF), 2)) / 4);
 	res = 0xFF << 24 | red << 16 | green << 8 | blue;
-	//ft_printf("res = 0x%X\n", res);
 	return (res);
 }
 
@@ -71,6 +51,10 @@ int		fill_map_at_lvl(t_texture *texture, int lvl)
 		x = 0;
 		while (x < texture->maps[lvl]->w)
 		{
+			if (x * 2 < texture->maps[lvl + 1]->w
+				&& x * 2 + 1 < texture->maps[lvl + 1]->w
+				&& y * 2 < texture->maps[lvl + 1]->h
+				&& y * 2 + 1 < texture->maps[lvl + 1]->h)
 			pixels[x + y * texture->maps[lvl]->w] = get_color(
 					x, y, texture->maps[lvl + 1]->w, prec_pixels);
 			x++;
@@ -84,10 +68,10 @@ int		generate_map_at_lvl(t_texture *texture, int lvl)
 {
 	//ft_printf("lvl = %d\n", lvl);
 	if (!(texture->maps[lvl] = SDL_CreateRGBSurfaceWithFormat(0,
-					(int)(texture->maps[texture->nb_maps - 1]->w
-					/ (pow(2, texture->nb_maps - 1 - lvl))),
-					(int)(texture->maps[texture->nb_maps - 1]->h
-					/ (pow(2, texture->nb_maps - 1 - lvl))),
+					ft_max((int)(texture->maps[texture->nb_maps - 1]->w
+					/ (pow(2, texture->nb_maps - 1 - lvl))), 1),
+					ft_max((int)(texture->maps[texture->nb_maps - 1]->h
+					/ (pow(2, texture->nb_maps - 1 - lvl))), 1),
 					24, SDL_PIXELFORMAT_ARGB8888)))
 		return (custom_error("Can not malloc one of the texture maps"));
 	//ft_printf("size of lvl %d: [%d][%d]\n", lvl,

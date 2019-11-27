@@ -10,13 +10,12 @@ Minimap transparente											| Done
 Texture courante												| Function done
 Confirmation box avec juste ok									| Done
 Changer toutes les textures d'un secteur						| Done
-Skybox partout													|
+Skybox partout													| Done
 Sprites sur sol/plafond?										| Done
 Wall sprites glitch corniches									|
-Update map parser												|
+Update map parser												| Done
 Multi selection?												| 
 Ajouter des vertex/modifier secteur								|
 Pre affichage des sprites dans un dossier pour les selectionner	|
 Fix sprites pos + scale X										|
 Selection sprites mur/sol										| Done
-Fix petite ligne bug quand sprite sur corniche					|
