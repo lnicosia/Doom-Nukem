@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:29:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 11:04:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,14 @@ int	editor_keyup(t_env *env)
 		}
 		else if (clicked_vertex >= 0)
 		{
-			/*if (!env->editor.existing_vertex)
+			if (!env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 0)
 				env->editor.existing_vertex = 1;
 			else 
 			{
-				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 2)
-				{	
+				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 1)
+				{
+					add_vertex_to_current_sector(env, clicked_vertex);
+					env->editor.start_vertex = clicked_vertex;
 					if (check_pos_vertices(env))
 						env->editor.divide_sector = 1;
 				}
@@ -86,7 +88,7 @@ int	editor_keyup(t_env *env)
 			if (env->editor.divide_sector)
 				split_sector(env);
 			else
-			{*/
+			{
 				if (env->editor.start_vertex == -1)
 				{
 					env->editor.start_vertex = clicked_vertex;
@@ -109,7 +111,7 @@ int	editor_keyup(t_env *env)
 					else if (is_new_vertex_valid(env, clicked_vertex))
 						add_vertex_to_current_sector(env, clicked_vertex);
 				}
-			//}
+			}
 		}
 		env->inputs.space = 0;
 	}
