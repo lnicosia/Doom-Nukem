@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:39:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:13:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		{
 			if (sector->sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
-				env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-				/ sector->sprites[i].scale[j].x * sector->wall_width[i]
+				(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
+				/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			j++;
 		}
@@ -165,8 +165,8 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		{
 			if (sector->sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x = 
-		env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-		/ sector->sprites[i].scale[j].x * sector->wall_width[i]
+		(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
+		/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
 		}

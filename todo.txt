@@ -12,10 +12,11 @@ Confirmation box avec juste ok									| Done
 Changer toutes les textures d'un secteur						| Done
 Skybox partout													| Done
 Sprites sur sol/plafond?										| Done
-Wall sprites glitch corniches									|
+Wall sprites glitch corniches									| Done
 Update map parser												| Done
 Multi selection?												| 
 Ajouter des vertex/modifier secteur								|
 Pre affichage des sprites dans un dossier pour les selectionner	|
-Fix sprites pos + scale X										|
+Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
+Opti sprites sol/plafond										|

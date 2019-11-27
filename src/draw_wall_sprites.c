@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 09:52:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:30:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 	t_point		start;
 	t_point		end;
 	double		pos;
-	double		z1;
-	double		z2;
 
 	i = 0;
 	while (i < sector.nb_sprites[render.i])
@@ -100,33 +98,13 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 		{
 			start = env->wall_sprites[sector.sprites[render.i].sprite[i]].start[0];
 			end = env->wall_sprites[sector.sprites[render.i].sprite[i]].end[0];
-			pos = (sector.sprites[render.i].pos[i].x);// / sector.wall_width[render.i];
-			z1 = (start.x - env->vertices[sector.vertices[render.i]].x)
-			* render.camera->angle_sin -
-			(start.y - env->vertices[sector.vertices[render.i]].y)
-			* render.camera->angle_cos;
-			z2 = (start.x - env->vertices[sector.vertices[render.i]].x)
-			* render.camera->angle_cos +
-			(start.y - env->vertices[sector.vertices[render.i]].y)
-			* render.camera->angle_sin;
-			//pos = (render.x - z1) / (z2 - z1);
-			/// env->wall_sprites[sector.sprites[render.i].sprite[i]].size[0].x;
-			/*if (render.camera->v[sector.num][render.i + 1].vz)
-				pos = pos / render.camera->v[sector.num][render.i + 1].vz;
+			pos = (sector.sprites[render.i].pos[i].x)
+			/ sector.wall_width[render.i]
+			* render.camera->v[render.sector][render.i].sprite_scale[i].x;
+			if (render.camera->v[render.sector][render.i + 1].vz)
+				pos *= render.camera->v[render.sector][render.i + 1].vz;
 			else
-				pos = pos / render.camera->v[sector.num][render.i].clipped_vz2;*/
-			/*if (z)
-				pos = pos / z;
-			else
-				pos = pos / render.camera->v[sector.num][render.i].clipped_vz2;*/
-			//pos /= render.z;
-			//pos *= sector.wall_width[render.i];
-			/*z1 = env->h_w + render.camera->v[sector.num][render.i].vx *
-			render.camera->scale / -render.camera->v[sector.num][render.i].vz;
-			pos = (z1);*/
-			//pos /= render.camera->v[sector.num][render.i].xrange;
-			//pos /= z2;
-			//pos /= render.camera->v[render.sector][render.i].sprite_scale[i].x;
+				pos *= render.camera->v[render.sector][render.i].clipped_vz2;
 			render.sprite_x = (render.alpha)
 			* render.camera->v[render.sector][render.i].sprite_scale[i].x
 			* render.z + start.x
