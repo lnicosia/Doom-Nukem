@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 12:13:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:11:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct  s_data
 
 t_v3				check_collision(t_env *env, t_v3 move, t_movement motion, int recu);
 int     			check_inside_sector(t_env *env, t_movement motion);
-void                objects_collision(t_env *env);
+void                objects_collision(t_env *env, t_v3 pos);
 int                	enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius);
 void				enemy_melee_hit(t_env *env);
 int                 hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size);

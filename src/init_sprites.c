@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:38:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:06:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[0].end[0].y = 256;
 	env->wall_sprites[0].size[0].x = 128;
 	env->wall_sprites[0].size[0].y = 256;
-	env->wall_sprites[0].reversed[0] = 0;
+	env->wall_sprites[0].reversed[0] = 0;//
 	
 	// Bouton OFF
 	env->wall_sprites[1].texture = 32;

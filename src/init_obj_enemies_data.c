@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 15:18:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:44:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,38 @@ void		init_objects_data(t_env *env)
 	while (i < env->nb_objects)
 	{
 		env->objects[i].exists = 1;
+		env->objects[i].height = 2;
+		if (env->objects[i].sprite == 2) // health pack
+		{
+			env->objects[i].type = HEAL;
+			env->objects[i].quantity = 25;
+		}
+		if (env->objects[i].sprite == 3) // shotgun ammo
+		{
+			env->objects[i].type = AMMO;
+			env->objects[i].ammo_type = SHELL;
+			env->objects[i].quantity = 10;
+		}
+		if (env->objects[i].sprite == 4) // rocket ammo
+			env->objects[i].type = AMMO;
+		if (env->objects[i].sprite == 5) // regular ammo
+			env->objects[i].type = AMMO;
+		if (env->objects[i].sprite == 6) // energy cell pack
+		{                                                                                                                                                                                                          ;
+			env->objects[i].type = AMMO;
+			env->objects[i].ammo_type = ENERGY;
+			env->objects[i].quantity = 20;
+		}
+		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
+			env->objects[i].type = DECORATION;
+		if (env->objects[i].sprite >= 11 && env->objects[i].sprite <= 16) // monitor
+			env->objects[i].type = DECORATION;
+		if (env->objects[i].sprite == 17) // armor
+			env->objects[i].type = ARMOR;
+		if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
+			env->objects[i].type = DECORATION;
+		if (env->objects[i].sprite == 20 || env->objects[i].sprite == 21) // barrel
+			env->objects[i].type = DECORATION;
 		i++;
 	}
 }

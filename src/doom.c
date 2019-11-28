@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/22 14:18:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:13:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		doom(t_env *env)
 {
 	while (env->running)
 	{
-		env->player.health = 100;
+		//env->player.health = 100;
 		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);
@@ -42,7 +42,7 @@ int		doom(t_env *env)
 			if (env->player.health > 0)
 			{
 				enemy_ai(env);
-				objects_collision(env);
+				objects_collision(env, env->player.pos);
 				enemy_melee_hit(env);
 				keys(env);
 			}

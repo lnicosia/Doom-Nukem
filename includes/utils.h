@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:36:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:32:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,31 @@ typedef enum		e_confirmation_box_type
 		CONFIRM,
 		WARNING
 }					t_confirmation_box_type;
+
+typedef enum		e_object_type
+{
+	HEAL,
+	AMMO,
+	ARMOR,
+	DECORATION,
+	WEAPON
+}					t_object_type;
+
+typedef enum		e_weapons_list
+{
+	SHOTGUN,
+	RAYGUN,
+	BAZOOKA,
+	KNIFE
+}					t_weapons_list;
+
+typedef enum		e_ammo_types
+{
+	REGULAR,
+	SHELL,
+	ENERGY,
+	ROCKET
+}					t_ammo_types;
 
 typedef enum		e_enemy_state
 {
@@ -653,6 +678,7 @@ typedef struct		s_weapons
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
+	int				ammo_type;
 	double			range;
 	int				no_ammo;
 	int				max_ammo;
@@ -722,11 +748,12 @@ typedef struct		s_object
 	int				sprite;
 	double			scale;
 	double			angle;
+	double			height;
 	short			brightness;
 	Uint32			light_color;
-	int				pickable;
-	int				solid;
-	int				ammo;
+	int				type;
+	int				quantity;
+	int				ammo_type;
 	int				health;
 	int				sector;
 	int				exists;
