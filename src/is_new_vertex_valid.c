@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 17:13:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 18:21:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,20 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 	tmp = env->editor.current_vertices;
 	if (len > 2)
 	{
-		if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
-			return (0);
+
+		if (get_existing_vertex(env) == -1)
+		{
+			len++;
+			if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
+				return (0);
+			p[len - 1].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+			p[len - 1].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+		}
+		else
+		{
+			if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
+				return (0);
+		}
 		while (tmp)
 		{
 			p[i].x = ((t_vertex*)tmp->content)->x;
@@ -204,8 +216,9 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			tmp = tmp->next;
 			i++;
 		}
+
 		i = 0;
-		while (i < len - 2)
+		while (i < len -2)
 		{
 			if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
 			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) >= 0)
@@ -218,10 +231,11 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			dx2 = p[i + 2].x - p[i + 1].x;
 			dy2 = p[i + 2].y - p[i + 1].y;
 			zcrossproduct = dx1*dy2 - dy1*dx2*/
+			ft_printf("res: %d | len: %d\n", res, len);
 		}
 		if(((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
 			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) >= 0)
-				res++;
+			res++;
 		else
 			res--;
 		i++;
