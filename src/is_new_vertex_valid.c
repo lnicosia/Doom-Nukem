@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_new_vertex_valid.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/02 14:08:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 17:13:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,64 @@ t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index, int inde
 	return (res);
 }
 
+int		is_sector_convex(t_env *env, t_list *tmp)
+{
+	int		len;
+	int		i;
+	t_v2	*p;
+	int		res;
+	
+	i = 0;
+	res = 0;
+	len = ft_lstlen(env->editor.current_vertices);
+	tmp = env->editor.current_vertices;
+	if (len > 2)
+	{
+		if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
+			return (0);
+		while (tmp)
+		{
+			p[i].x = ((t_vertex*)tmp->content)->x;
+			p[i].y = ((t_vertex*)tmp->content)->y;
+			tmp = tmp->next;
+			i++;
+		}
+		i = 0;
+		while (i < len - 2)
+		{
+			if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) >= 0)
+				res++;
+			else
+				res--;
+			i++;
+			/*dx1 = p[i + 1].x - p[i].x;
+			dy1 = p[i + 1].y - p[i].y;
+			dx2 = p[i + 2].x - p[i + 1].x;
+			dy2 = p[i + 2].y - p[i + 1].y;
+			zcrossproduct = dx1*dy2 - dy1*dx2*/
+		}
+		if(((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) >= 0)
+				res++;
+		else
+			res--;
+		i++;
+		if(((p[0].x - p[i].x) * (p[1].y - p[0].y)
+			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) >= 0)
+			res++;
+		else
+			res--;
+		if (res != -(len) && res != len)
+		{
+			ft_printf("sector will be concave if you do this !\n");
+			return (0);
+		}
+	}
+	ft_printf("oups\n");
+	return (1);
+}
+
 int		is_new_dragged_vertex_valid(t_env *env, int index)
 {
 	int			*list_sectors;
@@ -223,6 +281,8 @@ int		is_new_vertex_valid(t_env *env, int index)
 			&& current_vertices_contains(env, index))
 		return (0);
 	if (new_wall_intersects(env, index))
+		return (0);
+	if (!is_sector_convex(env, env->editor.current_vertices))
 		return (0);
 	return (1);
 }
