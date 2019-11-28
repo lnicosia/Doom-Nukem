@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/27 16:39:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 21:49:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int     damage_done(t_env env, int i)
 		return (env.weapons[env.player.curr_weapon].damage);
 }
 
-int		hitscan(t_env *env, int i)
+int		hitscan_enemies(t_env *env, int i)
 {
 	if (env->enemies[i].exists && env->enemies[i].seen)
 	{
@@ -39,6 +39,25 @@ int		hitscan(t_env *env, int i)
 	return (-1);
 }
 
+int		hitscan_objects(t_env *env, int i)
+{
+	if (env->objects[i].exists && env->objects[i].seen)
+	{
+		if ((env->objects[i].left - env->objects[i].left) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].bottom) < 0)
+			return (0);
+		if ((env->objects[i].right - env->objects[i].left) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].top) < 0)
+			return (0);
+		if ((env->objects[i].right - env->objects[i].right) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].top) < 0)
+			return (0);
+		if ((env->objects[i].left - env->objects[i].right) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].bottom) < 0)
+			return (0);
+		if (env->objects[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range || env->objects[i].rotated_pos.z < 0)
+			return (0);
+		return (1);
+	}
+	return (-1);
+}
+
 void    shot(t_env *env)
 {
 	int	i;
@@ -51,13 +70,26 @@ void    shot(t_env *env)
 	//	env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
-		if (hitscan(env, i) == 1)
+		if (hitscan_enemies(env, i) == 1)
 		{
 			env->enemies[i].health -= damage_done(*env, i);
 			hit = 1;
 			if (env->enemies[i].health <= 0)
 				env->player.killed++;
 			env->enemies[i].hit = 1;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].destructible)
+		{
+			if (hitscan_objects(env, i) == 1)
+			{
+				ft_printf("touched object %d\n", i);
+				env->objects[i].health -= damage_done(*env, i);
+			}
 		}
 		i++;
 	}

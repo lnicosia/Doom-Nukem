@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 09:42:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:08:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		respawn(void *param)
 	}
 	init_weapons(env);
 	init_enemies_data(env);
+	init_objects_data(env);
 	init_animations(env);
 	update_player_z(env);
 	env->player.highest_sect = find_highest_sector(env, new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/25 15:48:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:24:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -402,7 +402,8 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 				else if (env->enemies[i].behavior == RANGED_AIMBOT)
 				{
 					env->player.hit = 1;
-					env->player.health -= env->enemies[i].damage;
+					env->player.health -= ft_clamp(env->enemies[i].damage - env->player.armor, 0, env->enemies[i].damage);
+					env->player.armor -= ft_clamp(env->enemies[i].damage, 0, env->player.armor);
 				}
 				if (env->player.health < 0)
 					env->player.health = 0;
@@ -449,7 +450,8 @@ void		enemy_melee_hit(t_env *env)
 			env->enemies[i].behavior == MELEE_FIGHTER))
 		{
 			env->player.hit = 1;
-			env->player.health -= env->enemies[i].damage;
+			env->player.health -= ft_clamp(env->enemies[i].damage - env->player.armor, 0, env->enemies[i].damage);
+			env->player.armor -= ft_clamp(env->enemies[i].damage, 0, env->player.armor);
 			if (env->player.health < 0)
 				env->player.health = 0;
 			if (env->enemies[i].behavior == MELEE_KAMIKAZE)

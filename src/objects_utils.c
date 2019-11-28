@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:57:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 18:50:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:11:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void    objects_collision(t_env *env, t_v3 pos)
 					}
 					j++;
 				}
+			}
+			if (env->objects[i].type == ARMOR && env->player.armor < 100)
+			{
+				env->player.armor += env->objects[i].quantity;
+				env->objects[i].exists = 0;
+				env->player.armor = (env->player.armor > 100) ? 100 : env->player.armor;
 			}
         }
         i++;

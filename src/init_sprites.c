@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:06:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:46:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[10].texture = 22;
 	env->object_sprites[10].death_counterpart = 10;
 	env->object_sprites[10].oriented = 0;
-	env->object_sprites[10].rest_sprite = 0;
+	env->object_sprites[10].rest_sprite = 7;
 	env->object_sprites[10].reversed[0] = 0;
 	env->object_sprites[10].start[0].x = 539;
 	env->object_sprites[10].start[0].y = 329;

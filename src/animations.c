@@ -73,7 +73,47 @@ int	 enemy_hurt(t_env *env, int i)
 	return (color);
 }
 
-void	 resting_enemy(t_env *env, int i)
+void	object_anim_loop(t_env *env, int i)
+{
+	double	start;
+	double	time_spent;
+	int		tick;
+
+	if (env->objects[i].rest.start == 0)
+		env->objects[i].rest.start = SDL_GetTicks();
+	start = env->objects[i].rest.start;
+	time_spent = env->time.milli_s - start;
+	tick = env->objects[i].nb_rest_state * 340;
+	if ((int)time_spent % tick > 170)
+	{
+		env->objects[i].rest.start = 0;
+		env->objects[i].sprite = env->object_sprites[env->objects[i].sprite].rest_sprite;
+	}
+}
+
+int	 object_destruction(t_env *env, int i, int nb_sprites)
+{
+	double start;
+	double time_spent;
+
+	if (env->objects[i].death.start == 0)
+		env->objects[i].death.start = SDL_GetTicks();
+	start = env->objects[i].death.start;
+	time_spent = env->time.milli_s - start;
+	if ((int)time_spent >= 70 && (int)time_spent / 70 < nb_sprites)
+		return ((int)(time_spent / 70));
+	else if ((int)time_spent < 70)
+		return (0);
+	if (time_spent > nb_sprites * 70)
+	{
+		env->objects[i].death.start = 0;
+		if (env->objects[i].explodes == 1)
+			env->objects[i].exists = 0;
+	}
+	return (-1);
+}
+
+void	resting_enemy(t_env *env, int i)
 {
 	double	start;
 	double	time_spent;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 16:02:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:19:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	projectiles_movement(t_env *env)
 				projectile->size_2d))
 			{
 				env->player.hit = 1;
-				env->player.health -= projectile->damage;
+				env->player.health -= ft_clamp(projectile->damage - env->player.armor, 0, projectile->damage);
+				env->player.armor -= ft_clamp(projectile->damage, 0, env->player.armor);
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}

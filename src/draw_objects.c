@@ -116,6 +116,7 @@ static void		*object_loop(void *param)
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
 						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
+				env->objects[object.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
 					reset_selection(env);
@@ -156,17 +157,22 @@ static void		threaded_object_loop(t_object object, t_render_object orender, t_en
 		pthread_join(threads[i], NULL);
 }
 
-void		draw_object(t_camera camera, t_object *object, t_env *env)
+void		draw_object(t_camera camera, t_object *object, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 
+	if (death_sprite >= 0)
+		object->sprite = env->object_sprites[object->sprite].death_counterpart;
 	sprite = env->object_sprites[object->sprite];
 	orender.camera = camera;
 	project_object(&orender, *object, env);
-	orender.index = 0;
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
+	else if (death_sprite >= 0)
+		orender.index = death_sprite;
+	else
+		orender.index = 0;
 	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
 	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
 	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
@@ -210,13 +216,27 @@ static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 void		draw_objects(t_camera camera, t_env *env)
 {
 	int	i;
+	int	death_sprite;
 
 	threaded_get_relative_pos(camera, env);
 	i = 0;
 	while (i < env->nb_objects)
 	{
+		death_sprite = -1;
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
-			draw_object(camera, &env->objects[i], env);
+		{
+			env->objects[i].seen = 0;
+			if (env->objects[i].health <= 0 && env->objects[i].exists)
+			{
+				if (env->object_sprites[env->objects[i].sprite].nb_death_sprites > 1)
+					death_sprite = object_destruction(env, i, env->object_sprites[env->objects[i].sprite].nb_death_sprites);
+				else
+					env->objects[i].sprite = env->object_sprites[env->objects[i].sprite].death_counterpart;
+			}
+			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
+				object_anim_loop(env, i);
+			draw_object(camera, &env->objects[i], env, death_sprite);
+		}
 		i++;
 	}
 }

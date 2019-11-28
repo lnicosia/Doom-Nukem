@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 16:34:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 21:38:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -474,6 +474,13 @@ int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
 void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+
+/*
+** objects functions
+*/
+
+void	object_anim_loop(t_env *env, int i);
+int		object_destruction(t_env *env, int i, int nb_sprites);
 
 /*
 **	Event function

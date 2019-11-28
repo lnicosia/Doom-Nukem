@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:32:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 21:35:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -744,11 +744,15 @@ typedef struct		s_object
 	int				left;
 	int				right;
 	int				top;
+	int				seen;
 	int				bottom;
 	int				sprite;
+	int				destructible;
+	int				explodes;
 	double			scale;
 	double			angle;
 	double			height;
+	double			size_2d;
 	short			brightness;
 	Uint32			light_color;
 	int				type;
@@ -758,6 +762,8 @@ typedef struct		s_object
 	int				sector;
 	int				exists;
 	int				num;
+	int				nb_rest_state;
+	t_animation		rest;
 	t_animation		death;
 }					t_object;
 
