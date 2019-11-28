@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:35:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/04 15:05:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 22:25:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ void	init_animations(t_env *env)
 		env->enemies[i].pursue.start = 0;
 		env->enemies[i].rand_dir.start = 0;
 		env->enemies[i].fire.start = 0;
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].rest.start = 0;
+		env->objects[i].death.start = 0;
 		i++;
 	}
 }

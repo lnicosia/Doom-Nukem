@@ -6,16 +6,16 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 21:49:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 22:19:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     damage_done(t_env env, int i)
+int     damage_done(t_env env, double rotated_pos_z)
 {
 	if (env.weapons[env.player.curr_weapon].splash)
-		return ((int)(env.weapons[env.player.curr_weapon].damage / (env.enemies[i].rotated_pos.z / 4 + 1)));
+		return ((int)(env.weapons[env.player.curr_weapon].damage / (rotated_pos_z / 4 + 1)));
 	else
 		return (env.weapons[env.player.curr_weapon].damage);
 }
@@ -72,7 +72,7 @@ void    shot(t_env *env)
 	{
 		if (hitscan_enemies(env, i) == 1)
 		{
-			env->enemies[i].health -= damage_done(*env, i);
+			env->enemies[i].health -= damage_done(*env, env->enemies[i].rotated_pos.z);
 			hit = 1;
 			if (env->enemies[i].health <= 0)
 				env->player.killed++;
@@ -86,10 +86,7 @@ void    shot(t_env *env)
 		if (env->objects[i].destructible)
 		{
 			if (hitscan_objects(env, i) == 1)
-			{
-				ft_printf("touched object %d\n", i);
-				env->objects[i].health -= damage_done(*env, i);
-			}
+				env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
 		}
 		i++;
 	}
