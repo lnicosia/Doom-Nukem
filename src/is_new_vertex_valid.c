@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 18:21:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 18:33:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,36 +221,46 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 		while (i < len -2)
 		{
 			if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) >= 0)
+			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) > 0)
 				res++;
-			else
+			else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) < 0)
 				res--;
+			else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) == 0)
+				res += res > 0 ? 1 : -1;
 			i++;
 			/*dx1 = p[i + 1].x - p[i].x;
 			dy1 = p[i + 1].y - p[i].y;
 			dx2 = p[i + 2].x - p[i + 1].x;
 			dy2 = p[i + 2].y - p[i + 1].y;
 			zcrossproduct = dx1*dy2 - dy1*dx2*/
-			ft_printf("res: %d | len: %d\n", res, len);
 		}
 		if(((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) >= 0)
+			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) > 0)
 			res++;
-		else
-			res--;
+		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) < 0)
+				res--;
+		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) == 0)
+				res += res > 0 ? 1 : -1;
 		i++;
 		if(((p[0].x - p[i].x) * (p[1].y - p[0].y)
 			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) >= 0)
 			res++;
-		else
-			res--;
+		else if (((p[0].x - p[i].x) * (p[1].y - p[0].y)
+			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) < 0)
+				res--;
+		else if (((p[0].x - p[i].x) * (p[1].y - p[0].y)
+			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) == 0)
+				res += res > 0 ? 1 : -1;
 		if (res != -(len) && res != len)
 		{
 			ft_printf("sector will be concave if you do this !\n");
 			return (0);
 		}
 	}
-	ft_printf("oups\n");
 	return (1);
 }
 
