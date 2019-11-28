@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 18:09:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 10:09:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	editor_keyup(t_env *env)
 				env->editor.existing_vertex = 1;
 			else 
 			{
-				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 1)
+				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 1
+				&& is_new_vertex_valid(env, clicked_vertex))
 				{
 					add_vertex_to_current_sector(env, clicked_vertex);
 					env->editor.start_vertex = clicked_vertex;
