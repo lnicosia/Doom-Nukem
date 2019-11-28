@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:45:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 10:54:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -740,10 +740,11 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before light", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
-	env->sectors[parser->sectors_count].light_color = 0xFFFFFFFF;
+	env->sectors[parser->sectors_count].light_color = 0xFF409CFF;
 	if (env->sectors[parser->sectors_count].brightness < -255 ||
 			env->sectors[parser->sectors_count].brightness > 255)
 		return (custom_error("Light must be between -255 and 255"));
+	env->sectors[parser->sectors_count].intensity = 16;
 	*line = skip_number(*line);
 	if (**line != ']')
 		return (invalid_char("after sector light", "']'", **line, parser));

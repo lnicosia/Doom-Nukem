@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 11:02:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 11:51:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct		s_env
 	int					menu_select;
 	int					menu_edit;
 	int					aplicate_changes;
-	char				*fps;
+	int					fps;
+	int					fps_count;
 	double				*zbuffer;
 	int					*sector_list;
 	int					screen_sectors_size;
@@ -145,7 +146,6 @@ typedef struct		s_env
 	int				min_fps2;
 	int				max_fps2;
 	int				contains_skybox;
-	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
 	t_list				*events;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 13:22:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:35:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int		editor(t_env *env)
 				if (editor_keys(env))
 					return (ft_printf("Error in inputs\n"));
 			}
-			env->frame_timer = SDL_GetTicks();
 			draw_grid(env);
 			draw_grid_vertices(env);
 			if (env->editor.player_exist || env->editor.dragged_player == 1)
