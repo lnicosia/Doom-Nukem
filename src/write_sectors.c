@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 19:04:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:17:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,12 +152,12 @@ static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
 			sector.floor, sector.floor_slope, sector.floor_texture,
-			sector.floor_align.x, sector.floor_align.y,
+			sector.floor_map_align.x, sector.floor_map_align.y,
 			sector.floor_map_scale.x, sector.floor_map_scale.y);
 	write_sector_floor_sprites(fd, sector);
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
 			sector.ceiling, sector.ceiling_slope, sector.ceiling_texture,
-			sector.ceiling_align.x, sector.ceiling_align.y,
+			sector.ceiling_map_align.x, sector.ceiling_map_align.y,
 			sector.ceiling_map_scale.x, sector.ceiling_map_scale.y);
 	write_sector_ceiling_sprites(fd, sector);
 	write_sector_vertices(fd, sector);

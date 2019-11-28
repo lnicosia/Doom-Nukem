@@ -75,14 +75,16 @@ int	 enemy_hurt(t_env *env, int i)
 
 void	 resting_enemy(t_env *env, int i)
 {
-	double start;
-	double time_spent;
+	double	start;
+	double	time_spent;
+	int		tick;
 
 	if (env->enemies[i].rest.start == 0)
 		env->enemies[i].rest.start = SDL_GetTicks();
 	start = env->enemies[i].rest.start;
 	time_spent = env->time.milli_s - start;
-	if ((int)time_spent % 340 > 170)
+	tick = env->enemies[i].nb_rest_state * 340;
+	if ((int)time_spent % tick > 170)
 	{
 		env->enemies[i].rest.start = 0;
 		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].rest_sprite;
@@ -91,14 +93,16 @@ void	 resting_enemy(t_env *env, int i)
 
 void	 pursuing_enemy(t_env *env, int i)
 {
-	double start;
-	double time_spent;
+	double	start;
+	double	time_spent;
+	int		tick;
 
 	if (env->enemies[i].pursue.start == 0)
 		env->enemies[i].pursue.start = SDL_GetTicks();
 	start = env->enemies[i].pursue.start;
 	time_spent = env->time.milli_s - start;
-	if ((int)time_spent % 340 > 170)
+	tick = 340 * env->enemies[i].nb_pursuit_state;
+	if ((int)time_spent % tick > 170)
 	{
 		env->enemies[i].pursue.start = 0;
 		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].pursuit_sprite;
@@ -145,14 +149,16 @@ int	 rand_dir(t_env *env, int i)
 
 void	 enemy_firing_anim(t_env *env, int i)
 {
-	double start;
-	double time_spent;
+	double	start;
+	double	time_spent;
+	int		tick;
 
 	if (env->enemies[i].fire.start == 0)
 		env->enemies[i].fire.start = SDL_GetTicks();
 	start = env->enemies[i].fire.start;
 	time_spent = env->time.milli_s - start;
-	if ((int)time_spent % 800 > 400)
+	tick = 200 * env->enemies[i].nb_firing_state;
+	if ((int)time_spent % tick > 200)
 	{
 		env->enemies[i].fire.start = 0;
 		env->enemies[i].sprite = env->enemy_sprites[env->enemies[i].sprite].firing_sprite;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 16:26:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/22 14:19:08 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,21 @@ int	draw_game(t_env *env)
 			}
 			i++;
 		}
-	}
+	/*t_list *tmp;
+	t_projectile *proj;
+	tmp = env->projectiles;
+	while (tmp)
+	{
+		proj = ((t_projectile*)tmp->content);
+		if (proj->exists)
+		{
+			draw_line(new_point(proj->left, proj->top), new_point(proj->right, proj->top), *env, 0xFF00FF00);
+			draw_line(new_point(proj->right, proj->top), new_point(proj->right, proj->bottom), *env, 0xFF00FF00);
+			draw_line(new_point(proj->right, proj->bottom), new_point(proj->left, proj->bottom), *env, 0xFF00FF00);
+			draw_line(new_point(proj->left, proj->bottom), new_point(proj->left, proj->top), *env, 0xFF00FF00);
+		}
+		tmp = tmp->next;
+	}*/}
 	//if (env->options.show_minimap)
 		minimap(env);
 	if (env->confirmation_box.state)
@@ -77,5 +91,6 @@ int	draw_game(t_env *env)
 		update_screen(env);
 	if (env->player.health > 0)
 		view(env);
+	env->first_frame = 1;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/01 13:27:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:49:00 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void		*object_loop(void *param)
 	env = ((t_object_thread*)param)->env;
 	object = ((t_object_thread*)param)->object;
 	sprite = env->object_sprites[object.sprite];
-	texture = env->textures[sprite.texture];
+	texture = env->sprite_textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/19 15:45:52 by gaerhard		  #+#	#+#			 */
-/*   Updated: 2019/09/24 14:46:31 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2019/11/26 13:46:49 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	armor_life_hud(t_env *env)
 	int window_w;
 
 	x = 0;
-	window_w = (int)(env->w)/*  - env->textures[ARMOR_LIFE_HUD].surface->w */;
+	window_w = (int)(env->w)/*  - env->sprite_textures[ARMOR_LIFE_HUD].surface->w */;
 	window_w = 0;
-	window_h = (env->h - env->textures[ARMOR_LIFE_HUD].surface->h);
-	while (x < env->textures[ARMOR_LIFE_HUD].surface->w && window_w + x < env->w)
+	window_h = (env->h - env->sprite_textures[ARMOR_LIFE_HUD].surface->h);
+	while (x < env->sprite_textures[ARMOR_LIFE_HUD].surface->w && window_w + x < env->w)
 	{
 		y = 0;
-		while (y < env->textures[ARMOR_LIFE_HUD].surface->h  && (window_h + y) < env->h)
+		while (y < env->sprite_textures[ARMOR_LIFE_HUD].surface->h  && (window_h + y) < env->h)
 		{
-			if (env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
+			if (env->sprite_textures[ARMOR_LIFE_HUD].str[x + env->sprite_textures[ARMOR_LIFE_HUD].surface->w * y] != 0xFFC10099)
 				env->sdl.texture_pixels[(window_w + x) + env->w * (window_h + y)] = 
-					env->textures[ARMOR_LIFE_HUD].str[x + env->textures[ARMOR_LIFE_HUD].surface->w * y];
+					env->sprite_textures[ARMOR_LIFE_HUD].str[x + env->sprite_textures[ARMOR_LIFE_HUD].surface->w * y];
 			y++;
 		}
 		x++;
@@ -45,16 +45,16 @@ void	ammo_hud(t_env *env)
 	int window_w;
 
 	x = 0;
-	window_w = (int)(env->w) - env->textures[AMMO_HUD].surface->w;
-	window_h = (env->h - env->textures[AMMO_HUD].surface->h);
-	while (x < env->textures[AMMO_HUD].surface->w)
+	window_w = (int)(env->w) - env->sprite_textures[AMMO_HUD].surface->w;
+	window_h = (env->h - env->sprite_textures[AMMO_HUD].surface->h);
+	while (x < env->sprite_textures[AMMO_HUD].surface->w)
 	{
 		y = 0;
-		while (y < env->textures[AMMO_HUD].surface->h  && (window_h + y) < env->h)
+		while (y < env->sprite_textures[AMMO_HUD].surface->h  && (window_h + y) < env->h)
 		{
-			if (env->textures[AMMO_HUD].str[x + env->textures[AMMO_HUD].surface->w * y] != 0xFFC10099)
+			if (env->sprite_textures[AMMO_HUD].str[x + env->sprite_textures[AMMO_HUD].surface->w * y] != 0xFFC10099)
 				env->sdl.texture_pixels[(window_w + x) + env->w * (window_h + y)] = 
-					env->textures[AMMO_HUD].str[x + env->textures[AMMO_HUD].surface->w * y];
+					env->sprite_textures[AMMO_HUD].str[x + env->sprite_textures[AMMO_HUD].surface->w * y];
 			y++;
 		}
 		x++;

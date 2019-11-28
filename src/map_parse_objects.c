@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/29 15:27:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 12:04:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,18 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 			new_v3(env->objects[parser->objects_count].pos.x,
 				env->objects[parser->objects_count].pos.y,
 				env->objects[parser->objects_count].pos.z));
-	env->objects[parser->objects_count].brightness =
-		env->sectors[env->objects[parser->objects_count].sector].brightness;
-	env->objects[parser->objects_count].light_color =
-		env->sectors[env->objects[parser->objects_count].sector].light_color;
+	if (env->objects[parser->objects_count].sector >= 0)
+	{
+		env->objects[parser->objects_count].brightness =
+			env->sectors[env->objects[parser->objects_count].sector].brightness;
+		env->objects[parser->objects_count].light_color =
+			env->sectors[env->objects[parser->objects_count].sector].light_color;
+	}
+	else
+	{
+		env->objects[parser->objects_count].brightness = 0;
+		env->objects[parser->objects_count].light_color = 0;
+	}
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/18 14:54:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/20 15:28:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	animations(t_env *env)
 	if (!env->player.state.jump && !env->player.state.fall
 			&& !env->player.state.climb && !env->player.state.drop
 			&& !env->player.state.fall)
-	{
-		//ft_printf("uofate player z\n");
 		update_player_z(env);
-	}
 	if (((env->inputs.ctrl&& env->player.eyesight > 3)
 				|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
@@ -103,7 +100,6 @@ void	update_player_pos(t_env *env)
 				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env))
 			env->player.drop_flag = 1;
 		env->player.highest_sect = find_highest_sector(env, motion);
-		env->player.lowest_sect = find_lowest_sector(env, motion);
 		env->player.camera.pos = env->player.pos;
 		env->player.camera.pos.z = env->player.head_z;
 
@@ -153,6 +149,7 @@ void	move_player(t_env *env)
 	prev_sector = env->player.sector;
 	movement = 0;
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
+	motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 	if (env->inputs.forward && !env->inputs.backward)
 	{
 		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,

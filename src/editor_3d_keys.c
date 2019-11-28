@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:19:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:42:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
 			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 5;
+				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
 		}
 		if (env->inputs.equals)
 		{
@@ -124,6 +124,12 @@ int		editor_3d_keys(t_env *env)
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y *= 1.1;
 			else
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
+			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
+				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+				return (-1);
+			if (set_camera_map_array(&env->player.camera,
+				env->editor.selected_sector, env->editor.selected_wall, env))
+				return (-1);
 		}
 		if (env->inputs.minus1)
 		{
@@ -136,6 +142,12 @@ int		editor_3d_keys(t_env *env)
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y /= 1.1;
 			else
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x /= 1.1;
+			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
+				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+				return (-1);
+			if (set_camera_map_array(&env->player.camera,
+				env->editor.selected_sector, env->editor.selected_wall, env))
+				return (-1);
 		}
 	}
 
@@ -149,7 +161,35 @@ int		editor_3d_keys(t_env *env)
 			&& env->editor.selected_sector != -1
 			&& env->selected_wall_sprite_wall != -1
 			&& env->selected_wall_sprite_sprite != -1)
-		wall_sprites_keys(env);
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->editor.selected_sector].
+		sprites[env->selected_wall_sprite_wall].
+		pos[env->selected_wall_sprite_sprite],
+		&env->sectors[env->editor.selected_sector].
+		sprites[env->selected_wall_sprite_wall].
+		scale[env->selected_wall_sprite_sprite]);
+	}
+	if (env->editor.in_game
+		&& env->selected_ceiling != -1
+		&& env->selected_ceiling_sprite != -1)
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->selected_ceiling].
+		ceiling_sprites.pos[env->selected_ceiling_sprite],
+		&env->sectors[env->selected_ceiling].
+		ceiling_sprites.scale[env->selected_ceiling_sprite]);
+	}
+	if (env->editor.in_game
+		&& env->selected_floor != -1
+		&& env->selected_floor_sprite != -1)
+	{
+		wall_sprites_keys(env,
+		&env->sectors[env->selected_floor].
+		floor_sprites.pos[env->selected_floor_sprite],
+		&env->sectors[env->selected_floor].
+		floor_sprites.scale[env->selected_floor_sprite]);
+	}
 
 	/*
 	 * *	selection of textures on ceiling and floor
@@ -157,6 +197,7 @@ int		editor_3d_keys(t_env *env)
 	 */
 
 	if (env->editor.in_game && env->selected_ceiling != -1
+		&& env->selected_ceiling_sprite == -1
 			&& (env->inputs.down || env->inputs.up
 			|| env->inputs.plus || env->inputs.minus
 			|| env->inputs.comma || env->inputs.period
@@ -168,7 +209,7 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture > 8)
+					&& env->sectors[env->selected_ceiling].ceiling_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture--;
@@ -176,7 +217,7 @@ int		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE- 10)
+					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 10)
 					env->sectors[env->selected_ceiling].ceiling_texture += 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
@@ -195,25 +236,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
-				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x -= 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
-				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_align.y += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_align.x += 10;
+				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 		}
 		if (env->inputs.equals)
 		{
@@ -249,6 +290,7 @@ int		editor_3d_keys(t_env *env)
 	 */
 
 	if (env->editor.in_game && env->selected_floor != -1
+		&& env->selected_floor_sprite == -1
 			&& (env->inputs.down || env->inputs.up
 			|| env->inputs.plus || env->inputs.minus
 			|| env->inputs.comma || env->inputs.period
@@ -260,9 +302,9 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_floor].floor_texture > 9)
+					&& env->sectors[env->selected_floor].floor_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture -= 10;
-				else if (env->sectors[env->selected_floor].floor_texture > 0)
+				else if (env->sectors[env->selected_floor].floor_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture--;
 			}
 			else if (env->inputs.up && env->editor.tab)
@@ -286,25 +328,25 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y -= 10;
-				env->sectors[env->selected_floor].floor_align.x -= 10;
+				env->sectors[env->selected_floor].floor_map_align.y -= 1;
+				env->sectors[env->selected_floor].floor_map_align.x -= 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y -= 10;
+				env->sectors[env->selected_floor].floor_map_align.y -= 1;
 			else
-				env->sectors[env->selected_floor].floor_align.x -= 10;
+				env->sectors[env->selected_floor].floor_map_align.x -= 1;
 		}
 		if (env->inputs.period)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_floor].floor_align.y += 10;
-				env->sectors[env->selected_floor].floor_align.x += 10;
+				env->sectors[env->selected_floor].floor_map_align.y += 1;
+				env->sectors[env->selected_floor].floor_map_align.x += 1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_align.y += 10;
+				env->sectors[env->selected_floor].floor_map_align.y += 1;
 			else
-				env->sectors[env->selected_floor].floor_align.x += 10;
+				env->sectors[env->selected_floor].floor_map_align.x += 1;
 		}
 		if (env->inputs.equals)
 		{

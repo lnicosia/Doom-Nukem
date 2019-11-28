@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/21 18:23:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 10:23:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int			check_player_z(t_env *env)
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6.0;
 	env->player.highest_sect = env->player.sector;
-	env->player.lowest_sect = env->player.sector;
 	/*ft_printf("player_z: %f | sector_height: %f\n", env->player.eyesight,
 	env->sectors[env->player.sector].ceiling - env->sectors[env->player.sector].floor);*/
 	if ((env->sectors[env->player.sector].ceiling
@@ -92,7 +91,6 @@ void		add_player(t_env *env)
 	env->player.sector = get_sector_no_z(env,
 			env->player.pos);
 	env->player.highest_sect = env->player.sector;
-	env->player.lowest_sect = env->player.sector;
 	if (env->player.sector != -1)
 		update_player_z(env);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;

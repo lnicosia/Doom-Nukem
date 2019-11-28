@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:57:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:27:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int		editor_3d_keyup(t_env *env)
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{
-				apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env);
+				if (apply_texture(env->editor.current_texture,
+				&env->sectors[env->editor.selected_sector], env))
+					return (-1);
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_n)

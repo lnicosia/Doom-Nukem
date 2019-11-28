@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/27 16:39:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,17 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-		env->player.camera.angle_z);
+	//create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
+	//	new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+	//	env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)
 		{
-			if (env->options.test)
-				ft_printf("I hit enemy nb %d | enemy_life before = %d |", i, env->enemies[i].health);
 			env->enemies[i].health -= damage_done(*env, i);
 			hit = 1;
 			if (env->enemies[i].health <= 0)
 				env->player.killed++;
-			if (env->options.test)
-				ft_printf(" and after = %d\n", env->enemies[i].health);
 			env->enemies[i].hit = 1;
 		}
 		i++;
@@ -82,9 +78,9 @@ void    draw_weapon(t_env *env, int sprite)
 	Uint32		*texture_pixels;
 
 	pixels = env->sdl.texture_pixels;
-	texture_pixels = env->textures[sprite].str;
-	texture_w = env->textures[sprite].surface->w;
-	texture_h = env->textures[sprite].surface->h;
+	texture_pixels = env->sprite_textures[sprite].str;
+	texture_w = env->sprite_textures[sprite].surface->w;
+	texture_h = env->sprite_textures[sprite].surface->h;
 	window_w = (int)(env->w - texture_w) / 1.5;
 	window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
 	y = 0;
@@ -93,14 +89,11 @@ void    draw_weapon(t_env *env, int sprite)
 		x = 0;
 		while (x < texture_w  && (window_h + y) < env->h)
 		{
-			//ft_printf("Player sector = %d\n", env->player.sector);
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
 				pixels[(window_w + x) + env->w * (window_h + y)] = 
 					apply_light(texture_pixels[x + texture_w * y],
 							env->sectors[env->player.sector].light_color,
 							env->sectors[env->player.sector].brightness);
-				//pixels[(window_w + x) + env->w * (window_h + y)] = 
-					//texture_pixels[x + texture_w * y];
 			x++;
 		}
 		y++;
@@ -111,7 +104,6 @@ void    weapon_animation(t_env *env, int nb)
 {
 	if (env->shot.start == 0)
 	{
-		shot(env);
 		env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
 		if (env->weapons[nb].ammo <= 0)
@@ -121,6 +113,7 @@ void    weapon_animation(t_env *env, int nb)
 		}
 		else
 		{
+			shot(env);
 			env->weapons[nb].no_ammo = 0;
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
 			env->weapons[nb].ammo--;

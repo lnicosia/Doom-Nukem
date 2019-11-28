@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:05:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 10:27:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	free_textures(t_env *env)
 	i = 0;
 	while (i < MAX_TEXTURES)
 	{
-		if (env->textures[i].surface)
-			SDL_FreeSurface(env->textures[i].surface);
+		if (env->sprite_textures[i].surface)
+			SDL_FreeSurface(env->sprite_textures[i].surface);
 		i++;
 	}
 }
@@ -90,6 +90,14 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
 		if (env->sectors[i].ceiling_map_lvl)
 			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
+		if (env->sectors[i].floor_align)
+			ft_memdel((void**)&env->sectors[i].floor_align);
+		if (env->sectors[i].floor_scale)
+			ft_memdel((void**)&env->sectors[i].floor_scale);
+		if (env->sectors[i].ceiling_align)
+			ft_memdel((void**)&env->sectors[i].ceiling_align);
+		if (env->sectors[i].ceiling_scale)
+			ft_memdel((void**)&env->sectors[i].ceiling_scale);
 		if (env->sectors[i].walls_map_lvl)
 		{
 			j = 0;
@@ -160,6 +168,8 @@ void		free_camera(t_camera *camera, t_env *env)
 						ft_memdel((void**)&camera->v[i][j].sprite_scale);
 					if (camera->v[i][j].texture_scale)
 						ft_memdel((void**)&camera->v[i][j].texture_scale);
+					if (camera->v[i][j].texture_align)
+						ft_memdel((void**)&camera->v[i][j].texture_align);
 					j++;
 				}
 				ft_memdel((void**)&camera->v[i]);

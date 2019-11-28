@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/26 10:26:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 10:32:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,17 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 	y = ft_fclamp(y, 0, render.texture_h);*/
 	x = render.alpha
 		* render.camera->v[render.sector][render.i]
-		.texture_scale[render.map_lvl].x * render.z - sector.align[render.i].x;
+		.texture_scale[render.map_lvl].x * render.z
+		- render.camera->v[render.sector][render.i]
+		.texture_align[render.map_lvl].x;
 	if (x != x)
 		return ;
-	while (x >= render.texture_w)
+	/*while (x >= render.texture_w)
 		x -= render.texture_w;
 	while (x < 0)
-		x += render.texture_w;
+		x += render.texture_w;*/
+	if (x >= render.texture_w || x < 0)
+		x = ft_abs((int)x % render.texture_w);
 	x = ft_fclamp(x, 0, render.texture_w);
 	i = vline.start;
 	//ft_printf("map lvl = %d\n", render.map_lvl);
@@ -90,19 +94,23 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 		while (x < 0)
 			x += render.texture_w;*/
 		y = yalpha * render.camera->v[render.sector][render.i]
-		.texture_scale[render.map_lvl].y - sector.align[render.i].y;
-		while (y >= render.texture_h)
+		.texture_scale[render.map_lvl].y 
+		- render.camera->v[render.sector][render.i]
+		.texture_align[render.map_lvl].y;
+		/*while (y >= render.texture_h)
 			y -= render.texture_h;
 		while (y < 0)
-			y += render.texture_h;
+			y += render.texture_h;*/
+		if (y >= render.texture_h || y < 0)
+			y = ft_abs((int)y % render.texture_h);
 		//ft_printf("y = %d\n", (int)y);
 		if (!env->options.lighting && !env->playing)
 			pixels[coord] = texture_pixels[(int)x + render.texture_w * (int)y];
 		else
 			pixels[coord] = apply_light(texture_pixels[(int)x
 			+ render.texture_w * (int)y], sector.light_color, sector.brightness);
-		if (sector.selected[render.i] && !env->editor.select)
-			pixels[coord] = blend_alpha(pixels[coord], 0xFF00FF00, 128);
+		if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
+			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		zbuffer[coord] = render.z;
 		if (env->options.zbuffer || env->options.contouring)
 			if (i == (int)(render.max_ceiling)

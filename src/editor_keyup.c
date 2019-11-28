@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 10:09:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 11:07:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	editor_keyup(t_env *env)
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{
-				apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env);
+				if (apply_texture(env->editor.current_texture,
+				&env->sectors[env->editor.selected_sector], env))
+					return (-1);
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
@@ -82,12 +83,8 @@ int	editor_keyup(t_env *env)
 				{
 					add_vertex_to_current_sector(env, clicked_vertex);
 					env->editor.start_vertex = clicked_vertex;
-					if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
-						&& is_new_vertex_valid(env, clicked_vertex))
-					{
-						if (check_pos_vertices(env))
-							env->editor.divide_sector = 1;
-					}
+					if (check_pos_vertices(env))
+						env->editor.divide_sector = 1;
 				}
 			}
 			if (env->editor.divide_sector)

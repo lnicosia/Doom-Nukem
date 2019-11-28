@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/18 17:35:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:48:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void		*enemy_loop(void *param)
 	env = ((t_enemy_thread*)param)->env;
 	enemy = ((t_enemy_thread*)param)->enemy;
 	sprite = env->enemy_sprites[enemy.sprite];
-	texture = env->textures[sprite.texture];
+	texture = env->sprite_textures[sprite.texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;

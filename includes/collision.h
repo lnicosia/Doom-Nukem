@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/15 16:23:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:13:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct  s_movement
     double      future_z;
     t_wall      wall;
     int         sector;
+	int			lowest_ceiling;
     double      size_2d;
     double      eyesight;
     t_v3        pos;
@@ -72,7 +73,7 @@ int					diff_sign(double nb1, double nb2);
 int					diff_value(int nb1, int nb2, int a, int b);
 int					in_range(double nb, double val1, double val2);
 t_movement          new_movement(int sector, double size_2d, double eyesight, t_v3 pos);
-int                 find_lowest_sector(t_env *env, t_movement motion);
+int                 find_lowest_ceiling(t_env *env, t_movement motion);
 int                 check_ceiling(t_env *env, t_movement motion, int sector_dest);
 int     			collision_projectiles(t_env *env, t_v3 move, t_movement motion);
 int					projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius);

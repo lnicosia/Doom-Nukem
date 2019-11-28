@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 12:21:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 10:23:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 34
-# define MAX_SPRITES 12
+# define MAX_TEXTURES 35
+# define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 3
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
@@ -37,7 +37,7 @@
 # define NB_SKYBOX 5
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
-# define AMMO_HUD 27
+# define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
 # define THREADS 4
 # define MAX_W 2560
@@ -95,8 +95,10 @@ typedef enum		e_enemy_state
 
 typedef enum		e_enemy_behavior
 {
-	MELEE,
-	RANGED
+	MELEE_FIGHTER,
+	MELEE_KAMIKAZE,
+	RANGED_AIMBOT,
+	RANGED_PROJECTILE
 }					t_enemy_behavior;
 
 typedef enum		e_enemy_type
@@ -176,6 +178,7 @@ typedef struct		s_render_vertex
 {
 	t_v2			*texture_scale;
 	t_v2			*sprite_scale;
+	t_v2			*texture_align;
 	double			vx;
 	double			vz;
 	double			clipped_vx1;
@@ -297,13 +300,15 @@ typedef struct		s_sector
 	short			floor_texture;
 	t_v2			*floor_scale;
 	t_v2			floor_map_scale;
-	t_v2			floor_align;
+	t_v2			*floor_align;
+	t_v2			floor_map_align;
 	double			ceiling;
 	double			ceiling_slope;
 	short			ceiling_texture;
 	t_v2			*ceiling_scale;
 	t_v2			ceiling_map_scale;
-	t_v2			ceiling_align;
+	t_v2			*ceiling_align;
+	t_v2			ceiling_map_align;
 	double			x_max;
 	double			floor_min;
 	double			ceiling_min;
@@ -740,6 +745,7 @@ typedef struct		s_enemies
 	t_v2			left_arm;
 	t_v2			right_arm;
 	t_init_data		enemies_init_data;
+	int				firing_type;
 	int				type;
 	int				behavior;
 	int				speed;

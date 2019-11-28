@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:12:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:26:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 		free(sector->ceiling_scale);
 	if (!(sector->ceiling_scale = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector ceiling_scale array"));
+	if (sector->ceiling_align)
+		free(sector->ceiling_align);
+	if (!(sector->ceiling_align = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+		return (custom_error("Could not malloc sector ceiling_scale array"));
 	i = 0;
 	while (i < texture.nb_maps)
 	{
-		sector->ceiling_scale[i].x = (texture.surface->w / sector->ceiling_map_scale.x)
-		/ pow(2, texture.nb_maps - 1 - i);
-		sector->ceiling_scale[i].y = (texture.surface->h / sector->ceiling_map_scale.y)
-		/ pow(2, texture.nb_maps - 1 - i);
+		sector->ceiling_scale[i].x = (texture.maps[i]->w / sector->ceiling_map_scale.x);
+		sector->ceiling_scale[i].y = (texture.maps[i]->h / sector->ceiling_map_scale.y);
+		sector->ceiling_align[i].x = (texture.maps[i]->w * sector->ceiling_map_align.x) / 10;
+		sector->ceiling_align[i].y = (texture.maps[i]->h * sector->ceiling_map_align.y) / 10;
 		i++;
 	}
 	if (sector->ceiling_map_lvl)

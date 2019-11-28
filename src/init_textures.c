@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 12:25:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:36:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load midspace\n"));
 	if (parse_bmp("images/wall_sprites/button_on.bmp", 33, env))
 		return (ft_printf("Failed to load midspace\n"));
+	if (parse_bmp("images/sprites/objects_sprites.bmp", 34, env))
+		return (ft_printf("Failed to load object sprites\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));
 	return (0);

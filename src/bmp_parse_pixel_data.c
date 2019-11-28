@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/05/01 13:22:47 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/07/24 14:55:08 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2019/11/26 13:47:37 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env)
 		y = parser->h - 1;
 		while (byte + 4 < ret)
 		{
-			env->textures[index].str[x + y * parser->w] = get_pixel(byte, str, parser); 
+			env->sprite_textures[index].str[x + y * parser->w] = get_pixel(byte, str, parser); 
 			byte += parser->bpp / 8.0;
 			x++;
 			if (x >= parser->w)

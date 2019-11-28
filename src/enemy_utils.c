@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/25 15:48:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ int	 enemy_line_of_sight(t_env *env, t_v2 enemy, t_v2 player, int sector)
 
 	init_sector_list(env, sector);
 	i = 0;
+	if (sector < 0)
+		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{
 		if (sector == env->player.sector)
@@ -214,23 +216,6 @@ void	enemy_far_left_right(t_env *env, int nb)
 	env->enemies[nb].far_right.y = 1000 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
 }
 
-void	enemy_arms(t_env *env, int nb)
-{
-	double	angle_left;
-	double	angle_right;
-	double	radius;
-
-	angle_left = env->enemies[nb].angle + 90;
-	angle_right = env->enemies[nb].angle - 90;
-	angle_left -= (angle_left > 360) ? 360 : 0;
-	angle_right += (angle_right < 360) ? 360 : 0;
-	radius = env->enemies[nb].size_2d / 2;
-	env->enemies[nb].left_arm.x = radius * cos(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.x;
-	env->enemies[nb].left_arm.y = radius * sin(angle_left * CONVERT_RADIANS) + env->enemies[nb].pos.y;
-	env->enemies[nb].right_arm.x = radius * cos(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.x;
-	env->enemies[nb].right_arm.y = radius * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
-}
-
 int	 is_in_enemy_fov(t_enemies enemy, t_player player, double distance)
 {
 	t_v2	player_pos;
@@ -283,6 +268,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 	double  distance;
 
 	enemy_far_left_right(env, i);
+	env->enemies[i].saw_player = 0;
 	distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
 	env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player, distance);
 	if (distance <= 30)
@@ -296,51 +282,71 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 
 void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
-	t_v3 direction;
-	t_v3 move;
+	t_v3 		direction;
+	t_v3 		move;
+	t_movement	motion;
 
 	(void)distance;
 	if (enemy.exists )
 	{
 		if (distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
+		{
+			env->enemies[i].state = PURSUING;
+			direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
+			move.x = direction.x;
+			move.y = direction.y;
+			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
+			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+			move = check_collision(env, move, motion, 0);
+			if (move.x == 0 && move.y == 0 && enemy.speed != 0)
 			{
-				env->enemies[i].state = PURSUING;
-				direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
-				move.x = direction.x;
-				move.y = direction.y;
-				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
-				if (move.x == 0 && move.y == 0 && enemy.speed != 0)
+				env->enemies[i].dir = rand_dir(env, i);
+				if (env->enemies[i].dir == 0)
 				{
-					env->enemies[i].dir = rand_dir(env, i);
-					if (env->enemies[i].dir == 0)
-					{
-						move.x = -direction.y;
-						move.y = direction.x;
-					}
-					else if (env->enemies[i].dir == 1)
-					{
-						move.x = direction.y;
-						move.y = -direction.x;
-					}
-					move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+					move.x = -direction.y;
+					move.y = direction.x;
 				}
-				env->enemies[i].pos.x += move.x;
-				env->enemies[i].pos.y += move.y;
-				if (env->enemies[i].type == AERIAL)
-					env->enemies[i].pos.z += direction.z;
-				else
-					update_enemy_z(env, i);
-				env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
+				else if (env->enemies[i].dir == 1)
+				{
+					move.x = direction.y;
+					move.y = -direction.x;
+				}
+				move = check_collision(env, move, motion, 1);
 			}
+			env->enemies[i].pos.x += move.x;
+			env->enemies[i].pos.y += move.y;
+			if (env->enemies[i].type == AERIAL)
+				env->enemies[i].pos.z += move.z;
+			else
+				update_enemy_z(env, i);
+			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
+		}
 			if (enemy.saw_player)
 				env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
 	}
 }
 
+double	enemy_angle_z(t_env *env, int i)
+{
+	double	dist_enemy_player;
+	double	diff_z;
+	double	angle_z;
+
+	dist_enemy_player = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
+	diff_z = (env->enemies[i].pos.z + env->enemies[i].eyesight) - (env->player.pos.z + env->player.eyesight);
+	if (dist_enemy_player != 0)
+		angle_z = diff_z / dist_enemy_player;
+	else
+		angle_z = 0;
+	return (angle_z);
+}
+
 void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
-	t_v3 direction;
-	t_v3 move;
+	t_v3		direction;
+	t_v3 		move;
+	t_movement 	motion;
 
 	if (enemy.exists)
 	{
@@ -351,7 +357,10 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			direction = sprite_movement(env, (double)enemy.speed / 100 , enemy.pos, enemy.last_player_pos);
 			move.x = direction.x;
 			move.y = direction.y;
-			move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 0);
+			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
+			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+			move = check_collision(env, move, motion, 0);
 			if (move.x == 0 && move.y == 0)
 			{
 				env->enemies[i].dir = rand_dir(env, i);
@@ -365,13 +374,13 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 					move.x = direction.y;
 					move.y = -direction.x;
 				}
-				move = check_collision(env, move, new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos), 1);
+				move = check_collision(env, move, motion, 1);
 			}
 			env->enemies[i].pos.x += move.x;
 			env->enemies[i].pos.y += move.y;
 			env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos, env->enemies[i].sector);
 			if (env->enemies[i].type == AERIAL)
-				env->enemies[i].pos.z += direction.z;
+				env->enemies[i].pos.z += move.z;
 			else
 				update_enemy_z(env, i);
 		}
@@ -379,18 +388,24 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			env->enemies[i].angle = atan2(enemy.last_player_pos.y - env->enemies[i].pos.y, enemy.last_player_pos.x - env->enemies[i].pos.x) * CONVERT_DEGREES;
 		env->enemies[i].saw_player = 0;
 		enemy_sight(env, i, 1);
-		//enemy_arms(env, i);
-		if (distance <= 31 && env->enemies[i].saw_player/*
-			&& enemy_line_of_sight(env, new_v2(env->enemies[i].left_arm.x, env->enemies[i].left_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)
-			&& enemy_line_of_sight(env, new_v2(env->enemies[i].right_arm.x, env->enemies[i].right_arm.y), new_v2(env->player.pos.x, env->player.pos.y), env->enemies[i].sector)*/)
+		if (distance <= 31 && env->enemies[i].saw_player)
 		{
 			env->enemies[i].state = FIRING;
 			if (env->enemies[i].shot)
 			{
-				env->player.health -= env->enemies[i].damage;
+				if (env->enemies[i].behavior == RANGED_PROJECTILE)
+				{
+					create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle, 50, 1),
+						new_projectile_stats(0.6, env->enemies[i].damage, 0.8, env->enemies[i].eyesight - 2.2),
+						enemy_angle_z(env, i));
+				}
+				else if (env->enemies[i].behavior == RANGED_AIMBOT)
+				{
+					env->player.hit = 1;
+					env->player.health -= env->enemies[i].damage;
+				}
 				if (env->player.health < 0)
 					env->player.health = 0;
-				env->player.hit = 1;
 			}
 			env->enemies[i].shot = 0;
 		}
@@ -413,9 +428,10 @@ void	enemy_ai(t_env *env)
 			env->enemies[i].last_player_pos.y = env->player.pos.y;
 			env->enemies[i].last_player_pos.z = env->player.head_z;
 		}
-		if (env->enemies[i].behavior == MELEE)
+		if (env->enemies[i].behavior == MELEE_KAMIKAZE || env->enemies[i].behavior == MELEE_FIGHTER)
 			melee_ai(env, env->enemies[i], distance, i);
-		else if (env->enemies[i].behavior == RANGED)
+		else if (env->enemies[i].behavior == RANGED_AIMBOT
+			|| env->enemies[i].behavior == RANGED_PROJECTILE)
 			ranged_ai(env, env->enemies[i], distance, i);
 		i++;
 	}
@@ -429,12 +445,14 @@ void		enemy_melee_hit(t_env *env)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && env->enemies[i].behavior == MELEE)
+			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
+			env->enemies[i].behavior == MELEE_FIGHTER))
 		{
 			env->player.hit = 1;
 			env->player.health -= env->enemies[i].damage;
 			if (env->player.health < 0)
 				env->player.health = 0;
+			if (env->enemies[i].behavior == MELEE_KAMIKAZE)
 			env->enemies[i].exists = 0;
 		}
 		i++;
@@ -481,5 +499,5 @@ int			enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 		}
 		i++;
 	}
-	return (enemy);;
+	return (enemy);
 }

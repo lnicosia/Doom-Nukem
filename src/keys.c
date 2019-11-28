@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:40:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:35:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		keys(t_env *env)
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
+	if (env->inputs.right_click)
+		ft_printf("player.pos: x= %f y= %f z= %f\n", env->player.pos.x, env->player.pos.y, env->player.pos.z);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going || env->inputs.ctrl)

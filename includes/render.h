@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 16:55:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:46:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,6 @@ void				*get_object_relative_pos(void *param);
 void				project_object(t_render_object *orender, t_object object, t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
 void				*raycasting(void *param);
-void				threaded_raycasting(t_env *env, t_render render);
 void				*skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
 void				draw_object(t_camera camera, t_object *object, t_env *env);

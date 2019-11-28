@@ -17,7 +17,7 @@ int     init_sound(t_env *env)
 	env->sound.b_jump = 20;
 	env->sound.b_footstep = 20;
 	env->sound.b_weapon = 20;
-	env->sound.g_music = 20;
+	env->sound.g_music = 100;
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
 		return (ft_printf("SDL_OpenAudio error %s\n", Mix_GetError()));
 	if(!(env->sound.background = Mix_LoadMUS("audio/at_dooms_gate.wav")))
