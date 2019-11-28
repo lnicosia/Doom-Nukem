@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:36:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/27 17:00:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,13 +344,14 @@ typedef struct		s_sector
 	short			nb_vertices;
 	int				skybox;
 	int				status;
-	int				brightness;
 	int				*levels;
 	double			start_floor;
 	int				enemy_flag;
 	int				activated;
 	int				hidden;
 	Uint32			light_color;
+	int				brightness;
+	int				intensity;
 	size_t			nb_walk_events;
 	t_event			*walk_on_me_event;
 }					t_sector;
