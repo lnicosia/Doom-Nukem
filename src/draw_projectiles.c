@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/26 13:47:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:57:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void		*projectile_loop(void *param)
 				if (!env->options.lighting)
 					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				else
-					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], prender.light_color, prender.brightness);
+					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], prender.light_color, prender.intensity, prender.brightness);
 				zbuffer[x + y * env->w] = projectile.rotated_pos.z;
 			}
 			y++;
@@ -152,6 +152,7 @@ void		draw_projectile(t_camera camera, t_projectile *projectile, t_env *env)
 	prender.y2 = prender.screen_pos.y;
 	prender.light_color = projectile->light_color;
 	prender.brightness = projectile->brightness;
+	prender.intensity = projectile->intensity;
 	prender.xstart = ft_clamp(prender.x1, 0, env->w - 1);
 	prender.ystart = ft_clamp(prender.y1 + 1, 0, env->h - 1);
 	prender.xend = ft_clamp(prender.x2, 0, env->w - 1);

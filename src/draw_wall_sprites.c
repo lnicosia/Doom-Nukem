@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 15:30:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:42:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,22 @@ t_env *env)
 				env->editor.selected_sector = sector.num;
 
 			}
-			if (!env->options.lighting && !env->playing)
+			if (!env->options.lighting
+				|| (!sector.brightness && !sector.intensity))
 				pixels[coord] = sprite_pixels[
 				(int)x + sprite_w * (int)y];
-			else
-				pixels[coord] = apply_light(sprite_pixels[
+			else if (!sector.brightness)
+				pixels[coord] = apply_light_color(sprite_pixels[
 				(int)x + sprite_w * (int)y],
-				sector.light_color, sector.brightness);
+				sector.light_color, sector.intensity);
+			else if (!sector.intensity)
+				pixels[coord] = apply_light_brightness(sprite_pixels[
+				(int)x + sprite_w * (int)y],
+				sector.brightness);
+			else
+				pixels[coord] = apply_light_both(sprite_pixels[
+				(int)x + sprite_w * (int)y],
+				sector.light_color, sector.intensity, sector.brightness);
 			if (!env->editor.select
 				&& env->editor.selected_sector == sector.num
 				&& env->selected_wall_sprite_wall == render.i

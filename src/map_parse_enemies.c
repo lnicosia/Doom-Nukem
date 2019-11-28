@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 17:01:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/28 19:37:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,10 +176,21 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 			new_v3(env->enemies[parser->enemies_count].pos.x,
 				env->enemies[parser->enemies_count].pos.y,
 				env->enemies[parser->enemies_count].pos.z));
-	env->enemies[parser->enemies_count].brightness =
-		env->sectors[env->enemies[parser->enemies_count].sector].brightness;
-	env->enemies[parser->enemies_count].light_color =
-		env->sectors[env->enemies[parser->enemies_count].sector].light_color;
+	if (env->enemies[parser->enemies_count].sector >= 0)
+	{
+		env->enemies[parser->enemies_count].brightness =
+			env->sectors[env->enemies[parser->enemies_count].sector].brightness;
+		env->enemies[parser->enemies_count].light_color =
+			env->sectors[env->enemies[parser->enemies_count].sector].light_color;
+		env->enemies[parser->enemies_count].intensity =
+			env->sectors[env->enemies[parser->enemies_count].sector].intensity;
+	}
+	else
+	{
+		env->enemies[parser->enemies_count].brightness = 0;
+		env->enemies[parser->enemies_count].light_color = 0;
+		env->enemies[parser->enemies_count].intensity = 0;
+	}
 	return (0);
 }
 

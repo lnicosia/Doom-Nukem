@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/11/27 16:39:43 by gaerhard         ###   ########.fr        #
+#    Updated: 2019/11/28 18:58:34 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c \
-		   restrict_portals.c \
+		   restrict_portals.c select_line.c \
 		   benchmark.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
@@ -86,8 +86,19 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
-		   draw_floor_sprites.c draw_ceiling_sprites.c \
-		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c
+		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
+		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
+		   draw_floor_sprites_both.c \
+		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
+		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
+		   draw_ceiling_sprites_both.c \
+		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c \
+		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
+		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
+		   draw_vline_wall.c draw_vline_wall_brightness.c \
+		   draw_vline_wall_both.c draw_vline_wall_color.c \
+		   draw_vline_floor.c draw_vline_floor_brightness.c \
+		   draw_vline_floor_both.c draw_vline_floor_color.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/05 16:40:52 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/09/09 17:52:17 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2019/11/28 19:37:26 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ int	add_enemy(t_env *env)
 	{
 		enemy.light_color = env->sectors[enemy.sector].light_color;
 		enemy.brightness = env->sectors[enemy.sector].brightness;
+		enemy.intensity = env->sectors[enemy.sector].intensity;
 	}
 	else
 	{
 		enemy.light_color = 0xFFFFFFFF;
 		enemy.brightness = 0;
+		enemy.intensity = 0;
 	}
 	if (!(env->enemies = (t_enemies*)ft_realloc(env->enemies, sizeof(t_enemies) * env->nb_enemies, sizeof(t_enemies) * (env->nb_enemies + 1))))
 		return (ft_printf("Could not realloc enemys\n"));

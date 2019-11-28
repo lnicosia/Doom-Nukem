@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 14:28:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:08:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	editor_keyup(t_env *env)
 	int	clicked_vertex;
 
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
+		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
 	{
 		env->options.test = env->options.test ? 0 : 1;

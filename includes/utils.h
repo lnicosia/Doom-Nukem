@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 17:00:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:59:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -699,6 +699,7 @@ typedef	struct		s_projectile
 	double			size_2d;
 	short			brightness;
 	Uint32			light_color;
+	int				intensity;
 	int				sector;
 	int				exists;
 	double			speed;
@@ -725,6 +726,7 @@ typedef struct		s_object
 	double			angle;
 	short			brightness;
 	Uint32			light_color;
+	int				intensity;
 	int				pickable;
 	int				solid;
 	int				ammo;
@@ -771,6 +773,7 @@ typedef struct		s_enemies
 	double			eyesight;
 	short			brightness;
 	Uint32			light_color;
+	int				intensity;
 	int				health;
 	int				damage;
 	int				exists;

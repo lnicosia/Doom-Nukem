@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 14:27:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:08:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int		editor_3d_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
+		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_x)
 		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_j)

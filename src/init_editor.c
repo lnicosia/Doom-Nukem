@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 10:51:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:04:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	init_editor(int ac, char **av)
 			/*if (env.sectors[2].brightness < 0)
 				env.sectors[2].light_color = blend_alpha(0, 0xFFFF9329, (255 + env.sectors[2].brightness + 16) / 2);*/
 			//env.sectors[2].light_color = blend_alpha(0, 0xFFFFFFFF, 16);
-			//env.sectors[2].light_color = 0xFFFF9329;
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

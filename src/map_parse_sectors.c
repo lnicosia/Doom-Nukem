@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 10:54:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:23:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -733,21 +733,51 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (invalid_char("before sector light", "'['", **line, parser));
+		return (invalid_char("before sector light data", "'['", **line, parser));
 	(*line)++;
 	if (!**line)
-		return (missing_data("light", parser));
+		return (missing_data("light data", parser));
 	if (valid_number(*line, parser))
-		return (invalid_char("before light", "a digit", **line, parser));
+		return (invalid_char("before light brightness", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
-	env->sectors[parser->sectors_count].light_color = 0xFF409CFF;
+	//env->sectors[parser->sectors_count].light_color = 0xFF409CFF;
 	if (env->sectors[parser->sectors_count].brightness < -255 ||
 			env->sectors[parser->sectors_count].brightness > 255)
-		return (custom_error("Light must be between -255 and 255"));
-	env->sectors[parser->sectors_count].intensity = 16;
+		return (custom_error("Light brightness must be between -255 and 255"));
+	//env->sectors[parser->sectors_count].intensity = 0;
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light brightness", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (valid_hexa(*line, parser))
+		return (invalid_char("before light color hue", "an hexa digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].light_color = ft_atoi_base(*line,
+	"0123456789ABCDEF");
+	*line = skip_hexa(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light color hue", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before light color intensity", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].intensity = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].intensity < -255 ||
+			env->sectors[parser->sectors_count].intensity > 255)
+		return (custom_error("Light color intensity must be between -255 and 255"));
 	*line = skip_number(*line);
 	if (**line != ']')
-		return (invalid_char("after sector light", "']'", **line, parser));
+		return (invalid_char("after sector light color intensity", "']'", **line, parser));
 	(*line)++;
 	if (!**line)
 		return (missing_data("sector status", parser));
