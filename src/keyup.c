@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 17:50:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:24:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	keyup(t_env *env)
 		env->options.contouring = env->options.contouring ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_r)
 		ft_printf("will reload one day\n");
-	if (env->sdl.event.key.keysym.sym == SDLK_l)
-		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
+		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->options.show_fps = env->options.show_fps ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_x)

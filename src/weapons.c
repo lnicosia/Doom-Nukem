@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 11:15:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:51:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void    draw_weapon(t_env *env, int sprite)
 	int			texture_h;
 	Uint32		*pixels;
 	Uint32		*texture_pixels;
+	t_sector	sector;
 
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = env->sprite_textures[sprite].str;
@@ -112,6 +113,7 @@ void    draw_weapon(t_env *env, int sprite)
 	texture_h = env->sprite_textures[sprite].surface->h;
 	window_w = (int)(env->w - texture_w) / 1.5;
 	window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
+	sector = env->sectors[env->player.sector];
 	y = 0;
 	while (y < texture_h)
 	{
@@ -119,10 +121,27 @@ void    draw_weapon(t_env *env, int sprite)
 		while (x < texture_w  && (window_h + y) < env->h)
 		{
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
-				pixels[(window_w + x) + env->w * (window_h + y)] = 
-					apply_light(texture_pixels[x + texture_w * y],
-							env->sectors[env->player.sector].light_color,
-							env->sectors[env->player.sector].brightness);
+			{
+				if (!env->options.lighting
+					|| (!sector.brightness && !sector.intensity))
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						texture_pixels[x + texture_w * y];
+				else if (!sector.brightness)
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_color(texture_pixels[x + texture_w * y],
+								sector.light_color,
+								sector.intensity);
+				else if (!sector.intensity)
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_brightness(texture_pixels[x + texture_w * y],
+								sector.brightness);
+				else
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_both(texture_pixels[x + texture_w * y],
+								sector.light_color,
+								sector.intensity,
+								sector.brightness);
+			}
 			x++;
 		}
 		y++;

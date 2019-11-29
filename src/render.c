@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:39:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:21:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,7 @@ void		precompute_sectors(t_camera *camera, t_env *env)
 		pthread_join(threads[i], NULL);
 }
 
-int			draw_walls(t_camera *camera, t_env *env)
+int			render_walls(t_camera *camera, t_env *env)
 {
 	int			i;
 	int			screen_sectors;
@@ -336,4 +336,9 @@ int			draw_walls(t_camera *camera, t_env *env)
 		i++;
 	}
 	return (0);
+}
+
+int		draw_walls(t_camera *camera, t_env *env)
+{
+	return (render_walls(camera, env));
 }

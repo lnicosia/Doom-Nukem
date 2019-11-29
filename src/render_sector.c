@@ -6,11 +6,10 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 15:43:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:45:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include "render.h"
 
 void		*wall_loop(void *param)

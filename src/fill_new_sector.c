@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_new_sector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 14:10:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:45:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
+		sector->portals[index] = 1;
 		sector->textures[index] = 4;
 		sector->nb_sprites[index] = 0;
 		sector->align[index] = new_v2(0, 0);

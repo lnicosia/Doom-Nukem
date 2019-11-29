@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:10:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:19:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static void	free_sectors(t_env *env)
 			ft_memdel((void**)&env->sectors[i].scale);
 		if (env->sectors[i].neighbors)
 			ft_memdel((void**)&env->sectors[i].neighbors);
+		if (env->sectors[i].portals)
+			ft_memdel((void**)&env->sectors[i].portals);
 		if (env->sectors[i].xmin)
 			ft_memdel((void**)&env->sectors[i].xmin);
 		if (env->sectors[i].xmax)

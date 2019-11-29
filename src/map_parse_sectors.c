@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:45:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:54:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].neighbors = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector neighbors:"));
+	if (!(env->sectors[parser->sectors_count].portals = (short*)
+				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector portals:"));
 	if (!(env->sectors[parser->sectors_count].textures = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
@@ -438,7 +441,7 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	int	i;
 
 	if (!**line)
-		return (missing_data("neighbors, textures and light", parser));
+		return (missing_data("neighbors, portals, textures and light", parser));
 	if (**line != '(')
 		return (invalid_char("before sector neighbors", "'('", **line, parser));
 	(*line)++;
@@ -472,9 +475,54 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	}
 	(*line)++;
 	if (!**line)
-		return (missing_data("texures and light", parser));
+		return (missing_data("portals, textures and light", parser));
 	if (**line != ' ')
 		return (invalid_char("after neighbors data", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	return (0);
+}
+
+int			parse_sector_portals(t_env *env, char **line, t_map_parser *parser)
+{
+	int	i;
+
+	if (!**line)
+		return (missing_data("neighors, portals, textures and light", parser));
+	if (**line != '(')
+		return (invalid_char("before sector portals", "'('", **line, parser));
+	(*line)++;
+	if ((parser->sector_portals_count = count_portals(*line, parser)) == -1)
+		return (custom_error("Error while counting portals"));
+	if (parser->sector_portals_count < parser->sector_vertices_count)
+		return (sector_error("is missing one or more portals",
+					parser->sectors_count, parser));
+	if (parser->sector_neighbors_count > parser->sector_vertices_count)
+		return (sector_error("has too much portals",
+					parser->sectors_count, parser));
+	i = 0;
+	while (i < parser->sector_portals_count)
+	{
+		env->sectors[parser->sectors_count].portals[i] = ft_atoi(*line);
+		if (env->sectors[parser->sectors_count].portals[i] < 0 || env->
+				sectors[parser->sectors_count].portals[i] > 1)
+		{
+			ft_dprintf(STDERR_FILENO,
+					"[Line %d] Portal value should be 1 or 0 instead of \'%d\' in sector %d\n",
+					parser->line_count,
+					env->sectors[parser->sectors_count].portals[i],
+					parser->sectors_count);
+			return (-1);
+		}
+		*line = skip_number(*line);
+		*line = skip_spaces(*line);
+		i++;
+	}
+	(*line)++;
+	if (!**line)
+		return (missing_data("texures and light", parser));
+	if (**line != ' ')
+		return (invalid_char("after portals data", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	return (0);
@@ -733,20 +781,51 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (invalid_char("before sector light", "'['", **line, parser));
+		return (invalid_char("before sector light data", "'['", **line, parser));
 	(*line)++;
 	if (!**line)
-		return (missing_data("light", parser));
+		return (missing_data("light data", parser));
 	if (valid_number(*line, parser))
-		return (invalid_char("before light", "a digit", **line, parser));
+		return (invalid_char("before light brightness", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
-	env->sectors[parser->sectors_count].light_color = 0xFFFFFFFF;
+	//env->sectors[parser->sectors_count].light_color = 0xFF409CFF;
 	if (env->sectors[parser->sectors_count].brightness < -255 ||
 			env->sectors[parser->sectors_count].brightness > 255)
-		return (custom_error("Light must be between -255 and 255"));
+		return (custom_error("Light brightness must be between -255 and 255"));
+	//env->sectors[parser->sectors_count].intensity = 0;
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light brightness", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (valid_hexa(*line, parser))
+		return (invalid_char("before light color hue", "an hexa digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].light_color = ft_atoi_base(*line,
+	"0123456789ABCDEF");
+	*line = skip_hexa(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light color hue", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before light color intensity", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].intensity = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].intensity < -255 ||
+			env->sectors[parser->sectors_count].intensity > 255)
+		return (custom_error("Light color intensity must be between -255 and 255"));
 	*line = skip_number(*line);
 	if (**line != ']')
-		return (invalid_char("after sector light", "']'", **line, parser));
+		return (invalid_char("after sector light color intensity", "']'", **line, parser));
 	(*line)++;
 	if (!**line)
 		return (missing_data("sector status", parser));
@@ -901,6 +980,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (-1);
 	//return (custom_error("Error while parsing sector vertices"));z
 	if (parse_sector_neighbors(env, &line, parser))
+		return (-1);
+	if (parse_sector_portals(env, &line, parser))
 		return (-1);
 	//return (custom_error("Error while parsing sector neighbors"));
 	if (parse_sector_textures(env, &line, parser))

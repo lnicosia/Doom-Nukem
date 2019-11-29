@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 21:38:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:49:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct		s_env
 	int					menu_select;
 	int					menu_edit;
 	int					aplicate_changes;
-	char				*fps;
+	int					fps;
+	int					fps_count;
 	double				*zbuffer;
 	int					*sector_list;
 	int					screen_sectors_size;
@@ -145,7 +146,6 @@ typedef struct		s_env
 	int				min_fps2;
 	int				max_fps2;
 	int				contains_skybox;
-	double				render_swap_time;
 	Uint32*				tmp_first_sprite;
 	char				*save_file;
 	t_list				*events;
@@ -315,6 +315,7 @@ int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
+char				*skip_hexa(char *line);
 char				*skip_spaces(char *line);
 
 /*
@@ -346,7 +347,12 @@ void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_free(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
-Uint32				apply_light(Uint32 src, Uint32 color, short brightness);
+Uint32				apply_light(Uint32 src, Uint32 color, int intensity,
+short brightness);
+Uint32				apply_light_both(Uint32 src, Uint32 color, int intensity,
+short brightness);
+Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
+Uint32				apply_light_brightness(Uint32 src, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
 int				update_confirmation_box(t_confirmation_box *box, char *str,

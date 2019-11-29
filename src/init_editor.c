@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 16:00:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:04:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int	init_editor(int ac, char **av)
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
 			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
 			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
-			env.sectors[2].light_color = blend_alpha(0xFFd35400, 0, 0);
+			/*if (env.sectors[2].brightness < 0)
+				env.sectors[2].light_color = blend_alpha(0, 0xFFFF9329, (255 + env.sectors[2].brightness + 16) / 2);*/
+			//env.sectors[2].light_color = blend_alpha(0, 0xFFFFFFFF, 16);
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/26 13:49:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:32:35 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void		*object_loop(void *param)
 	Uint32			*pixels;
 	Uint32			*texture_pixels;
 	double			*zbuffer;
+	t_sector		sector;
 
 
 	orender = ((t_object_thread*)param)->orender;
@@ -102,6 +103,7 @@ static void		*object_loop(void *param)
 	xend = ((t_object_thread*)param)->xend;
 	y = orender.ystart;
 	yend = orender.yend;
+	sector = env->sectors[object.sector];
 	while (++y <= yend)
 	{
 		yalpha = (y - orender.y1) / orender.yrange;
@@ -122,11 +124,23 @@ static void		*object_loop(void *param)
 					reset_selection(env);
 					env->selected_object = object.num;
 				}
-				if (!env->options.lighting)
-					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
+				if (!env->options.lighting
+					|| (!sector.brightness && !sector.intensity))
+					pixels[x + y * env->w] = texture_pixels[textx
+					+ texty * texture.surface->w];
+				else if (!sector.brightness)
+					pixels[x + y * env->w] = apply_light_color(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.light_color, orender.intensity);
+				else if (!sector.intensity)
+					pixels[x + y * env->w] = apply_light_brightness(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.brightness);
 				else
-					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light_color, orender.brightness);
-				if (env->editor.in_game && !env->editor.select && env->selected_object == object.num)
+					pixels[x + y * env->w] = apply_light_both(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.light_color, orender.intensity, orender.brightness);
+				if (!env->editor.select && env->selected_object == object.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
 			}
@@ -179,6 +193,7 @@ void		draw_object(t_camera camera, t_object *object, t_env *env, int death_sprit
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = object->light_color;
 	orender.brightness = object->brightness;
+	orender.intensity = object->intensity;
 	orender.xstart = ft_clamp(orender.x1, 0, env->w - 1);
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);

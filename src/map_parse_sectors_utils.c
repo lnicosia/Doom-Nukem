@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:24:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:59:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,29 @@ int		count_neighbors(char *line, t_map_parser *parser)
 			return (missing_data("')' after sector neighbors", parser));
 		if (valid_number(line, parser))
 			return (invalid_char("in sector neighbors", "a digit, a ')'"
+						"or space(s)", *line, parser));
+		line = skip_number(line);
+		line = skip_spaces(line);
+		i++;
+	}
+	return (i);
+}
+
+/*
+** Counts the number of portals in bewteen two parenthesis
+*/
+
+int		count_portals(char *line, t_map_parser *parser)
+{
+	int i;
+
+	i = 0;
+	while (*line != ')')
+	{
+		if (!*line)
+			return (missing_data("')' after sector portals", parser));
+		if (valid_number(line, parser))
+			return (invalid_char("in sector portals", "a digit, a ')'"
 						"or space(s)", *line, parser));
 		line = skip_number(line);
 		line = skip_spaces(line);

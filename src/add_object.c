@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/08 17:42:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:37:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ int	add_object(t_env *env)
 	{
 		object.light_color = env->sectors[object.sector].light_color;
 		object.brightness = env->sectors[object.sector].brightness;
+		object.intensity = env->sectors[object.sector].intensity;
 	}
 	else
 	{
 		object.light_color = 0xFFFFFFFF;
-		object.brightness = 128;
+		object.brightness = 0;
+		object.intensity = 0;
 	}
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));

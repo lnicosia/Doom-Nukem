@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 13:48:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:32:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static void		*enemy_loop(void *param)
 	Uint32			*pixels;
 	Uint32			*texture_pixels;
 	double			*zbuffer;
+	t_sector		sector;
 
 
 	orender = ((t_enemy_thread*)param)->orender;
@@ -112,6 +113,7 @@ static void		*enemy_loop(void *param)
 	x = ((t_enemy_thread*)param)->xstart;
 	xend = ((t_enemy_thread*)param)->xend;
 	yend = orender.yend;
+	sector = env->sectors[enemy.sector];
 	while (++x <= xend)
 	{
 		xalpha = (x - orender.x1) / orender.xrange;
@@ -132,13 +134,25 @@ static void		*enemy_loop(void *param)
 					reset_selection(env);
 					env->selected_enemy = enemy.num;
 				}
-				if (!env->options.lighting)
-					pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
+				if (!env->options.lighting
+					|| (!sector.brightness && !sector.intensity))
+					pixels[x + y * env->w] = texture_pixels[textx
+					+ texty * texture.surface->w];
+				else if (!sector.brightness)
+					pixels[x + y * env->w] = apply_light_color(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.light_color, orender.intensity);
+				else if (!sector.intensity)
+					pixels[x + y * env->w] = apply_light_brightness(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.brightness);
 				else
-					pixels[x + y * env->w] = apply_light(texture_pixels[textx + texty * texture.surface->w], orender.light_color, orender.brightness);
+					pixels[x + y * env->w] = apply_light_both(
+					texture_pixels[textx + texty * texture.surface->w],
+					orender.light_color, orender.intensity, orender.brightness);
 				if (env->enemies[enemy.num].hit)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFFFF0000, enemy_hurt(env, enemy.num));
-				if (env->editor.in_game && !env->editor.select && env->selected_enemy == enemy.num)
+				if (!env->editor.select && env->selected_enemy == enemy.num)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
 			}
@@ -191,6 +205,7 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = enemy->light_color;
 	orender.brightness = enemy->brightness;
+	orender.intensity = enemy->intensity;
 	orender.xstart = ft_clamp(orender.x1, 0, env->w - 1);
 	orender.ystart = ft_clamp(orender.y1 + 1, 0, env->h - 1);
 	orender.xend = ft_clamp(orender.x2, 0, env->w - 1);
