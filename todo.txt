@@ -15,12 +15,12 @@ Sprites sur sol/plafond?										| Done
 Wall sprites glitch corniches									| Done
 Update map parser												| Done
 Multi selection?												| 
-Ajouter des vertex/modifier secteur								|
+Ajouter des vertex/modifier secteur								| Done
 Pre affichage des sprites dans un dossier pour les selectionner	|
 Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
 Opti sprites sol/plafond										|
-Lumieres														|
+Lumieres														| Done
 Fix lignes bugs a cause du zbuffer								|
 Impact de balles												|
 Actualiser les fps qu'1x par seconde							| Done

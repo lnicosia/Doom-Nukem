@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 16:37:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:48:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int		init_game(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
-	if (init_camera(&env.player.camera, &env))
-		return (crash("Could not init camera\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
@@ -108,6 +106,8 @@ int		init_game(int ac, char **av)
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
+	if (init_camera(&env.player.camera, &env))
+		return (crash("Could not init fixed camera\n", &env));
 	if (init_camera(&env.fixed_camera, &env))
 		return (crash("Could not init fixed camera\n", &env));
 	if (init_skybox(&env))

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 18:32:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:18:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ static void		*enemy_loop(void *param)
 			yalpha = (y - orender.y1) / orender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 			if ((enemy.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+				&& texture_pixels[textx
+				+ texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->enemies[enemy.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
@@ -187,6 +188,8 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 {
 	t_render_object	orender;
 	t_sprite		sprite;
+	t_v2			size;
+	double			sprite_ratio;
 
 	if (death_sprite >= 0)
 		enemy->sprite = env->enemy_sprites[enemy->sprite].death_counterpart;
@@ -199,9 +202,13 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 		orender.index = death_sprite;
 	else
 		orender.index = 0;
-	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (enemy->rotated_pos.z / enemy->scale);
-	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (enemy->rotated_pos.z / enemy->scale);
-	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (enemy->rotated_pos.z / enemy->scale);
+	size.x = env->w * enemy->scale / enemy->rotated_pos.z;
+	sprite_ratio = sprite.size[orender.index].x
+	/ (double)sprite.size[orender.index].y;
+	size.y = size.x * sprite_ratio;
+	orender.x1 = orender.screen_pos.x - size.y / 4;
+	orender.x2 = orender.screen_pos.x + size.y / 4;
+	orender.y1 = orender.screen_pos.y - size.x / 2;
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = enemy->light_color;
 	orender.brightness = enemy->brightness;

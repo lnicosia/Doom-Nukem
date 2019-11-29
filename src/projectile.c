@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/21 16:02:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:26:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	return (0);
 }
 
-void	projectiles_movement(t_env *env)
+int		projectiles_movement(t_env *env)
 {
 	int				nb;
 	t_v3			move;
 	t_list			*tmp;
 	t_projectile	*projectile;
+	int				collision;
 
 	if (env->projectiles)
 	{
@@ -75,8 +76,10 @@ void	projectiles_movement(t_env *env)
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}
-			if (collision_projectiles(env, move, new_movement(projectile->sector, projectile->size_2d,
-				0, projectile->pos)))
+			collision = collision_projectiles(env, move,
+			new_movement(projectile->sector, projectile->size_2d,
+				0, projectile->pos));
+			if (collision == -1)
 			{
 				projectile->pos.x += move.x;
 				projectile->pos.y += move.y;
@@ -86,8 +89,27 @@ void	projectiles_movement(t_env *env)
 			}
 			else
 			{
+				if (collision == -2)
+				{
+					if (add_ceiling_bullet_hole(&env->sectors[projectile->sector],
+					projectile))
+						return (-1);
+				}
+				else if (collision == -3)
+				{
+					if (add_floor_bullet_hole(&env->sectors[projectile->sector],
+					projectile))
+						return (-1);
+				}
+				else if (collision >= 0)
+				{
+					if (add_wall_bullet_hole(&env->sectors[projectile->sector],
+					projectile, collision, env))
+						return (-1);
+				}
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}
 		}
 	}
+	return (0);
 }

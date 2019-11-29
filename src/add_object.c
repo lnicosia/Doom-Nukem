@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 19:37:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:26:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	add_object(t_env *env)
 	object.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	object.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	object.sprite = 0;
-	object.scale = 50;
+	object.scale = 2;
 	object.angle = 0;
 	object.exists = 1;
 	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, 0));

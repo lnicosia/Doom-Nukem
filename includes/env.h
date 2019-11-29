@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 19:15:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:46:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,8 @@ int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
 int					set_camera_map_array(t_camera *camera, int i,
 int j, t_env *env);
+int					set_camera_sprites_array(t_camera *camera, int i,
+int j, t_env *env);
 int					set_sector_wall_map_array(t_sector *sector,
 t_texture texture, int i, t_env *env);
 int					set_sector_floor_map_array(t_sector *sector,
@@ -397,7 +399,7 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
-void				projectiles_movement(t_env *env);
+int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
@@ -464,6 +466,12 @@ t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
+int					add_ceiling_bullet_hole(t_sector *sector,
+t_projectile *projectile);
+int					add_floor_bullet_hole(t_sector *sector,
+t_projectile *projectile);
+int					add_wall_bullet_hole(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
 
 /*
 ** enemies functions

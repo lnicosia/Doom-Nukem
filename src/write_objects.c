@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/23 11:51:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:28:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	write_object(int fd, t_object object)
 {
 	ft_dprintf(fd, "[%.3f %.3f %.3f %.3f] ",
-			object.pos.x, object.pos.y, object.pos.z, object.angle);
+			object.pos.y, object.pos.x, object.pos.z, object.angle);
 	ft_dprintf(fd, "[%d %.f]\n",
 			object.sprite, object.scale);
 }

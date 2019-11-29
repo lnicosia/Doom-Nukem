@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 18:21:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:19:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	//create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-	//	new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-	//	env->player.camera.angle_z);
+	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 1, 1),
+		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+		env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)
@@ -149,7 +149,7 @@ void    weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 10)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;

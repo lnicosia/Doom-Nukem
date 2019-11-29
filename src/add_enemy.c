@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/05 16:40:52 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/11/28 19:37:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:22:42 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	add_enemy(t_env *env)
 	enemy.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	enemy.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	enemy.sprite = 0;
-	enemy.scale = 50;
+	enemy.scale = 5;
 	enemy.angle = 0;
 	enemy.exists = 1;
 	enemy.sector = get_sector_no_z(env, new_v3(enemy.pos.x, enemy.pos.y, 0));

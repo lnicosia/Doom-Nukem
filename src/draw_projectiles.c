@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 11:57:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:21:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ void		draw_projectile(t_camera camera, t_projectile *projectile, t_env *env)
 {
 	t_render_projectile	prender;
 	t_sprite			sprite;
+	t_v2				size;
+	double				sprite_ratio;
 
 	sprite = env->object_sprites[projectile->sprite];
 	prender.camera = camera;
@@ -146,9 +148,13 @@ void		draw_projectile(t_camera camera, t_projectile *projectile, t_env *env)
 	prender.index = 0;
 	if (sprite.oriented)
 		prender.index = get_sprite_direction(*projectile);
-	prender.x1 = prender.screen_pos.x - sprite.size[prender.index].x / 2.0 / (projectile->rotated_pos.z / projectile->scale);
-	prender.y1 = prender.screen_pos.y - sprite.size[prender.index].y / (projectile->rotated_pos.z / projectile->scale);
-	prender.x2 = prender.screen_pos.x + sprite.size[prender.index].x / 2.0 / (projectile->rotated_pos.z / projectile->scale);
+	size.x = env->w * projectile->scale / projectile->rotated_pos.z;
+	sprite_ratio = sprite.size[prender.index].x
+	/ (double)sprite.size[prender.index].y;
+	size.y = size.x * sprite_ratio;
+	prender.x1 = prender.screen_pos.x - size.y / 4;
+	prender.x2 = prender.screen_pos.x + size.y / 4;
+	prender.y1 = prender.screen_pos.y - size.x / 2;
 	prender.y2 = prender.screen_pos.y;
 	prender.light_color = projectile->light_color;
 	prender.brightness = projectile->brightness;

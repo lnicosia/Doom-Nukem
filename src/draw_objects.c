@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/28 18:32:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:22:59 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ void		draw_object(t_camera camera, t_object *object, t_env *env)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
+	t_v2			size;
+	double			sprite_ratio;
 
 	sprite = env->object_sprites[object->sprite];
 	orender.camera = camera;
@@ -181,9 +183,13 @@ void		draw_object(t_camera camera, t_object *object, t_env *env)
 	orender.index = 0;
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
-	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
-	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
-	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
+	size.x = env->w * object->scale / object->rotated_pos.z;
+	sprite_ratio = sprite.size[orender.index].x
+	/ (double)sprite.size[orender.index].y;
+	size.y = size.x * sprite_ratio;
+	orender.x1 = orender.screen_pos.x - size.y / 4;
+	orender.x2 = orender.screen_pos.x + size.y / 4;
+	orender.y1 = orender.screen_pos.y - size.x / 2;
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = object->light_color;
 	orender.brightness = object->brightness;
