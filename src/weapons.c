@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 13:51:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:32:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,36 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	//create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-	//	new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-	//	env->player.camera.angle_z);
-	while (i < env->nb_enemies)
+	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKETS_AMMO)
 	{
-		if (hitscan_enemies(env, i) == 1)
-		{
-			env->enemies[i].health -= damage_done(*env, env->enemies[i].rotated_pos.z);
-			hit = 1;
-			if (env->enemies[i].health <= 0)
-				env->player.killed++;
-			env->enemies[i].hit = 1;
-		}
-		i++;
+		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
+			new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+			env->player.camera.angle_z);
 	}
-	i = 0;
-	while (i < env->nb_objects)
+	else
 	{
-		if (env->objects[i].destructible)
+		while (i < env->nb_enemies)
 		{
-			if (hitscan_objects(env, i) == 1)
-				env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
+			if (hitscan_enemies(env, i) == 1)
+			{
+				env->enemies[i].health -= damage_done(*env, env->enemies[i].rotated_pos.z);
+				hit = 1;
+				if (env->enemies[i].health <= 0)
+					env->player.killed++;
+				env->enemies[i].hit = 1;
+			}
+			i++;
 		}
-		i++;
+		i = 0;
+		while (i < env->nb_objects)
+		{
+			if (env->objects[i].destructible)
+			{
+				if (hitscan_objects(env, i) == 1)
+					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
+			}
+			i++;
+		}
 	}
 	if (hit)
 		env->player.touched += 1;
