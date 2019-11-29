@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 15:19:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:19:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void    weapon_animation(t_env *env, int nb)
 			shot(env);
 			env->weapons[nb].no_ammo = 0;
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
-			env->weapons[nb].ammo--;
+			//env->weapons[nb].ammo--;
 		}
 	}
 	if (!env->weapons[nb].no_ammo)

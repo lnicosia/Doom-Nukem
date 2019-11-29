@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/29 15:22:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:51:20 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ static void		*object_loop(void *param)
 					texture_pixels[textx + texty * texture.surface->w],
 					orender.light_color, orender.intensity, orender.brightness);
 				if (!env->editor.select && env->selected_object == object.num)
-					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0x1abc9c, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
 			}
 			x++;

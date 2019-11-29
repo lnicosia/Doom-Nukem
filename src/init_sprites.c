@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:38:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:15:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int			init_wall_sprites(t_env *env)
 {
-	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite) * MAX_WALL_SPRITES)))
+	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite)
+		* MAX_WALL_SPRITES)))
 		return (ft_printf("Could not malloc wall sprites\n"));
 	
 	// Grille
@@ -40,7 +41,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[1].pursuit_sprite = 1;
 	env->wall_sprites[1].rest_sprite = 1;
 	env->wall_sprites[1].curr_sprite = 1;
-	env->wall_sprites[1].oriented = 1;
+	env->wall_sprites[1].oriented = 0;
 	env->wall_sprites[1].nb_death_sprites = 1;
 	env->wall_sprites[1].start[0].x = 0;
 	env->wall_sprites[1].start[0].y = 0;
@@ -56,7 +57,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[2].pursuit_sprite = 2;
 	env->wall_sprites[2].rest_sprite = 2;
 	env->wall_sprites[2].curr_sprite = 0;
-	env->wall_sprites[2].oriented = 2;
+	env->wall_sprites[2].oriented = 0;
 	env->wall_sprites[2].nb_death_sprites = 2;
 	env->wall_sprites[2].start[0].x = 0;
 	env->wall_sprites[2].start[0].y = 0;
@@ -65,6 +66,22 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[2].size[0].x = 64;
 	env->wall_sprites[2].size[0].y = 64;
 	env->wall_sprites[2].reversed[0] = 0;
+
+	// Bullet hole
+	env->wall_sprites[3].texture = 35;
+	env->wall_sprites[3].death_counterpart = 3;
+	env->wall_sprites[3].pursuit_sprite = 3;
+	env->wall_sprites[3].rest_sprite = 3;
+	env->wall_sprites[3].curr_sprite = 0;
+	env->wall_sprites[3].oriented = 0;
+	env->wall_sprites[3].nb_death_sprites = 0;
+	env->wall_sprites[3].start[0].x = 0;
+	env->wall_sprites[3].start[0].y = 0;
+	env->wall_sprites[3].end[0].x = 920;
+	env->wall_sprites[3].end[0].y = 602;
+	env->wall_sprites[3].size[0].x = 920;
+	env->wall_sprites[3].size[0].y = 902;
+	env->wall_sprites[3].reversed[0] = 0;
 	return (0);
 }
 

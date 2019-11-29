@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 15:18:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:51:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ static void		*enemy_loop(void *param)
 				if (env->enemies[enemy.num].hit)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFFFF0000, enemy_hurt(env, enemy.num));
 				if (!env->editor.select && env->selected_enemy == enemy.num)
-					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0x1abc9c, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
 			}
 			y++;

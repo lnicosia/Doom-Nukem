@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 12:26:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:30:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int		projectiles_movement(t_env *env)
 			projectile = (t_projectile*)tmp->content;
 			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
 			nb = enemy_collision(env, projectile->pos,
-				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
-				projectile->size_2d);
+					new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+					projectile->size_2d);
 			if (nb >= 0)
 			{
 				env->enemies[nb].health -= projectile->damage;
@@ -68,8 +68,8 @@ int		projectiles_movement(t_env *env)
 				continue ;
 			}
 			if (projectile_player_collision(env, projectile->pos,
-				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
-				projectile->size_2d))
+						new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+						projectile->size_2d))
 			{
 				env->player.hit = 1;
 				env->player.health -= projectile->damage;
@@ -77,8 +77,8 @@ int		projectiles_movement(t_env *env)
 				continue ;
 			}
 			collision = collision_projectiles(env, move,
-			new_movement(projectile->sector, projectile->size_2d,
-				0, projectile->pos));
+					new_movement(projectile->sector, projectile->size_2d,
+						0, projectile->pos));
 			if (collision == -1)
 			{
 				projectile->pos.x += move.x;
@@ -91,21 +91,35 @@ int		projectiles_movement(t_env *env)
 			{
 				if (collision == -2)
 				{
-					if (add_ceiling_bullet_hole(&env->sectors[projectile->sector],
-					projectile))
-						return (-1);
+					if (env->sectors[projectile->sector].nb_ceiling_sprites < 5)
+					{
+						if (add_ceiling_bullet_hole(
+							&env->sectors[projectile->sector], projectile))
+							return (-1);
+					}
 				}
 				else if (collision == -3)
 				{
-					if (add_floor_bullet_hole(&env->sectors[projectile->sector],
-					projectile))
+					if (env->sectors[projectile->sector].nb_floor_sprites < 5)
+					{
+						if (add_floor_bullet_hole(
+							&env->sectors[projectile->sector], projectile))
+							return (-1);
+					}
+					else if (shift_floor_bullet_hole(
+						&env->sectors[projectile->sector], projectile))
 						return (-1);
 				}
 				else if (collision >= 0)
 				{
-					if (add_wall_bullet_hole(&env->sectors[projectile->sector],
-					projectile, collision, env))
-						return (-1);
+					if (env->sectors[projectile->sector].nb_sprites[collision]
+							< 30)
+					{
+						if (add_wall_bullet_hole(
+							&env->sectors[projectile->sector],
+							projectile, collision, env))
+							return (-1);
+					}
 				}
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}

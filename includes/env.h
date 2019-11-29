@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 12:46:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:32:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,6 +472,10 @@ int					add_floor_bullet_hole(t_sector *sector,
 t_projectile *projectile);
 int					add_wall_bullet_hole(t_sector *sector,
 t_projectile *projectile, int i, t_env *env);
+int					shift_ceiling_bullet_hole(t_sector *sector,
+t_projectile *projectile);
+int					shift_floor_bullet_hole(t_sector *sector,
+t_projectile *projectile);
 
 /*
 ** enemies functions
