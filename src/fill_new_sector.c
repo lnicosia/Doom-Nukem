@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 14:45:12 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:57:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
+		ft_printf("sdsds\n");
 		sector->portals[index] = 1;
 		sector->textures[index] = 4;
 		sector->nb_sprites[index] = 0;
