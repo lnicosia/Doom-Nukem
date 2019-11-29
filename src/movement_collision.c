@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 17:05:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:45:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
     }
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
-        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) && RNEIGHBOR < 0)
+        if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) && (RNEIGHBOR < 0 || (env->sectors[wall.sector_dest].portals[i] == 0 && env->sectors[wall.sector_dest].portals[i] != wall.sector_or)))
         {
             norme_wall = sqrt((X2R - X1R) * (X2R - X1R) + (Y2R - Y1R) * (Y2R - Y1R));
             scalar = (X2R - X1R) / norme_wall * move.x / norme_mov + (Y2R - Y1R) / norme_wall * move.y / norme_mov;
@@ -129,7 +129,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
         if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) && RNEIGHBOR >= 0 &&
-            env->sector_list[RNEIGHBOR] == 0)
+            env->sector_list[RNEIGHBOR] == 0 && env->sectors[wall.sector_dest].portals[i] == 1)
         {
             if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, RNEIGHBOR)))
                 return (new_v3(0,0,0));
@@ -165,7 +165,7 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     	move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)
+        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && (NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
         {
             norme_mov = sqrt(move.x * move.x + move.y * move.y);
             norme_wall = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
@@ -183,7 +183,7 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     i = 0;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR >= 0)
+        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
         {
             motion.wall.sector_or = motion.sector;
             motion.wall.sector_dest = NEIGHBOR;
