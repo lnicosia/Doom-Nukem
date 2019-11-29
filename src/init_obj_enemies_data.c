@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 22:05:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:41:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		init_objects_data(t_env *env)
 		env->objects[i].health = 1;
 		if (env->objects[i].sprite == 2) // health pack
 		{
+			env->objects[i].main_sprite = HEALTH_PACK;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -76,6 +77,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 3) // shotgun ammo
 		{
+			env->objects[i].main_sprite = SHELL_AMMO;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -85,6 +87,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 4) // rocket ammo
 		{
+			env->objects[i].main_sprite = ROCKETS_AMMO;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -92,6 +95,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 5) // regular ammo
 		{
+			env->objects[i].main_sprite = REGULAR_AMMO;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -99,6 +103,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 6) // energy cell pack
 		{
+			env->objects[i].main_sprite = ENERGY_AMMO;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -108,6 +113,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
 		{
+			env->objects[i].main_sprite = LAMP;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 4;
 			env->objects[i].destructible = 0;
@@ -115,6 +121,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 11)
 		{
+			env->objects[i].main_sprite = MONITOR_OFF;
 			env->objects[i].health = 40;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
@@ -123,6 +130,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
 		{
+			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 4;
 			env->objects[i].destructible = 1;
@@ -130,6 +138,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 16)
 		{
+			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -137,6 +146,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 17) // green armor
 		{
+			env->objects[i].main_sprite = GREEN_ARMOR;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
@@ -145,6 +155,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
 		{
+			env->objects[i].main_sprite = CANDLE;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 1;
@@ -152,6 +163,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 20 || env->objects[i].sprite == 21) // barrel
 		{
+			env->objects[i].main_sprite = BARREL;
 			env->objects[i].health = 20;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 1;

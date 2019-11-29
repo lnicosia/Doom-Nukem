@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 21:35:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:41:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@
 # define MAX_H 1440
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
+# define HEALTH_PACK 2
+# define SHELL_AMMO 3
+# define ROCKETS_AMMO 4
+# define REGULAR_AMMO 5
+# define ENERGY_AMMO 6
+# define LAMP 7
+# define MONITOR_OFF 11
+# define MONITOR_ON 12
+# define GREEN_ARMOR 17
+# define CANDLE 18
+# define BARREL 20
 
 typedef enum		e_input_box_type
 {
@@ -747,6 +758,7 @@ typedef struct		s_object
 	int				seen;
 	int				bottom;
 	int				sprite;
+	int				main_sprite;
 	int				destructible;
 	int				explodes;
 	double			scale;

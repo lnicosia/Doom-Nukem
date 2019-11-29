@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 16:37:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:44:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	save_init_data(t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
+		env->objects[i].object_init_data.main_sprite = env->objects[i].main_sprite;
 		env->objects[i].object_init_data.pos = env->objects[i].pos;
 		env->objects[i].object_init_data.sector = env->objects[i].sector;
 		env->objects[i].object_init_data.angle = env->objects[i].angle;

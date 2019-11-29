@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 20:08:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:45:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		respawn(void *param)
 	i = 0;
 	while (i < env->nb_objects)
 	{
+		env->objects[i].sprite = env->objects[i].main_sprite;
 		env->objects[i].pos = env->objects[i].object_init_data.pos;
 		env->objects[i].sector = env->objects[i].object_init_data.sector;
 		env->objects[i].angle = env->objects[i].object_init_data.angle;
