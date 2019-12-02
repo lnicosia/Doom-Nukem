@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 18:04:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:41:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	move_sector(void *param)
 	ft_printf("Hola\n");
 }
 
-void	hit_player(void *param)
+int	hit_player(void *param)
 {
 	(void)param;
 	ft_printf("Aie\n");
+	return (1);
 }
 
 int	init_editor(int ac, char **av)
@@ -79,15 +80,27 @@ int	init_editor(int ac, char **av)
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
-			env.sectors[1].nb_walk_events = 2;
+			env.sectors[1].nb_walk_events = 1;
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
+			new_func_event(&hit_player, 0);
+			env.sectors[1].walk_on_me_event[0].update_func = 
+			&delete_itself_event;
+			env.sectors[1].walk_on_me_event[0].update_param =
+			new_event_param(0, 0, 0, new_v3(0, 0, 0));
+			env.sectors[1].walk_on_me_event[0].update_param->target =
+			env.sectors[1].walk_on_me_event;
+			env.sectors[1].walk_on_me_event[0].update_param->size =
+			env.sectors[1].nb_walk_events;
+			env.sectors[1].walk_on_me_event[0].update_param->num = 0;
+			env.sectors[1].walk_on_me_event[0].max_uses = 1;
+			/*env.sectors[1].walk_on_me_event[0] =
 			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
 			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
 			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
 			2, 0, 0, new_v3(0, 0, 0)); 
 			env.sectors[1].walk_on_me_event[1] =
-			new_fixed_event(INT, &env.player.health, 1, 0);
+			new_fixed_event(INT, &env.player.health, 1, 0);*/
 			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
 			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(

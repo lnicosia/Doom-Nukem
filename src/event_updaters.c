@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 19:00:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:20:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ int				check_collision_event(t_event *event, void *penv)
 		if (!move.x && !move.y && !move.z)
 				return (0);
 		return (1);
+}
+
+void			delete_itself_event(t_event *event, void *penv)
+{
+	ft_delindex(event->update_param->target,
+	sizeof(*event->update_param->target) * event->update_param->size,
+	sizeof(*event->update_param->target),
+	sizeof(*event->update_param->target) * event->update_param->num);
+	(void)penv;
 }
 
 int				check_equ_value_event(t_event *event, void *penv)

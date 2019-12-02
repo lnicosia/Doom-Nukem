@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 15:24:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:51:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int i, t_env *env)
 	if (set_camera_sprites_array(&env->player.camera, sector->num,
 		i, env))
 		return (-1);
-	ft_printf("%d holes\n", sector->nb_sprites[i]);
+	//ft_printf("%d holes\n", sector->nb_sprites[i]);
 	return (0);
 }

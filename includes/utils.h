@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 14:18:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:29:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef enum		e_button_action_type
 typedef enum	e_event_mod_type
 {
 	FIXED,
-	INCR
+	INCR,
+	FUNC
 }				t_event_mod_type;
 
 typedef enum		e_button_state
@@ -264,9 +265,11 @@ typedef struct		s_sprite
 typedef struct		s_event_param
 {
 		int			num;
+		int			size;
 		double		equ_value;
 		double		diff_value;
 		t_v3		move;
+		void		*target;
 }					t_event_param;
 
 typedef struct		s_event
@@ -282,8 +285,12 @@ typedef struct		s_event
 	int				type;
 	int				(*check_func)(struct s_event *, void *);
 	t_event_param	*check_param;
+	int				(*exec_func)(void *);
+	t_event_param	*exec_param;
 	void			(*update_func)(struct s_event *, void *);
 	t_event_param	*update_param;
+	int				uses;
+	int				max_uses;
 }			t_event;
 
 typedef struct		s_wall_sprites

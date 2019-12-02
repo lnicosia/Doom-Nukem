@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 18:07:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:40:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,28 @@ int		is_queued(t_list *queued_values, void *target)
 //	TODO
 //	Protection
 
-void	start_event(t_event *events, size_t size, t_env *env)
+void	start_event(t_event *events, size_t *size, t_env *env)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < size)
+	while (i < *size)
 	{
 			if (update_event(&events[i])
 					&& !is_queued(env->queued_values, events[i].target))
 			{
 				ft_lstpushback(&env->events, ft_lstnew(&events[i],
 					sizeof(t_event)));
+				if (events[i].max_uses > 0)
+				{
+					events[i].uses++;
+					if (events[i].uses >= events[i].max_uses)
+					{
+						ft_delindex(events, sizeof(t_event) * *size,
+						sizeof(t_event), sizeof(t_event) * i);
+						(*size)--;
+					}
+				}
 				//ft_printf("adding %p to queued_values\n", events[i].target);
 				ft_lstpushback(&env->queued_values, ft_lstnew(&events[i].target,
 				sizeof(events[i].target)));

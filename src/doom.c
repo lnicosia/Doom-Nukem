@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 10:02:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:37:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int		doom(t_env *env)
 			}
 			if (env->player.sector != -1)
 					start_event(env->sectors[env->player.sector].walk_on_me_event,
-					env->sectors[env->player.sector].nb_walk_events, env);
+					&env->sectors[env->player.sector].nb_walk_events, env);
 			if (env->global_events)
-					start_event(env->global_events, env->nb_global_events, env);
+					start_event(env->global_events, &env->nb_global_events, env);
 			if (projectiles_movement(env))
 				return (-1);
 			if (env->player.health <= 0)

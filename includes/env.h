@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 10:11:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:37:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ int					del_char(t_input_box *box, int mode);
 int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
-void				hit_player(void *param);
+int					hit_player(void *param);
 int					apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
@@ -509,9 +509,10 @@ void				pop_events(t_env *env);
 void				pop_events2(t_env *env);
 t_event				new_fixed_event(int type, void *target, double goal,
 Uint32 duration);
+t_event				new_func_event(int (*func)(void *), void *param);
 t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
-void				start_event(t_event *events, size_t size,
+void				start_event(t_event *events, size_t *size,
 t_env *env);
 t_event_param		*new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
@@ -520,5 +521,6 @@ void				update_player_event(t_event *event, void *penv);
 int					check_collision_event(t_event *event, void *penv);
 int					check_diff_value_event(t_event *event, void *penv);
 int					check_equ_value_event(t_event *event, void *penv);
+void				delete_itself_event(t_event *event, void *penv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 15:20:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:51:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,7 +395,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			{
 				if (env->enemies[i].behavior == RANGED_PROJECTILE)
 				{
-					create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle, 1, 1),
+					create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle * CONVERT_RADIANS, 1, 1),
 						new_projectile_stats(0.6, env->enemies[i].damage, 0.8, env->enemies[i].eyesight - 2.2),
 						enemy_angle_z(env, i));
 				}

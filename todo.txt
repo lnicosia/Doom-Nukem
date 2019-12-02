@@ -21,8 +21,9 @@ Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
 Opti sprites sol/plafond										|
 Lumieres														| Done
-Fix lignes bugs a cause du zbuffer								|
-Impact de balles												|
+Fix lignes bugs a cause du zbuffer								| Impossible?
+Impact de balles												| Done
+Impact de balles -> fade
 Actualiser les fps qu'1x par seconde							| Done
 Surbrillance quand on vise wall sprite qui a un press event		|
 Opti calcul lumiere												|

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 14:09:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:17:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[3].size[0].y = 600;
 	env->wall_sprites[3].ratio[0] = env->wall_sprites[3].size[0].x
 	/ (double)env->wall_sprites[3].size[0].y;
-	ft_printf("bullet hole ratio = %f\n", env->wall_sprites[3].ratio[0]);
 	env->wall_sprites[3].reversed[0] = 0;
 	return (0);
 }
