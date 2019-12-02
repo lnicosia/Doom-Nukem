@@ -25,3 +25,4 @@ Fix lignes bugs a cause du zbuffer								|
 Impact de balles												|
 Actualiser les fps qu'1x par seconde							| Done
 Surbrillance quand on vise wall sprite qui a un press event		|
+Opti calcul lumiere												|

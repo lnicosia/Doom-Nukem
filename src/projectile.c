@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 18:30:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:21:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z, double height)
 {
-	projectile->pos.x = 2.5 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
-	projectile->pos.y = 2.5 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
+	projectile->pos.x = 2.5 * cos(projectile->angle) + pos.x;
+	projectile->pos.y = 2.5 * sin(projectile->angle) + pos.y;
 	projectile->pos.z = 2.5 * -angle_z + pos.z + height;
-	projectile->dest.x = 100000 * cos(projectile->angle * CONVERT_RADIANS) + pos.x;
-	projectile->dest.y = 100000 * sin(projectile->angle * CONVERT_RADIANS) + pos.y;
-	projectile->dest.z = 100000 * -angle_z + pos.z + height;
+//	projectile->pos.z = height;
+	projectile->dest.x = 100000000 * cos(projectile->angle)
+	+ projectile->pos.x;
+	projectile->dest.y = 100000000 * sin(projectile->angle)
+	+ projectile->pos.y;
+	projectile->dest.z = 100000000 * -angle_z + projectile->pos.z;
 }
 
 int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, double angle_z)
@@ -39,6 +42,7 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	((t_projectile*)new->content)->size_2d = stats.size_2d;
 	((t_projectile*)new->content)->exists = 1;
 	((t_projectile*)new->content)->sector = get_sector_no_z(env, ((t_projectile*)new->content)->pos);
+	((t_projectile*)new->content)->angle = data.angle * CONVERT_DEGREES;
 	return (0);
 }
 
@@ -91,35 +95,48 @@ int		projectiles_movement(t_env *env)
 			{
 				if (collision == -2)
 				{
-					if (env->sectors[projectile->sector].nb_ceiling_sprites < 5)
+					if (env->sectors[projectile->sector].nb_ceiling_sprites
+						< env->options.max_floor_sprites)
 					{
 						if (add_ceiling_bullet_hole(
-							&env->sectors[projectile->sector], projectile))
+							&env->sectors[projectile->sector], projectile,
+							env))
 							return (-1);
 					}
+					else if (shift_ceiling_bullet_hole(
+						&env->sectors[projectile->sector], projectile,
+						env))
+						return (-1);
 				}
 				else if (collision == -3)
 				{
-					if (env->sectors[projectile->sector].nb_floor_sprites < 5)
+					if (env->sectors[projectile->sector].nb_floor_sprites
+						< env->options.max_floor_sprites)
 					{
 						if (add_floor_bullet_hole(
-							&env->sectors[projectile->sector], projectile))
+							&env->sectors[projectile->sector], projectile,
+							env))
 							return (-1);
 					}
 					else if (shift_floor_bullet_hole(
-						&env->sectors[projectile->sector], projectile))
+						&env->sectors[projectile->sector], projectile,
+						env))
 						return (-1);
 				}
 				else if (collision >= 0)
 				{
 					if (env->sectors[projectile->sector].nb_sprites[collision]
-							< 30)
+							< env->options.max_wall_sprites)
 					{
 						if (add_wall_bullet_hole(
 							&env->sectors[projectile->sector],
 							projectile, collision, env))
 							return (-1);
 					}
+					else if (shift_wall_bullet_hole(
+						&env->sectors[projectile->sector], projectile,
+						collision, env))
+						return (-1);
 				}
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}

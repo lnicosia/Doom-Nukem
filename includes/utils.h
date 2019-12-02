@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 18:14:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:18:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ typedef struct		s_sprite
 	t_point			start[8];
 	t_point			end[8];
 	t_point			size[8];
+	double			ratio[8];
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
@@ -858,6 +859,8 @@ typedef struct		s_options
 	int				animations;
 	int				gamma_filter;
 	int				mipmapping;
+	int				max_floor_sprites;
+	int				max_wall_sprites;
 }					t_options;
 
 /*

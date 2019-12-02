@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 18:32:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 10:11:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,15 +467,23 @@ int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
 int					add_ceiling_bullet_hole(t_sector *sector,
-t_projectile *projectile);
+t_projectile *projectile, t_env *env);
 int					add_floor_bullet_hole(t_sector *sector,
-t_projectile *projectile);
+t_projectile *projectile, t_env *env);
 int					add_wall_bullet_hole(t_sector *sector,
 t_projectile *projectile, int i, t_env *env);
 int					shift_ceiling_bullet_hole(t_sector *sector,
-t_projectile *projectile);
+t_projectile *projectile, t_env *env);
 int					shift_floor_bullet_hole(t_sector *sector,
-t_projectile *projectile);
+t_projectile *projectile, t_env *env);
+int					shift_wall_bullet_hole(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
+t_v2				get_ceiling_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, t_env *env);
+t_v2				get_floor_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, t_env *env);
+t_v2				get_wall_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
 
 /*
 ** enemies functions

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 19:23:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/02 11:27:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,13 +189,14 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling slope", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line) * CONVERT_RADIANS;
+	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
+	/* CONVERT_RADIANS;
 	if (env->sectors[parser->sectors_count].ceiling_slope > 45
 			|| env->sectors[parser->sectors_count].ceiling_slope < -45)
 		return (custom_error_with_line("Slopes must be between -45"
 					"and 45 degrees", parser));
 	env->sectors[parser->sectors_count].ceiling_slope = tan(env->
-			sectors[parser->sectors_count].ceiling_slope * CONVERT_RADIANS);
+			sectors[parser->sectors_count].ceiling_slope * CONVERT_RADIANS);*/
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling texture", parser));
