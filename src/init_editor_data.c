@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 10:29:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/29 10:50:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	init_editor_data(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
-	
+	env->editor.add.v1 = -1;
+	env->editor.add.v2 = -1;
 }

@@ -6,12 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 14:49:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/29 16:42:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "add_vertex.h"
+#include "collision.h"
 
 int		*get_sectors_list(t_env *env, int v1, int v2)
 {
@@ -50,9 +51,50 @@ int		*get_sectors_list(t_env *env, int v1, int v2)
     return (NULL);
 }
 
-int		select_vertices(t_env *env)
+int		is_mouse_on_a_wall(t_env *env)
 {
-	if (env->editor.select_vertex_on_going)
+	int		i;
+	int		j;
+	t_v2	v1;
+	t_v2	v2;
+	t_v2	mouse;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			v1 = new_v2(env->vertices[env->sectors[i].vertices[j]].x, env->vertices[env->sectors[i].vertices[j]].y);
+			v2 = new_v2(env->vertices[env->sectors[i].vertices[j + 1]].x, env->vertices[env->sectors[i].vertices[j + 1]].y);
+			mouse = new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
+			round((env->sdl.my - env->editor.center.y) / env->editor.scale));
+			if (get_existing_vertex(env) == -1)
+			{
+				if (hitbox_collision(v1, v2, mouse, 0.5))
+				{
+					env->editor.add.v1 = env->sectors[i].vertices[j];
+					env->editor.add.v2 = env->sectors[i].vertices[j + 1];
+					return (1);
+				}
+			}
+			else
+			{
+				ft_printf("a vertex already exist at this position\n");
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+/*	ft_printf("nb_vertices: %d| i: %d\n", env->sectors[i].nb_vertices, i);
+	v1 = new_v2(env->vertices[env->sectors[i].vertices[j]].x, env->vertices[env->sectors[i].vertices[j]].y);
+	v2 = new_v2(env->vertices[env->sectors[i].vertices[j]].x, env->vertices[env->sectors[i].vertices[j]].y);
+	mouse = new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
+	round((env->sdl.my - env->editor.center.y) / env->editor.scale));
+	if (hitbox_collision(v1, v2, mouse, 0.5))
+		return (1);*/
+	/*if (env->editor.select_vertex_on_going)
 	{
 		if (env->editor.add.v1 == -1)
 	        env->editor.add.v1 = env->editor.selected_vertex;
@@ -63,7 +105,8 @@ int		select_vertices(t_env *env)
 		}
 	}
 	if (env->editor.add.v1 != -1 && env->editor.add.v2 != -1)
-    	return (1);
+    	return (1);*/
+	ft_printf("mouse isn't on a wall\n");
 	return (0);
 }
 
@@ -274,24 +317,26 @@ int     modify_sector(t_env *env, int sector)
 
 int		modify_vertices(t_env *env)
 {
-	double min;
-	double max;
+/*	double min;
+	double max;*/
 
 	if (!(env->vertices = (t_vertex *)ft_realloc(env->vertices, sizeof(t_vertex)
 			* env->nb_vertices, sizeof(t_vertex) * (env->nb_vertices + 1))))
 		return (ft_perror("Could not realloc env vertices"));
 	env->nb_vertices++;
-	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ?
+/*	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ?
 	env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
 	max = env->vertices[env->editor.add.v1].x > env->vertices[env->editor.add.v2].x ?
 	env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
-	env->vertices[env->nb_vertices - 1].num = env->nb_vertices - 1;
-	env->vertices[env->nb_vertices - 1].x =	min + ((max - min) / 2);
+	env->vertices[env->nb_vertices - 1].x =	round(min + ((max - min) / 2));
 	min = env->vertices[env->editor.add.v1].y < env->vertices[env->editor.add.v2].y ?
 	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
 	max = env->vertices[env->editor.add.v1].y > env->vertices[env->editor.add.v2].y ?
 	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
-	env->vertices[env->nb_vertices - 1].y = min + ((max - min) / 2);
+	env->vertices[env->nb_vertices - 1].y = round(min + ((max - min) / 2));*/
+	env->vertices[env->nb_vertices - 1].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+	env->vertices[env->nb_vertices - 1].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+	env->vertices[env->nb_vertices - 1].num = env->nb_vertices - 1;
 	return (0);
 }
 
@@ -301,7 +346,7 @@ int     add_vertex_in_sector(t_env *env)
 
 	i = 1;
     if (!(env->editor.add.sector_list = get_sectors_list(env, env->editor.add.v1, env->editor.add.v2)))
-         return (printf("selected vertices aren't in the same sector or not next to each others\n"));
+         return (1);
 	if (modify_vertices(env))
 		return (-1);
 	i = 1;

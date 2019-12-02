@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 18:33:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/02 10:55:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,20 +182,43 @@ t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index, int inde
 	return (res);
 }
 
+int		check_all_angles(t_v2 *p, int res, int i, int straight)
+{	
+	if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) > 0)
+			{
+				if (!res)
+					res += straight;
+				res++;
+			}
+	else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+	- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) < 0)
+	{
+		if (!res)
+			res -= straight;
+		res--;
+	}
+	else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+	- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) == 0 && res)
+		res += res > 0 ? 1 : -1;
+	return (res);
+}
+
 int		is_sector_convex(t_env *env, t_list *tmp)
 {
 	int		len;
 	int		i;
 	t_v2	*p;
 	int		res;
+	int		straight;
 	
 	i = 0;
 	res = 0;
+	straight = 0;
 	len = ft_lstlen(env->editor.current_vertices);
 	tmp = env->editor.current_vertices;
 	if (len > 2)
 	{
-
 		if (get_existing_vertex(env) == -1)
 		{
 			len++;
@@ -216,19 +239,14 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			tmp = tmp->next;
 			i++;
 		}
-
 		i = 0;
 		while (i < len -2)
 		{
-			if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) > 0)
-				res++;
-			else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) < 0)
-				res--;
-			else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) == 0)
-				res += res > 0 ? 1 : -1;
+			res = check_all_angles(p, res, i, straight);
+			if (!res)
+				straight++;
+			else
+				straight = 0;
 			i++;
 			/*dx1 = p[i + 1].x - p[i].x;
 			dy1 = p[i + 1].y - p[i].y;
@@ -241,25 +259,12 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			res++;
 		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
 			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) < 0)
-				res--;
+			res--;
 		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) == 0)
-				res += res > 0 ? 1 : -1;
-		i++;
-		if(((p[0].x - p[i].x) * (p[1].y - p[0].y)
-			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) >= 0)
-			res++;
-		else if (((p[0].x - p[i].x) * (p[1].y - p[0].y)
-			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) < 0)
-				res--;
-		else if (((p[0].x - p[i].x) * (p[1].y - p[0].y)
-			- ((p[0].y - p[i].y) * (p[1].x - p[0].x))) == 0)
-				res += res > 0 ? 1 : -1;
-		if (res != -(len) && res != len)
-		{
-			ft_printf("sector will be concave if you do this !\n");
+			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) == 0 && res)
+				res += res >= 0 ? 1 : -1;
+		if (res != -(len - 1) && res != len - 1)
 			return (0);
-		}
 	}
 	return (1);
 }
