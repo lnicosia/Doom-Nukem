@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 15:15:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/02 11:52:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ void				update_neighbors(t_env *env, int index, int num, t_sector *sector);
 void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
+void				update_short_tab(int index, short size, short **tab);
 
 /*
 ** Main functions

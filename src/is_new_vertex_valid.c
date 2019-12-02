@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 10:55:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/02 14:12:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,8 +263,10 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
 			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) == 0 && res)
 				res += res >= 0 ? 1 : -1;
-		if (res != -(len - 1) && res != len - 1)
+		if (res != -(len - 1) && res != len - 1 && res)
+		{
 			return (0);
+		}
 	}
 	return (1);
 }

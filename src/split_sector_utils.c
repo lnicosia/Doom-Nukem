@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:12:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 19:00:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/02 12:11:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,6 @@ void	update_neighbors(t_env *env, int index, int num, t_sector *sector)
 	}
 }
 
-void	update_vertices(int index, t_sector *sector)
-{
-	sector->vertices = ft_delindex(sector->vertices,
-		sizeof(short) * (sector->nb_vertices + 1),
-		sizeof(short),
-		sizeof(short) * index);
-}
-
-void	update_textures(int index, t_sector *sector)
-{
-	sector->textures = ft_delindex(sector->textures,
-		sizeof(short) * (sector->nb_vertices + 1),
-		sizeof(short),
-		sizeof(short) * index);
-}
-
 void	update_double_tab(int index, double size, double **tab)
 {
 	*tab = ft_delindex(*tab,
@@ -73,3 +57,19 @@ void	update_double_tab(int index, double size, double **tab)
 		sizeof(double),
 		sizeof(double) * index);
 }
+
+void	update_short_tab(int index, short size, short **tab)
+{
+	*tab = ft_delindex(*tab,
+		sizeof(short) * (size),
+		sizeof(short),
+		sizeof(short) * index);
+}
+/*
+void	update_short_tab(int index, short size, short **tab)
+{
+	*tab = ft_delindex(*tab,
+		sizeof(short) * (size),
+		sizeof(short),
+		sizeof(short) * index);
+}*/

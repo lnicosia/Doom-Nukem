@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:17:28 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 11:00:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/02 12:31:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 	
 	while (i > start)
 	{
-		update_vertices(i, sector);
 		update_neighbors(env, i, sector->vertices[i], sector);
-		update_textures(i, sector);
+		update_short_tab(i, (short)sector->nb_vertices + 1, &env->sectors[sector->num].vertices);
+		update_short_tab(i, (short)sector->nb_vertices + 1, &env->sectors[sector->num].textures);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].floors);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].ceilings);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_floors1);
@@ -111,6 +111,28 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 	}
 }
 
+void	copying_original_sector_data(t_env *env)
+{
+	int	origin;
+	int	new;
+	int	i;
+
+	i = 0;
+	origin = env->editor.split.sector;
+	new = env->nb_sectors - 1;
+	while (i < env->sectors[new].nb_vertices)
+	{
+		env->sectors[new].textures[i] = env->sectors[origin].textures[0];
+		i++;
+	}
+	env->sectors[new].ceiling_texture = env->sectors[origin].ceiling_texture;
+	env->sectors[new].floor_texture = env->sectors[origin].floor_texture;
+	env->sectors[new].floor = env->sectors[origin].floor;
+	env->sectors[new].floor_slope = env->sectors[origin].floor_slope;
+	env->sectors[new].ceiling = env->sectors[origin].ceiling;
+	env->sectors[new].ceiling_slope = env->sectors[origin].ceiling_slope;
+}
+
 int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 {
 	int	i;
@@ -125,6 +147,7 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	env->editor.start_vertex = -1;
 	if (add_sector(env))
 		return (ft_printf("Error while creating new sector\n"));
+	copying_original_sector_data(env);
 	return (0);
 }
 
