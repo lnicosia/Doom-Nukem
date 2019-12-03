@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 19:24:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 
 	enemy_far_left_right(env, i);
 	env->enemies[i].saw_player = 0;
-	distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
+	distance = distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
 	env->enemies[i].saw_player = is_in_enemy_fov(env->enemies[i], env->player, distance);
 	if (distance <= 30)
 		env->enemies[i].saw_player = 1;
@@ -289,7 +289,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 	(void)distance;
 	if (enemy.exists )
 	{
-		if (distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
+		if (distance_two_points_2d(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1)
 		{
 			env->enemies[i].state = PURSUING;
 			direction = sprite_movement(env, (double)enemy.speed / 200, enemy.pos, enemy.last_player_pos);
@@ -333,7 +333,7 @@ double	enemy_angle_z(t_env *env, int i)
 	double	diff_z;
 	double	angle_z;
 
-	dist_enemy_player = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
+	dist_enemy_player = distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y);
 	diff_z = (env->enemies[i].pos.z + env->enemies[i].eyesight) - (env->player.pos.z + env->player.eyesight);
 	if (dist_enemy_player != 0)
 		angle_z = diff_z / dist_enemy_player;
@@ -350,7 +350,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 
 	if (enemy.exists)
 	{
-		if (distance_two_points(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1 &&
+		if (distance_two_points_2d(enemy.pos.x, enemy.pos.y, enemy.last_player_pos.x, enemy.last_player_pos.y) > 0.1 &&
 			(distance >= 30 || !enemy.saw_player))
 		{
 			env->enemies[i].state = PURSUING;
@@ -445,7 +445,7 @@ void		enemy_melee_hit(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
+		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
 			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
 			env->enemies[i].behavior == MELEE_FIGHTER))
 		{
@@ -478,10 +478,10 @@ int			enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 	nearest_dist = 2147483647;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < env->enemies[i].size_2d + radius && env->enemies[i].exists
+		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y) < env->enemies[i].size_2d + radius && env->enemies[i].exists
 			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
 		{
-			distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
+			distance = distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
 			if (distance < nearest_dist)
 			{
 				nearest_dist = distance;
@@ -492,7 +492,7 @@ int			enemy_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 			new_v2(env->enemies[i].pos.x, env->enemies[i].pos.y), radius + env->enemies[i].size_2d) && env->enemies[i].exists
 			&& pos.z <= env->enemies[i].eyesight + env->enemies[i].pos.z && pos.z >= env->enemies[i].pos.z)
 		{
-			distance = distance_two_points(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
+			distance = distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, pos.x, pos.y);
 			if (distance < nearest_dist)
 			{
 				nearest_dist = distance;

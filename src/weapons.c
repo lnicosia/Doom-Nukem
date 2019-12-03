@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 18:32:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:11:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,4 +225,17 @@ void    print_ammo(t_env *env)
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 19), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
 	str = ft_sitoa(env->weapons[env->player.curr_weapon].max_ammo);
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 24), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
+}
+
+int		aoe_damage(double distance, double radius, int damage)
+{
+	double	percentage;
+
+	percentage = (100 - (distance / radius) * 100) / 100;
+	if (percentage < 0.3)
+		percentage = 0.3;
+	ft_printf("distance = %f radius = %f\n", distance, radius);
+	ft_printf("percentage = %f\n", percentage);
+	ft_printf("explosion damage = %d\n", (int)(damage * percentage));
+	return ((int)(damage * percentage));
 }

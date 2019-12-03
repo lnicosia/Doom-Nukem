@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:57:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 19:11:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    objects_collision(t_env *env, t_v3 pos)
     i = 0;
     while (i < env->nb_objects)
     {
-        if (env->objects[i].exists && distance_two_points(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < 1.75 &&
+        if (env->objects[i].exists && distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < 1.75 &&
             pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
         {
             if (env->objects[i].sprite == 0 && env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)

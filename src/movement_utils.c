@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/20 18:33:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void     iter_sectors(t_env *env, t_movement motion)
     init_sector_list(env, motion.sector);
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((distance_two_points(X1, Y1, motion.pos.x, motion.pos.y) <= motion.size_2d || distance_two_points(X2, Y2, motion.pos.x, motion.pos.y) <= motion.size_2d
+        if ((distance_two_points_2d(X1, Y1, motion.pos.x, motion.pos.y) <= motion.size_2d || distance_two_points_2d(X2, Y2, motion.pos.x, motion.pos.y) <= motion.size_2d
             || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), motion.size_2d)) && NEIGHBOR >= 0)
         {
             wall.sector_or = motion.sector;

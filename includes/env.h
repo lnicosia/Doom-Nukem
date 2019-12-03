@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 13:49:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:50:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct		s_env
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
+	t_explosion			explosion;
+	t_list				*explosions;
 	t_vline_data		*vline_data;
 	t_teleport			teleport;
 	t_hidden_sect		hidden_sect;
@@ -305,6 +307,7 @@ int					set_sector_ceiling_map_array(t_sector *sector,
 t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
+t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int sprite);
 
 /*
 **	Parser functions
@@ -397,8 +400,11 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
+int					create_explosion(t_env *env, t_explosion_data data);
+int					explosion_player(t_env *env);
 void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
+int					aoe_damage(double distance, double radius, int damage);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
@@ -436,7 +442,8 @@ int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
-double     			distance_two_points(double x1, double y1, double x2, double y2);
+double     			distance_two_points_2d(double x1, double y1, double x2, double y2);
+double				distance_two_points_3d(t_v3 p1, t_v3 p2);
 void				interactions(t_env *env);
 void				activate_elevator(t_env *env);
 void				create_elevator(t_env *env);

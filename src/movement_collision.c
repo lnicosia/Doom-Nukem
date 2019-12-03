@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/29 16:45:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     return (1);
 }
 
-double     distance_two_points(double x1, double y1, double x2, double y2)
+double     distance_two_points_2d(double x1, double y1, double x2, double y2)
 {
     double  d;
     double  x_sub;

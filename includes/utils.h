@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 14:45:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/02 21:42:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -744,6 +744,27 @@ typedef	struct		s_projectile
 	int				sprite;
 	int				damage;
 }					t_projectile;
+
+typedef	struct		s_explosion_data
+{
+	t_v3			pos;
+	double			radius;
+	int				sprite;
+	int				damage;
+}					t_explosion_data;
+
+/*
+** Explosion structure
+*/
+
+typedef	struct		s_explosion
+{
+	t_v3			pos;
+	double			radius;
+	int				damage;
+	int				sprite;
+	short			damage_burst;
+}					t_explosion;
 
 /*
 ** Object structure
