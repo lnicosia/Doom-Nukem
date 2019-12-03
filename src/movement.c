@@ -96,7 +96,7 @@ void	update_player_pos(t_env *env)
 				env->player.pos, env->player.sector);
 		if (new_sector != env->player.sector && new_sector != -1
 			&& env->sectors[new_sector].nb_walk_events > 0)
-			start_event(env->sectors[new_sector].walk_on_me_event, &env->sectors[new_sector].nb_walk_events, env);
+			start_event(&env->sectors[new_sector].walk_on_me_event, &env->sectors[new_sector].nb_walk_events, env);
 		if (find_highest_sector(env, motion) != env->player.highest_sect
 				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env))
 			env->player.drop_flag = 1;

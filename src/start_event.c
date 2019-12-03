@@ -58,33 +58,32 @@ int		is_queued(t_list *queued_values, void *target)
 //	TODO
 //	Protection
 
-void	start_event(t_event *events, size_t *size, t_env *env)
+void	start_event(t_event **events, size_t *size, t_env *env)
 {
-	size_t	i;
+	size_t		i;
 
 	i = 0;
-	ft_printf("starting %d events\n", *size);
 	while (i < *size)
 	{
-		ft_printf("checking event %d of %d (%p)\n", i, *size,
-		&events[i]);
-		if (update_event(&events[i])
-				&& !is_queued(env->queued_values, events[i].target))
+		if (update_event(&(*events)[i])
+				&& (!(*events)[i].target
+				|| !is_queued(env->queued_values, (*events)[i].target)))
 		{
-			ft_lstpushback(&env->events, ft_lstnew(&events[i],
+			ft_lstpushback(&env->events, ft_lstnew(&(*events)[i],
 						sizeof(t_event)));
 			//ft_printf("adding %p to queued_values\n", events[i].target);
-			if (events[i].target)
-				ft_lstpushback(&env->queued_values, ft_lstnew(&events[i].target,
-							sizeof(events[i].target)));
-			if (events[i].max_uses > 0)
+				ft_lstpushback(&env->queued_values,
+				ft_lstnew(&(*events)[i].target, sizeof((*events)[i].target)));
+			if ((*events)[i].max_uses > 0)
 			{
-				events[i].uses++;
-				if (events[i].uses >= events[i].max_uses)
+				(*events)[i].uses++;
+				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
-					ft_printf("event %d finished\n", i);
-					ft_delindex(events, sizeof(t_event) * (*size),
-							sizeof(t_event), sizeof(t_event) * i);
+					free_event(&(*events)[i]);
+					*events = ft_delindex((*events),
+					sizeof(t_event) * (*size),
+					sizeof(t_event),
+					sizeof(t_event) * i);
 					(*size)--;
 				}
 			}

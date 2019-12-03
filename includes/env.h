@@ -358,6 +358,7 @@ Uint32				apply_light_brightness(Uint32 src, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
 void				free_sector(t_sector *sector);
+void				free_event(t_event *event);
 int				update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);
@@ -513,7 +514,7 @@ Uint32 duration);
 t_event				new_func_event(int (*func)(void *), void *param);
 t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
-void				start_event(t_event *events, size_t *size,
+void				start_event(t_event **events, size_t *size,
 t_env *env);
 t_event_param		*new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);

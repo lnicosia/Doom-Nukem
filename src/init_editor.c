@@ -81,12 +81,14 @@ int	init_editor(int ac, char **av)
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
-			env.sectors[1].nb_walk_events = 2;
+			env.sectors[1].nb_walk_events = 3;
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
-			new_func_event(&hit_player, 0);
-			env.sectors[1].walk_on_me_event[0].max_uses = 1;
+			new_func_event(&hola, 0);
 			env.sectors[1].walk_on_me_event[1] =
+			new_func_event(&hit_player, 0);
+			env.sectors[1].walk_on_me_event[1].max_uses = 1;
+			env.sectors[1].walk_on_me_event[2] =
 			new_func_event(&hola, 0);
 			//env.sectors[1].walk_on_me_event[1].update_param->num = 1;
 			//env.sectors[1].walk_on_me_event[1].max_uses = 0;

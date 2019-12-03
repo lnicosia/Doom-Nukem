@@ -47,10 +47,10 @@ int		doom(t_env *env)
 				keys(env);
 			}
 			if (env->player.sector != -1)
-					start_event(env->sectors[env->player.sector].walk_on_me_event,
+					start_event(&env->sectors[env->player.sector].walk_on_me_event,
 					&env->sectors[env->player.sector].nb_walk_events, env);
 			if (env->global_events)
-					start_event(env->global_events, &env->nb_global_events, env);
+					start_event(&env->global_events, &env->nb_global_events, env);
 			if (projectiles_movement(env))
 				return (-1);
 			if (env->player.health <= 0)
