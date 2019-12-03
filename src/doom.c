@@ -13,6 +13,29 @@
 #include "env.h"
 #include "collision.h"
 
+int		launch_global_events(t_env *env)
+{
+	if (env->player.sector != -1)
+		start_event(&env->sectors[env->player.sector].walk_on_me_event,
+				&env->sectors[env->player.sector].nb_walk_events, env);
+	if (env->global_events && env->nb_global_events)
+		start_event(&env->global_events,
+				&env->nb_global_events, env);
+	if (env->wall_bullet_holes_events
+			&& env->nb_wall_bullet_holes_events)
+		start_event(&env->wall_bullet_holes_events,
+				&env->nb_wall_bullet_holes_events, env);
+	if (env->floor_bullet_holes_events
+			&& env->nb_floor_bullet_holes_events)
+		start_event(&env->floor_bullet_holes_events,
+				&env->nb_floor_bullet_holes_events, env);
+	if (env->ceiling_bullet_holes_events
+			&& env->nb_ceiling_bullet_holes_events)
+		start_event(&env->ceiling_bullet_holes_events,
+				&env->nb_ceiling_bullet_holes_events, env);
+	return (0);
+}
+
 int		doom(t_env *env)
 {
 	while (env->running)
@@ -46,11 +69,8 @@ int		doom(t_env *env)
 				enemy_melee_hit(env);
 				keys(env);
 			}
-			if (env->player.sector != -1)
-					start_event(&env->sectors[env->player.sector].walk_on_me_event,
-					&env->sectors[env->player.sector].nb_walk_events, env);
-			if (env->global_events)
-					start_event(&env->global_events, &env->nb_global_events, env);
+			if (launch_global_events(env))
+				return (-1);
 			if (projectiles_movement(env))
 				return (-1);
 			if (env->player.health <= 0)
@@ -59,8 +79,8 @@ int		doom(t_env *env)
 				confirmation_box_keys(&env->confirmation_box, env);
 			if (env->events)
 			{
-					if (pop_events2(env))
-						return (-1);
+				if (pop_events2(env))
+					return (-1);
 			}
 		}
 		if (env->menu_start)
@@ -75,7 +95,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
-			}
+	}
 	free_all(env);
 	return (0);
 }

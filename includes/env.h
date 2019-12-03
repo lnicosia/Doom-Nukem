@@ -61,6 +61,12 @@ typedef struct		s_env
 	Uint32				frame_timer;
 	t_event				*global_events;
 	size_t				nb_global_events;
+	t_event				*wall_bullet_holes_events;
+	size_t				nb_wall_bullet_holes_events;
+	t_event				*floor_bullet_holes_events;
+	size_t				nb_floor_bullet_holes_events;
+	t_event				*ceiling_bullet_holes_events;
+	size_t				nb_ceiling_bullet_holes_events;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -488,6 +494,12 @@ t_projectile *projectile, int i, t_env *env);
 int					delete_wall_bullet_hole(void *param, void *env);
 int					delete_floor_bullet_hole(void *param, void *env);
 int					delete_ceiling_bullet_hole(void *param, void *env);
+void				shift_ceiling_bullet_hole_events(int sector, int sprite,
+t_env *env);
+void				shift_floor_bullet_hole_events(int sector, int sprite,
+t_env *env);
+void				shift_wall_bullet_hole_events(int sector, int wall, 
+int sprite, t_env *env);
 
 /*
 ** enemies functions

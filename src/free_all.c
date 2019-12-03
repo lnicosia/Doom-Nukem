@@ -339,6 +339,12 @@ void		free_all(t_env *env)
 		i++;
 	}
 	free_events(env->global_events, env->nb_global_events);
+	free_events(env->wall_bullet_holes_events,
+	env->nb_wall_bullet_holes_events);
+	free_events(env->floor_bullet_holes_events,
+	env->nb_floor_bullet_holes_events);
+	free_events(env->ceiling_bullet_holes_events,
+	env->nb_ceiling_bullet_holes_events);
 	if (env->projectiles)
 	{
 		while (env->projectiles)

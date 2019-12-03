@@ -100,7 +100,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
-		   delete_bullet_hole.c
+		   delete_bullet_hole.c shift_bullet_hole_events.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h \
