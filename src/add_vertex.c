@@ -24,6 +24,7 @@ void	del_last_vertex(t_env *env)
 		v = (t_vertex*)env->editor.current_vertices->content;
 		if (!is_vertex_used(env, v->num))
 			delete_vertex(env, v->num);
+		free(env->editor.current_vertices->content);
 		free(env->editor.current_vertices);
 		env->editor.current_vertices = NULL;
 		env->editor.start_vertex = -1;
