@@ -33,6 +33,11 @@ t_env *env)
 					sizeof(t_v2) * sector->nb_floor_sprites,
 					sizeof(t_v2) * (sector->nb_floor_sprites + 1))))
 		return (ft_perror("Could not realloc floor sprites scale"));
+	if (!(sector->floor_sprites_scale =
+				(t_v2*)ft_realloc(sector->floor_sprites_scale,
+					sizeof(t_v2) * sector->nb_floor_sprites,
+					sizeof(t_v2) * (sector->nb_floor_sprites + 1))))
+		return (ft_perror("could not realloc floor sprites scale"));
 	sector->floor_sprites.sprite[sector->nb_floor_sprites] = 3;
 	sector->floor_sprites.scale[sector->nb_floor_sprites] = new_v2(0.4, 0.4);
 	sector->floor_sprites.pos[sector->nb_floor_sprites] =
@@ -41,6 +46,14 @@ t_env *env)
 	sector->floor_sprites.scale[sector->nb_floor_sprites].x / 2;
 	sector->floor_sprites.pos[sector->nb_floor_sprites].y -=
 	sector->floor_sprites.scale[sector->nb_floor_sprites].y / 2;
+	sector->floor_sprites_scale[sector->nb_floor_sprites].x =
+	env->wall_sprites[sector->floor_sprites
+	.sprite[sector->nb_floor_sprites]].size[0].x /
+	sector->floor_sprites.scale[sector->nb_floor_sprites].x;
+	sector->floor_sprites_scale[sector->nb_floor_sprites].y =
+	env->wall_sprites[sector->floor_sprites
+	.sprite[sector->nb_floor_sprites]].size[0].y /
+	sector->floor_sprites.scale[sector->nb_floor_sprites].y;
 	sector->nb_floor_sprites++;
 	if (!(env->floor_bullet_holes_events
 		= (t_event*)ft_realloc(env->floor_bullet_holes_events,
@@ -81,7 +94,12 @@ t_env *env)
 				(t_v2*)ft_realloc(sector->ceiling_sprites.scale,
 					sizeof(t_v2) * sector->nb_ceiling_sprites,
 					sizeof(t_v2) * (sector->nb_ceiling_sprites + 1))))
-		return (ft_perror("Could not realloc ceiling sprites scale"));
+		return (ft_perror("could not realloc ceiling sprites scale"));
+	if (!(sector->ceiling_sprites_scale =
+				(t_v2*)ft_realloc(sector->ceiling_sprites_scale,
+					sizeof(t_v2) * sector->nb_ceiling_sprites,
+					sizeof(t_v2) * (sector->nb_ceiling_sprites + 1))))
+		return (ft_perror("could not realloc ceiling sprites scale"));
 	sector->ceiling_sprites.sprite[sector->nb_ceiling_sprites] = 3;
 	sector->ceiling_sprites.scale[sector->nb_ceiling_sprites] = new_v2(0.4,
 	0.4);
@@ -91,6 +109,14 @@ t_env *env)
 	sector->ceiling_sprites.scale[sector->nb_ceiling_sprites].x / 2;
 	sector->ceiling_sprites.pos[sector->nb_ceiling_sprites].y -=
 	sector->ceiling_sprites.scale[sector->nb_ceiling_sprites].y / 2;
+	sector->ceiling_sprites_scale[sector->nb_ceiling_sprites].x =
+	env->wall_sprites[sector->ceiling_sprites
+	.sprite[sector->nb_ceiling_sprites]].size[0].x /
+	sector->ceiling_sprites.scale[sector->nb_ceiling_sprites].x;
+	sector->ceiling_sprites_scale[sector->nb_ceiling_sprites].y =
+	env->wall_sprites[sector->ceiling_sprites
+	.sprite[sector->nb_ceiling_sprites]].size[0].y /
+	sector->ceiling_sprites.scale[sector->nb_ceiling_sprites].y;
 	sector->nb_ceiling_sprites++;
 	if (!(env->ceiling_bullet_holes_events
 		= (t_event*)ft_realloc(env->ceiling_bullet_holes_events,

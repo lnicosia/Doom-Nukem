@@ -34,6 +34,9 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.pos = (t_v2*)
 		malloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite pos"));
+	if (!(env->sectors[parser->sectors_count].ceiling_sprites_scale = (t_v2*)
+		malloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
+		return (ft_perror("Could not malloc sector floor sprite pos"));
 	i = 0;
 	while (i < parser->sector_ceiling_sprites_count)
 	{
@@ -58,6 +61,14 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y = ft_atof(*line);
 		if (env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y <= 0)
 			return (custom_error_with_line("Floor sprite scale must be positive", parser));
+		env->sectors[parser->sectors_count].ceiling_sprites_scale[i].x
+		= env->wall_sprites[env->sectors[parser->sectors_count]
+		.ceiling_sprites.sprite[i]].size[0].x
+		/ env->sectors[parser->sectors_count].ceiling_sprites.scale[i].x;
+		env->sectors[parser->sectors_count].ceiling_sprites_scale[i].y
+		= env->wall_sprites[env->sectors[parser->sectors_count]
+		.ceiling_sprites.sprite[i]].size[0].y
+		/ env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y;
 		*line = skip_number(*line);
 		(*line)++;
 		i++;

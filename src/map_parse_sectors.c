@@ -619,7 +619,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	return (0);
 }*/
 
-int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
+int			parse_sector_wall_sprites(t_env *env, char **line,
+t_map_parser *parser)
 {
 	int	i;
 	int	j;
@@ -941,7 +942,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	if (parse_sector_textures(env, &line, parser))
 		return (-1);
 	//return (custom_error("Error while parsing sector textures"));
-	if (parse_sector_sprite(env, &line, parser))
+	if (parse_sector_wall_sprites(env, &line, parser))
 		return (-1);
 	if (parse_sector_light(env, &line, parser))
 		return (-1);

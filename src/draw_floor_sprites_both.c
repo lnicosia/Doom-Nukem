@@ -53,10 +53,14 @@ void	draw_floor_sprites_both(t_sector sector, t_render render, t_env *env)
 		{
 			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
-			sprite_x = (x - sector.floor_sprites.pos[j].x)
+			/*sprite_x = (x - sector.floor_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;
 			sprite_y = (y - sector.floor_sprites.pos[j].y)
-				* (sprite.size[0].y) / sector.floor_sprites.scale[j].y;
+				* (sprite.size[0].y) / sector.floor_sprites.scale[j].y;*/
+			sprite_x = (x - sector.floor_sprites.pos[j].x)
+				* sector.floor_sprites_scale[j].x;
+			sprite_y = (y - sector.floor_sprites.pos[j].y)
+				* sector.floor_sprites_scale[j].y;
 			if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
 					&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
 					&& sprite_pixels[(int)sprite_x

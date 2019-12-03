@@ -14,16 +14,16 @@ Skybox partout													| Done
 Sprites sur sol/plafond?										| Done
 Wall sprites glitch corniches									| Done
 Update map parser												| Done
-Multi selection?												| 
 Ajouter des vertex/modifier secteur								| Done
 Pre affichage des sprites dans un dossier pour les selectionner	|
+Multi selection													| 
 Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
 Opti sprites sol/plafond										|
 Lumieres														| Done
 Fix lignes bugs a cause du zbuffer								| Impossible?
 Impact de balles												| Done
-Impact de balles -> fade
+Impact de balles -> fade										| Done
 Actualiser les fps qu'1x par seconde							| Done
 Surbrillance quand on vise wall sprite qui a un press event		|
 Opti calcul lumiere												|

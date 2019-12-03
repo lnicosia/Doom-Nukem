@@ -342,6 +342,8 @@ typedef struct		s_sector
 	short			*nb_sprites;
 	short			nb_floor_sprites;
 	short			nb_ceiling_sprites;
+	t_v2			*ceiling_sprites_scale;
+	t_v2			*floor_sprites_scale;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;

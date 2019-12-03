@@ -127,6 +127,22 @@ void		free_sector(t_sector *sector)
 		}
 		ft_memdel((void**)&sector->sprites);
 	}
+	if (sector->ceiling_sprites_scale)
+		ft_memdel((void**)&sector->ceiling_sprites_scale);
+	if (sector->floor_sprites_scale)
+		ft_memdel((void**)&sector->floor_sprites_scale);
+	if (sector->ceiling_sprites.sprite)
+		ft_memdel((void**)&sector->ceiling_sprites.sprite);
+	if (sector->ceiling_sprites.scale)
+		ft_memdel((void**)&sector->ceiling_sprites.scale);
+	if (sector->ceiling_sprites.pos)
+		ft_memdel((void**)&sector->ceiling_sprites.pos);
+	if (sector->floor_sprites.sprite)
+		ft_memdel((void**)&sector->floor_sprites.sprite);
+	if (sector->floor_sprites.scale)
+		ft_memdel((void**)&sector->floor_sprites.scale);
+	if (sector->floor_sprites.pos)
+		ft_memdel((void**)&sector->floor_sprites.pos);
 	if (sector->nb_sprites)
 		ft_memdel((void**)&sector->nb_sprites);
 	free_events(sector->walk_on_me_event,
