@@ -79,7 +79,7 @@ void	start_event(t_event **events, size_t *size, t_env *env)
 				(*events)[i].uses++;
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
-					free_event(&(*events)[i]);
+					//free_event(&(*events)[i]);
 					*events = ft_delindex((*events),
 					sizeof(t_event) * (*size),
 					sizeof(t_event),

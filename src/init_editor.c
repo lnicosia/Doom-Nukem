@@ -16,16 +16,18 @@
 **	Interaction test function
 */
 
-int	hola(void *param)
+int	hola(void *param, void *env)
 {
 	(void)param;
+	(void)env;
 	ft_printf("Hola\n");
 	return (1);
 }
 
-int	hit_player(void *param)
+int	hit_player(void *param, void *env)
 {
 	(void)param;
+	(void)env;
 	ft_printf("Aie\n");
 	return (1);
 }

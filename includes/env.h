@@ -250,7 +250,6 @@ int					del_char(t_input_box *box, int mode);
 int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
-int					hit_player(void *param);
 int					apply_texture(int texture, t_sector *sector, t_env *env);
 
 /*
@@ -486,6 +485,9 @@ t_v2				get_floor_bullet_hole_pos(t_sector *sector,
 t_projectile *projectile, t_env *env);
 t_v2				get_wall_bullet_hole_pos(t_sector *sector,
 t_projectile *projectile, int i, t_env *env);
+int					delete_wall_bullet_hole(void *param, void *env);
+int					delete_floor_bullet_hole(void *param, void *env);
+int					delete_ceiling_bullet_hole(void *param, void *env);
 
 /*
 ** enemies functions
@@ -507,17 +509,19 @@ void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 **	Event function
 */
 int					update_event(t_event *event);
-void				pop_events(t_env *env);
-void				pop_events2(t_env *env);
+int					pop_events(t_env *env);
+int					pop_events2(t_env *env);
 t_event				new_fixed_event(int type, void *target, double goal,
 Uint32 duration);
-t_event				new_func_event(int (*func)(void *), void *param);
+t_event				new_func_event(int (*func)(void *, void *),
+void *param);
 t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
 void				start_event(t_event **events, size_t *size,
 t_env *env);
-t_event_param		*new_event_param(int num, double equ_value, 
+t_event_param		new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
+t_event_param		empty_event_param(void);
 void				update_sector_event(t_event *event, void *penv);
 void				update_player_event(t_event *event, void *penv);
 int					check_collision_event(t_event *event, void *penv);

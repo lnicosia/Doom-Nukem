@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "wall_sprite_remover.h"
 
 int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 t_env *env)
 {
+	t_wall_sprite_remover	*param;
+
 	if (!(sector->floor_sprites.sprite =
 				(short*)ft_realloc(sector->floor_sprites.sprite,
 					sizeof(short) * sector->nb_floor_sprites,
@@ -39,13 +42,29 @@ t_env *env)
 	sector->floor_sprites.pos[sector->nb_floor_sprites].y -=
 	sector->floor_sprites.scale[sector->nb_floor_sprites].y / 2;
 	sector->nb_floor_sprites++;
+	if (!(env->global_events = (t_event*)ft_realloc(env->global_events,
+		sizeof(t_event) * env->nb_global_events,
+		sizeof(t_event) * (env->nb_global_events + 1))))
+		return (ft_perror("Could not realloc global events"
+		"to make bullet hole fade"));
+	if (!(param = (t_wall_sprite_remover*)malloc(sizeof(*param))))
+		return (ft_perror("Could not malloc wall sprite remover"));
+	ft_printf("new sprite %d of sector %d floor\n",
+	sector->nb_floor_sprites - 1, sector->num);
+	param->sector = sector->num;
+	param->wall = -1;
+	param->sprite = sector->nb_floor_sprites - 1;
+	env->global_events[env->nb_global_events]
+	= new_func_event(&delete_floor_bullet_hole, param);
+	env->global_events[env->nb_global_events].max_uses = 1;
+	env->global_events[env->nb_global_events].delay = 1000;
+	env->nb_global_events++;
 	return (0);
 }
 
 int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 t_env *env)
 {
-	(void)env;
 	if (!(sector->ceiling_sprites.sprite =
 				(short*)ft_realloc(sector->ceiling_sprites.sprite,
 					sizeof(short) * sector->nb_ceiling_sprites,
@@ -77,6 +96,8 @@ t_env *env)
 int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 int i, t_env *env)
 {
+	t_wall_sprite_remover	*param;
+
 	if (!(sector->sprites[i].sprite =
 				(short*)ft_realloc(sector->sprites[i].sprite,
 					sizeof(short) * sector->nb_sprites[i],
@@ -105,5 +126,22 @@ int i, t_env *env)
 		i, env))
 		return (-1);
 	//ft_printf("%d holes\n", sector->nb_sprites[i]);
+	if (!(env->global_events = (t_event*)ft_realloc(env->global_events,
+		sizeof(t_event) * env->nb_global_events,
+		sizeof(t_event) * (env->nb_global_events + 1))))
+		return (ft_perror("Could not realloc global events"
+		"to make bullet hole fade"));
+	if (!(param = (t_wall_sprite_remover*)malloc(sizeof(*param))))
+		return (ft_perror("Could not malloc wall sprite remover"));
+	ft_printf("new sprite %d of wall %d of sector %d\n",
+	sector->nb_sprites[i] - 1, i, sector->num);
+	param->sector = sector->num;
+	param->wall = i;
+	param->sprite = sector->nb_sprites[i] - 1;
+	env->global_events[env->nb_global_events]
+	= new_func_event(&delete_wall_bullet_hole, param);
+	env->global_events[env->nb_global_events].max_uses = 1;
+	env->global_events[env->nb_global_events].delay = 1000;
+	env->nb_global_events++;
 	return (0);
 }

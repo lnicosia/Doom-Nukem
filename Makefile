@@ -100,9 +100,11 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
+		   delete_bullet_hole.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h create_portals.h input_box_utils.h
+		  editor.h env.h save.h create_portals.h input_box_utils.h \
+		  wall_sprite_remover.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -117,7 +119,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -flto -Ofast\
+		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \

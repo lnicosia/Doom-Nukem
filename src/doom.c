@@ -58,7 +58,10 @@ int		doom(t_env *env)
 			if (env->confirmation_box.state)
 				confirmation_box_keys(&env->confirmation_box, env);
 			if (env->events)
-					pop_events2(env);
+			{
+					if (pop_events2(env))
+						return (-1);
+			}
 		}
 		if (env->menu_start)
 			start_game_menu(env);

@@ -265,6 +265,8 @@ typedef struct		s_sprite
 typedef struct		s_event_param
 {
 		int			num;
+		int			num2;
+		int			num3;
 		int			size;
 		double		equ_value;
 		double		diff_value;
@@ -284,11 +286,11 @@ typedef struct		s_event
 	int				mod_type;
 	int				type;
 	int				(*check_func)(struct s_event *, void *);
-	t_event_param	*check_param;
-	int				(*exec_func)(void *);
-	t_event_param	*exec_param;
+	t_event_param	check_param;
+	int				(*exec_func)(void *, void *);
+	void			*exec_param;
 	void			(*update_func)(struct s_event *, void *);
-	t_event_param	*update_param;
+	t_event_param	update_param;
 	int				uses;
 	int				max_uses;
 }			t_event;

@@ -46,7 +46,7 @@ t_event	new_incr_event(int type, void *target, double incr, Uint32 duration)
 	return (new);
 }
 
-t_event	new_func_event(int (*func)(void *), void *param)
+t_event	new_func_event(int (*func)(void *, void *), void *param)
 {
 	t_event	new;
 
@@ -102,10 +102,10 @@ int	int_event(t_event *curr)
 	return (0);
 }
 
-int	func_event(t_event *curr)
+int	func_event(t_event *curr, t_env *env)
 {
 	if (curr->exec_func)
-		return (curr->exec_func(curr->exec_param));
+		return (curr->exec_func(curr->exec_param, env));
 	return (1);
 }
 
@@ -122,7 +122,7 @@ int		execute_event(t_event *event, t_env *env)
 	else if (event->type == INT)
 		res = int_event(event);
 	else if (event->type == FUNC)
-		res = func_event(event);
+		res = func_event(event, env);
 	if (event->update_func)
 		event->update_func(event, env);
 	return (res);
@@ -136,7 +136,7 @@ int		execute_event(t_event *event, t_env *env)
 **	and sets a new queue for the next frame
 */
 
-void	pop_events(t_env *env)
+int	pop_events(t_env *env)
 {
 	t_event	*curr;
 	t_list	*next_events;
@@ -165,6 +165,7 @@ void	pop_events(t_env *env)
 	precompute_slopes(env);
 	env->events = next_events;
 	env->queued_values = next_values;
+	return (0);
 }
 
 //	TODO
@@ -172,10 +173,10 @@ void	pop_events(t_env *env)
 
 /*
 **	This one executes every event in the list
-**	and delete a node when the event is done
+**	and delete a node only when the event is done
 */
 
-void	pop_events2(t_env *env)
+int		pop_events2(t_env *env)
 {
 		t_list	*prec;
 		t_list	*tmp;
@@ -190,7 +191,7 @@ void	pop_events2(t_env *env)
 		while (tmp)
 		{
 			res = execute_event((t_event*)tmp->content, env);
-			if (res)
+			if (res == 1)
 			{
 					ft_lstpopfront(&tmp);
 					if (prec)
@@ -203,12 +204,15 @@ void	pop_events2(t_env *env)
 					else
 						env->queued_values = tmp_values;
 			}
-			else
+			else if (res == 0)
 			{
 				prec = tmp;
 				tmp = tmp->next;
 				prec_values = tmp_values;
 				tmp_values = tmp_values->next;
 			}
+			else if (res == -1)
+				return (-1);
 		}
+	return (0);
 }

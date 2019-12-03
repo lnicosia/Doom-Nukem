@@ -27,7 +27,7 @@ static void	free_textures(t_env *env)
 	}
 }
 
-void		free_event(t_event *event)
+/*void		free_event(t_event *event)
 {
 	if (event->check_param)
 		ft_memdel((void**)&event->check_param);
@@ -35,7 +35,7 @@ void		free_event(t_event *event)
 		ft_memdel((void**)&event->exec_param);
 	if (event->update_param)
 		ft_memdel((void**)&event->update_param);
-}
+}*/
 
 void		free_events(t_event	*events, size_t size)
 {
@@ -44,7 +44,7 @@ void		free_events(t_event	*events, size_t size)
 	j = 0;
 	while (j < size)
 	{
-		free_event(&events[j]);
+		//free_event(&events[j]);
 		j++;
 	}
 	if (events)

@@ -89,6 +89,7 @@ int i, t_env *env)
 	int	k;
 
 	j = 0;
+	ft_printf("shift\n");
 	while (j < sector->nb_sprites[i])
 	{
 		if (sector->sprites[i].sprite[j] == 3)
