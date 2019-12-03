@@ -25,7 +25,6 @@ t_event	new_fixed_event(int type, void *target, double goal, Uint32 duration)
 		new.duration = 1;
 	new.type = type;
 	new.goal = goal;
-	new.start_time = 0;
 	update_event(&new);
 	return (new);
 }
@@ -43,7 +42,6 @@ t_event	new_incr_event(int type, void *target, double incr, Uint32 duration)
 		new.duration = 1;
 	new.type = type;
 	new.incr = incr;
-	new.start_time = 0;
 	update_event(&new);
 	return (new);
 }
@@ -54,7 +52,6 @@ t_event	new_func_event(int (*func)(void *), void *param)
 
 	ft_bzero(&new, sizeof(new));
 	new.type = FUNC;
-	new.start_time = 0;
 	new.exec_func = func;
 	new.exec_param = param;
 	update_event(&new);

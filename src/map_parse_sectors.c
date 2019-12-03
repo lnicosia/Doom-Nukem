@@ -350,6 +350,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	while (i < parser->sector_vertices_count + 1)
 	{
 		env->sectors[parser->sectors_count].walls_map_lvl[i] = 0;
+		env->sectors[parser->sectors_count].sprites[i].sprite = 0;
+		env->sectors[parser->sectors_count].sprites[i].pos = 0;
+		env->sectors[parser->sectors_count].sprites[i].scale = 0;
 		i++;
 	}
 	if (!(env->sectors[parser->sectors_count].align = (t_v2*)

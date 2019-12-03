@@ -15,27 +15,27 @@
 int		update_event(t_event *event)
 {
 	if (SDL_GetTicks() - event->start_time < event->delay)
-			return (0);
+		return (0);
 	if (event->type == DOUBLE)
 	{
 		if (event->mod_type == FIXED
 				&& event->goal == *(double*)(event->target))
-				return (0);
+			return (0);
 		else if (event->mod_type == INCR)
-				event->goal = *(double*)event->target + event->incr;
+			event->goal = *(double*)event->target + event->incr;
 		event->incr = (event->goal - *(double*)(event->target))
-		/ event->duration;
+			/ event->duration;
 		event->start_value = *(double*)(event->target);
 	}
 	else if (event->type == INT)
 	{
 		if (event->mod_type == FIXED
 				&& event->goal == *(int*)(event->target))
-				return (0);
+			return (0);
 		else if (event->mod_type == INCR)
-				event->goal = *(int*)event->target + event->incr;
+			event->goal = *(int*)event->target + event->incr;
 		event->incr = (event->goal - *(int*)(event->target))
-		/ event->duration;
+			/ event->duration;
 		event->start_value = *(int*)(event->target);
 	}
 	event->start_time = SDL_GetTicks();
@@ -44,15 +44,15 @@ int		update_event(t_event *event)
 
 int		is_queued(t_list *queued_values, void *target)
 {
-		//ft_printf("Checking if contains %p\n", target);
-		while (queued_values)
-		{
-				//ft_printf("curr content = %p\n", *(long*)queued_values->content);
-				if (*(long*)queued_values->content == (long)target)
-						return (1);
-				queued_values = queued_values->next;
-		}
-		return (0);
+	//ft_printf("Checking if contains %p\n", target);
+	while (queued_values)
+	{
+		//ft_printf("curr content = %p\n", *(long*)queued_values->content);
+		if (*(long*)queued_values->content == (long)target)
+			return (1);
+		queued_values = queued_values->next;
+	}
+	return (0);
 }
 
 //	TODO
@@ -63,29 +63,37 @@ void	start_event(t_event *events, size_t *size, t_env *env)
 	size_t	i;
 
 	i = 0;
+	ft_printf("starting %d events\n", *size);
 	while (i < *size)
 	{
-			if (update_event(&events[i])
-					&& !is_queued(env->queued_values, events[i].target))
-			{
-				ft_lstpushback(&env->events, ft_lstnew(&events[i],
-					sizeof(t_event)));
-				if (events[i].max_uses > 0)
-				{
-					events[i].uses++;
-					if (events[i].uses >= events[i].max_uses)
-					{
-						ft_delindex(events, sizeof(t_event) * *size,
-						sizeof(t_event), sizeof(t_event) * i);
-						(*size)--;
-					}
-				}
-				//ft_printf("adding %p to queued_values\n", events[i].target);
+		ft_printf("checking event %d of %d (%p)\n", i, *size,
+		&events[i]);
+		if (update_event(&events[i])
+				&& !is_queued(env->queued_values, events[i].target))
+		{
+			ft_lstpushback(&env->events, ft_lstnew(&events[i],
+						sizeof(t_event)));
+			//ft_printf("adding %p to queued_values\n", events[i].target);
+			if (events[i].target)
 				ft_lstpushback(&env->queued_values, ft_lstnew(&events[i].target,
-				sizeof(events[i].target)));
-				//ft_printf("{yellow}starting event{reset}\n");
+							sizeof(events[i].target)));
+			if (events[i].max_uses > 0)
+			{
+				events[i].uses++;
+				if (events[i].uses >= events[i].max_uses)
+				{
+					ft_printf("event %d finished\n", i);
+					ft_delindex(events, sizeof(t_event) * (*size),
+							sizeof(t_event), sizeof(t_event) * i);
+					(*size)--;
+				}
 			}
-		i++;
+			else
+				i++;
+			//ft_printf("{yellow}starting event{reset}\n");
+		}
+		else
+			i++;
 	}
 	//ft_printf("\n");
 }

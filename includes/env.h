@@ -357,6 +357,7 @@ Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
 Uint32				apply_light_brightness(Uint32 src, short brightness);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
+void				free_sector(t_sector *sector);
 int				update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);

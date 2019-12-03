@@ -42,89 +42,107 @@ void		free_events(t_event	*events, size_t size)
 		{
 			ft_memdel((void**)&events[j].update_param);
 		}
-			j++;
+		if (events[j].exec_param)
+		{
+			ft_memdel((void**)&events[j].exec_param);
+		}
+		j++;
 	}
 	if (events)
 		ft_memdel((void**)&events);
 }
 
+void		free_sector(t_sector *sector)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (sector->vertices)
+		ft_memdel((void**)&sector->vertices);
+	if (sector->neighbors)
+		ft_memdel((void**)&sector->neighbors);
+	if (sector->textures)
+		ft_memdel((void**)&sector->textures);
+	if (sector->ceilings)
+		ft_memdel((void**)&sector->ceilings);
+	if (sector->floors)
+		ft_memdel((void**)&sector->floors);
+	if (sector->clipped_ceilings1)
+		ft_memdel((void**)&sector->clipped_ceilings1);
+	if (sector->clipped_floors1)
+		ft_memdel((void**)&sector->clipped_floors1);
+	if (sector->clipped_ceilings2)
+		ft_memdel((void**)&sector->clipped_ceilings2);
+	if (sector->clipped_floors2)
+		ft_memdel((void**)&sector->clipped_floors2);
+	if (sector->wall_width)
+		ft_memdel((void**)&sector->wall_width);
+	if (sector->align)
+		ft_memdel((void**)&sector->align);
+	if (sector->scale)
+		ft_memdel((void**)&sector->scale);
+	if (sector->xmin)
+		ft_memdel((void**)&sector->xmin);
+	if (sector->xmax)
+		ft_memdel((void**)&sector->xmax);
+	if (sector->floor_map_lvl)
+		ft_memdel((void**)&sector->floor_map_lvl);
+	if (sector->ceiling_map_lvl)
+		ft_memdel((void**)&sector->ceiling_map_lvl);
+	if (sector->floor_align)
+		ft_memdel((void**)&sector->floor_align);
+	if (sector->floor_scale)
+		ft_memdel((void**)&sector->floor_scale);
+	if (sector->ceiling_align)
+		ft_memdel((void**)&sector->ceiling_align);
+	if (sector->ceiling_scale)
+		ft_memdel((void**)&sector->ceiling_scale);
+	if (sector->selected)
+		ft_memdel((void**)&sector->selected);
+	if (sector->levels)
+		ft_memdel((void**)&sector->levels);
+	if (sector->walls_map_lvl)
+	{
+		j = 0;
+		while (j <= sector->nb_vertices)
+		{
+			if (sector->walls_map_lvl[j])
+				ft_memdel((void**)&sector->walls_map_lvl[j]);
+			j++;
+		}
+		ft_memdel((void**)&sector->walls_map_lvl);
+	}
+	if (sector->sprites)
+	{
+		j = 0;
+		while (j <= sector->nb_vertices)
+		{
+			if (sector->sprites[j].sprite)
+				ft_memdel((void**)&sector->sprites[j].sprite);
+			if (sector->sprites[j].pos)
+				ft_memdel((void**)&sector->sprites[j].pos);
+			if (sector->sprites[j].scale)
+				ft_memdel((void**)&sector->sprites[j].scale);
+			j++;
+		}
+		ft_memdel((void**)&sector->sprites);
+	}
+	if (sector->nb_sprites)
+		ft_memdel((void**)&sector->nb_sprites);
+	free_events(sector->walk_on_me_event,
+			sector->nb_walk_events);
+	i++;
+}
+
 static void	free_sectors(t_env *env)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (env->sectors[i].vertices)
-			ft_memdel((void**)&env->sectors[i].vertices);
-		if (env->sectors[i].ceilings)
-			ft_memdel((void**)&env->sectors[i].ceilings);
-		if (env->sectors[i].floors)
-			ft_memdel((void**)&env->sectors[i].floors);
-		if (env->sectors[i].clipped_ceilings1)
-			ft_memdel((void**)&env->sectors[i].clipped_ceilings1);
-		if (env->sectors[i].clipped_floors1)
-			ft_memdel((void**)&env->sectors[i].clipped_floors1);
-		if (env->sectors[i].clipped_ceilings2)
-			ft_memdel((void**)&env->sectors[i].clipped_ceilings2);
-		if (env->sectors[i].clipped_floors2)
-			ft_memdel((void**)&env->sectors[i].clipped_floors2);
-		if (env->sectors[i].wall_width)
-			ft_memdel((void**)&env->sectors[i].wall_width);
-		if (env->sectors[i].textures)
-			ft_memdel((void**)&env->sectors[i].textures);
-		if (env->sectors[i].align)
-			ft_memdel((void**)&env->sectors[i].align);
-		if (env->sectors[i].scale)
-			ft_memdel((void**)&env->sectors[i].scale);
-		if (env->sectors[i].neighbors)
-			ft_memdel((void**)&env->sectors[i].neighbors);
-		if (env->sectors[i].xmin)
-			ft_memdel((void**)&env->sectors[i].xmin);
-		if (env->sectors[i].xmax)
-			ft_memdel((void**)&env->sectors[i].xmax);
-		if (env->sectors[i].nb_sprites)
-			ft_memdel((void**)&env->sectors[i].nb_sprites);
-		if (env->sectors[i].floor_map_lvl)
-			ft_memdel((void**)&env->sectors[i].floor_map_lvl);
-		if (env->sectors[i].ceiling_map_lvl)
-			ft_memdel((void**)&env->sectors[i].ceiling_map_lvl);
-		if (env->sectors[i].floor_align)
-			ft_memdel((void**)&env->sectors[i].floor_align);
-		if (env->sectors[i].floor_scale)
-			ft_memdel((void**)&env->sectors[i].floor_scale);
-		if (env->sectors[i].ceiling_align)
-			ft_memdel((void**)&env->sectors[i].ceiling_align);
-		if (env->sectors[i].ceiling_scale)
-			ft_memdel((void**)&env->sectors[i].ceiling_scale);
-		if (env->sectors[i].walls_map_lvl)
-		{
-			j = 0;
-			while (j < env->sectors[i].nb_vertices)
-			{
-				if (env->sectors[i].walls_map_lvl[j])
-					ft_memdel((void**)&env->sectors[i].walls_map_lvl[j]);
-				j++;
-			}
-			ft_memdel((void**)&env->sectors[i].walls_map_lvl);
-		}
-		if (env->sectors[i].sprites)
-		{
-			j = 0;
-			while (j < env->sectors[i].nb_vertices)
-			{
-				if (env->sectors[i].sprites[j].sprite)
-					ft_memdel((void**)&env->sectors[i].sprites[j].sprite);
-				if (env->sectors[i].sprites[j].pos)
-					ft_memdel((void**)&env->sectors[i].sprites[j].pos);
-				if (env->sectors[i].sprites[j].scale)
-					ft_memdel((void**)&env->sectors[i].sprites[j].scale);
-				j++;
-			}
-		}
-		free_events(env->sectors[i].walk_on_me_event,
-		env->sectors[i].nb_walk_events);
+		free_sector(&env->sectors[i]);
 		i++;
 	}
 	ft_memdel((void**)&env->sectors);
@@ -301,9 +319,9 @@ void		free_all(t_env *env)
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	if (env->events)
-			ft_lstdelfront(&env->events);
+		ft_lstdelfront(&env->events);
 	if (env->queued_values)
-			ft_lstdelfront(&env->queued_values);
+		ft_lstdelfront(&env->queued_values);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])
