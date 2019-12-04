@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:27:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:09:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void		free_sector(t_sector *sector)
 				{
 					if (sector->wall_sprites[j].shoot_events[i])
 						ft_memdel((void**)&sector->wall_sprites[j].shoot_events[i]);
+					i++;
+				}
+			}
+			if (sector->wall_sprites[j].press_events)
+			{
+				i = 0;
+				while (i < sector->wall_sprites[j].nb_sprites)
+				{
+					if (sector->wall_sprites[j].press_events[i])
+						ft_memdel((void**)&sector->wall_sprites[j].press_events[i]);
 					i++;
 				}
 			}

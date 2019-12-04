@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:03:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:25:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "wall_sprite_remover.h"
 
 int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
-t_env *env)
+		t_env *env)
 {
 	t_floor_sprite_remover	*param;
 
@@ -41,42 +41,42 @@ t_env *env)
 	sector->floor_sprites.sprite[sector->floor_sprites.nb_sprites] = 3;
 	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites] = new_v2(0.4, 0.4);
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites] =
-	get_floor_bullet_hole_pos(sector, projectile, env);
+		get_floor_bullet_hole_pos(sector, projectile, env);
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites].x -=
-	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].x / 2;
+		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].x / 2;
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites].y -=
-	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y / 2;
+		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y / 2;
 	sector->floor_sprites_scale[sector->floor_sprites.nb_sprites].x =
-	env->wall_sprites[sector->floor_sprites
-	.sprite[sector->floor_sprites.nb_sprites]].size[0].x /
-	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].x;
+		env->wall_sprites[sector->floor_sprites
+		.sprite[sector->floor_sprites.nb_sprites]].size[0].x /
+		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].x;
 	sector->floor_sprites_scale[sector->floor_sprites.nb_sprites].y =
-	env->wall_sprites[sector->floor_sprites
-	.sprite[sector->floor_sprites.nb_sprites]].size[0].y /
-	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y;
+		env->wall_sprites[sector->floor_sprites
+		.sprite[sector->floor_sprites.nb_sprites]].size[0].y /
+		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y;
 	sector->floor_sprites.nb_sprites++;
 	if (!(env->floor_bullet_holes_events
-		= (t_event*)ft_realloc(env->floor_bullet_holes_events,
-		sizeof(t_event) * env->nb_floor_bullet_holes_events,
-		sizeof(t_event) * (env->nb_floor_bullet_holes_events + 1))))
+				= (t_event*)ft_realloc(env->floor_bullet_holes_events,
+					sizeof(t_event) * env->nb_floor_bullet_holes_events,
+					sizeof(t_event) * (env->nb_floor_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
-		"to make bullet hole fade"));
+					"to make bullet hole fade"));
 	if (!(param = (t_floor_sprite_remover*)malloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->sprite = sector->floor_sprites.nb_sprites - 1;
 	env->floor_bullet_holes_events[env->nb_floor_bullet_holes_events]
-	= new_func_event(&delete_floor_bullet_hole, param);
+		= new_func_event(&delete_floor_bullet_hole, param);
 	env->floor_bullet_holes_events[env->nb_floor_bullet_holes_events].max_uses
-	= 1;
+		= 1;
 	env->floor_bullet_holes_events[env->nb_floor_bullet_holes_events].delay
-	= 5000;
+		= 5000;
 	env->nb_floor_bullet_holes_events++;
 	return (0);
 }
 
 int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
-t_env *env)
+		t_env *env)
 {
 	t_floor_sprite_remover	*param;
 
@@ -102,44 +102,44 @@ t_env *env)
 		return (ft_perror("could not realloc ceiling sprites scale"));
 	sector->ceiling_sprites.sprite[sector->ceiling_sprites.nb_sprites] = 3;
 	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites] = new_v2(0.4,
-	0.4);
+			0.4);
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites] =
-	get_ceiling_bullet_hole_pos(sector, projectile, env);
+		get_ceiling_bullet_hole_pos(sector, projectile, env);
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites].x -=
-	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x / 2;
+		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x / 2;
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites].y -=
-	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y / 2;
+		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y / 2;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].x =
-	env->wall_sprites[sector->ceiling_sprites
-	.sprite[sector->ceiling_sprites.nb_sprites]].size[0].x /
-	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x;
+		env->wall_sprites[sector->ceiling_sprites
+		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].x /
+		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].y =
-	env->wall_sprites[sector->ceiling_sprites
-	.sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
-	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y;
+		env->wall_sprites[sector->ceiling_sprites
+		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
+		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y;
 	sector->ceiling_sprites.nb_sprites++;
 	if (!(env->ceiling_bullet_holes_events
-		= (t_event*)ft_realloc(env->ceiling_bullet_holes_events,
-		sizeof(t_event) * env->nb_ceiling_bullet_holes_events,
-		sizeof(t_event) * (env->nb_ceiling_bullet_holes_events + 1))))
+				= (t_event*)ft_realloc(env->ceiling_bullet_holes_events,
+					sizeof(t_event) * env->nb_ceiling_bullet_holes_events,
+					sizeof(t_event) * (env->nb_ceiling_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
-		"to make bullet hole fade"));
+					"to make bullet hole fade"));
 	if (!(param = (t_floor_sprite_remover*)malloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->sprite = sector->ceiling_sprites.nb_sprites - 1;
 	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events]
-	= new_func_event(&delete_ceiling_bullet_hole, param);
+		= new_func_event(&delete_ceiling_bullet_hole, param);
 	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events]
-	.max_uses = 1;
+		.max_uses = 1;
 	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].delay
-	= 5000;
+		= 5000;
 	env->nb_ceiling_bullet_holes_events++;
 	return (0);
 }
 
 int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
-int i, t_env *env)
+		int i, t_env *env)
 {
 	t_wall_sprite_remover	*param;
 
@@ -158,35 +158,55 @@ int i, t_env *env)
 					sizeof(t_v2) * sector->wall_sprites[i].nb_sprites,
 					sizeof(t_v2) * (sector->wall_sprites[i].nb_sprites + 1))))
 		return (ft_perror("Could not realloc wall sprites scale"));
+	if (!(sector->wall_sprites[i].nb_press_events =
+				(size_t*)ft_realloc(sector->wall_sprites[i].nb_press_events,
+					sizeof(size_t) * sector->wall_sprites[i].nb_sprites,
+					sizeof(size_t) * (sector->wall_sprites[i].nb_sprites + 1))))
+		return (ft_perror("Could not realloc wall sprites press events count"));
+	if (!(sector->wall_sprites[i].nb_shoot_events =
+				(size_t*)ft_realloc(sector->wall_sprites[i].nb_shoot_events,
+					sizeof(size_t) * sector->wall_sprites[i].nb_sprites,
+					sizeof(size_t) * (sector->wall_sprites[i].nb_sprites + 1))))
+		return (ft_perror("Could not realloc wall sprites shoot events count"));
+	if (!(sector->wall_sprites[i].press_events =
+				(t_event**)ft_realloc(sector->wall_sprites[i].press_events,
+					sizeof(t_event*) * sector->wall_sprites[i].nb_sprites,
+					sizeof(t_event*) * (sector->wall_sprites[i].nb_sprites + 1))))
+		return (ft_perror("Could not realloc wall sprites press events"));
+	if (!(sector->wall_sprites[i].shoot_events =
+				(t_event**)ft_realloc(sector->wall_sprites[i].shoot_events,
+					sizeof(t_event*) * sector->wall_sprites[i].nb_sprites,
+					sizeof(t_event*) * (sector->wall_sprites[i].nb_sprites + 1))))
+		return (ft_perror("Could not realloc wall sprites shoot events"));
 	sector->wall_sprites[i].sprite[sector->wall_sprites[i].nb_sprites] = 3;
 	sector->wall_sprites[i].scale[sector->wall_sprites[i].nb_sprites] = new_v2(0.4, 0.4);
 	sector->wall_sprites[i].pos[sector->wall_sprites[i].nb_sprites] =
-	get_wall_bullet_hole_pos(sector, projectile, i, env);
+		get_wall_bullet_hole_pos(sector, projectile, i, env);
 	sector->wall_sprites[i].pos[sector->wall_sprites[i].nb_sprites].x -=
-	sector->wall_sprites[i].scale[sector->wall_sprites[i].nb_sprites].x / 2;
+		sector->wall_sprites[i].scale[sector->wall_sprites[i].nb_sprites].x / 2;
 	sector->wall_sprites[i].pos[sector->wall_sprites[i].nb_sprites].y -=
-	sector->wall_sprites[i].scale[sector->wall_sprites[i].nb_sprites].y / 2;
+		sector->wall_sprites[i].scale[sector->wall_sprites[i].nb_sprites].y / 2;
 	sector->wall_sprites[i].nb_sprites++;
 	if (set_camera_sprites_array(&env->player.camera, sector->num,
-		i, env))
+				i, env))
 		return (-1);
 	if (!(env->wall_bullet_holes_events
-		= (t_event*)ft_realloc(env->wall_bullet_holes_events,
-		sizeof(t_event) * env->nb_wall_bullet_holes_events,
-		sizeof(t_event) * (env->nb_wall_bullet_holes_events + 1))))
+				= (t_event*)ft_realloc(env->wall_bullet_holes_events,
+					sizeof(t_event) * env->nb_wall_bullet_holes_events,
+					sizeof(t_event) * (env->nb_wall_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
-		"to make bullet hole fade"));
+					"to make bullet hole fade"));
 	if (!(param = (t_wall_sprite_remover*)malloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->wall = i;
 	param->sprite = sector->wall_sprites[i].nb_sprites - 1;
 	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events]
-	= new_func_event(&delete_wall_bullet_hole, param);
+		= new_func_event(&delete_wall_bullet_hole, param);
 	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events].max_uses
-	= 1;
+		= 1;
 	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events].delay
-	= 5000;
+		= 5000;
 	env->nb_wall_bullet_holes_events++;
 	return (0);
 }
