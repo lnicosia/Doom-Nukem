@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 09:26:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:09:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,16 @@ void	editor_hud(t_env *env)
 {
 	t_point	center;
 
+	print_text(new_point(100, 50), new_printable_text("Mipmapping:",
+	env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
+	if (env->options.show_minimap)
+		print_text(new_point(100, 175), new_printable_text("[ON]",
+		env->sdl.fonts.lato20, 0x00FF00FF, 20), env);
+	else
+		print_text(new_point(100, 175), new_printable_text("[OFF]",
+		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
 	if (!env->editor.in_game)
 	{
-		center.x = 100;
-		center.y = 100;
-		draw_circle_free(new_circle(0xFFFF0000, 0xFFFF0000, center, 15), env);
-		print_text(new_point(50, 60), new_printable_text("Player", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		center.x = 100;
 		center.y = 200;
 		draw_circle_free(new_circle(0xFFFFFF00, 0xFFFFFF00, center, 15), env);
@@ -170,15 +174,17 @@ void	editor_hud(t_env *env)
 		draw_circle_free(new_circle(0xFF0000FF, 0xFF0000FF, center, 15), env);
 		print_text(new_point(250, 60), new_printable_text("enemy", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	}
-	if (env->editor.tab)
-	{
+//	if (env->editor.tab)
+//	{
 		draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point( 220 , 60),
-				new_point(300, 400));
-		print_text(new_point(10, 240), new_printable_text("Selected: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(470, 220), new_printable_text("Current texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(470, 450), new_printable_text(ft_sitoa(env->editor.current_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+				new_point(10 , 435),
+				new_point(380, 450));
+		print_text(new_point(390, 20), new_printable_text("Selected: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		if (env->editor.draw_selection_tab)
+			selection_tab(env, MAX_WALL_TEXTURE);	
+		//print_text(new_point(470, 220), new_printable_text("Current texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		//print_text(new_point(470, 450), new_printable_text(ft_sitoa(env->editor.current_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		if (env->editor.selected_vertex != -1)
 			print_vertex_informations(env);
 		else if (env->editor.selected_player != -1)
@@ -196,6 +202,6 @@ void	editor_hud(t_env *env)
 		else if (env->selected_enemy != -1)
 			print_enemy_informations(env);
 		else
-			print_text(new_point(10, 430), new_printable_text("none", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	}
+			print_text(new_point(390, 150), new_printable_text("none", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+//	}
 }

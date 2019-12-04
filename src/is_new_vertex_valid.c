@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 14:12:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/04 13:27:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,19 +219,11 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 	tmp = env->editor.current_vertices;
 	if (len > 2)
 	{
-		if (get_existing_vertex(env) == -1)
-		{
-			len++;
-			if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
-				return (0);
-			p[len - 1].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-			p[len - 1].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-		}
-		else
-		{
-			if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
-				return (0);
-		}
+		len += 3;
+		if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
+			return (0);
+		p[len - 3].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+		p[len - 3].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 		while (tmp)
 		{
 			p[i].x = ((t_vertex*)tmp->content)->x;
@@ -239,8 +231,10 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			tmp = tmp->next;
 			i++;
 		}
+		p[len - 2] = p[0];
+		p[len - 1] = p[1];
 		i = 0;
-		while (i < len -2)
+		while (i < len - 2)
 		{
 			res = check_all_angles(p, res, i, straight);
 			if (!res)
@@ -248,25 +242,10 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 			else
 				straight = 0;
 			i++;
-			/*dx1 = p[i + 1].x - p[i].x;
-			dy1 = p[i + 1].y - p[i].y;
-			dx2 = p[i + 2].x - p[i + 1].x;
-			dy2 = p[i + 2].y - p[i + 1].y;
-			zcrossproduct = dx1*dy2 - dy1*dx2*/
 		}
-		if(((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) > 0)
-			res++;
-		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) < 0)
-			res--;
-		else if (((p[i + 1].x - p[i].x) * (p[0].y - p[i + 1].y)
-			- ((p[i + 1].y - p[i].y) * (p[0].x - p[i + 1].x))) == 0 && res)
-				res += res >= 0 ? 1 : -1;
-		if (res != -(len - 1) && res != len - 1 && res)
-		{
+
+		if (res != -(len - 2) && res != len - 2 && res)
 			return (0);
-		}
 	}
 	return (1);
 }

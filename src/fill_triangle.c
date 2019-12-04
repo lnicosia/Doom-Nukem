@@ -75,7 +75,7 @@ void	compute_triangle(t_v3 v[3], t_v2 p, Uint32 color, t_env *data)
 		w.x /= area;
 		w.y /= area;
 		w.z /= area;
-		if (p.x >= 200)
+		if (p.x >= 400)
 			pixels[coord] = color;
 	}
 }

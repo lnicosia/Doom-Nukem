@@ -50,7 +50,8 @@ void	draw_grid_vertices(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
-					&& !env->teleport.create)
+					&& !env->teleport.create
+					&& env->sdl.mx > 400)
 			{
 				env->editor.dragged_vertex = i;
 				env->editor.selected_vertex = i;

@@ -14,7 +14,7 @@
 
 void	fill_img(t_point c, t_env data, Uint32 color)
 {
-	if (c.x >= 200 && c.x < data.w && c.y >= 0 && c.y < data.h
+	if (c.x >= 400 && c.x < data.w && c.y >= 0 && c.y < data.h
 			&& data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFF00FF00
 			&& data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFFFFFF00)
 		data.sdl.texture_pixels[c.x + c.y * data.w] = color;

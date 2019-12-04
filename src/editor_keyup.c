@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 10:56:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/04 18:05:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,12 @@ int	editor_keyup(t_env *env)
 		{
 			if (!env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 0)
 				env->editor.existing_vertex = 1;
-			else 
+			if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 1
+			&& is_new_vertex_valid(env, clicked_vertex))
 			{
-				if (env->editor.existing_vertex && ft_lstlen(env->editor.current_vertices) == 1
-				&& is_new_vertex_valid(env, clicked_vertex))
-				{
-					add_vertex_to_current_sector(env, clicked_vertex);
-					if (check_pos_vertices(env))
-						env->editor.divide_sector = 1;
-				}
+				add_vertex_to_current_sector(env, clicked_vertex);
+				if (check_pos_vertices(env))
+					env->editor.divide_sector = 1;
 			}
 			if (env->editor.divide_sector)
 				split_sector(env);
@@ -96,7 +93,7 @@ int	editor_keyup(t_env *env)
 					add_vertex_to_current_sector(env, clicked_vertex);
 				}
 				else
-				{	
+				{
 					if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
 						&& ft_lstlen(env->editor.current_vertices) > 2
 							&& is_new_vertex_valid(env, clicked_vertex))
@@ -152,7 +149,14 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 200 && env->sdl.mx > 0)
+	&& (env->sdl.my < 200 && env->sdl.my > 0))
+	{
+		ft_printf("draw little one\n");
+		env->editor.draw_selection_tab = 1;
+	}
+	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_selection_tab = 0;
 	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
 	/*&& env->editor.selected_vertex != -1*/)
 	{

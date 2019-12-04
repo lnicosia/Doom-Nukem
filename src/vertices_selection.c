@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_selection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/01 18:00:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:40:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		vertices_selection(t_env *env)
 
 	i = 0;
 	click_vertex = -1;
-	if (!env->inputs.left_click && env->editor.dragged_vertex != -1)
+	if (!env->inputs.left_click && env->editor.dragged_vertex != -1 && env->sdl.mx >= 400)
 	{
 		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || (!(is_new_dragged_vertex_valid(env, env->editor.selected_vertex)) && (click_vertex != env->vertices[env->editor.selected_vertex].num)))
 		{

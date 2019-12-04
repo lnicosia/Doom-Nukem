@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 10:23:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/12/04 17:56:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_editor
 	t_add_vertex	add;
 	t_split			split;
 	int				select_vertex_on_going;
+	int				draw_selection_tab;
 }				t_editor;
 
 #endif
