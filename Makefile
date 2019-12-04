@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2019/12/04 11:33:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2019/12/04 11:47:33 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
 		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
+		   print_press_text.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h \

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 10:26:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:41:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			if (!env->options.test)
 			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
-			else
-			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
 			k++;
 		}
 		j = 0;
@@ -154,10 +151,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			if (!env->options.test)
 			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
-			else
-			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
 			k++;
 		}
 		j = 0;
@@ -174,10 +168,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	k = 0;
 	while (k < env->wall_textures[sector->textures[i]].nb_maps)
 	{
-		if (!env->options.test)
 		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].maps[k]->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
-		else
-		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
 		camera->v[sector->num][i].texture_align[k].x = (sector->align[i].x
 			* env->wall_textures[sector->textures[i]].maps[k]->w) / 10.0;
 		camera->v[sector->num][i].texture_align[k].y = (sector->align[i].y

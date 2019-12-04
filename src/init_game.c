@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 13:48:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:46:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,41 +123,45 @@ int		init_game(int ac, char **av)
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
-		if (ft_strequ(av[1], "maps/triple_piece.map"))
-		{
-			env.sectors[1].nb_walk_events = 2;
-			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
-			env.sectors[1].walk_on_me_event[0] =
+	if (ft_strequ(av[1], "maps/triple_piece.map"))
+	{
+		env.sectors[1].nb_walk_events = 2;
+		env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+		env.sectors[1].walk_on_me_event[0] =
 			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
-			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
-			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
-			2, 0, 0, new_v3(0, 0, 0)); 
-			env.sectors[1].walk_on_me_event[1] =
+		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
+				2, 0, 0, new_v3(0, 0, 0)); 
+		env.sectors[1].walk_on_me_event[1] =
 			new_fixed_event(INT, &env.player.health, 50, 1000);
-			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
-			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
-			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
-			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
-			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
-			/*env.sectors[1].walk_on_me_event[2] =
-			new_incr_event(INT, &env.sectors[2].brightness, -50, 0);
-			env.sectors[1].walk_on_me_event[2].delay = 1000;*/
+		//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
+		//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
+		//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
+		//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
+		//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
+		/*env.sectors[1].walk_on_me_event[2] =
+		  new_incr_event(INT, &env.sectors[2].brightness, -50, 0);
+		  env.sectors[1].walk_on_me_event[2].delay = 1000;*/
 
-			env.nb_global_events = 1;
-			env.global_events = (t_event*)malloc(sizeof(t_event)
-			* env.nb_global_events);
-			env.global_events[0] =
+		env.nb_global_events = 1;
+		env.global_events = (t_event*)malloc(sizeof(t_event)
+				* env.nb_global_events);
+		env.global_events[0] =
 			new_fixed_event(INT, &env.sectors[2].brightness, -128, 0);
-			env.global_events[0].delay = 1000;
-			env.global_events[0].check_func = &check_equ_value_event;
-			env.global_events[0].check_param = new_event_param(0, 0, 0,
-			new_v3(0, 0, 0));
-			/*env.global_events[1] =
-			new_fixed_event(INT, &env.sectors[2].brightness, 0, 0);
-			env.global_events[1].delay = 2000;
-			env.global_events[1].check_func = &check_equ_value_event;
-			env.global_events[1].check_param = new_event_param(0, -128, 0,
-			new_v3(0, 0, 0));*/
-		}
+		env.global_events[0].delay = 1000;
+		env.global_events[0].check_func = &check_equ_value_event;
+		env.global_events[0].check_param = new_event_param(0, 0, 0,
+				new_v3(0, 0, 0));
+		/*env.global_events[1] =
+		  new_fixed_event(INT, &env.sectors[2].brightness, 0, 0);
+		  env.global_events[1].delay = 2000;
+		  env.global_events[1].check_func = &check_equ_value_event;
+		  env.global_events[1].check_param = new_event_param(0, -128, 0,
+		  new_v3(0, 0, 0));*/
+	}
+	if (ft_strequ(av[1], "maps/piece.map"))
+	{
+		env.sectors[0].wall_sprites[1].nb_press_events[0] = 1;
+	}
 	return (doom(&env));
 }

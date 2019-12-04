@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 09:49:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 12:00:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,18 @@ void	draw_vline_floor(t_sector sector, t_vline vline,
 			map_lvl = get_current_floor_map(sector.floor_texture, z, &render, env);
 		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].
 			maps[map_lvl]->pixels;
-		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
+		if (vline.x == env->h_w && i == env->h_h)
 		{
-			reset_selection(env);
-			env->selected_floor = render.sector;
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				env->selected_floor = render.sector;
+			}
+			if (env->playing)
+			{
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+			}
 		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
 			* divider;

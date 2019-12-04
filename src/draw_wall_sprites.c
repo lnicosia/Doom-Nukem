@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 10:28:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:59:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,21 @@ t_env *env)
 			&& sprite_pixels[(int)x
 			+ sprite_w * (int)y] != 0xFFC10099)
 		{
-			if (env->editor.select && render.x == env->h_w && i == env->h_h)
+			if (render.x == env->h_w && i == env->h_h)
 			{
-				reset_selection(env);
-				env->selected_wall_sprite_wall = render.i;
-				env->selected_wall_sprite_sprite = sprite;
-				env->editor.selected_sector = sector.num;
-
+				if (env->editor.select)
+				{
+					reset_selection(env);
+					env->selected_wall_sprite_wall = render.i;
+					env->selected_wall_sprite_sprite = sprite;
+					env->editor.selected_sector = sector.num;
+				}
+				if (env->playing
+					&& sector.wall_sprites[render.i].nb_press_events[sprite])
+				{
+					env->hovered_wall_sprite_wall = render.i;
+					env->hovered_wall_sprite_sprite = sprite;
+				}
 			}
 			if (!env->options.lighting
 				|| (!sector.brightness && !sector.intensity))
@@ -83,13 +91,14 @@ t_env *env)
 				pixels[coord] = apply_light_both(sprite_pixels[
 				(int)x + sprite_w * (int)y],
 				sector.light_color, sector.intensity, sector.brightness);
-			if ((!env->editor.select
+			if (!env->editor.select
 				&& env->editor.selected_sector == sector.num
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
-				|| (env->playing && env->hovered_wall_sprite_wall == render.i
-				&& env->hovered_wall_sprite_sprite == sprite))
 				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
+			else if (env->playing && env->hovered_wall_sprite_wall == render.i
+				&& env->hovered_wall_sprite_sprite == sprite)
+				pixels[coord] = blend_alpha(pixels[coord], 0xFFFFFFFF, 128);
 			zbuffer[coord] = render.z;
 		}
 	}

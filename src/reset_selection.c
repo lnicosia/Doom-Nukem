@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:22:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 12:28:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:42:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,6 @@ void	reset_selection(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->selected_floor_sprite = -1;
 	env->selected_ceiling_sprite = -1;
+	env->hovered_wall_sprite_wall = -1;
+	env->hovered_wall_sprite_sprite = -1;
 }

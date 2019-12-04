@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 10:13:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:50:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,6 +340,7 @@ void				print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
+void				print_press_text(t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle_minimap(t_v3 v[3], t_env *env);

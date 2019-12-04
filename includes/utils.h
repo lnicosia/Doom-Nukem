@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:01:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:51:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,6 +595,7 @@ typedef struct		s_fonts
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
 	TTF_Font		*lato20;
+	TTF_Font		*lato50;
 }					t_fonts;
 
 /*
