@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:00:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:13:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -646,34 +646,35 @@ t_map_parser *parser)
 		(*line)++;
 		/*if ((env->sectors[parser->sectors_count].nb_sprites[i] = count_wall_sprites(*line, parser)) == -1)
 			return (-1);*/
-		if ((env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites = count_wall_sprites(*line, parser)) == -1)
+		if ((env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites
+			= count_wall_sprites(*line, parser)) == -1)
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].sprite
-			= (short*)malloc(sizeof(short)
+			= (short*)ft_memalloc(sizeof(short)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].pos
-			= (t_v2*)malloc(sizeof(t_v2)
+			= (t_v2*)ft_memalloc(sizeof(t_v2)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].scale
-			= (t_v2*)malloc(sizeof(t_v2)
+			= (t_v2*)ft_memalloc(sizeof(t_v2)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].press_events
-			= (t_event**)malloc(sizeof(t_event*)
+			= (t_event**)ft_memalloc(sizeof(t_event*)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].shoot_events
-			= (t_event**)malloc(sizeof(t_event*)
+			= (t_event**)ft_memalloc(sizeof(t_event*)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].nb_shoot_events
-			= (size_t*)malloc(sizeof(size_t)
+			= (size_t*)ft_memalloc(sizeof(size_t)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].nb_press_events
-			= (size_t*)malloc(sizeof(size_t)
+			= (size_t*)ft_memalloc(sizeof(size_t)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		j = 0;

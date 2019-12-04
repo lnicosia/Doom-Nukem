@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 10:57:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:19:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(10, 10);
 		ft_bzero(&sector->wall_sprites[index], sizeof(t_wall_sprites));
-		if (!(sector->walls_map_lvl[index] = (double*)malloc(sizeof(double)
+		if (!(sector->walls_map_lvl[index] = (double*)ft_memalloc(sizeof(double)
 			* env->wall_textures[sector->textures[index]].nb_maps)))
 			return (ft_perror("Could not malloc sector walls map lvl"));
 		set_sector_wall_map_array(sector,
@@ -84,9 +84,8 @@ int		fill_new_sector(t_sector *sector, t_env *env)
         sector->align[sector->nb_vertices] = sector->align[0];
         sector->scale[sector->nb_vertices] = sector->scale[0];
         sector->wall_sprites[sector->nb_vertices].nb_sprites = 0;
-		//sector->walls_map_lvl[sector->nb_vertices] = sector->walls_map_lvl[0];
 		if (!(sector->walls_map_lvl[sector->nb_vertices]
-			= (double*)malloc(sizeof(double)
+			= (double*)ft_memalloc(sizeof(double)
 			* env->wall_textures[sector->textures[sector->nb_vertices]].nb_maps)))
 			return (ft_perror("Could not malloc sector walls map lvl"));
 		set_sector_wall_map_array(sector,
@@ -102,8 +101,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
         sector->align[0] = sector->align[sector->nb_vertices];
         sector->scale[0] = sector->scale[sector->nb_vertices];
         sector->wall_sprites[0].nb_sprites = 0;
-		//sector->walls_map_lvl[0] = sector->walls_map_lvl[sector->nb_vertices];
-		if (!(sector->walls_map_lvl[0] = (double*)malloc(sizeof(double)
+		if (!(sector->walls_map_lvl[0] = (double*)ft_memalloc(sizeof(double)
 			* env->wall_textures[sector->textures[0]].nb_maps)))
 			return (ft_perror("Could not malloc sector walls map lvl"));
 		set_sector_wall_map_array(sector,

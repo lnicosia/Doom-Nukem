@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 10:54:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:10:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		free_sector(t_sector *sector)
 {
-	//int	i;
+	int	i;
 	int	j;
 
 	if (sector->vertices)
@@ -83,19 +83,20 @@ void		free_sector(t_sector *sector)
 				ft_memdel((void**)&sector->wall_sprites[j].pos);
 			if (sector->wall_sprites[j].scale)
 				ft_memdel((void**)&sector->wall_sprites[j].scale);
-			/*if (sector->sprites[j].nb_shoot_events)
+			if (sector->wall_sprites[j].shoot_events)
 			{
-				if (sector->sprites[j].shoot_events)
+				i = 0;
+				while (i < sector->wall_sprites[j].nb_sprites)
 				{
-					i = 0;
-					while (i < sector->sprites[j].nb_shoot_events)
-					{
-						//if (sector->sprites[j].shoot_events)
-						i++;
-					}
+					if (sector->wall_sprites[j].shoot_events[i])
+						ft_memdel((void**)&sector->wall_sprites[j].shoot_events[i]);
+					i++;
 				}
-				ft_memdel((void**)&sector->sprites[j].nb_shoot_events);
-			}*/
+			}
+			if (sector->wall_sprites[j].nb_shoot_events)
+				ft_memdel((void**)&sector->wall_sprites[j].nb_shoot_events);
+			if (sector->wall_sprites[j].nb_press_events)
+				ft_memdel((void**)&sector->wall_sprites[j].nb_press_events);
 			j++;
 		}
 		ft_memdel((void**)&sector->wall_sprites);
