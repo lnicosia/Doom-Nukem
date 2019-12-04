@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/03 17:11:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:23:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKETS_AMMO)
+	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKET)
 	{
 		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
 			new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),

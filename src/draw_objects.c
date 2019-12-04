@@ -250,7 +250,8 @@ void		draw_objects(t_camera camera, t_env *env)
 			}
 			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
 				object_anim_loop(env, i);
-			draw_object(camera, &env->objects[i], env, death_sprite);
+			if (env->objects[i].exists)
+				draw_object(camera, &env->objects[i], env, death_sprite);
 		}
 		i++;
 	}

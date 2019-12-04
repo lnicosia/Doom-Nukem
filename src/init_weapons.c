@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/02 22:26:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:23:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    init_weapons(t_env *env)
     env->weapons[0].weapon_switch = 0;
     env->weapons[0].first_sprite = 0;
     env->weapons[0].nb_sprites = 15;
-	env->weapons[0].ammo_type = ROCKETS_AMMO;
+	env->weapons[0].ammo_type = ROCKET;
     env->weapons[0].ammo = 20;
     env->weapons[0].no_ammo = 0;
     env->weapons[0].damage = 125;

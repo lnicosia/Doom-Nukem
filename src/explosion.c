@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/03 17:49:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/03 20:31:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		explosion_player(t_env *env)
 {
 	t_list *tmp;
 	double	distance;
+	int		damage;
 
 	tmp = env->explosions;
 	while (tmp)
@@ -52,7 +53,12 @@ int		explosion_player(t_env *env)
 			distance = distance_two_points_3d(new_v3(env->player.pos.x, env->player.pos.y, env->player.pos.z + env->player.eyesight / 2), ((t_explosion*)tmp->content)->pos);
 			ft_printf("distance in explosion_player = %f\n", distance);
 			if (distance < ((t_explosion*)tmp->content)->radius && ((t_explosion*)tmp->content)->damage_burst)
-				env->player.health -= aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
+			{
+				env->player.hit = 1;
+				damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
+				env->player.health -= ft_clamp(damage - env->player.armor, 0, damage);
+				env->player.armor -= ft_clamp(damage, 0, env->player.armor);
+			}
 			((t_explosion*)tmp->content)->damage_burst = 0;
 		}
 		env->player.health = ft_clamp(env->player.health, 0, 100);

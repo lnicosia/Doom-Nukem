@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:39:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,28 @@ int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
     if((0 < t1 && t1 < 1) || (0 < t2 && t2 < 1))
         return (1);
     return 0;
+}
+
+int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
+{
+	int		i;
+	t_v3	futur;
+
+	i = 0;
+	futur.x = move.x + pos.x;
+	futur.y = move.y + pos.y;
+	futur.z = move.z + pos.z;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].exists && env->objects[i].solid)
+		{
+			if (distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, futur.x, futur.y) < 1.75
+				&& env->objects[i].pos.z >= futur.z - 1 && env->objects[i].pos.z <= eyesight + futur.z + env->objects[i].height)
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
@@ -196,5 +218,7 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
         }
         i++;
     }
-    return (move);
+	if (check_objects(env, move, motion.pos, motion.eyesight))
+    	return (move);
+	return (new_v3(0, 0, 0));
 }
