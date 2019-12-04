@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 17:37:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:13:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct		s_env
 	int					selected_floor;
 	int					selected_wall_sprite_sprite;
 	int					selected_wall_sprite_wall;
+	int					hovered_wall_sprite_sprite;
+	int					hovered_wall_sprite_wall;
 	int					selected_floor_sprite;
 	int					selected_ceiling_sprite;
 	int					selected_ceiling;
@@ -211,8 +213,6 @@ void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
 int					add_object(t_env *env);
 int					fill_new_sector(t_sector *sector, t_env *env);
-void				free_current_vertices(t_env *env);
-void				free_camera(t_camera *camera, t_env *env);
 int					editor_render(t_env *env);
 int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -264,7 +264,6 @@ int					apply_texture(int texture, t_sector *sector, t_env *env);
 
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
-void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 void				reset_render_utils(t_camera *camera, t_env *env);
 
@@ -360,10 +359,6 @@ Uint32				apply_light_both(Uint32 src, Uint32 color, int intensity,
 short brightness);
 Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
 Uint32				apply_light_brightness(Uint32 src, short brightness);
-void				free_all_sdl_relative(t_env *env);
-void				free_screen_sectors(t_env *env);
-void				free_sector(t_sector *sector);
-void				free_event(t_event *event);
 int				update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);
@@ -540,5 +535,18 @@ int					check_collision_event(t_event *event, void *penv);
 int					check_diff_value_event(t_event *event, void *penv);
 int					check_equ_value_event(t_event *event, void *penv);
 void				delete_itself_event(t_event *event, void *penv);
+
+/*
+**	Free functions
+*/
+
+void				free_current_vertices(t_env *env);
+void				free_camera(t_camera *camera, t_env *env);
+void				free_all(t_env *env);
+void				free_all_sdl_relative(t_env *env);
+void				free_screen_sectors(t_env *env);
+void				free_sector(t_sector *sector);
+void				free_event(t_event *event);
+void				free_events(t_event *event, size_t size);
 
 #endif

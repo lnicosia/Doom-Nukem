@@ -19,7 +19,7 @@ Pre affichage des sprites dans un dossier pour les selectionner	|
 Multi selection													| 
 Fix sprites pos + scale X										| Done
 Selection sprites mur/sol										| Done
-Opti sprites sol/plafond										|
+Opti sprites sol/plafond										| Done
 Lumieres														| Done
 Fix lignes bugs a cause du zbuffer								| Impossible?
 Impact de balles												| Done

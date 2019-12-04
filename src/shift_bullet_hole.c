@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:31:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 11:16:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:04:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ t_env *env)
 	int	j;
 
 	i = 0;
-	while (i < sector->nb_floor_sprites)
+	while (i < sector->floor_sprites.nb_sprites)
 	{
 		if (sector->floor_sprites.sprite[i] == 3)
 		{
 			j = i + 1;
 			while (sector->floor_sprites.sprite[j] != 3
-				&& j < sector->nb_floor_sprites)
+				&& j < sector->floor_sprites.nb_sprites)
 				j++;
-			if (j < sector->nb_floor_sprites)
+			if (j < sector->floor_sprites.nb_sprites)
 			{
 				sector->floor_sprites.pos[i] = sector->floor_sprites.pos[j];
 				sector->floor_sprites.scale[i] = sector->floor_sprites.scale[j];
@@ -54,15 +54,15 @@ t_env *env)
 	int	j;
 
 	i = 0;
-	while (i < sector->nb_ceiling_sprites)
+	while (i < sector->ceiling_sprites.nb_sprites)
 	{
 		if (sector->ceiling_sprites.sprite[i] == 3)
 		{
 			j = i + 1;
 			while (sector->ceiling_sprites.sprite[j] != 3
-				&& j < sector->nb_ceiling_sprites)
+				&& j < sector->ceiling_sprites.nb_sprites)
 				j++;
-			if (j < sector->nb_ceiling_sprites)
+			if (j < sector->ceiling_sprites.nb_sprites)
 			{
 				sector->ceiling_sprites.pos[i] = sector->ceiling_sprites.pos[j];
 				sector->ceiling_sprites.scale[i] = sector->ceiling_sprites.scale[j];
@@ -89,29 +89,29 @@ int i, t_env *env)
 	int	k;
 
 	j = 0;
-	while (j < sector->nb_sprites[i])
+	while (j < sector->wall_sprites[i].nb_sprites)
 	{
-		if (sector->sprites[i].sprite[j] == 3)
+		if (sector->wall_sprites[i].sprite[j] == 3)
 		{
 			k = j + 1;
-			while (sector->sprites[i].sprite[k] != 3
-				&& k < sector->nb_sprites[i])
+			while (sector->wall_sprites[i].sprite[k] != 3
+				&& k < sector->wall_sprites[i].nb_sprites)
 				k++;
-			if (k < sector->nb_sprites[i])
+			if (k < sector->wall_sprites[i].nb_sprites)
 			{
-				sector->sprites[i].pos[j] =
-				sector->sprites[i].pos[k];
-				sector->sprites[i].scale[j] =
-				sector->sprites[i].scale[k];
+				sector->wall_sprites[i].pos[j] =
+				sector->wall_sprites[i].pos[k];
+				sector->wall_sprites[i].scale[j] =
+				sector->wall_sprites[i].scale[k];
 			}
 			else
 			{
-				sector->sprites[i].pos[j] = 
+				sector->wall_sprites[i].pos[j] = 
 				get_wall_bullet_hole_pos(sector, projectile, i, env);
-				sector->sprites[i].pos[j].x -=
-				sector->sprites[i].scale[j].x / 2;
-				sector->sprites[i].pos[j].y -=
-				sector->sprites[i].scale[j].y / 2;
+				sector->wall_sprites[i].pos[j].x -=
+				sector->wall_sprites[i].scale[j].x / 2;
+				sector->wall_sprites[i].pos[j].y -=
+				sector->wall_sprites[i].scale[j].y / 2;
 			}
 		}
 		j++;

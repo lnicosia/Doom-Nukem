@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:49:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:49:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:03:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_floor_sprites_color(t_sector sector, t_render render, t_env *env)
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
 		j = 0;
-		while (j < sector.nb_floor_sprites)
+		while (j < sector.floor_sprites.nb_sprites)
 		{
 			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;

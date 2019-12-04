@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:51:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:03:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if ((parser->sector_ceiling_sprites_count = count_floor_sprites(*line, parser)) == -1)
 		return (custom_error("Error while counting ceiling sprites"));
-	env->sectors[parser->sectors_count].nb_ceiling_sprites = parser->sector_ceiling_sprites_count;
+	env->sectors[parser->sectors_count].ceiling_sprites.nb_sprites = parser->sector_ceiling_sprites_count;
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.sprite = (short*)
 		malloc(sizeof(short) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite indexes"));

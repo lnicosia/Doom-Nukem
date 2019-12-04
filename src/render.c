@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 16:21:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:26:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,12 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			k++;
 		}
 		j = 0;
-		while (j < sector->nb_sprites[i])
+		while (j < sector->wall_sprites[i].nb_sprites)
 		{
-			if (sector->sprites[i].sprite[j] != -1)
+			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
-				(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-				/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+				(env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].x
+				/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			j++;
 		}
@@ -161,12 +161,12 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			k++;
 		}
 		j = 0;
-		while (j < sector->nb_sprites[i])
+		while (j < sector->wall_sprites[i].nb_sprites)
 		{
-			if (sector->sprites[i].sprite[j] != -1)
+			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x = 
-		(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-		/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+		(env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].x
+		/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
 		}
@@ -185,12 +185,13 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k++;
 	}
 	j = 0;
-	while (j < sector->nb_sprites[i])
+	while (j < sector->wall_sprites[i].nb_sprites)
 	{
-		if (sector->sprites[i].sprite[j] != -1)
+		if (sector->wall_sprites[i].sprite[j] != -1)
 			camera->v[sector->num][i].sprite_scale[j].y =
-		env->wall_sprites[sector->sprites[i].sprite[j]].size[0].y
-			/ sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
+		env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].y
+			/ sector->wall_sprites[i].scale[j].y
+			* (sector->ceiling - sector->floor);
 		j++;
 	}
 }

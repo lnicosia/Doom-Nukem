@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 17:42:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:58:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,10 @@ int		editor_3d_keys(t_env *env)
 	{
 		wall_sprites_keys(env,
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		pos[env->selected_wall_sprite_sprite],
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		scale[env->selected_wall_sprite_sprite]);
 	}
 	if (env->editor.in_game

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/19 09:58:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:27:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	update_walls_sprites_state(t_env *env)
 		{
 			diff = env->time.milli_s - sector.sprite_time;
 			k = -1;
-			while (++k < sector.nb_sprites[j])
+			while (++k < sector.wall_sprites[j].nb_sprites)
 			{
-				if (sector.sprites[j].sprite[k] == -1)
+				if (sector.wall_sprites[j].sprite[k] == -1)
 					continue;
 				if (diff > 200)
 				{
 					env->sectors[i].sprite_time = env->time.milli_s;
-					env->sectors[i].sprites[j].sprite[k] = env->wall_sprites[env->sectors[i].sprites[j].sprite[k]].rest_sprite;
+					env->sectors[i].wall_sprites[j].sprite[k] = env->wall_sprites[env->sectors[i].wall_sprites[j].sprite[k]].rest_sprite;
 				}
 			}
 			j++;

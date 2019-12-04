@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 19:10:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:04:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	{
 		ft_dprintf(fd, "{");
 		j = 0;
-		while (j < sector.nb_sprites[i])
+		while (j < sector.wall_sprites[i].nb_sprites)
 		{
 			ft_dprintf(fd, "[%d %f %f %f %f]",
-					sector.sprites[i].sprite[j],
-					sector.sprites[i].pos[j].x,
-					sector.sprites[i].pos[j].y,
-					sector.sprites[i].scale[j].x,
-					sector.sprites[i].scale[j].y);
+					sector.wall_sprites[i].sprite[j],
+					sector.wall_sprites[i].pos[j].x,
+					sector.wall_sprites[i].pos[j].y,
+					sector.wall_sprites[i].scale[j].x,
+					sector.wall_sprites[i].scale[j].y);
 			j++;
 		}
 		ft_dprintf(fd, "}");
@@ -106,7 +106,7 @@ static void	write_sector_floor_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_floor_sprites)
+	while (i < sector.floor_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.floor_sprites.sprite[i],
@@ -125,7 +125,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_ceiling_sprites)
+	while (i < sector.ceiling_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.ceiling_sprites.sprite[i],

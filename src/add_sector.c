@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 11:50:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:57:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int			init_new_sector_arrays(t_sector *sector, t_env *env)
 		return (ft_perror("Could not malloc sector neighbors"));
 	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
-	if (!(sector->nb_sprites = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector vertices"));
-	if (!(sector->sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
+	/*if (!(sector->nb_sprites = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector vertices"));*/
+	if (!(sector->wall_sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector align"));

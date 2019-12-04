@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 17:29:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:01:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,9 +297,14 @@ typedef struct		s_event
 
 typedef struct		s_wall_sprites
 {
+	short			nb_sprites;
 	short			*sprite;
 	t_v2			*pos;
 	t_v2			*scale;
+	t_event			**press_events;
+	size_t			*nb_press_events;
+	t_event			**shoot_events;
+	size_t			*nb_shoot_events;
 }					t_wall_sprites;
 
 typedef struct		s_sector
@@ -336,12 +341,9 @@ typedef struct		s_sector
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
-	t_wall_sprites	*sprites;
+	t_wall_sprites	*wall_sprites;
 	t_wall_sprites	floor_sprites;
 	t_wall_sprites	ceiling_sprites;
-	short			*nb_sprites;
-	short			nb_floor_sprites;
-	short			nb_ceiling_sprites;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
 	double			sprite_time;

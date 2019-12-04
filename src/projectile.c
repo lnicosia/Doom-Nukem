@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/02 15:21:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:01:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		projectiles_movement(t_env *env)
 			{
 				if (collision == -2)
 				{
-					if (env->sectors[projectile->sector].nb_ceiling_sprites
+					if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
 						if (add_ceiling_bullet_hole(
@@ -110,7 +110,7 @@ int		projectiles_movement(t_env *env)
 				}
 				else if (collision == -3)
 				{
-					if (env->sectors[projectile->sector].nb_floor_sprites
+					if (env->sectors[projectile->sector].floor_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
 						if (add_floor_bullet_hole(
@@ -125,8 +125,9 @@ int		projectiles_movement(t_env *env)
 				}
 				else if (collision >= 0)
 				{
-					if (env->sectors[projectile->sector].nb_sprites[collision]
-							< env->options.max_wall_sprites)
+					if (env->sectors[projectile->sector]
+						.wall_sprites[collision].nb_sprites
+						< env->options.max_wall_sprites)
 					{
 						if (add_wall_bullet_hole(
 							&env->sectors[projectile->sector],

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:42:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:28:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ t_env *env)
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
-	sprite_pixels = env->sprite_textures[env->wall_sprites[sector.sprites[render.i]
+	sprite_pixels = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
 	.sprite[sprite]].texture].str;
-	sprite_w = env->sprite_textures[env->wall_sprites[sector.sprites[render.i]
+	sprite_w = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
 	.sprite[sprite]].texture].surface->w;
-	pos = sector.sprites[render.i].pos[sprite].y / (sector.ceiling - sector.floor);
-	start = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].start[0].y;
-	end = env->wall_sprites[sector.sprites[render.i].sprite[sprite]].end[0].y;
+	pos = sector.wall_sprites[render.i].pos[sprite].y / (sector.ceiling - sector.floor);
+	start = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].start[0].y;
+	end = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].end[0].y;
 	x = render.sprite_x;
 	while (++i <= render.current_floor)
 	{
@@ -83,10 +83,12 @@ t_env *env)
 				pixels[coord] = apply_light_both(sprite_pixels[
 				(int)x + sprite_w * (int)y],
 				sector.light_color, sector.intensity, sector.brightness);
-			if (!env->editor.select
+			if ((!env->editor.select
 				&& env->editor.selected_sector == sector.num
 				&& env->selected_wall_sprite_wall == render.i
 				&& env->selected_wall_sprite_sprite == sprite)
+				|| (env->playing && env->hovered_wall_sprite_wall == render.i
+				&& env->hovered_wall_sprite_sprite == sprite))
 				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			zbuffer[coord] = render.z;
 		}
@@ -101,13 +103,13 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 	double		pos;
 
 	i = 0;
-	while (i < sector.nb_sprites[render.i])
+	while (i < sector.wall_sprites[render.i].nb_sprites)
 	{
-		if (sector.sprites[render.i].sprite[i] != -1)
+		if (sector.wall_sprites[render.i].sprite[i] != -1)
 		{
-			start = env->wall_sprites[sector.sprites[render.i].sprite[i]].start[0];
-			end = env->wall_sprites[sector.sprites[render.i].sprite[i]].end[0];
-			pos = (sector.sprites[render.i].pos[i].x)
+			start = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].start[0];
+			end = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].end[0];
+			pos = (sector.wall_sprites[render.i].pos[i].x)
 			/ sector.wall_width[render.i]
 			* render.camera->v[render.sector][render.i].sprite_scale[i].x;
 			if (render.camera->v[render.sector][render.i + 1].vz)
