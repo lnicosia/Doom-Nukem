@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 17:37:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:30:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,41 @@
 
 int		launch_global_events(t_env *env)
 {
-	if (env->player.sector != -1)
-		start_event(&env->sectors[env->player.sector].walk_on_me_event,
-				&env->sectors[env->player.sector].nb_walk_events, env);
-	if (env->global_events && env->nb_global_events)
-		start_event(&env->global_events,
-				&env->nb_global_events, env);
-	if (env->wall_bullet_holes_events
-			&& env->nb_wall_bullet_holes_events)
-		start_event(&env->wall_bullet_holes_events,
-				&env->nb_wall_bullet_holes_events, env);
-	if (env->floor_bullet_holes_events
+	if (env->player.sector != -1
+		&& env->sectors[env->player.sector].walk_on_me_event
+		&& env->sectors[env->player.sector].nb_walk_events)
+	{
+		if (start_event(&env->sectors[env->player.sector].walk_on_me_event,
+				&env->sectors[env->player.sector].nb_walk_events, env))
+			return (-1);
+	}
+	if (env->global_events && env->nb_global_events && env->global_events)
+	{
+		if (start_event(&env->global_events,
+				&env->nb_global_events, env))
+			return (-1);
+	}
+	if (env->wall_bullet_holes_events && env->nb_wall_bullet_holes_events
+		&& env->wall_bullet_holes_events)
+	{
+		if (start_event(&env->wall_bullet_holes_events,
+				&env->nb_wall_bullet_holes_events, env))
+			return (-1);
+	}
+	if (env->floor_bullet_holes_events && env->floor_bullet_holes_events
 			&& env->nb_floor_bullet_holes_events)
-		start_event(&env->floor_bullet_holes_events,
-				&env->nb_floor_bullet_holes_events, env);
-	if (env->ceiling_bullet_holes_events
+	{
+		if (start_event(&env->floor_bullet_holes_events,
+				&env->nb_floor_bullet_holes_events, env))
+			return (-1);
+	}
+	if (env->ceiling_bullet_holes_events && env->ceiling_bullet_holes_events
 			&& env->nb_ceiling_bullet_holes_events)
-		start_event(&env->ceiling_bullet_holes_events,
-				&env->nb_ceiling_bullet_holes_events, env);
+	{
+		if (start_event(&env->ceiling_bullet_holes_events,
+				&env->nb_ceiling_bullet_holes_events, env))
+			return (-1);
+	}
 	return (0);
 }
 

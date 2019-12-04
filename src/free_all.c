@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:51:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:50:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ static void	free_textures(t_env *env)
 	}
 }
 
-/*void		free_event(t_event *event)
+void		free_event(t_event *event)
 {
-	if (event->check_param)
+	/*if (event->check_param)
 		ft_memdel((void**)&event->check_param);
 	if (event->exec_param)
 		ft_memdel((void**)&event->exec_param);
 	if (event->update_param)
-		ft_memdel((void**)&event->update_param);
-}*/
+		ft_memdel((void**)&event->update_param);*/
+	if (event->exec_param)
+		ft_memdel((void**)&event->exec_param);
+}
 
 void		free_events(t_event	*events, size_t size)
 {
@@ -44,7 +46,7 @@ void		free_events(t_event	*events, size_t size)
 	j = 0;
 	while (j < size)
 	{
-		//free_event(&events[j]);
+		free_event(&events[j]);
 		j++;
 	}
 	if (events)

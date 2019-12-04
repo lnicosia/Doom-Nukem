@@ -6,12 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 11:46:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:56:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
+#include "wall_sprite_modifier.h"
 
 void	save_init_data(t_env *env)
 {
@@ -39,6 +40,22 @@ void	save_init_data(t_env *env)
 		env->objects[i].object_init_data.angle = env->objects[i].angle;
 		i++;
 	}
+}
+
+int	hola(void *param, void *env)
+{
+	(void)param;
+	(void)env;
+	ft_printf("Hola\n");
+	return (1);
+}
+
+int	cc(void *param, void *env)
+{
+	(void)param;
+	(void)env;
+	ft_printf("cc\n");
+	return (1);
 }
 
 int		init_game(int ac, char **av)
@@ -144,8 +161,8 @@ int		init_game(int ac, char **av)
 		  env.sectors[1].walk_on_me_event[2].delay = 1000;*/
 
 		env.nb_global_events = 1;
-		env.global_events = (t_event*)malloc(sizeof(t_event)
-				* env.nb_global_events);
+		env.global_events =
+		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
 		env.global_events[0] =
 			new_fixed_event(INT, &env.sectors[2].brightness, -128, 0);
 		env.global_events[0].delay = 1000;
@@ -159,9 +176,101 @@ int		init_game(int ac, char **av)
 		  env.global_events[1].check_param = new_event_param(0, -128, 0,
 		  new_v3(0, 0, 0));*/
 	}
+	t_wall_sprite_modifier	*p2;
+	t_wall_sprite_modifier	*p;
 	if (ft_strequ(av[1], "maps/piece.map"))
 	{
-		env.sectors[0].wall_sprites[1].nb_press_events[0] = 1;
+		env.sectors[0].wall_sprites[1].nb_press_events[0] = 3;
+		env.sectors[0].wall_sprites[1].press_events[0] = 
+		(t_event*)ft_memalloc(sizeof(t_event)
+		* env.sectors[0].wall_sprites[1].nb_press_events[0]);
+		env.sectors[0].wall_sprites[1].press_events[0][0] =
+		new_func_event(&hola, NULL);
+		env.sectors[0].wall_sprites[1].press_events[0][0].max_uses = 10;
+		env.sectors[0].wall_sprites[1].press_events[0][1] =
+		new_func_event(&cc, NULL);
+		env.sectors[0].wall_sprites[1].press_events[0][1].max_uses = 2;
+		env.sectors[0].wall_sprites[1].press_events[0][2] =
+		new_fixed_event(INT, env.sectors[0].wall_sprites[1].sprite, 1, 0);
+		env.sectors[0].wall_sprites[1].press_events[0][2].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1]
+		.press_events[0][2].launch_param.equ_value = 1;
+		env.sectors[0].wall_sprites[1]
+		.press_events[0][2].launch_param.target
+		= &env.sectors[0].wall_sprites[1].nb_press_events[0];
+		env.sectors[0].wall_sprites[1].press_events[0][2].max_uses = 1;
+
+		env.sectors[0].wall_sprites[1].nb_press_events[1] = 4;
+		env.sectors[0].wall_sprites[1].press_events[1] = 
+		(t_event*)ft_memalloc(sizeof(t_event)
+		* env.sectors[0].wall_sprites[1].nb_press_events[1]);
+
+		env.sectors[0].wall_sprites[1].press_events[1][0] =
+		new_fixed_event(INT, &env.sectors[0].brightness, 64, 0);
+		env.sectors[0].wall_sprites[1].press_events[1][0].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][0].launch_param.equ_value = -64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][0].launch_param.target = &env.sectors[0].brightness;
+
+		env.sectors[0].wall_sprites[1].press_events[1][1] =
+		new_fixed_event(INT, &env.sectors[0].brightness, -64, 0);
+		env.sectors[0].wall_sprites[1].press_events[1][1].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][1].launch_param.equ_value = 64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][1].launch_param.target = &env.sectors[0].brightness;
+
+
+		p = (t_wall_sprite_modifier*)ft_memalloc(sizeof(*p));
+		p->sector = 0;
+		p->type = SPRITE;
+		p->wall = 1;
+		p->sprite = 1;
+		p->value = 2;
+		env.sectors[0].wall_sprites[1].press_events[1][2] =
+		new_func_event(&modify_wall_sprite, p);
+		env.sectors[0].wall_sprites[1].press_events[1][2].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.equ_value = -64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.target = &env.sectors[0].brightness;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.target_type = INT;
+
+
+		p2 = (t_wall_sprite_modifier*)ft_memalloc(sizeof(*p));
+		p2->sector = 0;
+		p2->type = SPRITE;
+		p2->wall = 1;
+		p2->sprite = 1;
+		p2->value = 1;
+		env.sectors[0].wall_sprites[1].press_events[1][3] =
+		new_func_event(&modify_wall_sprite, p2);
+		env.sectors[0].wall_sprites[1].press_events[1][3].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.equ_value = 64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.target = &env.sectors[0].brightness;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.target_type = INT;
+
+		env.nb_global_events = 1;
+		env.global_events =
+		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
+		env.global_events[0] =
+		new_fixed_event(INT, &env.enemies[0].sprite,
+		7, 0);
+		env.global_events[0].max_uses = 1;
+		env.global_events[0].delay = 1000;
+		//env.global_events[0].check_func = &check_equ_value_event;
+		//env.global_events[0].check_param = new_event_param(0, 0, 0,
+				//new_v3(0, 0, 0));
 	}
 	return (doom(&env));
 }

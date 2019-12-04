@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:03:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:36:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int		parse_floor_sprites(t_env *env, char **line, t_map_parser *parser)
 	if ((parser->sector_floor_sprites_count = count_floor_sprites(*line, parser)) == -1)
 		return (custom_error("Error while counting floor sprites"));
 	env->sectors[parser->sectors_count].floor_sprites.nb_sprites = parser->sector_floor_sprites_count;
-	if (!(env->sectors[parser->sectors_count].floor_sprites.sprite = (short*)
-		malloc(sizeof(short) * parser->sector_floor_sprites_count)))
+	if (!(env->sectors[parser->sectors_count].floor_sprites.sprite = (int*)
+		malloc(sizeof(int) * parser->sector_floor_sprites_count)))
 		return (ft_perror("Could not malloc sector floor sprite indexes"));
 	if (!(env->sectors[parser->sectors_count].floor_sprites.scale = (t_v2*)
 		malloc(sizeof(t_v2) * parser->sector_floor_sprites_count)))

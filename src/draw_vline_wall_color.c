@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:44:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:58:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:53:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	draw_vline_wall_color(t_sector sector, t_vline vline, t_render render, t_en
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;

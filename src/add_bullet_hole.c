@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 13:25:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:37:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 	t_floor_sprite_remover	*param;
 
 	if (!(sector->floor_sprites.sprite =
-				(short*)ft_realloc(sector->floor_sprites.sprite,
-					sizeof(short) * sector->floor_sprites.nb_sprites,
-					sizeof(short) * (sector->floor_sprites.nb_sprites + 1))))
+				(int*)ft_realloc(sector->floor_sprites.sprite,
+					sizeof(int) * sector->floor_sprites.nb_sprites,
+					sizeof(int) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc floor sprites indexes"));
 	if (!(sector->floor_sprites.pos =
 				(t_v2*)ft_realloc(sector->floor_sprites.pos,
@@ -81,9 +81,9 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 	t_floor_sprite_remover	*param;
 
 	if (!(sector->ceiling_sprites.sprite =
-				(short*)ft_realloc(sector->ceiling_sprites.sprite,
-					sizeof(short) * sector->ceiling_sprites.nb_sprites,
-					sizeof(short) * (sector->ceiling_sprites.nb_sprites + 1))))
+				(int*)ft_realloc(sector->ceiling_sprites.sprite,
+					sizeof(int) * sector->ceiling_sprites.nb_sprites,
+					sizeof(int) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc ceiling sprites indexes"));
 	if (!(sector->ceiling_sprites.pos =
 				(t_v2*)ft_realloc(sector->ceiling_sprites.pos,
@@ -144,9 +144,9 @@ int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 	t_wall_sprite_remover	*param;
 
 	if (!(sector->wall_sprites[i].sprite =
-				(short*)ft_realloc(sector->wall_sprites[i].sprite,
-					sizeof(short) * sector->wall_sprites[i].nb_sprites,
-					sizeof(short) * (sector->wall_sprites[i].nb_sprites + 1))))
+				(int*)ft_realloc(sector->wall_sprites[i].sprite,
+					sizeof(int) * sector->wall_sprites[i].nb_sprites,
+					sizeof(int) * (sector->wall_sprites[i].nb_sprites + 1))))
 		return (ft_perror("Could not realloc wall sprites indexes"));
 	if (!(sector->wall_sprites[i].pos =
 				(t_v2*)ft_realloc(sector->wall_sprites[i].pos,

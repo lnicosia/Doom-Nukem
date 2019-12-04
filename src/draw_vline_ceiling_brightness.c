@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:25:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:55:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:52:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_render render, t_env *env)
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)

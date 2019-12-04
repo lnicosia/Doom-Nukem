@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:59:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:13:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_env *env)
 				{
 					env->hovered_wall_sprite_wall = render.i;
 					env->hovered_wall_sprite_sprite = sprite;
+					env->hovered_wall_sprite_sector = sector.num;
 				}
 			}
 			if (!env->options.lighting
@@ -98,7 +99,9 @@ t_env *env)
 				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 			else if (env->playing && env->hovered_wall_sprite_wall == render.i
 				&& env->hovered_wall_sprite_sprite == sprite)
-				pixels[coord] = blend_alpha(pixels[coord], 0xFFFFFFFF, 128);
+				pixels[coord] = blend_alpha(pixels[coord],
+				env->press_wall_sprite_color,
+				env->press_wall_sprite_intensity);
 			zbuffer[coord] = render.z;
 		}
 	}

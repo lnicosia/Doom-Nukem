@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:51:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:44:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ typedef struct		s_event_param
 		double		diff_value;
 		t_v3		move;
 		void		*target;
+		int			target_type;
 }					t_event_param;
 
 typedef struct		s_event
@@ -285,6 +286,8 @@ typedef struct		s_event
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				(*launch_func)(struct s_event *, void *);
+	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
 	t_event_param	check_param;
 	int				(*exec_func)(void *, void *);
@@ -297,8 +300,8 @@ typedef struct		s_event
 
 typedef struct		s_wall_sprites
 {
-	short			nb_sprites;
-	short			*sprite;
+	int				nb_sprites;
+	int				*sprite;
 	t_v2			*pos;
 	t_v2			*scale;
 	t_event			**press_events;
@@ -533,6 +536,7 @@ typedef struct		s_keys
 	int				option;
 	int				enter;
 	int				s;
+	int				e;
 	int				del;
 	int				tab;
 	int				comma;
@@ -567,6 +571,7 @@ typedef struct		s_inputs
 	uint8_t			option;
 	uint8_t			enter;
 	uint8_t			s;
+	uint8_t			e;
 	uint8_t			del;
 	uint8_t			tab;
 	uint8_t			comma;

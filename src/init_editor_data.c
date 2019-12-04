@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 10:01:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:51:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_editor_data(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->hovered_wall_sprite_sprite = -1;
 	env->hovered_wall_sprite_wall = -1;
+	env->hovered_wall_sprite_sector = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	

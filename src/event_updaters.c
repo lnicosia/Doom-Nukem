@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 16:20:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:46:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ int				check_equ_value_event(t_event *event, void *penv)
 {
 		(void)penv;
 		if (event->type == INT
-				&& event->check_param.equ_value == *(int*)event->target)
+				&& event->check_param.equ_value
+				== *(int*)event->check_param.target)
 				return (1);
 		else if (event->type == DOUBLE
-				&& event->check_param.equ_value == *(double*)event->target)
+				&& event->check_param.equ_value
+				== *(double*)event->check_param.target)
 				return (1);
 		return (0);
 }
@@ -87,10 +89,40 @@ int				check_diff_value_event(t_event *event, void *penv)
 {
 		(void)penv;
 		if (event->type == INT
-				&& event->check_param.diff_value != *(int*)event->target)
+				&& event->check_param.diff_value
+				!= *(int*)event->check_param.target)
 				return (1);
 		else if (event->type == DOUBLE
-				&& event->check_param.diff_value != *(double*)event->target)
+				&& event->check_param.diff_value
+				!= *(double*)event->check_param.target)
+				return (1);
+		return (0);
+}
+
+int				launch_equ_value_event(t_event *event, void *penv)
+{
+		(void)penv;
+		if (event->launch_param.target_type == INT
+				&& event->launch_param.equ_value
+				== *(int*)event->launch_param.target)
+				return (1);
+		else if (event->type == DOUBLE
+				&& event->launch_param.equ_value
+				== *(double*)event->launch_param.target)
+				return (1);
+		return (0);
+}
+
+int				launch_diff_value_event(t_event *event, void *penv)
+{
+		(void)penv;
+		if (event->launch_param.target_type == INT
+				&& event->launch_param.diff_value
+				!= *(int*)event->launch_param.target)
+				return (1);
+		else if (event->launch_param.target_type == DOUBLE
+				&& event->launch_param.diff_value
+				!= *(double*)event->launch_param.target)
 				return (1);
 		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 11:50:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:22:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct		s_env
 	int					selected_wall_sprite_wall;
 	int					hovered_wall_sprite_sprite;
 	int					hovered_wall_sprite_wall;
+	int					hovered_wall_sprite_sector;
 	int					selected_floor_sprite;
 	int					selected_ceiling_sprite;
 	int					selected_ceiling;
@@ -155,6 +156,8 @@ typedef struct		s_env
 	int				max_fps2;
 	int				contains_skybox;
 	Uint32*				tmp_first_sprite;
+	Uint32				press_wall_sprite_color;
+	int					press_wall_sprite_intensity;
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
@@ -388,7 +391,7 @@ void				draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
-void				keyup(t_env *env);
+int					keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
@@ -421,7 +424,7 @@ int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);
 int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
 void				set_sectors_xmax(t_env *env);
-void				keys(t_env *env);
+int					keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_enemy_z(t_env *env, int i);
 void				update_floor(t_env *env);
@@ -490,6 +493,9 @@ t_projectile *projectile, int i, t_env *env);
 int					delete_wall_bullet_hole(void *param, void *env);
 int					delete_floor_bullet_hole(void *param, void *env);
 int					delete_ceiling_bullet_hole(void *param, void *env);
+int					modify_wall_sprite(void *param, void *env);
+int					modify_floor_sprite(void *param, void *env);
+int					modify_ceiling_sprite(void *param, void *env);
 void				shift_ceiling_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_floor_bullet_hole_events(int sector, int sprite,
@@ -525,7 +531,7 @@ t_event				new_func_event(int (*func)(void *, void *),
 void *param);
 t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
-void				start_event(t_event **events, size_t *size,
+int					start_event(t_event **events, size_t *size,
 t_env *env);
 t_event_param		new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
@@ -535,6 +541,8 @@ void				update_player_event(t_event *event, void *penv);
 int					check_collision_event(t_event *event, void *penv);
 int					check_diff_value_event(t_event *event, void *penv);
 int					check_equ_value_event(t_event *event, void *penv);
+int					launch_diff_value_event(t_event *event, void *penv);
+int					launch_equ_value_event(t_event *event, void *penv);
 void				delete_itself_event(t_event *event, void *penv);
 
 /*

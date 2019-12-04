@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:51:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 12:00:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:52:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	draw_vline_floor_color(t_sector sector, t_vline vline,
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)

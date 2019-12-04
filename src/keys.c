@@ -6,13 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:35:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:14:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void		keys(t_env *env)
+int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
@@ -37,4 +37,18 @@ void		keys(t_env *env)
 		env->options.minimap_scale /= 1.2;
 	if (env->confirmation_box.state)
 		confirmation_box_keys(&env->confirmation_box, env);
+	if (env->inputs.e
+		&& env->hovered_wall_sprite_sprite != -1
+		&& env->hovered_wall_sprite_wall != -1
+		&& env->hovered_wall_sprite_sector != -1)
+	{
+		env->press_wall_sprite_color = 0xFFFFFFFF;
+		env->press_wall_sprite_intensity = 128;
+	}
+	else
+	{
+		env->press_wall_sprite_color = 0xFFFFFFFF;
+		env->press_wall_sprite_intensity = 64;
+	}
+	return (0);
 }

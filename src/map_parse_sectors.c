@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:32:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:35:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -637,7 +637,7 @@ t_map_parser *parser)
 			= count_wall_sprites(*line, parser)) == -1)
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].sprite
-			= (short*)ft_memalloc(sizeof(short)
+			= (int*)ft_memalloc(sizeof(int)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].pos

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 13:44:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:53:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 			if (env->editor.select)
 			{
@@ -204,6 +205,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 			if (env->editor.select)
 			{
@@ -338,6 +340,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 			{
 				env->hovered_wall_sprite_wall = -1;
 				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
 			}
 			if (env->editor.select)
 			{
