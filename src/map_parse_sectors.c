@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:13:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:32:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,8 +312,6 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 
 int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 {
-	int	i;
-
 	if (!*line)
 		return (missing_data("vertices, neighbors, textures and light",
 					parser));
@@ -341,20 +339,11 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites = (t_wall_sprites*)
-				malloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
+				ft_memalloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].walls_map_lvl = (double**)
-				malloc(sizeof(double*) * (parser->sector_vertices_count + 1))))
+				ft_memalloc(sizeof(double*) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	i = 0;
-	while (i < parser->sector_vertices_count + 1)
-	{
-		env->sectors[parser->sectors_count].walls_map_lvl[i] = 0;
-		env->sectors[parser->sectors_count].wall_sprites[i].sprite = 0;
-		env->sectors[parser->sectors_count].wall_sprites[i].pos = 0;
-		env->sectors[parser->sectors_count].wall_sprites[i].scale = 0;
-		i++;
-	}
 	if (!(env->sectors[parser->sectors_count].align = (t_v2*)
 				malloc(sizeof(t_v2) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc textures alignement:"));
@@ -644,8 +633,6 @@ t_map_parser *parser)
 		if (**line != '{')
 			return (invalid_char("at sector sprites", "'{'", **line, parser));
 		(*line)++;
-		/*if ((env->sectors[parser->sectors_count].nb_sprites[i] = count_wall_sprites(*line, parser)) == -1)
-			return (-1);*/
 		if ((env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites
 			= count_wall_sprites(*line, parser)) == -1)
 			return (-1);
@@ -669,16 +656,17 @@ t_map_parser *parser)
 			= (t_event**)ft_memalloc(sizeof(t_event*)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].wall_sprites[i].nb_shoot_events
-			= (size_t*)ft_memalloc(sizeof(size_t)
+		if (!(env->sectors[parser->sectors_count].wall_sprites[i].
+			nb_shoot_events = (size_t*)ft_memalloc(sizeof(size_t)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].wall_sprites[i].nb_press_events
-			= (size_t*)ft_memalloc(sizeof(size_t)
+		if (!(env->sectors[parser->sectors_count].wall_sprites[i].
+			nb_press_events = (size_t*)ft_memalloc(sizeof(size_t)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		j = 0;
-		while (j < env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)
+		while (j
+			< env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)
 		{
 			(*line)++;
 			env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] = ft_atoi(*line);

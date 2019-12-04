@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:10:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:27:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->floor_sprites.scale);
 	if (sector->floor_sprites.pos)
 		ft_memdel((void**)&sector->floor_sprites.pos);
-	//if (sector->nb_sprites)
-		//ft_memdel((void**)&sector->nb_sprites);
 	free_events(sector->walk_on_me_event,
 			sector->nb_walk_events);
 }
