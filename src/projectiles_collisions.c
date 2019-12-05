@@ -88,7 +88,7 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
         return (-4);
     if (!projectiles_ceil(env, motion, motion.sector))
         return (-2);
-	if (!projectiles_floor(env, motion, motion.sector))
+	else if (!projectiles_floor(env, motion, motion.sector))
         return (-3);
     while (i < env->sectors[motion.sector].nb_vertices)
     {

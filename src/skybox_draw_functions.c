@@ -303,8 +303,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		texture_h = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->h;
 		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].str;
 	}
-	else if (wall_data.mode == WALL || wall_data.mode == UPPER_WALL
-		|| wall_data.mode == BOTTOM_WALL)
+	else
 	{
 		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w;
 		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h;
