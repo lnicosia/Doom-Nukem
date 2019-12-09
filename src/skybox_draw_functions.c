@@ -273,6 +273,9 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
+	texture_h = 0;
+	texture_w = 0;
+	texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].str;
 	if (wall_data.mode == CEILING)
 	{
 		texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].surface->w;

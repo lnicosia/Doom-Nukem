@@ -39,7 +39,7 @@ int		create_explosion(t_env *env, t_explosion_data data)
 	return (0);
 }
 
-int		explosion_player(t_env *env)
+int		explosion_collision_player(t_env *env)
 {
 	t_list *tmp;
 	double	distance;
@@ -59,9 +59,41 @@ int		explosion_player(t_env *env)
 				env->player.health -= ft_clamp(damage - env->player.armor, 0, damage);
 				env->player.armor -= ft_clamp(damage, 0, env->player.armor);
 			}
-			((t_explosion*)tmp->content)->damage_burst = 0;
 		}
 		env->player.health = ft_clamp(env->player.health, 0, 100);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int		explosion_collision_objects(t_env *env)
+{
+	t_list *tmp;
+	double	distance;
+	int		damage;
+	int		i;
+
+	tmp = env->explosions;
+	while (tmp)
+	{
+		i = 0;
+		while (i < env->nb_objects)
+		{
+			if (((t_explosion*)tmp->content)->damage_burst && env->objects[i].destructible && env->objects[i].health > 0)
+			{
+				distance = distance_two_points_3d(new_v3(env->objects[i].pos.x, env->objects[i].pos.y, env->objects[i].pos.z), ((t_explosion*)tmp->content)->pos);
+				if (distance < ((t_explosion*)tmp->content)->radius && ((t_explosion*)tmp->content)->damage_burst)
+				{
+					damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
+					env->objects[i].health -= damage;
+					if (env->objects[i].explodes)
+						create_explosion(env,
+							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+				}
+			}
+			i++;
+		}
+		((t_explosion*)tmp->content)->damage_burst = 0;
 		tmp = tmp->next;
 	}
 	return (0);

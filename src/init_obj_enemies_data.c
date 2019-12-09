@@ -77,6 +77,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].destructible = 0;
 			env->objects[i].type = HEAL;
 			env->objects[i].quantity = 25;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 3) // shotgun ammo
 		{
@@ -88,6 +89,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = AMMO;
 			env->objects[i].ammo_type = SHELL;
 			env->objects[i].quantity = 10;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 4) // rocket ammo
 		{
@@ -99,6 +101,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = AMMO;
 			env->objects[i].ammo_type = ROCKET;
 			env->objects[i].quantity = 5;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 5) // regular ammo
 		{
@@ -110,6 +113,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = AMMO;
 			env->objects[i].ammo_type = REGULAR;
 			env->objects[i].quantity = 40;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 6) // energy cell pack
 		{
@@ -121,6 +125,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = AMMO;
 			env->objects[i].ammo_type = ENERGY;
 			env->objects[i].quantity = 20;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
 		{
@@ -130,6 +135,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 4;
 			env->objects[i].destructible = 0;
 			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 11)
 		{
@@ -139,7 +145,8 @@ void		init_objects_data(t_env *env)
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 1;
-			env->objects[i].type = DECORATION;			
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
 		{
@@ -149,6 +156,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 4;
 			env->objects[i].destructible = 1;
 			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 16)
 		{
@@ -158,6 +166,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
 			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 17) // green armor
 		{
@@ -168,6 +177,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].destructible = 0;
 			env->objects[i].type = ARMOR;
 			env->objects[i].quantity = 50;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
 		{
@@ -177,6 +187,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 1;
 			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;
 		}
 		if (env->objects[i].sprite == 20) // barrel
 		{
@@ -187,6 +198,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].destructible = 1;
 			env->objects[i].explodes = 1;
 			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 50;
 		}
 		if (env->objects[i].sprite == 21) // barrel exploding
 		{
@@ -196,7 +208,8 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
 			env->objects[i].explodes = 1;
-			env->objects[i].type = DECORATION;	
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 50;	
 		}
 		i++;
 	}

@@ -798,6 +798,7 @@ typedef struct		s_object
 	int				pickable;
 	int				solid;
 	int				ammo;
+	id_t			damage;
 	int				health;
 	int				sector;
 	int				exists;
