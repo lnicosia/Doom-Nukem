@@ -91,6 +91,7 @@ void	projectiles_movement(t_env *env)
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;
 				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, 10));
+				env->nb_explosions++;
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}
 		}

@@ -101,6 +101,7 @@ int		init_game(int ac, char **av)
 		env.enemies[i].exists = 1;
 		i++;
 	}
+	env.nb_explosions = 0;
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);

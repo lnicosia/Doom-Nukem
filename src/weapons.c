@@ -94,8 +94,11 @@ void    shot(t_env *env)
 				{
 					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
 					if (env->objects[i].explodes)
+					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+						env->nb_explosions++;
+					}
 				}
 			}
 			i++;

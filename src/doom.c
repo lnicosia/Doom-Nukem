@@ -44,7 +44,7 @@ int		doom(t_env *env)
 				enemy_ai(env);
 				objects_collision(env, env->player.pos);
 				explosion_collision_player(env);
-				explosion_collision_objects(env);
+				explosion_collision_objects(env, env->nb_explosions);
 				enemy_melee_hit(env);
 				keys(env);
 			}

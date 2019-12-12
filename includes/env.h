@@ -104,6 +104,7 @@ typedef struct		s_env
 	int					nb_vertices;
 	int					nb_objects;
 	int					nb_enemies;
+	int					nb_explosions;
 	int					first_frame;
 	int					reset;
 	int					*ymax;
@@ -402,7 +403,7 @@ void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
 int					create_explosion(t_env *env, t_explosion_data data);
 int					explosion_collision_player(t_env *env);
-int					explosion_collision_objects(t_env *env);
+int					explosion_collision_objects(t_env *env, int nb_explosions);
 void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);

@@ -66,15 +66,17 @@ int		explosion_collision_player(t_env *env)
 	return (0);
 }
 
-int		explosion_collision_objects(t_env *env)
+int		explosion_collision_objects(t_env *env, int nb_explosions)
 {
 	t_list *tmp;
 	double	distance;
 	int		damage;
 	int		i;
+	int		j;
 
 	tmp = env->explosions;
-	while (tmp)
+	j = 0;
+	while (j < nb_explosions)
 	{
 		i = 0;
 		while (i < env->nb_objects)
@@ -87,14 +89,18 @@ int		explosion_collision_objects(t_env *env)
 					damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
 					env->objects[i].health -= damage;
 					if (env->objects[i].explodes)
+					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+						env->nb_explosions++;
+					}
 				}
 			}
 			i++;
 		}
 		((t_explosion*)tmp->content)->damage_burst = 0;
 		tmp = tmp->next;
+		j++;
 	}
 	return (0);
 }
