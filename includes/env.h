@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 22:50:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:44:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -407,6 +407,7 @@ int					explosion_collision_objects(t_env *env, int nb_explosions);
 void				projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);
+int					doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);

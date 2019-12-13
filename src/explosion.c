@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/03 20:31:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:52:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		explosion_collision_objects(t_env *env, int nb_explosions)
 					if (env->objects[i].explodes)
 					{
 						create_explosion(env,
-							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+							new_explosion_data(env->objects[i].pos, 5, env->objects[i].damage, 10));
 						env->nb_explosions++;
 					}
 				}
