@@ -33,17 +33,10 @@ t_render render, t_env *env)
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
-/*	sprite_pixels = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
-	.sprite[sprite]].texture].str;*/
 	sprite_pixels = env->sprite_textures[35].str;
-	/*sprite_w = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
-	.sprite[sprite]].texture].surface->w;*/
 	sprite_w = env->sprite_textures[35].surface->w;
-	//pos = sector.wall_sprites[render.i].pos[sprite].y / (sector.ceiling - sector.floor);
 	pos = curr->pos.y / (sector.ceiling - sector.floor);
-	/*start = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].start[0].y;*/
 	start = env->wall_sprites[3].start[0].y;
-	//end = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].end[0].y;
 	end = env->wall_sprites[3].end[0].y;
 	x = render.sprite_x;
 	while (++i <= render.current_floor)
@@ -59,7 +52,6 @@ t_render render, t_env *env)
 			&& sprite_pixels[(int)x
 			+ sprite_w * (int)y] != 0xFFC10099)*/
 		y = (yalpha - pos)
-		//* render.camera->v[render.sector][render.i].sprite_scale[sprite].y
 		* curr->scale.y
 		+ start;
 		if (y >= start && y < end
@@ -99,13 +91,8 @@ void	draw_wall_bullet_holes(t_sector sector, t_render render, t_env *env)
 	while (bullet_holes)
 	{
 	  	curr = (t_bullet_hole*)bullet_holes->content;
-		//start = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].start[0];
 		start = env->wall_sprites[3].start[0];
-		//end = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].end[0];
 		end = env->wall_sprites[3].end[0];
-		//pos = (sector.wall_sprites[render.i].pos[i].x)
-		/// sector.wall_width[render.i]
-		//* render.camera->v[render.sector][render.i].sprite_scale[i].x;
 		pos =  curr->pos.x / sector.wall_width[render.i]
 		* curr->scale.x;
 		if (render.camera->v[render.sector][render.i + 1].vz)
@@ -113,7 +100,6 @@ void	draw_wall_bullet_holes(t_sector sector, t_render render, t_env *env)
 		else
 			pos *= render.camera->v[render.sector][render.i].clipped_vz2;
 		render.sprite_x = (render.alpha)
-		//* render.camera->v[render.sector][render.i].sprite_scale[i].x
 		* curr->scale.x
 		* render.z + start.x
 		- pos;

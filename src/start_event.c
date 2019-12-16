@@ -82,9 +82,9 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 			if ((*events)[i].max_uses > 0)
 			{
 				(*events)[i].uses++;
-				ft_printf("Events use %d time out of %d\n",
-				(*events)[i].uses, (*events)[i].max_uses);
-				ft_printf("Size = %d\n", *size);
+				//ft_printf("Events use %d time out of %d\n",
+				//(*events)[i].uses, (*events)[i].max_uses);
+				//ft_printf("Size = %d\n", *size);
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
 					//free_event(&(*events)[i]);
@@ -93,7 +93,7 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 					sizeof(t_event),
 					sizeof(t_event) * i);
 					(*size)--;
-					ft_printf("events max used. size = %d\n", *size);
+					//ft_printf("events max used. size = %d\n", *size);
 				}
 				else
 					i++;
