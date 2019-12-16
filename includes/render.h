@@ -229,6 +229,8 @@ void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
 void			draw_wall_no_light(t_sector sector, t_render render, t_env *env);
 void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_wall_bullet_holes(t_sector sector, t_render render,
+t_env *env);
 void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);
 void			draw_floor_sprites_no_light(t_sector sector,
 t_render render, t_env *env);

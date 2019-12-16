@@ -67,6 +67,8 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 		if (update_event(&(*events)[i])
 			&& (!(*events)[i].launch_func
 			|| (*events)[i].launch_func(&(*events)[i], env))
+			//&& (!(*events)[i].max_uses
+			//|| (*events)[i].uses < (*events)[i].max_uses)
 				&& (!(*events)[i].target
 				|| !is_queued(env->queued_values, (*events)[i].target)))
 		{
@@ -80,14 +82,18 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 			if ((*events)[i].max_uses > 0)
 			{
 				(*events)[i].uses++;
+				ft_printf("Events use %d time out of %d\n",
+				(*events)[i].uses, (*events)[i].max_uses);
+				ft_printf("Size = %d\n", *size);
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
-					free_event(&(*events)[i]);
+					//free_event(&(*events)[i]);
 					*events = ft_delindex((*events),
 					sizeof(t_event) * (*size),
 					sizeof(t_event),
 					sizeof(t_event) * i);
 					(*size)--;
+					ft_printf("events max used. size = %d\n", *size);
 				}
 				else
 					i++;

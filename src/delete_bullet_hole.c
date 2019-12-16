@@ -53,7 +53,7 @@ int		delete_floor_bullet_hole(void *p, void *penv)
 
 int		delete_wall_bullet_hole(void *p, void *penv)
 {
-	t_env					*env;
+	/*t_env					*env;
 	t_wall_sprite_remover	*param;
 
 	env = (t_env*)penv;
@@ -96,6 +96,13 @@ int		delete_wall_bullet_hole(void *p, void *penv)
 		return (-1);
 	shift_wall_bullet_hole_events(param->sector, param->wall, param->sprite,
 	env);
+	ft_memdel(&p);*/
+	t_env					*env;
+	t_wall_sprite_remover	*param;
+
+	env = (t_env*)penv;
+	param = (t_wall_sprite_remover*)p;
+	ft_lstpopfront(&env->sectors[param->sector].wall_bullet_holes[param->wall]);
 	ft_memdel(&p);
 	return (1);
 }

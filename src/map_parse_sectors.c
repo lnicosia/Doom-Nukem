@@ -374,6 +374,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].selected = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
+	if (!(env->sectors[parser->sectors_count].wall_bullet_holes = (t_list**)
+				ft_memalloc(sizeof(t_list*) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector vertices:"));
 /*	if (!(env->sectors[parser->sectors_count].nb_sprites = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));*/

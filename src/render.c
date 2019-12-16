@@ -99,10 +99,13 @@ void		compute_wall(int i, t_camera *camera, t_sector *sector, t_env *env)
 void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
-	int	j;
-	size_t	k;
+	int				j;
+	size_t			k;
+	t_list			*wall_bullet_holes;
+	t_bullet_hole	*curr;
 
 	sector->selected[i] = 0;
+	wall_bullet_holes = sector->wall_bullet_holes[i];
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
 		sector->selected[i] = 1;
@@ -145,6 +148,16 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 				/ camera->v[sector->num][i + 1].vz;
 			j++;
 		}
+		wall_bullet_holes = sector->wall_bullet_holes[i];
+		while (wall_bullet_holes)
+		{
+		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+			curr->scale.x =
+				env->wall_sprites[3].size[0].x
+				/ 0.4 * sector->wall_width[i]
+				/ camera->v[sector->num][i + 1].vz;
+			wall_bullet_holes = wall_bullet_holes->next;
+		}
 	}
 	else
 	{
@@ -155,6 +168,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			k++;
 		}
 		j = 0;
+		wall_bullet_holes = sector->wall_bullet_holes[i];
 		while (j < sector->wall_sprites[i].nb_sprites)
 		{
 			if (sector->wall_sprites[i].sprite[j] != -1)
@@ -163,6 +177,15 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
+		}
+		while (wall_bullet_holes)
+		{
+		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+			curr->scale.x =
+				env->wall_sprites[3].size[0].x
+				/ 0.4 * sector->wall_width[i]
+				/ camera->v[sector->num][i].clipped_vz2;
+			wall_bullet_holes = wall_bullet_holes->next;
 		}
 	}
 	k = 0;
@@ -184,6 +207,16 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 			/ sector->wall_sprites[i].scale[j].y
 			* (sector->ceiling - sector->floor);
 		j++;
+	}
+	wall_bullet_holes = sector->wall_bullet_holes[i];
+	while (wall_bullet_holes)
+	{
+	  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+		curr->scale.y =
+			env->wall_sprites[3].size[0].x
+			/ 0.4
+			* (sector->ceiling - sector->floor);
+		wall_bullet_holes = wall_bullet_holes->next;
 	}
 }
 

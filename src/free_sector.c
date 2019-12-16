@@ -127,6 +127,16 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->floor_sprites.scale);
 	if (sector->floor_sprites.pos)
 		ft_memdel((void**)&sector->floor_sprites.pos);
+	if (sector->wall_bullet_holes)
+	{
+		j = 0;
+		while (j <= sector->nb_vertices)
+		{
+		  	while (sector->wall_bullet_holes[j])
+			  ft_lstpopfront(&sector->wall_bullet_holes[j]);
+			j++;
+		}
+	}
 	free_events(sector->walk_on_me_event,
 			sector->nb_walk_events);
 }

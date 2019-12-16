@@ -310,6 +310,12 @@ typedef struct		s_wall_sprites
 	size_t			*nb_shoot_events;
 }					t_wall_sprites;
 
+typedef struct		s_bullet_hole
+{
+  	t_v2			pos;
+	t_v2			scale;
+}					t_bullet_hole;
+
 typedef struct		s_sector
 {
 	t_v2			normal;
@@ -347,6 +353,7 @@ typedef struct		s_sector
 	t_wall_sprites	*wall_sprites;
 	t_wall_sprites	floor_sprites;
 	t_wall_sprites	ceiling_sprites;
+	t_list			**wall_bullet_holes;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
 	double			sprite_time;

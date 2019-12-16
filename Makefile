@@ -102,6 +102,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
 		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
 		   print_press_text.c modify_wall_sprite.c \
+		   draw_wall_bullet_holes.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h \

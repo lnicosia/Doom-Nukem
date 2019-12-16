@@ -68,6 +68,7 @@ void		*wall_loop(void *param)
 			render.zrange = render.z - render.camera->near_z;
 		}
 		draw_wall_sprites(sector, render, env);
+		draw_wall_bullet_holes(sector, render, env);
 		if (render.current_ceiling > env->ymin[x])
 		{
 			render.ceiling_height = render.max_ceiling
