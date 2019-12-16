@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:00:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/13 17:25:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:34:18 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,43 @@ int doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2)
 	if (o4 == 0 && onSegment(p2, q1, q2))
 		return 1; 
 	return 0; // Doesn't fall in any of the above cases 
+}
+
+int		direction_point(t_v2 s1, t_v2 s2, t_v2 p)
+{
+	double	cross_product;
+
+	s2.x -= s1.x;
+	s2.y -= s1.y;
+	p.x -= s1.x;
+	p.y -= s1.y;
+	cross_product = s2.x * p.y - s2.y * p.x;
+	if (cross_product > 0)
+		return (1); // RIGHT
+	if (cross_product < 0)
+		return (-1);//LEFT
+	return (0);//On the line segment
+}
+
+int		intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2)
+{
+	int p1_direction;
+	int p2_direction;
+	int w1_direction;
+	int	w2_direction;
+
+	p1_direction = direction_point(w1, w2, p1);
+	p2_direction = direction_point(w1, w2, p2);
+	w1_direction = direction_point(p1, p2, w1);
+	w2_direction = direction_point(p1, p2, w2);
+	if ((p1_direction == 0 || p1_direction == -1 * p2_direction) &&
+		(w1_direction == 0 || w1_direction == -1 * w2_direction))
+	{
+		ft_printf("p1_direction %d\n", p1_direction);
+		ft_printf("p2_direction %d\n", p2_direction);
+		ft_printf("w1_direction %d\n", w1_direction);
+		ft_printf("w2_direction %d\n", w2_direction);
+		return (1); //INTERSECTS
+	}
+	return (0);//NO INTERSECTION
 }

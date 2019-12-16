@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/13 16:16:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:24:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
     while (i < env->sectors[wall.sector_dest].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) ||
-			doIntersect(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) &&
+			intersection_check(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) &&
 			(RNEIGHBOR < 0 || (env->sectors[wall.sector_dest].portals[i] == 0 &&
 			env->sectors[wall.sector_dest].portals[i] != wall.sector_or)))
         {
@@ -191,7 +191,7 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) ||
-			doIntersect(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) && 
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) && 
 			(NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
         {
             norme_mov = sqrt(move.x * move.x + move.y * move.y);
