@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/03 17:12:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:00:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	projectiles_movement(t_env *env)
 				projectile->pos.x += move.x;
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;
-				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, 10));
+				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart));
 				env->nb_explosions++;
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}

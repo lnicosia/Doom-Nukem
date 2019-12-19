@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/13 15:57:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2019/12/19 15:39:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	 check_segment_in_sector(t_env *env, t_v2 enemy, t_v2 player, int sector)
 		wall.p1.y = env->vertices[env->sectors[sector].vertices[i]].y;
 		wall.p2.x = env->vertices[env->sectors[sector].vertices[i + 1]].x;
 		wall.p2.y = env->vertices[env->sectors[sector].vertices[i + 1]].y;
-		if (doIntersect(ray.p1, ray.p2, wall.p1, wall.p2))
+		if (intersection_check(ray.p1, ray.p2, wall.p1, wall.p2))
 		{
 			if (env->sectors[sector].neighbors[i] < 0)
 				return (-1);

@@ -91,6 +91,29 @@ void	object_anim_loop(t_env *env, int i)
 	}
 }
 
+int	 explosion(t_env *env, int i, int nb_sprites)
+{
+	double start;
+	double time_spent;
+
+	if (env->objects[i].death.start == 0)
+		env->objects[i].death.start = SDL_GetTicks();
+	start = env->objects[i].death.start;
+	time_spent = env->time.milli_s - start;
+	env->objects[i].solid = 0;
+	if ((int)time_spent >= 70 && (int)time_spent / 70 < nb_sprites)
+		return ((int)(time_spent / 70));
+	else if ((int)time_spent < 70)
+		return (0);
+	if (time_spent > nb_sprites * 70)
+	{
+		env->objects[i].death.start = 0;
+		if (env->objects[i].explodes == 1)
+			env->objects[i].exists = 0;
+	}
+	return (-1);
+}
+
 int	 object_destruction(t_env *env, int i, int nb_sprites)
 {
 	double start;
