@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 18:44:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 14:56:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,9 +280,11 @@ typedef struct		s_event
 	void			*target;
 	double			goal;
 	double			start_value;
+	double			start_incr;
 	double			incr;
 	Uint32			start_time;
 	Uint32			duration;
+	Uint32			start_delay;
 	Uint32			delay;
 	int				mod_type;
 	int				type;

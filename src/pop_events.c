@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 15:32:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 14:56:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_event	new_fixed_event(int type, void *target, double goal, Uint32 duration)
 	return (new);
 }
 
-t_event	new_incr_event(int type, void *target, double incr, Uint32 duration)
+t_event	new_incr_event(int type, void *target, double start_incr, Uint32 duration)
 {
 	t_event	new;
 
@@ -41,7 +41,7 @@ t_event	new_incr_event(int type, void *target, double incr, Uint32 duration)
 	else
 		new.duration = 1;
 	new.type = type;
-	new.incr = incr;
+	new.start_incr = start_incr;
 	update_event(&new);
 	return (new);
 }
@@ -72,7 +72,7 @@ int	double_event(t_event *curr)
 		type = 1;
 	*target = curr->start_value + (time - curr->start_time) * curr->incr;
 	if ((!type && *target >= curr->goal)
-		|| (type && *target <= curr->goal))
+			|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
 		return (1);
@@ -94,7 +94,7 @@ int	int_event(t_event *curr)
 		type = 1;
 	*target = curr->start_value + (time - curr->start_time) * curr->incr;
 	if ((!type && *target >= curr->goal)
-		|| (type && *target <= curr->goal))
+			|| (type && *target <= curr->goal))
 	{
 		*target = curr->goal;
 		return (1);
@@ -116,7 +116,7 @@ int		execute_event(t_event *event, t_env *env)
 	res = 1;
 	if (event->check_func)
 		if (!event->check_func(event, env))
-				return (1);
+			return (1);
 	if (event->type == DOUBLE)
 		res = double_event(event);
 	else if (event->type == INT)
@@ -132,9 +132,9 @@ int		execute_event(t_event *event, t_env *env)
 //	Protection
 
 /*
-**	This function executes every event as a queue
-**	and sets a new queue for the next frame
-*/
+ **	This function executes every event as a queue
+ **	and sets a new queue for the next frame
+ */
 
 int	pop_events(t_env *env)
 {
@@ -142,7 +142,7 @@ int	pop_events(t_env *env)
 	t_list	*next_events;
 	t_list	*next_values;
 	int	res;
-	
+
 	next_events = NULL;
 	next_values = NULL;
 	while (env->events)
@@ -154,10 +154,10 @@ int	pop_events(t_env *env)
 			res = int_event(curr);
 		if (!res)
 		{
-				ft_lstpushback(&next_events, ft_lstnew(curr,
-				sizeof(*curr)));
-				ft_lstpushback(&next_values, ft_lstnew(&curr->target,
-				sizeof(curr->target)));
+			ft_lstpushback(&next_events, ft_lstnew(curr,
+						sizeof(*curr)));
+			ft_lstpushback(&next_values, ft_lstnew(&curr->target,
+						sizeof(curr->target)));
 		}
 		ft_lstpopfront(&env->events);
 		ft_lstpopfront(&env->queued_values);
@@ -172,47 +172,47 @@ int	pop_events(t_env *env)
 //	Protection
 
 /*
-**	This one executes every event in the list
-**	and delete a node only when the event is done
-*/
+ **	This one executes every event in the list
+ **	and delete a node only when the event is done
+ */
 
 int		pop_events2(t_env *env)
 {
-		t_list	*prec;
-		t_list	*tmp;
-		t_list	*prec_values;
-		t_list	*tmp_values;
-		int		res;
-		
-		tmp = env->events;
-		tmp_values = env->queued_values;
-		prec_values = NULL;
-		prec = NULL;
-		while (tmp)
+	t_list	*prec;
+	t_list	*tmp;
+	t_list	*prec_values;
+	t_list	*tmp_values;
+	int		res;
+
+	tmp = env->events;
+	tmp_values = env->queued_values;
+	prec_values = NULL;
+	prec = NULL;
+	while (tmp)
+	{
+		res = execute_event((t_event*)tmp->content, env);
+		if (res == 1)
 		{
-			res = execute_event((t_event*)tmp->content, env);
-			if (res == 1)
-			{
-					ft_lstpopfront(&tmp);
-					if (prec)
-						prec->next = tmp;
-					else
-						env->events = tmp;
-					ft_lstpopfront(&tmp_values);
-					if (prec_values)
-						prec_values->next = tmp_values;
-					else
-						env->queued_values = tmp_values;
-			}
-			else if (res == 0)
-			{
-				prec = tmp;
-				tmp = tmp->next;
-				prec_values = tmp_values;
-				tmp_values = tmp_values->next;
-			}
-			else if (res == -1)
-				return (-1);
+			ft_lstpopfront(&tmp);
+			if (prec)
+				prec->next = tmp;
+			else
+				env->events = tmp;
+			ft_lstpopfront(&tmp_values);
+			if (prec_values)
+				prec_values->next = tmp_values;
+			else
+				env->queued_values = tmp_values;
 		}
+		else if (res == 0)
+		{
+			prec = tmp;
+			tmp = tmp->next;
+			prec_values = tmp_values;
+			tmp_values = tmp_values->next;
+		}
+		else if (res == -1)
+			return (-1);
+	}
 	return (0);
 }

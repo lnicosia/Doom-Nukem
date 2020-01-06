@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 12:10:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:13:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,29 @@ int		init_game(int ac, char **av)
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
 	if (ft_strequ(av[1], "maps/triple_piece.map"))
 	{
-		env.sectors[1].nb_walk_events = 2;
-		env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
-		env.sectors[1].walk_on_me_event[0] =
-			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
-		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
-		env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
-				2, 0, 0, new_v3(0, 0, 0)); 
-		env.sectors[1].walk_on_me_event[1] =
+		env.sectors[2].nb_walk_events = 3;
+		env.sectors[2].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[2].nb_walk_events);
+		env.sectors[2].walk_on_me_event[0] =
+			new_incr_event(DOUBLE, &env.sectors[2].floor, 4, 800);
+		env.sectors[2].walk_on_me_event[0].update_func =
+		&update_sector_event;
+		env.sectors[2].walk_on_me_event[0].update_param.num = 2;
+		env.sectors[2].walk_on_me_event[0].launch_func =
+		&launch_equ_value_event;
+		env.sectors[2].walk_on_me_event[0].launch_param.equ_value = 2;
+		env.sectors[2].walk_on_me_event[0].launch_param.target =
+		&env.sectors[2].floor;
+		env.sectors[2].walk_on_me_event[1] =
+			new_incr_event(DOUBLE, &env.sectors[2].floor, -4, 800);
+		env.sectors[2].walk_on_me_event[1].update_func =
+		&update_sector_event;
+		env.sectors[2].walk_on_me_event[1].update_param.num = 2;
+		env.sectors[2].walk_on_me_event[1].launch_func =
+		&launch_equ_value_event;
+		env.sectors[2].walk_on_me_event[1].launch_param.equ_value = 6;
+		env.sectors[2].walk_on_me_event[1].launch_param.target =
+		&env.sectors[2].floor;
+		env.sectors[2].walk_on_me_event[2] =
 			new_fixed_event(INT, &env.player.health, 50, 1000);
 		//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
 		//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
