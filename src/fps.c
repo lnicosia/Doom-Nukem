@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:21:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 11:43:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:10:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ void	fps(t_env *env)
 		env->frame_timer = new_time;
 		env->fps = env->fps_count;
 		env->fps_count = 0;
-	}
-	if (new_time > 2000)
-	{
-		if (env->options.p)
-		{
-			if (!env->avrg_fps)
-				env->avrg_fps = fps;
-			if (fps > env->max_fps)
-				env->max_fps = fps;
-			if (fps < env->min_fps)
-				env->min_fps = fps;
-			env->avrg_fps = (env->avrg_fps + fps) / 2;
-		}
-		else
-		{
-			if (!env->avrg_fps2)
-				env->avrg_fps2 = fps;
-			if (fps > env->max_fps2)
-				env->max_fps2 = fps;
-			if (fps < env->min_fps2)
-				env->min_fps2 = fps;
-			env->avrg_fps2 = (env->avrg_fps2 + fps) / 2;
-		}
 	}
 	print_text(new_point(0, 10), new_printable_text(
 				ft_sitoa(env->fps),

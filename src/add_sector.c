@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 11:16:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:56:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,6 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->wall_width = (double*)ft_memalloc(sizeof(double)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("could not malloc sector vertices"));
-	if (!(sector->xmin = (int*)ft_memalloc(sizeof(int)
-		* (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector textures"));
-	if (!(sector->xmax = (int*)ft_memalloc(sizeof(int)
-		* (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->walls_map_lvl = (double**)
 				ft_memalloc(sizeof(double*) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));

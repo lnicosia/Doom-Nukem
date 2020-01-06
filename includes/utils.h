@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:09:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:58:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,8 +348,6 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
-	int				*xmin;
-	int				*xmax;
 	short			*vertices;
 	short			*neighbors;
 	short			*textures;
@@ -365,17 +363,17 @@ typedef struct		s_sector
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
-	t_v3			tp;
-	short			*selected;
 	short			num;
 	short			nb_vertices;
 	int				skybox;
+	t_v3			tp;
 	int				status;
 	int				*levels;
 	double			start_floor;
 	int				enemy_flag;
 	int				activated;
 	int				hidden;
+	short			*selected;
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
@@ -535,6 +533,8 @@ typedef struct		s_keys
 	int				right2;
 	int				plus;
 	int				minus;
+	int				plus2;
+	int				minus2;
 	int				shift;
 	int				shift2;
 	int				ctrl;

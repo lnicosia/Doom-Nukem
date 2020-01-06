@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 12:09:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:53:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->align);
 	if (sector->scale)
 		ft_memdel((void**)&sector->scale);
-	if (sector->xmin)
-		ft_memdel((void**)&sector->xmin);
-	if (sector->xmax)
-		ft_memdel((void**)&sector->xmax);
 	if (sector->floor_map_lvl)
 		ft_memdel((void**)&sector->floor_map_lvl);
 	if (sector->ceiling_map_lvl)

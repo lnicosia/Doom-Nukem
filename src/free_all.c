@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 18:50:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:06:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,62 +130,10 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->zbuffer)
 		ft_memdel((void**)&env->zbuffer);
-	if (env->max_ceiling)
-		ft_memdel((void**)&env->max_ceiling);
-	if (env->max_floor)
-		ft_memdel((void**)&env->max_floor);
-	if (env->current_ceiling)
-		ft_memdel((void**)&env->current_ceiling);
-	if (env->current_floor)
-		ft_memdel((void**)&env->current_floor);
-	if (env->z)
-		ft_memdel((void**)&env->z);
-	if (env->z_near_z)
-		ft_memdel((void**)&env->z_near_z);
-	if (env->clipped_alpha)
-		ft_memdel((void**)&env->clipped_alpha);
-	if (env->line_height)
-		ft_memdel((void**)&env->line_height);
-	if (env->no_slope_current_ceiling)
-		ft_memdel((void**)&env->no_slope_current_ceiling);
-	if (env->no_slope_current_floor)
-		ft_memdel((void**)&env->no_slope_current_floor);
-	if (env->ceiling_start)
-		ft_memdel((void**)&env->ceiling_start);
-	if (env->floor_start)
-		ft_memdel((void**)&env->floor_start);
-	if (env->divider)
-		ft_memdel((void**)&env->divider);
-	if (env->neighbor_max_ceiling)
-		ft_memdel((void**)&env->neighbor_max_ceiling);
-	if (env->neighbor_max_floor)
-		ft_memdel((void**)&env->neighbor_max_floor);
-	if (env->neighbor_current_ceiling)
-		ft_memdel((void**)&env->neighbor_current_ceiling);
-	if (env->neighbor_current_floor)
-		ft_memdel((void**)&env->neighbor_current_floor);
-	if (env->texel)
-		ft_memdel((void**)&env->texel);
-	if (env->texel_near_z)
-		ft_memdel((void**)&env->texel_near_z);
-	if (env->camera_z)
-		ft_memdel((void**)&env->camera_z);
-	if (env->texel_camera_range)
-		ft_memdel((void**)&env->texel_camera_range);
-	if (env->zrange)
-		ft_memdel((void**)&env->zrange);
-	if (env->xmin)
-		ft_memdel((void**)&env->xmin);
-	if (env->xmax)
-		ft_memdel((void**)&env->xmax);
 	if (env->ymin)
 		ft_memdel((void**)&env->ymin);
 	if (env->ymax)
 		ft_memdel((void**)&env->ymax);
-	if (env->wall_texel)
-		ft_memdel((void**)&env->wall_texel);
-	if (env->vline_data)
-		ft_memdel((void**)&env->vline_data);
 }
 
 void		free_all(t_env *env)

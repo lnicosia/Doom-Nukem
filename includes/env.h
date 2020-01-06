@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 15:43:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:10:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct		s_env
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
-	t_vline_data		*vline_data;
 	t_teleport			teleport;
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
@@ -94,7 +93,7 @@ typedef struct		s_env
 	int					menu_edit;
 	int					aplicate_changes;
 	int					fps;
-	int					fps_count;
+	size_t				fps_count;
 	double				*zbuffer;
 	int					*sector_list;
 	int					screen_sectors_size;
@@ -112,48 +111,16 @@ typedef struct		s_env
 	int					nb_objects;
 	int					nb_enemies;
 	int					first_frame;
-	int					reset;
 	int					*ymax;
 	int					*ymin;
-	int					*xmax;
-	int					*xmin;
-	double				*max_ceiling;
-	double				*max_floor;
-	double				*current_ceiling;
-	double				*current_floor;
-	double				*clipped_alpha;
-	double				*z;
-	double				*divider;
-	double				*line_height;
-	double				*no_slope_current_floor;
-	double				*no_slope_current_ceiling;
-	double				*ceiling_start;
-	double				*floor_start;
-	double				*z_near_z;
-	double				*neighbor_max_ceiling;
-	double				*neighbor_max_floor;
-	double				*neighbor_current_ceiling;
-	double				*neighbor_current_floor;
-	t_v2				*texel;
-	t_v2				*wall_texel;
-	t_v2				*texel_near_z;
-	t_v2				*camera_z;
-	t_v2				*texel_camera_range;
 	t_point				minimap_pos;
 	t_point				minimap_size;
 	t_point				crosshair_pos;
-	double				*zrange;
 	int					current_object;
 	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
-	double				avrg_fps;
-	int				min_fps;
-	int				max_fps;
-	double				avrg_fps2;
-	int				min_fps2;
-	int				max_fps2;
 	int				contains_skybox;
 	Uint32*				tmp_first_sprite;
 	Uint32				press_wall_sprite_color;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 15:50:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:10:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int		init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
-	env.min_fps = 300;
-	env.min_fps2 = 300;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
