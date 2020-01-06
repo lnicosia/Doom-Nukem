@@ -26,5 +26,4 @@ Impact de balles												| Done
 Impact de balles -> fade										| Done
 Actualiser les fps qu'1x par seconde							| Done
 Surbrillance quand on vise wall sprite qui a un press event		| Done
-Opti calcul lumiere												|
-Separer bullet holes des sprites normaux						|
+Separer bullet holes des sprites normaux						| Done

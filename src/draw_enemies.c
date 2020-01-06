@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 17:51:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:35:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ static int	get_sprite_direction(t_enemies enemy)
 {
 	double	angle;
 
-	/*
-	** 0 = front sprite
-	** 1 = front right sprite
-	** 2 = right sprite
-	** 3 = back right sprite
-	** 4 = back sprite
-	** 5 = back left sprite
-	** 6 = left sprite
-	** 7 = front left
-	*/
 	angle = (int)((atan2(enemy.translated_pos.z, enemy.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle < 0)
 		angle += 360;

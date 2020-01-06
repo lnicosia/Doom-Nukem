@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 18:22:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:35:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,6 +386,15 @@ void				draw_button(t_env *env, t_button b);
 
 int					draw_walls(t_camera *camera, t_env *env);
 void				draw_projectiles(t_camera camera, t_env *env);
+void				draw_projectile_both(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_no_light(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_brightness(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_color(t_camera camera, t_projectile *p,
+t_env *env);
+int					get_sprite_direction_projectile(t_projectile projectile);
 void				draw_objects(t_camera camera, t_env *env);
 void				draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
