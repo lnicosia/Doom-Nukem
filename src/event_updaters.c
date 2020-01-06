@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 15:12:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:48:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,17 @@ int				launch_diff_value_event(t_event *event, void *penv)
 	else if (event->launch_param.target_type == DOUBLE
 			&& event->launch_param.diff_value
 			!= *(double*)event->launch_param.target)
+		return (1);
+	return (0);
+}
+
+int				launch_prec_event_ended(t_event *event, void *penv)
+{
+	(void)penv;
+	//ft_printf("Current time = %d\n", (int)SDL_GetTicks());
+	//ft_printf("Prec event ended at %d\n",
+	//(int)(*(Uint32*)event->launch_param.target));
+	if (SDL_GetTicks() >= *(Uint32*)event->launch_param.target + event->delay)
 		return (1);
 	return (0);
 }

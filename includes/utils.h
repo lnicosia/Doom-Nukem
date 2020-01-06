@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 14:56:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:26:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct		s_event
 	double			start_incr;
 	double			incr;
 	Uint32			start_time;
+	Uint32			end_time;
 	Uint32			duration;
 	Uint32			start_delay;
 	Uint32			delay;

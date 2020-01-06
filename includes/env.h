@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 11:35:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:43:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,6 +552,7 @@ int					check_diff_value_event(t_event *event, void *penv);
 int					check_equ_value_event(t_event *event, void *penv);
 int					launch_diff_value_event(t_event *event, void *penv);
 int					launch_equ_value_event(t_event *event, void *penv);
+int					launch_prec_event_ended(t_event *event, void *penv);
 void				delete_itself_event(t_event *event, void *penv);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 14:56:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:39:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		update_event(t_event *event)
 		event->start_value = *(int*)(event->target);
 	}
 	event->start_time = SDL_GetTicks();
+	event->end_time = event->start_time + event->duration;
 	return (1);
 }
 
@@ -64,19 +65,19 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
-		if (update_event(&(*events)[i])
-			&& (!(*events)[i].launch_func
-			|| (*events)[i].launch_func(&(*events)[i], env))
+		if ((!(*events)[i].target
+					|| !is_queued(env->queued_values, (*events)[i].target))
+				&& (!(*events)[i].launch_func
+					|| (*events)[i].launch_func(&(*events)[i], env))
+				&& update_event(&(*events)[i]))
 			//&& (!(*events)[i].max_uses
 			//|| (*events)[i].uses < (*events)[i].max_uses)
-				&& (!(*events)[i].target
-				|| !is_queued(env->queued_values, (*events)[i].target)))
 		{
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
 				return (ft_perror("Could not malloc new event"));
 			ft_lstpushback(&env->events, new);
 			if (!(new_value = ft_lstnew(&(*events)[i].target,
-				sizeof((*events)[i].target))))
+							sizeof((*events)[i].target))))
 				return (ft_perror("Could not malloc new event"));
 			ft_lstpushback(&env->queued_values, new_value);
 			if ((*events)[i].max_uses > 0)
@@ -89,9 +90,9 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 				{
 					//free_event(&(*events)[i]);
 					*events = ft_delindex((*events),
-					sizeof(t_event) * (*size),
-					sizeof(t_event),
-					sizeof(t_event) * i);
+							sizeof(t_event) * (*size),
+							sizeof(t_event),
+							sizeof(t_event) * i);
 					(*size)--;
 					//ft_printf("events max used. size = %d\n", *size);
 				}
