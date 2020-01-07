@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:24:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 17:28:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,7 +378,9 @@ typedef struct		s_sector
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
+	size_t			nb_stand_events;
 	size_t			nb_walk_events;
+	t_event			*stand_on_me_event;
 	t_event			*walk_on_me_event;
 }					t_sector;
 

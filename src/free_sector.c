@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:53:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:29:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void		free_sector(t_sector *sector)
 			j++;
 		}
 	}
+	free_events(sector->stand_on_me_event,
+			sector->nb_stand_events);
 	free_events(sector->walk_on_me_event,
 			sector->nb_walk_events);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:44:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 17:27:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,29 @@ int	init_editor(int ac, char **av)
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
-			env.sectors[1].nb_walk_events = 3;
-			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
-			env.sectors[1].walk_on_me_event[0] =
+			env.sectors[1].nb_stand_events = 3;
+			env.sectors[1].stand_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_stand_events);
+			env.sectors[1].stand_on_me_event[0] =
 			new_func_event(&hola, 0);
-			env.sectors[1].walk_on_me_event[1] =
+			env.sectors[1].stand_on_me_event[1] =
 			new_func_event(&hit_player, 0);
-			env.sectors[1].walk_on_me_event[1].max_uses = 1;
-			env.sectors[1].walk_on_me_event[2] =
+			env.sectors[1].stand_on_me_event[1].max_uses = 1;
+			env.sectors[1].stand_on_me_event[2] =
 			new_func_event(&hola, 0);
-			//env.sectors[1].walk_on_me_event[1].update_param->num = 1;
-			//env.sectors[1].walk_on_me_event[1].max_uses = 0;
-			/*env.sectors[1].walk_on_me_event[0] =
+			//env.sectors[1].stand_on_me_event[1].update_param->num = 1;
+			//env.sectors[1].stand_on_me_event[1].max_uses = 0;
+			/*env.sectors[1].stand_on_me_event[0] =
 			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
-			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
-			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
+			env.sectors[1].stand_on_me_event[0].update_func = &update_sector_event;
+			env.sectors[1].stand_on_me_event[0].update_param = new_event_param(
 			2, 0, 0, new_v3(0, 0, 0)); 
-			env.sectors[1].walk_on_me_event[1] =
+			env.sectors[1].stand_on_me_event[1] =
 			new_fixed_event(INT, &env.player.health, 1, 0);*/
 			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
-			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
-			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
-			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
-			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
+			//env.sectors[1].stand_on_me_event[1].check_func = &check_collision_event;
+			//env.sectors[1].stand_on_me_event[1].check_param = new_event_param(
+			//0, new_v3(0, env.sectors[1].stand_on_me_event[1].incr, 0)); 
+			//env.sectors[1].stand_on_me_event[1].update_func = &update_player_event;
 			/*if (env.sectors[2].brightness < 0)
 				env.sectors[2].light_color = blend_alpha(0, 0xFFFF9329, (255 + env.sectors[2].brightness + 16) / 2);*/
 			//env.sectors[2].light_color = blend_alpha(0, 0xFFFFFFFF, 16);
