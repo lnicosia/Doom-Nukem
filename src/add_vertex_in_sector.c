@@ -205,17 +205,20 @@ int		modify_t_wall_sprites_tab_in_sector(t_env *env, int index, int sector,t_wal
 {
 	int	i;
 
+	(void)index;
 	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
 	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc short tab"));
 	i = 0;
 	i = env->sectors[sector].nb_vertices;
+	ft_memmove(&(*tab)[i + 1], &(*tab)[0], sizeof(t_wall_sprites));
 	while (i > index + 1)
 	{
-		(*tab)[i] = (*tab)[i - 1];
+		ft_memmove(&(*tab)[i], &(*tab)[i -1], sizeof(t_wall_sprites));
+		//(*tab)[i] = (*tab)[i - 1];
 		i--;
 	}
-	(*tab)[i] = (*tab)[i - 1];
+	ft_bzero(&(*tab)[i], sizeof(t_wall_sprites));
 	return (0);
 }
 

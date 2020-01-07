@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:52:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 15:02:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
 void				update_short_tab(int index, short size, short **tab);
 void				selection_tab(t_env *env, int nb_slots);
+int					is_mouse_on_a_wall(t_env *env);
 
 /*
 ** Main functions

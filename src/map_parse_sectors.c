@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 16:20:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -731,8 +731,8 @@ t_map_parser *parser)
 		}
 		i++;*/
 	}
-	env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites
-	= env->sectors[parser->sectors_count].wall_sprites[0].nb_sprites;
+	env->sectors[parser->sectors_count].wall_sprites[i]
+	= env->sectors[parser->sectors_count].wall_sprites[0];
 	(*line)++;
 	if (**line != ' ')
 		return (invalid_char("after sector sprites", "space(s)",

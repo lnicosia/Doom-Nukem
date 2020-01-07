@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:49:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 15:17:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,8 +284,10 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 		project_wall(i, camera, sector, env);
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 	i = -1;
+	ft_printf("nb'-vertices: %d\n", sector->nb_vertices);
 	while (++i < sector->nb_vertices)
 	{
+		ft_printf("i: %d\n", i);
 		if (camera->v[sector->num][i].draw)
 			precompute_values(i, camera, sector, env);
 		if (sector->neighbors[i] != -1
