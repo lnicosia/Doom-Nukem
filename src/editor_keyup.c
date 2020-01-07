@@ -14,8 +14,10 @@
 
 int	editor_keyup(t_env *env)
 {
+	int	i;
 	int	clicked_vertex;
 
+	i = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
@@ -150,11 +152,6 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-	&& (env->sdl.my < 414 && env->sdl.my > 350))
-		env->editor.draw_selection_tab = 1;
-	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_selection_tab = 0;
 	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
 	/*&& env->editor.selected_vertex != -1*/)
 	{
@@ -170,12 +167,16 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
-	if (env->sdl.event.type == SDL_MOUSEBUTTONUP
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->editor.change_mode.state == !PRESSED)
+	while (i < MAX_WALL_TEXTURE)
 	{
-		ft_printf("coucou\n");
-		button_keyup(&env->editor.change_mode, env);
+		//ft_printf("%d\n", i);
+		button_keyup(&env->editor.textures[i], env);
+		i++;
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
+	&& (env->sdl.my < 414 && env->sdl.my > 350))
+		env->editor.draw_selection_tab = 1;
+	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_selection_tab = 0;
 	return (0);
 }

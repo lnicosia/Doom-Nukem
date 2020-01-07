@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 17:56:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 11:56:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef	struct	s_split
 
 }				t_split;
 
+typedef struct	s_button_target
+{
+	void		*env;
+	int			i;
+}				t_button_target;
+
 typedef struct	s_editor
 {
 	t_v2			start_pos;
@@ -84,6 +90,12 @@ typedef struct	s_editor
 	t_split			split;
 	int				select_vertex_on_going;
 	int				draw_selection_tab;
+	t_texture		miniature;
+	t_button		current_texture_selection;
+	t_button		change_mode;
+	t_button		current_enemy_selection;
+	t_texture		*enemy_tab;
+	t_button		textures[MAX_WALL_TEXTURE];
 }				t_editor;
 
 #endif

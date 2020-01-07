@@ -15,7 +15,9 @@
 int			editor_keys(t_env *env)
 {
 	double time;
+	int	i;
 
+	i = 0;
 	time = SDL_GetTicks();
 	if (env->inputs.backspace && !env->confirmation_box.state)
 	{
@@ -63,6 +65,11 @@ int			editor_keys(t_env *env)
 	**	control of the sector status with +/-
 	*/
 
+	while (i < MAX_WALL_TEXTURE)
+	{
+		button_keys(&env->editor.textures[i], env);
+		i++;
+	}
 	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
 	{
 		time = SDL_GetTicks();

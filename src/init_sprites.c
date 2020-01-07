@@ -504,10 +504,10 @@ int			init_enemy_sprites(t_env *env)
 {
 	if (!(env->enemy_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 13)))
 		return (ft_printf("Could not malloc enemy_sprites\n"));
-	if (!(env->editor.enemy_tab = (int *)malloc(sizeof(int) * MAX_ENEMIES)))
+	if (!(env->editor.enemy_tab = (t_texture*)malloc(sizeof(t_texture) * MAX_ENEMIES)))
 		return (ft_printf("Could not malloc editor's array for enemies main sprite\n"));
-	env-Weditor.enemy_tab[0] = LOST_SOUL;
-	env-Weditor.enemy_tab[1] = CYBER_DEMON;
+	//env->editor.enemy_tab[0] = LOST_SOUL;
+	//env->editor.enemy_tab[1] = CYBER_DEMON;
 
 	// Sprite oriente, lost soul
 	env->enemy_sprites[0].texture = 23;

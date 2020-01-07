@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 12:05:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define NB_WEAPONS 2
 # define MAX_SKYBOX 3
 # define NB_SKYBOX 5
+# define MAX_ENEMIES 2
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
 # define AMMO_HUD 26
@@ -855,6 +856,7 @@ typedef struct		s_options
 	int				animations;
 	int				gamma_filter;
 	int				mipmapping;
+	int				mouse;
 }					t_options;
 
 /*
@@ -904,10 +906,10 @@ typedef struct		s_button
 	t_rectangle		hover;
 	t_rectangle		pressed;
 	t_rectangle		down;
-	t_texture		*img_up;
-	t_texture		*img_hover;
-	t_texture		*img_pressed;
-	t_texture		*img_down;
+	SDL_Surface		*img_up;
+	SDL_Surface		*img_hover;
+	SDL_Surface		*img_pressed;
+	SDL_Surface		*img_down;
 	Uint32			up_text_color;
 	Uint32			hover_text_color;
 	Uint32			pressed_text_color;
@@ -924,7 +926,7 @@ typedef struct		s_button
 	int				anim_state;
 	void			(*down_action)(void *);
 	void			(*press_action)(void *);
-	void			*target;
+	void			*param;
 }					t_button;
 
 /*

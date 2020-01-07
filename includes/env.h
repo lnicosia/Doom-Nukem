@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 17:15:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 11:17:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct		s_env
  * */
 
 int					init_editor(int ac, char **av);
+int					init_editor_hud(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
@@ -370,9 +371,9 @@ t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
-void *target, t_env *env);
+void *param, t_env *env);
 t_button			new_rectangle_button(int type, void (*action)(void *),
-void *target, t_env *env);
+void *param, t_env *env);
 void				draw_button(t_env *env, t_button b);
 
 /*

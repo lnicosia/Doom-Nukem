@@ -165,9 +165,9 @@ void	editor_hud(t_env *env)
 			new_point(400, 900));
 		}
 		draw_button(env, env->editor.current_texture_selection);
-		draw_button(env, env->editor.current_enemy_selection);
-		draw_button(env, env->editor.change_mode);
-		draw_button(env, env->editor.save);
+		//draw_button(env, env->editor.current_enemy_selection);
+		//draw_button(env, env->editor.change_mode);
+		//draw_button(env, env->editor.save);
 		print_text(new_point(100, 50), new_printable_text("Mipmapping:",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
 		if (env->options.show_minimap)

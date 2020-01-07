@@ -279,6 +279,13 @@ void		free_all(t_env *env)
 	if (env->sectors)
 		free_sectors(env);
 	i = 0;
+	while (i < MAX_WALL_TEXTURE)
+	{
+		if (env->editor.textures[i].param)
+			ft_memdel(&env->editor.textures[i].param);
+		i++;
+	}
+	i = 0;
 	// Leak peut etre si index 5 pas free
 	while (i < 4)
 	{
