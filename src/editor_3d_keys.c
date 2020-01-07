@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 17:42:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:40:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		editor_3d_keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
-/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		Mix_PlayChannel(-1, env->sound.footstep, 0);*/
+		Mix_PlayChannel(-1, env->sound.footstep, 0);
 	if (((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going)
@@ -164,10 +164,10 @@ int		editor_3d_keys(t_env *env)
 	{
 		wall_sprites_keys(env,
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		pos[env->selected_wall_sprite_sprite],
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		scale[env->selected_wall_sprite_sprite]);
 	}
 	if (env->editor.in_game

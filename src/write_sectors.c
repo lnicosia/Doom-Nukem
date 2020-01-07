@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:17:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:50:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	{
 		ft_dprintf(fd, "{");
 		j = 0;
-		while (j < sector.nb_sprites[i])
+		while (j < sector.wall_sprites[i].nb_sprites)
 		{
 			ft_dprintf(fd, "[%d %f %f %f %f]",
-					sector.sprites[i].sprite[j],
-					sector.sprites[i].pos[j].x,
-					sector.sprites[i].pos[j].y,
-					sector.sprites[i].scale[j].x,
-					sector.sprites[i].scale[j].y);
+					sector.wall_sprites[i].sprite[j],
+					sector.wall_sprites[i].pos[j].x,
+					sector.wall_sprites[i].pos[j].y,
+					sector.wall_sprites[i].scale[j].x,
+					sector.wall_sprites[i].scale[j].y);
 			j++;
 		}
 		ft_dprintf(fd, "}");
@@ -106,7 +106,7 @@ static void	write_sector_floor_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_floor_sprites)
+	while (i < sector.floor_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.floor_sprites.sprite[i],
@@ -125,7 +125,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_ceiling_sprites)
+	while (i < sector.ceiling_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.ceiling_sprites.sprite[i],
@@ -164,7 +164,10 @@ static void	write_sector(int fd, t_sector sector)
 	write_sector_neighbors(fd, sector);
 	write_sector_textures(fd, sector);
 	write_sector_wall_sprites(fd, sector);
-	ft_dprintf(fd, "[%d] ", (int)(sector.brightness));
+	/*ft_dprintf(fd, "[%d %x %d] ", (int)(sector.brightness),
+	sector.light_color, (int)sector.intensity);*/
+	ft_dprintf(fd, "[%d 0 0] ", (int)(sector.brightness),
+	sector.light_color, (int)sector.intensity);
 	write_interactions_related_data(fd, sector);
 }
 

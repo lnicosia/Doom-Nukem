@@ -6,14 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 13:46:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:53:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER2_H
 # define RENDER2_H
 # include "env.h"
-# include "render.h"
 
 typedef struct		s_vline
 {
@@ -112,6 +111,7 @@ typedef struct		s_render_projectile
 	int				index;
 	short			brightness;
 	Uint32			light_color;
+	int				intensity;
 	double			xrange;
 	double			yrange;
 	t_point			screen_pos;
@@ -131,6 +131,7 @@ typedef struct		s_render_object
 	int				index;
 	short			brightness;
 	Uint32			light_color;
+	int				intensity;
 	double			xrange;
 	double			yrange;
 	t_point			screen_pos;
@@ -197,13 +198,57 @@ typedef struct		s_enemy_thread
 	int				xend;
 }					t_enemy_thread;
 
+void			select_line(t_vline vline, t_env *env);
 void			render_sector(t_render render, t_env *env);
 void			draw_ceiling(t_sector sector, t_render render, t_env *env);
+void			draw_vline_ceiling(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_ceiling_color(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_ceiling_brightness(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_ceiling_both(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_wall(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_wall_color(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_wall_brightness(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_wall_both(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_floor(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_floor_color(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_floor_brightness(t_sector sector, t_vline vline,
+t_render render, t_env *env);
+void			draw_vline_floor_both(t_sector sector, t_vline vline,
+t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
+void			draw_wall_no_light(t_sector sector, t_render render, t_env *env);
 void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_wall_bullet_holes(t_sector sector, t_render render,
+t_env *env);
 void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_floor_sprites_no_light(t_sector sector,
+t_render render, t_env *env);
+void			draw_floor_sprites_color(t_sector sector,
+t_render render, t_env *env);
+void			draw_floor_sprites_brightness(t_sector sector,
+t_render render, t_env *env);
+void			draw_floor_sprites_both(t_sector sector,
+t_render render, t_env *env);
 void			draw_ceiling_sprites(t_sector sector, t_render render, t_env *env);
+void			draw_ceiling_sprites_no_light(t_sector sector,
+t_render render, t_env *env);
+void			draw_ceiling_sprites_color(t_sector sector,
+t_render render, t_env *env);
+void			draw_ceiling_sprites_brightness(t_sector sector,
+t_render render, t_env *env);
+void			draw_ceiling_sprites_both(t_sector sector,
+t_render render, t_env *env);
 void			draw_upper_wall(t_sector sector, t_render render, t_env *env);
 void			draw_bottom_wall(t_sector sector, t_render render,
 		t_env *env);

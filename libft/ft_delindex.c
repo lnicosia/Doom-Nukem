@@ -20,7 +20,7 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 	size_t		j;
 	size_t		new_size;
 
-	if (!ptr || !old_size || !type || old_size <= type)
+	if (!ptr || !old_size || !type || old_size < type)
 		return (NULL);
 	i = 0;
 	j = 0;

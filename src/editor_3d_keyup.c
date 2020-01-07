@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keyup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 14:27:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:52:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 int		editor_3d_keyup(t_env *env)
 {
-        if (env->sdl.event.key.keysym.sym == SDLK_EXCLAIM)
-        {
-                env->options.mouse = env->options.mouse ? 0 : 1;
-                SDL_SetRelativeMouseMode(env->options.mouse);
-		ft_printf("test\n");
-        }
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)
@@ -43,7 +37,10 @@ int		editor_3d_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
+		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_x)
 		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_j)

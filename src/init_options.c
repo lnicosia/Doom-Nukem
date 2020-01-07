@@ -25,4 +25,6 @@ void	init_options(t_env *env)
 	env->minimap_pos = new_point(env->w - env->minimap_size.x / 2 - 20,
 	env->minimap_size.y / 2 + 20);
 	env->crosshair_pos = new_point(env->h_w, env->h_h);
+	env->options.max_floor_sprites = 5;
+	env->options.max_wall_sprites = 30;
 }

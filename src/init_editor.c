@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 13:44:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 **	Interaction test function
 */
 
-void	move_sector(void *param)
+int	hola(void *param, void *env)
 {
 	(void)param;
+	(void)env;
 	ft_printf("Hola\n");
+	return (1);
 }
 
-void	hit_player(void *param)
+int	hit_player(void *param, void *env)
 {
 	(void)param;
+	(void)env;
 	ft_printf("Aie\n");
+	return (1);
 }
 
 int	init_editor(int ac, char **av)
@@ -35,9 +39,6 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	env.min_fps = 300;
-	//env.i = 1;
-	env.min_fps2 = 300;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -81,15 +82,24 @@ int	init_editor(int ac, char **av)
 		ft_printf("{reset}");
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
-			env.sectors[1].nb_walk_events = 2;
+			env.sectors[1].nb_walk_events = 3;
 			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 			env.sectors[1].walk_on_me_event[0] =
+			new_func_event(&hola, 0);
+			env.sectors[1].walk_on_me_event[1] =
+			new_func_event(&hit_player, 0);
+			env.sectors[1].walk_on_me_event[1].max_uses = 1;
+			env.sectors[1].walk_on_me_event[2] =
+			new_func_event(&hola, 0);
+			//env.sectors[1].walk_on_me_event[1].update_param->num = 1;
+			//env.sectors[1].walk_on_me_event[1].max_uses = 0;
+			/*env.sectors[1].walk_on_me_event[0] =
 			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
 			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
 			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
 			2, 0, 0, new_v3(0, 0, 0)); 
 			env.sectors[1].walk_on_me_event[1] =
-			new_fixed_event(INT, &env.player.health, 1, 0);
+			new_fixed_event(INT, &env.player.health, 1, 0);*/
 			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
 			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
 			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
@@ -98,7 +108,6 @@ int	init_editor(int ac, char **av)
 			/*if (env.sectors[2].brightness < 0)
 				env.sectors[2].light_color = blend_alpha(0, 0xFFFF9329, (255 + env.sectors[2].brightness + 16) / 2);*/
 			//env.sectors[2].light_color = blend_alpha(0, 0xFFFFFFFF, 16);
-			//env.sectors[2].light_color = 0xFFFF9329;
 		}
 	}
 	if (init_camera(&env.player.camera, &env))

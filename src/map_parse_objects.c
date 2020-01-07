@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_objects.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 12:04:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:48:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("after object angle", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
-	env->objects[parser->objects_count].sector = get_sector_global(env,
+	env->objects[parser->objects_count].sector = get_sector_no_z(env,
 			new_v3(env->objects[parser->objects_count].pos.x,
 				env->objects[parser->objects_count].pos.y,
 				env->objects[parser->objects_count].pos.z));
@@ -123,11 +123,14 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[env->objects[parser->objects_count].sector].brightness;
 		env->objects[parser->objects_count].light_color =
 			env->sectors[env->objects[parser->objects_count].sector].light_color;
+		env->objects[parser->objects_count].intensity =
+			env->sectors[env->objects[parser->objects_count].sector].intensity;
 	}
 	else
 	{
 		env->objects[parser->objects_count].brightness = 0;
 		env->objects[parser->objects_count].light_color = 0;
+		env->objects[parser->objects_count].intensity = 0;
 	}
 	return (0);
 }

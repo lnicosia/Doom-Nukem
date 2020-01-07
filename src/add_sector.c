@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 10:23:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/06 17:56:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,74 +43,54 @@ void	get_new_floor_and_ceiling(t_env *env)
 	env->sectors[env->nb_sectors - 1].ceiling = sector.ceiling;
 }
 
-int			init_new_sector_arrays(t_sector *sector, t_env *env)
+int			init_new_sector_arrays(t_sector *sector)
 {
-	if (!(sector->vertices = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(sector->vertices = (short*)ft_memalloc(sizeof(short)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
-	ft_bzero(sector->vertices, sector->nb_vertices + 1);
-	if (!(sector->neighbors = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(sector->neighbors = (short*)ft_memalloc(sizeof(short)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector neighbors"));
-	ft_bzero(sector->neighbors, sector->nb_vertices + 1);	
-	if (!(sector->textures = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(sector->textures = (short*)ft_memalloc(sizeof(short)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
-	ft_bzero(sector->textures, sector->nb_vertices + 1);
-	if (!(sector->nb_sprites = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector vertices"));
-	ft_bzero(sector->nb_sprites, sector->nb_vertices + 1);
-	if (!(sector->sprites = (t_wall_sprites*)malloc(sizeof(t_wall_sprites) * (sector->nb_vertices + 1))))
+	if (!(sector->wall_sprites
+		= (t_wall_sprites*)ft_memalloc(sizeof(t_wall_sprites)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
-	ft_bzero(sector->sprites, sector->nb_vertices + 1);
-	if (!(sector->align = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+	if (!(sector->align = (t_v2*)ft_memalloc(sizeof(t_v2)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector align"));
-	ft_bzero(sector->align, sector->nb_vertices + 1);
-	if (!(sector->scale = (t_v2*)malloc(sizeof(t_v2) * (sector->nb_vertices + 1))))
+	if (!(sector->scale = (t_v2*)ft_memalloc(sizeof(t_v2)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector scale"));
-	ft_bzero(sector->scale, sector->nb_vertices + 1);
-	if (!(sector->selected = (short*)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(sector->selected = (short*)ft_memalloc(sizeof(short)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
-	ft_bzero(sector->selected, sector->nb_vertices + 1);
-	if (!(sector->ceilings = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->ceilings = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector ceiling"));
-	ft_bzero(sector->ceilings, sector->nb_vertices + 1);
-	(void)env;
-	/*if (!(sector->ceiling_map_lvl = (double*)malloc(sizeof(double) * env->wall_textures[sector->ceiling_texture].nb_maps)))
-		return (ft_perror("Could not malloc sector ceiling texture"));
-	if (!(sector->ceiling_scale = (t_v2*)malloc(
-		sizeof(t_v2) * env->wall_textures[sector->ceiling_texture].nb_maps)))
-		return (custom_error("Could not malloc sector floor_scale array"));
-	if (!(sector->floor_map_lvl = (double*)malloc(sizeof(double) * env->wall_textures[sector->floor_texture].nb_maps)))
-		return (ft_perror("Could not malloc sector ceiling texture"));
-	if (!(sector->floor_scale = (t_v2*)malloc(
-		sizeof(t_v2) * env->wall_textures[sector->floor_texture].nb_maps)))
-		return (custom_error("Could not malloc sector floor_scale array"));*/
-	if (!(sector->floors = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->floors = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
-	ft_bzero(sector->floors, sector->nb_vertices + 1);
-	if (!(sector->clipped_ceilings1 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->clipped_ceilings1 = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector clipped_ceilings1"));
-	ft_bzero(sector->clipped_ceilings1, sector->nb_vertices + 1);
-	if (!(sector->clipped_ceilings2 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->clipped_ceilings2 = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector clipped_ceilings2"));
-	ft_bzero(sector->clipped_ceilings2, sector->nb_vertices + 1);
-	if (!(sector->clipped_floors1 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->clipped_floors1 = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector clipped_floors1"));
-	ft_bzero(sector->clipped_floors1, sector->nb_vertices + 1);
-	if (!(sector->clipped_floors2 = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->clipped_floors2 = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector clipped_floors2"));
-	ft_bzero(sector->clipped_floors2, sector->nb_vertices + 1);
-	if (!(sector->wall_width = (double*)malloc(sizeof(double) * (sector->nb_vertices + 1))))
+	if (!(sector->wall_width = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
 		return (ft_perror("could not malloc sector vertices"));
-	ft_bzero(sector->wall_width, sector->nb_vertices + 1);
-	if (!(sector->xmin = (int*)malloc(sizeof(int) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector textures"));
-	ft_bzero(sector->xmin, sector->nb_vertices + 1);
-	if (!(sector->xmax = (int*)malloc(sizeof(int) * (sector->nb_vertices + 1))))
-		return (ft_perror("Could not malloc sector textures"));
-	ft_bzero(sector->xmax, sector->nb_vertices + 1);	
 	if (!(sector->walls_map_lvl = (double**)
-				malloc(sizeof(double*) * (sector->nb_vertices + 1))))
+				ft_memalloc(sizeof(double*) * (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	ft_bzero(sector->walls_map_lvl, sector->nb_vertices + 1);
 	return (0);
 }
 
@@ -165,7 +145,7 @@ int			add_sector(t_env *env)
 	t_sector	sector;
 
 	sector = new_default_sector(env);
-	if (init_new_sector_arrays(&sector, env))
+	if (init_new_sector_arrays(&sector))
 		return (ft_printf("Error while initializing new sector arrays\n"));
 	if (set_sector_floor_map_array(&sector, 
 		env->wall_textures[sector.floor_texture],
@@ -182,7 +162,7 @@ int			add_sector(t_env *env)
 	if (!(env->sectors = (t_sector*)ft_realloc(env->sectors,
 					sizeof(t_sector) * env->nb_sectors,
 					sizeof(t_sector) * (env->nb_sectors + 1))))
-		return (ft_printf("Could not realloc sectors\n"));
+		return (ft_perror("Could not realloc sectors"));
 	env->sectors[env->nb_sectors] = sector;
 	create_portals(env, sector);
 	set_sectors_xmax(env);

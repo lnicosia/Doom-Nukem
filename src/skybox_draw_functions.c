@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 10:32:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 13:50:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	double		alpha;
 	double		divider;
 
-	texture_h = 0;
-	texture_w = 0;
-	texture_pixels = 0;
 	if (wall_data.mode == CEILING)
 		texture = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture];
 	else if (wall_data.mode == FLOOR)
@@ -82,22 +79,31 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 			i++;
 			continue;
 		}
-		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
+		if (vline.x == env->h_w && i == env->h_h)
 		{
-			reset_selection(env);
-			if (wall_data.mode == CEILING)
-				env->selected_ceiling = render.sector;
-			else if (wall_data.mode == FLOOR)
-				env->selected_floor = render.sector;
-			else
+			if (env->playing)
 			{
-				if (env->editor.in_game)
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
+			}
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				if (wall_data.mode == CEILING)
+					env->selected_ceiling = render.sector;
+				else if (wall_data.mode == FLOOR)
+					env->selected_floor = render.sector;
+				else
 				{
-					env->editor.selected_sector = render.sector;
-					env->editor.selected_wall = wall_data.i;
+					if (env->editor.in_game)
+					{
+						env->editor.selected_sector = render.sector;
+						env->editor.selected_wall = wall_data.i;
+					}
+					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 			}
 		}
 		yalpha = (i - render.max_ceiling) / render.line_height;
@@ -149,16 +155,13 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	double	salpha;
 	double	divider;
 
-	texture_h = 0;
-	texture_w = 0;
-	texture_pixels = 0;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	if (wall_data.mode == CEILING)
 	{
-		texture_w = env->skyboxes[0].textures[1].surface->w;
-		texture_h = env->skyboxes[0].textures[1].surface->h;
-		texture_pixels = env->skyboxes[0].textures[1].str;
+		texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].str;
 	}
 	else if (wall_data.mode == FLOOR)
 	{
@@ -196,30 +199,39 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 			i++;
 			continue;
 		}
-		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
+		if (vline.x == env->h_w && i == env->h_h)
 		{
-			reset_selection(env);
-			if (wall_data.mode == CEILING)
-				env->selected_ceiling = render.sector;
-			else if (wall_data.mode == FLOOR)
-				env->selected_floor = render.sector;
-			else
+			if (env->playing)
 			{
-				if (env->editor.in_game)
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
+			}
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				if (wall_data.mode == CEILING)
+					env->selected_ceiling = render.sector;
+				else if (wall_data.mode == FLOOR)
+					env->selected_floor = render.sector;
+				else
 				{
-					env->editor.selected_sector = render.sector;
-					env->editor.selected_wall = wall_data.i;
+					if (env->editor.in_game)
+					{
+						env->editor.selected_sector = render.sector;
+						env->editor.selected_wall = wall_data.i;
+					}
+					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 			}
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
 		x = alpha * render.texel.x + (1.0 - alpha) * 5;
 		if (wall_data.mode == CEILING)
 		{
-			y *= env->skyboxes[0].textures[1].surface->h / 10;
-			x *= env->skyboxes[0].textures[1].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w / 10;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
@@ -277,9 +289,6 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	double	salpha;
 	double	divider;
 
-	texture_h = 0;
-	texture_w = 0;
-	texture_pixels = 0;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	if (wall_data.mode == CEILING)
@@ -294,8 +303,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		texture_h = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->h;
 		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].str;
 	}
-	else if (wall_data.mode == WALL || wall_data.mode == UPPER_WALL
-		|| wall_data.mode == BOTTOM_WALL)
+	else
 	{
 		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w;
 		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h;
@@ -325,22 +333,31 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 			i++;
 			continue;
 		}
-		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
+		if (vline.x == env->h_w && i == env->h_h)
 		{
-			reset_selection(env);
-			if (wall_data.mode == CEILING)
-				env->selected_ceiling = render.sector;
-			else if (wall_data.mode == FLOOR)
-				env->selected_floor = render.sector;
-			else
+			if (env->playing)
 			{
-				if (env->editor.in_game)
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
+			}
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				if (wall_data.mode == CEILING)
+					env->selected_ceiling = render.sector;
+				else if (wall_data.mode == FLOOR)
+					env->selected_floor = render.sector;
+				else
 				{
-					env->editor.selected_sector = render.sector;
-					env->editor.selected_wall = wall_data.i;
+					if (env->editor.in_game)
+					{
+						env->editor.selected_sector = render.sector;
+						env->editor.selected_wall = wall_data.i;
+					}
+					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
-				env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-				env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 			}
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;

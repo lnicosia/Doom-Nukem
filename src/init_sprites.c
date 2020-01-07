@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 16:38:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:46:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int			init_wall_sprites(t_env *env)
 {
-	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite) * MAX_WALL_SPRITES)))
+	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite)
+		* MAX_WALL_SPRITES)))
 		return (ft_printf("Could not malloc wall sprites\n"));
 	
 	// Grille
@@ -32,6 +33,8 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[0].end[0].y = 256;
 	env->wall_sprites[0].size[0].x = 128;
 	env->wall_sprites[0].size[0].y = 256;
+	env->wall_sprites[0].ratio[0] = env->wall_sprites[0].size[0].x
+	/ (double)env->wall_sprites[0].size[0].y;
 	env->wall_sprites[0].reversed[0] = 0;
 	
 	// Bouton OFF
@@ -40,7 +43,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[1].pursuit_sprite = 1;
 	env->wall_sprites[1].rest_sprite = 1;
 	env->wall_sprites[1].curr_sprite = 1;
-	env->wall_sprites[1].oriented = 1;
+	env->wall_sprites[1].oriented = 0;
 	env->wall_sprites[1].nb_death_sprites = 1;
 	env->wall_sprites[1].start[0].x = 0;
 	env->wall_sprites[1].start[0].y = 0;
@@ -48,6 +51,8 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[1].end[0].y = 64;
 	env->wall_sprites[1].size[0].x = 64;
 	env->wall_sprites[1].size[0].y = 64;
+	env->wall_sprites[1].ratio[0] = env->wall_sprites[1].size[0].x
+	/ (double)env->wall_sprites[1].size[0].y;
 	env->wall_sprites[1].reversed[0] = 0;
 
 	// Bouton ON
@@ -56,7 +61,7 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[2].pursuit_sprite = 2;
 	env->wall_sprites[2].rest_sprite = 2;
 	env->wall_sprites[2].curr_sprite = 0;
-	env->wall_sprites[2].oriented = 2;
+	env->wall_sprites[2].oriented = 0;
 	env->wall_sprites[2].nb_death_sprites = 2;
 	env->wall_sprites[2].start[0].x = 0;
 	env->wall_sprites[2].start[0].y = 0;
@@ -64,7 +69,27 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[2].end[0].y = 64;
 	env->wall_sprites[2].size[0].x = 64;
 	env->wall_sprites[2].size[0].y = 64;
+	env->wall_sprites[2].ratio[0] = env->wall_sprites[2].size[0].x
+	/ (double)env->wall_sprites[2].size[0].y;
 	env->wall_sprites[2].reversed[0] = 0;
+
+	// Bullet hole
+	env->wall_sprites[3].texture = 35;
+	env->wall_sprites[3].death_counterpart = 3;
+	env->wall_sprites[3].pursuit_sprite = 3;
+	env->wall_sprites[3].rest_sprite = 3;
+	env->wall_sprites[3].curr_sprite = 0;
+	env->wall_sprites[3].oriented = 0;
+	env->wall_sprites[3].nb_death_sprites = 0;
+	env->wall_sprites[3].start[0].x = 0;
+	env->wall_sprites[3].start[0].y = 0;
+	env->wall_sprites[3].end[0].x = 600;
+	env->wall_sprites[3].end[0].y = 600;
+	env->wall_sprites[3].size[0].x = 600;
+	env->wall_sprites[3].size[0].y = 600;
+	env->wall_sprites[3].ratio[0] = env->wall_sprites[3].size[0].x
+	/ (double)env->wall_sprites[3].size[0].y;
+	env->wall_sprites[3].reversed[0] = 0;
 	return (0);
 }
 
@@ -506,9 +531,6 @@ int			init_enemy_sprites(t_env *env)
 		return (ft_printf("Could not malloc enemy_sprites\n"));
 	if (!(env->editor.enemy_tab = (t_texture*)malloc(sizeof(t_texture) * MAX_ENEMIES)))
 		return (ft_printf("Could not malloc editor's array for enemies main sprite\n"));
-	//env->editor.enemy_tab[0] = LOST_SOUL;
-	//env->editor.enemy_tab[1] = CYBER_DEMON;
-
 	// Sprite oriente, lost soul
 	env->enemy_sprites[0].texture = 23;
 	env->enemy_sprites[0].death_counterpart = 4;
@@ -871,7 +893,8 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[5].pursuit_sprite = 6;
 	env->enemy_sprites[5].firing_sprite = 9;
 	env->enemy_sprites[5].rest_sprite = 6;
-	env->enemy_sprites[5].curr_sprite = 5;
+	env->enemy_sprites[5].curr_sprite = 6;
+	//env->enemy_sprites[5].curr_sprite = 5;
 	env->enemy_sprites[5].oriented = 1;
 	env->enemy_sprites[5].nb_death_sprites = 8;
 
@@ -945,7 +968,8 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[6].death_counterpart = 12;
 	env->enemy_sprites[6].pursuit_sprite = 7;
 	env->enemy_sprites[6].firing_sprite = 9;
-	env->enemy_sprites[6].rest_sprite = 7;
+	//env->enemy_sprites[6].rest_sprite = 7;
+	env->enemy_sprites[6].rest_sprite = 6;
 	env->enemy_sprites[6].curr_sprite = 6;
 	env->enemy_sprites[6].oriented = 1;
 	env->enemy_sprites[6].nb_death_sprites = 8;

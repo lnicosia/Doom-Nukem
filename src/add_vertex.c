@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   add_vertex.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 18:20:29 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 18:20:31 by sipatry          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   list_utils.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/07/26 09:57:30 by lnicosia		  #+#	#+#			 */
+/*   Updated: 2019/08/26 15:37:30 by lnicosia		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -24,6 +24,7 @@ void	del_last_vertex(t_env *env)
 		v = (t_vertex*)env->editor.current_vertices->content;
 		if (!is_vertex_used(env, v->num))
 			delete_vertex(env, v->num);
+		free(env->editor.current_vertices->content);
 		free(env->editor.current_vertices);
 		env->editor.current_vertices = NULL;
 		env->editor.start_vertex = -1;

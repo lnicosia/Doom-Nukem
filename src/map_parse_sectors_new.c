@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse_sectors.c                                :+:      :+:    :+:   */
+/*   map_parse_sectors_new.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 18:50:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:48:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before floor texture", "a digit or space(s)",
 					**line, parser));
 	env->sectors[parser->sectors_count].floor_texture = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].floor_texture < 0
+	if (env->sectors[parser->sectors_count].floor_texture < -MAX_SKYBOX
 			|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
 	*line = skip_number(*line);
@@ -75,7 +75,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].floor_map_align.x = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor align.y", parser));
@@ -84,13 +84,15 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
-		return (missing_data("floor alin.y", parser));
+		return (missing_data("floor align.y", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_align.y = ft_atoi(*line);
+	env->sectors[parser->sectors_count].floor_map_align.y = ft_atoi(*line);
 
 	if (env->sectors[parser->sectors_count].floor_texture < 0)
+		env->contains_skybox = 1;
+	/*if (env->sectors[parser->sectors_count].floor_texture < 0)
 	{
 		env->contains_skybox = 1;
 		env->sectors[parser->sectors_count].floor_align.x *= env->skyboxes[0].textures[0].surface->w;
@@ -104,7 +106,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].floor_align.y *= env->wall_textures[env->sectors[parser->sectors_count].floor_texture].surface->h;
 		env->sectors[parser->sectors_count].floor_align.x /= 10;
 		env->sectors[parser->sectors_count].floor_align.y /= 10;
-	}
+	}*/
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.x", parser));
@@ -223,7 +225,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_map_align.x = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling align.y", parser));
@@ -236,9 +238,11 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_align.y = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_map_align.y = ft_atoi(*line);
 
 	if (env->sectors[parser->sectors_count].ceiling_texture < 0)
+		env->contains_skybox = 1;
+	/*if (env->sectors[parser->sectors_count].ceiling_texture < 0)
 	{
 		env->contains_skybox = 1;
 		env->sectors[parser->sectors_count].ceiling_align.x *= env->skyboxes[0].textures[0].surface->w;
@@ -252,7 +256,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].ceiling_align.y *= env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture].surface->h;
 		env->sectors[parser->sectors_count].ceiling_align.x /= 10;
 		env->sectors[parser->sectors_count].ceiling_align.y /= 10;
-	}
+	}*/
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.x", parser));
@@ -283,8 +287,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_map_scale.y = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].ceiling_map_scale.y <= 0)
 		return (custom_error_with_line("Ceiling scale must be positive", parser));
-
-	 if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
+	
+	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
 		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture], 
 		env))
 		return (-1);
@@ -525,7 +529,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
 			return (custom_error_with_line("Wall scale must be positive", parser));
 		*line = skip_number(*line);
-		if (env->sectors[parser->sectors_count].textures[i] < 0)
+		/*if (env->sectors[parser->sectors_count].textures[i] < 0)
 		{
 			env->sectors[parser->sectors_count].align[i].x *= env->skyboxes[0].textures[0].surface->w;
 			env->sectors[parser->sectors_count].align[i].y *= env->skyboxes[0].textures[0].surface->h;
@@ -538,7 +542,7 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].align[i].y *= env->wall_textures[env->sectors[parser->sectors_count].textures[i]].surface->h;
 			env->sectors[parser->sectors_count].align[i].x /= 10;
 			env->sectors[parser->sectors_count].align[i].y /= 10;
-		}
+		}*/
 		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
 			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
 			env))
@@ -729,20 +733,51 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
-		return (invalid_char("before sector light", "'['", **line, parser));
+		return (invalid_char("before sector light data", "'['", **line, parser));
 	(*line)++;
 	if (!**line)
-		return (missing_data("light", parser));
+		return (missing_data("light data", parser));
 	if (valid_number(*line, parser))
-		return (invalid_char("before light", "a digit", **line, parser));
+		return (invalid_char("before light brightness", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
-	env->sectors[parser->sectors_count].light_color = 0xFFFFFFFF;
+	//env->sectors[parser->sectors_count].light_color = 0xFF409CFF;
 	if (env->sectors[parser->sectors_count].brightness < -255 ||
 			env->sectors[parser->sectors_count].brightness > 255)
-		return (custom_error("Light must be between -255 and 255"));
+		return (custom_error("Light brightness must be between -255 and 255"));
+	//env->sectors[parser->sectors_count].intensity = 0;
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light brightness", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color hue", parser));
+	if (valid_hexa(*line, parser))
+		return (invalid_char("before light color hue", "an hexa digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].light_color = ft_atoi_base(*line,
+	"0123456789ABCDEF");
+	*line = skip_hexa(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after light color hue", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("light color intensity", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before light color intensity", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].intensity = ft_atoi(*line);
+	if (env->sectors[parser->sectors_count].intensity < -255 ||
+			env->sectors[parser->sectors_count].intensity > 255)
+		return (custom_error("Light color intensity must be between -255 and 255"));
 	*line = skip_number(*line);
 	if (**line != ']')
-		return (invalid_char("after sector light", "']'", **line, parser));
+		return (invalid_char("after sector light color intensity", "']'", **line, parser));
 	(*line)++;
 	if (!**line)
 		return (missing_data("sector status", parser));

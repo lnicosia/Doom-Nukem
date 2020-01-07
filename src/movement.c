@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 15:28:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:49:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ void	update_player_pos(t_env *env)
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
-		if (new_sector != env->player.sector && new_sector != -1)
-			start_event(env->sectors[new_sector].walk_on_me_event, env->sectors[new_sector].nb_walk_events, env);
+		if (new_sector != env->player.sector && new_sector != -1
+			&& env->sectors[new_sector].nb_walk_events > 0)
+			start_event(&env->sectors[new_sector].walk_on_me_event, &env->sectors[new_sector].nb_walk_events, env);
 		if (find_highest_sector(env, motion) != env->player.highest_sect
 				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env) < get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env))
 			env->player.drop_flag = 1;

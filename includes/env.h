@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 11:17:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 13:52:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct		s_env
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
-	t_vline_data		*vline_data;
 	t_teleport			teleport;
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
@@ -61,6 +60,12 @@ typedef struct		s_env
 	Uint32				frame_timer;
 	t_event				*global_events;
 	size_t				nb_global_events;
+	t_event				*wall_bullet_holes_events;
+	size_t				nb_wall_bullet_holes_events;
+	t_event				*floor_bullet_holes_events;
+	size_t				nb_floor_bullet_holes_events;
+	t_event				*ceiling_bullet_holes_events;
+	size_t				nb_ceiling_bullet_holes_events;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -70,6 +75,9 @@ typedef struct		s_env
 	int					selected_floor;
 	int					selected_wall_sprite_sprite;
 	int					selected_wall_sprite_wall;
+	int					hovered_wall_sprite_sprite;
+	int					hovered_wall_sprite_wall;
+	int					hovered_wall_sprite_sector;
 	int					selected_floor_sprite;
 	int					selected_ceiling_sprite;
 	int					selected_ceiling;
@@ -85,7 +93,7 @@ typedef struct		s_env
 	int					menu_edit;
 	int					aplicate_changes;
 	int					fps;
-	int					fps_count;
+	size_t				fps_count;
 	double				*zbuffer;
 	int					*sector_list;
 	int					screen_sectors_size;
@@ -103,50 +111,20 @@ typedef struct		s_env
 	int					nb_objects;
 	int					nb_enemies;
 	int					first_frame;
-	int					reset;
 	int					*ymax;
 	int					*ymin;
-	int					*xmax;
-	int					*xmin;
-	double				*max_ceiling;
-	double				*max_floor;
-	double				*current_ceiling;
-	double				*current_floor;
-	double				*clipped_alpha;
-	double				*z;
-	double				*divider;
-	double				*line_height;
-	double				*no_slope_current_floor;
-	double				*no_slope_current_ceiling;
-	double				*ceiling_start;
-	double				*floor_start;
-	double				*z_near_z;
-	double				*neighbor_max_ceiling;
-	double				*neighbor_max_floor;
-	double				*neighbor_current_ceiling;
-	double				*neighbor_current_floor;
-	t_v2				*texel;
-	t_v2				*wall_texel;
-	t_v2				*texel_near_z;
-	t_v2				*camera_z;
-	t_v2				*texel_camera_range;
 	t_point				minimap_pos;
 	t_point				minimap_size;
 	t_point				crosshair_pos;
-	double				*zrange;
 	int					current_object;
 	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
-	double				avrg_fps;
-	int				min_fps;
-	int				max_fps;
-	double				avrg_fps2;
-	int				min_fps2;
-	int				max_fps2;
 	int				contains_skybox;
 	Uint32*				tmp_first_sprite;
+	Uint32				press_wall_sprite_color;
+	int					press_wall_sprite_intensity;
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
@@ -206,8 +184,6 @@ void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
 int					add_object(t_env *env);
 int					fill_new_sector(t_sector *sector, t_env *env);
-void				free_current_vertices(t_env *env);
-void				free_camera(t_camera *camera, t_env *env);
 int					editor_render(t_env *env);
 int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -251,7 +227,6 @@ int					del_char(t_input_box *box, int mode);
 int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
-void				hit_player(void *param);
 int					apply_texture(int texture, t_sector *sector, t_env *env);
 int					add_vertex_in_sector(t_env *env);
 void				split_sector(t_env *env);
@@ -269,7 +244,6 @@ void				selection_tab(t_env *env, int nb_slots);
 
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
-void				free_all(t_env *env);
 int					crash(char *str, t_env *env);
 void				reset_render_utils(t_camera *camera, t_env *env);
 
@@ -307,6 +281,8 @@ int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
 int					set_camera_map_array(t_camera *camera, int i,
 int j, t_env *env);
+int					set_camera_sprites_array(t_camera *camera, int i,
+int j, t_env *env);
 int					set_sector_wall_map_array(t_sector *sector,
 t_texture texture, int i, t_env *env);
 int					set_sector_floor_map_array(t_sector *sector,
@@ -325,6 +301,7 @@ int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
+char				*skip_hexa(char *line);
 char				*skip_spaces(char *line);
 
 /*
@@ -343,6 +320,7 @@ void				print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
+void				print_press_text(t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle_minimap(t_v3 v[3], t_env *env);
@@ -356,9 +334,12 @@ void				draw_line_3(t_env *env, t_line line);
 void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_free(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
-Uint32				apply_light(Uint32 src, Uint32 color, short brightness);
-void				free_all_sdl_relative(t_env *env);
-void				free_screen_sectors(t_env *env);
+Uint32				apply_light(Uint32 src, Uint32 color, int intensity,
+short brightness);
+Uint32				apply_light_both(Uint32 src, Uint32 color, int intensity,
+short brightness);
+Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
+Uint32				apply_light_brightness(Uint32 src, short brightness);
 int				update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);
@@ -382,12 +363,21 @@ void				draw_button(t_env *env, t_button b);
 
 int					draw_walls(t_camera *camera, t_env *env);
 void				draw_projectiles(t_camera camera, t_env *env);
+void				draw_projectile_both(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_no_light(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_brightness(t_camera camera, t_projectile *p,
+t_env *env);
+void				draw_projectile_color(t_camera camera, t_projectile *p,
+t_env *env);
+int					get_sprite_direction_projectile(t_projectile projectile);
 void				draw_objects(t_camera camera, t_env *env);
 void				draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
-void				keyup(t_env *env);
+int					keyup(t_env *env);
 void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
 void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
@@ -401,7 +391,7 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
-void				projectiles_movement(t_env *env);
+int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 
 void				draw_hud(t_env *env);
@@ -420,7 +410,7 @@ int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);
 int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
 void				set_sectors_xmax(t_env *env);
-void				keys(t_env *env);
+int					keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_enemy_z(t_env *env, int i);
 void				update_floor(t_env *env);
@@ -468,6 +458,36 @@ t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
+int					add_ceiling_bullet_hole(t_sector *sector,
+t_projectile *projectile, t_env *env);
+int					add_floor_bullet_hole(t_sector *sector,
+t_projectile *projectile, t_env *env);
+int					add_wall_bullet_hole(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
+int					shift_ceiling_bullet_hole(t_sector *sector,
+t_projectile *projectile, t_env *env);
+int					shift_floor_bullet_hole(t_sector *sector,
+t_projectile *projectile, t_env *env);
+int					shift_wall_bullet_hole(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
+t_v2				get_ceiling_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, t_env *env);
+t_v2				get_floor_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, t_env *env);
+t_v2				get_wall_bullet_hole_pos(t_sector *sector,
+t_projectile *projectile, int i, t_env *env);
+int					delete_wall_bullet_hole(void *param, void *env);
+int					delete_floor_bullet_hole(void *param, void *env);
+int					delete_ceiling_bullet_hole(void *param, void *env);
+int					modify_wall_sprite(void *param, void *env);
+int					modify_floor_sprite(void *param, void *env);
+int					modify_ceiling_sprite(void *param, void *env);
+void				shift_ceiling_bullet_hole_events(int sector, int sprite,
+t_env *env);
+void				shift_floor_bullet_hole_events(int sector, int sprite,
+t_env *env);
+void				shift_wall_bullet_hole_events(int sector, int wall, 
+int sprite, t_env *env);
 
 /*
 ** enemies functions
@@ -489,20 +509,40 @@ void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 **	Event function
 */
 int					update_event(t_event *event);
-void				pop_events(t_env *env);
-void				pop_events2(t_env *env);
+int					pop_events(t_env *env);
+int					pop_events2(t_env *env);
 t_event				new_fixed_event(int type, void *target, double goal,
 Uint32 duration);
+t_event				new_func_event(int (*func)(void *, void *),
+void *param);
 t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
-void				start_event(t_event *events, size_t size,
+int					start_event(t_event **events, size_t *size,
 t_env *env);
-t_event_param		*new_event_param(int num, double equ_value, 
+t_event_param		new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
+t_event_param		empty_event_param(void);
 void				update_sector_event(t_event *event, void *penv);
 void				update_player_event(t_event *event, void *penv);
 int					check_collision_event(t_event *event, void *penv);
 int					check_diff_value_event(t_event *event, void *penv);
 int					check_equ_value_event(t_event *event, void *penv);
+int					launch_diff_value_event(t_event *event, void *penv);
+int					launch_equ_value_event(t_event *event, void *penv);
+int					launch_prec_event_ended(t_event *event, void *penv);
+void				delete_itself_event(t_event *event, void *penv);
+
+/*
+**	Free functions
+*/
+
+void				free_current_vertices(t_env *env);
+void				free_camera(t_camera *camera, t_env *env);
+void				free_all(t_env *env);
+void				free_all_sdl_relative(t_env *env);
+void				free_screen_sectors(t_env *env);
+void				free_sector(t_sector *sector);
+void				free_event(t_event *event);
+void				free_events(t_event *event, size_t size);
 
 #endif

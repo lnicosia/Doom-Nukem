@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_action.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/14 10:16:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:34:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		delete_action(t_env *env)
 			&& !current_vertices_contains(env, env->editor.selected_vertex))
 	{
 		i = 0;
+		ft_printf("cc\n");
 		delete_vertex(env, env->editor.selected_vertex);
 		delete_invalid_sectors(env);
 		delete_invalid_vertices(env);

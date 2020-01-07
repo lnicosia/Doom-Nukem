@@ -280,8 +280,8 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_neighbors(env, j, sector))
 				return (-1);
-			if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
-				return (-1);
+			/*if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
+				return (-1);*/
 			if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors))
@@ -302,7 +302,7 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_t_v2_tab_in_sector(env, j, sector, &env->sectors[sector].align))
 				return (-1);
-			if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].sprites))
+			if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].wall_sprites))
 				return (-1);
 			if (modify_walls_map_lvl(env, sector))
 				return (-1);

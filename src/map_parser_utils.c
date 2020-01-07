@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 13:38:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:48:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ char	*skip_number(char *line)
 	return (line);
 }
 
+char	*skip_hexa(char *line)
+{
+	while (*line && ((*line <= '9' && *line >= '0')
+		|| (*line >= 'A' && *line <= 'F')
+		|| (*line >= 'a' && *line <= 'f')))
+		line++;
+	return (line);
+}
+
 char	*skip_spaces(char *line)
 {
 	while (*line && *line == ' ')
@@ -37,7 +46,7 @@ char	*skip_spaces(char *line)
 }
 
 /*
-** Checks if a charcter is a valid number
+** Checks if a character is a valid number
 */
 
 int		valid_number(char *line, t_map_parser *parser)
@@ -48,4 +57,20 @@ int		valid_number(char *line, t_map_parser *parser)
 	if ((*line < '0' || *line > '9') && *line != '-')
 		return (WRONG_CHAR);
 	return (0);
+}
+
+/*
+** Checks if a character is a valid hexa number
+*/
+
+int		valid_hexa(char *line, t_map_parser *parser)
+{
+	(void)parser;
+	if (!*line)
+		return (MISSING_CHAR);
+	if (*line && ((*line <= '9' && *line >= '0')
+		|| (*line >= 'A' && *line <= 'F')
+		|| (*line >= 'a' && *line <= 'f')))
+		return (0);
+	return (WRONG_CHAR);
 }

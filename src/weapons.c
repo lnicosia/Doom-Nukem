@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/27 16:39:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:50:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	//create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
-	//	new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-	//	env->player.camera.angle_z);
+	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
+		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+		env->player.camera.angle_z);
 	while (i < env->nb_enemies)
 	{
 		if (hitscan(env, i) == 1)
@@ -76,6 +76,7 @@ void    draw_weapon(t_env *env, int sprite)
 	int			texture_h;
 	Uint32		*pixels;
 	Uint32		*texture_pixels;
+	t_sector	sector;
 
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = env->sprite_textures[sprite].str;
@@ -83,6 +84,7 @@ void    draw_weapon(t_env *env, int sprite)
 	texture_h = env->sprite_textures[sprite].surface->h;
 	window_w = (int)(env->w - texture_w) / 1.5;
 	window_h = (env->h - texture_h) + env->weapons[0].weapon_switch;
+	sector = env->sectors[env->player.sector];
 	y = 0;
 	while (y < texture_h)
 	{
@@ -90,10 +92,27 @@ void    draw_weapon(t_env *env, int sprite)
 		while (x < texture_w  && (window_h + y) < env->h)
 		{
 			if (texture_pixels[x + texture_w * y] != 0xFFC10099)
-				pixels[(window_w + x) + env->w * (window_h + y)] = 
-					apply_light(texture_pixels[x + texture_w * y],
-							env->sectors[env->player.sector].light_color,
-							env->sectors[env->player.sector].brightness);
+			{
+				if (!env->options.lighting
+					|| (!sector.brightness && !sector.intensity))
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						texture_pixels[x + texture_w * y];
+				else if (!sector.brightness)
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_color(texture_pixels[x + texture_w * y],
+								sector.light_color,
+								sector.intensity);
+				else if (!sector.intensity)
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_brightness(texture_pixels[x + texture_w * y],
+								sector.brightness);
+				else
+					pixels[(window_w + x) + env->w * (window_h + y)] = 
+						apply_light_both(texture_pixels[x + texture_w * y],
+								sector.light_color,
+								sector.intensity,
+								sector.brightness);
+			}
 			x++;
 		}
 		y++;
@@ -109,14 +128,14 @@ void    weapon_animation(t_env *env, int nb)
 		if (env->weapons[nb].ammo <= 0)
 		{
 			env->weapons[nb].no_ammo = 1;
-		//	Mix_PlayChannel(2, env->weapons[nb].empty, 0);
+			Mix_PlayChannel(2, env->weapons[nb].empty, 0);
 		}
 		else
 		{
 			shot(env);
 			env->weapons[nb].no_ammo = 0;
-		//	Mix_PlayChannel(2, env->weapons[nb].sound, 0);
-			env->weapons[nb].ammo--;
+			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
+			//env->weapons[nb].ammo--;
 		}
 	}
 	if (!env->weapons[nb].no_ammo)
@@ -130,7 +149,7 @@ void    weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 10)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;
