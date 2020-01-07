@@ -89,7 +89,7 @@ int	draw_game(t_env *env)
 		update_screen_zbuffer(env);
 	else
 		update_screen(env);
-	if (env->player.health > 0)
+	if (env->player.health > 0 && !env->options.mouse)
 		view(env);
 	env->first_frame = 1;
 	return (0);

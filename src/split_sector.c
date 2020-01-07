@@ -14,10 +14,8 @@
 
 int	check_next_to_vertex(t_env *env, int i, int j)
 {
-	int	k;
 	t_sector sector;
 
-	k = 0;
 	sector = env->sectors[i];
 	if (((j > 0 && sector.vertices[j] == env->editor.split.v1 && (sector.vertices[j - 1] == env->editor.split.v2
 		|| sector.vertices[j + 1] == env->editor.split.v2)))

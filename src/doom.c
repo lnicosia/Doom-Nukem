@@ -18,7 +18,7 @@ int		doom(t_env *env)
 	while (env->running)
 	{
 		env->player.health = 100;
-		Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
+	//	Mix_VolumeMusic(MIX_MAX_VOLUME/env->sound.g_music);
 		reset_clipped(env);
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);

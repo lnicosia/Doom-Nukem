@@ -14,6 +14,12 @@
 
 int		editor_3d_keyup(t_env *env)
 {
+        if (env->sdl.event.key.keysym.sym == SDLK_EXCLAIM)
+        {
+                env->options.mouse = env->options.mouse ? 0 : 1;
+                SDL_SetRelativeMouseMode(env->options.mouse);
+		ft_printf("test\n");
+        }
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)

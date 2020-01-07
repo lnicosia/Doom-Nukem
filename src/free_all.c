@@ -292,12 +292,12 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->objects);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
-	if (env->sound.background)
+/*	if (env->sound.background)
 		Mix_FreeMusic(env->sound.background);
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.jump)
-		Mix_FreeChunk(env->sound.jump);
+		Mix_FreeChunk(env->sound.jump);*/
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	if (env->events)
@@ -313,14 +313,14 @@ void		free_all(t_env *env)
 	if (env->input_box.str)
 		ft_strdel(&env->input_box.str);
 	i = 0;
-	while (i < NB_WEAPONS)
+/*	while (i < NB_WEAPONS)
 	{
 		if (env->weapons[i].empty)
 			Mix_FreeChunk(env->weapons[i].empty);
 		if (env->weapons[i].sound)
 			Mix_FreeChunk(env->weapons[i].sound);
 		i++;
-	}
+	}*/
 	free_events(env->global_events, env->nb_global_events);
 	if (env->projectiles)
 	{
@@ -334,7 +334,7 @@ void		free_all(t_env *env)
 	}
 	free_textures(env);
 	TTF_Quit();
-	Mix_CloseAudio();
+//	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
 }

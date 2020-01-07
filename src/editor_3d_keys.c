@@ -19,9 +19,9 @@ int		editor_3d_keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
-	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		Mix_PlayChannel(-1, env->sound.footstep, 0);
+		Mix_PlayChannel(-1, env->sound.footstep, 0);*/
 	if (((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going)

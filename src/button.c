@@ -92,21 +92,44 @@ t_button	new_rectangle_button(int type, void (*action)(void *), void *target, t_
 	return (new);
 }
 
+t_button	new_miniature_button(int type, void (*action)(void *), void *target, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, target, env);
+/*	if (!env->sprite_textures[28].surface || !env->sprite_textures[29].surface
+		|| !env->sprite_textures[30].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
+	new.img_up = &env->editor.miniature;
+	new.img_pressed = &env->editor.miniature;
+	new.img_down = &env->editor.miniature;
+	new.img_hover = &env->editor.miniature;
+	new.size_up = new_point(new.img_up->surface->w,
+	new.img_up->surface->h);
+	new.size_down = new_point(new.img_down->maps[6]->w,
+	new.img_down->surface->h);
+	new.size_hover = new_point(new.img_hover->surface->w,
+	new.img_hover->surface->h);
+	new.size_pressed = new_point(new.img_pressed->surface->w,
+	new.img_pressed->surface->h);
+	return (new);
+}
+
 t_button	new_image_button(int type, void (*action)(void *), void *target, t_env *env)
 {
 	t_button	new;
 
 	new = init_button(type, action, target, env);
-	if (!env->sprite_textures[28].surface || !env->sprite_textures[29].surface
+/*	if (!env->sprite_textures[28].surface || !env->sprite_textures[29].surface
 		|| !env->sprite_textures[30].surface)
-		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = &env->sprite_textures[28];
-	new.img_pressed = &env->sprite_textures[29];
-	new.img_down = &env->sprite_textures[29];
-	new.img_hover = &env->sprite_textures[30];
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
+	new.img_up = &env->wall_textures[0];
+	new.img_pressed = &env->wall_textures[0];
+	new.img_down = &env->wall_textures[0];
+	new.img_hover = &env->wall_textures[0];
 	new.size_up = new_point(new.img_up->surface->w,
 	new.img_up->surface->h);
-	new.size_down = new_point(new.img_down->surface->w,
+	new.size_down = new_point(new.img_down->maps[6]->w,
 	new.img_down->surface->h);
 	new.size_hover = new_point(new.img_hover->surface->w,
 	new.img_hover->surface->h);

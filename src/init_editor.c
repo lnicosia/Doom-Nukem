@@ -64,6 +64,8 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load object sprites\n", &env));
 	if (init_enemy_sprites(&env))
 		return (crash("Could not load enemy sprites\n", &env));
+	if (!init_hud(&env))
+		return (crash("Could not init hud\n", &env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");

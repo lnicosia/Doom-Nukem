@@ -37,6 +37,9 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	double		alpha;
 	double		divider;
 
+	texture_h = 0;
+	texture_w = 0;
+	texture_pixels = 0;
 	if (wall_data.mode == CEILING)
 		texture = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture];
 	else if (wall_data.mode == FLOOR)
@@ -146,6 +149,9 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	double	salpha;
 	double	divider;
 
+	texture_h = 0;
+	texture_w = 0;
+	texture_pixels = 0;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	if (wall_data.mode == CEILING)
@@ -271,6 +277,9 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	double	salpha;
 	double	divider;
 
+	texture_h = 0;
+	texture_w = 0;
+	texture_pixels = 0;
 	pixels = env->sdl.texture_pixels;
 	zbuffer = env->zbuffer;
 	if (wall_data.mode == CEILING)

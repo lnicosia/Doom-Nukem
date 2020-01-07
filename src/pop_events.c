@@ -123,7 +123,8 @@ void	pop_events(t_env *env)
 	t_list	*next_events;
 	t_list	*next_values;
 	int	res;
-	
+
+	res = 0;	
 	next_events = NULL;
 	next_values = NULL;
 	while (env->events)

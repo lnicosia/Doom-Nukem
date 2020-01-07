@@ -109,13 +109,13 @@ void    weapon_animation(t_env *env, int nb)
 		if (env->weapons[nb].ammo <= 0)
 		{
 			env->weapons[nb].no_ammo = 1;
-			Mix_PlayChannel(2, env->weapons[nb].empty, 0);
+		//	Mix_PlayChannel(2, env->weapons[nb].empty, 0);
 		}
 		else
 		{
 			shot(env);
 			env->weapons[nb].no_ammo = 0;
-			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
+		//	Mix_PlayChannel(2, env->weapons[nb].sound, 0);
 			env->weapons[nb].ammo--;
 		}
 	}

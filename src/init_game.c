@@ -106,7 +106,7 @@ int		init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	Mix_PlayMusic(env.sound.background, -1);
+//	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.fixed_camera, &env))
 		return (crash("Could not init fixed camera\n", &env));

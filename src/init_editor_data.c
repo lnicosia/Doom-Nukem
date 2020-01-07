@@ -18,7 +18,6 @@ void	init_editor_data(t_env *env)
 	env->editor.current_vertices = NULL;
 	env->editor.start_vertex = -1;
 	env->player.sector = -1;
-
 	env->editor.selected_sector = -1;
 	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;

@@ -141,6 +141,7 @@ int	editor_keyup(t_env *env)
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
+			env->options.mouse = 1;
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
@@ -149,12 +150,9 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 200 && env->sdl.mx > 0)
-	&& (env->sdl.my < 200 && env->sdl.my > 0))
-	{
-		ft_printf("draw little one\n");
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
+	&& (env->sdl.my < 414 && env->sdl.my > 350))
 		env->editor.draw_selection_tab = 1;
-	}
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
 	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
@@ -171,6 +169,13 @@ int	editor_keyup(t_env *env)
 				return (0);
 			}
 		}
+	}
+	if (env->sdl.event.type == SDL_MOUSEBUTTONUP
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.change_mode.state == !PRESSED)
+	{
+		ft_printf("coucou\n");
+		button_keyup(&env->editor.change_mode, env);
 	}
 	return (0);
 }

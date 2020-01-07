@@ -12,11 +12,18 @@
 
 #include "env.h"
 
+void	selection_tab_keys(t_button *button, t_env *env)
+{
+
+	if (button->anim_state != PRESSED)
+		button_keys(button, env);
+}
+
 void	selection_tab(t_env *env, int nb_slots)
 {
-	int	i;
 	int mod;
 	int	test;
+	int	i;
 
 	i = 0;
 	test = nb_slots;
@@ -27,7 +34,12 @@ void	selection_tab(t_env *env, int nb_slots)
 	while (test % mod != 0)
 		test++;	
 	draw_rectangle(env,
-				new_rectangle(0xFFFFFFFF, 0xFF888888, 1, 5),
-				new_point(env->sdl.mx , env->sdl.my),
+				new_rectangle(0x00000000, 0xFF888888, 1, 5),
+				new_point(60, 370),
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
+	while (i < MAX_WALL_TEXTURE - 1)
+	{
+		draw_button(env, env->editor.textures[i]);
+		i++;
+	}
 }

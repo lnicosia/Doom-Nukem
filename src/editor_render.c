@@ -30,7 +30,7 @@ int		editor_render(t_env *env)
 	game_time(env);
 	minimap(env);
 	interactions(env);
-	if (!env->input_box.state)
+	if (!env->input_box.state && env->options.mouse)
 		view(env);
 	env->editor.select = 0;
 	return (0);

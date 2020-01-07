@@ -90,13 +90,13 @@ void	screen_options(t_env *env)
 
 void	sound_options(t_env *env)
 {
-	char	*sound;
+//	char	*sound;
 
-	sound = ft_sitoa(env->sound.g_music);
+//	sound = ft_sitoa(env->sound.g_music);
 	add_button(env, 30, env->h_w - 40, env->h_h - 100, 4);
 	add_button(env, 31, env->h_w + 160, env->h_h - 100, 5);
-	print_text(new_point(env->h_h - 100 , env->h_w - 250), new_printable_text("Sound :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	print_text(new_point(env->h_h - 100 , env->h_w + 65), new_printable_text(sound, env->sdl.fonts.alice30, 0x960018FF, 30), env);
+/*	print_text(new_point(env->h_h - 100 , env->h_w - 250), new_printable_text("Sound :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
+	print_text(new_point(env->h_h - 100 , env->h_w + 65), new_printable_text(sound, env->sdl.fonts.alice30, 0x960018FF, 30), env);*/
 
 }
 
@@ -124,14 +124,14 @@ int		open_options(t_env *env)
 				&& button_leftclick(env, 3)
 				&& env->i < 2)
 			env->i++;
-		else if (env->inputs.left_click
+	/*	else if (env->inputs.left_click
 				&& button_leftclick(env, 4)
 				&& env->sound.g_music > 5)
 			env->sound.g_music -= 5;
 		else if (env->inputs.left_click
 				&& button_leftclick(env, 5)
 				&& env->sound.g_music < 100)
-			env->sound.g_music += 5;
+			env->sound.g_music += 5;*/
 		else if (env->inputs.left_click
 				&& button_leftclick(env, 1))
 			env->aplicate_changes = 1;

@@ -14,9 +14,9 @@
 
 void		keys(t_env *env)
 {
-	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		Mix_PlayChannel(-1, env->sound.footstep, 0);
+		Mix_PlayChannel(-1, env->sound.footstep, 0);*/
 	if (env->inputs.right_click)
 		ft_printf("player.pos: x= %f y= %f z= %f\n", env->player.pos.x, env->player.pos.y, env->player.pos.z);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left

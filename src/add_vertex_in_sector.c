@@ -263,9 +263,7 @@ int		modify_neighbors(t_env *env, int index, int sector)
 int     modify_sector(t_env *env, int sector)
 {
     int j;
-	int	i;
 
-	i = 0;
     j = 0;
     while (j < env->sectors[sector].nb_vertices)
     {
