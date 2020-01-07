@@ -14,7 +14,7 @@
 
 int     init_sound(t_env *env)
 {
-/*	env->sound.b_jump = 20;
+	env->sound.b_jump = 20;
 	env->sound.b_footstep = 20;
 	env->sound.b_weapon = 20;
 	env->sound.g_music = 100;
@@ -38,7 +38,7 @@ int     init_sound(t_env *env)
 	Mix_VolumeChunk(env->sound.jump, MIX_MAX_VOLUME / env->sound.b_jump);
 	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / env->sound.b_footstep);
 	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
-	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / env->sound.b_weapon);*/
+	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
 	(void)env;
     return (0);
 }

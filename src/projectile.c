@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 13:49:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/07 14:19:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ int		projectiles_movement(t_env *env)
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;
 				projectile->sector = get_sector_no_z_origin(env, projectile->pos, projectile->sector);
-				projectile->brightness
-				= env->sectors[projectile->sector].brightness;
-				projectile->intensity
-				= env->sectors[projectile->sector].intensity;
-				projectile->light_color
-				= env->sectors[projectile->sector].light_color;
+				if (projectile->sector != -1)
+				{
+					projectile->brightness
+					= env->sectors[projectile->sector].brightness;
+					projectile->intensity
+					= env->sectors[projectile->sector].intensity;
+					projectile->light_color
+					= env->sectors[projectile->sector].light_color;
+				}
 				tmp = tmp->next;
 			}
 			else
