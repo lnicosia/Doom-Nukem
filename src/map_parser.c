@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:46:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,8 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	//return (custom_error("Could not init objects"));
 	if (parse_enemies(env, &parser))
+		return (-1);
+	if (parse_events(env, &parser))
 		return (-1);
 	//return (custom_error("Error while parsing creatures"));
 	if (parse_player(env, &parser))

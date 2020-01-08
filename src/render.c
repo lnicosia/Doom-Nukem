@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 12:30:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 18:13:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,7 @@ void		*precompute_sectors_loop(void *param)
 	return (NULL);
 }
 
-void		precompute_sectors(t_camera *camera, t_env *env)
+int		precompute_sectors(t_camera *camera, t_env *env)
 {
 	t_precompute_thread	pt[THREADS];
 	pthread_t			threads[THREADS];
@@ -329,11 +329,14 @@ void		precompute_sectors(t_camera *camera, t_env *env)
 		pt[i].camera = camera;
 		pt[i].start = env->visible_sectors / (double)THREADS * i;
 		pt[i].end = env->visible_sectors / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]);
+		if (pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
 int			render_walls(t_camera *camera, t_env *env)
@@ -345,9 +348,11 @@ int			render_walls(t_camera *camera, t_env *env)
 	camera->computed = 1;
 	env->visible_sectors = 0;
 	reset_render_utils(camera, env);
-	screen_sectors = get_screen_sectors(camera, env);
+	if ((screen_sectors = get_screen_sectors(camera, env)) < 0)
+		return (-1);
 	get_rendered_sectors_list(screen_sectors, camera, env);
-	precompute_sectors(camera, env);
+	if (precompute_sectors(camera, env))
+		return (-1);
 	i = 0;
 	while (i < screen_sectors)
 	{

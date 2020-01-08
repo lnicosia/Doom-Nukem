@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/06 12:18:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:04:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		get_sprite_direction_projectile(t_projectile projectile)
 		return (0);
 }
 
-void		draw_projectiles(t_camera camera, t_env *env)
+int			draw_projectiles(t_camera camera, t_env *env)
 {
 	t_list			*tmp;
 	t_projectile	*projectile;
@@ -72,13 +72,25 @@ void		draw_projectiles(t_camera camera, t_env *env)
 		{
 			if (!env->options.lighting
 					|| (!projectile->brightness && !projectile->intensity))
-				draw_projectile_no_light(camera, projectile, env);
+			{
+				if (draw_projectile_no_light(camera, projectile, env))
+					return (-1);
+			}
 			else if (!projectile->brightness)
-				draw_projectile_color(camera, projectile, env);
+			{
+				if (draw_projectile_color(camera, projectile, env))
+					return (-1);
+			}
 			else if (!projectile->intensity)
-				draw_projectile_brightness(camera, projectile, env);
+			{
+				if (draw_projectile_brightness(camera, projectile, env))
+					return (-1);
+			}
 			else
-				draw_projectile_both(camera, projectile, env);
+			{
+				if (draw_projectile_both(camera, projectile, env))
+					return (-1);
+			}
 		}
 		while (tmp->next)
 		{
@@ -88,14 +100,27 @@ void		draw_projectiles(t_camera camera, t_env *env)
 			{
 				if (!env->options.lighting
 						|| (!projectile->brightness && !projectile->intensity))
-					draw_projectile_no_light(camera, projectile, env);
+				{
+					if (draw_projectile_no_light(camera, projectile, env))
+						return (-1);
+				}
 				else if (!projectile->brightness)
-					draw_projectile_color(camera, projectile, env);
+				{
+					if (draw_projectile_color(camera, projectile, env))
+						return (-1);
+				}
 				else if (!projectile->intensity)
-					draw_projectile_brightness(camera, projectile, env);
+				{
+					if (draw_projectile_brightness(camera, projectile, env))
+						return (-1);
+				}
 				else
-					draw_projectile_both(camera, projectile, env);
+				{
+					if (draw_projectile_both(camera, projectile, env))
+						return (-1);
+				}
 			}
 		}
 	}
+	return (0);
 }

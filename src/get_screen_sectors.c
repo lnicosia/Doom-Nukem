@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:08:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 12:19:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:00:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@ int		get_screen_sectors(t_camera *camera, t_env *env)
 		pt[i].camera = camera;
 		pt[i].start = env->w / (double)THREADS * i;
 		pt[i].end = env->w / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, get_screen_sectors_loop, &pt[i]);
+		if (pthread_create(&threads[i], NULL, get_screen_sectors_loop, &pt[i]))
+			return (-1);
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
 	return (set_screen_sectors(camera, env));
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:49:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 18:08:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		*wall_loop(void *param)
 	return (NULL);
 }
 
-void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
+int		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 		t_render render, t_env *env)
 {
 	t_render_thread	rt[THREADS];
@@ -145,12 +145,14 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 			/ (double)THREADS * i;
 		rt[i].xend = render.xstart + (render.xend - render.xstart)
 			/ (double)THREADS * (i + 1);
-		if (pthread_create(&threads[i], NULL, wall_loop, &rt[i]) != 0)
-			return ;
+		if (pthread_create(&threads[i], NULL, wall_loop, &rt[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 	/*t_render_thread	rt;
 	rt.v1 = v1;
 	rt.sector = sector;
@@ -161,7 +163,7 @@ void		threaded_wall_loop(t_render_vertex v1, t_sector sector,
 	wall_loop(&rt);*/
 }
 
-void		render_sector(t_render render, t_env *env)
+int		render_sector(t_render render, t_env *env)
 {
 	int				i;
 	int				j;
@@ -172,7 +174,7 @@ void		render_sector(t_render render, t_env *env)
 	int				tmp_min[2560];
 
 	if (render.camera->rendered_sectors[render.sector])
-		return ;
+		return (-1);
 	render.camera->rendered_sectors[render.sector]++;
 	sector = env->sectors[render.sector];
 	//ft_printf("rendering sector %d\n", sector.num);
@@ -211,7 +213,8 @@ void		render_sector(t_render render, t_env *env)
 			render.texture_h = env->wall_textures[render.texture].surface->h;
 			render.map_lvl = env->wall_textures[render.texture].nb_maps - 1;
 		}
-		threaded_wall_loop(v1, sector, render, env);
+		if (threaded_wall_loop(v1, sector, render, env))
+			return (-1);
 		if (sector.neighbors[i] != -1)
 		{
 			new = render;
@@ -229,4 +232,5 @@ void		render_sector(t_render render, t_env *env)
 	}
 	//ft_printf("sector %d ok\n", sector.num);
 	render.camera->rendered_sectors[render.sector]--;
+	return (0);
 }

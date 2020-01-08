@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/08 15:12:52 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/08 16:46:29 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
-		   objects_utils.c misc_utils.c \
+		   objects_utils.c misc_utils.c map_parse_events.c \
 		   gravity.c input_box_utils.c \
 		   input_box_mouse.c delete_box_selection.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\

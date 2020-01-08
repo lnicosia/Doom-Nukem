@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 15:14:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:05:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,18 +368,18 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
-void				draw_projectiles(t_camera camera, t_env *env);
-void				draw_projectile_both(t_camera camera, t_projectile *p,
+int					draw_projectiles(t_camera camera, t_env *env);
+int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_no_light(t_camera camera, t_projectile *p,
+int					draw_projectile_no_light(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_brightness(t_camera camera, t_projectile *p,
+int					draw_projectile_brightness(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_color(t_camera camera, t_projectile *p,
+int					draw_projectile_color(t_camera camera, t_projectile *p,
 t_env *env);
 int					get_sprite_direction_projectile(t_projectile projectile);
-void				draw_objects(t_camera camera, t_env *env);
-void				draw_enemies(t_camera camera, t_env *env);
+int					draw_objects(t_camera camera, t_env *env);
+int					draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
@@ -516,7 +516,7 @@ void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
-void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+int		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
 
 /*
 ** objects functions
