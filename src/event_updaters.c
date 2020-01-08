@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 11:22:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:09:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void			update_sector_event(t_event *event, void *penv)
 
 	env = (t_env*)penv;
 	update_sector_slope(env, &env->sectors[event->update_param.num]);
+}
+
+void			update_player_pos_event(t_event *event, void *penv)
+{
+	(void)event;
+	update_player_pos((t_env*)penv);
+}
+
+void			update_player_z_event(t_event *event, void *penv)
+{
+	t_env	*env;
+	(void)event;
+	env = ((t_env*)penv);
+	update_player_pos((t_env*)penv);
+	env->player.pos.z = get_floor_at_pos(env->sectors[env->player.sector],
+	env->player.pos, env);
+	update_player_pos((t_env*)penv);
 }
 
 void			update_player_event(t_event *event, void *penv)
