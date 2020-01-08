@@ -58,7 +58,7 @@ void	gravity(t_env *env)
 		env->gravity.force = -9.81;
 	if ((!env->player.state.fall
 	&& env->player.pos.z > slope + 2)
-	|| (env->player.state.jump && !env->player.state.fall))
+	|| (env->player.state.jump && !env->player.state.fall && !env->player.state.fly))
 	{
 		env->player.state.walk = 0;
 		env->time.last_fall = SDL_GetTicks() / 1000.0;

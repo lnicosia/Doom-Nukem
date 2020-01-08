@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 16:28:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 12:10:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,8 @@ void		free_sector(t_sector *sector)
 	if (sector->wall_bullet_holes)
 	{
 		j = 0;
-		while (j <= sector->nb_vertices)
+		while (j < sector->nb_vertices)
 		{
-			ft_printf("toto %d\n", j);
 		  	while (sector->wall_bullet_holes[j])
 			  ft_lstpopfront(&sector->wall_bullet_holes[j]);
 			j++;

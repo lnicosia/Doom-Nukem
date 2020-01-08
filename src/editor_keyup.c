@@ -134,6 +134,7 @@ int	editor_keyup(t_env *env)
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
+			env->options.mouse = 1;
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);

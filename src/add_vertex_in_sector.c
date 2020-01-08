@@ -208,7 +208,7 @@ int		modify_t_wall_sprites_tab_in_sector(t_env *env, int index, int sector,t_wal
 	(void)index;
 	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
 	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
-		return (ft_perror("Could not realloc short tab"));
+		return (ft_perror("Could not realloc t_wall_sprites tab"));
 	i = 0;
 	i = env->sectors[sector].nb_vertices;
 	ft_memmove(&(*tab)[i + 1], &(*tab)[0], sizeof(t_wall_sprites));
@@ -219,6 +219,26 @@ int		modify_t_wall_sprites_tab_in_sector(t_env *env, int index, int sector,t_wal
 		i--;
 	}
 	ft_bzero(&(*tab)[i], sizeof(t_wall_sprites));
+	return (0);
+}
+
+int		modify_t_list_tab_in_sector(t_env *env, int index, int sector,t_list ***tab)
+{
+	int	i;
+
+	if (!(*tab = (t_list**)ft_realloc(*tab, sizeof(t_list*)
+	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc t_list tab"));
+	i = 0;
+	i = env->sectors[sector].nb_vertices;
+	ft_memmove(&(*tab)[i + 1], &(*tab)[0], sizeof(t_list*));
+	while (i > index + 1)
+	{
+		ft_memmove(&(*tab)[i], &(*tab)[i -1], sizeof(t_list*));
+		//(*tab)[i] = (*tab)[i - 1];
+		i--;
+	}
+	ft_bzero(&(*tab)[i], sizeof(t_list*));
 	return (0);
 }
 
