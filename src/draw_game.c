@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 17:06:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:47:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	draw_game(t_env *env)
 	if (env->player.health > 0)
 	{
 		draw_hud(env);
-		interactions(env);
 		print_ammo(env);
 	}
 	else

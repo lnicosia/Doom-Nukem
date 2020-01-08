@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 13:10:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 14:35:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		editor_3d_keyup(t_env *env)
 {
+	int i;
+
+	i = 0;
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)
@@ -30,7 +33,7 @@ int		editor_3d_keyup(t_env *env)
 		return (0);
 	}
 	if (env->editor.in_game
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT && !env->editor.tab)
 		env->editor.select = 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
@@ -85,5 +88,22 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
+	if (env->editor.tab)
+	{
+		if (env->editor.draw_selection_tab)
+		{
+			while (i < MAX_WALL_TEXTURE)
+			{
+				//ft_printf("%d\n", i);
+				button_keyup(&env->editor.textures[i], env);
+				i++;
+			}
+		}
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
+		&& (env->sdl.my < 414 && env->sdl.my > 350))
+			env->editor.draw_selection_tab = 1;
+		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+			env->editor.draw_selection_tab = 0;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:44:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 13:32:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,25 +138,89 @@ int		init_game(int ac, char **av)
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
-	if (ft_strequ(av[1], "maps/triple_piece.map"))
+	if (ft_strequ(av[1], "maps/test_events.map"))
 	{
-		env.nb_global_events = 2;
+		env.nb_global_events = 5;
 		env.global_events =
 		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
+
 		env.global_events[0] =
-		new_fixed_event(INT, &env.sectors[2].brightness, 0, 0);
-		env.global_events[0].delay = 500;
-		env.global_events[0].launch_func =
-		&launch_prec_event_ended;
-		env.global_events[0].launch_param.target =
-		&env.global_events[1].end_time;
+		new_fixed_event(INT, &env.sectors[2].intensity, 50, 0);
+		env.global_events[0].delay = 1000;
+
 		env.global_events[1] =
-		new_fixed_event(INT, &env.sectors[2].brightness, 100, 0);
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFFFF0000, 0);
 		env.global_events[1].delay = 1000;
 		env.global_events[1].launch_func =
-		&launch_prec_event_ended;
+		&launch_prec_event_ended_starter;
 		env.global_events[1].launch_param.target =
-		&env.global_events[0].end_time;
+		&env.global_events[4];
+
+		env.global_events[2] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFF0000FF, 0);
+		env.global_events[2].delay = 1000;
+		env.global_events[2].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[2].launch_param.target =
+		&env.global_events[1];
+
+		env.global_events[3] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFF00FF00, 0);
+		env.global_events[3].delay = 1000;
+		env.global_events[3].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[3].launch_param.target =
+		&env.global_events[2];
+
+		env.global_events[4] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFFFFFF00, 0);
+		env.global_events[4].delay = 1000;
+		env.global_events[4].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[4].launch_param.target =
+		&env.global_events[3];
+
+		env.sectors[1].nb_walk_events = 2;
+		env.sectors[1].walk_on_me_event =
+		(t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+
+		env.sectors[1].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 10, 500);
+		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[0].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[0].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[0].launch_param.equ_value = 0;
+		env.sectors[1].walk_on_me_event[0].launch_param.target = &env.sectors[1].floor;
+
+		env.sectors[1].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 0, 500);
+		env.sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[1].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[1].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[1].launch_param.equ_value = 10;
+		env.sectors[1].walk_on_me_event[1].launch_param.target = &env.sectors[1].floor;
+
+		env.sectors[2].nb_walk_events = 1;
+		env.sectors[2].walk_on_me_event =
+		(t_event*)malloc(sizeof(t_event) * env.sectors[2].nb_walk_events);
+
+		env.sectors[2].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[3].floor, 13, 1500);
+		env.sectors[2].walk_on_me_event[0].max_uses = 1;
+		env.sectors[2].walk_on_me_event[0].update_func =
+		&update_sector_event;
+		env.sectors[2].walk_on_me_event[0].update_param.num = 3;
+
+		env.sectors[6].nb_walk_events = 2;
+		env.sectors[6].walk_on_me_event =
+		(t_event*)malloc(sizeof(t_event) * env.sectors[6].nb_walk_events);
+
+		env.sectors[6].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.player.pos.x, 6, 0);
+		env.sectors[6].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.player.pos.y, 1, 0);
+		env.sectors[6].walk_on_me_event[1].update_func = 
+		&update_player_z_event;
 	}
 	t_wall_sprite_modifier	*p2;
 	t_wall_sprite_modifier	*p;

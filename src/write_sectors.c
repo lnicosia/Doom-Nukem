@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:39:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-static void	write_interactions_related_data(int fd, t_sector sector)
+/*static void	write_interactions_related_data(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
 			(int)(sector.status),
@@ -147,7 +147,8 @@ static void	write_interactions_related_data(int fd, t_sector sector)
 			sector.enemy_flag,
 			sector.activated,
 			sector.start_floor);
-}
+}*/
+
 static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
@@ -166,9 +167,9 @@ static void	write_sector(int fd, t_sector sector)
 	write_sector_wall_sprites(fd, sector);
 	/*ft_dprintf(fd, "[%d %x %d] ", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity);*/
-	ft_dprintf(fd, "[%d 0 0] ", (int)(sector.brightness),
+	ft_dprintf(fd, "[%d 0 0]\n", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity);
-	write_interactions_related_data(fd, sector);
+	//write_interactions_related_data(fd, sector);
 }
 
 void		write_sectors(int fd, t_env *env)

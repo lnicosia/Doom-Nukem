@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 12:10:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 14:19:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->ceiling_scale);
 	if (sector->selected)
 		ft_memdel((void**)&sector->selected);
-	if (sector->levels)
-		ft_memdel((void**)&sector->levels);
 	if (sector->walls_map_lvl)
 	{
 		j = 0;
@@ -133,6 +131,8 @@ void		free_sector(t_sector *sector)
 			j++;
 		}
 	}
+	free_events(sector->stand_on_me_event,
+			sector->nb_stand_events);
 	free_events(sector->walk_on_me_event,
 			sector->nb_walk_events);
 }

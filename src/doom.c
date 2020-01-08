@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:35:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 10:06:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 int		launch_global_events(t_env *env)
 {
 	if (env->player.sector != -1
-		&& env->sectors[env->player.sector].walk_on_me_event
-		&& env->sectors[env->player.sector].nb_walk_events)
+		&& env->sectors[env->player.sector].stand_on_me_event
+		&& env->sectors[env->player.sector].nb_stand_events)
 	{
-		if (start_event(&env->sectors[env->player.sector].walk_on_me_event,
-				&env->sectors[env->player.sector].nb_walk_events, env))
+		if (start_event(&env->sectors[env->player.sector].stand_on_me_event,
+				&env->sectors[env->player.sector].nb_stand_events, env))
 			return (-1);
 	}
 	if (env->global_events && env->nb_global_events && env->global_events)

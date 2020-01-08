@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 16:31:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 14:19:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef enum		e_input_box_type
 {
 	INT,
 	DOUBLE,
-	STRING
+	STRING,
+	UINT32
 }			t_input_box_type;
 
 typedef enum		e_button_action_type
@@ -290,6 +291,7 @@ typedef struct		s_event
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				happened;
 	int				(*launch_func)(struct s_event *, void *);
 	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
@@ -367,18 +369,13 @@ typedef struct		s_sector
 	short			num;
 	short			nb_vertices;
 	int				skybox;
-	t_v3			tp;
-	int				status;
-	int				*levels;
-	double			start_floor;
-	int				enemy_flag;
-	int				activated;
-	int				hidden;
 	short			*selected;
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
+	size_t			nb_stand_events;
 	size_t			nb_walk_events;
+	t_event			*stand_on_me_event;
 	t_event			*walk_on_me_event;
 }					t_sector;
 

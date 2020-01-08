@@ -158,11 +158,14 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
-	while (i < MAX_WALL_TEXTURE)
+	if (env->editor.draw_selection_tab)
 	{
-		//ft_printf("%d\n", i);
-		button_keyup(&env->editor.textures[i], env);
-		i++;
+		while (i < MAX_WALL_TEXTURE)
+		{
+			//ft_printf("%d\n", i);
+			button_keyup(&env->editor.textures[i], env);
+			i++;
+		}
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 	&& (env->sdl.my < 414 && env->sdl.my > 350))
