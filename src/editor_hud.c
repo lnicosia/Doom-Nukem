@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 18:09:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:48:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	print_sector_informations(t_env *env)
 	print_text(new_point(720, 80), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(720, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(760, 80), new_printable_text("status: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(760, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].status), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	if (env->editor.tab)
 		select_informations(env);
 }

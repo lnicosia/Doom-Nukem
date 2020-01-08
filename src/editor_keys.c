@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 17:59:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:49:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			editor_keys(t_env *env)
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
 		time = SDL_GetTicks();
-		if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 5
+		/*if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 5
 		&& time - env->time.tick4 > 300)
 		{
 			env->sectors[env->editor.selected_sector].status++;
@@ -114,9 +114,9 @@ int			editor_keys(t_env *env)
 			env->hidden_sect.sector = env->editor.selected_sector;
 			env->hidden_sect.create = 1;
 			env->teleport.create = 0;
-		}
+		}*/
 	}
-	if (env->inputs.left_click && env->teleport.create)
+	/*if (env->inputs.left_click && env->teleport.create)
 	{
 		env->teleport.tmp_pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 		env->teleport.tmp_pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
@@ -128,6 +128,6 @@ int			editor_keys(t_env *env)
 			create_hidden_sector(env);
 		else
 			ft_printf("please select an enemy to complete the creation\n");
-	}
+	}*/
 	return (0);
 }

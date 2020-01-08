@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 11:22:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:36:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		init_game(int ac, char **av)
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
 	if (ft_strequ(av[1], "maps/triple_piece.map"))
 	{
-		env.nb_global_events = 4;
+		env.nb_global_events = 5;
 		env.global_events =
 		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
 
@@ -154,7 +154,7 @@ int		init_game(int ac, char **av)
 		env.global_events[1].launch_func =
 		&launch_prec_event_ended_starter;
 		env.global_events[1].launch_param.target =
-		&env.global_events[3];
+		&env.global_events[4];
 
 		env.global_events[2] =
 		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFF0000FF, 0);
@@ -171,6 +171,14 @@ int		init_game(int ac, char **av)
 		&launch_prec_event_ended;
 		env.global_events[3].launch_param.target =
 		&env.global_events[2];
+
+		env.global_events[4] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFFFFFF00, 0);
+		env.global_events[4].delay = 1000;
+		env.global_events[4].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[4].launch_param.target =
+		&env.global_events[3];
 
 		env.sectors[1].nb_walk_events = 2;
 		env.sectors[1].walk_on_me_event =

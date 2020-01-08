@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 11:20:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:43:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,13 +369,6 @@ typedef struct		s_sector
 	short			num;
 	short			nb_vertices;
 	int				skybox;
-	t_v3			tp;
-	int				status;
-	int				*levels;
-	double			start_floor;
-	int				enemy_flag;
-	int				activated;
-	int				hidden;
 	short			*selected;
 	Uint32			light_color;
 	int				brightness;

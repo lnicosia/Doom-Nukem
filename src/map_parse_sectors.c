@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:53:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -792,12 +792,14 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 	if (**line != ']')
 		return (invalid_char("after sector light color intensity", "']'", **line, parser));
 	(*line)++;
-	if (!**line)
+	if (**line != '\0')
+		return (extra_data(*line, parser));
+	/*if (!**line)
 		return (missing_data("sector status", parser));
 	if (**line != ' ')
 		return (invalid_char("after light data", "space(s)",
 					**line, parser));
-	*line = skip_spaces(*line);
+	*line = skip_spaces(*line);*/
 	return (0);
 }
 
@@ -821,7 +823,7 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 	return (0);
 }*/
 
-int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
+/*int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
 		return (invalid_char("before sector status", "'['", **line, parser));
@@ -839,17 +841,6 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("after sector status", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
-/*	if (valid_number(*line, parser))
-		return (invalid_char("before first coordinate", "a digit", **line, parser));
-	env->sectors[parser->sectors_count].tp.x = ft_atoi(*line);
-	*line = skip_number(*line);
-	*line = skip_spaces(*line);
-	if (!**line)
-		return (missing_data("coordinates missing after sector status", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before second coordinate", "a digit", **line, parser));
-	env->sectors[parser->sectors_count].tp.y = ft_atoi(*line);
-	*line = skip_number(*line);*/
 	if (!**line)
 		return (missing_data("coordinates missing after sector status", parser));
 	if (**line != '(')
@@ -912,7 +903,7 @@ int			parse_sector_status(t_env *env, char **line, t_map_parser *parser)
 	if (**line != '\0')
 		return (extra_data(*line, parser));
 	return (0);
-}
+}*/
 
 static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 {
@@ -955,8 +946,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	if (parse_sector_light(env, &line, parser))
 		return (-1);
 		//return (custom_error("Error while parsing sector light"));
-	if (parse_sector_status(env, &line, parser))
-		return (-1);
+	/*if (parse_sector_status(env, &line, parser))
+		return (-1);*/
 	return (0);
 }
 

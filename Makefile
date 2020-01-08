@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/07 14:19:27 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/08 11:46:10 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,9 +81,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
-		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
-		   elevator.c gravity.c teleporter.c input_box_utils.c \
-		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
+		   objects_utils.c misc_utils.c \
+		   gravity.c input_box_utils.c \
+		   input_box_mouse.c delete_box_selection.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \

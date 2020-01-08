@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/06 17:56:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:47:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,6 @@ t_sector	new_default_sector(t_env *env)
 	sector.num = env->nb_sectors;
 	sector.x_max = -2147483648;
 	sector.nb_vertices = get_new_sector_len(env);
-	sector.status = 0;
-	sector.enemy_flag = -1;
-	sector.activated = 0;
-	sector.start_floor = sector.floor;
 	return (sector);
 }
 

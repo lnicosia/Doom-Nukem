@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 17:29:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:46:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->ceiling_scale);
 	if (sector->selected)
 		ft_memdel((void**)&sector->selected);
-	if (sector->levels)
-		ft_memdel((void**)&sector->levels);
 	if (sector->walls_map_lvl)
 	{
 		j = 0;

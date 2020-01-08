@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 17:29:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:43:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ void	update_player_pos(t_env *env)
 			&& get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) - env->player.pos.z <= 2
 			&& env->player.highest_sect != new_sector)
 			|| (env->player.state.climb))
-			&& !env->player.state.drop && !env->player.state.jump && !env->player.state.fly
-			&& env->sectors[env->player.sector].status != -1)
+			&& !env->player.state.drop && !env->player.state.jump && !env->player.state.fly)
 				climb(env);
 		else if ((((get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) < env->player.pos.z
 		&& env->player.pos.z - get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) <= 2)
