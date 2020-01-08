@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 18:05:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:25:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ t_printable_text	new_printable_text(
 						TTF_Font *font,
 								unsigned int color,
 										int size);
-void				print_text(t_point pos,
+int					print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
