@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 12:03:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:43:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void    weapon_animation(t_env *env, int nb)
 			shot(env);
 			env->weapons[nb].no_ammo = 0;
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
-			env->weapons[nb].ammo--;
+			//env->weapons[nb].ammo--;
 		}
 	}
 	if (!env->weapons[nb].no_ammo)
@@ -191,7 +191,7 @@ void    weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 10)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;

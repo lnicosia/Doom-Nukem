@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:48:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:23:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		draw_button_text(t_button b, t_env *env)
 	print_text(pos, text, env);
 }
 
-t_button	init_button(int type, void (*action)(void *), void *target,
+t_button	init_button(int type, void (*action)(void *), void *param,
 t_env *env)
 {
 	t_button	new;
@@ -65,7 +65,7 @@ t_env *env)
 	if (!env->sdl.fonts.lato20)
 		ft_dprintf(STDERR_FILENO, "Button font has not been init yet!\n");
 	new.font = env->sdl.fonts.lato20;
-	new.target = target;
+	new.param = param;
 	new.draw = 1;
 	new.state = UP;
 	new.anim_state = REST;
@@ -76,11 +76,11 @@ t_env *env)
 	return (new);
 }
 
-t_button	new_rectangle_button(int type, void (*action)(void *), void *target, t_env *env)
+t_button	new_rectangle_button(int type, void (*action)(void *), void *param, t_env *env)
 {
 	t_button	new;
 
-	new = init_button(type, action, target, env);
+	new = init_button(type, action, param, env);
 	new.up = new_rectangle(0xFFAAAAAA, 0xFF666666, 1, 2);
 	new.down = new_rectangle(0xFF888888, 0xFF444444, 1, 2);
 	new.pressed = new_rectangle(0xFF888888, 0xFF444444, 1, 2);
@@ -92,26 +92,45 @@ t_button	new_rectangle_button(int type, void (*action)(void *), void *target, t_
 	return (new);
 }
 
-t_button	new_image_button(int type, void (*action)(void *), void *target, t_env *env)
+t_button	new_miniature_button(int type, void (*action)(void *), void *param, t_env *env)
 {
 	t_button	new;
 
-	new = init_button(type, action, target, env);
-	if (!env->sprite_textures[28].surface || !env->sprite_textures[29].surface
-		|| !env->sprite_textures[30].surface)
-		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = &env->sprite_textures[28];
-	new.img_pressed = &env->sprite_textures[29];
-	new.img_down = &env->sprite_textures[29];
-	new.img_hover = &env->sprite_textures[30];
-	new.size_up = new_point(new.img_up->surface->w,
-	new.img_up->surface->h);
-	new.size_down = new_point(new.img_down->surface->w,
-	new.img_down->surface->h);
-	new.size_hover = new_point(new.img_hover->surface->w,
-	new.img_hover->surface->h);
-	new.size_pressed = new_point(new.img_pressed->surface->w,
-	new.img_pressed->surface->h);
+	new = init_button(type, action, param, env);
+/*	if (!env->sprite_textures[28].| !env->sprite_textures[29].	|| !env->sprite_textures[30].		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
+	new.img_up = env->editor.miniature.surface;
+	new.img_pressed = env->editor.miniature.surface;
+	new.img_down = env->editor.miniature.surface;
+	new.img_hover = env->editor.miniature.surface;
+	new.size_up = new_point(new.img_up->w,
+	new.img_up->h);
+	new.size_down = new_point(new.img_down->w,
+	new.img_down->h);
+	new.size_hover = new_point(new.img_hover->w,
+	new.img_hover->h);
+	new.size_pressed = new_point(new.img_pressed->w,
+	new.img_pressed->h);
+	return (new);
+}
+
+t_button	new_image_button(int type, void (*action)(void *), void *param, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+/*	if (!env->sprite_textures[28].| !env->sprite_textures[29].	|| !env->sprite_textures[30].		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
+	new.img_up = env->wall_textures[0].surface;
+	new.img_pressed = env->wall_textures[0].surface;
+	new.img_down = env->wall_textures[0].surface;
+	new.img_hover = env->wall_textures[0].surface;
+	new.size_up = new_point(new.img_up->w,
+	new.img_up->h);
+	new.size_down = new_point(new.img_down->w,
+	new.img_down->h);
+	new.size_hover = new_point(new.img_hover->w,
+	new.img_hover->h);
+	new.size_pressed = new_point(new.img_pressed->w,
+	new.img_pressed->h);
 	return (new);
 }
 
@@ -134,13 +153,13 @@ void	draw_button(t_env *env, t_button b)
 	else
 	{
 		if (b.anim_state == HOVER)
-			apply_surface(b.img_hover->surface, pos, b.size_up, env);
+			apply_surface(b.img_hover, pos, b.size_up, env);
 		else if (b.anim_state == PRESSED)
-			apply_surface(b.img_pressed->surface, pos, b.size_pressed, env);
+			apply_surface(b.img_pressed, pos, b.size_pressed, env);
 		else if (b.state == UP)
-			apply_surface(b.img_up->surface, pos, b.size_up, env);
+			apply_surface(b.img_up, pos, b.size_up, env);
 		else if (b.state == DOWN)
-			apply_surface(b.img_down->surface, pos, b.size_down, env);
+			apply_surface(b.img_down, pos, b.size_down, env);
 	}
 	draw_button_text(b, env);
 }

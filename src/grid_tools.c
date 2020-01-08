@@ -16,7 +16,7 @@ void	hline(t_env *env, int y)
 {
 	int x;
 
-	x = 200;
+	x = 400;
 	while (x < env->w)
 	{
 		env->sdl.texture_pixels[x + y * env->w] = 0xFF888888;
@@ -63,7 +63,7 @@ void	draw_vgrid(t_env *env)
 	double	i;
 
 	i = env->editor.center.x;
-	while (i < 200)
+	while (i < 400)
 		i += env->editor.scale;
 	while (i < env->w)
 	{
@@ -73,7 +73,7 @@ void	draw_vgrid(t_env *env)
 	i = env->editor.center.x - env->editor.scale;
 	while (i >= env->w)
 		i -= env->editor.scale;
-	while (i >= 200)
+	while (i >= 400)
 	{
 		vline(env, i);
 		i -= env->editor.scale;

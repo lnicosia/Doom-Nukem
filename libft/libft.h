@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/13 15:44:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:09:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef	struct		s_segment
 	t_v2			p1;
 	t_v2			p2;
 }					t_segment;
+
+typedef	struct		s_plane
+{
+	t_v3			norm;
+	double			d;
+}					t_plane;
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -147,5 +153,8 @@ int				segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				check_line_intersection(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int				custom_error(const char *message);
 t_list			*ft_lstdelnode(t_list **list, t_list *node);
+t_plane			new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
+t_v3			get_intersection_line_plane(t_v3 p1, t_v3 p2, t_plane plane,
+t_v3 p3);
 
 #endif

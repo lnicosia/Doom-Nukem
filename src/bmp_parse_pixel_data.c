@@ -46,7 +46,7 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser, int index, t_env *env)
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
 	//ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
-	if (!(str = (unsigned char*)malloc(sizeof(unsigned char) * size)))
+	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((ret = read(fd, str, size)) > 0)
 	{
@@ -89,7 +89,7 @@ int					parse_pixel_data_wall(int fd, t_bmp_parser *parser, int index, t_env *en
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
 	//ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
-	if (!(str = (unsigned char*)malloc(sizeof(unsigned char) * size)))
+	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((ret = read(fd, str, size)) > 0)
 	{
@@ -132,7 +132,7 @@ int					parse_pixel_data_skybox(int fd, t_bmp_parser *parser, int num_sky, int i
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
 	//ft_printf("size = %d\n", ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h);
-	if (!(str = (unsigned char*)malloc(sizeof(unsigned char) * size)))
+	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((ret = read(fd, str, size)) > 0)
 	{

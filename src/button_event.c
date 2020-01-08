@@ -52,7 +52,7 @@ void	button_keyup(t_button *b, t_env *env)
 	if (b->state == DOWN)
 	{
 		if (b->down_action)
-			b->down_action(b->target);
+			b->down_action(b->param);
 	}
 }
 
@@ -68,7 +68,7 @@ void	button_keys(t_button *b, t_env *env)
 	{
 		b->anim_state = PRESSED;
 		if (b->press_action)
-			b->press_action(b->target);
+			b->press_action(b->param);
 	}
 	else if (b->state == UP)
 		b->anim_state = HOVER;

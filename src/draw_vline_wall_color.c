@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:44:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 17:46:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:05:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,24 @@ void	draw_vline_wall_color(t_sector sector, t_vline vline, t_render render, t_en
 			i++;
 			continue;
 		}
-		if (env->editor.select && vline.x == env->h_w && i == env->h_h)
+		if (vline.x == env->h_w && i == env->h_h)
 		{
-			reset_selection(env);
-			env->editor.selected_sector = sector.num;
-			env->editor.selected_wall = render.i;
-			env->selected_wall1 = env->sectors[render.sector].vertices[render.i];
-			env->selected_wall2 = env->sectors[render.sector].vertices[render.i + 1];
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				env->editor.selected_sector = sector.num;
+				env->editor.selected_wall = render.i;
+				env->selected_wall1
+				= env->sectors[render.sector].vertices[render.i];
+				env->selected_wall2
+				= env->sectors[render.sector].vertices[render.i + 1];
+			}
+			if (env->playing)
+			{
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
+			}
 		}
 		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		/*x = yalpha * render.camera->v[render.sector][render.i].texture_scale.y

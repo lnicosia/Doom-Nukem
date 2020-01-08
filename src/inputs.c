@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 11:58:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:47:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.equals = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.p)
 		env->inputs.p = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.e)
+		env->inputs.e = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.home)
 		env->inputs.home = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.end)

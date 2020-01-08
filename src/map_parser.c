@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/27 16:38:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 							*line, parser));
 			if (env->nb_vertices < 3)
 				return (custom_error("You can not declare less than 3 walls."));
-			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
+			if (!(env->vertices = (t_vertex *)ft_memalloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
 				return (ft_perror("Could not malloc vertices:"));
 			ft_strdel(&tmp);
@@ -100,7 +100,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 							"a digit", *line, parser));
 			if (env->nb_sectors < 1)
 				return (custom_error("You need at least one sector"));
-			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector)
+			if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 							* env->nb_sectors)))
 				return (custom_error("Could not malloc sectors!"));
 			i = 0;

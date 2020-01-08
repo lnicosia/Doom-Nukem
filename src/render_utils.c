@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:02:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,6 @@ short	get_vertex_nb_in_sector(short vertex, t_sector sector)
 	return (res);
 }
 
-void		reset_x_restrictions(t_sector *sector, t_env *env)
-{
-	int	i;
-
-	i = -1;
-	while (++i < env->h)
-	{
-		sector->xmin[i] = 0;
-		sector->xmax[i] = env->w - 1;
-	}
-}
-
 void		reset_render_utils(t_camera *camera, t_env *env)
 {
 	int	i;
@@ -81,7 +69,7 @@ void		reset_render_utils(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < max)
 	{
-		camera->xmin[i] = -1;
+		//camera->xmin[i] = -1;
 		camera->xmax[i] = -1;
 		camera->screen_sectors[i] = -1;
 		camera->rendered_sectors[i] = 0;
@@ -100,16 +88,4 @@ void		reset_render_utils(t_camera *camera, t_env *env)
 		env->ymax[i] = ymax;
 		i++;
 	}
-	i = 0;
-	while (i < env->h)
-	{
-		env->xmin[i] = 0;
-		env->xmax[i] = env->w - 1;
-		i++;
-	}
-	if (env->options.p)
-		return ;
-	i = -1;
-	while (++i < env->nb_sectors)
-		reset_x_restrictions(&env->sectors[i], env);
 }

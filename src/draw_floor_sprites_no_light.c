@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:49:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/12/04 11:03:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ void	draw_floor_sprites_no_light(t_sector sector, t_render render, t_env *env)
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
 			* divider;
 		j = 0;
-		while (j < sector.nb_floor_sprites)
+		while (j < sector.floor_sprites.nb_sprites)
 		{
 			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
-			sprite_x = (x - sector.floor_sprites.pos[j].x)
+			/*sprite_x = (x - sector.floor_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;
 			sprite_y = (y - sector.floor_sprites.pos[j].y)
-				* (sprite.size[0].y) / sector.floor_sprites.scale[j].y;
+				* (sprite.size[0].y) / sector.floor_sprites.scale[j].y;*/
+			sprite_x = (x - sector.floor_sprites.pos[j].x)
+				* sector.floor_sprites_scale[j].x;
+			sprite_y = (y - sector.floor_sprites.pos[j].y)
+				* sector.floor_sprites_scale[j].y;
 			if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
 					&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
 					&& sprite_pixels[(int)sprite_x

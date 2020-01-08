@@ -21,7 +21,7 @@ int		set_sector_wall_map_array(t_sector *sector, t_texture texture, int i,
 
 	if (sector->walls_map_lvl[i])
 		free(sector->walls_map_lvl[i]);
-	if (!(sector->walls_map_lvl[i] = (double*)malloc(sizeof(double)
+	if (!(sector->walls_map_lvl[i] = (double*)ft_memalloc(sizeof(double)
 	* texture.nb_maps)))
 		return (custom_error("Could not malloc a sector map_lvl array"));
 	if (sector->scale[i].x * env->w >

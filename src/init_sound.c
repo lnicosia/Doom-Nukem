@@ -39,5 +39,6 @@ int     init_sound(t_env *env)
 	Mix_VolumeChunk(env->sound.footstep, MIX_MAX_VOLUME / env->sound.b_footstep);
 	Mix_VolumeChunk(env->weapons[0].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
 	Mix_VolumeChunk(env->weapons[1].sound, MIX_MAX_VOLUME / env->sound.b_weapon);
+	(void)env;
     return (0);
 }

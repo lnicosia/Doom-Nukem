@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 18:20:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:36:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	{
 		ft_dprintf(fd, "{");
 		j = 0;
-		while (j < sector.nb_sprites[i])
+		while (j < sector.wall_sprites[i].nb_sprites)
 		{
 			ft_dprintf(fd, "[%d %f %f %f %f]",
-					sector.sprites[i].sprite[j],
-					sector.sprites[i].pos[j].x,
-					sector.sprites[i].pos[j].y,
-					sector.sprites[i].scale[j].x,
-					sector.sprites[i].scale[j].y);
+					sector.wall_sprites[i].sprite[j],
+					sector.wall_sprites[i].pos[j].x,
+					sector.wall_sprites[i].pos[j].y,
+					sector.wall_sprites[i].scale[j].x,
+					sector.wall_sprites[i].scale[j].y);
 			j++;
 		}
 		ft_dprintf(fd, "}");
@@ -122,7 +122,7 @@ static void	write_sector_floor_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_floor_sprites)
+	while (i < sector.floor_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.floor_sprites.sprite[i],
@@ -141,7 +141,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 
 	ft_dprintf(fd, "(");
 	i = 0;
-	while (i < sector.nb_ceiling_sprites)
+	while (i < sector.ceiling_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
 				sector.ceiling_sprites.sprite[i],
@@ -154,7 +154,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-static void	write_interactions_related_data(int fd, t_sector sector)
+/*static void	write_interactions_related_data(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
 			(int)(sector.status),
@@ -163,7 +163,8 @@ static void	write_interactions_related_data(int fd, t_sector sector)
 			sector.enemy_flag,
 			sector.activated,
 			sector.start_floor);
-}
+}*/
+
 static void	write_sector(int fd, t_sector sector)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
@@ -183,9 +184,9 @@ static void	write_sector(int fd, t_sector sector)
 	write_sector_wall_sprites(fd, sector);
 	/*ft_dprintf(fd, "[%d %x %d] ", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity);*/
-	ft_dprintf(fd, "[%d 0 0] ", (int)(sector.brightness),
+	ft_dprintf(fd, "[%d 0 0]\n", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity);
-	write_interactions_related_data(fd, sector);
+	//write_interactions_related_data(fd, sector);
 }
 
 void		write_sectors(int fd, t_env *env)

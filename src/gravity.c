@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 15:47:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:46:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	gravity(t_env *env)
 	pos.y = env->player.pos.y;
 	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
-	if (env->sectors[env->player.sector].status == 4)
+	/*if (env->sectors[env->player.sector].status == 4)
 		env->gravity.force = -1.06;
-	else
+	else*/
 		env->gravity.force = -9.81;
 	if ((!env->player.state.fall
 	&& env->player.pos.z > slope + 2)
-	|| (env->player.state.jump && !env->player.state.fall))
+	|| (env->player.state.jump && !env->player.state.fall && !env->player.state.fly))
 	{
 		env->player.state.walk = 0;
 		env->time.last_fall = SDL_GetTicks() / 1000.0;

@@ -15,7 +15,9 @@
 int	editor_keyup(t_env *env)
 {
 	int	clicked_vertex;
+	int	i;
 
+	i = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
@@ -127,11 +129,12 @@ int	editor_keyup(t_env *env)
 				return (ft_printf("Could not init camera arrays\n"));
 			if (env->sector_list)
 				ft_memdel((void**)&env->sector_list);
-			if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))
+			if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 				return (ft_printf("Could not allocate sector list\n", env));
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
+			env->options.mouse = 1;
 			SDL_SetRelativeMouseMode(1);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
@@ -140,5 +143,34 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
+	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	/*&& env->editor.selected_vertex != -1*/)
+	{
+		/*if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
+			env->editor.select_vertex_on_going = 1;*/
+		if ((is_mouse_on_a_wall(env)))
+		{
+			if (add_vertex_in_sector(env))
+			{
+				env->editor.add.v1 = -1;
+				env->editor.add.v2 = -1;
+				return (0);
+			}
+		}
+	}
+	if (env->editor.draw_selection_tab)
+	{
+		while (i < MAX_WALL_TEXTURE)
+		{
+			//ft_printf("%d\n", i);
+			button_keyup(&env->editor.textures[i], env);
+			i++;
+		}
+	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
+	&& (env->sdl.my < 414 && env->sdl.my > 350))
+		env->editor.draw_selection_tab = 1;
+	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_selection_tab = 0;
 	return (0);
 }

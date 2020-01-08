@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_objects.c									 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/06/20 15:04:12 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/28 18:32:35 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_objects.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
+/*   Updated: 2020/01/08 15:02:51 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -141,7 +141,7 @@ static void		*object_loop(void *param)
 					texture_pixels[textx + texty * texture.surface->w],
 					orender.light_color, orender.intensity, orender.brightness);
 				if (!env->editor.select && env->selected_object == object.num)
-					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0x1abc9c, 128);
 				zbuffer[x + y * env->w] = object.rotated_pos.z;
 			}
 			x++;
@@ -175,6 +175,8 @@ void		draw_object(t_camera camera, t_object *object, t_env *env, int death_sprit
 {
 	t_render_object	orender;
 	t_sprite		sprite;
+	t_v2			size;
+	double			sprite_ratio;
 
 	if (death_sprite >= 0)
 		object->sprite = env->object_sprites[object->sprite].death_counterpart;
@@ -187,9 +189,13 @@ void		draw_object(t_camera camera, t_object *object, t_env *env, int death_sprit
 		orender.index = death_sprite;
 	else
 		orender.index = 0;
-	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
-	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (object->rotated_pos.z / object->scale);
-	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (object->rotated_pos.z / object->scale);
+	size.x = env->w * object->scale / object->rotated_pos.z;
+	sprite_ratio = sprite.size[orender.index].x
+	/ (double)sprite.size[orender.index].y;
+	size.y = size.x * sprite_ratio;
+	orender.x1 = orender.screen_pos.x - size.y / 4;
+	orender.x2 = orender.screen_pos.x + size.y / 4;
+	orender.y1 = orender.screen_pos.y - size.x / 2;
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = object->light_color;
 	orender.brightness = object->brightness;

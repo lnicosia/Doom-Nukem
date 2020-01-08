@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/08 13:31:27 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/08 15:12:52 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c draw_projectiles.c \
 				keys.c init_weapons.c weapons.c draw_hud.c death.c \
-				projectiles_collisions.c projectiles_utils.c explosion.c
+				projectiles_collisions.c projectiles_utils.c \
+		   		draw_projectile_no_light.c draw_projectile_color.c \
+		   		draw_projectile_both.c draw_projectile_brightness.c \
+				explosion.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -48,7 +51,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
-		 editor_3d_keyup.c
+		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
+		 split_sector_utils.c selection_tab.c init_hud.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -75,13 +79,12 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c \
-		   restrict_portals.c select_line.c \
-		   benchmark.c draw_wall_sprites.c input_box.c \
+		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
-		   objects_utils.c misc_utils.c interactions_utils.c interaction.c \
-		   elevator.c gravity.c teleporter.c input_box_utils.c \
-		   input_box_mouse.c delete_box_selection.c hidden_sectors.c \
+		   objects_utils.c misc_utils.c \
+		   gravity.c input_box_utils.c \
+		   input_box_mouse.c delete_box_selection.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
@@ -99,10 +102,14 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   intersect_maths.c
+		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
+		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
+		   print_press_text.c modify_wall_sprite.c \
+		   draw_wall_bullet_holes.c intersect_maths.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h create_portals.h input_box_utils.h
+		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
+		  wall_sprite_remover.h wall_sprite_modifier.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -117,7 +124,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -flto -Ofast\
+		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \

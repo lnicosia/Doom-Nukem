@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 17:57:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	revert_sector(t_sector *sector, t_env *env)
 
 	i = 1;
 	j = 1;
-	if (!(tmp = (short *)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(tmp = (short *)ft_memalloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return ;
 	tmp[0] = sector->vertices[0];
 	while (i < sector->nb_vertices)
@@ -62,40 +62,54 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
-		ft_printf("sdsds\n");
 		sector->portals[index] = 1;
 		sector->textures[index] = 4;
-		sector->nb_sprites[index] = 0;
+		sector->wall_sprites[index].nb_sprites = 0;
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(10, 10);
-		ft_bzero(&sector->sprites[index], sizeof(t_wall_sprites));
-		if (!(sector->walls_map_lvl[index] = (double*)malloc(sizeof(double) * env->wall_textures[sector->textures[index]].nb_maps)))
+		ft_bzero(&sector->wall_sprites[index], sizeof(t_wall_sprites));
+		if (!(sector->walls_map_lvl[index] = (double*)ft_memalloc(sizeof(double)
+			* env->wall_textures[sector->textures[index]].nb_maps)))
 			return (ft_perror("Could not malloc sector walls map lvl"));
-		set_sector_wall_map_array(sector, env->wall_textures[sector->textures[index]], index, env);
+		set_sector_wall_map_array(sector,
+		env->wall_textures[sector->textures[index]], index, env);
 		tmp = tmp->next;
 		i++;
 	}
 	if (!env->editor.reverted)
     {
+		sector->portals[sector->nb_vertices] = 1;
         sector->vertices[sector->nb_vertices] = sector->vertices[0];
         sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
         sector->textures[sector->nb_vertices] = sector->textures[0];
-        sector->sprites[sector->nb_vertices] = sector->sprites[0];
+        sector->wall_sprites[sector->nb_vertices] = sector->wall_sprites[0];
         sector->align[sector->nb_vertices] = sector->align[0];
         sector->scale[sector->nb_vertices] = sector->scale[0];
-        sector->nb_sprites[sector->nb_vertices] = 0;
-		sector->walls_map_lvl[sector->nb_vertices] = sector->walls_map_lvl[0];
+        sector->wall_sprites[sector->nb_vertices].nb_sprites = 0;
+		if (!(sector->walls_map_lvl[sector->nb_vertices]
+			= (double*)ft_memalloc(sizeof(double)
+			* env->wall_textures[sector->textures[sector->nb_vertices]].nb_maps)))
+			return (ft_perror("Could not malloc sector walls map lvl"));
+		set_sector_wall_map_array(sector,
+		env->wall_textures[sector->textures[sector->nb_vertices]],
+		sector->nb_vertices, env);
     }
     else
     {
+		sector->portals[0] = 1;
         sector->vertices[0] = sector->vertices[sector->nb_vertices];
         sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
         sector->textures[0] = sector->textures[sector->nb_vertices];
-        sector->sprites[0] = sector->sprites[sector->nb_vertices];
+        sector->wall_sprites[0] = sector->wall_sprites[sector->nb_vertices];
         sector->align[0] = sector->align[sector->nb_vertices];
         sector->scale[0] = sector->scale[sector->nb_vertices];
-        sector->nb_sprites[0] = 0;
-		sector->walls_map_lvl[0] = sector->walls_map_lvl[sector->nb_vertices];
+        sector->wall_sprites[0].nb_sprites = 0;
+		if (!(sector->walls_map_lvl[0] = (double*)ft_memalloc(sizeof(double)
+			* env->wall_textures[sector->textures[0]].nb_maps)))
+			return (ft_perror("Could not malloc sector walls map lvl"));
+		set_sector_wall_map_array(sector,
+		env->wall_textures[sector->textures[0]],
+		0, env);
     }
 	j = 0;
 	while (j < env->wall_textures[sector->ceiling_texture].nb_maps)

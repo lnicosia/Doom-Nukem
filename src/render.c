@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 16:21:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:30:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,13 @@ void		compute_wall(int i, t_camera *camera, t_sector *sector, t_env *env)
 void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
-	int	j;
-	size_t	k;
+	int				j;
+	size_t			k;
+	t_list			*wall_bullet_holes;
+	t_bullet_hole	*curr;
 
 	sector->selected[i] = 0;
+	wall_bullet_holes = sector->wall_bullet_holes[i];
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
 		sector->selected[i] = 1;
@@ -132,21 +135,28 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			if (!env->options.test)
 			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
-			else
-			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
 			k++;
 		}
 		j = 0;
-		while (j < sector->nb_sprites[i])
+		while (j < sector->wall_sprites[i].nb_sprites)
 		{
-			if (sector->sprites[i].sprite[j] != -1)
+			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
-				(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-				/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+				(env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].x
+				/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			j++;
+		}
+		wall_bullet_holes = sector->wall_bullet_holes[i];
+		while (wall_bullet_holes)
+		{
+		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+			curr->scale.x =
+				env->wall_sprites[3].size[0].x
+				/ 0.4 * sector->wall_width[i]
+				/ camera->v[sector->num][i + 1].vz;
+			wall_bullet_holes = wall_bullet_holes->next;
 		}
 	}
 	else
@@ -154,30 +164,34 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			if (!env->options.test)
 			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
-			else
-			camera->v[sector->num][i].texture_scale[k].x = (sector->scale[i].x * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
 			k++;
 		}
 		j = 0;
-		while (j < sector->nb_sprites[i])
+		wall_bullet_holes = sector->wall_bullet_holes[i];
+		while (j < sector->wall_sprites[i].nb_sprites)
 		{
-			if (sector->sprites[i].sprite[j] != -1)
+			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x = 
-		(env->wall_sprites[sector->sprites[i].sprite[j]].size[0].x
-		/ sector->sprites[i].scale[j].x) * sector->wall_width[i]
+		(env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].x
+		/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			j++;
+		}
+		while (wall_bullet_holes)
+		{
+		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+			curr->scale.x =
+				env->wall_sprites[3].size[0].x
+				/ 0.4 * sector->wall_width[i]
+				/ camera->v[sector->num][i].clipped_vz2;
+			wall_bullet_holes = wall_bullet_holes->next;
 		}
 	}
 	k = 0;
 	while (k < env->wall_textures[sector->textures[i]].nb_maps)
 	{
-		if (!env->options.test)
 		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].maps[k]->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
-		else
-		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].surface->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
 		camera->v[sector->num][i].texture_align[k].x = (sector->align[i].x
 			* env->wall_textures[sector->textures[i]].maps[k]->w) / 10.0;
 		camera->v[sector->num][i].texture_align[k].y = (sector->align[i].y
@@ -185,13 +199,24 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k++;
 	}
 	j = 0;
-	while (j < sector->nb_sprites[i])
+	while (j < sector->wall_sprites[i].nb_sprites)
 	{
-		if (sector->sprites[i].sprite[j] != -1)
+		if (sector->wall_sprites[i].sprite[j] != -1)
 			camera->v[sector->num][i].sprite_scale[j].y =
-		env->wall_sprites[sector->sprites[i].sprite[j]].size[0].y
-			/ sector->sprites[i].scale[j].y * (sector->ceiling - sector->floor);
+		env->wall_sprites[sector->wall_sprites[i].sprite[j]].size[0].y
+			/ sector->wall_sprites[i].scale[j].y
+			* (sector->ceiling - sector->floor);
 		j++;
+	}
+	wall_bullet_holes = sector->wall_bullet_holes[i];
+	while (wall_bullet_holes)
+	{
+	  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+		curr->scale.y =
+			env->wall_sprites[3].size[0].x
+			/ 0.4
+			* (sector->ceiling - sector->floor);
+		wall_bullet_holes = wall_bullet_holes->next;
 	}
 }
 

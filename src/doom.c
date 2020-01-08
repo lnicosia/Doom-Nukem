@@ -6,12 +6,52 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 13:28:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:04:09 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
+
+int		launch_global_events(t_env *env)
+{
+	if (env->player.sector != -1
+		&& env->sectors[env->player.sector].stand_on_me_event
+		&& env->sectors[env->player.sector].nb_stand_events)
+	{
+		if (start_event(&env->sectors[env->player.sector].stand_on_me_event,
+				&env->sectors[env->player.sector].nb_stand_events, env))
+			return (-1);
+	}
+	if (env->global_events && env->nb_global_events && env->global_events)
+	{
+		if (start_event(&env->global_events,
+				&env->nb_global_events, env))
+			return (-1);
+	}
+	if (env->wall_bullet_holes_events && env->nb_wall_bullet_holes_events
+		&& env->wall_bullet_holes_events)
+	{
+		if (start_event(&env->wall_bullet_holes_events,
+				&env->nb_wall_bullet_holes_events, env))
+			return (-1);
+	}
+	if (env->floor_bullet_holes_events && env->floor_bullet_holes_events
+			&& env->nb_floor_bullet_holes_events)
+	{
+		if (start_event(&env->floor_bullet_holes_events,
+				&env->nb_floor_bullet_holes_events, env))
+			return (-1);
+	}
+	if (env->ceiling_bullet_holes_events && env->ceiling_bullet_holes_events
+			&& env->nb_ceiling_bullet_holes_events)
+	{
+		if (start_event(&env->ceiling_bullet_holes_events,
+				&env->nb_ceiling_bullet_holes_events, env))
+			return (-1);
+	}
+	return (0);
+}
 
 int		doom(t_env *env)
 {
@@ -39,7 +79,8 @@ int		doom(t_env *env)
 					weapon_change(env);
 			}
 			update_sprites_state(env);
-			projectiles_movement(env);
+			if (projectiles_movement(env))
+				return (-1);
 			if (env->player.health > 0)
 			{
 				enemy_ai(env);
@@ -49,17 +90,17 @@ int		doom(t_env *env)
 				enemy_melee_hit(env);
 				keys(env);
 			}
-			if (env->player.sector != -1)
-					start_event(env->sectors[env->player.sector].walk_on_me_event,
-					env->sectors[env->player.sector].nb_walk_events, env);
-			if (env->global_events)
-					start_event(env->global_events, env->nb_global_events, env);
+			if (launch_global_events(env))
+				return (-1);
 			if (env->player.health <= 0)
 				death(env);
 			if (env->confirmation_box.state)
 				confirmation_box_keys(&env->confirmation_box, env);
 			if (env->events)
-					pop_events2(env);
+			{
+				if (pop_events2(env))
+					return (-1);
+			}
 		}
 		if (env->menu_start)
 			start_game_menu(env);
@@ -73,7 +114,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
-			}
+	}
 	free_all(env);
 	return (0);
 }

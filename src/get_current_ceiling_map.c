@@ -22,11 +22,11 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 
 	if (sector->ceiling_scale)
 		free(sector->ceiling_scale);
-	if (!(sector->ceiling_scale = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+	if (!(sector->ceiling_scale = (t_v2*)ft_memalloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector ceiling_scale array"));
 	if (sector->ceiling_align)
 		free(sector->ceiling_align);
-	if (!(sector->ceiling_align = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+	if (!(sector->ceiling_align = (t_v2*)ft_memalloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector ceiling_scale array"));
 	i = 0;
 	while (i < texture.nb_maps)
@@ -39,7 +39,7 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 	}
 	if (sector->ceiling_map_lvl)
 		free(sector->ceiling_map_lvl);
-	if (!(sector->ceiling_map_lvl = (double*)malloc(
+	if (!(sector->ceiling_map_lvl = (double*)ft_memalloc(
 		sizeof(double) * texture.nb_maps)))
 		return (custom_error("Could not malloc a sector map_lvl array"));
 	if (sector->ceiling_map_scale.x * env->w >

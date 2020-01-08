@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 17:13:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:44:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,15 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
     i = 0;
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
-        return (0);
-    if ((!projectiles_ceil(env, motion, motion.sector) || !projectiles_floor(env, motion, motion.sector)))
-        return (0);
+        return (-4);
+    if (!projectiles_ceil(env, motion, motion.sector))
+        return (-2);
+	else if (!projectiles_floor(env, motion, motion.sector))
+        return (-3);
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR < 0)
-            return (0);
+            return (i);
         i++;
     }
     i = 0;
@@ -102,11 +104,11 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
             motion.wall.sector_or = motion.sector;
             motion.wall.sector_dest = NEIGHBOR;
             if (!collision_projectiles_rec(env, move, motion))
-                return (0);
+                return (i);
         }
         i++;
     }
-    return (1);
+    return (-1);
 }
 
 int			projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/28 18:32:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:35:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ static int	get_sprite_direction(t_enemies enemy)
 {
 	double	angle;
 
-	/*
-	** 0 = front sprite
-	** 1 = front right sprite
-	** 2 = right sprite
-	** 3 = back right sprite
-	** 4 = back sprite
-	** 5 = back left sprite
-	** 6 = left sprite
-	** 7 = front left
-	*/
 	angle = (int)((atan2(enemy.translated_pos.z, enemy.translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle < 0)
 		angle += 360;
@@ -126,7 +116,8 @@ static void		*enemy_loop(void *param)
 			yalpha = (y - orender.y1) / orender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 			if ((enemy.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+				&& texture_pixels[textx
+				+ texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->enemies[enemy.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
@@ -153,7 +144,7 @@ static void		*enemy_loop(void *param)
 				if (env->enemies[enemy.num].hit)
 					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFFFF0000, enemy_hurt(env, enemy.num));
 				if (!env->editor.select && env->selected_enemy == enemy.num)
-					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0xFF00FF00, 128);
+					pixels[x + y * env->w] = blend_alpha(pixels[x + y * env->w], 0x1abc9c, 128);
 				zbuffer[x + y * env->w] = enemy.rotated_pos.z;
 			}
 			y++;
@@ -187,6 +178,8 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 {
 	t_render_object	orender;
 	t_sprite		sprite;
+	t_v2			size;
+	double			sprite_ratio;
 
 	if (death_sprite >= 0)
 		enemy->sprite = env->enemy_sprites[enemy->sprite].death_counterpart;
@@ -199,9 +192,13 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 		orender.index = death_sprite;
 	else
 		orender.index = 0;
-	orender.x1 = orender.screen_pos.x - sprite.size[orender.index].x / 2.0 / (enemy->rotated_pos.z / enemy->scale);
-	orender.y1 = orender.screen_pos.y - sprite.size[orender.index].y / (enemy->rotated_pos.z / enemy->scale);
-	orender.x2 = orender.screen_pos.x + sprite.size[orender.index].x / 2.0 / (enemy->rotated_pos.z / enemy->scale);
+	size.x = env->w * enemy->scale / enemy->rotated_pos.z;
+	sprite_ratio = sprite.size[orender.index].x
+	/ (double)sprite.size[orender.index].y;
+	size.y = size.x * sprite_ratio;
+	orender.x1 = orender.screen_pos.x - size.y / 4;
+	orender.x2 = orender.screen_pos.x + size.y / 4;
+	orender.y1 = orender.screen_pos.y - size.x / 2;
 	orender.y2 = orender.screen_pos.y;
 	orender.light_color = enemy->light_color;
 	orender.brightness = enemy->brightness;

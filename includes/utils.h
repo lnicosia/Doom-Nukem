@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 21:42:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:10:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 35
+# define MAX_TEXTURES 36
 # define MAX_SPRITES 22
-# define MAX_WALL_SPRITES 3
+# define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
 # define MAX_SKYBOX 3
 # define NB_SKYBOX 5
+# define MAX_ENEMIES 2
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
 # define AMMO_HUD 26
@@ -60,7 +61,8 @@ typedef enum		e_input_box_type
 {
 	INT,
 	DOUBLE,
-	STRING
+	STRING,
+	UINT32
 }			t_input_box_type;
 
 typedef enum		e_button_action_type
@@ -72,7 +74,8 @@ typedef enum		e_button_action_type
 typedef enum	e_event_mod_type
 {
 	FIXED,
-	INCR
+	INCR,
+	FUNC
 }				t_event_mod_type;
 
 typedef enum		e_button_state
@@ -287,6 +290,7 @@ typedef struct		s_sprite
 	t_point			start[8];
 	t_point			end[8];
 	t_point			size[8];
+	double			ratio[8];
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
@@ -299,9 +303,14 @@ typedef struct		s_sprite
 typedef struct		s_event_param
 {
 		int			num;
+		int			num2;
+		int			num3;
+		int			size;
 		double		equ_value;
 		double		diff_value;
 		t_v3		move;
+		void		*target;
+		int			target_type;
 }					t_event_param;
 
 typedef struct		s_event
@@ -309,24 +318,45 @@ typedef struct		s_event
 	void			*target;
 	double			goal;
 	double			start_value;
+	double			start_incr;
 	double			incr;
 	Uint32			start_time;
+	Uint32			end_time;
 	Uint32			duration;
+	Uint32			start_delay;
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				happened;
+	int				(*launch_func)(struct s_event *, void *);
+	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
-	t_event_param	*check_param;
+	t_event_param	check_param;
+	int				(*exec_func)(void *, void *);
+	void			*exec_param;
 	void			(*update_func)(struct s_event *, void *);
-	t_event_param	*update_param;
+	t_event_param	update_param;
+	int				uses;
+	int				max_uses;
 }			t_event;
 
 typedef struct		s_wall_sprites
 {
-	short			*sprite;
+	int				nb_sprites;
+	int				*sprite;
 	t_v2			*pos;
 	t_v2			*scale;
+	t_event			**press_events;
+	size_t			*nb_press_events;
+	t_event			**shoot_events;
+	size_t			*nb_shoot_events;
 }					t_wall_sprites;
+
+typedef struct		s_bullet_hole
+{
+  	t_v2			pos;
+	t_v2			scale;
+}					t_bullet_hole;
 
 typedef struct		s_sector
 {
@@ -357,39 +387,32 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
-	int				*xmin;
-	int				*xmax;
 	short			*vertices;
 	short			*neighbors;
 	short			*portals;
 	short			*textures;
-	t_wall_sprites	*sprites;
+	t_wall_sprites	*wall_sprites;
 	t_wall_sprites	floor_sprites;
 	t_wall_sprites	ceiling_sprites;
-	short			*nb_sprites;
-	short			nb_floor_sprites;
-	short			nb_ceiling_sprites;
+	t_list			**wall_bullet_holes;
+	t_v2			*ceiling_sprites_scale;
+	t_v2			*floor_sprites_scale;
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
-	t_v3			tp;
-	short			*selected;
 	short			num;
 	short			nb_vertices;
 	int				skybox;
-	int				status;
-	int				*levels;
-	double			start_floor;
-	int				enemy_flag;
-	int				activated;
-	int				hidden;
+	short			*selected;
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
+	size_t			nb_stand_events;
 	size_t			nb_walk_events;
+	t_event			*stand_on_me_event;
 	t_event			*walk_on_me_event;
 }					t_sector;
 
@@ -545,6 +568,8 @@ typedef struct		s_keys
 	int				right2;
 	int				plus;
 	int				minus;
+	int				plus2;
+	int				minus2;
 	int				shift;
 	int				shift2;
 	int				ctrl;
@@ -556,6 +581,7 @@ typedef struct		s_keys
 	int				option;
 	int				enter;
 	int				s;
+	int				e;
 	int				del;
 	int				tab;
 	int				comma;
@@ -590,6 +616,7 @@ typedef struct		s_inputs
 	uint8_t			option;
 	uint8_t			enter;
 	uint8_t			s;
+	uint8_t			e;
 	uint8_t			del;
 	uint8_t			tab;
 	uint8_t			comma;
@@ -618,6 +645,7 @@ typedef struct		s_fonts
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
 	TTF_Font		*lato20;
+	TTF_Font		*lato50;
 }					t_fonts;
 
 /*
@@ -929,6 +957,9 @@ typedef struct		s_options
 	int				animations;
 	int				gamma_filter;
 	int				mipmapping;
+	int				mouse;
+	int				max_floor_sprites;
+	int				max_wall_sprites;
 }					t_options;
 
 /*
@@ -978,10 +1009,10 @@ typedef struct		s_button
 	t_rectangle		hover;
 	t_rectangle		pressed;
 	t_rectangle		down;
-	t_texture		*img_up;
-	t_texture		*img_hover;
-	t_texture		*img_pressed;
-	t_texture		*img_down;
+	SDL_Surface		*img_up;
+	SDL_Surface		*img_hover;
+	SDL_Surface		*img_pressed;
+	SDL_Surface		*img_down;
 	Uint32			up_text_color;
 	Uint32			hover_text_color;
 	Uint32			pressed_text_color;
@@ -998,7 +1029,7 @@ typedef struct		s_button
 	int				anim_state;
 	void			(*down_action)(void *);
 	void			(*press_action)(void *);
-	void			*target;
+	void			*param;
 }					t_button;
 
 /*

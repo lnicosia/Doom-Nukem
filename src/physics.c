@@ -86,7 +86,7 @@ void	drop(t_env *env)
 
 void	jump(t_env *env)
 {
-	if (!env->player.state.fall && !env->player.state.jump)
+	if (!env->player.state.fall && !env->player.state.jump && !env->player.state.fly)
 	{
 		env->gravity.velocity = 25.0;
 		env->player.state.jump = 1;

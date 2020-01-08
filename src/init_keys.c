@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 11:59:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:45:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_keys(t_env *env)
 	ft_printf("Initializing player keys..\n");
 	env->keys.forward = SDLK_w;
 	env->keys.s = SDLK_s;
+	env->keys.e = SDLK_e;
 	env->keys.left = SDLK_a;
 	env->keys.right = SDLK_d;
 	env->keys.forward2 = SDLK_UP;

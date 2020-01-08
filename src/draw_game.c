@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/22 14:19:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:47:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	draw_game(t_env *env)
 	if (env->player.health > 0)
 	{
 		draw_hud(env);
-		interactions(env);
 		print_ammo(env);
 	}
 	else
@@ -66,23 +65,12 @@ int	draw_game(t_env *env)
 			}
 			i++;
 		}
-	/*t_list *tmp;
-	t_projectile *proj;
-	tmp = env->projectiles;
-	while (tmp)
-	{
-		proj = ((t_projectile*)tmp->content);
-		if (proj->exists)
-		{
-			draw_line(new_point(proj->left, proj->top), new_point(proj->right, proj->top), *env, 0xFF00FF00);
-			draw_line(new_point(proj->right, proj->top), new_point(proj->right, proj->bottom), *env, 0xFF00FF00);
-			draw_line(new_point(proj->right, proj->bottom), new_point(proj->left, proj->bottom), *env, 0xFF00FF00);
-			draw_line(new_point(proj->left, proj->bottom), new_point(proj->left, proj->top), *env, 0xFF00FF00);
-		}
-		tmp = tmp->next;
-	}*/}
-	//if (env->options.show_minimap)
-		minimap(env);
+	}
+	minimap(env);
+	if (env->hovered_wall_sprite_sprite != -1
+		&& env->hovered_wall_sprite_wall != -1
+		&& env->hovered_wall_sprite_sector != -1)
+		print_press_text(env);
 	if (env->confirmation_box.state)
 		draw_confirmation_box(env->confirmation_box, env);
 	if (env->options.zbuffer)

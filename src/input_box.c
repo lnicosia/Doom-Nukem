@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 08:52:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:12:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,17 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			if (box->type != STRING)
 				validate_input(box, env);
 			else
+			{
 				box->state = 0;
+				if (env->editor.in_game)
+				{
+					SDL_SetRelativeMouseMode(1);
+					SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+					&env->sdl.mouse_y);
+					SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+					&env->sdl.mouse_y);
+				}
+			}
 		}
 	}
 	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)

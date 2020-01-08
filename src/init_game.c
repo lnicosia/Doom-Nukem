@@ -6,12 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 12:44:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
+#include "wall_sprite_modifier.h"
 
 void	save_init_data(t_env *env)
 {
@@ -42,6 +43,22 @@ void	save_init_data(t_env *env)
 	}
 }
 
+int	hola(void *param, void *env)
+{
+	(void)param;
+	(void)env;
+	ft_printf("Hola\n");
+	return (1);
+}
+
+int	cc(void *param, void *env)
+{
+	(void)param;
+	(void)env;
+	ft_printf("cc\n");
+	return (1);
+}
+
 int		init_game(int ac, char **av)
 {
 	t_env	env;
@@ -51,8 +68,6 @@ int		init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
-	env.min_fps = 300;
-	env.min_fps2 = 300;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
@@ -84,11 +99,9 @@ int		init_game(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("Error while parsing the map\n", &env));
-	if (init_camera(&env.player.camera, &env))
-		return (crash("Could not init camera\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
+	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not allocate sector list\n", &env));
 	while (i < env.nb_objects)
 	{
@@ -110,6 +123,8 @@ int		init_game(int ac, char **av)
 	ft_printf("Starting music..\n");
 	Mix_PlayMusic(env.sound.background, -1);
 	ft_printf("Launching game loop..\n");
+	if (init_camera(&env.player.camera, &env))
+		return (crash("Could not init fixed camera\n", &env));
 	if (init_camera(&env.fixed_camera, &env))
 		return (crash("Could not init fixed camera\n", &env));
 	if (init_skybox(&env))
@@ -125,41 +140,185 @@ int		init_game(int ac, char **av)
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
-		if (ft_strequ(av[1], "maps/triple_piece.map"))
-		{
-			env.sectors[1].nb_walk_events = 2;
-			env.sectors[1].walk_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
-			env.sectors[1].walk_on_me_event[0] =
-			new_fixed_event(DOUBLE, &env.sectors[2].floor, 8.5, 800);
-			env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
-			env.sectors[1].walk_on_me_event[0].update_param = new_event_param(
-			2, 0, 0, new_v3(0, 0, 0)); 
-			env.sectors[1].walk_on_me_event[1] =
-			new_fixed_event(INT, &env.player.health, 50, 1000);
-			//new_event(DOUBLE, &env.player.pos.y, 50, 1000);
-			//env.sectors[1].walk_on_me_event[1].check_func = &check_collision_event;
-			//env.sectors[1].walk_on_me_event[1].check_param = new_event_param(
-			//0, new_v3(0, env.sectors[1].walk_on_me_event[1].incr, 0)); 
-			//env.sectors[1].walk_on_me_event[1].update_func = &update_player_event;
-			/*env.sectors[1].walk_on_me_event[2] =
-			new_incr_event(INT, &env.sectors[2].brightness, -50, 0);
-			env.sectors[1].walk_on_me_event[2].delay = 1000;*/
+	if (ft_strequ(av[1], "maps/test_events.map"))
+	{
+		env.nb_global_events = 5;
+		env.global_events =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.nb_global_events);
 
-			env.nb_global_events = 1;
-			env.global_events = (t_event*)malloc(sizeof(t_event)
-			* env.nb_global_events);
-			env.global_events[0] =
-			new_fixed_event(INT, &env.sectors[2].brightness, -128, 0);
-			env.global_events[0].delay = 1000;
-			env.global_events[0].check_func = &check_equ_value_event;
-			env.global_events[0].check_param = new_event_param(0, 0, 0,
-			new_v3(0, 0, 0));
-			/*env.global_events[1] =
-			new_fixed_event(INT, &env.sectors[2].brightness, 0, 0);
-			env.global_events[1].delay = 2000;
-			env.global_events[1].check_func = &check_equ_value_event;
-			env.global_events[1].check_param = new_event_param(0, -128, 0,
-			new_v3(0, 0, 0));*/
-		}
+		env.global_events[0] =
+		new_fixed_event(INT, &env.sectors[2].intensity, 50, 0);
+		env.global_events[0].delay = 1000;
+
+		env.global_events[1] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFFFF0000, 0);
+		env.global_events[1].delay = 1000;
+		env.global_events[1].launch_func =
+		&launch_prec_event_ended_starter;
+		env.global_events[1].launch_param.target =
+		&env.global_events[4];
+
+		env.global_events[2] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFF0000FF, 0);
+		env.global_events[2].delay = 1000;
+		env.global_events[2].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[2].launch_param.target =
+		&env.global_events[1];
+
+		env.global_events[3] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFF00FF00, 0);
+		env.global_events[3].delay = 1000;
+		env.global_events[3].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[3].launch_param.target =
+		&env.global_events[2];
+
+		env.global_events[4] =
+		new_fixed_event(UINT32, &env.sectors[2].light_color, 0xFFFFFF00, 0);
+		env.global_events[4].delay = 1000;
+		env.global_events[4].launch_func =
+		&launch_prec_event_ended;
+		env.global_events[4].launch_param.target =
+		&env.global_events[3];
+
+		env.sectors[1].nb_walk_events = 2;
+		env.sectors[1].walk_on_me_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+
+		env.sectors[1].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 10, 500);
+		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[0].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[0].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[0].launch_param.equ_value = 0;
+		env.sectors[1].walk_on_me_event[0].launch_param.target = &env.sectors[1].floor;
+
+		env.sectors[1].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 0, 500);
+		env.sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[1].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[1].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[1].launch_param.equ_value = 10;
+		env.sectors[1].walk_on_me_event[1].launch_param.target = &env.sectors[1].floor;
+
+		env.sectors[2].nb_walk_events = 1;
+		env.sectors[2].walk_on_me_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[2].nb_walk_events);
+
+		env.sectors[2].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[3].floor, 13, 1500);
+		env.sectors[2].walk_on_me_event[0].max_uses = 1;
+		env.sectors[2].walk_on_me_event[0].update_func =
+		&update_sector_event;
+		env.sectors[2].walk_on_me_event[0].update_param.num = 3;
+
+		env.sectors[6].nb_walk_events = 2;
+		env.sectors[6].walk_on_me_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[6].nb_walk_events);
+
+		env.sectors[6].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.player.pos.x, 6, 0);
+		env.sectors[6].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.player.pos.y, 1, 0);
+		env.sectors[6].walk_on_me_event[1].update_func = 
+		&update_player_z_event;
+	}
+	t_wall_sprite_modifier	*p2;
+	t_wall_sprite_modifier	*p;
+	if (ft_strequ(av[1], "maps/piece.map"))
+	{
+		env.sectors[0].wall_sprites[1].nb_press_events[0] = 3;
+		env.sectors[0].wall_sprites[1].press_events[0] = 
+		(t_event*)ft_memalloc(sizeof(t_event)
+		* env.sectors[0].wall_sprites[1].nb_press_events[0]);
+		env.sectors[0].wall_sprites[1].press_events[0][0] =
+		new_func_event(&hola, NULL);
+		env.sectors[0].wall_sprites[1].press_events[0][0].max_uses = 10;
+		env.sectors[0].wall_sprites[1].press_events[0][1] =
+		new_func_event(&cc, NULL);
+		env.sectors[0].wall_sprites[1].press_events[0][1].max_uses = 2;
+		env.sectors[0].wall_sprites[1].press_events[0][2] =
+		new_fixed_event(INT, env.sectors[0].wall_sprites[1].sprite, 1, 0);
+		env.sectors[0].wall_sprites[1].press_events[0][2].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1]
+		.press_events[0][2].launch_param.equ_value = 1;
+		env.sectors[0].wall_sprites[1]
+		.press_events[0][2].launch_param.target
+		= &env.sectors[0].wall_sprites[1].nb_press_events[0];
+		env.sectors[0].wall_sprites[1].press_events[0][2].max_uses = 1;
+
+		env.sectors[0].wall_sprites[1].nb_press_events[1] = 4;
+		env.sectors[0].wall_sprites[1].press_events[1] = 
+		(t_event*)ft_memalloc(sizeof(t_event)
+		* env.sectors[0].wall_sprites[1].nb_press_events[1]);
+
+		env.sectors[0].wall_sprites[1].press_events[1][0] =
+		new_fixed_event(INT, &env.sectors[0].brightness, 64, 0);
+		env.sectors[0].wall_sprites[1].press_events[1][0].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][0].launch_param.equ_value = -64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][0].launch_param.target = &env.sectors[0].brightness;
+
+		env.sectors[0].wall_sprites[1].press_events[1][1] =
+		new_fixed_event(INT, &env.sectors[0].brightness, -64, 0);
+		env.sectors[0].wall_sprites[1].press_events[1][1].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][1].launch_param.equ_value = 64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][1].launch_param.target = &env.sectors[0].brightness;
+
+
+		p = (t_wall_sprite_modifier*)ft_memalloc(sizeof(*p));
+		p->sector = 0;
+		p->type = SPRITE;
+		p->wall = 1;
+		p->sprite = 1;
+		p->value = 2;
+		env.sectors[0].wall_sprites[1].press_events[1][2] =
+		new_func_event(&modify_wall_sprite, p);
+		env.sectors[0].wall_sprites[1].press_events[1][2].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.equ_value = -64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.target = &env.sectors[0].brightness;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][2].launch_param.target_type = INT;
+
+
+		p2 = (t_wall_sprite_modifier*)ft_memalloc(sizeof(*p));
+		p2->sector = 0;
+		p2->type = SPRITE;
+		p2->wall = 1;
+		p2->sprite = 1;
+		p2->value = 1;
+		env.sectors[0].wall_sprites[1].press_events[1][3] =
+		new_func_event(&modify_wall_sprite, p2);
+		env.sectors[0].wall_sprites[1].press_events[1][3].launch_func =
+		&launch_equ_value_event;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.equ_value = 64;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.target = &env.sectors[0].brightness;
+		env.sectors[0].wall_sprites[1].
+		press_events[1][3].launch_param.target_type = INT;
+
+		env.nb_global_events = 1;
+		env.global_events =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.nb_global_events);
+		env.global_events[0] =
+		new_fixed_event(INT, &env.enemies[0].sprite,
+		7, 0);
+		env.global_events[0].max_uses = 1;
+		env.global_events[0].delay = 1000;
+		//env.global_events[0].check_func = &check_equ_value_event;
+		//env.global_events[0].check_param = new_event_param(0, 0, 0,
+				//new_v3(0, 0, 0));
+	}
 	return (doom(&env));
 }

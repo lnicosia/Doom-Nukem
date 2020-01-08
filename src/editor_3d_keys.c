@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 17:42:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:36:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,10 @@ int		editor_3d_keys(t_env *env)
 	{
 		wall_sprites_keys(env,
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		pos[env->selected_wall_sprite_sprite],
 		&env->sectors[env->editor.selected_sector].
-		sprites[env->selected_wall_sprite_wall].
+		wall_sprites[env->selected_wall_sprite_wall].
 		scale[env->selected_wall_sprite_sprite]);
 	}
 	if (env->editor.in_game
@@ -490,6 +490,19 @@ int		editor_3d_keys(t_env *env)
 		//ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
+	}
+	if (env->editor.tab)
+	{
+		i = 0;
+		if (env->editor.draw_selection_tab)
+		{
+			while (i < MAX_WALL_TEXTURE)
+			{
+				//ft_printf("%d\n", i);
+				button_keys(&env->editor.textures[i], env);
+				i++;
+			}
+		}
 	}
 	return (0);
 }

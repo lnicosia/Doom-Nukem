@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 12:25:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2019/11/26 12:01:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
+	/*	ft_printf("v1.x: %f v1.y: %f | ", env->vertices[sector.vertices[i]].x,
+		env->vertices[sector.vertices[i]].y);
+		ft_printf("v2.x: %f v2.y: %f\n", env->vertices[sector.vertices[i + 1]].x,
+		env->vertices[sector.vertices[i + 1]].y);*/
 		v1.x = env->editor.center.x +
 			env->vertices[sector.vertices[i]].x * env->editor.scale;
 		v1.y = env->editor.center.y +

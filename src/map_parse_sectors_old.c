@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse_sectors.c                                :+:      :+:    :+:   */
+/*   map_parse_sectors_old.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 19:02:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -641,11 +641,11 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		(*line)++;
 		if ((env->sectors[parser->sectors_count].nb_sprites[i] = count_wall_sprites(*line, parser)) == -1)
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)malloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)ft_memalloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		j = 0;
 		while (j < env->sectors[parser->sectors_count].nb_sprites[i])
@@ -683,11 +683,11 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		// OLD VERSION
 
 		/*env->sectors[parser->sectors_count].nb_sprites[i] = 1;
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)malloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)ft_memalloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		j = 0;
 		while (j < env->sectors[parser->sectors_count].nb_sprites[i])
