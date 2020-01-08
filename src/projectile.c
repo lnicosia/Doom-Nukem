@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 14:19:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:59:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int		projectiles_movement(t_env *env)
 			{
 				if (collision == -2)
 				{
-					if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
+					if (env->sectors[projectile->sector].ceiling_texture >= 0
+						&& env->sectors[projectile->sector].ceiling_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
 						if (add_ceiling_bullet_hole(
@@ -119,7 +120,8 @@ int		projectiles_movement(t_env *env)
 				}
 				else if (collision == -3)
 				{
-					if (env->sectors[projectile->sector].floor_sprites.nb_sprites
+					if (env->sectors[projectile->sector].floor_texture >= 0
+						&& env->sectors[projectile->sector].floor_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
 						if (add_floor_bullet_hole(
@@ -134,7 +136,8 @@ int		projectiles_movement(t_env *env)
 				}
 				else if (collision >= 0)
 				{
-					if (env->sectors[projectile->sector]
+					if (env->sectors[projectile->sector].textures[collision] >= 0
+						&& env->sectors[projectile->sector]
 						.wall_sprites[collision].nb_sprites
 						< env->options.max_wall_sprites)
 					{
