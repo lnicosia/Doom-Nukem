@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:49:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 10:41:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	double_event(t_event *curr)
 {
 	Uint32	time;
 	double	*target;
-	int	type;
+	int		type;
 
 	time = SDL_GetTicks();
 	target = (double*)curr->target;
@@ -83,11 +83,33 @@ int	double_event(t_event *curr)
 int	int_event(t_event *curr)
 {
 	Uint32	time;
-	int	*target;
-	int	type;
+	int		*target;
+	int		type;
 
 	time = SDL_GetTicks();
 	target = (int*)curr->target;
+	if (*target < curr->goal)
+		type = 0;
+	else
+		type = 1;
+	*target = curr->start_value + (time - curr->start_time) * curr->incr;
+	if ((!type && *target >= curr->goal)
+			|| (type && *target <= curr->goal))
+	{
+		*target = curr->goal;
+		return (1);
+	}
+	return (0);
+}
+
+int	uint32_event(t_event *curr)
+{
+	Uint32	time;
+	Uint32	*target;
+	int		type;
+
+	time = SDL_GetTicks();
+	target = (Uint32*)curr->target;
 	if (*target < curr->goal)
 		type = 0;
 	else
@@ -121,51 +143,13 @@ int		execute_event(t_event *event, t_env *env)
 		res = double_event(event);
 	else if (event->type == INT)
 		res = int_event(event);
+	else if (event->type == UINT32)
+		res = uint32_event(event);
 	else if (event->type == FUNC)
 		res = func_event(event, env);
 	if (event->update_func)
 		event->update_func(event, env);
 	return (res);
-}
-
-//	TODO
-//	Protection
-
-/*
- **	This function executes every event as a queue
- **	and sets a new queue for the next frame
- */
-
-int	pop_events(t_env *env)
-{
-	t_event	*curr;
-	t_list	*next_events;
-	t_list	*next_values;
-	int	res;
-
-	next_events = NULL;
-	next_values = NULL;
-	while (env->events)
-	{
-		curr = (t_event*)env->events->content;
-		if (curr->type == DOUBLE)
-			res = double_event(curr);
-		else if (curr->type == INT)
-			res = int_event(curr);
-		if (!res)
-		{
-			ft_lstpushback(&next_events, ft_lstnew(curr,
-						sizeof(*curr)));
-			ft_lstpushback(&next_values, ft_lstnew(&curr->target,
-						sizeof(curr->target)));
-		}
-		ft_lstpopfront(&env->events);
-		ft_lstpopfront(&env->queued_values);
-	}
-	precompute_slopes(env);
-	env->events = next_events;
-	env->queued_values = next_values;
-	return (0);
 }
 
 //	TODO

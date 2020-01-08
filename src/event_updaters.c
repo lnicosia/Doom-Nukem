@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:42:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:22:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int				check_equ_value_event(t_event *event, void *penv)
 			&& event->check_param.equ_value
 			== *(double*)event->check_param.target)
 		return (1);
+	else if (event->type == UINT32
+			&& event->check_param.equ_value
+			== *(Uint32*)event->check_param.target)
+		return (1);
 	return (0);
 }
 
@@ -95,6 +99,10 @@ int				check_diff_value_event(t_event *event, void *penv)
 	else if (event->type == DOUBLE
 			&& event->check_param.diff_value
 			!= *(double*)event->check_param.target)
+		return (1);
+	else if (event->type == UINT32
+			&& event->check_param.diff_value
+			!= *(Uint32*)event->check_param.target)
 		return (1);
 	return (0);
 }
@@ -110,6 +118,10 @@ int				launch_equ_value_event(t_event *event, void *penv)
 			&& event->launch_param.equ_value
 			== *(double*)event->launch_param.target)
 		return (1);
+	else if (event->type == UINT32
+			&& event->launch_param.equ_value
+			== *(Uint32*)event->launch_param.target)
+		return (1);
 	return (0);
 }
 
@@ -124,16 +136,43 @@ int				launch_diff_value_event(t_event *event, void *penv)
 			&& event->launch_param.diff_value
 			!= *(double*)event->launch_param.target)
 		return (1);
+	else if (event->launch_param.target_type == UINT32
+			&& event->launch_param.diff_value
+			!= *(Uint32*)event->launch_param.target)
+		return (1);
 	return (0);
 }
 
 int				launch_prec_event_ended(t_event *event, void *penv)
 {
+	t_event	*target;
+
 	(void)penv;
 	//ft_printf("Current time = %d\n", (int)SDL_GetTicks());
 	//ft_printf("Prec event ended at %d\n",
 	//(int)(*(Uint32*)event->launch_param.target));
-	if (SDL_GetTicks() >= *(Uint32*)event->launch_param.target + event->delay)
+	target = (t_event*)event->launch_param.target;
+	if (SDL_GetTicks() >= target->end_time + event->delay && target->happened)
+	{
+		target->happened = 0;
 		return (1);
+	}
+	return (0);
+}
+
+int				launch_prec_event_ended_starter(t_event *event, void *penv)
+{
+	t_event	*target;
+
+	(void)penv;
+	//ft_printf("Current time = %d\n", (int)SDL_GetTicks());
+	//ft_printf("Prec event ended at %d\n",
+	//(int)(*(Uint32*)event->launch_param.target));
+	target = (t_event*)event->launch_param.target;
+	if ((SDL_GetTicks() >= target->end_time + event->delay && target->happened) || !event->uses)
+	{
+		target->happened = 0;
+		return (1);
+	}
 	return (0);
 }

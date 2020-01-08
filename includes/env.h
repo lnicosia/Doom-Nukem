@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:52:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:07:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -530,6 +530,7 @@ int					check_equ_value_event(t_event *event, void *penv);
 int					launch_diff_value_event(t_event *event, void *penv);
 int					launch_equ_value_event(t_event *event, void *penv);
 int					launch_prec_event_ended(t_event *event, void *penv);
+int					launch_prec_event_ended_starter(t_event *event, void *penv);
 void				delete_itself_event(t_event *event, void *penv);
 
 /*

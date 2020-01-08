@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 17:28:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:20:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef enum		e_input_box_type
 {
 	INT,
 	DOUBLE,
-	STRING
+	STRING,
+	UINT32
 }			t_input_box_type;
 
 typedef enum		e_button_action_type
@@ -290,6 +291,7 @@ typedef struct		s_event
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				happened;
 	int				(*launch_func)(struct s_event *, void *);
 	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);

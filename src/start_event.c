@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 11:21:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ int		update_event(t_event *event)
 		event->incr = (event->goal - *(int*)(event->target))
 			/ event->duration;
 		event->start_value = *(int*)(event->target);
+	}
+	else if (event->type == UINT32)
+	{
+		if (event->mod_type == FIXED
+				&& event->goal == *(Uint32*)(event->target))
+			return (0);
+		else if (event->mod_type == INCR)
+			event->goal = *(Uint32*)event->target + event->start_incr;
+		event->incr = (event->goal - *(Uint32*)(event->target))
+			/ event->duration;
+		event->start_value = *(Uint32*)(event->target);
 	}
 	event->start_time = SDL_GetTicks();
 	event->end_time = event->start_time + event->duration;
@@ -80,9 +91,10 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 							sizeof((*events)[i].target))))
 				return (ft_perror("Could not malloc new event"));
 			ft_lstpushback(&env->queued_values, new_value);
+			(*events)[i].uses++;
+			(*events)[i].happened = 1;
 			if ((*events)[i].max_uses > 0)
 			{
-				(*events)[i].uses++;
 				//ft_printf("Events use %d time out of %d\n",
 				//(*events)[i].uses, (*events)[i].max_uses);
 				//ft_printf("Size = %d\n", *size);
