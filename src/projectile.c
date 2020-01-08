@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 12:08:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:28:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	projectiles_movement(t_env *env)
 			nb = projectile_object_collision(env, projectile->pos,
 				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
 				projectile->size_2d); 
-			if (nb >= 0)
+			if (nb >= 0 && env->objects[nb].solid)
 			{
 				if (env->objects[nb].destructible)
 				{

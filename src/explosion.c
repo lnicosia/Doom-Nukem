@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 12:03:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 13:30:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ int		explosion_collision_player(t_env *env)
 				env->player.health -= ft_clamp(damage - env->player.armor, 0, damage);
 				env->player.armor -= ft_clamp(damage, 0, env->player.armor);
 			}
+			env->player.health = ft_clamp(env->player.health, 0, 100);
+			tmp = ft_lstdelnode(&env->explosions, tmp);
+			env->nb_explosions--;
 		}
-		env->player.health = ft_clamp(env->player.health, 0, 100);
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 	return (0);
 }
@@ -96,7 +99,6 @@ int		explosion_collision_objects(t_env *env, int nb_explosions)
 			}
 			i++;
 		}
-		((t_explosion*)tmp->content)->damage_burst = 0;
 		tmp = tmp->next;
 		j++;
 	}

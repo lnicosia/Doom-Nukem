@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 12:11:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:27:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 11)
 		{
-			env->objects[i].solid = 0;
+			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_OFF;
 			env->objects[i].health = 40;
 			env->objects[i].explodes = 0;
@@ -152,7 +152,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
 		{
-			env->objects[i].solid = 0;
+			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 4;
@@ -162,7 +162,7 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 16)
 		{
-			env->objects[i].solid = 0;
+			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 1;
