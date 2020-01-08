@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 18:11:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:18:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int                 find_lowest_ceiling(t_env *env, t_movement motion);
 int                 check_ceiling(t_env *env, t_movement motion, int sector_dest);
 int     			collision_projectiles(t_env *env, t_v3 move, t_movement motion);
 int					projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius);
+int					projectile_object_collision(t_env *env, t_v3 pos, t_v3 dest, double radius);
 
 #endif

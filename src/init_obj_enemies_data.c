@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 18:48:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:11:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void		init_objects_data(t_env *env)
 		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
 		{
 			env->objects[i].solid = 1;
+			env->objects[i].size_2d = 2;
+			env->objects[i].height = 4.5;
 			env->objects[i].main_sprite = LAMP;
 			env->objects[i].explodes = 0;
 			env->objects[i].nb_rest_state = 4;

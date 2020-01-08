@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/02 14:44:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 17:13:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,42 @@ int			projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius
 			&& pos.z <= env->player.head_z && pos.z >= env->player.pos.z)
 		return (1);
 	return (0);
+}
+
+int			projectile_object_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
+{
+	int		i;
+	int		object;
+	double	nearest_dist;
+	double	distance;
+
+	i = 0;
+	object = -1;
+	nearest_dist = 2147483647;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].health > 0 && distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < env->objects[i].size_2d + radius && env->objects[i].exists
+			&& env->objects[i].solid && pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
+		{
+			distance = distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				object = i;
+			}
+		}
+		if (hitbox_collision(new_v2(pos.x, pos.y), new_v2(dest.x, dest.y),
+			new_v2(env->objects[i].pos.x, env->objects[i].pos.y), radius + env->objects[i].size_2d) && env->objects[i].exists
+			&& env->objects[i].solid && pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
+		{
+			distance = distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				object = i;
+			}
+		}
+		i++;
+	}
+	return (object);
 }

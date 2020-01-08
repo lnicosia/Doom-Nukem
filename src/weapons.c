@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/04 11:23:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:03:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,12 @@ void    shot(t_env *env)
 			{
 				if (hitscan_objects(env, i) == 1)
 				{
+					ft_printf("env->objects[i].health pouet %d\n", env->objects[i].health);
 					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
+					ft_printf("env->objects[i].health %d\n", env->objects[i].health);
 					if (env->objects[i].explodes)
-					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
-						env->nb_explosions++;
-					}
 				}
 			}
 			i++;
@@ -242,8 +241,5 @@ int		aoe_damage(double distance, double radius, int damage)
 	percentage = (100 - (distance / radius) * 100) / 100;
 	if (percentage < 0.3)
 		percentage = 0.3;
-	ft_printf("distance = %f radius = %f\n", distance, radius);
-	ft_printf("percentage = %f\n", percentage);
-	ft_printf("explosion damage = %d\n", (int)(damage * percentage));
 	return ((int)(damage * percentage));
 }

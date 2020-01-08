@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:00:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/16 18:34:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:29:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,6 @@ int		intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2)
 	w2_direction = direction_point(p1, p2, w2);
 	if ((p1_direction == 0 || p1_direction == -1 * p2_direction) &&
 		(w1_direction == 0 || w1_direction == -1 * w2_direction))
-	{
-		ft_printf("p1_direction %d\n", p1_direction);
-		ft_printf("p2_direction %d\n", p2_direction);
-		ft_printf("w1_direction %d\n", w1_direction);
-		ft_printf("w2_direction %d\n", w2_direction);
 		return (1); //INTERSECTS
-	}
 	return (0);//NO INTERSECTION
 }

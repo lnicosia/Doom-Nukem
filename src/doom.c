@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 22:21:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 11:54:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		doom(t_env *env)
 					weapon_change(env);
 			}
 			update_sprites_state(env);
+			projectiles_movement(env);
 			if (env->player.health > 0)
 			{
 				enemy_ai(env);
@@ -53,7 +54,6 @@ int		doom(t_env *env)
 					env->sectors[env->player.sector].nb_walk_events, env);
 			if (env->global_events)
 					start_event(env->global_events, env->nb_global_events, env);
-			projectiles_movement(env);
 			if (env->player.health <= 0)
 				death(env);
 			if (env->confirmation_box.state)

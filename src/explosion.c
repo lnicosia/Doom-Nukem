@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/13 11:52:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:03:29 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		create_explosion(t_env *env, t_explosion_data data)
 {
 	t_list		*new;
 
-	ft_printf("create explosion\n");
 	if (!(new = ft_lstnew(&env->explosion, sizeof(t_explosion))))
 		return (ft_printf("Error when creating explosion\n"));
 	ft_lstpushback(&env->explosions, new);
@@ -36,6 +35,7 @@ int		create_explosion(t_env *env, t_explosion_data data)
 	((t_explosion*)new->content)->radius = data.radius;
 	((t_explosion*)new->content)->pos = data.pos;
 	((t_explosion*)new->content)->damage_burst = 1;
+	env->nb_explosions++;
 	return (0);
 }
 
@@ -51,7 +51,6 @@ int		explosion_collision_player(t_env *env)
 		if (((t_explosion*)tmp->content)->damage_burst)
 		{
 			distance = distance_two_points_3d(new_v3(env->player.pos.x, env->player.pos.y, env->player.pos.z + env->player.eyesight / 2), ((t_explosion*)tmp->content)->pos);
-			ft_printf("distance in explosion_player = %f\n", distance);
 			if (distance < ((t_explosion*)tmp->content)->radius && ((t_explosion*)tmp->content)->damage_burst)
 			{
 				env->player.hit = 1;
@@ -92,7 +91,6 @@ int		explosion_collision_objects(t_env *env, int nb_explosions)
 					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, 5, env->objects[i].damage, 10));
-						env->nb_explosions++;
 					}
 				}
 			}

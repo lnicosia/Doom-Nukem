@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/12/19 17:00:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:08:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,23 @@ void	projectiles_movement(t_env *env)
 			{
 				env->enemies[nb].health -= projectile->damage;
 				env->enemies[nb].hit = 1;
+				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart));
+				tmp = ft_lstdelnode(&env->projectiles, tmp);
+				continue ;
+			}
+			nb = projectile_object_collision(env, projectile->pos,
+				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
+				projectile->size_2d); 
+			if (nb >= 0)
+			{
+				if (env->objects[nb].destructible)
+				{
+					env->objects[nb].health -= projectile->damage;
+					if (env->objects[nb].health <= 0 && env->objects[nb].explodes)
+						create_explosion(env, new_explosion_data(env->objects[nb].pos, 7, env->objects[nb].damage,
+							env->object_sprites[env->objects[nb].sprite].death_counterpart));
+				}
+				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart));
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}
@@ -91,7 +108,6 @@ void	projectiles_movement(t_env *env)
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;
 				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart));
-				env->nb_explosions++;
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 			}
 		}
