@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:43:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:38:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void    shot(t_env *env)
 	hit = 0;
 	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKET)
 	{
-		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle * CONVERT_DEGREES, 50, 1),
+		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
 			new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
 			env->player.camera.angle_z);
 	}
@@ -92,9 +92,7 @@ void    shot(t_env *env)
 			{
 				if (hitscan_objects(env, i) == 1)
 				{
-					ft_printf("env->objects[i].health pouet %d\n", env->objects[i].health);
 					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
-					ft_printf("env->objects[i].health %d\n", env->objects[i].health);
 					if (env->objects[i].explodes)
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
