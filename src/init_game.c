@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 17:33:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 10:06:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,24 @@ int		init_game(int ac, char **av)
 		env.global_events[1].launch_param.target =
 		&env.global_events[0].end_time;
 
-		env.sectors[1].nb_walk_events = 1;
+		env.sectors[1].nb_walk_events = 2;
 		env.sectors[1].walk_on_me_event =
 		(t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
-		env.sectors[1].walk_on_me_event[0] = new_func_event(&cc, NULL);
+		env.sectors[1].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 10, 500);
+		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[0].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[0].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[0].launch_param.equ_value = 0;
+		env.sectors[1].walk_on_me_event[0].launch_param.target = &env.sectors[1].floor;
 
-		env.sectors[1].nb_stand_events = 1;
-		env.sectors[1].stand_on_me_event =
-		(t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_stand_events);
-		env.sectors[1].stand_on_me_event[0] = new_func_event(&hola, NULL);
+		env.sectors[1].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.sectors[1].floor, 0, 500);
+		env.sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
+		env.sectors[1].walk_on_me_event[1].update_param.num = 1;
+		env.sectors[1].walk_on_me_event[1].launch_func = &launch_equ_value_event;
+		env.sectors[1].walk_on_me_event[1].launch_param.equ_value = 10;
+		env.sectors[1].walk_on_me_event[1].launch_param.target = &env.sectors[1].floor;
 	}
 	t_wall_sprite_modifier	*p2;
 	t_wall_sprite_modifier	*p;
