@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:47:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/09 11:42:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		init_textures(t_env *env)
 {
 	if (init_wall_textures(env))
 		return (ft_printf("Could not load Wall textures\n"));
+	if (init_ui_textures(env))
+		return (ft_printf("Could not load UI textures\n"));
 	if (init_shotgun(env))
 		return (ft_printf("Failed to load shotgun textures\n"));
 	if (init_raygun(env))

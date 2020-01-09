@@ -1,26 +1,27 @@
-[#Declencheur #Cible #Condition #Delay #Max_uses]
+[#Declencheur] [#Cible] [#Type] [#Condition #Delay #Max_uses]
+
 
 Declencheur: 
 	_ wall_sprite press_event: wall_sprite + numero secteur + numero mur + numero sprite
 
-Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
-Cible: type + numero
-
-
-
-
-
-
-
-
 Declencheurs actuels:
-_global
-_wall sprite press event
-_wall sprite shoot event
-_sector press event
-_sector walk on event
-_enemy death
-_enemy collision?
+_global						| 0
+_wall sprite press event	| 1
+_wall sprite shoot event	| 2
+_sector press event			| 3
+_sector walk on event		| 4
+_enemy death				| 5
+
+Event global qui change la lumiere:
+[#Declencheur]:
+[0]
+Wall sprite press event:
+[#Declencheur #secteur #mur #sprite]
+[1
+
+
 
 Cibles actuelles:
+Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
+Cible: type + numero
 

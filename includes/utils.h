@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:10:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/09 11:56:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
+# define MAX_UI_TEXTURES 3
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
