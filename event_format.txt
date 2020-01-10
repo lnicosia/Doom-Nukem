@@ -1,4 +1,6 @@
-[#Declencheur] [#Cible] [#Type] [#Condition #Delay #Max_uses]
+
+[#Cible] [#Declencheur] [#Type] [#Condition] [Autres: #Delay #Max_uses]
+
 
 
 Declencheur: 
@@ -12,12 +14,21 @@ _sector press event			| 3
 _sector walk on event		| 4
 _enemy death				| 5
 
-Event global qui change la lumiere:
-[#Declencheur]:
+Event global:
+[#Type_eclencheur]:
 [0]
 Wall sprite press event:
-[#Declencheur #secteur #mur #sprite]
-[1
+[#Type_declencheur #secteur #mur #sprite]
+[1 0 2 1]
+Wall sprite shoot event:
+[#Type_declencheur #secteur #mur #sprite]
+[2 0 2 1]
+Sector press event:
+[#Type_declencheur #secteur]
+[3 0]
+Sector walk on event:
+[#Type_declencheur #secteur]
+[4 0]
 
 
 
@@ -25,3 +36,14 @@ Cibles actuelles:
 Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
 Cible: type + numero
 
+Event qui modifie la hauteur d'un sol:
+[#Type_cible #Secteur]
+[0 1 0]
+
+Event qui modifie la lumiere d'un secteur:
+[#Type_cible #Secteur]
+[1 1 1]
+
+Event qui modifie la pos x d'un wall sprite
+[#Type_cible #secteur #mur #sprite]
+[0 2 1 4]

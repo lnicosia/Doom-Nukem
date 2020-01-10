@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/09 11:56:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:32:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,24 @@ typedef enum		e_button_action_type
 {
 	ON_PRESS,
 	WHEN_DOWN
-}			t_button_action_type;
+}					t_button_action_type;
 
-typedef enum	e_event_mod_type
+typedef enum		e_condition_type
+{
+	EQUALS,
+	LESS,
+	GREATER,
+	LESS_OR_EQUALS,
+	GREATER_OR_EQUALS,
+	EVENT_ENDED
+}					t_condition_type;
+
+typedef enum		e_event_mod_type
 {
 	FIXED,
 	INCR,
 	FUNC
-}				t_event_mod_type;
+}					t_event_mod_type;
 
 typedef enum		e_button_state
 {
@@ -314,6 +324,14 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
+typedef struct		s_condition
+{
+	int				type;
+	int				target_type;
+	double			value;
+	void			*target;
+}					t_condition;
+
 typedef struct		s_event
 {
 	void			*target;
@@ -329,6 +347,8 @@ typedef struct		s_event
 	int				mod_type;
 	int				type;
 	int				happened;
+	t_condition		*launch_conditions;
+	size_t			launch_conditions_nb;
 	int				(*launch_func)(struct s_event *, void *);
 	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
