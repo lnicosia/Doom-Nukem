@@ -372,11 +372,11 @@ int     add_vertex_in_sector(t_env *env)
 		return (-1);
 	i = 1;
 	while (i <= env->editor.add.sector_list[0])
-		{
-    		if (modify_sector(env, env->editor.add.sector_list[i]))
-		   return (-1);
-			i++;
-		}
+	{
+    	if (modify_sector(env, env->editor.add.sector_list[i]))
+			return (-1);
+		i++;
+	}
 	env->editor.add.v1 = -1;
 	env->editor.add.v2 = -1;
     return (0);
