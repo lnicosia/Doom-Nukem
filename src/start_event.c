@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 13:55:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 18:08:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,29 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
+		if (*events == env->sectors[4].walk_out_event)
+		{
+		ft_printf("trying to launch event\n");
+		if (!(*events)[i].target
+					|| !is_queued(env->queued_values, (*events)[i].target))
+			ft_printf("target free\n");
+		else
+			ft_printf("{red}target busy{reset}\n");
+			if  (!(*events)[i].launch_conditions
+			|| check_conditions(*(events)[i]))
+			ft_printf("launch conditions ok\n");
+		else
+			ft_printf("{red}launch conditions KO{reset}\n");
+				if  (!(*events)[i].launch_func
+					|| (*events)[i].launch_func(&(*events)[i], env))
+			ft_printf("launch func ok\n");
+		else
+			ft_printf("{red}launch func KO{reset}\n");
+				if  (update_event(&(*events)[i]))
+					ft_printf("event updated correctly\n");
+		else
+			ft_printf("{red}error update{reset}\n");
+		}
 		if ((!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
 			&& (!(*events)[i].launch_conditions
@@ -116,6 +139,8 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 			//&& (!(*events)[i].max_uses
 			//|| (*events)[i].uses < (*events)[i].max_uses)
 		{
+			if (*events == env->sectors[4].walk_out_event)
+				ft_printf("{green}OK{reset}\n");
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
 				return (ft_perror("Could not malloc new event"));
 			ft_lstpushback(&env->events, new);
@@ -132,7 +157,7 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 				//ft_printf("Size = %d\n", *size);
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
-					free_event(&(*events)[i]);
+					//free_event(&(*events)[i]);
 					*events = ft_delindex((*events),
 							sizeof(t_event) * (*size),
 							sizeof(t_event),

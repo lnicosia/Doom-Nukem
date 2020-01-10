@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/09 11:35:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 18:13:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int		doom(t_env *env)
 			update_sprites_state(env);
 			if (projectiles_movement(env))
 				return (-1);
+			if (env->events)
+			{
+				if (pop_events2(env))
+					return (-1);
+			}
 			if (env->player.health > 0)
 			{
 				enemy_ai(env);
@@ -96,11 +101,6 @@ int		doom(t_env *env)
 				death(env);
 			if (env->confirmation_box.state)
 				confirmation_box_keys(&env->confirmation_box, env);
-			if (env->events)
-			{
-				if (pop_events2(env))
-					return (-1);
-			}
 		}
 		if (env->menu_start)
 			start_game_menu(env);
