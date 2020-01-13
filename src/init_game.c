@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/10 16:41:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 12:15:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int		init_game(int ac, char **av)
 		env.sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
 		env.sectors[1].walk_on_me_event[1].update_param.num = 1;
 
-		env.sectors[4].nb_stand_events = 1;
+		env.sectors[4].nb_stand_events = 3;
 		env.sectors[4].stand_on_me_event =
 		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[4].nb_stand_events);
 		env.sectors[4].stand_on_me_event[0] = new_fixed_event(DOUBLE,
@@ -209,13 +209,36 @@ int		init_game(int ac, char **av)
 		env.sectors[4].stand_on_me_event[0].update_func = &update_sector_event;
 		env.sectors[4].stand_on_me_event[0].update_param.num = 4;
 
-		env.sectors[4].nb_walk_out_events = 1;
+		env.sectors[4].stand_on_me_event[1] = new_fixed_event(DOUBLE,
+		&env.sectors[7].floor, 10.0, 1000);
+		env.sectors[4].stand_on_me_event[1].check_func = &check_equ_value_event;
+		env.sectors[4].stand_on_me_event[1].check_param.target = &env.player.sector;
+		env.sectors[4].stand_on_me_event[1].check_param.equ_value = 4;
+		env.sectors[4].stand_on_me_event[1].update_func = &update_sector_event;
+		env.sectors[4].stand_on_me_event[1].update_param.num = 7;
+
+		env.sectors[4].stand_on_me_event[2] = new_fixed_event(DOUBLE,
+		&env.sectors[6].align[5].y, 10.0, 1000);
+		env.sectors[4].stand_on_me_event[2].check_func = &check_equ_value_event;
+		env.sectors[4].stand_on_me_event[2].check_param.target = &env.player.sector;
+		env.sectors[4].stand_on_me_event[2].check_param.equ_value = 4;
+
+
+		env.sectors[4].nb_walk_out_events = 3;
 		env.sectors[4].walk_out_event =
 		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[4].nb_walk_out_events);
 		env.sectors[4].walk_out_event[0] = new_fixed_event(DOUBLE,
 		&env.sectors[4].floor, 10.45, 500);
 		env.sectors[4].walk_out_event[0].update_func = &update_sector_event;
 		env.sectors[4].walk_out_event[0].update_param.num = 4;
+		
+		env.sectors[4].walk_out_event[1] = new_fixed_event(DOUBLE,
+		&env.sectors[7].floor, 20, 1000);
+		env.sectors[4].walk_out_event[1].update_func = &update_sector_event;
+		env.sectors[4].walk_out_event[1].update_param.num = 7;
+
+		env.sectors[4].walk_out_event[2] = new_fixed_event(DOUBLE,
+		&env.sectors[6].align[5].y, 0, 1000);
 	}
 	t_wall_sprite_modifier	*p2;
 	t_wall_sprite_modifier	*p;

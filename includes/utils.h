@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 16:22:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 11:42:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ typedef struct		s_event
 	t_event_param	update_param;
 	int				uses;
 	int				max_uses;
-}			t_event;
+}					t_event;
 
 typedef struct		s_wall_sprites
 {
