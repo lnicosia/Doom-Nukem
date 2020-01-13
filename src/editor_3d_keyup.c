@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:57:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:41:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
+	button_keyup(&env->editor.save, env);
+	button_keyup(&env->editor.change_mode, env);
+	button_keyup(&env->editor.launch_game, env);
+	button_keyup(&env->editor.texture_background, env);
 	if (env->editor.tab)
 	{
 		if (env->editor.draw_selection_tab)

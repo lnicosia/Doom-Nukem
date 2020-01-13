@@ -92,27 +92,6 @@ t_button	new_rectangle_button(int type, void (*action)(void *), void *param, t_e
 	return (new);
 }
 
-t_button	new_miniature_button(int type, void (*action)(void *), void *param, t_env *env)
-{
-	t_button	new;
-
-	new = init_button(type, action, param, env);
-/*	if (!env->sprite_textures[28].| !env->sprite_textures[29].	|| !env->sprite_textures[30].		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
-	new.img_up = env->editor.miniature.surface;
-	new.img_pressed = env->editor.miniature.surface;
-	new.img_down = env->editor.miniature.surface;
-	new.img_hover = env->editor.miniature.surface;
-	new.size_up = new_point(new.img_up->w,
-	new.img_up->h);
-	new.size_down = new_point(new.img_down->w,
-	new.img_down->h);
-	new.size_hover = new_point(new.img_hover->w,
-	new.img_hover->h);
-	new.size_pressed = new_point(new.img_pressed->w,
-	new.img_pressed->h);
-	return (new);
-}
-
 t_button	new_image_button(int type, void (*action)(void *), void *param, t_env *env)
 {
 	t_button	new;
@@ -125,6 +104,29 @@ t_button	new_image_button(int type, void (*action)(void *), void *param, t_env *
 	new.img_pressed = env->ui_textures[1].surface;
 	new.img_down = env->ui_textures[1].surface;
 	new.img_hover = env->ui_textures[2].surface;
+	new.size_up = new_point(new.img_up->w,
+	new.img_up->h);
+	new.size_down = new_point(new.img_down->w,
+	new.img_down->h);
+	new.size_hover = new_point(new.img_hover->w,
+	new.img_hover->h);
+	new.size_pressed = new_point(new.img_pressed->w,
+	new.img_pressed->h);
+	return (new);
+}
+
+t_button	new_background_button(int type, void (*action)(void *), void *param, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+	if (!env->ui_textures[3].surface || !env->ui_textures[5].surface
+		|| !env->ui_textures[5].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[3].surface;
+	new.img_pressed = env->ui_textures[4].surface;
+	new.img_down = env->ui_textures[4].surface;
+	new.img_hover = env->ui_textures[5].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,

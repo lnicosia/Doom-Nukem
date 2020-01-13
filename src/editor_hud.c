@@ -163,10 +163,12 @@ void	editor_hud(t_env *env)
 			new_point(0 , 0),
 			new_point(400, 900));
 		}
+		draw_button(env, env->editor.texture_background);
 		draw_button(env, env->editor.current_texture_selection);
 		//draw_button(env, env->editor.current_enemy_selection);
-		//draw_button(env, env->editor.change_mode);
-		//draw_button(env, env->editor.save);
+		draw_button(env, env->editor.change_mode);
+		draw_button(env, env->editor.launch_game);
+		draw_button(env, env->editor.save);
 		print_text(new_point(100, 50), new_printable_text("Mipmapping:",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
 		if (env->options.show_minimap)
@@ -213,12 +215,4 @@ void	editor_hud(t_env *env)
 		if (env->editor.draw_selection_tab)
 			selection_tab(env, MAX_WALL_TEXTURE);
 	}
-/*	if (env->editor.tab)
-	{
-			draw_rectangle(env,
-			new_rectangle(0x00000000, 0xFF888888, 1, 5),
-			new_point(10 , 435),
-			new_point(380, 450));
-		draw_button(env, env->editor.current_texture_selection);
-	}*/
 }

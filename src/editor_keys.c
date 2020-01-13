@@ -64,12 +64,14 @@ int			editor_keys(t_env *env)
 	**	floor | ceiling | brightness control on arrows or keybord usual binding (w-a-s-d)
 	**	control of the sector status with +/-
 	*/
-
+	button_keys(&env->editor.save, env);
+	button_keys(&env->editor.change_mode, env);
+	button_keys(&env->editor.launch_game, env);
+	button_keys(&env->editor.texture_background, env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
-			//ft_printf("%d\n", i);
 			button_keys(&env->editor.textures[i], env);
 			i++;
 		}

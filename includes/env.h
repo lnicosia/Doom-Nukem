@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/09 14:04:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:11:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,11 @@ void				update_double_tab(int index, double size, double **tab);
 void				update_short_tab(int index, short size, short **tab);
 void				selection_tab(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
+void				editor_mode_button(t_env *env);
+void				editor_save_button(t_env *env);
+void				editor_launch_game(t_env *env);
+void				going_in_2D_mode(t_env *env);
+void				going_in_3D_mode(t_env *env);
 
 /*
 ** Main functions
@@ -361,6 +366,8 @@ t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_background_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_rectangle_button(int type, void (*action)(void *),
 void *param, t_env *env);

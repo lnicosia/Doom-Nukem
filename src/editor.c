@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 10:18:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/13 10:48:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		editor(t_env *env)
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
-		ft_printf("toto\n");
 		while (SDL_PollEvent(&env->sdl.event))
 		{
 			if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP && env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
@@ -28,7 +27,6 @@ int		editor(t_env *env)
 					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			ft_printf("wer\n");
 			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP))
 			{
 				if (!env->editor.in_game)
@@ -42,7 +40,6 @@ int		editor(t_env *env)
 						return (-1);
 				}
 			}
-			ft_printf("wer1\n");
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
 				if (env->sdl.event.wheel.y > 0 && env->editor.scale * 1.1 < 100)
@@ -59,13 +56,11 @@ int		editor(t_env *env)
 					env->editor.scale /= 1.1;
 				}
 			}
-			ft_printf("wer2\n");
 			if (env->input_box.state)
 				input_box_keys(&env->input_box, env);
 		}
 		if (!env->editor.in_game)
 		{
-			ft_printf("werwaeraea\n");
 			if (!env->input_box.state)
 			{
 				if (editor_keys(env))
@@ -73,7 +68,6 @@ int		editor(t_env *env)
 			}
 			draw_grid(env);
 			draw_grid_vertices(env);
-			ft_printf("wer354354\n");
 			if (env->editor.player_exist || env->editor.dragged_player == 1)
 				draw_grid_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
@@ -82,7 +76,6 @@ int		editor(t_env *env)
 				draw_grid_enemies(env);
 			if (env->editor.start_vertex != -1)
 				draw_grid_current_sector(env);
-			ft_printf("wer565465465464645646\n");			
 			draw_grid_sectors(env);
 		}
 		else
@@ -96,7 +89,6 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
-		ft_printf("weraaaaaaaaaaaaaa\n");
 		if (!env->input_box.state && env->saving)
 			save_map(env);
 		if (env->events)
@@ -117,7 +109,6 @@ int		editor(t_env *env)
 		else
 			print_text(new_point(env->h - 50, 450), new_printable_text("[OFF]",
 		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
-		ft_printf("werbbbbbbbb\n");
 		/*
 		**	Show the result of the mipmap generation
 		*/
@@ -141,9 +132,7 @@ int		editor(t_env *env)
 			update_screen(env);
 		if (env->editor.game)
 			editor_start_game(env);
-		ft_printf("pouet pouet tututututututlkndfnma;dkgnsjgf sj;\n");		
 	}
-	ft_printf("wereeeeeeeeend dat shit\n");
 	free_all(env);
 	return (0);
 }

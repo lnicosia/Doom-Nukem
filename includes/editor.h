@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 11:56:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/13 17:19:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,12 @@ typedef struct	s_editor
 	int				draw_selection_tab;
 	t_texture		miniature;
 	t_button		current_texture_selection;
-	t_button		change_mode;
 	t_button		current_enemy_selection;
 	t_texture		*enemy_tab;
+	t_button		change_mode;
+	t_button		save;
+	t_button		launch_game;
+	t_button		texture_background;
 	t_button		textures[MAX_WALL_TEXTURE];
 }				t_editor;
 

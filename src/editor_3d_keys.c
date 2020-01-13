@@ -6,11 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:52:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:19:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+
 
 int		editor_3d_keys(t_env *env)
 {
@@ -492,6 +494,10 @@ int		editor_3d_keys(t_env *env)
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
+	button_keys(&env->editor.save, env);
+	button_keys(&env->editor.change_mode, env);
+	button_keys(&env->editor.launch_game, env);
+	button_keys(&env->editor.texture_background, env);
 	if (env->editor.tab)
 	{
 		i = 0;
@@ -499,7 +505,6 @@ int		editor_3d_keys(t_env *env)
 		{
 			while (i < MAX_WALL_TEXTURE)
 			{
-				//ft_printf("%d\n", i);
 				button_keys(&env->editor.textures[i], env);
 				i++;
 			}

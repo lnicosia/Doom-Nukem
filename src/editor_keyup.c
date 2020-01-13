@@ -161,6 +161,10 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
+	button_keyup(&env->editor.save, env);
+	button_keyup(&env->editor.change_mode, env);
+	button_keyup(&env->editor.launch_game, env);
+	button_keyup(&env->editor.texture_background, env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
