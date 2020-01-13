@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 11:43:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:03:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,7 @@ t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int sprite);
+void				init_events_map(t_env *env);
 
 /*
 **	Parser functions

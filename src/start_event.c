@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 11:46:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:55:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		check_conditions(t_event event)
 	size_t	i;
 
 	i = 0;
-	while (i < event.launch_conditions_nb)
+	while (i < event.nb_launch_conditions)
 	{
 		if (event.launch_conditions[i].type == EQUALS
 				&& equals_condition(event.launch_conditions[i]))
@@ -109,7 +109,7 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 		if ((!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
 				&& (!(*events)[i].launch_conditions
-					|| check_conditions(*(events)[i]))
+					|| check_conditions((*events)[i]))
 				&& (!(*events)[i].launch_func
 					|| (*events)[i].launch_func(&(*events)[i], env))
 				&& update_event(&(*events)[i]))

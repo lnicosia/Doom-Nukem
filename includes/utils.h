@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 11:42:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:54:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,7 +348,7 @@ typedef struct		s_event
 	int				type;
 	int				happened;
 	t_condition		*launch_conditions;
-	size_t			launch_conditions_nb;
+	size_t			nb_launch_conditions;
 	int				(*launch_func)(struct s_event *, void *);
 	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
