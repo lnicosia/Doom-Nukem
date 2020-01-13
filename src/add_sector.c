@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/10 15:15:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 12:33:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,12 @@ t_sector	new_default_sector(t_env *env)
 	ft_bzero(&sector, sizeof(sector));
 	sector.floor = 0;
 	sector.floor_slope = 0;
-	sector.floor_texture = 4;
+	//sector.floor_texture = 4;
+	sector.floor_texture = env->editor.current_texture;
 	sector.ceiling = 10;
 	sector.ceiling_slope = 0;
-	sector.ceiling_texture = 4;
+	//sector.ceiling_texture = 4;
+	sector.ceiling_texture = env->editor.current_texture;
 	sector.floor_map_scale = new_v2(10, 10);
 	sector.ceiling_map_scale = new_v2(10, 10);
 	//sector.floor_scale.x = env->wall_textures[sector.floor_texture].surface->w / 10;
