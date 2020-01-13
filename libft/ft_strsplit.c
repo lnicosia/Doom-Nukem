@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 21:50:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 16:26:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		ft_allocate_words(char const *str, char **res, char charset)
 				size++;
 				i++;
 			}
-			if (!(res[nbr] = (char*)malloc(sizeof(*str) * (size + 1))))
+			if (!(res[nbr] = (char*)ft_memalloc(sizeof(*str) * (size + 1))))
 				return (0);
 			nbr++;
 		}
@@ -99,13 +99,13 @@ char			**ft_strsplit(char const *str, char charset)
 
 	if (str == NULL || charset == '\0')
 	{
-		if (!(res = (char**)malloc(sizeof(char*))))
+		if (!(res = (char**)ft_memalloc(sizeof(char*))))
 			return (0);
 		res[0] = 0;
 		return (res);
 	}
 	words = ft_nbr_of_words(str, charset);
-	if (!(res = (char**)malloc(sizeof(char*) * (words + 1))))
+	if (!(res = (char**)ft_memalloc(sizeof(char*) * (words + 1))))
 		return (0);
 	if (!(ft_allocate_words(str, res, charset)))
 		return (0);

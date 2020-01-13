@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:35:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 17:47:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static void		*enemy_loop(void *param)
 	return (NULL);
 }
 
-static void		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env *env)
+static int		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env *env)
 {
 	t_enemy_thread	et[THREADS];
 	pthread_t		threads[THREADS];
@@ -167,14 +167,17 @@ static void		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env
 		et[i].orender = orender;
 		et[i].xstart = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * i;
 		et[i].xend = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, enemy_loop, &et[i]);
+		if (pthread_create(&threads[i], NULL, enemy_loop, &et[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
+int				draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
@@ -213,10 +216,12 @@ void		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite
 	enemy->bottom = orender.yend;
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
-	threaded_enemy_loop(*enemy, orender, env);
+	if (threaded_enemy_loop(*enemy, orender, env))
+		return (-1);
+	return (0);
 }
 
-static void	threaded_get_relative_pos(t_camera camera, t_env *env)
+static int	threaded_get_relative_pos(t_camera camera, t_env *env)
 {
 	int				i;
 	t_enemy_thread	enemies_threads[THREADS];
@@ -230,20 +235,24 @@ static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 		enemies_threads[i].camera = camera;
 		enemies_threads[i].xstart = env->nb_enemies / (double)THREADS * i;
 		enemies_threads[i].xend = env->nb_enemies / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, get_enemy_relative_pos,
-		&enemies_threads[i]);
+		if (pthread_create(&threads[i], NULL, get_enemy_relative_pos,
+		&enemies_threads[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_enemies(t_camera camera, t_env *env)
+int			draw_enemies(t_camera camera, t_env *env)
 {
 	int	i;
 	int dying_sprite;
 
-	threaded_get_relative_pos(camera, env);
+	if (threaded_get_relative_pos(camera, env))
+		return (-1);
 	i = 0;
 	while (i < env->nb_enemies)
 	{
@@ -264,8 +273,10 @@ void		draw_enemies(t_camera camera, t_env *env)
 					pursuing_enemy(env, i);
 			}
 			if (env->enemies[i].exists)
-				draw_enemy(camera, &env->enemies[i], env, dying_sprite);
+				if (draw_enemy(camera, &env->enemies[i], env, dying_sprite))
+					return (-1);
 		}
 		i++;
 	}
+	return (0);
 }

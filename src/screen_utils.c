@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/27 13:34:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:55:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 		x = 0;
 		while (x < size.x) 
 		{
+			pixel = pixels[x + surface->w * y];
+			//if (surface == env->ui_textures[0].surface)
+				//ft_printf("trying pixel [%d][%d]\n", x, y);
 			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
 					&&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
 			texture_pixels[pos.y + x + env->w * (pos.x + y)] =
@@ -135,7 +138,6 @@ void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h
 				&& pixel != 0xFFC10099)
 			{
-				pixel = pixels[x + surface->w * y];
 				texture_pixels[pos.y + x + env->w * (pos.x + y)] = blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel, (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
 			}
 			x++;

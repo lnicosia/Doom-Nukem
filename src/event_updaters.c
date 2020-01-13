@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:09:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 16:43:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ void			delete_itself_event(t_event *event, void *penv)
 int				check_equ_value_event(t_event *event, void *penv)
 {
 	(void)penv;
-	if (event->type == INT
+	if (event->check_param.target_type == INT
 			&& event->check_param.equ_value
 			== *(int*)event->check_param.target)
 		return (1);
-	else if (event->type == DOUBLE
+	else if (event->check_param.target_type == DOUBLE
 			&& event->check_param.equ_value
 			== *(double*)event->check_param.target)
 		return (1);
-	else if (event->type == UINT32
+	else if (event->check_param.target_type == UINT32
 			&& event->check_param.equ_value
 			== *(Uint32*)event->check_param.target)
 		return (1);

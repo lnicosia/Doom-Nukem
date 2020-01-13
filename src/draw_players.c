@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_players.c									 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/19 10:38:52 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/19 14:51:57 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_players.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/08 18:15:21 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/01/08 18:16:40 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -20,7 +20,6 @@ int			draw_players(t_camera camera, t_env *env)
 	if (camera.pos.x == env->player.pos.x && camera.pos.y == env->player.pos.y
 			&& camera.pos.z == env->player.head_z)
 		return (1);
-	ft_printf("cc\n");
 	player.pos = env->player.pos;
 	player.sprite = 5;
 	player.scale = 50;

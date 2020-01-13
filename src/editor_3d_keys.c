@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:36:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/10 15:52:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		editor_3d_keys(t_env *env)
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
-	if (((env->inputs.forward || env->inputs.backward || env->inputs.left
+	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going)
 			&& env->player.health > 0 && !env->inputs.ctrl
@@ -31,6 +31,7 @@ int		editor_3d_keys(t_env *env)
 				|| (env->selected_enemy != -1 && !env->editor.tab))
 				|| (env->selected_enemy == -1 && !env->editor.tab)))
 			|| (env->player.state.climb || env->player.state.drop))
+		&& !env->editor.tab)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)

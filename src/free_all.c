@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 18:06:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:39:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		save_benchmark(t_env *env);
 
 static void	free_textures(t_env *env)
 {
@@ -37,6 +35,8 @@ void		free_event(t_event *event)
 		ft_memdel((void**)&event->update_param);*/
 	if (event->exec_param)
 		ft_memdel((void**)&event->exec_param);
+	if (event->launch_conditions)
+		ft_memdel((void**)&event->launch_conditions);
 }
 
 void		free_events(t_event	*events, size_t size)

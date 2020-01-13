@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 10:41:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 18:14:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,10 @@ int		execute_event(t_event *event, t_env *env)
 	res = 1;
 	if (event->check_func)
 		if (!event->check_func(event, env))
+		{
+			ft_printf("{cyan}event stops{reset}\n");
 			return (1);
+		}
 	if (event->type == DOUBLE)
 		res = double_event(event);
 	else if (event->type == INT)

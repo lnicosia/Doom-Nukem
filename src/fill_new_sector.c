@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_new_sector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:42:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	revert_sector(t_sector *sector, t_env *env)
 
 	i = 1;
 	j = 1;
-	if (!(tmp = (short *)malloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(tmp = (short *)ft_memalloc(sizeof(short) * (sector->nb_vertices + 1))))
 		return ;
 	tmp[0] = sector->vertices[0];
 	while (i < sector->nb_vertices)
@@ -62,6 +62,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 			index = i;
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
+		sector->portals[index] = 1;
 		sector->textures[index] = 4;
 		sector->wall_sprites[index].nb_sprites = 0;
 		sector->align[index] = new_v2(0, 0);
@@ -77,6 +78,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 	}
 	if (!env->editor.reverted)
     {
+		sector->portals[sector->nb_vertices] = 1;
         sector->vertices[sector->nb_vertices] = sector->vertices[0];
         sector->neighbors[sector->nb_vertices] = sector->neighbors[0];
         sector->textures[sector->nb_vertices] = sector->textures[0];
@@ -94,6 +96,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
     }
     else
     {
+		sector->portals[0] = 1;
         sector->vertices[0] = sector->vertices[sector->nb_vertices];
         sector->neighbors[0] = sector->neighbors[sector->nb_vertices];
         sector->textures[0] = sector->textures[sector->nb_vertices];

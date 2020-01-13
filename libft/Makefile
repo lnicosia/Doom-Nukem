@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/06 12:14:29 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/08 15:10:04 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,23 @@ PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
-			-flto -Ofast \
+			-Ofast \
 			#-fsanitize=address -g3 \
 
 RED := "\033[0;31m"
 GREEN := "\033[0;32m"
 CYAN := "\033[0;36m"
 RESET :="\033[0m"
+
+ifneq ($(OS), Windows_NT)
+	UNAME_S = $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		CFLAGS += -flto
+	else
+		echo "Can only compile on Windows or MacOS"
+		exit 1
+	endif
+endif
 
 all: $(BIN_DIR)/$(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 11:05:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/28 10:14:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	if ((new = lst_contains(datas, &curr, fd)) == 0)
 	{
-		if (!(curr = (t_read*)malloc(sizeof(*curr))))
+		if (!(curr = (t_read*)ft_memalloc(sizeof(*curr))))
 			return (-1);
 		if (!(curr->str = ft_strnew(0)))
 			return (-1);

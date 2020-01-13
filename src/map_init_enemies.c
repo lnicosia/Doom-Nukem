@@ -49,7 +49,7 @@ int		init_enemies(t_env *env, t_map_parser *parser)
 			if (env->nb_enemies < 0)
 				return (custom_error("You can not declare less than 0 enemies"));
 			if (env->nb_enemies
-					&& !(env->enemies = (t_enemies*)malloc(sizeof(t_enemies)
+					&& !(env->enemies = (t_enemies*)ft_memalloc(sizeof(t_enemies)
 							* (env->nb_enemies))))
 				return (ft_perror("Could not malloc enemies:"));
 			ft_strdel(&tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:36:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 17:57:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ static void		*object_loop(void *param)
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
 						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
+				env->objects[object.num].seen = 1;
 				if (env->editor.select && x == env->h_w && y == env->h_h)
 				{
 					reset_selection(env);
@@ -149,7 +150,7 @@ static void		*object_loop(void *param)
 	return (NULL);
 }
 
-static void		threaded_object_loop(t_object object, t_render_object orender, t_env *env)
+static int	threaded_object_loop(t_object object, t_render_object orender, t_env *env)
 {
 	t_object_thread	ot[THREADS];
 	pthread_t		threads[THREADS];
@@ -163,26 +164,34 @@ static void		threaded_object_loop(t_object object, t_render_object orender, t_en
 		ot[i].orender = orender;
 		ot[i].xstart = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * i;
 		ot[i].xend = orender.xstart + (orender.xend - orender.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, object_loop, &ot[i]);
+		if (pthread_create(&threads[i], NULL, object_loop, &ot[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_object(t_camera camera, t_object *object, t_env *env)
+int			draw_object(t_camera camera, t_object *object, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;
 	t_v2			size;
 	double			sprite_ratio;
 
+	if (death_sprite >= 0)
+		object->sprite = env->object_sprites[object->sprite].death_counterpart;
 	sprite = env->object_sprites[object->sprite];
 	orender.camera = camera;
 	project_object(&orender, *object, env);
-	orender.index = 0;
 	if (sprite.oriented)
 		orender.index = get_sprite_direction(*object);
+	else if (death_sprite >= 0)
+		orender.index = death_sprite;
+	else
+		orender.index = 0;
 	size.x = env->w * object->scale / object->rotated_pos.z;
 	sprite_ratio = sprite.size[orender.index].x
 	/ (double)sprite.size[orender.index].y;
@@ -204,10 +213,12 @@ void		draw_object(t_camera camera, t_object *object, t_env *env)
 	object->bottom = orender.yend;
 	orender.xrange = orender.x2 - orender.x1;
 	orender.yrange = orender.y2 - orender.y1;
-	threaded_object_loop(*object, orender, env);
+	if (threaded_object_loop(*object, orender, env))
+		return (-1);
+	return (0);
 }
 
-static void	threaded_get_relative_pos(t_camera camera, t_env *env)
+static int	threaded_get_relative_pos(t_camera camera, t_env *env)
 {
 	int				i;
 	t_object_thread	object_threads[THREADS];
@@ -221,23 +232,44 @@ static void	threaded_get_relative_pos(t_camera camera, t_env *env)
 		object_threads[i].camera = camera;
 		object_threads[i].xstart = env->nb_objects / (double)THREADS * i;
 		object_threads[i].xend = env->nb_objects / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]);
+		if (pthread_create(&threads[i], NULL, get_object_relative_pos, &object_threads[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_objects(t_camera camera, t_env *env)
+int			draw_objects(t_camera camera, t_env *env)
 {
 	int	i;
+	int	death_sprite;
 
-	threaded_get_relative_pos(camera, env);
+	if (threaded_get_relative_pos(camera, env))
+		return (-1);
 	i = 0;
 	while (i < env->nb_objects)
 	{
+		death_sprite = -1;
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
-			draw_object(camera, &env->objects[i], env);
+		{
+			env->objects[i].seen = 0;
+			if (env->objects[i].health <= 0 && env->objects[i].exists)
+			{
+				if (env->object_sprites[env->objects[i].sprite].nb_death_sprites > 1)
+					death_sprite = object_destruction(env, i, env->object_sprites[env->objects[i].sprite].nb_death_sprites);
+				else
+					env->objects[i].sprite = env->object_sprites[env->objects[i].sprite].death_counterpart;
+			}
+			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
+				object_anim_loop(env, i);
+			if (env->objects[i].exists)
+				if (draw_object(camera, &env->objects[i], env, death_sprite))
+					return (-1);
+		}
 		i++;
 	}
+	return (0);
 }

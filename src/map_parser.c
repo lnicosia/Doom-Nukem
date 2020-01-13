@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 12:32:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 16:46:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 							*line, parser));
 			if (env->nb_vertices < 3)
 				return (custom_error("You can not declare less than 3 walls."));
-			if (!(env->vertices = (t_vertex *)malloc(sizeof(t_vertex)
+			if (!(env->vertices = (t_vertex *)ft_memalloc(sizeof(t_vertex)
 							* (env->nb_vertices))))
 				return (ft_perror("Could not malloc vertices:"));
 			ft_strdel(&tmp);
@@ -100,7 +100,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 							"a digit", *line, parser));
 			if (env->nb_sectors < 1)
 				return (custom_error("You need at least one sector"));
-			if (!(env->sectors = (t_sector *)malloc(sizeof(t_sector)
+			if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 							* env->nb_sectors)))
 				return (custom_error("Could not malloc sectors!"));
 			i = 0;
@@ -212,6 +212,8 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	//return (custom_error("Could not init objects"));
 	if (parse_enemies(env, &parser))
+		return (-1);
+	if (parse_events(env, &parser))
 		return (-1);
 	//return (custom_error("Error while parsing creatures"));
 	if (parse_player(env, &parser))

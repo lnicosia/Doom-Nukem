@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 14:20:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/09 14:04:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct		s_env
 	t_sprite			*wall_sprites;
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
+	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[NB_SKYBOX];
@@ -52,6 +53,9 @@ typedef struct		s_env
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
+	t_explosion			explosion;
+	t_list				*explosions;
+	t_vline_data		*vline_data;
 	t_teleport			teleport;
 	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
@@ -110,6 +114,7 @@ typedef struct		s_env
 	int					nb_vertices;
 	int					nb_objects;
 	int					nb_enemies;
+	int					nb_explosions;
 	int					first_frame;
 	int					*ymax;
 	int					*ymin;
@@ -262,6 +267,7 @@ int					init_sdl(t_env *env);
 int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
+int					init_ui_textures(t_env *env);
 int					init_skybox(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);
@@ -292,6 +298,7 @@ int					set_sector_ceiling_map_array(t_sector *sector,
 t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
+t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int sprite);
 
 /*
 **	Parser functions
@@ -299,6 +306,7 @@ t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed
 
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
+int					parse_bmp_ui_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
@@ -317,7 +325,7 @@ t_printable_text	new_printable_text(
 						TTF_Font *font,
 								unsigned int color,
 										int size);
-void				print_text(t_point pos,
+int					print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
@@ -363,18 +371,18 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
-void				draw_projectiles(t_camera camera, t_env *env);
-void				draw_projectile_both(t_camera camera, t_projectile *p,
+int					draw_projectiles(t_camera camera, t_env *env);
+int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_no_light(t_camera camera, t_projectile *p,
+int					draw_projectile_no_light(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_brightness(t_camera camera, t_projectile *p,
+int					draw_projectile_brightness(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_color(t_camera camera, t_projectile *p,
+int					draw_projectile_color(t_camera camera, t_projectile *p,
 t_env *env);
 int					get_sprite_direction_projectile(t_projectile projectile);
-void				draw_objects(t_camera camera, t_env *env);
-void				draw_enemies(t_camera camera, t_env *env);
+int					draw_objects(t_camera camera, t_env *env);
+int					draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
@@ -392,8 +400,14 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
+int					create_explosion(t_env *env, t_explosion_data data);
+int					explosion_collision_player(t_env *env);
+int					explosion_collision_objects(t_env *env, int nb_explosions);
 int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
+int					aoe_damage(double distance, double radius, int damage);
+int					doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
+int					intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
@@ -431,7 +445,8 @@ int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
 int					is_in_sector(t_env *env, short sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
-double     			distance_two_points(double x1, double y1, double x2, double y2);
+double     			distance_two_points_2d(double x1, double y1, double x2, double y2);
+double				distance_two_points_3d(t_v3 p1, t_v3 p2);
 void				interactions(t_env *env);
 void				activate_elevator(t_env *env);
 void				create_elevator(t_env *env);
@@ -504,7 +519,14 @@ void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
-void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+int		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+
+/*
+** objects functions
+*/
+
+void	object_anim_loop(t_env *env, int i);
+int		object_destruction(t_env *env, int i, int nb_sprites);
 
 /*
 **	Event function

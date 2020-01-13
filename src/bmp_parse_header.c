@@ -70,7 +70,7 @@ int	parse_image_header(int fd, t_bmp_parser *parser)
 	int				ret;
 	unsigned char	*image_header;
 
-	if (!(image_header = (unsigned char*)malloc(sizeof(unsigned char)
+	if (!(image_header = (unsigned char*)ft_memalloc(sizeof(unsigned char)
 					* (parser->image_header_size - 4))))
 		return (ft_printf("Could not malloc image_header array\n"));
 	if ((ret = read(fd, image_header, parser->image_header_size - 4)) > 0)

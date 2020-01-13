@@ -31,7 +31,7 @@ void    change_mode(void *target)
                         return (ft_printf("Could not init camera arrays\n"));
                 if (env->sector_list)
                         ft_memdel((void**)&env->sector_list);
-                if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))
+                if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
                         return (ft_printf("Could not allocate sector list\n", env));*/
                 update_camera_position(&env->player.camera);
                 update_player_z(env);

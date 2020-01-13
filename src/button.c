@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 17:23:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:17:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,13 @@ t_button	new_image_button(int type, void (*action)(void *), void *param, t_env *
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-/*	if (!env->sprite_textures[28].| !env->sprite_textures[29].	|| !env->sprite_textures[30].		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");*/
-	new.img_up = env->wall_textures[0].surface;
-	new.img_pressed = env->wall_textures[0].surface;
-	new.img_down = env->wall_textures[0].surface;
-	new.img_hover = env->wall_textures[0].surface;
+	if (!env->ui_textures[0].surface || !env->ui_textures[1].surface
+		|| !env->ui_textures[2].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[0].surface;
+	new.img_pressed = env->ui_textures[1].surface;
+	new.img_down = env->ui_textures[1].surface;
+	new.img_hover = env->ui_textures[2].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,

@@ -23,7 +23,7 @@ int		*get_sectors_list(t_env *env, int v1, int v2)
 
 	i = 0;
 	k = 1;
-	if (!(sectors = (int *)malloc(sizeof(int) * 2)))
+	if (!(sectors = (int *)ft_memalloc(sizeof(int) * 2)))
 		return (0);
 	while (i < env->nb_sectors)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_bullet_hole.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 15:37:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_event) * (env->nb_floor_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
 					"to make bullet hole fade"));
-	if (!(param = (t_floor_sprite_remover*)malloc(sizeof(*param))))
+	if (!(param = (t_floor_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->sprite = sector->floor_sprites.nb_sprites - 1;
@@ -124,7 +124,7 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_event) * (env->nb_ceiling_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
 					"to make bullet hole fade"));
-	if (!(param = (t_floor_sprite_remover*)malloc(sizeof(*param))))
+	if (!(param = (t_floor_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->sprite = sector->ceiling_sprites.nb_sprites - 1;
@@ -196,7 +196,7 @@ int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_event) * (env->nb_wall_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
 					"to make bullet hole fade"));
-	if (!(param = (t_wall_sprite_remover*)malloc(sizeof(*param))))
+	if (!(param = (t_wall_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->wall = i;
@@ -225,7 +225,7 @@ int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_event) * (env->nb_wall_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
 					"to make bullet hole fade"));
-	if (!(param = (t_wall_sprite_remover*)malloc(sizeof(*param))))
+	if (!(param = (t_wall_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->wall = i;

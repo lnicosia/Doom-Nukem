@@ -49,7 +49,7 @@ int		init_objects(t_env *env, t_map_parser *parser)
 			if (env->nb_objects < 0)
 				return (custom_error("You can not declare less than 0 objects"));
 			if (env->nb_objects
-					&& !(env->objects = (t_object*)malloc(sizeof(t_object)
+					&& !(env->objects = (t_object*)ft_memalloc(sizeof(t_object)
 							* (env->nb_objects))))
 				return (ft_perror("Could not malloc objects:"));
 			ft_strdel(&tmp);

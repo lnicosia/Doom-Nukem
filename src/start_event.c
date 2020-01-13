@@ -6,11 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 11:21:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 18:08:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events_conditions.h"
 
 int		update_event(t_event *event)
 {
@@ -67,6 +67,36 @@ int		is_queued(t_list *queued_values, void *target)
 	return (0);
 }
 
+int		check_conditions(t_event event)
+{
+	size_t	i;
+	
+	i = 0;
+	while (i < event.launch_conditions_nb)
+	{
+		if (event.launch_conditions[i].type == EQUALS
+			&& equals_condition(event.launch_conditions[i]))
+			return (0);
+		else if (event.launch_conditions[i].type == LESS
+			&& less_condition(event.launch_conditions[i]))
+			return (0);
+		else if (event.launch_conditions[i].type == GREATER
+			&& greater_condition(event.launch_conditions[i]))
+			return (0);
+		else if (event.launch_conditions[i].type == LESS_OR_EQUALS
+			&& less_or_equals_condition(event.launch_conditions[i]))
+			return (0);
+		else if (event.launch_conditions[i].type == GREATER_OR_EQUALS
+			&& greater_or_equals_condition(event.launch_conditions[i]))
+			return (0);
+		else if (event.launch_conditions[i].type == EVENT_ENDED
+			&& event_ended_condition(event))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int		start_event(t_event **events, size_t *size, t_env *env)
 {
 	size_t		i;
@@ -76,14 +106,41 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
+		if (*events == env->sectors[4].walk_out_event)
+		{
+		ft_printf("trying to launch event\n");
+		if (!(*events)[i].target
+					|| !is_queued(env->queued_values, (*events)[i].target))
+			ft_printf("target free\n");
+		else
+			ft_printf("{red}target busy{reset}\n");
+			if  (!(*events)[i].launch_conditions
+			|| check_conditions(*(events)[i]))
+			ft_printf("launch conditions ok\n");
+		else
+			ft_printf("{red}launch conditions KO{reset}\n");
+				if  (!(*events)[i].launch_func
+					|| (*events)[i].launch_func(&(*events)[i], env))
+			ft_printf("launch func ok\n");
+		else
+			ft_printf("{red}launch func KO{reset}\n");
+				if  (update_event(&(*events)[i]))
+					ft_printf("event updated correctly\n");
+		else
+			ft_printf("{red}error update{reset}\n");
+		}
 		if ((!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
+			&& (!(*events)[i].launch_conditions
+			|| check_conditions(*(events)[i]))
 				&& (!(*events)[i].launch_func
 					|| (*events)[i].launch_func(&(*events)[i], env))
 				&& update_event(&(*events)[i]))
 			//&& (!(*events)[i].max_uses
 			//|| (*events)[i].uses < (*events)[i].max_uses)
 		{
+			if (*events == env->sectors[4].walk_out_event)
+				ft_printf("{green}OK{reset}\n");
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
 				return (ft_perror("Could not malloc new event"));
 			ft_lstpushback(&env->events, new);

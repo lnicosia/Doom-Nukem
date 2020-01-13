@@ -16,7 +16,7 @@ t_button_target	*new_button_target(t_env *env, int i)
 {
 	t_button_target	*new;
 
-	new = (t_button_target*)malloc(sizeof(t_button_target));
+	new = (t_button_target*)ft_memalloc(sizeof(t_button_target));
 	new->env = env;
 	new->i = i;
 	return (new);

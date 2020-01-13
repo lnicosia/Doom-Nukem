@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 12:04:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:15:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int			init_new_sector_arrays(t_sector *sector)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector ceiling"));
 	if (!(sector->floors = (double*)ft_memalloc(sizeof(double)
+		* (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector floors"));
+	if (!(sector->portals = (short*)ft_memalloc(sizeof(short)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
 	if (!(sector->clipped_ceilings1 = (double*)ft_memalloc(sizeof(double)

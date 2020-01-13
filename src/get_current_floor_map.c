@@ -22,11 +22,11 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 
 	if (sector->floor_scale)
 		free(sector->floor_scale);
-	if (!(sector->floor_scale = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+	if (!(sector->floor_scale = (t_v2*)ft_memalloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector floor_scale array"));
 	if (sector->floor_align)
 		free(sector->floor_align);
-	if (!(sector->floor_align = (t_v2*)malloc(sizeof(t_v2) * texture.nb_maps)))
+	if (!(sector->floor_align = (t_v2*)ft_memalloc(sizeof(t_v2) * texture.nb_maps)))
 		return (custom_error("Could not malloc sector floor_scale array"));
 	i = 0;
 	while (i < texture.nb_maps)
@@ -39,7 +39,7 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture texture,
 	}
 	if (sector->floor_map_lvl)
 		free(sector->floor_map_lvl);
-	if (!(sector->floor_map_lvl = (double*)malloc(
+	if (!(sector->floor_map_lvl = (double*)ft_memalloc(
 		sizeof(double) * texture.nb_maps)))
 		return (custom_error("Could not malloc a sector map_lvl array"));
 	if (sector->floor_map_scale.x * env->w >

@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 16:38:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     damage_done(t_env env, int i)
+int     damage_done(t_env env, double rotated_pos_z)
 {
 	if (env.weapons[env.player.curr_weapon].splash)
-		return ((int)(env.weapons[env.player.curr_weapon].damage / (env.enemies[i].rotated_pos.z / 4 + 1)));
+		return ((int)(env.weapons[env.player.curr_weapon].damage / (rotated_pos_z / 4 + 1)));
 	else
 		return (env.weapons[env.player.curr_weapon].damage);
 }
 
-int		hitscan(t_env *env, int i)
+int		hitscan_enemies(t_env *env, int i)
 {
 	if (env->enemies[i].exists && env->enemies[i].seen)
 	{
@@ -39,6 +39,25 @@ int		hitscan(t_env *env, int i)
 	return (-1);
 }
 
+int		hitscan_objects(t_env *env, int i)
+{
+	if (env->objects[i].exists && env->objects[i].seen)
+	{
+		if ((env->objects[i].left - env->objects[i].left) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].bottom) < 0)
+			return (0);
+		if ((env->objects[i].right - env->objects[i].left) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].left) * (env->objects[i].top - env->objects[i].top) < 0)
+			return (0);
+		if ((env->objects[i].right - env->objects[i].right) * (env->h / 2 - env->objects[i].top) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].top) < 0)
+			return (0);
+		if ((env->objects[i].left - env->objects[i].right) * (env->h / 2 - env->objects[i].bottom) - (env->w / 2 - env->objects[i].right) * (env->objects[i].bottom - env->objects[i].bottom) < 0)
+			return (0);
+		if (env->objects[i].rotated_pos.z > env->weapons[env->player.curr_weapon].range || env->objects[i].rotated_pos.z < 0)
+			return (0);
+		return (1);
+	}
+	return (-1);
+}
+
 void    shot(t_env *env)
 {
 	int	i;
@@ -46,20 +65,41 @@ void    shot(t_env *env)
 
 	i = 0;
 	hit = 0;
-	create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
-		new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
-		env->player.camera.angle_z);
-	while (i < env->nb_enemies)
+	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKET)
 	{
-		if (hitscan(env, i) == 1)
+		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
+			new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+			env->player.camera.angle_z);
+	}
+	else
+	{
+		while (i < env->nb_enemies)
 		{
-			env->enemies[i].health -= damage_done(*env, i);
-			hit = 1;
-			if (env->enemies[i].health <= 0)
-				env->player.killed++;
-			env->enemies[i].hit = 1;
+			if (hitscan_enemies(env, i) == 1)
+			{
+				env->enemies[i].health -= damage_done(*env, env->enemies[i].rotated_pos.z);
+				hit = 1;
+				if (env->enemies[i].health <= 0)
+					env->player.killed++;
+				env->enemies[i].hit = 1;
+			}
+			i++;
 		}
-		i++;
+		i = 0;
+		while (i < env->nb_objects)
+		{
+			if (env->objects[i].destructible)
+			{
+				if (hitscan_objects(env, i) == 1)
+				{
+					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
+					if (env->objects[i].explodes)
+						create_explosion(env,
+							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+				}
+			}
+			i++;
+		}
 	}
 	if (hit)
 		env->player.touched += 1;
@@ -190,4 +230,14 @@ void    print_ammo(t_env *env)
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 19), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
 	str = ft_sitoa(env->weapons[env->player.curr_weapon].max_ammo);
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 24), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
+}
+
+int		aoe_damage(double distance, double radius, int damage)
+{
+	double	percentage;
+
+	percentage = (100 - (distance / radius) * 100) / 100;
+	if (percentage < 0.3)
+		percentage = 0.3;
+	return ((int)(damage * percentage));
 }

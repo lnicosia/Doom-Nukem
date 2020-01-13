@@ -220,7 +220,7 @@ int		is_sector_convex(t_env *env, t_list *tmp)
 	if (len > 2)
 	{
 		len += 3;
-		if (!(p = (t_v2*)malloc(sizeof(t_v2) * (len))))
+		if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
 			return (0);
 		p[len - 3].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 		p[len - 3].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);

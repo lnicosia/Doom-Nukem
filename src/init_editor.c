@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 17:27:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/09 14:04:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	init_editor(int ac, char **av)
 		if (ft_strequ(av[1], "maps/triple_piece.map"))
 		{
 			env.sectors[1].nb_stand_events = 3;
-			env.sectors[1].stand_on_me_event = (t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_stand_events);
+			env.sectors[1].stand_on_me_event = (t_event*)ft_memalloc(sizeof(t_event) * env.sectors[1].nb_stand_events);
 			env.sectors[1].stand_on_me_event[0] =
 			new_func_event(&hola, 0);
 			env.sectors[1].stand_on_me_event[1] =

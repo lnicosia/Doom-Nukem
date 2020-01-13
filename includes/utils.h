@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:19:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/10 16:22:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
+# define MAX_UI_TEXTURES 3
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
@@ -45,6 +46,17 @@
 # define MAX_H 1440
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
+# define HEALTH_PACK 2
+# define SHELL_AMMO 3
+# define ROCKETS_AMMO 4
+# define REGULAR_AMMO 5
+# define ENERGY_AMMO 6
+# define LAMP 7
+# define MONITOR_OFF 11
+# define MONITOR_ON 12
+# define GREEN_ARMOR 17
+# define CANDLE 18
+# define BARREL 20
 
 typedef enum		e_input_box_type
 {
@@ -58,14 +70,24 @@ typedef enum		e_button_action_type
 {
 	ON_PRESS,
 	WHEN_DOWN
-}			t_button_action_type;
+}					t_button_action_type;
 
-typedef enum	e_event_mod_type
+typedef enum		e_condition_type
+{
+	EQUALS,
+	LESS,
+	GREATER,
+	LESS_OR_EQUALS,
+	GREATER_OR_EQUALS,
+	EVENT_ENDED
+}					t_condition_type;
+
+typedef enum		e_event_mod_type
 {
 	FIXED,
 	INCR,
 	FUNC
-}				t_event_mod_type;
+}					t_event_mod_type;
 
 typedef enum		e_button_state
 {
@@ -88,6 +110,31 @@ typedef enum		e_confirmation_box_type
 		CONFIRM,
 		WARNING
 }					t_confirmation_box_type;
+
+typedef enum		e_object_type
+{
+	HEAL,
+	AMMO,
+	ARMOR,
+	DECORATION,
+	WEAPON
+}					t_object_type;
+
+typedef enum		e_weapons_list
+{
+	SHOTGUN,
+	RAYGUN,
+	BAZOOKA,
+	KNIFE
+}					t_weapons_list;
+
+typedef enum		e_ammo_types
+{
+	REGULAR,
+	SHELL,
+	ENERGY,
+	ROCKET
+}					t_ammo_types;
 
 typedef enum		e_enemy_state
 {
@@ -277,6 +324,14 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
+typedef struct		s_condition
+{
+	int				type;
+	int				target_type;
+	double			value;
+	void			*target;
+}					t_condition;
+
 typedef struct		s_event
 {
 	void			*target;
@@ -292,6 +347,8 @@ typedef struct		s_event
 	int				mod_type;
 	int				type;
 	int				happened;
+	t_condition		*launch_conditions;
+	size_t			launch_conditions_nb;
 	int				(*launch_func)(struct s_event *, void *);
 	t_event_param	launch_param;
 	int				(*check_func)(struct s_event *, void *);
@@ -353,6 +410,7 @@ typedef struct		s_sector
 	double			*clipped_ceilings2;
 	short			*vertices;
 	short			*neighbors;
+	short			*portals;
 	short			*textures;
 	t_wall_sprites	*wall_sprites;
 	t_wall_sprites	floor_sprites;
@@ -375,8 +433,10 @@ typedef struct		s_sector
 	int				intensity;
 	size_t			nb_stand_events;
 	size_t			nb_walk_events;
+	size_t			nb_walk_out_events;
 	t_event			*stand_on_me_event;
 	t_event			*walk_on_me_event;
+	t_event			*walk_out_event;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -682,6 +742,7 @@ typedef struct		s_weapons
 	int				nb_sprites;
 	int				weapon_switch;
 	int				ammo;
+	int				ammo_type;
 	double			range;
 	int				no_ammo;
 	int				max_ammo;
@@ -735,6 +796,27 @@ typedef	struct		s_projectile
 	int				damage;
 }					t_projectile;
 
+typedef	struct		s_explosion_data
+{
+	t_v3			pos;
+	double			radius;
+	int				sprite;
+	int				damage;
+}					t_explosion_data;
+
+/*
+** Explosion structure
+*/
+
+typedef	struct		s_explosion
+{
+	t_v3			pos;
+	double			radius;
+	int				damage;
+	int				sprite;
+	short			damage_burst;
+}					t_explosion;
+
 /*
 ** Object structure
 */
@@ -748,20 +830,32 @@ typedef struct		s_object
 	int				left;
 	int				right;
 	int				top;
+	int				seen;
 	int				bottom;
 	int				sprite;
+	int				main_sprite;
+	int				destructible;
+	int				explodes;
 	double			scale;
 	double			angle;
+	double			height;
+	double			size_2d;
 	short			brightness;
 	Uint32			light_color;
+	int				type;
+	int				quantity;
+	int				ammo_type;
 	int				intensity;
 	int				pickable;
 	int				solid;
 	int				ammo;
+	id_t			damage;
 	int				health;
 	int				sector;
 	int				exists;
 	int				num;
+	int				nb_rest_state;
+	t_animation		rest;
 	t_animation		death;
 }					t_object;
 

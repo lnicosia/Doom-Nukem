@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:46:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			init_wall_sprites(t_env *env)
 {
-	if (!(env->wall_sprites = (t_sprite*)malloc(sizeof(t_sprite)
+	if (!(env->wall_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite)
 		* MAX_WALL_SPRITES)))
 		return (ft_printf("Could not malloc wall sprites\n"));
 	
@@ -95,7 +95,7 @@ int			init_wall_sprites(t_env *env)
 
 int			init_object_sprites(t_env *env)
 {
-	if (!(env->object_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 22)))
+	if (!(env->object_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 23)))
 		return (ft_printf("Could not malloc enemy sprites\n"));
 	
 	//	objects sprite sheet
@@ -216,7 +216,7 @@ int			init_object_sprites(t_env *env)
 	//Rockets ammo
 
 	env->object_sprites[4].texture = 22;
-	env->object_sprites[4].death_counterpart = 4;
+	env->object_sprites[4].death_counterpart = 22;
 	env->object_sprites[4].oriented = 0;
 	env->object_sprites[4].rest_sprite = 0;
 	env->object_sprites[4].reversed[0] = 0;
@@ -302,7 +302,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[10].texture = 22;
 	env->object_sprites[10].death_counterpart = 10;
 	env->object_sprites[10].oriented = 0;
-	env->object_sprites[10].rest_sprite = 0;
+	env->object_sprites[10].rest_sprite = 7;
 	env->object_sprites[10].reversed[0] = 0;
 	env->object_sprites[10].start[0].x = 539;
 	env->object_sprites[10].start[0].y = 329;
@@ -523,13 +523,43 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[21].end[7].y = 281;
 	env->object_sprites[21].size[7].x = 79;
 	env->object_sprites[21].size[7].y = 84;
+
+	// explosion animation
+
+	env->object_sprites[22].texture = 25;
+	env->object_sprites[22].death_counterpart = 25;
+	env->object_sprites[22].nb_death_sprites = 3;
+	env->object_sprites[22].oriented = 0;
+	env->object_sprites[22].rest_sprite = 0;
+	env->object_sprites[22].reversed[0] = 0;
+
+	env->object_sprites[22].start[0].x = 1;
+	env->object_sprites[22].start[0].y = 858;
+	env->object_sprites[22].end[0].x = 73;
+	env->object_sprites[22].end[0].y = 917;
+	env->object_sprites[22].size[0].x = 73;
+	env->object_sprites[22].size[0].y = 60;
+
+	env->object_sprites[22].start[1].x = 75;
+	env->object_sprites[22].start[1].y = 846;
+	env->object_sprites[22].end[1].x = 162;
+	env->object_sprites[22].end[1].y = 917;
+	env->object_sprites[22].size[1].x = 88;
+	env->object_sprites[22].size[1].y = 72;
+
+	env->object_sprites[22].start[2].x = 164;
+	env->object_sprites[22].start[2].y = 832;
+	env->object_sprites[22].end[2].x = 266;
+	env->object_sprites[22].end[2].y = 917;
+	env->object_sprites[22].size[2].x = 103;
+	env->object_sprites[22].size[2].y = 86;
 	return (0);
 }
 int			init_enemy_sprites(t_env *env)
 {
-	if (!(env->enemy_sprites = (t_sprite*)malloc(sizeof(t_sprite) * 13)))
+	if (!(env->enemy_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 13)))
 		return (ft_printf("Could not malloc enemy_sprites\n"));
-	if (!(env->editor.enemy_tab = (t_texture*)malloc(sizeof(t_texture) * MAX_ENEMIES)))
+	if (!(env->editor.enemy_tab = (t_texture*)ft_memalloc(sizeof(t_texture) * MAX_ENEMIES)))
 		return (ft_printf("Could not malloc editor's array for enemies main sprite\n"));
 	// Sprite oriente, lost soul
 	env->enemy_sprites[0].texture = 23;

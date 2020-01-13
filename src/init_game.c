@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 13:32:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 16:41:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	save_init_data(t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
+		env->objects[i].object_init_data.main_sprite = env->objects[i].main_sprite;
 		env->objects[i].object_init_data.pos = env->objects[i].pos;
 		env->objects[i].object_init_data.sector = env->objects[i].sector;
 		env->objects[i].object_init_data.angle = env->objects[i].angle;
@@ -100,7 +101,7 @@ int		init_game(int ac, char **av)
 		return (crash("Error while parsing the map\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
-	if (!(env.sector_list = (int *)malloc(sizeof(int) * env.nb_sectors)))
+	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not allocate sector list\n", &env));
 	while (i < env.nb_objects)
 	{
@@ -113,6 +114,7 @@ int		init_game(int ac, char **av)
 		env.enemies[i].exists = 1;
 		i++;
 	}
+	env.nb_explosions = 0;
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
@@ -138,11 +140,11 @@ int		init_game(int ac, char **av)
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
-	if (ft_strequ(av[1], "maps/test_events.map"))
+	if (ft_strequ(av[1], "maps/events.map"))
 	{
 		env.nb_global_events = 5;
 		env.global_events =
-		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
+		(t_event*)ft_memalloc(sizeof(t_event) * env.nb_global_events);
 
 		env.global_events[0] =
 		new_fixed_event(INT, &env.sectors[2].intensity, 50, 0);
@@ -182,45 +184,38 @@ int		init_game(int ac, char **av)
 
 		env.sectors[1].nb_walk_events = 2;
 		env.sectors[1].walk_on_me_event =
-		(t_event*)malloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[1].nb_walk_events);
 
 		env.sectors[1].walk_on_me_event[0] = new_fixed_event(DOUBLE,
 		&env.sectors[1].floor, 10, 500);
 		env.sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
 		env.sectors[1].walk_on_me_event[0].update_param.num = 1;
-		env.sectors[1].walk_on_me_event[0].launch_func = &launch_equ_value_event;
-		env.sectors[1].walk_on_me_event[0].launch_param.equ_value = 0;
-		env.sectors[1].walk_on_me_event[0].launch_param.target = &env.sectors[1].floor;
 
 		env.sectors[1].walk_on_me_event[1] = new_fixed_event(DOUBLE,
 		&env.sectors[1].floor, 0, 500);
 		env.sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
 		env.sectors[1].walk_on_me_event[1].update_param.num = 1;
-		env.sectors[1].walk_on_me_event[1].launch_func = &launch_equ_value_event;
-		env.sectors[1].walk_on_me_event[1].launch_param.equ_value = 10;
-		env.sectors[1].walk_on_me_event[1].launch_param.target = &env.sectors[1].floor;
 
-		env.sectors[2].nb_walk_events = 1;
-		env.sectors[2].walk_on_me_event =
-		(t_event*)malloc(sizeof(t_event) * env.sectors[2].nb_walk_events);
+		env.sectors[4].nb_stand_events = 1;
+		env.sectors[4].stand_on_me_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[4].nb_stand_events);
+		env.sectors[4].stand_on_me_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[4].floor, 10.0, 500);
+		env.sectors[4].stand_on_me_event[0].check_func = &check_equ_value_event;
+		env.sectors[4].stand_on_me_event[0].check_param.target = &env.player.sector;
+		env.sectors[4].stand_on_me_event[0].check_param.target_type = INT;
+		env.sectors[4].stand_on_me_event[0].check_param.equ_value = 4;
 
-		env.sectors[2].walk_on_me_event[0] = new_fixed_event(DOUBLE,
-		&env.sectors[3].floor, 13, 1500);
-		env.sectors[2].walk_on_me_event[0].max_uses = 1;
-		env.sectors[2].walk_on_me_event[0].update_func =
-		&update_sector_event;
-		env.sectors[2].walk_on_me_event[0].update_param.num = 3;
+		env.sectors[4].stand_on_me_event[0].update_func = &update_sector_event;
+		env.sectors[4].stand_on_me_event[0].update_param.num = 4;
 
-		env.sectors[6].nb_walk_events = 2;
-		env.sectors[6].walk_on_me_event =
-		(t_event*)malloc(sizeof(t_event) * env.sectors[6].nb_walk_events);
-
-		env.sectors[6].walk_on_me_event[0] = new_fixed_event(DOUBLE,
-		&env.player.pos.x, 6, 0);
-		env.sectors[6].walk_on_me_event[1] = new_fixed_event(DOUBLE,
-		&env.player.pos.y, 1, 0);
-		env.sectors[6].walk_on_me_event[1].update_func = 
-		&update_player_z_event;
+		env.sectors[4].nb_walk_out_events = 1;
+		env.sectors[4].walk_out_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env.sectors[4].nb_walk_out_events);
+		env.sectors[4].walk_out_event[0] = new_fixed_event(DOUBLE,
+		&env.sectors[4].floor, 10.45, 500);
+		env.sectors[4].walk_out_event[0].update_func = &update_sector_event;
+		env.sectors[4].walk_out_event[0].update_param.num = 4;
 	}
 	t_wall_sprite_modifier	*p2;
 	t_wall_sprite_modifier	*p;
@@ -308,7 +303,7 @@ int		init_game(int ac, char **av)
 
 		env.nb_global_events = 1;
 		env.global_events =
-		(t_event*)malloc(sizeof(t_event) * env.nb_global_events);
+		(t_event*)ft_memalloc(sizeof(t_event) * env.nb_global_events);
 		env.global_events[0] =
 		new_fixed_event(INT, &env.enemies[0].sprite,
 		7, 0);

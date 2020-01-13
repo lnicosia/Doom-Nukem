@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 18:53:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:08:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ typedef struct		s_enemy_thread
 }					t_enemy_thread;
 
 void			select_line(t_vline vline, t_env *env);
-void			render_sector(t_render render, t_env *env);
+int				render_sector(t_render render, t_env *env);
 void			draw_ceiling(t_sector sector, t_render render, t_env *env);
 void			draw_vline_ceiling(t_sector sector, t_vline vline,
 t_render render, t_env *env);
@@ -301,6 +301,6 @@ void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
 void				*raycasting(void *param);
 void				*skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
-void				draw_object(t_camera camera, t_object *object, t_env *env);
+int					draw_object(t_camera camera, t_object *object, t_env *env, int death_sprite);
 
 #endif

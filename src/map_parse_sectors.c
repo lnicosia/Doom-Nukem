@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:20:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,9 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].neighbors = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector neighbors:"));
+	if (!(env->sectors[parser->sectors_count].portals = (short*)
+				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+		return (ft_perror("Could not malloc sector portals:"));
 	if (!(env->sectors[parser->sectors_count].textures = (short*)
 				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
@@ -425,7 +428,7 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	int	i;
 
 	if (!**line)
-		return (missing_data("neighbors, textures and light", parser));
+		return (missing_data("neighbors, portals, textures and light", parser));
 	if (**line != '(')
 		return (invalid_char("before sector neighbors", "'('", **line, parser));
 	(*line)++;
@@ -459,9 +462,54 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 	}
 	(*line)++;
 	if (!**line)
-		return (missing_data("texures and light", parser));
+		return (missing_data("portals, textures and light", parser));
 	if (**line != ' ')
 		return (invalid_char("after neighbors data", "space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	return (0);
+}
+
+int			parse_sector_portals(t_env *env, char **line, t_map_parser *parser)
+{
+	int	i;
+
+	if (!**line)
+		return (missing_data("neighors, portals, textures and light", parser));
+	if (**line != '(')
+		return (invalid_char("before sector portals", "'('", **line, parser));
+	(*line)++;
+	if ((parser->sector_portals_count = count_portals(*line, parser)) == -1)
+		return (custom_error("Error while counting portals"));
+	if (parser->sector_portals_count < parser->sector_vertices_count)
+		return (sector_error("is missing one or more portals",
+					parser->sectors_count, parser));
+	if (parser->sector_neighbors_count > parser->sector_vertices_count)
+		return (sector_error("has too much portals",
+					parser->sectors_count, parser));
+	i = 0;
+	while (i < parser->sector_portals_count)
+	{
+		env->sectors[parser->sectors_count].portals[i] = ft_atoi(*line);
+		if (env->sectors[parser->sectors_count].portals[i] < 0 || env->
+				sectors[parser->sectors_count].portals[i] > 1)
+		{
+			ft_dprintf(STDERR_FILENO,
+					"[Line %d] Portal value should be 1 or 0 instead of \'%d\' in sector %d\n",
+					parser->line_count,
+					env->sectors[parser->sectors_count].portals[i],
+					parser->sectors_count);
+			return (-1);
+		}
+		*line = skip_number(*line);
+		*line = skip_spaces(*line);
+		i++;
+	}
+	(*line)++;
+	if (!**line)
+		return (missing_data("texures and light", parser));
+	if (**line != ' ')
+		return (invalid_char("after portals data", "space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	return (0);
@@ -695,11 +743,11 @@ t_map_parser *parser)
 		// OLD VERSION
 
 		/*env->sectors[parser->sectors_count].nb_sprites[i] = 1;
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)malloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)ft_memalloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)malloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].scale = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		j = 0;
 		while (j < env->sectors[parser->sectors_count].nb_sprites[i])
@@ -936,6 +984,8 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (-1);
 	//return (custom_error("Error while parsing sector vertices"));z
 	if (parse_sector_neighbors(env, &line, parser))
+		return (-1);
+	if (parse_sector_portals(env, &line, parser))
 		return (-1);
 	//return (custom_error("Error while parsing sector neighbors"));
 	if (parse_sector_textures(env, &line, parser))

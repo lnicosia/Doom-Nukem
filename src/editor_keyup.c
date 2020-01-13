@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 16:08:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:58:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,18 @@ int	editor_keyup(t_env *env)
 				return (ft_printf("Could not init camera arrays\n"));
 			if (env->sector_list)
 				ft_memdel((void**)&env->sector_list);
-			if (!(env->sector_list = (int*)malloc(sizeof(int) * env->nb_sectors)))
+			if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 				return (ft_printf("Could not allocate sector list\n", env));
 			update_camera_position(&env->player.camera);
 			update_player_z(env);
 			ft_bzero(&env->inputs, sizeof(env->inputs));
 			env->options.mouse = 1;
-			SDL_SetRelativeMouseMode(1);
-			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+			if (!env->editor.tab)
+			{
+				SDL_SetRelativeMouseMode(1);
+				SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+				SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+			}
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter

@@ -84,7 +84,7 @@ int		generate_maps_for_texture(t_texture *texture)
 {
 	int	i;
 
-	if (!(texture->maps = (SDL_Surface**)malloc(sizeof(SDL_Surface*)
+	if (!(texture->maps = (SDL_Surface**)ft_memalloc(sizeof(SDL_Surface*)
 					* texture->nb_maps)))
 		return (custom_error("Can not malloc textures maps array\n"));
 	texture->maps[texture->nb_maps - 1] = texture->surface;

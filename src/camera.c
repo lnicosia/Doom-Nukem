@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:34:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		set_camera_sprites_array(t_camera *camera, int i, int j, t_env *env)
 {
 	if (camera->v[i][j].sprite_scale)
 		free(camera->v[i][j].sprite_scale);
-	if (!(camera->v[i][j].sprite_scale = (t_v2*)malloc(sizeof(t_v2)
+	if (!(camera->v[i][j].sprite_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->sectors[i].wall_sprites[j].nb_sprites)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	return (0);
@@ -76,11 +76,11 @@ int		set_camera_map_array(t_camera *camera, int i, int j, t_env *env)
 {
 	if (camera->v[i][j].texture_scale)
 		free(camera->v[i][j].texture_scale);
-	if (!(camera->v[i][j].texture_scale = (t_v2*)malloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+	if (!(camera->v[i][j].texture_scale = (t_v2*)ft_memalloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	if (camera->v[i][j].texture_align)
 		free(camera->v[i][j].texture_align);
-	if (!(camera->v[i][j].texture_align = (t_v2*)malloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+	if (!(camera->v[i][j].texture_align = (t_v2*)ft_memalloc(sizeof(t_v2) * env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	return (0);
 }
@@ -91,31 +91,31 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 	int	j;
 
 	camera->size = env->nb_sectors;
-	if (!(camera->screen_pos = (int*)malloc(sizeof(int) * (env->w))))
+	if (!(camera->screen_pos = (int*)ft_memalloc(sizeof(int) * (env->w))))
 		return (ft_printf("Could not malloc screen pos!\n", env));
 	if (!(camera->v = (t_render_vertex**)
 				malloc(sizeof(t_render_vertex*) * env->nb_sectors)))
 		return (ft_perror("Could not malloc camera sectors"));
-	if (!(camera->sector_computed = (int*)malloc(sizeof(int) * (env->nb_sectors))))
+	if (!(camera->sector_computed = (int*)ft_memalloc(sizeof(int) * (env->nb_sectors))))
 		return (ft_printf("Could not malloc xmins!\n", env));
-	if (!(camera->sectors_size = (int*)malloc(sizeof(int) * (env->nb_sectors))))
+	if (!(camera->sectors_size = (int*)ft_memalloc(sizeof(int) * (env->nb_sectors))))
 		return (ft_printf("Could not malloc xmins!\n", env));
-	if (!(camera->feet_y = (double*)malloc(sizeof(double) * (env->nb_sectors))))
+	if (!(camera->feet_y = (double*)ft_memalloc(sizeof(double) * (env->nb_sectors))))
 		return (ft_printf("Could not malloc xmins!\n", env));
-	if (!(camera->head_y = (double*)malloc(sizeof(double) * (env->nb_sectors))))
+	if (!(camera->head_y = (double*)ft_memalloc(sizeof(double) * (env->nb_sectors))))
 		return (ft_printf("Could not malloc xmins!\n", env));
-	if (!(camera->xmin = (int*)malloc(sizeof(int) * (env->screen_sectors_size))))
+	if (!(camera->xmin = (int*)ft_memalloc(sizeof(int) * (env->screen_sectors_size))))
 		return (ft_printf("Could not malloc xmins!\n", env));
-	if (!(camera->xmax = (int*)malloc(sizeof(int) * (env->screen_sectors_size))))
+	if (!(camera->xmax = (int*)ft_memalloc(sizeof(int) * (env->screen_sectors_size))))
 		return (ft_printf("Could not malloc xmaxs!\n", env));
-	if (!(camera->screen_sectors = (int*)malloc(sizeof(int) * (env->screen_sectors_size))))
+	if (!(camera->screen_sectors = (int*)ft_memalloc(sizeof(int) * (env->screen_sectors_size))))
 		return (ft_printf("Could not malloc screen sectors!\n", env));
-	if (!(camera->rendered_sectors = (short*)malloc(sizeof(short) * (env->screen_sectors_size))))
+	if (!(camera->rendered_sectors = (short*)ft_memalloc(sizeof(short) * (env->screen_sectors_size))))
 		return (ft_printf("Could not malloc rendered sectors!\n", env));
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (!(camera->v[i] = (t_render_vertex*)malloc(sizeof(t_render_vertex)
+		if (!(camera->v[i] = (t_render_vertex*)ft_memalloc(sizeof(t_render_vertex)
 			* (env->sectors[i].nb_vertices + 1))))
 			return (ft_perror("Could not malloc camera sectors"));
 		camera->sectors_size[i] = env->sectors[i].nb_vertices;

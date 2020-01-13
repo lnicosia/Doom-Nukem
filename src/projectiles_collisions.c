@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectiles_collisions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 13:49:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/08 14:44:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,50 @@ int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
 
 int			projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
 {
-	int i;
-
-	i = 0;
-	if (env->player.health > 0 && distance_two_points(env->player.pos.x, env->player.pos.y, pos.x, pos.y) < env->player.size_2d + radius
+	if (env->player.health > 0 && distance_two_points_2d(env->player.pos.x, env->player.pos.y, pos.x, pos.y) < env->player.size_2d + radius
 		&& pos.z <= env->player.head_z && pos.z >= env->player.pos.z)
 		return (1);
 	if (env->player.health > 0 && hitbox_collision(new_v2(pos.x, pos.y), new_v2(dest.x, dest.y),
 			new_v2(env->player.pos.x, env->player.pos.y), radius + env->player.size_2d)
 			&& pos.z <= env->player.head_z && pos.z >= env->player.pos.z)
-	i++;
+		return (1);
 	return (0);
+}
+
+int			projectile_object_collision(t_env *env, t_v3 pos, t_v3 dest, double radius)
+{
+	int		i;
+	int		object;
+	double	nearest_dist;
+	double	distance;
+
+	i = 0;
+	object = -1;
+	nearest_dist = 2147483647;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].health > 0 && distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < env->objects[i].size_2d + radius && env->objects[i].exists
+			&& env->objects[i].solid && pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
+		{
+			distance = distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				object = i;
+			}
+		}
+		if (hitbox_collision(new_v2(pos.x, pos.y), new_v2(dest.x, dest.y),
+			new_v2(env->objects[i].pos.x, env->objects[i].pos.y), radius + env->objects[i].size_2d) && env->objects[i].exists
+			&& env->objects[i].solid && pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
+		{
+			distance = distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y);
+			if (distance < nearest_dist)
+			{
+				nearest_dist = distance;
+				object = i;
+			}
+		}
+		i++;
+	}
+	return (object);
 }

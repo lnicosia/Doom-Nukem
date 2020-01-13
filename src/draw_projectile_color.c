@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/06 11:41:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/08 17:58:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void		*projectile_loop_color(void *param)
 	return (NULL);
 }
 
-static void		threaded_projectile_loop_color(t_projectile projectile,
+static int	threaded_projectile_loop_color(t_projectile projectile,
 t_render_projectile prender, t_env *env)
 {
 	t_projectile_thread	pt[THREADS];
@@ -83,14 +83,17 @@ t_render_projectile prender, t_env *env)
 		pt[i].prender = prender;
 		pt[i].xstart = prender.xstart + (prender.xend - prender.xstart) / (double)THREADS * i;
 		pt[i].xend = prender.xstart + (prender.xend - prender.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, projectile_loop_color, &pt[i]);
+		if (pthread_create(&threads[i], NULL, projectile_loop_color, &pt[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_projectile_color(t_camera camera, t_projectile *projectile,
+int			draw_projectile_color(t_camera camera, t_projectile *projectile,
 t_env *env)
 {
 	t_render_projectile	prender;
@@ -125,5 +128,7 @@ t_env *env)
 	projectile->bottom = prender.yend;
 	prender.xrange = prender.x2 - prender.x1;
 	prender.yrange = prender.y2 - prender.y1;
-	threaded_projectile_loop_color(*projectile, prender, env);
+	if (threaded_projectile_loop_color(*projectile, prender, env))
+		return (-1);
+	return (0);
 }
