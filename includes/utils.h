@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 14:54:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:19:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,30 +188,6 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
-typedef struct		s_hidden_sect
-{
-	int				sector;
-	int				selected_enemy;
-	int				create;
-	t_v2			get_sect;
-}					t_hidden_sect;
-
-typedef struct		s_elevator
-{
-	int				up;
-	int				down;
-	int				on;
-	int				off;
-	double				next_stop;
-	double				start_floor;;
-	int				sector;
-	int				call;
-	int				called_from;
-	int				used;
-	double				time;
-	double				speed;
-}					t_elevator;
-
 typedef struct		s_state
 {
 	int				fall;
@@ -280,14 +256,6 @@ typedef struct		s_render_vertex
 	double			y1z0;
 	double			yzrange;
 }					t_render_vertex;
-
-typedef	struct		s_teleport
-{
-	int		create;
-	int		selected;
-	int		sector;
-	t_v3		tmp_pos;
-}				t_teleport;
 
 /*
 ** Sprite structure with associated texture
@@ -546,10 +514,9 @@ typedef struct		s_player
 	t_camera		camera;
 	t_init_data		player_init_data;
 	Uint32			start_move;
-	int			moving;
+	int				moving;
 	int				stuck;
 	int				prev_sector;
-	double			gravity;
 	double			eyesight;
 	double			speed;
 	int				hit;
@@ -572,6 +539,8 @@ typedef struct		s_player
 	double			acceleration;
 	double			start_pos;
 	int				drop_flag;
+	int				invicible;
+	int				infinite_ammo;
 }					t_player;
 
 /*
@@ -744,7 +713,6 @@ typedef struct		s_weapons
 	int				ammo;
 	int				ammo_type;
 	double			range;
-	int				no_ammo;
 	int				max_ammo;
 	int				damage;
 	int				splash;

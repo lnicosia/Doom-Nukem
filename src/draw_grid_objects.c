@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/08/21 13:41:15 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/06 13:40:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:24:27 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	draw_grid_objects(t_env *env)
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1
-					&& env->editor.dragged_enemy == -1
-					&& !env->teleport.create)
+					&& env->editor.dragged_enemy == -1)
 			{
 				env->editor.dragged_object = i;
 				env->editor.selected_object = i;

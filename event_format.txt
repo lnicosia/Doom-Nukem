@@ -1,5 +1,5 @@
 
-[#Cible] [#Declencheur] [#Type] [#Condition] [Autres: #Delay #Max_uses]
+[#Declencheur] [#Cible] [#Type] [#Condition] [Autres: #Delay #Max_uses]
 
 
 
@@ -32,18 +32,77 @@ Sector walk on event:
 
 
 
-Cibles actuelles:
 Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
-Cible: type + numero
+Types de cibles: 
+_Sector hauteur sol					| 0
+_Sector pente sol					| 1
+_Sector texture sol					| 2
+_Sector align x sol					| 3
+_Sector align y sol					| 4
+_Sector scale x sol					| 5
+_Sector scale y sol					| 6
+_Sector hauteur plafond				| 7
+_Sector pente plafond				| 8
+_Sector texture plafond				| 9
+_Sector align x plafond				| 10
+_Sector align y plafond				| 11
+_Sector scale x plafond				| 12
+_Sector scale y plafond				| 13
+_Sector textures					| 14
+_Sector textures align x			| 15
+_Sector textures align y			| 16
+_Sector textures scale x			| 17
+_Sector textures scale y			| 18
+_Sector portails					| 19
+_Sector wall sprites sprite			| 20
+_Sector wall sprites align x		| 21
+_Sector wall sprites align y		| 22
+_Sector wall sprites scale x		| 23
+_Sector wall sprites scale y		| 24
+_Sector floor sprites sprite		| 25
+_Sector floor sprites align x		| 26
+_Sector floor sprites align y		| 27
+_Sector floor sprites scale x		| 28
+_Sector floor sprites scale y		| 29
+_Sector ceiling sprites sprite		| 30
+_Sector ceiling sprites align x		| 31
+_Sector ceiling sprites align y		| 32
+_Sector ceiling sprites scale x		| 33
+_Sector ceiling sprites scale y		| 34
+_Sector luminosite					| 35
+_Sector light color					| 36
+_Sector intensity					| 37
+_Sector gravity						| 38
+_Vertex x							| 39
+_Vertex y							| 40
+_Player pos							| 41
+_Player gravity						| 42
+_Player speed						| 43
+_Player hp							| 44
+_Player armor						| 45
+_Player speed						| 46
+_Player	invincible					| 47
+_Player infinite ammo				| 48
+_Weapon damage						| 49
+_Weapon range						| 50
 
 Event qui modifie la hauteur d'un sol:
-[#Type_cible #Secteur]
+[#Type_cible #Sector]
 [0 1 0]
 
 Event qui modifie la lumiere d'un secteur:
-[#Type_cible #Secteur]
+[#Type_cible #Sector]
 [1 1 1]
 
 Event qui modifie la pos x d'un wall sprite
 [#Type_cible #secteur #mur #sprite]
 [0 2 1 4]
+
+
+
+
+Exemples: map "events.map":
+
+5 events globaux:
+_ Mettre l'intensite du secteur 2 a 50 en 0 sec:
+[0] [

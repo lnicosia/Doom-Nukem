@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/05 15:40:36 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/09/05 17:19:28 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2020/01/13 17:25:57 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	enemy_selection(t_env *env)
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_enemy == -1
-			&& !env->teleport.create)
+			&& env->editor.dragged_enemy == -1)
 	{
 		env->editor.dragged_enemy = env->nb_enemies;
 	}

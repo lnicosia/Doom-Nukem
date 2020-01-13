@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 14:03:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:19:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,12 @@ typedef struct		s_env
 	t_render_vertex		skybox[NB_SKYBOX];
 	t_audio				sound;
 	t_editor 			editor;
-	t_elevator			elevator;
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
 	t_explosion			explosion;
 	t_list				*explosions;
 	t_vline_data		*vline_data;
-	t_teleport			teleport;
-	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
 	t_skybox			skyboxes[MAX_SKYBOX];

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/07/25 11:52:27 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/06 12:38:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:20:04 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	draw_grid_vertices(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
-					&& !env->teleport.create
 					&& env->sdl.mx > 400)
 			{
 				env->editor.dragged_vertex = i;
