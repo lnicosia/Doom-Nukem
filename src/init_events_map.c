@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:03:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 16:59:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:48:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,19 @@ void		init_events_map(t_env *env)
 		/*************/
 		/* Ascenseur */
 		/*************/
-		env->sectors[1].nb_walk_events = 2;
-		env->sectors[1].walk_on_me_event =
-		(t_event*)ft_memalloc(sizeof(t_event) * env->sectors[1].nb_walk_events);
+		env->sectors[1].nb_walk_in_events = 2;
+		env->sectors[1].walk_in_event =
+		(t_event*)ft_memalloc(sizeof(t_event) * env->sectors[1].nb_walk_in_events);
 
-		env->sectors[1].walk_on_me_event[0] = new_fixed_event(DOUBLE,
+		env->sectors[1].walk_in_event[0] = new_fixed_event(DOUBLE,
 		&env->sectors[1].floor, 10, 500);
-		env->sectors[1].walk_on_me_event[0].update_func = &update_sector_event;
-		env->sectors[1].walk_on_me_event[0].update_param.num = 1;
+		env->sectors[1].walk_in_event[0].update_func = &update_sector_event;
+		env->sectors[1].walk_in_event[0].update_param.num = 1;
 
-		env->sectors[1].walk_on_me_event[1] = new_fixed_event(DOUBLE,
+		env->sectors[1].walk_in_event[1] = new_fixed_event(DOUBLE,
 		&env->sectors[1].floor, 0, 500);
-		env->sectors[1].walk_on_me_event[1].update_func = &update_sector_event;
-		env->sectors[1].walk_on_me_event[1].update_param.num = 1;
+		env->sectors[1].walk_in_event[1].update_func = &update_sector_event;
+		env->sectors[1].walk_in_event[1].update_param.num = 1;
 
 
 		/*********/
@@ -96,81 +96,81 @@ void		init_events_map(t_env *env)
 
 		// Montee
 		env->sectors[4].nb_stand_events = 3;
-		env->sectors[4].stand_on_me_event =
+		env->sectors[4].stand_event =
 		(t_event*)ft_memalloc(sizeof(t_event) * env->sectors[4].nb_stand_events);
-		env->sectors[4].stand_on_me_event[0] = new_incr_event(DOUBLE,
+		env->sectors[4].stand_event[0] = new_incr_event(DOUBLE,
 		&env->sectors[4].floor, -0.45, 500);
-		env->sectors[4].stand_on_me_event[0].update_func = &update_sector_event;
-		env->sectors[4].stand_on_me_event[0].update_param.num = 4;
-		/*env->sectors[4].stand_on_me_event[0].check_func = &check_equ_value_event;
-		env->sectors[4].stand_on_me_event[0].check_param.target = &env->player.sector;
-		env->sectors[4].stand_on_me_event[0].check_param.target_type = INT;
-		env->sectors[4].stand_on_me_event[0].check_param.equ_value = 4;*/
-		env->sectors[4].stand_on_me_event[0].nb_exec_conditions = 2;
-		env->sectors[4].stand_on_me_event[0].exec_conditions =
+		env->sectors[4].stand_event[0].update_func = &update_sector_event;
+		env->sectors[4].stand_event[0].update_param.num = 4;
+		/*env->sectors[4].stand_event[0].check_func = &check_equ_value_event;
+		env->sectors[4].stand_event[0].check_param.target = &env->player.sector;
+		env->sectors[4].stand_event[0].check_param.target_type = INT;
+		env->sectors[4].stand_event[0].check_param.equ_value = 4;*/
+		env->sectors[4].stand_event[0].nb_exec_conditions = 2;
+		env->sectors[4].stand_event[0].exec_conditions =
 		(t_condition*)ft_memalloc(sizeof(t_condition)
-		* env->sectors[4].stand_on_me_event[0].nb_exec_conditions);
-		env->sectors[4].stand_on_me_event[0].exec_conditions[0].target =
+		* env->sectors[4].stand_event[0].nb_exec_conditions);
+		env->sectors[4].stand_event[0].exec_conditions[0].target =
 		&env->sectors[4].floor;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[0].type =
+		env->sectors[4].stand_event[0].exec_conditions[0].type =
 		GREATER;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[0].target_type =
+		env->sectors[4].stand_event[0].exec_conditions[0].target_type =
 		DOUBLE;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[0].value = 10;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[1].target =
+		env->sectors[4].stand_event[0].exec_conditions[0].value = 10;
+		env->sectors[4].stand_event[0].exec_conditions[1].target =
 		&env->player.sector;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[1].type =
+		env->sectors[4].stand_event[0].exec_conditions[1].type =
 		EQUALS;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[1].target_type =
+		env->sectors[4].stand_event[0].exec_conditions[1].target_type =
 		INT;
-		env->sectors[4].stand_on_me_event[0].exec_conditions[1].value = 4;
+		env->sectors[4].stand_event[0].exec_conditions[1].value = 4;
 
 
-		env->sectors[4].stand_on_me_event[1] = new_incr_event(DOUBLE,
+		env->sectors[4].stand_event[1] = new_incr_event(DOUBLE,
 		&env->sectors[7].floor, -10.0, 1000);
-		/*env->sectors[4].stand_on_me_event[1].check_func = &check_equ_value_event;
-		env->sectors[4].stand_on_me_event[1].check_param.target = &env->player.sector;
-		env->sectors[4].stand_on_me_event[1].check_param.equ_value = 4;*/
-		env->sectors[4].stand_on_me_event[1].nb_exec_conditions = 2;
-		env->sectors[4].stand_on_me_event[1].exec_conditions =
+		/*env->sectors[4].stand_event[1].check_func = &check_equ_value_event;
+		env->sectors[4].stand_event[1].check_param.target = &env->player.sector;
+		env->sectors[4].stand_event[1].check_param.equ_value = 4;*/
+		env->sectors[4].stand_event[1].nb_exec_conditions = 2;
+		env->sectors[4].stand_event[1].exec_conditions =
 		(t_condition*)ft_memalloc(sizeof(t_condition)
-		* env->sectors[4].stand_on_me_event[1].nb_exec_conditions);
-		env->sectors[4].stand_on_me_event[1].exec_conditions[0].target =
+		* env->sectors[4].stand_event[1].nb_exec_conditions);
+		env->sectors[4].stand_event[1].exec_conditions[0].target =
 		&env->sectors[7].floor;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[0].type =
+		env->sectors[4].stand_event[1].exec_conditions[0].type =
 		GREATER;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[0].target_type =
+		env->sectors[4].stand_event[1].exec_conditions[0].target_type =
 		DOUBLE;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[0].value = 10;
-		env->sectors[4].stand_on_me_event[1].update_func = &update_sector_event;
-		env->sectors[4].stand_on_me_event[1].update_param.num = 7;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[1].target =
+		env->sectors[4].stand_event[1].exec_conditions[0].value = 10;
+		env->sectors[4].stand_event[1].update_func = &update_sector_event;
+		env->sectors[4].stand_event[1].update_param.num = 7;
+		env->sectors[4].stand_event[1].exec_conditions[1].target =
 		&env->player.sector;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[1].type =
+		env->sectors[4].stand_event[1].exec_conditions[1].type =
 		EQUALS;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[1].target_type =
+		env->sectors[4].stand_event[1].exec_conditions[1].target_type =
 		INT;
-		env->sectors[4].stand_on_me_event[1].exec_conditions[1].value = 4;
+		env->sectors[4].stand_event[1].exec_conditions[1].value = 4;
 
-		env->sectors[4].stand_on_me_event[2] = new_incr_event(DOUBLE,
+		env->sectors[4].stand_event[2] = new_incr_event(DOUBLE,
 		&env->sectors[6].align[5].y, 10, 1000);
-		env->sectors[4].stand_on_me_event[2].nb_exec_conditions = 2;
-		env->sectors[4].stand_on_me_event[2].exec_conditions =
-		env->sectors[4].stand_on_me_event[1].exec_conditions;
-		/*env->sectors[4].stand_on_me_event[2].nb_exec_conditions = 2;
-		env->sectors[4].stand_on_me_event[2].exec_conditions =
-		env->sectors[4].stand_on_me_event[2].exec_conditions =
+		env->sectors[4].stand_event[2].nb_exec_conditions = 2;
+		env->sectors[4].stand_event[2].exec_conditions =
+		env->sectors[4].stand_event[1].exec_conditions;
+		/*env->sectors[4].stand_event[2].nb_exec_conditions = 2;
+		env->sectors[4].stand_event[2].exec_conditions =
+		env->sectors[4].stand_event[2].exec_conditions =
 		(t_condition*)ft_memalloc(sizeof(t_condition)
-		* env->sectors[4].stand_on_me_event[2].nb_exec_conditions);
-		env->sectors[4].stand_on_me_event[2].exec_conditions[0].target =
+		* env->sectors[4].stand_event[2].nb_exec_conditions);
+		env->sectors[4].stand_event[2].exec_conditions[0].target =
 		&env->sectors[6].align[5].y;
-		env->sectors[4].stand_on_me_event[2].exec_conditions[0].type =
+		env->sectors[4].stand_event[2].exec_conditions[0].type =
 		LESS;
-		env->sectors[4].stand_on_me_event[2].exec_conditions[0].target_type =
+		env->sectors[4].stand_event[2].exec_conditions[0].target_type =
 		DOUBLE;
-		env->sectors[4].stand_on_me_event[2].exec_conditions[0].value = 10;
-		env->sectors[4].stand_on_me_event[2].exec_conditions[1] =
-		env->sectors[4].stand_on_me_event[1].exec_conditions[1];*/
+		env->sectors[4].stand_event[2].exec_conditions[0].value = 10;
+		env->sectors[4].stand_event[2].exec_conditions[1] =
+		env->sectors[4].stand_event[1].exec_conditions[1];*/
 
 		// Descente
 		env->sectors[4].nb_walk_out_events = 3;

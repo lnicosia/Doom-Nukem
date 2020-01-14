@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:03:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:09:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ void			update_player_event(t_event *event, void *penv)
 		return (0);
 	return (1);
 }*/
+
+int					check_sector_event(t_event *event, void *penv)
+{
+	(void)event;
+	(void)penv;
+	return (1);
+}
 
 void			delete_itself_event(t_event *event, void *penv)
 {

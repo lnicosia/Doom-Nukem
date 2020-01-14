@@ -14,8 +14,8 @@ Declencheurs actuels:
 _global								| 0		| Parsing:			|
 _wall sprite press event			| 1		| Parsing: Sprite	|
 _wall sprite shoot event			| 2		| Parsing: Sprite	|
-_sector press						| 3		| Parsing: Sector	|
-_sector walk on						| 4		| Parsing: Sector	|
+_sector stand						| 3		| Parsing: Sector	|
+_sector walk in						| 4		| Parsing: Sector	|
 _sector walk out					| 5		| Parsing: Sector	|
 _enemy death						| 6		| Parsing: Enemy	|
 
@@ -32,7 +32,7 @@ _Sector hauteur plafond				|	7	| Parsing: Sector	|
 _Sector pente plafond				|	8	| Parsing: Sector	|
 _Sector texture plafond				|	9	| Parsing: Sector	|
 _Sector align x plafond				|	10	| Parsing: Sector	|
-_Sector align y plafond				|	11	| Parsing: Sector	|	
+_Sector align y plafond				|	11	| Parsing: Sector	|
 _Sector scale x plafond				|	12	| Parsing: Sector	|
 _Sector scale y plafond				|	13	| Parsing: Sector	|
 _Sector textures					|	14	| Parsing: Wall		|
@@ -50,7 +50,7 @@ _Sector floor sprites sprite		|	25	| Parsing: Sprite	|
 _Sector floor sprites align x		|	26	| Parsing: Sprite	|
 _Sector floor sprites align y		|	27	| Parsing: Sprite	|
 _Sector floor sprites scale x		|	28	| Parsing: Sprite	|
-_Sector floor sprites scale y		|	29	| Parsing: Sprite	|	
+_Sector floor sprites scale y		|	29	| Parsing: Sprite	|
 _Sector ceiling sprites sprite		|	30	| Parsing: Sprite	|
 _Sector ceiling sprites align x		|	31	| Parsing: Sprite	|
 _Sector ceiling sprites align y		|	32	| Parsing: Sprite	|
@@ -87,23 +87,67 @@ _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|
 
 Types:
-_FIXED								|	0	|[#Value #Duration]	|
-_INCR								|	1	|[#Value #Duration]	|
-_FUNC								|	2	|[#Func]			|
+_FIXED: [0 #Value #Duration]
+_INCR	[1 #Value #Duration]
+_FUNC	[2 #Func]
 
-Conditions:
-[{0}{1}{2}...]
-Contenu: {#Type #value #Target_type #target#}
+Events:
+_global								| 0		| Parsing: + #numero		|
+_wall sprite press event			| 1		| Parsing: Sprite + #numero	|
+_wall sprite shoot event			| 2		| Parsing: Sprite + #numero	|
+_sector stand						| 3		| Parsing: Sector + #numero	|
+_sector walk in						| 4		| Parsing: Sector + #numero	|
+_sector walk out					| 5		| Parsing: Sector + #numero	|
+_enemy death						| 6		| Parsing: Enemy + #numero	|
 
 Autres:
 [#Delay #Nb_uses]: delay > 0, si uses == 0 pas de max
 
 [#Declencheur {parsing}] [#Cible {parsing}] [#Type d'event] [#Conditions] [Autres: #Delay #Max_uses]
 
+Conditions:
+[{0}{1}{2}...]
+Contenu: {#Type #value #Target_type #(target)}
+Types de conditions:
+_EQUALS,							|	0	|
+_DIFFERENT							|	1	|
+_LESS								|	2	|
+_GREATER							|	3	|
+_LESS_OR_EQUALS						|	4	|
+_GREATER_OR_EQUALS					|	5	|
+_EVENT_ENDED						|	6	|
+_EVENT_ENDED_START					|	7	|
+_FUNCTION							|	8	|
+
 Exemples: map "events.map":
 
-Events globaux:
+/******************\
+/* Events globaux *\
+/******************\
+
 _ Mettre l'intensite du secteur 2 a 50 en 0ms:
 [0] [37 2] [0 50 0] [] [0 0]
-_ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms:
-[0] [36 2] [0 0xFFFF0000 0] [] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms. Condition de lancement: event_ended_start.event global 4 est termine:
+[0] [36 2] [0 0xFFFF0000 0] [{7 0 0 (0 4)}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms. Condition de lancement: event_ended_start.event global 1 est termine:
+[0] [36 2] [0 0xFF0000FF 0] [{7 0 0 (0 1)}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF00FF00 en 0ms. Condition de lancement: event_ended_start.event global 2 est termine:
+[0] [36 2] [0 0xFF00FF00 0] [{7 0 0 (0 2)}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms. Condition de lancement: event_ended_start.event global 3 est termine:
+[0] [36 2] [0 0xFFFFFF00 0] [{7 0 0 (0 3)}] [0 0]
+
+/*************\
+/* Ascenseur *\
+/*************\
+
+_Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 10 en 500ms:
+[4 {1}] [0 {1}] [0 10 500] [] [0 0]
+_Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 0 en 500ms:
+[4 {1}] [0 {1}] [0 0 500] [] [0 0]
+
+/*********\
+/* Dalle *\
+/*********\
+
+_Stand event du secteur 4: diminuer la valeur du sol du secteur 4 de 0.45:
+[3 {4}] [0 {4}] [1 -0.45 500] [{3 10 1 (4)}{0 4 0 (??)}] [0 0]

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:02:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:46:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,10 +389,10 @@ typedef struct		s_sector
 	int				brightness;
 	int				intensity;
 	size_t			nb_stand_events;
-	size_t			nb_walk_events;
+	size_t			nb_walk_in_events;
 	size_t			nb_walk_out_events;
-	t_event			*stand_on_me_event;
-	t_event			*walk_on_me_event;
+	t_event			*stand_event;
+	t_event			*walk_in_event;
 	t_event			*walk_out_event;
 }					t_sector;
 
