@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/14 17:21:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:59:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void		threaded_explosion(t_explosion explosion, t_render_explosion erende
 }
 
 void		draw_explosion(t_camera camera, t_explosion *explosion,
-t_env *env)
+t_env *env, int index)
 {
 	t_render_explosion	erender;
 	t_sprite			sprite;
@@ -99,7 +99,7 @@ t_env *env)
 	sprite = env->object_sprites[explosion->sprite];
 	erender.camera = camera;
 	project_explosion(&erender, *explosion, env);
-	erender.index = 0;
+	erender.index = index;
 	size.x = env->w * explosion->scale / explosion->rotated_pos.z;
 	sprite_ratio = sprite.size[erender.index].x
 		/ (double)sprite.size[erender.index].y;
@@ -129,6 +129,7 @@ void		draw_explosions(t_camera camera, t_env *env)
 {
 	t_list			*tmp;
 	t_explosion		*explosion;
+	int				sprite_index;
 
 	get_explosion_relative_pos(camera, env);
 	tmp = env->explosions;
@@ -136,7 +137,20 @@ void		draw_explosions(t_camera camera, t_env *env)
 	{
 		explosion = (t_explosion*)tmp->content;
 		if (explosion->rotated_pos.z > 1)
-			draw_explosion(camera, explosion, env);
-		tmp = tmp->next;
+		{
+			sprite_index = explosion_animation(env, explosion, env->object_sprites[explosion->sprite].nb_death_sprites);
+			if (sprite_index >= 0)
+			{
+				draw_explosion(camera, explosion, env, sprite_index);
+				tmp = tmp->next;
+			}
+			else
+			{
+				tmp = ft_lstdelnode(&env->explosions, tmp);
+				env->nb_explosions--;
+			}
+		}
+		else
+			tmp = tmp->next;
 	}
 }
