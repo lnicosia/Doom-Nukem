@@ -1,108 +1,95 @@
 
 [#Declencheur] [#Cible] [#Type] [#Condition] [Autres: #Delay #Max_uses]
 
-
-
-Declencheur: 
-	_ wall_sprite press_event: wall_sprite + numero secteur + numero mur + numero sprite
+Differents type de parsing:
+_[#Secteur]							| 0		| Sector
+_[#Secteur #Mur]					| 1		| Wall
+_[#Secteur #Mur #Sprite]			| 2		| Sprite
+_[#Vertex]							| 3		| Vertex
+_[#Weapon]							| 4		| Weapon
+_[#Enemy]							| 5		| Enemy
+_[#Object]							| 6		| Object
 
 Declencheurs actuels:
-_global						| 0
-_wall sprite press event	| 1
-_wall sprite shoot event	| 2
-_sector press event			| 3
-_sector walk on event		| 4
-_enemy death				| 5
-
-Event global:
-[#Type_eclencheur]:
-[0]
-Wall sprite press event:
-[#Type_declencheur #secteur #mur #sprite]
-[1 0 2 1]
-Wall sprite shoot event:
-[#Type_declencheur #secteur #mur #sprite]
-[2 0 2 1]
-Sector press event:
-[#Type_declencheur #secteur]
-[3 0]
-Sector walk on event:
-[#Type_declencheur #secteur]
-[4 0]
+_global								| 0		| Parsing:			|
+_wall sprite press event			| 1		| Parsing: Sprite	|
+_wall sprite shoot event			| 2		| Parsing: Sprite	|
+_sector press						| 3		| Parsing: Sector	|
+_sector walk on						| 4		| Parsing: Sector	|
+_sector walk out					| 5		| Parsing: Sector	|
+_enemy death						| 6		| Parsing: Enemy	|
 
 
 
 Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
 Types de cibles: 
-_Sector hauteur sol					| 0
-_Sector pente sol					| 1
-_Sector texture sol					| 2
-_Sector align x sol					| 3
-_Sector align y sol					| 4
-_Sector scale x sol					| 5
-_Sector scale y sol					| 6
-_Sector hauteur plafond				| 7
-_Sector pente plafond				| 8
-_Sector texture plafond				| 9
-_Sector align x plafond				| 10
-_Sector align y plafond				| 11
-_Sector scale x plafond				| 12
-_Sector scale y plafond				| 13
-_Sector textures					| 14
-_Sector textures align x			| 15
-_Sector textures align y			| 16
-_Sector textures scale x			| 17
-_Sector textures scale y			| 18
-_Sector portails					| 19
-_Sector wall sprites sprite			| 20
-_Sector wall sprites align x		| 21
-_Sector wall sprites align y		| 22
-_Sector wall sprites scale x		| 23
-_Sector wall sprites scale y		| 24
-_Sector floor sprites sprite		| 25
-_Sector floor sprites align x		| 26
-_Sector floor sprites align y		| 27
-_Sector floor sprites scale x		| 28
-_Sector floor sprites scale y		| 29
-_Sector ceiling sprites sprite		| 30
-_Sector ceiling sprites align x		| 31
-_Sector ceiling sprites align y		| 32
-_Sector ceiling sprites scale x		| 33
-_Sector ceiling sprites scale y		| 34
-_Sector luminosite					| 35
-_Sector light color					| 36
-_Sector intensity					| 37
-_Sector gravity						| 38
-_Vertex x							| 39
-_Vertex y							| 40
-_Player pos							| 41
-_Player gravity						| 42
-_Player speed						| 43
-_Player hp							| 44
-_Player armor						| 45
-_Player speed						| 46
-_Player	invincible					| 47
-_Player infinite ammo				| 48
-_Weapon damage						| 49
-_Weapon range						| 50
-
-Event qui modifie la hauteur d'un sol:
-[#Type_cible #Sector]
-[0 1 0]
-
-Event qui modifie la lumiere d'un secteur:
-[#Type_cible #Sector]
-[1 1 1]
-
-Event qui modifie la pos x d'un wall sprite
-[#Type_cible #secteur #mur #sprite]
-[0 2 1 4]
-
-
+_Sector hauteur sol					|	0	| Parsing: Sector	|
+_Sector pente sol					|	1	| Parsing: Sector	|
+_Sector texture sol					|	2	| Parsing: Sector	|
+_Sector align x sol					|	3	| Parsing: Sector	|
+_Sector align y sol					|	4	| Parsing: Sector	|
+_Sector scale x sol					|	5	| Parsing: Sector	|
+_Sector scale y sol					|	6	| Parsing: Sector	|
+_Sector hauteur plafond				|	7	| Parsing: Sector	|
+_Sector pente plafond				|	8	| Parsing: Sector	|
+_Sector texture plafond				|	9	| Parsing: Sector	|
+_Sector align x plafond				|	10	| Parsing: Sector	|
+_Sector align y plafond				|	11	| Parsing: Sector	|	
+_Sector scale x plafond				|	12	| Parsing: Sector	|
+_Sector scale y plafond				|	13	| Parsing: Sector	|
+_Sector textures					|	14	| Parsing: Wall		|
+_Sector textures align x			|	15	| Parsing: Wall		|
+_Sector textures align y			|	16	| Parsing: Wall		|
+_Sector textures scale x			|	17	| Parsing: Wall		|
+_Sector textures scale y			|	18	| Parsing: Wall		|
+_Sector portails					|	19	| Parsing: Wall		|
+_Sector wall sprites sprite			|	20	| Parsing: Sprite	|
+_Sector wall sprites align x		|	21	| Parsing: Sprite	|
+_Sector wall sprites align y		|	22	| Parsing: Sprite	|
+_Sector wall sprites scale x		|	23	| Parsing: Sprite	|
+_Sector wall sprites scale y		|	24	| Parsing: Sprite	|
+_Sector floor sprites sprite		|	25	| Parsing: Sprite	|
+_Sector floor sprites align x		|	26	| Parsing: Sprite	|
+_Sector floor sprites align y		|	27	| Parsing: Sprite	|
+_Sector floor sprites scale x		|	28	| Parsing: Sprite	|
+_Sector floor sprites scale y		|	29	| Parsing: Sprite	|	
+_Sector ceiling sprites sprite		|	30	| Parsing: Sprite	|
+_Sector ceiling sprites align x		|	31	| Parsing: Sprite	|
+_Sector ceiling sprites align y		|	32	| Parsing: Sprite	|
+_Sector ceiling sprites scale x		|	33	| Parsing: Sprite	|
+_Sector ceiling sprites scale y		|	34	| Parsing: Sprite	|
+_Sector luminosite					|	35	| Parsing: Sector	|
+_Sector light color					|	36	| Parsing: Sector	|
+_Sector intensity					|	37	| Parsing: Sector	|
+_Sector gravity						|	38	| Parsing: Sector	|
+_Vertex x							|	39	| Parsing: Vertex	|
+_Vertex y							|	40	| Parsing: Vertex	|
+_Player pos							|	41	| Parsing:			|
+_Player gravity						|	42	| Parsing:			|
+_Player speed						|	43	| Parsing:			|
+_Player hp							|	44	| Parsing:			|
+_Player armor						|	45	| Parsing:			|
+_Player speed						|	46	| Parsing:			|
+_Player	invincible					|	47	| Parsing:			|
+_Player infinite ammo				|	48	| Parsing:			|
+_Weapon damage						|	49	| Parsing: Weapon	|
+_Weapon range						|	50	| Parsing: Weapon	|
+_Enemy sprite						|	51	| Parsing: Enemy	|
+_Enemy scale						|	52	| Parsing: Enemy	|
+_Enemy damage						|	53	| Parsing: Enemy	|
+_Enemy hp							|	54	| Parsing: Enemy	|
+_Enemy speed						|	55	| Parsing: Enemy	|
+_Object sprite						|	56	| Parsing: Object	|
+//Cas particuliers
+_Ajouter ennemi						|		| Parsing:			|
+_Jump								|		| Parsing:			|
 
 
 Exemples: map "events.map":
 
 5 events globaux:
 _ Mettre l'intensite du secteur 2 a 50 en 0 sec:
-[0] [
+
+
+
+
