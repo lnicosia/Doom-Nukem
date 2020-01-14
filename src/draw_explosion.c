@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/09 15:32:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:21:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ static void		*explosion_loop(void *param)
 		{
 			yalpha = (y - erender.y1) / erender.yrange;
 			texty = (1.0 - yalpha) * sprite.start[erender.index].y + yalpha * sprite.end[erender.index].y;
-			if ((explosion.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+			if ((texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				pixels[x + y * env->w] = texture_pixels[textx + texty * texture.surface->w];
 				zbuffer[x + y * env->w] = explosion.rotated_pos.z;
@@ -66,7 +65,7 @@ static void		*explosion_loop(void *param)
 	return (NULL);
 }
 
-static void		threaded_explosion(t_explosion projectile, t_render_explosion erender, t_env *env)
+static void		threaded_explosion(t_explosion explosion, t_render_explosion erender, t_env *env)
 {
 	t_explosion_thread	pt[THREADS];
 	pthread_t			threads[THREADS];
@@ -94,13 +93,13 @@ t_env *env)
 	t_sprite			sprite;
 	t_v2				size;
 	double				sprite_ratio;
+	int					centre_alignment;
+	//static int a = 0;
 
 	sprite = env->object_sprites[explosion->sprite];
 	erender.camera = camera;
 	project_explosion(&erender, *explosion, env);
 	erender.index = 0;
-	if (sprite.oriented)
-		erender.index = get_sprite_direction_explosion(*explosion);
 	size.x = env->w * explosion->scale / explosion->rotated_pos.z;
 	sprite_ratio = sprite.size[erender.index].x
 		/ (double)sprite.size[erender.index].y;
@@ -109,9 +108,9 @@ t_env *env)
 	erender.x2 = erender.screen_pos.x + size.y / 4;
 	erender.y1 = erender.screen_pos.y - size.x / 2;
 	erender.y2 = erender.screen_pos.y;
-	erender.light_color = explosion->light_color;
-	erender.brightness = explosion->brightness;
-	erender.intensity = explosion->intensity;
+	centre_alignment = (erender.y2 - erender.y1) / 2;
+	erender.y1 += centre_alignment;
+	erender.y2 += centre_alignment;
 	erender.xstart = ft_clamp(erender.x1, 0, env->w - 1);
 	erender.ystart = ft_clamp(erender.y1 + 1, 0, env->h - 1);
 	erender.xend = ft_clamp(erender.x2, 0, env->w - 1);
@@ -122,5 +121,22 @@ t_env *env)
 	explosion->bottom = erender.yend;
 	erender.xrange = erender.x2 - erender.x1;
 	erender.yrange = erender.y2 - erender.y1;
-	threaded_projectile_loop(*explosion, erender, env);
+	threaded_explosion(*explosion, erender, env);
+}
+
+
+void		draw_explosions(t_camera camera, t_env *env)
+{
+	t_list			*tmp;
+	t_explosion		*explosion;
+
+	get_explosion_relative_pos(camera, env);
+	tmp = env->explosions;
+	while (tmp)
+	{
+		explosion = (t_explosion*)tmp->content;
+		if (explosion->rotated_pos.z > 1)
+			draw_explosion(camera, explosion, env);
+		tmp = tmp->next;
+	}
 }

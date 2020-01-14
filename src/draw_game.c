@@ -18,6 +18,7 @@ int	draw_render(t_camera *camera, t_env *env)
 		return (crash("Failed to draw walls\n", env));
 	draw_objects(*camera, env);
 	draw_projectiles(*camera, env);
+	draw_explosions(*camera, env);
 	draw_enemies(*camera, env);
 	draw_players(*camera, env);
 	return (0);

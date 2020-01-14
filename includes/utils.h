@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:10:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:52:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -788,10 +788,17 @@ typedef	struct		s_explosion_data
 typedef	struct		s_explosion
 {
 	t_v3			pos;
+	t_v3			rotated_pos;
+	t_v3			translated_pos;
 	double			radius;
 	int				damage;
 	int				sprite;
 	short			damage_burst;
+	int				left;
+	int				right;
+	int				top;
+	int				bottom;
+	double			scale;
 }					t_explosion;
 
 /*

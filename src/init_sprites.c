@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:31:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ int			init_object_sprites(t_env *env)
 	
 	// rocket sprites
 	env->object_sprites[1].texture = 25;
-	env->object_sprites[1].death_counterpart = 1;
+	env->object_sprites[1].death_counterpart = 22;
 	env->object_sprites[1].pursuit_sprite = 1;
 	env->object_sprites[1].firing_sprite = 1;
 	env->object_sprites[1].rest_sprite = 1;
 	env->object_sprites[1].curr_sprite = 1;
 	env->object_sprites[1].oriented = 1;
-	env->object_sprites[1].nb_death_sprites = 8;
+	env->object_sprites[1].nb_death_sprites = 3;
 
 	env->object_sprites[1].start[0].x = 1;
 	env->object_sprites[1].start[0].y = 817;
@@ -527,7 +527,8 @@ int			init_object_sprites(t_env *env)
 	// explosion animation
 
 	env->object_sprites[22].texture = 25;
-	env->object_sprites[22].death_counterpart = 25;
+	env->object_sprites[22].death_counterpart = 22;
+	env->object_sprites[22].curr_sprite = 22;
 	env->object_sprites[22].nb_death_sprites = 3;
 	env->object_sprites[22].oriented = 0;
 	env->object_sprites[22].rest_sprite = 0;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 15:14:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:41:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,6 +368,7 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
+void				draw_explosions(t_camera camera, t_env *env);
 void				draw_projectiles(t_camera camera, t_env *env);
 void				draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);

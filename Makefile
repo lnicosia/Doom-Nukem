@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/08 18:15:27 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/13 16:54:39 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
-				explosion.c
+				explosion.c draw_explosion.c explosion_maths.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \

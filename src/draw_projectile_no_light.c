@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_projectile_no_light.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/06 11:37:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:03:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,6 @@ t_env *env)
 	prender.x2 = prender.screen_pos.x + size.y / 4;
 	prender.y1 = prender.screen_pos.y - size.x / 2;
 	prender.y2 = prender.screen_pos.y;
-	prender.light_color = projectile->light_color;
-	prender.brightness = projectile->brightness;
-	prender.intensity = projectile->intensity;
 	prender.xstart = ft_clamp(prender.x1, 0, env->w - 1);
 	prender.ystart = ft_clamp(prender.y1 + 1, 0, env->h - 1);
 	prender.xend = ft_clamp(prender.x2, 0, env->w - 1);

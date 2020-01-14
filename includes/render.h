@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/29 13:50:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:51:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,23 @@ typedef struct		s_render_projectile
 	t_point			screen_pos;
 }					t_render_projectile;
 
+typedef struct		s_render_explosion
+{
+	t_camera		camera;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				xstart;
+	int				ystart;
+	int				xend;
+	int				yend;
+	int				index;
+	double			xrange;
+	double			yrange;
+	t_point			screen_pos;
+}					t_render_explosion;
+
 typedef struct		s_render_object
 {
 	t_camera		camera;
@@ -177,6 +194,16 @@ typedef struct		s_object_thread
 	int				xstart;
 	int				xend;
 }					t_object_thread;
+
+typedef struct		s_explosion_thread
+{
+	t_env				*env;
+	t_camera			camera;
+	t_explosion			explosion;
+	t_render_explosion	erender;
+	int					xstart;
+	int					xend;
+}					t_explosion_thread;
 
 typedef struct		s_projectile_thread
 {
@@ -292,6 +319,11 @@ void				*get_projectile_relative_pos(t_camera camera, t_env *env);
 void				get_translated_projectile_pos(t_camera camera, t_projectile *projectile);
 void				get_rotated_projectile_pos(t_camera camera, t_projectile *projectile);
 void				project_projectile(t_render_projectile *prender, t_projectile projectile, t_env *env);
+
+void				*get_explosion_relative_pos(t_camera camera, t_env *env);
+void				get_translated_explosion_pos(t_camera camera, t_explosion *explosion);
+void				get_rotated_explosion_pos(t_camera camera, t_explosion *explosion);
+void				project_explosion(t_render_explosion *erender, t_explosion explosion, t_env *env);
 
 void				get_translated_object_pos(t_camera camera, t_object *object);
 void				get_rotated_object_pos(t_camera camera, t_object *object);
