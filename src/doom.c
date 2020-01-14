@@ -6,49 +6,60 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/10 18:13:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 15:45:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-int		launch_global_events(t_env *env)
+int		launch_events(t_env *env)
 {
 	if (env->player.sector != -1
-		&& env->sectors[env->player.sector].stand_on_me_event
-		&& env->sectors[env->player.sector].nb_stand_events)
+			&& env->sectors[env->player.sector].stand_on_me_event
+			&& env->sectors[env->player.sector].nb_stand_events)
 	{
 		if (start_event(&env->sectors[env->player.sector].stand_on_me_event,
-				&env->sectors[env->player.sector].nb_stand_events, env))
+					&env->sectors[env->player.sector].nb_stand_events, env))
 			return (-1);
 	}
 	if (env->global_events && env->nb_global_events && env->global_events)
 	{
 		if (start_event(&env->global_events,
-				&env->nb_global_events, env))
+					&env->nb_global_events, env))
 			return (-1);
 	}
 	if (env->wall_bullet_holes_events && env->nb_wall_bullet_holes_events
-		&& env->wall_bullet_holes_events)
+			&& env->wall_bullet_holes_events)
 	{
 		if (start_event(&env->wall_bullet_holes_events,
-				&env->nb_wall_bullet_holes_events, env))
+					&env->nb_wall_bullet_holes_events, env))
 			return (-1);
 	}
 	if (env->floor_bullet_holes_events && env->floor_bullet_holes_events
 			&& env->nb_floor_bullet_holes_events)
 	{
 		if (start_event(&env->floor_bullet_holes_events,
-				&env->nb_floor_bullet_holes_events, env))
+					&env->nb_floor_bullet_holes_events, env))
 			return (-1);
 	}
 	if (env->ceiling_bullet_holes_events && env->ceiling_bullet_holes_events
 			&& env->nb_ceiling_bullet_holes_events)
 	{
 		if (start_event(&env->ceiling_bullet_holes_events,
-				&env->nb_ceiling_bullet_holes_events, env))
+					&env->nb_ceiling_bullet_holes_events, env))
 			return (-1);
+	}
+	if (env->player.changed_sector)
+	{
+		if (env->player.sector != -1 && env->sectors[env->player.sector].nb_walk_events > 0)
+			start_event(&env->sectors[env->player.sector].walk_on_me_event, &env->sectors[env->player.sector].nb_walk_events, env);
+		if (env->player.old_sector != -1
+				&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
+			start_event(&env->sectors[env->player.old_sector].walk_out_event,
+					&env->sectors[env->player.old_sector].nb_walk_out_events, env);
+		env->player.changed_sector = 0;
+		env->player.old_sector = -1;
 	}
 	return (0);
 }
@@ -81,11 +92,6 @@ int		doom(t_env *env)
 			update_sprites_state(env);
 			if (projectiles_movement(env))
 				return (-1);
-			if (env->events)
-			{
-				if (pop_events2(env))
-					return (-1);
-			}
 			if (env->player.health > 0)
 			{
 				enemy_ai(env);
@@ -95,7 +101,12 @@ int		doom(t_env *env)
 				enemy_melee_hit(env);
 				keys(env);
 			}
-			if (launch_global_events(env))
+			if (env->events)
+			{
+				if (pop_events2(env))
+					return (-1);
+			}
+			if (launch_events(env))
 				return (-1);
 			if (env->player.health <= 0)
 				death(env);

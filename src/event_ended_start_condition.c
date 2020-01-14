@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   greater_or_equals_condition.c                      :+:      :+:    :+:   */
+/*   event_ended_start_condition.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 13:45:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 14:34:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 13:53:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_conditions.h"
 
-int		greater_or_equals_condition(t_condition condition)
+int		event_ended_start_condition(t_condition condition, t_event event)
 {
-	if (condition.target_type == INT
-		&& *(int*)condition.target >= condition.value)
+	t_event	*target;
+
+	target = (t_event*)condition.target;
+	if ((SDL_GetTicks() >= target->end_time + event.delay && target->happened)
+		|| !event.uses)
+	{
+		target->happened = 0;
 		return (0);
-	else if (condition.target_type == DOUBLE
-		&& *(double*)condition.target >= condition.value)
-		return (0);
-	else if (condition.target_type == UINT32
-		&& *(Uint32*)condition.target >= condition.value)
-		return (0);
+	}
 	return (1);
 }

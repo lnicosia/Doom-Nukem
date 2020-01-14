@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 11:46:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:04:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,10 @@ int		execute_event(t_event *event, t_env *env)
 	int	res;
 
 	res = 1;
-	if (event->check_func)
-		if (!event->check_func(event, env))
-			return (1);
+	if (event->exec_conditions
+		&& !check_conditions(*event, event->exec_conditions,
+		event->nb_exec_conditions))
+		return (1);
 	if (event->type == DOUBLE)
 		res = double_event(event);
 	else if (event->type == INT)

@@ -1,14 +1,14 @@
 
-[#Declencheur] [#Cible] [#Type] [#Condition] [Autres: #Delay #Max_uses]
+[#Declencheur] [#Cible] [#Type] [#Conditions] [Autres: #Delay #Max_uses]
 
 Differents type de parsing:
-_[#Secteur]							| 0		| Sector
-_[#Secteur #Mur]					| 1		| Wall
-_[#Secteur #Mur #Sprite]			| 2		| Sprite
-_[#Vertex]							| 3		| Vertex
-_[#Weapon]							| 4		| Weapon
-_[#Enemy]							| 5		| Enemy
-_[#Object]							| 6		| Object
+_[#Secteur]							| 0		| Sector			|
+_[#Secteur #Mur]					| 1		| Wall				|
+_[#Secteur #Mur #Sprite]			| 2		| Sprite			|
+_[#Vertex]							| 3		| Vertex			|
+_[#Weapon]							| 4		| Weapon			|
+_[#Enemy]							| 5		| Enemy				|
+_[#Object]							| 6		| Object			|
 
 Declencheurs actuels:
 _global								| 0		| Parsing:			|
@@ -18,8 +18,6 @@ _sector press						| 3		| Parsing: Sector	|
 _sector walk on						| 4		| Parsing: Sector	|
 _sector walk out					| 5		| Parsing: Sector	|
 _enemy death						| 6		| Parsing: Enemy	|
-
-
 
 Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
 Types de cibles: 
@@ -79,17 +77,33 @@ _Enemy scale						|	52	| Parsing: Enemy	|
 _Enemy damage						|	53	| Parsing: Enemy	|
 _Enemy hp							|	54	| Parsing: Enemy	|
 _Enemy speed						|	55	| Parsing: Enemy	|
-_Object sprite						|	56	| Parsing: Object	|
+_Enemy pos							|	56	| Parsing: Enemy	|
+_Object sprite						|	57	| Parsing: Object	|
+_Object scale						|	58	| Parsing: Object	|
+_Object health						|	59	| Parsing: Object	|
+_Object pos							|	60	| Parsing: Object	|
 //Cas particuliers
 _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|
 
+Types:
+_FIXED								|	0	|[#Value #Duration]	|
+_INCR								|	1	|[#Value #Duration]	|
+_FUNC								|	2	|[#Func]			|
+
+Conditions:
+[{0}{1}{2}...]
+Contenu: {#Type #value #Target_type #target#}
+
+Autres:
+[#Delay #Nb_uses]: delay > 0, si uses == 0 pas de max
+
+[#Declencheur {parsing}] [#Cible {parsing}] [#Type d'event] [#Conditions] [Autres: #Delay #Max_uses]
 
 Exemples: map "events.map":
 
-5 events globaux:
-_ Mettre l'intensite du secteur 2 a 50 en 0 sec:
-
-
-
-
+Events globaux:
+_ Mettre l'intensite du secteur 2 a 50 en 0ms:
+[0] [37 2] [0 50 0] [] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms:
+[0] [36 2] [0 0xFFFF0000 0] [] [0 0]

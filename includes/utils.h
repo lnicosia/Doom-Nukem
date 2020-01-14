@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 17:19:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:02:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,20 @@
 # define CANDLE 18
 # define BARREL 20
 
-typedef enum		e_input_box_type
+typedef enum		e_target_type
 {
 	INT,
 	DOUBLE,
 	STRING,
-	UINT32
-}			t_input_box_type;
+	UINT32,
+	POS
+}			t_target_type;
 
 typedef enum		e_button_action_type
 {
 	ON_PRESS,
 	WHEN_DOWN
 }					t_button_action_type;
-
-typedef enum		e_condition_type
-{
-	EQUALS,
-	LESS,
-	GREATER,
-	LESS_OR_EQUALS,
-	GREATER_OR_EQUALS,
-	EVENT_ENDED
-}					t_condition_type;
 
 typedef enum		e_event_mod_type
 {
@@ -295,8 +286,8 @@ typedef struct		s_event_param
 typedef struct		s_condition
 {
 	int				type;
-	int				target_type;
 	double			value;
+	int				target_type;
 	void			*target;
 }					t_condition;
 
@@ -317,10 +308,8 @@ typedef struct		s_event
 	int				happened;
 	t_condition		*launch_conditions;
 	size_t			nb_launch_conditions;
-	int				(*launch_func)(struct s_event *, void *);
-	t_event_param	launch_param;
-	int				(*check_func)(struct s_event *, void *);
-	t_event_param	check_param;
+	t_condition		*exec_conditions;
+	size_t			nb_exec_conditions;
 	int				(*exec_func)(void *, void *);
 	void			*exec_param;
 	void			(*update_func)(struct s_event *, void *);
@@ -541,6 +530,8 @@ typedef struct		s_player
 	int				drop_flag;
 	int				invicible;
 	int				infinite_ammo;
+	int				changed_sector;
+	int				old_sector;
 }					t_player;
 
 /*

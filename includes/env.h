@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 17:19:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 12:29:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -542,6 +542,8 @@ int					start_event(t_event **events, size_t *size,
 t_env *env);
 int					start_event_free(t_event **events, size_t *size,
 t_env *env);
+int					check_conditions(t_event event, t_condition *tab,
+size_t nb);
 t_event_param		new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
 t_event_param		empty_event_param(void);
