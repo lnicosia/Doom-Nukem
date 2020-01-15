@@ -278,6 +278,37 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 }
 
 /*
+** Returns 1 if the vertex is inside a sector
+** returns 0 otherwise
+*/
+
+int		check_vertex_inside_sector(t_env *env)
+{
+	t_v2		vertex;
+	int			i;
+	int			j;
+
+	i = 0;
+	vertex.x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
+	vertex.y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (vertex.x == env->vertices[env->sectors[i].vertices[j]].x &&
+				vertex.y == env->vertices[env->sectors[i].vertices[j]].y)
+				return (1);
+			j++;
+		}
+		if (is_in_sector_no_z(env, i, vertex))
+			return (custom_error("Vertex is inside a sector"));
+		i++;
+	}
+	return (1);
+}
+
+/*
  **	Returns 1 if a vertex is valid
  **	(no intersection with current or existing sector,
  **	not already existing in current sector)
@@ -285,6 +316,8 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 
 int		is_new_vertex_valid(t_env *env, int index)
 {
+	if (check_vertex_inside_sector(env) != 1)
+		return (0);
 	if (!env->editor.current_vertices)
 		return (1);
 	if (index != env->editor.start_vertex
