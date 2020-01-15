@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   animations.c									   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/27 14:41:36 by gaerhard		  #+#	#+#			 */
-/*   Updated: 2019/09/23 17:45:22 by gaerhard		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
+/*   Updated: 2020/01/15 11:45:14 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -100,11 +100,11 @@ int	 explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites)
 		explosion->explosion_anim.start = SDL_GetTicks();
 	start = explosion->explosion_anim.start;
 	time_spent = env->time.milli_s - start;
-	if ((int)time_spent >= 90 && (int)time_spent / 90 < nb_sprites)
-		return ((int)(time_spent / 90));
-	else if ((int)time_spent < 90)
+	if ((int)time_spent >= 75 && (int)time_spent / 75 < nb_sprites)
+		return ((int)(time_spent / 75));
+	else if ((int)time_spent < 75)
 		return (0);
-	if (time_spent > nb_sprites * 90)
+	if (time_spent > nb_sprites * 75)
 		explosion->explosion_anim.start = 0;
 	return (-1);
 }

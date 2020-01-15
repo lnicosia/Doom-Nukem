@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/14 18:00:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:09:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int spr
 	return (new);
 }
 
-int		create_explosion(t_env *env, t_explosion_data data)
+int		create_explosion(t_env *env, t_explosion_data data, int centered_sprite)
 {
 	t_list		*new;
 
@@ -38,6 +38,7 @@ int		create_explosion(t_env *env, t_explosion_data data)
 	((t_explosion*)new->content)->scale = data.radius;
 	env->nb_explosions++;
 	((t_explosion*)new->content)->explosion_anim.start = 0;
+	((t_explosion*)new->content)->centered_sprite = centered_sprite;
 	return (0);
 }
 
@@ -92,10 +93,11 @@ int		explosion_collision_objects(t_env *env, int nb_explosions)
 				{
 					damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
 					env->objects[i].health -= damage;
-					if (env->objects[i].explodes)
+					if (env->objects[i].explodes && env->objects[i].health <= 0)
 					{
 						create_explosion(env,
-							new_explosion_data(env->objects[i].pos, 5, env->objects[i].damage, 10));
+							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
+							env->objects[i].exists = 0;
 					}
 				}
 			}

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/14 17:59:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:08:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,12 @@ t_env *env, int index)
 	erender.x2 = erender.screen_pos.x + size.y / 4;
 	erender.y1 = erender.screen_pos.y - size.x / 2;
 	erender.y2 = erender.screen_pos.y;
-	centre_alignment = (erender.y2 - erender.y1) / 2;
-	erender.y1 += centre_alignment;
-	erender.y2 += centre_alignment;
+	if (explosion->centered_sprite)
+	{
+		centre_alignment = (erender.y2 - erender.y1) / 2;
+		erender.y1 += centre_alignment;
+		erender.y2 += centre_alignment;
+	}
 	erender.xstart = ft_clamp(erender.x1, 0, env->w - 1);
 	erender.ystart = ft_clamp(erender.y1 + 1, 0, env->h - 1);
 	erender.xend = ft_clamp(erender.x2, 0, env->w - 1);

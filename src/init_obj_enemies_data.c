@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 14:51:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 12:28:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		init_objects_data(t_env *env)
 		env->objects[i].height = 2;
 		env->objects[i].size_2d = 1.5;
 		env->objects[i].health = 1;
+		env->objects[i].explosion_size = 0;
 		if (env->objects[i].sprite == 0)
 			env->objects[i].main_sprite = 0;
 		if (env->objects[i].sprite == 2) // health pack
@@ -199,6 +200,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 1;
 			env->objects[i].explodes = 1;
+			env->objects[i].explosion_size = env->objects[i].scale;
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 50;
 		}

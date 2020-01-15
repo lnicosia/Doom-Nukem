@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:37:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:08:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -792,6 +792,7 @@ typedef	struct		s_explosion
 	t_v3			translated_pos;
 	t_animation		explosion_anim;
 	double			radius;
+	int				centered_sprite;
 	int				damage;
 	int				sprite;
 	short			damage_burst;
@@ -821,6 +822,7 @@ typedef struct		s_object
 	int				main_sprite;
 	int				destructible;
 	int				explodes;
+	double			explosion_size;
 	double			scale;
 	double			angle;
 	double			height;

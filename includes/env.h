@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 17:41:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:05:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,7 +398,7 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
-int					create_explosion(t_env *env, t_explosion_data data);
+int					create_explosion(t_env *env, t_explosion_data data, int centered_sprite);
 int					explosion_collision_player(t_env *env);
 int					explosion_collision_objects(t_env *env, int nb_explosions);
 int					projectiles_movement(t_env *env);
