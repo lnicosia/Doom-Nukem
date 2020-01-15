@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:07:12 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:34:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,13 @@ int		projectiles_movement(t_env *env)
 				/*projectile->pos.x += move.x;
 				projectile->pos.y += move.y;
 				projectile->pos.z += move.z;*/
-				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-				if (collision == -2)
+				if (collision == -2 && env->sectors[projectile->sector].ceiling_texture >= 0)
 				{
-					if (env->sectors[projectile->sector].ceiling_texture >= 0
-						&& env->sectors[projectile->sector].ceiling_sprites.nb_sprites
+					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
+					if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
+						
 						if (add_ceiling_bullet_hole(
 							&env->sectors[projectile->sector], projectile,
 							env))
@@ -133,10 +133,10 @@ int		projectiles_movement(t_env *env)
 						env))
 						return (-1);
 				}
-				else if (collision == -3)
+				else if (collision == -3 && env->sectors[projectile->sector].floor_texture >= 0)
 				{
-					if (env->sectors[projectile->sector].floor_texture >= 0
-						&& env->sectors[projectile->sector].floor_sprites.nb_sprites
+					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
+					if (env->sectors[projectile->sector].floor_sprites.nb_sprites
 						< env->options.max_floor_sprites)
 					{
 						if (add_floor_bullet_hole(
@@ -149,10 +149,10 @@ int		projectiles_movement(t_env *env)
 						env))
 						return (-1);
 				}
-				else if (collision >= 0)
+				else if (collision >= 0 && env->sectors[projectile->sector].textures[collision] >= 0)
 				{
-					if (env->sectors[projectile->sector].textures[collision] >= 0
-						&& env->sectors[projectile->sector]
+					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
+					if (env->sectors[projectile->sector]
 						.wall_sprites[collision].nb_sprites
 						< env->options.max_wall_sprites)
 					{

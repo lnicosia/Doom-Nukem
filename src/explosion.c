@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:09:42 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:36:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		create_explosion(t_env *env, t_explosion_data data, int centered_sprite)
 	((t_explosion*)new->content)->pos = data.pos;
 	((t_explosion*)new->content)->damage_burst = 1;
 	((t_explosion*)new->content)->scale = data.radius;
-	env->nb_explosions++;
 	((t_explosion*)new->content)->explosion_anim.start = 0;
 	((t_explosion*)new->content)->centered_sprite = centered_sprite;
 	return (0);
@@ -71,17 +70,15 @@ int		explosion_collision_player(t_env *env)
 	return (0);
 }
 
-int		explosion_collision_objects(t_env *env, int nb_explosions)
+int		explosion_collision_objects(t_env *env)
 {
 	t_list *tmp;
 	double	distance;
 	int		damage;
 	int		i;
-	int		j;
 
 	tmp = env->explosions;
-	j = 0;
-	while (j < nb_explosions)
+	while (tmp)
 	{
 		i = 0;
 		while (i < env->nb_objects)
@@ -97,14 +94,13 @@ int		explosion_collision_objects(t_env *env, int nb_explosions)
 					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
-							env->objects[i].exists = 0;
+						env->objects[i].exists = 0;
 					}
 				}
 			}
 			i++;
 		}
 		tmp = tmp->next;
-		j++;
 	}
 	return (0);
 }

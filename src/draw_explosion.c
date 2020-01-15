@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:08:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:36:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,7 @@ void		draw_explosions(t_camera camera, t_env *env)
 				tmp = tmp->next;
 			}
 			else
-			{
 				tmp = ft_lstdelnode(&env->explosions, tmp);
-				env->nb_explosions--;
-			}
 		}
 		else
 			tmp = tmp->next;
