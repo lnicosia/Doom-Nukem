@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 14:31:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 17:48:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,56 @@
 
 # include "utils.h"
 
+typedef struct		s_button_tab
+{
+	void			*env;
+	t_point			*pos;
+	void			*target;
+	int				type;
+}					t_button_tab;
+
+typedef struct		s_var_s
+{
+	t_button		brightness;
+	t_button		color;
+	t_button		intensity;
+	t_button		gravity;
+	t_button_tab	t_brightness;
+	t_button_tab	t_color;
+	t_button_tab	t_intensity;
+	t_button_tab	t_gravity;
+}					t_var_s;
+
+typedef struct	s_var_g
+{
+	t_button		texture;
+	t_button		texture_scale_x;
+	t_button		texture_scale_y;
+	t_button		texture_align_x;
+	t_button		texture_align_y;
+	t_button_tab	t_texture;
+	t_button_tab	t_texture_scale_x;
+	t_button_tab	t_texture_scale_y;
+	t_button_tab	t_texture_align_x;
+	t_button_tab	t_texture_align_y;
+}				t_var_g;
+
 typedef struct	s_hud
 {
 	int			draw_hud;
 	int			x;
 	int			y;
 	t_button	plr;
-	t_button	floor_texture;
-	t_button	wall_texture;
-	t_button	ceilling_texture;
+	t_var_g		g_wall;
+	t_var_g		g_floor;
+	t_var_g		g_ceilling;
+	t_var_g		g_sector;
+	t_var_g		g_player;
+	t_var_s		s_wall;
+	t_var_s		s_floor;
+	t_var_s		s_ceilling;
+	t_var_s		s_sector;
+	t_var_s		s_player;
 }				t_hud;
 
 

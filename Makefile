@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/15 11:30:54 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/15 16:41:49 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 split_sector_utils.c selection_tab.c init_hud_button.c\
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
-		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c
+		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
+		 init_editor_tab_buttons.c editor_ceiling_tab_button.c editor_floor_tab_button.c \
+		 editor_wall_tab_button.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

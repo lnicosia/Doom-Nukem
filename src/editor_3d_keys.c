@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:23:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 17:19:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,7 +404,6 @@ int		editor_3d_keys(t_env *env)
 		env->sectors[env->selected_floor].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_enemies_z(env);
-		update_enemies_z(env);
 		update_objects_z(env);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
@@ -412,7 +411,6 @@ int		editor_3d_keys(t_env *env)
 	{
 		env->sectors[env->selected_floor].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_enemies_z(env);
 		update_objects_z(env);
 	}
 	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02

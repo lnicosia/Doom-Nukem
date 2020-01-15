@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 14:56:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 17:34:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,14 +379,6 @@ typedef struct		s_bullet_hole
   	t_v2			pos;
 	t_v2			scale;
 }					t_bullet_hole;
-
-typedef struct		s_button_tab
-{
-	void			*env;
-	t_point			*pos;
-	void			*target;
-	int				type;
-}					t_button_tab;
 
 typedef struct		s_sector
 {

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 11:28:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 16:50:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,20 @@ typedef struct		s_env
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
 void				init_editor_data(t_env *env);
+void				init_editor_tab_buttons(t_env *env);
+void				init_floor_buttons(t_env *env);
+void				init_ceillng_buttons(t_env *env);
+void				init_wall_buttons(t_env *env);
+void				init_floor_general_buttons(t_env *env);
+void				init_floor_sector_buttons(t_env *env);
+void				init_floor_sprite_buttons(t_env *env);
+void				init_wall_general_buttons(t_env *env);
+void				init_wall_sector_buttons(t_env *env);
+void				init_wall_sprite_buttons(t_env *env);
+void				init_ceilling_general_buttons(t_env *env);
+void				init_ceilling_sector_buttons(t_env *env);
+void				init_ceilling_sprite_buttons(t_env *env);
+
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
@@ -226,6 +240,8 @@ int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);
 int					new_input_box(t_input_box *box, t_point pos,
 						int type, void *target);
+int					new_input_var(t_input_box *box, t_point pos,
+						int type, void *target);
 int					set_double_stats(t_input_box *box);
 int					validate_input(t_input_box *box, t_env *env);
 int					del_char(t_input_box *box, int mode);
@@ -265,6 +281,8 @@ void				save_texture(void *target);
 void				general_tab(void *target);
 void				sector_tab(void *target);
 void				sprite_tab(void *target);
+void				change_var(void *target);
+
 
 /*
 ** Main functions
