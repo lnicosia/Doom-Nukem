@@ -1,15 +1,6 @@
 
 [#Declencheur] [#Cible] [#Type] [#Conditions] [Autres: #Delay #Max_uses]
 
-Differents type de parsing:
-_[#Secteur]							| 0		| Sector			|
-_[#Secteur #Mur]					| 1		| Wall				|
-_[#Secteur #Mur #Sprite]			| 2		| Sprite			|
-_[#Vertex]							| 3		| Vertex			|
-_[#Weapon]							| 4		| Weapon			|
-_[#Enemy]							| 5		| Enemy				|
-_[#Object]							| 6		| Object			|
-
 Declencheurs actuels:
 _global								| 0		| Parsing:			|
 _wall sprite press event			| 1		| Parsing: Sprite	|
@@ -18,6 +9,22 @@ _sector stand						| 3		| Parsing: Sector	|
 _sector walk in						| 4		| Parsing: Sector	|
 _sector walk out					| 5		| Parsing: Sector	|
 _enemy death						| 6		| Parsing: Enemy	|
+
+Differents type de parsing:
+_(#Secteur)							| 0		| Sector			|
+_(#Secteur #Mur)					| 1		| Wall				|
+_(#Secteur #Mur #Sprite)			| 2		| Sprite			|
+_(#Vertex)							| 3		| Vertex			|
+_(#Weapon)							| 4		| Weapon			|
+_(#Enemy)							| 5		| Enemy				|
+_(#Object)							| 6		| Object			|
+_(#Declencheur (parsing))			| 7		| Event				|
+_(null)								| 8		| Null				|
+
+Events target parsing:
+_(#event)							| 0		| Global			|
+_(#sector #wall #sprite #event)		| 1		| Wall sprite event	|
+_(#sector #event)					| 2		| Sector event		|
 
 Cible: exemple: sol d'un secteur. Besoin de dire sol + numero secteur
 Types de cibles: 
@@ -70,18 +77,20 @@ _Player armor						|	45	| Parsing:			|
 _Player speed						|	46	| Parsing:			|
 _Player	invincible					|	47	| Parsing:			|
 _Player infinite ammo				|	48	| Parsing:			|
-_Weapon damage						|	49	| Parsing: Weapon	|
-_Weapon range						|	50	| Parsing: Weapon	|
-_Enemy sprite						|	51	| Parsing: Enemy	|
-_Enemy scale						|	52	| Parsing: Enemy	|
-_Enemy damage						|	53	| Parsing: Enemy	|
-_Enemy hp							|	54	| Parsing: Enemy	|
-_Enemy speed						|	55	| Parsing: Enemy	|
-_Enemy pos							|	56	| Parsing: Enemy	|
-_Object sprite						|	57	| Parsing: Object	|
-_Object scale						|	58	| Parsing: Object	|
-_Object health						|	59	| Parsing: Object	|
-_Object pos							|	60	| Parsing: Object	|
+_Player sector						|	49	| Parsing:			|
+_Weapon damage						|	50	| Parsing: Weapon	|
+_Weapon range						|	51	| Parsing: Weapon	|
+_Enemy sprite						|	52	| Parsing: Enemy	|
+_Enemy scale						|	53	| Parsing: Enemy	|
+_Enemy damage						|	54	| Parsing: Enemy	|
+_Enemy hp							|	55	| Parsing: Enemy	|
+_Enemy speed						|	56	| Parsing: Enemy	|
+_Enemy pos							|	57	| Parsing: Enemy	|
+_Object sprite						|	58	| Parsing: Object	|
+_Object scale						|	59	| Parsing: Object	|
+_Object health						|	60	| Parsing: Object	|
+_Object pos							|	61	| Parsing: Object	|
+_End of event						|	62	| Parsing: Event	|
 //Cas particuliers
 _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|
@@ -103,11 +112,11 @@ _enemy death						| 6		| Parsing: Enemy + #numero	|
 Autres:
 [#Delay #Nb_uses]: delay > 0, si uses == 0 pas de max
 
-[#Declencheur {parsing}] [#Cible {parsing}] [#Type d'event] [#Conditions] [Autres: #Delay #Max_uses]
+[#Declencheur (parsing)] [#Cible (parsing)] [#Type d'event] [#Conditions] [Autres: #Delay #Max_uses]
 
 Conditions:
 [{0}{1}{2}...]
-Contenu: {#Type #value #Target_type #(target)}
+Contenu: {#Type #value #Cible #(target_parsing)}
 Types de conditions:
 _EQUALS,							|	0	|
 _DIFFERENT							|	1	|
@@ -126,28 +135,37 @@ Exemples: map "events.map":
 /******************\
 
 _ Mettre l'intensite du secteur 2 a 50 en 0ms:
-[0] [37 2] [0 50 0] [] [0 0]
-_ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms. Condition de lancement: event_ended_start.event global 4 est termine:
-[0] [36 2] [0 0xFFFF0000 0] [{7 0 0 (0 4)}] [0 0]
-_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms. Condition de lancement: event_ended_start.event global 1 est termine:
-[0] [36 2] [0 0xFF0000FF 0] [{7 0 0 (0 1)}] [0 0]
-_ Mettre la couleur de la lumiere du secteur 2 a 0xFF00FF00 en 0ms. Condition de lancement: event_ended_start.event global 2 est termine:
-[0] [36 2] [0 0xFF00FF00 0] [{7 0 0 (0 2)}] [0 0]
-_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms. Condition de lancement: event_ended_start.event global 3 est termine:
-[0] [36 2] [0 0xFFFFFF00 0] [{7 0 0 (0 3)}] [0 0]
+[0] [37 (2)] [0 50 0] [] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms si l'event global 4 est termine:
+[0] [36 (2)] [0 FFFF0000 0] [{7 0 62 (0 (4))}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms si l'event global 1 est termine:
+[0] [36 (2)}] [0 FF0000FF 0] [{7 0 62 (0 (1))}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF00FF00 en 0ms si l'event global 2 est termine:
+[0] [36 (2)] [0 FF00FF00 0] [{7 0 62 (0 (2))}] [0 0]
+_ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms si l'event global 3 est termine:
+[0] [36 (2)] [0 FFFFFF00 0] [{7 0 62 (0 (3))}] [0 0]
 
 /*************\
 /* Ascenseur *\
 /*************\
 
 _Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 10 en 500ms:
-[4 {1}] [0 {1}] [0 10 500] [] [0 0]
+[4 (1)] [0 (1)] [0 10 500] [] [0 0]
 _Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 0 en 500ms:
-[4 {1}] [0 {1}] [0 0 500] [] [0 0]
+[4 (1)] [0 (1)] [0 0 500] [] [0 0]
 
 /*********\
 /* Dalle *\
 /*********\
 
-_Stand event du secteur 4: diminuer la valeur du sol du secteur 4 de 0.45:
-[3 {4}] [0 {4}] [1 -0.45 500] [{3 10 1 (4)}{0 4 0 (??)}] [0 0]
+_Stand event du secteur 4: diminuer la valeur du sol du secteur 4 de 0.45 si le sol du secteur 4 est plus grand que 10 et si joueur est dans le secteur 4:
+[3 (4)] [0 (4)] [1 -0.45 500] [{3 10 0 (4)}{0 4 49 ()}] [0 0]
+
+/*****************\
+/* Interrupteurs *\
+/*****************\
+
+_Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_sprite 0 du mur 1 du secteur 10 a 1:
+_[1 (10 1 0)] [20 (10 1 0)] [0 1 0] [] [0 0]
+_Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_sprite 0 du mur 1 du secteur 10 a 2:
+_[1 (10 1 0)] [20 (10 1 0)] [0 2 0] [] [0 0]

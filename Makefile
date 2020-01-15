@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/14 17:19:43 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/15 17:44:19 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,11 +109,16 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
 		   event_ended_condition.c event_ended_start_condition.c \
-		   different_condition.c init_events.c
+		   different_condition.c init_events.c init_events_parser.c \
+		   new_global_event.c new_press_event.c new_shoot_event.c \
+		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
+		   new_death_event.c parse_target.c \
+		   sector_parser.c enemy_parser.c wall_sprite_parser.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
-		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h
+		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
+		  events_parser.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))

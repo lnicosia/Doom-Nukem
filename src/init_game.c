@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 14:12:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:39:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		init_game(int ac, char **av)
 		return (crash("Could not generate mipmaps\n", &env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
-		return (crash("Error while parsing the map\n", &env));
+		return (crash("{red}Error while parsing the map{reset}\n", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))

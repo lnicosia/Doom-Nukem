@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:46:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/15 12:25:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ typedef struct		s_event
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				target_type;
 	int				happened;
 	t_condition		*launch_conditions;
 	size_t			nb_launch_conditions;
