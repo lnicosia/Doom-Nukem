@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 14:28:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:34:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		doom(t_env *env)
 				enemy_ai(env);
 				objects_collision(env, env->player.pos);
 				explosion_collision_objects(env);
+				explosion_collision_enemies(env);
 				explosion_collision_player(env);
 				enemy_melee_hit(env);
 				keys(env);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 14:36:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:34:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct		s_env
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
-	int				contains_skybox;
+	int					contains_skybox;
 	Uint32*				tmp_first_sprite;
 	Uint32				press_wall_sprite_color;
 	int					press_wall_sprite_intensity;
@@ -400,6 +400,7 @@ int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats 
 int					create_explosion(t_env *env, t_explosion_data data, int centered_sprite);
 int					explosion_collision_player(t_env *env);
 int					explosion_collision_objects(t_env *env);
+int					explosion_collision_enemies(t_env *env);
 int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);

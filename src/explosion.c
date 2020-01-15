@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:36:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:58:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,36 @@ int		explosion_collision_objects(t_env *env)
 							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
 						env->objects[i].exists = 0;
 					}
+				}
+			}
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int		explosion_collision_enemies(t_env *env)
+{
+	t_list *tmp;
+	double	distance;
+	int		damage;
+	int		i;
+
+	tmp = env->explosions;
+	while (tmp)
+	{
+		i = 0;
+		while (i < env->nb_enemies)
+		{
+			if (((t_explosion*)tmp->content)->damage_burst && env->enemies[i].health > 0)
+			{
+				distance = distance_two_points_3d(new_v3(env->enemies[i].pos.x, env->enemies[i].pos.y, env->enemies[i].pos.z), ((t_explosion*)tmp->content)->pos);
+				if (distance < ((t_explosion*)tmp->content)->radius && ((t_explosion*)tmp->content)->damage_burst)
+				{
+					damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
+					env->enemies[i].health -= damage;
+					env->enemies[i].hit = 1;
 				}
 			}
 			i++;
