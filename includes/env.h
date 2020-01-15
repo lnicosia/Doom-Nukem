@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 17:11:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 11:28:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,23 @@ void				editor_save_button(t_env *env);
 void				editor_launch_game(t_env *env);
 void				going_in_2D_mode(t_env *env);
 void				going_in_3D_mode(t_env *env);
+void				print_vertex_informations(t_env *env);
+void				print_object_informations(t_env *env);
+void				print_sector_informations(t_env *env);
+void				print_enemy_informations(t_env *env);
+void				print_floor_general_tab(t_env *env);
+void				print_ceiling_general_tab(t_env *env);
+void				print_player_general_tab(t_env *env);
+void				print_wall_general_tab(t_env *env);
+void				print_floor_sector_tab(t_env *env);
+void				print_ceiling_sector_tab(t_env *env);
+void				print_player_sector_tab(t_env *env);
+void				print_wall_sector_tab(t_env *env);
+void				nothing(void *target);
+void				save_texture(void *target);
+void				general_tab(void *target);
+void				sector_tab(void *target);
+void				sprite_tab(void *target);
 
 /*
 ** Main functions
@@ -368,6 +385,8 @@ t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_background_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_tab_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_rectangle_button(int type, void (*action)(void *),
 void *param, t_env *env);

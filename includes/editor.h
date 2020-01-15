@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 17:19:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 14:31:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct	s_hud
 	int			x;
 	int			y;
 	t_button	plr;
+	t_button	floor_texture;
+	t_button	wall_texture;
+	t_button	ceilling_texture;
 }				t_hud;
 
 
@@ -98,6 +101,9 @@ typedef struct	s_editor
 	t_button		save;
 	t_button		launch_game;
 	t_button		texture_background;
+	t_button		sector_tab;
+	t_button		sprite_tab;
+	t_button		general_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
 }				t_editor;
 

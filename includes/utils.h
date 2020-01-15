@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 17:07:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 14:56:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 6
+# define MAX_UI_TEXTURES 9
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
@@ -69,7 +69,8 @@ typedef enum		e_input_box_type
 typedef enum		e_button_action_type
 {
 	ON_PRESS,
-	WHEN_DOWN
+	WHEN_DOWN,
+	ON_RELEASE
 }					t_button_action_type;
 
 typedef enum		e_condition_type
@@ -283,9 +284,9 @@ typedef struct		s_render_vertex
 
 typedef	struct		s_teleport
 {
-	int		create;
-	int		selected;
-	int		sector;
+	int			create;
+	int			selected;
+	int			sector;
 	t_v3		tmp_pos;
 }				t_teleport;
 
@@ -378,6 +379,14 @@ typedef struct		s_bullet_hole
   	t_v2			pos;
 	t_v2			scale;
 }					t_bullet_hole;
+
+typedef struct		s_button_tab
+{
+	void			*env;
+	t_point			*pos;
+	void			*target;
+	int				type;
+}					t_button_tab;
 
 typedef struct		s_sector
 {
@@ -1048,11 +1057,13 @@ typedef struct		s_button
 	char			*str;
 	TTF_Font		*font;
 	int				state;
-	int			draw;
+	int				draw;
 	int				anim_state;
 	void			(*down_action)(void *);
+	void			(*release_action)(void *);
 	void			(*press_action)(void *);
 	void			*param;
+	void			*release_param;
 }					t_button;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 17:19:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/14 17:23:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,9 @@ int		editor_3d_keys(t_env *env)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
 	button_keys(&env->editor.save, env);
+	button_keys(&env->editor.sprite_tab, env);
+	button_keys(&env->editor.general_tab, env);
+	button_keys(&env->editor.sector_tab, env);
 	button_keys(&env->editor.change_mode, env);
 	button_keys(&env->editor.launch_game, env);
 	button_keys(&env->editor.texture_background, env);

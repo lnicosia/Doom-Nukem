@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/13 14:54:04 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/15 11:30:54 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 split_sector_utils.c selection_tab.c init_hud.c \
-		 editor_hud_buttons.c
+		 split_sector_utils.c selection_tab.c init_hud_button.c\
+		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
+		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -128,8 +129,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

@@ -49,7 +49,8 @@ void	draw_grid_enemies(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_object == -1
-					&& !env->teleport.create)
+					&& !env->teleport.create
+					&& env->sdl.mx > 400)
 			{
 				env->editor.dragged_enemy = i;
 				env->selected_enemy = i;

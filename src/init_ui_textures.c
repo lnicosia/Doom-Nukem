@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 17:06:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/14 11:14:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/background-pressed-64.bmp", 4, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/background-hover-64.bmp", 5, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-up.bmp", 6, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-pressed.bmp", 7, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-hover.bmp", 8, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }

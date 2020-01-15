@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_hud.c                                         :+:      :+:    :+:   */
+/*   init_hud_button.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 18:10:19 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 18:37:04 by sipatry          ###   ########.fr       */
+/*   Created: 2020/01/14 11:38:33 by sipatry           #+#    #+#             */
+/*   Updated: 2020/01/14 12:08:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,6 @@ t_button_target	*new_button_target(t_env *env, int i)
 	new->env = env;
 	new->i = i;
 	return (new);
-}
-
-void	save_texture(void *param)
-{
-	t_env	*env;
-	int		i;
-
-	env = ((t_button_target*)param)->env;
-	i = ((t_button_target*)param)->i;
-	env->editor.current_texture = i;
-	env->editor.current_texture_selection.img_down = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_pressed = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
-	env->editor.draw_selection_tab = 0;
-}
-
-void	nothing(void *target)
-{
-	(void)target;
 }
 
 int	init_array_texture_buttons(t_env *env)
@@ -76,7 +56,7 @@ int	init_array_texture_buttons(t_env *env)
 		env->editor.current_texture_selection.size_down = new_point(64, 64);
 		env->editor.current_texture_selection.size_hover = new_point(64, 64);
 		env->editor.current_texture_selection.size_pressed = new_point(64, 64);
-        env->editor.current_texture_selection.pos = new_point(12, 353);
+        env->editor.current_texture_selection.pos = new_point(13, 353);
 		env->editor.texture_background = new_background_button(WHEN_DOWN, &nothing, &env->editor.texture_background, env);
 		env->editor.texture_background.pos = new_point(10, 350);
 	return (1);
@@ -129,11 +109,25 @@ void	init_options_buttons(t_env *env)
 	editor_launch_game(env);
 }
 
-int	init_editor_hud(t_env *env)
+void	init_informations_tab(t_env *env)
+{
+	env->editor.sector_tab = new_tab_button(WHEN_DOWN, &sector_tab, env, env);
+    env->editor.sector_tab.str = "Sector";
+    env->editor.sector_tab.pos = new_point(238,425);
+	env->editor.general_tab = new_tab_button(WHEN_DOWN, &general_tab, env, env);
+	env->editor.general_tab.str = "General";
+    env->editor.general_tab.pos = new_point(0,425);
+	env->editor.sprite_tab = new_tab_button(WHEN_DOWN, &sprite_tab, env, env);
+    env->editor.sprite_tab.str = "Sprites";
+    env->editor.sprite_tab.pos = new_point(119,425);
+}
+
+int		init_editor_hud(t_env *env)
 {
 	if (!init_array_texture_buttons(env))
 		return (0);
 	//init_enemy_selection_button(env);
+	init_informations_tab(env);
 	init_options_buttons(env);
 	return (1);
 }
