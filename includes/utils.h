@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 11:39:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:23:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -810,7 +810,7 @@ typedef struct		s_object
 	int				pickable;
 	int				solid;
 	int				ammo;
-	id_t			damage;
+	int				damage;
 	int				health;
 	int				sector;
 	int				exists;
