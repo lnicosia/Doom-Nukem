@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 14:39:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:00:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int		init_game(int ac, char **av)
 		env.enemies[i].exists = 1;
 		i++;
 	}
-	env.nb_explosions = 0;
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);

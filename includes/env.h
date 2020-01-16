@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 12:29:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:05:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ typedef struct		s_env
 	int					nb_vertices;
 	int					nb_objects;
 	int					nb_enemies;
-	int					nb_explosions;
 	int					first_frame;
 	int					*ymax;
 	int					*ymin;
@@ -123,7 +122,7 @@ typedef struct		s_env
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
-	int				contains_skybox;
+	int					contains_skybox;
 	Uint32*				tmp_first_sprite;
 	Uint32				press_wall_sprite_color;
 	int					press_wall_sprite_intensity;
@@ -369,6 +368,7 @@ void				draw_button(t_env *env, t_button b);
  * */
 
 int					draw_walls(t_camera *camera, t_env *env);
+void				draw_explosions(t_camera camera, t_env *env);
 int					draw_projectiles(t_camera camera, t_env *env);
 int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
@@ -398,9 +398,10 @@ void				weapon_change(t_env *env);
 void				print_ammo(t_env *env);
 void    			shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,t_projectile_stats stats, double angle_z);
-int					create_explosion(t_env *env, t_explosion_data data);
+int					create_explosion(t_env *env, t_explosion_data data, int centered_sprite);
 int					explosion_collision_player(t_env *env);
-int					explosion_collision_objects(t_env *env, int nb_explosions);
+int					explosion_collision_objects(t_env *env);
+int					explosion_collision_enemies(t_env *env);
 int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);
@@ -525,6 +526,7 @@ int		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
 
 void	object_anim_loop(t_env *env, int i);
 int		object_destruction(t_env *env, int i, int nb_sprites);
+int	 	explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites);
 
 /*
 **	Event function

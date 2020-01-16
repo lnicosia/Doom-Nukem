@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/13 17:01:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:00:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,17 @@ void    shot(t_env *env)
 		i = 0;
 		while (i < env->nb_objects)
 		{
-			if (env->objects[i].destructible)
+			if (env->objects[i].destructible && env->objects[i].exists)
 			{
 				if (hitscan_objects(env, i) == 1)
 				{
 					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
-					if (env->objects[i].explodes)
+					if (env->objects[i].explodes && env->objects[i].health <= 0)
+					{
 						create_explosion(env,
-							new_explosion_data(env->objects[i].pos, 7, env->objects[i].damage, 10));
+							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
+						env->objects[i].exists = 0;
+					}
 				}
 			}
 			i++;

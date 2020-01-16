@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   animations.c									   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/27 14:41:36 by gaerhard		  #+#	#+#			 */
-/*   Updated: 2019/09/23 17:45:22 by gaerhard		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
+/*   Updated: 2020/01/15 11:45:14 by gaerhard         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -91,26 +91,21 @@ void	object_anim_loop(t_env *env, int i)
 	}
 }
 
-int	 explosion(t_env *env, int i, int nb_sprites)
+int	 explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites)
 {
 	double start;
 	double time_spent;
 
-	if (env->objects[i].death.start == 0)
-		env->objects[i].death.start = SDL_GetTicks();
-	start = env->objects[i].death.start;
+	if (explosion->explosion_anim.start == 0)
+		explosion->explosion_anim.start = SDL_GetTicks();
+	start = explosion->explosion_anim.start;
 	time_spent = env->time.milli_s - start;
-	env->objects[i].solid = 0;
-	if ((int)time_spent >= 70 && (int)time_spent / 70 < nb_sprites)
-		return ((int)(time_spent / 70));
-	else if ((int)time_spent < 70)
+	if ((int)time_spent >= 75 && (int)time_spent / 75 < nb_sprites)
+		return ((int)(time_spent / 75));
+	else if ((int)time_spent < 75)
 		return (0);
-	if (time_spent > nb_sprites * 70)
-	{
-		env->objects[i].death.start = 0;
-		if (env->objects[i].explodes == 1)
-			env->objects[i].exists = 0;
-	}
+	if (time_spent > nb_sprites * 75)
+		explosion->explosion_anim.start = 0;
 	return (-1);
 }
 

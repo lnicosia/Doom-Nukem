@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shift_bullet_hole.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:31:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:04:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:05:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_env *env)
 		if (sector->floor_sprites.sprite[i] == 3)
 		{
 			j = i + 1;
-			while (sector->floor_sprites.sprite[j] != 3
-				&& j < sector->floor_sprites.nb_sprites)
+			while (j < sector->floor_sprites.nb_sprites &&
+			sector->floor_sprites.sprite[j] != 3)
 				j++;
 			if (j < sector->floor_sprites.nb_sprites)
 			{
@@ -59,8 +59,8 @@ t_env *env)
 		if (sector->ceiling_sprites.sprite[i] == 3)
 		{
 			j = i + 1;
-			while (sector->ceiling_sprites.sprite[j] != 3
-				&& j < sector->ceiling_sprites.nb_sprites)
+			while (j < sector->ceiling_sprites.nb_sprites &&
+			sector->ceiling_sprites.sprite[j] != 3)
 				j++;
 			if (j < sector->ceiling_sprites.nb_sprites)
 			{
@@ -94,8 +94,8 @@ int i, t_env *env)
 		if (sector->wall_sprites[i].sprite[j] == 3)
 		{
 			k = j + 1;
-			while (sector->wall_sprites[i].sprite[k] != 3
-				&& k < sector->wall_sprites[i].nb_sprites)
+			while (k < sector->wall_sprites[i].nb_sprites &&
+				sector->wall_sprites[i].sprite[k] != 3)
 				k++;
 			if (k < sector->wall_sprites[i].nb_sprites)
 			{
