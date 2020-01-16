@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 17:09:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:32:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	init_floor_sector_buttons(t_env *env)
 	env->editor.hud.s_floor.color.pos = new_point(540, 230);
 	env->editor.hud.s_floor.intensity = new_hud_button(WHEN_DOWN, &change_var,
 	&env->editor.hud.s_floor.intensity, env);
-	env->editor.hud.s_floor.intensty.pos = new_point(540, 280);
+	env->editor.hud.s_floor.intensity.pos = new_point(580, 230);
 	env->editor.hud.s_floor.gravity = new_hud_button(WHEN_DOWN, &change_var,
 	&env->editor.hud.s_floor.gravity, env);
-	env->editor.hud.s_floor.gravity.pos = new_point(560, 230);
+	env->editor.hud.s_floor.gravity.pos = new_point(620, 230);
 }
 
 void	init_floor_general_buttons(t_env *env)

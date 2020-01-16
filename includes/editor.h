@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 17:48:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 11:32:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct		s_button_tab
 {
 	void			*env;
-	t_point			*pos;
+	t_point			pos;
 	void			*target;
 	int				type;
 }					t_button_tab;

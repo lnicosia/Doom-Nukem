@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 16:50:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 11:57:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,23 @@ int					init_editor_hud(t_env *env);
 void				init_editor_data(t_env *env);
 void				init_editor_tab_buttons(t_env *env);
 void				init_floor_buttons(t_env *env);
-void				init_ceillng_buttons(t_env *env);
+void				init_ceilling_buttons(t_env *env);
 void				init_wall_buttons(t_env *env);
+void				init_floor_general_env(t_env *env);
+void				init_floor_sector_env(t_env *env);
+void				init_floor_sprite_env(t_env *env);
 void				init_floor_general_buttons(t_env *env);
 void				init_floor_sector_buttons(t_env *env);
 void				init_floor_sprite_buttons(t_env *env);
+void				init_wall_general_env(t_env *env);
+void				init_wall_sector_env(t_env *env);
+void				init_wall_sprite_env(t_env *env);
 void				init_wall_general_buttons(t_env *env);
 void				init_wall_sector_buttons(t_env *env);
 void				init_wall_sprite_buttons(t_env *env);
+void				init_ceilling_general_env(t_env *env);
+void				init_ceilling_sector_env(t_env *env);
+void				init_ceilling_sprite_env(t_env *env);
 void				init_ceilling_general_buttons(t_env *env);
 void				init_ceilling_sector_buttons(t_env *env);
 void				init_ceilling_sprite_buttons(t_env *env);
@@ -401,6 +410,8 @@ t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_hud_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_background_button(int type, void (*action)(void *),
 void *param, t_env *env);

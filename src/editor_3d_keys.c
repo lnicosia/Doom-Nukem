@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 17:19:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 17:19:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,6 +499,9 @@ int		editor_3d_keys(t_env *env)
 	button_keys(&env->editor.change_mode, env);
 	button_keys(&env->editor.launch_game, env);
 	button_keys(&env->editor.texture_background, env);
+	button_keys(&env->editor.hud.s_ceilling.brightness, env);
+	button_keys(&env->editor.hud.s_ceilling.color, env);
+	button_keys(&env->editor.hud.s_ceilling.intensity, env);
 	if (env->editor.tab)
 	{
 		i = 0;

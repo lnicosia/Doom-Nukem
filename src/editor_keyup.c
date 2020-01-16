@@ -180,6 +180,9 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
+	button_keyup(&env->editor.hud.s_ceilling.brightness, env);
+	button_keyup(&env->editor.hud.s_ceilling.color, env);
+	button_keyup(&env->editor.hud.s_ceilling.intensity, env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

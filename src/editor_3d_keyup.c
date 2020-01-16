@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 11:30:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 17:19:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ int		editor_3d_keyup(t_env *env)
 	button_keyup(&env->editor.change_mode, env);
 	button_keyup(&env->editor.launch_game, env);
 	button_keyup(&env->editor.texture_background, env);
+	button_keyup(&env->editor.hud.s_ceilling.brightness, env);
+	button_keyup(&env->editor.hud.s_ceilling.color, env);
+	button_keyup(&env->editor.hud.s_ceilling.intensity, env);
 	if (env->editor.tab)
 	{
 		if (env->editor.draw_selection_tab)

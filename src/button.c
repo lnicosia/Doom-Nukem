@@ -148,8 +148,8 @@ t_button	new_tab_button(int type, void (*action)(void *), void *param, t_env *en
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[3].surface || !env->ui_textures[5].surface
-		|| !env->ui_textures[5].surface)
+	if (!env->ui_textures[6].surface || !env->ui_textures[7].surface
+		|| !env->ui_textures[8].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[6].surface;
 	new.img_pressed = env->ui_textures[7].surface;
@@ -171,13 +171,13 @@ t_button	new_hud_button(int type, void (*action)(void *), void *param, t_env *en
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[3].surface || !env->ui_textures[5].surface
-		|| !env->ui_textures[5].surface)
+	if (!env->ui_textures[9].surface || !env->ui_textures[10].surface
+		|| !env->ui_textures[11].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[6].surface;
-	new.img_pressed = env->ui_textures[7].surface;
-	new.img_down = env->ui_textures[7].surface;
-	new.img_hover = env->ui_textures[8].surface;
+	new.img_up = env->ui_textures[9].surface;
+	new.img_pressed = env->ui_textures[10].surface;
+	new.img_down = env->ui_textures[10].surface;
+	new.img_hover = env->ui_textures[11].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,

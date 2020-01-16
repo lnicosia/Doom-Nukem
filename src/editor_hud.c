@@ -186,7 +186,6 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.general_tab);
 		draw_button(env, env->editor.sprite_tab);
 		draw_button(env, env->editor.sector_tab);
-
 		draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
 				new_point(0 , 64),

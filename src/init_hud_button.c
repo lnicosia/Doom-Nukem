@@ -129,5 +129,6 @@ int		init_editor_hud(t_env *env)
 	//init_enemy_selection_button(env);
 	init_informations_tab(env);
 	init_options_buttons(env);
+	init_editor_tab_buttons(env);
 	return (1);
 }
