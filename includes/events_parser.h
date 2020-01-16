@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:52:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:54:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ typedef struct		s_events_parser
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*target_parsers[MAX_TARGET_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
+	void			(*updaters[MAX_TARGET_TYPES + 1])(t_event *, void *);
+	int				(*checkers[MAX_TARGET_TYPES + 1])(void *, void *);
 	int				target_types[MAX_TARGET_TYPES + 1];
 }					t_events_parser;
 
@@ -159,6 +161,8 @@ t_map_parser *parser, char **line, t_events_parser *eparser);
 void				init_events_parser(t_events_parser *eparser);
 void				init_events_parser_target_parsers(t_events_parser *eparser);
 void				init_events_parser_target_types(t_events_parser *eparser);
+void				init_events_parser_checkers(t_events_parser *eparser);
+void				init_events_parser_updaters(t_events_parser *eparser);
 int					new_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					new_press_event(t_env *env, t_map_parser *parser,

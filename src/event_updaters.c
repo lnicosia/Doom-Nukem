@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:09:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:46:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_event_param	empty_event_param(void)
 	ft_bzero(&new, sizeof(new));
 	return (new);
 }
+
 void			update_sector_event(t_event *event, void *penv)
 {
 	t_env	*env;
