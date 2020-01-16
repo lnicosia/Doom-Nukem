@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:04:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:52:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ char **line, t_events_parser *eparser);
 int					parse_event_launch_conditions(t_env *env,
 t_map_parser *parser, char **line, t_events_parser *eparser);
 int					parse_event_exec_conditions(t_env *env,
+t_map_parser *parser, char **line, t_events_parser *eparser);
+int					parse_event_various_data(t_env *env,
 t_map_parser *parser, char **line, t_events_parser *eparser);
 void				init_events_parser(t_events_parser *eparser);
 void				init_events_parser_target_parsers(t_events_parser *eparser);
