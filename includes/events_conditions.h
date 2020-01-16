@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 13:43:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:05:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:49:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_CONDITIONS_H
 # define EVENTS_CONDITIONS_H
 # include "env.h"
-
+# define MAX_CONDITION_TYPES 9
 
 typedef enum		e_condition_type
 {

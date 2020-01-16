@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_target.c                                     :+:      :+:    :+:   */
+/*   parse_event_target.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 17:56:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:13:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
 
-int		parse_target(t_env *env, t_map_parser *parser, char **line,
+int		parse_event_target(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	(void)env;
-	(void)parser;
-	(void)eparser;
-	(void)line;
 	(*line)++;
 	if (!**line)
 		return (missing_data("event target", parser));
@@ -33,5 +29,15 @@ t_events_parser *eparser)
 	if (eparser->target_index < 0
 		|| eparser->target_index >= MAX_TARGET_TYPES)
 		return (custom_error_with_line("Invalid target type", parser));
-	return (0);
+	*line = skip_number(*line);
+	if (eparser->target_parsers[eparser->target_index](env, parser, line,
+		eparser))
+		return (-1);
+	eparser->event.target = set_event_target(env, eparser);
+	if (!**line)
+		return (missing_data("closing ']' brace after event target", parser));
+	if (**line != ']')
+		return (invalid_char("after target declaration", "']'",
+		**line, parser));
+		return (0);
 }

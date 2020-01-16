@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:18:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:20:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,6 +383,9 @@ int		count_sprites(char *line, t_map_parser *parser)
 				parser->sectors_count, parser));
 			open++;
 			count++;
+			if (count > 2147483646)
+				return (sector_error("Too much sprites", parser->sectors_count,
+				parser));
 		}
 		if (*line == '}')
 		{

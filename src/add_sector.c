@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 12:33:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:03:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling_map_align = new_v2(0, 0);
 	sector.light_color = 0xFFFFFFFF;
 	sector.brightness = 0;
+	sector.gravity = -9.81;
 	sector.skybox = 0;
 	sector.num = env->nb_sectors;
 	sector.x_max = -2147483648;

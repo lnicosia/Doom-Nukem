@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 17:48:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 10:41:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 int		launch_events(t_env *env)
 {
 	if (env->player.sector != -1
-			&& env->sectors[env->player.sector].stand_event
+			&& env->sectors[env->player.sector].stand_events
 			&& env->sectors[env->player.sector].nb_stand_events)
 	{
-		if (start_event(&env->sectors[env->player.sector].stand_event,
+		if (start_event(&env->sectors[env->player.sector].stand_events,
 					&env->sectors[env->player.sector].nb_stand_events, env))
 			return (-1);
 	}
@@ -53,10 +53,10 @@ int		launch_events(t_env *env)
 	if (env->player.changed_sector)
 	{
 		if (env->player.sector != -1 && env->sectors[env->player.sector].nb_walk_in_events > 0)
-			start_event(&env->sectors[env->player.sector].walk_in_event, &env->sectors[env->player.sector].nb_walk_in_events, env);
+			start_event(&env->sectors[env->player.sector].walk_in_events, &env->sectors[env->player.sector].nb_walk_in_events, env);
 		if (env->player.old_sector != -1
 				&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
-			start_event(&env->sectors[env->player.old_sector].walk_out_event,
+			start_event(&env->sectors[env->player.old_sector].walk_out_events,
 					&env->sectors[env->player.old_sector].nb_walk_out_events, env);
 		env->player.changed_sector = 0;
 		env->player.old_sector = -1;

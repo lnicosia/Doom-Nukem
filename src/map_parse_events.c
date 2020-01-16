@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 17:43:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:34:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
 
-int		parse_trigger(t_env *env, t_map_parser *parser, char **line,
+int		parse_event_trigger(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
 	(*line)++;
@@ -22,13 +22,15 @@ t_events_parser *eparser)
 		return (invalid_char("before event trigger", "a digit",
 		**line, parser));
 	eparser->trigger = ft_atoi(*line);
-	*line = skip_number(*line);
 	if (eparser->trigger < 0 || eparser->trigger > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid trigger type", parser));
-	if (eparser->trigger_types[eparser->trigger](env, parser, line, eparser))
+	*line = skip_number(*line);
+	if (eparser->trigger_parsers[eparser->trigger](env, parser, line, eparser))
 		return (-1);
+	if (!**line)
+		return (missing_data("closing ']' brace after event trigger", parser));
 	if (**line != ']')
-		return (invalid_char("after trigger declaration", "]",
+		return (invalid_char("after trigger declaration", "']'",
 		**line, parser));
 	return (0);
 }
@@ -36,9 +38,15 @@ t_events_parser *eparser)
 int		parse_event(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	if (parse_trigger(env, parser, line, eparser))
+	if (parse_event_trigger(env, parser, line, eparser))
 		return (-1);
-	if (parse_target(env, parser, line, eparser))
+	if (parse_event_target(env, parser, line, eparser))
+		return (-1);
+	if (parse_event_type(env, parser, line, eparser))
+		return (-1);
+	if (parse_event_launch_conditions(env, parser, line, eparser))
+		return (-1);
+	if (eparser->new_events[eparser->trigger](env, parser, line, eparser))
 		return (-1);
 	return (0);
 }
@@ -50,6 +58,7 @@ int		parse_events(t_env *env, t_map_parser *parser)
 	char			*tmp;
 
 	line = NULL;
+	ft_bzero(&eparser, sizeof(eparser));
 	init_events_parser(&eparser);
 	while ((parser->ret = get_next_line(parser->fd, &line)))
 	{

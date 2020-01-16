@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 12:25:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 11:39:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,15 +386,16 @@ typedef struct		s_sector
 	short			nb_vertices;
 	int				skybox;
 	short			*selected;
+	double			gravity;
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
 	size_t			nb_stand_events;
 	size_t			nb_walk_in_events;
 	size_t			nb_walk_out_events;
-	t_event			*stand_event;
-	t_event			*walk_in_event;
-	t_event			*walk_out_event;
+	t_event			*stand_events;
+	t_event			*walk_in_events;
+	t_event			*walk_out_events;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -529,7 +530,7 @@ typedef struct		s_player
 	double			acceleration;
 	double			start_pos;
 	int				drop_flag;
-	int				invicible;
+	int				invincible;
 	int				infinite_ammo;
 	int				changed_sector;
 	int				old_sector;

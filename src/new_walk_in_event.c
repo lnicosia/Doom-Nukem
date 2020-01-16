@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:19:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 17:49:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 10:45:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ t_events_parser *eparser)
 {
 	(void)line;
 	(void)parser;
-	(void)env;
-	(void)eparser;
-	if (sector_parser(env, parser, line, eparser))
-		return (-1);
-	if (!(env->sectors[eparser->trigger_sector].walk_in_event = (t_event*)ft_realloc(
-		env->sectors[eparser->trigger_sector].walk_in_event,
-		sizeof(t_event) * env->sectors[eparser->trigger_sector].nb_walk_in_events,
-		sizeof(t_event) * (env->sectors[eparser->trigger_sector].nb_walk_in_events
-		+ 1))))
+	if (!(env->sectors[eparser->trigger_sector].walk_in_events =
+		(t_event*)ft_realloc(env->sectors[eparser->trigger_sector].
+		walk_in_events, sizeof(t_event)
+		* env->sectors[eparser->trigger_sector].nb_walk_in_events,
+		sizeof(t_event)
+		* (env->sectors[eparser->trigger_sector].nb_walk_in_events + 1))))
 		return (ft_perror("Could not realloc global events"));
+	env->sectors[eparser->trigger_sector].walk_in_events[env->
+	sectors[eparser->trigger_sector].nb_walk_in_events] = eparser->event;
 	env->sectors[eparser->trigger_sector].nb_walk_in_events++;
 	return (0);
 }

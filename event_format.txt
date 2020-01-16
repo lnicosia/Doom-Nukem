@@ -13,13 +13,15 @@ _enemy death						| 6		| Parsing: Enemy	|
 Differents type de parsing:
 _(#Secteur)							| 0		| Sector			|
 _(#Secteur #Mur)					| 1		| Wall				|
-_(#Secteur #Mur #Sprite)			| 2		| Sprite			|
-_(#Vertex)							| 3		| Vertex			|
-_(#Weapon)							| 4		| Weapon			|
-_(#Enemy)							| 5		| Enemy				|
-_(#Object)							| 6		| Object			|
-_(#Declencheur (parsing))			| 7		| Event				|
-_(null)								| 8		| Null				|
+_(#Secteur #Sprite)					| 2		| Floor_sprite		|
+_(#Secteur #Sprite)					| 3		| Ceiling_sprite	|
+_(#Secteur #Mur #Sprite)			| 4		| Sprite			|
+_(#Vertex)							| 5		| Vertex			|
+_(#Weapon)							| 6		| Weapon			|
+_(#Enemy)							| 7		| Enemy				|
+_(#Object)							| 8		| Object			|
+_(#Declencheur (parsing))			| 9		| Event				|
+_(null)								| 10	| Null				|
 
 Events target parsing:
 _(#event)							| 0		| Global			|
@@ -69,28 +71,32 @@ _Sector intensity					|	37	| Parsing: Sector	|
 _Sector gravity						|	38	| Parsing: Sector	|
 _Vertex x							|	39	| Parsing: Vertex	|
 _Vertex y							|	40	| Parsing: Vertex	|
-_Player pos							|	41	| Parsing:			|
-_Player gravity						|	42	| Parsing:			|
-_Player speed						|	43	| Parsing:			|
-_Player hp							|	44	| Parsing:			|
-_Player armor						|	45	| Parsing:			|
-_Player speed						|	46	| Parsing:			|
-_Player	invincible					|	47	| Parsing:			|
-_Player infinite ammo				|	48	| Parsing:			|
-_Player sector						|	49	| Parsing:			|
-_Weapon damage						|	50	| Parsing: Weapon	|
-_Weapon range						|	51	| Parsing: Weapon	|
-_Enemy sprite						|	52	| Parsing: Enemy	|
-_Enemy scale						|	53	| Parsing: Enemy	|
-_Enemy damage						|	54	| Parsing: Enemy	|
-_Enemy hp							|	55	| Parsing: Enemy	|
-_Enemy speed						|	56	| Parsing: Enemy	|
-_Enemy pos							|	57	| Parsing: Enemy	|
-_Object sprite						|	58	| Parsing: Object	|
-_Object scale						|	59	| Parsing: Object	|
-_Object health						|	60	| Parsing: Object	|
-_Object pos							|	61	| Parsing: Object	|
-_End of event						|	62	| Parsing: Event	|
+_Player x							|	41	| Parsing:			|
+_Player y							|	42	| Parsing:			|
+_Player z							|	43	| Parsing:			|
+_Player hp							|	45	| Parsing:			|
+_Player armor						|	46	| Parsing:			|
+_Player speed						|	47	| Parsing:			|
+_Player	invincible					|	48	| Parsing:			|
+_Player infinite ammo				|	49	| Parsing:			|
+_Player sector						|	50	| Parsing:			|
+_Weapon damage						|	51	| Parsing: Weapon	|
+_Weapon range						|	52	| Parsing: Weapon	|
+_Enemy sprite						|	53	| Parsing: Enemy	|
+_Enemy scale						|	54	| Parsing: Enemy	|
+_Enemy damage						|	55	| Parsing: Enemy	|
+_Enemy hp							|	56	| Parsing: Enemy	|
+_Enemy speed						|	57	| Parsing: Enemy	|
+_Enemy x							|	58	| Parsing: Enemy	|
+_Enemy y							|	59	| Parsing: Enemy	|
+_Enemy z							|	60	| Parsing: Enemy	|
+_Object sprite						|	61	| Parsing: Object	|
+_Object scale						|	62	| Parsing: Object	|
+_Object health						|	63	| Parsing: Object	|
+_Object x							|	64	| Parsing: Object	|
+_Object y							|	65	| Parsing: Object	|
+_Object z							|	66	| Parsing: Object	|
+_End of event						|	67	| Parsing: Event	|
 //Cas particuliers
 _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|
@@ -112,7 +118,7 @@ _enemy death						| 6		| Parsing: Enemy + #numero	|
 Autres:
 [#Delay #Nb_uses]: delay > 0, si uses == 0 pas de max
 
-[#Declencheur (parsing)] [#Cible (parsing)] [#Type d'event] [#Conditions] [Autres: #Delay #Max_uses]
+[#Declencheur (parsing)] [#Cible (parsing)] [#Type d'event] [#Launch_conditions] [#Execution_conditions] [Autres: #Delay #Max_uses]
 
 Conditions:
 [{0}{1}{2}...]
@@ -135,37 +141,37 @@ Exemples: map "events.map":
 /******************\
 
 _ Mettre l'intensite du secteur 2 a 50 en 0ms:
-[0] [37 (2)] [0 50 0] [] [0 0]
+[0] [37 (2)] [0 50 0] [] [] [0 0]
 _ Mettre la couleur de la lumiere du secteur 2 a 0xFFFF0000 en 0ms si l'event global 4 est termine:
-[0] [36 (2)] [0 FFFF0000 0] [{7 0 62 (0 (4))}] [0 0]
+[0] [36 (2)] [0 FFFF0000 0] [{7 0 62 (0 (4))}] [] [0 0]
 _ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms si l'event global 1 est termine:
-[0] [36 (2)}] [0 FF0000FF 0] [{7 0 62 (0 (1))}] [0 0]
+[0] [36 (2)}] [0 FF0000FF 0] [{7 0 62 (0 (1))}] [] [0 0]
 _ Mettre la couleur de la lumiere du secteur 2 a 0xFF00FF00 en 0ms si l'event global 2 est termine:
-[0] [36 (2)] [0 FF00FF00 0] [{7 0 62 (0 (2))}] [0 0]
+[0] [36 (2)] [0 FF00FF00 0] [{7 0 62 (0 (2))}] [] [0 0]
 _ Mettre la couleur de la lumiere du secteur 2 a 0xFF0000FF en 0ms si l'event global 3 est termine:
-[0] [36 (2)] [0 FFFFFF00 0] [{7 0 62 (0 (3))}] [0 0]
+[0] [36 (2)] [0 FFFFFF00 0] [{7 0 62 (0 (3))}] [] [0 0]
 
 /*************\
 /* Ascenseur *\
 /*************\
 
 _Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 10 en 500ms:
-[4 (1)] [0 (1)] [0 10 500] [] [0 0]
+[4 (1)] [0 (1)] [0 10 500] [] [] [0 0]
 _Walk on me event du secteur 1: mettre la valeur du sol du secteur 1 a 0 en 500ms:
-[4 (1)] [0 (1)] [0 0 500] [] [0 0]
+[4 (1)] [0 (1)] [0 0 500] [] [] [0 0]
 
 /*********\
 /* Dalle *\
 /*********\
 
 _Stand event du secteur 4: diminuer la valeur du sol du secteur 4 de 0.45 si le sol du secteur 4 est plus grand que 10 et si joueur est dans le secteur 4:
-[3 (4)] [0 (4)] [1 -0.45 500] [{3 10 0 (4)}{0 4 49 ()}] [0 0]
+[3 (4)] [0 (4)] [1 -0.45 500] [] [{3 10 0 (4)}{0 4 49 ()}] [0 0]
 
 /*****************\
 /* Interrupteurs *\
 /*****************\
 
 _Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_sprite 0 du mur 1 du secteur 10 a 1:
-_[1 (10 1 0)] [20 (10 1 0)] [0 1 0] [] [0 0]
+_[1 (10 1 0)] [20 (10 1 0)] [0 1 0] [] [] [0 0]
 _Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_sprite 0 du mur 1 du secteur 10 a 2:
-_[1 (10 1 0)] [20 (10 1 0)] [0 2 0] [] [0 0]
+_[1 (10 1 0)] [20 (10 1 0)] [0 2 0] [] [] [0 0]

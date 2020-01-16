@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:49:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 10:43:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ void		free_sector(t_sector *sector)
 			j++;
 		}
 	}
-	free_events(sector->stand_event,
+	free_events(sector->stand_events,
 			sector->nb_stand_events);
-	free_events(sector->walk_in_event,
+	free_events(sector->walk_in_events,
 			sector->nb_walk_in_events);
-	free_events(sector->walk_out_event,
+	free_events(sector->walk_out_events,
 			sector->nb_walk_out_events);
 }
