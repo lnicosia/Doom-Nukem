@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 14:36:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:10:00 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,7 @@ int		init_game(int ac, char **av)
 		7, 0);
 		env.global_events[0].max_uses = 1;
 		env.global_events[0].delay = 1000;
+		env.nb_explosions = 0;
 		//env.global_events[0].check_func = &check_equ_value_event;
 		//env.global_events[0].check_param = new_event_param(0, 0, 0,
 				//new_v3(0, 0, 0));

@@ -13,25 +13,50 @@
 #include "env.h"
 
 /*
+** Returns -1 if the vertex is inside a sector
+** returns 1 otherwise
+*/
+
+int		check_vertex_inside_sector(t_env *env, t_v2 vertex)
+{
+	int			i;
+	int			j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (vertex.x == env->vertices[env->sectors[i].vertices[j]].x &&
+				vertex.y == env->vertices[env->sectors[i].vertices[j]].y)
+				return (1);
+			j++;
+		}
+		if (is_in_sector_no_z(env, i, vertex))
+			return (custom_error("Vertex is inside a sector"));
+		i++;
+	}
+	return (1);
+}
+
+/*
 **	Check if the current sector is inside another sector
 */
 
 static int	is_inside(t_sector sector, t_env *env)
 {
-	short	*duplicates;
 	int		i;
 
-	if (!(duplicates = ft_memalloc(sector.nb_vertices)))
-		return (ft_printf("Could not malloc duplicates array\n"));
 	i = 0;
-	while (i < env->nb_sectors)
+	while (i < sector.nb_vertices)
 	{
-		if (i != sector.num)
-		{
-		}
+		if (check_vertex_inside_sector(env,
+			new_v2(env->vertices[sector.vertices[i]].x,
+			env->vertices[sector.vertices[i]].y)) != 1)
+			return (1);
 		i++;
 	}
-	ft_memdel((void**)&duplicates);
 	return (0);
 }
 
@@ -45,7 +70,6 @@ static int	check_sector(t_sector sector, t_env *env)
 	int			i;
 	t_vertex	vertex;
 
-	(void)vertex;
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
 	if (sector.floor_max > sector.ceiling_min)

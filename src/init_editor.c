@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:10:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	init_editor(int ac, char **av)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], &env))
 			return (crash("Error while parsing the map\n", &env));
+		if (valid_map(&env))
+			return (crash("Invalid map!\n", &env));
 		env.save_file = ft_strdup(av[1]);
 		precompute_slopes(&env);
 		ft_printf("{reset}");

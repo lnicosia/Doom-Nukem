@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 15:34:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:07:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct		s_env
 	int					h_h;
 	int					i;
 	int					running;
+	int					nb_explosions;
 	int					nb_sectors;
 	int					nb_vertices;
 	int					nb_objects;
@@ -195,6 +196,7 @@ void				player_selection(t_env *env);
 void				objects_selection(t_env *env);
 void				vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
+int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
 void				del_last_vertex(t_env *env);
 int					delete_vertex(t_env *env, int vertex);

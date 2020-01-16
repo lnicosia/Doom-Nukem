@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:07:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:12:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void    shot(t_env *env)
 					{
 						create_explosion(env,
 							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
+						env->nb_explosions++;
 						env->objects[i].exists = 0;
 					}
 				}
