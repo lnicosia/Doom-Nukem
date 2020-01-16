@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:18:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 17:19:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:07:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ t_event	new_fixed_event(int type, void *target, double goal, Uint32 duration)
 	return (new);
 }
 
-t_event	new_incr_event(int type, void *target, double start_incr, Uint32 duration)
+t_event	new_incr_event(int type, void *target, double start_incr,
+Uint32 duration)
 {
 	t_event	new;
 

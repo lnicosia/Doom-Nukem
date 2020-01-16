@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:21:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:04:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ typedef struct		s_events_parser
 	int				target_weapon;
 	int				target_object;
 	int				target_index;
+	int				current_vertex;
+	int				current_sector;
+	int				current_wall;
+	int				current_sprite;
+	int				current_enemy;
+	int				current_weapon;
+	int				current_object;
 	int				condition_vertex;
 	int				condition_sector;
 	int				condition_wall;
@@ -124,12 +131,15 @@ typedef struct		s_events_parser
 	int				condition_weapon;
 	int				condition_object;
 	int				condition_index;
+	int				nb_conditions;
+	int				condition_count;
 	int				(*trigger_parsers[MAX_TRIGGER_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*new_events[MAX_TRIGGER_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*target_parsers[MAX_TARGET_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
+	int				target_types[MAX_TARGET_TYPES + 1];
 }					t_events_parser;
 
 /*
@@ -145,6 +155,7 @@ t_map_parser *parser, char **line, t_events_parser *eparser);
 int					parse_event_exec_conditions(t_env *env,
 t_map_parser *parser, char **line, t_events_parser *eparser);
 void				init_events_parser(t_events_parser *eparser);
+void				init_events_parser_target_parsers(t_events_parser *eparser);
 void				init_events_parser_target_types(t_events_parser *eparser);
 int					new_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
@@ -173,12 +184,6 @@ int					count_conditions(char *line, t_map_parser *parser);
 */
 
 int					no_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					sector_parser0(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					enemy_parser0(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					wall_sprite_parser0(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					sector_parser(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);

@@ -6,41 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 10:35:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:31:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
-
-int		sector_parser0(t_env *env, t_map_parser *parser, char **line,
-t_events_parser *eparser)
-{
-	if (!**line || **line == ']')
-		return (missing_data("sector data", parser));
-	if (**line != ' ')
-		return (invalid_char("before sector number", "a space",
-		**line, parser));
-		(*line)++;
-	if (!**line || **line == ' ')
-		return (missing_data("sector data", parser));
-	if (**line != '(')
-		return (invalid_char("before sector number", "'('", **line, parser));
-	(*line)++;
-	if (!**line || **line == ']' || **line == ')')
-		return (missing_data("sector number", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before sector number", "a digit", **line,
-		parser));
-		eparser->trigger_sector = ft_atoi(*line);
-	if (eparser->trigger_sector < 0
-		|| eparser->trigger_sector >= env->nb_sectors)
-		return (custom_error_with_line("Invalid sector index", parser));
-	*line = skip_number(*line);
-	if (!**line || **line != ')')
-		return (invalid_char("after sector number", "')'", **line, parser));
-	(*line)++;
-	return (0);
-}
 
 int		sector_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -61,9 +31,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before sector number", "a digit", **line,
 		parser));
-		eparser->target_sector = ft_atoi(*line);
-	if (eparser->target_sector < 0
-		|| eparser->target_sector >= env->nb_sectors)
+		eparser->current_sector = ft_atoi(*line);
+	if (eparser->current_sector < 0
+		|| eparser->current_sector >= env->nb_sectors)
 		return (custom_error_with_line("Invalid sector index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:19:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 10:45:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:32:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_events_parser *eparser)
 {
 	(void)parser;
 	(void)line;
-	if (sector_parser0(env, parser, line, eparser))
-		return (-1);
 	if (!(env->sectors[eparser->trigger_sector].walk_out_events =
 		(t_event*)ft_realloc(env->sectors[eparser->trigger_sector].
 		walk_out_events, sizeof(t_event)

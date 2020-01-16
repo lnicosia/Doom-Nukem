@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/16 15:15:55 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/16 16:02:19 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   ceiling_sprite_parser.c set_event_target2.c weapon_parser.c \
 		   object_parser.c parse_event_type.c \
 		   set_condition_target.c set_condition_target2.c \
+		   init_events_parser_target_parsers.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 09:26:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:37:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before vertex number", "a digit", **line,
 		parser));
-	eparser->target_vertex = ft_atoi(*line);
-	if (eparser->target_vertex < 0
-		|| eparser->target_vertex >= env->nb_vertices)
+	eparser->current_vertex = ft_atoi(*line);
+	if (eparser->current_vertex < 0
+		|| eparser->current_vertex >= env->nb_vertices)
 		return (custom_error_with_line("Invalid vertex index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')

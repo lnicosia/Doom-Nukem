@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 11:23:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:36:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before sector number", "a digit", **line,
 		parser));
-	eparser->trigger_sector = ft_atoi(*line);
-	if (eparser->trigger_sector < 0
-		|| eparser->trigger_sector >= env->nb_sectors)
+	eparser->current_sector = ft_atoi(*line);
+	if (eparser->current_sector < 0
+		|| eparser->current_sector >= env->nb_sectors)
 		return (custom_error_with_line("Invalid sector index", parser));
 		*line = skip_number(*line);
 	if (!**line || **line == ']' || **line == ')')
@@ -47,9 +47,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor_sprite number", "a digit", **line,
 		parser));
-	eparser->trigger_sprite = ft_atoi(*line);
-	if (eparser->trigger_sprite < 0 || eparser->trigger_sprite >=
-		env->sectors[eparser->trigger_sector].floor_sprites.nb_sprites)
+	eparser->current_sprite = ft_atoi(*line);
+	if (eparser->current_sprite < 0 || eparser->current_sprite >=
+		env->sectors[eparser->current_sector].floor_sprites.nb_sprites)
 		return (custom_error_with_line("Invalid floor_sprite index", parser));
 		*line = skip_number(*line);
 	if (!**line || **line != ')')

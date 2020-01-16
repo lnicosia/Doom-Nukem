@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:23:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 09:56:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:01:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ t_events_parser *eparser)
 void	init_events_parser_trigger_parsers(t_events_parser *eparser)
 {
 	eparser->trigger_parsers[GLOBAL] = &no_parser;
-	eparser->trigger_parsers[PRESS] = &wall_sprite_parser0;
-	eparser->trigger_parsers[SHOOT] = &wall_sprite_parser0;
-	eparser->trigger_parsers[STAND] = &sector_parser0;
-	eparser->trigger_parsers[WALK_IN] = &sector_parser0;
-	eparser->trigger_parsers[WALK_OUT] = &sector_parser0;
-	eparser->trigger_parsers[DEATH] = &enemy_parser0;
+	eparser->trigger_parsers[PRESS] = &wall_sprite_parser;
+	eparser->trigger_parsers[SHOOT] = &wall_sprite_parser;
+	eparser->trigger_parsers[STAND] = &sector_parser;
+	eparser->trigger_parsers[WALK_IN] = &sector_parser;
+	eparser->trigger_parsers[WALK_OUT] = &sector_parser;
+	eparser->trigger_parsers[DEATH] = &enemy_parser;
 }
 
 void	init_events_parser(t_events_parser *eparser)
@@ -43,5 +43,6 @@ void	init_events_parser(t_events_parser *eparser)
 	eparser->new_events[WALK_IN] = &new_walk_in_event;
 	eparser->new_events[WALK_OUT] = &new_walk_out_event;
 	eparser->new_events[DEATH] = &new_death_event;
+	init_events_parser_target_parsers(eparser);
 	init_events_parser_target_types(eparser);
 }

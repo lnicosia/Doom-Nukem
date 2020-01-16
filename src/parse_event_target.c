@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:13:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:08:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,15 @@ t_events_parser *eparser)
 	if (eparser->target_parsers[eparser->target_index](env, parser, line,
 		eparser))
 		return (-1);
+	eparser->target_sector = eparser->current_sector;
+	eparser->target_wall = eparser->current_wall;
+	eparser->target_sprite = eparser->current_sprite;
+	eparser->target_enemy = eparser->current_enemy;
+	eparser->target_vertex = eparser->current_vertex;
+	eparser->target_weapon = eparser->current_weapon;
+	eparser->target_object = eparser->current_object;
 	eparser->event.target = set_event_target(env, eparser);
+	eparser->event.type = eparser->target_types[eparser->target_index];
 	if (!**line)
 		return (missing_data("closing ']' brace after event target", parser));
 	if (**line != ']')

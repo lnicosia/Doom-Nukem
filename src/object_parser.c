@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 11:50:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:37:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before object number", "a digit", **line,
 		parser));
-	eparser->target_object = ft_atoi(*line);
-	if (eparser->target_object < 0
-		|| eparser->target_object >= env->nb_objects)
+	eparser->current_object = ft_atoi(*line);
+	if (eparser->current_object < 0
+		|| eparser->current_object >= env->nb_objects)
 		return (custom_error_with_line("Invalid object index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')

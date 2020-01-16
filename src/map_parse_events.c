@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 14:34:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:39:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ t_events_parser *eparser)
 	*line = skip_number(*line);
 	if (eparser->trigger_parsers[eparser->trigger](env, parser, line, eparser))
 		return (-1);
+	eparser->trigger_sector = eparser->current_sector;
+	eparser->trigger_wall = eparser->current_wall;
+	eparser->trigger_sprite = eparser->current_sprite;
+	eparser->trigger_enemy = eparser->current_enemy;
 	if (!**line)
 		return (missing_data("closing ']' brace after event trigger", parser));
 	if (**line != ']')
