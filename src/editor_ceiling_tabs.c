@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 17:12:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 18:21:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_ceiling_sector_tab(t_env *env)
 void	print_ceiling_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Height: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	//print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(560, 60), new_printable_text("Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(560, 270), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(600, 60), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);

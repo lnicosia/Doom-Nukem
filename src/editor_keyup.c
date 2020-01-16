@@ -158,11 +158,8 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	/*&& env->editor.selected_vertex != -1*/)
+	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 	{
-		/*if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
-			env->editor.select_vertex_on_going = 1;*/
 		if ((is_mouse_on_a_wall(env)))
 		{
 			if (add_vertex_in_sector(env))
@@ -187,7 +184,6 @@ int	editor_keyup(t_env *env)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
-			//ft_printf("%d\n", i);
 			button_keyup(&env->editor.textures[i], env);
 			i++;
 		}

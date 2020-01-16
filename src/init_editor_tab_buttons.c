@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 15:45:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/16 18:09:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	change_var(void *target)
 	t_button_tab	*button;
 	t_env			*env;
 
-	ft_printf("coucou\n");
 	button = (t_button_tab *)target;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos,
