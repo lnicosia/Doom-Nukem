@@ -308,8 +308,8 @@
 
   typedef int             Int;
   typedef unsigned int    UInt;
-  typedef short           Short;
-  typedef unsigned short  UShort, *PUShort;
+  typedef int           int;
+  typedef unsigned int  Uint, *PUint;
   typedef long            Long, *PLong;
   typedef unsigned long   ULong;
 
@@ -359,7 +359,7 @@
     FT_F26Dot6  X;           /* current coordinate during sweep          */
     PProfile    link;        /* link to next profile (various purposes)  */
     PLong       offset;      /* start of profile's data in render pool   */
-    UShort      flags;       /* Bit 0-2: drop-out mode                   */
+    Uint      flags;       /* Bit 0-2: drop-out mode                   */
                              /* Bit 3: profile orientation (up/down)     */
                              /* Bit 4: is top profile?                   */
                              /* Bit 5: is bottom profile?                */
@@ -381,8 +381,8 @@
   /* by the sub-banding mechanism                               */
   typedef struct  black_TBand_
   {
-    Short  y_min;   /* band's minimum */
-    Short  y_max;   /* band's maximum */
+    int  y_min;   /* band's minimum */
+    int  y_max;   /* band's maximum */
 
   } black_TBand;
 
@@ -428,11 +428,11 @@
 
   /* prototypes used for sweep function dispatch */
   typedef void
-  Function_Sweep_Init( RAS_ARGS Short*  min,
-                                Short*  max );
+  Function_Sweep_Init( RAS_ARGS int*  min,
+                                int*  max );
 
   typedef void
-  Function_Sweep_Span( RAS_ARGS Short       y,
+  Function_Sweep_Span( RAS_ARGS int       y,
                                 FT_F26Dot6  x1,
                                 FT_F26Dot6  x2,
                                 PProfile    left,
@@ -494,14 +494,14 @@
 
     TPoint*     arc;                /* current Bezier arc pointer          */
 
-    UShort      bWidth;             /* target bitmap width                 */
+    Uint      bWidth;             /* target bitmap width                 */
     PByte       bTarget;            /* target bitmap buffer                */
     PByte       gTarget;            /* target pixmap buffer                */
 
     Long        lastX, lastY;
     Long        minY, maxY;
 
-    UShort      num_Profs;          /* current number of profiles          */
+    Uint      num_Profs;          /* current number of profiles          */
 
     Bool        fresh;              /* signals a fresh new profile which   */
                                     /* `start' field must be completed     */
@@ -521,7 +521,7 @@
     Long        traceOfs;           /* current offset in target bitmap     */
     Long        traceG;             /* current offset in target pixmap     */
 
-    Short       traceIncr;          /* sweep's increment in target bitmap  */
+    int       traceIncr;          /* sweep's increment in target bitmap  */
 
     /* dispatch variables */
 
@@ -848,7 +848,7 @@
   static Bool
   Finalize_Profile_Table( RAS_ARG )
   {
-    UShort    n;
+    Uint    n;
     PProfile  p;
 
 
@@ -1009,7 +1009,7 @@
                     Long  maxy )
   {
     Long   Dx, Dy;
-    Int    e1, e2, f1, f2, size;     /* XXX: is `Short' sufficient? */
+    Int    e1, e2, f1, f2, size;     /* XXX: is `int' sufficient? */
     Long   Ix, Rx, Ax;
 
     PLong  top;
@@ -1193,7 +1193,7 @@
                       Long       maxy )
   {
     Long   y1, y2, e, e2, e0;
-    Short  f1;
+    int  f1;
 
     TPoint*  arc;
     TPoint*  start_arc;
@@ -1221,7 +1221,7 @@
     else
     {
       e  = CEILING( y1 );
-      f1 = (Short)( FRAC( y1 ) );
+      f1 = (int)( FRAC( y1 ) );
       e0 = e;
 
       if ( f1 == 0 )
@@ -1727,8 +1727,8 @@
   /*    SUCCESS on success, FAILURE on error.                              */
   /*                                                                       */
   static Bool
-  Decompose_Curve( RAS_ARGS UShort  first,
-                            UShort  last,
+  Decompose_Curve( RAS_ARGS Uint  first,
+                            Uint  last,
                             Int     flipped )
   {
     FT_Vector   v_last;
@@ -1980,12 +1980,12 @@
       ras.state    = Unknown_State;
       ras.gProfile = NULL;
 
-      if ( Decompose_Curve( RAS_VARS (UShort)start,
-                                     (UShort)ras.outline.contours[i],
+      if ( Decompose_Curve( RAS_VARS (Uint)start,
+                                     (Uint)ras.outline.contours[i],
                                      flipped ) )
         return FAILURE;
 
-      start = (UShort)ras.outline.contours[i] + 1;
+      start = (Uint)ras.outline.contours[i] + 1;
 
       /* we must now check whether the extreme arcs join or not */
       if ( FRAC( ras.lastY ) == 0 &&
@@ -2173,15 +2173,15 @@
   /*************************************************************************/
 
   static void
-  Vertical_Sweep_Init( RAS_ARGS Short*  min,
-                                Short*  max )
+  Vertical_Sweep_Init( RAS_ARGS int*  min,
+                                int*  max )
   {
     Long  pitch = ras.target.pitch;
 
     FT_UNUSED( max );
 
 
-    ras.traceIncr = (Short)-pitch;
+    ras.traceIncr = (int)-pitch;
     ras.traceOfs  = -*min * pitch;
     if ( pitch > 0 )
       ras.traceOfs += (Long)( ras.target.rows - 1 ) * pitch;
@@ -2189,7 +2189,7 @@
 
 
   static void
-  Vertical_Sweep_Span( RAS_ARGS Short       y,
+  Vertical_Sweep_Span( RAS_ARGS int       y,
                                 FT_F26Dot6  x1,
                                 FT_F26Dot6  x2,
                                 PProfile    left,
@@ -2236,8 +2236,8 @@
 
       FT_TRACE7(( " -> x=[%d;%d]", e1, e2 ));
 
-      c1 = (Short)( e1 >> 3 );
-      c2 = (Short)( e2 >> 3 );
+      c1 = (int)( e1 >> 3 );
+      c2 = (int)( e2 >> 3 );
 
       f1 = (Byte)  ( 0xFF >> ( e1 & 7 ) );
       f2 = (Byte) ~( 0x7F >> ( e2 & 7 ) );
@@ -2269,14 +2269,14 @@
 
 
   static void
-  Vertical_Sweep_Drop( RAS_ARGS Short       y,
+  Vertical_Sweep_Drop( RAS_ARGS int       y,
                                 FT_F26Dot6  x1,
                                 FT_F26Dot6  x2,
                                 PProfile    left,
                                 PProfile    right )
   {
     Long   e1, e2, pxl;
-    Short  c1, f1;
+    int  c1, f1;
 
 
     FT_TRACE7(( "  y=%d x=[%.12f;%.12f]",
@@ -2396,8 +2396,8 @@
 
         e1 = TRUNC( e1 );
 
-        c1 = (Short)( e1 >> 3 );
-        f1 = (Short)( e1 &  7 );
+        c1 = (int)( e1 >> 3 );
+        f1 = (int)( e1 &  7 );
 
         if ( e1 >= 0 && e1 < ras.bWidth                      &&
              ras.bTarget[ras.traceOfs + c1] & ( 0x80 >> f1 ) )
@@ -2413,8 +2413,8 @@
     {
       FT_TRACE7(( " -> x=%d (drop-out)", e1 ));
 
-      c1 = (Short)( e1 >> 3 );
-      f1 = (Short)( e1 & 7 );
+      c1 = (int)( e1 >> 3 );
+      f1 = (int)( e1 & 7 );
 
       ras.bTarget[ras.traceOfs + c1] |= (char)( 0x80 >> f1 );
     }
@@ -2441,8 +2441,8 @@
   /***********************************************************************/
 
   static void
-  Horizontal_Sweep_Init( RAS_ARGS Short*  min,
-                                  Short*  max )
+  Horizontal_Sweep_Init( RAS_ARGS int*  min,
+                                  int*  max )
   {
     /* nothing, really */
     FT_UNUSED_RASTER;
@@ -2452,7 +2452,7 @@
 
 
   static void
-  Horizontal_Sweep_Span( RAS_ARGS Short       y,
+  Horizontal_Sweep_Span( RAS_ARGS int       y,
                                   FT_F26Dot6  x1,
                                   FT_F26Dot6  x2,
                                   PProfile    left,
@@ -2505,7 +2505,7 @@
 
 
   static void
-  Horizontal_Sweep_Drop( RAS_ARGS Short       y,
+  Horizontal_Sweep_Drop( RAS_ARGS int       y,
                                   FT_F26Dot6  x1,
                                   FT_F26Dot6  x2,
                                   PProfile    left,
@@ -2651,11 +2651,11 @@
   static Bool
   Draw_Sweep( RAS_ARG )
   {
-    Short         y, y_change, y_height;
+    int         y, y_change, y_height;
 
     PProfile      P, Q, P_Left, P_Right;
 
-    Short         min_Y, max_Y, top, bottom, dropouts;
+    int         min_Y, max_Y, top, bottom, dropouts;
 
     Long          x1, x2, xs, e1, e2;
 
@@ -2673,15 +2673,15 @@
     /* first, compute min and max Y */
 
     P     = ras.fProfile;
-    max_Y = (Short)TRUNC( ras.minY );
-    min_Y = (Short)TRUNC( ras.maxY );
+    max_Y = (int)TRUNC( ras.minY );
+    min_Y = (int)TRUNC( ras.maxY );
 
     while ( P )
     {
       Q = P->link;
 
-      bottom = (Short)P->start;
-      top    = (Short)( P->start + P->height - 1 );
+      bottom = (int)P->start;
+      top    = (int)( P->start + P->height - 1 );
 
       if ( min_Y > bottom )
         min_Y = bottom;
@@ -2752,8 +2752,8 @@
       Sort( &draw_left );
       Sort( &draw_right );
 
-      y_change = (Short)ras.sizeBuff[-ras.numTurns--];
-      y_height = (Short)( y_change - y );
+      y_change = (int)ras.sizeBuff[-ras.numTurns--];
+      y_height = (int)( y_change - y );
 
       while ( y < y_change )
       {
@@ -2905,7 +2905,7 @@
   static int
   Render_Single_Pass( RAS_ARGS Bool  flipped )
   {
-    Short  i, j, k;
+    int  i, j, k;
 
 
     while ( ras.band_top >= 0 )
@@ -2933,7 +2933,7 @@
         i = ras.band_stack[ras.band_top].y_min;
         j = ras.band_stack[ras.band_top].y_max;
 
-        k = (Short)( ( i + j ) / 2 );
+        k = (int)( ( i + j ) / 2 );
 
         if ( ras.band_top >= 7 || k < i )
         {
@@ -2946,7 +2946,7 @@
         ras.band_stack[ras.band_top + 1].y_min = k;
         ras.band_stack[ras.band_top + 1].y_max = j;
 
-        ras.band_stack[ras.band_top].y_max = (Short)( k - 1 );
+        ras.band_stack[ras.band_top].y_max = (int)( k - 1 );
 
         ras.band_top++;
       }
@@ -3010,9 +3010,9 @@
 
     ras.band_top            = 0;
     ras.band_stack[0].y_min = 0;
-    ras.band_stack[0].y_max = (Short)( ras.target.rows - 1 );
+    ras.band_stack[0].y_max = (int)( ras.target.rows - 1 );
 
-    ras.bWidth  = (UShort)ras.target.width;
+    ras.bWidth  = (Uint)ras.target.width;
     ras.bTarget = (Byte*)ras.target.buffer;
 
     if ( ( error = Render_Single_Pass( RAS_VARS 0 ) ) != 0 )
@@ -3030,7 +3030,7 @@
 
       ras.band_top            = 0;
       ras.band_stack[0].y_min = 0;
-      ras.band_stack[0].y_max = (Short)( ras.target.width - 1 );
+      ras.band_stack[0].y_max = (int)( ras.target.width - 1 );
 
       if ( ( error = Render_Single_Pass( RAS_VARS 1 ) ) != 0 )
         return error;

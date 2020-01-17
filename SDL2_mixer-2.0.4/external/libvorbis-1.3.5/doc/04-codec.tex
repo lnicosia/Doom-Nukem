@@ -43,7 +43,7 @@ identification, comment, setup.
 
 \subsubsection{Identification header}
 
-The identification header is a short header of only a few fields used
+The identification header is a int header of only a few fields used
 to declare the stream definitively as Vorbis, and provide a few externally
 relevant pieces of information about the audio stream. The
 identification header is coded as follows:
@@ -300,20 +300,20 @@ set):
      \item read 1 bit for \varname{[next\_window\_flag]}
      \item if \varname{[previous\_window\_flag]} is not set, the left half
          of the window will be a hybrid window for lapping with a
-         short block.  See \xref{vorbis:spec:window} for an illustration of overlapping
+         int block.  See \xref{vorbis:spec:window} for an illustration of overlapping
 dissimilar
          windows. Else, the left half window will have normal long
          shape.
      \item if \varname{[next\_window\_flag]} is not set, the right half of
-         the window will be a hybrid window for lapping with a short
+         the window will be a hybrid window for lapping with a int
          block.  See \xref{vorbis:spec:window} for an
 illustration of overlapping dissimilar
          windows. Else, the left right window will have normal long
          shape.
     \end{enumerate}
 
-   \item  if this is a short window, the window is always the same
-       short-window shape.
+   \item  if this is a int window, the window is always the same
+       int-window shape.
   \end{enumerate}
 
 \end{enumerate}
@@ -584,7 +584,7 @@ finished data to be returned by the decoder.  This data spans from the
 center of the previous window to the center of the current window.  In
 the case of same-sized windows, the amount of data to return is
 one-half block consisting of and only of the overlapped portions. When
-overlapping a short and long window, much of the returned range does not
+overlapping a int and long window, much of the returned range does not
 actually overlap.  This does not damage transform orthogonality.  Pay
 attention however to returning the correct data range; the amount of
 data to be returned is:

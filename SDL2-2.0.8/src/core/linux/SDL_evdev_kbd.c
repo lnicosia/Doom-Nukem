@@ -85,7 +85,7 @@ struct SDL_EVDEV_keyboard_state
 {
     int console_fd;
     int old_kbd_mode;
-    unsigned short **key_maps;
+    unsigned int **key_maps;
     unsigned char shift_down[NR_SHIFT];        /* shift state counters.. */
     SDL_bool dead_key_next;
     int npadch;                    /* -1 or number assembled on pad */
@@ -129,7 +129,7 @@ static void SDL_EVDEV_dump_keymap(SDL_EVDEV_keyboard_state *kbd)
 
     for (i = 0; i < MAX_NR_KEYMAPS; ++i) {
         if (kbd->key_maps[i]) {
-            printf("static unsigned short default_key_map_%d[NR_KEYS] = {", i);
+            printf("static unsigned int default_key_map_%d[NR_KEYS] = {", i);
             for (j = 0; j < NR_KEYS; ++j) {
                 if ((j%8) == 0) {
                     printf("\n    ");
@@ -140,7 +140,7 @@ static void SDL_EVDEV_dump_keymap(SDL_EVDEV_keyboard_state *kbd)
         }
     }
     printf("\n");
-    printf("static unsigned short *default_key_maps[MAX_NR_KEYMAPS] = {\n");
+    printf("static unsigned int *default_key_maps[MAX_NR_KEYMAPS] = {\n");
     for (i = 0; i < MAX_NR_KEYMAPS; ++i) {
         if (kbd->key_maps[i]) {
             printf("    default_key_map_%d,\n", i);
@@ -156,7 +156,7 @@ static int SDL_EVDEV_kbd_load_keymaps(SDL_EVDEV_keyboard_state *kbd)
 {
     int i, j;
 
-    kbd->key_maps = (unsigned short **)SDL_calloc(MAX_NR_KEYMAPS, sizeof(unsigned short *));
+    kbd->key_maps = (unsigned int **)SDL_calloc(MAX_NR_KEYMAPS, sizeof(unsigned int *));
     if (!kbd->key_maps) {
         return -1;
     }
@@ -174,7 +174,7 @@ static int SDL_EVDEV_kbd_load_keymaps(SDL_EVDEV_keyboard_state *kbd)
             continue;
         }
 
-        kbd->key_maps[i] = (unsigned short *)SDL_malloc(NR_KEYS * sizeof(unsigned short));
+        kbd->key_maps[i] = (unsigned int *)SDL_malloc(NR_KEYS * sizeof(unsigned int));
         if (!kbd->key_maps[i]) {
             return -1;
         }
@@ -597,8 +597,8 @@ SDL_EVDEV_kbd_keycode(SDL_EVDEV_keyboard_state *kbd, unsigned int keycode, int d
 {
     unsigned char shift_final;
     unsigned char type;
-    unsigned short *key_map;
-    unsigned short keysym;
+    unsigned int *key_map;
+    unsigned int keysym;
 
     if (!kbd) {
         return;

@@ -358,7 +358,7 @@
 /* Define to the full name and version of this package. */
 #define PACKAGE_STRING "mpg123 1.25.6"
 
-/* Define to the one symbol short name of this package. */
+/* Define to the one symbol int name of this package. */
 #define PACKAGE_TARNAME "mpg123"
 
 /* Define to the home page for this package. */
@@ -447,7 +447,7 @@
 /* #undef inline */
 #endif
 
-/* Define to `short' if <sys/types.h> does not define. */
+/* Define to `int' if <sys/types.h> does not define. */
 /* #undef int16_t */
 
 /* Define to `int' if <sys/types.h> does not define. */
@@ -468,7 +468,7 @@
 /* Define to `long' if <sys/types.h> does not define. */
 /* #undef ssize_t */
 
-/* Define to `unsigned short' if <sys/types.h> does not define. */
+/* Define to `unsigned int' if <sys/types.h> does not define. */
 /* #undef uint16_t */
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */

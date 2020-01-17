@@ -89,7 +89,7 @@ extern "C" {
 
 /** Opaque structure for the libout123 handle. */
 struct out123_struct;
-/** Typedef shortcut as preferrend name for the handle type. */
+/** Typedef intcut as preferrend name for the handle type. */
 typedef struct out123_struct out123_handle;
 
 /** Enumeration of codes for the parameters that it is possible to set/get. */
@@ -425,7 +425,7 @@ MPG123_EXPORT
 int out123_enc_list(int **enclist);
 
 /** Find encoding code by name.
- * \param name short or long name to find encoding code for
+ * \param name int or long name to find encoding code for
  * \return encoding if found (enum mpg123_enc_enum), else 0
  */
 MPG123_EXPORT
@@ -433,7 +433,7 @@ int out123_enc_byname(const char *name);
 
 /** Get name of encoding.
  * \param encoding code (enum mpg123_enc_enum)
- * \return short name for valid encodings, NULL otherwise
+ * \return int name for valid encodings, NULL otherwise
  */
 MPG123_EXPORT
 const char* out123_enc_name(int encoding);
@@ -450,7 +450,7 @@ const char* out123_enc_longname(int encoding);
  *  returns with success.
  *  Rationale for not taking a pointer to struct mpg123_fmt: This would
  *  always force you to deal with that type and needlessly enlarge the
- *  shortest possible program.
+ *  intest possible program.
  * \param ao handle
  * \param encoding sample encoding (values matching libmpg123 API)
  * \param channels number of channels (1 or 2, usually)

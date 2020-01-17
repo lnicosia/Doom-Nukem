@@ -9,11 +9,11 @@
 #include "mangle.h"
 
 #ifdef IS_MSABI
-/* short *window; */
+/* int *window; */
 #define ARG0 %r10
-/* short *b0; */
+/* int *b0; */
 #define ARG1 %rdx
-/* short *samples; */
+/* int *samples; */
 #define ARG2 %r8
 /* int bo1; */
 #define ARG3 %r9
@@ -33,7 +33,7 @@
 #define XMMREG_CLIP %xmm13
 
 /*
-	int synth_1to1_x86_64_accurate_asm(real *window, real *b0, short *samples, int bo1);
+	int synth_1to1_x86_64_accurate_asm(real *window, real *b0, int *samples, int bo1);
 	return value: number of clipped samples
 */
 

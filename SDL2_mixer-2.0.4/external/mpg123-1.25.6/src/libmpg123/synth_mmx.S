@@ -25,7 +25,7 @@
 .text
 
 .globl ASM_NAME(synth_1to1_MMX)
-/* int synth_1to1_MMX(real *bandPtr, int channel, short *out, short *buffs, int *bo, float *decwins); */
+/* int synth_1to1_MMX(real *bandPtr, int channel, int *out, int *buffs, int *bo, float *decwins); */
 ASM_NAME(synth_1to1_MMX):
         pushl %ebp
         pushl %edi

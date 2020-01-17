@@ -2965,7 +2965,7 @@ internal_malloc_stats(mstate m)
 
 /*
   Various forms of linking and unlinking are defined as macros.  Even
-  the ones for trees, which are very long but have very short typical
+  the ones for trees, which are very long but have very int typical
   paths.  This is ugly but reduces reliance on inlining support of
   compilers.
 */
@@ -3104,7 +3104,7 @@ internal_malloc_stats(mstate m)
      correspond properly to bit masks.  We use the rightmost descendent
      of x.  We could use any other leaf, but this is easy to locate and
      tends to counteract removal of leftmosts elsewhere, and so keeps
-     paths shorter than minimally guaranteed.  This doesn't loop much
+     paths inter than minimally guaranteed.  This doesn't loop much
      because on average a node in a tree is near the bottom.
   3. If x is the base of a chain (i.e., has parent links) relink
      x's parent and children to x's replacement (or null if none).

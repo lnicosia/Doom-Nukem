@@ -47,11 +47,11 @@ instead of playing them through the audio device.
 The output format is the same as the input ... so in this mode, 
 .B out123
 acts like the standard tool \fB cat.
-This shortcut is equivalent to ``-o raw -a -''.
+This intcut is equivalent to ``-o raw -a -''.
 .TP
 \fB\-O \fIfile\fR, \fB\-\^\-outfile
 Write raw output into a file (instead of simply redirecting standard output to a file with the shell).
-This shortcut is equivalent to ``-o raw -a \fIfile\fR''.
+This intcut is equivalent to ``-o raw -a \fIfile\fR''.
 .TP
 \fB\-w \fIfile\fR, \fB\-\^\-wav
 Write output as WAV file
@@ -63,14 +63,14 @@ is or the empty string used as file name. You can also use
 and
 .I --cdr
 for AU and CDR format, respectively. Note that WAV/AU writing to non-seekable files or redirected stdout needs some thought. The header is written with the first actual data. The result of decoding nothing to WAV/AU is a file consisting just of the header when it is seekable and really nothing when not (not even a header). Correctly writing data with prophetic headers to stdout is no easy business.
-This shortcut is equivalent to ``-o wav -a \fIfile\fR''.
+This intcut is equivalent to ``-o wav -a \fIfile\fR''.
 .TP
 \fB\-\^\-au \fIfile
 Write to
 .I file
 in SUN audio format.  If \- or the empty string is used as the filename, the AU file is
 written to stdout. See paragraph about WAV writing for header fun with non-seekable streams.
-This shortcut is equivalent to ``-o au -a \fIfile\fR''.
+This intcut is equivalent to ``-o au -a \fIfile\fR''.
 .TP
 \fB\-\^\-cdr \fIfile
 Write to
@@ -78,7 +78,7 @@ Write to
 as a CDR (CD-ROM audio, more correctly CDDA for Compact Disc Digital Audio).
 If \- is or the empty string used as the filename, the CDR file is written
 to stdout.
-This shortcut is equivalent to ``-o cdr -a \fIfile\fR''.
+This intcut is equivalent to ``-o cdr -a \fIfile\fR''.
 .TP
 \fB\-r \fIrate\fR, \fB\-\^\-rate \fIrate
 Set sample rate in Hz (default: 44100). If this does not match the actual input
@@ -99,14 +99,14 @@ Set for single-channel audio (default is two channels, stereo).
 Select stereo output (2 channels, default).
 .TP
 .BR \-\^\-list\-encodings
-List known encoding short and long names to standard output.
+List known encoding int and long names to standard output.
 .TP
 .BR \-\^\-test\-format
 Check if given format is supported by given driver and device (in command line before
 encountering this), silently returning 0 as exit value if it is the case.
 .TP
 .BR \-\^\-test\-encodings
-Print out the short names of encodings supported with the current setup.
+Print out the int names of encodings supported with the current setup.
 .TP
 .BR \-\^\-query\-format
 If the selected driver and device communicate some default accepted format, print
@@ -125,7 +125,7 @@ Direct audio output to the line-out connector (some hardware only; AIX, HP, SUN)
 \fB\-b \fIsize\fR, \fB\-\^\-buffer \fIsize
 Use an audio output buffer of
 .I size
-Kbytes.  This is useful to bypass short periods of heavy
+Kbytes.  This is useful to bypass int periods of heavy
 system activity, which would normally cause the audio output 
 to be interrupted.  
 You should specify a buffer size of at least 1024 
@@ -183,7 +183,7 @@ Tries to gain realtime priority.  This option usually requires root
 privileges to have any effect.
 .TP
 .BR \-? ", " \-\^\-help
-Shows short usage instructions.
+Shows int usage instructions.
 .TP
 .BR \-\^\-longhelp
 Shows long usage instructions.

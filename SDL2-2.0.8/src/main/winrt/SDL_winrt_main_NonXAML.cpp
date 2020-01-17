@@ -7,7 +7,7 @@
 
 /* At least one file in any SDL/WinRT app appears to require compilation
    with C++/CX, otherwise a Windows Metadata file won't get created, and
-   an APPX0702 build error can appear shortly after linking.
+   an APPX0702 build error can appear intly after linking.
 
    The following set of preprocessor code forces this file to be compiled
    as C++/CX, which appears to cause Visual C++ 2012's build tools to

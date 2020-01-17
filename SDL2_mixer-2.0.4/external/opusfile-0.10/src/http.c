@@ -251,9 +251,9 @@ struct pollfd{
   /*File descriptor.*/
   op_sock fd;
   /*Requested events.*/
-  short   events;
+  int   events;
   /*Returned events.*/
-  short   revents;
+  int   revents;
 };
 #  endif
 
@@ -3019,7 +3019,7 @@ static int op_http_stream_read(void *_stream,
   /*Check for EOF.*/
   if(size>=0){
     if(pos>=size)return 0;
-    /*Check for a short read.*/
+    /*Check for a int read.*/
     if(_buf_size>size-pos)_buf_size=(int)(size-pos);
   }
   nread=op_http_conn_read_body(stream,stream->conns+ci,_ptr,_buf_size);

@@ -45,13 +45,13 @@ void	get_new_floor_and_ceiling(t_env *env)
 
 int			init_new_sector_arrays(t_sector *sector)
 {
-	if (!(sector->vertices = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->vertices = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
-	if (!(sector->neighbors = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->neighbors = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector neighbors"));
-	if (!(sector->textures = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->textures = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector textures"));
 	if (!(sector->wall_sprites
@@ -64,7 +64,7 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->scale = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector scale"));
-	if (!(sector->selected = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->selected = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector vertices"));
 	if (!(sector->ceilings = (double*)ft_memalloc(sizeof(double)
@@ -73,7 +73,7 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->floors = (double*)ft_memalloc(sizeof(double)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
-	if (!(sector->portals = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->portals = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
 	if (!(sector->clipped_ceilings1 = (double*)ft_memalloc(sizeof(double)
@@ -97,7 +97,7 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->wall_bullet_holes = (t_list**)ft_memalloc(sizeof(t_list*)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector scale"));
-	if (!(sector->portals = (short*)ft_memalloc(sizeof(short)
+	if (!(sector->portals = (int*)ft_memalloc(sizeof(int)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector scale"));
 	return (0);

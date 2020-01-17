@@ -15,13 +15,13 @@ FILE *out;
 size_t totaloffset, dataoffset;
 long rate;
 int channels, enc;
-unsigned short bitspersample, wavformat;
+unsigned int bitspersample, wavformat;
 
 // write wav header
 void initwav()
 {
 	unsigned int tmp32 = 0;
-	unsigned short tmp16 = 0;
+	unsigned int tmp16 = 0;
 
 	fwrite("RIFF", 1, 4, out);
 	totaloffset = ftell(out);
@@ -53,7 +53,7 @@ void initwav()
 void closewav()
 {
 	unsigned int tmp32 = 0;
-	unsigned short tmp16 = 0;
+	unsigned int tmp16 = 0;
 
 	long total = ftell(out);
 	fseek(out, totaloffset, SEEK_SET);

@@ -75,7 +75,7 @@ typedef void  (*SDLTest_TestCaseTearDownFp)(void *arg);
 typedef struct SDLTest_TestCaseReference {
     /* !< Func2Stress */
     SDLTest_TestCaseFp testCase;
-    /* !< Short name (or function name) "Func2Stress" */
+    /* !< int name (or function name) "Func2Stress" */
     char *name;
     /* !< Long name or full description "This test pushes func2() to the limit." */
     char *description;

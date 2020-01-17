@@ -254,7 +254,7 @@ static int get_key(int do_delay, char *val)
 	fd_set r;
 	struct timeval t;
 
-	/* Shortcut: If some other means sent a key, use it. */
+	/* intcut: If some other means sent a key, use it. */
 	if(prekey)
 	{
 		debug1("Got prekey: %c\n", prekey);

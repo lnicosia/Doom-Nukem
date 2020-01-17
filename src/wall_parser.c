@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:33:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 10:56:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 int		wall_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	(void)env;
-	(void)parser;
-	(void)eparser;
-	(void)line;
 	if (!**line || **line == ']')
 		return (missing_data("sector data", parser));
 	if (**line != ' ')
@@ -51,9 +47,9 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before wall number", "a digit", **line,
 		parser));
-	eparser->target_wall = ft_atoi(*line);
-	if (eparser->target_wall < 0 || eparser->target_wall >=
-		env->sectors[eparser->target_sector].nb_vertices)
+	eparser->current_wall = ft_atoi(*line);
+	if (eparser->current_wall < 0 || eparser->current_wall >=
+		env->sectors[eparser->current_sector].nb_vertices)
 		return (custom_error_with_line("Invalid wall index", parser));
 		*line = skip_number(*line);
 	if (!**line || **line != ')')

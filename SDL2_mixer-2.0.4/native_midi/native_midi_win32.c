@@ -117,7 +117,7 @@ static void MIDItoStream(NativeMidiSong *song, MIDIEvent *evntlist)
         case MIDI_STATUS_PRESSURE:
         case MIDI_STATUS_PITCH_WHEEL:
       newevent->dwDeltaTime=event->time;
-          newevent->dwEvent=(event->status|0x80)|(event->data[0]<<8)|(event->data[1]<<16)|(MEVT_SHORTMSG<<24);
+          newevent->dwEvent=(event->status|0x80)|(event->data[0]<<8)|(event->data[1]<<16)|(MEVT_intMSG<<24);
       newevent=(MIDIEVENT*)((char*)newevent+(3*sizeof(DWORD)));
       eventcount++;
             break;

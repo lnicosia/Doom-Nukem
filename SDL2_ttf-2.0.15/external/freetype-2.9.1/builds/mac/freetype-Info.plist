@@ -23,7 +23,7 @@
   <key>CFBundlePackageType</key>
   <string>FMWK</string>
 
-  <key>CFBundleShortVersionString</key>
+  <key>CFBundleintVersionString</key>
   <string>${PROJECT_VERSION}</string>
 
   <key>CFBundleSignature</key>

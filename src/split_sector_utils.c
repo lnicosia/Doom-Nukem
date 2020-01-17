@@ -41,9 +41,9 @@ void	update_neighbors(t_env *env, int index, int num, t_sector *sector)
 			if (sector->neighbors[i] == num)
 			{
 					sector->neighbors = ft_delindex(sector->neighbors,
-							sizeof(short) * (sector->nb_vertices + 1),
-							sizeof(short),
-							sizeof(short) * i);
+							sizeof(int) * (sector->nb_vertices + 1),
+							sizeof(int),
+							sizeof(int) * i);
 			}
 			i++;
 		}
@@ -58,18 +58,18 @@ void	update_double_tab(int index, double size, double **tab)
 		sizeof(double) * index);
 }
 
-void	update_short_tab(int index, short size, short **tab)
+void	update_int_tab(int index, int size, int **tab)
 {
 	*tab = ft_delindex(*tab,
-		sizeof(short) * (size),
-		sizeof(short),
-		sizeof(short) * index);
+		sizeof(int) * (size),
+		sizeof(int),
+		sizeof(int) * index);
 }
 /*
-void	update_short_tab(int index, short size, short **tab)
+void	update_int_tab(int index, int size, int **tab)
 {
 	*tab = ft_delindex(*tab,
-		sizeof(short) * (size),
-		sizeof(short),
-		sizeof(short) * index);
+		sizeof(int) * (size),
+		sizeof(int),
+		sizeof(int) * index);
 }*/

@@ -43,7 +43,7 @@ int     diff_sign(double nb1, double nb2)
 **	Returns if a pos is in a certain sector
 */
 
-int     is_in_sector(t_env *env, short sector, t_v3 pos)
+int     is_in_sector(t_env *env, int sector, t_v3 pos)
 {
 	int     count;
 	int     i;
@@ -80,7 +80,7 @@ int     is_in_sector(t_env *env, short sector, t_v3 pos)
 **	without checking z
 */
 
-int     is_in_sector_no_z(t_env *env, short sector, t_v2 pos)
+int     is_in_sector_no_z(t_env *env, int sector, t_v2 pos)
 {
 	int     count;
 	int     i;

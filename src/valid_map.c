@@ -18,7 +18,7 @@
 
 static int	is_inside(t_sector sector, t_env *env)
 {
-	short	*duplicates;
+	int	*duplicates;
 	int		i;
 
 	if (!(duplicates = ft_memalloc(sector.nb_vertices)))

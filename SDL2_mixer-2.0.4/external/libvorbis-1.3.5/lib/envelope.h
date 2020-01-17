@@ -28,7 +28,7 @@
 #define VE_BANDS  7
 #define VE_NEARDC 15
 
-#define VE_MINSTRETCH 2   /* a bit less than short block */
+#define VE_MINSTRETCH 2   /* a bit less than int block */
 #define VE_MAXSTRETCH 12  /* one-third full block */
 
 typedef struct {

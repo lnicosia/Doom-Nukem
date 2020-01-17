@@ -293,7 +293,7 @@
 
   /* get units per em from `FT_Face' */
   /* TODO: should handle font matrix concatenation? */
-  static FT_UShort
+  static FT_Uint
   cf2_getUnitsPerEm( PS_Decoder*  decoder )
   {
     FT_ASSERT( decoder && decoder->builder.face );

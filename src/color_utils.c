@@ -47,7 +47,7 @@ Uint32			apply_light_color(Uint32 src, Uint32 color, int intensity)
 	return (src);
 }
 
-Uint32			apply_light_brightness(Uint32 src, short brightness)
+Uint32			apply_light_brightness(Uint32 src, int brightness)
 {
 	src = ft_clamp(((brightness + 256) * (src >> 16 & 0xFF)) / 256, 0, 255)
 	<< 16
@@ -58,7 +58,7 @@ Uint32			apply_light_brightness(Uint32 src, short brightness)
 }
 
 Uint32			apply_light_both(Uint32 src, Uint32 color, int intensity,
-		short brightness)
+		int brightness)
 {
 	src = apply_light_color(src, color, intensity);
 	return (apply_light_brightness(src, brightness));

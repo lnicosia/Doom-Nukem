@@ -79,7 +79,7 @@ void compute_band_energies(const CELTMode *m, const celt_sig *X, celt_ener *band
 {
    int i, c, N;
    const opus_int16 *eBands = m->eBands;
-   N = M*m->shortMdctSize;
+   N = M*m->intMdctSize;
    c=0; do {
       for (i=0;i<end;i++)
       {
@@ -115,7 +115,7 @@ void normalise_bands(const CELTMode *m, const celt_sig * OPUS_RESTRICT freq, cel
 {
    int i, c, N;
    const opus_int16 *eBands = m->eBands;
-   N = M*m->shortMdctSize;
+   N = M*m->intMdctSize;
    c=0; do {
       i=0; do {
          opus_val16 g;
@@ -137,7 +137,7 @@ void compute_band_energies(const CELTMode *m, const celt_sig *X, celt_ener *band
 {
    int i, c, N;
    const opus_int16 *eBands = m->eBands;
-   N = M*m->shortMdctSize;
+   N = M*m->intMdctSize;
    c=0; do {
       for (i=0;i<end;i++)
       {
@@ -157,7 +157,7 @@ void normalise_bands(const CELTMode *m, const celt_sig * OPUS_RESTRICT freq, cel
 {
    int i, c, N;
    const opus_int16 *eBands = m->eBands;
-   N = M*m->shortMdctSize;
+   N = M*m->intMdctSize;
    c=0; do {
       for (i=0;i<end;i++)
       {
@@ -176,7 +176,7 @@ void denormalise_bands(const CELTMode *m, const celt_norm * OPUS_RESTRICT X, cel
 {
    int i, c, N;
    const opus_int16 *eBands = m->eBands;
-   N = M*m->shortMdctSize;
+   N = M*m->intMdctSize;
    celt_assert2(C<=2, "denormalise_bands() not implemented for >2 channels");
    c=0; do {
       celt_sig * OPUS_RESTRICT f;
@@ -199,7 +199,7 @@ void denormalise_bands(const CELTMode *m, const celt_norm * OPUS_RESTRICT X, cel
    } while (++c<C);
 }
 
-/* This prevents energy collapse for transients with multiple short MDCTs */
+/* This prevents energy collapse for transients with multiple int MDCTs */
 void anti_collapse(const CELTMode *m, celt_norm *X_, unsigned char *collapse_masks, int LM, int C, int size,
       int start, int end, opus_val16 *logE, opus_val16 *prev1logE,
       opus_val16 *prev2logE, int *pulses, opus_uint32 seed)
@@ -266,7 +266,7 @@ void anti_collapse(const CELTMode *m, celt_norm *X_, unsigned char *collapse_mas
          r = SHR32(MULT16_16_Q15(sqrt_1, r),shift);
 #else
          /* r needs to be multiplied by 2 or 2*sqrt(2) depending on LM because
-            short blocks don't have the same energy as long */
+            int blocks don't have the same energy as long */
          r = 2.f*celt_exp2(-Ediff);
          if (LM==3)
             r *= 1.41421356f;
@@ -405,7 +405,7 @@ int spreading_decision(const CELTMode *m, celt_norm *X, int *average,
 
    celt_assert(end>0);
 
-   N0 = M*m->shortMdctSize;
+   N0 = M*m->intMdctSize;
 
    if (M*(eBands[end]-eBands[end-1]) <= 8)
       return SPREAD_NONE;
@@ -1205,7 +1205,7 @@ static unsigned quant_band(int encode, const CELTMode *m, int i, celt_norm *X, c
 
 void quant_all_bands(int encode, const CELTMode *m, int start, int end,
       celt_norm *X_, celt_norm *Y_, unsigned char *collapse_masks, const celt_ener *bandE, int *pulses,
-      int shortBlocks, int spread, int dual_stereo, int intensity, int *tf_res,
+      int intBlocks, int spread, int dual_stereo, int intensity, int *tf_res,
       opus_int32 total_bits, opus_int32 balance, ec_ctx *ec, int LM, int codedBands, opus_uint32 *seed)
 {
    int i;
@@ -1227,7 +1227,7 @@ void quant_all_bands(int encode, const CELTMode *m, int start, int end,
    SAVE_STACK;
 
    M = 1<<LM;
-   B = shortBlocks ? M : 1;
+   B = intBlocks ? M : 1;
    ALLOC(_norm, C*M*eBands[m->nbEBands], celt_norm);
    ALLOC(lowband_scratch, M*(eBands[m->nbEBands]-eBands[m->nbEBands-1]), celt_norm);
    norm = _norm;

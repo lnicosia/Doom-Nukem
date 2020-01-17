@@ -62,8 +62,8 @@ extern "C" {
 typedef khronos_int8_t GLbyte;
 typedef khronos_float_t GLclampf;
 typedef khronos_int32_t GLfixed;
-typedef short GLshort;
-typedef unsigned short GLushort;
+typedef int GLint;
+typedef unsigned int GLuint;
 typedef void GLvoid;
 typedef struct __GLsync *GLsync;
 typedef khronos_int64_t GLint64;
@@ -201,8 +201,8 @@ typedef khronos_uint8_t GLubyte;
 #define GL_GENERATE_MIPMAP_HINT           0x8192
 #define GL_BYTE                           0x1400
 #define GL_UNSIGNED_BYTE                  0x1401
-#define GL_SHORT                          0x1402
-#define GL_UNSIGNED_SHORT                 0x1403
+#define GL_int                          0x1402
+#define GL_UNSIGNED_int                 0x1403
 #define GL_INT                            0x1404
 #define GL_UNSIGNED_INT                   0x1405
 #define GL_FLOAT                          0x1406
@@ -213,9 +213,9 @@ typedef khronos_uint8_t GLubyte;
 #define GL_RGBA                           0x1908
 #define GL_LUMINANCE                      0x1909
 #define GL_LUMINANCE_ALPHA                0x190A
-#define GL_UNSIGNED_SHORT_4_4_4_4         0x8033
-#define GL_UNSIGNED_SHORT_5_5_5_1         0x8034
-#define GL_UNSIGNED_SHORT_5_6_5           0x8363
+#define GL_UNSIGNED_int_4_4_4_4         0x8033
+#define GL_UNSIGNED_int_5_5_5_1         0x8034
+#define GL_UNSIGNED_int_5_6_5           0x8363
 #define GL_FRAGMENT_SHADER                0x8B30
 #define GL_VERTEX_SHADER                  0x8B31
 #define GL_MAX_VERTEX_ATTRIBS             0x8869

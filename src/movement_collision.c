@@ -107,7 +107,7 @@ int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
 
 t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 {
-    short       i;
+    int       i;
     t_wall      wall;
     double      scalar;
     double      norme_mov;
@@ -169,7 +169,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 
 t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 {
-    short		i;
+    int		i;
     double      scalar;
     double      norme_mov;
     double      norme_wall;

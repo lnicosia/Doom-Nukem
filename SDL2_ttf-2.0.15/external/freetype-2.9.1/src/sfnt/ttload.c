@@ -169,10 +169,10 @@
   static FT_Error
   check_table_dir( SFNT_Header  sfnt,
                    FT_Stream    stream,
-                   FT_UShort*   valid )
+                   FT_Uint*   valid )
   {
     FT_Error   error;
-    FT_UShort  nn, valid_entries = 0;
+    FT_Uint  nn, valid_entries = 0;
     FT_UInt    has_head = 0, has_sing = 0, has_meta = 0;
     FT_ULong   offset = sfnt->offset + 12;
 
@@ -338,7 +338,7 @@
     SFNT_HeaderRec  sfnt;
     FT_Error        error;
     FT_Memory       memory = stream->memory;
-    FT_UShort       nn, valid_entries = 0;
+    FT_Uint       nn, valid_entries = 0;
 
     static const FT_Frame_Field  offset_table_fields[] =
     {
@@ -346,10 +346,10 @@
 #define FT_STRUCTURE  SFNT_HeaderRec
 
       FT_FRAME_START( 8 ),
-        FT_FRAME_USHORT( num_tables ),
-        FT_FRAME_USHORT( search_range ),
-        FT_FRAME_USHORT( entry_selector ),
-        FT_FRAME_USHORT( range_shift ),
+        FT_FRAME_Uint( num_tables ),
+        FT_FRAME_Uint( search_range ),
+        FT_FRAME_Uint( entry_selector ),
+        FT_FRAME_Uint( range_shift ),
       FT_FRAME_END
     };
 
@@ -408,7 +408,7 @@
     for ( nn = 0; nn < sfnt.num_tables; nn++ )
     {
       TT_TableRec  entry;
-      FT_UShort    i;
+      FT_Uint    i;
       FT_Bool      duplicate;
 
 
@@ -620,21 +620,21 @@
         FT_FRAME_ULONG ( Font_Revision ),
         FT_FRAME_LONG  ( CheckSum_Adjust ),
         FT_FRAME_LONG  ( Magic_Number ),
-        FT_FRAME_USHORT( Flags ),
-        FT_FRAME_USHORT( Units_Per_EM ),
+        FT_FRAME_Uint( Flags ),
+        FT_FRAME_Uint( Units_Per_EM ),
         FT_FRAME_LONG  ( Created[0] ),
         FT_FRAME_LONG  ( Created[1] ),
         FT_FRAME_LONG  ( Modified[0] ),
         FT_FRAME_LONG  ( Modified[1] ),
-        FT_FRAME_SHORT ( xMin ),
-        FT_FRAME_SHORT ( yMin ),
-        FT_FRAME_SHORT ( xMax ),
-        FT_FRAME_SHORT ( yMax ),
-        FT_FRAME_USHORT( Mac_Style ),
-        FT_FRAME_USHORT( Lowest_Rec_PPEM ),
-        FT_FRAME_SHORT ( Font_Direction ),
-        FT_FRAME_SHORT ( Index_To_Loc_Format ),
-        FT_FRAME_SHORT ( Glyph_Data_Format ),
+        FT_FRAME_int ( xMin ),
+        FT_FRAME_int ( yMin ),
+        FT_FRAME_int ( xMax ),
+        FT_FRAME_int ( yMax ),
+        FT_FRAME_Uint( Mac_Style ),
+        FT_FRAME_Uint( Lowest_Rec_PPEM ),
+        FT_FRAME_int ( Font_Direction ),
+        FT_FRAME_int ( Index_To_Loc_Format ),
+        FT_FRAME_int ( Glyph_Data_Format ),
       FT_FRAME_END
     };
 
@@ -706,26 +706,26 @@
 
       FT_FRAME_START( 6 ),
         FT_FRAME_LONG  ( version ),
-        FT_FRAME_USHORT( numGlyphs ),
+        FT_FRAME_Uint( numGlyphs ),
       FT_FRAME_END
     };
 
     static const FT_Frame_Field  maxp_fields_extra[] =
     {
       FT_FRAME_START( 26 ),
-        FT_FRAME_USHORT( maxPoints ),
-        FT_FRAME_USHORT( maxContours ),
-        FT_FRAME_USHORT( maxCompositePoints ),
-        FT_FRAME_USHORT( maxCompositeContours ),
-        FT_FRAME_USHORT( maxZones ),
-        FT_FRAME_USHORT( maxTwilightPoints ),
-        FT_FRAME_USHORT( maxStorage ),
-        FT_FRAME_USHORT( maxFunctionDefs ),
-        FT_FRAME_USHORT( maxInstructionDefs ),
-        FT_FRAME_USHORT( maxStackElements ),
-        FT_FRAME_USHORT( maxSizeOfInstructions ),
-        FT_FRAME_USHORT( maxComponentElements ),
-        FT_FRAME_USHORT( maxComponentDepth ),
+        FT_FRAME_Uint( maxPoints ),
+        FT_FRAME_Uint( maxContours ),
+        FT_FRAME_Uint( maxCompositePoints ),
+        FT_FRAME_Uint( maxCompositeContours ),
+        FT_FRAME_Uint( maxZones ),
+        FT_FRAME_Uint( maxTwilightPoints ),
+        FT_FRAME_Uint( maxStorage ),
+        FT_FRAME_Uint( maxFunctionDefs ),
+        FT_FRAME_Uint( maxInstructionDefs ),
+        FT_FRAME_Uint( maxStackElements ),
+        FT_FRAME_Uint( maxSizeOfInstructions ),
+        FT_FRAME_Uint( maxComponentElements ),
+        FT_FRAME_Uint( maxComponentDepth ),
       FT_FRAME_END
     };
 
@@ -816,9 +816,9 @@
 #define FT_STRUCTURE  TT_NameTableRec
 
       FT_FRAME_START( 6 ),
-        FT_FRAME_USHORT( format ),
-        FT_FRAME_USHORT( numNameRecords ),
-        FT_FRAME_USHORT( storageOffset ),
+        FT_FRAME_Uint( format ),
+        FT_FRAME_Uint( numNameRecords ),
+        FT_FRAME_Uint( storageOffset ),
       FT_FRAME_END
     };
 
@@ -828,12 +828,12 @@
 #define FT_STRUCTURE  TT_NameRec
 
       /* no FT_FRAME_START */
-        FT_FRAME_USHORT( platformID ),
-        FT_FRAME_USHORT( encodingID ),
-        FT_FRAME_USHORT( languageID ),
-        FT_FRAME_USHORT( nameID ),
-        FT_FRAME_USHORT( stringLength ),
-        FT_FRAME_USHORT( stringOffset ),
+        FT_FRAME_Uint( platformID ),
+        FT_FRAME_Uint( encodingID ),
+        FT_FRAME_Uint( languageID ),
+        FT_FRAME_Uint( nameID ),
+        FT_FRAME_Uint( stringLength ),
+        FT_FRAME_Uint( stringOffset ),
       FT_FRAME_END
     };
 
@@ -843,8 +843,8 @@
 #define FT_STRUCTURE  TT_LangTagRec
 
       /* no FT_FRAME_START */
-        FT_FRAME_USHORT( stringLength ),
-        FT_FRAME_USHORT( stringOffset ),
+        FT_FRAME_Uint( stringLength ),
+        FT_FRAME_Uint( stringOffset ),
       FT_FRAME_END
     };
 
@@ -883,7 +883,7 @@
     if ( table->format == 1 )
     {
       if ( FT_STREAM_SEEK( storage_start )            ||
-           FT_READ_USHORT( table->numLangTagRecords ) )
+           FT_READ_Uint( table->numLangTagRecords ) )
         goto Exit;
 
       storage_start += 2 + 4 * table->numLangTagRecords;
@@ -974,7 +974,7 @@
     FT_FRAME_EXIT();
 
     /* everything went well, update face->num_names */
-    face->num_names = (FT_UShort)table->numNameRecords;
+    face->num_names = (FT_Uint)table->numNameRecords;
 
   Exit:
     return error;
@@ -1097,22 +1097,22 @@
 #define FT_STRUCTURE  TT_OS2
 
       FT_FRAME_START( 78 ),
-        FT_FRAME_USHORT( version ),
-        FT_FRAME_SHORT ( xAvgCharWidth ),
-        FT_FRAME_USHORT( usWeightClass ),
-        FT_FRAME_USHORT( usWidthClass ),
-        FT_FRAME_SHORT ( fsType ),
-        FT_FRAME_SHORT ( ySubscriptXSize ),
-        FT_FRAME_SHORT ( ySubscriptYSize ),
-        FT_FRAME_SHORT ( ySubscriptXOffset ),
-        FT_FRAME_SHORT ( ySubscriptYOffset ),
-        FT_FRAME_SHORT ( ySuperscriptXSize ),
-        FT_FRAME_SHORT ( ySuperscriptYSize ),
-        FT_FRAME_SHORT ( ySuperscriptXOffset ),
-        FT_FRAME_SHORT ( ySuperscriptYOffset ),
-        FT_FRAME_SHORT ( yStrikeoutSize ),
-        FT_FRAME_SHORT ( yStrikeoutPosition ),
-        FT_FRAME_SHORT ( sFamilyClass ),
+        FT_FRAME_Uint( version ),
+        FT_FRAME_int ( xAvgCharWidth ),
+        FT_FRAME_Uint( usWeightClass ),
+        FT_FRAME_Uint( usWidthClass ),
+        FT_FRAME_int ( fsType ),
+        FT_FRAME_int ( ySubscriptXSize ),
+        FT_FRAME_int ( ySubscriptYSize ),
+        FT_FRAME_int ( ySubscriptXOffset ),
+        FT_FRAME_int ( ySubscriptYOffset ),
+        FT_FRAME_int ( ySuperscriptXSize ),
+        FT_FRAME_int ( ySuperscriptYSize ),
+        FT_FRAME_int ( ySuperscriptXOffset ),
+        FT_FRAME_int ( ySuperscriptYOffset ),
+        FT_FRAME_int ( yStrikeoutSize ),
+        FT_FRAME_int ( yStrikeoutPosition ),
+        FT_FRAME_int ( sFamilyClass ),
         FT_FRAME_BYTE  ( panose[0] ),
         FT_FRAME_BYTE  ( panose[1] ),
         FT_FRAME_BYTE  ( panose[2] ),
@@ -1132,14 +1132,14 @@
         FT_FRAME_BYTE  ( achVendID[2] ),
         FT_FRAME_BYTE  ( achVendID[3] ),
 
-        FT_FRAME_USHORT( fsSelection ),
-        FT_FRAME_USHORT( usFirstCharIndex ),
-        FT_FRAME_USHORT( usLastCharIndex ),
-        FT_FRAME_SHORT ( sTypoAscender ),
-        FT_FRAME_SHORT ( sTypoDescender ),
-        FT_FRAME_SHORT ( sTypoLineGap ),
-        FT_FRAME_USHORT( usWinAscent ),
-        FT_FRAME_USHORT( usWinDescent ),
+        FT_FRAME_Uint( fsSelection ),
+        FT_FRAME_Uint( usFirstCharIndex ),
+        FT_FRAME_Uint( usLastCharIndex ),
+        FT_FRAME_int ( sTypoAscender ),
+        FT_FRAME_int ( sTypoDescender ),
+        FT_FRAME_int ( sTypoLineGap ),
+        FT_FRAME_Uint( usWinAscent ),
+        FT_FRAME_Uint( usWinDescent ),
       FT_FRAME_END
     };
 
@@ -1156,11 +1156,11 @@
     static const FT_Frame_Field  os2_fields_extra2[] =
     {
       FT_FRAME_START( 10 ),
-        FT_FRAME_SHORT ( sxHeight ),
-        FT_FRAME_SHORT ( sCapHeight ),
-        FT_FRAME_USHORT( usDefaultChar ),
-        FT_FRAME_USHORT( usBreakChar ),
-        FT_FRAME_USHORT( usMaxContext ),
+        FT_FRAME_int ( sxHeight ),
+        FT_FRAME_int ( sCapHeight ),
+        FT_FRAME_Uint( usDefaultChar ),
+        FT_FRAME_Uint( usBreakChar ),
+        FT_FRAME_Uint( usMaxContext ),
       FT_FRAME_END
     };
 
@@ -1168,8 +1168,8 @@
     static const FT_Frame_Field  os2_fields_extra5[] =
     {
       FT_FRAME_START( 4 ),
-        FT_FRAME_USHORT( usLowerOpticalPointSize ),
-        FT_FRAME_USHORT( usUpperOpticalPointSize ),
+        FT_FRAME_Uint( usLowerOpticalPointSize ),
+        FT_FRAME_Uint( usUpperOpticalPointSize ),
       FT_FRAME_END
     };
 
@@ -1259,8 +1259,8 @@
       FT_FRAME_START( 32 ),
         FT_FRAME_LONG ( FormatType ),
         FT_FRAME_LONG ( italicAngle ),
-        FT_FRAME_SHORT( underlinePosition ),
-        FT_FRAME_SHORT( underlineThickness ),
+        FT_FRAME_int( underlinePosition ),
+        FT_FRAME_int( underlineThickness ),
         FT_FRAME_ULONG( isFixedPitch ),
         FT_FRAME_ULONG( minMemType42 ),
         FT_FRAME_ULONG( maxMemType42 ),
@@ -1316,12 +1316,12 @@
       FT_FRAME_START( 54 ),
         FT_FRAME_ULONG ( Version ),
         FT_FRAME_ULONG ( FontNumber ),
-        FT_FRAME_USHORT( Pitch ),
-        FT_FRAME_USHORT( xHeight ),
-        FT_FRAME_USHORT( Style ),
-        FT_FRAME_USHORT( TypeFamily ),
-        FT_FRAME_USHORT( CapHeight ),
-        FT_FRAME_USHORT( SymbolSet ),
+        FT_FRAME_Uint( Pitch ),
+        FT_FRAME_Uint( xHeight ),
+        FT_FRAME_Uint( Style ),
+        FT_FRAME_Uint( TypeFamily ),
+        FT_FRAME_Uint( CapHeight ),
+        FT_FRAME_Uint( SymbolSet ),
         FT_FRAME_BYTES ( TypeFace, 16 ),
         FT_FRAME_BYTES ( CharacterComplement, 8 ),
         FT_FRAME_BYTES ( FileName, 6 ),
@@ -1384,8 +1384,8 @@
     if ( FT_FRAME_ENTER( 4L ) )
       goto Exit;
 
-    face->gasp.version   = FT_GET_USHORT();
-    face->gasp.numRanges = FT_GET_USHORT();
+    face->gasp.version   = FT_GET_Uint();
+    face->gasp.numRanges = FT_GET_Uint();
 
     FT_FRAME_EXIT();
 
@@ -1408,8 +1408,8 @@
 
     for ( j = 0; j < num_ranges; j++ )
     {
-      gaspranges[j].maxPPEM  = FT_GET_USHORT();
-      gaspranges[j].gaspFlag = FT_GET_USHORT();
+      gaspranges[j].maxPPEM  = FT_GET_Uint();
+      gaspranges[j].gaspFlag = FT_GET_Uint();
 
       FT_TRACE3(( "gaspRange %d: rangeMaxPPEM %5d, rangeGaspBehavior 0x%x\n",
                   j,

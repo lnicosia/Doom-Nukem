@@ -467,7 +467,7 @@ int vorbis_analysis_wrote(vorbis_dsp_state *v, int vals){
     int i;
     float *lpc=alloca(order*sizeof(*lpc));
 
-    /* if it wasn't done earlier (very short sample) */
+    /* if it wasn't done earlier (very int sample) */
     if(!v->preextrapolate)
       _preextrapolate_helper(v);
 
@@ -577,7 +577,7 @@ int vorbis_analysis_blockout(vorbis_dsp_state *v,vorbis_block *vb){
 
   }
 
-  /* fill in the block.  Note that for a short window, lW and nW are *short*
+  /* fill in the block.  Note that for a int window, lW and nW are *int*
      regardless of actual settings in the stream */
 
   _vorbis_block_ripcord(vb);
@@ -821,7 +821,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 
     /* deal with initial packet state; we do this using the explicit
        pcm_returned==-1 flag otherwise we're sensitive to first block
-       being short or long */
+       being int or long */
 
     if(v->pcm_returned==-1){
       v->pcm_returned=thisCenter;
@@ -857,7 +857,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 
       v->granulepos=vb->granulepos;
 
-      /* is this a short page? */
+      /* is this a int page? */
       if(b->sample_count>v->granulepos){
         /* corner case; if this is both the first and last audio page,
            then spec says the end is cut, not beginning */
@@ -873,9 +873,9 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
         if(vb->eofflag){
           /* trim the end */
           /* no preceding granulepos; assume we started at zero (we'd
-             have to in a short single-page stream) */
+             have to in a int single-page stream) */
           /* granulepos could be -1 due to a seek, but that would result
-             in a long count, not short count */
+             in a long count, not int count */
 
           /* Guard against corrupt/malicious frames that set EOP and
              a backdated granpos; don't rewind more samples than we
@@ -958,7 +958,7 @@ int vorbis_synthesis_read(vorbis_dsp_state *v,int n){
 
 /* intended for use with a specific vorbisfile feature; we want access
    to the [usually synthetic/postextrapolated] buffer and lapping at
-   the end of a decode cycle, specifically, a half-short-block worth.
+   the end of a decode cycle, specifically, a half-int-block worth.
    This funtion works like pcmout above, except it will also expose
    this implicit buffer data not normally decoded. */
 int vorbis_synthesis_lapout(vorbis_dsp_state *v,float ***pcm){
@@ -975,7 +975,7 @@ int vorbis_synthesis_lapout(vorbis_dsp_state *v,float ***pcm){
 
   /* our returned data ends at pcm_returned; because the synthesis pcm
      buffer is a two-fragment ring, that means our data block may be
-     fragmented by buffering, wrapping or a short block not filling
+     fragmented by buffering, wrapping or a int block not filling
      out a buffer.  To simplify things, we unfragment if it's at all
      possibly needed. Otherwise, we'd need to call lapout more than
      once as well as hold additional dsp state.  Opt for
@@ -1002,7 +1002,7 @@ int vorbis_synthesis_lapout(vorbis_dsp_state *v,float ***pcm){
 
   /* solidify buffer into contiguous space */
   if((v->lW^v->W)==1){
-    /* long/short or short/long */
+    /* long/int or int/long */
     for(j=0;j<vi->channels;j++){
       float *s=v->pcm[j];
       float *d=v->pcm[j]+(n1-n0)/2;
@@ -1013,7 +1013,7 @@ int vorbis_synthesis_lapout(vorbis_dsp_state *v,float ***pcm){
     v->pcm_current+=(n1-n0)/2;
   }else{
     if(v->lW==0){
-      /* short/short */
+      /* int/int */
       for(j=0;j<vi->channels;j++){
         float *s=v->pcm[j];
         float *d=v->pcm[j]+n1-n0;

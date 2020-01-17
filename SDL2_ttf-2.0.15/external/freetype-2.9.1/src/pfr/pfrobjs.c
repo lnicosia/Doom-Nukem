@@ -197,13 +197,13 @@
       pfrface->available_sizes = NULL;
 
       pfrface->bbox         = phy_font->bbox;
-      pfrface->units_per_EM = (FT_UShort)phy_font->outline_resolution;
-      pfrface->ascender     = (FT_Short) phy_font->bbox.yMax;
-      pfrface->descender    = (FT_Short) phy_font->bbox.yMin;
+      pfrface->units_per_EM = (FT_Uint)phy_font->outline_resolution;
+      pfrface->ascender     = (FT_int) phy_font->bbox.yMax;
+      pfrface->descender    = (FT_int) phy_font->bbox.yMin;
 
-      pfrface->height = (FT_Short)( ( pfrface->units_per_EM * 12 ) / 10 );
+      pfrface->height = (FT_int)( ( pfrface->units_per_EM * 12 ) / 10 );
       if ( pfrface->height < pfrface->ascender - pfrface->descender )
-        pfrface->height = (FT_Short)(pfrface->ascender - pfrface->descender);
+        pfrface->height = (FT_int)(pfrface->ascender - pfrface->descender);
 
       if ( phy_font->num_strikes > 0 )
       {
@@ -220,8 +220,8 @@
         strike = phy_font->strikes;
         for ( n = 0; n < count; n++, size++, strike++ )
         {
-          size->height = (FT_Short)strike->y_ppm;
-          size->width  = (FT_Short)strike->x_ppm;
+          size->height = (FT_int)strike->y_ppm;
+          size->width  = (FT_int)strike->x_ppm;
           size->size   = (FT_Pos)( strike->y_ppm << 6 );
           size->x_ppem = (FT_Pos)( strike->x_ppm << 6 );
           size->y_ppem = (FT_Pos)( strike->y_ppm << 6 );
@@ -231,7 +231,7 @@
 
       /* now compute maximum advance width */
       if ( ( phy_font->flags & PFR_PHY_PROPORTIONAL ) == 0 )
-        pfrface->max_advance_width = (FT_Short)phy_font->standard_advance;
+        pfrface->max_advance_width = (FT_int)phy_font->standard_advance;
       else
       {
         FT_Int    max = 0;
@@ -245,13 +245,13 @@
             max = gchar->advance;
         }
 
-        pfrface->max_advance_width = (FT_Short)max;
+        pfrface->max_advance_width = (FT_int)max;
       }
 
       pfrface->max_advance_height = pfrface->height;
 
-      pfrface->underline_position  = (FT_Short)( -pfrface->units_per_EM / 10 );
-      pfrface->underline_thickness = (FT_Short)(  pfrface->units_per_EM / 30 );
+      pfrface->underline_position  = (FT_int)( -pfrface->units_per_EM / 10 );
+      pfrface->underline_thickness = (FT_int)(  pfrface->units_per_EM / 30 );
 
       /* create charmap */
       {
@@ -581,7 +581,7 @@
 
         Found:
           if ( twobyte_adj )
-            value = FT_PEEK_SHORT( p );
+            value = FT_PEEK_int( p );
           else
             value = p[0];
 

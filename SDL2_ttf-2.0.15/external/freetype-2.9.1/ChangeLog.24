@@ -132,7 +132,7 @@
 	extraction macros.
 	(FT_INT8_, FT_BYTE_I16, FT_BYTE_I32, FT_INT8_I16, FT_INT8_I32,
 	FT_INT8_I32, FT_INT8_U32): Removed.
-	(FT_PEEK_SHORT, FT_PEEK_LONG, FT_PEEK_OFF3, FT_PEEK_SHORT_LE,
+	(FT_PEEK_int, FT_PEEK_LONG, FT_PEEK_OFF3, FT_PEEK_int_LE,
 	FT_PEEK_LONG_LE, FT_PEEK_OFF3_LE): Use unsigned values for
 	computations and convert to signed as the last step.
 
@@ -789,15 +789,15 @@
 
 2013-01-12  Alexei Podtelezhnikov  <apodtele@gmail.com>
 
-	[truetype] Improve accuracy of normalization of short vectors.
+	[truetype] Improve accuracy of normalization of int vectors.
 
 	Unit vector components are stored as 2.14 fixed-point numbers. In
-	order to calculate all 14 bits accurately, a short vector to be
+	order to calculate all 14 bits accurately, a int vector to be
 	normalized has to be upscaled to at least 14 bits before its length
 	is calculated. This has been safe since accurate CORDIC algorithms
 	were adopted.
 
-	* src/truetype/ttinterp.c (Normalize): Scale short vectors by 0x4000.
+	* src/truetype/ttinterp.c (Normalize): Scale int vectors by 0x4000.
 
 2013-01-12  Alexei Podtelezhnikov  <apodtele@gmail.com>
 
@@ -1055,7 +1055,7 @@
 	Since the initial commit (ebe85f59) the value of FT_TRIG_SCALE has
 	always been slightly less than the correct value, which has been
 	given in the comment as a hexadecimal. As a result, vector lengths
-	were underestimated and rotated vectors were shortened.
+	were underestimated and rotated vectors were intened.
 
 	* src/base/fttrigon.c (FT_TRIG_SCALE): Fix macro value.
 
@@ -1379,7 +1379,7 @@
 
 	* src/truetype/ttinterp.c (Ins_ISECT): Use angle between vectors to
 	avoid grazing intersections.  The previous threshold was too coarse,
-	incorrectly rejecting short but valid vectors.
+	incorrectly rejecting int but valid vectors.
 
 2012-09-30  Gilles Espinasse  <g.esp@free.fr>
 
@@ -2494,7 +2494,7 @@
 
 	[type1] Fix Savannah bug #35608.
 
-	* src/type1/t1parse.c (T1_Get_Private_Dict): Reject too short
+	* src/type1/t1parse.c (T1_Get_Private_Dict): Reject too int
 	dictionaries.
 
 2012-02-26  Werner Lemberg  <wl@gnu.org>
@@ -3212,7 +3212,7 @@
 
 	Handle some border cases.
 
-	* include/freetype/config/ftstdlib.h (FT_USHORT_MAX): New macro.
+	* include/freetype/config/ftstdlib.h (FT_Uint_MAX): New macro.
 
 	* src/base/ftbitmap.c (FT_Bitmap_Convert): Protect against invalid
 	value of `target->rows'.
@@ -3466,7 +3466,7 @@
 
 	When shifting right a signed value, it is not defined by the
 	C standard whether one gets a sign extension or not.  Use a macro to
-	do an explicit cast from a signed short (assuming that this is
+	do an explicit cast from a signed int (assuming that this is
 	16bit) to an int.
 
 	* src/psaux/t1decode.c (Fix2Int): New macro.
@@ -5223,7 +5223,7 @@
 	Minor fixes.
 
 	* src/cff/cffload.c (cff_charset_compute_cids): `charset->sids[i]'
-	is `FT_UShort'.
+	is `FT_Uint'.
 	(cff_index_access_element): Don't use additions in comparison.
 	* src/sfnt/ttpost.c (load_format_20): Make `post_limit' of type
 	`FT_Long'.

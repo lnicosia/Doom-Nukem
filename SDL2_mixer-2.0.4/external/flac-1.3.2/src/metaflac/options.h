@@ -197,7 +197,7 @@ typedef struct {
 	} ops;
 	struct {
 		struct {
-			unsigned num_shorthand_ops;
+			unsigned num_inthand_ops;
 			unsigned num_major_ops;
 			FLAC__bool has_block_type;
 			FLAC__bool has_except_block_type;

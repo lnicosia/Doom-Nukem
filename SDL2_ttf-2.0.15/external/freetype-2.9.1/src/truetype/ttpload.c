@@ -221,11 +221,11 @@
         p       = face->glyph_locations + gindex * 2;
         p_limit = face->glyph_locations + face->num_locations * 2;
 
-        pos1 = FT_NEXT_USHORT( p );
+        pos1 = FT_NEXT_Uint( p );
         pos2 = pos1;
 
         if ( p + 2 <= p_limit )
-          pos2 = FT_NEXT_USHORT( p );
+          pos2 = FT_NEXT_Uint( p );
 
         pos1 <<= 1;
         pos2 <<= 1;
@@ -348,12 +348,12 @@
       goto Exit;
 
     {
-      FT_Short*  cur   = face->cvt;
-      FT_Short*  limit = cur + face->cvt_size;
+      FT_int*  cur   = face->cvt;
+      FT_int*  limit = cur + face->cvt_size;
 
 
       for ( ; cur < limit; cur++ )
-        *cur = FT_GET_SHORT();
+        *cur = FT_GET_int();
     }
 
     FT_FRAME_EXIT();
@@ -545,7 +545,7 @@
     /* variation fonts introduced in OpenType 1.8 must not have this    */
     /* table) we no longer test for a correct `version' field.          */
     p          += 2;
-    num_records = FT_NEXT_USHORT( p );
+    num_records = FT_NEXT_Uint( p );
     record_size = FT_NEXT_ULONG( p );
 
     /* The maximum number of bytes in an hdmx device record is the */

@@ -229,11 +229,11 @@ static jclass mAudioManagerClass;
 
 /* method signatures */
 static jmethodID midAudioOpen;
-static jmethodID midAudioWriteShortBuffer;
+static jmethodID midAudioWriteintBuffer;
 static jmethodID midAudioWriteByteBuffer;
 static jmethodID midAudioClose;
 static jmethodID midCaptureOpen;
-static jmethodID midCaptureReadShortBuffer;
+static jmethodID midCaptureReadintBuffer;
 static jmethodID midCaptureReadByteBuffer;
 static jmethodID midCaptureClose;
 
@@ -362,23 +362,23 @@ JNIEXPORT void JNICALL SDL_JAVA_AUDIO_INTERFACE(nativeSetupJNI)(JNIEnv* mEnv, jc
 
     midAudioOpen = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "audioOpen", "(IZZI)I");
-    midAudioWriteShortBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
-                                "audioWriteShortBuffer", "([S)V");
+    midAudioWriteintBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
+                                "audioWriteintBuffer", "([S)V");
     midAudioWriteByteBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "audioWriteByteBuffer", "([B)V");
     midAudioClose = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "audioClose", "()V");
     midCaptureOpen = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "captureOpen", "(IZZI)I");
-    midCaptureReadShortBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
-                                "captureReadShortBuffer", "([SZ)I");
+    midCaptureReadintBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
+                                "captureReadintBuffer", "([SZ)I");
     midCaptureReadByteBuffer = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "captureReadByteBuffer", "([BZ)I");
     midCaptureClose = (*mEnv)->GetStaticMethodID(mEnv, mAudioManagerClass,
                                 "captureClose", "()V");
 
-    if (!midAudioOpen || !midAudioWriteShortBuffer || !midAudioWriteByteBuffer || !midAudioClose ||
-       !midCaptureOpen || !midCaptureReadShortBuffer || !midCaptureReadByteBuffer || !midCaptureClose) {
+    if (!midAudioOpen || !midAudioWriteintBuffer || !midAudioWriteByteBuffer || !midAudioClose ||
+       !midCaptureOpen || !midCaptureReadintBuffer || !midCaptureReadByteBuffer || !midCaptureClose) {
         __android_log_print(ANDROID_LOG_WARN, "SDL", "Missing some Java callbacks, do you have the latest version of SDLAudioManager.java?");
     }
 
@@ -1039,7 +1039,7 @@ int Android_JNI_OpenAudioDevice(int iscapture, int sampleRate, int is16Bit, int 
      * Android >= 4.2 due to a "stale global reference" error. So now we allocate this buffer directly from this side. */
 
     if (is16Bit) {
-        jshortArray audioBufferLocal = (*env)->NewShortArray(env, desiredBufferFrames * (audioBufferStereo ? 2 : 1));
+        jintArray audioBufferLocal = (*env)->NewintArray(env, desiredBufferFrames * (audioBufferStereo ? 2 : 1));
         if (audioBufferLocal) {
             jbufobj = (*env)->NewGlobalRef(env, audioBufferLocal);
             (*env)->DeleteLocalRef(env, audioBufferLocal);
@@ -1068,9 +1068,9 @@ int Android_JNI_OpenAudioDevice(int iscapture, int sampleRate, int is16Bit, int 
 
     if (is16Bit) {
         if (!iscapture) {
-            audioBufferPinned = (*env)->GetShortArrayElements(env, (jshortArray)audioBuffer, &isCopy);
+            audioBufferPinned = (*env)->GetintArrayElements(env, (jintArray)audioBuffer, &isCopy);
         }
-        audioBufferFrames = (*env)->GetArrayLength(env, (jshortArray)audioBuffer);
+        audioBufferFrames = (*env)->GetArrayLength(env, (jintArray)audioBuffer);
     } else {
         if (!iscapture) {
             audioBufferPinned = (*env)->GetByteArrayElements(env, (jbyteArray)audioBuffer, &isCopy);
@@ -1127,8 +1127,8 @@ void Android_JNI_WriteAudioBuffer(void)
     JNIEnv *mAudioEnv = Android_JNI_GetEnv();
 
     if (audioBuffer16Bit) {
-        (*mAudioEnv)->ReleaseShortArrayElements(mAudioEnv, (jshortArray)audioBuffer, (jshort *)audioBufferPinned, JNI_COMMIT);
-        (*mAudioEnv)->CallStaticVoidMethod(mAudioEnv, mAudioManagerClass, midAudioWriteShortBuffer, (jshortArray)audioBuffer);
+        (*mAudioEnv)->ReleaseintArrayElements(mAudioEnv, (jintArray)audioBuffer, (jint *)audioBufferPinned, JNI_COMMIT);
+        (*mAudioEnv)->CallStaticVoidMethod(mAudioEnv, mAudioManagerClass, midAudioWriteintBuffer, (jintArray)audioBuffer);
     } else {
         (*mAudioEnv)->ReleaseByteArrayElements(mAudioEnv, (jbyteArray)audioBuffer, (jbyte *)audioBufferPinned, JNI_COMMIT);
         (*mAudioEnv)->CallStaticVoidMethod(mAudioEnv, mAudioManagerClass, midAudioWriteByteBuffer, (jbyteArray)audioBuffer);
@@ -1144,16 +1144,16 @@ int Android_JNI_CaptureAudioBuffer(void *buffer, int buflen)
     jint br;
 
     if (captureBuffer16Bit) {
-        SDL_assert((*env)->GetArrayLength(env, (jshortArray)captureBuffer) == (buflen / 2));
-        br = (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadShortBuffer, (jshortArray)captureBuffer, JNI_TRUE);
+        SDL_assert((*env)->GetArrayLength(env, (jintArray)captureBuffer) == (buflen / 2));
+        br = (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadintBuffer, (jintArray)captureBuffer, JNI_TRUE);
         if (br > 0) {
-            jshort *ptr = (*env)->GetShortArrayElements(env, (jshortArray)captureBuffer, &isCopy);
+            jint *ptr = (*env)->GetintArrayElements(env, (jintArray)captureBuffer, &isCopy);
             br *= 2;
             SDL_memcpy(buffer, ptr, br);
-            (*env)->ReleaseShortArrayElements(env, (jshortArray)captureBuffer, (jshort *)ptr, JNI_ABORT);
+            (*env)->ReleaseintArrayElements(env, (jintArray)captureBuffer, (jint *)ptr, JNI_ABORT);
         }
     } else {
-        SDL_assert((*env)->GetArrayLength(env, (jshortArray)captureBuffer) == buflen);
+        SDL_assert((*env)->GetArrayLength(env, (jintArray)captureBuffer) == buflen);
         br = (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadByteBuffer, (jbyteArray)captureBuffer, JNI_TRUE);
         if (br > 0) {
             jbyte *ptr = (*env)->GetByteArrayElements(env, (jbyteArray)captureBuffer, &isCopy);
@@ -1170,15 +1170,15 @@ void Android_JNI_FlushCapturedAudio(void)
     JNIEnv *env = Android_JNI_GetEnv();
 #if 0  /* !!! FIXME: this needs API 23, or it'll do blocking reads and never end. */
     if (captureBuffer16Bit) {
-        const jint len = (*env)->GetArrayLength(env, (jshortArray)captureBuffer);
-        while ((*env)->CallStaticIntMethod(env, mActivityClass, midCaptureReadShortBuffer, (jshortArray)captureBuffer, JNI_FALSE) == len) { /* spin */ }
+        const jint len = (*env)->GetArrayLength(env, (jintArray)captureBuffer);
+        while ((*env)->CallStaticIntMethod(env, mActivityClass, midCaptureReadintBuffer, (jintArray)captureBuffer, JNI_FALSE) == len) { /* spin */ }
     } else {
         const jint len = (*env)->GetArrayLength(env, (jbyteArray)captureBuffer);
         while ((*env)->CallStaticIntMethod(env, mActivityClass, midCaptureReadByteBuffer, (jbyteArray)captureBuffer, JNI_FALSE) == len) { /* spin */ }
     }
 #else
     if (captureBuffer16Bit) {
-        (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadShortBuffer, (jshortArray)captureBuffer, JNI_FALSE);
+        (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadintBuffer, (jintArray)captureBuffer, JNI_FALSE);
     } else {
         (*env)->CallStaticIntMethod(env, mAudioManagerClass, midCaptureReadByteBuffer, (jbyteArray)captureBuffer, JNI_FALSE);
     }

@@ -47,7 +47,7 @@ FT_BEGIN_HEADER
 
   FT_LOCAL( FT_Error )
   tt_face_get_name( TT_Face      face,
-                    FT_UShort    nameid,
+                    FT_Uint    nameid,
                     FT_String**  name );
 
 

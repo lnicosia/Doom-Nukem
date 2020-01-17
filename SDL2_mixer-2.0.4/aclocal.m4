@@ -8065,16 +8065,16 @@ else
 fi[]dnl
 ])# _PKG_CONFIG
 
-# _PKG_SHORT_ERRORS_SUPPORTED
+# _PKG_int_ERRORS_SUPPORTED
 # -----------------------------
-AC_DEFUN([_PKG_SHORT_ERRORS_SUPPORTED],
+AC_DEFUN([_PKG_int_ERRORS_SUPPORTED],
 [AC_REQUIRE([PKG_PROG_PKG_CONFIG])
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
+        _pkg_int_errors_supported=yes
 else
-        _pkg_short_errors_supported=no
+        _pkg_int_errors_supported=no
 fi[]dnl
-])# _PKG_SHORT_ERRORS_SUPPORTED
+])# _PKG_int_ERRORS_SUPPORTED
 
 
 # PKG_CHECK_MODULES(VARIABLE-PREFIX, MODULES, [ACTION-IF-FOUND],
@@ -8103,9 +8103,9 @@ and $1[]_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.])
 
 if test $pkg_failed = yes; then
-        _PKG_SHORT_ERRORS_SUPPORTED
-        if test $_pkg_short_errors_supported = yes; then
-	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "$2"`
+        _PKG_int_ERRORS_SUPPORTED
+        if test $_pkg_int_errors_supported = yes; then
+	        $1[]_PKG_ERRORS=`$PKG_CONFIG --int-errors --errors-to-stdout --print-errors "$2"`
         else 
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "$2"`
         fi

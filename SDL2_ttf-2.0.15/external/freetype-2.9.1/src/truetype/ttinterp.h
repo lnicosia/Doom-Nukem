@@ -58,7 +58,7 @@ FT_BEGIN_HEADER
   typedef void
   (*TT_Move_Func)( TT_ExecContext  exc,
                    TT_GlyphZone    zone,
-                   FT_UShort       point,
+                   FT_Uint       point,
                    FT_F26Dot6      distance );
 
   /* Distance projection along one of the projection vectors */
@@ -207,14 +207,14 @@ FT_BEGIN_HEADER
                        callSize;   /* size of call stack */
     TT_CallStack       callStack;  /* call stack */
 
-    FT_UShort          maxPoints;    /* capacity of this context's `pts' */
-    FT_Short           maxContours;  /* record, expressed in points and  */
+    FT_Uint          maxPoints;    /* capacity of this context's `pts' */
+    FT_int           maxContours;  /* record, expressed in points and  */
                                      /* contours.                        */
 
     TT_CodeRangeTable  codeRangeTable;  /* table of valid code ranges */
                                         /* useful for the debugger   */
 
-    FT_UShort          storeSize;  /* size of current storage */
+    FT_Uint          storeSize;  /* size of current storage */
     FT_Long*           storage;    /* storage area            */
 
     FT_F26Dot6         period;     /* values used for the */

@@ -29,7 +29,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 #include "share/compat.h"
 
 static FLAC__bool remove_vc_all(const char *filename, FLAC__StreamMetadata *block, FLAC__bool *needs_write);
@@ -39,7 +39,7 @@ static FLAC__bool set_vc_field(const char *filename, FLAC__StreamMetadata *block
 static FLAC__bool import_vc_from(const char *filename, FLAC__StreamMetadata *block, const Argument_String *vc_filename, FLAC__bool *needs_write, FLAC__bool raw);
 static FLAC__bool export_vc_to(const char *filename, FLAC__StreamMetadata *block, const Argument_String *vc_filename, FLAC__bool raw);
 
-FLAC__bool do_shorthand_operation__vorbis_comment(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool raw)
+FLAC__bool do_inthand_operation__vorbis_comment(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool raw)
 {
 	FLAC__bool ok = true, found_vc_block = false;
 	FLAC__StreamMetadata *block = 0;

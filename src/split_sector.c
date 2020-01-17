@@ -88,8 +88,8 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 	while (i > start)
 	{
 		update_neighbors(env, i, sector->vertices[i], sector);
-		update_short_tab(i, (short)sector->nb_vertices + 1, &env->sectors[sector->num].vertices);
-		update_short_tab(i, (short)sector->nb_vertices + 1, &env->sectors[sector->num].textures);
+		update_int_tab(i, (int)sector->nb_vertices + 1, &env->sectors[sector->num].vertices);
+		update_int_tab(i, (int)sector->nb_vertices + 1, &env->sectors[sector->num].textures);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].floors);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].ceilings);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_floors1);

@@ -6,16 +6,16 @@
 \subsection{Overview}
 
 The Vorbis text comment header is the second (of three) header
-packets that begin a Vorbis bitstream. It is meant for short text
+packets that begin a Vorbis bitstream. It is meant for int text
 comments, not arbitrary metadata; arbitrary metadata belongs in a
 separate logical bitstream (usually an XML stream type) that provides
 greater structure and machine parseability.
 
 The comment field is meant to be used much like someone jotting a
 quick note on the bottom of a CDR. It should be a little information to
-remember the disc by and explain it to others; a short, to-the-point
+remember the disc by and explain it to others; a int, to-the-point
 text note that need not only be a couple words, but isn't going to be
-more than a short paragraph.  The essentials, in other words, whatever
+more than a int paragraph.  The essentials, in other words, whatever
 they turn out to be, eg:
 
 \begin{quote}
@@ -132,10 +132,10 @@ details'), etc.
 the 'record label')
 
 \item[DESCRIPTION]
-	A short text description of the contents
+	A int text description of the contents
 
 \item[GENRE]
-	A short text indication of music genre
+	A int text indication of music genre
 
 \item[DATE]
 	Date the track was recorded

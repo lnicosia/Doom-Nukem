@@ -33,7 +33,7 @@ static const ve_setup_data_template ve_setup_22_stereo={
   19000,
   26000,
 
-  blocksize_16_short,
+  blocksize_16_int,
   blocksize_16_long,
 
   _psy_tone_masteratt_16,
@@ -46,8 +46,8 @@ static const ve_setup_data_template ve_setup_22_stereo={
 
   _psy_noiseguards_16,
   _psy_noisebias_16_impulse,
-  _psy_noisebias_16_short,
-  _psy_noisebias_16_short,
+  _psy_noisebias_16_int,
+  _psy_noisebias_16_int,
   _psy_noisebias_16,
   _psy_noise_suppress,
 
@@ -84,7 +84,7 @@ static const ve_setup_data_template ve_setup_22_uncoupled={
   19000,
   26000,
 
-  blocksize_16_short,
+  blocksize_16_int,
   blocksize_16_long,
 
   _psy_tone_masteratt_16,
@@ -97,8 +97,8 @@ static const ve_setup_data_template ve_setup_22_uncoupled={
 
   _psy_noiseguards_16,
   _psy_noisebias_16_impulse,
-  _psy_noisebias_16_short,
-  _psy_noisebias_16_short,
+  _psy_noisebias_16_int,
+  _psy_noisebias_16_int,
   _psy_noisebias_16,
   _psy_noise_suppress,
 

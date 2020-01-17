@@ -74,29 +74,29 @@ _Vertex y							|	40	| Parsing: Vertex	|
 _Player x							|	41	| Parsing:			|
 _Player y							|	42	| Parsing:			|
 _Player z							|	43	| Parsing:			|
-_Player hp							|	45	| Parsing:			|
-_Player armor						|	46	| Parsing:			|
-_Player speed						|	47	| Parsing:			|
-_Player	invincible					|	48	| Parsing:			|
-_Player infinite ammo				|	49	| Parsing:			|
-_Player sector						|	50	| Parsing:			|
-_Weapon damage						|	51	| Parsing: Weapon	|
-_Weapon range						|	52	| Parsing: Weapon	|
-_Enemy sprite						|	53	| Parsing: Enemy	|
-_Enemy scale						|	54	| Parsing: Enemy	|
-_Enemy damage						|	55	| Parsing: Enemy	|
-_Enemy hp							|	56	| Parsing: Enemy	|
-_Enemy speed						|	57	| Parsing: Enemy	|
-_Enemy x							|	58	| Parsing: Enemy	|
-_Enemy y							|	59	| Parsing: Enemy	|
-_Enemy z							|	60	| Parsing: Enemy	|
-_Object sprite						|	61	| Parsing: Object	|
-_Object scale						|	62	| Parsing: Object	|
-_Object health						|	63	| Parsing: Object	|
-_Object x							|	64	| Parsing: Object	|
-_Object y							|	65	| Parsing: Object	|
-_Object z							|	66	| Parsing: Object	|
-_End of event						|	67	| Parsing: Event	|
+_Player hp							|	44	| Parsing:			|
+_Player armor						|	45	| Parsing:			|
+_Player speed						|	46	| Parsing:			|
+_Player	invincible					|	47	| Parsing:			|
+_Player infinite ammo				|	48	| Parsing:			|
+_Player sector						|	49	| Parsing:			|
+_Weapon damage						|	50	| Parsing: Weapon	|
+_Weapon range						|	51	| Parsing: Weapon	|
+_Enemy sprite						|	52	| Parsing: Enemy	|
+_Enemy scale						|	53	| Parsing: Enemy	|
+_Enemy damage						|	54	| Parsing: Enemy	|
+_Enemy hp							|	55	| Parsing: Enemy	|
+_Enemy speed						|	56	| Parsing: Enemy	|
+_Enemy x							|	57	| Parsing: Enemy	|
+_Enemy y							|	58	| Parsing: Enemy	|
+_Enemy z							|	59	| Parsing: Enemy	|
+_Object sprite						|	60	| Parsing: Object	|
+_Object scale						|	61	| Parsing: Object	|
+_Object health						|	62	| Parsing: Object	|
+_Object x							|	63	| Parsing: Object	|
+_Object y							|	64	| Parsing: Object	|
+_Object z							|	65	| Parsing: Object	|
+_End of event						|	66	| Parsing: Event	|
 //Cas particuliers
 _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|

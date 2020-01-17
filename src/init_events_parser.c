@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:23:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:01:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 10:17:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@ void	init_events_parser(t_events_parser *eparser)
 	eparser->new_events[DEATH] = &new_death_event;
 	init_events_parser_target_parsers(eparser);
 	init_events_parser_target_types(eparser);
+	init_events_parser_updaters(eparser);
+	init_events_parser_checkers(eparser);
 }

@@ -38,8 +38,8 @@ typedef struct  s_wall
     double      x;
     double      y;
     double      norme;
-    short       sector_or;
-    short       sector_dest;  
+    int       sector_or;
+    int       sector_dest;  
 }               t_wall;
 
 typedef struct  s_movement

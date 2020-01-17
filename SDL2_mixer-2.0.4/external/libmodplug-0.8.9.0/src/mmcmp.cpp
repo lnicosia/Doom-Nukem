@@ -36,7 +36,7 @@ typedef struct MMCMPBLOCK
 	WORD sub_blk;
 	WORD flags;
 	WORD tt_entries;
-	USHORT num_bits;
+	Uint num_bits;
 } MMCMPBLOCK, *LPMMCMPBLOCK;
 
 typedef struct MMCMPSUBBLOCK

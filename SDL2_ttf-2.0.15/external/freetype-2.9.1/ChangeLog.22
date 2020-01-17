@@ -1076,7 +1076,7 @@
 
 2006-02-09  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
 
-	* src/cid/cidparse.c (cid_parse_new): Fix for abnormally short or
+	* src/cid/cidparse.c (cid_parse_new): Fix for abnormally int or
 	broken CIDFont.  Reported by Taek Kwan(TK) Lee (see ft-devel
 	2005-11-02).
 
@@ -2335,9 +2335,9 @@
 
 	Fixes for `make multi' and using C++ compiler.
 
-	* src/gxvalid/gxvcommn.c (gxv_set_length_by_ushort_offset,
+	* src/gxvalid/gxvcommn.c (gxv_set_length_by_uint_offset,
 	gxv_set_length_by_ulong_offset, gxv_array_getlimits_byte,
-	gxv_array_getlimits_ushort): Declare with FT_LOCAL_DEF.
+	gxv_array_getlimits_uint): Declare with FT_LOCAL_DEF.
 	(gxv_compare_ranges): Make it static.
 	(gxv_LookupTable_fmt0_validate, gxv_LookupTable_fmt2_validate,
 	gxv_LookupTable_fmt4_validate, gxv_LookupTable_fmt6_validate,
@@ -2351,7 +2351,7 @@
 	* src/gxvalid/gxvcommn.h: Add prototypes for
 	gxv_StateTable_subtable_setup, gxv_XStateTable_subtable_setup,
 	gxv_XStateTable_validate, gxv_array_getlimits_byte,
-	gxv_array_getlimits_ushort, gxv_set_length_by_ushort_offset,
+	gxv_array_getlimits_uint, gxv_set_length_by_uint_offset,
 	gxv_set_length_by_ulong_offset, gxv_odtect_add_range,
 	gxv_odtect_validate.
 	(GXV_STATETABLE_HEADER_SIZE, GXV_STATEHEADER_SIZE,
@@ -2812,7 +2812,7 @@
 
 2005-06-15  Werner Lemberg  <wl@gnu.org>
 
-	* src/otvalid/otvcommn.h (OTV_OPTIONAL_TABLE): Use FT_UShort to be
+	* src/otvalid/otvcommn.h (OTV_OPTIONAL_TABLE): Use FT_Uint to be
 	in sync with OTV_OPTIONAL_OFFSET.  Reported by YAMATO Masatake.
 
 2005-06-13  Werner Lemberg  <wl@gnu.org>

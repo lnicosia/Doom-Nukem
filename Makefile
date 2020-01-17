@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/16 18:04:19 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/17 13:39:07 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,6 +123,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   set_condition_target.c set_condition_target2.c \
 		   init_events_parser_target_parsers.c parse_event_exec_conditions.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
+		   event_checkers.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

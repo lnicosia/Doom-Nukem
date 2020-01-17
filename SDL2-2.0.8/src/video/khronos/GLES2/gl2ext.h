@@ -965,8 +965,8 @@ GL_APICALL void GL_APIENTRY glResolveMultisampleFramebufferAPPLE (void);
 #ifndef GL_APPLE_rgb_422
 #define GL_APPLE_rgb_422 1
 #define GL_RGB_422_APPLE                  0x8A1F
-#define GL_UNSIGNED_SHORT_8_8_APPLE       0x85BA
-#define GL_UNSIGNED_SHORT_8_8_REV_APPLE   0x85BB
+#define GL_UNSIGNED_int_8_8_APPLE       0x85BA
+#define GL_UNSIGNED_int_8_8_REV_APPLE   0x85BB
 #define GL_RGB_RAW_422_APPLE              0x8A51
 #endif /* GL_APPLE_rgb_422 */
 
@@ -1647,8 +1647,8 @@ GL_APICALL void GL_APIENTRY glRasterSamplesEXT (GLuint samples, GLboolean fixeds
 
 #ifndef GL_EXT_read_format_bgra
 #define GL_EXT_read_format_bgra 1
-#define GL_UNSIGNED_SHORT_4_4_4_4_REV_EXT 0x8365
-#define GL_UNSIGNED_SHORT_1_5_5_5_REV_EXT 0x8366
+#define GL_UNSIGNED_int_4_4_4_4_REV_EXT 0x8365
+#define GL_UNSIGNED_int_1_5_5_5_REV_EXT 0x8366
 #endif /* GL_EXT_read_format_bgra */
 
 #ifndef GL_EXT_render_snorm
@@ -2270,7 +2270,7 @@ GL_APICALL void GL_APIENTRY glFramebufferTexture2DMultisampleIMG (GLenum target,
 #ifndef GL_IMG_read_format
 #define GL_IMG_read_format 1
 #define GL_BGRA_IMG                       0x80E1
-#define GL_UNSIGNED_SHORT_4_4_4_4_REV_IMG 0x8365
+#define GL_UNSIGNED_int_4_4_4_4_REV_IMG 0x8365
 #endif /* GL_IMG_read_format */
 
 #ifndef GL_IMG_shader_binary

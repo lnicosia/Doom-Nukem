@@ -107,7 +107,7 @@ typedef struct {
 	DWORD low_frequency ;
 	DWORD high_frequency;
 	DWORD root_frequency;
-	short int tune;
+	int int tune;
 	BYTE balance;
 	BYTE envelope_rate[6];
 	BYTE envelope_offset[6];
@@ -622,7 +622,7 @@ static void pat_amplify(char *b, int num, int amp, int m)
 {
 	char *pb;
 	BYTE *pu;
-	short int *pi;
+	int int *pi;
 	WORD *pw;
 	int i,n,v;
 	n = num;
@@ -638,7 +638,7 @@ static void pat_amplify(char *b, int num, int amp, int m)
 			}
 		}
 		else {
-			pi = (short int *)b;
+			pi = (int int *)b;
 			for( i=0; i<n; i++ ) {
 				v = ((*pi) * amp) / 100;
 				if( v < -0x8000 ) v = -0x8000;
@@ -704,7 +704,7 @@ static void pat_readpat(int pat, char *dest, int num)
 	mmpat = 0;
 }
 
-static BOOL dec_pat_Decompress16Bit(short int *dest, int cbcount, int samplenum)
+static BOOL dec_pat_Decompress16Bit(int int *dest, int cbcount, int samplenum)
 {
 	int i;
 	PAT_SAMPLE_FUN f;
@@ -712,7 +712,7 @@ static BOOL dec_pat_Decompress16Bit(short int *dest, int cbcount, int samplenum)
 	else {
 		f = pat_fun[(samplenum - MAXSMP) % 3];
 		for( i=0; i<cbcount; i++ )
-			dest[i] = (short int)(32000.0*f(i));
+			dest[i] = (int int)(32000.0*f(i));
 	}
 	return cbcount;
 }
@@ -720,9 +720,9 @@ static BOOL dec_pat_Decompress16Bit(short int *dest, int cbcount, int samplenum)
 // convert 8 bit data to 16 bit!
 // We do the conversion in reverse so that the data we're converting isn't overwritten
 // by the result.
-static void	pat_blowup_to16bit(short int *dest, int cbcount) {
+static void	pat_blowup_to16bit(int int *dest, int cbcount) {
 	char *s;
-	short int *d;
+	int int *d;
 	int t;
 	s  = (char *)dest;
 	d  = dest;
@@ -736,7 +736,7 @@ static void	pat_blowup_to16bit(short int *dest, int cbcount) {
 	}
 }
 
-static BOOL dec_pat_Decompress8Bit(short int *dest, int cbcount, int samplenum)
+static BOOL dec_pat_Decompress8Bit(int int *dest, int cbcount, int samplenum)
 {
 	int i;
 	PAT_SAMPLE_FUN f;
@@ -746,7 +746,7 @@ static BOOL dec_pat_Decompress8Bit(short int *dest, int cbcount, int samplenum)
 	} else {
 		f = pat_fun[(samplenum - MAXSMP) % 3];
 		for( i=0; i<cbcount; i++ )
-			dest[i] = (short int)(120.0*f(i)) << 8;
+			dest[i] = (int int)(120.0*f(i)) << 8;
 	}
 
 	return cbcount;
@@ -1074,12 +1074,12 @@ static void PATsample(CSoundFile *cs, MODINSTRUMENT *q, int smp, int gm)
 		else p = (char *)malloc(hw.wave_size * sizeof(char)*2);
 		if( p ) {
 			if( hw.modes & PAT_16BIT ) {
-				dec_pat_Decompress16Bit((short int *)p, hw.wave_size>>1, gm - 1);
+				dec_pat_Decompress16Bit((int int *)p, hw.wave_size>>1, gm - 1);
 				cs->ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size);
 			}
 			else {
-				dec_pat_Decompress8Bit((short int *)p, hw.wave_size, gm - 1);
-				cs->ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size * sizeof(short int));
+				dec_pat_Decompress8Bit((int int *)p, hw.wave_size, gm - 1);
+				cs->ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size * sizeof(int int));
 			}
 			free(p);
 		}
@@ -1095,7 +1095,7 @@ static void PATsample(CSoundFile *cs, MODINSTRUMENT *q, int smp, int gm)
 		q->uFlags    |= CHN_16BIT;
 		p = (char *)malloc(q->nLength*sizeof(char)*2);
 		if( p ) {
-			dec_pat_Decompress8Bit((short int *)p, q->nLength, smp + MAXSMP - 1);
+			dec_pat_Decompress8Bit((int int *)p, q->nLength, smp + MAXSMP - 1);
 			cs->ReadSample(q, RS_PCM16S, (LPSTR)p, q->nLength*2);
 			free(p);
 		}
@@ -1225,8 +1225,8 @@ BOOL CSoundFile::ReadPAT(const BYTE *lpStream, DWORD dwMemLength)
 				ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size);
 			}
 			else {
-				pat_blowup_to16bit((short int *)p, hw.wave_size);
-				ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size * sizeof(short int));
+				pat_blowup_to16bit((int int *)p, hw.wave_size);
+				ReadSample(q, (hw.modes&PAT_UNSIGNED)?RS_PCM16U:RS_PCM16S, (LPSTR)p, hw.wave_size * sizeof(int int));
 			}
 			free(p);
 		}

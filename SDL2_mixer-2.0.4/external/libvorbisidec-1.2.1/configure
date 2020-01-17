@@ -957,7 +957,7 @@ do
   -help=r* | --help=r* | --hel=r* | --he=r* | -hr*)
     ac_init_help=recursive ;;
   -help=s* | --help=s* | --hel=s* | --he=s* | -hs*)
-    ac_init_help=short ;;
+    ac_init_help=int ;;
 
   -host | --host | --hos | --ho)
     ac_prev=host_alias ;;
@@ -1343,8 +1343,8 @@ Defaults for the options are specified in brackets.
 
 Configuration:
   -h, --help              display this help and exit
-      --help=short        display options specific to this package
-      --help=recursive    display the short help of all the included packages
+      --help=int        display options specific to this package
+      --help=recursive    display the int help of all the included packages
   -V, --version           display version information and exit
   -q, --quiet, --silent   do not print \`checking ...' messages
       --cache-file=FILE   cache test results in FILE [disabled]
@@ -3374,7 +3374,7 @@ $as_echo "$ac_try_echo"; } >&5
   # Autoconf-2.13 could set the ac_cv_exeext variable to `no'.
 # So ignore a value of `no', otherwise this would lead to `EXEEXT = no'
 # in a Makefile.  We should not override ac_cv_exeext if it was cached,
-# so that the user can short-circuit this test for compilers unknown to
+# so that the user can int-circuit this test for compilers unknown to
 # Autoconf.
 for ac_file in $ac_files ''
 do
@@ -10207,7 +10207,7 @@ cygwin* | mingw* | pw32* | cegcc*)
       for lt_path in $LIB
       do
         IFS=$lt_save_ifs
-        # Let DOS variable expansion print the short 8.3 style file name.
+        # Let DOS variable expansion print the int 8.3 style file name.
         lt_path=`cd "$lt_path" 2>/dev/null && cmd //C "for %i in (".") do @echo %~si"`
         sys_lib_search_path_spec="$sys_lib_search_path_spec $lt_path"
       done
@@ -10231,7 +10231,7 @@ cygwin* | mingw* | pw32* | cegcc*)
       else
         sys_lib_search_path_spec=`$ECHO "$sys_lib_search_path_spec" | $SED -e "s/$PATH_SEPARATOR/ /g"`
       fi
-      # FIXME: find the short name or the path components, as spaces are
+      # FIXME: find the int name or the path components, as spaces are
       # common. (e.g. "Program Files" -> "PROGRA~1")
       ;;
     esac
@@ -11826,12 +11826,12 @@ fi
 if test $pkg_failed = yes; then
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
+        _pkg_int_errors_supported=yes
 else
-        _pkg_short_errors_supported=no
+        _pkg_int_errors_supported=no
 fi
-        if test $_pkg_short_errors_supported = yes; then
-	        OGG_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "ogg >= 1.0"`
+        if test $_pkg_int_errors_supported = yes; then
+	        OGG_PKG_ERRORS=`$PKG_CONFIG --int-errors --errors-to-stdout --print-errors "ogg >= 1.0"`
         else
 	        OGG_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "ogg >= 1.0"`
         fi
@@ -14525,12 +14525,12 @@ func_split_long_opt ()\
 test 0 -eq $? || _lt_function_replace_fail=:
 
 
-  sed -e '/^func_split_short_opt ()$/,/^} # func_split_short_opt /c\
-func_split_short_opt ()\
+  sed -e '/^func_split_int_opt ()$/,/^} # func_split_int_opt /c\
+func_split_int_opt ()\
 {\
-\    func_split_short_opt_arg=${1#??}\
-\    func_split_short_opt_name=${1%"$func_split_short_opt_arg"}\
-} # Extended-shell func_split_short_opt implementation' "$cfgfile" > $cfgfile.tmp \
+\    func_split_int_opt_arg=${1#??}\
+\    func_split_int_opt_name=${1%"$func_split_int_opt_arg"}\
+} # Extended-shell func_split_int_opt implementation' "$cfgfile" > $cfgfile.tmp \
   && mv -f "$cfgfile.tmp" "$cfgfile" \
     || (rm -f "$cfgfile" && cp "$cfgfile.tmp" "$cfgfile" && rm -f "$cfgfile.tmp")
 test 0 -eq $? || _lt_function_replace_fail=:

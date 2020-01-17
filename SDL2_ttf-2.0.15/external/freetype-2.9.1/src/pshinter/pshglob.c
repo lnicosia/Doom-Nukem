@@ -139,7 +139,7 @@
   psh_blues_set_zones_0( PSH_Blues       target,
                          FT_Bool         is_others,
                          FT_UInt         read_count,
-                         FT_Short*       read,
+                         FT_int*       read,
                          PSH_Blue_Table  top_table,
                          PSH_Blue_Table  bot_table )
   {
@@ -233,9 +233,9 @@
   static void
   psh_blues_set_zones( PSH_Blues  target,
                        FT_UInt    count,
-                       FT_Short*  blues,
+                       FT_int*  blues,
                        FT_UInt    count_others,
-                       FT_Short*  other_blues,
+                       FT_int*  other_blues,
                        FT_Int     fuzz,
                        FT_Int     family )
   {
@@ -392,7 +392,7 @@
     /*                                                        */
     /*      scale < bluescale + 49/24000                      */
     /*                                                        */
-    /*   which we shorten to                                  */
+    /*   which we inten to                                  */
     /*                                                        */
     /*      "scale < bluescale"                               */
     /*                                                        */
@@ -523,17 +523,17 @@
 
 
   /* calculate the maximum height of given blue zones */
-  static FT_Short
+  static FT_int
   psh_calc_max_height( FT_UInt          num,
-                       const FT_Short*  values,
-                       FT_Short         cur_max )
+                       const FT_int*  values,
+                       FT_int         cur_max )
   {
     FT_UInt  count;
 
 
     for ( count = 0; count < num; count += 2 )
     {
-      FT_Short  cur_height = values[count + 1] - values[count];
+      FT_int  cur_height = values[count + 1] - values[count];
 
 
       if ( cur_height > cur_max )
@@ -653,7 +653,7 @@
     if ( !FT_NEW( globals ) )
     {
       FT_UInt    count;
-      FT_Short*  read;
+      FT_int*  read;
 
 
       globals->memory = memory;
@@ -709,7 +709,7 @@
       /* limit the BlueScale value to `1 / max_of_blue_zone_heights' */
       {
         FT_Fixed  max_scale;
-        FT_Short  max_height = 1;
+        FT_int  max_height = 1;
 
 
         max_height = psh_calc_max_height( priv->num_blue_values,

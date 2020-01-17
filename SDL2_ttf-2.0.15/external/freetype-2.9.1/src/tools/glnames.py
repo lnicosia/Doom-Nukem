@@ -702,7 +702,7 @@ Igravesmall;F7EC
 Ihookabove;1EC8
 Iicyrillic;0418
 Iinvertedbreve;020A
-Iishortcyrillic;0419
+Iiintcyrillic;0419
 Imacron;012A
 Imacroncyrillic;04E2
 Imonospace;FF29
@@ -1069,7 +1069,7 @@ Upsilondieresishooksymbolgreek;03D4
 Upsilonhooksymbol;03D2
 Upsilontonos;038E
 Uring;016E
-Ushortcyrillic;040E
+Uintcyrillic;040E
 Usmall;F775
 Ustraightcyrillic;04AE
 Ustraightstrokecyrillic;04B0
@@ -2187,8 +2187,8 @@ escyrillic;0441
 esdescendercyrillic;04AB
 esh;0283
 eshcurl;0286
-eshortdeva;090E
-eshortvowelsigndeva;0946
+eintdeva;090E
+eintvowelsigndeva;0946
 eshreversedloop;01AA
 eshsquatreversed;0285
 esmallhiragana;3047
@@ -2668,7 +2668,7 @@ iigujarati;0A88
 iigurmukhi;0A08
 iimatragurmukhi;0A40
 iinvertedbreve;020B
-iishortcyrillic;0439
+iiintcyrillic;0439
 iivowelsignbengali;09C0
 iivowelsigndeva;0940
 iivowelsigngujarati;0AC0
@@ -3353,8 +3353,8 @@ option;2325
 ordfeminine;00AA
 ordmasculine;00BA
 orthogonal;221F
-oshortdeva;0912
-oshortvowelsigndeva;094A
+ointdeva;0912
+ointvowelsigndeva;094A
 oslash;00F8
 oslashacute;01FF
 osmallhiragana;3049
@@ -3991,7 +3991,7 @@ sohiragana;305D
 sokatakana;30BD
 sokatakanahalfwidth;FF7F
 soliduslongoverlaycmb;0338
-solidusshortoverlaycmb;0337
+solidusintoverlaycmb;0337
 sorusithai;0E29
 sosalathai;0E28
 sosothai;0E0B
@@ -4037,7 +4037,7 @@ ssuperior;F6F2
 sterling;00A3
 sterlingmonospace;FFE1
 strokelongoverlaycmb;0336
-strokeshortoverlaycmb;0335
+strokeintoverlaycmb;0335
 subset;2282
 subsetnotequal;228A
 subsetorequal;2286
@@ -4381,7 +4381,7 @@ uptackbelowcmb;031D
 uptackmod;02D4
 uragurmukhi;0A73
 uring;016F
-ushortcyrillic;045E
+uintcyrillic;045E
 usmallhiragana;3045
 usmallkatakana;30A5
 usmallkatakanahalfwidth;FF69
@@ -4957,7 +4957,7 @@ class StringTable:
     write( "  extern\n" )
     write( "#endif\n" )
     write( "#endif\n" )
-    write( "  const short  " + table_name +
+    write( "  const int  " + table_name +
            "[" + macro_name + "]\n" )
     write( "#ifdef  DEFINE_PS_TABLES_DATA\n" )
     write( "  =\n" )
@@ -5220,7 +5220,7 @@ def dump_encoding( file, encoding_name, encoding_list ):
   write( "  extern\n" )
   write( "#endif\n" )
   write( "#endif\n" )
-  write( "  const unsigned short  " + encoding_name +
+  write( "  const unsigned int  " + encoding_name +
          "[" + repr( len( encoding_list ) ) + "]\n" )
   write( "#ifdef  DEFINE_PS_TABLES_DATA\n" )
   write( "  =\n" )

@@ -24,7 +24,7 @@
 
 #include "codec_internal.h"
 
-/* this would all be simpler/shorter with templates, but.... */
+/* this would all be simpler/inter with templates, but.... */
 /* Transform backend generic *************************************/
 
 /* only mdct right now.  Flesh it out more if we ever transcend mdct
@@ -115,7 +115,7 @@ typedef struct vorbis_info_mapping0{
   int   floorsubmap[16];   /* [mux] submap to floors */
   int   residuesubmap[16]; /* [mux] submap to residue */
 
-  int   psy[2]; /* by blocktype; impulse/padding for short,
+  int   psy[2]; /* by blocktype; impulse/padding for int,
                    transition/normal for long */
 
   int   coupling_steps;

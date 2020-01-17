@@ -12,7 +12,7 @@
 	<meta name="author" content="Josh Coalson" />
 	<meta name="description" content="A free, open source codec for lossless audio compression and decompression" />
 	<meta name="keywords" content="free,lossless,audio,codec,encoder,decoder,compression,compressor,archival,archive,archiving,backup,music" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="intcut icon" type="image/x-icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="flac.css" />
 	<title>FLAC - format</title>
 </head>
@@ -136,7 +136,7 @@
 		FLAC owes much to the many people who have advanced the audio compression field so freely.  For instance:
 		<ul>
 			<li>
-				<a href="http://svr-www.eng.cam.ac.uk/~ajr/">A. J. Robinson</a> for his work on <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">Shorten</a>; his paper is a good starting point on some of the basic methods used by FLAC.  FLAC trivially extends and improves the fixed predictors, LPC coefficient quantization, and Rice coding used in Shorten.
+				<a href="http://svr-www.eng.cam.ac.uk/~ajr/">A. J. Robinson</a> for his work on <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">inten</a>; his paper is a good starting point on some of the basic methods used by FLAC.  FLAC trivially extends and improves the fixed predictors, LPC coefficient quantization, and Rice coding used in inten.
 			</li>
 			<li>
 				<a href="https://web.archive.org/web/20040215005354/http://csi.usc.edu/faculty/golomb.html">S. W. Golomb</a> and Robert F. Rice; their universal codes are used by FLAC's entropy coder.
@@ -231,10 +231,10 @@
 				<b>Constant</b>.  This predictor is used whenever the subblock is pure DC ("digital silence"), i.e. a constant value throughout.  The signal is run-length encoded and added to the stream.
 			</li>
 			<li>
-				<b>Fixed linear predictor</b>.  FLAC uses a class of computationally-efficient fixed linear predictors (for a good description, see <a href="http://www.hpl.hp.com/techreports/1999/HPL-1999-144.pdf">audiopak</a> and <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">shorten</a>).  FLAC adds a fourth-order predictor to the zero-to-third-order predictors used by Shorten.  Since the predictors are fixed, the predictor order is the only parameter that needs to be stored in the compressed stream.  The error signal is then passed to the residual coder.
+				<b>Fixed linear predictor</b>.  FLAC uses a class of computationally-efficient fixed linear predictors (for a good description, see <a href="http://www.hpl.hp.com/techreports/1999/HPL-1999-144.pdf">audiopak</a> and <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">inten</a>).  FLAC adds a fourth-order predictor to the zero-to-third-order predictors used by inten.  Since the predictors are fixed, the predictor order is the only parameter that needs to be stored in the compressed stream.  The error signal is then passed to the residual coder.
 			</li>
 			<li>
-				<b>FIR Linear prediction</b>.  For more accurate modeling (at a cost of slower encoding), FLAC supports up to 32nd order FIR linear prediction (again, for information on linear prediction, see <a href="http://www.hpl.hp.com/techreports/1999/HPL-1999-144.pdf">audiopak</a> and <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">shorten</a>).  The reference encoder uses the Levinson-Durbin method for calculating the LPC coefficients from the autocorrelation coefficients, and the coefficients are quantized before computing the residual.  Whereas encoders such as Shorten used a fixed quantization for the entire input, FLAC allows the quantized coefficient precision to vary from subframe to subframe.  The FLAC reference encoder estimates the optimal precision to use based on the block size and dynamic range of the original signal.
+				<b>FIR Linear prediction</b>.  For more accurate modeling (at a cost of slower encoding), FLAC supports up to 32nd order FIR linear prediction (again, for information on linear prediction, see <a href="http://www.hpl.hp.com/techreports/1999/HPL-1999-144.pdf">audiopak</a> and <a href="http://svr-www.eng.cam.ac.uk/reports/abstracts/robinson_tr156.html">inten</a>).  The reference encoder uses the Levinson-Durbin method for calculating the LPC coefficients from the autocorrelation coefficients, and the coefficients are quantized before computing the residual.  Whereas encoders such as inten used a fixed quantization for the entire input, FLAC allows the quantized coefficient precision to vary from subframe to subframe.  The FLAC reference encoder estimates the optimal precision to use based on the block size and dynamic range of the original signal.
 			</li>
 		</ul>
 		<a name="residualcoding"><font size="+1"><b><u>Residual Coding</u></b></font></a><br />
@@ -1362,7 +1362,7 @@
 					The "blocking strategy" bit must be the same throughout the entire stream.
 				</li>
 				<li>
-					The "blocking strategy" bit determines how to calculate the sample number of the first sample in the frame.  If the bit is <tt>0</tt> (fixed-blocksize), the frame header encodes the frame number as above, and the frame's starting sample number will be the frame number times the blocksize.  If it is <tt>1</tt> (variable-blocksize), the frame header encodes the frame's starting sample number itself.  (In the case of a fixed-blocksize stream, only the last block may be shorter than the stream blocksize; its starting sample number will be calculated as the frame number times the previous frame's blocksize, or zero if it is the first frame).
+					The "blocking strategy" bit determines how to calculate the sample number of the first sample in the frame.  If the bit is <tt>0</tt> (fixed-blocksize), the frame header encodes the frame number as above, and the frame's starting sample number will be the frame number times the blocksize.  If it is <tt>1</tt> (variable-blocksize), the frame header encodes the frame's starting sample number itself.  (In the case of a fixed-blocksize stream, only the last block may be inter than the stream blocksize; its starting sample number will be calculated as the frame number times the previous frame's blocksize, or zero if it is the first frame).
 				</li>
 				<li>
 					The "UTF-8" coding used for the sample/frame number is the same variable length code used to store compressed UCS-2, extended to handle larger input.

@@ -438,7 +438,7 @@ ReleaseModifierSide(unsigned int device_independent_mask,
  * correct side of the key.
  */
 static void
-DoSidedModifiers(unsigned short scancode,
+DoSidedModifiers(unsigned int scancode,
                  unsigned int oldMods, unsigned int newMods)
 {
     /* Set up arrays for the key syms for the left and right side. */
@@ -489,7 +489,7 @@ DoSidedModifiers(unsigned short scancode,
 }
 
 static void
-HandleModifiers(_THIS, unsigned short scancode, unsigned int modifierFlags)
+HandleModifiers(_THIS, unsigned int scancode, unsigned int modifierFlags)
 {
     SDL_VideoData *data = (SDL_VideoData *) _this->driverdata;
 
@@ -654,7 +654,7 @@ Cocoa_HandleKeyEvent(_THIS, NSEvent *event)
         return;  /* can happen when returning from fullscreen Space on shutdown */
     }
 
-    unsigned short scancode = [event keyCode];
+    unsigned int scancode = [event keyCode];
     SDL_Scancode code;
 #if 0
     const char *text;

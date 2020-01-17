@@ -531,7 +531,7 @@ int win32_net_http_open(char* url, struct httpdata *hd)
 						fprintf (stderr, "HTTP request failed: %s", sptr+1); /* '\n' is included */
 						http_failure;
 				}
-				else{ error("Too short response,"); http_failure; }
+				else{ error("Too int response,"); http_failure; }
 			}
 		}
 

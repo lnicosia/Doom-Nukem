@@ -54,7 +54,7 @@
 
 #define PI (3.141592653589793238462643f)
 
-void generate_music(short *buf, opus_int32 len)
+void generate_music(int *buf, opus_int32 len)
 {
    opus_int32 a1,b1,a2,b2;
    opus_int32 c1,c2,d1,d2;
@@ -126,9 +126,9 @@ int run_test1(int no_fuzz)
    OpusMSDecoder *MSdec;
    OpusMSDecoder *MSdec_err;
    OpusDecoder *dec_err[10];
-   short *inbuf;
-   short *outbuf;
-   short *out2buf;
+   int *inbuf;
+   int *outbuf;
+   int *out2buf;
    opus_int32 bitrate_bps;
    unsigned char packet[MAX_PACKET];
    opus_uint32 enc_final_range;
@@ -215,9 +215,9 @@ int run_test1(int no_fuzz)
       enc=enccpy;
    }
 
-   inbuf=(short *)malloc(sizeof(short)*SAMPLES*2);
-   outbuf=(short *)malloc(sizeof(short)*SAMPLES*2);
-   out2buf=(short *)malloc(sizeof(short)*MAX_FRAME_SAMP*3);
+   inbuf=(int *)malloc(sizeof(int)*SAMPLES*2);
+   outbuf=(int *)malloc(sizeof(int)*SAMPLES*2);
+   out2buf=(int *)malloc(sizeof(int)*MAX_FRAME_SAMP*3);
    if(inbuf==NULL || outbuf==NULL || out2buf==NULL)test_failed();
 
    generate_music(inbuf,SAMPLES);
@@ -335,7 +335,7 @@ int run_test1(int no_fuzz)
    do {
       unsigned char toc;
       const unsigned char *frames[48];
-      short size[48];
+      int size[48];
       int payload_offset;
       opus_uint32 dec_final_range2;
       int jj,dec2;

@@ -25,7 +25,7 @@
 
 #include "codec_internal.h"
 
-/* this would all be simpler/shorter with templates, but.... */
+/* this would all be simpler/inter with templates, but.... */
 /* Floor backend generic *****************************************/
 typedef struct{
   void                   (*pack)  (vorbis_info_floor *,oggpack_buffer *);

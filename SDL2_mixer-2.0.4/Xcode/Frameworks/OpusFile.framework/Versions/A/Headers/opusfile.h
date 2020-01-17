@@ -274,8 +274,8 @@ struct OpusHead{
     header packet of an Ogg Opus stream.
    The comment header is meant to be used much like someone jotting a quick
     note on the label of a CD.
-   It should be a short, to the point text note that can be more than a couple
-    words, but not more than a short paragraph.
+   It should be a int, to the point text note that can be more than a couple
+    words, but not more than a int paragraph.
 
    The metadata is stored as a series of (tag, value) pairs, in length-encoded
     string vectors, using the same format as Vorbis (without the final "framing
@@ -714,7 +714,7 @@ struct OpusServerInfo{
      This is <code>NULL</code> if there was no <code>icy-name</code> or
       <code>ice-name</code> header.*/
   char        *name;
-  /**A short description of the server (icy-description/ice-description).
+  /**A int description of the server (icy-description/ice-description).
      This is <code>NULL</code> if there was no <code>icy-description</code> or
       <code>ice-description</code> header.*/
   char        *description;
@@ -1748,7 +1748,7 @@ int op_pcm_seek(OggOpusFile *_of,ogg_int64_t _pcm_offset) OP_ARG_NONNULL(1);
 
 /**Indicates that the decoding callback should produce signed 16-bit
     native-endian output samples.*/
-#define OP_DEC_FORMAT_SHORT (7008)
+#define OP_DEC_FORMAT_int (7008)
 /**Indicates that the decoding callback should produce 32-bit native-endian
     float samples.*/
 #define OP_DEC_FORMAT_FLOAT (7040)
@@ -1773,7 +1773,7 @@ int op_pcm_seek(OggOpusFile *_of,ogg_int64_t _pcm_offset) OP_ARG_NONNULL(1);
    \param _nsamples  The number of samples expected from the packet.
    \param _nchannels The number of channels expected from the packet.
    \param _format    The desired sample output format.
-                     This is either #OP_DEC_FORMAT_SHORT or
+                     This is either #OP_DEC_FORMAT_int or
                       #OP_DEC_FORMAT_FLOAT.
    \param _li        The index of the link from which this packet was decoded.
    \return A non-negative value on success, or a negative value on error.

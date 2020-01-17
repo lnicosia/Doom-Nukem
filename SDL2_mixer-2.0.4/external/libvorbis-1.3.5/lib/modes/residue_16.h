@@ -67,7 +67,7 @@ static const vorbis_residue_template _res_16s_0[]={
 };
 static const vorbis_residue_template _res_16s_1[]={
   {2,0,32,  &_residue_44_mid,
-   &_huff_book__16c1_s_short,&_huff_book__16c1_s_short,
+   &_huff_book__16c1_s_int,&_huff_book__16c1_s_int,
    &_resbook_16s_1,&_resbook_16s_1},
 
   {2,0,32,  &_residue_44_mid,
@@ -76,7 +76,7 @@ static const vorbis_residue_template _res_16s_1[]={
 };
 static const vorbis_residue_template _res_16s_2[]={
   {2,0,32,  &_residue_44_high,
-   &_huff_book__16c2_s_short,&_huff_book__16c2_s_short,
+   &_huff_book__16c2_s_int,&_huff_book__16c2_s_int,
    &_resbook_16s_2,&_resbook_16s_2},
 
   {2,0,32,  &_residue_44_high,
@@ -138,7 +138,7 @@ static const vorbis_residue_template _res_16u_0[]={
 };
 static const vorbis_residue_template _res_16u_1[]={
   {1,0,32,  &_residue_44_mid_un,
-   &_huff_book__16u1__short,&_huff_book__16u1__short,
+   &_huff_book__16u1__int,&_huff_book__16u1__int,
    &_resbook_16u_1,&_resbook_16u_1},
 
   {1,0,32,  &_residue_44_mid_un,
@@ -147,7 +147,7 @@ static const vorbis_residue_template _res_16u_1[]={
 };
 static const vorbis_residue_template _res_16u_2[]={
   {1,0,32,  &_residue_44_hi_un,
-   &_huff_book__16u2__short,&_huff_book__16u2__short,
+   &_huff_book__16u2__int,&_huff_book__16u2__int,
    &_resbook_16u_2,&_resbook_16u_2},
 
   {1,0,32,  &_residue_44_hi_un,

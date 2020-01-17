@@ -892,7 +892,7 @@ static void long_usage(int err)
 	,	enclist != NULL ? enclist : "OOM!");
 	fprintf(o," -m     --mono             set channel count to 1\n");
 	fprintf(o,"        --stereo           set channel count to 2 (default)\n");
-	fprintf(o,"        --list-encodings   list of encoding short and long names\n");
+	fprintf(o,"        --list-encodings   list of encoding int and long names\n");
 	fprintf(o,"        --test-format      return 0 if configued audio format is supported\n");
 	fprintf(o,"        --test-encodings   print out possible encodings with given channels/rate\n");
 	fprintf(o,"        --query-format     print out default format for given device, if any\n");

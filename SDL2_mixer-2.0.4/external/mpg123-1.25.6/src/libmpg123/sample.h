@@ -22,15 +22,15 @@ static inline int16_t idiv_signed_rounded(int32_t x, int shift)
 }
 #  define REAL_PLUS_32767       ( 32767 << 15 )
 #  define REAL_MINUS_32768      ( -32768 << 15 )
-#  define REAL_TO_SHORT(x)      (idiv_signed_rounded(x, 15))
+#  define REAL_TO_int(x)      (idiv_signed_rounded(x, 15))
 /* No better code (yet).  */
-#  define REAL_TO_SHORT_ACCURATE(x) REAL_TO_SHORT(x)
+#  define REAL_TO_int_ACCURATE(x) REAL_TO_int(x)
 /* This is just here for completeness, it is not used! */
 # define REAL_TO_S32(x)        (x)
 #endif
 
 /* From now on for single precision float... double precision is a possible option once we added some bits. But, it would be rather insane. */
-#ifndef REAL_TO_SHORT
+#ifndef REAL_TO_int
 
 #if (defined FORCE_ACCURATE) || (defined ACCURATE_ROUNDING)
 /* Define the accurate rounding function. */
@@ -47,22 +47,22 @@ static inline int16_t ftoi16(float x)
 	u_fi.f = x + 12582912.0f; /* Magic Number: 2^23 + 2^22 */
 	return (int16_t)u_fi.i;
 }
-#  define REAL_TO_SHORT_ACCURATE(x)      ftoi16(x)
+#  define REAL_TO_int_ACCURATE(x)      ftoi16(x)
 # else
 /* The "proper" rounding, plain C, a bit slow. */
-#  define REAL_TO_SHORT_ACCURATE(x)      (short)((x)>0.0?(x)+0.5:(x)-0.5)
+#  define REAL_TO_int_ACCURATE(x)      (int)((x)>0.0?(x)+0.5:(x)-0.5)
 # endif
 #endif
 
 /* Now define the normal rounding. */
 # ifdef ACCURATE_ROUNDING
-#  define REAL_TO_SHORT(x)      REAL_TO_SHORT_ACCURATE(x)
+#  define REAL_TO_int(x)      REAL_TO_int_ACCURATE(x)
 # else
 /* Non-accurate rounding... simple truncation. Fastest, most LSB errors. */
-#  define REAL_TO_SHORT(x)      (short)(x)
+#  define REAL_TO_int(x)      (int)(x)
 # endif
 
-#endif /* REAL_TO_SHORT */
+#endif /* REAL_TO_int */
 
 /* We should add dithering for S32, too? */
 #ifndef REAL_TO_S32
@@ -99,7 +99,7 @@ static inline int16_t ftoi16(float x)
 #else
 #define MANTISSA_OFFSET 0
 #endif
-#define WRITE_SHORT_SAMPLE(samples,sum,clip) { \
+#define WRITE_int_SAMPLE(samples,sum,clip) { \
   union { double dtemp; int itemp[2]; } u; int v; \
   u.dtemp = ((((65536.0 * 65536.0 * 16)+(65536.0 * 0.5))* 65536.0)) + (sum);\
   v = u.itemp[MANTISSA_OFFSET] - 0x80000000; \
@@ -109,19 +109,19 @@ static inline int16_t ftoi16(float x)
 }
 
 #else
-/* Macro to produce a short (signed 16bit) output sample from internal representation,
+/* Macro to produce a int (signed 16bit) output sample from internal representation,
    which may be float, double or indeed some integer for fixed point handling. */
-#define WRITE_SHORT_SAMPLE(samples,sum,clip) \
+#define WRITE_int_SAMPLE(samples,sum,clip) \
   if( (sum) > REAL_PLUS_32767) { *(samples) = 0x7fff; (clip)++; } \
   else if( (sum) < REAL_MINUS_32768) { *(samples) = -0x8000; (clip)++; } \
-  else { *(samples) = REAL_TO_SHORT(sum); }
+  else { *(samples) = REAL_TO_int(sum); }
 #endif
 
 /* Same as above, but always using accurate rounding. Would we want softer clipping here, too? */
-#define WRITE_SHORT_SAMPLE_ACCURATE(samples,sum,clip) \
+#define WRITE_int_SAMPLE_ACCURATE(samples,sum,clip) \
   if( (sum) > REAL_PLUS_32767) { *(samples) = 0x7fff; (clip)++; } \
   else if( (sum) < REAL_MINUS_32768) { *(samples) = -0x8000; (clip)++; } \
-  else { *(samples) = REAL_TO_SHORT_ACCURATE(sum); }
+  else { *(samples) = REAL_TO_int_ACCURATE(sum); }
 
 /*
 	32bit signed 
@@ -144,11 +144,11 @@ static inline int16_t ftoi16(float x)
 	int16_t write_8bit_tmp; \
 	if( (sum) > REAL_PLUS_32767) { write_8bit_tmp = 0x7fff; (clip)++; } \
 	else if( (sum) < REAL_MINUS_32768) { write_8bit_tmp = -0x8000; (clip)++; } \
-	else { write_8bit_tmp = REAL_TO_SHORT(sum); } \
+	else { write_8bit_tmp = REAL_TO_int(sum); } \
 	*(samples) = fr->conv16to8[write_8bit_tmp>>AUSHIFT]; \
 }
 #ifndef REAL_IS_FIXED
-#define WRITE_REAL_SAMPLE(samples,sum,clip) *(samples) = ((real)1./SHORT_SCALE)*(sum)
+#define WRITE_REAL_SAMPLE(samples,sum,clip) *(samples) = ((real)1./int_SCALE)*(sum)
 #endif
 
 #endif

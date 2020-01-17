@@ -79,7 +79,7 @@
 #define vector_shuffle  __builtin_shuffle
 #endif
 
-    typedef unsigned short  v82 __attribute__(( vector_size( 16 ) ));
+    typedef unsigned int  v82 __attribute__(( vector_size( 16 ) ));
 
 
     if ( row_info->rowbytes > 15 )
@@ -327,8 +327,8 @@
 
     if ( populate_map_and_metrics )
     {
-      metrics->width  = (FT_UShort)imgWidth;
-      metrics->height = (FT_UShort)imgHeight;
+      metrics->width  = (FT_Uint)imgWidth;
+      metrics->height = (FT_Uint)imgHeight;
 
       map->width      = metrics->width;
       map->rows       = metrics->height;

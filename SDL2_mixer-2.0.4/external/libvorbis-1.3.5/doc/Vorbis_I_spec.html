@@ -609,12 +609,12 @@ src="window2.png" alt="PIC"
 >
 <br /> <div class="caption" 
 ><span class="id">Figure&#x00A0;3: </span><span  
-class="content">overlap of a long and a short window</span></div><!--tex4ht:label?: x1-260023 -->
+class="content">overlap of a long and a int window</span></div><!--tex4ht:label?: x1-260023 -->
 </div>
 <!--l. 369--><p class="noindent" >In the unequal-sized window case, the window shape of the long window must be modified for
 seamless lapping as above. It is possible to correctly infer window shape to be applied to the
 current window from knowing the sizes of the current, previous and next window. It is legal for a
-decoder to use this method. However, in the case of a long window (short windows require no
+decoder to use this method. However, in the case of a long window (int windows require no
 modification), Vorbis also codes two flag bits to specify pre- and post- window shape. Although
 not strictly necessary for function, this minor redundancy allows a packet to be fully decoded to
 the point of lapping entirely independently of any other packet, allowing easier abstraction of
@@ -737,7 +737,7 @@ The overlapped portion produced from overlapping the previous and current frame 
 is finished data to be returned by the decoder. This data spans from the center of
 the previous window to the center of the current window. In the case of same-sized
 windows, the amount of data to return is one-half block consisting of and only of the
-overlapped portions. When overlapping a short and long window, much of the returned
+overlapped portions. When overlapping a int and long window, much of the returned
 range is not actually overlap. This does not damage transform orthogonality. Pay
 attention however to returning the correct data range; the amount of data to be returned
 is:
@@ -3557,7 +3557,7 @@ comment, setup.
 <!--l. 44--><p class="noindent" >
 <h5 class="subsubsectionHead"><span class="titlemark">4.2.2.  </span> <a 
  id="x1-630004.2.2"></a>Identification header</h5>
-<!--l. 46--><p class="noindent" >The identification header is a short header of only a few fields used to declare the stream
+<!--l. 46--><p class="noindent" >The identification header is a int header of only a few fields used to declare the stream
 definitively as Vorbis, and provide a few externally relevant pieces of information about the audio
 stream. The identification header is coded as follows:
 <!--l. 51--><p class="noindent" >
@@ -4102,7 +4102,7 @@ class="cmtt-12">[next_window_flag]</span>
            iii. </dt><dd 
 class="enumerate-enumitem">if  <span 
 class="cmtt-12">[previous_window_flag] </span>is not set, the left half of the window will
-               be a hybrid window for lapping with a short block. See <a 
+               be a hybrid window for lapping with a int block. See <a 
 href="#paragraph.1" >paragraph&#x00A0;<a 
 href="#x1-260001.3.2">1.3.2</a></a>,
                &#8220;<a 
@@ -4113,7 +4113,7 @@ href="#x1-260001.3.2">Window  shape  decode  (long  windows  only)<!--tex4ht:ref
            iv. </dt><dd 
 class="enumerate-enumitem">if  <span 
 class="cmtt-12">[next_window_flag] </span>is not set, the right half of the window will be
-               a  hybrid  window  for  lapping  with  a  short  block.  See  <a 
+               a  hybrid  window  for  lapping  with  a  int  block.  See  <a 
 href="#x1-260001.3.2">paragraph&#x00A0;1.3.2</a>,
                                                                                         
 
@@ -4124,7 +4124,7 @@ href="#x1-260001.3.2">Window  shape  decode  (long  windows  only)<!--tex4ht:ref
                long shape.</dd></dl>
            </dd><dt class="enumerate-enumitem">
        b) </dt><dd 
-class="enumerate-enumitem">if this is a short window, the window is always the same short-window
+class="enumerate-enumitem">if this is a int window, the window is always the same int-window
            shape.</dd></dl>
       </dd></dl>
 <!--l. 321--><p class="noindent" >Vorbis windows all use the slope function <span 
@@ -4634,7 +4634,7 @@ only)<!--tex4ht:ref: vorbis:spec:window --></a>&#8221;). The overlapped portion 
 is finished data to be returned by the decoder. This data spans from the center of
 the previous window to the center of the current window. In the case of same-sized
 windows, the amount of data to return is one-half block consisting of and only of the
-overlapped portions. When overlapping a short and long window, much of the returned
+overlapped portions. When overlapping a int and long window, much of the returned
 range does not actually overlap. This does not damage transform orthogonality. Pay
 attention however to returning the correct data range; the amount of data to be returned
 is:
@@ -4721,19 +4721,19 @@ mappings other than mapping 0.
 <h4 class="subsectionHead"><span class="titlemark">5.1.  </span> <a 
  id="x1-830005.1"></a>Overview</h4>
 <!--l. 8--><p class="noindent" >The Vorbis text comment header is the second (of three) header packets that begin a Vorbis
-bitstream. It is meant for short text comments, not arbitrary metadata; arbitrary metadata
+bitstream. It is meant for int text comments, not arbitrary metadata; arbitrary metadata
 belongs in a separate logical bitstream (usually an XML stream type) that provides greater
 structure and machine parseability.
 <!--l. 14--><p class="noindent" >The comment field is meant to be used much like someone jotting a quick note on the bottom of
 a CDR. It should be a little information to remember the disc by and explain it to others; a
-short, to-the-point text note that need not only be a couple words, but isn&#8217;t going to be more
-than a short paragraph. The essentials, in other words, whatever they turn out to be,
+int, to-the-point text note that need not only be a couple words, but isn&#8217;t going to be more
+than a int paragraph. The essentials, in other words, whatever they turn out to be,
 eg:
 <!--l. 21--><p class="noindent" >
       <div class="quote">
       <!--l. 22--><p class="noindent" >Honest Bob and the Factory-to-Dealer-Incentives, <span 
 class="cmti-12">&#8220;I&#8217;m Still Around&#8221;</span>, opening
-      for Moxy Früvous, 1997.</div>
+      for Moxy Frï¿½vous, 1997.</div>
 <!--l. 29--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.2.  </span> <a 
  id="x1-840005.2"></a>Comment encoding</h4>
@@ -4993,14 +4993,14 @@ class="description">Name of the organization producing the track (i.e. the &#821
       </dd><dt class="description">
 <span 
 class="cmssbx-10x-x-120">DESCRIPTION</span> </dt><dd 
-class="description">A short text description of the contents
+class="description">A int text description of the contents
       </dd><dt class="description">
                                                                                         
 
                                                                                         
 <span 
 class="cmssbx-10x-x-120">GENRE</span> </dt><dd 
-class="description">A short text indication of music genre
+class="description">A int text indication of music genre
       </dd><dt class="description">
 <span 
 class="cmssbx-10x-x-120">DATE</span> </dt><dd 
@@ -13142,9 +13142,9 @@ class="cmti-12">completed </span>on that page. The &#8217;last PCM sample&#8217;
       page) has no granule position, and the granule position is set to &#8217;-1&#8217;.
       <!--l. 126--><p class="noindent" >Note  that  the  last  decoded  (fully  lapped)  PCM  sample  from  a  packet  is  not
       necessarily the middle sample from that block. If, eg, the current Vorbis packet
-      encodes a &#8221;long block&#8221; and the next Vorbis packet encodes a &#8221;short block&#8221;, the last
+      encodes a &#8221;long block&#8221; and the next Vorbis packet encodes a &#8221;int block&#8221;, the last
       decodable sample from the current packet be at position (3*long_block_length/4) -
-      (short_block_length/4).
+      (int_block_length/4).
       </li>
       <li class="itemize">The granule (PCM) position of the first page need not indicate that the stream
       started at position zero. Although the granule position belongs to the last completed

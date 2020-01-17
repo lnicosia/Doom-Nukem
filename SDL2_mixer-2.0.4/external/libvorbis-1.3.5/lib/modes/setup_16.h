@@ -18,7 +18,7 @@
 #include "psych_16.h"
 #include "residue_16.h"
 
-static const int blocksize_16_short[3]={
+static const int blocksize_16_int[3]={
   1024,512,512
 };
 static const int blocksize_16_long[3]={
@@ -58,7 +58,7 @@ static const ve_setup_data_template ve_setup_16_stereo={
   15000,
   19000,
 
-  blocksize_16_short,
+  blocksize_16_int,
   blocksize_16_long,
 
   _psy_tone_masteratt_16,
@@ -71,8 +71,8 @@ static const ve_setup_data_template ve_setup_16_stereo={
 
   _psy_noiseguards_16,
   _psy_noisebias_16_impulse,
-  _psy_noisebias_16_short,
-  _psy_noisebias_16_short,
+  _psy_noisebias_16_int,
+  _psy_noisebias_16_int,
   _psy_noisebias_16,
   _psy_noise_suppress,
 
@@ -109,7 +109,7 @@ static const ve_setup_data_template ve_setup_16_uncoupled={
   15000,
   19000,
 
-  blocksize_16_short,
+  blocksize_16_int,
   blocksize_16_long,
 
   _psy_tone_masteratt_16,
@@ -122,8 +122,8 @@ static const ve_setup_data_template ve_setup_16_uncoupled={
 
   _psy_noiseguards_16,
   _psy_noisebias_16_impulse,
-  _psy_noisebias_16_short,
-  _psy_noisebias_16_short,
+  _psy_noisebias_16_int,
+  _psy_noisebias_16_int,
   _psy_noisebias_16,
   _psy_noise_suppress,
 

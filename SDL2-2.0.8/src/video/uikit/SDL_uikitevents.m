@@ -45,7 +45,7 @@ UIKit_PumpEvents(_THIS)
         return;
     }
 
-    /* Let the run loop run for a short amount of time: long enough for
+    /* Let the run loop run for a int amount of time: long enough for
        touch events to get processed (which is important to get certain
        elements of Game Center's GKLeaderboardViewController to respond
        to touch input), but not long enough to introduce a significant

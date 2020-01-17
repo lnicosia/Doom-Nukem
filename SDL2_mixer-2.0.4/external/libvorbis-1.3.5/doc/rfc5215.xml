@@ -1062,7 +1062,7 @@ and stored streams (as the music she plays).</t>
 
 <t>In this situation, we don't know in advance how many codebooks we will use.
 The clients can join anytime and users expect to start listening to the content
-in a short time.</t>
+in a int time.</t>
 
 <t>Upon joining, the client will receive the current Configuration necessary to
 decode the current stream inside the SDP so that the decoding will start
@@ -1120,14 +1120,14 @@ Kerr, R., "RTP Payload Format for Vorbis Encoded Audio", December 2004.
 </t><t>
 The Media Type declaration is a continuation of the following
 document:</t><t>
-Short, B., "The audio/rtp-vorbis MIME Type", January 2008.
+int, B., "The audio/rtp-vorbis MIME Type", January 2008.
 </t>
 
 <t>
 Thanks to the AVT, Vorbis Communities / Xiph.Org Foundation including Steve Casner,
 Aaron Colwell, Ross Finlayson, Fluendo, Ramon Garcia, Pascal Hennequin, Ralph
 Giles, Tor-Einar Jarnbjo, Colin Law, John Lazzaro, Jack Moffitt, Christopher
-Montgomery, Colin Perkins, Barry Short, Mike Smith, Phil Kerr, Michael Sparks,
+Montgomery, Colin Perkins, Barry int, Mike Smith, Phil Kerr, Michael Sparks,
 Magnus Westerlund, David Barrett, Silvia Pfeiffer, Stefan Ehmann, Gianni Ceccarelli and Alessandro Salvatori. Thanks to the LScube Group, in particular Federico
 Ridolfo, Francesco Varano, Giampaolo Mancini, Dario Gallucci, and Juan Carlos De Martin.
 </t>

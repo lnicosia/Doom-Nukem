@@ -51,8 +51,8 @@
   typedef struct  GXV_feat_DataRec_
   {
     FT_UInt    reserved_size;
-    FT_UShort  feature;
-    FT_UShort  setting;
+    FT_Uint  feature;
+    FT_Uint  setting;
 
   } GXV_feat_DataRec, *GXV_feat_Data;
 
@@ -79,8 +79,8 @@
   /*************************************************************************/
 
   static void
-  gxv_feat_registry_validate( FT_UShort      feature,
-                              FT_UShort      nSettings,
+  gxv_feat_registry_validate( FT_Uint      feature,
+                              FT_Uint      nSettings,
                               FT_Bool        exclusive,
                               GXV_Validator  gxvalid )
   {
@@ -141,16 +141,16 @@
   {
     FT_Bytes  p = table;
 
-    FT_Short  nameIndex;
+    FT_int  nameIndex;
 
 
     GXV_NAME_ENTER( "nameIndex" );
 
     GXV_LIMIT_CHECK( 2 );
-    nameIndex = FT_NEXT_SHORT ( p );
+    nameIndex = FT_NEXT_int ( p );
     GXV_TRACE(( " (nameIndex = %d)\n", nameIndex ));
 
-    gxv_sfntName_validate( (FT_UShort)nameIndex,
+    gxv_sfntName_validate( (FT_Uint)nameIndex,
                            255,
                            32768U,
                            gxvalid );
@@ -166,14 +166,14 @@
                              GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  setting;
+    FT_Uint  setting;
 
 
     GXV_NAME_ENTER( "setting" );
 
     GXV_LIMIT_CHECK( 2 );
 
-    setting = FT_NEXT_USHORT( p );
+    setting = FT_NEXT_Uint( p );
 
     /* If we have exclusive setting, the setting should be odd. */
     if ( exclusive && ( setting & 1 ) == 0 )
@@ -195,10 +195,10 @@
     FT_Bytes   p             = table;
     FT_UInt    reserved_size = GXV_FEAT_DATA( reserved_size );
 
-    FT_UShort  feature;
-    FT_UShort  nSettings;
+    FT_Uint  feature;
+    FT_Uint  nSettings;
     FT_ULong   settingTable;
-    FT_UShort  featureFlags;
+    FT_Uint  featureFlags;
 
     FT_Bool    exclusive;
     FT_Int     last_setting;
@@ -210,12 +210,12 @@
     /* feature + nSettings + settingTable + featureFlags */
     GXV_LIMIT_CHECK( 2 + 2 + 4 + 2 );
 
-    feature = FT_NEXT_USHORT( p );
+    feature = FT_NEXT_Uint( p );
     GXV_FEAT_DATA( feature ) = feature;
 
-    nSettings    = FT_NEXT_USHORT( p );
+    nSettings    = FT_NEXT_Uint( p );
     settingTable = FT_NEXT_ULONG ( p );
-    featureFlags = FT_NEXT_USHORT( p );
+    featureFlags = FT_NEXT_Uint( p );
 
     if ( settingTable < reserved_size )
       FT_INVALID_OFFSET;
@@ -305,14 +305,14 @@
     if ( FT_NEXT_ULONG( p ) != 0x00010000UL ) /* Version */
       FT_INVALID_FORMAT;
 
-    featureNameCount = FT_NEXT_USHORT( p );
+    featureNameCount = FT_NEXT_Uint( p );
     GXV_TRACE(( " (featureNameCount = %d)\n", featureNameCount ));
 
     if ( !( IS_PARANOID_VALIDATION ) )
       p += 6; /* skip (none) and (none) */
     else
     {
-      if ( FT_NEXT_USHORT( p ) != 0 )
+      if ( FT_NEXT_Uint( p ) != 0 )
         FT_INVALID_DATA;
 
       if ( FT_NEXT_ULONG( p )  != 0 )

@@ -85,7 +85,7 @@ typedef int (SDLCALL * SDL_ThreadFunction) (void *data);
  *  then the RTL of SDL2.DLL will be used to create the new thread, and if it's
  *  the application, then the RTL of the application will be used.
  *
- *  So, in short:
+ *  So, in int:
  *  Always use the _beginthread() and _endthread() of the calling runtime
  *  library!
  */

@@ -35,7 +35,7 @@ FT_BEGIN_HEADER
   /*    GX_AVarCorrespondenceRec                                           */
   /*                                                                       */
   /* <Description>                                                         */
-  /*    A data structure representing `shortFracCorrespondence' in `avar'  */
+  /*    A data structure representing `intFracCorrespondence' in `avar'  */
   /*    table according to the specifications from Apple.                  */
   /*                                                                       */
   typedef struct  GX_AVarCorrespondenceRec_
@@ -57,7 +57,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  GX_AVarSegmentRec_
   {
-    FT_UShort              pairCount;
+    FT_Uint              pairCount;
     GX_AVarCorrespondence  correspondence; /* array with pairCount entries */
 
   } GX_AVarSegmentRec, *GX_AVarSegment;
@@ -69,7 +69,7 @@ FT_BEGIN_HEADER
     FT_UInt    regionIdxCount; /* number of region indices in this data */
     FT_UInt*   regionIndices;  /* array of `regionCount' indices;       */
                                /* these index `varRegionList'           */
-    FT_Short*  deltaSet;       /* array of `itemCount' deltas           */
+    FT_int*  deltaSet;       /* array of `itemCount' deltas           */
                                /* use `innerIndex' for this array       */
 
   } GX_ItemVarDataRec, *GX_ItemVarData;
@@ -98,7 +98,7 @@ FT_BEGIN_HEADER
     FT_UInt         dataCount;
     GX_ItemVarData  varData;            /* array of dataCount records;     */
                                         /* use `outerIndex' for this array */
-    FT_UShort     axisCount;
+    FT_Uint     axisCount;
     FT_UInt       regionCount;          /* total number of regions defined */
     GX_VarRegion  varRegionList;
 
@@ -183,10 +183,10 @@ FT_BEGIN_HEADER
   typedef struct  GX_ValueRec_
   {
     FT_ULong   tag;
-    FT_UShort  outerIndex;
-    FT_UShort  innerIndex;
+    FT_Uint  outerIndex;
+    FT_Uint  innerIndex;
 
-    FT_Short  unmodified;  /* values are either FT_Short or FT_UShort */
+    FT_int  unmodified;  /* values are either FT_int or FT_Uint */
 
   } GX_ValueRec, *GX_Value;
 
@@ -201,7 +201,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  GX_MVarTableRec_
   {
-    FT_UShort  valueCount;
+    FT_Uint  valueCount;
 
     GX_ItemVarStoreRec  itemStore;        /* Item Variation Store  */
     GX_Value            values;           /* Value Records         */

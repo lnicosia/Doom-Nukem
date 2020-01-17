@@ -35,7 +35,7 @@
 
 /* GCC prior to 4.8 didn't provide bswap16 on x86_64 */
 #if ! HAVE_BSWAP16
-static inline unsigned short __builtin_bswap16(unsigned short a)
+static inline unsigned int __builtin_bswap16(unsigned int a)
 {
 	return (a<<8)|(a>>8);
 }
@@ -49,7 +49,7 @@ static inline unsigned short __builtin_bswap16(unsigned short a)
 
 #include <stdlib.h>
 
-#define	ENDSWAP_16(x)		(_byteswap_ushort (x))
+#define	ENDSWAP_16(x)		(_byteswap_uint (x))
 #define	ENDSWAP_32(x)		(_byteswap_ulong (x))
 #define	ENDSWAP_64(x)		(_byteswap_uint64 (x))
 

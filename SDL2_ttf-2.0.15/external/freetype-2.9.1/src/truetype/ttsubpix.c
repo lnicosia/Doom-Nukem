@@ -469,7 +469,7 @@
     /* prevent problems with '3' and others */
     { "Verdana", 10, "Regular", 0 },
     { "Verdana", 9, "Regular", 0 },
-    /* Cyrillic small letter short I */
+    /* Cyrillic small letter int I */
     { "Legacy Sans Fonts", 0, "", 0x438 },
     { "Legacy Sans Fonts", 0, "", 0x439 },
     { "Arial", 10, "Regular", '6' },

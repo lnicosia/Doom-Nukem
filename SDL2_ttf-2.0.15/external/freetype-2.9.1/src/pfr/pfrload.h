@@ -30,7 +30,7 @@ FT_BEGIN_HEADER
 #define PFR_CHECK_SIZE( x )  do                       \
                              {                        \
                                if ( p + (x) > limit ) \
-                                 goto Too_Short;      \
+                                 goto Too_int;      \
                              } while ( 0 )
 
   /* ... and some only if intensive checking is explicitly requested */
@@ -42,8 +42,8 @@ FT_BEGIN_HEADER
 
 #define PFR_NEXT_BYTE( p )    FT_NEXT_BYTE( p )
 #define PFR_NEXT_INT8( p )    FT_NEXT_CHAR( p )
-#define PFR_NEXT_SHORT( p )   FT_NEXT_SHORT( p )
-#define PFR_NEXT_USHORT( p )  FT_NEXT_USHORT( p )
+#define PFR_NEXT_int( p )   FT_NEXT_int( p )
+#define PFR_NEXT_Uint( p )  FT_NEXT_Uint( p )
 #define PFR_NEXT_LONG( p )    FT_NEXT_OFF3( p )
 #define PFR_NEXT_ULONG( p )   FT_NEXT_UOFF3( p )
 

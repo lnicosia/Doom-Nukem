@@ -849,10 +849,10 @@
         segment->dir       = first->out_dir;
         segment->first     = first;
         segment->last      = point;
-        segment->pos       = (FT_Short)( ( min_u + max_u ) >> 1 );
-        segment->min_coord = (FT_Short) min_v;
-        segment->max_coord = (FT_Short) max_v;
-        segment->height    = (FT_Short)( max_v - min_v );
+        segment->pos       = (FT_int)( ( min_u + max_u ) >> 1 );
+        segment->min_coord = (FT_int) min_v;
+        segment->max_coord = (FT_int) max_v;
+        segment->height    = (FT_int)( max_v - min_v );
 
         /* a segment is round if it doesn't have successive */
         /* on-curve points.                                 */
@@ -918,24 +918,24 @@
         {
           p = first->prev;
           if ( p->v < first_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( first_v - p->v ) >> 1 ) );
 
           p = last->next;
           if ( p->v > last_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( p->v - last_v ) >> 1 ) );
         }
         else
         {
           p = first->prev;
           if ( p->v > first_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( p->v - first_v ) >> 1 ) );
 
           p = last->next;
           if ( p->v < last_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( last_v - p->v ) >> 1 ) );
         }
       }

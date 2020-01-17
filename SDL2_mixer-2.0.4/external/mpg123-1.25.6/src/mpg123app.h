@@ -116,7 +116,7 @@ enum mpg123app_flags
 	,MPG123APP_CONTINUE = 0x04
 };
 
-/* shortcut to check application flags */
+/* intcut to check application flags */
 #define APPFLAG(a) (param.appflags & (a))
 
 extern char *equalfile;

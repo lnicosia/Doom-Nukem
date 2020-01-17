@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:22:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:57:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_events_parser_target_types2(t_events_parser *eparser)
 	eparser->target_types[SECTOR_CEILING_SPRITES_SCALE_Y] = DOUBLE;
 	eparser->target_types[SECTOR_BRIGHTNESS] = INT;
 	eparser->target_types[SECTOR_LIGHT_COLOR] = UINT32;
-	eparser->target_types[SECTOR_INTENSITY] = DOUBLE;
+	eparser->target_types[SECTOR_INTENSITY] = INT;
 	eparser->target_types[SECTOR_GRAVITY] = DOUBLE;
 	eparser->target_types[VERTEX_X] = DOUBLE;
 	eparser->target_types[VERTEX_Y] = DOUBLE;

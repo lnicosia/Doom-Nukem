@@ -9,23 +9,23 @@
 #include "mangle.h"
 
 #ifdef IS_MSABI
-/* short *out0 */
+/* int *out0 */
 #define ARG0 %r9
-/* short *out1 */
+/* int *out1 */
 #define ARG1 %rdx
 /* real *samples */
 #define ARG2 %r8
 #else
-/* short *out0 */
+/* int *out0 */
 #define ARG0 %rdi
-/* short *out1 */
+/* int *out1 */
 #define ARG1 %rsi
 /* real *samples */
 #define ARG2 %rdx
 #endif
 
 /*
-	void dct64_x86_64(short *out0, short *out1, real *samples);
+	void dct64_x86_64(int *out0, int *out1, real *samples);
 */
 
 #ifndef __APPLE__

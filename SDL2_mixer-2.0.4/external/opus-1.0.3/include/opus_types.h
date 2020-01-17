@@ -50,15 +50,15 @@
      typedef _G_int16 opus_int16;
      typedef _G_uint16 opus_uint16;
 #  elif defined(__MINGW32__)
-     typedef short opus_int16;
-     typedef unsigned short opus_uint16;
+     typedef int opus_int16;
+     typedef unsigned int opus_uint16;
      typedef int opus_int32;
      typedef unsigned int opus_uint32;
 #  elif defined(__MWERKS__)
      typedef int opus_int32;
      typedef unsigned int opus_uint32;
-     typedef short opus_int16;
-     typedef unsigned short opus_uint16;
+     typedef int opus_int16;
+     typedef unsigned int opus_uint16;
 #  else
      /* MSVC/Borland */
      typedef __int32 opus_int32;
@@ -95,16 +95,16 @@
 #elif defined (__EMX__)
 
    /* OS/2 GCC */
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef int opus_int32;
    typedef unsigned int opus_uint32;
 
 #elif defined (DJGPP)
 
    /* DJGPP */
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef int opus_int32;
    typedef unsigned int opus_uint32;
 
@@ -113,36 +113,36 @@
    /* PS2 EE */
    typedef int opus_int32;
    typedef unsigned opus_uint32;
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
 
 #elif defined(__SYMBIAN32__)
 
    /* Symbian GCC */
-   typedef signed short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef signed int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef signed int opus_int32;
    typedef unsigned int opus_uint32;
 
 #elif defined(CONFIG_TI_C54X) || defined (CONFIG_TI_C55X)
 
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef long opus_int32;
    typedef unsigned long opus_uint32;
 
 #elif defined(CONFIG_TI_C6X)
 
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef int opus_int32;
    typedef unsigned int opus_uint32;
 
 #else
 
    /* Give up, take a reasonable guess */
-   typedef short opus_int16;
-   typedef unsigned short opus_uint16;
+   typedef int opus_int16;
+   typedef unsigned int opus_uint16;
    typedef int opus_int32;
    typedef unsigned int opus_uint32;
 

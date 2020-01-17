@@ -18,7 +18,7 @@
 ** Starts by looking into the given sector.
 */
 
-int		get_sector(t_env *env, t_v3 pos, short origin)
+int		get_sector(t_env *env, t_v3 pos, int origin)
 {
 	int		i;
 

@@ -88,23 +88,23 @@ FT_BEGIN_HEADER
     FT_Long    CheckSum_Adjust;
     FT_Long    Magic_Number;
 
-    FT_UShort  Flags;
-    FT_UShort  Units_Per_EM;
+    FT_Uint  Flags;
+    FT_Uint  Units_Per_EM;
 
     FT_Long    Created [2];
     FT_Long    Modified[2];
 
-    FT_Short   xMin;
-    FT_Short   yMin;
-    FT_Short   xMax;
-    FT_Short   yMax;
+    FT_int   xMin;
+    FT_int   yMin;
+    FT_int   xMax;
+    FT_int   yMax;
 
-    FT_UShort  Mac_Style;
-    FT_UShort  Lowest_Rec_PPEM;
+    FT_Uint  Mac_Style;
+    FT_Uint  Lowest_Rec_PPEM;
 
-    FT_Short   Font_Direction;
-    FT_Short   Index_To_Loc_Format;
-    FT_Short   Glyph_Data_Format;
+    FT_int   Font_Direction;
+    FT_int   Index_To_Loc_Format;
+    FT_int   Glyph_Data_Format;
 
   } TT_Header;
 
@@ -188,7 +188,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*    long_metrics           :: A pointer into the `hmtx' table.         */
   /*                                                                       */
-  /*    short_metrics          :: A pointer into the `hmtx' table.         */
+  /*    int_metrics          :: A pointer into the `hmtx' table.         */
   /*                                                                       */
   /* <Note>                                                                */
   /*    For an OpenType variation font, the values of the following fields */
@@ -199,30 +199,30 @@ FT_BEGIN_HEADER
   typedef struct  TT_HoriHeader_
   {
     FT_Fixed   Version;
-    FT_Short   Ascender;
-    FT_Short   Descender;
-    FT_Short   Line_Gap;
+    FT_int   Ascender;
+    FT_int   Descender;
+    FT_int   Line_Gap;
 
-    FT_UShort  advance_Width_Max;      /* advance width maximum */
+    FT_Uint  advance_Width_Max;      /* advance width maximum */
 
-    FT_Short   min_Left_Side_Bearing;  /* minimum left-sb       */
-    FT_Short   min_Right_Side_Bearing; /* minimum right-sb      */
-    FT_Short   xMax_Extent;            /* xmax extents          */
-    FT_Short   caret_Slope_Rise;
-    FT_Short   caret_Slope_Run;
-    FT_Short   caret_Offset;
+    FT_int   min_Left_Side_Bearing;  /* minimum left-sb       */
+    FT_int   min_Right_Side_Bearing; /* minimum right-sb      */
+    FT_int   xMax_Extent;            /* xmax extents          */
+    FT_int   caret_Slope_Rise;
+    FT_int   caret_Slope_Run;
+    FT_int   caret_Offset;
 
-    FT_Short   Reserved[4];
+    FT_int   Reserved[4];
 
-    FT_Short   metric_Data_Format;
-    FT_UShort  number_Of_HMetrics;
+    FT_int   metric_Data_Format;
+    FT_Uint  number_Of_HMetrics;
 
     /* The following fields are not defined by the OpenType specification */
     /* but they are used to connect the metrics header to the relevant    */
     /* `hmtx' table.                                                      */
 
     void*      long_metrics;
-    void*      short_metrics;
+    void*      int_metrics;
 
   } TT_HoriHeader;
 
@@ -309,7 +309,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*    long_metrics            :: A pointer into the `vmtx' table.        */
   /*                                                                       */
-  /*    short_metrics           :: A pointer into the `vmtx' table.        */
+  /*    int_metrics           :: A pointer into the `vmtx' table.        */
   /*                                                                       */
   /* <Note>                                                                */
   /*    For an OpenType variation font, the values of the following fields */
@@ -321,30 +321,30 @@ FT_BEGIN_HEADER
   typedef struct  TT_VertHeader_
   {
     FT_Fixed   Version;
-    FT_Short   Ascender;
-    FT_Short   Descender;
-    FT_Short   Line_Gap;
+    FT_int   Ascender;
+    FT_int   Descender;
+    FT_int   Line_Gap;
 
-    FT_UShort  advance_Height_Max;      /* advance height maximum */
+    FT_Uint  advance_Height_Max;      /* advance height maximum */
 
-    FT_Short   min_Top_Side_Bearing;    /* minimum top-sb          */
-    FT_Short   min_Bottom_Side_Bearing; /* minimum bottom-sb       */
-    FT_Short   yMax_Extent;             /* ymax extents            */
-    FT_Short   caret_Slope_Rise;
-    FT_Short   caret_Slope_Run;
-    FT_Short   caret_Offset;
+    FT_int   min_Top_Side_Bearing;    /* minimum top-sb          */
+    FT_int   min_Bottom_Side_Bearing; /* minimum bottom-sb       */
+    FT_int   yMax_Extent;             /* ymax extents            */
+    FT_int   caret_Slope_Rise;
+    FT_int   caret_Slope_Run;
+    FT_int   caret_Offset;
 
-    FT_Short   Reserved[4];
+    FT_int   Reserved[4];
 
-    FT_Short   metric_Data_Format;
-    FT_UShort  number_Of_VMetrics;
+    FT_int   metric_Data_Format;
+    FT_Uint  number_Of_VMetrics;
 
     /* The following fields are not defined by the OpenType specification */
     /* but they are used to connect the metrics header to the relevant    */
     /* `vmtx' table.                                                      */
 
     void*      long_metrics;
-    void*      short_metrics;
+    void*      int_metrics;
 
   } TT_VertHeader;
 
@@ -379,22 +379,22 @@ FT_BEGIN_HEADER
 
   typedef struct  TT_OS2_
   {
-    FT_UShort  version;                /* 0x0001 - more or 0xFFFF */
-    FT_Short   xAvgCharWidth;
-    FT_UShort  usWeightClass;
-    FT_UShort  usWidthClass;
-    FT_UShort  fsType;
-    FT_Short   ySubscriptXSize;
-    FT_Short   ySubscriptYSize;
-    FT_Short   ySubscriptXOffset;
-    FT_Short   ySubscriptYOffset;
-    FT_Short   ySuperscriptXSize;
-    FT_Short   ySuperscriptYSize;
-    FT_Short   ySuperscriptXOffset;
-    FT_Short   ySuperscriptYOffset;
-    FT_Short   yStrikeoutSize;
-    FT_Short   yStrikeoutPosition;
-    FT_Short   sFamilyClass;
+    FT_Uint  version;                /* 0x0001 - more or 0xFFFF */
+    FT_int   xAvgCharWidth;
+    FT_Uint  usWeightClass;
+    FT_Uint  usWidthClass;
+    FT_Uint  fsType;
+    FT_int   ySubscriptXSize;
+    FT_int   ySubscriptYSize;
+    FT_int   ySubscriptXOffset;
+    FT_int   ySubscriptYOffset;
+    FT_int   ySuperscriptXSize;
+    FT_int   ySuperscriptYSize;
+    FT_int   ySuperscriptXOffset;
+    FT_int   ySuperscriptYOffset;
+    FT_int   yStrikeoutSize;
+    FT_int   yStrikeoutPosition;
+    FT_int   sFamilyClass;
 
     FT_Byte    panose[10];
 
@@ -405,14 +405,14 @@ FT_BEGIN_HEADER
 
     FT_Char    achVendID[4];
 
-    FT_UShort  fsSelection;
-    FT_UShort  usFirstCharIndex;
-    FT_UShort  usLastCharIndex;
-    FT_Short   sTypoAscender;
-    FT_Short   sTypoDescender;
-    FT_Short   sTypoLineGap;
-    FT_UShort  usWinAscent;
-    FT_UShort  usWinDescent;
+    FT_Uint  fsSelection;
+    FT_Uint  usFirstCharIndex;
+    FT_Uint  usLastCharIndex;
+    FT_int   sTypoAscender;
+    FT_int   sTypoDescender;
+    FT_int   sTypoLineGap;
+    FT_Uint  usWinAscent;
+    FT_Uint  usWinDescent;
 
     /* only version 1 and higher: */
 
@@ -421,16 +421,16 @@ FT_BEGIN_HEADER
 
     /* only version 2 and higher: */
 
-    FT_Short   sxHeight;
-    FT_Short   sCapHeight;
-    FT_UShort  usDefaultChar;
-    FT_UShort  usBreakChar;
-    FT_UShort  usMaxContext;
+    FT_int   sxHeight;
+    FT_int   sCapHeight;
+    FT_Uint  usDefaultChar;
+    FT_Uint  usBreakChar;
+    FT_Uint  usMaxContext;
 
     /* only version 5 and higher: */
 
-    FT_UShort  usLowerOpticalPointSize;       /* in twips (1/20th points) */
-    FT_UShort  usUpperOpticalPointSize;       /* in twips (1/20th points) */
+    FT_Uint  usLowerOpticalPointSize;       /* in twips (1/20th points) */
+    FT_Uint  usUpperOpticalPointSize;       /* in twips (1/20th points) */
 
   } TT_OS2;
 
@@ -456,8 +456,8 @@ FT_BEGIN_HEADER
   {
     FT_Fixed  FormatType;
     FT_Fixed  italicAngle;
-    FT_Short  underlinePosition;
-    FT_Short  underlineThickness;
+    FT_int  underlinePosition;
+    FT_int  underlineThickness;
     FT_ULong  isFixedPitch;
     FT_ULong  minMemType42;
     FT_ULong  maxMemType42;
@@ -483,12 +483,12 @@ FT_BEGIN_HEADER
   {
     FT_Fixed   Version;
     FT_ULong   FontNumber;
-    FT_UShort  Pitch;
-    FT_UShort  xHeight;
-    FT_UShort  Style;
-    FT_UShort  TypeFamily;
-    FT_UShort  CapHeight;
-    FT_UShort  SymbolSet;
+    FT_Uint  Pitch;
+    FT_Uint  xHeight;
+    FT_Uint  Style;
+    FT_Uint  TypeFamily;
+    FT_Uint  CapHeight;
+    FT_Uint  SymbolSet;
     FT_Char    TypeFace[16];
     FT_Char    CharacterComplement[8];
     FT_Char    FileName[6];
@@ -567,20 +567,20 @@ FT_BEGIN_HEADER
   typedef struct  TT_MaxProfile_
   {
     FT_Fixed   version;
-    FT_UShort  numGlyphs;
-    FT_UShort  maxPoints;
-    FT_UShort  maxContours;
-    FT_UShort  maxCompositePoints;
-    FT_UShort  maxCompositeContours;
-    FT_UShort  maxZones;
-    FT_UShort  maxTwilightPoints;
-    FT_UShort  maxStorage;
-    FT_UShort  maxFunctionDefs;
-    FT_UShort  maxInstructionDefs;
-    FT_UShort  maxStackElements;
-    FT_UShort  maxSizeOfInstructions;
-    FT_UShort  maxComponentElements;
-    FT_UShort  maxComponentDepth;
+    FT_Uint  numGlyphs;
+    FT_Uint  maxPoints;
+    FT_Uint  maxContours;
+    FT_Uint  maxCompositePoints;
+    FT_Uint  maxCompositeContours;
+    FT_Uint  maxZones;
+    FT_Uint  maxTwilightPoints;
+    FT_Uint  maxStorage;
+    FT_Uint  maxFunctionDefs;
+    FT_Uint  maxInstructionDefs;
+    FT_Uint  maxStackElements;
+    FT_Uint  maxSizeOfInstructions;
+    FT_Uint  maxComponentElements;
+    FT_Uint  maxComponentDepth;
 
   } TT_MaxProfile;
 

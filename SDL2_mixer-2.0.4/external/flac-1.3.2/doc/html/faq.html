@@ -12,7 +12,7 @@
 	<meta name="author" content="Josh Coalson" />
 	<meta name="description" content="A free, open source codec for lossless audio compression and decompression" />
 	<meta name="keywords" content="free,lossless,audio,codec,encoder,decoder,compression,compressor,archival,archive,archiving,backup,music" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="intcut icon" type="image/x-icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="flac.css" />
 	<title>FLAC - faq</title>
 </head>
@@ -141,7 +141,7 @@
 				<a href="faq.html#tools__skipped_subchunk"><b>I compressed a WAVE file to FLAC and it said "warning: skipping unknown sub-chunk LIST".  Why?</b></a>
 			</li>
 			<li>
-				<a href="faq.html#tools__two_bytes_short"><b>I decoded a FLAC file and the WAVE is 2 bytes shorter than the original.  Why?</b></a>
+				<a href="faq.html#tools__two_bytes_int"><b>I decoded a FLAC file and the WAVE is 2 bytes inter than the original.  Why?</b></a>
 			</li>
 			<li>
 				<a href="faq.html#tools__not_streamable"><b>Why did I get "ERROR initializing encoder, state = FLAC__STREAM_ENCODER_NOT_STREAMABLE"?</b></a>
@@ -218,13 +218,13 @@
 		<br />
 		<a name="general__native_or_ogg"><b>Which should I use, (native) FLAC or Ogg FLAC?</b></a><br />
 		<br />
-		The short answer right now is probably "native FLAC".  If all you are doing is compressing audio to be played back later, native FLAC will do everything you need, is more widely supported, and will yield smaller files.  If you plan to edit the compressed audio, or want to multiplex the audio with video later in an Ogg container, Ogg FLAC is a better choice.<br />
+		The int answer right now is probably "native FLAC".  If all you are doing is compressing audio to be played back later, native FLAC will do everything you need, is more widely supported, and will yield smaller files.  If you plan to edit the compressed audio, or want to multiplex the audio with video later in an Ogg container, Ogg FLAC is a better choice.<br />
 		<br />
 		<a name="general__no_cuesheet_tags"><b>Why aren't PERFORMER/TITLE/etc tags stored in the FLAC CUESHEET block?</b></a><br />
 		<br />
 		This has turned out to be a pretty polarizing issue and requires a long explanation.<br />
 		<br />
-		The original purpose of a cue sheet in CD authoring software was to lay out the disc, essentially specifying how the audio will be organized on the disc; some of the information ends up as the CD table of contents: the track numbers and locations, and the index points.  Later CD-TEXT was added.  But CD-TEXT is a very complex spec, and actually goes in the CD subcode data.  It is internationalized, not through Unicode, but with several different character sets, some of them multi-byte.  It even allows for graphics.  In cue sheets, the TITLE/PERFORMER/etc tags are just a limited shorthand for authoring CD-TEXT, but when you rip, you almost never parse the CD-TEXT, you get it from another database, and it doesn't really belong in the FLAC CUESHEET block.<br />
+		The original purpose of a cue sheet in CD authoring software was to lay out the disc, essentially specifying how the audio will be organized on the disc; some of the information ends up as the CD table of contents: the track numbers and locations, and the index points.  Later CD-TEXT was added.  But CD-TEXT is a very complex spec, and actually goes in the CD subcode data.  It is internationalized, not through Unicode, but with several different character sets, some of them multi-byte.  It even allows for graphics.  In cue sheets, the TITLE/PERFORMER/etc tags are just a limited inthand for authoring CD-TEXT, but when you rip, you almost never parse the CD-TEXT, you get it from another database, and it doesn't really belong in the FLAC CUESHEET block.<br />
 		<br />
 		For FLAC the intention is that applications can calculate the CDDB or CDindex ID from the CUESHEET block and look it up in an online or local database just like CD rippers and players do.  But if you really want it in the file itself, the track metadata should be stored separate from the CUESHEET, and already can be because of FLAC's metadata system.  There just isn't a method specified yet because as soon as it is, people will say that it's not flexible enough.  From experience (and you can see this come up time and time again in many lists), anyone who is going to the trouble of keeping a lossless collection in the first place will already be picky about metadata, and it is hard to come up with a standard that will please even the majority.  That is the big problem with metadata and is why Xiph has deferred on it, waiting for someone to come up with a good metadata spec that can be multiplexed together with data.<br />
 		<br />
@@ -327,11 +327,11 @@
 		<a name="tools__wave_flac_wave"><b>I compressed a WAVE file to FLAC, then decompressed to WAVE, and the two weren't identical.  Why?</b></a><br />
 		<a name="tools__skipped_subchunk"><b>I compressed a WAVE file to FLAC and it said "warning: skipping unknown sub-chunk LIST".  Why?</b></a><br />
 		<br />
-		WAVE is a complicated standard; many kinds of data besides audio data can be put in it.  Most likely what has happened is that the application that created the original WAVE file also added some extra information for it's own use, which FLAC does not store or recreate by default (but can with the <span class="argument"><a href="documentation_tools_flac.html#flac_options_keep_foreign_metadata">--keep-foreign-metadata</a></span> option) (<a href="faq.html#tools__two_bytes_short">see also</a>).  The audio data in the two WAVE files will be identical.  There are other tools to compare just the audio content of two WAVE files; <a href="http://www.exactaudiocopy.de/">ExactAudioCopy</a> has such a feature.<br />
+		WAVE is a complicated standard; many kinds of data besides audio data can be put in it.  Most likely what has happened is that the application that created the original WAVE file also added some extra information for it's own use, which FLAC does not store or recreate by default (but can with the <span class="argument"><a href="documentation_tools_flac.html#flac_options_keep_foreign_metadata">--keep-foreign-metadata</a></span> option) (<a href="faq.html#tools__two_bytes_int">see also</a>).  The audio data in the two WAVE files will be identical.  There are other tools to compare just the audio content of two WAVE files; <a href="http://www.exactaudiocopy.de/">ExactAudioCopy</a> has such a feature.<br />
 		<br />
 		For the more technically inclined, by default FLAC only stores what is in the 'fmt ' and 'data' sub-chunks of a WAVE file.  <a href="faq.html#general__no_wave_metadata">(see also)</a><br />
 		<br />
-		<a name="tools__two_bytes_short"><b>I decoded a FLAC file and the WAVE is 2 bytes shorter than the original.  Why?</b></a><br />
+		<a name="tools__two_bytes_int"><b>I decoded a FLAC file and the WAVE is 2 bytes inter than the original.  Why?</b></a><br />
 		<br />
 		The difference is probably that between an 18-byte 'fmt ' subchunk in the original WAVE vs. a 16-byte one in the decoded WAVE.  With WAVE there is more than one way to write identical formatting information, but FLAC always writes the most common legal form.  <a href="faq.html#tools__wave_flac_wave">(see also)</a><br />
 		<br />

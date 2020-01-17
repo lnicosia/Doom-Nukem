@@ -270,12 +270,12 @@ THE SOFTWARE.
 #define FT_STRUCTURE  PCF_MetricRec
 
     FT_FRAME_START( PCF_METRIC_SIZE ),
-      FT_FRAME_SHORT_LE( leftSideBearing ),
-      FT_FRAME_SHORT_LE( rightSideBearing ),
-      FT_FRAME_SHORT_LE( characterWidth ),
-      FT_FRAME_SHORT_LE( ascent ),
-      FT_FRAME_SHORT_LE( descent ),
-      FT_FRAME_SHORT_LE( attributes ),
+      FT_FRAME_int_LE( leftSideBearing ),
+      FT_FRAME_int_LE( rightSideBearing ),
+      FT_FRAME_int_LE( characterWidth ),
+      FT_FRAME_int_LE( ascent ),
+      FT_FRAME_int_LE( descent ),
+      FT_FRAME_int_LE( attributes ),
     FT_FRAME_END
   };
 
@@ -287,12 +287,12 @@ THE SOFTWARE.
 #define FT_STRUCTURE  PCF_MetricRec
 
     FT_FRAME_START( PCF_METRIC_SIZE ),
-      FT_FRAME_SHORT( leftSideBearing ),
-      FT_FRAME_SHORT( rightSideBearing ),
-      FT_FRAME_SHORT( characterWidth ),
-      FT_FRAME_SHORT( ascent ),
-      FT_FRAME_SHORT( descent ),
-      FT_FRAME_SHORT( attributes ),
+      FT_FRAME_int( leftSideBearing ),
+      FT_FRAME_int( rightSideBearing ),
+      FT_FRAME_int( characterWidth ),
+      FT_FRAME_int( ascent ),
+      FT_FRAME_int( descent ),
+      FT_FRAME_int( attributes ),
     FT_FRAME_END
   };
 
@@ -345,11 +345,11 @@ THE SOFTWARE.
       if ( FT_STREAM_READ_FIELDS( pcf_compressed_metric_header, &compr ) )
         goto Exit;
 
-      metric->leftSideBearing  = (FT_Short)( compr.leftSideBearing  - 0x80 );
-      metric->rightSideBearing = (FT_Short)( compr.rightSideBearing - 0x80 );
-      metric->characterWidth   = (FT_Short)( compr.characterWidth   - 0x80 );
-      metric->ascent           = (FT_Short)( compr.ascent           - 0x80 );
-      metric->descent          = (FT_Short)( compr.descent          - 0x80 );
+      metric->leftSideBearing  = (FT_int)( compr.leftSideBearing  - 0x80 );
+      metric->rightSideBearing = (FT_int)( compr.rightSideBearing - 0x80 );
+      metric->characterWidth   = (FT_int)( compr.characterWidth   - 0x80 );
+      metric->ascent           = (FT_int)( compr.ascent           - 0x80 );
+      metric->descent          = (FT_int)( compr.descent          - 0x80 );
       metric->attributes       = 0;
     }
 
@@ -719,9 +719,9 @@ THE SOFTWARE.
     else
     {
       if ( PCF_BYTE_ORDER( format ) == MSBFirst )
-        (void)FT_READ_USHORT( orig_nmetrics );
+        (void)FT_READ_Uint( orig_nmetrics );
       else
-        (void)FT_READ_USHORT_LE( orig_nmetrics );
+        (void)FT_READ_Uint_LE( orig_nmetrics );
     }
     if ( error )
       return FT_THROW( Invalid_File_Format );
@@ -943,7 +943,7 @@ THE SOFTWARE.
     int           firstCol, lastCol;
     int           firstRow, lastRow;
     FT_ULong      nencoding;
-    FT_UShort     encodingOffset;
+    FT_Uint     encodingOffset;
     int           i, j;
     FT_ULong      k;
     PCF_Encoding  encoding = NULL;
@@ -966,19 +966,19 @@ THE SOFTWARE.
 
     if ( PCF_BYTE_ORDER( format ) == MSBFirst )
     {
-      firstCol          = FT_GET_SHORT();
-      lastCol           = FT_GET_SHORT();
-      firstRow          = FT_GET_SHORT();
-      lastRow           = FT_GET_SHORT();
-      face->defaultChar = FT_GET_SHORT();
+      firstCol          = FT_GET_int();
+      lastCol           = FT_GET_int();
+      firstRow          = FT_GET_int();
+      lastRow           = FT_GET_int();
+      face->defaultChar = FT_GET_int();
     }
     else
     {
-      firstCol          = FT_GET_SHORT_LE();
-      lastCol           = FT_GET_SHORT_LE();
-      firstRow          = FT_GET_SHORT_LE();
-      lastRow           = FT_GET_SHORT_LE();
-      face->defaultChar = FT_GET_SHORT_LE();
+      firstCol          = FT_GET_int_LE();
+      lastCol           = FT_GET_int_LE();
+      firstRow          = FT_GET_int_LE();
+      lastRow           = FT_GET_int_LE();
+      face->defaultChar = FT_GET_int_LE();
     }
 
     FT_Stream_ExitFrame( stream );
@@ -1023,13 +1023,13 @@ THE SOFTWARE.
       for ( j = firstCol; j <= lastCol; j++ )
       {
         /* X11's reference implementation uses the equivalent to  */
-        /* `FT_GET_SHORT', however PCF fonts with more than 32768 */
+        /* `FT_GET_int', however PCF fonts with more than 32768 */
         /* characters (e.g. `unifont.pcf') clearly show that an   */
         /* unsigned value is needed.                              */
         if ( PCF_BYTE_ORDER( format ) == MSBFirst )
-          encodingOffset = FT_GET_USHORT();
+          encodingOffset = FT_GET_Uint();
         else
-          encodingOffset = FT_GET_USHORT_LE();
+          encodingOffset = FT_GET_Uint_LE();
 
         if ( encodingOffset != 0xFFFFU )
         {
@@ -1497,7 +1497,7 @@ THE SOFTWARE.
 
       {
         FT_Bitmap_Size*  bsize = root->available_sizes;
-        FT_Short         resolution_x = 0, resolution_y = 0;
+        FT_int         resolution_x = 0, resolution_y = 0;
 
 
         FT_ZERO( bsize );
@@ -1520,7 +1520,7 @@ THE SOFTWARE.
                       bsize->height ));
         }
         else
-          bsize->height = FT_ABS( (FT_Short)( face->accel.fontAscent +
+          bsize->height = FT_ABS( (FT_int)( face->accel.fontAscent +
                                               face->accel.fontDescent ) );
 
         prop = pcf_find_property( face, "AVERAGE_WIDTH" );
@@ -1537,12 +1537,12 @@ THE SOFTWARE.
                         bsize->width ));
           }
           else
-            bsize->width = FT_ABS( (FT_Short)( ( prop->value.l + 5 ) / 10 ) );
+            bsize->width = FT_ABS( (FT_int)( ( prop->value.l + 5 ) / 10 ) );
         }
         else
         {
           /* this is a heuristical value */
-          bsize->width = (FT_Short)FT_MulDiv( bsize->height, 2, 3 );
+          bsize->width = (FT_int)FT_MulDiv( bsize->height, 2, 3 );
         }
 
         prop = pcf_find_property( face, "POINT_SIZE" );
@@ -1579,7 +1579,7 @@ THE SOFTWARE.
                         bsize->y_ppem ));
           }
           else
-            bsize->y_ppem = FT_ABS( (FT_Short)prop->value.l ) << 6;
+            bsize->y_ppem = FT_ABS( (FT_int)prop->value.l ) << 6;
         }
 
         prop = pcf_find_property( face, "RESOLUTION_X" );
@@ -1596,7 +1596,7 @@ THE SOFTWARE.
                         resolution_x ));
           }
           else
-            resolution_x = FT_ABS( (FT_Short)prop->value.l );
+            resolution_x = FT_ABS( (FT_int)prop->value.l );
         }
 
         prop = pcf_find_property( face, "RESOLUTION_Y" );
@@ -1613,7 +1613,7 @@ THE SOFTWARE.
                         resolution_y ));
           }
           else
-            resolution_y = FT_ABS( (FT_Short)prop->value.l );
+            resolution_y = FT_ABS( (FT_int)prop->value.l );
         }
 
         if ( bsize->y_ppem == 0 )

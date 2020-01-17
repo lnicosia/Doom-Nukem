@@ -115,7 +115,7 @@ debugging its code:
 
       FT_TRACE( 2, ( "your %s is not %s\n", "foo", "bar" ) )
 
-    The   shortcut  macros   FT_TRACE0,  FT_TRACE1,   FT_TRACE2,  ...,
+    The   intcut  macros   FT_TRACE0,  FT_TRACE1,   FT_TRACE2,  ...,
     FT_TRACE7 can  be used with  constant level indices, and  are much
     cleaner to use, as in
 

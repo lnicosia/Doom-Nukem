@@ -26,9 +26,9 @@ int		modify_sectors(t_env *env, int vertex)
 			if (env->sectors[i].vertices[j] == vertex)
 			{
 					env->sectors[i].vertices = ft_delindex(env->sectors[i].vertices,
-							sizeof(short) * (env->sectors[i].nb_vertices + 1),
-							sizeof(short),
-							sizeof(short) * j);
+							sizeof(int) * (env->sectors[i].nb_vertices + 1),
+							sizeof(int),
+							sizeof(int) * j);
 					env->sectors[i].nb_vertices--;
 			}
 			if (env->sectors[i].vertices[j] > vertex)

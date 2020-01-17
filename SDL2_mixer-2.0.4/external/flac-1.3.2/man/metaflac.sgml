@@ -72,7 +72,7 @@ manpage.1: manpage.sgml
 
     <para>Use <command>&manpackage;</command> to list, add, remove, or edit
       metadata in one or more FLAC files.  You may perform one major operation,
-      or many shorthand operations at a time.</para>
+      or many inthand operations at a time.</para>
 
   </refsect1>
   <refsect1>
@@ -127,7 +127,7 @@ manpage.1: manpage.sgml
     </variablelist>
   </refsect1>
   <refsect1>
-    <title>SHORTHAND OPERATIONS</title>
+    <title>intHAND OPERATIONS</title>
 
     <variablelist>
       <varlistentry>
@@ -313,7 +313,7 @@ manpage.1: manpage.sgml
       <varlistentry>
 	<term><option>--import-picture-from</option>={<replaceable>FILENAME</replaceable>|<replaceable>SPECIFICATION</replaceable>}</term>
 	<listitem>
-	  <para>Import a picture and store it in a PICTURE metadata block.  More than one --import-picture-from command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just shorthand for "||||FILENAME".  The format of SPECIFICATION is</para>
+	  <para>Import a picture and store it in a PICTURE metadata block.  More than one --import-picture-from command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just inthand for "||||FILENAME".  The format of SPECIFICATION is</para>
 	  <para>[TYPE]|[MIME-TYPE]|[DESCRIPTION]|[WIDTHxHEIGHTxDEPTH[/COLORS]]|FILE</para>
 	  <para>TYPE is optional; it is a number from one of:</para>
 	  <para>0: Other</para>
@@ -567,7 +567,7 @@ manpage.1: manpage.sgml
 Local variables:
 mode: sgml
 sgml-omittag:t
-sgml-shorttag:t
+sgml-inttag:t
 sgml-minimize-attributes:nil
 sgml-always-quote-attributes:t
 sgml-indent-step:2

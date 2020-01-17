@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:52:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:24:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_events_parser *eparser)
 		return (-1);
 	if (parse_event_various_data(env, parser, line, eparser))
 		return (-1);
-	eparser->event.exec_func = eparser->checkers[eparser->target_index];
+	eparser->event.check_func = eparser->checkers[eparser->target_index];
 	eparser->event.update_func = eparser->updaters[eparser->target_index];
 	if (eparser->new_events[eparser->trigger](env, parser, line, eparser))
 		return (-1);

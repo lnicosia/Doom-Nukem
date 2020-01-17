@@ -14,7 +14,7 @@
 	<string>SDL2_mixer</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
-	<key>CFBundleShortVersionString</key>
+	<key>CFBundleintVersionString</key>
 	<string>2.0.4</string>
 	<key>CFBundleVersion</key>
 	<string>2.0.4</string>

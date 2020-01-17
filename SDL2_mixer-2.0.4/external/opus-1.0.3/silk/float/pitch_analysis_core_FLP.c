@@ -135,26 +135,26 @@ opus_int silk_pitch_analysis_core_FLP(      /* O    Voicing estimate: 0 voiced, 
     if( Fs_kHz == 16 ) {
         /* Resample to 16 -> 8 khz */
         opus_int16 frame_16_FIX[ 16 * PE_MAX_FRAME_LENGTH_MS ];
-        silk_float2short_array( frame_16_FIX, frame, frame_length );
+        silk_float2int_array( frame_16_FIX, frame, frame_length );
         silk_memset( filt_state, 0, 2 * sizeof( opus_int32 ) );
         silk_resampler_down2( filt_state, frame_8_FIX, frame_16_FIX, frame_length );
-        silk_short2float_array( frame_8kHz, frame_8_FIX, frame_length_8kHz );
+        silk_int2float_array( frame_8kHz, frame_8_FIX, frame_length_8kHz );
     } else if( Fs_kHz == 12 ) {
         /* Resample to 12 -> 8 khz */
         opus_int16 frame_12_FIX[ 12 * PE_MAX_FRAME_LENGTH_MS ];
-        silk_float2short_array( frame_12_FIX, frame, frame_length );
+        silk_float2int_array( frame_12_FIX, frame, frame_length );
         silk_memset( filt_state, 0, 6 * sizeof( opus_int32 ) );
         silk_resampler_down2_3( filt_state, frame_8_FIX, frame_12_FIX, frame_length );
-        silk_short2float_array( frame_8kHz, frame_8_FIX, frame_length_8kHz );
+        silk_int2float_array( frame_8kHz, frame_8_FIX, frame_length_8kHz );
     } else {
         silk_assert( Fs_kHz == 8 );
-        silk_float2short_array( frame_8_FIX, frame, frame_length_8kHz );
+        silk_float2int_array( frame_8_FIX, frame, frame_length_8kHz );
     }
 
     /* Decimate again to 4 kHz */
     silk_memset( filt_state, 0, 2 * sizeof( opus_int32 ) );
     silk_resampler_down2( filt_state, frame_4_FIX, frame_8_FIX, frame_length_8kHz );
-    silk_short2float_array( frame_4kHz, frame_4_FIX, frame_length_4kHz );
+    silk_int2float_array( frame_4kHz, frame_4_FIX, frame_length_4kHz );
 
     /* Low-pass filter */
     for( i = frame_length_4kHz - 1; i > 0; i-- ) {
@@ -202,7 +202,7 @@ opus_int silk_pitch_analysis_core_FLP(      /* O    Voicing estimate: 0 voiced, 
         target_ptr += sf_length_8kHz;
     }
 
-    /* Apply short-lag bias */
+    /* Apply int-lag bias */
     for( i = max_lag_4kHz; i >= min_lag_4kHz; i-- ) {
         C[ 0 ][ i ] -= C[ 0 ][ i ] * i / 4096.0f;
     }
@@ -359,9 +359,9 @@ opus_int silk_pitch_analysis_core_FLP(      /* O    Voicing estimate: 0 voiced, 
         CCmax_new = silk_max_float(CCmax_new, 0.0f); /* To avoid taking square root of negative number later */
         CCmax_new_b = CCmax_new;
 
-        /* Bias towards shorter lags */
+        /* Bias towards inter lags */
         lag_log2 = silk_log2((silk_float)d);
-        CCmax_new_b -= PE_SHORTLAG_BIAS * nb_subfr * lag_log2;
+        CCmax_new_b -= PE_intLAG_BIAS * nb_subfr * lag_log2;
 
         /* Bias towards previous lag */
         if( prevLag > 0 ) {

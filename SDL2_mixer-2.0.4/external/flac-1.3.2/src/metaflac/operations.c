@@ -32,7 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 
 static void show_version(void);
 static FLAC__bool do_major_operation(const CommandLineOptions *options);
@@ -41,29 +41,29 @@ static FLAC__bool do_major_operation__list(const char *filename, FLAC__Metadata_
 static FLAC__bool do_major_operation__append(FLAC__Metadata_Chain *chain, const CommandLineOptions *options);
 static FLAC__bool do_major_operation__remove(FLAC__Metadata_Chain *chain, const CommandLineOptions *options);
 static FLAC__bool do_major_operation__remove_all(FLAC__Metadata_Chain *chain, const CommandLineOptions *options);
-static FLAC__bool do_shorthand_operations(const CommandLineOptions *options);
-static FLAC__bool do_shorthand_operations_on_file(const char *filename, const CommandLineOptions *options);
-static FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool utf8_convert);
-static FLAC__bool do_shorthand_operation__add_replay_gain(char **filenames, unsigned num_files, FLAC__bool preserve_modtime, FLAC__bool scan);
-static FLAC__bool do_shorthand_operation__add_padding(const char *filename, FLAC__Metadata_Chain *chain, unsigned length, FLAC__bool *needs_write);
+static FLAC__bool do_inthand_operations(const CommandLineOptions *options);
+static FLAC__bool do_inthand_operations_on_file(const char *filename, const CommandLineOptions *options);
+static FLAC__bool do_inthand_operation(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool utf8_convert);
+static FLAC__bool do_inthand_operation__add_replay_gain(char **filenames, unsigned num_files, FLAC__bool preserve_modtime, FLAC__bool scan);
+static FLAC__bool do_inthand_operation__add_padding(const char *filename, FLAC__Metadata_Chain *chain, unsigned length, FLAC__bool *needs_write);
 
 static FLAC__bool passes_filter(const CommandLineOptions *options, const FLAC__StreamMetadata *block, unsigned block_number);
 static void write_metadata(const char *filename, FLAC__StreamMetadata *block, unsigned block_number, FLAC__bool raw, FLAC__bool hexdump_application);
 
-/* from operations_shorthand_seektable.c */
-extern FLAC__bool do_shorthand_operation__add_seekpoints(const char *filename, FLAC__Metadata_Chain *chain, const char *specification, FLAC__bool *needs_write);
+/* from operations_inthand_seektable.c */
+extern FLAC__bool do_inthand_operation__add_seekpoints(const char *filename, FLAC__Metadata_Chain *chain, const char *specification, FLAC__bool *needs_write);
 
-/* from operations_shorthand_streaminfo.c */
-extern FLAC__bool do_shorthand_operation__streaminfo(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
+/* from operations_inthand_streaminfo.c */
+extern FLAC__bool do_inthand_operation__streaminfo(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
 
-/* from operations_shorthand_vorbiscomment.c */
-extern FLAC__bool do_shorthand_operation__vorbis_comment(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool raw);
+/* from operations_inthand_vorbiscomment.c */
+extern FLAC__bool do_inthand_operation__vorbis_comment(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool raw);
 
-/* from operations_shorthand_cuesheet.c */
-extern FLAC__bool do_shorthand_operation__cuesheet(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
+/* from operations_inthand_cuesheet.c */
+extern FLAC__bool do_inthand_operation__cuesheet(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
 
-/* from operations_shorthand_picture.c */
-extern FLAC__bool do_shorthand_operation__picture(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
+/* from operations_inthand_picture.c */
+extern FLAC__bool do_inthand_operation__picture(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write);
 
 
 FLAC__bool do_operations(const CommandLineOptions *options)
@@ -77,14 +77,14 @@ FLAC__bool do_operations(const CommandLineOptions *options)
 		show_version();
 	}
 	else if(options->args.checks.num_major_ops > 0) {
-		FLAC__ASSERT(options->args.checks.num_shorthand_ops == 0);
+		FLAC__ASSERT(options->args.checks.num_inthand_ops == 0);
 		FLAC__ASSERT(options->args.checks.num_major_ops == 1);
 		FLAC__ASSERT(options->args.checks.num_major_ops == options->ops.num_operations);
 		ok = do_major_operation(options);
 	}
-	else if(options->args.checks.num_shorthand_ops > 0) {
-		FLAC__ASSERT(options->args.checks.num_shorthand_ops == options->ops.num_operations);
-		ok = do_shorthand_operations(options);
+	else if(options->args.checks.num_inthand_ops > 0) {
+		FLAC__ASSERT(options->args.checks.num_inthand_ops == options->ops.num_operations);
+		ok = do_inthand_operations(options);
 	}
 
 	return ok;
@@ -253,29 +253,29 @@ FLAC__bool do_major_operation__remove_all(FLAC__Metadata_Chain *chain, const Com
 	return ok;
 }
 
-FLAC__bool do_shorthand_operations(const CommandLineOptions *options)
+FLAC__bool do_inthand_operations(const CommandLineOptions *options)
 {
 	unsigned i;
 	FLAC__bool ok = true;
 
 	/* to die after first error,     v---  add '&& ok' here */
 	for(i = 0; i < options->num_files; i++)
-		ok &= do_shorthand_operations_on_file(options->filenames[i], options);
+		ok &= do_inthand_operations_on_file(options->filenames[i], options);
 
 	/* check if OP__ADD_REPLAY_GAIN requested */
 	if(ok && options->num_files > 0) {
 		for(i = 0; i < options->ops.num_operations; i++) {
 			if(options->ops.operations[i].type == OP__ADD_REPLAY_GAIN)
-				ok = do_shorthand_operation__add_replay_gain(options->filenames, options->num_files, options->preserve_modtime, false);
+				ok = do_inthand_operation__add_replay_gain(options->filenames, options->num_files, options->preserve_modtime, false);
 			else if(options->ops.operations[i].type == OP__SCAN_REPLAY_GAIN)
-				ok = do_shorthand_operation__add_replay_gain(options->filenames, options->num_files, options->preserve_modtime, true);
+				ok = do_inthand_operation__add_replay_gain(options->filenames, options->num_files, options->preserve_modtime, true);
 		}
 	}
 
 	return ok;
 }
 
-FLAC__bool do_shorthand_operations_on_file(const char *filename, const CommandLineOptions *options)
+FLAC__bool do_inthand_operations_on_file(const char *filename, const CommandLineOptions *options)
 {
 	unsigned i;
 	FLAC__bool ok = true, needs_write = false, use_padding = options->use_padding;
@@ -295,7 +295,7 @@ FLAC__bool do_shorthand_operations_on_file(const char *filename, const CommandLi
 		 * --add-seekpoint and --import-cuesheet-from are used.
 		 */
 		if(options->ops.operations[i].type != OP__ADD_SEEKPOINT)
-			ok &= do_shorthand_operation(filename, options->prefix_with_filename, chain, &options->ops.operations[i], &needs_write, options->utf8_convert);
+			ok &= do_inthand_operation(filename, options->prefix_with_filename, chain, &options->ops.operations[i], &needs_write, options->utf8_convert);
 
 		/* The following seems counterintuitive but the meaning
 		 * of 'use_padding' is 'try to keep the overall metadata
@@ -314,7 +314,7 @@ FLAC__bool do_shorthand_operations_on_file(const char *filename, const CommandLi
 	 */
 	for(i = 0; i < options->ops.num_operations && ok; i++) {
 		if(options->ops.operations[i].type == OP__ADD_SEEKPOINT)
-			ok &= do_shorthand_operation(filename, options->prefix_with_filename, chain, &options->ops.operations[i], &needs_write, options->utf8_convert);
+			ok &= do_inthand_operation(filename, options->prefix_with_filename, chain, &options->ops.operations[i], &needs_write, options->utf8_convert);
 	}
 
 	if(ok && needs_write) {
@@ -330,7 +330,7 @@ FLAC__bool do_shorthand_operations_on_file(const char *filename, const CommandLi
 	return ok;
 }
 
-FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool utf8_convert)
+FLAC__bool do_inthand_operation(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write, FLAC__bool utf8_convert)
 {
 	FLAC__bool ok = true;
 
@@ -353,7 +353,7 @@ FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_f
 		case OP__SET_CHANNELS:
 		case OP__SET_BPS:
 		case OP__SET_TOTAL_SAMPLES:
-			ok = do_shorthand_operation__streaminfo(filename, prefix_with_filename, chain, operation, needs_write);
+			ok = do_inthand_operation__streaminfo(filename, prefix_with_filename, chain, operation, needs_write);
 			break;
 		case OP__SHOW_VC_VENDOR:
 		case OP__SHOW_VC_FIELD:
@@ -363,18 +363,18 @@ FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_f
 		case OP__SET_VC_FIELD:
 		case OP__IMPORT_VC_FROM:
 		case OP__EXPORT_VC_TO:
-			ok = do_shorthand_operation__vorbis_comment(filename, prefix_with_filename, chain, operation, needs_write, !utf8_convert);
+			ok = do_inthand_operation__vorbis_comment(filename, prefix_with_filename, chain, operation, needs_write, !utf8_convert);
 			break;
 		case OP__IMPORT_CUESHEET_FROM:
 		case OP__EXPORT_CUESHEET_TO:
-			ok = do_shorthand_operation__cuesheet(filename, chain, operation, needs_write);
+			ok = do_inthand_operation__cuesheet(filename, chain, operation, needs_write);
 			break;
 		case OP__IMPORT_PICTURE_FROM:
 		case OP__EXPORT_PICTURE_TO:
-			ok = do_shorthand_operation__picture(filename, chain, operation, needs_write);
+			ok = do_inthand_operation__picture(filename, chain, operation, needs_write);
 			break;
 		case OP__ADD_SEEKPOINT:
-			ok = do_shorthand_operation__add_seekpoints(filename, chain, operation->argument.add_seekpoint.specification, needs_write);
+			ok = do_inthand_operation__add_seekpoints(filename, chain, operation->argument.add_seekpoint.specification, needs_write);
 			break;
 		case OP__ADD_REPLAY_GAIN:
 		case OP__SCAN_REPLAY_GAIN:
@@ -382,7 +382,7 @@ FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_f
 			ok = true;
 			break;
 		case OP__ADD_PADDING:
-			ok = do_shorthand_operation__add_padding(filename, chain, operation->argument.add_padding.length, needs_write);
+			ok = do_inthand_operation__add_padding(filename, chain, operation->argument.add_padding.length, needs_write);
 			break;
 		default:
 			ok = false;
@@ -393,7 +393,7 @@ FLAC__bool do_shorthand_operation(const char *filename, FLAC__bool prefix_with_f
 	return ok;
 }
 
-FLAC__bool do_shorthand_operation__add_replay_gain(char **filenames, unsigned num_files, FLAC__bool preserve_modtime, FLAC__bool scan)
+FLAC__bool do_inthand_operation__add_replay_gain(char **filenames, unsigned num_files, FLAC__bool preserve_modtime, FLAC__bool scan)
 {
 	FLAC__StreamMetadata streaminfo;
 	float *title_gains = 0, *title_peaks = 0;
@@ -485,7 +485,7 @@ FLAC__bool do_shorthand_operation__add_replay_gain(char **filenames, unsigned nu
 	return true;
 }
 
-FLAC__bool do_shorthand_operation__add_padding(const char *filename, FLAC__Metadata_Chain *chain, unsigned length, FLAC__bool *needs_write)
+FLAC__bool do_inthand_operation__add_padding(const char *filename, FLAC__Metadata_Chain *chain, unsigned length, FLAC__bool *needs_write)
 {
 	FLAC__StreamMetadata *padding = 0;
 	FLAC__Metadata_Iterator *iterator = FLAC__metadata_iterator_new();

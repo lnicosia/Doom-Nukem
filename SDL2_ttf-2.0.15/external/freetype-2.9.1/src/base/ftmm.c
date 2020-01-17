@@ -440,7 +440,7 @@
                          FT_UInt     axis_index,
                          FT_UInt*    flags )
   {
-    FT_UShort*  axis_flags;
+    FT_Uint*  axis_flags;
 
 
     if ( !master || !flags )
@@ -450,7 +450,7 @@
       return FT_THROW( Invalid_Argument );
 
     /* the axis flags array immediately follows the data of `master' */
-    axis_flags = (FT_UShort*)&( master[1] );
+    axis_flags = (FT_Uint*)&( master[1] );
     *flags     = axis_flags[axis_index];
 
     return FT_Err_Ok;

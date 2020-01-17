@@ -492,7 +492,7 @@ dmfexit:
 
 typedef struct DMF_HNODE
 {
-	short int left, right;
+	int int left, right;
 	BYTE value;
 } DMF_HNODE;
 

@@ -132,7 +132,7 @@
     FT_UInt      old_char;
     FT_UInt      in_code;
 
-    FT_UShort*   prefix;      /* always dynamically allocated / reallocated */
+    FT_Uint*   prefix;      /* always dynamically allocated / reallocated */
     FT_Byte*     suffix;      /* suffix = (FT_Byte*)(prefix + prefix_size)  */
     FT_UInt      prefix_size; /* number of slots in `prefix' or `suffix'    */
 

@@ -118,11 +118,11 @@ BOOL CSoundFile::ReadWav(const BYTE *lpStream, DWORD dwMemLength)
 		if (pfmt->bitspersample >= 16)
 		{
 			int slsize = pfmt->bitspersample >> 3;
-			signed short *p = (signed short *)pins->pSample;
+			signed int *p = (signed int *)pins->pSample;
 			signed char *psrc = (signed char *)(lpStream+dwMemPos+8+nChn*slsize+slsize-2);
 			for (UINT i=0; i<len; i++)
 			{
-				p[i] = *((signed short *)psrc);
+				p[i] = *((signed int *)psrc);
 				psrc += samplesize;
 			}
 			p[len+1] = p[len] = p[len-1];
@@ -172,7 +172,7 @@ static const int gIMAUnpackTable[90] =
   32767, 0
 };
 
-BOOL IMAADPCMUnpack16(signed short *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes, UINT pkBlkAlign)
+BOOL IMAADPCMUnpack16(signed int *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes, UINT pkBlkAlign)
 //------------------------------------------------------------------------------------------------
 {
 	static const int gIMAIndexTab[8] =  { -1, -1, -1, -1, 2, 4, 6, 8 };
@@ -185,11 +185,11 @@ BOOL IMAADPCMUnpack16(signed short *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes
 	while ((nPos < nLen) && (dwBytes > 4))
 	{
 		int nIndex;
-		value = *((short int *)psrc);
+		value = *((int int *)psrc);
 		nIndex = psrc[2];
 		psrc += 4;
 		dwBytes -= 4;
-		pdest[nPos++] = (short int)value;
+		pdest[nPos++] = (int int)value;
 		for (UINT i=0; ((i<(pkBlkAlign-4)*2) && (nPos < nLen) && (dwBytes)); i++)
 		{
 			BYTE delta;
@@ -211,7 +211,7 @@ BOOL IMAADPCMUnpack16(signed short *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes
 			if (nIndex > 88) nIndex = 88;
 			if (value > 32767) value = 32767; else
 			if (value < -32768) value = -32768;
-			pdest[nPos++] = (short int)value;
+			pdest[nPos++] = (int int)value;
 		}
 	}
 	return TRUE;

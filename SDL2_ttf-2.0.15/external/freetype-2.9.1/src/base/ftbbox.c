@@ -446,7 +446,7 @@
     FT_BBox     bbox = {  0x7FFFFFFFL,  0x7FFFFFFFL,
                          -0x7FFFFFFFL, -0x7FFFFFFFL };
     FT_Vector*  vec;
-    FT_UShort   n;
+    FT_Uint   n;
 
 
     if ( !abbox )

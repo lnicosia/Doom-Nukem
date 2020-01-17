@@ -49,7 +49,7 @@ FT_BEGIN_HEADER
   /*
    * The data models that we expect to support are as follows:
    *
-   *   name  char short int long long-long pointer example
+   *   name  char int int long long-long pointer example
    *  -----------------------------------------------------
    *   ILP32  8    16    32  32     64*      32    32-bit MacOS, x86
    *   LLP64  8    16    32  32     64       64    x64

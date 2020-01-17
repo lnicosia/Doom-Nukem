@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 14:06:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:54:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,30 @@ int		parse_value(t_env *env, t_map_parser *parser, char **line,
 	double		value;
 
 	(void)env;
-	if (eparser->event.target_type == INT)
+	if (eparser->event.type == INT)
 	{
 		if (valid_number(*line, parser))
 			return (invalid_char("before event value", "a digit", **line,
 						parser));
 			value = ft_atoi(*line);
+		*line = skip_number(*line);
 	}
-	if (eparser->event.target_type == DOUBLE)
+	if (eparser->event.type == DOUBLE)
 	{
 		if (valid_number(*line, parser))
 			return (invalid_char("before event value", "a digit", **line,
 						parser));
 			value = ft_atof(*line);
+		*line = skip_number(*line);
 	}
-	if (eparser->event.target_type == UINT32)
+	if (eparser->event.type == UINT32)
 	{
 		if (valid_hexa(*line, parser))
-			return (invalid_char("before event value", "a digit", **line,
+			return (invalid_char("before event value", "a hexa digit", **line,
 						parser));
 			value = ft_atoi_base(*line, "0123456789ABCDEF");
+		*line = skip_hexa(*line);
 	}
-	*line = skip_number(*line);
 	if (eparser->event.mod_type == FIXED)
 		eparser->event.goal = value;
 	else if (eparser->event.mod_type == INCR)

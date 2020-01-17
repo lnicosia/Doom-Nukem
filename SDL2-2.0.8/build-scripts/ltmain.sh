@@ -46,7 +46,7 @@
 #   -v, --verbose            print more informational messages than default
 #       --no-verbose         don't print the extra informational messages
 #       --version            print version information
-#   -h, --help, --help-all   print short, long, or detailed help message
+#   -h, --help, --help-all   print int, long, or detailed help message
 #
 # MODE must be one of the following:
 #
@@ -733,7 +733,7 @@ func_version ()
 }
 
 # func_usage
-# Echo short help message to standard output and exit.
+# Echo int help message to standard output and exit.
 func_usage ()
 {
     $opt_debug
@@ -793,17 +793,17 @@ func_missing_arg ()
 }
 
 
-# func_split_short_opt shortopt
-# Set func_split_short_opt_name and func_split_short_opt_arg shell
-# variables after splitting SHORTOPT after the 2nd character.
-func_split_short_opt ()
+# func_split_int_opt intopt
+# Set func_split_int_opt_name and func_split_int_opt_arg shell
+# variables after splitting intOPT after the 2nd character.
+func_split_int_opt ()
 {
-    my_sed_short_opt='1s/^\(..\).*$/\1/;q'
-    my_sed_short_rest='1s/^..\(.*\)$/\1/;q'
+    my_sed_int_opt='1s/^\(..\).*$/\1/;q'
+    my_sed_int_rest='1s/^..\(.*\)$/\1/;q'
 
-    func_split_short_opt_name=`$ECHO "$1" | $SED "$my_sed_short_opt"`
-    func_split_short_opt_arg=`$ECHO "$1" | $SED "$my_sed_short_rest"`
-} # func_split_short_opt may be replaced by extended shell implementation
+    func_split_int_opt_name=`$ECHO "$1" | $SED "$my_sed_int_opt"`
+    func_split_int_opt_arg=`$ECHO "$1" | $SED "$my_sed_int_rest"`
+} # func_split_int_opt may be replaced by extended shell implementation
 
 
 # func_split_long_opt longopt
@@ -1011,7 +1011,7 @@ _LT_EOF
 }
 
 
-# Shorthand for --mode=foo, only valid as the first argument
+# inthand for --mode=foo, only valid as the first argument
 case $1 in
 clean|clea|cle|cl)
   shift; set dummy --mode clean ${1+"$@"}; shift
@@ -1155,10 +1155,10 @@ func_enable_tag "$optarg"
 			shift
 			;;
 
-      # Separate non-argument short options:
+      # Separate non-argument int options:
       -\?*|-h*|-n*|-v*)
-			func_split_short_opt "$opt"
-			set dummy "$func_split_short_opt_name" "-$func_split_short_opt_arg" ${1+"$@"}
+			func_split_int_opt "$opt"
+			set dummy "$func_split_int_opt_name" "-$func_split_int_opt_arg" ${1+"$@"}
 			shift
 			;;
 
@@ -8205,7 +8205,7 @@ EOF
 		func_verbose "using reloadable object file for export list..."
 		skipped_export=:
 		# Break out early, otherwise skipped_export may be
-		# set to false by a later but shorter cmd.
+		# set to false by a later but inter cmd.
 		break
 	      fi
 	    done

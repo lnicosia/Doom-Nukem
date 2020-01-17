@@ -229,7 +229,7 @@ Cocoa_WarpMouseGlobal(int x, int y)
 
     CGWarpMouseCursorPosition(point);
 
-    /* CGWarpMouse causes a short delay by default, which is preventable by
+    /* CGWarpMouse causes a int delay by default, which is preventable by
      * Calling this directly after. CGSetLocalEventsSuppressionInterval can also
      * prevent it, but it's deprecated as of OS X 10.6.
      */

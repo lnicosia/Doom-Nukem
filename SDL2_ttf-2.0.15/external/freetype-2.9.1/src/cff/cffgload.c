@@ -273,8 +273,8 @@
         if ( !error )
         {
           FT_Bool    has_vertical_info;
-          FT_UShort  advance;
-          FT_Short   dummy;
+          FT_Uint  advance;
+          FT_int   dummy;
 
 
           glyph->root.outline.n_points   = 0;
@@ -551,8 +551,8 @@
 
         if ( face->horizontal.number_Of_HMetrics )
         {
-          FT_Short   horiBearingX = 0;
-          FT_UShort  horiAdvance  = 0;
+          FT_int   horiBearingX = 0;
+          FT_Uint  horiAdvance  = 0;
 
 
           ( (SFNT_Service)face->sfnt )->get_metrics( face, 0,
@@ -578,8 +578,8 @@
         /* get the vertical metrics from the vmtx table if we have one */
         if ( has_vertical_info )
         {
-          FT_Short   vertBearingY = 0;
-          FT_UShort  vertAdvance  = 0;
+          FT_int   vertBearingY = 0;
+          FT_Uint  vertAdvance  = 0;
 
 
           ( (SFNT_Service)face->sfnt )->get_metrics( face, 1,

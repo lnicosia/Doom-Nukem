@@ -228,7 +228,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 		;;
 	esac
 	# Since CPU_TYPE-MANUFACTURER-KERNEL-OPERATING_SYSTEM:
-	# contains redundant information, the shorter form:
+	# contains redundant information, the inter form:
 	# CPU_TYPE-MANUFACTURER-OPERATING_SYSTEM is used.
 	echo "${machine}-${os}${release}${abi}"
 	exit ;;

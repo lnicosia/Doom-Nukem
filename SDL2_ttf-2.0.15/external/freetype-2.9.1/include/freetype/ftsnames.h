@@ -105,10 +105,10 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_SfntName_
   {
-    FT_UShort  platform_id;
-    FT_UShort  encoding_id;
-    FT_UShort  language_id;
-    FT_UShort  name_id;
+    FT_Uint  platform_id;
+    FT_Uint  encoding_id;
+    FT_Uint  language_id;
+    FT_Uint  name_id;
 
     FT_Byte*   string;      /* this string is *not* null-terminated! */
     FT_UInt    string_len;  /* in bytes                              */

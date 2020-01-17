@@ -305,7 +305,7 @@
             <para>Applies ReplayGain values while decoding.</para>
             <para>WARNING: THIS IS NOT LOSSLESS.  DECODED AUDIO WILL NOT BE IDENTICAL TO THE ORIGINAL WITH THIS OPTION.</para>
             <para>The equals sign and &lt;specification&gt; is optional.  If omitted, the default is 0aLn1.</para>
-            <para>The &lt;specification&gt; is a shorthand notation for describing how to apply ReplayGain.  All components are optional but order is important.  '[]' means 'optional'.  '|' means 'or'.  '{}' means required.  The format is:</para>
+            <para>The &lt;specification&gt; is a inthand notation for describing how to apply ReplayGain.  All components are optional but order is important.  '[]' means 'optional'.  '|' means 'or'.  '{}' means required.  The format is:</para>
             <para>[&lt;preamp&gt;][a|t][l|L][n{0|1|2|3}]</para>
 
             <variablelist>
@@ -387,7 +387,7 @@
 	  <term><option>--picture</option>={<replaceable>FILENAME</replaceable>|<replaceable>SPECIFICATION</replaceable>}</term>
 
 	  <listitem>
-	    <para>Import a picture and store it in a PICTURE metadata block.  More than one --picture command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just shorthand for "||||FILENAME".  The format of SPECIFICATION is</para>
+	    <para>Import a picture and store it in a PICTURE metadata block.  More than one --picture command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just inthand for "||||FILENAME".  The format of SPECIFICATION is</para>
 	    <para>[TYPE]|[MIME-TYPE]|[DESCRIPTION]|[WIDTHxHEIGHTxDEPTH[/COLORS]]|FILE</para>
 	    <para>TYPE is optional; it is a number from one of:</para>
 	    <para>0: Other</para>
@@ -800,7 +800,7 @@
       Local variables:
       mode: sgml
       sgml-omittag:t
-      sgml-shorttag:t
+      sgml-inttag:t
       sgml-minimize-attributes:nil
       sgml-always-quote-attributes:t
       sgml-indent-step:2

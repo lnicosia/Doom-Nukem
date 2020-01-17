@@ -28,12 +28,12 @@
 #include "FLAC/assert.h"
 #include "share/grabbag.h" /* for grabbag__picture_parse_specification() etc */
 
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 
 static FLAC__bool import_pic_from(const char *filename, FLAC__StreamMetadata **picture, const char *specification, FLAC__bool *needs_write);
 static FLAC__bool export_pic_to(const char *filename, const FLAC__StreamMetadata *picture, const char *pic_filename);
 
-FLAC__bool do_shorthand_operation__picture(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
+FLAC__bool do_inthand_operation__picture(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
 {
 	FLAC__bool ok = true, has_type1 = false, has_type2 = false;
 	FLAC__StreamMetadata *picture = 0;

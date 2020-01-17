@@ -175,7 +175,7 @@
      *
      */
     if ( FT_REALLOC_MULT( state->prefix, old_size, new_size,
-                          sizeof ( FT_UShort ) + sizeof ( FT_Byte ) ) )
+                          sizeof ( FT_Uint ) + sizeof ( FT_Byte ) ) )
       return -1;
 
     /* now adjust `suffix' and move the data accordingly */
@@ -392,7 +392,7 @@
 
           FT_ASSERT( state->free_ent < state->prefix_size );
 
-          state->prefix[state->free_ent] = (FT_UShort)old_code;
+          state->prefix[state->free_ent] = (FT_Uint)old_code;
           state->suffix[state->free_ent] = (FT_Byte)  old_char;
 
           state->free_ent += 1;

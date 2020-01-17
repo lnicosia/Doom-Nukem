@@ -91,7 +91,7 @@ static opus_int16 *compute_ebands(opus_int32 Fs, int frame_size, int res, int *n
    opus_int16 *eBands;
    int i, j, lin, low, high, nBark, offset=0;
 
-   /* All modes that have 2.5 ms short blocks use the same definition */
+   /* All modes that have 2.5 ms int blocks use the same definition */
    if (Fs == 400*(opus_int32)frame_size)
    {
       *nbEBands = sizeof(eband5ms)/sizeof(eband5ms[0])-1;
@@ -175,7 +175,7 @@ static void compute_allocation_table(CELTMode *mode)
       return;
 
    /* Check for standard mode */
-   if (mode->Fs == 400*(opus_int32)mode->shortMdctSize)
+   if (mode->Fs == 400*(opus_int32)mode->intMdctSize)
    {
       for (i=0;i<BITALLOC_SIZE*mode->nbEBands;i++)
          allocVectors[i] = band_allocation[i];
@@ -191,15 +191,15 @@ static void compute_allocation_table(CELTMode *mode)
          int k;
          for (k=0;k<maxBands;k++)
          {
-            if (400*(opus_int32)eband5ms[k] > mode->eBands[j]*(opus_int32)mode->Fs/mode->shortMdctSize)
+            if (400*(opus_int32)eband5ms[k] > mode->eBands[j]*(opus_int32)mode->Fs/mode->intMdctSize)
                break;
          }
          if (k>maxBands-1)
             allocVectors[i*mode->nbEBands+j] = band_allocation[i*maxBands + maxBands-1];
          else {
             opus_int32 a0, a1;
-            a1 = mode->eBands[j]*(opus_int32)mode->Fs/mode->shortMdctSize - 400*(opus_int32)eband5ms[k-1];
-            a0 = 400*(opus_int32)eband5ms[k] - mode->eBands[j]*(opus_int32)mode->Fs/mode->shortMdctSize;
+            a1 = mode->eBands[j]*(opus_int32)mode->Fs/mode->intMdctSize - 400*(opus_int32)eband5ms[k-1];
+            a0 = 400*(opus_int32)eband5ms[k] - mode->eBands[j]*(opus_int32)mode->Fs/mode->intMdctSize;
             allocVectors[i*mode->nbEBands+j] = (a0*band_allocation[i*maxBands+k-1]
                                              + a1*band_allocation[i*maxBands+k])/(a0+a1);
          }
@@ -243,7 +243,7 @@ CELTMode *opus_custom_mode_create(opus_int32 Fs, int frame_size, int *error)
       for (j=0;j<4;j++)
       {
          if (Fs == static_mode_list[i]->Fs &&
-               (frame_size<<j) == static_mode_list[i]->shortMdctSize*static_mode_list[i]->nbShortMdcts)
+               (frame_size<<j) == static_mode_list[i]->intMdctSize*static_mode_list[i]->nbintMdcts)
          {
             if (error)
                *error = OPUS_OK;
@@ -295,7 +295,7 @@ CELTMode *opus_custom_mode_create(opus_int32 Fs, int frame_size, int *error)
      LM = 0;
    }
 
-   /* Shorts longer than 3.3ms are not supported. */
+   /* ints longer than 3.3ms are not supported. */
    if ((opus_int32)(frame_size>>LM)*300 > Fs)
    {
       if (error)
@@ -338,20 +338,20 @@ CELTMode *opus_custom_mode_create(opus_int32 Fs, int frame_size, int *error)
    }
 
    mode->maxLM = LM;
-   mode->nbShortMdcts = 1<<LM;
-   mode->shortMdctSize = frame_size/mode->nbShortMdcts;
-   res = (mode->Fs+mode->shortMdctSize)/(2*mode->shortMdctSize);
+   mode->nbintMdcts = 1<<LM;
+   mode->intMdctSize = frame_size/mode->nbintMdcts;
+   res = (mode->Fs+mode->intMdctSize)/(2*mode->intMdctSize);
 
-   mode->eBands = compute_ebands(Fs, mode->shortMdctSize, res, &mode->nbEBands);
+   mode->eBands = compute_ebands(Fs, mode->intMdctSize, res, &mode->nbEBands);
    if (mode->eBands==NULL)
       goto failure;
 
    mode->effEBands = mode->nbEBands;
-   while (mode->eBands[mode->effEBands] > mode->shortMdctSize)
+   while (mode->eBands[mode->effEBands] > mode->intMdctSize)
       mode->effEBands--;
 
    /* Overlap must be divisible by 4 */
-   mode->overlap = ((mode->shortMdctSize>>2)<<2);
+   mode->overlap = ((mode->intMdctSize>>2)<<2);
 
    compute_allocation_table(mode);
    if (mode->allocVectors==NULL)
@@ -380,7 +380,7 @@ CELTMode *opus_custom_mode_create(opus_int32 Fs, int frame_size, int *error)
 
    compute_pulse_cache(mode, mode->maxLM);
 
-   if (clt_mdct_init(&mode->mdct, 2*mode->shortMdctSize*mode->nbShortMdcts,
+   if (clt_mdct_init(&mode->mdct, 2*mode->intMdctSize*mode->nbintMdcts,
            mode->maxLM) == 0)
       goto failure;
 

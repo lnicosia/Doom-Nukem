@@ -159,7 +159,7 @@
 /* Define to the full name and version of this package. */
 #undef PACKAGE_STRING
 
-/* Define to the one symbol short name of this package. */
+/* Define to the one symbol int name of this package. */
 #undef PACKAGE_TARNAME
 
 /* Define to the home page for this package. */

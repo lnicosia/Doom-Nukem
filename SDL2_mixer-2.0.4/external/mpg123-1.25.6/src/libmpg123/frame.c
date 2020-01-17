@@ -268,7 +268,7 @@ int frame_buffers(mpg123_handle *fr)
 	the used-to-be-static buffer of the synth functions, has some subtly different types/sizes
 
 	2to1, 4to1, ntom, generic, i386: real[2][2][0x110]
-	mmx, sse: short[2][2][0x110]
+	mmx, sse: int[2][2][0x110]
 	i586(_dither): 4352 bytes; int/long[2][2][0x110]
 	i486: int[2][2][17*FIR_BUFFER_SIZE]
 	altivec: static real __attribute__ ((aligned (16))) buffs[4][4][0x110]
@@ -276,7 +276,7 @@ int frame_buffers(mpg123_handle *fr)
 	Huh, altivec looks like fun. Well, let it be large... then, the 16 byte alignment seems to be implicit on MacOSX malloc anyway.
 	Let's make a reasonable attempt to allocate enough memory...
 	Keep in mind: biggest ones are i486 and altivec (mutually exclusive!), then follows i586 and normal real.
-	mmx/sse use short but also real for resampling.
+	mmx/sse use int but also real for resampling.
 	Thus, minimum is 2*2*0x110*sizeof(real).
 */
 	if(fr->cpu_opts.type == altivec) buffssize = 4*4*0x110*sizeof(real);
@@ -299,10 +299,10 @@ int frame_buffers(mpg123_handle *fr)
 	if(fr->rawbuffs == NULL) fr->rawbuffs = (unsigned char*) malloc(buffssize);
 	if(fr->rawbuffs == NULL) return -1;
 	fr->rawbuffss = buffssize;
-	fr->short_buffs[0][0] = aligned_pointer(fr->rawbuffs,short,16);
-	fr->short_buffs[0][1] = fr->short_buffs[0][0] + 0x110;
-	fr->short_buffs[1][0] = fr->short_buffs[0][1] + 0x110;
-	fr->short_buffs[1][1] = fr->short_buffs[1][0] + 0x110;
+	fr->int_buffs[0][0] = aligned_pointer(fr->rawbuffs,int,16);
+	fr->int_buffs[0][1] = fr->int_buffs[0][0] + 0x110;
+	fr->int_buffs[1][0] = fr->int_buffs[0][1] + 0x110;
+	fr->int_buffs[1][1] = fr->int_buffs[1][0] + 0x110;
 	fr->real_buffs[0][0] = aligned_pointer(fr->rawbuffs,real,16);
 	fr->real_buffs[0][1] = fr->real_buffs[0][0] + 0x110;
 	fr->real_buffs[1][0] = fr->real_buffs[0][1] + 0x110;

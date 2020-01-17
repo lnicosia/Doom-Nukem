@@ -8,8 +8,8 @@
 	Dear visitor:
 	If you feel you don't understand fully the works of this file, your feeling might be correct.
 
-	Optimize-TODO: put short bands into the band-field without the stride of 3 reals
-	Length-optimze: unify long and short band code where it is possible
+	Optimize-TODO: put int bands into the band-field without the stride of 3 reals
+	Length-optimze: unify long and int band code where it is possible
 
 	The int-vs-pointer situation has to be cleaned up.
 */
@@ -85,10 +85,10 @@ struct III_sideinfo
 
 struct bandInfoStruct
 {
-	unsigned short longIdx[23];
+	unsigned int longIdx[23];
 	unsigned char longDiff[22];
-	unsigned short shortIdx[14];
-	unsigned char shortDiff[13];
+	unsigned int intIdx[14];
+	unsigned char intDiff[13];
 };
 
 /* Techy details about our friendly MPEG data. Fairly constant over the years;-) */
@@ -290,7 +290,7 @@ void init_layer3(void)
 			*mp++ = 3;
 			*mp++ = cb;
 		}
-		bdf = bi->shortDiff+3;
+		bdf = bi->intDiff+3;
 		for(cb=3;cb<13;cb++)
 		{
 			int l = (*bdf++) >> 1;
@@ -306,7 +306,7 @@ void init_layer3(void)
 		mapend[j][0] = mp;
 
 		mp = map[j][1] = mapbuf1[j];
-		bdf = bi->shortDiff+0;
+		bdf = bi->intDiff+0;
 		for(i=0,cb=0;cb<13;cb++)
 		{
 			int l = (*bdf++) >> 1;
@@ -387,9 +387,9 @@ void init_layer3_stuff(mpg123_handle *fr, real (*gainpow2)(mpg123_handle *fr, in
 		}
 		for(i=0;i<14;i++)
 		{
-			fr->shortLimit[j][i] = (bandInfo[j].shortIdx[i] - 1) / 18 + 1;
-			if(fr->shortLimit[j][i] > (fr->down_sample_sblimit) )
-			fr->shortLimit[j][i] = fr->down_sample_sblimit;
+			fr->intLimit[j][i] = (bandInfo[j].intIdx[i] - 1) / 18 + 1;
+			if(fr->intLimit[j][i] > (fr->down_sample_sblimit) )
+			fr->intLimit[j][i] = fr->down_sample_sblimit;
 		}
 	}
 }
@@ -571,7 +571,7 @@ static int III_get_scale_factors_1(mpg123_handle *fr, int *scf,struct gr_info_s 
 
 		for(i = 18; i; i--) *scf++ = getbits_fast(fr, num1);
 
-		*scf++ = 0; *scf++ = 0; *scf++ = 0; /* short[13][0..2] = 0 */
+		*scf++ = 0; *scf++ = 0; *scf++ = 0; /* int[13][0..2] = 0 */
 	}
 	else
 	{
@@ -781,7 +781,7 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 
 	if(gr_info->block_type == 2)
 	{
-		/* decoding with short or mixed mode BandIndex table */
+		/* decoding with int or mixed mode BandIndex table */
 		int i,max[4];
 		int step=0,lwin=3,cb=0;
 		register real v = 0.0;
@@ -834,7 +834,7 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 					}
 				}
 				{
-					const short *val = h->table;
+					const int *val = h->table;
 					REFRESH_MASK;
 #ifdef USE_NEW_HUFFTABLE
 					while((y=val[(MASK_UTYPE)mask>>(BITSHIFT+4)])<0)
@@ -915,8 +915,8 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 		for(;l3 && (part2remain+num > 0);l3--)
 		{
 			const struct newhuff* h;
-			const short* val;
-			register short a;
+			const int* val;
+			register int a;
 
 			h = htc+gr_info->count1table_select;
 			val = h->table;
@@ -984,13 +984,13 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 		}
 
 		if(lwin < 3)
-		{ /* short band? */
+		{ /* int band? */
 			while(1)
 			{
 				for(;mc > 0;mc--)
 				{
 					CHECK_XRPNT;
-					*xrpnt = DOUBLE_TO_REAL(0.0); xrpnt += 3; /* short band -> step=3 */
+					*xrpnt = DOUBLE_TO_REAL(0.0); xrpnt += 3; /* int band -> step=3 */
 					*xrpnt = DOUBLE_TO_REAL(0.0); xrpnt += 3;
 				}
 				if(m >= me)
@@ -1013,7 +1013,7 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 		{
 			int rmax = max[0] > max[1] ? max[0] : max[1];
 			rmax = (rmax > max[2] ? rmax : max[2]) + 1;
-			gr_info->maxb = rmax ? fr->shortLimit[sfreq][rmax] : fr->longLimit[sfreq][max[3]+1];
+			gr_info->maxb = rmax ? fr->intLimit[sfreq][rmax] : fr->longLimit[sfreq][max[3]+1];
 		}
 
 	}
@@ -1053,7 +1053,7 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 					}
 				}
 				{
-					const short *val = h->table;
+					const int *val = h->table;
 					REFRESH_MASK;
 #ifdef USE_NEW_HUFFTABLE
 					while((y=val[(MASK_UTYPE)mask>>(BITSHIFT+4)])<0)
@@ -1129,12 +1129,12 @@ static int III_dequantize_sample(mpg123_handle *fr, real xr[SBLIMIT][SSLIMIT],in
 			}
 		}
 
-		/* short (count1table) values */
+		/* int (count1table) values */
 		for(;l3 && (part2remain+num > 0);l3--)
 		{
 			const struct newhuff *h = htc+gr_info->count1table_select;
-			const short *val = h->table;
-			register short a;
+			const int *val = h->table;
+			register int a;
 
 			REFRESH_MASK;
 			while((a=*val++)<0)
@@ -1283,8 +1283,8 @@ static void III_i_stereo(real xr_buf[2][SBLIMIT][SSLIMIT],int *scalefac, struct 
 				if(is_p != 7)
 				{
 					real t1,t2;
-					sb  = bi->shortDiff[sfb];
-					idx = bi->shortIdx[sfb] + lwin;
+					sb  = bi->intDiff[sfb];
+					idx = bi->intIdx[sfb] + lwin;
 					t1  = tab1[is_p]; t2 = tab2[is_p];
 					for (; sb > 0; sb--,idx+=3)
 					{
@@ -1299,12 +1299,12 @@ static void III_i_stereo(real xr_buf[2][SBLIMIT][SSLIMIT],int *scalefac, struct 
 /* in the original: copy 10 to 11 , here: copy 11 to 12 
 maybe still wrong??? (copy 12 to 13?) */
 			is_p = scalefac[11*3+lwin-gr_info->mixed_block_flag]; /* scale: 0-15 */
-			sb   = bi->shortDiff[12];
-			idx  = bi->shortIdx[12] + lwin;
+			sb   = bi->intDiff[12];
+			idx  = bi->intIdx[12] + lwin;
 #else
 			is_p = scalefac[10*3+lwin-gr_info->mixed_block_flag]; /* scale: 0-15 */
-			sb   = bi->shortDiff[11];
-			idx  = bi->shortIdx[11] + lwin;
+			sb   = bi->intDiff[11];
+			idx  = bi->intIdx[11] + lwin;
 #endif
 			if(is_p != 7)
 			{
@@ -1941,7 +1941,7 @@ static void III_hybrid(real fsIn[SBLIMIT][SSLIMIT], real tsOut[SSLIMIT][SBLIMIT]
 int do_layer3(mpg123_handle *fr)
 {
 	int gr, ch, ss,clip=0;
-	int scalefacs[2][39]; /* max 39 for short[13][3] mode, mixed: 38, long: 22 */
+	int scalefacs[2][39]; /* max 39 for int[13][3] mode, mixed: 38, long: 22 */
 	struct III_sideinfo sideinfo;
 	int stereo = fr->stereo;
 	int single = fr->single;

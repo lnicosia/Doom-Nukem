@@ -580,7 +580,7 @@ extern "C" {
 
 /** Gets the pitch of the last decoded frame, if available.
   * This can be used for any post-processing algorithm requiring the use of pitch,
-  * e.g. time stretching/shortening. If the last frame was not voiced, or if the
+  * e.g. time stretching/intening. If the last frame was not voiced, or if the
   * pitch was not coded in the frame, then zero is returned.
   *
   * This CTL is only implemented for decoder instances.

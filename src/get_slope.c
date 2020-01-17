@@ -71,7 +71,7 @@ t_v2	get_sector_normal(t_sector sector, t_env *env)
 ** Returns a vertex euclidean distance from its sector's first vertex (in 2d).
 */
 
-double	get_distance(t_sector sector, short vertex_nb, t_env *env)
+double	get_distance(t_sector sector, int vertex_nb, t_env *env)
 {
 	t_vertex	v0;
 	t_vertex	v1;

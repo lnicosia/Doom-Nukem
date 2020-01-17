@@ -230,7 +230,7 @@ static ULONG modticks(MIDHANDLE *h, ULONG miditick)
 static void mid_adjust_for_optimal_tempo(MIDHANDLE *h, int maxtempo)
 {
 	// the tempo is adjusted so that the maximum tempo is 255
-	// this way we have the biggest change that very short notes get played
+	// this way we have the biggest change that very int notes get played
 	// and we make sure the tempo doesn't become too large or too small
 	// if the piece in hand isn't so weird it changes tempo from 20 to 255, that is.
 	// tempo is only registered in first track (h->track) because it is a global event
@@ -716,7 +716,7 @@ static uint32_t mid_read_long(MIDHANDLE *h)
 	return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|buf[3];
 }
 
-static short int mid_read_short(MIDHANDLE *h)
+static int int mid_read_int(MIDHANDLE *h)
 {
 	BYTE buf[2];
 	mmreadUBYTES(buf, 2, h->mmf);
@@ -1145,7 +1145,7 @@ static int midiword(BYTE *b)
 	return i;
 }
 
-static int midishort(BYTE *b)
+static int midiint(BYTE *b)
 {
 	return midiword(b) - 0x2000;
 }
@@ -1193,9 +1193,9 @@ BOOL CSoundFile::ReadMID(const BYTE *lpStream, DWORD dwMemLength)
 	pat_resetsmp();
 	pat_init_patnames();
 	mmfseek(h->mmf,8,SEEK_SET);
-	h->midiformat	= mid_read_short(h);
-	h->miditracks = mid_read_short(h);
-	h->resolution = mid_read_short(h);
+	h->midiformat	= mid_read_int(h);
+	h->miditracks = mid_read_int(h);
+	h->resolution = mid_read_int(h);
 	// at this point the h->mmf is positioned at first miditrack
 	if( h->midiformat == 0 ) h->miditracks = 1;
 	if( h->resolution & 0x8000 )
@@ -1371,8 +1371,8 @@ BOOL CSoundFile::ReadMID(const BYTE *lpStream, DWORD dwMemLength)
 					miditracklen--;
 					if( h->debug )
 						printf("%2d %08ld pitch wheel change: ch %d %d\n",
-						t, (long)(h->tracktime), ch + 1, midishort(midibyte));
-					mid_add_pitchwheel(h, ch, midishort(midibyte));
+						t, (long)(h->tracktime), ch + 1, midiint(midibyte));
+					mid_add_pitchwheel(h, ch, midiint(midibyte));
 					break;
 				case 0xf0: // system & realtime
 					switch( runningstatus ) {
@@ -1391,7 +1391,7 @@ BOOL CSoundFile::ReadMID(const BYTE *lpStream, DWORD dwMemLength)
 							miditracklen--;
 							if( h->debug )
 								printf("%2d %08ld song position pointer: %d",
-								t, (long)(h->tracktime), midishort(midibyte));
+								t, (long)(h->tracktime), midiint(midibyte));
 							break;
 						case 0xf7:
 							delta = h->deltatime;

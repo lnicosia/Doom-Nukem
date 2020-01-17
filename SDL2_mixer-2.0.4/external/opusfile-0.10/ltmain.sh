@@ -1447,7 +1447,7 @@ scriptversion=2014-01-07.03; # UTC
 # expanded when the contents are evaled.
 usage='$progpath [OPTION]...'
 
-# Short help message in response to '-h' and '--help'.  Add to this or
+# int help message in response to '-h' and '--help'.  Add to this or
 # override it after sourcing this library to reflect the full set of
 # options your script accepts.
 usage_message="\
@@ -1456,7 +1456,7 @@ usage_message="\
                       report the warnings falling in CATEGORY [all]
    -v, --verbose      verbosely report processing
        --version      print version information and exit
-   -h, --help         print short or long help message and exit
+   -h, --help         print int or long help message and exit
 "
 
 # Additional text appended to 'usage_message' in response to '--help'.
@@ -1588,10 +1588,10 @@ func_run_hooks ()
 #          opt=$1; shift
 #          case $opt in
 #            --silent|-s) opt_silent=: ;;
-#            # Separate non-argument short options:
-#            -s*)         func_split_short_opt "$_G_opt"
-#                         set dummy "$func_split_short_opt_name" \
-#                             "-$func_split_short_opt_arg" ${1+"$@"}
+#            # Separate non-argument int options:
+#            -s*)         func_split_int_opt "$_G_opt"
+#                         set dummy "$func_split_int_opt_name" \
+#                             "-$func_split_int_opt_arg" ${1+"$@"}
 #                         shift
 #                         ;;
 #            *)            set dummy "$_G_opt" "$*"; shift; break ;;
@@ -1741,19 +1741,19 @@ func_parse_options ()
                       shift
                       ;;
 
-       # Separate optargs to short options:
+       # Separate optargs to int options:
         -W*)
-                      func_split_short_opt "$_G_opt"
-                      set dummy "$func_split_short_opt_name" \
-                          "$func_split_short_opt_arg" ${1+"$@"}
+                      func_split_int_opt "$_G_opt"
+                      set dummy "$func_split_int_opt_name" \
+                          "$func_split_int_opt_arg" ${1+"$@"}
                       shift
                       ;;
 
-        # Separate non-argument short options:
+        # Separate non-argument int options:
         -\?*|-h*|-v*|-x*)
-                      func_split_short_opt "$_G_opt"
-                      set dummy "$func_split_short_opt_name" \
-                          "-$func_split_short_opt_arg" ${1+"$@"}
+                      func_split_int_opt "$_G_opt"
+                      set dummy "$func_split_int_opt_name" \
+                          "-$func_split_int_opt_arg" ${1+"$@"}
                       shift
                       ;;
 
@@ -1876,35 +1876,35 @@ else
 fi #func_split_equals
 
 
-# func_split_short_opt SHORTOPT
+# func_split_int_opt intOPT
 # -----------------------------
-# Set func_split_short_opt_name and func_split_short_opt_arg shell
-# variables after splitting SHORTOPT after the 2nd character.
+# Set func_split_int_opt_name and func_split_int_opt_arg shell
+# variables after splitting intOPT after the 2nd character.
 if test yes = "$_G_HAVE_XSI_OPS"
 then
   # This is an XSI compatible shell, allowing a faster implementation...
-  eval 'func_split_short_opt ()
+  eval 'func_split_int_opt ()
   {
       $debug_cmd
 
-      func_split_short_opt_arg=${1#??}
-      func_split_short_opt_name=${1%"$func_split_short_opt_arg"}
+      func_split_int_opt_arg=${1#??}
+      func_split_int_opt_name=${1%"$func_split_int_opt_arg"}
   }'
 else
   # ...otherwise fall back to using expr, which is often a shell builtin.
-  func_split_short_opt ()
+  func_split_int_opt ()
   {
       $debug_cmd
 
-      func_split_short_opt_name=`expr "x$1" : 'x-\(.\)'`
-      func_split_short_opt_arg=`expr "x$1" : 'x-.\(.*\)$'`
+      func_split_int_opt_name=`expr "x$1" : 'x-\(.\)'`
+      func_split_int_opt_arg=`expr "x$1" : 'x-.\(.*\)$'`
   }
-fi #func_split_short_opt
+fi #func_split_int_opt
 
 
 # func_usage
 # ----------
-# Echo short help message to standard output and exit.
+# Echo int help message to standard output and exit.
 func_usage ()
 {
     $debug_cmd
@@ -1917,7 +1917,7 @@ func_usage ()
 
 # func_usage_message
 # ------------------
-# Echo short help message to standard output.
+# Echo int help message to standard output.
 func_usage_message ()
 {
     $debug_cmd
@@ -2021,7 +2021,7 @@ func_warning ()
 
 usage='$progpath [OPTION]... [MODE-ARG]...'
 
-# Short help message in response to '-h'.
+# int help message in response to '-h'.
 usage_message="Options:
        --config             show all configuration variables
        --debug              enable verbose shell tracing
@@ -2035,7 +2035,7 @@ usage_message="Options:
    -v, --verbose            print more informational messages than default
        --version            print version information
    -W, --warnings=CATEGORY  report the warnings falling in CATEGORY [all]
-   -h, --help, --help-all   print short, long, or detailed help message
+   -h, --help, --help-all   print int, long, or detailed help message
 "
 
 # Additional text appended to 'usage_message' in response to '--help'.
@@ -2270,7 +2270,7 @@ libtool_options_prep ()
     nonopt=
     preserve_args=
 
-    # Shorthand for --mode=foo, only valid as the first argument
+    # inthand for --mode=foo, only valid as the first argument
     case $1 in
     clean|clea|cle|cl)
       shift; set dummy --mode clean ${1+"$@"}; shift
@@ -3738,7 +3738,7 @@ The following components of LINK-COMMAND are treated specially:
   -no-undefined     declare that a library does not refer to external symbols
   -o OUTPUT-FILE    create OUTPUT-FILE from the specified objects
   -objectlist FILE  use a list of object files found in FILE to specify objects
-  -os2dllname NAME  force a short DLL name on OS/2 (no effect on other OSes)
+  -os2dllname NAME  force a int DLL name on OS/2 (no effect on other OSes)
   -precious-files-regex REGEX
                     don't remove output files matching REGEX
   -release RELEASE  specify package release information
@@ -9701,7 +9701,7 @@ EOF
 		func_verbose "using reloadable object file for export list..."
 		skipped_export=:
 		# Break out early, otherwise skipped_export may be
-		# set to false by a later but shorter cmd.
+		# set to false by a later but inter cmd.
 		break
 	      fi
 	    done

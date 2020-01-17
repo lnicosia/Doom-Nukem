@@ -277,7 +277,7 @@
 	[pcf] Fix handling of very large fonts (#47708).
 
 	* src/pcf/pcfread.c (pcf_get_encodings): Make `encodingOffset' an
-	unsigned short.
+	unsigned int.
 	Only reject `0xFFFF' as an invalid encoding offset.
 
 2016-06-25  Werner Lemberg  <wl@gnu.org>
@@ -1079,7 +1079,7 @@
 	Fix clang warnings.
 
 	* src/autofit/aflatin.c (af_latin_hints_compute_segments): Use
-	FT_UShort for `min_flags' and `max_flags'.
+	FT_Uint for `min_flags' and `max_flags'.
 	Initialize `prev_*' variables.
 
 	* src/cff/cffobjs.c (cff_face_init) [FT_DEBUG_LEVEL_TRACE]: Fix
@@ -1123,7 +1123,7 @@
 	identical to the first point in the second one.  This can happen for
 	malformed fonts or spikes.  We either merge the new segment with the
 	previous one (both segments point into the same direction), or we
-	discard the shorter segment if they point into different directions.
+	discard the inter segment if they point into different directions.
 
 2016-02-27  Werner Lemberg  <wl@gnu.org>
 
@@ -3231,7 +3231,7 @@
 
 	[pcf] Improve `FT_ABS' fix from 2015-09-17 (#45999).
 
-	* src/pcf/pcfread.c (pcf_load_font): Do first the cast to FT_Short,
+	* src/pcf/pcfread.c (pcf_load_font): Do first the cast to FT_int,
 	then take the absolute value.
 	Also apply FT_ABS to `height'.
 
@@ -3503,15 +3503,15 @@
 	[autofit] Make glyph style array use 16bit values.
 
 	* include/freetype/ftautoh.h (FT_Prop_GlyphToScriptMap): Use
-	`FT_UShort' for `map' field.
+	`FT_Uint' for `map' field.
 
 	* src/autofit/afglobal.c (af_face_globals_compute_style_coverage,
 	af_face_globals_new), src/autofit/hbshim.c, src/autofit/hbshim.h
-	(af_get_coverage): Use FT_UShort for `glyph_styles' array.
+	(af_get_coverage): Use FT_Uint for `glyph_styles' array.
 
 	* src/autofit/afglobal.h (AF_STYLE_UNASSIGNED, AF_DIGIT): Extend to
 	16 bits.
-	(AF_FaceGlobalsRec): Use `FT_UShort' for `glyph_styles' field.
+	(AF_FaceGlobalsRec): Use `FT_Uint' for `glyph_styles' field.
 
 2015-08-26  Werner Lemberg  <wl@gnu.org>
 
@@ -3693,7 +3693,7 @@
 	[autofit] Improve recognition of flat vs. rounded segments.
 
 	Lower the flatness threshold from upem/8 to upem/14, making the
-	auto-hinter accept shorter elements.
+	auto-hinter accept inter elements.
 
 	Synchronize flat/round stem selection algorithm with blue zone code.
 
@@ -5043,7 +5043,7 @@
 
 2015-02-16  Werner Lemberg  <wl@gnu.org>
 
-	* include/tttables.h (TT_OS2): `fsType' must be FT_UShort.
+	* include/tttables.h (TT_OS2): `fsType' must be FT_Uint.
 
 2015-02-16  Werner Lemberg  <wl@gnu.org>
 
@@ -5656,7 +5656,7 @@
 
 	Based on a patch from Behdad.
 
-	* src/truetype/ttinterp.c (SKIP_Code, GET_ShortIns, NORMalize,
+	* src/truetype/ttinterp.c (SKIP_Code, GET_intIns, NORMalize,
 	SET_SuperRound, ROUND_None, INS_Goto_CodeRange, CUR_Func_move,
 	CUR_Func_move_orig, CUR_Func_round, CUR_Func_cur_ppem,
 	CUR_Func_read_cvt, CUR_Func_write_cvt, CUR_Func_move_cvt,

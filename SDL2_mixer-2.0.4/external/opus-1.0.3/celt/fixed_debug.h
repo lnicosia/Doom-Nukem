@@ -52,27 +52,27 @@ extern opus_int64 celt_mips;
 #define QCONST16(x,bits) ((opus_val16)(.5+(x)*(((opus_val32)1)<<(bits))))
 #define QCONST32(x,bits) ((opus_val32)(.5+(x)*(((opus_val32)1)<<(bits))))
 
-#define VERIFY_SHORT(x) ((x)<=32767&&(x)>=-32768)
+#define VERIFY_int(x) ((x)<=32767&&(x)>=-32768)
 #define VERIFY_INT(x) ((x)<=2147483647LL&&(x)>=-2147483648LL)
 #define VERIFY_UINT(x) ((x)<=(2147483647LLU<<1))
 
 #define SHR(a,b) SHR32(a,b)
 #define PSHR(a,b) PSHR32(a,b)
 
-static inline short NEG16(int x)
+static inline int NEG16(int x)
 {
    int res;
-   if (!VERIFY_SHORT(x))
+   if (!VERIFY_int(x))
    {
-      fprintf (stderr, "NEG16: input is not short: %d\n", (int)x);
+      fprintf (stderr, "NEG16: input is not int: %d\n", (int)x);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = -x;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "NEG16: output is not short: %d\n", (int)res);
+      fprintf (stderr, "NEG16: output is not int: %d\n", (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -103,12 +103,12 @@ static inline int NEG32(opus_int64 x)
 }
 
 #define EXTRACT16(x) EXTRACT16_(x, __FILE__, __LINE__)
-static inline short EXTRACT16_(int x, char *file, int line)
+static inline int EXTRACT16_(int x, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(x))
+   if (!VERIFY_int(x))
    {
-      fprintf (stderr, "EXTRACT16: input is not short: %d in %s: line %d\n", x, file, line);
+      fprintf (stderr, "EXTRACT16: input is not int: %d in %s: line %d\n", x, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -122,9 +122,9 @@ static inline short EXTRACT16_(int x, char *file, int line)
 static inline int EXTEND32_(int x, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(x))
+   if (!VERIFY_int(x))
    {
-      fprintf (stderr, "EXTEND32: input is not short: %d in %s: line %d\n", x, file, line);
+      fprintf (stderr, "EXTEND32: input is not int: %d in %s: line %d\n", x, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -135,20 +135,20 @@ static inline int EXTEND32_(int x, char *file, int line)
 }
 
 #define SHR16(a, shift) SHR16_(a, shift, __FILE__, __LINE__)
-static inline short SHR16_(int a, int shift, char *file, int line)
+static inline int SHR16_(int a, int shift, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(shift))
+   if (!VERIFY_int(a) || !VERIFY_int(shift))
    {
-      fprintf (stderr, "SHR16: inputs are not short: %d >> %d in %s: line %d\n", a, shift, file, line);
+      fprintf (stderr, "SHR16: inputs are not int: %d >> %d in %s: line %d\n", a, shift, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a>>shift;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "SHR16: output is not short: %d in %s: line %d\n", res, file, line);
+      fprintf (stderr, "SHR16: output is not int: %d in %s: line %d\n", res, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -157,20 +157,20 @@ static inline short SHR16_(int a, int shift, char *file, int line)
    return res;
 }
 #define SHL16(a, shift) SHL16_(a, shift, __FILE__, __LINE__)
-static inline short SHL16_(int a, int shift, char *file, int line)
+static inline int SHL16_(int a, int shift, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(shift))
+   if (!VERIFY_int(a) || !VERIFY_int(shift))
    {
-      fprintf (stderr, "SHL16: inputs are not short: %d %d in %s: line %d\n", a, shift, file, line);
+      fprintf (stderr, "SHL16: inputs are not int: %d %d in %s: line %d\n", a, shift, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a<<shift;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "SHL16: output is not short: %d in %s: line %d\n", res, file, line);
+      fprintf (stderr, "SHL16: output is not int: %d in %s: line %d\n", res, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -182,7 +182,7 @@ static inline short SHL16_(int a, int shift, char *file, int line)
 static inline int SHR32(opus_int64 a, int shift)
 {
    opus_int64  res;
-   if (!VERIFY_INT(a) || !VERIFY_SHORT(shift))
+   if (!VERIFY_INT(a) || !VERIFY_int(shift))
    {
       fprintf (stderr, "SHR32: inputs are not int: %d %d\n", (int)a, shift);
 #ifdef FIXED_DEBUG_ASSERT
@@ -204,7 +204,7 @@ static inline int SHR32(opus_int64 a, int shift)
 static inline int SHL32_(opus_int64 a, int shift, char *file, int line)
 {
    opus_int64  res;
-   if (!VERIFY_INT(a) || !VERIFY_SHORT(shift))
+   if (!VERIFY_INT(a) || !VERIFY_int(shift))
    {
       fprintf (stderr, "SHL32: inputs are not int: %lld %d in %s: line %d\n", a, shift, file, line);
 #ifdef FIXED_DEBUG_ASSERT
@@ -234,20 +234,20 @@ static inline int SHL32_(opus_int64 a, int shift, char *file, int line)
 //#define SHL(a,shift) ((a) << (shift))
 
 #define ADD16(a, b) ADD16_(a, b, __FILE__, __LINE__)
-static inline short ADD16_(int a, int b, char *file, int line)
+static inline int ADD16_(int a, int b, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "ADD16: inputs are not short: %d %d in %s: line %d\n", a, b, file, line);
+      fprintf (stderr, "ADD16: inputs are not int: %d %d in %s: line %d\n", a, b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a+b;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "ADD16: output is not short: %d+%d=%d in %s: line %d\n", a,b,res, file, line);
+      fprintf (stderr, "ADD16: output is not int: %d+%d=%d in %s: line %d\n", a,b,res, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -257,20 +257,20 @@ static inline short ADD16_(int a, int b, char *file, int line)
 }
 
 #define SUB16(a, b) SUB16_(a, b, __FILE__, __LINE__)
-static inline short SUB16_(int a, int b, char *file, int line)
+static inline int SUB16_(int a, int b, char *file, int line)
 {
    int res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "SUB16: inputs are not short: %d %d in %s: line %d\n", a, b, file, line);
+      fprintf (stderr, "SUB16: inputs are not int: %d %d in %s: line %d\n", a, b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a-b;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "SUB16: output is not short: %d in %s: line %d\n", res, file, line);
+      fprintf (stderr, "SUB16: output is not int: %d in %s: line %d\n", res, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -381,20 +381,20 @@ static inline unsigned int USUB32_(opus_uint64 a, opus_uint64 b, char *file, int
 }
 
 /* result fits in 16 bits */
-static inline short MULT16_16_16(int a, int b)
+static inline int MULT16_16_16(int a, int b)
 {
    int res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_16: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_16: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a*b;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_16: output is not short: %d\n", res);
+      fprintf (stderr, "MULT16_16_16: output is not int: %d\n", res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -407,9 +407,9 @@ static inline short MULT16_16_16(int a, int b)
 static inline int MULT16_16_(int a, int b, char *file, int line)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16: inputs are not short: %d %d in %s: line %d\n", a, b, file, line);
+      fprintf (stderr, "MULT16_16: inputs are not int: %d %d in %s: line %d\n", a, b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -432,9 +432,9 @@ static inline int MULT16_16_(int a, int b, char *file, int line)
 static inline int MULT16_32_QX_(int a, opus_int64 b, int Q, char *file, int line)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_INT(b))
+   if (!VERIFY_int(a) || !VERIFY_INT(b))
    {
-      fprintf (stderr, "MULT16_32_Q%d: inputs are not short+int: %d %d in %s: line %d\n", Q, (int)a, (int)b, file, line);
+      fprintf (stderr, "MULT16_32_Q%d: inputs are not int+int: %d %d in %s: line %d\n", Q, (int)a, (int)b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -465,9 +465,9 @@ static inline int MULT16_32_QX_(int a, opus_int64 b, int Q, char *file, int line
 static inline int MULT16_32_PX_(int a, opus_int64 b, int Q, char *file, int line)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_INT(b))
+   if (!VERIFY_int(a) || !VERIFY_INT(b))
    {
-      fprintf (stderr, "MULT16_32_P%d: inputs are not short+int: %d %d in %s: line %d\n\n", Q, (int)a, (int)b, file, line);
+      fprintf (stderr, "MULT16_32_P%d: inputs are not int+int: %d %d in %s: line %d\n\n", Q, (int)a, (int)b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -510,9 +510,9 @@ static inline int SATURATE(int a, int b)
 static inline int MULT16_16_Q11_32(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_Q11: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_Q11: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -521,7 +521,7 @@ static inline int MULT16_16_Q11_32(int a, int b)
    res >>= 11;
    if (!VERIFY_INT(res))
    {
-      fprintf (stderr, "MULT16_16_Q11: output is not short: %d*%d=%d\n", (int)a, (int)b, (int)res);
+      fprintf (stderr, "MULT16_16_Q11: output is not int: %d*%d=%d\n", (int)a, (int)b, (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -529,21 +529,21 @@ static inline int MULT16_16_Q11_32(int a, int b)
    celt_mips+=3;
    return res;
 }
-static inline short MULT16_16_Q13(int a, int b)
+static inline int MULT16_16_Q13(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_Q13: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_Q13: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = ((opus_int64)a)*b;
    res >>= 13;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_Q13: output is not short: %d*%d=%d\n", a, b, (int)res);
+      fprintf (stderr, "MULT16_16_Q13: output is not int: %d*%d=%d\n", a, b, (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -551,21 +551,21 @@ static inline short MULT16_16_Q13(int a, int b)
    celt_mips+=3;
    return res;
 }
-static inline short MULT16_16_Q14(int a, int b)
+static inline int MULT16_16_Q14(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_Q14: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_Q14: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = ((opus_int64)a)*b;
    res >>= 14;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_Q14: output is not short: %d\n", (int)res);
+      fprintf (stderr, "MULT16_16_Q14: output is not int: %d\n", (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -575,21 +575,21 @@ static inline short MULT16_16_Q14(int a, int b)
 }
 
 #define MULT16_16_Q15(a, b) MULT16_16_Q15_(a, b, __FILE__, __LINE__)
-static inline short MULT16_16_Q15_(int a, int b, char *file, int line)
+static inline int MULT16_16_Q15_(int a, int b, char *file, int line)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_Q15: inputs are not short: %d %d in %s: line %d\n", a, b, file, line);
+      fprintf (stderr, "MULT16_16_Q15: inputs are not int: %d %d in %s: line %d\n", a, b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = ((opus_int64)a)*b;
    res >>= 15;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_Q15: output is not short: %d in %s: line %d\n", (int)res, file, line);
+      fprintf (stderr, "MULT16_16_Q15: output is not int: %d in %s: line %d\n", (int)res, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -598,12 +598,12 @@ static inline short MULT16_16_Q15_(int a, int b, char *file, int line)
    return res;
 }
 
-static inline short MULT16_16_P13(int a, int b)
+static inline int MULT16_16_P13(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_P13: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_P13: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -618,9 +618,9 @@ static inline short MULT16_16_P13(int a, int b)
 #endif
    }
    res >>= 13;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_P13: output is not short: %d*%d=%d\n", a, b, (int)res);
+      fprintf (stderr, "MULT16_16_P13: output is not int: %d*%d=%d\n", a, b, (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -628,12 +628,12 @@ static inline short MULT16_16_P13(int a, int b)
    celt_mips+=4;
    return res;
 }
-static inline short MULT16_16_P14(int a, int b)
+static inline int MULT16_16_P14(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_P14: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_P14: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -648,9 +648,9 @@ static inline short MULT16_16_P14(int a, int b)
 #endif
    }
    res >>= 14;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_P14: output is not short: %d*%d=%d\n", a, b, (int)res);
+      fprintf (stderr, "MULT16_16_P14: output is not int: %d*%d=%d\n", a, b, (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -658,12 +658,12 @@ static inline short MULT16_16_P14(int a, int b)
    celt_mips+=4;
    return res;
 }
-static inline short MULT16_16_P15(int a, int b)
+static inline int MULT16_16_P15(int a, int b)
 {
    opus_int64 res;
-   if (!VERIFY_SHORT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_int(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "MULT16_16_P15: inputs are not short: %d %d\n", a, b);
+      fprintf (stderr, "MULT16_16_P15: inputs are not int: %d %d\n", a, b);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -678,9 +678,9 @@ static inline short MULT16_16_P15(int a, int b)
 #endif
    }
    res >>= 15;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "MULT16_16_P15: output is not short: %d*%d=%d\n", a, b, (int)res);
+      fprintf (stderr, "MULT16_16_P15: output is not int: %d*%d=%d\n", a, b, (int)res);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
@@ -702,17 +702,17 @@ static inline int DIV32_16_(opus_int64 a, opus_int64 b, char *file, int line)
 #endif
       return 0;
    }
-   if (!VERIFY_INT(a) || !VERIFY_SHORT(b))
+   if (!VERIFY_INT(a) || !VERIFY_int(b))
    {
-      fprintf (stderr, "DIV32_16: inputs are not int/short: %d %d in %s: line %d\n", (int)a, (int)b, file, line);
+      fprintf (stderr, "DIV32_16: inputs are not int/int: %d %d in %s: line %d\n", (int)a, (int)b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif
    }
    res = a/b;
-   if (!VERIFY_SHORT(res))
+   if (!VERIFY_int(res))
    {
-      fprintf (stderr, "DIV32_16: output is not short: %d / %d = %d in %s: line %d\n", (int)a,(int)b,(int)res, file, line);
+      fprintf (stderr, "DIV32_16: output is not int: %d / %d = %d in %s: line %d\n", (int)a,(int)b,(int)res, file, line);
       if (res>32767)
          res = 32767;
       if (res<-32768)
@@ -740,7 +740,7 @@ static inline int DIV32_(opus_int64 a, opus_int64 b, char *file, int line)
 
    if (!VERIFY_INT(a) || !VERIFY_INT(b))
    {
-      fprintf (stderr, "DIV32: inputs are not int/short: %d %d in %s: line %d\n", (int)a, (int)b, file, line);
+      fprintf (stderr, "DIV32: inputs are not int/int: %d %d in %s: line %d\n", (int)a, (int)b, file, line);
 #ifdef FIXED_DEBUG_ASSERT
       celt_assert(0);
 #endif

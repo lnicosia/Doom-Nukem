@@ -41,7 +41,7 @@ advancing a position cursor after each read.<p>
 The following behaviors are also expected:<p>
 <ul>
 <li>a return of '0' indicates end-of-data (if the by-thread errno is unset)
-<li>short reads mean nothing special (short reads are not treated as error conditions)
+<li>int reads mean nothing special (int reads are not treated as error conditions)
 <li>a return of zero with the by-thread errno set to nonzero indicates a read error
 </ul>
 <p>

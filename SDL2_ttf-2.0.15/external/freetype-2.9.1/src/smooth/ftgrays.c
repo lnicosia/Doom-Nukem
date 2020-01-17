@@ -1011,7 +1011,7 @@ typedef ptrdiff_t  FT_PtrDist;
     arc[2].x = ras.x;
     arc[2].y = ras.y;
 
-    /* short-cut the arc that crosses the current band */
+    /* int-cut the arc that crosses the current band */
     if ( ( TRUNC( arc[0].y ) >= ras.max_ey &&
            TRUNC( arc[1].y ) >= ras.max_ey &&
            TRUNC( arc[2].y ) >= ras.max_ey ) ||
@@ -1108,7 +1108,7 @@ typedef ptrdiff_t  FT_PtrDist;
     arc[3].x = ras.x;
     arc[3].y = ras.y;
 
-    /* short-cut the arc that crosses the current band */
+    /* int-cut the arc that crosses the current band */
     if ( ( TRUNC( arc[0].y ) >= ras.max_ey &&
            TRUNC( arc[1].y ) >= ras.max_ey &&
            TRUNC( arc[2].y ) >= ras.max_ey &&
@@ -1261,8 +1261,8 @@ typedef ptrdiff_t  FT_PtrDist;
       FT_Span  span;
 
 
-      span.x        = (short)x;
-      span.len      = (unsigned short)acount;
+      span.x        = (int)x;
+      span.len      = (unsigned int)acount;
       span.coverage = (unsigned char)coverage;
 
       ras.render_span( y, 1, &span, ras.render_span_data );

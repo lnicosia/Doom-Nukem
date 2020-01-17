@@ -55,10 +55,10 @@
 
   typedef struct  GXV_just_DataRec_
   {
-    FT_UShort  wdc_offset_max;
-    FT_UShort  wdc_offset_min;
-    FT_UShort  pc_offset_max;
-    FT_UShort  pc_offset_min;
+    FT_Uint  wdc_offset_max;
+    FT_Uint  wdc_offset_min;
+    FT_Uint  pc_offset_max;
+    FT_Uint  pc_offset_min;
 
   } GXV_just_DataRec, *GXV_just_Data;
 
@@ -68,7 +68,7 @@
 
   /* GX just table does not define their subset of GID */
   static void
-  gxv_just_check_max_gid( FT_UShort         gid,
+  gxv_just_check_max_gid( FT_Uint         gid,
                           const FT_String*  msg_tag,
                           GXV_Validator     gxvalid )
   {
@@ -94,8 +94,8 @@
     FT_Fixed   beforeShrinkGrowLimit;
     FT_Fixed   afterGrowLimit;
     FT_Fixed   afterShrinkGrowLimit;
-    FT_UShort  growFlags;
-    FT_UShort  shrinkFlags;
+    FT_Uint  growFlags;
+    FT_Uint  shrinkFlags;
 #endif
 
 
@@ -108,8 +108,8 @@
     beforeShrinkGrowLimit = FT_NEXT_ULONG( p );
     afterGrowLimit        = FT_NEXT_ULONG( p );
     afterShrinkGrowLimit  = FT_NEXT_ULONG( p );
-    growFlags             = FT_NEXT_USHORT( p );
-    shrinkFlags           = FT_NEXT_USHORT( p );
+    growFlags             = FT_NEXT_Uint( p );
+    shrinkFlags           = FT_NEXT_Uint( p );
 #endif
 
     /* According to Apple spec, only 7bits in justClass is used */
@@ -184,9 +184,9 @@
     FT_Fixed   lowerLimit;
     FT_Fixed   upperLimit;
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  order;
+    FT_Uint  order;
 #endif
-    FT_UShort  decomposedCount;
+    FT_Uint  decomposedCount;
 
     FT_UInt    i;
 
@@ -195,11 +195,11 @@
     lowerLimit      = FT_NEXT_LONG( p );
     upperLimit      = FT_NEXT_LONG( p );
 #ifdef GXV_LOAD_UNUSED_VARS
-    order           = FT_NEXT_USHORT( p );
+    order           = FT_NEXT_Uint( p );
 #else
     p += 2;
 #endif
-    decomposedCount = FT_NEXT_USHORT( p );
+    decomposedCount = FT_NEXT_Uint( p );
 
     if ( lowerLimit >= upperLimit )
     {
@@ -210,11 +210,11 @@
 
     for ( i = 0; i < decomposedCount; i++ )
     {
-      FT_UShort glyphs;
+      FT_Uint glyphs;
 
 
       GXV_LIMIT_CHECK( 2 );
-      glyphs = FT_NEXT_USHORT( p );
+      glyphs = FT_NEXT_Uint( p );
       gxv_just_check_max_gid( glyphs, "type0:glyphs", gxvalid );
     }
 
@@ -228,11 +228,11 @@
                                         GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  addGlyph;
+    FT_Uint  addGlyph;
 
 
     GXV_LIMIT_CHECK( 2 );
-    addGlyph = FT_NEXT_USHORT( p );
+    addGlyph = FT_NEXT_Uint( p );
 
     gxv_just_check_max_gid( addGlyph, "type1:addGlyph", gxvalid );
 
@@ -249,8 +249,8 @@
 #ifdef GXV_LOAD_UNUSED_VARS
     FT_Fixed      substThreshhold; /* Apple misspelled "Threshhold" */
 #endif
-    FT_UShort  addGlyph;
-    FT_UShort  substGlyph;
+    FT_Uint  addGlyph;
+    FT_Uint  substGlyph;
 
 
     GXV_LIMIT_CHECK( 4 + 2 + 2 );
@@ -259,8 +259,8 @@
 #else
     p += 4;
 #endif
-    addGlyph        = FT_NEXT_USHORT( p );
-    substGlyph      = FT_NEXT_USHORT( p );
+    addGlyph        = FT_NEXT_Uint( p );
+    substGlyph      = FT_NEXT_Uint( p );
 
     if ( addGlyph != 0xFFFF )
       gxv_just_check_max_gid( addGlyph, "type2:addGlyph", gxvalid );
@@ -314,13 +314,13 @@
                                         GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  flags;
-    FT_UShort  glyph;
+    FT_Uint  flags;
+    FT_Uint  glyph;
 
 
     GXV_LIMIT_CHECK( 2 + 2 );
-    flags = FT_NEXT_USHORT( p );
-    glyph = FT_NEXT_USHORT( p );
+    flags = FT_NEXT_Uint( p );
+    glyph = FT_NEXT_Uint( p );
 
     if ( flags )
       GXV_TRACE(( "type5: nonzero value 0x%04x in unused flags\n",
@@ -338,16 +338,16 @@
                                   GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  actionClass;
-    FT_UShort  actionType;
+    FT_Uint  actionClass;
+    FT_Uint  actionType;
     FT_ULong   actionLength;
 
 
     GXV_NAME_ENTER( "just actSubrecord" );
 
     GXV_LIMIT_CHECK( 2 + 2 + 4 );
-    actionClass  = FT_NEXT_USHORT( p );
-    actionType   = FT_NEXT_USHORT( p );
+    actionClass  = FT_NEXT_Uint( p );
+    actionType   = FT_NEXT_Uint( p );
     actionLength = FT_NEXT_ULONG( p );
 
     /* actionClass is related with justClass using 7bit only */
@@ -402,7 +402,7 @@
 
 
   static void
-  gxv_just_pcTable_LookupValue_entry_validate( FT_UShort            glyph,
+  gxv_just_pcTable_LookupValue_entry_validate( FT_Uint            glyph,
                                                GXV_LookupValueCPtr  value_p,
                                                GXV_Validator        gxvalid )
   {
@@ -463,7 +463,7 @@
   static void
   gxv_just_classTable_entry_validate(
     FT_Byte                         state,
-    FT_UShort                       flags,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
@@ -471,10 +471,10 @@
   {
 #ifdef GXV_LOAD_UNUSED_VARS
     /* TODO: validate markClass & currentClass */
-    FT_UShort  setMark;
-    FT_UShort  dontAdvance;
-    FT_UShort  markClass;
-    FT_UShort  currentClass;
+    FT_Uint  setMark;
+    FT_Uint  dontAdvance;
+    FT_Uint  markClass;
+    FT_Uint  currentClass;
 #endif
 
     FT_UNUSED( state );
@@ -486,10 +486,10 @@
 #ifndef GXV_LOAD_UNUSED_VARS
     FT_UNUSED( flags );
 #else
-    setMark      = (FT_UShort)( ( flags >> 15 ) & 1    );
-    dontAdvance  = (FT_UShort)( ( flags >> 14 ) & 1    );
-    markClass    = (FT_UShort)( ( flags >> 7  ) & 0x7F );
-    currentClass = (FT_UShort)(   flags         & 0x7F );
+    setMark      = (FT_Uint)( ( flags >> 15 ) & 1    );
+    dontAdvance  = (FT_Uint)( ( flags >> 14 ) & 1    );
+    markClass    = (FT_Uint)( ( flags >> 7  ) & 0x7F );
+    currentClass = (FT_Uint)(   flags         & 0x7F );
 #endif
   }
 
@@ -500,16 +500,16 @@
                                      GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  length;
-    FT_UShort  coverage;
+    FT_Uint  length;
+    FT_Uint  coverage;
     FT_ULong   subFeatureFlags;
 
 
     GXV_NAME_ENTER( "just justClassTable" );
 
     GXV_LIMIT_CHECK( 2 + 2 + 4 );
-    length          = FT_NEXT_USHORT( p );
-    coverage        = FT_NEXT_USHORT( p );
+    length          = FT_NEXT_Uint( p );
+    coverage        = FT_NEXT_Uint( p );
     subFeatureFlags = FT_NEXT_ULONG( p );
 
     GXV_TRACE(( "  justClassTable: coverage = 0x%04x (%s) ", coverage ));
@@ -538,7 +538,7 @@
 
 
   static void
-  gxv_just_wdcTable_LookupValue_validate( FT_UShort            glyph,
+  gxv_just_wdcTable_LookupValue_validate( FT_Uint            glyph,
                                           GXV_LookupValueCPtr  value_p,
                                           GXV_Validator        gxvalid )
   {
@@ -585,9 +585,9 @@
      * following 3 offsets are measured from the start of `just'
      * (which table points to), not justData
      */
-    FT_UShort  justClassTableOffset;
-    FT_UShort  wdcTableOffset;
-    FT_UShort  pcTableOffset;
+    FT_Uint  justClassTableOffset;
+    FT_Uint  wdcTableOffset;
+    FT_Uint  pcTableOffset;
     FT_Bytes   p = table;
 
     GXV_ODTECT( 4, odtect );
@@ -597,9 +597,9 @@
 
     GXV_ODTECT_INIT( odtect );
     GXV_LIMIT_CHECK( 2 + 2 + 2 );
-    justClassTableOffset = FT_NEXT_USHORT( p );
-    wdcTableOffset       = FT_NEXT_USHORT( p );
-    pcTableOffset        = FT_NEXT_USHORT( p );
+    justClassTableOffset = FT_NEXT_Uint( p );
+    wdcTableOffset       = FT_NEXT_Uint( p );
+    pcTableOffset        = FT_NEXT_Uint( p );
 
     GXV_TRACE(( " (justClassTableOffset = 0x%04x)\n", justClassTableOffset ));
     GXV_TRACE(( " (wdcTableOffset = 0x%04x)\n", wdcTableOffset ));
@@ -654,9 +654,9 @@
     GXV_just_Data      just = &justrec;
 
     FT_ULong           version;
-    FT_UShort          format;
-    FT_UShort          horizOffset;
-    FT_UShort          vertOffset;
+    FT_Uint          format;
+    FT_Uint          horizOffset;
+    FT_Uint          vertOffset;
 
     GXV_ODTECT( 3, odtect );
 
@@ -674,9 +674,9 @@
 
     GXV_LIMIT_CHECK( 4 + 2 + 2 + 2 );
     version     = FT_NEXT_ULONG( p );
-    format      = FT_NEXT_USHORT( p );
-    horizOffset = FT_NEXT_USHORT( p );
-    vertOffset  = FT_NEXT_USHORT( p );
+    format      = FT_NEXT_Uint( p );
+    horizOffset = FT_NEXT_Uint( p );
+    vertOffset  = FT_NEXT_Uint( p );
     gxv_odtect_add_range( table, (FT_ULong)( p - table ),
                           "just header", odtect );
 

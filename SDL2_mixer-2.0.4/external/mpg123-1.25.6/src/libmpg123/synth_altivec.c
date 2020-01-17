@@ -257,7 +257,7 @@
 
 int synth_1to1_altivec(real *bandPtr,int channel,mpg123_handle *fr, int final)
 {
-	short *samples = (short *) (fr->buffer.data+fr->buffer.fill);
+	int *samples = (int *) (fr->buffer.data+fr->buffer.fill);
 	
 	real *b0, **buf;
 	int clip; 
@@ -300,7 +300,7 @@ int synth_1to1_altivec(real *bandPtr,int channel,mpg123_handle *fr, int final)
 		vector unsigned char vperm1,vperm2,vperm3,vperm4;
 		vector float vsum,vsum2,vsum3,vsum4,vmin,vmax,vzero;
 		vector signed int vclip;
-		vector signed short vsample1,vsample2;
+		vector signed int vsample1,vsample2;
 		vector unsigned int vshift;
 		vclip = vec_xor(vclip,vclip);
 		vzero = vec_xor(vzero,vzero);
@@ -338,8 +338,8 @@ int synth_1to1_altivec(real *bandPtr,int channel,mpg123_handle *fr, int final)
 			v6 = (vector float)vec_perm(vsample2,vsample1,vperm2);
 			v7 = (vector float)vec_perm(v5,v6,vperm3);
 			v8 = (vector float)vec_perm(v6,v5,vperm3);
-			vec_st((vector signed short)v7,15,samples);
-			vec_st((vector signed short)v8,0,samples);
+			vec_st((vector signed int)v7,15,samples);
+			vec_st((vector signed int)v8,0,samples);
 			samples += 8;
 			
 			v1 = (vector float)vec_sr((vector unsigned int)v1, vshift);
@@ -368,8 +368,8 @@ int synth_1to1_altivec(real *bandPtr,int channel,mpg123_handle *fr, int final)
 			v6 = (vector float)vec_perm(vsample2,vsample1,vperm2);
 			v7 = (vector float)vec_perm(v5,v6,vperm3);
 			v8 = (vector float)vec_perm(v6,v5,vperm3);
-			vec_st((vector signed short)v7,15,samples);
-			vec_st((vector signed short)v8,0,samples);
+			vec_st((vector signed int)v7,15,samples);
+			vec_st((vector signed int)v8,0,samples);
 			samples += 8;
 			
 			v1 = (vector float)vec_sr((vector unsigned int)v1, vshift);
@@ -388,7 +388,7 @@ int synth_1to1_altivec(real *bandPtr,int channel,mpg123_handle *fr, int final)
 
 int synth_1to1_stereo_altivec(real *bandPtr_l, real *bandPtr_r, mpg123_handle *fr)
 {
-	short *samples = (short *) (fr->buffer.data+fr->buffer.fill);
+	int *samples = (int *) (fr->buffer.data+fr->buffer.fill);
 	
 	real *b0l, *b0r, **bufl, **bufr;
 	int clip; 
@@ -433,7 +433,7 @@ int synth_1to1_stereo_altivec(real *bandPtr_l, real *bandPtr_r, mpg123_handle *f
 		vector float vsum,vsum2,vsum3,vsum4,vsum5,vsum6,vsum7,vsum8,vmin,vmax,vzero;
 		vector signed int vclip;
 		vector unsigned int vshift;
-		vector signed short vprev;
+		vector signed int vprev;
 		vclip = vec_xor(vclip,vclip);
 		vzero = vec_xor(vzero,vzero);
 		vshift = vec_splat_u32(-1); /* 31 */
@@ -466,13 +466,13 @@ int synth_1to1_stereo_altivec(real *bandPtr_l, real *bandPtr_r, mpg123_handle *f
 			v3 = vec_mergeh(v1, v2);
 			v4 = vec_mergel(v1, v2);
 			v5 = (vector float)vec_packs((vector signed int)v3,(vector signed int)v4);
-			v6 = (vector float)vec_perm(vprev,(vector signed short)v5,vperm2);
-			vprev = (vector signed short)v5;
+			v6 = (vector float)vec_perm(vprev,(vector signed int)v5,vperm2);
+			vprev = (vector signed int)v5;
 			v1 = (vector float)vec_cmpgt(vsum,vmax);
 			v2 = (vector float)vec_cmplt(vsum,vmin);
 			v3 = (vector float)vec_cmpgt(vsum2,vmax);
 			v4 = (vector float)vec_cmplt(vsum2,vmin);
-			vec_st((vector signed short)v6,0,samples);
+			vec_st((vector signed int)v6,0,samples);
 			samples += 8;
 			
 			v1 = (vector float)vec_sr((vector unsigned int)v1, vshift);
@@ -503,13 +503,13 @@ int synth_1to1_stereo_altivec(real *bandPtr_l, real *bandPtr_r, mpg123_handle *f
 			v3 = vec_mergeh(v1, v2);
 			v4 = vec_mergel(v1, v2);
 			v5 = (vector float)vec_packs((vector signed int)v3,(vector signed int)v4);
-			v6 = (vector float)vec_perm(vprev,(vector signed short)v5,vperm2);
-			vprev = (vector signed short)v5;
+			v6 = (vector float)vec_perm(vprev,(vector signed int)v5,vperm2);
+			vprev = (vector signed int)v5;
 			v1 = (vector float)vec_cmpgt(vsum,vmax);
 			v2 = (vector float)vec_cmplt(vsum,vmin);
 			v3 = (vector float)vec_cmpgt(vsum2,vmax);
 			v4 = (vector float)vec_cmplt(vsum2,vmin);
-			vec_st((vector signed short)v6,0,samples);
+			vec_st((vector signed int)v6,0,samples);
 			samples += 8;
 			
 			v1 = (vector float)vec_sr((vector unsigned int)v1, vshift);
@@ -525,8 +525,8 @@ int synth_1to1_stereo_altivec(real *bandPtr_l, real *bandPtr_r, mpg123_handle *f
 		if((size_t)samples & 0xf)
 		{
 			v1 = (vector float)vec_perm(vec_ld(0,samples),vec_ld(0,samples),vec_lvsl(0,samples));
-			v2 = (vector float)vec_perm(vprev,(vector signed short)v1,vperm2);
-			vec_st((vector signed short)v2,0,samples);
+			v2 = (vector float)vec_perm(vprev,(vector signed int)v1,vperm2);
+			vec_st((vector signed int)v2,0,samples);
 		}
 
 		vec_st(vclip,0,clip_tmp);

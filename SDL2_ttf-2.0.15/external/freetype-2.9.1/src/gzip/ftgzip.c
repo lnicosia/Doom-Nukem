@@ -237,7 +237,7 @@
       FT_UInt  len;
 
 
-      if ( FT_READ_USHORT_LE( len ) ||
+      if ( FT_READ_Uint_LE( len ) ||
            FT_STREAM_SKIP( len )    )
         goto Exit;
     }

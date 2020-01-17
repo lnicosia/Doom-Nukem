@@ -239,7 +239,7 @@ int list_modules( const char *type, char ***names, char ***descr, int verbose
 		char* ext;
 		size_t name_len;
 
-		/* Various checks as loop shortcuts, avoiding too much nesting. */
+		/* Various checks as loop intcuts, avoiding too much nesting. */
 		debug1("checking entry: %s", filename);
 
 		name_len = strlen(filename);
@@ -271,11 +271,11 @@ int list_modules( const char *type, char ***names, char ***descr, int verbose
 		}
 		debug("has type");
 
-		/* Extract the short name of the module */
+		/* Extract the int name of the module */
 		name_len -= uscore_pos - filename + 1;
 		if(name_len <= strlen(LT_MODULE_EXT))
 		{
-			debug("name too short");
+			debug("name too int");
 			goto list_modules_continue;
 		}
 		name_len -= strlen(LT_MODULE_EXT);

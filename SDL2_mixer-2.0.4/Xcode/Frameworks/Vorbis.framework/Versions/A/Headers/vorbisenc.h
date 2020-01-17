@@ -353,7 +353,7 @@ struct ovectl_ratemanage2_arg {
  * Argument: <tt>double *</tt>
  *
  *  Valid range is -15.0 to 0.0 [default]. A negative impulse block bias will
- *  direct to encoder to use more bits when incoding short blocks that contain
+ *  direct to encoder to use more bits when incoding int blocks that contain
  *  strong impulses, thus improving the accuracy of impulse encoding.
  */
 #define OV_ECTL_IBLOCK_SET           0x31

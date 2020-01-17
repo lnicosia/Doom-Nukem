@@ -322,8 +322,8 @@
          FT_NEW_ARRAY( anoutline->contours, numContours ) )
       goto Fail;
 
-    anoutline->n_points    = (FT_Short)numPoints;
-    anoutline->n_contours  = (FT_Short)numContours;
+    anoutline->n_points    = (FT_int)numPoints;
+    anoutline->n_contours  = (FT_int)numContours;
     anoutline->flags      |= FT_OUTLINE_OWNER;
 
     return FT_Err_Ok;
@@ -530,7 +530,7 @@
                         FT_Pos             xOffset,
                         FT_Pos             yOffset )
   {
-    FT_UShort   n;
+    FT_Uint   n;
     FT_Vector*  vec;
 
 
@@ -553,7 +553,7 @@
   FT_EXPORT_DEF( void )
   FT_Outline_Reverse( FT_Outline*  outline )
   {
-    FT_UShort  n;
+    FT_Uint  n;
     FT_Int     first, last;
 
 
@@ -746,7 +746,7 @@
   /* but disallow false negatives.  (XXX really?)    */
   static FT_Bool
   ft_contour_has( FT_Outline*  outline,
-                  FT_Short     c,
+                  FT_int     c,
                   FT_Vector*   point )
   {
     FT_Vector*  first;
@@ -795,11 +795,11 @@
 
   static FT_Bool
   ft_contour_enclosed( FT_Outline*  outline,
-                       FT_UShort    c )
+                       FT_Uint    c )
   {
     FT_Vector*  first;
     FT_Vector*  last;
-    FT_Short    i;
+    FT_int    i;
 
 
     FT_OUTLINE_GET_CONTOUR( outline, c, first, last );
@@ -830,7 +830,7 @@
   static FT_Orientation
   ft_outline_get_orientation( FT_Outline*  outline )
   {
-    FT_Short        i;
+    FT_int        i;
     FT_Vector*      first;
     FT_Vector*      last;
     FT_Orientation  orient = FT_ORIENTATION_NONE;

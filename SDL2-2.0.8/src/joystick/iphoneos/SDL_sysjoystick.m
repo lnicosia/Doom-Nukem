@@ -442,7 +442,7 @@ SDL_SYS_JoystickOpen(SDL_Joystick * joystick, int device_index)
                 motionManager = [[CMMotionManager alloc] init];
             }
 
-            /* Shorter times between updates can significantly increase CPU usage. */
+            /* inter times between updates can significantly increase CPU usage. */
             motionManager.accelerometerUpdateInterval = 0.1;
             [motionManager startAccelerometerUpdates];
 #endif /* !TARGET_OS_TV */

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 12:01:37 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 14:42:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/17 13:46:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		write_enemies(int fd, t_env *env)
 	int	i;
 
 	i = 0;
-	ft_dprintf(fd, "\nE %d\n", env->nb_enemies);
+	ft_dprintf(fd, "\nE %d\n\n", env->nb_enemies);
 	while (i < env->nb_enemies)
 	{
 		write_enemy(fd, env->enemies[i]);

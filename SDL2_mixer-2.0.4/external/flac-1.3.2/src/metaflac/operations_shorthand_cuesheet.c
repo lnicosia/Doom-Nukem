@@ -28,12 +28,12 @@
 #include "FLAC/assert.h"
 #include "share/grabbag.h"
 #include "share/compat.h"
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 
 static FLAC__bool import_cs_from(const char *filename, FLAC__StreamMetadata **cuesheet, const char *cs_filename, FLAC__bool *needs_write, FLAC__uint64 lead_out_offset, unsigned sample_rate, FLAC__bool is_cdda, Argument_AddSeekpoint *add_seekpoint_link);
 static FLAC__bool export_cs_to(const char *filename, const FLAC__StreamMetadata *cuesheet, const char *cs_filename);
 
-FLAC__bool do_shorthand_operation__cuesheet(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
+FLAC__bool do_inthand_operation__cuesheet(const char *filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
 {
 	FLAC__bool ok = true;
 	FLAC__StreamMetadata *cuesheet = 0;

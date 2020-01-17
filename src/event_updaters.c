@@ -6,21 +6,19 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:46:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:52:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-t_event_param	new_event_param(int num, double equ_value, double diff_value,
-		t_v3 move)
+t_event_param	new_event_param(int num, double equ_value, double diff_value)
 {
 	t_event_param	new;
 
 	ft_bzero(&new, sizeof(new));
 	new.num = num;
-	new.move = move;
 	new.equ_value = equ_value;
 	new.diff_value = diff_value;
 	return (new);
@@ -34,141 +32,101 @@ t_event_param	empty_event_param(void)
 	return (new);
 }
 
-void			update_sector_event(t_event *event, void *penv)
+int			update_sector_event(t_event *event, void *penv)
 {
 	t_env	*env;
 
 	env = (t_env*)penv;
-	update_sector_slope(env, &env->sectors[event->update_param.num]);
+	update_sector_slope(env, &env->sectors[event->update_param.sector]);
+	if (env->player.sector == event->update_param.sector)
+		update_player_pos(env);
+	return (0);
 }
 
-void			update_player_pos_event(t_event *event, void *penv)
+int			update_player_pos_event(t_event *event, void *penv)
 {
 	(void)event;
 	update_player_pos((t_env*)penv);
+	return (0);
 }
 
-void			update_player_z_event(t_event *event, void *penv)
+int			update_player_z_event(t_event *event, void *penv)
 {
 	t_env	*env;
+
 	(void)event;
 	env = ((t_env*)penv);
-	update_player_pos((t_env*)penv);
+	update_player_pos(env);
 	env->player.pos.z = get_floor_at_pos(env->sectors[env->player.sector],
 	env->player.pos, env);
-	update_player_pos((t_env*)penv);
+	update_player_pos(env);
+	return (0);
 }
 
-void			update_player_event(t_event *event, void *penv)
+int			update_player_event(t_event *event, void *penv)
 {
 	(void)event;
 	update_player_pos((t_env*)penv);
+	return (0);
 }
 
-/*int				check_collision_event(t_event *event, void *penv)
+int			update_floor_texture_event(t_event *event, void *penv)
 {
-	t_movement	movement;
-	t_v3		move;
-	t_env		*env;
+	t_env	*env;
 
 	env = (t_env*)penv;
-	movement = new_movement(env->player.sector, env->player.size_2d,
-			env->player.eyesight, env->player.pos);
-	move = check_collision(env, event->check_param.move, movement, 0);
-	if (!move.x && !move.y && !move.z)
-		return (0);
-	return (1);
-}*/
-
-int					check_sector_event(t_event *event, void *penv)
-{
-	(void)event;
-	(void)penv;
-	return (1);
+	if (env->sectors[event->update_param.sector].floor_texture < 0)
+		env->contains_skybox = 1;
+	if (set_sector_floor_map_array(&env->sectors[event->update_param.sector],
+		env->wall_textures[env->sectors[event->update_param.sector].
+		floor_texture], env))
+		return (-1);
+	return (0);
 }
 
-void			delete_itself_event(t_event *event, void *penv)
+int			update_ceiling_texture_event(t_event *event, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if (env->sectors[event->update_param.sector].ceiling_texture < 0)
+		env->contains_skybox = 1;
+	if (set_sector_ceiling_map_array(&env->sectors[event->update_param.sector],
+		env->wall_textures[env->sectors[event->update_param.sector].
+		ceiling_texture], env))
+		return (-1);
+	return (0);
+}
+
+int			update_wall_texture_event(t_event *event, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if (env->sectors[event->update_param.sector].
+		textures[event->update_param.wall] < 0)
+		env->contains_skybox = 1;
+	if (set_sector_wall_map_array(&env->sectors[event->update_param.sector],
+		env->wall_textures[env->sectors[event->update_param.sector].
+		textures[event->update_param.wall]], event->update_param.wall, env))
+		return (-1);
+	if (set_camera_map_array(&env->player.camera, event->update_param.sector,
+		event->update_param.wall, env))
+		return (-1);
+	return (0);
+}
+
+int			delete_itself_event(t_event *event, void *penv)
 {
 	ft_delindex(event->update_param.target,
 			sizeof(*event->update_param.target) * event->update_param.size,
 			sizeof(*event->update_param.target),
 			sizeof(*event->update_param.target) * event->update_param.num);
 	(void)penv;
-}
-
-/*int				check_equ_value_event(t_event *event, void *penv)
-{
-	(void)penv;
-	if (event->check_param.target_type == INT
-			&& event->check_param.equ_value
-			== *(int*)event->check_param.target)
-		return (1);
-	else if (event->check_param.target_type == DOUBLE
-			&& event->check_param.equ_value
-			== *(double*)event->check_param.target)
-		return (1);
-	else if (event->check_param.target_type == UINT32
-			&& event->check_param.equ_value
-			== *(Uint32*)event->check_param.target)
-		return (1);
 	return (0);
 }
 
-int				check_diff_value_event(t_event *event, void *penv)
-{
-	(void)penv;
-	if (event->type == INT
-			&& event->check_param.diff_value
-			!= *(int*)event->check_param.target)
-		return (1);
-	else if (event->type == DOUBLE
-			&& event->check_param.diff_value
-			!= *(double*)event->check_param.target)
-		return (1);
-	else if (event->type == UINT32
-			&& event->check_param.diff_value
-			!= *(Uint32*)event->check_param.target)
-		return (1);
-	return (0);
-}*/
-
-/*int				launch_equ_value_event(t_event *event, void *penv)
-{
-	(void)penv;
-	if (event->launch_param.target_type == INT
-			&& event->launch_param.equ_value
-			== *(int*)event->launch_param.target)
-		return (1);
-	else if (event->type == DOUBLE
-			&& event->launch_param.equ_value
-			== *(double*)event->launch_param.target)
-		return (1);
-	else if (event->type == UINT32
-			&& event->launch_param.equ_value
-			== *(Uint32*)event->launch_param.target)
-		return (1);
-	return (0);
-}
-
-int				launch_diff_value_event(t_event *event, void *penv)
-{
-	(void)penv;
-	if (event->launch_param.target_type == INT
-			&& event->launch_param.diff_value
-			!= *(int*)event->launch_param.target)
-		return (1);
-	else if (event->launch_param.target_type == DOUBLE
-			&& event->launch_param.diff_value
-			!= *(double*)event->launch_param.target)
-		return (1);
-	else if (event->launch_param.target_type == UINT32
-			&& event->launch_param.diff_value
-			!= *(Uint32*)event->launch_param.target)
-		return (1);
-	return (0);
-}
-
-int				launch_prec_event_ended(t_event *event, void *penv)
+/*int				launch_prec_event_ended(t_event *event, void *penv)
 {
 	t_event	*target;
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:54:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:25:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ typedef struct		s_events_parser
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*target_parsers[MAX_TARGET_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
-	void			(*updaters[MAX_TARGET_TYPES + 1])(t_event *, void *);
-	int				(*checkers[MAX_TARGET_TYPES + 1])(void *, void *);
+	int				(*updaters[MAX_TARGET_TYPES + 1])(t_event *, void *);
+	int				(*checkers[MAX_TARGET_TYPES + 1])(t_event *, void *);
 	int				target_types[MAX_TARGET_TYPES + 1];
 }					t_events_parser;
 

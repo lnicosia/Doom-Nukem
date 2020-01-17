@@ -363,7 +363,7 @@ windows:
 
 \begin{center}
 \includegraphics[width=\textwidth]{window2}
-\captionof{figure}{overlap of a long and a short window}
+\captionof{figure}{overlap of a long and a int window}
 \end{center}
 
 In the unequal-sized window case, the window shape of the long window
@@ -371,7 +371,7 @@ must be modified for seamless lapping as above.  It is possible to
 correctly infer window shape to be applied to the current window from
 knowing the sizes of the current, previous and next window.  It is
 legal for a decoder to use this method. However, in the case of a long
-window (short windows require no modification), Vorbis also codes two
+window (int windows require no modification), Vorbis also codes two
 flag bits to specify pre- and post- window shape.  Although not
 strictly necessary for function, this minor redundancy allows a packet
 to be fully decoded to the point of lapping entirely independently of
@@ -511,7 +511,7 @@ current frame data is finished data to be returned by the decoder.
 This data spans from the center of the previous window to the center
 of the current window.  In the case of same-sized windows, the amount
 of data to return is one-half block consisting of and only of the
-overlapped portions. When overlapping a short and long window, much of
+overlapped portions. When overlapping a int and long window, much of
 the returned range is not actually overlap.  This does not damage
 transform orthogonality.  Pay attention however to returning the
 correct data range; the amount of data to be returned is:
