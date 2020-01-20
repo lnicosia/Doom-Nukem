@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 15:15:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:43:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void     iter_sectors(t_env *env, t_movement motion)
 {
     short		i;
     t_wall      wall;
-    //static int a = 0;
 
     i = 0;
 	if (motion.sector < 0)
@@ -65,8 +64,7 @@ void     iter_sectors(t_env *env, t_movement motion)
     init_sector_list(env, motion.sector);
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((distance_two_points_2d(X1, Y1, motion.pos.x, motion.pos.y) <= motion.size_2d || distance_two_points_2d(X2, Y2, motion.pos.x, motion.pos.y) <= motion.size_2d
-            || hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), motion.size_2d)) && NEIGHBOR >= 0)
+        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), motion.size_2d)) && NEIGHBOR >= 0)
         {
             wall.sector_or = motion.sector;
             wall.sector_dest = NEIGHBOR;
@@ -85,16 +83,20 @@ int        find_highest_sector(t_env *env, t_movement motion)
     int     tmp;
 
     i = 0;
+	ft_printf("{magenta} START OF FIND HIGHEST SECT {reset}\n");
     if (motion.sector < 0)
         return (0);
     iter_sectors(env, motion);
     tmp = motion.sector;
-    height = floor_height(env, motion, motion.sector);
+	height = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env);
+    //height = floor_height(env, motion, motion.sector);
     while (i < env->nb_sectors)
     {
         if (env->sector_list[i])
         {
-            s_height = floor_height(env, motion, i);
+			s_height = get_floor_at_pos(env->sectors[i], motion.pos, env);
+            //s_height = floor_height(env, motion, i);
+			ft_printf("player height {green} %f {reset} sector height {red} %f {reset}\n", height, s_height);
             if (height < s_height)
             {
                 height = s_height;
@@ -103,6 +105,7 @@ int        find_highest_sector(t_env *env, t_movement motion)
         }
         i++;
     }
+	ft_printf("{magenta} END OF FIND HIGHEST SECT {reset}\n");
     return (tmp);
 }
 

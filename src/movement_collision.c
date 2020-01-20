@@ -6,12 +6,31 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:48:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:45:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
+
+int		check_height(t_env *env, t_movement motion)
+{
+	int		sector_dest;
+	double	origin_height;
+	double	dest_height;
+	t_v3	future_pos;
+
+	future_pos = new_v3(motion.future_x, motion.future_y, motion.future_z);
+	sector_dest = get_sector_no_z(env, future_pos);
+	if (sector_dest == -1)
+		return (0);
+	origin_height = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env);
+	dest_height = get_floor_at_pos(env->sectors[sector_dest], future_pos, env);
+	if (dest_height - origin_height > 2)
+		return (0);
+	//ft_printf("origin height = %f dest height = %f\n", motion.pos.z, dest_height);
+	return (1);
+}
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
@@ -34,12 +53,14 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     pos.y = FUTURE_Y;
     pos.z = FUTURE_Z;
     floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
-    if (floor > FUTURE_Z + 2 && sector_dest != motion.sector)
+    if (floor > motion.pos.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > FUTURE_Z && sector_dest == motion.sector)
+	else if (floor > motion.pos.z && sector_dest == motion.sector)
 		return (0);
-	if (env->player.state.jump && FUTURE_Z < floor)
+	if (env->player.state.jump && motion.pos.z < floor)
 		return (0);
+	ft_printf("{yellow} pos.z = %f  floor = %f\n", motion.pos.z, floor);
+	ft_printf("sector %d sector dest %d {reset}\n", motion.sector, sector_dest);
     return (1);
 }
 
@@ -122,6 +143,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
     norme_mov = sqrt(move.x * move.x + move.y * move.y);
     if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, wall.sector_dest)) && !recu)
     {
+		ft_printf("{blue} floor seems to be too high {reset}\n");
         scalar = wall.x / wall.norme * move.x / norme_mov + wall.y / wall.norme * move.y / norme_mov;
         if (scalar != 0 && !recu)
         {
@@ -184,10 +206,12 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     init_sector_list(env, motion.sector);
     if (motion.sector == -1)
         return (new_v3(0,0,0));
+	ft_printf("{green}Start of check_collision {reset}\n");
     if (!check_ceiling(env, motion, motion.lowest_ceiling))
     	move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
 	else if (!check_floor(env, motion, motion.sector))
     	move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
+	ft_printf("{cyan} Just before check of walls {reset}\n");
     while (i < env->sectors[motion.sector].nb_vertices)
     {
         if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) ||
@@ -207,23 +231,47 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
         }
         i++;
     }
+	ft_printf("{cyan}Before checking portals {reset}\n");
     i = 0;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
+        if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) ||
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y)))) &&
+			NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
         {
+			ft_printf("{magenta}Portal found {reset}\n");
             motion.wall.sector_or = motion.sector;
             motion.wall.sector_dest = NEIGHBOR;
             motion.wall.norme = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
             motion.wall.x = (X2 - X1);
             motion.wall.y = (Y2 - Y1);
+
+    		if ((!check_ceiling(env, motion, motion.wall.sector_dest) || !check_floor(env, motion, motion.wall.sector_dest)))
+    		{
+				ft_printf("{green} floor seems to be too high {reset}\n");
+				norme_mov = sqrt(move.x * move.x + move.y * move.y);
+				scalar = motion.wall.x / motion.wall.norme * move.x / norme_mov + motion.wall.y / motion.wall.norme * move.y / norme_mov;
+				if (scalar != 0 && !rec)
+				{
+					move.x = norme_mov * motion.wall.x / motion.wall.norme * scalar;
+					move.y = norme_mov * motion.wall.y / motion.wall.norme * scalar;
+					i = 0;
+					check_collision(env, move, motion, 1);
+				}
+				return (new_v3(0, 0, 0));
+			}
+			ft_printf("{magenta portal height correct\n");
             move = collision_rec(env, move, motion, 0);
+			ft_printf("check movement through portal {reset}\n");
             if (move.x == 0 && move.y == 0)
                 return (new_v3(0,0,0));
+			ft_printf("{magenta}Perfect {reset}\n");
         }
         i++;
     }
-	if (check_objects(env, move, motion.pos, motion.eyesight))
+	ft_printf("{cyan} checking objects {reset}\n");
+	if (check_objects(env, move, motion.pos, motion.eyesight)/* && check_height(env, motion)*/)
     	return (move);
+	ft_printf("hit my toe on the chair {reset}\n");
 	return (new_v3(0, 0, 0));
 }
