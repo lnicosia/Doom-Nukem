@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 17:13:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 11:06:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,8 @@ typedef struct		s_event_param
 		int			wall;
 		int			sprite;
 		int			size;
+		int			enemy;
+		int			object;
 		double		equ_value;
 		double		diff_value;
 		void		*target;

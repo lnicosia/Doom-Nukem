@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 15:02:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 11:07:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ t_events_parser *eparser)
 	eparser->event.update_param.sector = eparser->target_sector;
 	eparser->event.update_param.wall = eparser->target_wall;
 	eparser->event.update_param.sprite = eparser->target_sprite;
+	eparser->event.update_param.object = eparser->target_object;
+	eparser->event.update_param.enemy = eparser->target_enemy;
 	eparser->event.check_param.sector = eparser->target_sector;
 	eparser->event.check_param.wall = eparser->target_wall;
 	eparser->event.check_param.sprite = eparser->target_sprite;
+	eparser->event.check_param.object = eparser->target_object;
+	eparser->event.check_param.enemy = eparser->target_enemy;
 	eparser->event.type = eparser->target_types[eparser->target_index];
 	if (!**line)
 		return (missing_data("closing ']' brace after event target", parser));

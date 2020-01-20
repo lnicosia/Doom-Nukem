@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 17:25:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 11:11:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -555,6 +555,9 @@ int					update_player_z_event(t_event *event, void *penv);
 int					update_wall_texture_event(t_event *event, void *penv);
 int					update_floor_texture_event(t_event *event, void *penv);
 int					update_ceiling_texture_event(t_event *event, void *penv);
+int					update_sector_entities_event(t_event *event, void *penv);
+int					update_object_sector_event(t_event *event, void *penv);
+int					update_enemy_sector_event(t_event *event, void *penv);
 int					delete_itself_event(t_event *event, void *penv);
 
 /*
