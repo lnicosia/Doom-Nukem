@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 17:32:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 12:28:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	init_events_parser_checkers3(t_events_parser *eparser)
 {
-	eparser->checkers[PLAYER_SPEED] = 0;
+	eparser->checkers[PLAYER_SPEED] =  &check_double_overflow_event;
+
 	eparser->checkers[PLAYER_INVINCIBLE] = &check_true_false_event;
 	eparser->checkers[PLAYER_INFINITE_AMMO] = &check_true_false_event;
-	eparser->checkers[PLAYER_SECTOR] = 0;
+	eparser->checkers[PLAYER_SECTOR] = &check_double_overflow_event;
 	eparser->checkers[WEAPON_DAMAGE] = &check_int_overflow_event;
-	eparser->checkers[WEAPON_RANGE] = 0;
+	eparser->checkers[WEAPON_RANGE] = &check_double_overflow_event;
 	eparser->checkers[ENEMY_SPRITE] = &check_sprite_event;
 	eparser->checkers[ENEMY_SCALE] = &check_scale_event;
 	eparser->checkers[ENEMY_DAMAGE] = &check_int_overflow_event;
 	eparser->checkers[ENEMY_HP] = &check_int_overflow_event;
-	eparser->checkers[ENEMY_SPEED] = 0;
-	eparser->checkers[ENEMY_X] = 0;
-	eparser->checkers[ENEMY_Y] = 0;
-	eparser->checkers[ENEMY_Z] = 0;
+	eparser->checkers[ENEMY_SPEED] = &check_double_overflow_event;
+	eparser->checkers[ENEMY_X] = &check_double_overflow_event;
+	eparser->checkers[ENEMY_Y] = &check_double_overflow_event;
+	eparser->checkers[ENEMY_Z] = &check_double_overflow_event;
 	eparser->checkers[OBJECT_SPRITE] = &check_sprite_event;
 	eparser->checkers[OBJECT_SCALE] = &check_scale_event;
 	eparser->checkers[OBJECT_DAMAGE] = &check_int_overflow_event;
 	eparser->checkers[OBJECT_HP] = &check_int_overflow_event;
-	eparser->checkers[OBJECT_SPEED] = 0;
-	eparser->checkers[OBJECT_X] = 0;
-	eparser->checkers[OBJECT_Y] = 0;
-	eparser->checkers[OBJECT_Z] = 0;
+	eparser->checkers[OBJECT_X] = &check_double_overflow_event;
+	eparser->checkers[OBJECT_Y] = &check_double_overflow_event;
+	eparser->checkers[OBJECT_Z] = &check_double_overflow_event;
 }
 
 void	init_events_parser_checkers2(t_events_parser *eparser)
@@ -54,8 +54,8 @@ void	init_events_parser_checkers2(t_events_parser *eparser)
 	eparser->checkers[SECTOR_LIGHT_COLOR] = &check_color_event;
 	eparser->checkers[SECTOR_INTENSITY] = &check_brightness_event;
 	eparser->checkers[SECTOR_GRAVITY] = &check_gravity_event;
-	eparser->checkers[VERTEX_X] = 0;
-	eparser->checkers[VERTEX_Y] = 0;
+	eparser->checkers[VERTEX_X] = &check_vertex_event;
+	eparser->checkers[VERTEX_Y] = &check_vertex_event;
 	eparser->checkers[PLAYER_X] = &check_x_collision_event;
 	eparser->checkers[PLAYER_Y] = &check_y_collision_event;
 	eparser->checkers[PLAYER_Z] = &check_z_collision_event;

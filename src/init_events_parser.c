@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:23:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 10:17:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:06:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ t_events_parser *eparser)
 	(void)eparser;
 	(void)parser;
 	return (0);
+}
+
+void	no_writer(int fd, t_event event)
+{
+	(void)fd;
+	(void)event;
 }
 
 void	init_events_parser_trigger_parsers(t_events_parser *eparser)

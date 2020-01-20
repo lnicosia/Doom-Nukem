@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:06:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:38:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,8 @@ typedef struct		s_event_param
 		int			size;
 		int			enemy;
 		int			object;
+		int			vertex;
+		int			weapon;
 		double		equ_value;
 		double		diff_value;
 		void		*target;
@@ -290,6 +292,15 @@ typedef struct		s_condition
 	int				type;
 	double			value;
 	int				target_type;
+	int				target_index;
+	int				sector;
+	int				wall;
+	int				sprite;
+	int				size;
+	int				enemy;
+	int				object;
+	int				vertex;
+	int				weapon;
 	void			*target;
 }					t_condition;
 
@@ -305,6 +316,7 @@ typedef struct		s_event
 	Uint32			duration;
 	Uint32			start_delay;
 	Uint32			delay;
+	int				target_index;
 	int				mod_type;
 	int				type;
 	int				target_type;
@@ -815,7 +827,7 @@ typedef struct		s_object
 	double			angle;
 	double			height;
 	double			size_2d;
-	int			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				type;
 	int				quantity;

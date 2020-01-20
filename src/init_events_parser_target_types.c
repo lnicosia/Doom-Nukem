@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 17:57:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 11:54:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	init_events_parser_target_types3(t_events_parser *eparser)
 	eparser->target_types[OBJECT_SCALE] = DOUBLE;
 	eparser->target_types[OBJECT_DAMAGE] = INT;
 	eparser->target_types[OBJECT_HP] = INT;
-	eparser->target_types[OBJECT_SPEED] = DOUBLE;
 	eparser->target_types[OBJECT_X] = DOUBLE;
 	eparser->target_types[OBJECT_Y] = DOUBLE;
 	eparser->target_types[OBJECT_Z] = DOUBLE;

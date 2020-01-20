@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:48:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:31:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_events_parser *eparser)
 	eparser->condition_enemy = eparser->current_enemy;
 	eparser->condition_weapon = eparser->current_weapon;
 	eparser->condition_object = eparser->current_object;
+	eparser->event.launch_conditions[eparser->condition_count].target_index =
+	eparser->condition_index;
 	eparser->event.launch_conditions[eparser->condition_count].target =
 	set_condition_target(env, eparser);
 	eparser->event.launch_conditions[eparser->condition_count].target_type =

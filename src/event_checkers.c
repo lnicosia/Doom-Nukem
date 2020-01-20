@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 17:39:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:50:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,6 @@ int		check_z_collision_event(t_event *event, void *penv)
 		|| (event->incr == 0 && move.z == 0))
 		return (0);
 	return (1);
-}
-
-int		check_sector_event(t_event *event, void *penv)
-{
-	t_env		*env;
-	t_sector	sector;
-
-	env = (t_env*)penv;
-	sector = env->sectors[event->check_param.sector];
-	return (0);
 }
 
 int		check_floor_slope_event(t_event *event, void *penv)
@@ -234,9 +224,23 @@ int		check_int_overflow_event(t_event *event, void *penv)
 	t_env	*env;
 
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(int*)event->target + event->incr >= 2147483646)
+	if ((event->incr > 0
+		&& *(int*)event->target + event->incr >= 2147483646)
 		|| (event->incr < 0
 		&& *(int*)event->target + event->incr <= -2147483648))
+		return (1);
+	return (0);
+}
+
+int		check_double_overflow_event(t_event *event, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if ((event->incr > 0
+		&& *(int*)event->target + event->incr >= 99999999999999)
+		|| (event->incr < 0
+		&& *(int*)event->target + event->incr <= -99999999999999))
 		return (1);
 	return (0);
 }

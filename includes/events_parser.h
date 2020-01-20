@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 12:25:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:53:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EVENTS_PARSER_H
 # include "map_parser.h"
 # define MAX_TRIGGER_TYPES 6
-# define MAX_TARGET_TYPES 67
+# define MAX_TARGET_TYPES 66
 
 typedef enum		e_trigger
 {
@@ -73,9 +73,9 @@ typedef enum		e_events_targets
 	PLAYER_X,
 	PLAYER_Y,
 	PLAYER_Z,
-	PLAYER_SPEED,
 	PLAYER_HP,
 	PLAYER_ARMOR,
+	PLAYER_SPEED,
 	PLAYER_INVINCIBLE,
 	PLAYER_INFINITE_AMMO,
 	PLAYER_SECTOR,
@@ -93,7 +93,6 @@ typedef enum		e_events_targets
 	OBJECT_SCALE,
 	OBJECT_DAMAGE,
 	OBJECT_HP,
-	OBJECT_SPEED,
 	OBJECT_X,
 	OBJECT_Y,
 	OBJECT_Z,
@@ -211,5 +210,37 @@ int					object_parser(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					event_parser(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
+
+/*
+**	Unit writers
+*/
+
+void				init_events_writers(void (*writers[])(int, t_event));
+void				no_writer(int fd, t_event event);
+void				sector_writer(int fd, t_event event);
+void				enemy_writer(int fd, t_event event);
+void				wall_sprite_writer(int fd, t_event event);
+void				wall_writer(int fd, t_event event);
+void				floor_sprite_writer(int fd, t_event event);
+void				ceiling_sprite_writer(int fd, t_event event);
+void				vertex_writer(int fd, t_event event);
+void				weapon_writer(int fd, t_event event);
+void				object_writer(int fd, t_event event);
+void				event_writer(int fd, t_event event);
+void				condition_no_writer(int fd, t_condition condition);
+void				condition_sector_writer(int fd, t_condition condition);
+void				condition_enemy_writer(int fd, t_condition condition);
+void				condition_wall_sprite_writer(int fd, t_condition condition);
+void				condition_wall_writer(int fd, t_condition condition);
+void				condition_floor_sprite_writer(int fd, t_condition condition);
+void				condition_ceiling_sprite_writer(int fd,
+t_condition condition);
+void				condition_vertex_writer(int fd, t_condition condition);
+void				condition_weapon_writer(int fd, t_condition condition);
+void				condition_object_writer(int fd, t_condition condition);
+void				condition_event_writer(int fd, t_condition condition);
+void				write_event_conditions(int fd, t_event event);
+void				init_event_conditions_writers(void (*writers[])(int,
+t_condition));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:17:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:48:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	init_events_parser_updaters3(t_events_parser *eparser)
 	eparser->updaters[OBJECT_SCALE] = 0;
 	eparser->updaters[OBJECT_DAMAGE] = 0;
 	eparser->updaters[OBJECT_HP] = 0;
-	eparser->updaters[OBJECT_SPEED] = 0;
 	eparser->updaters[OBJECT_X] = &update_object_sector_event;
 	eparser->updaters[OBJECT_Y] = &update_object_sector_event;
 	eparser->updaters[OBJECT_Z] = &update_object_sector_event;
@@ -54,8 +53,8 @@ void	init_events_parser_updaters2(t_events_parser *eparser)
 	eparser->updaters[SECTOR_LIGHT_COLOR] = &update_sector_entities_event;
 	eparser->updaters[SECTOR_INTENSITY] = &update_sector_entities_event;
 	eparser->updaters[SECTOR_GRAVITY] = 0;
-	eparser->updaters[VERTEX_X] = 0;
-	eparser->updaters[VERTEX_Y] = 0;
+	eparser->updaters[VERTEX_X] = &update_sector_event;
+	eparser->updaters[VERTEX_Y] = &update_sector_event;
 	eparser->updaters[PLAYER_X] = &update_player_z_event;
 	eparser->updaters[PLAYER_Y] = &update_player_z_event;
 	eparser->updaters[PLAYER_Z] = &update_player_z_event;
