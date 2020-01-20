@@ -178,8 +178,9 @@ void	editor_hud(t_env *env)
 			new_point(400, 900));
 		}
 		draw_button(env, env->editor.texture_background);
+		draw_button(env, env->editor.enemy_background);
 		draw_button(env, env->editor.current_texture_selection);
-		//draw_button(env, env->editor.current_enemy_selection);
+		draw_button(env, env->editor.current_enemy_selection);
 		draw_button(env, env->editor.change_mode);
 		draw_button(env, env->editor.launch_game);
 		draw_button(env, env->editor.save);
@@ -216,6 +217,8 @@ void	editor_hud(t_env *env)
 			print_sprite_tab(env);*/
 		if (env->editor.general_tab.state == DOWN)
 			print_general_tab(env);
+		if (env->editor.draw_enemy_tab)
+			enemy_tab(env, MAX_ENEMIES);
 		if (env->editor.draw_selection_tab)
 			selection_tab(env, MAX_WALL_TEXTURE);
 	}

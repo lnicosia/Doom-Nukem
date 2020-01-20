@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:19:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 17:41:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,28 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
-	button_keyup(&env->editor.save, env);
-	button_keyup(&env->editor.general_tab, env);
-	button_keyup(&env->editor.sprite_tab, env);
-	button_keyup(&env->editor.sector_tab, env);
-	button_keyup(&env->editor.change_mode, env);
-	button_keyup(&env->editor.launch_game, env);
-	button_keyup(&env->editor.texture_background, env);
-	button_keyup(&env->editor.hud.s_ceilling.brightness, env);
-	button_keyup(&env->editor.hud.s_ceilling.color, env);
-	button_keyup(&env->editor.hud.s_ceilling.intensity, env);
 	if (env->editor.tab)
 	{
+		button_keyup(&env->editor.save, env);
+		button_keyup(&env->editor.general_tab, env);
+		button_keyup(&env->editor.sprite_tab, env);
+		button_keyup(&env->editor.sector_tab, env);
+		button_keyup(&env->editor.change_mode, env);
+		button_keyup(&env->editor.launch_game, env);
+		button_keyup(&env->editor.texture_background, env);
+		button_keyup(&env->editor.hud.s_ceilling.brightness, env);
+		button_keyup(&env->editor.hud.s_ceilling.color, env);
+		button_keyup(&env->editor.hud.s_ceilling.intensity, env);
+		if (env->selected_ceiling != -1)
+			ceiling_buttons_up(env);
+		if (env->editor.selected_wall != -1)
+			wall_buttons_up(env);
+		if (env->selected_floor != -1)
+			floor_buttons_up(env);
 		if (env->editor.draw_selection_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)
 			{
-				//ft_printf("%d\n", i);
 				button_keyup(&env->editor.textures[i], env);
 				i++;
 			}

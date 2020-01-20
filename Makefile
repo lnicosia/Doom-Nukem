@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/16 17:27:26 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/20 18:12:36 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		 init_editor_tab_buttons.c editor_ceiling_tab_button.c editor_floor_tab_button.c \
 		 editor_wall_tab_button.c editor_env_wall_buttons.c editor_env_floor_buttons.c \
-		 editor_env_ceilling_buttons.c
+		 editor_env_ceilling_buttons.c  change_editor_mode.c editor_button_keys.c \
+		 editor_button_keyup.c enemy_tab.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -96,7 +97,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
-		   draw_floor_sprites_both.c bmp_parser_ui.c \
+		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_enemies.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c \
@@ -113,7 +114,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
-		   event_ended_condition.c change_editor_mode.c
+		   event_ended_condition.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
@@ -132,8 +133,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -flto -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-flto -Ofast \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

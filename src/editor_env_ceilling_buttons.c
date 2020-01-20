@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 11:24:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 14:51:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:07:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,15 @@ void	init_ceilling_sector_env(t_env *env)
 
 void	init_ceilling_general_env(t_env *env)
 {
+	env->editor.hud.g_ceilling.t_height.env = env;
+	env->editor.hud.g_ceilling.t_height.pos = new_point(0, 0);
+	env->editor.hud.g_ceilling.t_height.type = DOUBLE;
+	env->editor.hud.g_ceilling.t_slope.env = env;
+	env->editor.hud.g_ceilling.t_slope.pos = new_point(0, 0);
+	env->editor.hud.g_ceilling.t_slope.type = DOUBLE;
 	env->editor.hud.g_ceilling.t_texture.env = env;
 	env->editor.hud.g_ceilling.t_texture.pos = new_point(0, 0);
-	env->editor.hud.g_ceilling.t_texture.type = DOUBLE;
+	env->editor.hud.g_ceilling.t_texture.type = INT;
 	env->editor.hud.g_ceilling.t_texture_scale_x.env = env;
 	env->editor.hud.g_ceilling.t_texture_scale_x.pos = new_point(0, 0);
 	env->editor.hud.g_ceilling.t_texture_scale_x.type = DOUBLE;

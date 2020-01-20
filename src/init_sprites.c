@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:11:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,10 +557,9 @@ int			init_object_sprites(t_env *env)
 }
 int			init_enemy_sprites(t_env *env)
 {
+	ft_printf("hihi\n");
 	if (!(env->enemy_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 13)))
 		return (ft_printf("Could not malloc enemy_sprites\n"));
-	if (!(env->editor.enemy_tab = (t_texture*)ft_memalloc(sizeof(t_texture) * MAX_ENEMIES)))
-		return (ft_printf("Could not malloc editor's array for enemies main sprite\n"));
 	// Sprite oriente, lost soul
 	env->enemy_sprites[0].texture = 23;
 	env->enemy_sprites[0].death_counterpart = 4;
@@ -1516,5 +1515,7 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[12].size[7].x = 139;
 	env->enemy_sprites[12].size[7].y = 134;
 	env->enemy_sprites[12].reversed[7] = 0;
+	env->enemy_main_sprite[0] = LOST_SOUL;
+	env->enemy_main_sprite[1] = CYBER_DEMON;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 11:57:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:11:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
+	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[NB_SKYBOX];
@@ -122,17 +123,17 @@ typedef struct		s_env
 	t_point				minimap_size;
 	t_point				crosshair_pos;
 	int					current_object;
-	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
-	int				contains_skybox;
+	int					contains_skybox;
 	Uint32*				tmp_first_sprite;
 	Uint32				press_wall_sprite_color;
 	int					press_wall_sprite_intensity;
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
+	int					enemy_main_sprite[MAX_ENEMIES];
 }					t_env;
 
 /*
@@ -267,6 +268,7 @@ void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
 void				update_short_tab(int index, short size, short **tab);
 void				selection_tab(t_env *env, int nb_slots);
+void				enemy_tab(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 void				editor_mode_button(t_env *env);
 void				editor_save_button(t_env *env);
@@ -287,11 +289,17 @@ void				print_player_sector_tab(t_env *env);
 void				print_wall_sector_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
+void				save_enemy(void *target);
 void				general_tab(void *target);
 void				sector_tab(void *target);
 void				sprite_tab(void *target);
 void				change_var(void *target);
-
+void				wall_buttons(t_env *env);
+void				ceiling_buttons(t_env *env);
+void				floor_buttons(t_env *env);
+void				wall_buttons_up(t_env *env);
+void				ceiling_buttons_up(t_env *env);
+void				floor_buttons_up(t_env *env);
 
 /*
 ** Main functions
@@ -356,6 +364,7 @@ t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int spr
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_bmp_ui_textures(char *file, int index, t_env *env);
+int					parse_bmp_mini_enemies_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);

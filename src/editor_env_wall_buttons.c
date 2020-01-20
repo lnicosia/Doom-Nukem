@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:46:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 15:23:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:51:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_wall_general_env(t_env *env)
 {
 	env->editor.hud.g_wall.t_texture.env = env;
 	env->editor.hud.g_wall.t_texture.pos = new_point(0, 0);
-	env->editor.hud.g_wall.t_texture.type = DOUBLE;
+	env->editor.hud.g_wall.t_texture.type = INT;
 	env->editor.hud.g_wall.t_texture_scale_x.env = env;
 	env->editor.hud.g_wall.t_texture_scale_x.pos = new_point(0, 0);
 	env->editor.hud.g_wall.t_texture_scale_x.type = DOUBLE;

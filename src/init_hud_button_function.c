@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 16:00:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:27:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	save_texture(void *param)
 	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
 	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
 	env->editor.draw_selection_tab = 0;
+}
+
+void	save_enemy(void *param)
+{
+	t_env	*env;
+	int		i;
+
+	env = ((t_button_target*)param)->env;
+	i = ((t_button_target*)param)->i;
+	env->editor.current_enemy = env->enemy_main_sprite[i];
+	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[i].surface;
+	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
+	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
+	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[i].surface;
+	env->editor.draw_enemy_tab = 0;
 }
 
 void	nothing(void *target)

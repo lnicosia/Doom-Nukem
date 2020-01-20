@@ -42,7 +42,7 @@ int			editor_keys(t_env *env)
 	/*
 	**	Moving the map with arrows
 	*/
-
+	
 	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.x -= 3;
 	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
@@ -71,14 +71,26 @@ int			editor_keys(t_env *env)
 	button_keys(&env->editor.change_mode, env);
 	button_keys(&env->editor.launch_game, env);
 	button_keys(&env->editor.texture_background, env);
-	button_keys(&env->editor.hud.s_ceilling.brightness, env);
-	button_keys(&env->editor.hud.s_ceilling.color, env);
-	button_keys(&env->editor.hud.s_ceilling.intensity, env);
+	button_keys(&env->editor.enemy_background, env);
+	/*if (env->selected_ceiling != -1)
+		ceiling_buttons(env);
+	if (env->selected_floor != -1)
+		floor_buttons(env);
+	if (env->editor.selected_wall != -1)
+		wall_buttons(env);*/
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
 			button_keys(&env->editor.textures[i], env);
+			i++;
+		}
+	}
+	if (env->editor.draw_enemy_tab)
+	{
+		while (i < MAX_ENEMIES)
+		{
+			button_keys(&env->editor.enemy_tab[i], env);
 			i++;
 		}
 	}

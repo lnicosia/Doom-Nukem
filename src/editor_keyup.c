@@ -174,12 +174,16 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.change_mode, env);
 	button_keyup(&env->editor.launch_game, env);
 	button_keyup(&env->editor.texture_background, env);
+	button_keyup(&env->editor.enemy_background, env);
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
-	button_keyup(&env->editor.hud.s_ceilling.brightness, env);
-	button_keyup(&env->editor.hud.s_ceilling.color, env);
-	button_keyup(&env->editor.hud.s_ceilling.intensity, env);
+/*	if (env->selected_ceiling != -1)
+		ceiling_buttons_up(env);
+	if (env->editor.selected_wall != -1)
+		wall_buttons_up(env);
+	if (env->selected_floor != -1)
+		floor_buttons_up(env);*/
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
@@ -188,10 +192,23 @@ int	editor_keyup(t_env *env)
 			i++;
 		}
 	}
+	if (env->editor.draw_enemy_tab)
+	{
+		while (i < MAX_ENEMIES)
+		{
+			button_keyup(&env->editor.enemy_tab[i], env);
+			i++;
+		}
+	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 	&& (env->sdl.my < 414 && env->sdl.my > 350))
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 167 && env->sdl.mx > 103)
+	&& (env->sdl.my < 417 && env->sdl.my > 353))
+		env->editor.draw_enemy_tab = 1;
+	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_enemy_tab = 0;
 	return (0);
 }

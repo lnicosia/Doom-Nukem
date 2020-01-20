@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 11:32:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 16:07:39 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ typedef struct		s_var_s
 
 typedef struct	s_var_g
 {
+	t_button		height;
+	t_button		slope;
 	t_button		texture;
 	t_button		texture_scale_x;
 	t_button		texture_scale_y;
 	t_button		texture_align_x;
 	t_button		texture_align_y;
+	t_button_tab	t_height;
+	t_button_tab	t_slope;
 	t_button_tab	t_texture;
 	t_button_tab	t_texture_scale_x;
 	t_button_tab	t_texture_scale_y;
@@ -120,6 +124,7 @@ typedef struct	s_editor
 	int				tab;
 	int				select;
 	int				current_texture;
+	int				current_enemy;
 	t_v2			center;
 	double			scale;
 	t_list			*vertices;
@@ -134,18 +139,21 @@ typedef struct	s_editor
 	t_split			split;
 	int				select_vertex_on_going;
 	int				draw_selection_tab;
+	int				draw_enemy_tab;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;
-	t_texture		*enemy_tab;
 	t_button		change_mode;
 	t_button		save;
 	t_button		launch_game;
 	t_button		texture_background;
+	t_button		enemy_background;
 	t_button		sector_tab;
 	t_button		sprite_tab;
 	t_button		general_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
+	t_button		enemy_tab[MAX_MONSTER_MINI];
+
 }				t_editor;
 
 #endif

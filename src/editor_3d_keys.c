@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:19:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:02:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,16 +492,22 @@ int		editor_3d_keys(t_env *env)
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
-	button_keys(&env->editor.save, env);
-	button_keys(&env->editor.sprite_tab, env);
-	button_keys(&env->editor.general_tab, env);
-	button_keys(&env->editor.sector_tab, env);
-	button_keys(&env->editor.change_mode, env);
-	button_keys(&env->editor.launch_game, env);
-	button_keys(&env->editor.texture_background, env);
-	button_keys(&env->editor.hud.s_ceilling.brightness, env);
-	button_keys(&env->editor.hud.s_ceilling.color, env);
-	button_keys(&env->editor.hud.s_ceilling.intensity, env);
+	if (env->editor.tab)
+	{
+		button_keys(&env->editor.save, env);
+		button_keys(&env->editor.sprite_tab, env);
+		button_keys(&env->editor.general_tab, env);
+		button_keys(&env->editor.sector_tab, env);
+		button_keys(&env->editor.change_mode, env);
+		button_keys(&env->editor.launch_game, env);
+		button_keys(&env->editor.texture_background, env);
+		if (env->selected_ceiling != -1)
+			ceiling_buttons(env);
+		if (env->selected_floor != -1)
+			floor_buttons(env);
+		if (env->editor.selected_wall != -1)
+			wall_buttons(env);
+	}
 	if (env->editor.tab)
 	{
 		i = 0;
