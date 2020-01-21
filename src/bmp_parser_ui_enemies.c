@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:17:11 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 16:16:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 10:48:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int			parse_bmp_mini_enemies_textures(char *file, int index, t_env *env)
 {
 	int	fd;
 
-	ft_printf("parsing miniatures\n");
 	//ft_printf("Parsing \"%s\"\n{red}", file);
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (ft_printf("Could not open \"%s\"\n", file));

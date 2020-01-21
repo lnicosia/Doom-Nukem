@@ -170,6 +170,8 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
+	button_keyup(&env->editor.add_enemy, env);
+	button_keyup(&env->editor.add_object, env);
 	button_keyup(&env->editor.save, env);
 	button_keyup(&env->editor.change_mode, env);
 	button_keyup(&env->editor.launch_game, env);
@@ -205,10 +207,14 @@ int	editor_keyup(t_env *env)
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 167 && env->sdl.mx > 103)
-	&& (env->sdl.my < 417 && env->sdl.my > 353))
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
+	&& (env->sdl.my < 317 && env->sdl.my > 253))
 		env->editor.draw_enemy_tab = 1;
-	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_enemy_tab = 0;
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_enemy && env->sdl.mx > 400)
+		add_enemy(env);
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_object && env->sdl.mx > 400)
+		add_object(env);
 	return (0);
 }

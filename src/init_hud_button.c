@@ -72,11 +72,8 @@ int		init_enemy_selection_button(t_env *env)
 	else
 		mod = 5;
 	i = 0;
-	ft_printf("current_enemy: %d\n", env->editor.current_enemy);
-	ft_printf("current_selection: %d\n", env->editor.current_texture);
  	while (i < MAX_ENEMIES)
 	{
-		ft_printf("%d | %f\n", i, env->mini_enemies_textures[i].scale);
 		env->editor.enemy_tab[i].img_up = env->wall_textures[i].maps[6];
 		env->editor.enemy_tab[i] = new_image_button(WHEN_DOWN, &save_enemy, new_button_target(env, i), env);
 		env->editor.enemy_tab[i].img_up = env->mini_enemies_textures[i].surface;
@@ -87,7 +84,7 @@ int		init_enemy_selection_button(t_env *env)
 		env->editor.enemy_tab[i].size_down = new_point(64, 64);
         env->editor.enemy_tab[i].size_hover = new_point(64, 64);
         env->editor.enemy_tab[i].size_pressed = new_point(64, 64);
-		env->editor.enemy_tab[i].pos = new_point(140 + (64 * (i % mod)) + 5, 370 + 5 + (64 * (i / mod)));
+		env->editor.enemy_tab[i].pos = new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
 		i++;
 	}
 	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN, &save_enemy, &env->editor.current_enemy_selection, env);
@@ -99,9 +96,9 @@ int		init_enemy_selection_button(t_env *env)
 	env->editor.current_enemy_selection.size_down = new_point(64, 64);
     env->editor.current_enemy_selection.size_hover = new_point(64, 64);
     env->editor.current_enemy_selection.size_pressed = new_point(64, 64);	
-    env->editor.current_enemy_selection.pos = new_point(103, 353);
+    env->editor.current_enemy_selection.pos = new_point(13, 253);
 	env->editor.enemy_background = new_background_button(WHEN_DOWN, &nothing, &env->editor.enemy_background, env);
-	env->editor.enemy_background.pos = new_point(100, 350);
+	env->editor.enemy_background.pos = new_point(10, 250);
 	return (1);
 }
 
@@ -130,6 +127,7 @@ int		init_editor_hud(t_env *env)
 {
 	if (!init_array_texture_buttons(env))
 		return (0);
+	init_add_buttons(env);
 	init_enemy_selection_button(env);
 	init_informations_tab(env);
 	init_options_buttons(env);

@@ -6,11 +6,31 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 18:27:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:19:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	add_object_button(void *target)
+{
+	t_env *env;
+
+	env = (t_env *)target;
+	env->editor.create_object = 1;
+}
+
+
+void	add_enemy_button(void *target)
+{
+	t_env *env;
+
+	env = (t_env *)target;
+	if (!env->editor.draw_enemy_tab)
+		env->editor.create_enemy = 1;
+	else
+		env->editor.add_enemy.state = UP;
+}
 
 void	save_texture(void *param)
 {

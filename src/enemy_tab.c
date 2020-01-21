@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:03:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 18:04:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:10:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	enemy_tab(t_env *env, int nb_slots)
 		test++;	
 	draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(130, 370),
+				new_point(50, 290),
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
-	while (i < MAX_WALL_TEXTURE)
+	while (i < MAX_ENEMIES)
 	{
 		draw_button(env, env->editor.enemy_tab[i]);
 		i++;

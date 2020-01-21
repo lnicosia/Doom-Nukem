@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 18:11:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:18:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,10 @@ void				init_ceilling_sprite_env(t_env *env);
 void				init_ceilling_general_buttons(t_env *env);
 void				init_ceilling_sector_buttons(t_env *env);
 void				init_ceilling_sprite_buttons(t_env *env);
+void				init_add_buttons(t_env *env);
+void				init_add_enemy_buttons(t_env *env);
+void				init_add_object_buttons(t_env *env);
+
 
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
@@ -290,6 +294,8 @@ void				print_wall_sector_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
+void				add_enemy_button(void *target);
+void				add_object_button(void *target);
 void				general_tab(void *target);
 void				sector_tab(void *target);
 void				sprite_tab(void *target);

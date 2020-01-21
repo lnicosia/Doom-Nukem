@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/20 18:12:36 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/21 15:28:53 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 init_editor_tab_buttons.c editor_ceiling_tab_button.c editor_floor_tab_button.c \
 		 editor_wall_tab_button.c editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		 editor_env_ceilling_buttons.c  change_editor_mode.c editor_button_keys.c \
-		 editor_button_keyup.c enemy_tab.c
+		 editor_button_keyup.c enemy_tab.c init_add_buttons.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -133,8 +133,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) \
-		  -fsanitize=address -g3 \
-		  #-flto -Ofast \
+		  -flto -Ofast \
+		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

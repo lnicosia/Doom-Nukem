@@ -166,8 +166,6 @@ void	print_enemy_informations(t_env *env)
 
 void	editor_hud(t_env *env)
 {
-	t_point	center;
-
 	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
 	{
 		if (env->editor.in_game)
@@ -177,6 +175,12 @@ void	editor_hud(t_env *env)
 			new_point(0 , 0),
 			new_point(400, 900));
 		}
+		draw_rectangle(env,
+				new_rectangle(0x00000000, 0xFF888888, 1, 5),
+				new_point(0 , 64),
+				new_point(400, 270));
+		draw_button(env, env->editor.add_enemy);
+		draw_button(env, env->editor.add_object);
 		draw_button(env, env->editor.texture_background);
 		draw_button(env, env->editor.enemy_background);
 		draw_button(env, env->editor.current_texture_selection);
@@ -187,10 +191,6 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.general_tab);
 		draw_button(env, env->editor.sprite_tab);
 		draw_button(env, env->editor.sector_tab);
-		draw_rectangle(env,
-				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(0 , 64),
-				new_point(400, 270));
 		draw_rectangle(env,
 				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
 				new_point(0 , 450),
@@ -203,23 +203,15 @@ void	editor_hud(t_env *env)
 		else
 			print_text(new_point(100, 175), new_printable_text("[OFF]",
 		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
-		center.x = 100;
-		center.y = 200;
-		draw_circle_free(new_circle(0xFFFFFF00, 0xFFFFFF00, center, 15), env);
-		print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		center.x = 100;
-		center.y = 270;
-		draw_circle_free(new_circle(0xFF0000FF, 0xFF0000FF, center, 15), env);
-		print_text(new_point(220, 60), new_printable_text("enemy", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		if (env->editor.sector_tab.state == DOWN)
 			print_sector_tab(env);/*
 		else if (env->editor.sprite_tab == DOWN)
 			print_sprite_tab(env);*/
 		if (env->editor.general_tab.state == DOWN)
 			print_general_tab(env);
-		if (env->editor.draw_enemy_tab)
-			enemy_tab(env, MAX_ENEMIES);
 		if (env->editor.draw_selection_tab)
 			selection_tab(env, MAX_WALL_TEXTURE);
+		if (env->editor.draw_enemy_tab)
+			enemy_tab(env, MAX_ENEMIES);
 	}
 }

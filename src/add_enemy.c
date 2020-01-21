@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:32:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:09:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	add_enemy(t_env *env)
 	enemy.num = env->nb_enemies;
 	enemy.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	enemy.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	enemy.sprite = 5;
+	enemy.sprite = env->editor.current_enemy;
 	enemy.scale = 5;
 	enemy.angle = 0;
 	enemy.exists = 1;
@@ -45,5 +45,8 @@ int	add_enemy(t_env *env)
 	if (!(env->enemies = (t_enemies*)ft_realloc(env->enemies, sizeof(t_enemies) * env->nb_enemies, sizeof(t_enemies) * (env->nb_enemies + 1))))
 		return (ft_printf("Could not realloc enemys\n"));
 	env->enemies[env->nb_enemies] = enemy;
+	env->editor.create_enemy = 0;
+	env->nb_enemies++;
+	env->editor.add_enemy.state = UP;
 	return (0);
 }

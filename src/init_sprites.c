@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:11:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 10:41:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,7 +557,6 @@ int			init_object_sprites(t_env *env)
 }
 int			init_enemy_sprites(t_env *env)
 {
-	ft_printf("hihi\n");
 	if (!(env->enemy_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 13)))
 		return (ft_printf("Could not malloc enemy_sprites\n"));
 	// Sprite oriente, lost soul

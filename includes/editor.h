@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 16:07:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:12:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ typedef struct	s_editor
 	int				select_vertex_on_going;
 	int				draw_selection_tab;
 	int				draw_enemy_tab;
+	int				create_enemy;
+	int				create_object;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;
@@ -153,7 +155,8 @@ typedef struct	s_editor
 	t_button		general_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
 	t_button		enemy_tab[MAX_MONSTER_MINI];
-
+	t_button		add_enemy;
+	t_button		add_object;
 }				t_editor;
 
 #endif
