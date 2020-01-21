@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 15:12:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 18:12:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ typedef struct	s_var_g
 	t_button		texture_scale_y;
 	t_button		texture_align_x;
 	t_button		texture_align_y;
+	t_button		brightness;
+	t_button		color;
+	t_button		intensity;
+	t_button		gravity;
+	t_button		floor;
+	t_button		ceiling;
+	t_button		ceiling_slope;
+	t_button		floor_slope;
+	t_button_tab	t_brightness;
+	t_button_tab	t_color;
+	t_button_tab	t_intensity;
+	t_button_tab	t_gravity;
 	t_button_tab	t_height;
 	t_button_tab	t_slope;
 	t_button_tab	t_texture;
@@ -51,6 +63,10 @@ typedef struct	s_var_g
 	t_button_tab	t_texture_scale_y;
 	t_button_tab	t_texture_align_x;
 	t_button_tab	t_texture_align_y;
+	t_button_tab	t_floor;
+	t_button_tab	t_ceilling;
+	t_button_tab	t_ceiling_slope;
+	t_button_tab	t_floor_slope;
 }				t_var_g;
 
 typedef struct	s_hud

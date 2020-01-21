@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 14:21:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:32:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define MAX_SKYBOX 3
 # define NB_SKYBOX 5
 # define MAX_ENEMIES 2
+# define MAX_OBJECTS 12
 # define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
 # define AMMO_HUD 26

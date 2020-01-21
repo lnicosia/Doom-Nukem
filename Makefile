@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/21 15:28:53 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/21 18:17:04 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
-		   event_ended_condition.c
+		   event_ended_condition.c init_objects_main_sprite.c 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

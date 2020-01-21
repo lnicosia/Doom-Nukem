@@ -180,12 +180,6 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
-/*	if (env->selected_ceiling != -1)
-		ceiling_buttons_up(env);
-	if (env->editor.selected_wall != -1)
-		wall_buttons_up(env);
-	if (env->selected_floor != -1)
-		floor_buttons_up(env);*/
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

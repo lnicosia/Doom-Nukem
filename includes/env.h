@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 15:18:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 18:30:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct		s_env
 	t_list				*events;
 	t_list				*queued_values;
 	int					enemy_main_sprite[MAX_ENEMIES];
+	int					object_main_sprite[MAX_OBJECTS];
 }					t_env;
 
 /*
@@ -177,7 +178,10 @@ void				init_ceilling_sprite_buttons(t_env *env);
 void				init_add_buttons(t_env *env);
 void				init_add_enemy_buttons(t_env *env);
 void				init_add_object_buttons(t_env *env);
-
+void				init_sector_general_env(t_env *env);
+void				init_sector_sector_env(t_env *env);
+void				init_sector_general_buttons(t_env *env);
+void				init_sector_sector_buttons(t_env *env);
 
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
@@ -345,6 +349,7 @@ int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
 void				init_enemies_data(t_env *env);
 void				init_objects_data(t_env *env);
+void				init_objects_main_sprite(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);

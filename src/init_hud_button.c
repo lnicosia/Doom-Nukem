@@ -114,13 +114,13 @@ void	init_informations_tab(t_env *env)
 {
 	env->editor.sector_tab = new_tab_button(WHEN_DOWN, &sector_tab, env, env);
     env->editor.sector_tab.str = "Sector";
-    env->editor.sector_tab.pos = new_point(238,425);
+    env->editor.sector_tab.pos = new_point(119,425);
 	env->editor.general_tab = new_tab_button(WHEN_DOWN, &general_tab, env, env);
 	env->editor.general_tab.str = "General";
     env->editor.general_tab.pos = new_point(0,425);
 	env->editor.sprite_tab = new_tab_button(WHEN_DOWN, &sprite_tab, env, env);
     env->editor.sprite_tab.str = "Sprites";
-    env->editor.sprite_tab.pos = new_point(119,425);
+    env->editor.sprite_tab.pos = new_point(238,425);
 }
 
 int		init_editor_hud(t_env *env)
