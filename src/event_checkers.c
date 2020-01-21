@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 16:15:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:32:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,14 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	Uint32		time;
 
 	env = (t_env*)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.floor_slope;
-	sector.floor_slope = event->start_value + (SDL_GetTicks() -
-	event->start_time) * event->incr;
+	sector.floor_slope = event->start_value + time * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -98,6 +100,8 @@ int		check_floor_slope_event(t_event *event, void *penv)
 			return (1);
 		}
 	}
+	sector.floor_slope = prec;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -107,12 +111,14 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	Uint32		time;
 
 	env = (t_env*)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.ceiling_slope;
-	sector.ceiling_slope = event->start_value + (SDL_GetTicks() -
-	event->start_time) * event->incr;
+	sector.ceiling_slope = event->start_value + time * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -131,6 +137,8 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 			return (1);
 		}
 	}
+	sector.ceiling_slope = prec;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -140,12 +148,14 @@ int		check_floor_event(t_event *event, void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	Uint32		time;
 
 	env = (t_env*)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.floor;
-	sector.floor = event->start_value + (SDL_GetTicks() -
-	event->start_time) * event->incr;
+	sector.floor = event->start_value + time * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -164,6 +174,8 @@ int		check_floor_event(t_event *event, void *penv)
 			return (1);
 		}
 	}
+	sector.floor = prec;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -173,12 +185,14 @@ int		check_ceiling_event(t_event *event, void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	Uint32		time;
 
 	env = (t_env*)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.ceiling;
-	sector.ceiling = event->start_value + (SDL_GetTicks() -
-	event->start_time) * event->incr;
+	sector.ceiling = event->start_value + time * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -197,6 +211,8 @@ int		check_ceiling_event(t_event *event, void *penv)
 			return (1);
 		}
 	}
+	sector.ceiling = prec;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -221,10 +237,13 @@ int		check_sprite_event(t_event *event, void *penv)
 int		check_scale_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(double*)event->target + event->incr > 100)
-		|| (event->incr < 0 && *(double*)event->target + event->incr < 0.1))
+	if ((event->incr > 0 && event->start_value + time * event->incr > 100)
+		|| (event->incr < 0 && event->start_value + time * event->incr < 0.1))
 		return (1);
 	return (0);
 }
@@ -232,11 +251,14 @@ int		check_scale_event(t_event *event, void *penv)
 int		check_align_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(double*)event->target + event->incr > 1000000)
+	if ((event->incr > 0 && event->start_value + time * event->incr > 1000000)
 		|| (event->incr < 0
-		&& *(double*)event->target + event->incr < -1000000))
+		&& event->start_value + time * event->incr < -1000000))
 		return (1);
 	return (0);
 }
@@ -244,10 +266,13 @@ int		check_align_event(t_event *event, void *penv)
 int		check_brightness_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(int*)event->target + event->incr >= 255)
-		|| (event->incr < 0 && *(int*)event->target + event->incr <= -255))
+	if ((event->incr > 0 && event->start_value + time * event->incr >= 255)
+		|| (event->incr < 0 && event->start_value + time * event->incr <= -255))
 		return (1);
 	return (0);
 }
@@ -255,10 +280,14 @@ int		check_brightness_event(t_event *event, void *penv)
 int		check_color_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(Uint32*)event->target + event->incr >= 0xFFFFFFFF)
-		|| (event->incr < 0 && *(Uint32*)event->target + event->incr <= 0))
+	if ((event->incr > 0 && event->start_value + time * event->incr >=
+		0xFFFFFFFF)
+		|| (event->incr < 0 && event->start_value + time * event->incr <= 0))
 		return (1);
 	return (0);
 }
@@ -266,12 +295,15 @@ int		check_color_event(t_event *event, void *penv)
 int		check_int_overflow_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
 	if ((event->incr > 0
-		&& *(int*)event->target + event->incr >= 2147483646)
+		&& event->start_value + time * event->incr >= 2147483646)
 		|| (event->incr < 0
-		&& *(int*)event->target + event->incr <= -2147483648))
+		&& event->start_value + time * event->incr <= -2147483648))
 		return (1);
 	return (0);
 }
@@ -279,12 +311,15 @@ int		check_int_overflow_event(t_event *event, void *penv)
 int		check_double_overflow_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
 	if ((event->incr > 0
-		&& *(int*)event->target + event->incr >= 99999999999999)
+		&& event->start_value + time * event->incr >= 99999999999999)
 		|| (event->incr < 0
-		&& *(int*)event->target + event->incr <= -99999999999999))
+		&& event->start_value + time * event->incr <= -99999999999999))
 		return (1);
 	return (0);
 }
@@ -292,10 +327,13 @@ int		check_double_overflow_event(t_event *event, void *penv)
 int		check_gravity_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	Uint32	time;
 
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env = (t_env*)penv;
-	if ((event->incr > 0 && *(double*)event->target + event->incr > 10)
-		|| (event->incr < 0 && *(double*)event->target + event->incr < -10))
+	if ((event->incr > 0 && event->start_value + time * event->incr > 10)
+		|| (event->incr < 0 && event->start_value + time * event->incr < -10))
 		return (1);
 	return (0);
 }

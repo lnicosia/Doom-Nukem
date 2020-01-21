@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 18:16:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:22:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,9 @@ void		add_player(t_env *env)
 	env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
 	env->player.sector = get_sector_no_z(env,
 			env->player.pos);
-	ft_printf("sector = %d\n", env->player.sector);
-	ft_printf("pos = [%f %f %f]\n",
-	env->player.pos.x, env->player.pos.y, env->player.pos.z);
 	env->player.highest_sect = env->player.sector;
 	if (env->player.sector != -1)
 		update_player_z(env);
-	ft_printf("pos = [%f %f %f]\n",
-	env->player.pos.x, env->player.pos.y, env->player.pos.z);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = env->player.head_z;

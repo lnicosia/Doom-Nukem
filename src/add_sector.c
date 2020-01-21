@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 18:02:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:58:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int			add_sector(t_env *env)
 	if (fill_new_sector(&sector, env))
 		return (-1);
 	sector.normal = get_sector_normal(sector, env);
+	set_sector_xmax(env, &sector);
 	update_sector_slope(env, &sector);
 	if (!(env->sectors = (t_sector*)ft_realloc(env->sectors,
 					sizeof(t_sector) * env->nb_sectors,
@@ -173,7 +174,6 @@ int			add_sector(t_env *env)
 		return (ft_perror("Could not realloc sectors"));
 	env->sectors[env->nb_sectors] = sector;
 	create_portals(env, sector);
-	set_sectors_xmax(env);
 	env->nb_sectors++;
 	get_new_floor_and_ceiling(env);
 	return (0);
