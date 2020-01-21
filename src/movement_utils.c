@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/20 17:43:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:02:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,16 @@ int        find_highest_sector(t_env *env, t_movement motion)
     int     tmp;
 
     i = 0;
-	ft_printf("{magenta} START OF FIND HIGHEST SECT {reset}\n");
     if (motion.sector < 0)
         return (0);
     iter_sectors(env, motion);
     tmp = motion.sector;
 	height = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env);
-    //height = floor_height(env, motion, motion.sector);
     while (i < env->nb_sectors)
     {
         if (env->sector_list[i])
         {
 			s_height = get_floor_at_pos(env->sectors[i], motion.pos, env);
-            //s_height = floor_height(env, motion, i);
-			ft_printf("player height {green} %f {reset} sector height {red} %f {reset}\n", height, s_height);
             if (height < s_height)
             {
                 height = s_height;
@@ -105,7 +101,6 @@ int        find_highest_sector(t_env *env, t_movement motion)
         }
         i++;
     }
-	ft_printf("{magenta} END OF FIND HIGHEST SECT {reset}\n");
     return (tmp);
 }
 
