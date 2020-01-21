@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 15:39:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:20:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ void	update_player_pos(t_env *env)
 		env->player.camera.pos = env->player.pos;
 		env->player.camera.pos.z = env->player.head_z;
 		env->player.head_z = env->player.pos.z + env->player.eyesight;
-		env->player.camera.pos = env->player.pos;
-		env->player.camera.pos.z = env->player.head_z;
 		update_camera_position(&env->player.camera);
 }
 

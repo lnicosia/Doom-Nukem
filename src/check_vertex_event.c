@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 15:18:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:03:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,40 @@ int			is_sector_convex(t_env *env, t_sector sector)
 	return (1);
 }
 
+int		update_sectors_slope(int vertex, t_env *env)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == vertex)
+				update_sector_slope(env, &env->sectors[i]);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		check_vertex_x_event(t_event *event, void *penv)
 {
 	t_env	*env;
 	double	prec;
+	Uint32	time;
 	int		i;
 	int		j;
 
 	env = (t_env*)penv;
 	prec = env->vertices[event->check_param.vertex].x;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	env->vertices[event->check_param.vertex].x = event->start_value
-	+ (SDL_GetTicks() - event->start_time) * event->incr;
+	+ time * event->incr;
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -103,12 +126,13 @@ int		check_vertex_x_event(t_event *event, void *penv)
 					|| !get_clockwise_order_sector(env, i))
 				{
 					env->vertices[event->check_param.vertex].x = prec;
+					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
 				if (intersects_with_player(&env->sectors[i], j, env))
 				{
 					env->vertices[event->check_param.vertex].x = prec;
-					update_sector_slope(env, &env->sectors[i]);
+					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
 				break;
@@ -118,6 +142,7 @@ int		check_vertex_x_event(t_event *event, void *penv)
 		i++;
 	}
 	env->vertices[event->check_param.vertex].x = prec;
+	update_sectors_slope(event->check_param.vertex, env);
 	return (0);
 }
 
@@ -125,13 +150,16 @@ int		check_vertex_y_event(t_event *event, void *penv)
 {
 	t_env	*env;
 	double	prec;
+	Uint32	time;
 	int		i;
 	int		j;
 
 	env = (t_env*)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
 	prec = env->vertices[event->check_param.vertex].y;
 	env->vertices[event->check_param.vertex].y = event->start_value
-	+ (SDL_GetTicks() - event->start_time) * event->incr;
+	+ time * event->incr;
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -145,12 +173,13 @@ int		check_vertex_y_event(t_event *event, void *penv)
 					|| !get_clockwise_order_sector(env, i))
 				{
 					env->vertices[event->check_param.vertex].y = prec;
+					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
 				if (intersects_with_player(&env->sectors[i], j, env))
 				{
 					env->vertices[event->check_param.vertex].y = prec;
-					update_sector_slope(env, &env->sectors[i]);
+					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
 				break;
@@ -160,5 +189,6 @@ int		check_vertex_y_event(t_event *event, void *penv)
 		i++;
 	}
 	env->vertices[event->check_param.vertex].y = prec;
+	update_sectors_slope(event->check_param.vertex, env);
 	return (0);
 }

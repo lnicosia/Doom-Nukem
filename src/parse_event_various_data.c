@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:52:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:15:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:35:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char **line, t_events_parser *eparser)
 	if (delay < 0)
 		return (custom_error_with_line("Invalid delay", parser));
 	eparser->event.delay = delay;
+	if (eparser->event.delay == 0)
+		eparser->event.delay = 1;
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("event maximum uses", parser));

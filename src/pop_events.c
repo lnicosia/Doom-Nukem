@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 14:20:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:52:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ int	double_event(t_event *curr)
 	double	*target;
 	int		type;
 
-	time = SDL_GetTicks();
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
 	target = (double*)curr->target;
 	if (*target < curr->goal)
 		type = 0;
 	else
 		type = 1;
-	*target = curr->start_value + (time - curr->start_time) * curr->incr;
+	*target = curr->start_value + time * curr->incr;
 	if ((!type && *target >= curr->goal)
 			|| (type && *target <= curr->goal))
 	{
@@ -40,13 +41,14 @@ int	int_event(t_event *curr)
 	int		*target;
 	int		type;
 
-	time = SDL_GetTicks();
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
 	target = (int*)curr->target;
 	if (*target < curr->goal)
 		type = 0;
 	else
 		type = 1;
-	*target = curr->start_value + (time - curr->start_time) * curr->incr;
+	*target = curr->start_value + time * curr->incr;
 	if ((!type && *target >= curr->goal)
 			|| (type && *target <= curr->goal))
 	{
@@ -62,13 +64,14 @@ int	uint32_event(t_event *curr)
 	Uint32	*target;
 	int		type;
 
-	time = SDL_GetTicks();
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
 	target = (Uint32*)curr->target;
 	if (*target < curr->goal)
 		type = 0;
 	else
 		type = 1;
-	*target = curr->start_value + (time - curr->start_time) * curr->incr;
+	*target = curr->start_value + time * curr->incr;
 	if ((!type && *target >= curr->goal)
 			|| (type && *target <= curr->goal))
 	{
