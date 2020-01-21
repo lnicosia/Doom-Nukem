@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 12:28:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:12:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	init_events_parser_checkers2(t_events_parser *eparser)
 	eparser->checkers[SECTOR_LIGHT_COLOR] = &check_color_event;
 	eparser->checkers[SECTOR_INTENSITY] = &check_brightness_event;
 	eparser->checkers[SECTOR_GRAVITY] = &check_gravity_event;
-	eparser->checkers[VERTEX_X] = &check_vertex_event;
-	eparser->checkers[VERTEX_Y] = &check_vertex_event;
+	eparser->checkers[VERTEX_X] = &check_vertex_x_event;
+	eparser->checkers[VERTEX_Y] = &check_vertex_y_event;
 	eparser->checkers[PLAYER_X] = &check_x_collision_event;
 	eparser->checkers[PLAYER_Y] = &check_y_collision_event;
 	eparser->checkers[PLAYER_Z] = &check_z_collision_event;

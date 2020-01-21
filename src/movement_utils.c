@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 15:15:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:40:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void     iter_sectors(t_env *env, t_movement motion)
 {
     int		i;
     t_wall      wall;
-    //static int a = 0;
 
     i = 0;
 	if (motion.sector < 0)

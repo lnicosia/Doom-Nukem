@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 12:02:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:45:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,13 @@ int			update_vertex_event(t_event *event, void *penv)
 			if (env->sectors[i].vertices[j] == event->update_param.vertex)
 			{
 				update_sector_slope(env, &env->sectors[i]);
+				if (env->player.sector == i)
+				{
+					update_player_pos(env);
+					env->player.pos.z = get_floor_at_pos(env->
+					sectors[env->player.sector], env->player.pos, env);
+					update_player_pos(env);
+				}
 				break ;
 			}
 			j++;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 11:46:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:18:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,17 @@ int			is_sector_convex(t_env *env, t_sector sector)
 	return (1);
 }
 
-int		check_vertex_event(t_event *event, void *penv)
+int		check_vertex_x_event(t_event *event, void *penv)
 {
 	t_env	*env;
+	double	prec;
 	int		i;
 	int		j;
 
 	env = (t_env*)penv;
+	prec = env->vertices[event->check_param.vertex].x;
+	env->vertices[event->check_param.vertex].x = event->start_value
+	+ (SDL_GetTicks() - event->start_time) * event->incr;
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -94,15 +98,67 @@ int		check_vertex_event(t_event *event, void *penv)
 		{
 			if (env->sectors[i].vertices[j] == event->check_param.vertex)
 			{
-				if (!is_sector_convex(env, env->sectors[i]))
+				if (!is_sector_convex(env, env->sectors[i])
+					// A test
+					|| !get_clockwise_order_sector(env, i))
+				{
+					env->vertices[event->check_param.vertex].x = prec;
 					return (1);
-				if (!get_clockwise_order_sector(env, i))
+				}
+				if (intersects_with_player(&env->sectors[i], j, env))
+				{
+					env->vertices[event->check_param.vertex].x = prec;
+					update_sector_slope(env, &env->sectors[i]);
 					return (1);
+				}
 				break;
 			}
 			j++;
 		}
 		i++;
 	}
+	env->vertices[event->check_param.vertex].x = prec;
+	return (0);
+}
+
+int		check_vertex_y_event(t_event *event, void *penv)
+{
+	t_env	*env;
+	double	prec;
+	int		i;
+	int		j;
+
+	env = (t_env*)penv;
+	prec = env->vertices[event->check_param.vertex].y;
+	env->vertices[event->check_param.vertex].y = event->start_value
+	+ (SDL_GetTicks() - event->start_time) * event->incr;
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == event->check_param.vertex)
+			{
+				if (!is_sector_convex(env, env->sectors[i])
+					// A test
+					|| !get_clockwise_order_sector(env, i))
+				{
+					env->vertices[event->check_param.vertex].y = prec;
+					return (1);
+				}
+				if (intersects_with_player(&env->sectors[i], j, env))
+				{
+					env->vertices[event->check_param.vertex].y = prec;
+					update_sector_slope(env, &env->sectors[i]);
+					return (1);
+				}
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	env->vertices[event->check_param.vertex].y = prec;
 	return (0);
 }

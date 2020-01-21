@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 14:50:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:15:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,30 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	t_env		*env;
 	t_sector	sector;
 	double		z;
+	double		prec;
 
 	env = (t_env*)penv;
 	sector = env->sectors[event->check_param.sector];
-	sector.floor_slope += event->incr;
+	prec = sector.floor_slope;
+	sector.floor_slope = event->start_value + (SDL_GetTicks() -
+	event->start_time) * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.floor_slope = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 			env->player.pos, env))
+		{
+			sector.floor_slope = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -95,19 +106,30 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	t_env		*env;
 	t_sector	sector;
 	double		z;
+	double		prec;
 
 	env = (t_env*)penv;
 	sector = env->sectors[event->check_param.sector];
-	sector.ceiling_slope += event->incr;
+	prec = sector.ceiling_slope;
+	sector.ceiling_slope = event->start_value + (SDL_GetTicks() -
+	event->start_time) * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.ceiling_slope = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 			env->player.pos, env))
+		{
+			sector.ceiling_slope = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -117,19 +139,30 @@ int		check_floor_event(t_event *event, void *penv)
 	t_env		*env;
 	t_sector	sector;
 	double		z;
+	double		prec;
 
 	env = (t_env*)penv;
 	sector = env->sectors[event->check_param.sector];
-	sector.floor += event->incr;
+	prec = sector.floor;
+	sector.floor = event->start_value + (SDL_GetTicks() -
+	event->start_time) * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.floor = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 			env->player.pos, env))
+		{
+			sector.floor = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -139,19 +172,30 @@ int		check_ceiling_event(t_event *event, void *penv)
 	t_env		*env;
 	t_sector	sector;
 	double		z;
+	double		prec;
 
 	env = (t_env*)penv;
 	sector = env->sectors[event->check_param.sector];
-	sector.ceiling += event->incr;
+	prec = sector.ceiling;
+	sector.ceiling = event->start_value + (SDL_GetTicks() -
+	event->start_time) * event->incr;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.ceiling = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 			env->player.pos, env))
+		{
+			sector.ceiling = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
 	return (0);
 }

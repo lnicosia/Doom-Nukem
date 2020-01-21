@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:53:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:08:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ void				*set_condition_target4(t_env *env, t_events_parser *parser);
 int					set_event_target_type(t_env *env, t_events_parser *parser);
 int					set_event_target_type4(t_env *env, t_events_parser *parser);
 int					count_conditions(char *line, t_map_parser *parser);
+int					intersects_with_player(t_sector *sector, int wall,
+t_env *env);
 
 /*
 **	Unit parsers
