@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:55:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:02:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int			update_sector_event(t_event *event, void *penv)
 
 	env = (t_env*)penv;
 	update_sector_slope(env, &env->sectors[event->update_param.sector]);
-	if (env->player.sector == event->update_param.sector)
-		update_player_pos(env);
+	//if (env->player.sector == event->update_param.sector)
+		//update_player_pos(env);
 	return (0);
 }
 
@@ -194,6 +194,31 @@ int			update_enemy_sector_event(t_event *event, void *penv)
 	env->sectors[env->enemies[event->update_param.enemy].sector].light_color;
 	env->enemies[event->update_param.enemy].intensity =
 	env->sectors[env->enemies[event->update_param.enemy].sector].intensity;
+	return (0);
+}
+
+int			update_vertex_event(t_event *event, void *penv)
+{
+	t_env	*env;
+	int		i;
+	int		j;
+
+	env = (t_env*)penv;
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (env->sectors[i].vertices[j] == event->update_param.vertex)
+			{
+				update_sector_slope(env, &env->sectors[i]);
+				break ;
+			}
+			j++;
+		}
+		i++;
+	}
 	return (0);
 }
 

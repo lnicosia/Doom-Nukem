@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 19:39:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 11:47:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 {
 	writers[event.target_index](fd, event);
 	ft_dprintf(fd, "]", event.target_index);
-	ft_dprintf(fd, "[%d %f %d]", event.mod_type, event.goal,
-			(int)event.duration);
+	ft_dprintf(fd, "[%d ", event.mod_type);
+	if (event.mod_type == 0)
+		ft_dprintf(fd, "%f %d]", event.goal, (int)event.duration);
+	else if (event.mod_type == 1)
+		ft_dprintf(fd, "%f %d]", event.start_incr, (int)event.duration);
 	write_event_conditions(fd, event);
 	ft_dprintf(fd, "[%d %d]\n", (int)event.delay, event.max_uses);
 }

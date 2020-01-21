@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/25 16:19:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 12:26:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 	}
 	sector->floors[i] = sector->floors[0];
 	sector->ceilings[i] = sector->ceilings[0];
+	set_sector_xmax(env, sector);
 }
 
 void	precompute_slopes(t_env *env)

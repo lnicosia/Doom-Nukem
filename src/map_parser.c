@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 14:04:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:26:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,23 +120,27 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 	return (0);
 }
 
+void	set_sector_xmax(t_env *env, t_sector *sector)
+{
+	int i;
+
+	i = 0;
+	while (i < sector->nb_vertices)
+	{
+		if (sector->x_max < env->vertices[sector->vertices[i]].x)
+			sector->x_max = env->vertices[sector->vertices[i]].x;
+		i++;
+	}
+}
+
 void	set_sectors_xmax(t_env *env)
 {
 	int i;
-	int	j;
 
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		j = 0;
-		while (j < env->sectors[i].nb_vertices)
-		{
-			if (env->sectors[i].x_max
-					< env->vertices[env->sectors[i].vertices[j]].x)
-				env->sectors[i].x_max =
-					env->vertices[env->sectors[i].vertices[j]].x;
-			j++;
-		}
+		set_sector_xmax(env, &env->sectors[i]);
 		i++;
 	}
 }

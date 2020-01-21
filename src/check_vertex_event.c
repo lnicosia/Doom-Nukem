@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 19:41:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 11:46:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ static int	check_all_angles(t_v2 p[3], int res, int straight)
 		if (!res)
 			res += straight;
 		res++;
-		//ft_printf("positive\n");
 	}
 	else if (angle < 0)
 	{
 		if (!res)
 			res -= straight;
-		//ft_printf("negative\n");
 		res--;
 	}
 	else if (angle == 0 && res)
 	{
-		//ft_printf("null\n");
 		res += res > 0 ? 1 : -1;
 	}
 	return (res);
@@ -52,7 +49,6 @@ int			is_sector_convex(t_env *env, t_sector sector)
 	straight = 0;
 	while (i < sector.nb_vertices - 1)
 	{
-		//ft_printf("vertices %d, %d and %d\n", i, i + 1, i + 2);
 		p[0] = new_v2(env->vertices[sector.vertices[i]].x,
 		env->vertices[sector.vertices[i]].y);
 		p[1] = new_v2(env->vertices[sector.vertices[i + 1]].x,
@@ -68,17 +64,6 @@ int			is_sector_convex(t_env *env, t_sector sector)
 	}
 	p[0] = new_v2(env->vertices[sector.vertices[i]].x,
 	env->vertices[sector.vertices[i]].y);
-	p[1] = new_v2(env->vertices[sector.vertices[i + 1]].x,
-	env->vertices[sector.vertices[i + 1]].y);
-	p[2] = new_v2(env->vertices[sector.vertices[0]].x,
-	env->vertices[sector.vertices[0]].y);
-	res = check_all_angles(p, res, straight);
-	if (!res)
-		straight++;
-	else
-		straight = 0;
-	p[0] = new_v2(env->vertices[sector.vertices[i + 1]].x,
-	env->vertices[sector.vertices[i + 1]].y);
 	p[1] = new_v2(env->vertices[sector.vertices[0]].x,
 	env->vertices[sector.vertices[0]].y);
 	p[2] = new_v2(env->vertices[sector.vertices[1]].x,
@@ -88,9 +73,8 @@ int			is_sector_convex(t_env *env, t_sector sector)
 		straight++;
 	else
 		straight = 0;
-	//ft_printf("%d vertices. res = %d\n\n", sector.nb_vertices, res);
-	if (res && res != -(sector.nb_vertices + 1)
-		&& res != sector.nb_vertices + 1)
+	if (res && res != -(sector.nb_vertices)
+		&& res != sector.nb_vertices)
 		return (0);
 	return (1);
 }
@@ -111,10 +95,7 @@ int		check_vertex_event(t_event *event, void *penv)
 			if (env->sectors[i].vertices[j] == event->check_param.vertex)
 			{
 				if (!is_sector_convex(env, env->sectors[i]))
-				{
-					//ft_printf("sector is concave\n");
 					return (1);
-				}
 				if (!get_clockwise_order_sector(env, i))
 					return (1);
 				break;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 12:26:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:24:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,6 +423,7 @@ int					get_sector(t_env *env, t_v3 p, int origin);
 int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);
 int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
+void				set_sector_xmax(t_env *env, t_sector *sector);
 void				set_sectors_xmax(t_env *env);
 int					keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -558,6 +559,7 @@ int					update_ceiling_texture_event(t_event *event, void *penv);
 int					update_sector_entities_event(t_event *event, void *penv);
 int					update_object_sector_event(t_event *event, void *penv);
 int					update_enemy_sector_event(t_event *event, void *penv);
+int					update_vertex_event(t_event *event, void *penv);
 int					delete_itself_event(t_event *event, void *penv);
 
 /*
