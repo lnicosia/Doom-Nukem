@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:47:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:03:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.a = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.lgui)
 		env->inputs.lgui = mode;
-
 }
 
 void	update_inputs(t_env *env)

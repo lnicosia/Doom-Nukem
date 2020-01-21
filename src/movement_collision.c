@@ -6,30 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/21 11:28:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:42:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-int		check_height(t_env *env, t_movement motion)
-{
-	int		sector_dest;
-	double	origin_height;
-	double	dest_height;
-	t_v3	future_pos;
-
-	future_pos = new_v3(motion.future_x, motion.future_y, motion.future_z);
-	sector_dest = get_sector_no_z(env, future_pos);
-	if (sector_dest == -1)
-		return (0);
-	origin_height = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env);
-	dest_height = get_floor_at_pos(env->sectors[sector_dest], future_pos, env);
-	if (dest_height - origin_height > 2)
-		return (0);
-	return (1);
-}
 
 int     check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
@@ -52,11 +34,11 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     pos.y = FUTURE_Y;
     pos.z = FUTURE_Z;
     floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
-    if (floor > motion.pos.z + 2 && sector_dest != motion.sector)
+    if (floor > pos.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > motion.pos.z && sector_dest == motion.sector)
+	else if (floor > pos.z && sector_dest == motion.sector)
 		return (0);
-	if (env->player.state.jump && motion.pos.z < floor)
+	if (env->player.state.jump && pos.z < floor)
 		return (0);
     return (1);
 }
@@ -243,7 +225,7 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
         }
         i++;
     }
-	if (check_objects(env, move, motion.pos, motion.eyesight)/* && check_height(env, motion)*/)
+	if (check_objects(env, move, motion.pos, motion.eyesight))
     	return (move);
 	return (new_v3(0, 0, 0));
 }

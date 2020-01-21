@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 11:57:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:03:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,7 @@ void	move_player(t_env *env)
 
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->player.sector >= 0)
-	{
 		env->player.old_pos = env->player.pos;
-	}
 	if (env->inputs.shift && !env->inputs.ctrl)
 		speed = env->player.speed * 1.5;
 	else if (env->inputs.ctrl)
@@ -154,22 +152,20 @@ void	move_player(t_env *env)
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
 	motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 	if (env->player.state.fly && env->inputs.space)
+		move.z += 0.2;
+	if (env->player.state.fly && env->inputs.lgui)
+		move.z -= 0.2;
+	if (env->inputs.forward && !env->inputs.backward)
 	{
 		move.x += env->player.camera.angle_cos * speed;
 		move.y += env->player.camera.angle_sin * speed;
-		move.z += -env->player.camera.angle_z * speed;
-	}
-	if (env->inputs.forward && !env->inputs.backward)
-	{
-		move.x = env->player.camera.angle_cos * speed;
-		move.y = env->player.camera.angle_sin * speed;
-		move.z = -env->player.camera.angle_z * speed;
+		move.z += (env->player.state.fly) ? -env->player.camera.angle_z * speed : 0;
 	}
 	else if (env->inputs.backward && !env->inputs.forward)
 	{
 		move.x += env->player.camera.angle_cos * -speed;
 		move.y += env->player.camera.angle_sin * -speed;
-		move.z += env->player.camera.angle_z * speed;
+		move.z += (env->player.state.fly) ? env->player.camera.angle_z * speed : 0;
 	}
 	if (env->inputs.left && !env->inputs.right)
 	{
@@ -184,11 +180,11 @@ void	move_player(t_env *env)
 		move.z += 0;
 	}
 	move = check_collision(env, move, motion, 0);
-	if (move.x != 0 || move.y != 0)
+	if (move.x != 0 || move.y != 0 || move.z != 0)
 		movement = 1;
 	env->player.pos.x += move.x;
 	env->player.pos.y += move.y;
-	//env->player.pos.z += move.z;
+	env->player.pos.z += move.z;
 	if (env->player.stuck || get_sector_no_z_origin(env, env->player.pos, env->player.sector) == -1)
 	{
 		env->player.stuck = 0;
