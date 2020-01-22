@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 16:04:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:40:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -827,6 +827,7 @@ typedef struct		s_object
 	double			angle;
 	double			height;
 	double			size_2d;
+	double			height_ratio;
 	short			brightness;
 	Uint32			light_color;
 	int				type;
@@ -879,6 +880,8 @@ typedef struct		s_enemies
 	double			scale;
 	double			angle;
 	double			size_2d;
+	double			height_ratio;
+	double			width_ratio;
 	double			eyesight;
 	short			brightness;
 	Uint32			light_color;

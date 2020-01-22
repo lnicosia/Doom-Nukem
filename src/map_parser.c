@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 15:29:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:13:17 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	init_player(t_env *env)
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
-	env->player.speed = 0.2;
+	env->player.speed = 0.1;
 	env->player.pos.z = 0;
 	env->player.health = 100;
 	env->player.killed = 0;
