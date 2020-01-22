@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 12:24:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:02:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_events_parser *eparser)
 int		parse_event(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
+	ft_bzero(eparser, sizeof(*eparser));
+	init_events_parser(eparser);
 	if (parse_event_trigger(env, parser, line, eparser))
 		return (-1);
 	if (parse_event_target(env, parser, line, eparser))
