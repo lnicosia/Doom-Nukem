@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 19:10:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:34:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int		check_vertex_x_event(t_event *event, void *penv)
 	time = time == 0 ? 1 : time;
 	env->vertices[event->check_param.vertex].x = event->start_value
 	+ time * event->incr;
+	if (!event->speed)
+		env->vertices[event->check_param.vertex].x = event->goal;
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -129,7 +131,8 @@ int		check_vertex_x_event(t_event *event, void *penv)
 					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
-				if (intersects_with_player(&env->sectors[i], j, env))
+				if (intersects_with_wall(&env->sectors[i], env->player.pos, j,
+					env))
 				{
 					env->vertices[event->check_param.vertex].x = prec;
 					update_sectors_slope(event->check_param.vertex, env);
@@ -160,6 +163,8 @@ int		check_vertex_y_event(t_event *event, void *penv)
 	prec = env->vertices[event->check_param.vertex].y;
 	env->vertices[event->check_param.vertex].y = event->start_value
 	+ time * event->incr;
+	if (!event->speed)
+		env->vertices[event->check_param.vertex].y = event->goal;
 	i = 0;
 	while (i < env->nb_sectors)
 	{
@@ -176,7 +181,8 @@ int		check_vertex_y_event(t_event *event, void *penv)
 					update_sectors_slope(event->check_param.vertex, env);
 					return (1);
 				}
-				if (intersects_with_player(&env->sectors[i], j, env))
+				if (intersects_with_wall(&env->sectors[i], env->player.pos, j,
+					env))
 				{
 					env->vertices[event->check_param.vertex].y = prec;
 					update_sectors_slope(event->check_param.vertex, env);
