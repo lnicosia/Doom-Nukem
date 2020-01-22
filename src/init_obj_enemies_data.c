@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/15 12:28:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:41:29 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,27 @@ void		init_enemies_data(t_env *env)
 		env->enemies[i].saw_player = 0;
 		if (env->enemies[i].sprite >= 0 && env->enemies[i].sprite < 5)
 		{
+			env->enemies[i].height_ratio = 2;
+			env->enemies[i].width_ratio = 0.5;
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE_KAMIKAZE;
-			env->enemies[i].size_2d = 0.75;
-			env->enemies[i].eyesight = 2;
+			env->enemies[i].size_2d = env->enemies[i].scale * env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;
 		}
 		else if (env->enemies[i].sprite >= 5 && env->enemies[i].sprite < 10)
 		{
-			env->enemies[i].eyesight = 6.2;
+			env->enemies[i].height_ratio = 2.5;
+			env->enemies[i].width_ratio = 0.375;
 			env->enemies[i].main_sprite = CYBER_DEMON;
 			env->enemies[i].firing_sprite = 10;
 			env->enemies[i].type = TERRESTRIAL;
 			env->enemies[i].behavior = RANGED_PROJECTILE;
-			env->enemies[i].size_2d = 1.5;
+			env->enemies[i].size_2d =  env->enemies[i].scale * env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 4;
 			env->enemies[i].nb_pursuit_state = 4;
 			env->enemies[i].nb_firing_state = 3;
@@ -63,14 +67,15 @@ void		init_objects_data(t_env *env)
 	while (i < env->nb_objects)
 	{
 		env->objects[i].exists = 1;
-		env->objects[i].height = 2;
-		env->objects[i].size_2d = 1.5;
+		env->objects[i].size_2d = env->objects[i].scale;
 		env->objects[i].health = 1;
 		env->objects[i].explosion_size = 0;
 		if (env->objects[i].sprite == 0)
 			env->objects[i].main_sprite = 0;
 		if (env->objects[i].sprite == 2) // health pack
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = HEALTH_PACK;
 			env->objects[i].explodes = 0;
@@ -82,6 +87,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 3) // shotgun ammo
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = SHELL_AMMO;
 			env->objects[i].explodes = 0;
@@ -94,6 +101,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 4) // rocket ammo
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = ROCKETS_AMMO;
 			env->objects[i].explodes = 0;
@@ -106,6 +115,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 5) // regular ammo
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = REGULAR_AMMO;
 			env->objects[i].explodes = 0;
@@ -118,6 +129,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 6) // energy cell pack
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = ENERGY_AMMO;
 			env->objects[i].explodes = 0;
@@ -130,6 +143,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
 		{
+			env->objects[i].height_ratio = 4;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 1;
 			env->objects[i].size_2d = 2;
 			env->objects[i].height = 4.5;
@@ -142,6 +157,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 11)
 		{
+			env->objects[i].height_ratio = 1;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_OFF;
 			env->objects[i].health = 40;
@@ -153,6 +170,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
 		{
+			env->objects[i].height_ratio = 1;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
@@ -163,6 +182,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 16)
 		{
+			env->objects[i].height_ratio = 1;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = MONITOR_ON;
 			env->objects[i].explodes = 0;
@@ -173,6 +194,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 17) // green armor
 		{
+			env->objects[i].height_ratio = 0.5;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = GREEN_ARMOR;
 			env->objects[i].explodes = 0;
@@ -184,6 +207,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
 		{
+			env->objects[i].height_ratio = 1;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].main_sprite = CANDLE;
 			env->objects[i].explodes = 0;
 			env->objects[i].solid = 0;
@@ -194,6 +219,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 20) // barrel
 		{
+			env->objects[i].height_ratio = 1.75;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = BARREL;
 			env->objects[i].health = 20;
@@ -206,6 +233,8 @@ void		init_objects_data(t_env *env)
 		}
 		if (env->objects[i].sprite == 21) // barrel exploding
 		{
+			env->objects[i].height_ratio = 1.75;
+			env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = BARREL;
 			env->objects[i].health = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/14 15:39:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:16:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,20 @@ void	check_blocage(t_env *env, t_movement motion, double speed, int index)
 
 void	update_player_pos(t_env *env)
 {
-		int		new_sector;
+		int			new_sector;
 		t_movement	motion;
+		int			prev_highest_sect;
 
 		motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
-		if (new_sector != env->player.sector)
-		{
-			env->player.old_sector = env->player.sector;
-			env->player.changed_sector = 1;
-		}
-		if (find_highest_sector(env, motion) != env->player.highest_sect
-				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env)
-				< get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) && !env->player.state.fly)
-			env->player.drop_flag = 1;
+		prev_highest_sect = env->player.highest_sect;
 		env->player.highest_sect = find_highest_sector(env, motion);
+		if (prev_highest_sect != env->player.highest_sect
+				&& get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env)
+				< get_floor_at_pos(env->sectors[prev_highest_sect], env->player.pos, env) && !env->player.state.fly)
+			env->player.drop_flag = 1;
 		env->player.camera.pos = env->player.pos;
 		env->player.camera.pos.z = env->player.head_z;
 		if (((get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) > env->player.pos.z
@@ -119,8 +116,6 @@ void	update_player_pos(t_env *env)
 				&& env->player.drop_flag && !env->player.state.fly)
 			drop(env);
 		env->player.sector = new_sector;
-		env->player.camera.pos = env->player.pos;
-		env->player.camera.pos.z = env->player.head_z;
 		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->player.camera.pos = env->player.pos;
 		env->player.camera.pos.z = env->player.head_z;
@@ -138,9 +133,7 @@ void	move_player(t_env *env)
 
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->player.sector >= 0)
-	{
 		env->player.old_pos = env->player.pos;
-	}
 	if (env->inputs.shift && !env->inputs.ctrl)
 		speed = env->player.speed * 1.5;
 	else if (env->inputs.ctrl)
@@ -150,66 +143,43 @@ void	move_player(t_env *env)
 	speed *= time;
 	prev_sector = env->player.sector;
 	movement = 0;
+	move = new_v3(0, 0, 0);
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
 	motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 	if (env->player.state.fly && env->inputs.space)
-	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,
-		env->player.camera.angle_sin * speed, -env->player.camera.angle_z * speed), motion, 0);
-		env->player.pos.z += move.z;
-		if (move.x != 0 || move.y != 0)
-			movement = 1;
-		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, time, 1);
-	}
+		move.z += 0.2;
+	if (env->player.state.fly && env->inputs.lgui)
+		move.z -= 0.2;
 	if (env->inputs.forward && !env->inputs.backward)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * speed,
-					env->player.camera.angle_sin * speed, -env->player.camera.angle_z * speed), motion, 0);
-		env->player.pos.x += move.x;
-		env->player.pos.y += move.y;
-		if (env->player.state.fly)
-			env->player.pos.z += move.z;
-		if (move.x != 0 || move.y != 0)
-			movement = 1;
-		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, time, 1);
+		move.x += env->player.camera.angle_cos * speed;
+		move.y += env->player.camera.angle_sin * speed;
+		move.z += (env->player.state.fly) ? -env->player.camera.angle_z * speed : 0;
 	}
 	else if (env->inputs.backward && !env->inputs.forward)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_cos * -speed,
-					env->player.camera.angle_sin * -speed, env->player.camera.angle_z * speed), motion, 0);
-		env->player.pos.x += move.x;
-		env->player.pos.y += move.y;
-		if (env->player.state.fly)
-			env->player.pos.z += move.z;
-		if (move.x != 0 || move.y != 0)
-			movement = 1;
-		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, time, 2);
+		move.x += env->player.camera.angle_cos * -speed;
+		move.y += env->player.camera.angle_sin * -speed;
+		move.z += (env->player.state.fly) ? env->player.camera.angle_z * speed : 0;
 	}
 	if (env->inputs.left && !env->inputs.right)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_sin * speed,
-					env->player.camera.angle_cos * -speed, 0), motion, 0);
-		env->player.pos.x += move.x;
-		env->player.pos.y += move.y;
-		if (move.x != 0 || move.y != 0)
-			movement = 1;
-		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, time, 3);
+		move.x += env->player.camera.angle_sin * speed;
+		move.y += env->player.camera.angle_cos * -speed;
+		move.z += 0;
 	}
 	else if (env->inputs.right && !env->inputs.left)
 	{
-		move = check_collision(env, new_v3(env->player.camera.angle_sin * -speed,
-					env->player.camera.angle_cos * speed, 0), motion, 0);
-		env->player.pos.x += move.x;
-		env->player.pos.y += move.y;
-		if (move.x != 0 || move.y != 0)
-			movement = 1;
-		if (move.x == 0 && move.y == 0)
-			check_blocage(env, motion, time, 4);
+		move.x += env->player.camera.angle_sin * -speed;
+		move.y += env->player.camera.angle_cos * speed;
+		move.z += 0;
 	}
+	move = check_collision(env, move, motion, 0);
+	if (move.x != 0 || move.y != 0 || move.z != 0)
+		movement = 1;
+	env->player.pos.x += move.x;
+	env->player.pos.y += move.y;
+	env->player.pos.z += move.z;
 	if (env->player.stuck || get_sector_no_z_origin(env, env->player.pos, env->player.sector) == -1)
 	{
 		env->player.stuck = 0;

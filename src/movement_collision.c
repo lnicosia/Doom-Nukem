@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:48:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:42:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int     check_floor(t_env *env, t_movement motion, int sector_dest)
     pos.y = FUTURE_Y;
     pos.z = FUTURE_Z;
     floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
-    if (floor > FUTURE_Z + 2 && sector_dest != motion.sector)
+    if (floor > pos.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > FUTURE_Z && sector_dest == motion.sector)
+	else if (floor > pos.z && sector_dest == motion.sector)
 		return (0);
-	if (env->player.state.jump && FUTURE_Z < floor)
+	if (env->player.state.jump && pos.z < floor)
 		return (0);
     return (1);
 }
@@ -210,7 +210,9 @@ t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     i = 0;
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) && NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
+        if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) ||
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y)))) &&
+			NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
         {
             motion.wall.sector_or = motion.sector;
             motion.wall.sector_dest = NEIGHBOR;

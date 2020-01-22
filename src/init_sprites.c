@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 18:31:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:40:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -924,7 +924,7 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[5].pursuit_sprite = 6;
 	env->enemy_sprites[5].firing_sprite = 9;
 	env->enemy_sprites[5].rest_sprite = 6;
-	env->enemy_sprites[5].curr_sprite = 6;
+	env->enemy_sprites[5].curr_sprite = 5;
 	//env->enemy_sprites[5].curr_sprite = 5;
 	env->enemy_sprites[5].oriented = 1;
 	env->enemy_sprites[5].nb_death_sprites = 8;

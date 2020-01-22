@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 18:03:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:25:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -542,40 +542,40 @@ typedef struct		s_player
 
 typedef struct		s_keys
 {
-	int				forward;
-	int				backward;
-	int				backspace;
-	int				left;
-	int				right;
-	int				forward2;
-	int				backward2;
-	int				left2;
-	int				right2;
-	int				plus;
-	int				minus;
-	int				plus2;
-	int				minus2;
-	int				shift;
-	int				shift2;
-	int				ctrl;
-	int				home;
-	int				end;
-	int				space;
-	int				down;
-	int				up;
-	int				option;
-	int				enter;
-	int				s;
-	int				e;
-	int				del;
-	int				tab;
-	int				comma;
-	int				period;
-	int				minus1;
-	int				equals;
-	int				p;
-	int				a;
-	int				lgui;
+	Sint32			forward;
+	Sint32			backward;
+	Sint32			backspace;
+	Sint32			left;
+	Sint32			right;
+	Sint32			forward2;
+	Sint32			backward2;
+	Sint32			left2;
+	Sint32			right2;
+	Sint32			plus;
+	Sint32			minus;
+	Sint32			plus2;
+	Sint32			minus2;
+	Sint32			shift;
+	Sint32			shift2;
+	Sint32			ctrl;
+	Sint32			home;
+	Sint32			end;
+	Sint32			space;
+	Sint32			down;
+	Sint32			up;
+	Sint32			option;
+	Sint32			enter;
+	Sint32			s;
+	Sint32			e;
+	Sint32			del;
+	Sint32			tab;
+	Sint32			comma;
+	Sint32			period;
+	Sint32			minus1;
+	Sint32			equals;
+	Sint32			p;
+	Sint32			a;
+	Sint32			lgui;
 }					t_keys;
 
 /*
@@ -811,6 +811,7 @@ typedef struct		s_object
 	double			angle;
 	double			height;
 	double			size_2d;
+	double			height_ratio;
 	short			brightness;
 	Uint32			light_color;
 	int				type;
@@ -863,6 +864,8 @@ typedef struct		s_enemies
 	double			scale;
 	double			angle;
 	double			size_2d;
+	double			height_ratio;
+	double			width_ratio;
 	double			eyesight;
 	short			brightness;
 	Uint32			light_color;

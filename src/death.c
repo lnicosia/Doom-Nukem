@@ -6,20 +6,20 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 15:04:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:29:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void		respawn(void *param)
+void		respawn_entities(void *param)
 {
-	int 	i;
-	t_env	*env;
+	int i;
+	t_env *env;
 
-	env = (t_env*)param;
 	i = 0;
+	env = (t_env *)param;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].pos = env->enemies[i].enemies_init_data.pos;
@@ -30,14 +30,6 @@ void		respawn(void *param)
 		env->enemies[i].saw_player = 0;
 		i++;
 	}
-	env->player.pos = env->player.player_init_data.pos;
-	env->player.killed = 0;
-	env->player.touched = 0;
-	env->player.nb_shots = 0;
-	env->player.accuracy = 0;
-	env->player.health = env->player.player_init_data.health;
-	env->player.sector = env->player.player_init_data.sector;
-	env->player.camera = env->player.player_init_data.camera;
 	i = 0;
 	while (i < env->nb_objects)
 	{
@@ -47,6 +39,22 @@ void		respawn(void *param)
 		env->objects[i].angle = env->objects[i].object_init_data.angle;
 		i++;
 	}
+}
+
+void		respawn(void *param)
+{
+	t_env	*env;
+
+	env = (t_env*)param;
+	env->player.pos = env->player.player_init_data.pos;
+	env->player.killed = 0;
+	env->player.touched = 0;
+	env->player.nb_shots = 0;
+	env->player.accuracy = 0;
+	env->player.health = env->player.player_init_data.health;
+	env->player.sector = env->player.player_init_data.sector;
+	env->player.camera = env->player.player_init_data.camera;
+	respawn_entities(param);
 	init_weapons(env);
 	init_enemies_data(env);
 	init_objects_data(env);

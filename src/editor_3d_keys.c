@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:52:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:13:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		editor_3d_keys(t_env *env)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going)
+			|| env->crouch.on_going || env->inputs.lgui)
 			&& env->player.health > 0 && !env->inputs.ctrl
 
 			&&  (((env->selected_enemy == -1 && env->editor.tab)
