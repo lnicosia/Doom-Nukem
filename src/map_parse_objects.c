@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/15 13:43:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,6 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 		ft_strdel(&line);
 	}
 	else
-		return (missing_data("enemies and player data", parser));
+		return (missing_data("enemies, events and player data", parser));
 	return (0);
 }

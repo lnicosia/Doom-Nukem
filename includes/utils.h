@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 14:08:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:03:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
+# define MAX_UI_TEXTURES 3
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
@@ -57,26 +58,27 @@
 # define CANDLE 18
 # define BARREL 20
 
-typedef enum		e_input_box_type
+typedef enum		e_target_type
 {
 	INT,
 	DOUBLE,
 	STRING,
-	UINT32
-}			t_input_box_type;
+	UINT32,
+	POS
+}			t_target_type;
 
 typedef enum		e_button_action_type
 {
 	ON_PRESS,
 	WHEN_DOWN
-}			t_button_action_type;
+}					t_button_action_type;
 
-typedef enum	e_event_mod_type
+typedef enum		e_event_mod_type
 {
 	FIXED,
 	INCR,
 	FUNC
-}				t_event_mod_type;
+}					t_event_mod_type;
 
 typedef enum		e_button_state
 {
@@ -177,30 +179,6 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
-typedef struct		s_hidden_sect
-{
-	int				sector;
-	int				selected_enemy;
-	int				create;
-	t_v2			get_sect;
-}					t_hidden_sect;
-
-typedef struct		s_elevator
-{
-	int				up;
-	int				down;
-	int				on;
-	int				off;
-	double				next_stop;
-	double				start_floor;;
-	int				sector;
-	int				call;
-	int				called_from;
-	int				used;
-	double				time;
-	double				speed;
-}					t_elevator;
-
 typedef struct		s_state
 {
 	int				fall;
@@ -270,14 +248,6 @@ typedef struct		s_render_vertex
 	double			yzrange;
 }					t_render_vertex;
 
-typedef	struct		s_teleport
-{
-	int		create;
-	int		selected;
-	int		sector;
-	t_v3		tmp_pos;
-}				t_teleport;
-
 /*
 ** Sprite structure with associated texture
 ** and 1 to 8 image cut on this texture
@@ -313,6 +283,14 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
+typedef struct		s_condition
+{
+	int				type;
+	double			value;
+	int				target_type;
+	void			*target;
+}					t_condition;
+
 typedef struct		s_event
 {
 	void			*target;
@@ -327,18 +305,19 @@ typedef struct		s_event
 	Uint32			delay;
 	int				mod_type;
 	int				type;
+	int				target_type;
 	int				happened;
-	int				(*launch_func)(struct s_event *, void *);
-	t_event_param	launch_param;
-	int				(*check_func)(struct s_event *, void *);
-	t_event_param	check_param;
+	t_condition		*launch_conditions;
+	size_t			nb_launch_conditions;
+	t_condition		*exec_conditions;
+	size_t			nb_exec_conditions;
 	int				(*exec_func)(void *, void *);
 	void			*exec_param;
 	void			(*update_func)(struct s_event *, void *);
 	t_event_param	update_param;
 	int				uses;
 	int				max_uses;
-}			t_event;
+}					t_event;
 
 typedef struct		s_wall_sprites
 {
@@ -407,13 +386,16 @@ typedef struct		s_sector
 	short			nb_vertices;
 	int				skybox;
 	short			*selected;
+	double			gravity;
 	Uint32			light_color;
 	int				brightness;
 	int				intensity;
 	size_t			nb_stand_events;
-	size_t			nb_walk_events;
-	t_event			*stand_on_me_event;
-	t_event			*walk_on_me_event;
+	size_t			nb_walk_in_events;
+	size_t			nb_walk_out_events;
+	t_event			*stand_events;
+	t_event			*walk_in_events;
+	t_event			*walk_out_events;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -523,10 +505,9 @@ typedef struct		s_player
 	t_camera		camera;
 	t_init_data		player_init_data;
 	Uint32			start_move;
-	int			moving;
+	int				moving;
 	int				stuck;
 	int				prev_sector;
-	double			gravity;
 	double			eyesight;
 	double			speed;
 	int				hit;
@@ -549,6 +530,10 @@ typedef struct		s_player
 	double			acceleration;
 	double			start_pos;
 	int				drop_flag;
+	int				invincible;
+	int				infinite_ammo;
+	int				changed_sector;
+	int				old_sector;
 }					t_player;
 
 /*
@@ -721,7 +706,6 @@ typedef struct		s_weapons
 	int				ammo;
 	int				ammo_type;
 	double			range;
-	int				no_ammo;
 	int				max_ammo;
 	int				damage;
 	int				splash;
@@ -836,7 +820,7 @@ typedef struct		s_object
 	int				pickable;
 	int				solid;
 	int				ammo;
-	id_t			damage;
+	int				damage;
 	int				health;
 	int				sector;
 	int				exists;

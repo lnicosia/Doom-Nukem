@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:50:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:01:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void    init_weapons(t_env *env)
     env->weapons[0].nb_sprites = 15;
 	env->weapons[0].ammo_type = ROCKET;
     env->weapons[0].ammo = 20;
-    env->weapons[0].no_ammo = 0;
     env->weapons[0].damage = 125;
     env->weapons[0].max_ammo = 20;
     env->weapons[0].splash = 1;
@@ -38,7 +37,6 @@ void    init_weapons(t_env *env)
     env->weapons[1].ammo = 40;
     env->weapons[1].damage = 25;
     env->weapons[1].max_ammo = 40;
-    env->weapons[1].no_ammo = 0;
     env->weapons[1].range = 50;
     env->weapons[1].splash = 0;
 }

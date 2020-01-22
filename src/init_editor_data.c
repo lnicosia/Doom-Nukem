@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:43:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/13 13:40:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	init_editor_data(t_env *env)
 	env->hovered_wall_sprite_sector = -1;
 	env->selected_enemy = -1;
 	env->selected_object = -1;
+	env->editor.current_texture = 7;
 	
 }

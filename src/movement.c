@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:27:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/14 15:39:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,11 @@ void	update_player_pos(t_env *env)
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
-		if (new_sector != env->player.sector && new_sector != -1
-			&& env->sectors[new_sector].nb_walk_events > 0)
-			start_event(&env->sectors[new_sector].walk_on_me_event, &env->sectors[new_sector].nb_walk_events, env);
+		if (new_sector != env->player.sector)
+		{
+			env->player.old_sector = env->player.sector;
+			env->player.changed_sector = 1;
+		}
 		if (find_highest_sector(env, motion) != env->player.highest_sect
 				&& get_floor_at_pos(env->sectors[find_highest_sector(env, motion)], env->player.pos, env)
 				< get_floor_at_pos(env->sectors[env->player.highest_sect], env->player.pos, env) && !env->player.state.fly)

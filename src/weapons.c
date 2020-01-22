@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/16 14:12:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:57:25 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,19 +170,15 @@ void    weapon_animation(t_env *env, int nb)
 		env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
 		if (env->weapons[nb].ammo <= 0)
-		{
-			env->weapons[nb].no_ammo = 1;
 			Mix_PlayChannel(2, env->weapons[nb].empty, 0);
-		}
 		else
 		{
 			shot(env);
-			env->weapons[nb].no_ammo = 0;
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
 			//env->weapons[nb].ammo--;
 		}
 	}
-	if (!env->weapons[nb].no_ammo)
+	if (env->weapons[nb].ammo)
 	{
 		if (env->time.milli_s > env->shot.start + 70 && ((env->time.milli_s - env->shot.start) / 70 < env->weapons[nb].nb_sprites))
 			draw_weapon(env, env->weapons[nb].first_sprite + (int)((env->time.milli_s - env->shot.start) / 70));

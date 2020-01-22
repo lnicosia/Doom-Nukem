@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 14:07:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:56:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,18 @@ typedef struct		s_env
 	t_sprite			*wall_sprites;
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
+	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[NB_SKYBOX];
 	t_audio				sound;
 	t_editor 			editor;
-	t_elevator			elevator;
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
 	t_explosion			explosion;
 	t_list				*explosions;
 	t_vline_data		*vline_data;
-	t_teleport			teleport;
-	t_hidden_sect		hidden_sect;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
 	t_skybox			skyboxes[MAX_SKYBOX];
@@ -267,6 +265,7 @@ int					init_sdl(t_env *env);
 int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
+int					init_ui_textures(t_env *env);
 int					init_skybox(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);
@@ -298,6 +297,7 @@ t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale, int sprite);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage, double speed, double height);
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int sprite);
+void				init_events_map(t_env *env);
 
 /*
 **	Parser functions
@@ -305,6 +305,7 @@ t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage, int spr
 
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
+int					parse_bmp_ui_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
@@ -323,7 +324,7 @@ t_printable_text	new_printable_text(
 						TTF_Font *font,
 								unsigned int color,
 										int size);
-void				print_text(t_point pos,
+int					print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
@@ -370,18 +371,18 @@ void				draw_button(t_env *env, t_button b);
 
 int					draw_walls(t_camera *camera, t_env *env);
 void				draw_explosions(t_camera camera, t_env *env);
-void				draw_projectiles(t_camera camera, t_env *env);
-void				draw_projectile_both(t_camera camera, t_projectile *p,
+int					draw_projectiles(t_camera camera, t_env *env);
+int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_no_light(t_camera camera, t_projectile *p,
+int					draw_projectile_no_light(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_brightness(t_camera camera, t_projectile *p,
+int					draw_projectile_brightness(t_camera camera, t_projectile *p,
 t_env *env);
-void				draw_projectile_color(t_camera camera, t_projectile *p,
+int					draw_projectile_color(t_camera camera, t_projectile *p,
 t_env *env);
 int					get_sprite_direction_projectile(t_projectile projectile);
-void				draw_objects(t_camera camera, t_env *env);
-void				draw_enemies(t_camera camera, t_env *env);
+int					draw_objects(t_camera camera, t_env *env);
+int					draw_enemies(t_camera camera, t_env *env);
 int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
@@ -519,7 +520,7 @@ void	pursuing_enemy(t_env *env, int i);
 int		dying_enemy(t_env *env, int i, int nb_sprites);
 int     rand_dir(t_env *env, int index);
 void	enemy_firing_anim(t_env *env, int i);
-void	draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
+int		draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite);
 
 /*
 ** objects functions
@@ -543,6 +544,10 @@ t_event				new_incr_event(int type, void *target, double incr,
 Uint32 duration);
 int					start_event(t_event **events, size_t *size,
 t_env *env);
+int					start_event_free(t_event **events, size_t *size,
+t_env *env);
+int					check_conditions(t_event event, t_condition *tab,
+size_t nb);
 t_event_param		new_event_param(int num, double equ_value, 
 double diff_value, t_v3 move);
 t_event_param		empty_event_param(void);

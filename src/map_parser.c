@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 14:04:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,10 @@ int		parse_map(char *file, t_env *env)
 	if (parse_enemies(env, &parser))
 		return (-1);
 	//return (custom_error("Error while parsing creatures"));
+	if (parse_events(env, &parser))
+		return (custom_error("Error while parsing events"));
 	if (parse_player(env, &parser))
-		return (-1);
+		return (custom_error("Error while parsing player data"));
 	//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &parser));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/09 13:57:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:00:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		editor(t_env *env)
 		else
 		{
 			if (env->player.sector != -1)
-					start_event(&env->sectors[env->player.sector].stand_on_me_event,
+					start_event(&env->sectors[env->player.sector].stand_events,
 					&env->sectors[env->player.sector].nb_stand_events, env);
 			if (env->global_events)
 					start_event(&env->global_events,

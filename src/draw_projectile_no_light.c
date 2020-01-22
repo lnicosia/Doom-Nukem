@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/13 14:03:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:00:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		*projectile_loop_no_light(void *param)
 	return (NULL);
 }
 
-static void		threaded_projectile_loop_no_light(t_projectile projectile, t_render_projectile prender, t_env *env)
+static int	threaded_projectile_loop_no_light(t_projectile projectile, t_render_projectile prender, t_env *env)
 {
 	t_projectile_thread	pt[THREADS];
 	pthread_t			threads[THREADS];
@@ -80,14 +80,17 @@ static void		threaded_projectile_loop_no_light(t_projectile projectile, t_render
 		pt[i].prender = prender;
 		pt[i].xstart = prender.xstart + (prender.xend - prender.xstart) / (double)THREADS * i;
 		pt[i].xend = prender.xstart + (prender.xend - prender.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, projectile_loop_no_light, &pt[i]);
+		if (pthread_create(&threads[i], NULL, projectile_loop_no_light, &pt[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_projectile_no_light(t_camera camera, t_projectile *projectile,
+int			draw_projectile_no_light(t_camera camera, t_projectile *projectile,
 t_env *env)
 {
 	t_render_projectile	prender;
@@ -119,5 +122,7 @@ t_env *env)
 	projectile->bottom = prender.yend;
 	prender.xrange = prender.x2 - prender.x1;
 	prender.yrange = prender.y2 - prender.y1;
-	threaded_projectile_loop_no_light(*projectile, prender, env);
+	if (threaded_projectile_loop_no_light(*projectile, prender, env))
+		return (-1);
+	return (0);
 }

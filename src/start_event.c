@@ -6,11 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 11:21:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:05:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events_conditions.h"
 
 int		update_event(t_event *event)
 {
@@ -67,6 +67,45 @@ int		is_queued(t_list *queued_values, void *target)
 	return (0);
 }
 
+int		check_conditions(t_event event, t_condition *tab, size_t nb)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < nb)
+	{
+		if (tab[i].type == EQUALS
+				&& equals_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == DIFFERENT
+				&& different_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == LESS
+				&& less_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == GREATER
+				&& greater_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == LESS_OR_EQUALS
+				&& less_or_equals_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == GREATER_OR_EQUALS
+				&& greater_or_equals_condition(tab[i]))
+			return (0);
+		else if (tab[i].type == EVENT_ENDED
+				&& event_ended_condition(tab[i], event))
+			return (0);
+		else if (tab[i].type == EVENT_ENDED_START
+				&& event_ended_start_condition(tab[i], event))
+			return (0);
+		/*else if (tab[i].type == FUNCTION
+				&& event_func_condition(tab[i], event))
+			return (0);*/
+		i++;
+	}
+	return (1);
+}
+
 int		start_event(t_event **events, size_t *size, t_env *env)
 {
 	size_t		i;
@@ -78,11 +117,11 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	{
 		if ((!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
-				&& (!(*events)[i].launch_func
-					|| (*events)[i].launch_func(&(*events)[i], env))
+				&& (!(*events)[i].launch_conditions
+					|| check_conditions((*events)[i],
+					(*events)[i].launch_conditions,
+					(*events)[i].nb_launch_conditions))
 				&& update_event(&(*events)[i]))
-			//&& (!(*events)[i].max_uses
-			//|| (*events)[i].uses < (*events)[i].max_uses)
 		{
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
 				return (ft_perror("Could not malloc new event"));
@@ -95,9 +134,54 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 			(*events)[i].happened = 1;
 			if ((*events)[i].max_uses > 0)
 			{
-				//ft_printf("Events use %d time out of %d\n",
-				//(*events)[i].uses, (*events)[i].max_uses);
-				//ft_printf("Size = %d\n", *size);
+				if ((*events)[i].uses >= (*events)[i].max_uses)
+				{
+					//free_event(&(*events)[i]);
+					*events = ft_delindex((*events),
+							sizeof(t_event) * (*size),
+							sizeof(t_event),
+							sizeof(t_event) * i);
+					(*size)--;
+				}
+				else
+					i++;
+			}
+			else
+				i++;
+			//ft_printf("{yellow}starting event{reset}\n");
+		}
+		else
+			i++;
+	}
+	return (0);
+}
+
+int		start_event_free(t_event **events, size_t *size, t_env *env)
+{
+	size_t		i;
+	t_list		*new;
+	t_list		*new_value;
+
+	i = 0;
+	while (i < *size)
+	{
+		if ((!(*events)[i].launch_conditions
+					|| check_conditions((*events)[i],
+					(*events)[i].launch_conditions,
+					(*events)[i].nb_launch_conditions))
+				&& update_event(&(*events)[i]))
+		{
+			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
+				return (ft_perror("Could not malloc new event"));
+			ft_lstpushback(&env->events, new);
+			if (!(new_value = ft_lstnew(&(*events)[i].target,
+							sizeof((*events)[i].target))))
+				return (ft_perror("Could not malloc new event"));
+			ft_lstpushback(&env->queued_values, new_value);
+			(*events)[i].uses++;
+			(*events)[i].happened = 1;
+			if ((*events)[i].max_uses > 0)
+			{
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
 					//free_event(&(*events)[i]);

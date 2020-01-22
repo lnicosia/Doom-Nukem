@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 16:53:02 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/16 18:02:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int			init_new_sector_arrays(t_sector *sector)
 	if (!(sector->floors = (double*)ft_memalloc(sizeof(double)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector floors"));
+	if (!(sector->portals = (short*)ft_memalloc(sizeof(short)
+		* (sector->nb_vertices + 1))))
+		return (ft_perror("Could not malloc sector floors"));
 	if (!(sector->clipped_ceilings1 = (double*)ft_memalloc(sizeof(double)
 		* (sector->nb_vertices + 1))))
 		return (ft_perror("Could not malloc sector clipped_ceilings1"));
@@ -122,10 +125,12 @@ t_sector	new_default_sector(t_env *env)
 	ft_bzero(&sector, sizeof(sector));
 	sector.floor = 0;
 	sector.floor_slope = 0;
-	sector.floor_texture = 4;
+	//sector.floor_texture = 4;
+	sector.floor_texture = env->editor.current_texture;
 	sector.ceiling = 10;
 	sector.ceiling_slope = 0;
-	sector.ceiling_texture = 4;
+	//sector.ceiling_texture = 4;
+	sector.ceiling_texture = env->editor.current_texture;
 	sector.floor_map_scale = new_v2(10, 10);
 	sector.ceiling_map_scale = new_v2(10, 10);
 	//sector.floor_scale.x = env->wall_textures[sector.floor_texture].surface->w / 10;
@@ -135,6 +140,7 @@ t_sector	new_default_sector(t_env *env)
 	sector.ceiling_map_align = new_v2(0, 0);
 	sector.light_color = 0xFFFFFFFF;
 	sector.brightness = 0;
+	sector.gravity = -9.81;
 	sector.skybox = 0;
 	sector.num = env->nb_sectors;
 	sector.x_max = -2147483648;

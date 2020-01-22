@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:09:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:46:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_event_param	empty_event_param(void)
 	ft_bzero(&new, sizeof(new));
 	return (new);
 }
+
 void			update_sector_event(t_event *event, void *penv)
 {
 	t_env	*env;
@@ -64,7 +65,7 @@ void			update_player_event(t_event *event, void *penv)
 	update_player_pos((t_env*)penv);
 }
 
-int				check_collision_event(t_event *event, void *penv)
+/*int				check_collision_event(t_event *event, void *penv)
 {
 	t_movement	movement;
 	t_v3		move;
@@ -77,6 +78,13 @@ int				check_collision_event(t_event *event, void *penv)
 	if (!move.x && !move.y && !move.z)
 		return (0);
 	return (1);
+}*/
+
+int					check_sector_event(t_event *event, void *penv)
+{
+	(void)event;
+	(void)penv;
+	return (1);
 }
 
 void			delete_itself_event(t_event *event, void *penv)
@@ -88,18 +96,18 @@ void			delete_itself_event(t_event *event, void *penv)
 	(void)penv;
 }
 
-int				check_equ_value_event(t_event *event, void *penv)
+/*int				check_equ_value_event(t_event *event, void *penv)
 {
 	(void)penv;
-	if (event->type == INT
+	if (event->check_param.target_type == INT
 			&& event->check_param.equ_value
 			== *(int*)event->check_param.target)
 		return (1);
-	else if (event->type == DOUBLE
+	else if (event->check_param.target_type == DOUBLE
 			&& event->check_param.equ_value
 			== *(double*)event->check_param.target)
 		return (1);
-	else if (event->type == UINT32
+	else if (event->check_param.target_type == UINT32
 			&& event->check_param.equ_value
 			== *(Uint32*)event->check_param.target)
 		return (1);
@@ -122,9 +130,9 @@ int				check_diff_value_event(t_event *event, void *penv)
 			!= *(Uint32*)event->check_param.target)
 		return (1);
 	return (0);
-}
+}*/
 
-int				launch_equ_value_event(t_event *event, void *penv)
+/*int				launch_equ_value_event(t_event *event, void *penv)
 {
 	(void)penv;
 	if (event->launch_param.target_type == INT
@@ -192,4 +200,4 @@ int				launch_prec_event_ended_starter(t_event *event, void *penv)
 		return (1);
 	}
 	return (0);
-}
+}*/

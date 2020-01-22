@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:35:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/10 15:57:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,16 @@ int		editor_3d_keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 	{
+		if (env->editor.tab)
+			SDL_SetRelativeMouseMode(1);
+		else
+			SDL_SetRelativeMouseMode(0);
 		env->editor.tab = env->editor.tab ? 0 : 1;
-		env->options.mouse = env->options.mouse ? 0 : 1;
-		SDL_SetRelativeMouseMode(env->options.mouse);
+		//env->options.mouse = env->options.mouse ? 0 : 1;
+		SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+		&env->sdl.mouse_y);
+		SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+		&env->sdl.mouse_y);
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)

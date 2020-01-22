@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/15 16:24:40 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/16 18:04:19 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,14 @@ SDL_MIXER_DIR = SDL2_mixer-2.0.4
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
-				print_results.c projectile.c projectiles_maths.c draw_projectiles.c \
+				print_results.c projectile.c projectiles_maths.c \
+				draw_projectiles.c \
 				keys.c init_weapons.c weapons.c draw_hud.c death.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
-				explosion.c draw_explosion.c explosion_maths.c
+				explosion.c init_events_map.c draw_explosion.c \
+				explosion_maths.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -82,8 +84,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
-		   objects_utils.c misc_utils.c \
-		   gravity.c input_box_utils.c \
+		   objects_utils.c misc_utils.c map_parse_events.c \
+		   gravity.c input_box_utils.c init_ui_textures.c \
 		   input_box_mouse.c delete_box_selection.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
@@ -91,7 +93,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
-		   draw_floor_sprites_both.c \
+		   draw_floor_sprites_both.c bmp_parser_ui.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c \
@@ -105,11 +107,27 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
 		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
 		   print_press_text.c modify_wall_sprite.c \
-		   draw_wall_bullet_holes.c intersect_maths.c\
+		   draw_wall_bullet_holes.c intersect_maths.c \
+		   equals_condition.c less_condition.c greater_condition.c \
+		   less_or_equals_condition.c greater_or_equals_condition.c \
+		   event_ended_condition.c event_ended_start_condition.c \
+		   different_condition.c init_events.c init_events_parser.c \
+		   new_global_event.c new_press_event.c new_shoot_event.c \
+		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
+		   new_death_event.c parse_event_target.c \
+		   init_events_parser_target_types.c parse_event_launch_conditions.c \
+		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
+		   vertex_parser.c set_event_target.c floor_sprite_parser.c \
+		   ceiling_sprite_parser.c set_event_target2.c weapon_parser.c \
+		   object_parser.c parse_event_type.c parse_event_various_data.c \
+		   set_condition_target.c set_condition_target2.c \
+		   init_events_parser_target_parsers.c parse_event_exec_conditions.c \
+		   init_events_parser_checkers.c init_events_parser_updaters.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
-		  wall_sprite_remover.h wall_sprite_modifier.h
+		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
+		  events_parser.h
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))

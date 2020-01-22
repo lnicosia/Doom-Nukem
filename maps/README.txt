@@ -57,6 +57,7 @@ O  1
 E 1
 [5 5 5 0] [1 50] [50 0.3 15]
 
+
 # Empty line after enemies declaration
 # Player:
 # Y X angle

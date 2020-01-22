@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/13 13:39:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 		sector->vertices[index] = vertex->num;
 		sector->neighbors[index] = -1;
 		sector->portals[index] = 1;
-		sector->textures[index] = 4;
+		sector->textures[index] = env->editor.current_texture;
 		sector->wall_sprites[index].nb_sprites = 0;
 		sector->align[index] = new_v2(0, 0);
 		sector->scale[index] = new_v2(10, 10);

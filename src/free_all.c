@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 14:56:45 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:39:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void		free_event(t_event *event)
 		ft_memdel((void**)&event->update_param);*/
 	if (event->exec_param)
 		ft_memdel((void**)&event->exec_param);
+	if (event->launch_conditions)
+		ft_memdel((void**)&event->launch_conditions);
 }
 
 void		free_events(t_event	*events, size_t size)
