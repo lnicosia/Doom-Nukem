@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_grid_player.c								 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/21 13:40:49 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/11/06 12:38:15 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_player.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/22 12:09:12 by sipatry           #+#    #+#             */
+/*   Updated: 2020/01/22 12:09:12 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -42,8 +42,7 @@ void	draw_grid_player(t_env *env)
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_object == -1
-					&& env->editor.dragged_vertex == -1
-					&& !env->teleport.create)
+					&& env->editor.dragged_vertex == -1)
 			{
 				env->editor.dragged_player = 1;
 				env->editor.selected_player = 1;
@@ -68,10 +67,4 @@ void	draw_grid_player(t_env *env)
 			circle.center.y + env->player.camera.angle_sin * circle.radius * 2,
 			0);
 	fill_triangle(v, 0xFFFF0000, env);
-	/*if (env->editor.selected_player == 1)
-	{
-		circle.radius *= 0.75;
-		circle.color = 0xFF00FF00;
-		draw_circle(circle, env);
-	}*/
 }

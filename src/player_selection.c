@@ -15,19 +15,12 @@
 
 void	player_selection(t_env *env)
 {
-	if (env->inputs.left_click
-			&& env->editor.start_vertex == -1
-			&& env->editor.dragged_player == -1
-			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_object == -1
-			&& !env->teleport.create
-			&& env->editor.selected_player != -1)
-		env->editor.dragged_player = 1;
-	if (!env->inputs.left_click && env->editor.dragged_player == 1)
+	if (env->inputs.left_click && env->editor.dragged_player == 1)
 	{
-		env->editor.dragged_player = -1;
-		env->editor.selected_player = -1;
-		if (env->sdl.mx > 200 && check_player_z(env))
-			add_player(env);
+		env->player.pos.x =	(env->sdl.mx - env->editor.center.x) / env->editor.scale;
+		env->player.pos.y =	(env->sdl.my - env->editor.center.y) / env->editor.scale;
+		check_player_z(env);
 	}
+	else
+		env->editor.dragged_player = -1;
 }

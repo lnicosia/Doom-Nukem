@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 18:30:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 11:47:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ void				print_floor_general_tab(t_env *env);
 void				print_ceiling_general_tab(t_env *env);
 void				print_player_general_tab(t_env *env);
 void				print_wall_general_tab(t_env *env);
+void				print_sector_general_tab(t_env *env);
 void				print_floor_sector_tab(t_env *env);
 void				print_ceiling_sector_tab(t_env *env);
 void				print_player_sector_tab(t_env *env);
@@ -307,9 +308,11 @@ void				change_var(void *target);
 void				wall_buttons(t_env *env);
 void				ceiling_buttons(t_env *env);
 void				floor_buttons(t_env *env);
+void				sector_buttons(t_env *env);
 void				wall_buttons_up(t_env *env);
 void				ceiling_buttons_up(t_env *env);
 void				floor_buttons_up(t_env *env);
+void				sector_buttons_up(t_env *env);
 
 /*
 ** Main functions

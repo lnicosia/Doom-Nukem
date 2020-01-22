@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 18:18:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 09:33:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ void	init_ceilling_buttons(t_env *env)
 	init_ceilling_sprite_buttons(env);
 }
 
-void	init_ceilling_buttons(t_env *env)
+void	init_sector_buttons(t_env *env)
 {
 	init_sector_general_env(env);
-	init_sector_sector_env(env);
 	init_sector_general_buttons(env);
-	init_sector_sector_buttons(env);
 }
 
 void	init_editor_tab_buttons(t_env *env)

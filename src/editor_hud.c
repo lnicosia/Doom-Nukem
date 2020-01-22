@@ -61,10 +61,10 @@ void	print_general_tab(t_env *env)
 		print_vertex_general_tab(env);
 	
 	else if (env->editor.selected_object != -1 || env->selected_object != -1)
-		print_object_informations(env);
-	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
-		print_sector_informations(env);*/
-	if (env->selected_ceiling != -1)
+		print_object_informations(env);*/
+	if (env->editor.selected_sector != -1 && !env->editor.in_game)
+		print_sector_general_tab(env);
+	else if (env->selected_ceiling != -1)
 		print_ceiling_general_tab(env);
 	else if (env->selected_floor != -1)
 		print_floor_general_tab(env);

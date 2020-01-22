@@ -180,6 +180,8 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
+	if (env->editor.selected_sector != -1)
+		sector_buttons_up(env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

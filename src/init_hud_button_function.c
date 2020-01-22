@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 18:30:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:06:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	add_object_button(void *target)
 
 	env = (t_env *)target;
 	env->editor.create_object = 1;
+	if (!env->editor.draw_object_tab)
+		env->editor.create_object = 1;
+	else
+		env->editor.add_object.state = UP;
 }
 
 

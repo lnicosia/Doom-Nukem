@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 17:41:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 10:43:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,6 @@ int		editor_3d_keyup(t_env *env)
 		button_keyup(&env->editor.change_mode, env);
 		button_keyup(&env->editor.launch_game, env);
 		button_keyup(&env->editor.texture_background, env);
-		button_keyup(&env->editor.hud.s_ceilling.brightness, env);
-		button_keyup(&env->editor.hud.s_ceilling.color, env);
-		button_keyup(&env->editor.hud.s_ceilling.intensity, env);
 		if (env->selected_ceiling != -1)
 			ceiling_buttons_up(env);
 		if (env->editor.selected_wall != -1)

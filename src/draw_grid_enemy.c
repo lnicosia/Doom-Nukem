@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_grid_enemy.c								  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: sipatry <marvin@42.fr>					 +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/05 16:56:49 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/11/06 13:42:23 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_enemy.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/22 12:09:06 by sipatry           #+#    #+#             */
+/*   Updated: 2020/01/22 12:09:06 by sipatry          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -19,7 +19,6 @@ void	draw_grid_enemies(t_env *env)
 	double		scale;
 	int			i;
 	Uint32		color;
-	//t_v3		v[3];
 
 	i = 0;
 	if (env->editor.dragged_enemy != -1)
@@ -70,15 +69,5 @@ void	draw_grid_enemies(t_env *env)
 		if (env->editor.dragged_enemy != i)
 			draw_circle(new_circle(color, color, center, scale), env);
 		i++;
-		/*v[0] = new_v3(center.x + cos(env->enemies[i].angle - M_PI / 2) * scale / 2,
-				center.y + sin(env->enemies[i].angle - M_PI / 2) * scale / 2,
-				0);
-		v[2] = new_v3(center.x - cos(env->enemies[i].angle - M_PI / 2) * scale / 2,
-				center.y - sin(env->enemies[i].angle - M_PI / 2) * scale / 2,
-				0);
-		v[1] = new_v3(center.x + cos(env->enemies[i].angle) * scale * 2,
-				center.y + sin(env->enemies[i].angle) * scale * 2,
-				0);
-		fill_triangle(v, 0xFFFFFF00, env);*/
 	}
 }
