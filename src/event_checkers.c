@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 18:32:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:05:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.floor_slope;
 	sector.floor_slope = event->start_value + time * event->incr;
+	if (!event->speed)
+		sector.floor_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -119,6 +121,8 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.ceiling_slope;
 	sector.ceiling_slope = event->start_value + time * event->incr;
+	if (!event->speed)
+		sector.ceiling_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -156,6 +160,8 @@ int		check_floor_event(t_event *event, void *penv)
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.floor;
 	sector.floor = event->start_value + time * event->incr;
+	if (!event->speed)
+		sector.floor = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -193,6 +199,8 @@ int		check_ceiling_event(t_event *event, void *penv)
 	sector = env->sectors[event->check_param.sector];
 	prec = sector.ceiling;
 	sector.ceiling = event->start_value + time * event->incr;
+	if (!event->speed)
+		sector.ceiling = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
@@ -220,7 +228,9 @@ int		check_texture_event(t_event *event, void *penv)
 {
 	(void)penv;
 	if ((event->incr > 0 && *(int*)event->target >= MAX_WALL_TEXTURE - 1)
-		|| (event->incr < 0 && *(int*)event->target <= -MAX_SKYBOX))
+		|| (event->incr < 0 && *(int*)event->target <= -MAX_SKYBOX)
+		|| (!event->speed && ((int)event->goal >= MAX_WALL_TEXTURE
+		|| (int)event->goal < -MAX_SKYBOX)))
 		return (1);
 	return (0);
 }
@@ -228,8 +238,10 @@ int		check_texture_event(t_event *event, void *penv)
 int		check_sprite_event(t_event *event, void *penv)
 {
 	(void)penv;
-	if ((event->incr > 0 && *(int*)event->target >= MAX_SPRITES)
-		|| (event->incr < 0 && *(int*)event->target <= 0))
+	if ((event->incr > 0 && *(int*)event->target >= MAX_WALL_SPRITES - 1)
+		|| (event->incr < 0 && *(int*)event->target <= 0)
+		|| (!event->speed && ((int)event->goal >= MAX_WALL_SPRITES
+		|| (int)event->goal < 0)))
 		return (1);
 	return (0);
 }

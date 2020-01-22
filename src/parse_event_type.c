@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 17:54:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:15:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
 	if (valid_number(*line, parser))
 		return (invalid_char("before event duration", "a digit", **line,
 		parser));
-	eparser->event.duration = ft_atoi(*line);
-	if (eparser->event.duration < 0)
-		return (custom_error_with_line("Invalid event duration", parser));
-	if (eparser->event.duration == 0)
-		eparser->event.duration = 1;
+	eparser->event.speed = ft_atof(*line);
+	if (eparser->event.speed < 0)
+		return (custom_error_with_line("Invalid event speed", parser));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("closing ']' brace after event type", parser));

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 17:52:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:57:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ int	double_event(t_event *curr)
 {
 	Uint32	time;
 	double	*target;
-	int		type;
 
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
 	target = (double*)curr->target;
-	if (*target < curr->goal)
-		type = 0;
-	else
-		type = 1;
-	*target = curr->start_value + time * curr->incr;
-	if ((!type && *target >= curr->goal)
-			|| (type && *target <= curr->goal))
+	if (!curr->speed)
 	{
 		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
+		return (1);
+	}
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
+	*target = curr->start_value + time * curr->incr;
+	if ((curr->incr > 0 && *target >= curr->goal)
+			|| (curr->incr < 0 && *target <= curr->goal))
+	{
+		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
@@ -39,20 +41,22 @@ int	int_event(t_event *curr)
 {
 	Uint32	time;
 	int		*target;
-	int		type;
 
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
 	target = (int*)curr->target;
-	if (*target < curr->goal)
-		type = 0;
-	else
-		type = 1;
-	*target = curr->start_value + time * curr->incr;
-	if ((!type && *target >= curr->goal)
-			|| (type && *target <= curr->goal))
+	if (!curr->speed)
 	{
 		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
+		return (1);
+	}
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
+	*target = curr->start_value + time * curr->incr;
+	if ((curr->incr > 0 && *target >= curr->goal)
+			|| (curr->incr < 0 && *target <= curr->goal))
+	{
+		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
@@ -62,20 +66,22 @@ int	uint32_event(t_event *curr)
 {
 	Uint32	time;
 	Uint32	*target;
-	int		type;
 
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
 	target = (Uint32*)curr->target;
-	if (*target < curr->goal)
-		type = 0;
-	else
-		type = 1;
-	*target = curr->start_value + time * curr->incr;
-	if ((!type && *target >= curr->goal)
-			|| (type && *target <= curr->goal))
+	if (!curr->speed)
 	{
 		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
+		return (1);
+	}
+	time = SDL_GetTicks() - curr->start_time;
+	time = time == 0 ? 1 : time;
+	*target = curr->start_value + time * curr->incr;
+	if ((curr->incr > 0 && *target >= curr->goal)
+			|| (curr->incr < 0 && *target <= curr->goal))
+	{
+		*target = curr->goal;
+		curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
@@ -96,7 +102,7 @@ int		execute_event(t_event *event, t_env *env)
 	res = 1;
 	check = 0;
 	if (event->exec_conditions
-		&& !check_conditions(*event, event->exec_conditions,
+		&& !check_exec_conditions(event, event->exec_conditions,
 		event->nb_exec_conditions))
 		return (1);
 	if (event->check_func)

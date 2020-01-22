@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 13:43:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:17:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -535,16 +535,18 @@ int	 	explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites);
 int					update_event(t_event *event);
 int					pop_events(t_env *env);
 t_event				new_fixed_event(int type, void *target, double goal,
-Uint32 duration);
+double speed);
 t_event				new_func_event(int (*func)(void *, void *),
 void *param);
 t_event				new_incr_event(int type, void *target, double incr,
-Uint32 duration);
+double speed);
 int					start_event(t_event **events, size_t *size,
 t_env *env);
 int					start_event_free(t_event **events, size_t *size,
 t_env *env);
-int					check_conditions(t_event event, t_condition *tab,
+int					check_launch_conditions(t_event *event, t_condition *tab,
+size_t nb);
+int					check_exec_conditions(t_event *event, t_condition *tab,
 size_t nb);
 t_event_param		new_event_param(int num, double equ_value, 
 double diff_value);
