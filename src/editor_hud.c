@@ -12,7 +12,7 @@
 
 #include "env.h"
 /*
-void	print_general_tab(t_env *env)
+void	print_sprite_tab(t_env *env)
 {
 	if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);
@@ -38,14 +38,14 @@ void	print_sector_tab(t_env *env)
 	if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);
 
-	else if (env->editor.selected_object != -1 || env->selected_object != -1)
-		print_object_informations(env);
+
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
-		print_sector_informations(env);
+		print_sector_informations(env);*/
+	if (env->editor.selected_object != -1 || env->selected_object != -1)
+		print_object_informations(env);
 	else if (env->selected_enemy != -1)
-		print_enemy_informations(env);
-*/
-	if (env->editor.selected_player != -1)
+		print_enemy_sector_tab(env);
+	else if (env->editor.selected_player != -1)
 		print_player_sector_tab(env);
 	else if (env->selected_ceiling != -1)
 		print_ceiling_sector_tab(env);
@@ -59,10 +59,10 @@ void	print_general_tab(t_env *env)
 {
 	/*if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);
-	
-	else if (env->editor.selected_object != -1 || env->selected_object != -1)
-		print_object_informations(env);*/
-	if (env->editor.selected_sector != -1 && !env->editor.in_game)
+	*/
+	if (env->editor.selected_object != -1 || env->selected_object != -1)
+		print_object_informations(env);
+	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 		print_sector_general_tab(env);
 	else if (env->selected_ceiling != -1)
 		print_ceiling_general_tab(env);
@@ -72,8 +72,8 @@ void	print_general_tab(t_env *env)
 		print_player_general_tab(env);
 	else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
 		print_wall_general_tab(env);
-//	else if (env->selected_enemy != -1)
-//		print_enemy_informations(env);
+	else if (env->selected_enemy != -1)
+		print_enemy_general_tab(env);
 }
 
 void	select_informations(t_env *env)
@@ -105,7 +105,7 @@ void	print_object_informations(t_env *env)
 	print_text(new_point(450, 180), new_printable_text("object ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(450, 180), new_printable_text(ft_sitoa(env->editor.selected_object), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 80), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	if (env->editor.selected_object != -1)
+/*	if (env->editor.selected_object != -1)
 	{
 		print_text(new_point(560, 80), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
@@ -115,14 +115,14 @@ void	print_object_informations(t_env *env)
 		print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	}
 	else
-	{
+	{*/
 		print_text(new_point(560, 80), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(600, 80), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(640, 80), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 		print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	}
+//	}
 }
 
 void	print_enemy_informations(t_env *env)

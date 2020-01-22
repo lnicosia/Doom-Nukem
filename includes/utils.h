@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 17:32:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:31:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,7 +549,7 @@ typedef struct		s_player
 	t_camera		camera;
 	t_init_data		player_init_data;
 	Uint32			start_move;
-	int			moving;
+	int				moving;
 	int				stuck;
 	int				prev_sector;
 	double			gravity;

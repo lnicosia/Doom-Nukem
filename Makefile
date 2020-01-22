@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/22 11:47:05 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/22 15:55:44 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_env_ceilling_buttons.c  change_editor_mode.c editor_3d_button_keys.c \
 		 editor_3d_button_keyup.c enemy_tab.c init_add_buttons.c editor_env_sector_buttons.c \
 		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
-		 editor_button_keyup.c
+		 editor_button_keyup.c editor_env_player_buttons.c editor_player_tab_button.c \
+		 editor_enemy_tabs.c editor_env_enemy_buttons.c editor_enemy_tab_button.c \
+		 editor_object_tabs.c editor_env_object_buttons.c editor_object_tab_button.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

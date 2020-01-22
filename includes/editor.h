@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 12:08:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:59:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct	s_var_g
 	t_button		ceiling;
 	t_button		ceiling_slope;
 	t_button		floor_slope;
+	t_button		pos_x;
+	t_button		pos_y;
+	t_button		pos_z;
+	t_button		health;
+	t_button		armor;
+	t_button		speed;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -67,6 +73,12 @@ typedef struct	s_var_g
 	t_button_tab	t_ceilling;
 	t_button_tab	t_ceiling_slope;
 	t_button_tab	t_floor_slope;
+	t_button_tab	t_pos_x;
+	t_button_tab	t_pos_y;
+	t_button_tab	t_pos_z;
+	t_button_tab	t_health;
+	t_button_tab	t_armor;
+	t_button_tab	t_speed;
 }				t_var_g;
 
 typedef struct	s_hud
@@ -80,11 +92,15 @@ typedef struct	s_hud
 	t_var_g		g_ceilling;
 	t_var_g		g_sector;
 	t_var_g		g_player;
+	t_var_g		g_enemy;
+	t_var_g		g_object;
 	t_var_s		s_wall;
 	t_var_s		s_floor;
 	t_var_s		s_ceilling;
 	t_var_s		s_sector;
 	t_var_s		s_player;
+	t_var_s		s_enemy;
+	t_var_s		s_object;
 }				t_hud;
 
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 10:43:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:40:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int		editor_3d_keyup(t_env *env)
 			wall_buttons_up(env);
 		if (env->selected_floor != -1)
 			floor_buttons_up(env);
+		if (env->selected_enemy != -1)
+			enemy_buttons_up(env);
 		if (env->editor.draw_selection_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)

@@ -77,6 +77,10 @@ int			editor_keys(t_env *env)
 	button_keys(&env->editor.enemy_background, env);
 	if (env->editor.selected_sector != -1)
 		sector_buttons(env);
+	if (env->editor.selected_player != -1)
+		player_buttons(env);
+	if (env->selected_enemy != -1)
+		enemy_buttons(env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

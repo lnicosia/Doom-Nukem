@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 09:33:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:57:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,36 @@ void	init_ceilling_buttons(t_env *env)
 	init_ceilling_sprite_buttons(env);
 }
 
+void	init_player_buttons(t_env *env)
+{
+	init_player_general_env(env);
+	init_player_sector_env(env);
+//	init_player_sprite_env(env);
+	init_player_general_buttons(env);
+	init_player_sector_buttons(env);
+	init_player_sprite_buttons(env);
+}
+
+void	init_enemy_buttons(t_env *env)
+{
+	init_enemy_general_env(env);
+	init_enemy_sector_env(env);
+//	init_enemy_sprite_env(env);
+	init_enemy_general_buttons(env);
+	init_enemy_sector_buttons(env);
+	init_enemy_sprite_buttons(env);
+}
+
+void	init_object_buttons(t_env *env)
+{
+	init_object_general_env(env);
+	init_object_sector_env(env);
+//	init_object_sprite_env(env);
+	init_object_general_buttons(env);
+	init_object_sector_buttons(env);
+	init_object_sprite_buttons(env);
+}
+
 void	init_sector_buttons(t_env *env)
 {
 	init_sector_general_env(env);
@@ -65,7 +95,7 @@ void	init_editor_tab_buttons(t_env *env)
 	init_floor_buttons(env);
 	init_ceilling_buttons(env);
 	init_sector_buttons(env);
-	//init_player_buttons(env);
-	//init_object_buttons(env);
-	//init_enemy_buttons(env);
+	init_player_buttons(env);
+	init_enemy_buttons(env);
+	init_object_buttons(env);
 }

@@ -189,6 +189,25 @@ t_button	new_hud_button(int type, void (*action)(void *), void *param, t_env *en
 	return (new);
 }
 
+t_button	new_hud_pos_button(int type, void (*action)(void *), void *param, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+	if (!env->ui_textures[9].surface || !env->ui_textures[10].surface
+		|| !env->ui_textures[11].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[9].surface;
+	new.img_pressed = env->ui_textures[10].surface;
+	new.img_down = env->ui_textures[10].surface;
+	new.img_hover = env->ui_textures[11].surface;
+	new.size_up = new_point(50, 32);
+	new.size_down = new_point(50, 32);
+	new.size_hover = new_point(50, 32);
+	new.size_pressed = new_point(50, 32);
+	return (new);
+}
+
 void	draw_button(t_env *env, t_button b)
 {
 	t_point	pos;

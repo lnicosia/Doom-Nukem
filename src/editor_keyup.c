@@ -182,6 +182,10 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sprite_tab, env);
 	if (env->editor.selected_sector != -1)
 		sector_buttons_up(env);
+	if (env->editor.selected_player != -1)
+		player_buttons_up(env);
+	if (env->selected_enemy != -1)
+		enemy_buttons_up(env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

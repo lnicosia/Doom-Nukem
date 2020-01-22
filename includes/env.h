@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 11:47:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:58:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,24 @@ void				init_sector_general_env(t_env *env);
 void				init_sector_sector_env(t_env *env);
 void				init_sector_general_buttons(t_env *env);
 void				init_sector_sector_buttons(t_env *env);
+void				init_player_general_env(t_env *env);
+void				init_player_sector_env(t_env *env);
+void				init_player_sprite_env(t_env *env);
+void				init_player_general_buttons(t_env *env);
+void				init_player_sector_buttons(t_env *env);
+void				init_player_sprite_buttons(t_env *env);
+void				init_enemy_general_env(t_env *env);
+void				init_enemy_sector_env(t_env *env);
+void				init_enemy_sprite_env(t_env *env);
+void				init_enemy_general_buttons(t_env *env);
+void				init_enemy_sector_buttons(t_env *env);
+void				init_enemy_sprite_buttons(t_env *env);
+void				init_object_general_env(t_env *env);
+void				init_object_sector_env(t_env *env);
+void				init_object_sprite_env(t_env *env);
+void				init_object_general_buttons(t_env *env);
+void				init_object_sector_buttons(t_env *env);
+void				init_object_sprite_buttons(t_env *env);
 
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
@@ -243,7 +261,7 @@ int					*get_vertex_sectors(t_env *env, int index);
 int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
-int					editor_buttonup(t_env *env);
+int					editor_button_up(t_env *env);
 int					delete_enemy(t_env *env, int enemy);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
@@ -292,10 +310,12 @@ void				print_ceiling_general_tab(t_env *env);
 void				print_player_general_tab(t_env *env);
 void				print_wall_general_tab(t_env *env);
 void				print_sector_general_tab(t_env *env);
+void				print_enemy_general_tab(t_env *env);
 void				print_floor_sector_tab(t_env *env);
 void				print_ceiling_sector_tab(t_env *env);
 void				print_player_sector_tab(t_env *env);
 void				print_wall_sector_tab(t_env *env);
+void				print_enemy_sector_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
@@ -309,10 +329,14 @@ void				wall_buttons(t_env *env);
 void				ceiling_buttons(t_env *env);
 void				floor_buttons(t_env *env);
 void				sector_buttons(t_env *env);
+void				player_buttons(t_env *env);
+void				enemy_buttons(t_env *env);
 void				wall_buttons_up(t_env *env);
 void				ceiling_buttons_up(t_env *env);
 void				floor_buttons_up(t_env *env);
 void				sector_buttons_up(t_env *env);
+void				player_buttons_up(t_env *env);
+void				enemy_buttons_up(t_env *env);
 
 /*
 ** Main functions
@@ -435,6 +459,8 @@ t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_hud_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_hud_pos_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_background_button(int type, void (*action)(void *),
 void *param, t_env *env);
