@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:09:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:21:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	init_events_writers(void (*writers[])(int, t_event))
 	writers[SECTOR_WALL_ALIGN_Y] = &wall_writer;
 	writers[SECTOR_WALL_SCALE_X] = &wall_writer;
 	writers[SECTOR_WALL_SCALE_Y] = &wall_writer;
+	writers[SECTOR_WALL_PORTAL] = &wall_writer;
 	writers[SECTOR_WALL_SPRITES_SPRITE] = &wall_sprite_writer;
 	writers[SECTOR_WALL_SPRITES_POS_X] = &wall_sprite_writer;
 	writers[SECTOR_WALL_SPRITES_POS_Y] = &wall_sprite_writer;

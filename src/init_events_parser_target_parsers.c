@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:54:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:19:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	init_events_parser_target_parsers(t_events_parser *eparser)
 	eparser->target_parsers[SECTOR_WALL_ALIGN_Y] = &wall_parser;
 	eparser->target_parsers[SECTOR_WALL_SCALE_X] = &wall_parser;
 	eparser->target_parsers[SECTOR_WALL_SCALE_Y] = &wall_parser;
+	eparser->target_parsers[SECTOR_WALL_PORTAL] = &wall_parser;
 	eparser->target_parsers[SECTOR_WALL_SPRITES_SPRITE] = &wall_sprite_parser;
 	eparser->target_parsers[SECTOR_WALL_SPRITES_POS_X] = &wall_sprite_parser;
 	eparser->target_parsers[SECTOR_WALL_SPRITES_POS_Y] = &wall_sprite_parser;
