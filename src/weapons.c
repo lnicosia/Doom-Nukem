@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/22 17:57:25 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:32:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void    weapon_animation(t_env *env, int nb)
 		{
 			shot(env);
 			Mix_PlayChannel(2, env->weapons[nb].sound, 0);
-			//env->weapons[nb].ammo--;
+			env->weapons[nb].ammo--;
 		}
 	}
 	if (env->weapons[nb].ammo)
@@ -240,4 +240,23 @@ int		aoe_damage(double distance, double radius, int damage)
 	if (percentage < 0.3)
 		percentage = 0.3;
 	return ((int)(damage * percentage));
+}
+
+int		is_next_weapon_possessed(t_env *env)
+{
+	if (env->sdl.event.wheel.y > 0)
+	{
+		if (env->player.curr_weapon == NB_WEAPONS - 1)
+			return (env->weapons[0].possessed);
+		else
+			return (env->weapons[env->player.curr_weapon + 1].possessed);
+	}
+	if (env->sdl.event.wheel.y < 0)
+	{
+		if (env->player.curr_weapon == 0)
+			return (env->weapons[NB_WEAPONS - 1].possessed);
+		else
+			return (env->weapons[env->player.curr_weapon - 1].possessed);
+	}
+	return (0);
 }

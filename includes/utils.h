@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:25:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:23:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -817,6 +817,7 @@ typedef struct		s_object
 	int				type;
 	int				quantity;
 	int				ammo_type;
+	int				weapon;
 	int				intensity;
 	int				pickable;
 	int				solid;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:09:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/23 11:48:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct	s_v3
 	double		y;
 	double		z;
 }				t_v3;
+
+typedef struct	s_circle_vars
+{
+	double		a;
+	double		b;
+	double		c;
+}				t_circle_vars;
 
 typedef	struct		s_segment
 {
