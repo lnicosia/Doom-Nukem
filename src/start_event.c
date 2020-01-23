@@ -51,7 +51,11 @@ int		update_event(t_event *event)
 			event->incr = -event->incr;
 	}
 	event->start_time = SDL_GetTicks();
-	//event->end_time = event->start_time + event->incr * event->speed;
+	if (event->speed)
+		event->end_time = event->start_time + fabs(event->goal - event->start_value)
+		/ event->speed;
+	else
+		event->end_time = event->start_time;
 	return (1);
 }
 

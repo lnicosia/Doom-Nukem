@@ -102,11 +102,12 @@ typedef enum		e_events_targets
 typedef struct		s_events_parser
 {
 	t_event			event;
+	int				link_type;
 	int				trigger_sector;
 	int				trigger_wall;
 	int				trigger_sprite;
 	int				trigger_enemy;
-	int				trigger;
+	int				trigger_index;
 	int				target_vertex;
 	int				target_sector;
 	int				target_wall;
@@ -115,6 +116,14 @@ typedef struct		s_events_parser
 	int				target_weapon;
 	int				target_object;
 	int				target_index;
+	int				target_type;
+	int				source_type;
+	int				source_sector;
+	int				source_wall;
+	int				source_sprite;
+	int				source_enemy;
+	int				source_index;
+	int				current_index;
 	int				current_vertex;
 	int				current_sector;
 	int				current_wall;
@@ -136,6 +145,12 @@ typedef struct		s_events_parser
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*new_events[MAX_TRIGGER_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
+	int				(*event_exists[MAX_TRIGGER_TYPES + 1])(t_env *,
+	struct s_events_parser *);
+	t_event			*(*get_event_array[MAX_TRIGGER_TYPES + 1])(t_env *,
+	struct s_events_parser *, int);
+	size_t			*(*get_event_nb[MAX_TRIGGER_TYPES + 1])(t_env *,
+	struct s_events_parser *, int);
 	int				(*target_parsers[MAX_TARGET_TYPES + 1])(t_env *,
 	t_map_parser *, char **, struct s_events_parser *);
 	int				(*updaters[MAX_TARGET_TYPES + 1])(t_event *, void *);
@@ -162,6 +177,7 @@ void				init_events_parser_target_parsers(t_events_parser *eparser);
 void				init_events_parser_target_types(t_events_parser *eparser);
 void				init_events_parser_checkers(t_events_parser *eparser);
 void				init_events_parser_updaters(t_events_parser *eparser);
+void				init_events_parser_links_protection(t_events_parser *eparser);
 int					new_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					new_press_event(t_env *env, t_map_parser *parser,
@@ -189,6 +205,7 @@ int					intersects_with_sector(t_sector *sector, t_v3 pos,
 t_env *env);
 int					pos_changed_sector(t_env *env, t_sector *sector,
 t_point data, t_v3 pos);
+int					parse_events_links(t_env *env, t_map_parser *parser);
 
 /*
 **	Unit parsers
@@ -249,4 +266,30 @@ void				write_event_conditions(int fd, t_event event);
 void				init_event_conditions_writers(void (*writers[])(int,
 t_condition));
 
+/*
+**	Links
+*/
+
+int					set_event_link(t_env *env, t_events_parser *eparser);
+int					global_event_exists(t_env *env, t_events_parser *eparser);
+int					press_event_exists(t_env *env, t_events_parser *eparser);
+int					shoot_event_exists(t_env *env, t_events_parser *eparser);
+int					stand_event_exists(t_env *env, t_events_parser *eparser);
+int					walk_out_event_exists(t_env *env, t_events_parser *eparser);
+int					walk_in_event_exists(t_env *env, t_events_parser *eparser);
+int					death_event_exists(t_env *env, t_events_parser *eparser);
+t_event				*get_global_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_shoot_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_press_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_stand_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_walk_in_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_walk_out_event(t_env *env, t_events_parser *eparser,
+int mode);
+t_event				*get_death_event(t_env *env, t_events_parser *eparser,
+int mode);
 #endif

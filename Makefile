@@ -127,6 +127,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   init_events_parser_target_parsers.c parse_event_exec_conditions.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
+		   parse_events_links.c events_links_protection.c set_event_link.c \
+		   get_event_array.c get_event_nb.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

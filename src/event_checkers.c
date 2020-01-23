@@ -345,8 +345,8 @@ int		check_color_event(t_event *event, void *penv)
 	if ((event->incr > 0 && event->start_value + time * event->incr >=
 				0xFFFFFFFF)
 			|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
-			|| (!event->speed && (event->goal > 0xFFFFFFFF
-					|| event->goal <= 0)))
+			|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF
+					|| (Uint32)event->goal <= 0)))
 		return (1);
 	return (0);
 }

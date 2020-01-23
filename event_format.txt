@@ -176,3 +176,7 @@ _Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_s
 _[1 (10 1 0)] [20 (10 1 0)] [0 1 0] [] [] [0 0]
 _Press event du wall_sprite 0 du mur 1 du secteur 10: mettre le sprite du wall_sprite 0 du mur 1 du secteur 10 a 2:
 _[1 (10 1 0)] [20 (10 1 0)] [0 2 0] [] [] [0 0]
+
+Dependances entre events:
+
+[#Type][#Declencheur #(parsing_declencheur) #index][#Declencheur #(parsing_declencheur) #index]

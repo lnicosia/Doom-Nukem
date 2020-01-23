@@ -31,7 +31,7 @@ int	double_event(t_event *curr)
 			|| (curr->incr < 0 && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
+		//curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
@@ -56,7 +56,7 @@ int	int_event(t_event *curr)
 			|| (curr->incr < 0 && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
+		//curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
@@ -81,7 +81,7 @@ int	uint32_event(t_event *curr)
 			|| (curr->incr < 0 && *target <= curr->goal))
 	{
 		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
+		//curr->end_time = SDL_GetTicks();
 		return (1);
 	}
 	return (0);
