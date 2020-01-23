@@ -6,15 +6,18 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 13:40:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 18:12:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	printf_floor_sprite_tab(t_env *env)
+void	print_floor_sprite_tab(t_env *env)
 {
-	(void)env;
+	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.sp_floor_sprite.num.str = ft_sitoa(env->spr);
+	env->editor.hud.sp_floor_sprite.t_num.target = &env->selected_floor_sprite;
+	draw_button(env, env->editor.hud.sp_floor_sprite.num);
 }
 
 void	print_floor_sector_tab(t_env *env)
@@ -41,7 +44,7 @@ void	print_floor_general_tab(t_env *env)
 	print_text(new_point(520, 60), new_printable_text("Height: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_floor.height.str = ft_sitoa(env->sectors[env->selected_floor].floor);
 	env->editor.hud.g_floor.t_height.target = &env->sectors[env->selected_floor].floor;
-	draw_button(env, env->editor.hud.g_floor.height);	
+	draw_button(env, env->editor.hud.g_floor.height);
 	print_text(new_point(560, 60), new_printable_text("Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_floor.slope.str = ft_sitoa(env->sectors[env->selected_floor].floor_slope);
 	env->editor.hud.g_floor.t_slope.target = &env->sectors[env->selected_floor].floor_slope;

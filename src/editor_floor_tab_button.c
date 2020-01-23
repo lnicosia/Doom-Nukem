@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 15:45:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:39:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,26 @@
 
 void	init_floor_sprite_buttons(t_env *env)
 {
-	(void)env;
+	env->editor.hud.sp_floor_sprite.num = new_hud_button(WHEN_DOWN, &change_var,
+	&env->editor.hud.sp_floor_sprite.t_num, env);
+	env->editor.hud.sp_floor_sprite.num.pos = new_point(250, 520);
+	env->editor.hud.sp_floor_sprite.t_num.pos = new_point(250, 520);
+	env->editor.hud.sp_floor_sprite.pos_x = new_hud_button(WHEN_DOWN, &change_var,
+	&env->editor.hud.sp_floor_sprite.t_pos_x, env);
+	env->editor.hud.sp_floor_sprite.pos_x.pos = new_point(250, 560);
+	env->editor.hud.sp_floor_sprite.t_pos_x.pos = new_point(250, 560);
+	env->editor.hud.sp_floor_sprite.pos_y = new_hud_button(WHEN_DOWN, &change_var,
+	&env->editor.hud.sp_floor_sprite.t_pos_y, env);
+	env->editor.hud.sp_floor_sprite.pos_y.pos = new_point(250, 600);
+	env->editor.hud.sp_floor_sprite.t_pos_y.pos = new_point(250, 600);
+	env->editor.hud.sp_floor_sprite.scale_x = new_hud_button(WHEN_DOWN, &change_var,
+	&env->editor.hud.sp_floor_sprite.t_scale_x, env);
+	env->editor.hud.sp_floor_sprite.scale_x.pos = new_point(250, 640);
+	env->editor.hud.sp_floor_sprite.t_scale_x.pos = new_point(250, 640);
+	env->editor.hud.sp_floor_sprite.scale_y = new_hud_button(WHEN_DOWN, &change_var,
+	&env->editor.hud.sp_floor_sprite.t_scale_y, env);
+	env->editor.hud.sp_floor_sprite.scale_y.pos = new_point(250, 680);
+	env->editor.hud.sp_floor_sprite.t_scale_y.pos = new_point(250, 680);
 }
 
 void	init_floor_sector_buttons(t_env *env)

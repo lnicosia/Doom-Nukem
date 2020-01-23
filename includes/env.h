@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 15:58:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:12:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,11 +311,14 @@ void				print_player_general_tab(t_env *env);
 void				print_wall_general_tab(t_env *env);
 void				print_sector_general_tab(t_env *env);
 void				print_enemy_general_tab(t_env *env);
+void				print_object_general_tab(t_env *env);
 void				print_floor_sector_tab(t_env *env);
 void				print_ceiling_sector_tab(t_env *env);
 void				print_player_sector_tab(t_env *env);
 void				print_wall_sector_tab(t_env *env);
 void				print_enemy_sector_tab(t_env *env);
+void				print_object_sector_tab(t_env *env);
+void				print_floor_sprite_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
@@ -324,6 +327,7 @@ void				add_object_button(void *target);
 void				general_tab(void *target);
 void				sector_tab(void *target);
 void				sprite_tab(void *target);
+void				change_sprite(void *target);
 void				change_var(void *target);
 void				wall_buttons(t_env *env);
 void				ceiling_buttons(t_env *env);
@@ -467,6 +471,10 @@ void *param, t_env *env);
 t_button			new_tab_button(int type, void (*action)(void *),
 void *param, t_env *env);
 t_button			new_rectangle_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_next_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_previous_button(int type, void (*action)(void *),
 void *param, t_env *env);
 void				draw_button(t_env *env, t_button b);
 

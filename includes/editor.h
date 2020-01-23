@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 15:59:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:37:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,32 @@ typedef struct		s_button_tab
 	void			*target;
 	int				type;
 }					t_button_tab;
+
+typedef struct		s_button_next
+{
+	void			*env;
+	void			*target;
+	int				i;
+	int				max;
+	int				min;
+	int				type;
+	int				button;
+	t_point			pos;
+}					t_button_next;
+
+typedef struct		s_var_sp
+{
+	t_button		scale_x;
+	t_button		scale_y;
+	t_button		pos_x;
+	t_button		pos_y;
+	t_button		num;
+	t_button_tab	t_scale_x;
+	t_button_tab	t_scale_y;
+	t_button_tab	t_pos_x;
+	t_button_tab	t_pos_y;
+	t_button_tab	t_num;
+}					t_var_sp;
 
 typedef struct		s_var_s
 {
@@ -101,6 +127,13 @@ typedef struct	s_hud
 	t_var_s		s_player;
 	t_var_s		s_enemy;
 	t_var_s		s_object;
+	t_var_sp	sp_floor_sprite;
+	t_var_sp	sp_ceiling_sprite;
+	t_var_sp	sp_wall_sprite;
+	t_var_sp	sp_enemy_sprite;
+	t_var_sp	sp_object_sprite;
+	t_var_sp	sp_player_sprite;
+
 }				t_hud;
 
 
@@ -190,6 +223,10 @@ typedef struct	s_editor
 	t_button		enemy_tab[MAX_MONSTER_MINI];
 	t_button		add_enemy;
 	t_button		add_object;
+	t_button_next	next_sprite_env;
+	t_button		next_sprite;
+	t_button_next	previous_sprite_env;
+	t_button		previous_sprite;
 }				t_editor;
 
 #endif

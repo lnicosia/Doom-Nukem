@@ -6,11 +6,77 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 12:06:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:17:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	change_ceiling_sprite(t_button_next *next)
+{
+	t_env *env;
+
+	env = next->env;
+	if (next->type == PREVIOUS)
+	{
+		if (env->selected_ceiling_sprite > 0)
+			env->selected_ceiling_sprite--;
+	}
+	else if (next->type == NEXT)
+	{
+		if (env->selected_ceiling_sprite < MAX_WALL_SPRITES)
+			env->selected_ceiling_sprite++;
+	}
+}
+
+void	change_floor_sprite(t_button_next *next)
+{
+	t_env *env;
+
+	env = next->env;
+	if (next->type == PREVIOUS)
+	{
+		if (env->selected_floor_sprite > 0)
+			env->selected_floor_sprite--;
+	}
+	else if (next->type == NEXT)
+	{
+		if (env->selected_floor_sprite < MAX_WALL_SPRITES)
+			env->selected_floor_sprite++;
+	}
+}
+
+void	change_wall_sprite(t_button_next *next)
+{
+	t_env *env;
+
+	env = next->env;
+	if (next->type == PREVIOUS)
+	{
+		if (env->editor.selected_wall_sprite > 0)
+			env->editor.selected_wall_sprite--;
+	}
+	else if (next->type == NEXT)
+	{
+		if (env->editor.selected_wall_sprite < MAX_WALL_SPRITES)
+			env->editor.selected_wall_sprite++;
+	}
+}
+
+void	change_sprite(void *target)
+{
+	t_button_next	*next;
+	t_env			*env;
+	 
+	next = (t_button_next*)target;
+	env = next->env;
+	if (next->type == WALL_S)
+		change_wall_sprite(next);
+	else if (next->type == FLOOR_S)
+		change_floor_sprite(next);
+	else if (next->type == CEILING_S)
+		change_ceiling_sprite(next);
+}
 
 void	add_object_button(void *target)
 {
@@ -91,7 +157,6 @@ void	sector_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.general_tab.state = UP;
 	env->editor.general_tab.anim_state = REST;
-	//print_floor_information(env);
 }
 
 void	sprite_tab(void *target)
@@ -103,5 +168,4 @@ void	sprite_tab(void *target)
 	env->editor.general_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
-	//print_floor_information(env);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 12:31:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/23 15:00:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 15
+# define MAX_UI_TEXTURES 21
 # define MAX_MONSTER_MINI 14
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
@@ -67,6 +67,19 @@ typedef enum		e_input_box_type
 	STRING,
 	UINT32
 }			t_input_box_type;
+
+typedef enum		e_change_sprite
+{
+	NEXT,
+	PREVIOUS
+}					t_change_sprite;
+
+typedef enum		e_sprite_type
+{
+	WALL_S,
+	FLOOR_S,
+	CEILING_S
+}					t_sprite_type;
 
 typedef enum		e_button_action_type
 {
