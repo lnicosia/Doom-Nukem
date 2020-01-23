@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 17:52:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:53:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before event trigger", "a digit",
 		**line, parser));
-	eparser->trigger = ft_atoi(*line);
-	if (eparser->trigger < 0 || eparser->trigger > MAX_TRIGGER_TYPES)
+	eparser->trigger_index = ft_atoi(*line);
+	if (eparser->trigger_index < 0 || eparser->trigger_index
+		> MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid trigger type", parser));
-	*line = skip_number(*line);
-	if (eparser->trigger_parsers[eparser->trigger](env, parser, line, eparser))
+		*line = skip_number(*line);
+	if (eparser->trigger_parsers[eparser->trigger_index](env, parser, line,
+		eparser))
 		return (-1);
 	eparser->trigger_sector = eparser->current_sector;
 	eparser->trigger_wall = eparser->current_wall;
@@ -42,6 +44,8 @@ t_events_parser *eparser)
 int		parse_event(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
+	ft_bzero(eparser, sizeof(*eparser));
+	init_events_parser(eparser);
 	if (parse_event_trigger(env, parser, line, eparser))
 		return (-1);
 	if (parse_event_target(env, parser, line, eparser))
@@ -54,9 +58,9 @@ t_events_parser *eparser)
 		return (-1);
 	if (parse_event_various_data(env, parser, line, eparser))
 		return (-1);
-	eparser->event.exec_func = eparser->checkers[eparser->target_index];
+	eparser->event.check_func = eparser->checkers[eparser->target_index];
 	eparser->event.update_func = eparser->updaters[eparser->target_index];
-	if (eparser->new_events[eparser->trigger](env, parser, line, eparser))
+	if (eparser->new_events[eparser->trigger_index](env, parser, line, eparser))
 		return (-1);
 	return (0);
 }
@@ -82,13 +86,19 @@ int		parse_events(t_env *env, t_map_parser *parser)
 				return (-1);
 			}
 		}
+		else if (ft_strlen(line) == 5 && ft_strequ(line, "Links"))
+		{
+			if (parse_events_links(env, parser))
+				return (-1);
+			break ;
+		}
 		else if (!*line)
 		{
 			ft_strdel(&tmp);
 			break ;
 		}
 		else if (*line != '#')
-			return (invalid_char("event declaration", "[", *line, parser));
+			return (invalid_char("at event declaration", "[", *line, parser));
 		ft_strdel(&tmp);
 	}
 	return (0);

@@ -1143,7 +1143,7 @@ int flac__encode_file(FILE *infile, FLAC__off_t infilesize, const char *infilena
 			if(options.is_last_file)
 				encoder_session.total_samples_to_encode += (588-align_remainder); /* will pad with zeroes */
 			else
-				encoder_session.total_samples_to_encode -= align_remainder; /* will stop short and carry over to next file */
+				encoder_session.total_samples_to_encode -= align_remainder; /* will stop int and carry over to next file */
 		}
 		switch(options.format) {
 			case FORMAT_RAW:
@@ -1681,7 +1681,7 @@ int EncoderSession_finish_ok(EncoderSession *e, int info_align_carry, int info_a
 			"FAILURE: Compression failed (ratio %0.3f, should be < 1.0).\n"
 			"This happens for some files for one or more of the following reasons:\n"
 			" * Recompressing an existing FLAC from a higher to a lower compression setting.\n"
-			" * Insufficient input data  (e.g. very short files, < 10000 frames).\n"
+			" * Insufficient input data  (e.g. very int files, < 10000 frames).\n"
 			" * The audio data is not compressible (e.g. a full range white noise signal).\n"
 			, e->compression_ratio);
 		if (error_on_compression_fail)

@@ -13,7 +13,7 @@
 #define TEMP_BYTE(n) (4+n)(%esp)
 
 /*
-	void dct64_sse(short *out0, short *out1, real *samples);
+	void dct64_sse(int *out0, int *out1, real *samples);
 */
 
 #ifndef __APPLE__

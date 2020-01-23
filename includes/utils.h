@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:25:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:08:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
 # define MAX_SKYBOX 3
-# define NB_SKYBOX 5
 # define MAX_ENEMIES 2
-# define MAX_SKYBOX_TEXTURE 6
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -275,10 +273,16 @@ typedef struct		s_event_param
 		int			num;
 		int			num2;
 		int			num3;
+		int			sector;
+		int			wall;
+		int			sprite;
 		int			size;
+		int			enemy;
+		int			object;
+		int			vertex;
+		int			weapon;
 		double		equ_value;
 		double		diff_value;
-		t_v3		move;
 		void		*target;
 		int			target_type;
 }					t_event_param;
@@ -288,6 +292,15 @@ typedef struct		s_condition
 	int				type;
 	double			value;
 	int				target_type;
+	int				target_index;
+	int				sector;
+	int				wall;
+	int				sprite;
+	int				size;
+	int				enemy;
+	int				object;
+	int				vertex;
+	int				weapon;
 	void			*target;
 }					t_condition;
 
@@ -298,11 +311,12 @@ typedef struct		s_event
 	double			start_value;
 	double			start_incr;
 	double			incr;
+	double			speed;
 	Uint32			start_time;
 	Uint32			end_time;
-	Uint32			duration;
 	Uint32			start_delay;
 	Uint32			delay;
+	int				target_index;
 	int				mod_type;
 	int				type;
 	int				target_type;
@@ -311,9 +325,11 @@ typedef struct		s_event
 	size_t			nb_launch_conditions;
 	t_condition		*exec_conditions;
 	size_t			nb_exec_conditions;
+	int				(*check_func)(struct s_event *, void *);
+	t_event_param	check_param;
 	int				(*exec_func)(void *, void *);
 	void			*exec_param;
-	void			(*update_func)(struct s_event *, void *);
+	int				(*update_func)(struct s_event *, void *);
 	t_event_param	update_param;
 	int				uses;
 	int				max_uses;
@@ -342,14 +358,14 @@ typedef struct		s_sector
 	t_v2			normal;
 	double			floor;
 	double			floor_slope;
-	short			floor_texture;
+	int				floor_texture;
 	t_v2			*floor_scale;
 	t_v2			floor_map_scale;
 	t_v2			*floor_align;
 	t_v2			floor_map_align;
 	double			ceiling;
 	double			ceiling_slope;
-	short			ceiling_texture;
+	int				ceiling_texture;
 	t_v2			*ceiling_scale;
 	t_v2			ceiling_map_scale;
 	t_v2			*ceiling_align;
@@ -366,10 +382,10 @@ typedef struct		s_sector
 	double			*clipped_ceilings1;
 	double			*clipped_floors2;
 	double			*clipped_ceilings2;
-	short			*vertices;
-	short			*neighbors;
-	short			*portals;
-	short			*textures;
+	int				*vertices;
+	int				*neighbors;
+	int				*portals;
+	int				*textures;
 	t_wall_sprites	*wall_sprites;
 	t_wall_sprites	floor_sprites;
 	t_wall_sprites	ceiling_sprites;
@@ -382,10 +398,10 @@ typedef struct		s_sector
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
-	short			num;
-	short			nb_vertices;
+	int				num;
+	int				nb_vertices;
 	int				skybox;
-	short			*selected;
+	int				*selected;
 	double			gravity;
 	Uint32			light_color;
 	int				brightness;
@@ -405,7 +421,7 @@ typedef struct		s_vertex
 	double			x;
 	double			y;
 	int				clipped[2];
-	short			num;
+	int			num;
 }					t_vertex;
 
 /*
@@ -453,7 +469,7 @@ typedef struct		s_camera
 	double			*head_y;
 	int				*screen_sectors;
 	int				*screen_pos;
-	short			*rendered_sectors;
+	int			*rendered_sectors;
 	int				*xmin;
 	int				*xmax;
 	int				computed;
@@ -513,7 +529,7 @@ typedef struct		s_player
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
-	short			sector;
+	int			sector;
 	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;
@@ -747,7 +763,7 @@ typedef	struct		s_projectile
 	double			scale;
 	double			angle;
 	double			size_2d;
-	short			brightness;
+	int			brightness;
 	Uint32			light_color;
 	int				intensity;
 	int				sector;
@@ -779,7 +795,7 @@ typedef	struct		s_explosion
 	int				centered_sprite;
 	int				damage;
 	int				sprite;
-	short			damage_burst;
+	int			damage_burst;
 	int				left;
 	int				right;
 	int				top;
@@ -812,7 +828,7 @@ typedef struct		s_object
 	double			height;
 	double			size_2d;
 	double			height_ratio;
-	short			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				type;
 	int				quantity;
@@ -867,7 +883,7 @@ typedef struct		s_enemies
 	double			height_ratio;
 	double			width_ratio;
 	double			eyesight;
-	short			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				intensity;
 	int				health;
@@ -902,7 +918,7 @@ typedef struct		s_sdl
 	int				mouse_y;
 	int				mx;
 	int				my;
-	Uint32				time;
+	Uint32			time;
 	int				pitch;
 }					t_sdl;
 

@@ -258,7 +258,7 @@ extern "C" {
  *    "0"       - Grab will affect only the mouse
  *    "1"       - Grab will affect mouse and keyboard
  *
- *  By default SDL will not grab the keyboard so system shortcuts still work.
+ *  By default SDL will not grab the keyboard so system intcuts still work.
  */
 #define SDL_HINT_GRAB_KEYBOARD              "SDL_GRAB_KEYBOARD"
 
@@ -642,7 +642,7 @@ extern "C" {
  *  Internally, Windows Phone sends back button events as parameters to
  *  special back-button-press callback functions.  Apps that need to respond
  *  to back-button-press events are expected to register one or more
- *  callback functions for such, shortly after being launched (during the
+ *  callback functions for such, intly after being launched (during the
  *  app's initialization phase).  After the back button is pressed, the OS
  *  will invoke these callbacks.  If the app's callback(s) do not explicitly
  *  mark the event as handled by the time they return, or if the app never

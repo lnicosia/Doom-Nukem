@@ -65,7 +65,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define PE_NB_CBKS_STAGE3_10MS      12
 #define PE_NB_CBKS_STAGE2_10MS      3
 
-#define PE_SHORTLAG_BIAS            0.2f    /* for logarithmic weighting    */
+#define PE_intLAG_BIAS            0.2f    /* for logarithmic weighting    */
 #define PE_PREVLAG_BIAS             0.2f    /* for logarithmic weighting    */
 #define PE_FLATCONTOUR_BIAS         0.05f
 

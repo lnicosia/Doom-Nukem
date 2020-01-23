@@ -64,9 +64,9 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  TT_GraphicsState_
   {
-    FT_UShort      rp0;
-    FT_UShort      rp1;
-    FT_UShort      rp2;
+    FT_Uint      rp0;
+    FT_Uint      rp1;
+    FT_Uint      rp2;
 
     FT_UnitVector  dualVector;
     FT_UnitVector  projVector;
@@ -80,8 +80,8 @@ FT_BEGIN_HEADER
     FT_F26Dot6     control_value_cutin;
     FT_F26Dot6     single_width_cutin;
     FT_F26Dot6     single_width_value;
-    FT_UShort      delta_base;
-    FT_UShort      delta_shift;
+    FT_Uint      delta_base;
+    FT_Uint      delta_shift;
 
     FT_Byte        instruct_control;
     /* According to Greg Hitchcock from Microsoft, the `scan_control'     */
@@ -91,9 +91,9 @@ FT_BEGIN_HEADER
     FT_Bool        scan_control;
     FT_Int         scan_type;
 
-    FT_UShort      gep0;
-    FT_UShort      gep1;
-    FT_UShort      gep2;
+    FT_Uint      gep0;
+    FT_Uint      gep1;
+    FT_Uint      gep2;
 
   } TT_GraphicsState;
 
@@ -105,8 +105,8 @@ FT_BEGIN_HEADER
 
   FT_LOCAL( FT_Error )
   tt_glyphzone_new( FT_Memory     memory,
-                    FT_UShort     maxPoints,
-                    FT_Short      maxContours,
+                    FT_Uint     maxPoints,
+                    FT_int      maxContours,
                     TT_GlyphZone  zone );
 
 #endif /* TT_USE_BYTECODE_INTERPRETER */
@@ -254,7 +254,7 @@ FT_BEGIN_HEADER
     FT_Long     x_ratio;
     FT_Long     y_ratio;
 
-    FT_UShort   ppem;               /* maximum ppem size              */
+    FT_Uint   ppem;               /* maximum ppem size              */
     FT_Long     ratio;              /* current ratio                  */
     FT_Fixed    scale;
 
@@ -307,7 +307,7 @@ FT_BEGIN_HEADER
     FT_ULong           cvt_size;      /* the scaled control value table */
     FT_Long*           cvt;
 
-    FT_UShort          storage_size; /* The storage area is now part of */
+    FT_Uint          storage_size; /* The storage area is now part of */
     FT_Long*           storage;      /* the instance                    */
 
     TT_GlyphZoneRec    twilight;     /* The instance's twilight zone    */

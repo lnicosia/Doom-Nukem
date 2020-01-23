@@ -96,7 +96,7 @@ void make_decode_tables_mmx(mpg123_handle *fr)
 {
 	debug("MMX decode tables");
 	/* Take care: The scale should be like before, when we didn't have float output all around. */
-	make_decode_tables_mmx_asm((long)((fr->lastscale < 0 ? fr->p.outscale : fr->lastscale)*SHORT_SCALE), fr->decwin_mmx, fr->decwins);
+	make_decode_tables_mmx_asm((long)((fr->lastscale < 0 ? fr->p.outscale : fr->lastscale)*int_SCALE), fr->decwin_mmx, fr->decwins);
 	debug("MMX decode tables done");
 }
 #else
@@ -112,7 +112,7 @@ void make_decode_tables_mmx(mpg123_handle *fr)
 {
 	int i,j,val;
 	int idx = 0;
-	short *ptr = (short *)fr->decwins;
+	int *ptr = (int *)fr->decwins;
 	/* Scale is always based on 1.0 . */
 	double scaleval = -0.5*(fr->lastscale < 0 ? fr->p.outscale : fr->lastscale);
 	debug1("MMX decode tables with scaleval %g", scaleval);

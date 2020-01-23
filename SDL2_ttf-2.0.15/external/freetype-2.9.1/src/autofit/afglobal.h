@@ -106,7 +106,7 @@ FT_BEGIN_HEADER
   {
     FT_Face          face;
     FT_Long          glyph_count;    /* same as face->num_glyphs */
-    FT_UShort*       glyph_styles;
+    FT_Uint*       glyph_styles;
 
 #ifdef FT_CONFIG_OPTION_USE_HARFBUZZ
     hb_font_t*       hb_font;
@@ -120,7 +120,7 @@ FT_BEGIN_HEADER
 
     /* Compute darkening amount once per size.  Use this to check whether */
     /* darken_{x,y} needs to be recomputed.                               */
-    FT_UShort        stem_darkening_for_ppem;
+    FT_Uint        stem_darkening_for_ppem;
     /* Copy from e.g. AF_LatinMetrics.axis[AF_DIMENSION_HORZ] */
     /* to compute the darkening amount.                       */
     FT_Pos           standard_vertical_width;

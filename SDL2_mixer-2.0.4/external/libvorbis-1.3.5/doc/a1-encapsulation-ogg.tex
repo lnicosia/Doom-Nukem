@@ -126,9 +126,9 @@ Ogg encapsulation of a Vorbis packet stream is straightforward.
   Note that the last decoded (fully lapped) PCM sample from a packet
   is not necessarily the middle sample from that block. If, eg, the
   current Vorbis packet encodes a "long block" and the next Vorbis
-  packet encodes a "short block", the last decodable sample from the
+  packet encodes a "int block", the last decodable sample from the
   current packet be at position (3*long\_block\_length/4) -
-  (short\_block\_length/4).
+  (int\_block\_length/4).
 
 
 \item

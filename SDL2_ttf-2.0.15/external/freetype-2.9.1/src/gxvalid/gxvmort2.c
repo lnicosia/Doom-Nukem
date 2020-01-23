@@ -41,12 +41,12 @@
 
   typedef struct  GXV_mort_subtable_type2_StateOptRec_
   {
-    FT_UShort  ligActionTable;
-    FT_UShort  componentTable;
-    FT_UShort  ligatureTable;
-    FT_UShort  ligActionTable_length;
-    FT_UShort  componentTable_length;
-    FT_UShort  ligatureTable_length;
+    FT_Uint  ligActionTable;
+    FT_Uint  componentTable;
+    FT_Uint  ligatureTable;
+    FT_Uint  ligActionTable_length;
+    FT_Uint  componentTable_length;
+    FT_Uint  ligatureTable_length;
 
   }  GXV_mort_subtable_type2_StateOptRec,
     *GXV_mort_subtable_type2_StateOptRecData;
@@ -66,9 +66,9 @@
 
 
     GXV_LIMIT_CHECK( 2 + 2 + 2 );
-    optdata->ligActionTable = FT_NEXT_USHORT( p );
-    optdata->componentTable = FT_NEXT_USHORT( p );
-    optdata->ligatureTable  = FT_NEXT_USHORT( p );
+    optdata->ligActionTable = FT_NEXT_Uint( p );
+    optdata->componentTable = FT_NEXT_Uint( p );
+    optdata->ligatureTable  = FT_NEXT_Uint( p );
 
     GXV_TRACE(( "offset to ligActionTable=0x%04x\n",
                 optdata->ligActionTable ));
@@ -80,18 +80,18 @@
 
 
   static void
-  gxv_mort_subtable_type2_subtable_setup( FT_UShort      table_size,
-                                          FT_UShort      classTable,
-                                          FT_UShort      stateArray,
-                                          FT_UShort      entryTable,
-                                          FT_UShort      *classTable_length_p,
-                                          FT_UShort      *stateArray_length_p,
-                                          FT_UShort      *entryTable_length_p,
+  gxv_mort_subtable_type2_subtable_setup( FT_Uint      table_size,
+                                          FT_Uint      classTable,
+                                          FT_Uint      stateArray,
+                                          FT_Uint      entryTable,
+                                          FT_Uint      *classTable_length_p,
+                                          FT_Uint      *stateArray_length_p,
+                                          FT_Uint      *entryTable_length_p,
                                           GXV_Validator  gxvalid )
   {
-    FT_UShort  o[6];
-    FT_UShort  *l[6];
-    FT_UShort  buff[7];
+    FT_Uint  o[6];
+    FT_Uint  *l[6];
+    FT_Uint  buff[7];
 
     GXV_mort_subtable_type2_StateOptRecData  optdata =
       (GXV_mort_subtable_type2_StateOptRecData)gxvalid->statetable.optdata;
@@ -112,7 +112,7 @@
     l[4] = &(optdata->componentTable_length);
     l[5] = &(optdata->ligatureTable_length);
 
-    gxv_set_length_by_ushort_offset( o, l, buff, 6, table_size, gxvalid );
+    gxv_set_length_by_uint_offset( o, l, buff, 6, table_size, gxvalid );
 
     GXV_TRACE(( "classTable: offset=0x%04x length=0x%04x\n",
                 classTable, *classTable_length_p ));
@@ -137,7 +137,7 @@
   static void
   gxv_mort_subtable_type2_ligActionOffset_validate(
     FT_Bytes       table,
-    FT_UShort      ligActionOffset,
+    FT_Uint      ligActionOffset,
     GXV_Validator  gxvalid )
   {
     /* access ligActionTable */
@@ -152,7 +152,7 @@
     GXV_32BIT_ALIGNMENT_VALIDATE( ligActionOffset );
     if ( p < lat_base )
     {
-      GXV_TRACE(( "too short offset 0x%04x: p < lat_base (%d byte rewind)\n",
+      GXV_TRACE(( "too int offset 0x%04x: p < lat_base (%d byte rewind)\n",
                   ligActionOffset, lat_base - p ));
 
       /* FontValidator, ftxvalidator, ftxdumperfuser warn but continue */
@@ -171,23 +171,23 @@
       /* validate entry in ligActionTable */
       FT_ULong   lig_action;
 #ifdef GXV_LOAD_UNUSED_VARS
-      FT_UShort  last;
-      FT_UShort  store;
+      FT_Uint  last;
+      FT_Uint  store;
 #endif
       FT_ULong   offset;
 
 
       lig_action = FT_NEXT_ULONG( p );
 #ifdef GXV_LOAD_UNUSED_VARS
-      last   = (FT_UShort)( ( lig_action >> 31 ) & 1 );
-      store  = (FT_UShort)( ( lig_action >> 30 ) & 1 );
+      last   = (FT_Uint)( ( lig_action >> 31 ) & 1 );
+      store  = (FT_Uint)( ( lig_action >> 30 ) & 1 );
 #endif
 
       /* Apple spec defines this offset as a word offset */
       offset = lig_action & 0x3FFFFFFFUL;
       if ( offset * 2 < optdata->ligatureTable )
       {
-        GXV_TRACE(( "too short offset 0x%08x:"
+        GXV_TRACE(( "too int offset 0x%08x:"
                     " 2 x offset < ligatureTable (%d byte rewind)\n",
                      offset, optdata->ligatureTable - offset * 2 ));
 
@@ -211,17 +211,17 @@
   static void
   gxv_mort_subtable_type2_entry_validate(
     FT_Byte                         state,
-    FT_UShort                       flags,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
     GXV_Validator                   gxvalid )
   {
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort setComponent;
-    FT_UShort dontAdvance;
+    FT_Uint setComponent;
+    FT_Uint dontAdvance;
 #endif
-    FT_UShort offset;
+    FT_Uint offset;
 
     FT_UNUSED( state );
     FT_UNUSED( glyphOffset_p );
@@ -229,11 +229,11 @@
 
 
 #ifdef GXV_LOAD_UNUSED_VARS
-    setComponent = (FT_UShort)( ( flags >> 15 ) & 1 );
-    dontAdvance  = (FT_UShort)( ( flags >> 14 ) & 1 );
+    setComponent = (FT_Uint)( ( flags >> 15 ) & 1 );
+    dontAdvance  = (FT_Uint)( ( flags >> 14 ) & 1 );
 #endif
 
-    offset = (FT_UShort)( flags & 0x3FFFU );
+    offset = (FT_Uint)( flags & 0x3FFFU );
 
     if ( 0 < offset )
       gxv_mort_subtable_type2_ligActionOffset_validate( table, offset,
@@ -259,11 +259,11 @@
       /* Apple does not give specification of ligatureTable format */
       while ( p < limit )
       {
-        FT_UShort  lig_gid;
+        FT_Uint  lig_gid;
 
 
         GXV_LIMIT_CHECK( 2 );
-        lig_gid = FT_NEXT_USHORT( p );
+        lig_gid = FT_NEXT_Uint( p );
 
         if ( gxvalid->face->num_glyphs < lig_gid )
           GXV_SET_ERR_IF_PARANOID( FT_INVALID_GLYPH_ID );

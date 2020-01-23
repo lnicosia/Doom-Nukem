@@ -23,7 +23,7 @@ haux 16c0_s/resaux_0.vqd _16c0_s_single 0,64,2 10
 :_p9_2 16c0_s/res_sub0_part9_pass2.vqd, 2, nonseq, 0 +- 1 2 3 4 5 6 7 8 9 10
 
 >_16c1s_s noninterleaved
-haux 16c1_s/resaux_0.vqd _16c1_s_short 0,64,2 10
+haux 16c1_s/resaux_0.vqd _16c1_s_int 0,64,2 10
 
 >_16c1_s noninterleaved
 haux 16c1_s/resaux_1.vqd _16c1_s_long 0,64,2 10
@@ -47,7 +47,7 @@ haux 16c1_s/resaux_1.vqd _16c1_s_long 0,64,2 10
 :_p9_2 16c1_s/res_sub0_part9_pass2.vqd, 2, nonseq, 0 +- 1 2 3 4 5 6 7 8 9 10
 
 >_16c2s_s noninterleaved
-haux 16c2_s/resaux_0.vqd _16c2_s_short 0,64,2 10
+haux 16c2_s/resaux_0.vqd _16c2_s_int 0,64,2 10
 >_16c2_s noninterleaved
 haux 16c2_s/resaux_1.vqd _16c2_s_long 0,64,2 10
         

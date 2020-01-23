@@ -181,7 +181,7 @@ FT_BEGIN_HEADER
     PFR_KernItem  next;
     FT_Byte       pair_count;
     FT_Byte       flags;
-    FT_Short      base_adj;
+    FT_int      base_adj;
     FT_UInt       pair_size;
     FT_Offset     offset;
     FT_UInt32     pair1;

@@ -296,7 +296,7 @@
 
 	as references.
 
-	* include/freetype/internal/ftrfork.h (FT_RFork_Ref): Use FT_Short
+	* include/freetype/internal/ftrfork.h (FT_RFork_Ref): Use FT_int
 	for `res_id'.
 
 	* src/base/ftrfork.c (FT_Raccess_Get_HeaderInfo): Extract map length
@@ -1630,7 +1630,7 @@
 
 	* src/base/ftobjs.c (FT_Open_Face): Check whether negation was
 	actually successful.  For example, this can fail for value
-	-32768 if the type is `signed short'.  If there are problems,
+	-32768 if the type is `signed int'.  If there are problems,
 	disable the strike.
 
 2016-09-03  Werner Lemberg  <wl@gnu.org>

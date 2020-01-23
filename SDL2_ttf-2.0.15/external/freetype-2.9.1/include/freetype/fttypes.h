@@ -59,8 +59,8 @@ FT_BEGIN_HEADER
   /*    FT_UInt32                                                          */
   /*    FT_Int64                                                           */
   /*    FT_UInt64                                                          */
-  /*    FT_Short                                                           */
-  /*    FT_UShort                                                          */
+  /*    FT_int                                                           */
+  /*    FT_Uint                                                          */
   /*    FT_Long                                                            */
   /*    FT_ULong                                                           */
   /*    FT_Bool                                                            */
@@ -117,7 +117,7 @@ FT_BEGIN_HEADER
   /*    A signed 16-bit integer used to store a distance in original font  */
   /*    units.                                                             */
   /*                                                                       */
-  typedef signed short  FT_FWord;   /* distance in FUnits */
+  typedef signed int  FT_FWord;   /* distance in FUnits */
 
 
   /*************************************************************************/
@@ -129,7 +129,7 @@ FT_BEGIN_HEADER
   /*    An unsigned 16-bit integer used to store a distance in original    */
   /*    font units.                                                        */
   /*                                                                       */
-  typedef unsigned short  FT_UFWord;  /* unsigned distance */
+  typedef unsigned int  FT_UFWord;  /* unsigned distance */
 
 
   /*************************************************************************/
@@ -190,23 +190,23 @@ FT_BEGIN_HEADER
   /*************************************************************************/
   /*                                                                       */
   /* <Type>                                                                */
-  /*    FT_Short                                                           */
+  /*    FT_int                                                           */
   /*                                                                       */
   /* <Description>                                                         */
-  /*    A typedef for signed short.                                        */
+  /*    A typedef for signed int.                                        */
   /*                                                                       */
-  typedef signed short  FT_Short;
+  typedef signed int  FT_int;
 
 
   /*************************************************************************/
   /*                                                                       */
   /* <Type>                                                                */
-  /*    FT_UShort                                                          */
+  /*    FT_Uint                                                          */
   /*                                                                       */
   /* <Description>                                                         */
-  /*    A typedef for unsigned short.                                      */
+  /*    A typedef for unsigned int.                                      */
   /*                                                                       */
-  typedef unsigned short  FT_UShort;
+  typedef unsigned int  FT_Uint;
 
 
   /*************************************************************************/
@@ -261,7 +261,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    A signed 2.14 fixed-point type used for unit vectors.              */
   /*                                                                       */
-  typedef signed short  FT_F2Dot14;
+  typedef signed int  FT_F2Dot14;
 
 
   /*************************************************************************/

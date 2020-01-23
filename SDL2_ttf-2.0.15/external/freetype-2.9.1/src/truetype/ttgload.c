@@ -74,8 +74,8 @@
   FT_LOCAL_DEF( void )
   TT_Get_HMetrics( TT_Face     face,
                    FT_UInt     idx,
-                   FT_Short*   lsb,
-                   FT_UShort*  aw )
+                   FT_int*   lsb,
+                   FT_Uint*  aw )
   {
     ( (SFNT_Service)face->sfnt )->get_metrics( face, 0, idx, lsb, aw );
 
@@ -93,23 +93,23 @@
   TT_Get_VMetrics( TT_Face     face,
                    FT_UInt     idx,
                    FT_Pos      yMax,
-                   FT_Short*   tsb,
-                   FT_UShort*  ah )
+                   FT_int*   tsb,
+                   FT_Uint*  ah )
   {
     if ( face->vertical_info )
       ( (SFNT_Service)face->sfnt )->get_metrics( face, 1, idx, tsb, ah );
 
     else if ( face->os2.version != 0xFFFFU )
     {
-      *tsb = (FT_Short)( face->os2.sTypoAscender - yMax );
-      *ah  = (FT_UShort)FT_ABS( face->os2.sTypoAscender -
+      *tsb = (FT_int)( face->os2.sTypoAscender - yMax );
+      *ah  = (FT_Uint)FT_ABS( face->os2.sTypoAscender -
                                 face->os2.sTypoDescender );
     }
 
     else
     {
-      *tsb = (FT_Short)( face->horizontal.Ascender - yMax );
-      *ah  = (FT_UShort)FT_ABS( face->horizontal.Ascender -
+      *tsb = (FT_int)( face->horizontal.Ascender - yMax );
+      *ah  = (FT_Uint)FT_ABS( face->horizontal.Ascender -
                                 face->horizontal.Descender );
     }
 
@@ -130,8 +130,8 @@
     FT_Error   error;
     FT_Stream  stream = loader->stream;
 
-    FT_Short   left_bearing = 0, top_bearing = 0;
-    FT_UShort  advance_width = 0, advance_height = 0;
+    FT_int   left_bearing = 0, top_bearing = 0;
+    FT_Uint  advance_width = 0, advance_height = 0;
 
     /* we must preserve the stream position          */
     /* (which gets altered by the metrics functions) */
@@ -186,8 +186,8 @@
   {
     TT_Face  face = loader->face;
 
-    FT_Short   left_bearing = 0, top_bearing = 0;
-    FT_UShort  advance_width = 0, advance_height = 0;
+    FT_int   left_bearing = 0, top_bearing = 0;
+    FT_Uint  advance_width = 0, advance_height = 0;
 
 
     /* If this is an incrementally loaded font check whether there are */
@@ -210,8 +210,8 @@
       if ( error )
         goto Exit;
 
-      left_bearing  = (FT_Short)incr_metrics.bearing_x;
-      advance_width = (FT_UShort)incr_metrics.advance;
+      left_bearing  = (FT_int)incr_metrics.bearing_x;
+      advance_width = (FT_Uint)incr_metrics.advance;
 
 #if 0
 
@@ -226,8 +226,8 @@
       if ( error )
         goto Exit;
 
-      top_bearing    = (FT_Short)incr_metrics.bearing_y;
-      advance_height = (FT_UShort)incr_metrics.advance;
+      top_bearing    = (FT_int)incr_metrics.bearing_y;
+      advance_height = (FT_Uint)incr_metrics.advance;
 
 #endif /* 0 */
 
@@ -304,12 +304,12 @@
     if ( p + 10 > limit )
       return FT_THROW( Invalid_Outline );
 
-    loader->n_contours = FT_NEXT_SHORT( p );
+    loader->n_contours = FT_NEXT_int( p );
 
-    loader->bbox.xMin = FT_NEXT_SHORT( p );
-    loader->bbox.yMin = FT_NEXT_SHORT( p );
-    loader->bbox.xMax = FT_NEXT_SHORT( p );
-    loader->bbox.yMax = FT_NEXT_SHORT( p );
+    loader->bbox.xMin = FT_NEXT_int( p );
+    loader->bbox.yMin = FT_NEXT_int( p );
+    loader->bbox.xMax = FT_NEXT_int( p );
+    loader->bbox.yMax = FT_NEXT_int( p );
 
     FT_TRACE5(( "  # of contours: %d\n", loader->n_contours ));
     FT_TRACE5(( "  xMin: %4d  xMax: %4d\n", loader->bbox.xMin,
@@ -331,14 +331,14 @@
     FT_GlyphLoader  gloader    = load->gloader;
     FT_Int          n_contours = load->n_contours;
     FT_Outline*     outline;
-    FT_UShort       n_ins;
+    FT_Uint       n_ins;
     FT_Int          n_points;
 
     FT_Byte         *flag, *flag_limit;
     FT_Byte         c, count;
     FT_Vector       *vec, *vec_limit;
     FT_Pos          x;
-    FT_Short        *cont, *cont_limit, prev_cont;
+    FT_int        *cont, *cont_limit, prev_cont;
     FT_Int          xy_size = 0;
 
 
@@ -355,7 +355,7 @@
     if ( n_contours >= 0xFFF || p + ( n_contours + 1 ) * 2 > limit )
       goto Invalid_Outline;
 
-    prev_cont = FT_NEXT_SHORT( p );
+    prev_cont = FT_NEXT_int( p );
 
     if ( n_contours > 0 )
       cont[0] = prev_cont;
@@ -365,7 +365,7 @@
 
     for ( cont++; cont < cont_limit; cont++ )
     {
-      cont[0] = FT_NEXT_SHORT( p );
+      cont[0] = FT_NEXT_int( p );
       if ( cont[0] <= prev_cont )
       {
         /* unordered contours: this is invalid */
@@ -394,7 +394,7 @@
     if ( p + 2 > limit )
       goto Invalid_Outline;
 
-    n_ins = FT_NEXT_USHORT( p );
+    n_ins = FT_NEXT_Uint( p );
 
     FT_TRACE5(( "  Instructions size: %u\n", n_ins ));
 
@@ -423,7 +423,7 @@
                           (void*)&load->exec->glyphIns,
                           n_ins );
 
-      load->exec->glyphSize = (FT_UShort)tmp;
+      load->exec->glyphSize = (FT_Uint)tmp;
       if ( error )
         return error;
 
@@ -496,7 +496,7 @@
         if ( p + 2 > limit )
           goto Invalid_Outline;
 
-        y = (FT_Pos)FT_NEXT_SHORT( p );
+        y = (FT_Pos)FT_NEXT_int( p );
       }
 
       x     += y;
@@ -532,7 +532,7 @@
         if ( p + 2 > limit )
           goto Invalid_Outline;
 
-        y = (FT_Pos)FT_NEXT_SHORT( p );
+        y = (FT_Pos)FT_NEXT_int( p );
       }
 
       x     += y;
@@ -541,8 +541,8 @@
       *flag  = (FT_Byte)( f & FT_CURVE_TAG_ON );
     }
 
-    outline->n_points   = (FT_Short)n_points;
-    outline->n_contours = (FT_Short)n_contours;
+    outline->n_points   = (FT_int)n_points;
+    outline->n_contours = (FT_int)n_contours;
 
     load->cursor = p;
 
@@ -587,8 +587,8 @@
 
       subglyph->arg1 = subglyph->arg2 = 0;
 
-      subglyph->flags = FT_NEXT_USHORT( p );
-      subglyph->index = FT_NEXT_USHORT( p );
+      subglyph->flags = FT_NEXT_Uint( p );
+      subglyph->index = FT_NEXT_Uint( p );
 
       /* check space */
       count = 2;
@@ -609,8 +609,8 @@
       {
         if ( subglyph->flags & ARGS_ARE_WORDS )
         {
-          subglyph->arg1 = FT_NEXT_SHORT( p );
-          subglyph->arg2 = FT_NEXT_SHORT( p );
+          subglyph->arg1 = FT_NEXT_int( p );
+          subglyph->arg2 = FT_NEXT_int( p );
         }
         else
         {
@@ -622,8 +622,8 @@
       {
         if ( subglyph->flags & ARGS_ARE_WORDS )
         {
-          subglyph->arg1 = (FT_Int)FT_NEXT_USHORT( p );
-          subglyph->arg2 = (FT_Int)FT_NEXT_USHORT( p );
+          subglyph->arg1 = (FT_Int)FT_NEXT_Uint( p );
+          subglyph->arg2 = (FT_Int)FT_NEXT_Uint( p );
         }
         else
         {
@@ -638,20 +638,20 @@
 
       if ( subglyph->flags & WE_HAVE_A_SCALE )
       {
-        xx = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
+        xx = (FT_Fixed)FT_NEXT_int( p ) * 4;
         yy = xx;
       }
       else if ( subglyph->flags & WE_HAVE_AN_XY_SCALE )
       {
-        xx = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
-        yy = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
+        xx = (FT_Fixed)FT_NEXT_int( p ) * 4;
+        yy = (FT_Fixed)FT_NEXT_int( p ) * 4;
       }
       else if ( subglyph->flags & WE_HAVE_A_2X2 )
       {
-        xx = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
-        yx = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
-        xy = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
-        yy = (FT_Fixed)FT_NEXT_SHORT( p ) * 4;
+        xx = (FT_Fixed)FT_NEXT_int( p ) * 4;
+        yx = (FT_Fixed)FT_NEXT_int( p ) * 4;
+        xy = (FT_Fixed)FT_NEXT_int( p ) * 4;
+        yy = (FT_Fixed)FT_NEXT_int( p ) * 4;
       }
 
       subglyph->transform.xx = xx;
@@ -755,16 +755,16 @@
                    FT_UInt       start_point,
                    FT_UInt       start_contour )
   {
-    zone->n_points    = (FT_UShort)load->outline.n_points -
-                          (FT_UShort)start_point;
+    zone->n_points    = (FT_Uint)load->outline.n_points -
+                          (FT_Uint)start_point;
     zone->n_contours  = load->outline.n_contours -
-                          (FT_Short)start_contour;
+                          (FT_int)start_contour;
     zone->org         = load->extra_points + start_point;
     zone->cur         = load->outline.points + start_point;
     zone->orus        = load->extra_points2 + start_point;
     zone->tags        = (FT_Byte*)load->outline.tags + start_point;
-    zone->contours    = (FT_UShort*)load->outline.contours + start_contour;
-    zone->first_point = (FT_UShort)start_point;
+    zone->contours    = (FT_Uint*)load->outline.contours + start_contour;
+    zone->first_point = (FT_Uint)start_point;
   }
 
 
@@ -1095,7 +1095,7 @@
     current.points   = gloader->base.outline.points +
                          num_base_points;
     current.n_points = gloader->base.outline.n_points -
-                         (short)num_base_points;
+                         (int)num_base_points;
 
     have_scale = FT_BOOL( subglyph->flags & ( WE_HAVE_A_SCALE     |
                                               WE_HAVE_AN_XY_SCALE |
@@ -1282,14 +1282,14 @@
 
     {
       FT_Stream  stream = loader->stream;
-      FT_UShort  n_ins, max_ins;
+      FT_Uint  n_ins, max_ins;
       FT_ULong   tmp;
 
 
       /* TT_Load_Composite_Glyph only gives us the offset of instructions */
       /* so we read them here                                             */
       if ( FT_STREAM_SEEK( loader->ins_pos ) ||
-           FT_READ_USHORT( n_ins )           )
+           FT_READ_Uint( n_ins )           )
         return error;
 
       FT_TRACE5(( "  Instructions size = %d\n", n_ins ));
@@ -1315,7 +1315,7 @@
                             (void*)&loader->exec->glyphIns,
                             n_ins );
 
-        loader->exec->glyphSize = (FT_UShort)tmp;
+        loader->exec->glyphSize = (FT_Uint)tmp;
         if ( error )
           return error;
       }
@@ -1536,7 +1536,7 @@
     {
       FT_TRACE1(( "load_truetype_glyph: maxComponentDepth set to %d\n",
                   recurse_count ));
-      face->max_profile.maxComponentDepth = (FT_UShort)recurse_count;
+      face->max_profile.maxComponentDepth = (FT_Uint)recurse_count;
     }
 
 #ifndef FT_CONFIG_OPTION_INCREMENTAL
@@ -1666,7 +1666,7 @@
         /* communication with `TT_Vary_Apply_Glyph_Deltas'  */
         FT_Vector   points[4];
         char        tags[4]     = { 1, 1, 1, 1 };
-        short       contours[4] = { 0, 1, 2, 3 };
+        int       contours[4] = { 0, 1, 2, 3 };
         FT_Outline  outline;
 
 
@@ -1837,20 +1837,20 @@
       if ( FT_IS_NAMED_INSTANCE( FT_FACE( face ) ) ||
            FT_IS_VARIATION( FT_FACE( face ) )      )
       {
-        short        i, limit;
+        int        i, limit;
         FT_SubGlyph  subglyph;
 
         FT_Outline  outline;
         FT_Vector*  points   = NULL;
         char*       tags     = NULL;
-        short*      contours = NULL;
+        int*      contours = NULL;
 
 
-        limit = (short)gloader->current.num_subglyphs;
+        limit = (int)gloader->current.num_subglyphs;
 
         /* construct an outline structure for              */
         /* communication with `TT_Vary_Apply_Glyph_Deltas' */
-        outline.n_points   = (short)( gloader->current.num_subglyphs + 4 );
+        outline.n_points   = (int)( gloader->current.num_subglyphs + 4 );
         outline.n_contours = outline.n_points;
 
         outline.points   = NULL;
@@ -2196,13 +2196,13 @@
       if ( face->vertical_info                   &&
            face->vertical.number_Of_VMetrics > 0 )
       {
-        top = (FT_Short)FT_DivFix( loader->pp3.y - bbox.yMax,
+        top = (FT_int)FT_DivFix( loader->pp3.y - bbox.yMax,
                                    y_scale );
 
         if ( loader->pp3.y <= loader->pp4.y )
           advance = 0;
         else
-          advance = (FT_UShort)FT_DivFix( loader->pp3.y - loader->pp4.y,
+          advance = (FT_Uint)FT_DivFix( loader->pp3.y - loader->pp4.y,
                                           y_scale );
       }
       else
@@ -2218,7 +2218,7 @@
         /*       table in the font.  Otherwise, we use the     */
         /*       values defined in the horizontal header.      */
 
-        height = (FT_Short)FT_DivFix( SUB_LONG( bbox.yMax,
+        height = (FT_int)FT_DivFix( SUB_LONG( bbox.yMax,
                                                 bbox.yMin ),
                                       y_scale );
         if ( face->os2.version != 0xFFFFU )
@@ -2722,11 +2722,11 @@
         {
           TT_Face  face = (TT_Face)glyph->face;
 
-          FT_Short  left_bearing = 0;
-          FT_Short  top_bearing  = 0;
+          FT_int  left_bearing = 0;
+          FT_int  top_bearing  = 0;
 
-          FT_UShort  advance_width  = 0;
-          FT_UShort  advance_height = 0;
+          FT_Uint  advance_width  = 0;
+          FT_Uint  advance_height = 0;
 
 
           /* to return an empty glyph, however, we need metrics data   */

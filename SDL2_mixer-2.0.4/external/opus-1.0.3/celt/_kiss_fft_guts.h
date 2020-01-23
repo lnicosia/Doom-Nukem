@@ -30,7 +30,7 @@
 #define MAX(a,b) ((a)>(b) ? (a):(b))
 
 /* kiss_fft.h
-   defines kiss_fft_scalar as either short or a float type
+   defines kiss_fft_scalar as either int or a float type
    and defines
    typedef struct { kiss_fft_scalar r; kiss_fft_scalar i; }kiss_fft_cpx; */
 #include "kiss_fft.h"

@@ -130,12 +130,12 @@
 <pre>
   <span class="keyword">typedef</span> <span class="keyword">struct</span>  FT_Outline_
   {
-    <span class="keyword">short</span>       n_contours;      /* number of contours in glyph        */
-    <span class="keyword">short</span>       n_points;        /* number of points in the glyph      */
+    <span class="keyword">int</span>       n_contours;      /* number of contours in glyph        */
+    <span class="keyword">int</span>       n_points;        /* number of points in the glyph      */
 
     <a href="ft2-basic_types.html#FT_Vector">FT_Vector</a>*  points;          /* the outline's points               */
     <span class="keyword">char</span>*       tags;            /* the points flags                   */
-    <span class="keyword">short</span>*      contours;        /* the contour end points             */
+    <span class="keyword">int</span>*      contours;        /* the contour end points             */
 
     <span class="keyword">int</span>         flags;           /* outline masks                      */
 
@@ -163,7 +163,7 @@
 <p>Bits 3 and&nbsp;4 are reserved for internal purposes.</p>
 </td></tr>
 <tr><td class="val" id="contours">contours</td><td class="desc">
-<p>An array of &lsquo;n_contours&rsquo; shorts, giving the end point of each contour within the outline. For example, the first contour is defined by the points &lsquo;0&rsquo; to &lsquo;contours[0]&rsquo;, the second one is defined by the points &lsquo;contours[0]+1&rsquo; to &lsquo;contours[1]&rsquo;, etc.</p>
+<p>An array of &lsquo;n_contours&rsquo; ints, giving the end point of each contour within the outline. For example, the first contour is defined by the points &lsquo;0&rsquo; to &lsquo;contours[0]&rsquo;, the second one is defined by the points &lsquo;contours[0]+1&rsquo; to &lsquo;contours[1]&rsquo;, etc.</p>
 </td></tr>
 <tr><td class="val" id="flags">flags</td><td class="desc">
 <p>A set of bit flags used to characterize the outline and give hints to the scan-converter and hinter on how to convert/grid-fit it. See <a href="ft2-outline_processing.html#FT_OUTLINE_XXX">FT_OUTLINE_XXX</a>.</p>

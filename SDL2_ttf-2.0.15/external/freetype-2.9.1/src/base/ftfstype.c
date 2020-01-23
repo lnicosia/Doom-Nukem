@@ -24,7 +24,7 @@
 
   /* documentation is in freetype.h */
 
-  FT_EXPORT_DEF( FT_UShort )
+  FT_EXPORT_DEF( FT_Uint )
   FT_Get_FSType_Flags( FT_Face  face )
   {
     TT_OS2*  os2;

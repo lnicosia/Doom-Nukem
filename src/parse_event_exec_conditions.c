@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:50:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:53:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ char **line, t_events_parser *eparser)
 		**line, parser));
 	if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
 		return (-1);
+	eparser->event.nb_exec_conditions = eparser->nb_conditions;
 	if (!(eparser->event.exec_conditions =
 			(t_condition*)ft_memalloc(sizeof(t_condition)
 			* eparser->nb_conditions)))

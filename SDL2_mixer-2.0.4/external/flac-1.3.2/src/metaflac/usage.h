@@ -20,7 +20,7 @@
 #ifndef metaflac__usage_h
 #define metaflac__usage_h
 
-int short_usage(const char *message, ...);
+int int_usage(const char *message, ...);
 int long_usage(const char *message, ...);
 
 #endif

@@ -109,14 +109,14 @@
   static void
   gxv_kern_subtable_fmt0_pairs_validate( FT_Bytes       table,
                                          FT_Bytes       limit,
-                                         FT_UShort      nPairs,
+                                         FT_Uint      nPairs,
                                          GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table;
-    FT_UShort  i;
+    FT_Uint  i;
 
-    FT_UShort  last_gid_left  = 0;
-    FT_UShort  last_gid_right = 0;
+    FT_Uint  last_gid_left  = 0;
+    FT_Uint  last_gid_right = 0;
 
     FT_UNUSED( limit );
 
@@ -125,19 +125,19 @@
 
     for ( i = 0; i < nPairs; i++ )
     {
-      FT_UShort  gid_left;
-      FT_UShort  gid_right;
+      FT_Uint  gid_left;
+      FT_Uint  gid_right;
 #ifdef GXV_LOAD_UNUSED_VARS
-      FT_Short   kernValue;
+      FT_int   kernValue;
 #endif
 
 
       /* left */
-      gid_left  = FT_NEXT_USHORT( p );
+      gid_left  = FT_NEXT_Uint( p );
       gxv_glyphid_validate( gid_left, gxvalid );
 
       /* right */
-      gid_right = FT_NEXT_USHORT( p );
+      gid_right = FT_NEXT_Uint( p );
       gxv_glyphid_validate( gid_right, gxvalid );
 
       /* Pairs of left and right GIDs must be unique and sorted. */
@@ -159,7 +159,7 @@
 
       /* skip the kern value */
 #ifdef GXV_LOAD_UNUSED_VARS
-      kernValue = FT_NEXT_SHORT( p );
+      kernValue = FT_NEXT_int( p );
 #else
       p += 2;
 #endif
@@ -175,8 +175,8 @@
   {
     FT_Bytes   p = table + GXV_KERN_SUBTABLE_HEADER_SIZE;
 
-    FT_UShort  nPairs;
-    FT_UShort  unitSize;
+    FT_Uint  nPairs;
+    FT_Uint  unitSize;
 
 
     GXV_NAME_ENTER( "kern subtable format 0" );
@@ -200,8 +200,8 @@
 
   typedef struct  GXV_kern_fmt1_StateOptRec_
   {
-    FT_UShort  valueTable;
-    FT_UShort  valueTable_length;
+    FT_Uint  valueTable;
+    FT_Uint  valueTable_length;
 
   } GXV_kern_fmt1_StateOptRec, *GXV_kern_fmt1_StateOptRecData;
 
@@ -217,7 +217,7 @@
 
 
     GXV_LIMIT_CHECK( 2 );
-    optdata->valueTable = FT_NEXT_USHORT( p );
+    optdata->valueTable = FT_NEXT_Uint( p );
   }
 
 
@@ -225,18 +225,18 @@
    * passed tables_size covers whole StateTable, including kern fmt1 header
    */
   static void
-  gxv_kern_subtable_fmt1_subtable_setup( FT_UShort      table_size,
-                                         FT_UShort      classTable,
-                                         FT_UShort      stateArray,
-                                         FT_UShort      entryTable,
-                                         FT_UShort*     classTable_length_p,
-                                         FT_UShort*     stateArray_length_p,
-                                         FT_UShort*     entryTable_length_p,
+  gxv_kern_subtable_fmt1_subtable_setup( FT_Uint      table_size,
+                                         FT_Uint      classTable,
+                                         FT_Uint      stateArray,
+                                         FT_Uint      entryTable,
+                                         FT_Uint*     classTable_length_p,
+                                         FT_Uint*     stateArray_length_p,
+                                         FT_Uint*     entryTable_length_p,
                                          GXV_Validator  gxvalid )
   {
-    FT_UShort  o[4];
-    FT_UShort  *l[4];
-    FT_UShort  buff[5];
+    FT_Uint  o[4];
+    FT_Uint  *l[4];
+    FT_Uint  buff[5];
 
     GXV_kern_fmt1_StateOptRecData  optdata =
       (GXV_kern_fmt1_StateOptRecData)gxvalid->statetable.optdata;
@@ -251,7 +251,7 @@
     l[2] = entryTable_length_p;
     l[3] = &(optdata->valueTable_length);
 
-    gxv_set_length_by_ushort_offset( o, l, buff, 4, table_size, gxvalid );
+    gxv_set_length_by_uint_offset( o, l, buff, 4, table_size, gxvalid );
   }
 
 
@@ -261,20 +261,20 @@
   static void
   gxv_kern_subtable_fmt1_entry_validate(
     FT_Byte                         state,
-    FT_UShort                       flags,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
     GXV_Validator                   gxvalid )
   {
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  push;
-    FT_UShort  dontAdvance;
+    FT_Uint  push;
+    FT_Uint  dontAdvance;
 #endif
-    FT_UShort  valueOffset;
+    FT_Uint  valueOffset;
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  kernAction;
-    FT_UShort  kernValue;
+    FT_Uint  kernAction;
+    FT_Uint  kernValue;
 #endif
 
     FT_UNUSED( state );
@@ -282,10 +282,10 @@
 
 
 #ifdef GXV_LOAD_UNUSED_VARS
-    push        = (FT_UShort)( ( flags >> 15 ) & 1      );
-    dontAdvance = (FT_UShort)( ( flags >> 14 ) & 1      );
+    push        = (FT_Uint)( ( flags >> 15 ) & 1      );
+    dontAdvance = (FT_Uint)( ( flags >> 14 ) & 1      );
 #endif
-    valueOffset = (FT_UShort)(   flags         & 0x3FFF );
+    valueOffset = (FT_Uint)(   flags         & 0x3FFF );
 
     {
       GXV_kern_fmt1_StateOptRecData  vt_rec =
@@ -301,8 +301,8 @@
 
       GXV_LIMIT_CHECK( 2 + 2 );
 #ifdef GXV_LOAD_UNUSED_VARS
-      kernAction = FT_NEXT_USHORT( p );
-      kernValue  = FT_NEXT_USHORT( p );
+      kernAction = FT_NEXT_Uint( p );
+      kernValue  = FT_NEXT_Uint( p );
 #endif
     }
   }
@@ -352,10 +352,10 @@
 
   typedef struct  GXV_kern_subtable_fmt2_DataRec_
   {
-    FT_UShort         rowWidth;
-    FT_UShort         array;
-    FT_UShort         offset_min[2];
-    FT_UShort         offset_max[2];
+    FT_Uint         rowWidth;
+    FT_Uint         array;
+    FT_Uint         offset_min[2];
+    FT_Uint         offset_max[2];
     const FT_String*  class_tag[2];
     GXV_odtect_Range  odtect;
 
@@ -379,22 +379,22 @@
     GXV_odtect_Range  odtect = GXV_KERN_FMT2_DATA( odtect );
 
     FT_Bytes   p = table;
-    FT_UShort  firstGlyph;
-    FT_UShort  nGlyphs;
+    FT_Uint  firstGlyph;
+    FT_Uint  nGlyphs;
 
 
     GXV_NAME_ENTER( "kern format 2 classTable" );
 
     GXV_LIMIT_CHECK( 2 + 2 );
-    firstGlyph = FT_NEXT_USHORT( p );
-    nGlyphs    = FT_NEXT_USHORT( p );
+    firstGlyph = FT_NEXT_Uint( p );
+    nGlyphs    = FT_NEXT_Uint( p );
     GXV_TRACE(( " %s firstGlyph=%d, nGlyphs=%d\n",
                 tag, firstGlyph, nGlyphs ));
 
     gxv_glyphid_validate( firstGlyph, gxvalid );
-    gxv_glyphid_validate( (FT_UShort)( firstGlyph + nGlyphs - 1 ), gxvalid );
+    gxv_glyphid_validate( (FT_Uint)( firstGlyph + nGlyphs - 1 ), gxvalid );
 
-    gxv_array_getlimits_ushort( p, p + ( 2 * nGlyphs ),
+    gxv_array_getlimits_uint( p, p + ( 2 * nGlyphs ),
                                 &( GXV_KERN_FMT2_DATA( offset_min[spec] ) ),
                                 &( GXV_KERN_FMT2_DATA( offset_max[spec] ) ),
                                 gxvalid );
@@ -415,8 +415,8 @@
       { 0, 0, { 0, 0 }, { 0, 0 }, { "leftClass", "rightClass" }, NULL };
 
     FT_Bytes   p = table + GXV_KERN_SUBTABLE_HEADER_SIZE;
-    FT_UShort  leftOffsetTable;
-    FT_UShort  rightOffsetTable;
+    FT_Uint  leftOffsetTable;
+    FT_Uint  rightOffsetTable;
 
 
     GXV_NAME_ENTER( "kern subtable format 2" );
@@ -426,10 +426,10 @@
     GXV_KERN_DATA( subtable_data ) = &fmt2_rec;
 
     GXV_LIMIT_CHECK( 2 + 2 + 2 + 2 );
-    GXV_KERN_FMT2_DATA( rowWidth ) = FT_NEXT_USHORT( p );
-    leftOffsetTable                = FT_NEXT_USHORT( p );
-    rightOffsetTable               = FT_NEXT_USHORT( p );
-    GXV_KERN_FMT2_DATA( array )    = FT_NEXT_USHORT( p );
+    GXV_KERN_FMT2_DATA( rowWidth ) = FT_NEXT_Uint( p );
+    leftOffsetTable                = FT_NEXT_Uint( p );
+    rightOffsetTable               = FT_NEXT_Uint( p );
+    GXV_KERN_FMT2_DATA( array )    = FT_NEXT_Uint( p );
 
     GXV_TRACE(( "rowWidth = %d\n", GXV_KERN_FMT2_DATA( rowWidth ) ));
 
@@ -469,7 +469,7 @@
                                    GXV_Validator  gxvalid )
   {
     FT_Bytes   p = table + GXV_KERN_SUBTABLE_HEADER_SIZE;
-    FT_UShort  glyphCount;
+    FT_Uint  glyphCount;
     FT_Byte    kernValueCount;
     FT_Byte    leftClassCount;
     FT_Byte    rightClassCount;
@@ -479,7 +479,7 @@
     GXV_NAME_ENTER( "kern subtable format 3" );
 
     GXV_LIMIT_CHECK( 2 + 1 + 1 + 1 + 1 );
-    glyphCount      = FT_NEXT_USHORT( p );
+    glyphCount      = FT_NEXT_Uint( p );
     kernValueCount  = FT_NEXT_BYTE( p );
     leftClassCount  = FT_NEXT_BYTE( p );
     rightClassCount = FT_NEXT_BYTE( p );
@@ -535,7 +535,7 @@
      * check kernIndex[i, j] < kernValueCount
      */
     {
-      FT_UShort  i, j;
+      FT_Uint  i, j;
 
 
       for ( i = 0; i < leftClassCount; i++ )
@@ -556,8 +556,8 @@
 
 
   static FT_Bool
-  gxv_kern_coverage_new_apple_validate( FT_UShort      coverage,
-                                        FT_UShort*     format,
+  gxv_kern_coverage_new_apple_validate( FT_Uint      coverage,
+                                        FT_Uint*     format,
                                         GXV_Validator  gxvalid )
   {
     /* new Apple-dialect */
@@ -580,7 +580,7 @@
     kernVariation   = FT_BOOL( ( coverage >> 13 ) & 1 );
 #endif
 
-    *format = (FT_UShort)( coverage & 0x0003 );
+    *format = (FT_Uint)( coverage & 0x0003 );
 
     GXV_TRACE(( "new Apple-dialect: "
                 "horizontal=%d, cross-stream=%d, variation=%d, format=%d\n",
@@ -593,8 +593,8 @@
 
 
   static FT_Bool
-  gxv_kern_coverage_classic_apple_validate( FT_UShort      coverage,
-                                            FT_UShort*     format,
+  gxv_kern_coverage_classic_apple_validate( FT_Uint      coverage,
+                                            FT_Uint*     format,
                                             GXV_Validator  gxvalid )
   {
     /* classic Apple-dialect */
@@ -617,7 +617,7 @@
     cross_stream = FT_BOOL( ( coverage >> 13 ) & 1 );
 #endif
 
-    *format = (FT_UShort)( coverage & 0x0003 );
+    *format = (FT_Uint)( coverage & 0x0003 );
 
     GXV_TRACE(( "classic Apple-dialect: "
                 "horizontal=%d, cross-stream=%d, format=%d\n",
@@ -634,8 +634,8 @@
 
 
   static FT_Bool
-  gxv_kern_coverage_classic_microsoft_validate( FT_UShort      coverage,
-                                                FT_UShort*     format,
+  gxv_kern_coverage_classic_microsoft_validate( FT_Uint      coverage,
+                                                FT_Uint*     format,
                                                 GXV_Validator  gxvalid )
   {
     /* classic Microsoft-dialect */
@@ -660,7 +660,7 @@
     override     = FT_BOOL( ( coverage >> 3 ) & 1 );
 #endif
 
-    *format = (FT_UShort)( ( coverage >> 8 ) & 0x0003 );
+    *format = (FT_Uint)( ( coverage >> 8 ) & 0x0003 );
 
     GXV_TRACE(( "classic Microsoft-dialect: "
                 "horizontal=%d, minimum=%d, cross-stream=%d, "
@@ -684,8 +684,8 @@
   /*************************************************************************/
 
   static GXV_kern_Dialect
-  gxv_kern_coverage_validate( FT_UShort      coverage,
-                              FT_UShort*     format,
+  gxv_kern_coverage_validate( FT_Uint      coverage,
+                              FT_Uint*     format,
                               GXV_Validator  gxvalid )
   {
     GXV_kern_Dialect  result = KERN_DIALECT_UNKNOWN;
@@ -743,23 +743,23 @@
   {
     FT_Bytes   p = table;
 #ifdef GXV_LOAD_TRACE_VARS
-    FT_UShort  version = 0;    /* MS only: subtable version, unused */
+    FT_Uint  version = 0;    /* MS only: subtable version, unused */
 #endif
     FT_ULong   length;         /* MS: 16bit, Apple: 32bit*/
-    FT_UShort  coverage;
+    FT_Uint  coverage;
 #ifdef GXV_LOAD_TRACE_VARS
-    FT_UShort  tupleIndex = 0; /* Apple only */
+    FT_Uint  tupleIndex = 0; /* Apple only */
 #endif
-    FT_UShort  u16[2];
-    FT_UShort  format = 255;   /* subtable format */
+    FT_Uint  u16[2];
+    FT_Uint  format = 255;   /* subtable format */
 
 
     GXV_NAME_ENTER( "kern subtable" );
 
     GXV_LIMIT_CHECK( 2 + 2 + 2 );
-    u16[0]   = FT_NEXT_USHORT( p ); /* Apple: length_hi MS: version */
-    u16[1]   = FT_NEXT_USHORT( p ); /* Apple: length_lo MS: length */
-    coverage = FT_NEXT_USHORT( p );
+    u16[0]   = FT_NEXT_Uint( p ); /* Apple: length_hi MS: version */
+    u16[1]   = FT_NEXT_Uint( p ); /* Apple: length_lo MS: length */
+    coverage = FT_NEXT_Uint( p );
 
     switch ( gxv_kern_coverage_validate( coverage, &format, gxvalid ) )
     {
@@ -789,7 +789,7 @@
       {
         GXV_LIMIT_CHECK( 2 );
 #ifdef GXV_LOAD_TRACE_VARS
-        tupleIndex = FT_NEXT_USHORT( p );
+        tupleIndex = FT_NEXT_Uint( p );
 #else
         p += 2;
 #endif
@@ -859,7 +859,7 @@
     KERN_DIALECT( gxvalid ) = dialect_request;
 
     GXV_LIMIT_CHECK( 2 );
-    GXV_KERN_DATA( version ) = (GXV_kern_Version)FT_NEXT_USHORT( p );
+    GXV_KERN_DATA( version ) = (GXV_kern_Version)FT_NEXT_Uint( p );
     GXV_TRACE(( "version 0x%04x (higher 16bit)\n",
                 GXV_KERN_DATA( version ) ));
 
@@ -868,14 +868,14 @@
     else if ( KERN_IS_CLASSIC( gxvalid ) )
     {
       GXV_LIMIT_CHECK( 2 );
-      nTables = FT_NEXT_USHORT( p );
+      nTables = FT_NEXT_Uint( p );
     }
     else if ( KERN_IS_NEW( gxvalid ) )
     {
       if ( classic_only )
         FT_INVALID_FORMAT;
 
-      if ( 0x0000 != FT_NEXT_USHORT( p ) )
+      if ( 0x0000 != FT_NEXT_Uint( p ) )
         FT_INVALID_FORMAT;
 
       GXV_LIMIT_CHECK( 4 );

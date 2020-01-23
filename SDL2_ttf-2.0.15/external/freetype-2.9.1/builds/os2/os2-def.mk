@@ -31,7 +31,7 @@ E := .exe
 LIB_DIR := $(OBJ_DIR)
 
 # The name of the final library file.  Note that the DOS-specific Makefile
-# uses a shorter (8.3) name.
+# uses a inter (8.3) name.
 #
 LIBRARY := $(PROJECT)
 

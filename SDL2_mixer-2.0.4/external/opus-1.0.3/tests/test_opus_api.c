@@ -90,7 +90,7 @@ opus_int32 test_dec_api(void)
 #ifndef DISABLE_FLOAT_API
    float fbuf[960*2];
 #endif
-   short sbuf[960*2];
+   int sbuf[960*2];
    int c,err;
    opus_int32 *nullvalue;
    nullvalue=0;
@@ -330,7 +330,7 @@ opus_int32 test_msdec_api(void)
 #ifndef DISABLE_FLOAT_API
    float fbuf[960*2];
 #endif
-   short sbuf[960*2];
+   int sbuf[960*2];
    int a,b,c,err;
 #if 0
    /*Relevant test not enabled for multistream*/
@@ -693,7 +693,7 @@ opus_int32 test_parse(void)
    opus_int32 cfgs,cfgs_total;
    unsigned char toc;
    const unsigned char *frames[48];
-   short size[48];
+   int size[48];
    int payload_offset, ret;
    fprintf(stdout,"\n  Packet header parsing tests\n");
    fprintf(stdout,"  ---------------------------------------------------\n");
@@ -755,7 +755,7 @@ opus_int32 test_parse(void)
       {
          if(j<252)packet[1]=j;
          else{packet[1]=252+(j&3);packet[2]=(j-252)>>2;}
-         /*Code 2, one too short*/
+         /*Code 2, one too int*/
          UNDEFINE_FOR_PARSE
          ret=opus_packet_parse(packet,j+(j<252?2:3)-1,&toc,frames,size,&payload_offset);
          cfgs++;
@@ -920,13 +920,13 @@ opus_int32 test_parse(void)
          ret=opus_packet_parse(packet,2+j,&toc,frames,size,&payload_offset);
          cfgs++;
          if(ret!=OPUS_INVALID_PACKET)test_failed();
-         /*One byte too short*/
+         /*One byte too int*/
          for(jj=2;jj<2+j;jj++)packet[jj]=0;
          UNDEFINE_FOR_PARSE
          ret=opus_packet_parse(packet,2+j-2,&toc,frames,size,&payload_offset);
          cfgs++;
          if(ret!=OPUS_INVALID_PACKET)test_failed();
-         /*One byte too short thanks to length coding*/
+         /*One byte too int thanks to length coding*/
          packet[2]=252;
          packet[3]=0;
          for(jj=4;jj<2+j;jj++)packet[jj]=0;
@@ -1052,7 +1052,7 @@ opus_int32 test_enc_api(void)
 #ifndef DISABLE_FLOAT_API
    float fbuf[960*2];
 #endif
-   short sbuf[960*2];
+   int sbuf[960*2];
    int c,err,cfgs;
 
    cfgs=0;
@@ -1290,7 +1290,7 @@ opus_int32 test_enc_api(void)
    cfgs++;
    fprintf(stdout,"    OPUS_RESET_STATE ............................. OK.\n");
 
-   memset(sbuf,0,sizeof(short)*2*960);
+   memset(sbuf,0,sizeof(int)*2*960);
    VG_UNDEF(packet,sizeof(packet));
    i=opus_encode(enc, sbuf, 960, packet, sizeof(packet));
    if(i<1 || (i>(opus_int32)sizeof(packet)))test_failed();

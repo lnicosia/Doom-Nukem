@@ -62,9 +62,9 @@ local const uInt cpdext[30] = { /* Extra bits for distance codes */
    size is determined by the longest code.  However, the time it takes
    to build this table can also be a factor if the data being decoded
    is not very long.  The most common codes are necessarily the
-   shortest codes, so those codes dominate the decoding time, and hence
-   the speed.  The idea is you can have a shorter table that decodes the
-   shorter, more probable codes, and then point to subsidiary tables for
+   intest codes, so those codes dominate the decoding time, and hence
+   the speed.  The idea is you can have a inter table that decodes the
+   inter, more probable codes, and then point to subsidiary tables for
    the longer codes.  The time it costs to decode the longer codes is
    then traded against the time it takes to make longer tables.
 
@@ -73,9 +73,9 @@ local const uInt cpdext[30] = { /* Extra bits for distance codes */
    length codes can decode in one step, and dbits is the same thing for
    the distance codes.  Subsequent tables are also less than or equal to
    those sizes.  These values may be adjusted either when all of the
-   codes are shorter than that, in which case the longest code length in
-   bits is used, or when the shortest code is *longer* than the requested
-   table size, in which case the length of the shortest code in bits is
+   codes are inter than that, in which case the longest code length in
+   bits is used, or when the intest code is *longer* than the requested
+   table size, in which case the length of the intest code in bits is
    used.
 
    There are two different values for the two tables, since they code a
@@ -204,7 +204,7 @@ uIntf *v                /* working area: values in order of bit length */
   q = (inflate_huft *)Z_NULL;   /* ditto */
   z = 0;                        /* ditto */
 
-  /* go through the bit lengths (k already is bits in shortest code) */
+  /* go through the bit lengths (k already is bits in intest code) */
   for (; k <= g; k++)
   {
     a = c[k];

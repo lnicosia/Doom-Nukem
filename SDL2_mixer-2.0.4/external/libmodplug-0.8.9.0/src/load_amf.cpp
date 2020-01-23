@@ -29,7 +29,7 @@ typedef struct _AMFFILEHEADER
 	CHAR title[32];
 	UCHAR numsamples;
 	UCHAR numorders;
-	USHORT numtracks;
+	Uint numtracks;
 	UCHAR numchannels;
 } AMFFILEHEADER;
 
@@ -40,7 +40,7 @@ typedef struct _AMFSAMPLE
 	CHAR  filename[13];
 	ULONG offset;
 	ULONG length;
-	USHORT c2spd;
+	Uint c2spd;
 	UCHAR volume;
 } AMFSAMPLE;
 
@@ -55,7 +55,7 @@ static VOID AMF_Unpack(MODCOMMAND *pPat, const BYTE *pTrack, UINT nRows, UINT nC
 //-------------------------------------------------------------------------------
 {
 	UINT lastinstr = 0;
-	UINT nTrkSize = bswapLE16(*(USHORT *)pTrack);
+	UINT nTrkSize = bswapLE16(*(Uint *)pTrack);
 	nTrkSize += (UINT)pTrack[2] << 16;
 	pTrack += 3;
 	while (nTrkSize--)
@@ -259,7 +259,7 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 	}
 	////////////////////////////
 	// DSM/AMF
-	USHORT *ptracks[MAX_PATTERNS];
+	Uint *ptracks[MAX_PATTERNS];
 	DWORD sampleseekpos[MAX_SAMPLES];
 
 	if ((pfh->szAMF[0] != 'A') || (pfh->szAMF[1] != 'M') || (pfh->szAMF[2] != 'F')
@@ -315,11 +315,11 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 			PatternSize[iOrd] = 64;
 			if (pfh->version >= 14)
 			{
-				PatternSize[iOrd] = bswapLE16(*(USHORT *)(lpStream+dwMemPos));
+				PatternSize[iOrd] = bswapLE16(*(Uint *)(lpStream+dwMemPos));
 				dwMemPos += 2;
 			}
-			ptracks[iOrd] = (USHORT *)(lpStream+dwMemPos);
-			dwMemPos += m_nChannels * sizeof(USHORT);
+			ptracks[iOrd] = (Uint *)(lpStream+dwMemPos);
+			dwMemPos += m_nChannels * sizeof(Uint);
 		}
 	}
 	if (dwMemPos + m_nSamples * (sizeof(AMFSAMPLE)+8) > dwMemLength) return TRUE;
@@ -361,9 +361,9 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 		}
 	}
 	// Read Track Mapping Table
-	USHORT *pTrackMap = (USHORT *)(lpStream+dwMemPos);
+	Uint *pTrackMap = (Uint *)(lpStream+dwMemPos);
 	UINT realtrackcnt = 0;
-	dwMemPos += pfh->numtracks * sizeof(USHORT);
+	dwMemPos += pfh->numtracks * sizeof(Uint);
 	if (dwMemPos >= dwMemLength)
 		return TRUE;
 
@@ -376,7 +376,7 @@ BOOL CSoundFile::ReadAMF(LPCBYTE lpStream, const DWORD dwMemLength)
 	memset(pTrackData, 0, sizeof(BYTE *) * realtrackcnt);
 	for (UINT iTrack=0; iTrack<realtrackcnt; iTrack++) if (dwMemPos <= dwMemLength - 3)
 	{
-		UINT nTrkSize = bswapLE16(*(USHORT *)(lpStream+dwMemPos));
+		UINT nTrkSize = bswapLE16(*(Uint *)(lpStream+dwMemPos));
 		nTrkSize += (UINT)lpStream[dwMemPos+2] << 16;
 		if (dwMemPos + nTrkSize * 3 + 3 <= dwMemLength)
 		{

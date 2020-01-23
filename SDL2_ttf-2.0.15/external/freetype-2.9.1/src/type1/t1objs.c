@@ -467,16 +467,16 @@
       if ( !root->units_per_EM )
         root->units_per_EM = 1000;
 
-      root->ascender  = (FT_Short)( root->bbox.yMax );
-      root->descender = (FT_Short)( root->bbox.yMin );
+      root->ascender  = (FT_int)( root->bbox.yMax );
+      root->descender = (FT_int)( root->bbox.yMin );
 
-      root->height = (FT_Short)( ( root->units_per_EM * 12 ) / 10 );
+      root->height = (FT_int)( ( root->units_per_EM * 12 ) / 10 );
       if ( root->height < root->ascender - root->descender )
-        root->height = (FT_Short)( root->ascender - root->descender );
+        root->height = (FT_int)( root->ascender - root->descender );
 
       /* now compute the maximum advance width */
       root->max_advance_width =
-        (FT_Short)( root->bbox.xMax );
+        (FT_int)( root->bbox.xMax );
       {
         FT_Pos  max_advance;
 
@@ -485,15 +485,15 @@
 
         /* in case of error, keep the standard width */
         if ( !error )
-          root->max_advance_width = (FT_Short)FIXED_TO_INT( max_advance );
+          root->max_advance_width = (FT_int)FIXED_TO_INT( max_advance );
         else
           error = FT_Err_Ok;   /* clear error */
       }
 
       root->max_advance_height = root->height;
 
-      root->underline_position  = (FT_Short)info->underline_position;
-      root->underline_thickness = (FT_Short)info->underline_thickness;
+      root->underline_position  = (FT_int)info->underline_position;
+      root->underline_thickness = (FT_int)info->underline_thickness;
     }
 
     {

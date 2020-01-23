@@ -133,7 +133,7 @@ FT_BEGIN_HEADER
    *     The block's current address.
    *
    * @return:
-   *   New block address.  0~in case of memory shortage.
+   *   New block address.  0~in case of memory intage.
    *
    * @note:
    *   In case of error, the old block must still be available.

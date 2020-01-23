@@ -978,35 +978,35 @@ rm -f noise.aiff fixup.aiff fixup.flac
 echo "Generating multiple input files from noise..."
 multifile_format_decode="--endian=big --sign=signed"
 multifile_format_encode="$multifile_format_decode --sample-rate=44100 --bps=16 --channels=2 --no-padding"
-short_noise_cdda_samples=`expr $total_noise_cdda_samples / 8`
-run_flac --verify --force --force-raw-format $multifile_format_encode --until=$short_noise_cdda_samples -o shortnoise.flac noise.raw || die "ERROR generating FLAC file"
-run_flac --decode --force shortnoise.flac -o shortnoise.raw --force-raw-format $multifile_format_decode || die "ERROR generating RAW file"
-run_flac --decode --force shortnoise.flac || die "ERROR generating WAVE file"
-run_flac --decode --force shortnoise.flac -o shortnoise.aiff || die "ERROR generating AIFF file"
-cp shortnoise.flac file0.flac
-cp shortnoise.flac file1.flac
-cp shortnoise.flac file2.flac
-rm -f shortnoise.flac
-cp shortnoise.wav file0.wav
-cp shortnoise.wav file1.wav
-cp shortnoise.wav file2.wav
-rm -f shortnoise.wav
-cp shortnoise.aiff file0.aiff
-cp shortnoise.aiff file1.aiff
-cp shortnoise.aiff file2.aiff
-rm -f shortnoise.aiff
-cp shortnoise.raw file0.raw
-cp shortnoise.raw file1.raw
-cp shortnoise.raw file2.raw
-rm -f shortnoise.raw
+int_noise_cdda_samples=`expr $total_noise_cdda_samples / 8`
+run_flac --verify --force --force-raw-format $multifile_format_encode --until=$int_noise_cdda_samples -o intnoise.flac noise.raw || die "ERROR generating FLAC file"
+run_flac --decode --force intnoise.flac -o intnoise.raw --force-raw-format $multifile_format_decode || die "ERROR generating RAW file"
+run_flac --decode --force intnoise.flac || die "ERROR generating WAVE file"
+run_flac --decode --force intnoise.flac -o intnoise.aiff || die "ERROR generating AIFF file"
+cp intnoise.flac file0.flac
+cp intnoise.flac file1.flac
+cp intnoise.flac file2.flac
+rm -f intnoise.flac
+cp intnoise.wav file0.wav
+cp intnoise.wav file1.wav
+cp intnoise.wav file2.wav
+rm -f intnoise.wav
+cp intnoise.aiff file0.aiff
+cp intnoise.aiff file1.aiff
+cp intnoise.aiff file2.aiff
+rm -f intnoise.aiff
+cp intnoise.raw file0.raw
+cp intnoise.raw file1.raw
+cp intnoise.raw file2.raw
+rm -f intnoise.raw
 # create authoritative sector-aligned files for comparison
-file0_samples=`expr \( $short_noise_cdda_samples / 588 \) \* 588`
-file0_remainder=`expr $short_noise_cdda_samples - $file0_samples`
-file1_samples=`expr \( \( $file0_remainder + $short_noise_cdda_samples \) / 588 \) \* 588`
-file1_remainder=`expr $file0_remainder + $short_noise_cdda_samples - $file1_samples`
+file0_samples=`expr \( $int_noise_cdda_samples / 588 \) \* 588`
+file0_remainder=`expr $int_noise_cdda_samples - $file0_samples`
+file1_samples=`expr \( \( $file0_remainder + $int_noise_cdda_samples \) / 588 \) \* 588`
+file1_remainder=`expr $file0_remainder + $int_noise_cdda_samples - $file1_samples`
 file1_samples=`expr $file1_samples - $file0_remainder`
-file2_samples=`expr \( \( $file1_remainder + $short_noise_cdda_samples \) / 588 \) \* 588`
-file2_remainder=`expr $file1_remainder + $short_noise_cdda_samples - $file2_samples`
+file2_samples=`expr \( \( $file1_remainder + $int_noise_cdda_samples \) / 588 \) \* 588`
+file2_remainder=`expr $file1_remainder + $int_noise_cdda_samples - $file2_samples`
 file2_samples=`expr $file2_samples - $file1_remainder`
 if [ $file2_remainder != '0' ] ; then
 	file2_samples=`expr $file2_samples + $file2_remainder`

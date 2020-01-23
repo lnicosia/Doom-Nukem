@@ -40,7 +40,7 @@
 
 
   static void
-  gxv_mort_subtable_type4_lookupval_validate( FT_UShort            glyph,
+  gxv_mort_subtable_type4_lookupval_validate( FT_Uint            glyph,
                                               GXV_LookupValueCPtr  value_p,
                                               GXV_Validator        gxvalid )
   {
@@ -78,25 +78,25 @@
 
   static GXV_LookupValueDesc
   gxv_mort_subtable_type4_lookupfmt4_transit(
-    FT_UShort            relative_gindex,
+    FT_Uint            relative_gindex,
     GXV_LookupValueCPtr  base_value_p,
     FT_Bytes             lookuptbl_limit,
     GXV_Validator        gxvalid )
   {
     FT_Bytes             p;
     FT_Bytes             limit;
-    FT_UShort            offset;
+    FT_Uint            offset;
     GXV_LookupValueDesc  value;
 
     /* XXX: check range? */
-    offset = (FT_UShort)( base_value_p->u +
-                          relative_gindex * sizeof ( FT_UShort ) );
+    offset = (FT_Uint)( base_value_p->u +
+                          relative_gindex * sizeof ( FT_Uint ) );
 
     p     = gxvalid->lookuptbl_head + offset;
     limit = lookuptbl_limit;
 
     GXV_LIMIT_CHECK( 2 );
-    value.u = FT_NEXT_USHORT( p );
+    value.u = FT_NEXT_Uint( p );
 
     return value;
   }

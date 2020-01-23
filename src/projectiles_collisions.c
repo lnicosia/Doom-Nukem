@@ -41,7 +41,7 @@ int     projectiles_floor(t_env *env, t_movement motion, int sector_dest)
 
 int     collision_projectiles_rec(t_env *env, t_v3 move, t_movement motion)
 {
-    short       i;
+    int       i;
     t_wall      wall;
 
     i = 0;
@@ -77,7 +77,7 @@ int     collision_projectiles_rec(t_env *env, t_v3 move, t_movement motion)
 
 int     collision_projectiles(t_env *env, t_v3 move, t_movement motion)
 {
-    short		i;
+    int		i;
 
     FUTURE_X = motion.pos.x + move.x;
     FUTURE_Y = motion.pos.y + move.y;

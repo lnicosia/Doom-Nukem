@@ -75,7 +75,7 @@ inline void ProcessPlugins(int n) {}
 typedef int8_t CHAR;
 typedef uint8_t UCHAR;
 typedef uint8_t* PUCHAR;
-typedef uint16_t USHORT;
+typedef uint16_t Uint;
 typedef uint32_t ULONG;
 typedef uint32_t UINT;
 typedef uint32_t DWORD;

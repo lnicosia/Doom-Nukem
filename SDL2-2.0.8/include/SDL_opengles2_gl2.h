@@ -24,11 +24,11 @@ typedef unsigned int     GLenum;
 typedef unsigned char    GLboolean;
 typedef unsigned int     GLbitfield;
 typedef khronos_int8_t   GLbyte;
-typedef short            GLshort;
+typedef int            GLint;
 typedef int              GLint;
 typedef int              GLsizei;
 typedef khronos_uint8_t  GLubyte;
-typedef unsigned short   GLushort;
+typedef unsigned int   GLuint;
 typedef unsigned int     GLuint;
 typedef khronos_float_t  GLfloat;
 typedef khronos_float_t  GLclampf;
@@ -234,8 +234,8 @@ typedef khronos_ssize_t  GLsizeiptr;
 /* DataType */
 #define GL_BYTE                           0x1400
 #define GL_UNSIGNED_BYTE                  0x1401
-#define GL_SHORT                          0x1402
-#define GL_UNSIGNED_SHORT                 0x1403
+#define GL_int                          0x1402
+#define GL_UNSIGNED_int                 0x1403
 #define GL_INT                            0x1404
 #define GL_UNSIGNED_INT                   0x1405
 #define GL_FLOAT                          0x1406
@@ -251,9 +251,9 @@ typedef khronos_ssize_t  GLsizeiptr;
 
 /* PixelType */
 /*      GL_UNSIGNED_BYTE */
-#define GL_UNSIGNED_SHORT_4_4_4_4         0x8033
-#define GL_UNSIGNED_SHORT_5_5_5_1         0x8034
-#define GL_UNSIGNED_SHORT_5_6_5           0x8363
+#define GL_UNSIGNED_int_4_4_4_4         0x8033
+#define GL_UNSIGNED_int_5_5_5_1         0x8034
+#define GL_UNSIGNED_int_5_6_5           0x8363
 
 /* Shaders */
 #define GL_FRAGMENT_SHADER                  0x8B30

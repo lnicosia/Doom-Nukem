@@ -93,12 +93,12 @@ FT_BEGIN_HEADER
 
   typedef struct  PCF_MetricRec_
   {
-    FT_Short  leftSideBearing;
-    FT_Short  rightSideBearing;
-    FT_Short  characterWidth;
-    FT_Short  ascent;
-    FT_Short  descent;
-    FT_Short  attributes;
+    FT_int  leftSideBearing;
+    FT_int  rightSideBearing;
+    FT_int  characterWidth;
+    FT_int  ascent;
+    FT_int  descent;
+    FT_int  attributes;
     FT_ULong  bits;
 
   } PCF_MetricRec, *PCF_Metric;
@@ -127,7 +127,7 @@ FT_BEGIN_HEADER
   typedef struct  PCF_EncodingRec_
   {
     FT_Long    enc;
-    FT_UShort  glyph;
+    FT_Uint  glyph;
 
   } PCF_EncodingRec, *PCF_Encoding;
 
@@ -153,7 +153,7 @@ FT_BEGIN_HEADER
     FT_ULong       nencodings;
     PCF_Encoding   encodings;
 
-    FT_Short       defaultChar;
+    FT_int       defaultChar;
 
     FT_ULong       bitmapsFormat;
 

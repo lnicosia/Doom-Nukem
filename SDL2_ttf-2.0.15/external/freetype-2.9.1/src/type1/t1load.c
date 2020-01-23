@@ -1271,7 +1271,7 @@
     if ( temp_scale != 0x10000L )
     {
       /* set units per EM based on FontMatrix values */
-      root->units_per_EM = (FT_UShort)FT_DivFix( 1000, temp_scale );
+      root->units_per_EM = (FT_Uint)FT_DivFix( 1000, temp_scale );
 
       temp[0] = FT_DivFix( temp[0], temp_scale );
       temp[1] = FT_DivFix( temp[1], temp_scale );

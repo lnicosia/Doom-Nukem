@@ -141,7 +141,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    A typedef for a 16bit signed integer type.                         */
   /*                                                                       */
-  typedef signed short  FT_Int16;
+  typedef signed int  FT_Int16;
 
 
   /*************************************************************************/
@@ -152,7 +152,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    A typedef for a 16bit unsigned integer type.                       */
   /*                                                                       */
-  typedef unsigned short  FT_UInt16;
+  typedef unsigned int  FT_UInt16;
 
   /* */
 

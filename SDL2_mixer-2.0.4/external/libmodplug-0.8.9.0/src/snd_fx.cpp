@@ -533,13 +533,13 @@ void CSoundFile::NoteChange(UINT nChn, int note, BOOL bPorta, BOOL bResetEnv)
 					if (penv->nVolSwing)
 					{
 						int d = ((LONG)penv->nVolSwing*(LONG)((rand() & 0xFF) - 0x7F)) / 128;
-						pChn->nVolSwing = (signed short)((d * pChn->nVolume + 1)/128);
+						pChn->nVolSwing = (signed int)((d * pChn->nVolume + 1)/128);
 					}
 					// Pan Swing
 					if (penv->nPanSwing)
 					{
 						int d = ((LONG)penv->nPanSwing*(LONG)((rand() & 0xFF) - 0x7F)) / 128;
-						pChn->nPanSwing = (signed short)d;
+						pChn->nPanSwing = (signed int)d;
 					}
 				}
 			}

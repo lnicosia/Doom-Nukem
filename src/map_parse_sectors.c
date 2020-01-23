@@ -286,17 +286,17 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	}
 	env->sectors[parser->sectors_count].nb_vertices = parser->
 		sector_vertices_count;
-	if (!(env->sectors[parser->sectors_count].vertices = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].vertices = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	if (!(env->sectors[parser->sectors_count].neighbors = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].neighbors = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector neighbors:"));
-	if (!(env->sectors[parser->sectors_count].portals = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].portals = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector portals:"));
-	if (!(env->sectors[parser->sectors_count].textures = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].textures = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites = (t_wall_sprites*)
 				ft_memalloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
@@ -331,8 +331,8 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].wall_width = (double*)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector wall_size:"));
-	if (!(env->sectors[parser->sectors_count].selected = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].selected = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].wall_bullet_holes = (t_list**)
 				ft_memalloc(sizeof(t_list*) * (parser->sector_vertices_count + 1))))

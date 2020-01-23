@@ -32,7 +32,7 @@
 /* Safe string handling functions to replace things like strcpy, strncpy,
  * strcat, strncat etc.
  * All of these functions guarantee a correctly NUL terminated string but
- * the string may be truncated if the destination buffer was too short.
+ * the string may be truncated if the destination buffer was too int.
  */
 
 #ifndef FLAC__SHARE_SAFE_STR_H

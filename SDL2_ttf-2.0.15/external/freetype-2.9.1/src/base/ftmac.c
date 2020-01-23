@@ -96,7 +96,7 @@
 #endif /* !HAVE_TYPE_RESOURCE_INDEX */
 
 #if ( HAVE_TYPE_RESOURCE_INDEX == 0 )
-  typedef short  ResourceIndex;
+  typedef int  ResourceIndex;
 #endif
 
 #include <CoreServices/CoreServices.h>
@@ -350,25 +350,25 @@
   }
 
 
-  static short
+  static int
   count_faces_sfnt( char*  fond_data )
   {
     /* The count is 1 greater than the value in the FOND.  */
     /* Isn't that cute? :-)                                */
 
-    return EndianS16_BtoN( *( (short*)( fond_data +
+    return EndianS16_BtoN( *( (int*)( fond_data +
                                         sizeof ( FamRec ) ) ) ) + 1;
   }
 
 
-  static short
+  static int
   count_faces_scalable( char*  fond_data )
   {
     AsscEntry*  assoc;
-    short       i, face, face_all;
+    int       i, face, face_all;
 
 
-    face_all = EndianS16_BtoN( *( (short *)( fond_data +
+    face_all = EndianS16_BtoN( *( (int *)( fond_data +
                                              sizeof ( FamRec ) ) ) ) + 1;
     assoc    = (AsscEntry*)( fond_data + sizeof ( FamRec ) + 2 );
     face     = 0;
@@ -392,10 +392,10 @@
 
   static void
   parse_fond( char*   fond_data,
-              short*  have_sfnt,
+              int*  have_sfnt,
               ResID*  sfnt_id,
               Str255  lwfn_file_name,
-              short   face_index )
+              int   face_index )
   {
     AsscEntry*  assoc;
     AsscEntry*  base_assoc;
@@ -437,7 +437,7 @@
     {
       unsigned char*  p = (unsigned char*)fond_data;
       StyleTable*     style;
-      unsigned short  string_count;
+      unsigned int  string_count;
       char            ps_name[256];
       unsigned char*  names[64];
       int             i;
@@ -446,9 +446,9 @@
       p += EndianS32_BtoN( fond->ffStylOff );
       style = (StyleTable*)p;
       p += sizeof ( StyleTable );
-      string_count = EndianS16_BtoN( *(short*)(p) );
+      string_count = EndianS16_BtoN( *(int*)(p) );
       string_count = FT_MIN( 64, string_count );
-      p += sizeof ( short );
+      p += sizeof ( int );
 
       for ( i = 0; i < string_count; i++ )
       {
@@ -542,16 +542,16 @@
   }
 
 
-  static short
+  static int
   count_faces( Handle        fond,
                const UInt8*  pathname )
   {
     ResID     sfnt_id;
-    short     have_sfnt, have_lwfn;
+    int     have_sfnt, have_lwfn;
     Str255    lwfn_file_name;
     UInt8     buff[PATH_MAX];
     FT_Error  err;
-    short     num_faces;
+    int     num_faces;
 
 
     have_sfnt = have_lwfn = 0;
@@ -811,7 +811,7 @@
     ResFileRefNum  res_ref;
     ResourceIndex  res_index;
     Handle         fond;
-    short          num_faces_in_res;
+    int          num_faces_in_res;
 
 
     if ( noErr != FT_FSPathMakeRes( pathname, &res_ref ) )
@@ -824,7 +824,7 @@
     num_faces_in_res = 0;
     for ( res_index = 1; ; res_index++ )
     {
-      short  num_faces_in_fond;
+      int  num_faces_in_fond;
 
 
       fond = Get1IndResource( TTAG_FOND, res_index );
@@ -855,7 +855,7 @@
                          FT_Long     face_index,
                          FT_Face*    aface )
   {
-    short     have_sfnt, have_lwfn = 0;
+    int     have_sfnt, have_lwfn = 0;
     ResID     sfnt_id, fond_id;
     OSType    fond_type;
     Str255    fond_name;

@@ -219,8 +219,8 @@ typedef uint64_t                khronos_uint64_t;
  */
 typedef signed   char          khronos_int8_t;
 typedef unsigned char          khronos_uint8_t;
-typedef signed   short int     khronos_int16_t;
-typedef unsigned short int     khronos_uint16_t;
+typedef signed   int int     khronos_int16_t;
+typedef unsigned int int     khronos_uint16_t;
 
 /*
  * Types that differ between LLP64 and LP64 architectures - in LLP64, 

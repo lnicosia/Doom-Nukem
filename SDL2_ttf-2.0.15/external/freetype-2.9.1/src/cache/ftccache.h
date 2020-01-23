@@ -60,8 +60,8 @@ FT_BEGIN_HEADER
     FTC_MruNodeRec  mru;          /* circular mru list pointer           */
     FTC_Node        link;         /* used for hashing                    */
     FT_Offset       hash;         /* used for hashing too                */
-    FT_UShort       cache_index;  /* index of cache the node belongs to  */
-    FT_Short        ref_count;    /* reference count for this node       */
+    FT_Uint       cache_index;  /* index of cache the node belongs to  */
+    FT_int        ref_count;    /* reference count for this node       */
 
   } FTC_NodeRec;
 

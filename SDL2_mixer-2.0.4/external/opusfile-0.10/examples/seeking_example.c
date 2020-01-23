@@ -29,7 +29,7 @@
 # define fileno _fileno
 #endif
 
-/*Use shorts, they're smaller.*/
+/*Use ints, they're smaller.*/
 #if !defined(OP_FIXED_POINT)
 # define OP_FIXED_POINT (1)
 #endif

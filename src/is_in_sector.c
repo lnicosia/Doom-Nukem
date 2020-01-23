@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 09:47:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:40:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:41:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int     diff_sign(double nb1, double nb2)
 **	Returns if a pos is in a certain sector
 */
 
-int     is_in_sector(t_env *env, short sector, t_v3 pos)
+int     is_in_sector(t_env *env, int sector, t_v3 pos)
 {
 	int     count;
 	int     i;
@@ -56,7 +56,7 @@ int     is_in_sector(t_env *env, short sector, t_v3 pos)
 	if (sector < 0 || sector >= env->nb_sectors)
 		return (0);
 	if (pos.z < get_floor_at_pos(env->sectors[sector], new_v3(pos.x, pos.y, 0), env)
-			|| pos.z > get_ceiling_at_pos(env->sectors[sector], new_v3(pos.x, pos.y, 02), env))
+			|| pos.z > get_ceiling_at_pos(env->sectors[sector], new_v3(pos.x, pos.y, 0), env))
 		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{
@@ -80,7 +80,7 @@ int     is_in_sector(t_env *env, short sector, t_v3 pos)
 **	without checking z
 */
 
-int     is_in_sector_no_z(t_env *env, short sector, t_v2 pos)
+int     is_in_sector_no_z(t_env *env, int sector, t_v2 pos)
 {
 	int     count;
 	int     i;

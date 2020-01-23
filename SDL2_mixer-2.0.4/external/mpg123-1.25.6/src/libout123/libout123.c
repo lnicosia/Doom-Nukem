@@ -1157,7 +1157,7 @@ struct enc_desc
 {
 	int code; /* MPG123_ENC_SOMETHING */
 	const char *longname; /* signed bla bla */
-	const char *name; /* sXX, short name */
+	const char *name; /* sXX, int name */
 };
 
 static const struct enc_desc encdesc[] =

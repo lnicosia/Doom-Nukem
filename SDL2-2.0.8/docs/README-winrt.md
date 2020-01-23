@@ -73,7 +73,7 @@ Here is a rough list of what works, and what doesn't:
   * audio, via SDL's WASAPI backend (if you want to record, your app must 
     have "Microphone" capabilities enabled in its manifest, and the user must 
     not have blocked access. Otherwise, capture devices will fail to work,
-    presenting as a device disconnect shortly after opening it.)
+    presenting as a device disconnect intly after opening it.)
   * .DLL file loading.  Libraries *MUST* be packaged inside applications.  Loading
     anything outside of the app is not supported.
   * system path retrieval via SDL's filesystem APIs
@@ -328,7 +328,7 @@ window, at present), as well as an `SDL_Renderer`.  Direct3D will be used to
 draw content.  Events are received via SDL's usual event functions 
 (`SDL_PollEvent`, etc.)  If you have a set of existing source files and assets, 
 you can start adding them to the project now.  If not, or if you would like to 
-make sure that you're setup correctly, some short and simple sample code is 
+make sure that you're setup correctly, some int and simple sample code is 
 provided below.
 
 

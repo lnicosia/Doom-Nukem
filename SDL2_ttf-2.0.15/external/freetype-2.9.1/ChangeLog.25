@@ -1361,7 +1361,7 @@
 
 2014-09-02  Alexei Podtelezhnikov  <apodtele@gmail.com>
 
-	[truetype] Shortcut ppem calculations for square pixels.
+	[truetype] intcut ppem calculations for square pixels.
 
 	* src/truetype/ttinterp.h (TT_ExecContextRec): New field
 	`cur_ppem_func' with a function pointer.
@@ -1594,7 +1594,7 @@
 	Fix `signed' vs. `unsigned' issues.
 
 	* src/sfnt/sfobjs.c (WRITE_BYTE): Removed, unused.
-	(WRITE_USHORT, WRITE_ULONG): Add proper casts.
+	(WRITE_Uint, WRITE_ULONG): Add proper casts.
 
 	* src/truetype/ttgload.c (TT_Get_VMetrics): Add proper casts.
 
@@ -3612,7 +3612,7 @@
 	[autofit] Improve Hebrew rendering.
 
 	This change introduces a new blue zone property
-	`AF_BLUE_PROPERTY_LATIN_LONG' to make the auto-hinter ignore short
+	`AF_BLUE_PROPERTY_LATIN_LONG' to make the auto-hinter ignore int
 	top segments.
 
 	* src/autofit/afblue.dat: Fix Hebrew blue strings.
@@ -3654,7 +3654,7 @@
 
 	* src/sfnt/sfobjs.c [FT_CONFIG_OPTION_SYSTEM_ZLIB]: Include
 	`FT_GZIP_H'.
-	(WRITE_BYTE, WRITE_USHORT, WRITE_ULONG): New temporary macros for
+	(WRITE_BYTE, WRITE_Uint, WRITE_ULONG): New temporary macros for
 	writing to a stream.
 	(sfnt_stream_close, compare_offsets, woff_open_font): New functions.
 	(sfnt_open_font): Handle `TTAG_wOFF'.
@@ -4267,7 +4267,7 @@
 	[sfnt] Fix `sbix' table version handling.
 
 	* src/sfnt/ttsbit.c (tt_face_load_sbit) [TT_SBIT_TABLE_TYPE_SBIX]:
-	USHORT version numbers are to be considered as `minor'.
+	Uint version numbers are to be considered as `minor'.
 
 2013-07-19  Werner Lemberg  <wl@gnu.org>
 
@@ -4318,7 +4318,7 @@
 	[sfnt] Add support for Apple's `sbix' color bitmap table.
 
 	* include/freetype/internal/tttypes.h (TT_SBit_MetricsRec): Widen
-	fields to FT_Short and FT_UShort, respectively.
+	fields to FT_int and FT_Uint, respectively.
 	(TT_SbitTableType): New enumeration.
 	(TT_FaceRec): Add `sbit_table_type' field.
 

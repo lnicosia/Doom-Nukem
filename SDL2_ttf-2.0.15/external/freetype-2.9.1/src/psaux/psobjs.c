@@ -774,7 +774,7 @@
   ps_tocoordarray( FT_Byte*  *acur,
                    FT_Byte*   limit,
                    FT_Int     max_coords,
-                   FT_Short*  coords )
+                   FT_int*  coords )
   {
     FT_Byte*  cur   = *acur;
     FT_Int    count = 0;
@@ -800,7 +800,7 @@
     /* now, read the coordinates */
     while ( cur < limit )
     {
-      FT_Short  dummy;
+      FT_int  dummy;
       FT_Byte*  old_cur;
 
 
@@ -823,7 +823,7 @@
       /* call PS_Conv_ToFixed() even if coords == NULL */
       /* to properly parse number at `cur'             */
       *( coords ? &coords[count] : &dummy ) =
-        (FT_Short)( PS_Conv_ToFixed( &cur, limit, 0 ) >> 16 );
+        (FT_int)( PS_Conv_ToFixed( &cur, limit, 0 ) >> 16 );
 
       if ( old_cur == cur )
       {
@@ -1122,7 +1122,7 @@
           break;
 
         case (16 / FT_CHAR_BIT):
-          *(FT_UShort*)q = (FT_UShort)val;
+          *(FT_Uint*)q = (FT_Uint)val;
           break;
 
         case (32 / FT_CHAR_BIT):
@@ -1441,7 +1441,7 @@
   FT_LOCAL_DEF( FT_Int )
   ps_parser_to_coord_array( PS_Parser  parser,
                             FT_Int     max_coords,
-                            FT_Short*  coords )
+                            FT_int*  coords )
   {
     ps_parser_skip_spaces( parser );
     return ps_tocoordarray( &parser->cursor, parser->limit,
@@ -1672,7 +1672,7 @@
     {
       if ( outline->n_contours > 0 )
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
 
       outline->n_contours++;
     }
@@ -1755,7 +1755,7 @@
       }
       else
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
     }
   }
 
@@ -1948,7 +1948,7 @@
     {
       if ( outline->n_contours > 0 )
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
 
       outline->n_contours++;
     }
@@ -2020,7 +2020,7 @@
       }
       else
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
     }
   }
 
@@ -2242,7 +2242,7 @@
     {
       if ( outline->n_contours > 0 )
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
 
       outline->n_contours++;
     }
@@ -2322,7 +2322,7 @@
       }
       else
         outline->contours[outline->n_contours - 1] =
-          (short)( outline->n_points - 1 );
+          (int)( outline->n_points - 1 );
     }
   }
 
@@ -2508,7 +2508,7 @@
   FT_LOCAL_DEF( void )
   t1_decrypt( FT_Byte*   buffer,
               FT_Offset  length,
-              FT_UShort  seed )
+              FT_Uint  seed )
   {
     PS_Conv_EexecDecode( &buffer,
                          buffer + length,

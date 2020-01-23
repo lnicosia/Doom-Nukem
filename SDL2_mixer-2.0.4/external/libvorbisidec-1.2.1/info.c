@@ -103,8 +103,8 @@ void vorbis_comment_clear(vorbis_comment *vc){
   }
 }
 
-/* blocksize 0 is guaranteed to be short, 1 is guarantted to be long.
-   They may be equal, but short will never ge greater than long */
+/* blocksize 0 is guaranteed to be int, 1 is guarantted to be long.
+   They may be equal, but int will never ge greater than long */
 int vorbis_info_blocksize(vorbis_info *vi,int zo){
   codec_setup_info *ci = (codec_setup_info *)vi->codec_setup;
   return ci ? ci->blocksizes[zo] : -1;

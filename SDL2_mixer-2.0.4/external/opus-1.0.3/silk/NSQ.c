@@ -52,7 +52,7 @@ static inline void silk_noise_shape_quantizer(
     opus_int8           pulses[],               /* O                                    */
     opus_int16          xq[],                   /* O                                    */
     opus_int32          sLTP_Q15[],             /* I/O  LTP state                       */
-    const opus_int16    a_Q12[],                /* I    Short term prediction coefs     */
+    const opus_int16    a_Q12[],                /* I    int term prediction coefs     */
     const opus_int16    b_Q14[],                /* I    Long term prediction coefs      */
     const opus_int16    AR_shp_Q13[],           /* I    Noise shaping AR coefs          */
     opus_int            lag,                    /* I    Pitch lag                       */
@@ -73,7 +73,7 @@ void silk_NSQ(
     SideInfoIndices             *psIndices,                                 /* I/O  Quantization Indices            */
     const opus_int32            x_Q3[],                                     /* I    Prefiltered input signal        */
     opus_int8                   pulses[],                                   /* O    Quantized pulse signal          */
-    const opus_int16            PredCoef_Q12[ 2 * MAX_LPC_ORDER ],          /* I    Short term prediction coefs     */
+    const opus_int16            PredCoef_Q12[ 2 * MAX_LPC_ORDER ],          /* I    int term prediction coefs     */
     const opus_int16            LTPCoef_Q14[ LTP_ORDER * MAX_NB_SUBFR ],    /* I    Long term prediction coefs      */
     const opus_int16            AR2_Q13[ MAX_NB_SUBFR * MAX_SHAPE_LPC_ORDER ], /* I Noise shaping coefs             */
     const opus_int              HarmShapeGain_Q14[ MAX_NB_SUBFR ],          /* I    Long term shaping coefs         */
@@ -172,7 +172,7 @@ static inline void silk_noise_shape_quantizer(
     opus_int8           pulses[],               /* O                                    */
     opus_int16          xq[],                   /* O                                    */
     opus_int32          sLTP_Q15[],             /* I/O  LTP state                       */
-    const opus_int16    a_Q12[],                /* I    Short term prediction coefs     */
+    const opus_int16    a_Q12[],                /* I    int term prediction coefs     */
     const opus_int16    b_Q14[],                /* I    Long term prediction coefs      */
     const opus_int16    AR_shp_Q13[],           /* I    Noise shaping AR coefs          */
     opus_int            lag,                    /* I    Pitch lag                       */
@@ -198,14 +198,14 @@ static inline void silk_noise_shape_quantizer(
     pred_lag_ptr = &sLTP_Q15[ NSQ->sLTP_buf_idx - lag + LTP_ORDER / 2 ];
     Gain_Q10     = silk_RSHIFT( Gain_Q16, 6 );
 
-    /* Set up short term AR state */
+    /* Set up int term AR state */
     psLPC_Q14 = &NSQ->sLPC_Q14[ NSQ_LPC_BUF_LENGTH - 1 ];
 
     for( i = 0; i < length; i++ ) {
         /* Generate dither */
         NSQ->rand_seed = silk_RAND( NSQ->rand_seed );
 
-        /* Short-term prediction */
+        /* int-term prediction */
         silk_assert( predictLPCOrder == 10 || predictLPCOrder == 16 );
         /* Avoids introducing a bias because silk_SMLAWB() always rounds to -inf */
         LPC_pred_Q10 = silk_RSHIFT( predictLPCOrder, 1 );
@@ -428,7 +428,7 @@ static inline void silk_nsq_scale_states(
 
         NSQ->sLF_AR_shp_Q14 = silk_SMULWW( gain_adj_Q16, NSQ->sLF_AR_shp_Q14 );
 
-        /* Scale short-term prediction and shaping states */
+        /* Scale int-term prediction and shaping states */
         for( i = 0; i < NSQ_LPC_BUF_LENGTH; i++ ) {
             NSQ->sLPC_Q14[ i ] = silk_SMULWW( gain_adj_Q16, NSQ->sLPC_Q14[ i ] );
         }

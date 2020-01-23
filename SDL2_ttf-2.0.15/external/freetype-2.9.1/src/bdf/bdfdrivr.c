@@ -94,7 +94,7 @@ THE SOFTWARE.
     BDF_CMap          cmap      = (BDF_CMap)bdfcmap;
     BDF_encoding_el*  encodings = cmap->encodings;
     FT_ULong          min, max, mid; /* num_encodings */
-    FT_UShort         result    = 0; /* encodings->glyph */
+    FT_Uint         result    = 0; /* encodings->glyph */
 
 
     min = 0;
@@ -133,7 +133,7 @@ THE SOFTWARE.
     BDF_CMap          cmap      = (BDF_CMap)bdfcmap;
     BDF_encoding_el*  encodings = cmap->encodings;
     FT_ULong          min, max, mid; /* num_encodings */
-    FT_UShort         result   = 0;  /* encodings->glyph */
+    FT_Uint         result   = 0;  /* encodings->glyph */
     FT_ULong          charcode = *acharcode + 1;
 
 
@@ -436,7 +436,7 @@ THE SOFTWARE.
 
       {
         FT_Bitmap_Size*  bsize = bdfface->available_sizes;
-        FT_Short         resolution_x = 0, resolution_y = 0;
+        FT_int         resolution_x = 0, resolution_y = 0;
         long             value;
 
 
@@ -456,7 +456,7 @@ THE SOFTWARE.
                       font->font_descent ));
         }
 
-        bsize->height = (FT_Short)( font->font_ascent + font->font_descent );
+        bsize->height = (FT_int)( font->font_ascent + font->font_descent );
 
         prop = bdf_get_font_property( font, "AVERAGE_WIDTH" );
         if ( prop )
@@ -473,12 +473,12 @@ THE SOFTWARE.
                         bsize->width ));
           }
           else
-            bsize->width = FT_ABS( (FT_Short)( ( prop->value.l + 5 ) / 10 ) );
+            bsize->width = FT_ABS( (FT_int)( ( prop->value.l + 5 ) / 10 ) );
         }
         else
         {
           /* this is a heuristical value */
-          bsize->width = (FT_Short)FT_MulDiv( bsize->height, 2, 3 );
+          bsize->width = (FT_int)FT_MulDiv( bsize->height, 2, 3 );
         }
 
         prop = bdf_get_font_property( font, "POINT_SIZE" );
@@ -532,7 +532,7 @@ THE SOFTWARE.
                         bsize->y_ppem ));
           }
           else
-            bsize->y_ppem = FT_ABS( (FT_Short)prop->value.l ) << 6;
+            bsize->y_ppem = FT_ABS( (FT_int)prop->value.l ) << 6;
         }
 
         prop = bdf_get_font_property( font, "RESOLUTION_X" );
@@ -553,7 +553,7 @@ THE SOFTWARE.
                         resolution_x ));
           }
           else
-            resolution_x = FT_ABS( (FT_Short)value );
+            resolution_x = FT_ABS( (FT_int)value );
         }
 
         prop = bdf_get_font_property( font, "RESOLUTION_Y" );
@@ -574,7 +574,7 @@ THE SOFTWARE.
                         resolution_y ));
           }
           else
-            resolution_y = FT_ABS( (FT_Short)value );
+            resolution_y = FT_ABS( (FT_int)value );
         }
 
         if ( bsize->y_ppem == 0 )
@@ -605,7 +605,7 @@ THE SOFTWARE.
         {
           (face->en_table[n]).enc = cur[n].encoding;
           FT_TRACE4(( "  idx %d, val 0x%lX\n", n, cur[n].encoding ));
-          (face->en_table[n]).glyph = (FT_UShort)n;
+          (face->en_table[n]).glyph = (FT_Uint)n;
 
           if ( cur[n].encoding == font->default_char )
           {

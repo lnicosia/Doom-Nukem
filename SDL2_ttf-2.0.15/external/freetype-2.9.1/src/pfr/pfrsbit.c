@@ -321,7 +321,7 @@
         for ( p = base; p < lim; p += char_len )
         {
           if ( two )
-            code = FT_PEEK_USHORT( p );
+            code = FT_PEEK_Uint( p );
           else
             code = *p;
 
@@ -360,7 +360,7 @@
       buff = base + mid * char_len;
 
       if ( two )
-        code = PFR_NEXT_USHORT( buff );
+        code = PFR_NEXT_Uint( buff );
       else
         code = PFR_NEXT_BYTE( buff );
 
@@ -380,14 +380,14 @@
 
   Found_It:
     if ( *flags & PFR_BITMAP_2BYTE_SIZE )
-      *found_size = PFR_NEXT_USHORT( buff );
+      *found_size = PFR_NEXT_Uint( buff );
     else
       *found_size = PFR_NEXT_BYTE( buff );
 
     if ( *flags & PFR_BITMAP_3BYTE_OFFSET )
       *found_offset = PFR_NEXT_ULONG( buff );
     else
-      *found_offset = PFR_NEXT_USHORT( buff );
+      *found_offset = PFR_NEXT_Uint( buff );
   }
 
 
@@ -439,8 +439,8 @@
 
     case 2:
       PFR_CHECK( 4 );
-      xpos = PFR_NEXT_SHORT( p );
-      ypos = PFR_NEXT_SHORT( p );
+      xpos = PFR_NEXT_int( p );
+      ypos = PFR_NEXT_int( p );
       break;
 
     case 3:
@@ -477,8 +477,8 @@
 
     case 3:
       PFR_CHECK( 4 );
-      xsize = PFR_NEXT_USHORT( p );
-      ysize = PFR_NEXT_USHORT( p );
+      xsize = PFR_NEXT_Uint( p );
+      ysize = PFR_NEXT_Uint( p );
       break;
 
     default:
@@ -499,7 +499,7 @@
 
     case 2:
       PFR_CHECK( 2 );
-      advance = PFR_NEXT_SHORT( p );
+      advance = PFR_NEXT_int( p );
       break;
 
     case 3:
@@ -522,7 +522,7 @@
   Exit:
     return error;
 
-  Too_Short:
+  Too_int:
     error = FT_THROW( Invalid_Table );
     FT_ERROR(( "pfr_load_bitmap_metrics: invalid glyph data\n" ));
     goto Exit;

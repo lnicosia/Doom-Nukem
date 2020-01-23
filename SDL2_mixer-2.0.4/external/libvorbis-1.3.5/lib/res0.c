@@ -91,7 +91,7 @@ void res0_free_look(vorbis_look_residue *i){
             FILE *of;
             codebook *statebook=look->partbooks[j][k];
 
-            /* long and short into the same bucket by current convention */
+            /* long and int into the same bucket by current convention */
             sprintf(buffer,"res_sub%d_part%d_pass%d.vqd",look->submap,j,k);
             of=fopen(buffer,"a");
 

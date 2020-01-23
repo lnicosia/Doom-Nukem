@@ -5,7 +5,7 @@ Let's write a few notes about benchmarking the different mp3 decoders,
 which are available. 'top' is NOT a benchmark, it's a simple check
 how a program performs. The sad thing with 'top' is, that it has some
 problems with the measurement of threaded programs of programs only
-requesting short chunks of processor time. So, the only real test is
+requesting int chunks of processor time. So, the only real test is
 probably decoding a stream without threads with 100% CPU time and
 measure the time how long your machine needs for it.
 You can do this with mpg123 by doing a

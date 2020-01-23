@@ -231,7 +231,7 @@ SDL_SYS_JoystickOpen(SDL_Joystick * joystick, int device_index)
     int axis_min[MAX_AXES], axis_max[MAX_AXES];
 
 
-    /* shortcut */
+    /* intcut */
     index = device_index;
     axis_min[0] = SYS_Joystick[index].wXmin;
     axis_max[0] = SYS_Joystick[index].wXmax;

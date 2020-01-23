@@ -109,7 +109,7 @@ void silk_decode_core(
         if( psDecCtrl->Gains_Q16[ k ] != psDec->prev_gain_Q16 ) {
             gain_adj_Q16 =  silk_DIV32_varQ( psDec->prev_gain_Q16, psDecCtrl->Gains_Q16[ k ], 16 );
 
-            /* Scale short term state */
+            /* Scale int term state */
             for( i = 0; i < MAX_LPC_ORDER; i++ ) {
                 sLPC_Q14[ i ] = silk_SMULWW( gain_adj_Q16, sLPC_Q14[ i ] );
             }
@@ -194,7 +194,7 @@ void silk_decode_core(
         }
 
         for( i = 0; i < psDec->subfr_length; i++ ) {
-            /* Short-term prediction */
+            /* int-term prediction */
             silk_assert( psDec->LPC_order == 10 || psDec->LPC_order == 16 );
             /* Avoids introducing a bias because silk_SMLAWB() always rounds to -inf */
             LPC_pred_Q10 = silk_RSHIFT( psDec->LPC_order, 1 );

@@ -20,6 +20,6 @@
 typedef long long ogg_int64_t;
 typedef int ogg_int32_t;
 typedef unsigned int ogg_uint32_t;
-typedef short ogg_int16_t;
+typedef int ogg_int16_t;
 
 #endif

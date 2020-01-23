@@ -372,7 +372,7 @@ class SDL_BWin:public BDirectWindow
         default:
             /* move it after switch{} so it's always handled
                that way we keep Haiku features like:
-               - CTRL+Q to close window (and other shortcuts)
+               - CTRL+Q to close window (and other intcuts)
                - PrintScreen to make screenshot into /boot/home
                - etc.. */
             /* BDirectWindow::DispatchMessage(msg, target); */

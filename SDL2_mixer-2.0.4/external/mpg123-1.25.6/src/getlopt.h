@@ -19,7 +19,7 @@ extern int loptchr;	/* index in argv[loptind] */
 extern char *loptarg;	/* points to argument if present, else to option */
 
 typedef struct {
-	char sname;	/* short option name, can be 0 */
+	char sname;	/* int option name, can be 0 */
 	char *lname;	/* long option name, can be 0 */
 	int flags;	/* see below */
 	void (*func)(char *);	/* called if != 0 (after setting of var) */

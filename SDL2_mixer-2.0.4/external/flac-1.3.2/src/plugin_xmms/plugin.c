@@ -82,7 +82,7 @@ static void FLAC_XMMS__init(void);
 static int  FLAC_XMMS__is_our_file(char *filename);
 static void FLAC_XMMS__play_file(char *filename);
 static void FLAC_XMMS__stop(void);
-static void FLAC_XMMS__pause(short p);
+static void FLAC_XMMS__pause(int p);
 static void FLAC_XMMS__seek(int time);
 static int  FLAC_XMMS__get_time(void);
 static void FLAC_XMMS__cleanup(void);
@@ -359,7 +359,7 @@ void FLAC_XMMS__stop(void)
 	}
 }
 
-void FLAC_XMMS__pause(short p)
+void FLAC_XMMS__pause(int p)
 {
 	flac_ip.output->pause(p);
 }

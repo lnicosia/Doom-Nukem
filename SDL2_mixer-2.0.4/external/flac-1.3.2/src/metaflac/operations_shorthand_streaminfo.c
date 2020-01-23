@@ -27,9 +27,9 @@
 #include "FLAC/metadata.h"
 #include "share/compat.h"
 #include <string.h>
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 
-FLAC__bool do_shorthand_operation__streaminfo(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
+FLAC__bool do_inthand_operation__streaminfo(const char *filename, FLAC__bool prefix_with_filename, FLAC__Metadata_Chain *chain, const Operation *operation, FLAC__bool *needs_write)
 {
 	unsigned i;
 	FLAC__bool ok = true;

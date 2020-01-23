@@ -173,7 +173,7 @@ SDL_MixAudioFormat(Uint8 * dst, const Uint8 * src, SDL_AudioFormat format,
     case AUDIO_S16MSB:
         {
 #if defined(__GNUC__) && defined(__M68000__) && !defined(__mcoldfire__) && defined(SDL_ASSEMBLY_ROUTINES)
-            SDL_MixAudio_m68k_S16MSB((short *) dst, (short *) src,
+            SDL_MixAudio_m68k_S16MSB((int *) dst, (int *) src,
                                      (unsigned long) len, (long) volume);
 #else
             Sint16 src1, src2;

@@ -94,7 +94,7 @@
   /*                                                                       */
 
   /* ensure that value `0' has the same width as a pointer */
-#define ALL_POINTS  (FT_UShort*)~(FT_PtrDist)0
+#define ALL_POINTS  (FT_Uint*)~(FT_PtrDist)0
 
 
 #define GX_PT_POINTS_ARE_WORDS      0x80U
@@ -121,19 +121,19 @@
   /*                 enumerating them individually.                        */
   /*                                                                       */
   /* <Return>                                                              */
-  /*    An array of FT_UShort containing the affected points or the        */
+  /*    An array of FT_Uint containing the affected points or the        */
   /*    special value ALL_POINTS.                                          */
   /*                                                                       */
-  static FT_UShort*
+  static FT_Uint*
   ft_var_readpackedpoints( FT_Stream  stream,
                            FT_ULong   size,
                            FT_UInt   *point_cnt )
   {
-    FT_UShort *points = NULL;
+    FT_Uint *points = NULL;
     FT_UInt    n;
     FT_UInt    runcnt;
     FT_UInt    i, j;
-    FT_UShort  first;
+    FT_Uint  first;
     FT_Memory  memory = stream->memory;
     FT_Error   error  = FT_Err_Ok;
 
@@ -175,13 +175,13 @@
       if ( runcnt & GX_PT_POINTS_ARE_WORDS )
       {
         runcnt     &= GX_PT_POINT_RUN_COUNT_MASK;
-        first      += FT_GET_USHORT();
+        first      += FT_GET_Uint();
         points[i++] = first;
 
         /* first point not included in run count */
         for ( j = 0; j < runcnt; j++ )
         {
-          first      += FT_GET_USHORT();
+          first      += FT_GET_Uint();
           points[i++] = first;
           if ( i >= n )
             break;
@@ -228,17 +228,17 @@
   /*    delta_cnt :: The number of deltas to be read.                      */
   /*                                                                       */
   /* <Return>                                                              */
-  /*    An array of FT_Short containing the deltas for the affected        */
+  /*    An array of FT_int containing the deltas for the affected        */
   /*    points.  (This only gets the deltas for one dimension.  It will    */
   /*    generally be called twice, once for x, once for y.  When used in   */
   /*    cvt table, it will only be called once.)                           */
   /*                                                                       */
-  static FT_Short*
+  static FT_int*
   ft_var_readpackeddeltas( FT_Stream  stream,
                            FT_ULong   size,
                            FT_UInt    delta_cnt )
   {
-    FT_Short  *deltas = NULL;
+    FT_int  *deltas = NULL;
     FT_UInt    runcnt, cnt;
     FT_UInt    i, j;
     FT_Memory  memory = stream->memory;
@@ -270,9 +270,9 @@
       }
       else if ( runcnt & GX_DT_DELTAS_ARE_WORDS )
       {
-        /* `runcnt' shorts from the stack */
+        /* `runcnt' ints from the stack */
         for ( j = 0; j <= cnt && i < delta_cnt; j++ )
-          deltas[i++] = FT_GET_SHORT();
+          deltas[i++] = FT_GET_int();
       }
       else
       {
@@ -360,7 +360,7 @@
     {
       FT_TRACE5(( "  axis %d:\n", i ));
 
-      segment->pairCount = FT_GET_USHORT();
+      segment->pairCount = FT_GET_Uint();
       if ( (FT_ULong)segment->pairCount * 4 > table_len                ||
            FT_NEW_ARRAY( segment->correspondence, segment->pairCount ) )
       {
@@ -378,8 +378,8 @@
       for ( j = 0; j < segment->pairCount; j++ )
       {
         /* convert to Fixed */
-        segment->correspondence[j].fromCoord = FT_GET_SHORT() * 4;
-        segment->correspondence[j].toCoord   = FT_GET_SHORT() * 4;
+        segment->correspondence[j].fromCoord = FT_GET_int() * 4;
+        segment->correspondence[j].toCoord   = FT_GET_int() * 4;
 
         FT_TRACE5(( "    mapping %.5f to %.5f\n",
                     segment->correspondence[j].fromCoord / 65536.0,
@@ -402,7 +402,7 @@
 #define FT_intToFixed( i )                    \
         ( (FT_Fixed)( (FT_ULong)(i) << 16 ) )
 #define FT_fixedToInt( x )                                   \
-        ( (FT_Short)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
+        ( (FT_int)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
 
 
   static FT_Error
@@ -414,10 +414,10 @@
     FT_Memory  memory = stream->memory;
 
     FT_Error   error;
-    FT_UShort  format;
+    FT_Uint  format;
     FT_ULong   region_offset;
     FT_UInt    i, j, k;
-    FT_UInt    shortDeltaCount;
+    FT_UInt    intDeltaCount;
 
     GX_Blend        blend = face->blend;
     GX_ItemVarData  varData;
@@ -426,7 +426,7 @@
 
 
     if ( FT_STREAM_SEEK( offset ) ||
-         FT_READ_USHORT( format ) )
+         FT_READ_Uint( format ) )
       goto Exit;
 
     if ( format != 1 )
@@ -439,7 +439,7 @@
 
     /* read top level fields */
     if ( FT_READ_ULONG( region_offset )         ||
-         FT_READ_USHORT( itemStore->dataCount ) )
+         FT_READ_Uint( itemStore->dataCount ) )
       goto Exit;
 
     /* we need at least one entry in `itemStore->varData' */
@@ -465,8 +465,8 @@
     if ( FT_STREAM_SEEK( offset + region_offset ) )
       goto Exit;
 
-    if ( FT_READ_USHORT( itemStore->axisCount )   ||
-         FT_READ_USHORT( itemStore->regionCount ) )
+    if ( FT_READ_Uint( itemStore->axisCount )   ||
+         FT_READ_Uint( itemStore->regionCount ) )
       goto Exit;
 
     if ( itemStore->axisCount != (FT_Long)blend->mmvar->num_axis )
@@ -495,12 +495,12 @@
 
       for ( j = 0; j < itemStore->axisCount; j++ )
       {
-        FT_Short  start, peak, end;
+        FT_int  start, peak, end;
 
 
-        if ( FT_READ_SHORT( start ) ||
-             FT_READ_SHORT( peak )  ||
-             FT_READ_SHORT( end )   )
+        if ( FT_READ_int( start ) ||
+             FT_READ_int( peak )  ||
+             FT_READ_int( end )   )
           goto Exit;
 
         axisCoords[j].startCoord = FT_fdot14ToFixed( start );
@@ -522,16 +522,16 @@
       if ( FT_STREAM_SEEK( offset + dataOffsetArray[i] ) )
         goto Exit;
 
-      if ( FT_READ_USHORT( varData->itemCount )      ||
-           FT_READ_USHORT( shortDeltaCount )         ||
-           FT_READ_USHORT( varData->regionIdxCount ) )
+      if ( FT_READ_Uint( varData->itemCount )      ||
+           FT_READ_Uint( intDeltaCount )         ||
+           FT_READ_Uint( varData->regionIdxCount ) )
         goto Exit;
 
       /* check some data consistency */
-      if ( shortDeltaCount > varData->regionIdxCount )
+      if ( intDeltaCount > varData->regionIdxCount )
       {
-        FT_TRACE2(( "bad short count %d or region count %d\n",
-                    shortDeltaCount,
+        FT_TRACE2(( "bad int count %d or region count %d\n",
+                    intDeltaCount,
                     varData->regionIdxCount ));
         error = FT_THROW( Invalid_Table );
         goto Exit;
@@ -553,7 +553,7 @@
 
       for ( j = 0; j < varData->regionIdxCount; j++ )
       {
-        if ( FT_READ_USHORT( varData->regionIndices[j] ) )
+        if ( FT_READ_Uint( varData->regionIndices[j] ) )
           goto Exit;
 
         if ( varData->regionIndices[j] >= itemStore->regionCount )
@@ -567,24 +567,24 @@
 
       /* Parse delta set.                                                */
       /*                                                                 */
-      /* On input, deltas are (shortDeltaCount + regionIdxCount) bytes   */
-      /* each; on output, deltas are expanded to `regionIdxCount' shorts */
+      /* On input, deltas are (intDeltaCount + regionIdxCount) bytes   */
+      /* each; on output, deltas are expanded to `regionIdxCount' ints */
       /* each.                                                           */
       if ( FT_NEW_ARRAY( varData->deltaSet,
                          varData->regionIdxCount * varData->itemCount ) )
         goto Exit;
 
-      /* the delta set is stored as a 2-dimensional array of shorts; */
-      /* sign-extend signed bytes to signed shorts                   */
+      /* the delta set is stored as a 2-dimensional array of ints; */
+      /* sign-extend signed bytes to signed ints                   */
       for ( j = 0; j < varData->itemCount * varData->regionIdxCount; )
       {
-        for ( k = 0; k < shortDeltaCount; k++, j++ )
+        for ( k = 0; k < intDeltaCount; k++, j++ )
         {
-          /* read the short deltas */
-          FT_Short  delta;
+          /* read the int deltas */
+          FT_int  delta;
 
 
-          if ( FT_READ_SHORT( delta ) )
+          if ( FT_READ_int( delta ) )
             goto Exit;
 
           varData->deltaSet[j] = delta;
@@ -622,7 +622,7 @@
 
     FT_Error   error;
 
-    FT_UShort  format;
+    FT_Uint  format;
     FT_UInt    entrySize;
     FT_UInt    innerBitCount;
     FT_UInt    innerIndexMask;
@@ -630,8 +630,8 @@
 
 
     if ( FT_STREAM_SEEK( offset )        ||
-         FT_READ_USHORT( format )        ||
-         FT_READ_USHORT( map->mapCount ) )
+         FT_READ_Uint( format )        ||
+         FT_READ_Uint( map->mapCount ) )
       goto Exit;
 
     if ( format & 0xFFC0 )
@@ -737,7 +737,7 @@
     GX_HVVarTable  table;
 
     FT_Error   error;
-    FT_UShort  majorVersion;
+    FT_Uint  majorVersion;
     FT_ULong   table_len;
     FT_ULong   table_offset;
     FT_ULong   store_offset;
@@ -770,7 +770,7 @@
     table_offset = FT_STREAM_POS();
 
     /* skip minor version */
-    if ( FT_READ_USHORT( majorVersion ) ||
+    if ( FT_READ_Uint( majorVersion ) ||
          FT_STREAM_SKIP( 2 )            )
       goto Exit;
 
@@ -855,7 +855,7 @@
                          FT_UInt          innerIndex )
   {
     GX_ItemVarData  varData;
-    FT_Short*       deltaSet;
+    FT_int*       deltaSet;
 
     FT_UInt   master, j;
     FT_Fixed  netAdjustment = 0;     /* accumulated adjustment */
@@ -1077,27 +1077,27 @@
 
 #define GX_VALUE_SIZE  8
 
-  /* all values are FT_Short or FT_UShort entities; */
-  /* we treat them consistently as FT_Short         */
+  /* all values are FT_int or FT_Uint entities; */
+  /* we treat them consistently as FT_int         */
 #define GX_VALUE_CASE( tag, dflt )      \
           case MVAR_TAG_ ## tag :       \
-            p = (FT_Short*)&face->dflt; \
+            p = (FT_int*)&face->dflt; \
             break
 
 #define GX_GASP_CASE( idx )                                       \
           case MVAR_TAG_GASP_ ## idx :                            \
             if ( idx < face->gasp.numRanges - 1 )                 \
-              p = (FT_Short*)&face->gasp.gaspRanges[idx].maxPPEM; \
+              p = (FT_int*)&face->gasp.gaspRanges[idx].maxPPEM; \
             else                                                  \
               p = NULL;                                           \
             break
 
 
-  static FT_Short*
+  static FT_int*
   ft_var_get_value_pointer( TT_Face   face,
                             FT_ULong  mvar_tag )
   {
-    FT_Short*  p;
+    FT_int*  p;
 
 
     switch ( mvar_tag )
@@ -1176,10 +1176,10 @@
     GX_Value         value, limit;
 
     FT_Error   error;
-    FT_UShort  majorVersion;
+    FT_Uint  majorVersion;
     FT_ULong   table_len;
     FT_ULong   table_offset;
-    FT_UShort  store_offset;
+    FT_Uint  store_offset;
     FT_ULong   records_offset;
 
 
@@ -1195,7 +1195,7 @@
     table_offset = FT_STREAM_POS();
 
     /* skip minor version */
-    if ( FT_READ_USHORT( majorVersion ) ||
+    if ( FT_READ_Uint( majorVersion ) ||
          FT_STREAM_SKIP( 2 )            )
       return;
 
@@ -1210,8 +1210,8 @@
 
     /* skip reserved entry and value record size */
     if ( FT_STREAM_SKIP( 4 )                             ||
-         FT_READ_USHORT( blend->mvar_table->valueCount ) ||
-         FT_READ_USHORT( store_offset )                  )
+         FT_READ_Uint( blend->mvar_table->valueCount ) ||
+         FT_READ_Uint( store_offset )                  )
       return;
 
     records_offset = FT_STREAM_POS();
@@ -1238,8 +1238,8 @@
     for ( ; value < limit; value++ )
     {
       value->tag        = FT_GET_ULONG();
-      value->outerIndex = FT_GET_USHORT();
-      value->innerIndex = FT_GET_USHORT();
+      value->outerIndex = FT_GET_Uint();
+      value->innerIndex = FT_GET_Uint();
 
       if ( value->outerIndex >= itemStore->dataCount                  ||
            value->innerIndex >= itemStore->varData[value->outerIndex]
@@ -1263,7 +1263,7 @@
     /* save original values of the data MVAR is going to modify */
     for ( ; value < limit; value++ )
     {
-      FT_Short*  p = ft_var_get_value_pointer( face, value->tag );
+      FT_int*  p = ft_var_get_value_pointer( face, value->tag );
 
 
       if ( p )
@@ -1323,7 +1323,7 @@
 
     for ( ; value < limit; value++ )
     {
-      FT_Short*  p = ft_var_get_value_pointer( face, value->tag );
+      FT_int*  p = ft_var_get_value_pointer( face, value->tag );
       FT_Int     delta;
 
 
@@ -1344,9 +1344,9 @@
                     delta,
                     delta == 1 ? "" : "s" ));
 
-        /* since we handle both signed and unsigned values as FT_Short, */
+        /* since we handle both signed and unsigned values as FT_int, */
         /* ensure proper overflow arithmetic                            */
-        *p = (FT_Short)( value->unmodified + (FT_Short)delta );
+        *p = (FT_int)( value->unmodified + (FT_int)delta );
       }
     }
 
@@ -1367,8 +1367,8 @@
         }
         else
         {
-          root->ascender  =  (FT_Short)face->os2.usWinAscent;
-          root->descender = -(FT_Short)face->os2.usWinDescent;
+          root->ascender  =  (FT_int)face->os2.usWinAscent;
+          root->descender = -(FT_int)face->os2.usWinDescent;
 
           root->height = root->ascender - root->descender;
         }
@@ -1390,11 +1390,11 @@
   typedef struct  GX_GVar_Head_
   {
     FT_Long    version;
-    FT_UShort  axisCount;
-    FT_UShort  globalCoordCount;
+    FT_Uint  axisCount;
+    FT_Uint  globalCoordCount;
     FT_ULong   offsetToCoord;
-    FT_UShort  glyphCount;
-    FT_UShort  flags;
+    FT_Uint  glyphCount;
+    FT_Uint  flags;
     FT_ULong   offsetToData;
 
   } GX_GVar_Head;
@@ -1436,11 +1436,11 @@
 
       FT_FRAME_START( 20 ),
         FT_FRAME_LONG  ( version ),
-        FT_FRAME_USHORT( axisCount ),
-        FT_FRAME_USHORT( globalCoordCount ),
+        FT_FRAME_Uint( axisCount ),
+        FT_FRAME_Uint( globalCoordCount ),
         FT_FRAME_ULONG ( offsetToCoord ),
-        FT_FRAME_USHORT( glyphCount ),
-        FT_FRAME_USHORT( flags ),
+        FT_FRAME_Uint( glyphCount ),
+        FT_FRAME_Uint( flags ),
         FT_FRAME_ULONG ( offsetToData ),
       FT_FRAME_END
     };
@@ -1468,7 +1468,7 @@
       goto Exit;
     }
 
-    if ( gvar_head.axisCount != (FT_UShort)blend->mmvar->num_axis )
+    if ( gvar_head.axisCount != (FT_Uint)blend->mmvar->num_axis )
     {
       FT_TRACE1(( "ft_var_load_gvar: number of axes in `gvar' and `cvar'\n"
                   "                  table are different\n" ));
@@ -1523,12 +1523,12 @@
     }
     else
     {
-      /* short offsets (one more offset than glyphs, to mark size of last) */
+      /* int offsets (one more offset than glyphs, to mark size of last) */
       if ( FT_FRAME_ENTER( ( blend->gv_glyphcnt + 1 ) * 2L ) )
         goto Exit;
 
       for ( i = 0; i <= blend->gv_glyphcnt; i++ )
-        blend->glyphoffsets[i] = offsetToData + FT_GET_USHORT() * 2;
+        blend->glyphoffsets[i] = offsetToData + FT_GET_Uint() * 2;
                                                /* XXX: Undocumented: `*2'! */
 
       FT_FRAME_EXIT();
@@ -1550,7 +1550,7 @@
         for ( j = 0; j < (FT_UInt)gvar_head.axisCount; j++ )
         {
           blend->tuplecoords[i * gvar_head.axisCount + j] =
-            FT_GET_SHORT() * 4;                 /* convert to FT_Fixed */
+            FT_GET_int() * 4;                 /* convert to FT_Fixed */
           FT_TRACE5(( "%.5f ",
             blend->tuplecoords[i * gvar_head.axisCount + j] / 65536.0 ));
         }
@@ -1596,7 +1596,7 @@
   /*                                                                       */
   static FT_Fixed
   ft_var_apply_tuple( GX_Blend   blend,
-                      FT_UShort  tupleIndex,
+                      FT_Uint  tupleIndex,
                       FT_Fixed*  tuple_coords,
                       FT_Fixed*  im_start_coords,
                       FT_Fixed*  im_end_coords )
@@ -1889,11 +1889,11 @@
   typedef struct  GX_FVar_Head_
   {
     FT_Long    version;
-    FT_UShort  offsetToData;
-    FT_UShort  axisCount;
-    FT_UShort  axisSize;
-    FT_UShort  instanceCount;
-    FT_UShort  instanceSize;
+    FT_Uint  offsetToData;
+    FT_Uint  axisCount;
+    FT_Uint  axisSize;
+    FT_Uint  instanceCount;
+    FT_Uint  instanceSize;
 
   } GX_FVar_Head;
 
@@ -1904,8 +1904,8 @@
     FT_Fixed   minValue;
     FT_Fixed   defaultValue;
     FT_Fixed   maxValue;
-    FT_UShort  flags;
-    FT_UShort  nameID;
+    FT_Uint  flags;
+    FT_Uint  nameID;
 
   } GX_FVar_Axis;
 
@@ -1952,7 +1952,7 @@
     FT_Bool              usePsName  = 0;
     FT_UInt              num_instances;
     FT_UInt              num_axes;
-    FT_UShort*           axis_flags;
+    FT_Uint*           axis_flags;
 
     FT_Offset  mmvar_size;
     FT_Offset  axis_flags_size;
@@ -1971,12 +1971,12 @@
 
       FT_FRAME_START( 16 ),
         FT_FRAME_LONG      ( version ),
-        FT_FRAME_USHORT    ( offsetToData ),
-        FT_FRAME_SKIP_SHORT,
-        FT_FRAME_USHORT    ( axisCount ),
-        FT_FRAME_USHORT    ( axisSize ),
-        FT_FRAME_USHORT    ( instanceCount ),
-        FT_FRAME_USHORT    ( instanceSize ),
+        FT_FRAME_Uint    ( offsetToData ),
+        FT_FRAME_SKIP_int,
+        FT_FRAME_Uint    ( axisCount ),
+        FT_FRAME_Uint    ( axisSize ),
+        FT_FRAME_Uint    ( instanceCount ),
+        FT_FRAME_Uint    ( instanceSize ),
       FT_FRAME_END
     };
 
@@ -1991,8 +1991,8 @@
         FT_FRAME_LONG  ( minValue ),
         FT_FRAME_LONG  ( defaultValue ),
         FT_FRAME_LONG  ( maxValue ),
-        FT_FRAME_USHORT( flags ),
-        FT_FRAME_USHORT( nameID ),
+        FT_FRAME_Uint( flags ),
+        FT_FRAME_Uint( nameID ),
       FT_FRAME_END
     };
 
@@ -2072,7 +2072,7 @@
 
     mmvar_size       = ALIGN_SIZE( sizeof ( FT_MM_Var ) );
     axis_flags_size  = ALIGN_SIZE( num_axes *
-                                   sizeof ( FT_UShort ) );
+                                   sizeof ( FT_Uint ) );
     axis_size        = ALIGN_SIZE( num_axes *
                                    sizeof ( FT_Var_Axis ) );
     namedstyle_size  = ALIGN_SIZE( num_instances *
@@ -2109,7 +2109,7 @@
 
       /* alas, no public field in `FT_Var_Axis' for axis flags */
       axis_flags =
-        (FT_UShort*)( (char*)mmvar + mmvar_size );
+        (FT_Uint*)( (char*)mmvar + mmvar_size );
       mmvar->axis =
         (FT_Var_Axis*)( (char*)axis_flags + axis_flags_size );
       mmvar->namedstyle =
@@ -2227,8 +2227,8 @@
                              4L * num_axes ) )
           goto Exit;
 
-        ns->strid       =    FT_GET_USHORT();
-        (void) /* flags = */ FT_GET_USHORT();
+        ns->strid       =    FT_GET_Uint();
+        (void) /* flags = */ FT_GET_Uint();
 
         c = ns->coords;
         for ( j = 0; j < num_axes; j++, c++ )
@@ -2236,7 +2236,7 @@
 
         /* valid psid values are 6, [256;32767], and 0xFFFF */
         if ( usePsName )
-          ns->psid = FT_GET_USHORT();
+          ns->psid = FT_GET_Uint();
         else
           ns->psid = 0xFFFF;
 
@@ -2255,7 +2255,7 @@
           if ( ns->strid != 0xFFFF )
           {
             (void)sfnt->get_name( face,
-                                  (FT_UShort)ns->strid,
+                                  (FT_Uint)ns->strid,
                                   &strname );
             if ( strname && !ft_strcmp( strname, ".notdef" ) )
               strname = NULL;
@@ -2264,7 +2264,7 @@
           if ( ns->psid != 0xFFFF )
           {
             (void)sfnt->get_name( face,
-                                  (FT_UShort)ns->psid,
+                                  (FT_Uint)ns->psid,
                                   &psname );
             if ( psname && !ft_strcmp( psname, ".notdef" ) )
               psname = NULL;
@@ -2357,7 +2357,7 @@
       FT_MEM_COPY( mmvar, face->blend->mmvar, face->blend->mmvar_len );
 
       axis_flags =
-        (FT_UShort*)( (char*)mmvar + mmvar_size );
+        (FT_Uint*)( (char*)mmvar + mmvar_size );
       mmvar->axis =
         (FT_Var_Axis*)( (char*)axis_flags + axis_flags_size );
       mmvar->namedstyle =
@@ -2985,7 +2985,7 @@
       named_style = mmvar->namedstyle + instance_index - 1;
 
       error = sfnt->get_name( face,
-                              (FT_UShort)named_style->strid,
+                              (FT_Uint)named_style->strid,
                               &style_name );
       if ( error )
         goto Exit;
@@ -3060,10 +3060,10 @@
     FT_Fixed*   im_end_coords   = NULL;
     GX_Blend    blend           = face->blend;
     FT_UInt     point_count, spoint_count = 0;
-    FT_UShort*  sharedpoints = NULL;
-    FT_UShort*  localpoints  = NULL;
-    FT_UShort*  points;
-    FT_Short*   deltas;
+    FT_Uint*  sharedpoints = NULL;
+    FT_Uint*  localpoints  = NULL;
+    FT_Uint*  points;
+    FT_int*   deltas;
 
 
     FT_TRACE2(( "CVAR " ));
@@ -3115,8 +3115,8 @@
          FT_NEW_ARRAY( im_end_coords, blend->num_axis )   )
       goto FExit;
 
-    tupleCount   = FT_GET_USHORT();
-    offsetToData = FT_GET_USHORT();
+    tupleCount   = FT_GET_Uint();
+    offsetToData = FT_GET_Uint();
 
     /* rough sanity test */
     if ( offsetToData + ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) * 4 >
@@ -3159,14 +3159,14 @@
 
       FT_TRACE6(( "  tuple %d:\n", i ));
 
-      tupleDataSize = FT_GET_USHORT();
-      tupleIndex    = FT_GET_USHORT();
+      tupleDataSize = FT_GET_Uint();
+      tupleIndex    = FT_GET_Uint();
 
       if ( tupleIndex & GX_TI_EMBEDDED_TUPLE_COORD )
       {
         for ( j = 0; j < blend->num_axis; j++ )
-          tuple_coords[j] = FT_GET_SHORT() * 4;  /* convert from        */
-                                                 /* short frac to fixed */
+          tuple_coords[j] = FT_GET_int() * 4;  /* convert from        */
+                                                 /* int frac to fixed */
       }
       else if ( ( tupleIndex & GX_TI_TUPLE_INDEX_MASK ) >= blend->tuplecount )
       {
@@ -3185,13 +3185,13 @@
       if ( tupleIndex & GX_TI_INTERMEDIATE_TUPLE )
       {
         for ( j = 0; j < blend->num_axis; j++ )
-          im_start_coords[j] = FT_GET_SHORT() * 4;
+          im_start_coords[j] = FT_GET_int() * 4;
         for ( j = 0; j < blend->num_axis; j++ )
-          im_end_coords[j] = FT_GET_SHORT() * 4;
+          im_end_coords[j] = FT_GET_int() * 4;
       }
 
       apply = ft_var_apply_tuple( blend,
-                                  (FT_UShort)tupleIndex,
+                                  (FT_Uint)tupleIndex,
                                   tuple_coords,
                                   im_start_coords,
                                   im_end_coords );
@@ -3244,7 +3244,7 @@
           FT_Long  orig_cvt = face->cvt[j];
 
 
-          face->cvt[j] = (FT_Short)( orig_cvt +
+          face->cvt[j] = (FT_int)( orig_cvt +
                                      FT_MulFix( deltas[j], apply ) );
 
 #ifdef FT_DEBUG_LEVEL_TRACE
@@ -3283,7 +3283,7 @@
             continue;
 
           orig_cvt          = face->cvt[pindex];
-          face->cvt[pindex] = (FT_Short)( orig_cvt +
+          face->cvt[pindex] = (FT_int)( orig_cvt +
                                           FT_MulFix( deltas[j], apply ) );
 
 #ifdef FT_DEBUG_LEVEL_TRACE
@@ -3451,7 +3451,7 @@
     FT_Int  cur_delta;
 
     FT_Int    point;
-    FT_Short  contour;
+    FT_int  contour;
 
 
     /* ignore empty outlines */
@@ -3574,10 +3574,10 @@
     FT_Fixed*   im_start_coords = NULL;
     FT_Fixed*   im_end_coords   = NULL;
     FT_UInt     point_count, spoint_count = 0;
-    FT_UShort*  sharedpoints = NULL;
-    FT_UShort*  localpoints  = NULL;
-    FT_UShort*  points;
-    FT_Short    *deltas_x, *deltas_y;
+    FT_Uint*  sharedpoints = NULL;
+    FT_Uint*  localpoints  = NULL;
+    FT_Uint*  points;
+    FT_int    *deltas_x, *deltas_y;
 
 
     if ( !face->doblend || !blend )
@@ -3611,8 +3611,8 @@
          FT_NEW_ARRAY( im_end_coords, blend->num_axis )   )
       goto Fail2;
 
-    tupleCount   = FT_GET_USHORT();
-    offsetToData = FT_GET_USHORT();
+    tupleCount   = FT_GET_Uint();
+    offsetToData = FT_GET_Uint();
 
     /* rough sanity test */
     if ( offsetToData + ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) * 4 >
@@ -3658,14 +3658,14 @@
 
       FT_TRACE6(( "  tuple %d:\n", i ));
 
-      tupleDataSize = FT_GET_USHORT();
-      tupleIndex    = FT_GET_USHORT();
+      tupleDataSize = FT_GET_Uint();
+      tupleIndex    = FT_GET_Uint();
 
       if ( tupleIndex & GX_TI_EMBEDDED_TUPLE_COORD )
       {
         for ( j = 0; j < blend->num_axis; j++ )
-          tuple_coords[j] = FT_GET_SHORT() * 4;   /* convert from        */
-                                                  /* short frac to fixed */
+          tuple_coords[j] = FT_GET_int() * 4;   /* convert from        */
+                                                  /* int frac to fixed */
       }
       else if ( ( tupleIndex & GX_TI_TUPLE_INDEX_MASK ) >= blend->tuplecount )
       {
@@ -3684,13 +3684,13 @@
       if ( tupleIndex & GX_TI_INTERMEDIATE_TUPLE )
       {
         for ( j = 0; j < blend->num_axis; j++ )
-          im_start_coords[j] = FT_GET_SHORT() * 4;
+          im_start_coords[j] = FT_GET_int() * 4;
         for ( j = 0; j < blend->num_axis; j++ )
-          im_end_coords[j] = FT_GET_SHORT() * 4;
+          im_end_coords[j] = FT_GET_int() * 4;
       }
 
       apply = ft_var_apply_tuple( blend,
-                                  (FT_UShort)tupleIndex,
+                                  (FT_Uint)tupleIndex,
                                   tuple_coords,
                                   im_start_coords,
                                   im_end_coords );
@@ -3814,7 +3814,7 @@
 
         for ( j = 0; j < point_count; j++ )
         {
-          FT_UShort  idx = points[j];
+          FT_Uint  idx = points[j];
 
 
           if ( idx >= n_points )

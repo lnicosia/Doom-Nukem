@@ -444,7 +444,7 @@ static void process_comment(mpg123_handle *fr, enum frame_types tt, unsigned cha
 {
 	/* Text encoding          $xx */
 	/* Language               $xx xx xx */
-	/* Short description (encoded!)      <text> $00 (00) */
+	/* int description (encoded!)      <text> $00 (00) */
 	/* Then the comment text (encoded) ... */
 	unsigned char  encoding = realdata[0];
 	unsigned char *lang     = realdata+1; /* I'll only use the 3 bytes! */
@@ -943,7 +943,7 @@ int parse_new_id3(mpg123_handle *fr, unsigned long first4bytes)
 												debug("ID3v2: it is for the master channel");
 												/* two bytes adjustment, one byte for bits representing peak - n bytes, eh bits, for peak */
 												/* 16 bit signed integer = dB * 512  ... the double cast is needed to preserve the sign of negative values! */
-												fr->rva.gain[rva_mode] = (float) ( (((short)((signed char)realdata[pos])) << 8) | realdata[pos+1] ) / 512;
+												fr->rva.gain[rva_mode] = (float) ( (((int)((signed char)realdata[pos])) << 8) | realdata[pos+1] ) / 512;
 												pos += 2;
 												if(VERBOSE3) fprintf(stderr, "Note: RVA value %fdB\n", fr->rva.gain[rva_mode]);
 												/* heh, the peak value is represented by a number of bits - but in what manner? Skipping that part */
@@ -1108,7 +1108,7 @@ static void convert_utf16bom(mpg123_string *sb, const unsigned char* s, size_t l
 		unsigned long point = ((unsigned long) s[i+high]<<8) + s[i+low];
 		if((point & 0xfc00) == 0xd800) /* lead surrogate */
 		{
-			unsigned short second = (i+3 < l) ? (s[i+2+high]<<8) + s[i+2+low] : 0;
+			unsigned int second = (i+3 < l) ? (s[i+2+high]<<8) + s[i+2+low] : 0;
 			if((second & 0xfc00) == 0xdc00) /* good... */
 			{
 				point = FULLPOINT(point,second);
@@ -1134,7 +1134,7 @@ static void convert_utf16bom(mpg123_string *sb, const unsigned char* s, size_t l
 		unsigned long codepoint = ((unsigned long) s[i+high]<<8) + s[i+low];
 		if((codepoint & 0xfc00) == 0xd800) /* lead surrogate */
 		{
-			unsigned short second = (s[i+2+high]<<8) + s[i+2+low];
+			unsigned int second = (s[i+2+high]<<8) + s[i+2+low];
 			codepoint = FULLPOINT(codepoint,second);
 			i+=2; /* We overstepped one word. */
 		}

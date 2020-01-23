@@ -60,7 +60,7 @@ FT_BEGIN_HEADER
                        FT_Byte*    limit,
                        FT_Byte*    buffer,
                        FT_Offset   n,
-                       FT_UShort*  seed );
+                       FT_Uint*  seed );
 
 
 FT_END_HEADER

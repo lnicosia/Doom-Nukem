@@ -63,8 +63,8 @@ FT_BEGIN_HEADER
     FT_UInt     object_code;
     void*       object;
 
-    FT_UShort   num_designs; /* a copy of `CFF_FontRecDict->num_designs' */
-    FT_UShort   num_axes;    /* a copy of `CFF_FontRecDict->num_axes'    */
+    FT_Uint   num_designs; /* a copy of `CFF_FontRecDict->num_designs' */
+    FT_Uint   num_axes;    /* a copy of `CFF_FontRecDict->num_axes'    */
 
   } CFF_ParserRec, *CFF_Parser;
 
@@ -79,8 +79,8 @@ FT_BEGIN_HEADER
                    void*       object,
                    FT_Library  library,
                    FT_UInt     stackSize,
-                   FT_UShort   num_designs,
-                   FT_UShort   num_axes );
+                   FT_Uint   num_designs,
+                   FT_Uint   num_axes );
 
   FT_LOCAL( void )
   cff_parser_done( CFF_Parser  parser );

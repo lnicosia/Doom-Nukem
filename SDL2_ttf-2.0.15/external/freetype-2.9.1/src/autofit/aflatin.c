@@ -1540,8 +1540,8 @@
       FT_Pos     max_pos      = -32000;
       FT_Pos     min_coord    =  32000;
       FT_Pos     max_coord    = -32000;
-      FT_UShort  min_flags    =  AF_FLAG_NONE;
-      FT_UShort  max_flags    =  AF_FLAG_NONE;
+      FT_Uint  min_flags    =  AF_FLAG_NONE;
+      FT_Uint  max_flags    =  AF_FLAG_NONE;
       FT_Pos     min_on_coord =  32000;
       FT_Pos     max_on_coord = -32000;
 
@@ -1553,8 +1553,8 @@
       FT_Pos     prev_max_pos      = max_pos;
       FT_Pos     prev_min_coord    = min_coord;
       FT_Pos     prev_max_coord    = max_coord;
-      FT_UShort  prev_min_flags    = min_flags;
-      FT_UShort  prev_max_flags    = max_flags;
+      FT_Uint  prev_min_flags    = min_flags;
+      FT_Uint  prev_max_flags    = max_flags;
       FT_Pos     prev_min_on_coord = min_on_coord;
       FT_Pos     prev_max_on_coord = max_on_coord;
 
@@ -1630,8 +1630,8 @@
               /* record a new segment                                    */
 
               segment->last  = point;
-              segment->pos   = (FT_Short)( ( min_pos + max_pos ) >> 1 );
-              segment->delta = (FT_Short)( ( max_pos - min_pos ) >> 1 );
+              segment->pos   = (FT_int)( ( min_pos + max_pos ) >> 1 );
+              segment->delta = (FT_int)( ( max_pos - min_pos ) >> 1 );
 
               /* a segment is round if either its first or last point */
               /* is a control point, and the length of the on points  */
@@ -1640,8 +1640,8 @@
                    ( max_on_coord - min_on_coord ) < flat_threshold )
                 segment->flags |= AF_EDGE_ROUND;
 
-              segment->min_coord = (FT_Short)min_coord;
-              segment->max_coord = (FT_Short)max_coord;
+              segment->min_coord = (FT_int)min_coord;
+              segment->max_coord = (FT_int)max_coord;
               segment->height    = segment->max_coord - segment->min_coord;
 
               prev_segment      = segment;
@@ -1691,9 +1691,9 @@
                   max_on_coord = prev_max_on_coord;
 
                 prev_segment->last  = point;
-                prev_segment->pos   = (FT_Short)( ( min_pos +
+                prev_segment->pos   = (FT_int)( ( min_pos +
                                                     max_pos ) >> 1 );
-                prev_segment->delta = (FT_Short)( ( max_pos -
+                prev_segment->delta = (FT_int)( ( max_pos -
                                                     min_pos ) >> 1 );
 
                 if ( ( min_flags | max_flags ) & AF_FLAG_CONTROL      &&
@@ -1702,8 +1702,8 @@
                 else
                   prev_segment->flags &= ~AF_EDGE_ROUND;
 
-                prev_segment->min_coord = (FT_Short)min_coord;
-                prev_segment->max_coord = (FT_Short)max_coord;
+                prev_segment->min_coord = (FT_int)min_coord;
+                prev_segment->max_coord = (FT_int)max_coord;
                 prev_segment->height    = prev_segment->max_coord -
                                           prev_segment->min_coord;
               }
@@ -1723,9 +1723,9 @@
                     prev_max_pos = max_pos;
 
                   prev_segment->last  = point;
-                  prev_segment->pos   = (FT_Short)( ( prev_min_pos +
+                  prev_segment->pos   = (FT_int)( ( prev_min_pos +
                                                       prev_max_pos ) >> 1 );
-                  prev_segment->delta = (FT_Short)( ( prev_max_pos -
+                  prev_segment->delta = (FT_int)( ( prev_max_pos -
                                                       prev_min_pos ) >> 1 );
                 }
                 else
@@ -1738,15 +1738,15 @@
                     max_pos = prev_max_pos;
 
                   segment->last  = point;
-                  segment->pos   = (FT_Short)( ( min_pos + max_pos ) >> 1 );
-                  segment->delta = (FT_Short)( ( max_pos - min_pos ) >> 1 );
+                  segment->pos   = (FT_int)( ( min_pos + max_pos ) >> 1 );
+                  segment->delta = (FT_int)( ( max_pos - min_pos ) >> 1 );
 
                   if ( ( min_flags | max_flags ) & AF_FLAG_CONTROL      &&
                        ( max_on_coord - min_on_coord ) < flat_threshold )
                     segment->flags |= AF_EDGE_ROUND;
 
-                  segment->min_coord = (FT_Short)min_coord;
-                  segment->max_coord = (FT_Short)max_coord;
+                  segment->min_coord = (FT_int)min_coord;
+                  segment->max_coord = (FT_int)max_coord;
                   segment->height    = segment->max_coord -
                                        segment->min_coord;
 
@@ -1826,13 +1826,13 @@
             /* we have a one-point segment: this is a one-point */
             /* contour with `in' and `out' direction set to     */
             /* AF_DIR_NONE                                      */
-            segment->pos = (FT_Short)min_pos;
+            segment->pos = (FT_int)min_pos;
 
             if (point->flags & AF_FLAG_CONTROL)
               segment->flags |= AF_EDGE_ROUND;
 
-            segment->min_coord = (FT_Short)point->v;
-            segment->max_coord = (FT_Short)point->v;
+            segment->min_coord = (FT_int)point->v;
+            segment->max_coord = (FT_int)point->v;
             segment->height = 0;
 
             on_edge = 0;
@@ -1868,12 +1868,12 @@
 
           p = first->prev;
           if ( p->v < first_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( first_v - p->v ) >> 1 ) );
 
           p = last->next;
           if ( p->v > last_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( p->v - last_v ) >> 1 ) );
         }
         else
@@ -1883,12 +1883,12 @@
 
           p = first->prev;
           if ( p->v > first_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( p->v - first_v ) >> 1 ) );
 
           p = last->next;
           if ( p->v < last_v )
-            segment->height = (FT_Short)( segment->height +
+            segment->height = (FT_int)( segment->height +
                                           ( ( last_v - p->v ) >> 1 ) );
         }
       }
@@ -2132,7 +2132,7 @@
       FT_Int   ee;
 
 
-      /* ignore too short segments, too wide ones, and, in this loop, */
+      /* ignore too int segments, too wide ones, and, in this loop, */
       /* one-point segments without a direction                       */
       if ( seg->height < segment_length_threshold ||
            seg->delta > segment_width_threshold   ||

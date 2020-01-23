@@ -112,7 +112,7 @@ metaflac_test ()
 
 metaflac_test case00 "--list" "--list"
 
-metaflac_test case01 "STREAMINFO --show-* shortcuts" "
+metaflac_test case01 "STREAMINFO --show-* intcuts" "
 	--show-md5sum
 	--show-min-blocksize
 	--show-max-blocksize

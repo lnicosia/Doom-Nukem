@@ -44,8 +44,8 @@
                    void*       object,
                    FT_Library  library,
                    FT_UInt     stackSize,
-                   FT_UShort   num_designs,
-                   FT_UShort   num_axes )
+                   FT_Uint   num_designs,
+                   FT_Uint   num_axes )
   {
     FT_Memory  memory = library->memory;    /* for FT_NEW_ARRAY */
     FT_Error   error;                       /* for FT_NEW_ARRAY */
@@ -102,7 +102,7 @@
       if ( p + 2 > limit )
         goto Bad;
 
-      val = (FT_Short)( ( (FT_UShort)p[0] << 8 ) | p[1] );
+      val = (FT_int)( ( (FT_Uint)p[0] << 8 ) | p[1] );
     }
     else if ( v == 29 )
     {
@@ -469,13 +469,13 @@
       /* The blend value is converted to integer, with rounding; */
       /* due to the right-shift we don't need the lowest byte.   */
 #if 0
-      return (FT_Short)(
+      return (FT_int)(
                ( ( ( (FT_UInt32)*( d[0] + 1 ) << 24 ) |
                    ( (FT_UInt32)*( d[0] + 2 ) << 16 ) |
                    ( (FT_UInt32)*( d[0] + 3 ) <<  8 ) |
                      (FT_UInt32)*( d[0] + 4 )         ) + 0x8000U ) >> 16 );
 #else
-      return (FT_Short)(
+      return (FT_int)(
                ( ( ( (FT_UInt32)*( d[0] + 1 ) << 16 ) |
                    ( (FT_UInt32)*( d[0] + 2 ) <<  8 ) |
                      (FT_UInt32)*( d[0] + 3 )         ) + 0x80U ) >> 8 );
@@ -826,8 +826,8 @@
       }
       else
       {
-        dict->num_designs   = (FT_UShort)num_designs;
-        dict->num_axes      = (FT_UShort)( parser->top - parser->stack - 4 );
+        dict->num_designs   = (FT_Uint)num_designs;
+        dict->num_axes      = (FT_Uint)( parser->top - parser->stack - 4 );
 
         parser->num_designs = dict->num_designs;
         parser->num_axes    = dict->num_axes;
@@ -1412,7 +1412,7 @@
         /*                                                             */
         /* We overwrite the original top DICT charstring under the     */
         /* assumption that the charstring representation of the result */
-        /* of `cff_decoder_parse_charstrings' is shorter, which should */
+        /* of `cff_decoder_parse_charstrings' is inter, which should */
         /* be always true.                                             */
 
         q     = charstring_base - 1;
@@ -1564,7 +1564,7 @@
                 break;
 
               case (16 / FT_CHAR_BIT):
-                *(FT_Short*)q = (FT_Short)val;
+                *(FT_int*)q = (FT_int)val;
                 break;
 
               case (32 / FT_CHAR_BIT):
@@ -1631,7 +1631,7 @@
                     break;
 
                   case (16 / FT_CHAR_BIT):
-                    *(FT_Short*)q = (FT_Short)val;
+                    *(FT_int*)q = (FT_int)val;
                     break;
 
                   case (32 / FT_CHAR_BIT):

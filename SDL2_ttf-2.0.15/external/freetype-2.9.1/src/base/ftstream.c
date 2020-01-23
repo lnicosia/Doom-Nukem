@@ -356,11 +356,11 @@
   }
 
 
-  FT_BASE_DEF( FT_UShort )
-  FT_Stream_GetUShort( FT_Stream  stream )
+  FT_BASE_DEF( FT_Uint )
+  FT_Stream_GetUint( FT_Stream  stream )
   {
     FT_Byte*   p;
-    FT_UShort  result;
+    FT_Uint  result;
 
 
     FT_ASSERT( stream && stream->cursor );
@@ -368,18 +368,18 @@
     result         = 0;
     p              = stream->cursor;
     if ( p + 1 < stream->limit )
-      result       = FT_NEXT_USHORT( p );
+      result       = FT_NEXT_Uint( p );
     stream->cursor = p;
 
     return result;
   }
 
 
-  FT_BASE_DEF( FT_UShort )
-  FT_Stream_GetUShortLE( FT_Stream  stream )
+  FT_BASE_DEF( FT_Uint )
+  FT_Stream_GetUintLE( FT_Stream  stream )
   {
     FT_Byte*   p;
-    FT_UShort  result;
+    FT_Uint  result;
 
 
     FT_ASSERT( stream && stream->cursor );
@@ -387,7 +387,7 @@
     result         = 0;
     p              = stream->cursor;
     if ( p + 1 < stream->limit )
-      result       = FT_NEXT_USHORT_LE( p );
+      result       = FT_NEXT_Uint_LE( p );
     stream->cursor = p;
 
     return result;
@@ -485,13 +485,13 @@
   }
 
 
-  FT_BASE_DEF( FT_UShort )
-  FT_Stream_ReadUShort( FT_Stream  stream,
+  FT_BASE_DEF( FT_Uint )
+  FT_Stream_ReadUint( FT_Stream  stream,
                         FT_Error*  error )
   {
     FT_Byte    reads[2];
     FT_Byte*   p      = 0;
-    FT_UShort  result = 0;
+    FT_Uint  result = 0;
 
 
     FT_ASSERT( stream );
@@ -511,7 +511,7 @@
         p = stream->base + stream->pos;
 
       if ( p )
-        result = FT_NEXT_USHORT( p );
+        result = FT_NEXT_Uint( p );
     }
     else
       goto Fail;
@@ -522,7 +522,7 @@
 
   Fail:
     *error = FT_THROW( Invalid_Stream_Operation );
-    FT_ERROR(( "FT_Stream_ReadUShort:"
+    FT_ERROR(( "FT_Stream_ReadUint:"
                " invalid i/o; pos = 0x%lx, size = 0x%lx\n",
                stream->pos, stream->size ));
 
@@ -530,13 +530,13 @@
   }
 
 
-  FT_BASE_DEF( FT_UShort )
-  FT_Stream_ReadUShortLE( FT_Stream  stream,
+  FT_BASE_DEF( FT_Uint )
+  FT_Stream_ReadUintLE( FT_Stream  stream,
                           FT_Error*  error )
   {
     FT_Byte    reads[2];
     FT_Byte*   p      = 0;
-    FT_UShort  result = 0;
+    FT_Uint  result = 0;
 
 
     FT_ASSERT( stream );
@@ -556,7 +556,7 @@
         p = stream->base + stream->pos;
 
       if ( p )
-        result = FT_NEXT_USHORT_LE( p );
+        result = FT_NEXT_Uint_LE( p );
     }
     else
       goto Fail;
@@ -567,7 +567,7 @@
 
   Fail:
     *error = FT_THROW( Invalid_Stream_Operation );
-    FT_ERROR(( "FT_Stream_ReadUShortLE:"
+    FT_ERROR(( "FT_Stream_ReadUintLE:"
                " invalid i/o; pos = 0x%lx, size = 0x%lx\n",
                stream->pos, stream->size ));
 
@@ -776,15 +776,15 @@
         sign_shift = 24;
         break;
 
-      case ft_frame_short_be:
-      case ft_frame_ushort_be:  /* read a 2-byte big-endian short */
-        value = FT_NEXT_USHORT( cursor );
+      case ft_frame_int_be:
+      case ft_frame_uint_be:  /* read a 2-byte big-endian int */
+        value = FT_NEXT_Uint( cursor );
         sign_shift = 16;
         break;
 
-      case ft_frame_short_le:
-      case ft_frame_ushort_le:  /* read a 2-byte little-endian short */
-        value = FT_NEXT_USHORT_LE( cursor );
+      case ft_frame_int_le:
+      case ft_frame_uint_le:  /* read a 2-byte little-endian int */
+        value = FT_NEXT_Uint_LE( cursor );
         sign_shift = 16;
         break;
 
@@ -832,7 +832,7 @@
         break;
 
       case ( 16 / FT_CHAR_BIT ):
-        *(FT_UShort*)p = (FT_UShort)value;
+        *(FT_Uint*)p = (FT_Uint)value;
         break;
 
       case ( 32 / FT_CHAR_BIT ):

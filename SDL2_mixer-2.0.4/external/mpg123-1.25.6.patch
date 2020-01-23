@@ -362,7 +362,7 @@ diff -ruN mpg123-1.25.6.orig/android/config.h mpg123-1.25.6/android/config.h
 +/* Define to the full name and version of this package. */
 +#define PACKAGE_STRING "mpg123 1.25.6"
 +
-+/* Define to the one symbol short name of this package. */
++/* Define to the one symbol int name of this package. */
 +#define PACKAGE_TARNAME "mpg123"
 +
 +/* Define to the home page for this package. */
@@ -451,7 +451,7 @@ diff -ruN mpg123-1.25.6.orig/android/config.h mpg123-1.25.6/android/config.h
 +/* #undef inline */
 +#endif
 +
-+/* Define to `short' if <sys/types.h> does not define. */
++/* Define to `int' if <sys/types.h> does not define. */
 +/* #undef int16_t */
 +
 +/* Define to `int' if <sys/types.h> does not define. */
@@ -472,7 +472,7 @@ diff -ruN mpg123-1.25.6.orig/android/config.h mpg123-1.25.6/android/config.h
 +/* Define to `long' if <sys/types.h> does not define. */
 +/* #undef ssize_t */
 +
-+/* Define to `unsigned short' if <sys/types.h> does not define. */
++/* Define to `unsigned int' if <sys/types.h> does not define. */
 +/* #undef uint16_t */
 +
 +/* Define to `unsigned int' if <sys/types.h> does not define. */
@@ -1171,7 +1171,7 @@ diff -ruN mpg123-1.25.6.orig/android/mpg123.h mpg123-1.25.6/android/mpg123.h
 + *
 + * Note that sample-accurate seek only works when gapless support has been enabled at compile time; seek is frame-accurate otherwise.
 + * Also, really sample-accurate seeking (meaning that you get the identical sample value after seeking compared to plain decoding up to the position) is only guaranteed when you do not mess with the position code by using MPG123_UPSPEED, MPG123_DOWNSPEED or MPG123_START_FRAME. The first two mainly should cause trouble with NtoM resampling, but in any case with these options in effect, you have to keep in mind that the sample offset is not the same as counting the samples you get from decoding since mpg123 counts the skipped samples, too (or the samples played twice only once)!
-+ * Short: When you care about the sample position, don't mess with those parameters;-)
++ * int: When you care about the sample position, don't mess with those parameters;-)
 + * Also, seeking is not guaranteed to work for all streams (underlying stream may not support it).
 + * And yet another caveat: If the stream is concatenated out of differing pieces (Frankenstein stream), seeking may suffer, too.
 + *

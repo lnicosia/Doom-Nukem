@@ -54,7 +54,7 @@ local const uInt border[] = { /* Order of the bit length code lengths */
       only if BitLength(i) is not zero.  (Pretty obvious.)
   11. Correction: 4 Bits: # of Bit Length codes - 4     (4 - 19)
   12. Note: length code 284 can represent 227-258, but length code 285
-      really is 258.  The last length deserves its own, short code
+      really is 258.  The last length deserves its own, int code
       since it gets used a lot in very redundant files.  The length
       258 is special since 258 - 3 (the min match length) is 255.
   13. The literal/length and distance code bit lengths are read as a

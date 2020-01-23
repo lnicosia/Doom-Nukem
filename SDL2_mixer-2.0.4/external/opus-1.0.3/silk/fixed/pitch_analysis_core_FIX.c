@@ -212,7 +212,7 @@ opus_int silk_pitch_analysis_core(                  /* O    Voicing estimate: 0 
         target_ptr += sf_length_8kHz;
     }
 
-    /* Combine two subframes into single correlation measure and apply short-lag bias */
+    /* Combine two subframes into single correlation measure and apply int-lag bias */
     if( nb_subfr == PE_MAX_NB_SUBFR ) {
         for( i = max_lag_4kHz; i >= min_lag_4kHz; i-- ) {
             sum = (opus_int32)C[ 0 ][ i ] + (opus_int32)C[ 1 ][ i ];                /* Q0 */
@@ -224,7 +224,7 @@ opus_int silk_pitch_analysis_core(                  /* O    Voicing estimate: 0 
             C[ 0 ][ i ] = (opus_int16)sum;                                         /* Q-1 */
         }
     } else {
-        /* Only short-lag bias */
+        /* Only int-lag bias */
         for( i = max_lag_4kHz; i >= min_lag_4kHz; i-- ) {
             sum = (opus_int32)C[ 0 ][ i ];
             sum = silk_SMLAWB( sum, sum, silk_LSHIFT( -i, 4 ) );                    /* Q-1 */
@@ -412,11 +412,11 @@ opus_int silk_pitch_analysis_core(                  /* O    Voicing estimate: 0 
             }
         }
 
-        /* Bias towards shorter lags */
+        /* Bias towards inter lags */
         lag_log2_Q7 = silk_lin2log( (opus_int32)d ); /* Q7 */
         silk_assert( lag_log2_Q7 == silk_SAT16( lag_log2_Q7 ) );
-        silk_assert( nb_subfr * SILK_FIX_CONST( PE_SHORTLAG_BIAS, 15 ) == silk_SAT16( nb_subfr * SILK_FIX_CONST( PE_SHORTLAG_BIAS, 15 ) ) );
-        CCmax_new_b = CCmax_new - silk_RSHIFT( silk_SMULBB( nb_subfr * SILK_FIX_CONST( PE_SHORTLAG_BIAS, 15 ), lag_log2_Q7 ), 7 ); /* Q15 */
+        silk_assert( nb_subfr * SILK_FIX_CONST( PE_intLAG_BIAS, 15 ) == silk_SAT16( nb_subfr * SILK_FIX_CONST( PE_intLAG_BIAS, 15 ) ) );
+        CCmax_new_b = CCmax_new - silk_RSHIFT( silk_SMULBB( nb_subfr * SILK_FIX_CONST( PE_intLAG_BIAS, 15 ), lag_log2_Q7 ), 7 ); /* Q15 */
 
         /* Bias towards previous lag */
         silk_assert( nb_subfr * SILK_FIX_CONST( PE_PREVLAG_BIAS, 15 ) == silk_SAT16( nb_subfr * SILK_FIX_CONST( PE_PREVLAG_BIAS, 15 ) ) );

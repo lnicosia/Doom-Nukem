@@ -645,7 +645,7 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat(Uint8 * dst,
  *  (pull method), or you can supply no callback, and then SDL will expect
  *  you to supply data at regular intervals (push method) with this function.
  *
- *  There are no limits on the amount of data you can queue, short of
+ *  There are no limits on the amount of data you can queue, int of
  *  exhaustion of address space. Queued data will drain to the device as
  *  necessary without further intervention from you. If the device needs
  *  audio but there is not enough queued, it will play silence to make up
@@ -687,7 +687,7 @@ extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *da
  *  callback, and then SDL will expect you to retrieve data at regular
  *  intervals (pull method) with this function.
  *
- *  There are no limits on the amount of data you can queue, short of
+ *  There are no limits on the amount of data you can queue, int of
  *  exhaustion of address space. Data from the device will keep queuing as
  *  necessary without further intervention from you. This means you will
  *  eventually run out of memory if you aren't routinely dequeueing data.

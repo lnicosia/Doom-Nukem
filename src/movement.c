@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:16:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:09:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,11 @@ void	update_player_pos(t_env *env)
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
+		if (new_sector != env->player.sector)
+		{
+			env->player.old_sector = env->player.sector;
+			env->player.changed_sector = 1;
+		}
 		prev_highest_sect = env->player.highest_sect;
 		env->player.highest_sect = find_highest_sector(env, motion);
 		if (prev_highest_sect != env->player.highest_sect
@@ -116,8 +121,8 @@ void	update_player_pos(t_env *env)
 				&& env->player.drop_flag && !env->player.state.fly)
 			drop(env);
 		env->player.sector = new_sector;
-		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->player.camera.pos = env->player.pos;
+		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->player.camera.pos.z = env->player.head_z;
 		update_camera_position(&env->player.camera);
 }

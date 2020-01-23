@@ -236,7 +236,7 @@ struct OggOpusFile{
   int                gain_type;
   /*The offset to apply to the gain.*/
   opus_int32         gain_offset_q8;
-  /*Internal state for soft clipping and dithering float->short output.*/
+  /*Internal state for soft clipping and dithering float->int output.*/
 #if !defined(OP_FIXED_POINT)
 # if defined(OP_SOFT_CLIP)
   float              clip_state[OP_NCHANNELS_MAX];
@@ -248,7 +248,7 @@ struct OggOpusFile{
   int                dither_disabled;
   /*The number of channels represented by the internal state.
     This gets set to 0 whenever anything that would prevent state propagation
-     occurs (switching between the float/short APIs, or between the
+     occurs (switching between the float/int APIs, or between the
      stereo/multistream APIs).*/
   int                state_channel_count;
 #endif

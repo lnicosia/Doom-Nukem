@@ -37,10 +37,10 @@ void		reset_clipped(t_env *env)
 	}
 }
 
-short	get_vertex_nb_in_sector(short vertex, t_sector sector)
+int	get_vertex_nb_in_sector(int vertex, t_sector sector)
 {
-	short	i;
-	short	res;
+	int	i;
+	int	res;
 
 	i = 0;
 	res = 0;

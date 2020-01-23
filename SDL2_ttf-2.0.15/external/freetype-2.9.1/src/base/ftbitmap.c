@@ -461,7 +461,7 @@
     FT_UInt  l;
 
 
-    /* Short-circuit transparent color to avoid division by zero. */
+    /* int-circuit transparent color to avoid division by zero. */
     if ( !a )
       return 0;
 

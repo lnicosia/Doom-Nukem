@@ -271,10 +271,10 @@ static inline int32_t scale_rounded(int32_t x, int shift)
 #define         MPG_MD_DUAL_CHANNEL     2
 #define         MPG_MD_MONO             3
 
-/* We support short or float output samples...
-   Short integer amplitude is scaled by this. */
-#define SHORT_SCALE 32768
-/* That scales a short-scaled value to a 32bit integer scaled one
+/* We support int or float output samples...
+   int integer amplitude is scaled by this. */
+#define int_SCALE 32768
+/* That scales a int-scaled value to a 32bit integer scaled one
    value = 2**31/2**15 */
 #define S32_RESCALE 65536
 

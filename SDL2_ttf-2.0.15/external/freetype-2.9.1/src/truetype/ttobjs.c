@@ -110,8 +110,8 @@
   /*                                                                       */
   FT_LOCAL_DEF( FT_Error )
   tt_glyphzone_new( FT_Memory     memory,
-                    FT_UShort     maxPoints,
-                    FT_Short      maxContours,
+                    FT_Uint     maxPoints,
+                    FT_int      maxContours,
                     TT_GlyphZone  zone )
   {
     FT_Error  error;
@@ -240,7 +240,7 @@
 
   static FT_ULong
   tt_get_sfnt_checksum( TT_Face    face,
-                        FT_UShort  i )
+                        FT_Uint  i )
   {
 #if 0 /* if we believe the written value, use following part. */
     if ( face->dir_tables[i].CheckSum )
@@ -432,7 +432,7 @@
     FT_ULong   checksum;
     int        num_matched_ids[TRICK_SFNT_IDS_NUM_FACES];
     FT_Bool    has_cvt, has_fpgm, has_prep;
-    FT_UShort  i;
+    FT_Uint  i;
     int        j, k;
 
 
@@ -1040,7 +1040,7 @@
     TT_Face    face = (TT_Face)ftsize->face;
     FT_Memory  memory = face->root.memory;
 
-    FT_UShort       n_twilight;
+    FT_Uint       n_twilight;
     TT_MaxProfile*  maxp = &face->max_profile;
 
 

@@ -118,7 +118,7 @@ opus_int silk_encode_frame_FLP(
     /*******************************************/
     /* Copy new frame to front of input buffer */
     /*******************************************/
-    silk_short2float_array( x_frame + LA_SHAPE_MS * psEnc->sCmn.fs_kHz, psEnc->sCmn.inputBuf + 1, psEnc->sCmn.frame_length );
+    silk_int2float_array( x_frame + LA_SHAPE_MS * psEnc->sCmn.fs_kHz, psEnc->sCmn.inputBuf + 1, psEnc->sCmn.frame_length );
 
     /* Add tiny signal to avoid high CPU load from denormalized floating point numbers */
     for( i = 0; i < 8; i++ ) {

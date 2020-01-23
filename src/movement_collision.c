@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/21 13:42:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:12:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ double     distance_two_points_2d(double x1, double y1, double x2, double y2)
     d = sqrt(x_sub * x_sub + y_sub * y_sub);
     return (d);
 }
+
+/*
+**	1 == collision
+*/
 
 int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
 {
@@ -107,7 +111,7 @@ int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
 
 t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 {
-    short       i;
+    int       i;
     t_wall      wall;
     double      scalar;
     double      norme_mov;
@@ -169,7 +173,7 @@ t_v3     collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 
 t_v3     check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 {
-    short		i;
+    int		i;
     double      scalar;
     double      norme_mov;
     double      norme_wall;

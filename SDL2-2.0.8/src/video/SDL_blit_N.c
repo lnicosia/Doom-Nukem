@@ -62,12 +62,12 @@ GetL3CacheSize(void)
 #define VECUINT8_LITERAL(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) \
         (vector unsigned char) ( a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p )
 #define VECUINT16_LITERAL(a,b,c,d,e,f,g,h) \
-        (vector unsigned short) ( a,b,c,d,e,f,g,h )
+        (vector unsigned int) ( a,b,c,d,e,f,g,h )
 #else
 #define VECUINT8_LITERAL(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) \
         (vector unsigned char) { a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p }
 #define VECUINT16_LITERAL(a,b,c,d,e,f,g,h) \
-        (vector unsigned short) { a,b,c,d,e,f,g,h }
+        (vector unsigned int) { a,b,c,d,e,f,g,h }
 #endif
 
 #define UNALIGNED_PTR(x) (((size_t) x) & 0x0000000F)
@@ -172,15 +172,15 @@ Blit_RGB888_RGB565Altivec(SDL_BlitInfo * info)
                                                     0x00, 0x0a, 0x00, 0x0e,
                                                     0x00, 0x12, 0x00, 0x16,
                                                     0x00, 0x1a, 0x00, 0x1e);
-    vector unsigned short v1 = vec_splat_u16(1);
-    vector unsigned short v3 = vec_splat_u16(3);
-    vector unsigned short v3f =
+    vector unsigned int v1 = vec_splat_u16(1);
+    vector unsigned int v3 = vec_splat_u16(3);
+    vector unsigned int v3f =
         VECUINT16_LITERAL(0x003f, 0x003f, 0x003f, 0x003f,
                           0x003f, 0x003f, 0x003f, 0x003f);
-    vector unsigned short vfc =
+    vector unsigned int vfc =
         VECUINT16_LITERAL(0x00fc, 0x00fc, 0x00fc, 0x00fc,
                           0x00fc, 0x00fc, 0x00fc, 0x00fc);
-    vector unsigned short vf800 = (vector unsigned short) vec_splat_u8(-7);
+    vector unsigned int vf800 = (vector unsigned int) vec_splat_u8(-7);
     vf800 = vec_sl(vf800, vec_splat_u16(8));
 
     while (height--) {
@@ -215,7 +215,7 @@ Blit_RGB888_RGB565Altivec(SDL_BlitInfo * info)
         valigner = VEC_ALIGNER(src);
 
         while (width) {
-            vector unsigned short vpixel, vrpixel, vgpixel, vbpixel;
+            vector unsigned int vpixel, vrpixel, vgpixel, vbpixel;
             vector unsigned int vsrc1, vsrc2;
             vector unsigned char vdst;
 
@@ -228,8 +228,8 @@ Blit_RGB888_RGB565Altivec(SDL_BlitInfo * info)
             vsrc = vec_perm(vsrc, voverflow, valigner);
             vsrc2 = (vector unsigned int) vec_perm(vsrc, valpha, vpermute);
             /* 1555 */
-            vpixel = (vector unsigned short) vec_packpx(vsrc1, vsrc2);
-            vgpixel = (vector unsigned short) vec_perm(vsrc1, vsrc2, vgmerge);
+            vpixel = (vector unsigned int) vec_packpx(vsrc1, vsrc2);
+            vgpixel = (vector unsigned int) vec_perm(vsrc1, vsrc2, vgmerge);
             vgpixel = vec_and(vgpixel, vfc);
             vgpixel = vec_sl(vgpixel, v3);
             vrpixel = vec_sl(vpixel, v1);
@@ -274,11 +274,11 @@ Blit_RGB565_32Altivec(SDL_BlitInfo * info)
     unsigned alpha;
     vector unsigned char valpha;
     vector unsigned char vpermute;
-    vector unsigned short vf800;
+    vector unsigned int vf800;
     vector unsigned int v8 = vec_splat_u32(8);
     vector unsigned int v16 = vec_add(v8, v8);
-    vector unsigned short v2 = vec_splat_u16(2);
-    vector unsigned short v3 = vec_splat_u16(3);
+    vector unsigned int v2 = vec_splat_u16(2);
+    vector unsigned int v3 = vec_splat_u16(3);
     /*
        0x10 - 0x1f is the alpha
        0x00 - 0x0e evens are the red
@@ -320,7 +320,7 @@ Blit_RGB565_32Altivec(SDL_BlitInfo * info)
     SDL_assert(srcfmt->BytesPerPixel == 2);
     SDL_assert(dstfmt->BytesPerPixel == 4);
 
-    vf800 = (vector unsigned short) vec_splat_u8(-7);
+    vf800 = (vector unsigned int) vec_splat_u8(-7);
     vf800 = vec_sl(vf800, vec_splat_u16(8));
 
     if (dstfmt->Amask && info->a) {
@@ -344,7 +344,7 @@ Blit_RGB565_32Altivec(SDL_BlitInfo * info)
 #define ONE_PIXEL_BLEND(condition, widthvar) \
         while (condition) { \
             unsigned sR, sG, sB; \
-            unsigned short Pixel = *((unsigned short *)src); \
+            unsigned int Pixel = *((unsigned int *)src); \
             sR = (Pixel >> 8) & 0xf8; \
             sG = (Pixel >> 3) & 0xfc; \
             sB = (Pixel << 3) & 0xf8; \
@@ -362,14 +362,14 @@ Blit_RGB565_32Altivec(SDL_BlitInfo * info)
         valigner = VEC_ALIGNER(src);
 
         while (width) {
-            vector unsigned short vR, vG, vB;
+            vector unsigned int vR, vG, vB;
             vector unsigned char vdst1, vdst2;
 
             voverflow = vec_ld(15, src);
             vsrc = vec_perm(vsrc, voverflow, valigner);
 
-            vR = vec_and((vector unsigned short) vsrc, vf800);
-            vB = vec_sl((vector unsigned short) vsrc, v3);
+            vR = vec_and((vector unsigned int) vsrc, vf800);
+            vB = vec_sl((vector unsigned int) vsrc, v3);
             vG = vec_sl(vB, v2);
 
             vdst1 =
@@ -421,11 +421,11 @@ Blit_RGB555_32Altivec(SDL_BlitInfo * info)
     unsigned alpha;
     vector unsigned char valpha;
     vector unsigned char vpermute;
-    vector unsigned short vf800;
+    vector unsigned int vf800;
     vector unsigned int v8 = vec_splat_u32(8);
     vector unsigned int v16 = vec_add(v8, v8);
-    vector unsigned short v1 = vec_splat_u16(1);
-    vector unsigned short v3 = vec_splat_u16(3);
+    vector unsigned int v1 = vec_splat_u16(1);
+    vector unsigned int v3 = vec_splat_u16(3);
     /*
        0x10 - 0x1f is the alpha
        0x00 - 0x0e evens are the red
@@ -467,7 +467,7 @@ Blit_RGB555_32Altivec(SDL_BlitInfo * info)
     SDL_assert(srcfmt->BytesPerPixel == 2);
     SDL_assert(dstfmt->BytesPerPixel == 4);
 
-    vf800 = (vector unsigned short) vec_splat_u8(-7);
+    vf800 = (vector unsigned int) vec_splat_u8(-7);
     vf800 = vec_sl(vf800, vec_splat_u16(8));
 
     if (dstfmt->Amask && info->a) {
@@ -491,7 +491,7 @@ Blit_RGB555_32Altivec(SDL_BlitInfo * info)
 #define ONE_PIXEL_BLEND(condition, widthvar) \
         while (condition) { \
             unsigned sR, sG, sB; \
-            unsigned short Pixel = *((unsigned short *)src); \
+            unsigned int Pixel = *((unsigned int *)src); \
             sR = (Pixel >> 7) & 0xf8; \
             sG = (Pixel >> 2) & 0xf8; \
             sB = (Pixel << 3) & 0xf8; \
@@ -509,14 +509,14 @@ Blit_RGB555_32Altivec(SDL_BlitInfo * info)
         valigner = VEC_ALIGNER(src);
 
         while (width) {
-            vector unsigned short vR, vG, vB;
+            vector unsigned int vR, vG, vB;
             vector unsigned char vdst1, vdst2;
 
             voverflow = vec_ld(15, src);
             vsrc = vec_perm(vsrc, voverflow, valigner);
 
-            vR = vec_and(vec_sl((vector unsigned short) vsrc, v1), vf800);
-            vB = vec_sl((vector unsigned short) vsrc, v3);
+            vR = vec_and(vec_sl((vector unsigned int) vsrc, v1), vf800);
+            vB = vec_sl((vector unsigned int) vsrc, v3);
             vG = vec_sl(vB, v3);
 
             vdst1 =

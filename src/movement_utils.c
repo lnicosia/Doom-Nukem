@@ -37,7 +37,7 @@ double		floor_height(t_env *env, t_movement motion, int sector_dest)
 
 void		iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall, double size_2d)
 {
-	short	i;
+    int       i;
 
 	i = 0;
 	env->sector_list[wall.sector_dest] = 1;
@@ -58,8 +58,8 @@ void		iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall, double size_2d)
 
 void		iter_sectors(t_env *env, t_movement motion)
 {
-	short	i;
-	t_wall	wall;
+    int		i;
+    t_wall	wall;
 
 	i = 0;
 	if (motion.sector < 0)

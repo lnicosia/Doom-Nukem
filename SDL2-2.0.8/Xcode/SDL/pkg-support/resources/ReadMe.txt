@@ -1,4 +1,4 @@
-The Simple DirectMedia Layer (SDL for short) is a cross-platform 
+The Simple DirectMedia Layer (SDL for int) is a cross-platform 
 library designed to make it easy to write multi-media software, 
 such as games and emulators.
 

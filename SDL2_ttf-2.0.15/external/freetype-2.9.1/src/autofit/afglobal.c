@@ -137,7 +137,7 @@
     FT_Error    error;
     FT_Face     face        = globals->face;
     FT_CharMap  old_charmap = face->charmap;
-    FT_UShort*  gstyles     = globals->glyph_styles;
+    FT_Uint*  gstyles     = globals->glyph_styles;
     FT_UInt     ss;
     FT_UInt     i;
     FT_UInt     dflt        = ~0U; /* a non-valid value */
@@ -194,7 +194,7 @@
           if ( gindex != 0                                                &&
                gindex < (FT_ULong)globals->glyph_count                    &&
                ( gstyles[gindex] & AF_STYLE_MASK ) == AF_STYLE_UNASSIGNED )
-            gstyles[gindex] = (FT_UShort)ss;
+            gstyles[gindex] = (FT_Uint)ss;
 
           for (;;)
           {
@@ -205,7 +205,7 @@
 
             if ( gindex < (FT_ULong)globals->glyph_count                    &&
                  ( gstyles[gindex] & AF_STYLE_MASK ) == AF_STYLE_UNASSIGNED )
-              gstyles[gindex] = (FT_UShort)ss;
+              gstyles[gindex] = (FT_Uint)ss;
           }
         }
 
@@ -222,7 +222,7 @@
 
           if ( gindex != 0                                          &&
                gindex < (FT_ULong)globals->glyph_count              &&
-               ( gstyles[gindex] & AF_STYLE_MASK ) == (FT_UShort)ss )
+               ( gstyles[gindex] & AF_STYLE_MASK ) == (FT_Uint)ss )
             gstyles[gindex] |= AF_NONBASE;
 
           for (;;)
@@ -233,7 +233,7 @@
               break;
 
             if ( gindex < (FT_ULong)globals->glyph_count              &&
-                 ( gstyles[gindex] & AF_STYLE_MASK ) == (FT_UShort)ss )
+                 ( gstyles[gindex] & AF_STYLE_MASK ) == (FT_Uint)ss )
               gstyles[gindex] |= AF_NONBASE;
           }
         }
@@ -348,13 +348,13 @@
     /* with the glyph_styles array                      */
     if ( FT_ALLOC( globals,
                    sizeof ( *globals ) +
-                     (FT_ULong)face->num_glyphs * sizeof ( FT_UShort ) ) )
+                     (FT_ULong)face->num_glyphs * sizeof ( FT_Uint ) ) )
       goto Exit;
 
     globals->face                      = face;
     globals->glyph_count               = face->num_glyphs;
     /* right after the globals structure come the glyph styles */
-    globals->glyph_styles              = (FT_UShort*)( globals + 1 );
+    globals->glyph_styles              = (FT_Uint*)( globals + 1 );
     globals->module                    = module;
     globals->stem_darkening_for_ppem   = 0;
     globals->darken_x                  = 0;

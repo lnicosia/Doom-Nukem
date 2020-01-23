@@ -14,7 +14,7 @@
 	<string>modplug</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
-	<key>CFBundleShortVersionString</key>
+	<key>CFBundleintVersionString</key>
 	<string>0.8.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>

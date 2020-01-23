@@ -157,7 +157,7 @@ static opus_int silk_setup_resamplers(
             nSamples_temp = silk_LSHIFT( psEnc->sCmn.frame_length, 1 ) + LA_SHAPE_MS * psEnc->sCmn.fs_kHz;
 
 #ifndef FIXED_POINT
-            silk_float2short_array( x_bufFIX, psEnc->x_buf, nSamples_temp );
+            silk_float2int_array( x_bufFIX, psEnc->x_buf, nSamples_temp );
 #endif
 
             /* Initialize resampler for temporary resampling of x_buf data to API_fs_Hz */
@@ -176,7 +176,7 @@ static opus_int silk_setup_resamplers(
             ret += silk_resampler( &psEnc->sCmn.resampler_state, x_bufFIX, x_buf_API_fs_Hz, nSamples_temp );
 
 #ifndef FIXED_POINT
-            silk_short2float_array( psEnc->x_buf, x_bufFIX, ( 2 * MAX_FRAME_LENGTH_MS + LA_SHAPE_MS ) * fs_kHz );
+            silk_int2float_array( psEnc->x_buf, x_bufFIX, ( 2 * MAX_FRAME_LENGTH_MS + LA_SHAPE_MS ) * fs_kHz );
 #endif
         }
     }

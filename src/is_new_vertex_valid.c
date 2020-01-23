@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 13:27:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:31:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 					new_v2(v1->x, v1->y),
 					new_v2(v2->x, v2->y),
 					new_v2(last->x, last->y),
-					new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
-						round((env->sdl.my - env->editor.center.y) / env->editor.scale))))
+					new_v2(round((env->sdl.mx - env->editor.center.x) /
+					env->editor.scale), round((env->sdl.my
+					- env->editor.center.y) / env->editor.scale))))
 			return (custom_error("Intersects with current sector"));
 		tmp = tmp->next;
 	}
@@ -204,7 +205,11 @@ int		check_all_angles(t_v2 *p, int res, int i, int straight)
 	return (res);
 }
 
-int		is_sector_convex(t_env *env, t_list *tmp)
+/*
+**	PROTECTION
+*/
+
+int		is_new_sector_convex(t_env *env, t_list *tmp)
 {
 	int		len;
 	int		i;
@@ -298,7 +303,7 @@ int		is_new_vertex_valid(t_env *env, int index)
 		return (0);
 	if (new_wall_intersects(env, index))
 		return (0);
-	if (!is_sector_convex(env, env->editor.current_vertices))
+	if (!is_new_sector_convex(env, env->editor.current_vertices))
 		return (0);
 	return (1);
 }

@@ -22,7 +22,7 @@ COMMAND CODES
 
 You can get this info via the control command "help".
 
-HELP/H: command listing (LONG/SHORT forms), command case insensitve
+HELP/H: command listing (LONG/int forms), command case insensitve
 
 LOAD/L <trackname>: load and start playing resource <trackname>
 

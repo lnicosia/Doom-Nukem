@@ -21,7 +21,7 @@ static int initialized = 0;
 
 int attribute_align_arg mpg123_init(void)
 {
-	if((sizeof(short) != 2) || (sizeof(long) < 4)) return MPG123_BAD_TYPES;
+	if((sizeof(int) != 2) || (sizeof(long) < 4)) return MPG123_BAD_TYPES;
 
 	if(initialized) return MPG123_OK; /* no need to initialize twice */
 
@@ -37,7 +37,7 @@ int attribute_align_arg mpg123_init(void)
 #if (defined REAL_IS_FLOAT) && (defined IEEE_FLOAT)
 	/* This is rather pointless but it eases my mind to check that we did
 	   not enable the special rounding on a VAX or something. */
-	if(12346 != REAL_TO_SHORT_ACCURATE(12345.67f))
+	if(12346 != REAL_TO_int_ACCURATE(12345.67f))
 	{
 		error("Bad IEEE 754 rounding. Re-build libmpg123 properly.");
 		return MPG123_ERR;
@@ -214,7 +214,7 @@ int attribute_align_arg mpg123_par(mpg123_pars *mp, enum mpg123_parms key, long 
 		case MPG123_OUTSCALE:
 			/* Choose the value that is non-zero, if any.
 			   Downscaling integers to 1.0 . */
-			mp->outscale = val == 0 ? fval : (double)val/SHORT_SCALE;
+			mp->outscale = val == 0 ? fval : (double)val/int_SCALE;
 		break;
 		case MPG123_TIMEOUT:
 #ifdef TIMEOUT_READ
@@ -312,7 +312,7 @@ int attribute_align_arg mpg123_getpar(mpg123_pars *mp, enum mpg123_parms key, lo
 		break;
 		case MPG123_OUTSCALE:
 			if(fval) *fval = mp->outscale;
-			if(val) *val = (long)(mp->outscale*SHORT_SCALE);
+			if(val) *val = (long)(mp->outscale*int_SCALE);
 		break;
 		case MPG123_RESYNC_LIMIT:
 			if(val) *val = mp->resync_limit;
@@ -1268,7 +1268,7 @@ off_t attribute_align_arg mpg123_feedseek(mpg123_handle *mh, off_t sampleoff, in
 	pos = SEEKFRAME(mh);
 	mh->buffer.fill = 0;
 
-	/* Shortcuts without modifying input stream. */
+	/* intcuts without modifying input stream. */
 	*input_offset = mh->rdat.buffer.fileoff + mh->rdat.buffer.size;
 	if(mh->num < mh->firstframe) mh->to_decode = FALSE;
 	if(mh->num == pos && mh->to_decode) goto feedseekend;

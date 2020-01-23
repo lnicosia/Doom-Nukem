@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 18:01:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:59:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		doom(t_env *env)
 			}
 			if (env->events)
 			{
-				if (pop_events2(env))
+				if (pop_events(env))
 					return (-1);
 			}
 			if (launch_events(env))

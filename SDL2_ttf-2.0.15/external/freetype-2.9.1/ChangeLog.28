@@ -2078,7 +2078,7 @@
 	[sfnt] Implement PS names for font instances [2/3].
 
 	* src/sfnt/sfdriver.c (fix2float) [TT_CONFIG_OPTION_GX_VAR_SUPPORT]:
-	New function to find the shortest representation of a 16.16
+	New function to find the intest representation of a 16.16
 	fractional number.
 
 2017-03-14  Werner Lemberg  <wl@gnu.org>
@@ -2775,7 +2775,7 @@
 	TT_NAME_ID_VARIATIONS_PREFIX): New macros.
 
 	(HAVE_LIMIT_ON_IDENTS): Remove macro (which was useless since many
-	years), use guarded long macros by default and define short versions
+	years), use guarded long macros by default and define int versions
 	as aliases for the long ones.
 
 2017-01-15  Werner Lemberg  <wl@gnu.org>

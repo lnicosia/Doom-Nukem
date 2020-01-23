@@ -554,7 +554,7 @@ static FT_Error Load_Glyph(TTF_Font *font, Uint32 idx, c_glyph *cached, int want
         return error;
     }
 
-    /* Get our glyph shortcuts */
+    /* Get our glyph intcuts */
     glyph = face->glyph;
     metrics = &glyph->metrics;
     outline = &glyph->outline;

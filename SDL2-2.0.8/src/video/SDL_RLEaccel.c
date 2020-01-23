@@ -25,7 +25,7 @@
  *
  * Original version by Sam Lantinga
  *
- * Mattias Engdegård (Yorick): Rewrite. New encoding format, encoder and
+ * Mattias Engdegï¿½rd (Yorick): Rewrite. New encoding format, encoder and
  * decoder. Added per-surface alpha blitter. Added per-pixel alpha
  * format, encoder and blitter.
  *
@@ -1081,7 +1081,7 @@ RLEAlphaSurface(SDL_Surface * surface)
             return -1;          /* requires unused high byte */
         copy_opaque = copy_32;
         copy_transl = copy_32;
-        max_opaque_run = 255;   /* runs stored as short ints */
+        max_opaque_run = 255;   /* runs stored as int ints */
 
         /* worst case is alternating opaque and translucent pixels */
         maxsize = surface->h * 2 * 4 * (surface->w + 1) + 4;

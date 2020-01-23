@@ -126,17 +126,17 @@
     limit = (FT_Byte*)stream->limit;
 
     /* Figure out how long the width table is.          */
-    /* This info is a little-endian short at offset 99. */
+    /* This info is a little-endian int at offset 99. */
     p = start + 99;
     if ( p + 2 > limit )
     {
       error = FT_THROW( Unknown_File_Format );
       goto Exit;
     }
-    width_table_length = FT_PEEK_USHORT_LE( p );
+    width_table_length = FT_PEEK_Uint_LE( p );
 
     p += 18 + width_table_length;
-    if ( p + 0x12 > limit || FT_PEEK_USHORT_LE( p ) < 0x12 )
+    if ( p + 0x12 > limit || FT_PEEK_Uint_LE( p ) < 0x12 )
       /* extension table is probably optional */
       goto Exit;
 
@@ -154,7 +154,7 @@
       goto Exit;
     }
 
-    fi->NumKernPair = FT_PEEK_USHORT_LE( p );
+    fi->NumKernPair = FT_PEEK_Uint_LE( p );
     p += 2;
     if ( p + 4 * fi->NumKernPair > limit )
     {
@@ -198,13 +198,13 @@
     /*                                        */
     /*   encoding of first glyph (1 byte)     */
     /*   encoding of second glyph (1 byte)    */
-    /*   offset (little-endian short)         */
+    /*   offset (little-endian int)         */
     for ( ; p < limit; p += 4 )
     {
       kp->index1 = FT_Get_Char_Index( t1_face, p[0] );
       kp->index2 = FT_Get_Char_Index( t1_face, p[1] );
 
-      kp->x = (FT_Int)FT_PEEK_SHORT_LE(p + 2);
+      kp->x = (FT_Int)FT_PEEK_int_LE(p + 2);
       kp->y = 0;
 
       kp++;
@@ -304,8 +304,8 @@
       t1_face->bbox.yMax = ( fi->FontBBox.yMax + 0xFFFF ) >> 16;
 
       /* no `U' suffix here to 0x8000! */
-      t1_face->ascender  = (FT_Short)( ( fi->Ascender  + 0x8000 ) >> 16 );
-      t1_face->descender = (FT_Short)( ( fi->Descender + 0x8000 ) >> 16 );
+      t1_face->ascender  = (FT_int)( ( fi->Ascender  + 0x8000 ) >> 16 );
+      t1_face->descender = (FT_int)( ( fi->Descender + 0x8000 ) >> 16 );
 
       if ( fi->NumKernPair )
       {

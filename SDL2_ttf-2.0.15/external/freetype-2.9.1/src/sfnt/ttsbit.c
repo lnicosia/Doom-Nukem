@@ -83,7 +83,7 @@
 
     if ( table_size < 8 )
     {
-      FT_ERROR(( "tt_face_load_sbit_strikes: table too short\n" ));
+      FT_ERROR(( "tt_face_load_sbit_strikes: table too int\n" ));
       error = FT_THROW( Invalid_File_Format );
       goto Exit;
     }
@@ -142,8 +142,8 @@
 
     case TT_SBIT_TABLE_TYPE_SBIX:
       {
-        FT_UShort  version;
-        FT_UShort  flags;
+        FT_Uint  version;
+        FT_Uint  flags;
         FT_ULong   num_strikes;
         FT_UInt    count;
 
@@ -151,8 +151,8 @@
         if ( FT_FRAME_ENTER( 8 ) )
           goto Exit;
 
-        version     = FT_GET_USHORT();
-        flags       = FT_GET_USHORT();
+        version     = FT_GET_Uint();
+        flags       = FT_GET_Uint();
         num_strikes = FT_GET_ULONG();
 
         FT_FRAME_EXIT();
@@ -318,8 +318,8 @@
 
         strike = face->sbit_table + 8 + strike_index * 48;
 
-        metrics->x_ppem = (FT_UShort)strike[44];
-        metrics->y_ppem = (FT_UShort)strike[45];
+        metrics->x_ppem = (FT_Uint)strike[44];
+        metrics->y_ppem = (FT_Uint)strike[45];
 
         metrics->ascender  = (FT_Char)strike[16] * 64;  /* hori.ascender  */
         metrics->descender = (FT_Char)strike[17] * 64;  /* hori.descender */
@@ -405,7 +405,7 @@
       {
         FT_Stream       stream = face->root.stream;
         FT_UInt         offset;
-        FT_UShort       upem, ppem, resolution;
+        FT_Uint       upem, ppem, resolution;
         TT_HoriHeader  *hori;
         FT_Pos          ppem_; /* to reduce casts */
 
@@ -423,8 +423,8 @@
              FT_FRAME_ENTER( 4 )                         )
           return error;
 
-        ppem       = FT_GET_USHORT();
-        resolution = FT_GET_USHORT();
+        ppem       = FT_GET_Uint();
+        resolution = FT_GET_Uint();
 
         FT_UNUSED( resolution ); /* What to do with this? */
 
@@ -858,7 +858,7 @@
     FT_Int      pitch, width, height, line_bits, h, nbits;
     FT_UInt     bit_height, bit_width;
     FT_Bitmap*  bitmap;
-    FT_UShort   rval;
+    FT_Uint   rval;
 
     FT_UNUSED( recurse_count );
 
@@ -1000,7 +1000,7 @@
     if ( p + 2 > limit )
       goto Fail;
 
-    num_components = FT_NEXT_USHORT( p );
+    num_components = FT_NEXT_Uint( p );
     if ( p + 4 * num_components > limit )
     {
       FT_TRACE1(( "tt_sbit_decoder_load_compound: broken table\n" ));
@@ -1013,7 +1013,7 @@
 
     for ( nn = 0; nn < num_components; nn++ )
     {
-      FT_UInt  gindex = FT_NEXT_USHORT( p );
+      FT_UInt  gindex = FT_NEXT_Uint( p );
       FT_Byte  dx     = FT_NEXT_BYTE( p );
       FT_Byte  dy     = FT_NEXT_BYTE( p );
 
@@ -1279,8 +1279,8 @@
     /* glyph index.                                                 */
     for ( ; num_ranges > 0; num_ranges-- )
     {
-      start = FT_NEXT_USHORT( p );
-      end   = FT_NEXT_USHORT( p );
+      start = FT_NEXT_Uint( p );
+      end   = FT_NEXT_Uint( p );
 
       if ( glyph_index >= start && glyph_index <= end )
         goto FoundRange;
@@ -1302,8 +1302,8 @@
       goto NoBitmap;
 
     /* now find the glyph's location and extend within the ebdt table */
-    index_format = FT_NEXT_USHORT( p );
-    image_format = FT_NEXT_USHORT( p );
+    index_format = FT_NEXT_Uint( p );
+    image_format = FT_NEXT_Uint( p );
     image_offset = FT_NEXT_ULONG ( p );
 
     switch ( index_format )
@@ -1343,8 +1343,8 @@
       if ( p + 4 > p_limit )
         goto NoBitmap;
 
-      image_start = FT_NEXT_USHORT( p );
-      image_end   = FT_NEXT_USHORT( p );
+      image_start = FT_NEXT_Uint( p );
+      image_end   = FT_NEXT_Uint( p );
 
       if ( image_start == image_end )  /* missing glyph */
         goto NoBitmap;
@@ -1367,14 +1367,14 @@
 
         for ( mm = 0; mm < num_glyphs; mm++ )
         {
-          FT_UInt  gindex = FT_NEXT_USHORT( p );
+          FT_UInt  gindex = FT_NEXT_Uint( p );
 
 
           if ( gindex == glyph_index )
           {
-            image_start = FT_NEXT_USHORT( p );
+            image_start = FT_NEXT_Uint( p );
             p          += 2;
-            image_end   = FT_PEEK_USHORT( p );
+            image_end   = FT_PEEK_Uint( p );
             break;
           }
           p += 2;
@@ -1407,7 +1407,7 @@
 
         for ( mm = 0; mm < num_glyphs; mm++ )
         {
-          FT_UInt  gindex = FT_NEXT_USHORT( p );
+          FT_UInt  gindex = FT_NEXT_Uint( p );
 
 
           if ( gindex == glyph_index )
@@ -1524,8 +1524,8 @@
          FT_FRAME_ENTER( glyph_end - glyph_start )                        )
       return error;
 
-    originOffsetX = FT_GET_SHORT();
-    originOffsetY = FT_GET_SHORT();
+    originOffsetX = FT_GET_int();
+    originOffsetY = FT_GET_int();
 
     graphicType = FT_GET_TAG4();
 
@@ -1534,7 +1534,7 @@
     case FT_MAKE_TAG( 'd', 'u', 'p', 'e' ):
       if ( recurse_depth < 4 )
       {
-        glyph_index = FT_GET_USHORT();
+        glyph_index = FT_GET_Uint();
         FT_FRAME_EXIT();
         recurse_depth++;
         goto retry;
@@ -1574,15 +1574,15 @@
 
     if ( !error )
     {
-      FT_Short   abearing;
-      FT_UShort  aadvance;
+      FT_int   abearing;
+      FT_Uint  aadvance;
 
 
       tt_face_get_metrics( face, FALSE, glyph_index, &abearing, &aadvance );
 
-      metrics->horiBearingX = (FT_Short)originOffsetX;
-      metrics->horiBearingY = (FT_Short)( -originOffsetY + metrics->height );
-      metrics->horiAdvance  = (FT_UShort)( aadvance *
+      metrics->horiBearingX = (FT_int)originOffsetX;
+      metrics->horiBearingY = (FT_int)( -originOffsetY + metrics->height );
+      metrics->horiAdvance  = (FT_Uint)( aadvance *
                                            face->root.size->metrics.x_ppem /
                                            face->header.Units_Per_EM );
     }

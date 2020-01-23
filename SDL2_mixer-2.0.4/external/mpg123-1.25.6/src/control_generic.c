@@ -421,11 +421,11 @@ int control_generic (mpg123_handle *fr)
 		/* read & process commands */
 		if (n > 0)
 		{
-			short int len = 1; /* length of buffer */
+			int int len = 1; /* length of buffer */
 			char *cmd, *arg; /* variables for parsing, */
 			char *comstr = NULL; /* gcc thinks that this could be used uninitialited... */ 
 			char buf[REMOTE_BUFFER_SIZE];
-			short int counter;
+			int int counter;
 			char *next_comstr = buf; /* have it initialized for first command */
 
 			/* read as much as possible, maybe multiple commands */
@@ -586,7 +586,7 @@ int control_generic (mpg123_handle *fr)
 				/* some HELP */
 				if (!strcasecmp(comstr, "H") || !strcasecmp(comstr, "HELP")) {
 					generic_sendmsg("H {");
-					generic_sendmsg("H HELP/H: command listing (LONG/SHORT forms), command case insensitve");
+					generic_sendmsg("H HELP/H: command listing (LONG/int forms), command case insensitve");
 					generic_sendmsg("H LOAD/L <trackname>: load and start playing resource <trackname>");
 					generic_sendmsg("H LOADPAUSED/LP <trackname>: load but do not start playing resource <trackname>");
 					generic_sendmsg("H LOADLIST/LL <entry> <url>: load a playlist from given <url>, and display its entries, optionally load and play one of these specificed by the integer <entry> (<0: just list, 0: play last track, >0:play track with that position in list)");

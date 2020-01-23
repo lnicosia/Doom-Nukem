@@ -35,7 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 /* Prefilter for finding Quantizer input signal */
 static inline void silk_prefilt_FIX(
     silk_prefilter_state_FIX    *P,                         /* I/O  state                               */
-    opus_int32                  st_res_Q12[],               /* I    short term residual signal          */
+    opus_int32                  st_res_Q12[],               /* I    int term residual signal          */
     opus_int32                  xw_Q3[],                    /* O    prefiltered signal                  */
     opus_int32                  HarmShapeFIRPacked_Q12,     /* I    Harmonic shaping coeficients        */
     opus_int                    Tilt_Q14,                   /* I    Tilt shaping coeficient             */
@@ -124,7 +124,7 @@ void silk_prefilter_FIX(
         LF_shp_Q14  = psEncCtrl->LF_shp_Q14[ k ];
         AR1_shp_Q13 = &psEncCtrl->AR1_Q13[   k * MAX_SHAPE_LPC_ORDER ];
 
-        /* Short term FIR filtering*/
+        /* int term FIR filtering*/
         silk_warped_LPC_analysis_filter_FIX( P->sAR_shp, st_res_Q2, AR1_shp_Q13, px,
             psEnc->sCmn.warping_Q16, psEnc->sCmn.subfr_length, psEnc->sCmn.shapingLPCOrder );
 
@@ -153,7 +153,7 @@ void silk_prefilter_FIX(
 /* Prefilter for finding Quantizer input signal */
 static inline void silk_prefilt_FIX(
     silk_prefilter_state_FIX    *P,                         /* I/O  state                               */
-    opus_int32                  st_res_Q12[],               /* I    short term residual signal          */
+    opus_int32                  st_res_Q12[],               /* I    int term residual signal          */
     opus_int32                  xw_Q3[],                    /* O    prefiltered signal                  */
     opus_int32                  HarmShapeFIRPacked_Q12,     /* I    Harmonic shaping coeficients        */
     opus_int                    Tilt_Q14,                   /* I    Tilt shaping coeficient             */

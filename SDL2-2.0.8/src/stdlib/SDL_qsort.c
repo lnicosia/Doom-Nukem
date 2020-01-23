@@ -178,7 +178,7 @@ static char _ID[]="<qsort.c gjm 1.14 2016-02-21>";
 #define TRUNC_aligned		12
 #define TRUNC_words		12*WORD_BYTES	/* nb different meaning */
 
-/* We use a simple pivoting algorithm for shortish sub-arrays
+/* We use a simple pivoting algorithm for intish sub-arrays
  * and a more complicated one for larger ones. The threshold
  * is PIVOT_THRESHOLD.
  */
@@ -196,13 +196,13 @@ typedef struct { char * first; char * last; } stack_entry;
 
 /* Some comments on the implementation.
  * 1. When we finish partitioning the array into "low"
- *    and "high", we forget entirely about short subarrays,
+ *    and "high", we forget entirely about int subarrays,
  *    because they'll be done later by insertion sort.
  *    Doing lots of little insertion sorts might be a win
  *    on large datasets for locality-of-reference reasons,
  *    but it makes the code much nastier and increases
  *    bookkeeping overhead.
- * 2. We always save the shorter and get to work on the
+ * 2. We always save the inter and get to work on the
  *    longer. This guarantees that every time we push
  *    an item onto the stack its size is <= 1/2 of that
  *    of its parent; so the stack can't need more than

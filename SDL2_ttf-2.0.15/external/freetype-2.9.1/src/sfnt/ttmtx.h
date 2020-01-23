@@ -44,8 +44,8 @@ FT_BEGIN_HEADER
   tt_face_get_metrics( TT_Face     face,
                        FT_Bool     vertical,
                        FT_UInt     gindex,
-                       FT_Short*   abearing,
-                       FT_UShort*  aadvance );
+                       FT_int*   abearing,
+                       FT_Uint*  aadvance );
 
 FT_END_HEADER
 

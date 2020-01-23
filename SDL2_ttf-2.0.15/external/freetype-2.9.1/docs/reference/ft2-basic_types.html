@@ -116,8 +116,8 @@
 <tr><td><a href="#FT_UInt32">FT_UInt32</a></td><td><a href="#FT_Pos">FT_Pos</a></td><td>&nbsp;</td></tr>
 <tr><td><a href="#FT_Int64">FT_Int64</a></td><td><a href="#FT_Vector">FT_Vector</a></td><td><a href="#FT_Bitmap">FT_Bitmap</a></td></tr>
 <tr><td><a href="#FT_UInt64">FT_UInt64</a></td><td><a href="#FT_BBox">FT_BBox</a></td><td><a href="#FT_Pixel_Mode">FT_Pixel_Mode</a></td></tr>
-<tr><td><a href="#FT_Short">FT_Short</a></td><td><a href="#FT_Matrix">FT_Matrix</a></td><td><a href="#FT_Palette_Mode">FT_Palette_Mode</a></td></tr>
-<tr><td><a href="#FT_UShort">FT_UShort</a></td><td><a href="#FT_FWord">FT_FWord</a></td><td><a href="#FT_Glyph_Format">FT_Glyph_Format</a></td></tr>
+<tr><td><a href="#FT_int">FT_int</a></td><td><a href="#FT_Matrix">FT_Matrix</a></td><td><a href="#FT_Palette_Mode">FT_Palette_Mode</a></td></tr>
+<tr><td><a href="#FT_Uint">FT_Uint</a></td><td><a href="#FT_FWord">FT_FWord</a></td><td><a href="#FT_Glyph_Format">FT_Glyph_Format</a></td></tr>
 <tr><td><a href="#FT_Long">FT_Long</a></td><td><a href="#FT_UFWord">FT_UFWord</a></td><td><a href="#FT_IMAGE_TAG">FT_IMAGE_TAG</a></td></tr>
 <tr><td><a href="#FT_ULong">FT_ULong</a></td><td><a href="#FT_F2Dot14">FT_F2Dot14</a></td><td></td></tr>
 </table>
@@ -189,7 +189,7 @@
 <h3 id="FT_Int16">FT_Int16</h3>
 <p>Defined in FT_CONFIG_CONFIG_H (freetype/config/ftconfig.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">short</span>  <b>FT_Int16</b>;
+  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">int</span>  <b>FT_Int16</b>;
 </pre>
 
 <p>A typedef for a 16bit signed integer type.</p>
@@ -201,7 +201,7 @@
 <h3 id="FT_UInt16">FT_UInt16</h3>
 <p>Defined in FT_CONFIG_CONFIG_H (freetype/config/ftconfig.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span>  <b>FT_UInt16</b>;
+  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>  <b>FT_UInt16</b>;
 </pre>
 
 <p>A typedef for a 16bit unsigned integer type.</p>
@@ -249,25 +249,25 @@
 <table class="index-toc-link"><tr><td class="left">[<a href="ft2-index.html">Index</a>]</td><td class="middle">[<a href="#">Top</a>]</td><td class="right">[<a href="ft2-toc.html">TOC</a>]</td></tr></table></div>
 
 <div class="section">
-<h3 id="FT_Short">FT_Short</h3>
+<h3 id="FT_int">FT_int</h3>
 <p>Defined in FT_TYPES_H (freetype/fttypes.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">short</span>  <b>FT_Short</b>;
+  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">int</span>  <b>FT_int</b>;
 </pre>
 
-<p>A typedef for signed short.</p>
+<p>A typedef for signed int.</p>
 
 <hr>
 <table class="index-toc-link"><tr><td class="left">[<a href="ft2-index.html">Index</a>]</td><td class="middle">[<a href="#">Top</a>]</td><td class="right">[<a href="ft2-toc.html">TOC</a>]</td></tr></table></div>
 
 <div class="section">
-<h3 id="FT_UShort">FT_UShort</h3>
+<h3 id="FT_Uint">FT_Uint</h3>
 <p>Defined in FT_TYPES_H (freetype/fttypes.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span>  <b>FT_UShort</b>;
+  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>  <b>FT_Uint</b>;
 </pre>
 
-<p>A typedef for unsigned short.</p>
+<p>A typedef for unsigned int.</p>
 
 <hr>
 <table class="index-toc-link"><tr><td class="left">[<a href="ft2-index.html">Index</a>]</td><td class="middle">[<a href="#">Top</a>]</td><td class="right">[<a href="ft2-toc.html">TOC</a>]</td></tr></table></div>
@@ -510,7 +510,7 @@
 <h3 id="FT_FWord">FT_FWord</h3>
 <p>Defined in FT_TYPES_H (freetype/fttypes.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">short</span>  <b>FT_FWord</b>;   /* distance in FUnits */
+  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">int</span>  <b>FT_FWord</b>;   /* distance in FUnits */
 </pre>
 
 <p>A signed 16-bit integer used to store a distance in original font units.</p>
@@ -522,7 +522,7 @@
 <h3 id="FT_UFWord">FT_UFWord</h3>
 <p>Defined in FT_TYPES_H (freetype/fttypes.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span>  <b>FT_UFWord</b>;  /* <span class="keyword">unsigned</span> distance */
+  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>  <b>FT_UFWord</b>;  /* <span class="keyword">unsigned</span> distance */
 </pre>
 
 <p>An unsigned 16-bit integer used to store a distance in original font units.</p>
@@ -534,7 +534,7 @@
 <h3 id="FT_F2Dot14">FT_F2Dot14</h3>
 <p>Defined in FT_TYPES_H (freetype/fttypes.h).</p>
 <pre>
-  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">short</span>  <b>FT_F2Dot14</b>;
+  <span class="keyword">typedef</span> <span class="keyword">signed</span> <span class="keyword">int</span>  <b>FT_F2Dot14</b>;
 </pre>
 
 <p>A signed 2.14 fixed-point type used for unit vectors.</p>
@@ -682,7 +682,7 @@
     <span class="keyword">unsigned</span> <span class="keyword">int</span>    width;
     <span class="keyword">int</span>             pitch;
     <span class="keyword">unsigned</span> <span class="keyword">char</span>*  buffer;
-    <span class="keyword">unsigned</span> <span class="keyword">short</span>  num_grays;
+    <span class="keyword">unsigned</span> <span class="keyword">int</span>  num_grays;
     <span class="keyword">unsigned</span> <span class="keyword">char</span>   pixel_mode;
     <span class="keyword">unsigned</span> <span class="keyword">char</span>   palette_mode;
     <span class="keyword">void</span>*           palette;

@@ -30,7 +30,7 @@ static const ve_setup_data_template ve_setup_44_uncoupled={
   40000,
   50000,
 
-  blocksize_short_44,
+  blocksize_int_44,
   blocksize_long_44,
 
   _psy_tone_masteratt_44,
@@ -49,11 +49,11 @@ static const ve_setup_data_template ve_setup_44_uncoupled={
   _psy_noise_suppress,
 
   _psy_compand_44,
-  _psy_compand_short_mapping,
+  _psy_compand_int_mapping,
   _psy_compand_long_mapping,
 
-  {_noise_start_short_44,_noise_start_long_44},
-  {_noise_part_short_44,_noise_part_long_44},
+  {_noise_start_int_44,_noise_start_long_44},
+  {_noise_part_int_44,_noise_part_long_44},
   _noise_thresh_44,
 
   _psy_ath_floater,

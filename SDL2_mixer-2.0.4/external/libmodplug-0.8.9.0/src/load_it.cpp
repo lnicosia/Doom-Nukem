@@ -1297,14 +1297,14 @@ void ITUnpack8Bit(signed char *pSample, DWORD dwLen, LPBYTE lpMemFile, DWORD dwM
 void ITUnpack16Bit(signed char *pSample, DWORD dwLen, LPBYTE lpMemFile, DWORD dwMemLength, BOOL b215)
 //--------------------------------------------------------------------------------------------
 {
-	signed short *pDst = (signed short *)pSample;
+	signed int *pDst = (signed int *)pSample;
 	LPBYTE pSrc = lpMemFile;
 	DWORD wHdr = 0;
 	DWORD wCount = 0;
 	DWORD bitbuf = 0;
 	UINT bitnum = 0;
 	BYTE bLeft = 0;
-	signed short wTemp = 0, wTemp2 = 0;
+	signed int wTemp = 0, wTemp2 = 0;
 
 	while (dwLen)
 	{
@@ -1352,12 +1352,12 @@ void ITUnpack16Bit(signed char *pSample, DWORD dwLen, LPBYTE lpMemFile, DWORD dw
 			if (bLeft < 16)
 			{
 				BYTE shift = 16 - bLeft;
-				signed short c = (signed short)(dwBits << shift);
+				signed int c = (signed int)(dwBits << shift);
 				c >>= shift;
 				dwBits = (DWORD)c;
 			}
 			dwBits += wTemp;
-			wTemp = (signed short)dwBits;
+			wTemp = (signed int)dwBits;
 			wTemp2 += wTemp;
 #ifdef IT215_SUPPORT
 			pDst[dwPos] = (b215) ? wTemp2 : wTemp;

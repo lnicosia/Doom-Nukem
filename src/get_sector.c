@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:11:36 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/15 11:35:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:36:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Starts by looking into the given sector.
 */
 
-int		get_sector(t_env *env, t_v3 pos, short origin)
+int		get_sector(t_env *env, t_v3 pos, int origin)
 {
 	int		i;
 

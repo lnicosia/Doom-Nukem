@@ -81,7 +81,7 @@
 #define af_intToFixed( i ) \
           ( (FT_Fixed)( (FT_UInt32)(i) << 16 ) )
 #define af_fixedToInt( x ) \
-          ( (FT_Short)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
+          ( (FT_int)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
 #define af_floatToFixed( f ) \
           ( (FT_Fixed)( (f) * 65536.0 + 0.5 ) )
 
@@ -602,7 +602,7 @@
   {
     AF_Module  module = loader->globals->module;
 
-    FT_UShort  units_per_EM;
+    FT_Uint  units_per_EM;
     FT_Fixed   ppem, em_ratio;
     FT_Fixed   stem_width, stem_width_per_1000, scaled_stem, darken_amount;
     FT_Int     log_base_2;

@@ -173,11 +173,11 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="operations.c" />
-    <ClCompile Include="operations_shorthand_cuesheet.c" />
-    <ClCompile Include="operations_shorthand_picture.c" />
-    <ClCompile Include="operations_shorthand_seektable.c" />
-    <ClCompile Include="operations_shorthand_streaminfo.c" />
-    <ClCompile Include="operations_shorthand_vorbiscomment.c" />
+    <ClCompile Include="operations_inthand_cuesheet.c" />
+    <ClCompile Include="operations_inthand_picture.c" />
+    <ClCompile Include="operations_inthand_seektable.c" />
+    <ClCompile Include="operations_inthand_streaminfo.c" />
+    <ClCompile Include="operations_inthand_vorbiscomment.c" />
     <ClCompile Include="options.c" />
     <ClCompile Include="usage.c" />
     <ClCompile Include="utils.c" />

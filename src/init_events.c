@@ -6,42 +6,36 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:18:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 16:07:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:18:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-t_event	new_fixed_event(int type, void *target, double goal, Uint32 duration)
+t_event	new_fixed_event(int type, void *target, double goal, double speed)
 {
 	t_event	new;
 
 	ft_bzero(&new, sizeof(new));
 	new.target = target;
 	new.mod_type = FIXED;
-	if (duration)
-		new.duration = duration;
-	else
-		new.duration = 1;
 	new.type = type;
 	new.goal = goal;
+	new.speed = speed;
 	update_event(&new);
 	return (new);
 }
 
 t_event	new_incr_event(int type, void *target, double start_incr,
-Uint32 duration)
+double speed)
 {
 	t_event	new;
 
 	ft_bzero(&new, sizeof(new));
 	new.target = target;
 	new.mod_type = INCR;
-	if (duration)
-		new.duration = duration;
-	else
-		new.duration = 1;
 	new.type = type;
+	new.speed = speed;
 	new.start_incr = start_incr;
 	update_event(&new);
 	return (new);

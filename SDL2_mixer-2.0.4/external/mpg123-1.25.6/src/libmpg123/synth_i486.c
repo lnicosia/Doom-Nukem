@@ -107,7 +107,7 @@
 
 int absynth_1to1_i486(real *bandPtr, int channel, mpg123_handle *fr, int nb_blocks)
 {
-  short *samples = (short *) (fr->buffer.data+fr->buffer.fill);
+  int *samples = (int *) (fr->buffer.data+fr->buffer.fill);
   int *b0,**buf;
   int clip = 0; 
   int block,b,bo_start;

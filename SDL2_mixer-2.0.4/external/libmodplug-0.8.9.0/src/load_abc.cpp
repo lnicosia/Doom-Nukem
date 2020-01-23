@@ -1167,7 +1167,7 @@ static int abc_dynamic_volume(ABCTRACK *tp, uint32_t tracktime, int vol)
 	return vol;
 }
 
-static void abc_track_untie_short_chordnotes(ABCHANDLE *h)
+static void abc_track_untie_int_chordnotes(ABCHANDLE *h)
 {
 	ABCTRACK *tp;
 	int vn;
@@ -1175,7 +1175,7 @@ static void abc_track_untie_short_chordnotes(ABCHANDLE *h)
 	vn = tp->vno;
 	for( tp = h->track; tp; tp = tp->next )
 		if( tp != h->tp && tp->vno == vn && tp->tienote ) {
-			abc_message("short notes in chord can not be tied:\n%s", h->line);
+			abc_message("int notes in chord can not be tied:\n%s", h->line);
 			tp->tienote = 0;
 		}
 }
@@ -2260,7 +2260,7 @@ static char *abc_gets(ABCHANDLE *h, MMFILE *mmfile)
 	}
 	if( abc_fgetbytes(mmfile, h->line, h->len) ) {
 		while( (i=strlen(h->line)) > (int)(h->len - 3) ) {
-			// line too short, double it
+			// line too int, double it
 			h->line = (char *)_mm_recalloc(h->allochandle, h->line, h->len<<1, sizeof(char));
 			if( h->line[i-1] != '\n' )
 				abc_fgetbytes(mmfile, &h->line[i], h->len);
@@ -4182,15 +4182,15 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 												if( cnotelen * notediv < notelen * cnotediv ) {
 													cnotelen = notelen;
 													cnotediv = notediv;
-													abc_track_untie_short_chordnotes(h);
+													abc_track_untie_int_chordnotes(h);
 												}
 												if( cnotelen * notediv > notelen * cnotediv ) {
 													if( h->tp->tienote ) {
-														abc_message("short notes in chord can not be tied:\n%s", h->line);
-														h->tp->tienote = 0; // short chord notes cannot be tied...
+														abc_message("int notes in chord can not be tied:\n%s", h->line);
+														h->tp->tienote = 0; // int chord notes cannot be tied...
 													}
 												}
-												// update to shortest duration
+												// update to intest duration
 												if( nl0 * notediv > notelen * nd0 ) {
 													nl0 = notelen;
 													nd0 = notediv;
@@ -4332,7 +4332,7 @@ BOOL CSoundFile::ReadABC(const uint8_t *lpStream, DWORD dwMemLength)
 										if( h->tp->tail->flg != 1 )
 										h->tp->tienote = h->tp->tail;
 									}
-									notediv *= 4;	// grace notes factor 4 shorter (1/8 => 1/32)
+									notediv *= 4;	// grace notes factor 4 inter (1/8 => 1/32)
 									abcgrace += notelen_notediv_to_ticks(h->speed, notelen*snotelen, notediv*snotediv);
 									abc_add_noteoff(h, h->tp, h->tracktime + abcgrace);
 								}

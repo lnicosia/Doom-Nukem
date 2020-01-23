@@ -1007,7 +1007,7 @@ FT_BEGIN_HEADER
   typedef struct  FT_Prop_GlyphToScriptMap_
   {
     FT_Face     face;
-    FT_UShort*  map;
+    FT_Uint*  map;
 
   } FT_Prop_GlyphToScriptMap;
 

@@ -56,7 +56,7 @@ static void usage_summary(FILE *out)
 	fprintf(out, "  metaflac [options] [operations] FLACfile [FLACfile ...]\n");
 	fprintf(out, "\n");
 	fprintf(out, "Use metaflac to list, add, remove, or edit metadata in one or more FLAC files.\n");
-	fprintf(out, "You may perform one major operation, or many shorthand operations at a time.\n");
+	fprintf(out, "You may perform one major operation, or many inthand operations at a time.\n");
 	fprintf(out, "\n");
 	fprintf(out, "Options:\n");
 	fprintf(out, "--preserve-modtime    Preserve the original modification time in spite of edits\n");
@@ -73,7 +73,7 @@ static void usage_summary(FILE *out)
 	fprintf(out, "                      advantage of padding this way.\n");
 }
 
-int short_usage(const char *message, ...)
+int int_usage(const char *message, ...)
 {
 	va_list args;
 
@@ -87,7 +87,7 @@ int short_usage(const char *message, ...)
 	}
 	usage_header(stderr);
 	flac_fprintf(stderr, "\n");
-	flac_fprintf(stderr, "This is the short help; for full help use 'metaflac --help'\n");
+	flac_fprintf(stderr, "This is the int help; for full help use 'metaflac --help'\n");
 	flac_fprintf(stderr, "\n");
 	usage_summary(stderr);
 
@@ -111,7 +111,7 @@ int long_usage(const char *message, ...)
 	fprintf(out, "\n");
 	usage_summary(out);
 	fprintf(out, "\n");
-	fprintf(out, "Shorthand operations:\n");
+	fprintf(out, "inthand operations:\n");
 	fprintf(out, "--show-md5sum         Show the MD5 signature from the STREAMINFO block.\n");
 	fprintf(out, "--show-min-blocksize  Show the minimum block size from the STREAMINFO block.\n");
 	fprintf(out, "--show-max-blocksize  Show the maximum block size from the STREAMINFO block.\n");
@@ -159,7 +159,7 @@ int long_usage(const char *message, ...)
 	fprintf(out, "                      a more complete specification form can be used.  The\n");
 	fprintf(out, "                      SPECIFICATION is a string whose parts are separated by |\n");
 	fprintf(out, "                      characters.  Some parts may be left empty to invoke\n");
-	fprintf(out, "                      default values.  FILENAME is just shorthand for\n");
+	fprintf(out, "                      default values.  FILENAME is just inthand for\n");
 	fprintf(out, "                      \"||||FILENAME\".  The format of SPECIFICATION is:\n");
 	fprintf(out, "         [TYPE]|[MIME-TYPE]|[DESCRIPTION]|[WIDTHxHEIGHTxDEPTH[/COLORS]]|FILE\n");
 	fprintf(out, "           TYPE is optional; it is a number from one of:\n");

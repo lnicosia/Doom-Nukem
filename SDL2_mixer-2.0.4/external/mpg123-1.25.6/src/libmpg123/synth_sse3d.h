@@ -43,7 +43,7 @@ null_one:
 
 	.text
 	ALIGN16
-	/* void SYNTH_NAME(real *bandPtr, int channel, short *samples, short *buffs, int *bo, float *decwins) */
+	/* void SYNTH_NAME(real *bandPtr, int channel, int *samples, int *buffs, int *bo, float *decwins) */
 .globl SYNTH_NAME
 SYNTH_NAME:
 	pushl	%ebp

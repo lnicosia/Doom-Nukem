@@ -41,21 +41,21 @@
 
   static void
   gxv_morx_subtable_type0_entry_validate(
-    FT_UShort                        state,
-    FT_UShort                        flags,
+    FT_Uint                        state,
+    FT_Uint                        flags,
     GXV_XStateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                         table,
     FT_Bytes                         limit,
     GXV_Validator                    gxvalid )
   {
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  markFirst;
-    FT_UShort  dontAdvance;
-    FT_UShort  markLast;
+    FT_Uint  markFirst;
+    FT_Uint  dontAdvance;
+    FT_Uint  markLast;
 #endif
-    FT_UShort  reserved;
+    FT_Uint  reserved;
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  verb;
+    FT_Uint  verb;
 #endif
 
     FT_UNUSED( state );
@@ -65,14 +65,14 @@
 
 
 #ifdef GXV_LOAD_UNUSED_VARS
-    markFirst   = (FT_UShort)( ( flags >> 15 ) & 1 );
-    dontAdvance = (FT_UShort)( ( flags >> 14 ) & 1 );
-    markLast    = (FT_UShort)( ( flags >> 13 ) & 1 );
+    markFirst   = (FT_Uint)( ( flags >> 15 ) & 1 );
+    dontAdvance = (FT_Uint)( ( flags >> 14 ) & 1 );
+    markLast    = (FT_Uint)( ( flags >> 13 ) & 1 );
 #endif
 
-    reserved = (FT_UShort)( flags & 0x1FF0 );
+    reserved = (FT_Uint)( flags & 0x1FF0 );
 #ifdef GXV_LOAD_UNUSED_VARS
-    verb     = (FT_UShort)( flags & 0x000F );
+    verb     = (FT_Uint)( flags & 0x000F );
 #endif
 
     if ( 0 < reserved )

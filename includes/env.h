@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 17:56:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:17:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct		s_env
 	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
-	t_render_vertex		skybox[NB_SKYBOX];
+	t_render_vertex		skybox[5];
 	t_audio				sound;
 	t_editor 			editor;
 	t_camera			fixed_camera;
@@ -238,7 +238,7 @@ void				update_neighbors(t_env *env, int index, int num, t_sector *sector);
 void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
-void				update_short_tab(int index, short size, short **tab);
+void				update_int_tab(int index, int size, int **tab);
 void				selection_tab(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 
@@ -343,11 +343,11 @@ void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_free(t_point c1, t_point c2, t_env env, Uint32 color);
 void				draw_line_minimap(t_point c1, t_point c2, t_env env, Uint32 color);
 Uint32				apply_light(Uint32 src, Uint32 color, int intensity,
-short brightness);
+int brightness);
 Uint32				apply_light_both(Uint32 src, Uint32 color, int intensity,
-short brightness);
+int brightness);
 Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
-Uint32				apply_light_brightness(Uint32 src, short brightness);
+Uint32				apply_light_brightness(Uint32 src, int brightness);
 int				update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int				draw_confirmation_box(t_confirmation_box box, t_env *env);
@@ -421,10 +421,11 @@ void				update_inputs(t_env *env);
 void				move_player(t_env *env);
 void				update_player_pos(t_env *env);
 void				update_camera_position(t_camera *camera);
-int					get_sector(t_env *env, t_v3 p, short origin);
+int					get_sector(t_env *env, t_v3 p, int origin);
 int					get_sector_global(t_env *env, t_v3 p);
 int					get_sector_no_z(t_env *env, t_v3 p);
 int					get_sector_no_z_origin(t_env *env, t_v3 p, int origin);
+void				set_sector_xmax(t_env *env, t_sector *sector);
 void				set_sectors_xmax(t_env *env);
 int					keys(t_env *env);
 void				update_player_z(t_env *env);
@@ -444,8 +445,8 @@ void				start_game_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
-int					is_in_sector(t_env *env, short sector, t_v3 pos);
-int					is_in_sector_no_z(t_env *env, short sector, t_v2 pos);
+int					is_in_sector(t_env *env, int sector, t_v3 pos);
+int					is_in_sector_no_z(t_env *env, int sector, t_v2 pos);
 double     			distance_two_points_2d(double x1, double y1, double x2, double y2);
 double				distance_two_points_3d(t_v3 p1, t_v3 p2);
 void				interactions(t_env *env);
@@ -531,37 +532,64 @@ int		object_destruction(t_env *env, int i, int nb_sprites);
 int	 	explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites);
 
 /*
-**	Event function
+**	Event functions
 */
 int					update_event(t_event *event);
 int					pop_events(t_env *env);
-int					pop_events2(t_env *env);
 t_event				new_fixed_event(int type, void *target, double goal,
-Uint32 duration);
+double speed);
 t_event				new_func_event(int (*func)(void *, void *),
 void *param);
 t_event				new_incr_event(int type, void *target, double incr,
-Uint32 duration);
+double speed);
 int					start_event(t_event **events, size_t *size,
 t_env *env);
 int					start_event_free(t_event **events, size_t *size,
 t_env *env);
-int					check_conditions(t_event event, t_condition *tab,
+int					check_launch_conditions(t_event *event, t_condition *tab,
+size_t nb);
+int					check_exec_conditions(t_event *event, t_condition *tab,
 size_t nb);
 t_event_param		new_event_param(int num, double equ_value, 
-double diff_value, t_v3 move);
+double diff_value);
 t_event_param		empty_event_param(void);
-void				update_sector_event(t_event *event, void *penv);
-void				update_player_pos_event(t_event *event, void *penv);
-void				update_player_z_event(t_event *event, void *penv);
-int					check_collision_event(t_event *event, void *penv);
-int					check_diff_value_event(t_event *event, void *penv);
-int					check_equ_value_event(t_event *event, void *penv);
-int					launch_diff_value_event(t_event *event, void *penv);
-int					launch_equ_value_event(t_event *event, void *penv);
-int					launch_prec_event_ended(t_event *event, void *penv);
-int					launch_prec_event_ended_starter(t_event *event, void *penv);
-void				delete_itself_event(t_event *event, void *penv);
+
+int					update_sector_event(t_event *event, void *penv);
+int					update_player_pos_event(t_event *event, void *penv);
+int					update_player_z_event(t_event *event, void *penv);
+int					update_wall_texture_event(t_event *event, void *penv);
+int					update_floor_texture_event(t_event *event, void *penv);
+int					update_ceiling_texture_event(t_event *event, void *penv);
+int					update_sector_entities_event(t_event *event, void *penv);
+int					update_object_sector_event(t_event *event, void *penv);
+int					update_enemy_sector_event(t_event *event, void *penv);
+int					update_vertex_event(t_event *event, void *penv);
+int					delete_itself_event(t_event *event, void *penv);
+
+/*
+**	Event protection functions
+*/
+
+int					check_x_collision_event(t_event *event, void *penv);
+int					check_y_collision_event(t_event *event, void *penv);
+int					check_z_collision_event(t_event *event, void *penv);
+int					check_sector_event(t_event *event, void *penv);
+int					check_floor_slope_event(t_event *event, void *penv);
+int					check_ceiling_slope_event(t_event *event, void *penv);
+int					check_floor_event(t_event *event, void *penv);
+int					check_ceiling_event(t_event *event, void *penv);
+int					check_texture_event(t_event *event, void *penv);
+int					check_sprite_event(t_event *event, void *penv);
+int					check_scale_event(t_event *event, void *penv);
+int					check_align_event(t_event *event, void *penv);
+int					check_color_event(t_event *event, void *penv);
+int					check_brightness_event(t_event *event, void *penv);
+int					check_int_overflow_event(t_event *event, void *penv);
+int					check_double_overflow_event(t_event *event, void *penv);
+int					check_gravity_event(t_event *event, void *penv);
+int					check_true_false_event(t_event *event, void *penv);
+int					check_vertex_x_event(t_event *event, void *penv);
+int					check_vertex_y_event(t_event *event, void *penv);
 
 /*
 **	Free functions

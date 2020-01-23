@@ -51,8 +51,8 @@ extern "C"
 /* Packet size not 10, 20, 40, or 60 ms */
 #define SILK_ENC_PACKET_SIZE_NOT_SUPPORTED          -103
 
-/* Allocated payload buffer too short */
-#define SILK_ENC_PAYLOAD_BUF_TOO_SHORT              -104
+/* Allocated payload buffer too int */
+#define SILK_ENC_PAYLOAD_BUF_TOO_int              -104
 
 /* Loss rate not between 0 and 100 percent */
 #define SILK_ENC_INVALID_LOSS_RATE                  -105

@@ -12,7 +12,7 @@
 	<meta name="author" content="Josh Coalson" />
 	<meta name="description" content="A free, open source codec for lossless audio compression and decompression" />
 	<meta name="keywords" content="free,lossless,audio,codec,encoder,decoder,compression,compressor,archival,archive,archiving,backup,music" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="intcut icon" type="image/x-icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="flac.css" />
 	<title>FLAC - documentation</title>
 </head>
@@ -46,7 +46,7 @@
 		<ul>
 			<li><a href="#usage">General Usage</a></li>
 			<li><a href="#global_options">Global Options</a></li>
-			<li><a href="#shorthand_operations">Shorthand Operations</a></li>
+			<li><a href="#inthand_operations">inthand Operations</a></li>
 			<li><a href="#major_operations">Major Operations</a></li>
 			<li><a href="#option_index">Option Index</a></li>
 		</ul>
@@ -60,13 +60,13 @@
 				Major operations, which specify a mode of operation like listing blocks, removing blocks, etc.  These will have sub-operations describing exactly what is to be done.
 			</li>
 			<li>
-				Shorthand operations, which are convenient synonyms for major operations.  For example, there is a shorthand operation <span class="argument">--show-sample-rate</span> that shows just the sample rate field from the <span class="code">STREAMINFO</span> metadata block.
+				inthand operations, which are convenient synonyms for major operations.  For example, there is a inthand operation <span class="argument">--show-sample-rate</span> that shows just the sample rate field from the <span class="code">STREAMINFO</span> metadata block.
 			</li>
 			<li>
 				Global options, which affect all the operations.
 			</li>
 		</ul>
-		All of these are described in the tables below.  At least one shorthand or major operation must be supplied.  You can use multiple shorthand operations to do more than one thing to a file or set of files.  Most of the common things to do to metadata have shorthand operations.  As an example, here is how to show the MD5 signatures for a set of three FLAC files:<br />
+		All of these are described in the tables below.  At least one inthand or major operation must be supplied.  You can use multiple inthand operations to do more than one thing to a file or set of files.  Most of the common things to do to metadata have inthand operations.  As an example, here is how to show the MD5 signatures for a set of three FLAC files:<br />
 		<br />
 		<span class="code">metaflac --show-md5sum file1.flac file2.flac file3.flac</span><br />
 		<br />
@@ -136,12 +136,12 @@
 		<table width="100%" border="1" bgcolor="#EEEED4">
 			<tr>
 				<td colspan="2" bgcolor="#D3D4C5">
-					<a name="shorthand_operations"><font size="+1"><b>Shorthand Operations</b></font></a>
+					<a name="inthand_operations"><font size="+1"><b>inthand Operations</b></font></a>
 				</td>
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_md5sum" />
+					<a name="metaflac_inthand_show_md5sum" />
 					<span class="argument">--show-md5sum</span>
 				</td>
 				<td>
@@ -150,7 +150,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_min_blocksize" />
+					<a name="metaflac_inthand_show_min_blocksize" />
 					<span class="argument">--show-min-blocksize</span>
 				</td>
 				<td>
@@ -159,7 +159,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_max_blocksize" />
+					<a name="metaflac_inthand_show_max_blocksize" />
 					<span class="argument">--show-max-blocksize</span>
 				</td>
 				<td>
@@ -168,7 +168,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_min_framesize" />
+					<a name="metaflac_inthand_show_min_framesize" />
 					<span class="argument">--show-min-framesize</span>
 				</td>
 				<td>
@@ -177,7 +177,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_max_framesize" />
+					<a name="metaflac_inthand_show_max_framesize" />
 					<span class="argument">--show-max-framesize</span>
 				</td>
 				<td>
@@ -186,7 +186,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_sample_rate" />
+					<a name="metaflac_inthand_show_sample_rate" />
 					<span class="argument">--show-sample-rate</span>
 				</td>
 				<td>
@@ -195,7 +195,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_channels" />
+					<a name="metaflac_inthand_show_channels" />
 					<span class="argument">--show-channels</span>
 				</td>
 				<td>
@@ -204,7 +204,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_bps" />
+					<a name="metaflac_inthand_show_bps" />
 					<span class="argument">--show-bps</span>
 				</td>
 				<td>
@@ -213,7 +213,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_total_samples" />
+					<a name="metaflac_inthand_show_total_samples" />
 					<span class="argument">--show-total-samples</span>
 				</td>
 				<td>
@@ -222,7 +222,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_vendor_tag" />
+					<a name="metaflac_inthand_show_vendor_tag" />
 					<span class="argument">--show-vendor-tag</span>
 				</td>
 				<td>
@@ -231,7 +231,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_show_tag" />
+					<a name="metaflac_inthand_show_tag" />
 					<span class="argument">--show-tag=NAME</span>
 				</td>
 				<td>
@@ -240,7 +240,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_remove_tag" />
+					<a name="metaflac_inthand_remove_tag" />
 					<span class="argument">--remove-tag=NAME</span>
 				</td>
 				<td>
@@ -249,7 +249,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_remove_first_tag" />
+					<a name="metaflac_inthand_remove_first_tag" />
 					<span class="argument">--remove-first-tag=NAME</span>
 				</td>
 				<td>
@@ -258,7 +258,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_remove_all_tags" />
+					<a name="metaflac_inthand_remove_all_tags" />
 					<span class="argument">--remove-all-tags</span>
 				</td>
 				<td>
@@ -267,7 +267,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_set_tag" />
+					<a name="metaflac_inthand_set_tag" />
 					<span class="argument">--set-tag=FIELD</span>
 				</td>
 				<td>
@@ -276,16 +276,16 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_set_tag_from_file" />
+					<a name="metaflac_inthand_set_tag_from_file" />
 					<span class="argument">--set-tag-from-file=FIELD</span>
 				</td>
 				<td>
-					Like <a href="#metaflac_shorthand_set_tag"><span class="argument">--set-tag</span></a>, except the VALUE is a filename whose contents will be read verbatim to set the tag value.  Unless <a href="#metaflac_options_no_utf8_convert"><span class="argument">--no-utf8-convert</span></a> is specified, the contents will be converted to UTF-8 from the local charset.  This can be used to store a cuesheet in a tag (e.g. <span class="argument">--set-tag-from-file="CUESHEET=image.cue"</span>).  Do not try to store binary data in tag fields!  Use APPLICATION blocks for that.
+					Like <a href="#metaflac_inthand_set_tag"><span class="argument">--set-tag</span></a>, except the VALUE is a filename whose contents will be read verbatim to set the tag value.  Unless <a href="#metaflac_options_no_utf8_convert"><span class="argument">--no-utf8-convert</span></a> is specified, the contents will be converted to UTF-8 from the local charset.  This can be used to store a cuesheet in a tag (e.g. <span class="argument">--set-tag-from-file="CUESHEET=image.cue"</span>).  Do not try to store binary data in tag fields!  Use APPLICATION blocks for that.
 				</td>
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_import_tags_from" />
+					<a name="metaflac_inthand_import_tags_from" />
 					<span class="argument">--import-tags-from=FILE</span>
 				</td>
 				<td>
@@ -294,7 +294,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_export_tags_to" />
+					<a name="metaflac_inthand_export_tags_to" />
 					<span class="argument">--export-tags-to=FILE</span>
 				</td>
 				<td>
@@ -303,7 +303,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_import_cuesheet_from" />
+					<a name="metaflac_inthand_import_cuesheet_from" />
 					<span class="argument">--import-cuesheet-from=FILE</span>
 				</td>
 				<td>
@@ -312,7 +312,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_export_cuesheet_to" />
+					<a name="metaflac_inthand_export_cuesheet_to" />
 					<span class="argument">--export-cuesheet-to=FILE</span>
 				</td>
 				<td>
@@ -321,7 +321,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_import_picture_from" />
+					<a name="metaflac_inthand_import_picture_from" />
 					<span class="argument">--import-picture-from={FILENAME|SPECIFICATION}</span>
 				</td>
 				<td>
@@ -330,7 +330,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_export_picture_to" />
+					<a name="metaflac_inthand_export_picture_to" />
 					<span class="argument">--export-picture-to=FILE</span>
 				</td>
 				<td>
@@ -339,7 +339,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_add_replay_gain" />
+					<a name="metaflac_inthand_add_replay_gain" />
 					<span class="argument">--add-replay-gain</span>
 				</td>
 				<td>
@@ -348,7 +348,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_add_replay_gain_scan" />
+					<a name="metaflac_inthand_add_replay_gain_scan" />
 					<span class="argument">--scan-replay-gain</span>
 				</td>
 				<td>
@@ -357,7 +357,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_remove_replay_gain" />
+					<a name="metaflac_inthand_remove_replay_gain" />
 					<span class="argument">--remove-replay-gain</span>
 				</td>
 				<td>
@@ -366,7 +366,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_add_seekpoint" />
+					<a name="metaflac_inthand_add_seekpoint" />
 					<span class="argument">--add-seekpoint={#|X|#x|#s}</span>
 				</td>
 				<td>
@@ -391,7 +391,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap" align="right" valign="top" bgcolor="#F4F4CC">
-					<a name="metaflac_shorthand_add_padding" />
+					<a name="metaflac_inthand_add_padding" />
 					<span class="argument">--add-padding=#</span>
 				</td>
 				<td>
@@ -505,41 +505,41 @@
 		<br />
 		<a name="option_index"><font size="+1"><b><u>Option Index</u></b></font></a><br />
 		<br />
-		<a href="#metaflac_shorthand_add_padding"><span class="argument">--add-padding</span></a><br />
-		<a href="#metaflac_shorthand_add_replay_gain"><span class="argument">--add-replay-gain</span></a><br />
-		<a href="#metaflac_shorthand_add_seekpoint"><span class="argument">--add-seekpoint</span></a><br />
+		<a href="#metaflac_inthand_add_padding"><span class="argument">--add-padding</span></a><br />
+		<a href="#metaflac_inthand_add_replay_gain"><span class="argument">--add-replay-gain</span></a><br />
+		<a href="#metaflac_inthand_add_seekpoint"><span class="argument">--add-seekpoint</span></a><br />
 		<a href="#metaflac_options_dont_use_padding"><span class="argument">--dont-use-padding</span></a><br />
-		<a href="#metaflac_shorthand_export_cuesheet_to"><span class="argument">--export-cuesheet-to</span></a><br />
-		<a href="#metaflac_shorthand_export_picture_to"><span class="argument">--export-picture-to</span></a><br />
-		<a href="#metaflac_shorthand_export_tags_to"><span class="argument">--export-tags-to</span></a><br />
-		<a href="#metaflac_shorthand_import_cuesheet_from"><span class="argument">--import-cuesheet-from</span></a><br />
-		<a href="#metaflac_shorthand_import_picture_from"><span class="argument">--import-picture-from</span></a><br />
-		<a href="#metaflac_shorthand_import_tags_from"><span class="argument">--import-tags-from</span></a><br />
+		<a href="#metaflac_inthand_export_cuesheet_to"><span class="argument">--export-cuesheet-to</span></a><br />
+		<a href="#metaflac_inthand_export_picture_to"><span class="argument">--export-picture-to</span></a><br />
+		<a href="#metaflac_inthand_export_tags_to"><span class="argument">--export-tags-to</span></a><br />
+		<a href="#metaflac_inthand_import_cuesheet_from"><span class="argument">--import-cuesheet-from</span></a><br />
+		<a href="#metaflac_inthand_import_picture_from"><span class="argument">--import-picture-from</span></a><br />
+		<a href="#metaflac_inthand_import_tags_from"><span class="argument">--import-tags-from</span></a><br />
 		<a href="#metaflac_operations_list"><span class="argument">--list</span></a><br />
 		<a href="#metaflac_operations_merge_padding"><span class="argument">--merge-padding</span></a><br />
 		<a href="#metaflac_options_no_filename"><span class="argument">--no-filename</span></a><br />
 		<a href="#metaflac_options_no_utf8_convert"><span class="argument">--no-utf8-convert</span></a><br />
 		<a href="#metaflac_options_preserve_modtime"><span class="argument">--preserve-modtime</span></a><br />
-		<a href="#metaflac_shorthand_remove_all_tags"><span class="argument">--remove-all-tags</span></a><br />
+		<a href="#metaflac_inthand_remove_all_tags"><span class="argument">--remove-all-tags</span></a><br />
 		<a href="#metaflac_operations_remove_all"><span class="argument">--remove-all</span></a><br />
-		<a href="#metaflac_shorthand_remove_first_tag"><span class="argument">--remove-first-tag</span></a><br />
-		<a href="#metaflac_shorthand_remove_replay_gain"><span class="argument">--remove-replay-gain</span></a><br />
-		<a href="#metaflac_shorthand_remove_tag"><span class="argument">--remove-tag</span></a><br />
+		<a href="#metaflac_inthand_remove_first_tag"><span class="argument">--remove-first-tag</span></a><br />
+		<a href="#metaflac_inthand_remove_replay_gain"><span class="argument">--remove-replay-gain</span></a><br />
+		<a href="#metaflac_inthand_remove_tag"><span class="argument">--remove-tag</span></a><br />
 		<a href="#metaflac_operations_remove"><span class="argument">--remove</span></a><br />
-		<a href="#metaflac_shorthand_scan_replay_gain"><span class="argument">--scan-replay-gain</span></a><br />
-		<a href="#metaflac_shorthand_set_tag_from_file"><span class="argument">--set-tag-from-file</span></a><br />
-		<a href="#metaflac_shorthand_set_tag"><span class="argument">--set-tag</span></a><br />
-		<a href="#metaflac_shorthand_show_bps"><span class="argument">--show-bps</span></a><br />
-		<a href="#metaflac_shorthand_show_channels"><span class="argument">--show-channels</span></a><br />
-		<a href="#metaflac_shorthand_show_max_blocksize"><span class="argument">--show-max-blocksize</span></a><br />
-		<a href="#metaflac_shorthand_show_max_framesize"><span class="argument">--show-max-framesize</span></a><br />
-		<a href="#metaflac_shorthand_show_md5sum"><span class="argument">--show-md5sum</span></a><br />
-		<a href="#metaflac_shorthand_show_min_blocksize"><span class="argument">--show-min-blocksize</span></a><br />
-		<a href="#metaflac_shorthand_show_min_framesize"><span class="argument">--show-min-framesize</span></a><br />
-		<a href="#metaflac_shorthand_show_sample_rate"><span class="argument">--show-sample-rate</span></a><br />
-		<a href="#metaflac_shorthand_show_tag"><span class="argument">--show-tag</span></a><br />
-		<a href="#metaflac_shorthand_show_total_samples"><span class="argument">--show-total-samples</span></a><br />
-		<a href="#metaflac_shorthand_show_vendor_tag"><span class="argument">--show-vendor-tag</span></a><br />
+		<a href="#metaflac_inthand_scan_replay_gain"><span class="argument">--scan-replay-gain</span></a><br />
+		<a href="#metaflac_inthand_set_tag_from_file"><span class="argument">--set-tag-from-file</span></a><br />
+		<a href="#metaflac_inthand_set_tag"><span class="argument">--set-tag</span></a><br />
+		<a href="#metaflac_inthand_show_bps"><span class="argument">--show-bps</span></a><br />
+		<a href="#metaflac_inthand_show_channels"><span class="argument">--show-channels</span></a><br />
+		<a href="#metaflac_inthand_show_max_blocksize"><span class="argument">--show-max-blocksize</span></a><br />
+		<a href="#metaflac_inthand_show_max_framesize"><span class="argument">--show-max-framesize</span></a><br />
+		<a href="#metaflac_inthand_show_md5sum"><span class="argument">--show-md5sum</span></a><br />
+		<a href="#metaflac_inthand_show_min_blocksize"><span class="argument">--show-min-blocksize</span></a><br />
+		<a href="#metaflac_inthand_show_min_framesize"><span class="argument">--show-min-framesize</span></a><br />
+		<a href="#metaflac_inthand_show_sample_rate"><span class="argument">--show-sample-rate</span></a><br />
+		<a href="#metaflac_inthand_show_tag"><span class="argument">--show-tag</span></a><br />
+		<a href="#metaflac_inthand_show_total_samples"><span class="argument">--show-total-samples</span></a><br />
+		<a href="#metaflac_inthand_show_vendor_tag"><span class="argument">--show-vendor-tag</span></a><br />
 		<a href="#metaflac_operations_sort_padding"><span class="argument">--sort-padding</span></a><br />
 		<a href="#metaflac_operations_version"><span class="argument">--version</span></a><br />
 		<a href="#metaflac_options_with_filename"><span class="argument">--with-filename</span></a><br />

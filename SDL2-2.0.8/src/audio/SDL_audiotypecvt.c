@@ -318,14 +318,14 @@ SDL_Convert_S8_to_F32_SSE2(SDL_AudioCVT *cvt, SDL_AudioFormat format)
         while (i >= 16) {   /* 16 * 8-bit */
             const __m128i bytes = _mm_load_si128(mmsrc);  /* get 16 sint8 into an XMM register. */
             /* treat as int16, shift left to clear every other sint16, then back right with sign-extend. Now sint16. */
-            const __m128i shorts1 = _mm_srai_epi16(_mm_slli_epi16(bytes, 8), 8);
+            const __m128i ints1 = _mm_srai_epi16(_mm_slli_epi16(bytes, 8), 8);
             /* right-shift-sign-extend gets us sint16 with the other set of values. */
-            const __m128i shorts2 = _mm_srai_epi16(bytes, 8);
+            const __m128i ints2 = _mm_srai_epi16(bytes, 8);
             /* unpack against zero to make these int32, shift to make them sign-extend, convert to float, multiply. Whew! */
-            const __m128 floats1 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpacklo_epi16(shorts1, zero), 16), 16)), divby128);
-            const __m128 floats2 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpacklo_epi16(shorts2, zero), 16), 16)), divby128);
-            const __m128 floats3 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpackhi_epi16(shorts1, zero), 16), 16)), divby128);
-            const __m128 floats4 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpackhi_epi16(shorts2, zero), 16), 16)), divby128);
+            const __m128 floats1 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpacklo_epi16(ints1, zero), 16), 16)), divby128);
+            const __m128 floats2 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpacklo_epi16(ints2, zero), 16), 16)), divby128);
+            const __m128 floats3 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpackhi_epi16(ints1, zero), 16), 16)), divby128);
+            const __m128 floats4 = _mm_mul_ps(_mm_cvtepi32_ps(_mm_srai_epi32(_mm_slli_epi32(_mm_unpackhi_epi16(ints2, zero), 16), 16)), divby128);
             /* Interleave back into correct order, store. */
             _mm_store_ps(dst, _mm_unpacklo_ps(floats1, floats2));
             _mm_store_ps(dst+4, _mm_unpackhi_ps(floats1, floats2));
@@ -378,15 +378,15 @@ SDL_Convert_U8_to_F32_SSE2(SDL_AudioCVT *cvt, SDL_AudioFormat format)
         while (i >= 16) {   /* 16 * 8-bit */
             const __m128i bytes = _mm_load_si128(mmsrc);  /* get 16 uint8 into an XMM register. */
             /* treat as int16, shift left to clear every other sint16, then back right with zero-extend. Now uint16. */
-            const __m128i shorts1 = _mm_srli_epi16(_mm_slli_epi16(bytes, 8), 8);
+            const __m128i ints1 = _mm_srli_epi16(_mm_slli_epi16(bytes, 8), 8);
             /* right-shift-zero-extend gets us uint16 with the other set of values. */
-            const __m128i shorts2 = _mm_srli_epi16(bytes, 8);
+            const __m128i ints2 = _mm_srli_epi16(bytes, 8);
             /* unpack against zero to make these int32, convert to float, multiply, add. Whew! */
             /* Note that AVX2 can do floating point multiply+add in one instruction, fwiw. SSE2 cannot. */
-            const __m128 floats1 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpacklo_epi16(shorts1, zero)), divby128), minus1);
-            const __m128 floats2 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpacklo_epi16(shorts2, zero)), divby128), minus1);
-            const __m128 floats3 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpackhi_epi16(shorts1, zero)), divby128), minus1);
-            const __m128 floats4 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpackhi_epi16(shorts2, zero)), divby128), minus1);
+            const __m128 floats1 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpacklo_epi16(ints1, zero)), divby128), minus1);
+            const __m128 floats2 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpacklo_epi16(ints2, zero)), divby128), minus1);
+            const __m128 floats3 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpackhi_epi16(ints1, zero)), divby128), minus1);
+            const __m128 floats4 = _mm_add_ps(_mm_mul_ps(_mm_cvtepi32_ps(_mm_unpackhi_epi16(ints2, zero)), divby128), minus1);
             /* Interleave back into correct order, store. */
             _mm_store_ps(dst, _mm_unpacklo_ps(floats1, floats2));
             _mm_store_ps(dst+4, _mm_unpackhi_ps(floats1, floats2));

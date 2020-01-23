@@ -130,11 +130,11 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_metaflac_OBJECTS = main.$(OBJEXT) operations.$(OBJEXT) \
-	operations_shorthand_cuesheet.$(OBJEXT) \
-	operations_shorthand_picture.$(OBJEXT) \
-	operations_shorthand_seektable.$(OBJEXT) \
-	operations_shorthand_streaminfo.$(OBJEXT) \
-	operations_shorthand_vorbiscomment.$(OBJEXT) options.$(OBJEXT) \
+	operations_inthand_cuesheet.$(OBJEXT) \
+	operations_inthand_picture.$(OBJEXT) \
+	operations_inthand_seektable.$(OBJEXT) \
+	operations_inthand_streaminfo.$(OBJEXT) \
+	operations_inthand_vorbiscomment.$(OBJEXT) options.$(OBJEXT) \
 	usage.$(OBJEXT) utils.$(OBJEXT)
 metaflac_OBJECTS = $(am_metaflac_OBJECTS)
 metaflac_DEPENDENCIES =  \
@@ -376,16 +376,16 @@ EXTRA_DIST = \
 metaflac_SOURCES = \
 	main.c \
 	operations.c \
-	operations_shorthand_cuesheet.c \
-	operations_shorthand_picture.c \
-	operations_shorthand_seektable.c \
-	operations_shorthand_streaminfo.c \
-	operations_shorthand_vorbiscomment.c \
+	operations_inthand_cuesheet.c \
+	operations_inthand_picture.c \
+	operations_inthand_seektable.c \
+	operations_inthand_streaminfo.c \
+	operations_inthand_vorbiscomment.c \
 	options.c \
 	usage.c \
 	utils.c \
 	operations.h \
-	operations_shorthand.h \
+	operations_inthand.h \
 	options.h \
 	usage.h \
 	utils.h
@@ -497,11 +497,11 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_shorthand_cuesheet.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_shorthand_picture.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_shorthand_seektable.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_shorthand_streaminfo.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_shorthand_vorbiscomment.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_inthand_cuesheet.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_inthand_picture.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_inthand_seektable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_inthand_streaminfo.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operations_inthand_vorbiscomment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/usage.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utils.Po@am__quote@

@@ -327,7 +327,7 @@ RFC 3533                          OGG                           May 2003
    from a specific media encoder.  As Ogg pages have a maximum size of
    about 64 kBytes, sometimes a packet has to be distributed over
    several pages.  To simplify that process, Ogg divides each packet
-   into 255 byte long chunks plus a final shorter chunk.  These chunks
+   into 255 byte long chunks plus a final inter chunk.  These chunks
    are called "Ogg Segments".  They are only a logical construct and do
    not have a header for themselves.
 

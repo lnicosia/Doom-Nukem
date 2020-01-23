@@ -104,7 +104,7 @@ int getsingleopt (int argc, char *argv[], topt *opts)
 {
 	char *thisopt;
 	topt *opt;
-	static char shortopt[2] = {0, 0};
+	static char intopt[2] = {0, 0};
 
 	if (loptind >= argc)
 		return (GLO_END);
@@ -127,11 +127,11 @@ int getsingleopt (int argc, char *argv[], topt *opts)
 				return (GLO_END);
 			}
 		}
-		else /* start short option(s) */
+		else /* start int option(s) */
 			loptchr = 1;
 	}
-	shortopt[0] = thisopt[loptchr];
-	loptarg = shortopt;
+	intopt[0] = thisopt[loptchr];
+	loptarg = intopt;
 	opt = findopt(0, thisopt+(loptchr++), opts);
 	if (!thisopt[loptchr]) {
 		loptind++;

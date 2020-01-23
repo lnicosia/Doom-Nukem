@@ -152,11 +152,11 @@ HAIKUAUDIO_OpenDevice(_THIS, void *handle, const char *devname, int iscapture)
             break;
 
         case AUDIO_S16LSB:
-            format.format = media_raw_audio_format::B_AUDIO_SHORT;
+            format.format = media_raw_audio_format::B_AUDIO_int;
             break;
 
         case AUDIO_S16MSB:
-            format.format = media_raw_audio_format::B_AUDIO_SHORT;
+            format.format = media_raw_audio_format::B_AUDIO_int;
             format.byte_order = B_MEDIA_BIG_ENDIAN;
             break;
 

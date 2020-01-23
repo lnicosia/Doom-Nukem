@@ -256,13 +256,13 @@
     unsigned long   cnt;
     unsigned long   row;
 
-    short           minlb;
-    short           maxlb;
-    short           maxrb;
-    short           maxas;
-    short           maxds;
+    int           minlb;
+    int           maxlb;
+    int           maxrb;
+    int           maxas;
+    int           maxds;
 
-    short           rbearing;
+    int           rbearing;
 
     char*           glyph_name;
     long            glyph_enc;
@@ -751,11 +751,11 @@
   }
 
 
-  /* Routine to convert a decimal ASCII string to an unsigned short integer. */
-  static unsigned short
+  /* Routine to convert a decimal ASCII string to an unsigned int integer. */
+  static unsigned int
   _bdf_atous( char*  s )
   {
-    unsigned short  v;
+    unsigned int  v;
 
 
     if ( s == 0 || *s == 0 )
@@ -763,11 +763,11 @@
 
     for ( v = 0; sbitset( ddigits, *s ); s++ )
     {
-      if ( v < ( FT_USHORT_MAX - 9 ) / 10 )
-        v = (unsigned short)( v * 10 + a2i[(int)*s] );
+      if ( v < ( FT_Uint_MAX - 9 ) / 10 )
+        v = (unsigned int)( v * 10 + a2i[(int)*s] );
       else
       {
-        v = FT_USHORT_MAX;
+        v = FT_Uint_MAX;
         break;
       }
     }
@@ -776,11 +776,11 @@
   }
 
 
-  /* Routine to convert a decimal ASCII string to a signed short integer. */
-  static short
+  /* Routine to convert a decimal ASCII string to a signed int integer. */
+  static int
   _bdf_atos( char*  s )
   {
-    short  v, neg;
+    int  v, neg;
 
 
     if ( s == 0 || *s == 0 )
@@ -797,7 +797,7 @@
     for ( v = 0; sbitset( ddigits, *s ); s++ )
     {
       if ( v < ( SHRT_MAX - 9 ) / 10 )
-        v = (short)( v * 10 + a2i[(int)*s] );
+        v = (int)( v * 10 + a2i[(int)*s] );
       else
       {
         v = SHRT_MAX;
@@ -805,7 +805,7 @@
       }
     }
 
-    return (short)( ( !neg ) ? v : -v );
+    return (int)( ( !neg ) ? v : -v );
   }
 
 
@@ -1633,7 +1633,7 @@
       if ( error )
         goto Exit;
 
-      glyph->swidth = (unsigned short)_bdf_atoul( p->list.field[1] );
+      glyph->swidth = (unsigned int)_bdf_atoul( p->list.field[1] );
       p->flags |= BDF_SWIDTH_;
 
       goto Exit;
@@ -1649,7 +1649,7 @@
       if ( error )
         goto Exit;
 
-      glyph->dwidth = (unsigned short)_bdf_atoul( p->list.field[1] );
+      glyph->dwidth = (unsigned int)_bdf_atoul( p->list.field[1] );
 
       if ( !( p->flags & BDF_SWIDTH_ ) )
       {
@@ -1657,7 +1657,7 @@
         /* the scalable width from the device width.                      */
         FT_TRACE2(( "_bdf_parse_glyphs: " ACMSG9, lineno ));
 
-        glyph->swidth = (unsigned short)FT_MulDiv(
+        glyph->swidth = (unsigned int)FT_MulDiv(
                           glyph->dwidth, 72000L,
                           (FT_Long)( font->point_size *
                                      font->resolution_x ) );
@@ -1683,19 +1683,19 @@
       glyph->bbx.y_offset = _bdf_atos( p->list.field[4] );
 
       /* Generate the ascent and descent of the character. */
-      glyph->bbx.ascent  = (short)( glyph->bbx.height + glyph->bbx.y_offset );
-      glyph->bbx.descent = (short)( -glyph->bbx.y_offset );
+      glyph->bbx.ascent  = (int)( glyph->bbx.height + glyph->bbx.y_offset );
+      glyph->bbx.descent = (int)( -glyph->bbx.y_offset );
 
       /* Determine the overall font bounding box as the characters are */
       /* loaded so corrections can be done later if indicated.         */
-      p->maxas    = (short)FT_MAX( glyph->bbx.ascent, p->maxas );
-      p->maxds    = (short)FT_MAX( glyph->bbx.descent, p->maxds );
+      p->maxas    = (int)FT_MAX( glyph->bbx.ascent, p->maxas );
+      p->maxds    = (int)FT_MAX( glyph->bbx.descent, p->maxds );
 
-      p->rbearing = (short)( glyph->bbx.width + glyph->bbx.x_offset );
+      p->rbearing = (int)( glyph->bbx.width + glyph->bbx.x_offset );
 
-      p->maxrb    = (short)FT_MAX( p->rbearing, p->maxrb );
-      p->minlb    = (short)FT_MIN( glyph->bbx.x_offset, p->minlb );
-      p->maxlb    = (short)FT_MAX( glyph->bbx.x_offset, p->maxlb );
+      p->maxrb    = (int)FT_MAX( p->rbearing, p->maxrb );
+      p->minlb    = (int)FT_MIN( glyph->bbx.x_offset, p->minlb );
+      p->maxlb    = (int)FT_MAX( glyph->bbx.x_offset, p->maxlb );
 
       if ( !( p->flags & BDF_DWIDTH_ ) )
       {
@@ -1710,7 +1710,7 @@
       if ( p->opts->correct_metrics != 0 )
       {
         /* Determine the point size of the glyph. */
-        unsigned short  sw = (unsigned short)FT_MulDiv(
+        unsigned int  sw = (unsigned int)FT_MulDiv(
                                glyph->dwidth, 72000L,
                                (FT_Long)( font->point_size *
                                           font->resolution_x ) );
@@ -1760,7 +1760,7 @@
         goto Exit;
       }
       else
-        glyph->bytes = (unsigned short)bitmap_size;
+        glyph->bytes = (unsigned int)bitmap_size;
 
       if ( FT_NEW_ARRAY( glyph->bitmap, glyph->bytes ) )
         goto Exit;
@@ -2054,10 +2054,10 @@
       p->font->bbx.x_offset = _bdf_atos( p->list.field[3] );
       p->font->bbx.y_offset = _bdf_atos( p->list.field[4] );
 
-      p->font->bbx.ascent  = (short)( p->font->bbx.height +
+      p->font->bbx.ascent  = (int)( p->font->bbx.height +
                                       p->font->bbx.y_offset );
 
-      p->font->bbx.descent = (short)( -p->font->bbx.y_offset );
+      p->font->bbx.descent = (int)( -p->font->bbx.y_offset );
 
       p->flags |= BDF_FONT_BBX_;
 
@@ -2121,10 +2121,10 @@
       /* Check for the bits per pixel field. */
       if ( p->list.used == 5 )
       {
-        unsigned short bpp;
+        unsigned int bpp;
 
 
-        bpp = (unsigned short)_bdf_atos( p->list.field[4] );
+        bpp = (unsigned int)_bdf_atos( p->list.field[4] );
 
         /* Only values 1, 2, 4, 8 are allowed for greymap fonts. */
         if ( bpp > 4 )
@@ -2258,7 +2258,7 @@
         {
           FT_TRACE2(( "bdf_load_font: " ACMSG3,
                       p->font->bbx.width, p->maxrb - p->minlb ));
-          p->font->bbx.width = (unsigned short)( p->maxrb - p->minlb );
+          p->font->bbx.width = (unsigned int)( p->maxrb - p->minlb );
           p->font->modified  = 1;
         }
 
@@ -2283,7 +2283,7 @@
           FT_TRACE2(( "bdf_load_font: " ACMSG6,
                       p->font->bbx.descent, p->maxds ));
           p->font->bbx.descent  = p->maxds;
-          p->font->bbx.y_offset = (short)( -p->maxds );
+          p->font->bbx.y_offset = (int)( -p->maxds );
           p->font->modified     = 1;
         }
 
@@ -2291,7 +2291,7 @@
         {
           FT_TRACE2(( "bdf_load_font: " ACMSG7,
                       p->font->bbx.height, p->maxas + p->maxds ));
-          p->font->bbx.height = (unsigned short)( p->maxas + p->maxds );
+          p->font->bbx.height = (unsigned int)( p->maxas + p->maxds );
         }
 
         if ( p->flags & BDF_SWIDTH_ADJ_ )

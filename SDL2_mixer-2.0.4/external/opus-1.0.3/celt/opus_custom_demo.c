@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
    while (!feof(fin))
    {
       int ret;
-      err = fread(in, sizeof(short), frame_size*channels, fin);
+      err = fread(in, sizeof(int), frame_size*channels, fin);
       if (feof(fin))
          break;
       len = opus_custom_encode(enc, in, frame_size, data, bytes_per_packet);
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
       }
 #endif
       count++;
-      fwrite(out+skip*channels, sizeof(short), (ret-skip)*channels, fout);
+      fwrite(out+skip*channels, sizeof(int), (ret-skip)*channels, fout);
       skip = 0;
    }
    PRINT_MIPS(stderr);

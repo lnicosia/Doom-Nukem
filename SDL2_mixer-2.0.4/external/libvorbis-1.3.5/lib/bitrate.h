@@ -32,7 +32,7 @@ typedef struct bitrate_manager_state {
   long           min_bitsper;
   long           max_bitsper;
 
-  long           short_per_long;
+  long           int_per_long;
   double         avgfloat;
 
   vorbis_block  *vb;

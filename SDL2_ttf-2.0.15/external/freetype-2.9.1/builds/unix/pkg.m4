@@ -81,16 +81,16 @@ m4_define([_PKG_CONFIG],
 fi[]dnl
 ])# _PKG_CONFIG
 
-# _PKG_SHORT_ERRORS_SUPPORTED
+# _PKG_int_ERRORS_SUPPORTED
 # -----------------------------
-AC_DEFUN([_PKG_SHORT_ERRORS_SUPPORTED],
+AC_DEFUN([_PKG_int_ERRORS_SUPPORTED],
 [AC_REQUIRE([PKG_PROG_PKG_CONFIG])
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
+        _pkg_int_errors_supported=yes
 else
-        _pkg_short_errors_supported=no
+        _pkg_int_errors_supported=no
 fi[]dnl
-])# _PKG_SHORT_ERRORS_SUPPORTED
+])# _PKG_int_ERRORS_SUPPORTED
 
 
 # PKG_CHECK_MODULES(VARIABLE-PREFIX, MODULES, [ACTION-IF-FOUND],
@@ -120,9 +120,9 @@ See the pkg-config man page for more details.])
 
 if test $pkg_failed = yes; then
    	AC_MSG_RESULT([no])
-        _PKG_SHORT_ERRORS_SUPPORTED
-        if test $_pkg_short_errors_supported = yes; then
-	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "$2" 2>&1`
+        _PKG_int_ERRORS_SUPPORTED
+        if test $_pkg_int_errors_supported = yes; then
+	        $1[]_PKG_ERRORS=`$PKG_CONFIG --int-errors --print-errors --cflags --libs "$2" 2>&1`
         else 
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$2" 2>&1`
         fi

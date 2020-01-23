@@ -3351,7 +3351,7 @@ CHANGES BETWEEN 2.1.0 and 2.0.9
           consistency.   The  following  should  be true,  except  for
           public types:
 
-            * All structure  types have a name ending  in `Rec' (short
+            * All structure  types have a name ending  in `Rec' (int
               for `record').
 
             * A  pointer-to-structure type  has the  same name  as the
@@ -3378,8 +3378,8 @@ CHANGES BETWEEN 2.1.0 and 2.0.9
             * All  macros are completely  UPPERCASE.  This  required a
               few changes like:
 
-                READ_Short  => FT_READ_SHORT
-                NEXT_Short  => FT_NEXT_SHORT
+                READ_int  => FT_READ_int
+                NEXT_int  => FT_NEXT_int
                 GET_ULongLE => FT_GET_ULONG_LE
                 MEM_Set     => FT_MEM_SET
                 MEM_Copy    => FT_MEM_COPY

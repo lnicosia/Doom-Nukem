@@ -1286,7 +1286,7 @@
     /* compute which blue zones are active, i.e. have their scaled */
     /* size < 3/4 pixels                                           */
 
-    /* If the distant between an edge and a blue zone is shorter than */
+    /* If the distant between an edge and a blue zone is inter than */
     /* best_dist0, set the blue zone for the edge.  Then search for   */
     /* the blue zone with the smallest best_dist to the edge.         */
 

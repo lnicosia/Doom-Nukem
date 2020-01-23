@@ -92,7 +92,7 @@ ogg_uint32_t *_make_words(char *l,long n,long sparsecount){
       }
       r[count++]=entry;
 
-      /* Look to see if the next shorter marker points to the node
+      /* Look to see if the next inter marker points to the node
          above. if so, update it and repeat.  */
       {
         for(j=length;j>0;j--){

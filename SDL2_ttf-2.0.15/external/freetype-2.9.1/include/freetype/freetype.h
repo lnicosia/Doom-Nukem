@@ -370,8 +370,8 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_Bitmap_Size_
   {
-    FT_Short  height;
-    FT_Short  width;
+    FT_int  height;
+    FT_int  width;
 
     FT_Pos    size;
 
@@ -842,8 +842,8 @@ FT_BEGIN_HEADER
   {
     FT_Face      face;
     FT_Encoding  encoding;
-    FT_UShort    platform_id;
-    FT_UShort    encoding_id;
+    FT_Uint    platform_id;
+    FT_Uint    encoding_id;
 
   } FT_CharMapRec;
 
@@ -1092,16 +1092,16 @@ FT_BEGIN_HEADER
     /*# for bitmap fonts.                                              */
     FT_BBox           bbox;
 
-    FT_UShort         units_per_EM;
-    FT_Short          ascender;
-    FT_Short          descender;
-    FT_Short          height;
+    FT_Uint         units_per_EM;
+    FT_int          ascender;
+    FT_int          descender;
+    FT_int          height;
 
-    FT_Short          max_advance_width;
-    FT_Short          max_advance_height;
+    FT_int          max_advance_width;
+    FT_int          max_advance_height;
 
-    FT_Short          underline_position;
-    FT_Short          underline_thickness;
+    FT_int          underline_position;
+    FT_int          underline_thickness;
 
     FT_GlyphSlot      glyph;
     FT_Size           size;
@@ -1638,8 +1638,8 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_Size_Metrics_
   {
-    FT_UShort  x_ppem;      /* horizontal pixels per EM               */
-    FT_UShort  y_ppem;      /* vertical pixels per EM                 */
+    FT_Uint  x_ppem;      /* horizontal pixels per EM               */
+    FT_Uint  y_ppem;      /* vertical pixels per EM                 */
 
     FT_Fixed   x_scale;     /* scaling values used to convert font    */
     FT_Fixed   y_scale;     /* units to 26.6 fractional pixels        */
@@ -1762,7 +1762,7 @@ FT_BEGIN_HEADER
   /*                         important to perform correct WYSIWYG layout.  */
   /*                         Only relevant for outline glyphs.             */
   /*                                                                       */
-  /*    advance           :: This shorthand is, depending on               */
+  /*    advance           :: This inthand is, depending on               */
   /*                         @FT_LOAD_IGNORE_TRANSFORM, the transformed    */
   /*                         (hinted) advance width for the glyph, in 26.6 */
   /*                         fractional pixel format.  As specified with   */
@@ -4069,7 +4069,7 @@ FT_BEGIN_HEADER
   /* <Since>                                                               */
   /*    2.3.8                                                              */
   /*                                                                       */
-  FT_EXPORT( FT_UShort )
+  FT_EXPORT( FT_Uint )
   FT_Get_FSType_Flags( FT_Face  face );
 
 

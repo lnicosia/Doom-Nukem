@@ -49,7 +49,7 @@
 
   typedef struct  GXV_lcar_DataRec_
   {
-    FT_UShort  format;
+    FT_Uint  format;
 
   } GXV_lcar_DataRec, *GXV_lcar_Data;
 
@@ -66,8 +66,8 @@
   /*************************************************************************/
 
   static void
-  gxv_lcar_partial_validate( FT_Short       partial,
-                             FT_UShort      glyph,
+  gxv_lcar_partial_validate( FT_int       partial,
+                             FT_Uint      glyph,
                              GXV_Validator  gxvalid )
   {
     GXV_NAME_ENTER( "partial" );
@@ -75,7 +75,7 @@
     if ( GXV_LCAR_DATA( format ) != 1 )
       goto Exit;
 
-    gxv_ctlPoint_validate( glyph, (FT_UShort)partial, gxvalid );
+    gxv_ctlPoint_validate( glyph, (FT_Uint)partial, gxvalid );
 
   Exit:
     GXV_EXIT;
@@ -83,26 +83,26 @@
 
 
   static void
-  gxv_lcar_LookupValue_validate( FT_UShort            glyph,
+  gxv_lcar_LookupValue_validate( FT_Uint            glyph,
                                  GXV_LookupValueCPtr  value_p,
                                  GXV_Validator        gxvalid )
   {
     FT_Bytes   p     = gxvalid->root->base + value_p->u;
     FT_Bytes   limit = gxvalid->root->limit;
-    FT_UShort  count;
-    FT_Short   partial;
-    FT_UShort  i;
+    FT_Uint  count;
+    FT_int   partial;
+    FT_Uint  i;
 
 
     GXV_NAME_ENTER( "element in lookupTable" );
 
     GXV_LIMIT_CHECK( 2 );
-    count = FT_NEXT_USHORT( p );
+    count = FT_NEXT_Uint( p );
 
     GXV_LIMIT_CHECK( 2 * count );
     for ( i = 0; i < count; i++ )
     {
-      partial = FT_NEXT_SHORT( p );
+      partial = FT_NEXT_int( p );
       gxv_lcar_partial_validate( partial, glyph, gxvalid );
     }
 
@@ -146,26 +146,26 @@
   */
 
   static GXV_LookupValueDesc
-  gxv_lcar_LookupFmt4_transit( FT_UShort            relative_gindex,
+  gxv_lcar_LookupFmt4_transit( FT_Uint            relative_gindex,
                                GXV_LookupValueCPtr  base_value_p,
                                FT_Bytes             lookuptbl_limit,
                                GXV_Validator        gxvalid )
   {
     FT_Bytes             p;
     FT_Bytes             limit;
-    FT_UShort            offset;
+    FT_Uint            offset;
     GXV_LookupValueDesc  value;
 
     FT_UNUSED( lookuptbl_limit );
 
     /* XXX: check range? */
-    offset = (FT_UShort)( base_value_p->u +
-                          relative_gindex * sizeof ( FT_UShort ) );
+    offset = (FT_Uint)( base_value_p->u +
+                          relative_gindex * sizeof ( FT_Uint ) );
     p      = gxvalid->root->base + offset;
     limit  = gxvalid->root->limit;
 
     GXV_LIMIT_CHECK ( 2 );
-    value.u = FT_NEXT_USHORT( p );
+    value.u = FT_NEXT_Uint( p );
 
     return value;
   }
@@ -204,7 +204,7 @@
 
     GXV_LIMIT_CHECK( 4 + 2 );
     version = FT_NEXT_LONG( p );
-    GXV_LCAR_DATA( format ) = FT_NEXT_USHORT( p );
+    GXV_LCAR_DATA( format ) = FT_NEXT_Uint( p );
 
     if ( version != 0x00010000UL)
       FT_INVALID_FORMAT;

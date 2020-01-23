@@ -40,7 +40,7 @@
 
 #if 1
 
-  static const FT_UShort  cff_isoadobe_charset[229] =
+  static const FT_Uint  cff_isoadobe_charset[229] =
   {
       0,   1,   2,   3,   4,   5,   6,   7,
       8,   9,  10,  11,  12,  13,  14,  15,
@@ -73,7 +73,7 @@
     224, 225, 226, 227, 228
   };
 
-  static const FT_UShort  cff_expert_charset[166] =
+  static const FT_Uint  cff_expert_charset[166] =
   {
       0,   1, 229, 230, 231, 232, 233, 234,
     235, 236, 237, 238,  13,  14,  15,  99,
@@ -98,7 +98,7 @@
     373, 374, 375, 376, 377, 378
   };
 
-  static const FT_UShort  cff_expertsubset_charset[87] =
+  static const FT_Uint  cff_expertsubset_charset[87] =
   {
       0,   1, 231, 232, 235, 236, 237, 238,
      13,  14,  15,  99, 239, 240, 241, 242,
@@ -113,7 +113,7 @@
     340, 341, 342, 343, 344, 345, 346
   };
 
-  static const FT_UShort  cff_standard_encoding[256] =
+  static const FT_Uint  cff_standard_encoding[256] =
   {
       0,   0,   0,   0,   0,   0,   0,   0,
       0,   0,   0,   0,   0,   0,   0,   0,
@@ -149,7 +149,7 @@
     146, 147, 148, 149,   0,   0,   0,   0
   };
 
-  static const FT_UShort  cff_expert_encoding[256] =
+  static const FT_Uint  cff_expert_encoding[256] =
   {
       0,   0,   0,   0,   0,   0,   0,   0,
       0,   0,   0,   0,   0,   0,   0,   0,
@@ -188,10 +188,10 @@
 #endif /* 1 */
 
 
-  FT_LOCAL_DEF( FT_UShort )
+  FT_LOCAL_DEF( FT_Uint )
   cff_get_standard_encoding( FT_UInt  charcode )
   {
-    return (FT_UShort)( charcode < 256 ? cff_standard_encoding[charcode]
+    return (FT_Uint)( charcode < 256 ? cff_standard_encoding[charcode]
                                        : 0 );
   }
 
@@ -255,7 +255,7 @@
     }
     else
     {
-      if ( FT_READ_USHORT( count ) )
+      if ( FT_READ_Uint( count ) )
         goto Exit;
       idx->hdr_size = 3;
     }
@@ -375,7 +375,7 @@
 
       case 2:
         for ( ; p < p_end; p += 2, poff++ )
-          poff[0] = FT_PEEK_USHORT( p );
+          poff[0] = FT_PEEK_Uint( p );
         break;
 
       case 3:
@@ -720,7 +720,7 @@
       goto Load_Data;
 
     case 3:     /* format 3, a tad more complex */
-      if ( FT_READ_USHORT( num_ranges ) )
+      if ( FT_READ_Uint( num_ranges ) )
         goto Exit;
 
       if ( !num_ranges )
@@ -781,14 +781,14 @@
         FT_UInt   first, limit;
 
 
-        first = FT_NEXT_USHORT( p );
+        first = FT_NEXT_Uint( p );
         do
         {
           if ( glyph_index < first )
             break;
 
           fd2   = *p++;
-          limit = FT_NEXT_USHORT( p );
+          limit = FT_NEXT_Uint( p );
 
           if ( glyph_index < limit )
           {
@@ -831,7 +831,7 @@
     FT_Error   error   = FT_Err_Ok;
     FT_UInt    i;
     FT_Long    j;
-    FT_UShort  max_cid = 0;
+    FT_Uint  max_cid = 0;
 
 
     if ( charset->max_cid > 0 )
@@ -850,7 +850,7 @@
     /* GID.  This is not described in any spec, but it matches the  */
     /* behaviour of recent Acroread versions.                       */
     for ( j = (FT_Long)num_glyphs - 1; j >= 0; j-- )
-      charset->cids[charset->sids[j]] = (FT_UShort)j;
+      charset->cids[charset->sids[j]] = (FT_Uint)j;
 
     charset->max_cid    = max_cid;
     charset->num_glyphs = num_glyphs;
@@ -908,7 +908,7 @@
   {
     FT_Memory  memory = stream->memory;
     FT_Error   error  = FT_Err_Ok;
-    FT_UShort  glyph_sid;
+    FT_Uint  glyph_sid;
 
 
     /* If the offset is greater than 2, we have to parse the charset */
@@ -941,7 +941,7 @@
             goto Exit;
 
           for ( j = 1; j < num_glyphs; j++ )
-            charset->sids[j] = FT_GET_USHORT();
+            charset->sids[j] = FT_GET_Uint();
 
           FT_FRAME_EXIT();
         }
@@ -959,13 +959,13 @@
           while ( j < num_glyphs )
           {
             /* Read the first glyph sid of the range. */
-            if ( FT_READ_USHORT( glyph_sid ) )
+            if ( FT_READ_Uint( glyph_sid ) )
               goto Exit;
 
             /* Read the number of glyphs in the range.  */
             if ( charset->format == 2 )
             {
-              if ( FT_READ_USHORT( nleft ) )
+              if ( FT_READ_Uint( nleft ) )
                 goto Exit;
             }
             else
@@ -1148,7 +1148,7 @@
       vsOffset = FT_STREAM_POS();
 
       /* check the header */
-      if ( FT_READ_USHORT( format ) )
+      if ( FT_READ_Uint( format ) )
         goto Exit;
       if ( format != 1 )
       {
@@ -1158,7 +1158,7 @@
 
       /* read top level fields */
       if ( FT_READ_ULONG( regionListOffset )   ||
-           FT_READ_USHORT( vstore->dataCount ) )
+           FT_READ_Uint( vstore->dataCount ) )
         goto Exit;
 
       /* make temporary copy of item variation data offsets; */
@@ -1174,8 +1174,8 @@
 
       /* parse regionList and axisLists */
       if ( FT_STREAM_SEEK( vsOffset + regionListOffset ) ||
-           FT_READ_USHORT( vstore->axisCount )           ||
-           FT_READ_USHORT( vstore->regionCount )         )
+           FT_READ_Uint( vstore->axisCount )           ||
+           FT_READ_Uint( vstore->regionCount )         )
         goto Exit;
 
       if ( FT_NEW_ARRAY( vstore->varRegionList, vstore->regionCount ) )
@@ -1196,9 +1196,9 @@
           FT_Int16  start14, peak14, end14;
 
 
-          if ( FT_READ_SHORT( start14 ) ||
-               FT_READ_SHORT( peak14 )  ||
-               FT_READ_SHORT( end14 )   )
+          if ( FT_READ_int( start14 ) ||
+               FT_READ_int( peak14 )  ||
+               FT_READ_int( end14 )   )
             goto Exit;
 
           axis->startCoord = FT_fdot14ToFixed( start14 );
@@ -1219,7 +1219,7 @@
         if ( FT_STREAM_SEEK( vsOffset + dataOffsetArray[i] ) )
           goto Exit;
 
-        /* ignore `itemCount' and `shortDeltaCount' */
+        /* ignore `itemCount' and `intDeltaCount' */
         /* because CFF2 has no delta sets           */
         if ( FT_STREAM_SKIP( 4 ) )
           goto Exit;
@@ -1227,7 +1227,7 @@
         /* Note: just record values; consistency is checked later    */
         /*       by cff_blend_build_vector when it consumes `vstore' */
 
-        if ( FT_READ_USHORT( data->regionIdxCount ) )
+        if ( FT_READ_Uint( data->regionIdxCount ) )
           goto Exit;
 
         if ( FT_NEW_ARRAY( data->regionIndices, data->regionIdxCount ) )
@@ -1235,7 +1235,7 @@
 
         for ( j = 0; j < data->regionIdxCount; j++ )
         {
-          if ( FT_READ_USHORT( data->regionIndices[j] ) )
+          if ( FT_READ_Uint( data->regionIndices[j] ) )
             goto Exit;
         }
       }
@@ -1625,7 +1625,7 @@
     FT_Error   error = FT_Err_Ok;
     FT_UInt    count;
     FT_UInt    j;
-    FT_UShort  glyph_sid;
+    FT_Uint  glyph_sid;
     FT_UInt    glyph_code;
 
 
@@ -1691,7 +1691,7 @@
             if ( j < num_glyphs )
             {
               /* Assign code to GID mapping. */
-              encoding->codes[glyph_code] = (FT_UShort)j;
+              encoding->codes[glyph_code] = (FT_Uint)j;
 
               /* Assign code to SID mapping. */
               encoding->sids[glyph_code] = charset->sids[j];
@@ -1736,7 +1736,7 @@
               if ( k < num_glyphs && glyph_code < 256 )
               {
                 /* Assign code to GID mapping. */
-                encoding->codes[glyph_code] = (FT_UShort)k;
+                encoding->codes[glyph_code] = (FT_Uint)k;
 
                 /* Assign code to SID mapping. */
                 encoding->sids[glyph_code] = charset->sids[k];
@@ -1773,7 +1773,7 @@
             goto Exit;
 
           /* Read the SID associated with this glyph code. */
-          if ( FT_READ_USHORT( glyph_sid ) )
+          if ( FT_READ_Uint( glyph_sid ) )
             goto Exit;
 
           /* Assign code to SID mapping. */
@@ -1785,7 +1785,7 @@
           {
             if ( charset->sids[gindex] == glyph_sid )
             {
-              encoding->codes[glyph_code] = (FT_UShort)gindex;
+              encoding->codes[glyph_code] = (FT_Uint)gindex;
               break;
             }
           }
@@ -1832,7 +1832,7 @@
 
           if ( gid != 0 )
           {
-            encoding->codes[j] = (FT_UShort)gid;
+            encoding->codes[j] = (FT_Uint)gid;
             encoding->count    = j + 1;
           }
           else
@@ -2220,7 +2220,7 @@
         goto Exit;
       }
 
-      if ( FT_READ_USHORT( font->top_dict_length ) )
+      if ( FT_READ_Uint( font->top_dict_length ) )
         goto Exit;
     }
     else

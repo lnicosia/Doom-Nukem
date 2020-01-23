@@ -9,20 +9,20 @@
 #include "mangle.h"
 
 #ifdef IS_MSABI
-/* short *window; */
+/* int *window; */
 #define ARG0 %r10
-/* short *b0; */
+/* int *b0; */
 #define ARG1 %rdx
-/* short *samples; */
+/* int *samples; */
 #define ARG2 %r8
 /* int bo1; */
 #define ARG3 %r9
 #else
-/* short *window; */
+/* int *window; */
 #define ARG0 %rdi
-/* short *b0; */
+/* int *b0; */
 #define ARG1 %rsi
-/* short *samples; */
+/* int *samples; */
 #define ARG2 %rdx
 /* int bo1; */
 #define ARG3 %rcx
@@ -34,7 +34,7 @@
 #define XMMREG_FULL %xmm12 /* {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF} */
 
 /*
-	int synth_1to1_x86_64_asm(short *window, short *b0, short *samples, int bo1);
+	int synth_1to1_x86_64_asm(int *window, int *b0, int *samples, int bo1);
 	return value: number of clipped samples
 */
 

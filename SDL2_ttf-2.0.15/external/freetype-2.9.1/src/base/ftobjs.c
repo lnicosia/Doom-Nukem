@@ -1612,7 +1612,7 @@
                                FT_Bool*   is_sfnt_cid )
   {
     FT_Error   error;
-    FT_UShort  numTables;
+    FT_Uint  numTables;
     FT_Long    pstable_index;
     FT_ULong   tag;
     int        i;
@@ -1630,7 +1630,7 @@
     if ( tag != TTAG_typ1 )
       return FT_THROW( Unknown_File_Format );
 
-    if ( FT_READ_USHORT( numTables ) )
+    if ( FT_READ_Uint( numTables ) )
       return error;
     if ( FT_STREAM_SKIP( 2 * 3 ) ) /* skip binary search header */
       return error;
@@ -1862,7 +1862,7 @@
         goto Exit2;
       }
 
-      if ( FT_READ_USHORT( flags ) )
+      if ( FT_READ_Uint( flags ) )
         goto Exit2;
 
       FT_TRACE3(( "POST fragment[%d]:"
@@ -1964,7 +1964,7 @@
 
   Exit2:
     if ( FT_ERR_EQ( error, Array_Too_Large ) )
-      FT_TRACE2(( "  Abort due to too-short buffer to store"
+      FT_TRACE2(( "  Abort due to too-int buffer to store"
                   " all POST fragments\n" ));
     else if ( FT_ERR_EQ( error, Invalid_Offset ) )
       FT_TRACE2(( "  Abort due to invalid offset in a POST fragment\n" ));
@@ -2541,10 +2541,10 @@
     if ( FT_IS_SCALABLE( face ) )
     {
       if ( face->height < 0 )
-        face->height = (FT_Short)-face->height;
+        face->height = (FT_int)-face->height;
 
       if ( !FT_HAS_VERTICAL( face ) )
-        face->max_advance_height = (FT_Short)face->height;
+        face->max_advance_height = (FT_int)face->height;
     }
 
     if ( FT_HAS_FIXED_SIZES( face ) )
@@ -3000,8 +3000,8 @@
     metrics = &face->size->metrics;
     bsize   = face->available_sizes + strike_index;
 
-    metrics->x_ppem = (FT_UShort)( ( bsize->x_ppem + 32 ) >> 6 );
-    metrics->y_ppem = (FT_UShort)( ( bsize->y_ppem + 32 ) >> 6 );
+    metrics->x_ppem = (FT_Uint)( ( bsize->x_ppem + 32 ) >> 6 );
+    metrics->y_ppem = (FT_Uint)( ( bsize->y_ppem + 32 ) >> 6 );
 
     if ( FT_IS_SCALABLE( face ) )
     {
@@ -3118,8 +3118,8 @@
         scaled_h = FT_MulFix( face->units_per_EM, metrics->y_scale );
       }
 
-      metrics->x_ppem = (FT_UShort)( ( scaled_w + 32 ) >> 6 );
-      metrics->y_ppem = (FT_UShort)( ( scaled_h + 32 ) >> 6 );
+      metrics->x_ppem = (FT_Uint)( ( scaled_w + 32 ) >> 6 );
+      metrics->y_ppem = (FT_Uint)( ( scaled_h + 32 ) >> 6 );
 
       ft_recompute_scaled_metrics( face, metrics );
     }
@@ -4501,7 +4501,7 @@
         FT_ListNode  node = NULL;
 
 
-        /* small shortcut for the very common case */
+        /* small intcut for the very common case */
         if ( slot->format == FT_GLYPH_FORMAT_OUTLINE )
         {
           renderer = library->cur_renderer;

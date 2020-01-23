@@ -161,7 +161,7 @@
     OTV_LIMIT_CHECK( 6 );
     OTV_OPTIONAL_OFFSET( ExtGlyph );
     OTV_OPTIONAL_OFFSET( DefJstfLangSys );
-    JstfLangSysCount = FT_NEXT_USHORT( p );
+    JstfLangSysCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (JstfLangSysCount = %d)\n", JstfLangSysCount ));
 
@@ -190,7 +190,7 @@
     {
       p += 4;       /* skip JstfLangSysTag */
 
-      OTV_RUN( table + FT_NEXT_USHORT( p ), otvalid );
+      OTV_RUN( table + FT_NEXT_Uint( p ), otvalid );
     }
 
     OTV_EXIT;
@@ -225,7 +225,7 @@
     if ( FT_NEXT_ULONG( p ) != 0x10000UL )      /* Version */
       FT_INVALID_FORMAT;
 
-    JstfScriptCount = FT_NEXT_USHORT( p );
+    JstfScriptCount = FT_NEXT_Uint( p );
 
     FT_TRACE3(( " (JstfScriptCount = %d)\n", JstfScriptCount ));
 
@@ -249,7 +249,7 @@
       p += 4;       /* skip JstfScriptTag */
 
       /* JstfScript */
-      otv_JstfScript_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_JstfScript_validate( table + FT_NEXT_Uint( p ), otvalid );
     }
 
     FT_TRACE4(( "\n" ));
