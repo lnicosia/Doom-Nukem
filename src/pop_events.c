@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:57:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:33:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,24 @@ int	double_event(t_event *curr)
 	}
 	time = SDL_GetTicks() - curr->start_time;
 	time = time == 0 ? 1 : time;
-	*target = curr->start_value + time * curr->incr;
-	if ((curr->incr > 0 && *target >= curr->goal)
-			|| (curr->incr < 0 && *target <= curr->goal))
+	if (curr->mod_type == FIXED)
 	{
-		*target = curr->goal;
-		//curr->end_time = SDL_GetTicks();
-		return (1);
+		*target = curr->start_value + time * curr->incr;
+		if ((curr->incr > 0 && *target >= curr->goal)
+				|| (curr->incr < 0 && *target <= curr->goal))
+		{
+			*target = curr->goal;
+			return (1);
+		}
+	}
+	else
+	{
+		curr->total = curr->total + (SDL_GetTicks() - curr->last_tick)
+		* fabs(curr->incr);
+		if (curr->total < fabs(curr->start_incr))
+			curr->last_tick = SDL_GetTicks();
+		else
+			return (1);
 	}
 	return (0);
 }
@@ -41,6 +52,7 @@ int	int_event(t_event *curr)
 {
 	Uint32	time;
 	int		*target;
+	double	new_total;
 
 	target = (int*)curr->target;
 	if (!curr->speed)
@@ -51,13 +63,34 @@ int	int_event(t_event *curr)
 	}
 	time = SDL_GetTicks() - curr->start_time;
 	time = time == 0 ? 1 : time;
-	*target = curr->start_value + time * curr->incr;
-	if ((curr->incr > 0 && *target >= curr->goal)
-			|| (curr->incr < 0 && *target <= curr->goal))
+	if (curr->mod_type == FIXED)
 	{
-		*target = curr->goal;
-		//curr->end_time = SDL_GetTicks();
-		return (1);
+		*target = curr->start_value + time * curr->incr;
+		if ((curr->incr > 0 && *target >= curr->goal)
+				|| (curr->incr < 0 && *target <= curr->goal))
+		{
+			*target = curr->goal;
+			return (1);
+		}
+	}
+	else
+	{
+		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
+		* fabs(curr->incr);
+		if (floor(new_total) != floor(curr->total))
+		{
+			if (curr->start_incr > 0)
+				(*target)++;
+			else
+				(*target)--;
+		}
+		if (new_total < fabs(curr->start_incr))
+		{
+			curr->total = new_total;
+			curr->last_tick = SDL_GetTicks();
+		}
+		else
+			return (1);
 	}
 	return (0);
 }
@@ -66,6 +99,7 @@ int	uint32_event(t_event *curr)
 {
 	Uint32	time;
 	Uint32	*target;
+	double	new_total;
 
 	target = (Uint32*)curr->target;
 	if (!curr->speed)
@@ -76,13 +110,34 @@ int	uint32_event(t_event *curr)
 	}
 	time = SDL_GetTicks() - curr->start_time;
 	time = time == 0 ? 1 : time;
-	*target = curr->start_value + time * curr->incr;
-	if ((curr->incr > 0 && *target >= curr->goal)
-			|| (curr->incr < 0 && *target <= curr->goal))
+	if (curr->mod_type == FIXED)
 	{
-		*target = curr->goal;
-		//curr->end_time = SDL_GetTicks();
-		return (1);
+		*target = curr->start_value + time * curr->incr;
+		if ((curr->incr > 0 && *target >= curr->goal)
+				|| (curr->incr < 0 && *target <= curr->goal))
+		{
+			*target = curr->goal;
+			return (1);
+		}
+	}
+	else
+	{
+		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
+		* fabs(curr->incr);
+		if (floor(new_total) != floor(curr->total))
+		{
+			if (curr->start_incr > 0)
+				(*target)++;
+			else
+				(*target)--;
+		}
+		if (new_total < fabs(curr->start_incr))
+		{
+			curr->total = new_total;
+			curr->last_tick = SDL_GetTicks();
+		}
+		else
+			return (1);
 	}
 	return (0);
 }

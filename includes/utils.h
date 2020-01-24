@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:08:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:14:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,6 @@ typedef struct		s_sprite
 	t_point			start[8];
 	t_point			end[8];
 	t_point			size[8];
-	double			ratio[8];
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
@@ -312,7 +311,9 @@ typedef struct		s_event
 	double			start_incr;
 	double			incr;
 	double			speed;
+	double			total;
 	Uint32			start_time;
+	Uint32			last_tick;
 	Uint32			end_time;
 	Uint32			start_delay;
 	Uint32			delay;
