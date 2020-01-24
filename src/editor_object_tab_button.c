@@ -6,16 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:54:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 15:54:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 15:17:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-void	init_object_sprite_buttons(t_env *env)
-{
-	(void)env;
-}
 
 void	init_object_sector_buttons(t_env *env)
 {

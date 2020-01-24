@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_sprites_brightness.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:50:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:03:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:51:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_floor_sprites_brightness(t_sector sector, t_render render, t_env *env)
 		while (j < sector.floor_sprites.nb_sprites)
 		{
 			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
-			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
+				sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
 			/*sprite_x = (x - sector.floor_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;
 			sprite_y = (y - sector.floor_sprites.pos[j].y)
@@ -72,6 +72,8 @@ void	draw_floor_sprites_brightness(t_sector sector, t_render render, t_env *env)
 					reset_selection(env);
 					env->selected_floor = sector.num;
 					env->selected_floor_sprite = j;
+					env->editor.sprite_tab.state = DOWN;
+					env->editor.sprite_tab.anim_state = PRESSED;
 				}
 				pixels[coord] = apply_light_brightness(
 				sprite_pixels[(int)sprite_x

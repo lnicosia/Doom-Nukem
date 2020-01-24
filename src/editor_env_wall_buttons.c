@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:46:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 15:51:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 14:24:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 void	init_wall_sprite_env(t_env *env)
 {
-	(void)env;
+	env->editor.hud.sp_wall_sprite.t_num.env = env;
+	env->editor.hud.sp_wall_sprite.t_num.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_num.type = INT;
+	env->editor.hud.sp_wall_sprite.t_pos_x.env = env;
+	env->editor.hud.sp_wall_sprite.t_pos_x.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_pos_x.type = DOUBLE;
+	env->editor.hud.sp_wall_sprite.t_pos_y.env = env;
+	env->editor.hud.sp_wall_sprite.t_pos_y.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_pos_y.type = DOUBLE;
+	env->editor.hud.sp_wall_sprite.t_scale_x.env = env;
+	env->editor.hud.sp_wall_sprite.t_scale_x.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_scale_x.type = DOUBLE;
+	env->editor.hud.sp_wall_sprite.t_scale_y.env = env;
+	env->editor.hud.sp_wall_sprite.t_scale_y.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_scale_y.type = DOUBLE;
 }
 
 void	init_wall_sector_env(t_env *env)

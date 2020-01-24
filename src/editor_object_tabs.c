@@ -6,16 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 10:58:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 15:24:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-void	printf_object_sprite_tab(t_env *env)
-{
-	(void)env;
-}
 
 void	print_object_sector_tab(t_env *env)
 {

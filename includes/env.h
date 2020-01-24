@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 17:12:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 17:10:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,8 @@ void				print_wall_sector_tab(t_env *env);
 void				print_enemy_sector_tab(t_env *env);
 void				print_object_sector_tab(t_env *env);
 void				print_floor_sprite_tab(t_env *env);
+void				print_ceiling_sprite_tab(t_env *env);
+void				print_wall_sprite_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
@@ -335,12 +337,18 @@ void				floor_buttons(t_env *env);
 void				sector_buttons(t_env *env);
 void				player_buttons(t_env *env);
 void				enemy_buttons(t_env *env);
+void				floor_sprite_buttons(t_env *env);
+void				ceiling_sprite_buttons(t_env *env);
+void				wall_sprite_buttons(t_env *env);
 void				wall_buttons_up(t_env *env);
 void				ceiling_buttons_up(t_env *env);
 void				floor_buttons_up(t_env *env);
 void				sector_buttons_up(t_env *env);
 void				player_buttons_up(t_env *env);
 void				enemy_buttons_up(t_env *env);
+void				floor_sprite_buttons_up(t_env *env);
+void				ceiling_sprite_buttons_up(t_env *env);
+void				wall_sprite_buttons_up(t_env *env);
 
 /*
 ** Main functions

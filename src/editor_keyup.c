@@ -26,7 +26,7 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
 	{
 		env->options.test = env->options.test ? 0 : 1;
-		if (env->editor.selected_sector != -1
+			if (env->editor.selected_sector != -1
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{

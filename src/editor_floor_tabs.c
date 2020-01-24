@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 12:09:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 12:34:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,26 @@ void	print_floor_sprite_tab(t_env *env)
 	draw_button(env, env->editor.hud.sp_floor_sprite.num);
 	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.sp_floor_sprite.pos_x.str = ft_sitoa(
-	env->sectors[env->editor.selected_sector].floor_sprites.pos[env->selected_floor_sprite].x
-	);
+	env->sectors[env->selected_floor].floor_sprites.pos[env->selected_floor_sprite].x);
 	env->editor.hud.sp_floor_sprite.t_pos_x.target =
-	&env->sectors[env->editor.selected_sector].floor_sprites.pos[env->selected_floor_sprite].x;
+	&env->sectors[env->selected_floor].floor_sprites.pos[env->selected_floor_sprite].x;
 	draw_button(env, env->editor.hud.sp_floor_sprite.pos_x);
+	env->editor.hud.sp_floor_sprite.pos_y.str = ft_sitoa(
+	env->sectors[env->selected_floor].floor_sprites.pos[env->selected_floor_sprite].y);
+	env->editor.hud.sp_floor_sprite.t_pos_y.target =
+	&env->sectors[env->selected_floor].floor_sprites.pos[env->selected_floor_sprite].y;
+	draw_button(env, env->editor.hud.sp_floor_sprite.pos_y);
+	print_text(new_point(600, 60), new_printable_text("Scale: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.sp_floor_sprite.scale_x.str = ft_sitoa(
+	env->sectors[env->selected_floor].floor_sprites.scale[env->selected_floor_sprite].x);
+	env->editor.hud.sp_floor_sprite.t_scale_x.target =
+	&env->sectors[env->selected_floor].floor_sprites.scale[env->selected_floor_sprite].x;
+	draw_button(env, env->editor.hud.sp_floor_sprite.scale_x);
+	env->editor.hud.sp_floor_sprite.scale_y.str = ft_sitoa(
+	env->sectors[env->selected_floor].floor_sprites.scale[env->selected_floor_sprite].y);
+	env->editor.hud.sp_floor_sprite.t_scale_y.target =
+	&env->sectors[env->selected_floor].floor_sprites.scale[env->selected_floor_sprite].y;
+	draw_button(env, env->editor.hud.sp_floor_sprite.scale_y);
 }
 
 void	print_floor_sector_tab(t_env *env)

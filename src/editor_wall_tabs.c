@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:07:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 15:53:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 14:47:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,32 @@
 
 void	print_wall_sprite_tab(t_env *env)
 {
-	(void)env;
+	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.sp_wall_sprite.num.str = ft_sitoa(env->selected_wall_sprite_sprite);
+	env->editor.hud.sp_wall_sprite.t_num.target = &env->selected_wall_sprite_sprite;
+	draw_button(env, env->editor.hud.sp_wall_sprite.num);
+	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.sp_wall_sprite.pos_x.str = ft_sitoa(
+	env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].pos[env->selected_wall_sprite_sprite].x);
+	env->editor.hud.sp_wall_sprite.t_pos_x.target =
+	&env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].pos[env->selected_wall_sprite_sprite].x;
+	draw_button(env, env->editor.hud.sp_wall_sprite.pos_x);
+	env->editor.hud.sp_wall_sprite.pos_y.str = ft_sitoa(
+	env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].pos[env->selected_wall_sprite_sprite].y);
+	env->editor.hud.sp_wall_sprite.t_pos_y.target =
+	&env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].pos[env->selected_wall_sprite_sprite].y;
+	draw_button(env, env->editor.hud.sp_wall_sprite.pos_y);
+	print_text(new_point(600, 60), new_printable_text("Scale: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.sp_wall_sprite.scale_x.str = ft_sitoa(
+	env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].scale[env->selected_wall_sprite_sprite].x);
+	env->editor.hud.sp_wall_sprite.t_scale_x.target =
+	&env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].scale[env->selected_wall_sprite_sprite].x;
+	draw_button(env, env->editor.hud.sp_wall_sprite.scale_x);
+	env->editor.hud.sp_wall_sprite.scale_y.str = ft_sitoa(
+	env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].scale[env->selected_wall_sprite_sprite].y);
+	env->editor.hud.sp_wall_sprite.t_scale_y.target =
+	&env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].scale[env->selected_wall_sprite_sprite].y;
+	draw_button(env, env->editor.hud.sp_wall_sprite.scale_y);
 }
 
 void	print_wall_sector_tab(t_env *env)

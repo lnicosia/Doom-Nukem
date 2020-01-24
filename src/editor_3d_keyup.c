@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:40:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 17:13:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ int		editor_3d_keyup(t_env *env)
 		&env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x,
 		&env->sdl.mouse_y);
+		if (!env->editor.tab)
+		{
+			ft_printf("coucou\n");
+			env->editor.sprite_tab.state = UP;
+			env->editor.general_tab.state = UP;
+			env->editor.sector_tab.state = UP;
+			env->editor.sprite_tab.anim_state = REST;
+			env->editor.general_tab.anim_state = REST;
+			env->editor.sector_tab.anim_state = REST;
+		}
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
@@ -101,7 +111,7 @@ int		editor_3d_keyup(t_env *env)
 		button_keyup(&env->editor.general_tab, env);
 		button_keyup(&env->editor.sprite_tab, env);
 		button_keyup(&env->editor.sector_tab, env);
-		button_keyup(&env->editor.change_mode, env);
+		button_keyup(&env->editor.change_mode, env);	
 		button_keyup(&env->editor.launch_game, env);
 		button_keyup(&env->editor.texture_background, env);
 		if (env->selected_ceiling != -1)
@@ -112,6 +122,12 @@ int		editor_3d_keyup(t_env *env)
 			floor_buttons_up(env);
 		if (env->selected_enemy != -1)
 			enemy_buttons_up(env);
+		if (env->selected_floor_sprite != -1)
+			floor_sprite_buttons_up(env);
+		if (env->selected_ceiling_sprite != -1)
+			ceiling_sprite_buttons_up(env);
+		if (env->selected_wall_sprite_sprite != -1)
+			wall_sprite_buttons_up(env);
 		if (env->editor.draw_selection_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)

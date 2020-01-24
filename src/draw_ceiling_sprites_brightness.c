@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling_sprites_brightness.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:52:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:02:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:00:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ t_env *env)
 					reset_selection(env);
 					env->selected_ceiling = sector.num;
 					env->selected_ceiling_sprite = j;
+					env->editor.sprite_tab.state = DOWN;
+					env->editor.sprite_tab.anim_state = PRESSED;
 				}
 				pixels[coord] = apply_light_brightness(
 				sprite_pixels[(int)sprite_x

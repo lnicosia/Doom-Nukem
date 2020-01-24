@@ -6,16 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:55:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 15:55:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 15:21:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-void	init_object_sprite_env(t_env *env)
-{
-	(void)env;
-}
 
 void	init_object_sector_env(t_env *env)
 {

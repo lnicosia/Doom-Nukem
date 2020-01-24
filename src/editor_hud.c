@@ -14,17 +14,11 @@
 
 void	print_sprite_tab(t_env *env)
 {
-	/*if (env->editor.selected_player != -1)
-		print_player_sprite_tab(env);
-	else if (env->selected_enemy != -1)
-		print_enemy_sprite_tab(env);
-	else if (env->editor.selected_object != -1 || env->selected_object != -1)
-		print_object_sprite_tab(env);
-	else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
+	if (env->selected_wall_sprite_wall != -1)
 		print_wall_sprite_tab(env);
-	else if (env->selected_ceiling != -1)
-		print_ceiling_sprite_tab(env);*/
-	if (env->selected_floor != -1)
+	else if (env->selected_ceiling_sprite != -1)
+		print_ceiling_sprite_tab(env);
+	else if (env->selected_floor_sprite != -1)
 		print_floor_sprite_tab(env);
 }
 
@@ -50,8 +44,7 @@ void	print_sector_tab(t_env *env)
 void	print_general_tab(t_env *env)
 {
 	/*if (env->editor.selected_vertex != -1)
-		print_vertex_general_tab(env);
-	*/
+		print_vertex_general_tab(env);*/
 	if (env->editor.selected_object != -1 || env->selected_object != -1)
 		print_object_general_tab(env);
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)

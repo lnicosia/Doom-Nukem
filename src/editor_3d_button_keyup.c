@@ -6,11 +6,38 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 10:44:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 17:06:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	wall_sprite_buttons_up(t_env *env)
+{
+	button_keyup(&env->editor.hud.sp_wall_sprite.num, env);
+	button_keyup(&env->editor.hud.sp_wall_sprite.pos_x, env);
+	button_keyup(&env->editor.hud.sp_wall_sprite.pos_y, env);
+	button_keyup(&env->editor.hud.sp_wall_sprite.scale_x, env);
+	button_keyup(&env->editor.hud.sp_wall_sprite.scale_y, env);
+}
+
+void	ceiling_sprite_buttons_up(t_env *env)
+{
+	button_keyup(&env->editor.hud.sp_ceiling_sprite.num, env);
+	button_keyup(&env->editor.hud.sp_ceiling_sprite.pos_x, env);
+	button_keyup(&env->editor.hud.sp_ceiling_sprite.pos_y, env);
+	button_keyup(&env->editor.hud.sp_ceiling_sprite.scale_x, env);
+	button_keyup(&env->editor.hud.sp_ceiling_sprite.scale_y, env);
+}
+
+void	floor_sprite_buttons_up(t_env *env)
+{
+	button_keyup(&env->editor.hud.sp_floor_sprite.num, env);
+	button_keyup(&env->editor.hud.sp_floor_sprite.pos_x, env);
+	button_keyup(&env->editor.hud.sp_floor_sprite.pos_y, env);
+	button_keyup(&env->editor.hud.sp_floor_sprite.scale_x, env);
+	button_keyup(&env->editor.hud.sp_floor_sprite.scale_y, env);
+}
 
 void	wall_buttons_up(t_env *env)
 {
