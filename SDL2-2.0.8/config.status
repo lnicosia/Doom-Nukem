@@ -2076,12 +2076,12 @@ func_split_long_opt ()\
 test 0 -eq $? || _lt_function_replace_fail=:
 
 
-  sed -e '/^func_split_short_opt ()$/,/^} # func_split_short_opt /c\
-func_split_short_opt ()\
+  sed -e '/^func_split_int_opt ()$/,/^} # func_split_int_opt /c\
+func_split_int_opt ()\
 {\
-\    func_split_short_opt_arg=${1#??}\
-\    func_split_short_opt_name=${1%"$func_split_short_opt_arg"}\
-} # Extended-shell func_split_short_opt implementation' "$cfgfile" > $cfgfile.tmp \
+\    func_split_int_opt_arg=${1#??}\
+\    func_split_int_opt_name=${1%"$func_split_int_opt_arg"}\
+} # Extended-shell func_split_int_opt implementation' "$cfgfile" > $cfgfile.tmp \
   && mv -f "$cfgfile.tmp" "$cfgfile" \
     || (rm -f "$cfgfile" && cp "$cfgfile.tmp" "$cfgfile" && rm -f "$cfgfile.tmp")
 test 0 -eq $? || _lt_function_replace_fail=:

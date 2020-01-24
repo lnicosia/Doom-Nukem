@@ -128,7 +128,7 @@ void silk_prefilter_FLP(
         LF_AR_shp =  psEncCtrl->LF_AR_shp[ k ];
         AR1_shp   = &psEncCtrl->AR1[ k * MAX_SHAPE_LPC_ORDER ];
 
-        /* Short term FIR filtering */
+        /* int term FIR filtering */
         silk_warped_LPC_analysis_filter_FLP( P->sAR_shp, st_res, AR1_shp, px,
             (silk_float)psEnc->sCmn.warping_Q16 / 65536.0f, psEnc->sCmn.subfr_length, psEnc->sCmn.shapingLPCOrder );
 

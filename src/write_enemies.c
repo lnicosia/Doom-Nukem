@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 12:01:37 by sipatry           #+#    #+#             */
-/*   Updated: 2019/09/06 14:42:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 19:40:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void		write_enemies(int fd, t_env *env)
 		write_enemy(fd, env->enemies[i]);
 		i++;
 	}
+	ft_dprintf(fd, "\n");
 }

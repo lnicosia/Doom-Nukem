@@ -52,7 +52,7 @@
     FT_CURVE_TAG_ON
   };
 
-  static short  dummy_contour_1[1] =
+  static int  dummy_contour_1[1] =
   {
     3
   };

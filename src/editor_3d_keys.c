@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:13:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/17 10:35:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ int		editor_3d_keys(t_env *env)
 			}
 			if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < 0)
 				env->contains_skybox = 1;
-			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-			env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+			if (set_sector_wall_map_array(&env->sectors[env->editor.
+				selected_sector], env->wall_textures[env->sectors[env->
+				editor.selected_sector].textures[env->editor.selected_wall]],
+				env->editor.selected_wall, env))
 				return (-1);
 			if (set_camera_map_array(&env->player.camera,
 				env->editor.selected_sector, env->editor.selected_wall, env))
@@ -281,8 +283,10 @@ int		editor_3d_keys(t_env *env)
 			else
 				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
 		}
-		set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-		env->wall_textures[env->sectors[env->selected_ceiling].ceiling_texture], env);
+		if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
+			env->wall_textures[env->sectors[env->selected_ceiling].
+			ceiling_texture], env))
+			return (-1);
 	}
 	
 	/*
@@ -373,8 +377,10 @@ int		editor_3d_keys(t_env *env)
 			else
 				env->sectors[env->selected_floor].floor_map_scale.x *= 1.1;
 		}
-		set_sector_floor_map_array(&env->sectors[env->selected_floor],
-		env->wall_textures[env->sectors[env->selected_floor].floor_texture], env);
+		if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
+			env->wall_textures[env->sectors[env->selected_floor].floor_texture],
+			env))
+			return (-1);
 	}
 
 	/*

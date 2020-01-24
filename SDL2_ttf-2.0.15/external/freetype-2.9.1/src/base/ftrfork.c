@@ -154,7 +154,7 @@
                           + 2      /* skip file resource number */
                           + 2 );   /* skip attributes */
 
-    if ( FT_READ_SHORT( type_list ) )
+    if ( FT_READ_int( type_list ) )
       return error;
     if ( type_list < 0 )
       return FT_THROW( Unknown_File_Format );
@@ -205,7 +205,7 @@
     if ( error )
       return error;
 
-    if ( FT_READ_SHORT( cnt ) )
+    if ( FT_READ_int( cnt ) )
       return error;
     cnt++;
 
@@ -231,8 +231,8 @@
     for ( i = 0; i < cnt; i++ )
     {
       if ( FT_READ_LONG( tag_internal ) ||
-           FT_READ_SHORT( subcnt )      ||
-           FT_READ_SHORT( rpos )        )
+           FT_READ_int( subcnt )      ||
+           FT_READ_int( rpos )        )
         return error;
 
       FT_TRACE2(( "Resource tags: %c%c%c%c\n",
@@ -262,7 +262,7 @@
 
         for ( j = 0; j < *count; j++ )
         {
-          if ( FT_READ_SHORT( ref[j].res_id ) )
+          if ( FT_READ_int( ref[j].res_id ) )
             goto Exit;
           if ( FT_STREAM_SKIP( 2 ) )  /* resource name offset */
             goto Exit;
@@ -287,7 +287,7 @@
 
           FT_TRACE3(( "             [%d]:"
                       " resource_id=0x%04x, offset=0x%08x\n",
-                      j, (FT_UShort)ref[j].res_id, ref[j].offset ));
+                      j, (FT_Uint)ref[j].res_id, ref[j].offset ));
         }
 
         if ( sort_by_res_id )
@@ -784,7 +784,7 @@
     FT_Int32   magic_from_stream;
     FT_Error   error;
     FT_Int32   version_number = 0;
-    FT_UShort  n_of_entries;
+    FT_Uint  n_of_entries;
 
     int        i;
     FT_Int32   entry_id, entry_offset, entry_length = 0;
@@ -810,7 +810,7 @@
     if ( error )
       return error;
 
-    if ( FT_READ_USHORT( n_of_entries ) )
+    if ( FT_READ_Uint( n_of_entries ) )
       return error;
     if ( n_of_entries == 0 )
       return FT_THROW( Unknown_File_Format );

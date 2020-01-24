@@ -2143,7 +2143,7 @@ SDL_RenderGetMetalCommandEncoder(SDL_Renderer * renderer)
 }
 
 static SDL_BlendMode
-SDL_GetShortBlendMode(SDL_BlendMode blendMode)
+SDL_GetintBlendMode(SDL_BlendMode blendMode)
 {
     if (blendMode == SDL_BLENDMODE_NONE_FULL) {
         return SDL_BLENDMODE_NONE;
@@ -2186,7 +2186,7 @@ SDL_ComposeCustomBlendMode(SDL_BlendFactor srcColorFactor, SDL_BlendFactor dstCo
 {
     SDL_BlendMode blendMode = SDL_COMPOSE_BLENDMODE(srcColorFactor, dstColorFactor, colorOperation,
                                                     srcAlphaFactor, dstAlphaFactor, alphaOperation);
-    return SDL_GetShortBlendMode(blendMode);
+    return SDL_GetintBlendMode(blendMode);
 }
 
 SDL_BlendFactor

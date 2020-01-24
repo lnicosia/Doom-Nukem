@@ -52,7 +52,7 @@
 { \
 	__m128i red_mask, tmp1, tmp2, tmp3, tmp4; \
 \
-	red_mask = _mm_set1_epi16((short)0xF800); \
+	red_mask = _mm_set1_epi16((int)0xF800); \
 	RGB1 = _mm_and_si128(_mm_unpacklo_epi8(_mm_setzero_si128(), R1), red_mask); \
 	RGB2 = _mm_and_si128(_mm_unpackhi_epi8(_mm_setzero_si128(), R1), red_mask); \
 	RGB3 = _mm_and_si128(_mm_unpacklo_epi8(_mm_setzero_si128(), R2), red_mask); \

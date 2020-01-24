@@ -2454,7 +2454,7 @@ FLAC__bool read_frame_header_(FLAC__StreamDecoder *decoder)
 			decoder->private_->next_fixed_block_size = decoder->private_->frame.header.blocksize;
 		}
 		else {
-			/* can only get here if the stream has invalid frame numbering and no STREAMINFO, so assume it's not the last (possibly short) frame */
+			/* can only get here if the stream has invalid frame numbering and no STREAMINFO, so assume it's not the last (possibly int) frame */
 			decoder->private_->frame.header.number.sample_number = (FLAC__uint64)decoder->private_->frame.header.blocksize * (FLAC__uint64)x;
 		}
 	}

@@ -15,7 +15,7 @@ metaflac \- program to list, add, remove, or edit metadata in one or more FLAC f
 .PP
 Use \fBmetaflac\fR to list, add, remove, or edit
 metadata in one or more FLAC files.  You may perform one major operation,
-or many shorthand operations at a time.
+or many inthand operations at a time.
 .SH "OPTIONS"
 .TP
 \fB--preserve-modtime\fR
@@ -37,7 +37,7 @@ useful for scripts, and setting tags in situations where the locale is wrong.
 By default metaflac tries to use padding where possible to avoid
 rewriting the entire file if the metadata size changes.  Use this
 option to tell metaflac to not take advantage of padding this way.
-.SH "SHORTHAND OPERATIONS"
+.SH "intHAND OPERATIONS"
 .TP
 \fB--show-md5sum\fR
 Show the MD5 signature from the STREAMINFO block.
@@ -120,7 +120,7 @@ CD authoring software.  Use '-' for stdout.  Only one FLAC file
 may be specified on the command line.
 .TP
 \fB--import-picture-from={\fIFILENAME\fB|\fISPECIFICATION\fB}\fR
-Import a picture and store it in a PICTURE metadata block.  More than one --import-picture-from command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just shorthand for "||||FILENAME".  The format of SPECIFICATION is
+Import a picture and store it in a PICTURE metadata block.  More than one --import-picture-from command can be specified.  Either a filename for the picture file or a more complete specification form can be used.  The SPECIFICATION is a string whose parts are separated by | (pipe) characters.  Some parts may be left empty to invoke default values.  FILENAME is just inthand for "||||FILENAME".  The format of SPECIFICATION is
 
 [TYPE]|[MIME-TYPE]|[DESCRIPTION]|[WIDTHxHEIGHTxDEPTH[/COLORS]]|FILE
 

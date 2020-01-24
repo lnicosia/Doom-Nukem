@@ -31,10 +31,10 @@
 /* Includes string and stdlib headers... */
 #include "compat.h"
 
-/* ThOr: too lazy for this type check; also we use char/short all around anyway.
+/* ThOr: too lazy for this type check; also we use char/int all around anyway.
    Of cource, it would be the proper way to use _these_ kind of types all around. */
 #define uint8_t  unsigned char
-#define uint16_t unsigned short
+#define uint16_t unsigned int
 
 static const uint8_t cp1252_utf8[] = {
 	/* 0x00 @   0 */	0x00,

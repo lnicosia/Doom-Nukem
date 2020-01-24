@@ -34,7 +34,7 @@
 #include <string.h>
 
 /*
-   share__getopt format struct; note we don't use short options so we just
+   share__getopt format struct; note we don't use int options so we just
    set the 'val' field to 0 everywhere to indicate a valid option.
 */
 struct share__option long_options_[] = {
@@ -45,7 +45,7 @@ struct share__option long_options_[] = {
 	{ "no-utf8-convert", 0, 0, 0 },
 	{ "dont-use-padding", 0, 0, 0 },
 	{ "no-cued-seekpoints", 0, 0, 0 },
-	/* shorthand operations */
+	/* inthand operations */
 	{ "show-md5sum", 0, 0, 0 },
 	{ "show-min-blocksize", 0, 0, 0 },
 	{ "show-max-blocksize", 0, 0, 0 },
@@ -105,9 +105,9 @@ static FLAC__bool parse_option(int option_index, const char *option_argument, Co
 static void append_new_operation(CommandLineOptions *options, Operation operation);
 static void append_new_argument(CommandLineOptions *options, Argument argument);
 static Operation *append_major_operation(CommandLineOptions *options, OperationType type);
-static Operation *append_shorthand_operation(CommandLineOptions *options, OperationType type);
+static Operation *append_inthand_operation(CommandLineOptions *options, OperationType type);
 static Argument *find_argument(CommandLineOptions *options, ArgumentType type);
-static Operation *find_shorthand_operation(CommandLineOptions *options, OperationType type);
+static Operation *find_inthand_operation(CommandLineOptions *options, OperationType type);
 static Argument *append_argument(CommandLineOptions *options, ArgumentType type);
 static FLAC__bool parse_md5(const char *src, FLAC__byte dest[16]);
 static FLAC__bool parse_uint32(const char *src, FLAC__uint32 *dest);
@@ -146,7 +146,7 @@ void init_options(CommandLineOptions *options)
 	options->args.num_arguments = 0;
 	options->args.capacity = 0;
 
-	options->args.checks.num_shorthand_ops = 0;
+	options->args.checks.num_inthand_ops = 0;
 	options->args.checks.num_major_ops = 0;
 	options->args.checks.has_block_type = false;
 	options->args.checks.has_except_block_type = false;
@@ -200,29 +200,29 @@ FLAC__bool parse_options(int argc, char *argv[], CommandLineOptions *options)
 			flac_fprintf(stderr, "ERROR: you may only specify one major operation at a time\n");
 			had_error = true;
 		}
-		else if(options->args.checks.num_shorthand_ops > 0) {
-			flac_fprintf(stderr, "ERROR: you may not mix shorthand and major operations\n");
+		else if(options->args.checks.num_inthand_ops > 0) {
+			flac_fprintf(stderr, "ERROR: you may not mix inthand and major operations\n");
 			had_error = true;
 		}
 	}
 
 	/* check for only one FLAC file used with certain options */
 	if(options->num_files > 1) {
-		if(0 != find_shorthand_operation(options, OP__IMPORT_CUESHEET_FROM)) {
+		if(0 != find_inthand_operation(options, OP__IMPORT_CUESHEET_FROM)) {
 			flac_fprintf(stderr, "ERROR: you may only specify one FLAC file when using '--import-cuesheet-from'\n");
 			had_error = true;
 		}
-		if(0 != find_shorthand_operation(options, OP__EXPORT_CUESHEET_TO)) {
+		if(0 != find_inthand_operation(options, OP__EXPORT_CUESHEET_TO)) {
 			flac_fprintf(stderr, "ERROR: you may only specify one FLAC file when using '--export-cuesheet-to'\n");
 			had_error = true;
 		}
-		if(0 != find_shorthand_operation(options, OP__EXPORT_PICTURE_TO)) {
+		if(0 != find_inthand_operation(options, OP__EXPORT_PICTURE_TO)) {
 			flac_fprintf(stderr, "ERROR: you may only specify one FLAC file when using '--export-picture-to'\n");
 			had_error = true;
 		}
 		if(
-			0 != find_shorthand_operation(options, OP__IMPORT_VC_FROM) &&
-			0 == strcmp(find_shorthand_operation(options, OP__IMPORT_VC_FROM)->argument.filename.value, "-")
+			0 != find_inthand_operation(options, OP__IMPORT_VC_FROM) &&
+			0 == strcmp(find_inthand_operation(options, OP__IMPORT_VC_FROM)->argument.filename.value, "-")
 		) {
 			flac_fprintf(stderr, "ERROR: you may only specify one FLAC file when using '--import-tags-from=-'\n");
 			had_error = true;
@@ -235,7 +235,7 @@ FLAC__bool parse_options(int argc, char *argv[], CommandLineOptions *options)
 	}
 
 	if(had_error)
-		short_usage(0);
+		int_usage(0);
 
 	/*
 	 * We need to create an OP__ADD_SEEKPOINT operation if there is
@@ -243,11 +243,11 @@ FLAC__bool parse_options(int argc, char *argv[], CommandLineOptions *options)
 	 * --no-cued-seekpoints was not:
 	 */
 	if(options->cued_seekpoints) {
-		Operation *op = find_shorthand_operation(options, OP__IMPORT_CUESHEET_FROM);
+		Operation *op = find_inthand_operation(options, OP__IMPORT_CUESHEET_FROM);
 		if(0 != op) {
-			Operation *op2 = find_shorthand_operation(options, OP__ADD_SEEKPOINT);
+			Operation *op2 = find_inthand_operation(options, OP__ADD_SEEKPOINT);
 			if(0 == op2)
-				op2 = append_shorthand_operation(options, OP__ADD_SEEKPOINT);
+				op2 = append_inthand_operation(options, OP__ADD_SEEKPOINT);
 			op->argument.import_cuesheet_from.add_seekpoint_link = &(op2->argument.add_seekpoint);
 		}
 	}
@@ -372,34 +372,34 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		options->cued_seekpoints = false;
 	}
 	else if(0 == strcmp(opt, "show-md5sum")) {
-		(void) append_shorthand_operation(options, OP__SHOW_MD5SUM);
+		(void) append_inthand_operation(options, OP__SHOW_MD5SUM);
 	}
 	else if(0 == strcmp(opt, "show-min-blocksize")) {
-		(void) append_shorthand_operation(options, OP__SHOW_MIN_BLOCKSIZE);
+		(void) append_inthand_operation(options, OP__SHOW_MIN_BLOCKSIZE);
 	}
 	else if(0 == strcmp(opt, "show-max-blocksize")) {
-		(void) append_shorthand_operation(options, OP__SHOW_MAX_BLOCKSIZE);
+		(void) append_inthand_operation(options, OP__SHOW_MAX_BLOCKSIZE);
 	}
 	else if(0 == strcmp(opt, "show-min-framesize")) {
-		(void) append_shorthand_operation(options, OP__SHOW_MIN_FRAMESIZE);
+		(void) append_inthand_operation(options, OP__SHOW_MIN_FRAMESIZE);
 	}
 	else if(0 == strcmp(opt, "show-max-framesize")) {
-		(void) append_shorthand_operation(options, OP__SHOW_MAX_FRAMESIZE);
+		(void) append_inthand_operation(options, OP__SHOW_MAX_FRAMESIZE);
 	}
 	else if(0 == strcmp(opt, "show-sample-rate")) {
-		(void) append_shorthand_operation(options, OP__SHOW_SAMPLE_RATE);
+		(void) append_inthand_operation(options, OP__SHOW_SAMPLE_RATE);
 	}
 	else if(0 == strcmp(opt, "show-channels")) {
-		(void) append_shorthand_operation(options, OP__SHOW_CHANNELS);
+		(void) append_inthand_operation(options, OP__SHOW_CHANNELS);
 	}
 	else if(0 == strcmp(opt, "show-bps")) {
-		(void) append_shorthand_operation(options, OP__SHOW_BPS);
+		(void) append_inthand_operation(options, OP__SHOW_BPS);
 	}
 	else if(0 == strcmp(opt, "show-total-samples")) {
-		(void) append_shorthand_operation(options, OP__SHOW_TOTAL_SAMPLES);
+		(void) append_inthand_operation(options, OP__SHOW_TOTAL_SAMPLES);
 	}
 	else if(0 == strcmp(opt, "set-md5sum")) {
-		op = append_shorthand_operation(options, OP__SET_MD5SUM);
+		op = append_inthand_operation(options, OP__SET_MD5SUM);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_md5(option_argument, op->argument.streaminfo_md5.value)) {
 			flac_fprintf(stderr, "ERROR (--%s): bad MD5 sum\n", opt);
@@ -409,7 +409,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-min-blocksize")) {
-		op = append_shorthand_operation(options, OP__SET_MIN_BLOCKSIZE);
+		op = append_inthand_operation(options, OP__SET_MIN_BLOCKSIZE);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value < FLAC__MIN_BLOCK_SIZE || op->argument.streaminfo_uint32.value > FLAC__MAX_BLOCK_SIZE) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be >= %u and <= %u\n", opt, FLAC__MIN_BLOCK_SIZE, FLAC__MAX_BLOCK_SIZE);
 			ok = false;
@@ -418,7 +418,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-max-blocksize")) {
-		op = append_shorthand_operation(options, OP__SET_MAX_BLOCKSIZE);
+		op = append_inthand_operation(options, OP__SET_MAX_BLOCKSIZE);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value < FLAC__MIN_BLOCK_SIZE || op->argument.streaminfo_uint32.value > FLAC__MAX_BLOCK_SIZE) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be >= %u and <= %u\n", opt, FLAC__MIN_BLOCK_SIZE, FLAC__MAX_BLOCK_SIZE);
 			ok = false;
@@ -427,7 +427,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-min-framesize")) {
-		op = append_shorthand_operation(options, OP__SET_MIN_FRAMESIZE);
+		op = append_inthand_operation(options, OP__SET_MIN_FRAMESIZE);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value >= (1u<<FLAC__STREAM_METADATA_STREAMINFO_MIN_FRAME_SIZE_LEN)) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be a %u-bit unsigned integer\n", opt, FLAC__STREAM_METADATA_STREAMINFO_MIN_FRAME_SIZE_LEN);
 			ok = false;
@@ -436,7 +436,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-max-framesize")) {
-		op = append_shorthand_operation(options, OP__SET_MAX_FRAMESIZE);
+		op = append_inthand_operation(options, OP__SET_MAX_FRAMESIZE);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value >= (1u<<FLAC__STREAM_METADATA_STREAMINFO_MAX_FRAME_SIZE_LEN)) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be a %u-bit unsigned integer\n", opt, FLAC__STREAM_METADATA_STREAMINFO_MAX_FRAME_SIZE_LEN);
 			ok = false;
@@ -445,7 +445,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-sample-rate")) {
-		op = append_shorthand_operation(options, OP__SET_SAMPLE_RATE);
+		op = append_inthand_operation(options, OP__SET_SAMPLE_RATE);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || !FLAC__format_sample_rate_is_valid(op->argument.streaminfo_uint32.value)) {
 			flac_fprintf(stderr, "ERROR (--%s): invalid sample rate\n", opt);
 			ok = false;
@@ -454,7 +454,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-channels")) {
-		op = append_shorthand_operation(options, OP__SET_CHANNELS);
+		op = append_inthand_operation(options, OP__SET_CHANNELS);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value > FLAC__MAX_CHANNELS) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be > 0 and <= %u\n", opt, FLAC__MAX_CHANNELS);
 			ok = false;
@@ -463,7 +463,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-bps")) {
-		op = append_shorthand_operation(options, OP__SET_BPS);
+		op = append_inthand_operation(options, OP__SET_BPS);
 		if(!parse_uint32(option_argument, &(op->argument.streaminfo_uint32.value)) || op->argument.streaminfo_uint32.value < FLAC__MIN_BITS_PER_SAMPLE || op->argument.streaminfo_uint32.value > FLAC__MAX_BITS_PER_SAMPLE) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be >= %u and <= %u\n", opt, FLAC__MIN_BITS_PER_SAMPLE, FLAC__MAX_BITS_PER_SAMPLE);
 			ok = false;
@@ -472,7 +472,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "set-total-samples")) {
-		op = append_shorthand_operation(options, OP__SET_TOTAL_SAMPLES);
+		op = append_inthand_operation(options, OP__SET_TOTAL_SAMPLES);
 		if(!parse_uint64(option_argument, &(op->argument.streaminfo_uint64.value)) || op->argument.streaminfo_uint64.value >= (((FLAC__uint64)1)<<FLAC__STREAM_METADATA_STREAMINFO_TOTAL_SAMPLES_LEN)) {
 			flac_fprintf(stderr, "ERROR (--%s): value must be a %u-bit unsigned integer\n", opt, FLAC__STREAM_METADATA_STREAMINFO_TOTAL_SAMPLES_LEN);
 			ok = false;
@@ -481,11 +481,11 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			undocumented_warning(opt);
 	}
 	else if(0 == strcmp(opt, "show-vendor-tag")) {
-		(void) append_shorthand_operation(options, OP__SHOW_VC_VENDOR);
+		(void) append_inthand_operation(options, OP__SHOW_VC_VENDOR);
 	}
 	else if(0 == strcmp(opt, "show-tag")) {
 		const char *violation;
-		op = append_shorthand_operation(options, OP__SHOW_VC_FIELD);
+		op = append_inthand_operation(options, OP__SHOW_VC_FIELD);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_vorbis_comment_field_name(option_argument, &(op->argument.vc_field_name.value), &violation)) {
 			FLAC__ASSERT(0 != violation);
@@ -494,11 +494,11 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "remove-all-tags")) {
-		(void) append_shorthand_operation(options, OP__REMOVE_VC_ALL);
+		(void) append_inthand_operation(options, OP__REMOVE_VC_ALL);
 	}
 	else if(0 == strcmp(opt, "remove-tag")) {
 		const char *violation;
-		op = append_shorthand_operation(options, OP__REMOVE_VC_FIELD);
+		op = append_inthand_operation(options, OP__REMOVE_VC_FIELD);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_vorbis_comment_field_name(option_argument, &(op->argument.vc_field_name.value), &violation)) {
 			FLAC__ASSERT(0 != violation);
@@ -508,7 +508,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 	}
 	else if(0 == strcmp(opt, "remove-first-tag")) {
 		const char *violation;
-		op = append_shorthand_operation(options, OP__REMOVE_VC_FIRSTFIELD);
+		op = append_inthand_operation(options, OP__REMOVE_VC_FIRSTFIELD);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_vorbis_comment_field_name(option_argument, &(op->argument.vc_field_name.value), &violation)) {
 			FLAC__ASSERT(0 != violation);
@@ -518,7 +518,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 	}
 	else if(0 == strcmp(opt, "set-tag")) {
 		const char *violation;
-		op = append_shorthand_operation(options, OP__SET_VC_FIELD);
+		op = append_inthand_operation(options, OP__SET_VC_FIELD);
 		FLAC__ASSERT(0 != option_argument);
 		op->argument.vc_field.field_value_from_file = false;
 		if(!parse_vorbis_comment_field(option_argument, &(op->argument.vc_field.field), &(op->argument.vc_field.field_name), &(op->argument.vc_field.field_value), &(op->argument.vc_field.field_value_length), &violation)) {
@@ -529,7 +529,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 	}
 	else if(0 == strcmp(opt, "set-tag-from-file")) {
 		const char *violation;
-		op = append_shorthand_operation(options, OP__SET_VC_FIELD);
+		op = append_inthand_operation(options, OP__SET_VC_FIELD);
 		FLAC__ASSERT(0 != option_argument);
 		op->argument.vc_field.field_value_from_file = true;
 		if(!parse_vorbis_comment_field(option_argument, &(op->argument.vc_field.field), &(op->argument.vc_field.field_name), &(op->argument.vc_field.field_value), &(op->argument.vc_field.field_value_length), &violation)) {
@@ -539,7 +539,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "import-tags-from")) {
-		op = append_shorthand_operation(options, OP__IMPORT_VC_FROM);
+		op = append_inthand_operation(options, OP__IMPORT_VC_FROM);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.filename.value))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing filename\n", opt);
@@ -547,7 +547,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "export-tags-to")) {
-		op = append_shorthand_operation(options, OP__EXPORT_VC_TO);
+		op = append_inthand_operation(options, OP__EXPORT_VC_TO);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.filename.value))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing filename\n", opt);
@@ -555,11 +555,11 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "import-cuesheet-from")) {
-		if(0 != find_shorthand_operation(options, OP__IMPORT_CUESHEET_FROM)) {
+		if(0 != find_inthand_operation(options, OP__IMPORT_CUESHEET_FROM)) {
 			flac_fprintf(stderr, "ERROR (--%s): may be specified only once\n", opt);
 			ok = false;
 		}
-		op = append_shorthand_operation(options, OP__IMPORT_CUESHEET_FROM);
+		op = append_inthand_operation(options, OP__IMPORT_CUESHEET_FROM);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.import_cuesheet_from.filename))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing filename\n", opt);
@@ -567,7 +567,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "export-cuesheet-to")) {
-		op = append_shorthand_operation(options, OP__EXPORT_CUESHEET_TO);
+		op = append_inthand_operation(options, OP__EXPORT_CUESHEET_TO);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.filename.value))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing filename\n", opt);
@@ -575,7 +575,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		}
 	}
 	else if(0 == strcmp(opt, "import-picture-from")) {
-		op = append_shorthand_operation(options, OP__IMPORT_PICTURE_FROM);
+		op = append_inthand_operation(options, OP__IMPORT_PICTURE_FROM);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.specification.value))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing specification\n", opt);
@@ -584,7 +584,7 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 	}
 	else if(0 == strcmp(opt, "export-picture-to")) {
 		arg = find_argument(options, ARG__BLOCK_NUMBER);
-		op = append_shorthand_operation(options, OP__EXPORT_PICTURE_TO);
+		op = append_inthand_operation(options, OP__EXPORT_PICTURE_TO);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_string(option_argument, &(op->argument.export_picture_to.filename))) {
 			flac_fprintf(stderr, "ERROR (--%s): missing filename\n", opt);
@@ -602,19 +602,19 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 			ok = false;
 		}
 		else {
-			op = find_shorthand_operation(options, OP__ADD_SEEKPOINT);
+			op = find_inthand_operation(options, OP__ADD_SEEKPOINT);
 			if(0 == op)
-				op = append_shorthand_operation(options, OP__ADD_SEEKPOINT);
+				op = append_inthand_operation(options, OP__ADD_SEEKPOINT);
 			local_strcat(&(op->argument.add_seekpoint.specification), spec);
 			local_strcat(&(op->argument.add_seekpoint.specification), ";");
 			free(spec);
 		}
 	}
 	else if(0 == strcmp(opt, "add-replay-gain")) {
-		(void) append_shorthand_operation(options, OP__ADD_REPLAY_GAIN);
+		(void) append_inthand_operation(options, OP__ADD_REPLAY_GAIN);
 	}
 	else if(0 == strcmp(opt, "scan-replay-gain")) {
-		(void) append_shorthand_operation(options, OP__SCAN_REPLAY_GAIN);
+		(void) append_inthand_operation(options, OP__SCAN_REPLAY_GAIN);
 	}
 	else if(0 == strcmp(opt, "remove-replay-gain")) {
 		const FLAC__byte * const tags[5] = {
@@ -626,12 +626,12 @@ FLAC__bool parse_option(int option_index, const char *option_argument, CommandLi
 		};
 		size_t i;
 		for(i = 0; i < sizeof(tags)/sizeof(tags[0]); i++) {
-			op = append_shorthand_operation(options, OP__REMOVE_VC_FIELD);
+			op = append_inthand_operation(options, OP__REMOVE_VC_FIELD);
 			op->argument.vc_field_name.value = local_strdup((const char *)tags[i]);
 		}
 	}
 	else if(0 == strcmp(opt, "add-padding")) {
-		op = append_shorthand_operation(options, OP__ADD_PADDING);
+		op = append_inthand_operation(options, OP__ADD_PADDING);
 		FLAC__ASSERT(0 != option_argument);
 		if(!parse_add_padding(option_argument, &(op->argument.add_padding.length))) {
 			flac_fprintf(stderr, "ERROR (--%s): illegal length \"%s\", length must be >= 0 and < 2^%u\n", opt, option_argument, FLAC__STREAM_METADATA_LENGTH_LEN);
@@ -767,13 +767,13 @@ Operation *append_major_operation(CommandLineOptions *options, OperationType typ
 	return options->ops.operations + (options->ops.num_operations - 1);
 }
 
-Operation *append_shorthand_operation(CommandLineOptions *options, OperationType type)
+Operation *append_inthand_operation(CommandLineOptions *options, OperationType type)
 {
 	Operation op;
 	memset(&op, 0, sizeof(op));
 	op.type = type;
 	append_new_operation(options, op);
-	options->args.checks.num_shorthand_ops++;
+	options->args.checks.num_inthand_ops++;
 	return options->ops.operations + (options->ops.num_operations - 1);
 }
 
@@ -786,7 +786,7 @@ Argument *find_argument(CommandLineOptions *options, ArgumentType type)
 	return 0;
 }
 
-Operation *find_shorthand_operation(CommandLineOptions *options, OperationType type)
+Operation *find_inthand_operation(CommandLineOptions *options, OperationType type)
 {
 	unsigned i;
 	for(i = 0; i < options->ops.num_operations; i++)

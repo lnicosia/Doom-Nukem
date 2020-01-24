@@ -2,7 +2,7 @@
 GO
 
 >_44u9s noninterleaved
-haux 44u9/resaux_0.vqd _44u9__short 0,16,2 10
+haux 44u9/resaux_0.vqd _44u9__int 0,16,2 10
 
 >_44u9 noninterleaved
 haux 44u9/resaux_1.vqd _44u9__long 0,64,2 10

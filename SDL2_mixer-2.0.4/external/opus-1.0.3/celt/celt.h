@@ -57,7 +57,7 @@ extern "C" {
 #define CELT_SET_PREDICTION_REQUEST    10002
 /** Controls the use of interframe prediction.
     0=Independent frames
-    1=Short term interframe prediction allowed
+    1=int term interframe prediction allowed
     2=Long term prediction allowed
  */
 #define CELT_SET_PREDICTION(x) CELT_SET_PREDICTION_REQUEST, __opus_check_int(x)

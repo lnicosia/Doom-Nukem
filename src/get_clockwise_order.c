@@ -6,12 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/07/26 12:35:45 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/08/15 14:12:19 by sipatry		  ###   ########.fr	   */
+/*   Updated: 2020/01/20 14:39:49 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
-
 
 int		get_clockwise_order_sector(t_env *env, int index)	
 {

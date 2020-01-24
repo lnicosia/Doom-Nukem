@@ -78,7 +78,7 @@
     p_limit = p + table_size;
 
     p         += 2; /* skip version */
-    num_tables = FT_NEXT_USHORT( p );
+    num_tables = FT_NEXT_Uint( p );
 
     if ( num_tables > 32 ) /* we only support up to 32 sub-tables */
       num_tables = 32;
@@ -96,8 +96,8 @@
       p_next = p;
 
       p += 2; /* skip version */
-      length   = FT_NEXT_USHORT( p );
-      coverage = FT_NEXT_USHORT( p );
+      length   = FT_NEXT_Uint( p );
+      coverage = FT_NEXT_Uint( p );
 
       if ( length <= 6 + 8 )
         break;
@@ -118,7 +118,7 @@
            p + 8 > p_next              )
         goto NextTable;
 
-      num_pairs = FT_NEXT_USHORT( p );
+      num_pairs = FT_NEXT_Uint( p );
       p        += 6;
 
       if ( ( p_next - p ) < 6 * (int)num_pairs ) /* handle broken count */
@@ -203,9 +203,9 @@
     {
       FT_Byte* base     = p;
       FT_Byte* next;
-      FT_UInt  version  = FT_NEXT_USHORT( p );
-      FT_UInt  length   = FT_NEXT_USHORT( p );
-      FT_UInt  coverage = FT_NEXT_USHORT( p );
+      FT_UInt  version  = FT_NEXT_Uint( p );
+      FT_UInt  length   = FT_NEXT_Uint( p );
+      FT_UInt  coverage = FT_NEXT_Uint( p );
       FT_UInt  num_pairs;
       FT_Int   value    = 0;
 
@@ -222,7 +222,7 @@
 
       FT_ASSERT( p + 8 <= next ); /* tested in tt_face_load_kern */
 
-      num_pairs = FT_NEXT_USHORT( p );
+      num_pairs = FT_NEXT_Uint( p );
       p        += 6;
 
       if ( ( next - p ) < 6 * (int)num_pairs )  /* handle broken count  */
@@ -252,7 +252,7 @@
 
               if ( key == key0 )
               {
-                value = FT_PEEK_SHORT( q );
+                value = FT_PEEK_int( q );
                 goto Found;
               }
               if ( key < key0 )
@@ -273,7 +273,7 @@
 
               if ( key == key0 )
               {
-                value = FT_PEEK_SHORT( p );
+                value = FT_PEEK_int( p );
                 goto Found;
               }
               p += 2;

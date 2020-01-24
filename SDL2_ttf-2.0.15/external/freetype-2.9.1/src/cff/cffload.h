@@ -28,7 +28,7 @@
 
 FT_BEGIN_HEADER
 
-  FT_LOCAL( FT_UShort )
+  FT_LOCAL( FT_Uint )
   cff_get_standard_encoding( FT_UInt  charcode );
 
 

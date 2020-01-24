@@ -369,14 +369,14 @@
   This changes some return values to MPG123_BAD_HANDLE instead of MPG123_ERR
   (always check for != MPG123_OK).
 - Fix WAV writing to stdout on Windows (bug 214).
-- Rework Xing/Info/Lame tag parsing, also detecting short ones without
+- Rework Xing/Info/Lame tag parsing, also detecting int ones without
   the TOC now.
   In addition, the warning about file size being off is a _lot_ more
   accurate now.
 
 1.21.0:
 -------
-- Use LL as shortcut for LOADLIST remote command, L is taken already (bug 210).
+- Use LL as intcut for LOADLIST remote command, L is taken already (bug 210).
 - Less namespace pollution (MPG123_EXPORT in header instead of EXPORT, bug 212).
 
 1.20.1:
@@ -579,8 +579,8 @@ things still work like before? I hope I won't do so in future. Not again.
 - Fix resync logic to properly work again (used to prematurely end stream
   on bad headers). A regression again, this sucks, but at least we got a
   regression test for that now.
-- Fix aeon-old regression (since 1.11.0) about short seeks: Bit reservoir
-  was reset also for short seeks that did not break continuity.
+- Fix aeon-old regression (since 1.11.0) about int seeks: Bit reservoir
+  was reset also for int seeks that did not break continuity.
 - Another damned regression got fixed: Sample-accurate seek for files
   without full gapless info.
 
@@ -1143,7 +1143,7 @@ using a nonmatching off_t in arguments;-).
    --with-cpu=generic_float).
 -- More robust string handling; extended string API.
 -- fixed an (so far) unnoticed ID3 bug that may have obscured comment fields
--- added mpg123_feed() as shortcut; using const input buffer now
+-- added mpg123_feed() as intcut; using const input buffer now
 -- resync is enabled again for ICY streams (the trouble in the past was
    due to a reader bug, not the streams)
 -- decode ICY text data to UTF-8 (thanks, Thorsten)
@@ -1441,7 +1441,7 @@ wine from Luxembourg!
 - accepting more MIME types for http streaming (application/pls and
   audio/x-mpeg)
 - ID3v2 info output taking less space per default - more resembling the
-  old ID3v1 view for short tags, full view with always one line per item
+  old ID3v1 view for int tags, full view with always one line per item
   via extra --long-tag switch
 - generally less verbosity (i.e. noise on console) per default
 - ID3v2 now having some kind of support for unicode; trying to print what's

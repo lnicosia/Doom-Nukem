@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 15:04:50 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 15:04:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:37:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		find_neighbors(t_env *env, t_portal_data data)
 }
 
 /*
-**	For a given sector, finds every neighbor sector
+**	For a given sector, finds every neighbor
 **	and creates portals between them if possible
 */
 

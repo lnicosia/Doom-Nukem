@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/20 11:28:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*skip_spaces(char *line)
 }
 
 /*
-** Checks if a character is a valid number
+** Checks if a string is a valid number
 */
 
 int		valid_number(char *line, t_map_parser *parser)
@@ -60,7 +60,35 @@ int		valid_number(char *line, t_map_parser *parser)
 }
 
 /*
-** Checks if a character is a valid hexa number
+** Checks if a string is a valid integer
+*/
+
+int		valid_int(char *line, t_map_parser *parser)
+{
+	(void)parser;
+	if (!*line)
+		return (MISSING_CHAR);
+	if ((*line < '0' || *line > '9') && *line != '-')
+		return (WRONG_CHAR);
+	return (0);
+}
+
+/*
+** Checks if a string is a valid double
+*/
+
+int		valid_double(char *line, t_map_parser *parser)
+{
+	(void)parser;
+	if (!*line)
+		return (MISSING_CHAR);
+	if ((*line < '0' || *line > '9') && *line != '-')
+		return (WRONG_CHAR);
+	return (0);
+}
+
+/*
+** Checks if a string is a valid hexa number
 */
 
 int		valid_hexa(char *line, t_map_parser *parser)

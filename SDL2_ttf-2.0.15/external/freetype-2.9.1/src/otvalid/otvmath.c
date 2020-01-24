@@ -102,7 +102,7 @@
     OTV_LIMIT_CHECK( 4 );
 
     OTV_OPTIONAL_OFFSET( Coverage );
-    cnt = FT_NEXT_USHORT( p );
+    cnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 4 * cnt );
     table_size = 4 + 4 * cnt;
@@ -145,7 +145,7 @@
 
     OTV_LIMIT_CHECK( 2 );
 
-    cnt = FT_NEXT_USHORT( p );
+    cnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 4 * cnt + 2 );
     table_size = 4 + 4 * cnt;
@@ -190,7 +190,7 @@
     OTV_LIMIT_CHECK( 4 );
 
     OTV_OPTIONAL_OFFSET( Coverage );
-    cnt = FT_NEXT_USHORT( p );
+    cnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 8 * cnt );
     table_size = 4 + 8 * cnt;
@@ -234,10 +234,10 @@
 
     OTV_LIMIT_CHECK( 8 );
 
-    MathItalicsCorrectionInfo = FT_NEXT_USHORT( p );
-    MathTopAccentAttachment   = FT_NEXT_USHORT( p );
-    ExtendedShapeCoverage     = FT_NEXT_USHORT( p );
-    MathKernInfo              = FT_NEXT_USHORT( p );
+    MathItalicsCorrectionInfo = FT_NEXT_Uint( p );
+    MathTopAccentAttachment   = FT_NEXT_Uint( p );
+    ExtendedShapeCoverage     = FT_NEXT_Uint( p );
+    MathKernInfo              = FT_NEXT_Uint( p );
 
     if ( MathItalicsCorrectionInfo )
       otv_MathItalicsCorrectionInfo_validate(
@@ -287,7 +287,7 @@
 
     p += 2;                           /* Skip the Italics Correction value */
     OTV_OPTIONAL_OFFSET( DeviceTableOffset );
-    pcnt = FT_NEXT_USHORT( p );
+    pcnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 8 * pcnt );
     table_size = 6 + 8 * pcnt;
@@ -301,7 +301,7 @@
       FT_UInt  gid;
 
 
-      gid = FT_NEXT_USHORT( p );
+      gid = FT_NEXT_Uint( p );
       if ( gid >= otvalid->glyph_count )
         FT_INVALID_GLYPH_ID;
       p += 2*4;             /* skip the Start, End, Full, and Flags fields */
@@ -327,7 +327,7 @@
     OTV_LIMIT_CHECK( 4 );
 
     OTV_OPTIONAL_OFFSET( GlyphAssembly );
-    vcnt = FT_NEXT_USHORT( p );
+    vcnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 4 * vcnt );
     table_size = 4 + 4 * vcnt;
@@ -337,7 +337,7 @@
       FT_UInt  gid;
 
 
-      gid = FT_NEXT_USHORT( p );
+      gid = FT_NEXT_Uint( p );
       if ( gid >= otvalid->glyph_count )
         FT_INVALID_GLYPH_ID;
       p += 2;                          /* skip the size */
@@ -370,8 +370,8 @@
     p += 2;                       /* Skip the MinConnectorOverlap constant */
     OTV_OPTIONAL_OFFSET( VCoverage );
     OTV_OPTIONAL_OFFSET( HCoverage );
-    vcnt = FT_NEXT_USHORT( p );
-    hcnt = FT_NEXT_USHORT( p );
+    vcnt = FT_NEXT_Uint( p );
+    hcnt = FT_NEXT_Uint( p );
 
     OTV_LIMIT_CHECK( 2 * vcnt + 2 * hcnt );
     table_size = 10 + 2 * vcnt + 2 * hcnt;
@@ -433,9 +433,9 @@
     if ( FT_NEXT_ULONG( p ) != 0x10000UL )      /* Version */
       FT_INVALID_FORMAT;
 
-    MathConstants = FT_NEXT_USHORT( p );
-    MathGlyphInfo = FT_NEXT_USHORT( p );
-    MathVariants  = FT_NEXT_USHORT( p );
+    MathConstants = FT_NEXT_Uint( p );
+    MathGlyphInfo = FT_NEXT_Uint( p );
+    MathVariants  = FT_NEXT_Uint( p );
 
     otvalid->glyph_count = glyph_count;
 

@@ -227,15 +227,15 @@ static Instrument *load_instrument(MidiSong *song, char *name, int percussion,
 
       Uint8 fractions;
       Sint32 tmplong;
-      Uint16 tmpshort;
+      Uint16 tmpint;
       Uint8 tmpchar;
 
 #define READ_CHAR(thing) \
       if (1 != SDL_RWread(rw, &tmpchar, 1, 1)) goto fail; \
       thing = tmpchar;
-#define READ_SHORT(thing) \
-      if (1 != SDL_RWread(rw, &tmpshort, 2, 1)) goto fail; \
-      thing = SDL_SwapLE16(tmpshort);
+#define READ_int(thing) \
+      if (1 != SDL_RWread(rw, &tmpint, 2, 1)) goto fail; \
+      thing = SDL_SwapLE16(tmpint);
 #define READ_LONG(thing) \
       if (1 != SDL_RWread(rw, &tmplong, 4, 1)) goto fail; \
       thing = SDL_SwapLE32(tmplong);
@@ -259,7 +259,7 @@ static Instrument *load_instrument(MidiSong *song, char *name, int percussion,
       READ_LONG(sp->data_length);
       READ_LONG(sp->loop_start);
       READ_LONG(sp->loop_end);
-      READ_SHORT(sp->sample_rate);
+      READ_int(sp->sample_rate);
       READ_LONG(sp->low_freq);
       READ_LONG(sp->high_freq);
       READ_LONG(sp->root_freq);

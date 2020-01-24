@@ -41,7 +41,7 @@ FT_BEGIN_HEADER
   {
     FT_CMapRec                cmap;
 
-    const FT_UShort*          code_to_sid;
+    const FT_Uint*          code_to_sid;
     PS_Adobe_Std_StringsFunc  sid_to_string;
 
     FT_UInt                   num_glyphs;
@@ -72,7 +72,7 @@ FT_BEGIN_HEADER
     FT_CMapRec  cmap;
     FT_UInt     first;
     FT_UInt     count;
-    FT_UShort*  indices;
+    FT_Uint*  indices;
 
   } T1_CMapCustomRec;
 

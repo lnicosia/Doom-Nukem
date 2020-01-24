@@ -109,7 +109,7 @@
 
     /* don't add empty contours */
     if ( last >= first )
-      outline->contours[outline->n_contours++] = (short)last;
+      outline->contours[outline->n_contours++] = (int)last;
 
     glyph->path_begun = 0;
   }
@@ -190,7 +190,7 @@
       tag[1] = FT_CURVE_TAG_CUBIC;
       tag[2] = FT_CURVE_TAG_ON;
 
-      outline->n_points = (FT_Short)( outline->n_points + 3 );
+      outline->n_points = (FT_int)( outline->n_points + 3 );
     }
 
   Exit:
@@ -320,7 +320,7 @@
       if ( mask & 1 )
       {
         PFR_CHECK( 2 );
-        x = PFR_NEXT_SHORT( p );
+        x = PFR_NEXT_int( p );
       }
       else
       {
@@ -450,7 +450,7 @@
 
           case 1:                           /* 16-bit absolute value */
             PFR_CHECK( 2 );
-            cur->x = PFR_NEXT_SHORT( p );
+            cur->x = PFR_NEXT_int( p );
             FT_TRACE7(( " x.%d", cur->x ));
             break;
 
@@ -480,7 +480,7 @@
 
           case 1:                           /* 16-bit absolute value */
             PFR_CHECK( 2 );
-            cur->y = PFR_NEXT_SHORT( p );
+            cur->y = PFR_NEXT_int( p );
             FT_TRACE7(( " y.%d", cur->y ));
             break;
 
@@ -547,7 +547,7 @@
     return error;
 
   Failure:
-  Too_Short:
+  Too_int:
     error = FT_THROW( Invalid_Table );
     FT_ERROR(( "pfr_glyph_load_simple: invalid glyph data\n" ));
     goto Exit;
@@ -635,14 +635,14 @@
       if ( format & PFR_SUBGLYPH_XSCALE )
       {
         PFR_CHECK( 2 );
-        subglyph->x_scale = PFR_NEXT_SHORT( p ) * 16;
+        subglyph->x_scale = PFR_NEXT_int( p ) * 16;
       }
 
       subglyph->y_scale = 0x10000L;
       if ( format & PFR_SUBGLYPH_YSCALE )
       {
         PFR_CHECK( 2 );
-        subglyph->y_scale = PFR_NEXT_SHORT( p ) * 16;
+        subglyph->y_scale = PFR_NEXT_int( p ) * 16;
       }
 
       /* read offset */
@@ -650,7 +650,7 @@
       {
       case 1:
         PFR_CHECK( 2 );
-        x_pos = PFR_NEXT_SHORT( p );
+        x_pos = PFR_NEXT_int( p );
         break;
 
       case 2:
@@ -666,7 +666,7 @@
       {
       case 1:
         PFR_CHECK( 2 );
-        y_pos = PFR_NEXT_SHORT( p );
+        y_pos = PFR_NEXT_int( p );
         break;
 
       case 2:
@@ -685,7 +685,7 @@
       if ( format & PFR_SUBGLYPH_2BYTE_SIZE )
       {
         PFR_CHECK( 2 );
-        subglyph->gps_size = PFR_NEXT_USHORT( p );
+        subglyph->gps_size = PFR_NEXT_Uint( p );
       }
       else
       {
@@ -701,7 +701,7 @@
       else
       {
         PFR_CHECK( 2 );
-        subglyph->gps_offset = PFR_NEXT_USHORT( p );
+        subglyph->gps_offset = PFR_NEXT_Uint( p );
       }
 
       glyph->num_subs++;
@@ -711,7 +711,7 @@
     return error;
 
   Failure:
-  Too_Short:
+  Too_int:
     error = FT_THROW( Invalid_Table );
     FT_ERROR(( "pfr_glyph_load_compound: invalid glyph data\n" ));
     goto Exit;

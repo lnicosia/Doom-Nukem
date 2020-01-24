@@ -9,11 +9,11 @@
 #include "mangle.h"
 
 #ifdef IS_MSABI
-/* short *window; */
+/* int *window; */
 #define ARG0 %r10
-/* short *b0; */
+/* int *b0; */
 #define ARG1 %rdx
-/* short *samples; */
+/* int *samples; */
 #define ARG2 %r8
 /* int bo1; */
 #define ARG3 %r9

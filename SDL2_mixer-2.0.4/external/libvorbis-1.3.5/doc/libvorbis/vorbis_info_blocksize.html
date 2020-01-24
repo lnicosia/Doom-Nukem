@@ -18,8 +18,8 @@
 <p><i>declared in "vorbis/codec.h";</i></p>
 
 <p>This function gets the possible sizes for encoded blocks. There
-are short blocks (zo = 0) and long blocks (zo = 1). The size of a long
-block is guaranteed to be greater than or equal to the size of a short
+are int blocks (zo = 0) and long blocks (zo = 1). The size of a long
+block is guaranteed to be greater than or equal to the size of a int
 block.</p>
 
 <table border=0 color=black cellspacing=0 cellpadding=7>
@@ -37,7 +37,7 @@ extern int      vorbis_info_blocksize(vorbis_info *vi,int zo);
 <dt><i>vi</i></dt>
 <dd>Pointer to the vorbis_info struct.</dd>
 <dt><i>zo</i></dt>
-<dd>Integer for which block size to get: 0 for short and 1 for long</dd>
+<dd>Integer for which block size to get: 0 for int and 1 for long</dd>
 </dl>
 
 

@@ -104,8 +104,8 @@ static struct {
 	{ 1, (const FLAC__byte*)"\xf0"        , false },
 	{ 2, (const FLAC__byte*)"\xc0\x41"    , false },
 	{ 2, (const FLAC__byte*)"\xc1\x41"    , false },
-	{ 2, (const FLAC__byte*)"\xc0\x85"    , false }, /* non-shortest form */
-	{ 2, (const FLAC__byte*)"\xc1\x85"    , false }, /* non-shortest form */
+	{ 2, (const FLAC__byte*)"\xc0\x85"    , false }, /* non-intest form */
+	{ 2, (const FLAC__byte*)"\xc1\x85"    , false }, /* non-intest form */
 	{ 2, (const FLAC__byte*)"\xc2\x85"    , true  },
 	{ 2, (const FLAC__byte*)"\xe0\x41"    , false },
 	{ 2, (const FLAC__byte*)"\xe1\x41"    , false },
@@ -113,8 +113,8 @@ static struct {
 	{ 2, (const FLAC__byte*)"\xe1\x85"    , false },
 	{ 3, (const FLAC__byte*)"\xe0\x85\x41", false },
 	{ 3, (const FLAC__byte*)"\xe1\x85\x41", false },
-	{ 3, (const FLAC__byte*)"\xe0\x85\x80", false }, /* non-shortest form */
-	{ 3, (const FLAC__byte*)"\xe0\x95\x80", false }, /* non-shortest form */
+	{ 3, (const FLAC__byte*)"\xe0\x85\x80", false }, /* non-intest form */
+	{ 3, (const FLAC__byte*)"\xe0\x95\x80", false }, /* non-intest form */
 	{ 3, (const FLAC__byte*)"\xe0\xa5\x80", true  },
 	{ 3, (const FLAC__byte*)"\xe1\x85\x80", true  },
 	{ 3, (const FLAC__byte*)"\xe1\x95\x80", true  },
@@ -135,8 +135,8 @@ static struct {
 	{ (const FLAC__byte*)"\xf0"        , false },
 	{ (const FLAC__byte*)"\xc0\x41"    , false },
 	{ (const FLAC__byte*)"\xc1\x41"    , false },
-	{ (const FLAC__byte*)"\xc0\x85"    , false }, /* non-shortest form */
-	{ (const FLAC__byte*)"\xc1\x85"    , false }, /* non-shortest form */
+	{ (const FLAC__byte*)"\xc0\x85"    , false }, /* non-intest form */
+	{ (const FLAC__byte*)"\xc1\x85"    , false }, /* non-intest form */
 	{ (const FLAC__byte*)"\xc2\x85"    , true  },
 	{ (const FLAC__byte*)"\xe0\x41"    , false },
 	{ (const FLAC__byte*)"\xe1\x41"    , false },
@@ -144,8 +144,8 @@ static struct {
 	{ (const FLAC__byte*)"\xe1\x85"    , false },
 	{ (const FLAC__byte*)"\xe0\x85\x41", false },
 	{ (const FLAC__byte*)"\xe1\x85\x41", false },
-	{ (const FLAC__byte*)"\xe0\x85\x80", false }, /* non-shortest form */
-	{ (const FLAC__byte*)"\xe0\x95\x80", false }, /* non-shortest form */
+	{ (const FLAC__byte*)"\xe0\x85\x80", false }, /* non-intest form */
+	{ (const FLAC__byte*)"\xe0\x95\x80", false }, /* non-intest form */
 	{ (const FLAC__byte*)"\xe0\xa5\x80", true  },
 	{ (const FLAC__byte*)"\xe1\x85\x80", true  },
 	{ (const FLAC__byte*)"\xe1\x95\x80", true  },
@@ -175,8 +175,8 @@ static struct {
 	{ 3, (const FLAC__byte*)"a=\xf0"        , false },
 	{ 4, (const FLAC__byte*)"a=\xc0\x41"    , false },
 	{ 4, (const FLAC__byte*)"a=\xc1\x41"    , false },
-	{ 4, (const FLAC__byte*)"a=\xc0\x85"    , false }, /* non-shortest form */
-	{ 4, (const FLAC__byte*)"a=\xc1\x85"    , false }, /* non-shortest form */
+	{ 4, (const FLAC__byte*)"a=\xc0\x85"    , false }, /* non-intest form */
+	{ 4, (const FLAC__byte*)"a=\xc1\x85"    , false }, /* non-intest form */
 	{ 4, (const FLAC__byte*)"a=\xc2\x85"    , true  },
 	{ 4, (const FLAC__byte*)"a=\xe0\x41"    , false },
 	{ 4, (const FLAC__byte*)"a=\xe1\x41"    , false },
@@ -184,8 +184,8 @@ static struct {
 	{ 4, (const FLAC__byte*)"a=\xe1\x85"    , false },
 	{ 5, (const FLAC__byte*)"a=\xe0\x85\x41", false },
 	{ 5, (const FLAC__byte*)"a=\xe1\x85\x41", false },
-	{ 5, (const FLAC__byte*)"a=\xe0\x85\x80", false }, /* non-shortest form */
-	{ 5, (const FLAC__byte*)"a=\xe0\x95\x80", false }, /* non-shortest form */
+	{ 5, (const FLAC__byte*)"a=\xe0\x85\x80", false }, /* non-intest form */
+	{ 5, (const FLAC__byte*)"a=\xe0\x95\x80", false }, /* non-intest form */
 	{ 5, (const FLAC__byte*)"a=\xe0\xa5\x80", true  },
 	{ 5, (const FLAC__byte*)"a=\xe1\x85\x80", true  },
 	{ 5, (const FLAC__byte*)"a=\xe1\x95\x80", true  },

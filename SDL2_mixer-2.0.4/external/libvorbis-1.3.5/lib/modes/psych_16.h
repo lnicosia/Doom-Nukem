@@ -55,7 +55,7 @@ static const vp_adjblock _vp_tonemask_adj_16[4]={
 };
 
 
-static const noise3 _psy_noisebias_16_short[4]={
+static const noise3 _psy_noisebias_16_int[4]={
   /*  63     125     250     500      1k       2k      4k      8k     16k*/
   {{{-15,-15,-15,-15,-15,-10,-10,-5,   4, 10, 10, 10, 10, 12, 12, 14, 20},
     {-15,-15,-15,-15,-15,-10,-10, -5,  0,  0,  4,  5,  5,  6,  8,  8, 15},

@@ -110,8 +110,8 @@
 
 
   static void
-  gxv_morx_subtable_type5_InsertList_validate( FT_UShort      table_index,
-                                               FT_UShort      count,
+  gxv_morx_subtable_type5_InsertList_validate( FT_Uint      table_index,
+                                               FT_Uint      count,
                                                FT_Bytes       table,
                                                FT_Bytes       limit,
                                                GXV_Validator  gxvalid )
@@ -124,11 +124,11 @@
 #else
     while ( p < table + count * 2 + table_index * 2 )
     {
-      FT_UShort  insert_glyphID;
+      FT_Uint  insert_glyphID;
 
 
       GXV_LIMIT_CHECK( 2 );
-      insert_glyphID = FT_NEXT_USHORT( p );
+      insert_glyphID = FT_NEXT_Uint( p );
       GXV_TRACE(( " 0x%04x", insert_glyphID ));
     }
 
@@ -139,8 +139,8 @@
 
   static void
   gxv_morx_subtable_type5_entry_validate(
-    FT_UShort                       state,
-    FT_UShort                       flags,
+    FT_Uint                       state,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
@@ -157,7 +157,7 @@
     FT_Byte    currentInsertCount;
     FT_Byte    markedInsertCount;
     FT_Byte    currentInsertList;
-    FT_UShort  markedInsertList;
+    FT_Uint  markedInsertList;
 
     FT_UNUSED( state );
 
@@ -175,7 +175,7 @@
     markedInsertCount  = (FT_Byte)(   flags        & 0x001F );
 
     currentInsertList = (FT_Byte)  ( glyphOffset_p->ul >> 16 );
-    markedInsertList  = (FT_UShort)( glyphOffset_p->ul       );
+    markedInsertList  = (FT_Uint)( glyphOffset_p->ul       );
 
     if ( currentInsertList && 0 != currentInsertCount )
       gxv_morx_subtable_type5_InsertList_validate( currentInsertList,

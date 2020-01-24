@@ -14,7 +14,7 @@
 	<string>mpg123</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
-	<key>CFBundleShortVersionString</key>
+	<key>CFBundleintVersionString</key>
 	<string>1.25.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>

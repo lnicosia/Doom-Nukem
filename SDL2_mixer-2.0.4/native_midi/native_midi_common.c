@@ -49,10 +49,10 @@ typedef struct
 
 /* Some macros that help us stay endianess-independant */
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-#define BE_SHORT(x) (x)
+#define BE_int(x) (x)
 #define BE_LONG(x) (x)
 #else
-#define BE_SHORT(x) ((((x)&0xFF)<<8) | (((x)>>8)&0xFF))
+#define BE_int(x) ((((x)&0xFF)<<8) | (((x)>>8)&0xFF))
 #define BE_LONG(x)  ((((x)&0x0000FF)<<24) | \
              (((x)&0x00FF00)<<8) | \
              (((x)&0xFF0000)>>8) | \
@@ -304,12 +304,12 @@ static int ReadMIDIFile(MIDIFile *mididata, SDL_RWops *src)
 
     /* We only support format 0 and 1, but not 2 */
     SDL_RWread(src, &format, 1, 2);
-    format = BE_SHORT(format);
+    format = BE_int(format);
     if (format != 0 && format != 1)
         return 0;
 
     SDL_RWread(src, &tracks, 1, 2);
-    tracks = BE_SHORT(tracks);
+    tracks = BE_int(tracks);
     mididata->nTracks = tracks;
 
     /* Allocate tracks */
@@ -322,7 +322,7 @@ static int ReadMIDIFile(MIDIFile *mididata, SDL_RWops *src)
 
     /* Retrieve the PPQN value, needed for playback */
     SDL_RWread(src, &division, 1, 2);
-    mididata->division = BE_SHORT(division);
+    mididata->division = BE_int(division);
 
 
     for (i=0; i<tracks; i++)

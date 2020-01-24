@@ -165,7 +165,7 @@ static inline opus_int32 silk_float2int( silk_float x )
 }
 
 /* floating-point to integer conversion (rounding) */
-static inline void silk_float2short_array(
+static inline void silk_float2int_array(
     opus_int16       *out,
     const silk_float *in,
     opus_int32       length
@@ -178,7 +178,7 @@ static inline void silk_float2short_array(
 }
 
 /* integer to floating-point conversion */
-static inline void silk_short2float_array(
+static inline void silk_int2float_array(
     silk_float       *out,
     const opus_int16 *in,
     opus_int32       length

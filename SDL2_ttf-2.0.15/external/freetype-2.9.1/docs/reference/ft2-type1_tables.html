@@ -131,8 +131,8 @@
     <a href="ft2-basic_types.html#FT_String">FT_String</a>*  weight;
     <a href="ft2-basic_types.html#FT_Long">FT_Long</a>     italic_angle;
     <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>     is_fixed_pitch;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>    underline_position;
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>   underline_thickness;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>    underline_position;
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>   underline_thickness;
 
   } <b>PS_FontInfoRec</b>;
 </pre>
@@ -168,33 +168,33 @@
     <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    num_family_blues;
     <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    num_family_other_blues;
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   blue_values[14];
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   other_blues[10];
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   blue_values[14];
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   other_blues[10];
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   family_blues      [14];
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   family_other_blues[10];
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   family_blues      [14];
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   family_other_blues[10];
 
     <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   blue_scale;
     <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     blue_shift;
     <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     blue_fuzz;
 
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  standard_width[1];
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  standard_height[1];
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  standard_width[1];
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  standard_height[1];
 
     <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    num_snap_widths;
     <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    num_snap_heights;
     <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    force_bold;
     <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    round_stem_up;
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   snap_widths [13];  /* including std width  */
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   snap_heights[13];  /* including std height */
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   snap_widths [13];  /* including std width  */
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   snap_heights[13];  /* including std height */
 
     <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   expansion_factor;
 
     <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    language_group;
     <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    password;
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   min_feature[2];
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>   min_feature[2];
 
   } <b>PS_PrivateRec</b>;
 </pre>
@@ -624,26 +624,26 @@
     /* conventionally in the font Private dictionary */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_SUBRS">PS_DICT_NUM_SUBRS</a>,              /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
     <a href="ft2-type1_tables.html#PS_DICT_SUBR">PS_DICT_SUBR</a>,                   /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
-    <a href="ft2-type1_tables.html#PS_DICT_STD_HW">PS_DICT_STD_HW</a>,                 /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
-    <a href="ft2-type1_tables.html#PS_DICT_STD_VW">PS_DICT_STD_VW</a>,                 /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    <a href="ft2-type1_tables.html#PS_DICT_STD_HW">PS_DICT_STD_HW</a>,                 /* <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  */
+    <a href="ft2-type1_tables.html#PS_DICT_STD_VW">PS_DICT_STD_VW</a>,                 /* <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_BLUE_VALUES">PS_DICT_NUM_BLUE_VALUES</a>,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_BLUE_VALUE">PS_DICT_BLUE_VALUE</a>,             /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_BLUE_VALUE">PS_DICT_BLUE_VALUE</a>,             /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_BLUE_FUZZ">PS_DICT_BLUE_FUZZ</a>,              /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_OTHER_BLUES">PS_DICT_NUM_OTHER_BLUES</a>,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_OTHER_BLUE">PS_DICT_OTHER_BLUE</a>,             /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_OTHER_BLUE">PS_DICT_OTHER_BLUE</a>,             /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_FAMILY_BLUES">PS_DICT_NUM_FAMILY_BLUES</a>,       /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_FAMILY_BLUE">PS_DICT_FAMILY_BLUE</a>,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_FAMILY_BLUE">PS_DICT_FAMILY_BLUE</a>,            /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_FAMILY_OTHER_BLUES">PS_DICT_NUM_FAMILY_OTHER_BLUES</a>, /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_FAMILY_OTHER_BLUE">PS_DICT_FAMILY_OTHER_BLUE</a>,      /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_FAMILY_OTHER_BLUE">PS_DICT_FAMILY_OTHER_BLUE</a>,      /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_BLUE_SCALE">PS_DICT_BLUE_SCALE</a>,             /* <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_BLUE_SHIFT">PS_DICT_BLUE_SHIFT</a>,             /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_STEM_SNAP_H">PS_DICT_NUM_STEM_SNAP_H</a>,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_STEM_SNAP_H">PS_DICT_STEM_SNAP_H</a>,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_STEM_SNAP_H">PS_DICT_STEM_SNAP_H</a>,            /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_NUM_STEM_SNAP_V">PS_DICT_NUM_STEM_SNAP_V</a>,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_STEM_SNAP_V">PS_DICT_STEM_SNAP_V</a>,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_STEM_SNAP_V">PS_DICT_STEM_SNAP_V</a>,            /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_FORCE_BOLD">PS_DICT_FORCE_BOLD</a>,             /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
     <a href="ft2-type1_tables.html#PS_DICT_RND_STEM_UP">PS_DICT_RND_STEM_UP</a>,            /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_MIN_FEATURE">PS_DICT_MIN_FEATURE</a>,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_MIN_FEATURE">PS_DICT_MIN_FEATURE</a>,            /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
     <a href="ft2-type1_tables.html#PS_DICT_LEN_IV">PS_DICT_LEN_IV</a>,                 /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
     <a href="ft2-type1_tables.html#PS_DICT_PASSWORD">PS_DICT_PASSWORD</a>,               /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
     <a href="ft2-type1_tables.html#PS_DICT_LANGUAGE_GROUP">PS_DICT_LANGUAGE_GROUP</a>,         /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
@@ -655,9 +655,9 @@
     <a href="ft2-type1_tables.html#PS_DICT_FAMILY_NAME">PS_DICT_FAMILY_NAME</a>,            /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
     <a href="ft2-type1_tables.html#PS_DICT_WEIGHT">PS_DICT_WEIGHT</a>,                 /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
     <a href="ft2-type1_tables.html#PS_DICT_IS_FIXED_PITCH">PS_DICT_IS_FIXED_PITCH</a>,         /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
-    <a href="ft2-type1_tables.html#PS_DICT_UNDERLINE_POSITION">PS_DICT_UNDERLINE_POSITION</a>,     /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
-    <a href="ft2-type1_tables.html#PS_DICT_UNDERLINE_THICKNESS">PS_DICT_UNDERLINE_THICKNESS</a>,    /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
-    <a href="ft2-type1_tables.html#PS_DICT_FS_TYPE">PS_DICT_FS_TYPE</a>,                /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    <a href="ft2-type1_tables.html#PS_DICT_UNDERLINE_POSITION">PS_DICT_UNDERLINE_POSITION</a>,     /* <a href="ft2-basic_types.html#FT_int">FT_int</a>   */
+    <a href="ft2-type1_tables.html#PS_DICT_UNDERLINE_THICKNESS">PS_DICT_UNDERLINE_THICKNESS</a>,    /* <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  */
+    <a href="ft2-type1_tables.html#PS_DICT_FS_TYPE">PS_DICT_FS_TYPE</a>,                /* <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  */
     <a href="ft2-type1_tables.html#PS_DICT_ITALIC_ANGLE">PS_DICT_ITALIC_ANGLE</a>,           /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
 
     PS_DICT_MAX = <a href="ft2-type1_tables.html#PS_DICT_ITALIC_ANGLE">PS_DICT_ITALIC_ANGLE</a>

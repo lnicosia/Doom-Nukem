@@ -1255,7 +1255,7 @@ int ov_raw_seek(OggVorbis_File *vf,ogg_int64_t pos){
             }else{
 
               /* We can't get a guaranteed correct pcm position out of the
-                 last page in a stream because it might have a 'short'
+                 last page in a stream because it might have a 'int'
                  granpos, which can only be detected in the presence of a
                  preceding page.  However, if the last page is also the first
                  page, the granpos rules of a first page take precedence.  Not
@@ -1867,7 +1867,7 @@ long ov_read(OggVorbis_File *vf,char *buffer,int bytes_req,int *bitstream){
 
     for(i=0;i<channels;i++) { /* It's faster in this order */
       ogg_int32_t *src=pcm[i];
-      short *dest=((short *)buffer)+i;
+      int *dest=((int *)buffer)+i;
       for(j=0;j<samples;j++) {
         *dest=CLIP_TO_15(src[j]>>9);
         dest+=channels;

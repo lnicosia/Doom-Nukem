@@ -240,12 +240,12 @@ FT_BEGIN_HEADER
 
   typedef struct  AF_PointRec_
   {
-    FT_UShort  flags;    /* point flags used by hinter   */
+    FT_Uint  flags;    /* point flags used by hinter   */
     FT_Char    in_dir;   /* direction of inwards vector  */
     FT_Char    out_dir;  /* direction of outwards vector */
 
     FT_Pos     ox, oy;   /* original, scaled position                   */
-    FT_Short   fx, fy;   /* original, unscaled position (in font units) */
+    FT_int   fx, fy;   /* original, unscaled position (in font units) */
     FT_Pos     x, y;     /* current position                            */
     FT_Pos     u, v;     /* current (x,y) or (y,x) depending on context */
 
@@ -259,11 +259,11 @@ FT_BEGIN_HEADER
   {
     FT_Byte     flags;       /* edge/segment flags for this segment */
     FT_Char     dir;         /* segment direction                   */
-    FT_Short    pos;         /* position of segment                 */
-    FT_Short    delta;       /* deviation from segment position     */
-    FT_Short    min_coord;   /* minimum coordinate of segment       */
-    FT_Short    max_coord;   /* maximum coordinate of segment       */
-    FT_Short    height;      /* the hinted segment height           */
+    FT_int    pos;         /* position of segment                 */
+    FT_int    delta;       /* deviation from segment position     */
+    FT_int    min_coord;   /* minimum coordinate of segment       */
+    FT_int    max_coord;   /* maximum coordinate of segment       */
+    FT_int    height;      /* the hinted segment height           */
 
     AF_Edge     edge;        /* the segment's parent edge           */
     AF_Segment  edge_next;   /* link to next segment in parent edge */
@@ -281,7 +281,7 @@ FT_BEGIN_HEADER
 
   typedef struct  AF_EdgeRec_
   {
-    FT_Short    fpos;       /* original, unscaled position (in font units) */
+    FT_int    fpos;       /* original, unscaled position (in font units) */
     FT_Pos      opos;       /* original, scaled position                   */
     FT_Pos      pos;        /* current position                            */
 

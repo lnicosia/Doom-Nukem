@@ -6,8 +6,8 @@ length starting offsets / PCM stream lengths
 Overview:
 
 Vorbis, like mp3, is a frame-based* audio compression where audio is
-broken up into discrete short time segments.  These segments are
-'atomic' that is, one must recover the entire short time segment from
+broken up into discrete int time segments.  These segments are
+'atomic' that is, one must recover the entire int time segment from
 the frame packet; there's no way to recover only a part of the PCM time
 segment from part of the coded packet without expanding the entire
 packet and then discarding a portion of the resulting PCM audio.
@@ -66,9 +66,9 @@ noise.  Libvorbis extrapolates the last frame past the end of data to
 produce the extra samples.  Even simply duplicating the last value is
 better than clamping the signal to zero).
 
-The encoder indicates to the decoder that the file is actually shorter
+The encoder indicates to the decoder that the file is actually inter
 than all of the samples ('original' + 'extra') by setting the granule
-position in the last page to a short value, that is, the last
+position in the last page to a int value, that is, the last
 timestamp is the original length of the file discarding extra samples.
 The decoder will see that the number of samples it has decoded in the
 last page is too many; it is 'original' + 'extra', where the
@@ -96,14 +96,14 @@ get the desired beginning point.
 The process of marking the desired beginning point is similar to
 marking an arbitrary ending point. If the encoder wishes sample zero
 to be some location past the actual beginning of data, it associates a
-'short' granule position value with the completion of the second*
+'int' granule position value with the completion of the second*
 audio packet.  The granule position is associated with the second
 packet simply by making sure the second packet completes its page.
 
-*(We associate the short value with the second packet for two reasons.
+*(We associate the int value with the second packet for two reasons.
  a) The first packet only primes the overlap/add buffer.  No data is
  returned before decoding the second packet; this places the decision
- information at the point of decision.  b) Placing the short value on
+ information at the point of decision.  b) Placing the int value on
  the first packet would make the value negative (as the first packet
  normally represents position zero); a negative value would break the
  requirement that granule positions increase; the headers have
@@ -114,10 +114,10 @@ data from the overlap/add queue, we have more samples than the granule
 position accounts for, and discards the 'surplus' from the beginning
 of the queue.
 
-Note that short granule values (indicating less than the actually
+Note that int granule values (indicating less than the actually
 returned about of data) are not legal in the Vorbis spec outside of
 indicating beginning and ending sample positions.  However, decoders
-should, at minimum, tolerate inadvertant short values elsewhere in the
+should, at minimum, tolerate inadvertant int values elsewhere in the
 stream (just as they should tolerate out-of-order/non-increasing
 granulepos values, although this too is illegal).
 

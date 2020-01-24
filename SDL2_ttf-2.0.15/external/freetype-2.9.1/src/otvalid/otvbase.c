@@ -41,7 +41,7 @@
     OTV_NAME_ENTER( "BaseCoord" );
 
     OTV_LIMIT_CHECK( 4 );
-    BaseCoordFormat = FT_NEXT_USHORT( p );
+    BaseCoordFormat = FT_NEXT_Uint( p );
     p += 2;     /* skip Coordinate */
 
     OTV_TRACE(( " (format %d)\n", BaseCoordFormat ));
@@ -58,7 +58,7 @@
     case 3:     /* BaseCoordFormat3 */
       OTV_LIMIT_CHECK( 2 );
       /* DeviceTable */
-      otv_Device_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_Device_validate( table + FT_NEXT_Uint( p ), otvalid );
       break;
 
     default:
@@ -81,7 +81,7 @@
 
     OTV_LIMIT_CHECK( 2 );
 
-    BaseTagCount = FT_NEXT_USHORT( p );
+    BaseTagCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (BaseTagCount = %d)\n", BaseTagCount ));
 
@@ -104,7 +104,7 @@
     OTV_LIMIT_CHECK( 4 );
 
     p             += 2;                     /* skip DefaultIndex */
-    BaseCoordCount = FT_NEXT_USHORT( p );
+    BaseCoordCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (BaseCoordCount = %d)\n", BaseCoordCount ));
 
@@ -112,7 +112,7 @@
 
     /* BaseCoord */
     for ( ; BaseCoordCount > 0; BaseCoordCount-- )
-      otv_BaseCoord_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_BaseCoord_validate( table + FT_NEXT_Uint( p ), otvalid );
 
     OTV_EXIT;
   }
@@ -136,7 +136,7 @@
 
     OTV_OPTIONAL_OFFSET( MinCoord );
     OTV_OPTIONAL_OFFSET( MaxCoord );
-    FeatMinMaxCount = FT_NEXT_USHORT( p );
+    FeatMinMaxCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (FeatMinMaxCount = %d)\n", FeatMinMaxCount ));
 
@@ -190,7 +190,7 @@
     OTV_LIMIT_CHECK( 6 );
     OTV_OPTIONAL_OFFSET( BaseValues    );
     OTV_OPTIONAL_OFFSET( DefaultMinMax );
-    BaseLangSysCount = FT_NEXT_USHORT( p );
+    BaseLangSysCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (BaseLangSysCount = %d)\n", BaseLangSysCount ));
 
@@ -211,7 +211,7 @@
     {
       p += 4;       /* skip BaseLangSysTag */
 
-      otv_MinMax_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_MinMax_validate( table + FT_NEXT_Uint( p ), otvalid );
     }
 
     OTV_EXIT;
@@ -229,7 +229,7 @@
     OTV_NAME_ENTER( "BaseScriptList" );
 
     OTV_LIMIT_CHECK( 2 );
-    BaseScriptCount = FT_NEXT_USHORT( p );
+    BaseScriptCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (BaseScriptCount = %d)\n", BaseScriptCount ));
 
@@ -241,7 +241,7 @@
       p += 4;       /* skip BaseScriptTag */
 
       /* BaseScript */
-      otv_BaseScript_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_BaseScript_validate( table + FT_NEXT_Uint( p ), otvalid );
     }
 
     OTV_EXIT;
@@ -270,7 +270,7 @@
       otv_BaseTagList_validate( table + BaseTagList, otvalid );
 
     /* BaseScriptList */
-    otv_BaseScriptList_validate( table + FT_NEXT_USHORT( p ), otvalid );
+    otv_BaseScriptList_validate( table + FT_NEXT_Uint( p ), otvalid );
 
     OTV_EXIT;
   }
@@ -284,7 +284,7 @@
     OTV_Validator     otvalid = &otvalidrec;
     FT_Bytes          p       = table;
     FT_UInt           table_size;
-    FT_UShort         version;
+    FT_Uint         version;
 
     OTV_OPTIONAL_TABLE( HorizAxis );
     OTV_OPTIONAL_TABLE( VertAxis  );
@@ -299,10 +299,10 @@
 
     OTV_LIMIT_CHECK( 4 );
 
-    if ( FT_NEXT_USHORT( p ) != 1 )  /* majorVersion */
+    if ( FT_NEXT_Uint( p ) != 1 )  /* majorVersion */
       FT_INVALID_FORMAT;
 
-    version = FT_NEXT_USHORT( p );   /* minorVersion */
+    version = FT_NEXT_Uint( p );   /* minorVersion */
 
     table_size = 8;
     switch ( version )

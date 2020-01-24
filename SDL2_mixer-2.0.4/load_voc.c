@@ -113,7 +113,7 @@ static int voc_get_block(SDL_RWops *src, vs_t *v, SDL_AudioSpec *spec)
     Uint8 bits24[3];
     Uint8 uc, block;
     Uint32 sblen;
-    Uint16 new_rate_short;
+    Uint16 new_rate_int;
     Uint32 new_rate_long;
     Uint8 trash[6];
     Uint16 period;
@@ -258,20 +258,20 @@ static int voc_get_block(SDL_RWops *src, vs_t *v, SDL_AudioSpec *spec)
                 /* value from the extended block and not the     */
                 /* data block.                     */
                 v->has_extended = 1;
-                if (SDL_RWread(src, &new_rate_short, sizeof (new_rate_short), 1) != 1)
+                if (SDL_RWread(src, &new_rate_int, sizeof (new_rate_int), 1) != 1)
                     return 0;
-                new_rate_short = SDL_SwapLE16(new_rate_short);
-                if (new_rate_short == 0)
+                new_rate_int = SDL_SwapLE16(new_rate_int);
+                if (new_rate_int == 0)
                 {
                    SDL_SetError("VOC sample rate is zero");
                    return 0;
                 }
-                if ((v->rate != -1) && (new_rate_short != v->rate))
+                if ((v->rate != -1) && (new_rate_int != v->rate))
                 {
                    SDL_SetError("VOC sample rate codes differ");
                    return 0;
                 }
-                v->rate = new_rate_short;
+                v->rate = new_rate_int;
 
                 if (SDL_RWread(src, &uc, sizeof (uc), 1) != 1)
                     return 0;

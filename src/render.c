@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 18:13:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:07:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ void		get_rendered_sectors_list(int screen_sectors, t_camera *camera,
 	while (i < screen_sectors)
 	{
 		sector = env->sectors[camera->screen_sectors[i]];
+		//ft_printf("camera sector = %d\n", sector.num);
 		if (!camera->sector_computed[sector.num])
 		{
 			camera->sector_computed[sector.num] = 1;
@@ -327,8 +328,8 @@ int		precompute_sectors(t_camera *camera, t_env *env)
 	{
 		pt[i].env = env;
 		pt[i].camera = camera;
-		pt[i].start = env->visible_sectors / (double)THREADS * i;
-		pt[i].end = env->visible_sectors / (double)THREADS * (i + 1);
+		pt[i].start = env->nb_sectors / (double)THREADS * i;
+		pt[i].end = env->nb_sectors / (double)THREADS * (i + 1);
 		if (pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]))
 			return (-1);
 		i++;

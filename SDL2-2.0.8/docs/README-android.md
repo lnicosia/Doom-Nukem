@@ -365,7 +365,7 @@ and tell Android to use the script to launch your application:
     adb shell setprop wrap.org.libsdl.app "logwrapper /data/local/start_valgrind_app"
 
 If the setprop command says "could not set property", it's likely that
-your package name is too long and you should make it shorter by changing
+your package name is too long and you should make it inter by changing
 AndroidManifest.xml and the path to your class file in android-project/src
 
 You can then launch your application normally and waaaaaaaiiittt for it.

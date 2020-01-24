@@ -446,16 +446,16 @@
     /*# for bitmap fonts.                                              */
     <a href="ft2-basic_types.html#FT_BBox">FT_BBox</a>           bbox;
 
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>         units_per_EM;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          ascender;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          descender;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          height;
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>         units_per_EM;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          ascender;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          descender;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          height;
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          max_advance_width;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          max_advance_height;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          max_advance_width;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          max_advance_height;
 
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          underline_position;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>          underline_thickness;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          underline_position;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>          underline_thickness;
 
     <a href="ft2-base_interface.html#FT_GlyphSlot">FT_GlyphSlot</a>      glyph;
     <a href="ft2-base_interface.html#FT_Size">FT_Size</a>           size;
@@ -809,8 +809,8 @@
 <pre>
   <span class="keyword">typedef</span> <span class="keyword">struct</span>  FT_Size_Metrics_
   {
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  x_ppem;      /* horizontal pixels per EM               */
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  y_ppem;      /* vertical pixels per EM                 */
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  x_ppem;      /* horizontal pixels per EM               */
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>  y_ppem;      /* vertical pixels per EM                 */
 
     <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   x_scale;     /* scaling values used to convert font    */
     <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   y_scale;     /* units to 26.6 fractional pixels        */
@@ -958,7 +958,7 @@
 <p>The advance height of the unhinted glyph. Its value is expressed in 16.16 fractional pixels, unless <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_LINEAR_DESIGN</a> is set when loading the glyph. This field can be important to perform correct WYSIWYG layout. Only relevant for outline glyphs.</p>
 </td></tr>
 <tr><td class="val" id="advance">advance</td><td class="desc">
-<p>This shorthand is, depending on <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_IGNORE_TRANSFORM</a>, the transformed (hinted) advance width for the glyph, in 26.6 fractional pixel format. As specified with <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_VERTICAL_LAYOUT</a>, it uses either the &lsquo;horiAdvance&rsquo; or the &lsquo;vertAdvance&rsquo; value of &lsquo;metrics&rsquo; field.</p>
+<p>This inthand is, depending on <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_IGNORE_TRANSFORM</a>, the transformed (hinted) advance width for the glyph, in 26.6 fractional pixel format. As specified with <a href="ft2-base_interface.html#FT_LOAD_XXX">FT_LOAD_VERTICAL_LAYOUT</a>, it uses either the &lsquo;horiAdvance&rsquo; or the &lsquo;vertAdvance&rsquo; value of &lsquo;metrics&rsquo; field.</p>
 </td></tr>
 <tr><td class="val" id="format">format</td><td class="desc">
 <p>This field indicates the format of the image contained in the glyph slot. Typically <a href="ft2-basic_types.html#FT_Glyph_Format">FT_GLYPH_FORMAT_BITMAP</a>, <a href="ft2-basic_types.html#FT_Glyph_Format">FT_GLYPH_FORMAT_OUTLINE</a>, or <a href="ft2-basic_types.html#FT_Glyph_Format">FT_GLYPH_FORMAT_COMPOSITE</a>, but other values are possible.</p>
@@ -1133,8 +1133,8 @@
 <pre>
   <span class="keyword">typedef</span> <span class="keyword">struct</span>  FT_Bitmap_Size_
   {
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>  height;
-    <a href="ft2-basic_types.html#FT_Short">FT_Short</a>  width;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>  height;
+    <a href="ft2-basic_types.html#FT_int">FT_int</a>  width;
 
     <a href="ft2-basic_types.html#FT_Pos">FT_Pos</a>    size;
 
@@ -2570,8 +2570,8 @@
   {
     <a href="ft2-base_interface.html#FT_Face">FT_Face</a>      face;
     <a href="ft2-base_interface.html#FT_Encoding">FT_Encoding</a>  encoding;
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>    platform_id;
-    <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>    encoding_id;
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>    platform_id;
+    <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a>    encoding_id;
 
   } <b>FT_CharMapRec</b>;
 </pre>
@@ -2694,7 +2694,7 @@
 <h3 id="FT_Get_FSType_Flags">FT_Get_FSType_Flags</h3>
 <p>Defined in FT_FREETYPE_H (freetype/freetype.h).</p>
 <pre>
-  FT_EXPORT( <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a> )
+  FT_EXPORT( <a href="ft2-basic_types.html#FT_Uint">FT_Uint</a> )
   <b>FT_Get_FSType_Flags</b>( <a href="ft2-base_interface.html#FT_Face">FT_Face</a>  face );
 </pre>
 

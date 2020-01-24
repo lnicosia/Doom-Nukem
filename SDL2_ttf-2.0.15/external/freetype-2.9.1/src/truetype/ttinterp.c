@@ -450,7 +450,7 @@
                         sizeof ( FT_Byte ),
                         (void*)&exec->glyphIns,
                         maxp->maxSizeOfInstructions );
-    exec->glyphSize = (FT_UShort)tmp;
+    exec->glyphSize = (FT_Uint)tmp;
     if ( error )
       return error;
 
@@ -1563,24 +1563,24 @@
   /*************************************************************************/
   /*                                                                       */
   /* <Function>                                                            */
-  /*    GetShortIns                                                        */
+  /*    GetintIns                                                        */
   /*                                                                       */
   /* <Description>                                                         */
-  /*    Returns a short integer taken from the instruction stream at       */
+  /*    Returns a int integer taken from the instruction stream at       */
   /*    address IP.                                                        */
   /*                                                                       */
   /* <Return>                                                              */
-  /*    Short read at code[IP].                                            */
+  /*    int read at code[IP].                                            */
   /*                                                                       */
   /* <Note>                                                                */
   /*    This one could become a macro.                                     */
   /*                                                                       */
-  static FT_Short
-  GetShortIns( TT_ExecContext  exc )
+  static FT_int
+  GetintIns( TT_ExecContext  exc )
   {
     /* Reading a byte stream so there is no endianness (DaveP) */
     exc->IP += 2;
-    return (FT_Short)( ( exc->code[exc->IP - 2] << 8 ) +
+    return (FT_int)( ( exc->code[exc->IP - 2] << 8 ) +
                          exc->code[exc->IP - 1]      );
   }
 
@@ -1666,7 +1666,7 @@
   static void
   Direct_Move( TT_ExecContext  exc,
                TT_GlyphZone    zone,
-               FT_UShort       point,
+               FT_Uint       point,
                FT_F26Dot6      distance )
   {
     FT_F26Dot6  v;
@@ -1748,7 +1748,7 @@
   static void
   Direct_Move_Orig( TT_ExecContext  exc,
                     TT_GlyphZone    zone,
-                    FT_UShort       point,
+                    FT_Uint       point,
                     FT_F26Dot6      distance )
   {
     FT_F26Dot6  v;
@@ -1786,7 +1786,7 @@
   static void
   Direct_Move_X( TT_ExecContext  exc,
                  TT_GlyphZone    zone,
-                 FT_UShort       point,
+                 FT_Uint       point,
                  FT_F26Dot6      distance )
   {
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
@@ -1811,7 +1811,7 @@
   static void
   Direct_Move_Y( TT_ExecContext  exc,
                  TT_GlyphZone    zone,
-                 FT_UShort       point,
+                 FT_Uint       point,
                  FT_F26Dot6      distance )
   {
     FT_UNUSED( exc );
@@ -1840,7 +1840,7 @@
   static void
   Direct_Move_Orig_X( TT_ExecContext  exc,
                       TT_GlyphZone    zone,
-                      FT_UShort       point,
+                      FT_Uint       point,
                       FT_F26Dot6      distance )
   {
     FT_UNUSED( exc );
@@ -1852,7 +1852,7 @@
   static void
   Direct_Move_Orig_Y( TT_ExecContext  exc,
                       TT_GlyphZone    zone,
-                      FT_UShort       point,
+                      FT_Uint       point,
                       FT_F26Dot6      distance )
   {
     FT_UNUSED( exc );
@@ -3593,10 +3593,10 @@
                    0x7D, /* RDTG    */
                  },
                };
-    FT_UShort  opcode_patterns   = 9;
-    FT_UShort  opcode_pointer[9] = {  0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    FT_UShort  opcode_size[9]    = { 12, 8, 8, 6, 7, 4, 5, 4, 2 };
-    FT_UShort  i;
+    FT_Uint  opcode_patterns   = 9;
+    FT_Uint  opcode_pointer[9] = {  0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    FT_Uint  opcode_size[9]    = { 12, 8, 8, 6, 7, 4, 5, 4, 2 };
+    FT_Uint  i;
 #endif /* TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY */
 
 
@@ -4111,10 +4111,10 @@
   Ins_NPUSHB( TT_ExecContext  exc,
               FT_Long*        args )
   {
-    FT_UShort  L, K;
+    FT_Uint  L, K;
 
 
-    L = (FT_UShort)exc->code[exc->IP + 1];
+    L = (FT_Uint)exc->code[exc->IP + 1];
 
     if ( BOUNDS( L, exc->stackSize + 1 - exc->top ) )
     {
@@ -4139,10 +4139,10 @@
   Ins_NPUSHW( TT_ExecContext  exc,
               FT_Long*        args )
   {
-    FT_UShort  L, K;
+    FT_Uint  L, K;
 
 
-    L = (FT_UShort)exc->code[exc->IP + 1];
+    L = (FT_Uint)exc->code[exc->IP + 1];
 
     if ( BOUNDS( L, exc->stackSize + 1 - exc->top ) )
     {
@@ -4153,7 +4153,7 @@
     exc->IP += 2;
 
     for ( K = 0; K < L; K++ )
-      args[K] = GetShortIns( exc );
+      args[K] = GetintIns( exc );
 
     exc->step_ins = FALSE;
     exc->new_top += L;
@@ -4170,10 +4170,10 @@
   Ins_PUSHB( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_UShort  L, K;
+    FT_Uint  L, K;
 
 
-    L = (FT_UShort)( exc->opcode - 0xB0 + 1 );
+    L = (FT_Uint)( exc->opcode - 0xB0 + 1 );
 
     if ( BOUNDS( L, exc->stackSize + 1 - exc->top ) )
     {
@@ -4196,10 +4196,10 @@
   Ins_PUSHW( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_UShort  L, K;
+    FT_Uint  L, K;
 
 
-    L = (FT_UShort)( exc->opcode - 0xB8 + 1 );
+    L = (FT_Uint)( exc->opcode - 0xB8 + 1 );
 
     if ( BOUNDS( L, exc->stackSize + 1 - exc->top ) )
     {
@@ -4210,7 +4210,7 @@
     exc->IP++;
 
     for ( K = 0; K < L; K++ )
-      args[K] = GetShortIns( exc );
+      args[K] = GetintIns( exc );
 
     exc->step_ins = FALSE;
   }
@@ -4225,8 +4225,8 @@
 
   static FT_Bool
   Ins_SxVTL( TT_ExecContext  exc,
-             FT_UShort       aIdx1,
-             FT_UShort       aIdx2,
+             FT_Uint       aIdx1,
+             FT_Uint       aIdx2,
              FT_UnitVector*  Vec )
   {
     FT_Long     A, B, C;
@@ -4291,13 +4291,13 @@
   static void
   Ins_SxyTCA( TT_ExecContext  exc )
   {
-    FT_Short  AA, BB;
+    FT_int  AA, BB;
 
     FT_Byte  opcode = exc->opcode;
 
 
-    AA = (FT_Short)( ( opcode & 1 ) << 14 );
-    BB = (FT_Short)( AA ^ 0x4000 );
+    AA = (FT_int)( ( opcode & 1 ) << 14 );
+    BB = (FT_int)( AA ^ 0x4000 );
 
     if ( opcode < 4 )
     {
@@ -4329,8 +4329,8 @@
              FT_Long*        args )
   {
     if ( Ins_SxVTL( exc,
-                    (FT_UShort)args[1],
-                    (FT_UShort)args[0],
+                    (FT_Uint)args[1],
+                    (FT_Uint)args[0],
                     &exc->GS.projVector ) == SUCCESS )
     {
       exc->GS.dualVector = exc->GS.projVector;
@@ -4350,8 +4350,8 @@
              FT_Long*        args )
   {
     if ( Ins_SxVTL( exc,
-                    (FT_UShort)args[1],
-                    (FT_UShort)args[0],
+                    (FT_Uint)args[1],
+                    (FT_Uint)args[0],
                     &exc->GS.freeVector ) == SUCCESS )
     {
       Compute_Funcs( exc );
@@ -4383,14 +4383,14 @@
   Ins_SPVFS( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_Short  S;
+    FT_int  S;
     FT_Long   X, Y;
 
 
     /* Only use low 16bits, then sign extend */
-    S = (FT_Short)args[1];
+    S = (FT_int)args[1];
     Y = (FT_Long)S;
-    S = (FT_Short)args[0];
+    S = (FT_int)args[0];
     X = (FT_Long)S;
 
     Normalize( X, Y, &exc->GS.projVector );
@@ -4410,14 +4410,14 @@
   Ins_SFVFS( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_Short  S;
+    FT_int  S;
     FT_Long   X, Y;
 
 
     /* Only use low 16bits, then sign extend */
-    S = (FT_Short)args[1];
+    S = (FT_int)args[1];
     Y = (FT_Long)S;
-    S = (FT_Short)args[0];
+    S = (FT_int)args[0];
     X = S;
 
     Normalize( X, Y, &exc->GS.freeVector );
@@ -4465,7 +4465,7 @@
   Ins_SRP0( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    exc->GS.rp0 = (FT_UShort)args[0];
+    exc->GS.rp0 = (FT_Uint)args[0];
   }
 
 
@@ -4479,7 +4479,7 @@
   Ins_SRP1( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    exc->GS.rp1 = (FT_UShort)args[0];
+    exc->GS.rp1 = (FT_Uint)args[0];
   }
 
 
@@ -4493,7 +4493,7 @@
   Ins_SRP2( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    exc->GS.rp2 = (FT_UShort)args[0];
+    exc->GS.rp2 = (FT_Uint)args[0];
   }
 
 
@@ -4603,7 +4603,7 @@
   Ins_SDB( TT_ExecContext  exc,
            FT_Long*        args )
   {
-    exc->GS.delta_base = (FT_UShort)args[0];
+    exc->GS.delta_base = (FT_Uint)args[0];
   }
 
 
@@ -4620,7 +4620,7 @@
     if ( (FT_ULong)args[0] > 6UL )
       exc->error = FT_THROW( Bad_Argument );
     else
-      exc->GS.delta_shift = (FT_UShort)args[0];
+      exc->GS.delta_shift = (FT_Uint)args[0];
   }
 
 
@@ -4792,10 +4792,10 @@
             FT_Long*        args )
   {
     FT_Long    K;
-    FT_UShort  L;
+    FT_Uint  L;
 
 
-    L = (FT_UShort)args[0];
+    L = (FT_Uint)args[0];
 
     if ( BOUNDS( L, exc->zp2.n_points ) )
     {
@@ -4834,12 +4834,12 @@
   Ins_MD( TT_ExecContext  exc,
           FT_Long*        args )
   {
-    FT_UShort   K, L;
+    FT_Uint   K, L;
     FT_F26Dot6  D;
 
 
-    K = (FT_UShort)args[1];
-    L = (FT_UShort)args[0];
+    K = (FT_Uint)args[1];
+    L = (FT_Uint)args[0];
 
     if ( BOUNDS( L, exc->zp0.n_points ) ||
          BOUNDS( K, exc->zp1.n_points ) )
@@ -4913,13 +4913,13 @@
               FT_Long*        args )
   {
     FT_Long    A, B, C;
-    FT_UShort  p1, p2;            /* was FT_Int in pas type ERROR */
+    FT_Uint  p1, p2;            /* was FT_Int in pas type ERROR */
 
     FT_Byte  opcode = exc->opcode;
 
 
-    p1 = (FT_UShort)args[1];
-    p2 = (FT_UShort)args[0];
+    p1 = (FT_Uint)args[1];
+    p2 = (FT_Uint)args[0];
 
     if ( BOUNDS( p2, exc->zp1.n_points ) ||
          BOUNDS( p1, exc->zp2.n_points ) )
@@ -5011,7 +5011,7 @@
       return;
     }
 
-    exc->GS.gep0 = (FT_UShort)args[0];
+    exc->GS.gep0 = (FT_Uint)args[0];
   }
 
 
@@ -5041,7 +5041,7 @@
       return;
     }
 
-    exc->GS.gep1 = (FT_UShort)args[0];
+    exc->GS.gep1 = (FT_Uint)args[0];
   }
 
 
@@ -5071,7 +5071,7 @@
       return;
     }
 
-    exc->GS.gep2 = (FT_UShort)args[0];
+    exc->GS.gep2 = (FT_Uint)args[0];
   }
 
 
@@ -5104,9 +5104,9 @@
     exc->zp1 = exc->zp0;
     exc->zp2 = exc->zp0;
 
-    exc->GS.gep0 = (FT_UShort)args[0];
-    exc->GS.gep1 = (FT_UShort)args[0];
-    exc->GS.gep2 = (FT_UShort)args[0];
+    exc->GS.gep0 = (FT_Uint)args[0];
+    exc->GS.gep1 = (FT_Uint)args[0];
+    exc->GS.gep2 = (FT_Uint)args[0];
   }
 
 
@@ -5250,7 +5250,7 @@
   static void
   Ins_FLIPPT( TT_ExecContext  exc )
   {
-    FT_UShort  point;
+    FT_Uint  point;
 
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_MINIMAL
@@ -5273,7 +5273,7 @@
     {
       exc->args--;
 
-      point = (FT_UShort)exc->stack[exc->args];
+      point = (FT_Uint)exc->stack[exc->args];
 
       if ( BOUNDS( point, exc->pts.n_points ) )
       {
@@ -5305,7 +5305,7 @@
   Ins_FLIPRGON( TT_ExecContext  exc,
                 FT_Long*        args )
   {
-    FT_UShort  I, K, L;
+    FT_Uint  I, K, L;
 
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_MINIMAL
@@ -5317,8 +5317,8 @@
       return;
 #endif
 
-    K = (FT_UShort)args[1];
-    L = (FT_UShort)args[0];
+    K = (FT_Uint)args[1];
+    L = (FT_Uint)args[0];
 
     if ( BOUNDS( K, exc->pts.n_points ) ||
          BOUNDS( L, exc->pts.n_points ) )
@@ -5343,7 +5343,7 @@
   Ins_FLIPRGOFF( TT_ExecContext  exc,
                  FT_Long*        args )
   {
-    FT_UShort  I, K, L;
+    FT_Uint  I, K, L;
 
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_MINIMAL
@@ -5355,8 +5355,8 @@
       return;
 #endif
 
-    K = (FT_UShort)args[1];
-    L = (FT_UShort)args[0];
+    K = (FT_Uint)args[1];
+    L = (FT_Uint)args[0];
 
     if ( BOUNDS( K, exc->pts.n_points ) ||
          BOUNDS( L, exc->pts.n_points ) )
@@ -5376,10 +5376,10 @@
                               FT_F26Dot6*     x,
                               FT_F26Dot6*     y,
                               TT_GlyphZone    zone,
-                              FT_UShort*      refp )
+                              FT_Uint*      refp )
   {
     TT_GlyphZoneRec  zp;
-    FT_UShort        p;
+    FT_Uint        p;
     FT_F26Dot6       d;
 
 
@@ -5417,7 +5417,7 @@
   /* See `ttinterp.h' for details on backward compatibility mode. */
   static void
   Move_Zp2_Point( TT_ExecContext  exc,
-                  FT_UShort       point,
+                  FT_Uint       point,
                   FT_F26Dot6      dx,
                   FT_F26Dot6      dy,
                   FT_Bool         touch )
@@ -5460,10 +5460,10 @@
   Ins_SHP( TT_ExecContext  exc )
   {
     TT_GlyphZoneRec  zp;
-    FT_UShort        refp;
+    FT_Uint        refp;
 
     FT_F26Dot6       dx, dy;
-    FT_UShort        point;
+    FT_Uint        point;
 
 
     if ( exc->top < exc->GS.loop )
@@ -5479,7 +5479,7 @@
     while ( exc->GS.loop > 0 )
     {
       exc->args--;
-      point = (FT_UShort)exc->stack[exc->args];
+      point = (FT_Uint)exc->stack[exc->args];
 
       if ( BOUNDS( point, exc->zp2.n_points ) )
       {
@@ -5522,14 +5522,14 @@
            FT_Long*        args )
   {
     TT_GlyphZoneRec  zp;
-    FT_UShort        refp;
+    FT_Uint        refp;
     FT_F26Dot6       dx, dy;
 
-    FT_Short         contour, bounds;
-    FT_UShort        start, limit, i;
+    FT_int         contour, bounds;
+    FT_Uint        start, limit, i;
 
 
-    contour = (FT_Short)args[0];
+    contour = (FT_int)args[0];
     bounds  = ( exc->GS.gep2 == 0 ) ? 1 : exc->zp2.n_contours;
 
     if ( BOUNDS( contour, bounds ) )
@@ -5545,14 +5545,14 @@
     if ( contour == 0 )
       start = 0;
     else
-      start = (FT_UShort)( exc->zp2.contours[contour - 1] + 1 -
+      start = (FT_Uint)( exc->zp2.contours[contour - 1] + 1 -
                            exc->zp2.first_point );
 
     /* we use the number of points if in the twilight zone */
     if ( exc->GS.gep2 == 0 )
       limit = exc->zp2.n_points;
     else
-      limit = (FT_UShort)( exc->zp2.contours[contour] -
+      limit = (FT_Uint)( exc->zp2.contours[contour] -
                            exc->zp2.first_point + 1 );
 
     for ( i = start; i < limit; i++ )
@@ -5574,11 +5574,11 @@
            FT_Long*        args )
   {
     TT_GlyphZoneRec  zp;
-    FT_UShort        refp;
+    FT_Uint        refp;
     FT_F26Dot6       dx,
                      dy;
 
-    FT_UShort        limit, i;
+    FT_Uint        limit, i;
 
 
     if ( BOUNDS( args[0], 2 ) )
@@ -5596,9 +5596,9 @@
     /*      Normal zone's `n_points' includes phantoms, so must    */
     /*      use end of last contour.                               */
     if ( exc->GS.gep2 == 0 )
-      limit = (FT_UShort)exc->zp2.n_points;
+      limit = (FT_Uint)exc->zp2.n_points;
     else if ( exc->GS.gep2 == 1 && exc->zp2.n_contours > 0 )
-      limit = (FT_UShort)( exc->zp2.contours[exc->zp2.n_contours - 1] + 1 );
+      limit = (FT_Uint)( exc->zp2.contours[exc->zp2.n_contours - 1] + 1 );
     else
       limit = 0;
 
@@ -5622,7 +5622,7 @@
              FT_Long*        args )
   {
     FT_F26Dot6  dx, dy;
-    FT_UShort   point;
+    FT_Uint   point;
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
     FT_Int      B1, B2;
 #endif
@@ -5648,7 +5648,7 @@
     {
       exc->args--;
 
-      point = (FT_UShort)exc->stack[exc->args];
+      point = (FT_Uint)exc->stack[exc->args];
 
       if ( BOUNDS( point, exc->zp2.n_points ) )
       {
@@ -5781,7 +5781,7 @@
   Ins_MSIRP( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_UShort   point = 0;
+    FT_Uint   point = 0;
     FT_F26Dot6  distance;
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
     FT_F26Dot6  control_value_cutin = 0;
@@ -5799,7 +5799,7 @@
     }
 #endif /* TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY */
 
-    point = (FT_UShort)args[0];
+    point = (FT_Uint)args[0];
 
     if ( BOUNDS( point,       exc->zp1.n_points ) ||
          BOUNDS( exc->GS.rp0, exc->zp0.n_points ) )
@@ -5856,12 +5856,12 @@
   Ins_MDAP( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    FT_UShort   point;
+    FT_Uint   point;
     FT_F26Dot6  cur_dist;
     FT_F26Dot6  distance;
 
 
-    point = (FT_UShort)args[0];
+    point = (FT_Uint)args[0];
 
     if ( BOUNDS( point, exc->zp0.n_points ) )
     {
@@ -5911,7 +5911,7 @@
             FT_Long*        args )
   {
     FT_ULong    cvtEntry;
-    FT_UShort   point;
+    FT_Uint   point;
     FT_F26Dot6  distance;
     FT_F26Dot6  org_dist;
     FT_F26Dot6  control_value_cutin;
@@ -5919,7 +5919,7 @@
 
     control_value_cutin = exc->GS.control_value_cutin;
     cvtEntry            = (FT_ULong)args[1];
-    point               = (FT_UShort)args[0];
+    point               = (FT_Uint)args[0];
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
     if ( SUBPIXEL_HINTING_INFINALITY                        &&
@@ -6030,7 +6030,7 @@
   Ins_MDRP( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    FT_UShort   point = 0;
+    FT_Uint   point = 0;
     FT_F26Dot6  org_dist, distance, minimum_distance;
 
 
@@ -6044,7 +6044,7 @@
       minimum_distance = 0;
 #endif /* TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY */
 
-    point = (FT_UShort)args[0];
+    point = (FT_Uint)args[0];
 
     if ( BOUNDS( point,       exc->zp1.n_points ) ||
          BOUNDS( exc->GS.rp0, exc->zp0.n_points ) )
@@ -6174,7 +6174,7 @@
   Ins_MIRP( TT_ExecContext  exc,
             FT_Long*        args )
   {
-    FT_UShort   point;
+    FT_Uint   point;
     FT_ULong    cvtEntry;
 
     FT_F26Dot6  cvt_dist,
@@ -6192,7 +6192,7 @@
 
     minimum_distance    = exc->GS.minimum_distance;
     control_value_cutin = exc->GS.control_value_cutin;
-    point               = (FT_UShort)args[0];
+    point               = (FT_Uint)args[0];
     cvtEntry            = (FT_ULong)( ADD_LONG( args[1], 1 ) );
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
@@ -6421,7 +6421,7 @@
   static void
   Ins_ALIGNRP( TT_ExecContext  exc )
   {
-    FT_UShort   point;
+    FT_Uint   point;
     FT_F26Dot6  distance;
 
 
@@ -6448,7 +6448,7 @@
     {
       exc->args--;
 
-      point = (FT_UShort)exc->stack[exc->args];
+      point = (FT_Uint)exc->stack[exc->args];
 
       if ( BOUNDS( point, exc->zp1.n_points ) )
       {
@@ -6485,7 +6485,7 @@
   Ins_ISECT( TT_ExecContext  exc,
              FT_Long*        args )
   {
-    FT_UShort   point,
+    FT_Uint   point,
                 a0, a1,
                 b0, b1;
 
@@ -6500,12 +6500,12 @@
     FT_Vector   R;
 
 
-    point = (FT_UShort)args[0];
+    point = (FT_Uint)args[0];
 
-    a0 = (FT_UShort)args[1];
-    a1 = (FT_UShort)args[2];
-    b0 = (FT_UShort)args[3];
-    b1 = (FT_UShort)args[4];
+    a0 = (FT_Uint)args[1];
+    a1 = (FT_Uint)args[2];
+    b0 = (FT_Uint)args[3];
+    b1 = (FT_Uint)args[4];
 
     if ( BOUNDS( b0,    exc->zp0.n_points ) ||
          BOUNDS( b1,    exc->zp0.n_points ) ||
@@ -6581,12 +6581,12 @@
   Ins_ALIGNPTS( TT_ExecContext  exc,
                 FT_Long*        args )
   {
-    FT_UShort   p1, p2;
+    FT_Uint   p1, p2;
     FT_F26Dot6  distance;
 
 
-    p1 = (FT_UShort)args[0];
-    p2 = (FT_UShort)args[1];
+    p1 = (FT_Uint)args[0];
+    p2 = (FT_Uint)args[1];
 
     if ( BOUNDS( p1, exc->zp1.n_points ) ||
          BOUNDS( p2, exc->zp0.n_points ) )
@@ -6753,7 +6753,7 @@
 
       exc->func_move( exc,
                       &exc->zp2,
-                      (FT_UShort)point,
+                      (FT_Uint)point,
                       SUB_LONG( new_dist, cur_dist ) );
     }
 
@@ -6773,11 +6773,11 @@
   Ins_UTP( TT_ExecContext  exc,
            FT_Long*        args )
   {
-    FT_UShort  point;
+    FT_Uint  point;
     FT_Byte    mask;
 
 
-    point = (FT_UShort)args[0];
+    point = (FT_Uint)args[0];
 
     if ( BOUNDS( point, exc->zp0.n_points ) )
     {
@@ -6951,7 +6951,7 @@
     FT_UInt   cur_touched;   /* current touched point in contour */
 
     FT_UInt   point;         /* current point   */
-    FT_Short  contour;       /* current contour */
+    FT_int  contour;       /* current contour */
 
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_MINIMAL
@@ -7042,7 +7042,7 @@
         else
         {
           _iup_worker_interpolate( &V,
-                                   (FT_UShort)( cur_touched + 1 ),
+                                   (FT_Uint)( cur_touched + 1 ),
                                    end_point,
                                    cur_touched,
                                    first_touched );
@@ -7071,11 +7071,11 @@
               FT_Long*        args )
   {
     FT_ULong   nump, k;
-    FT_UShort  A;
+    FT_Uint  A;
     FT_ULong   C, P;
     FT_Long    B;
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
-    FT_UShort  B1, B2;
+    FT_Uint  B1, B2;
 
 
     if ( SUBPIXEL_HINTING_INFINALITY                              &&
@@ -7087,7 +7087,7 @@
 
     P    = (FT_ULong)exc->func_cur_ppem( exc );
     nump = (FT_ULong)args[0];   /* some points theoretically may occur more
-                                   than once, thus UShort isn't enough */
+                                   than once, thus Uint isn't enough */
 
     for ( k = 1; k <= nump; k++ )
     {
@@ -7101,7 +7101,7 @@
 
       exc->args -= 2;
 
-      A = (FT_UShort)exc->stack[exc->args + 1];
+      A = (FT_Uint)exc->stack[exc->args + 1];
       B = exc->stack[exc->args];
 
       /* XXX: Because some popular fonts contain some invalid DeltaP */
@@ -7159,7 +7159,7 @@
             else if ( exc->ignore_x_mode && exc->GS.freeVector.y != 0 )
             {
               /* save the y value of the point now; compare after move */
-              B1 = (FT_UShort)exc->zp0.cur[A].y;
+              B1 = (FT_Uint)exc->zp0.cur[A].y;
 
               /* Standard subpixel hinting: Allow y move for y-touched */
               /* points.  This messes up DejaVu ...                    */
@@ -7181,7 +7181,7 @@
                   exc->func_move( exc, &exc->zp0, A, B );
               }
 
-              B2 = (FT_UShort)exc->zp0.cur[A].y;
+              B2 = (FT_Uint)exc->zp0.cur[A].y;
 
               /* Reverse this move if it results in a disallowed move */
               if ( exc->GS.freeVector.y != 0                          &&
@@ -7669,7 +7669,7 @@
   {
     FT_ULong   ins_counter = 0;  /* executed instructions counter */
     FT_ULong   num_twilight_points;
-    FT_UShort  i;
+    FT_Uint  i;
 
 #ifdef TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY
     FT_Byte    opcode_pattern[1][2] = {
@@ -7679,9 +7679,9 @@
                     0x7D, /* RDTG    */
                   },
                 };
-    FT_UShort  opcode_patterns   = 1;
-    FT_UShort  opcode_pointer[1] = { 0 };
-    FT_UShort  opcode_size[1]    = { 1 };
+    FT_Uint  opcode_patterns   = 1;
+    FT_Uint  opcode_pointer[1] = { 0 };
+    FT_Uint  opcode_size[1]    = { 1 };
 #endif /* TT_SUPPORT_SUBPIXEL_HINTING_INFINALITY */
 
 
@@ -7727,7 +7727,7 @@
                   "           from %d to the more reasonable value %d\n",
                   exc->twilight.n_points,
                   num_twilight_points ));
-      exc->twilight.n_points = (FT_UShort)num_twilight_points;
+      exc->twilight.n_points = (FT_Uint)num_twilight_points;
     }
 
     /* Set up loop detectors.  We restrict the number of LOOPCALL loops */

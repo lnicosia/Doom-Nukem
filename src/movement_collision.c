@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/23 16:31:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/23 19:07:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ double	distance_two_points_2d(double x1, double y1, double x2, double y2)
 	return (d);
 }
 
-int		hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
+/*
+**	1 == collision
+*/
+
+int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
 {
 	t_circle_vars	eq;
 	double			delta;
@@ -109,11 +113,11 @@ int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
 
 t_v3	collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 {
-	short	i;
-	t_wall	wall;
-	double	scalar;
-	double	norme_mov;
-	double	norme_wall;
+    int       i;
+    t_wall      wall;
+    double      scalar;
+    double      norme_mov;
+    double      norme_wall;
 
 	i = 0;
 	wall = motion.wall;
@@ -176,10 +180,10 @@ t_v3	collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 
 t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 {
-	short		i;
-	double      scalar;
-	double      norme_mov;
-	double      norme_wall;
+    int		i;
+    double      scalar;
+    double      norme_mov;
+    double      norme_wall;
 
 	FUTURE_X = motion.pos.x + move.x;
 	FUTURE_Y = motion.pos.y + move.y;

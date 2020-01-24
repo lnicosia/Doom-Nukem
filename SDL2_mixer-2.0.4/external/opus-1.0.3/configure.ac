@@ -212,19 +212,19 @@ AC_CHECK_FUNCS([lrintf])
 AC_CHECK_FUNCS([lrint])
 AC_CHECK_FUNCS([__malloc_hook])
 
-AC_CHECK_SIZEOF(short)
+AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
 AC_CHECK_SIZEOF(long long)
 
 if test x$has_char16 = "xyes" ; then
         case 1 in
-                $ac_cv_sizeof_short) SIZE16="short";;
+                $ac_cv_sizeof_int) SIZE16="int";;
                 $ac_cv_sizeof_int) SIZE16="int";;
         esac
 else
         case 2 in
-                $ac_cv_sizeof_short) SIZE16="short";;
+                $ac_cv_sizeof_int) SIZE16="int";;
                 $ac_cv_sizeof_int) SIZE16="int";;
         esac
 fi
@@ -233,13 +233,13 @@ if test x$has_char16 = "xyes" ; then
         case 2 in
                 $ac_cv_sizeof_int) SIZE32="int";;
                 $ac_cv_sizeof_long) SIZE32="long";;
-                $ac_cv_sizeof_short) SIZE32="short";;
+                $ac_cv_sizeof_int) SIZE32="int";;
         esac
 else
         case 4 in
                 $ac_cv_sizeof_int) SIZE32="int";;
                 $ac_cv_sizeof_long) SIZE32="long";;
-                $ac_cv_sizeof_short) SIZE32="short";;
+                $ac_cv_sizeof_int) SIZE32="int";;
         esac
 fi
 

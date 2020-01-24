@@ -54,7 +54,7 @@ static inline void silk_LPC_analysis_filter16_FLP(
     for( ix = 16; ix < length; ix++ ) {
         s_ptr = &s[ix - 1];
 
-        /* short-term prediction */
+        /* int-term prediction */
         LPC_pred = s_ptr[  0 ]  * PredCoef[ 0 ]  +
                    s_ptr[ -1 ]  * PredCoef[ 1 ]  +
                    s_ptr[ -2 ]  * PredCoef[ 2 ]  +
@@ -92,7 +92,7 @@ static inline void silk_LPC_analysis_filter12_FLP(
     for( ix = 12; ix < length; ix++ ) {
         s_ptr = &s[ix - 1];
 
-        /* short-term prediction */
+        /* int-term prediction */
         LPC_pred = s_ptr[  0 ]  * PredCoef[ 0 ]  +
                    s_ptr[ -1 ]  * PredCoef[ 1 ]  +
                    s_ptr[ -2 ]  * PredCoef[ 2 ]  +
@@ -126,7 +126,7 @@ static inline void silk_LPC_analysis_filter10_FLP(
     for( ix = 10; ix < length; ix++ ) {
         s_ptr = &s[ix - 1];
 
-        /* short-term prediction */
+        /* int-term prediction */
         LPC_pred = s_ptr[  0 ] * PredCoef[ 0 ]  +
                    s_ptr[ -1 ] * PredCoef[ 1 ]  +
                    s_ptr[ -2 ] * PredCoef[ 2 ]  +
@@ -158,7 +158,7 @@ static inline void silk_LPC_analysis_filter8_FLP(
     for( ix = 8; ix < length; ix++ ) {
         s_ptr = &s[ix - 1];
 
-        /* short-term prediction */
+        /* int-term prediction */
         LPC_pred = s_ptr[  0 ] * PredCoef[ 0 ]  +
                    s_ptr[ -1 ] * PredCoef[ 1 ]  +
                    s_ptr[ -2 ] * PredCoef[ 2 ]  +
@@ -188,7 +188,7 @@ static inline void silk_LPC_analysis_filter6_FLP(
     for( ix = 6; ix < length; ix++ ) {
         s_ptr = &s[ix - 1];
 
-        /* short-term prediction */
+        /* int-term prediction */
         LPC_pred = s_ptr[  0 ] * PredCoef[ 0 ]  +
                    s_ptr[ -1 ] * PredCoef[ 1 ]  +
                    s_ptr[ -2 ] * PredCoef[ 2 ]  +

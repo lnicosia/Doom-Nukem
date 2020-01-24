@@ -107,10 +107,10 @@ typedef struct
     WORD wButtons;
     BYTE bLeftTrigger;
     BYTE bRightTrigger;
-    SHORT sThumbLX;
-    SHORT sThumbLY;
-    SHORT sThumbRX;
-    SHORT sThumbRY;
+    int sThumbLX;
+    int sThumbLY;
+    int sThumbRX;
+    int sThumbRY;
     DWORD dwPaddingReserved;
 } XINPUT_GAMEPAD_EX;
 #endif

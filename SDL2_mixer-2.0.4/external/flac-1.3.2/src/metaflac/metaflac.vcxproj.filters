@@ -31,19 +31,19 @@
     <ClCompile Include="operations.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations_shorthand_cuesheet.c">
+    <ClCompile Include="operations_inthand_cuesheet.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations_shorthand_picture.c">
+    <ClCompile Include="operations_inthand_picture.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations_shorthand_seektable.c">
+    <ClCompile Include="operations_inthand_seektable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations_shorthand_streaminfo.c">
+    <ClCompile Include="operations_inthand_streaminfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="operations_shorthand_vorbiscomment.c">
+    <ClCompile Include="operations_inthand_vorbiscomment.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="options.c">

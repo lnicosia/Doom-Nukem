@@ -607,7 +607,7 @@ Uint32 *BuildTuneHeader(int part_poly_max[32], int part_to_inst[32], int numPart
         myNoteRequest = (NoteRequest *)(myPos1 + 1);
         myNoteRequest->info.flags = 0;
         /* I'm told by the Apple people that the Quicktime types were poorly designed and it was
-         * too late to change them. On little endian, the BigEndian(Short|Fixed) types are structs
+         * too late to change them. On little endian, the BigEndian(int|Fixed) types are structs
          * while on big endian they are primitive types. Furthermore, Quicktime failed to
          * provide setter and getter functions. To get this to work, we need to case the
          * code for the two possible situations.

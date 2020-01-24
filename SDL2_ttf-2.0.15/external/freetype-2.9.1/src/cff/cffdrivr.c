@@ -211,7 +211,7 @@
       /* the values in the `CFF' table                                  */
 
       TT_Face   ttface = (TT_Face)face;
-      FT_Short  dummy;
+      FT_int  dummy;
 
 
       if ( flags & FT_LOAD_VERTICAL_LAYOUT )
@@ -232,7 +232,7 @@
 
         for ( nn = 0; nn < count; nn++ )
         {
-          FT_UShort  ah;
+          FT_Uint  ah;
 
 
           ( (SFNT_Service)ttface->sfnt )->get_metrics( ttface,
@@ -263,7 +263,7 @@
 
         for ( nn = 0; nn < count; nn++ )
         {
-          FT_UShort  aw;
+          FT_Uint  aw;
 
 
           ( (SFNT_Service)ttface->sfnt )->get_metrics( ttface,
@@ -314,7 +314,7 @@
   {
     CFF_Font    font   = (CFF_Font)face->extra.data;
     FT_String*  gname;
-    FT_UShort   sid;
+    FT_Uint   sid;
     FT_Error    error;
 
 
@@ -381,7 +381,7 @@
     CFF_Charset         charset;
     FT_Service_PsCMaps  psnames;
     FT_String*          name;
-    FT_UShort           sid;
+    FT_Uint           sid;
     FT_UInt             i;
 
 
@@ -487,8 +487,8 @@
                                                          dict->weight );
       font_info->italic_angle        = dict->italic_angle;
       font_info->is_fixed_pitch      = dict->is_fixed_pitch;
-      font_info->underline_position  = (FT_Short)dict->underline_position;
-      font_info->underline_thickness = (FT_UShort)dict->underline_thickness;
+      font_info->underline_position  = (FT_int)dict->underline_position;
+      font_info->underline_thickness = (FT_Uint)dict->underline_thickness;
 
       cff->font_info = font_info;
     }
@@ -547,7 +547,7 @@
           {
             if ( *s >= '0' && *s <= '9' )
             {
-              if ( font_extra->fs_type >= ( FT_USHORT_MAX - 9 ) / 10 )
+              if ( font_extra->fs_type >= ( FT_Uint_MAX - 9 ) / 10 )
               {
                 /* Overflow - ignore the FSType value.  */
                 font_extra->fs_type = 0U;
@@ -555,7 +555,7 @@
               }
 
               font_extra->fs_type *= 10;
-              font_extra->fs_type += (FT_UShort)( *s - '0' );
+              font_extra->fs_type += (FT_Uint)( *s - '0' );
             }
             else if ( *s != ' ' && *s != '\n' && *s != '\r' )
             {

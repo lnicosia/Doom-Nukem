@@ -57,7 +57,7 @@ typedef struct private_state {
 
 typedef struct codec_setup_info {
 
-  /* Vorbis supports only short and long blocks, but allows the
+  /* Vorbis supports only int and long blocks, but allows the
      encoder to choose the sizes */
 
   long blocksizes[2];

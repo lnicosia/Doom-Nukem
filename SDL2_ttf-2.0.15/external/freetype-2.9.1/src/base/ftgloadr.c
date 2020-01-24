@@ -345,16 +345,16 @@
     n_base_points   = base->outline.n_points;
 
     base->outline.n_points =
-      (short)( base->outline.n_points + current->outline.n_points );
+      (int)( base->outline.n_points + current->outline.n_points );
     base->outline.n_contours =
-      (short)( base->outline.n_contours + current->outline.n_contours );
+      (int)( base->outline.n_contours + current->outline.n_contours );
 
     base->num_subglyphs += current->num_subglyphs;
 
     /* adjust contours count in newest outline */
     for ( n = 0; n < n_curr_contours; n++ )
       current->outline.contours[n] =
-        (short)( current->outline.contours[n] + n_base_points );
+        (int)( current->outline.contours[n] + n_base_points );
 
     /* prepare for another new glyph image */
     FT_GlyphLoader_Prepare( loader );
@@ -393,8 +393,8 @@
                        num_points );
       }
 
-      out->n_points   = (short)num_points;
-      out->n_contours = (short)num_contours;
+      out->n_points   = (int)num_points;
+      out->n_contours = (int)num_contours;
 
       FT_GlyphLoader_Adjust_Points( target );
     }

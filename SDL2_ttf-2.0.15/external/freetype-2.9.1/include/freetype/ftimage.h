@@ -264,7 +264,7 @@ FT_BEGIN_HEADER
     unsigned int    width;
     int             pitch;
     unsigned char*  buffer;
-    unsigned short  num_grays;
+    unsigned int  num_grays;
     unsigned char   pixel_mode;
     unsigned char   palette_mode;
     void*           palette;
@@ -315,7 +315,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*                  Bits 3 and~4 are reserved for internal purposes.     */
   /*                                                                       */
-  /*    contours   :: An array of `n_contours' shorts, giving the end      */
+  /*    contours   :: An array of `n_contours' ints, giving the end      */
   /*                  point of each contour within the outline.  For       */
   /*                  example, the first contour is defined by the points  */
   /*                  `0' to `contours[0]', the second one is defined by   */
@@ -333,12 +333,12 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_Outline_
   {
-    short       n_contours;      /* number of contours in glyph        */
-    short       n_points;        /* number of points in the glyph      */
+    int       n_contours;      /* number of contours in glyph        */
+    int       n_points;        /* number of points in the glyph      */
 
     FT_Vector*  points;          /* the outline's points               */
     char*       tags;            /* the points flags                   */
-    short*      contours;        /* the contour end points             */
+    int*      contours;        /* the contour end points             */
 
     int         flags;           /* outline masks                      */
 
@@ -827,8 +827,8 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_Span_
   {
-    short           x;
-    unsigned short  len;
+    int           x;
+    unsigned int  len;
     unsigned char   coverage;
 
   } FT_Span;

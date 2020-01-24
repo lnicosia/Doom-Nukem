@@ -1381,7 +1381,7 @@
 	bitmap glyph should be excluded.
 	
 	* src/smooth/ftgrays.c (gray_hline): As FT_Span.x is
-	truncated to fit its type (16-bit short), FT_Span.y
+	truncated to fit its type (16-bit int), FT_Span.y
 	should be truncated to fit its type (FT_Int).
 	
 	* src/cff/cffdrivr.c (cff_get_ros): CFF specification
@@ -5198,7 +5198,7 @@
 
 	For the index in the segment of resource fork, new portable
 	type ResourceIndex is introduced for better compatibility.
-	This type is since Mac OS X 10.5, so it is defined as short
+	This type is since Mac OS X 10.5, so it is defined as int
 	when built on older platforms.
 
 	(FT_ATSFontGetFileReference): If build target is only the systems
@@ -5320,7 +5320,7 @@
 
 2007-08-29  suzuki toshiya  <mpsuzuki@hiroshima-u.ac.jp>
 
-	* src/base/ftmac.c: Introduction of abstract `short' data types,
+	* src/base/ftmac.c: Introduction of abstract `int' data types,
 	ResFileRefNum and ResID.  These types were introduced for Copland,
 	then backported to MPW.  The variables exchanged with FileManager
 	QuickDraw frameworks are redefined by these data types.  Patch was

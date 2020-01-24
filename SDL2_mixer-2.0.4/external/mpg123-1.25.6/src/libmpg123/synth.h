@@ -13,7 +13,7 @@
 	This is what resulted...
 
 	Basically, you need one set of these functions for each output sample type.
-	That currently means signed short, 8bit or float/double; though unsigned short may come, too.
+	That currently means signed int, 8bit or float/double; though unsigned int may come, too.
 
 	Define NO_AUTOINCREMENT i386 code that shall not rely on autoincrement.
 	Actual benefit of this has to be examined; may apply to specific (old) compilers, only.

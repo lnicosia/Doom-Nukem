@@ -56,8 +56,8 @@
     OTV_ENTER;
 
     OTV_LIMIT_CHECK( 4 );
-    Coverage   = table + FT_NEXT_USHORT( p );
-    GlyphCount = FT_NEXT_USHORT( p );
+    Coverage   = table + FT_NEXT_Uint( p );
+    GlyphCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (GlyphCount = %d)\n", GlyphCount ));
 
@@ -72,7 +72,7 @@
     otvalid->extra1 = 0;
 
     for ( ; GlyphCount > 0; GlyphCount-- )
-      func( table + FT_NEXT_USHORT( p ), otvalid );
+      func( table + FT_NEXT_Uint( p ), otvalid );
 
     otvalid->nesting_level--;
 
@@ -102,7 +102,7 @@
 
     OTV_LIMIT_CHECK( 4 );
 
-    CaretValueFormat = FT_NEXT_USHORT( p );
+    CaretValueFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format = %d)\n", CaretValueFormat ));
 
@@ -122,7 +122,7 @@
       OTV_LIMIT_CHECK( 2 );
 
       /* DeviceTable */
-      otv_Device_validate( table + FT_NEXT_USHORT( p ), otvalid );
+      otv_Device_validate( table + FT_NEXT_Uint( p ), otvalid );
       break;
 
     default:
@@ -154,7 +154,7 @@
     p += 2;     /* skip Format */
 
     OTV_LIMIT_CHECK( 2 );
-    MarkGlyphSetCount = FT_NEXT_USHORT( p );
+    MarkGlyphSetCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (MarkGlyphSetCount = %d)\n", MarkGlyphSetCount ));
 
@@ -188,7 +188,7 @@
     OTV_Validator     otvalid = &otvalidrec;
     FT_Bytes          p       = table;
     FT_UInt           table_size;
-    FT_UShort         version;
+    FT_Uint         version;
     FT_Bool           need_MarkAttachClassDef = 1;
 
     OTV_OPTIONAL_TABLE( GlyphClassDef );
@@ -207,10 +207,10 @@
 
     OTV_LIMIT_CHECK( 4 );
 
-    if ( FT_NEXT_USHORT( p ) != 1 )  /* majorVersion */
+    if ( FT_NEXT_Uint( p ) != 1 )  /* majorVersion */
       FT_INVALID_FORMAT;
 
-    version = FT_NEXT_USHORT( p );   /* minorVersion */
+    version = FT_NEXT_Uint( p );   /* minorVersion */
 
     table_size = 10;
     switch ( version )

@@ -51,7 +51,7 @@
     OTV_NAME_ENTER( "SingleSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -65,8 +65,8 @@
 
 
         OTV_LIMIT_CHECK( 4 );
-        Coverage     = table + FT_NEXT_USHORT( p );
-        DeltaGlyphID = FT_NEXT_SHORT( p );
+        Coverage     = table + FT_NEXT_Uint( p );
+        DeltaGlyphID = FT_NEXT_int( p );
 
         otv_Coverage_validate( Coverage, otvalid, -1 );
 
@@ -86,8 +86,8 @@
 
 
         OTV_LIMIT_CHECK( 4 );
-        Coverage   = FT_NEXT_USHORT( p );
-        GlyphCount = FT_NEXT_USHORT( p );
+        Coverage   = FT_NEXT_Uint( p );
+        GlyphCount = FT_NEXT_Uint( p );
 
         OTV_TRACE(( " (GlyphCount = %d)\n", GlyphCount ));
 
@@ -99,7 +99,7 @@
 
         /* Substitute */
         for ( ; GlyphCount > 0; GlyphCount-- )
-          if ( FT_NEXT_USHORT( p ) >= otvalid->glyph_count )
+          if ( FT_NEXT_Uint( p ) >= otvalid->glyph_count )
             FT_INVALID_GLYPH_ID;
       }
       break;
@@ -133,7 +133,7 @@
     OTV_NAME_ENTER( "MultipleSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -174,7 +174,7 @@
     OTV_NAME_ENTER( "AlternateSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -217,11 +217,11 @@
     OTV_ENTER;
 
     OTV_LIMIT_CHECK( 4 );
-    LigatureGlyph = FT_NEXT_USHORT( p );
+    LigatureGlyph = FT_NEXT_Uint( p );
     if ( LigatureGlyph >= otvalid->glyph_count )
       FT_INVALID_DATA;
 
-    CompCount = FT_NEXT_USHORT( p );
+    CompCount = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (CompCount = %d)\n", CompCount ));
 
@@ -249,7 +249,7 @@
     OTV_NAME_ENTER( "LigatureSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -289,7 +289,7 @@
     OTV_NAME_ENTER( "ContextSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -348,7 +348,7 @@
     OTV_NAME_ENTER( "ChainContextSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -409,7 +409,7 @@
     OTV_NAME_ENTER( "ExtensionSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -423,7 +423,7 @@
 
 
         OTV_LIMIT_CHECK( 6 );
-        ExtensionLookupType = FT_NEXT_USHORT( p );
+        ExtensionLookupType = FT_NEXT_Uint( p );
         ExtensionOffset     = FT_NEXT_ULONG( p );
 
         if ( ExtensionLookupType == 0 ||
@@ -466,7 +466,7 @@
     OTV_NAME_ENTER( "ReverseChainSingleSubst" );
 
     OTV_LIMIT_CHECK( 2 );
-    SubstFormat = FT_NEXT_USHORT( p );
+    SubstFormat = FT_NEXT_Uint( p );
 
     OTV_TRACE(( " (format %d)\n", SubstFormat ));
 
@@ -474,8 +474,8 @@
     {
     case 1:     /* ReverseChainSingleSubstFormat1 */
       OTV_LIMIT_CHECK( 4 );
-      Coverage            = table + FT_NEXT_USHORT( p );
-      BacktrackGlyphCount = FT_NEXT_USHORT( p );
+      Coverage            = table + FT_NEXT_Uint( p );
+      BacktrackGlyphCount = FT_NEXT_Uint( p );
 
       OTV_TRACE(( " (BacktrackGlyphCount = %d)\n", BacktrackGlyphCount ));
 
@@ -484,18 +484,18 @@
       OTV_LIMIT_CHECK( BacktrackGlyphCount * 2 + 2 );
 
       for ( ; BacktrackGlyphCount > 0; BacktrackGlyphCount-- )
-        otv_Coverage_validate( table + FT_NEXT_USHORT( p ), otvalid, -1 );
+        otv_Coverage_validate( table + FT_NEXT_Uint( p ), otvalid, -1 );
 
-      LookaheadGlyphCount = FT_NEXT_USHORT( p );
+      LookaheadGlyphCount = FT_NEXT_Uint( p );
 
       OTV_TRACE(( " (LookaheadGlyphCount = %d)\n", LookaheadGlyphCount ));
 
       OTV_LIMIT_CHECK( LookaheadGlyphCount * 2 + 2 );
 
       for ( ; LookaheadGlyphCount > 0; LookaheadGlyphCount-- )
-        otv_Coverage_validate( table + FT_NEXT_USHORT( p ), otvalid, -1 );
+        otv_Coverage_validate( table + FT_NEXT_Uint( p ), otvalid, -1 );
 
-      GlyphCount = FT_NEXT_USHORT( p );
+      GlyphCount = FT_NEXT_Uint( p );
 
       OTV_TRACE(( " (GlyphCount = %d)\n", GlyphCount ));
 
@@ -506,7 +506,7 @@
 
       /* Substitute */
       for ( ; GlyphCount > 0; GlyphCount-- )
-        if ( FT_NEXT_USHORT( p ) >= otvalid->glyph_count )
+        if ( FT_NEXT_Uint( p ) >= otvalid->glyph_count )
           FT_INVALID_DATA;
 
       break;
@@ -553,7 +553,7 @@
     OTV_Validator     otvalid = &otvalidrec;
     FT_Bytes          p       = table;
     FT_UInt           table_size;
-    FT_UShort         version;
+    FT_Uint         version;
     FT_UInt           ScriptList, FeatureList, LookupList;
 
     OTV_OPTIONAL_TABLE32( featureVariations );
@@ -566,10 +566,10 @@
 
     OTV_LIMIT_CHECK( 4 );
 
-    if ( FT_NEXT_USHORT( p ) != 1 )  /* majorVersion */
+    if ( FT_NEXT_Uint( p ) != 1 )  /* majorVersion */
       FT_INVALID_FORMAT;
 
-    version = FT_NEXT_USHORT( p );   /* minorVersion */
+    version = FT_NEXT_Uint( p );   /* minorVersion */
 
     table_size = 10;
     switch ( version )
@@ -587,9 +587,9 @@
       FT_INVALID_FORMAT;
     }
 
-    ScriptList  = FT_NEXT_USHORT( p );
-    FeatureList = FT_NEXT_USHORT( p );
-    LookupList  = FT_NEXT_USHORT( p );
+    ScriptList  = FT_NEXT_Uint( p );
+    FeatureList = FT_NEXT_Uint( p );
+    LookupList  = FT_NEXT_Uint( p );
 
     otvalid->type_count  = 8;
     otvalid->type_funcs  = (OTV_Validate_Func*)otv_gsub_validate_funcs;

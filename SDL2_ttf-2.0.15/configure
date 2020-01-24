@@ -1111,7 +1111,7 @@ do
   -help=r* | --help=r* | --hel=r* | --he=r* | -hr*)
     ac_init_help=recursive ;;
   -help=s* | --help=s* | --hel=s* | --he=s* | -hs*)
-    ac_init_help=short ;;
+    ac_init_help=int ;;
 
   -host | --host | --hos | --ho)
     ac_prev=host_alias ;;
@@ -1497,8 +1497,8 @@ Defaults for the options are specified in brackets.
 
 Configuration:
   -h, --help              display this help and exit
-      --help=short        display options specific to this package
-      --help=recursive    display the short help of all the included packages
+      --help=int        display options specific to this package
+      --help=recursive    display the int help of all the included packages
   -V, --version           display version information and exit
   -q, --quiet, --silent   do not print \`checking ...' messages
       --cache-file=FILE   cache test results in FILE [disabled]
@@ -2884,7 +2884,7 @@ $as_echo "$ac_try_echo"; } >&5
   # Autoconf-2.13 could set the ac_cv_exeext variable to `no'.
 # So ignore a value of `no', otherwise this would lead to `EXEEXT = no'
 # in a Makefile.  We should not override ac_cv_exeext if it was cached,
-# so that the user can short-circuit this test for compilers unknown to
+# so that the user can int-circuit this test for compilers unknown to
 # Autoconf.
 for ac_file in $ac_files ''
 do
@@ -12036,12 +12036,12 @@ fi
 if test $pkg_failed = yes; then
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
+        _pkg_int_errors_supported=yes
 else
-        _pkg_short_errors_supported=no
+        _pkg_int_errors_supported=no
 fi
-        if test $_pkg_short_errors_supported = yes; then
-	        FT2_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "freetype2 >= 7.0.1"`
+        if test $_pkg_int_errors_supported = yes; then
+	        FT2_PKG_ERRORS=`$PKG_CONFIG --int-errors --errors-to-stdout --print-errors "freetype2 >= 7.0.1"`
         else
 	        FT2_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "freetype2 >= 7.0.1"`
         fi
@@ -12753,12 +12753,12 @@ fi
 if test $pkg_failed = yes; then
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
+        _pkg_int_errors_supported=yes
 else
-        _pkg_short_errors_supported=no
+        _pkg_int_errors_supported=no
 fi
-        if test $_pkg_short_errors_supported = yes; then
-	        SDL_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "sdl2 >= $min_sdl_version"`
+        if test $_pkg_int_errors_supported = yes; then
+	        SDL_PKG_ERRORS=`$PKG_CONFIG --int-errors --errors-to-stdout --print-errors "sdl2 >= $min_sdl_version"`
         else
 	        SDL_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "sdl2 >= $min_sdl_version"`
         fi

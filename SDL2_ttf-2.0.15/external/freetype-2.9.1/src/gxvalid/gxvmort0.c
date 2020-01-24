@@ -64,17 +64,17 @@
   static void
   gxv_mort_subtable_type0_entry_validate(
     FT_Byte                         state,
-    FT_UShort                       flags,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
     GXV_Validator                   gxvalid )
   {
-    FT_UShort  markFirst;
-    FT_UShort  dontAdvance;
-    FT_UShort  markLast;
-    FT_UShort  reserved;
-    FT_UShort  verb = 0;
+    FT_Uint  markFirst;
+    FT_Uint  dontAdvance;
+    FT_Uint  markLast;
+    FT_Uint  reserved;
+    FT_Uint  verb = 0;
 
     FT_UNUSED( state );
     FT_UNUSED( table );
@@ -84,12 +84,12 @@
     FT_UNUSED( glyphOffset_p );                  /* case                  */
 
 
-    markFirst   = (FT_UShort)( ( flags >> 15 ) & 1 );
-    dontAdvance = (FT_UShort)( ( flags >> 14 ) & 1 );
-    markLast    = (FT_UShort)( ( flags >> 13 ) & 1 );
+    markFirst   = (FT_Uint)( ( flags >> 15 ) & 1 );
+    dontAdvance = (FT_Uint)( ( flags >> 14 ) & 1 );
+    markLast    = (FT_Uint)( ( flags >> 13 ) & 1 );
 
-    reserved = (FT_UShort)( flags & 0x1FF0 );
-    verb     = (FT_UShort)( flags & 0x000F );
+    reserved = (FT_Uint)( flags & 0x1FF0 );
+    verb     = (FT_Uint)( flags & 0x000F );
 
     GXV_TRACE(( "  IndicScript MorphRule for glyphOffset 0x%04x",
                 glyphOffset_p->u ));

@@ -38,8 +38,8 @@ extern LONG gnRvbROfsVol;
 extern LONG gnRvbLOfsVol;
 
 // 4x256 taps polyphase FIR resampling filter
-extern short int gFastSinc[];
-extern short int gKaiserSinc[]; // 8-taps polyphase
+extern int int gFastSinc[];
+extern int int gKaiserSinc[]; // 8-taps polyphase
 /*
  *-----------------------------------------------------------------------------
  cubic spline interpolation doc,
@@ -100,10 +100,10 @@ class CzCUBICSPLINE
 {	public:
 		CzCUBICSPLINE( );
 		~CzCUBICSPLINE( );
-		static signed short lut[4*(1L<<SPLINE_FRACBITS)];
+		static signed int lut[4*(1L<<SPLINE_FRACBITS)];
 };
 
-signed short CzCUBICSPLINE::lut[4*(1L<<SPLINE_FRACBITS)];
+signed int CzCUBICSPLINE::lut[4*(1L<<SPLINE_FRACBITS)];
 
 CzCUBICSPLINE::CzCUBICSPLINE( )
 {	int _LIi;
@@ -118,10 +118,10 @@ CzCUBICSPLINE::CzCUBICSPLINE( )
 		_LC0 = (float)floor( 0.5 + _LScale*( 1.5*_LX*_LX*_LX - 2.5*_LX*_LX + 1.0 ) );
 		_LC1 = (float)floor( 0.5 + _LScale*(-1.5*_LX*_LX*_LX + 2.0*_LX*_LX + 0.5*_LX ) );
 		_LC2 = (float)floor( 0.5 + _LScale*( 0.5*_LX*_LX*_LX - 0.5*_LX*_LX) );
-		lut[_LIdx+0] = (signed short)( (_LCm1 < -_LScale) ? -_LScale : ((_LCm1 > _LScale) ? _LScale : _LCm1) );
-		lut[_LIdx+1] = (signed short)( (_LC0  < -_LScale) ? -_LScale : ((_LC0  > _LScale) ? _LScale : _LC0 ) );
-		lut[_LIdx+2] = (signed short)( (_LC1  < -_LScale) ? -_LScale : ((_LC1  > _LScale) ? _LScale : _LC1 ) );
-		lut[_LIdx+3] = (signed short)( (_LC2  < -_LScale) ? -_LScale : ((_LC2  > _LScale) ? _LScale : _LC2 ) );
+		lut[_LIdx+0] = (signed int)( (_LCm1 < -_LScale) ? -_LScale : ((_LCm1 > _LScale) ? _LScale : _LCm1) );
+		lut[_LIdx+1] = (signed int)( (_LC0  < -_LScale) ? -_LScale : ((_LC0  > _LScale) ? _LScale : _LC0 ) );
+		lut[_LIdx+2] = (signed int)( (_LC1  < -_LScale) ? -_LScale : ((_LC1  > _LScale) ? _LScale : _LC1 ) );
+		lut[_LIdx+3] = (signed int)( (_LC2  < -_LScale) ? -_LScale : ((_LC2  > _LScale) ? _LScale : _LC2 ) );
 #ifdef SPLINE_CLAMPFORUNITY
 		_LSum = lut[_LIdx+0]+lut[_LIdx+1]+lut[_LIdx+2]+lut[_LIdx+3];
 		if( _LSum != SPLINE_QUANTSCALE )
@@ -129,7 +129,7 @@ CzCUBICSPLINE::CzCUBICSPLINE( )
 			if( lut[_LIdx+1]>lut[_LMax] ) _LMax = _LIdx+1;
 			if( lut[_LIdx+2]>lut[_LMax] ) _LMax = _LIdx+2;
 			if( lut[_LIdx+3]>lut[_LMax] ) _LMax = _LIdx+3;
-			lut[_LMax] += ((signed short)SPLINE_QUANTSCALE-_LSum);
+			lut[_LMax] += ((signed int)SPLINE_QUANTSCALE-_LSum);
 		}
 #endif
 	}
@@ -250,10 +250,10 @@ public:
 		}
 		return (float)(_LWc*_LSi);
 	}
-	static signed short lut[WFIR_LUTLEN*WFIR_WIDTH];
+	static signed int lut[WFIR_LUTLEN*WFIR_WIDTH];
 };
 
-signed short CzWINDOWEDFIR::lut[WFIR_LUTLEN*WFIR_WIDTH];
+signed int CzWINDOWEDFIR::lut[WFIR_LUTLEN*WFIR_WIDTH];
 
 CzWINDOWEDFIR::CzWINDOWEDFIR()
 {
@@ -273,7 +273,7 @@ CzWINDOWEDFIR::CzWINDOWEDFIR()
 		_LGain = 1.0f/_LGain;
 		for( _LCc=0;_LCc<WFIR_WIDTH;_LCc++ )
 		{	float _LCoef = (float)floor( 0.5 + _LScale*_LCoefs[_LCc]*_LGain );
-		lut[_LIdx+_LCc] = (signed short)( (_LCoef<-_LScale)?-_LScale:((_LCoef>_LScale)?_LScale:_LCoef) );
+		lut[_LIdx+_LCc] = (signed int)( (_LCoef<-_LScale)?-_LScale:((_LCoef>_LScale)?_LScale:_LCoef) );
 		}
 	}
 }
@@ -298,7 +298,7 @@ CzWINDOWEDFIR sfir;
 #define SNDMIX_BEGINSAMPLELOOP16\
 	register MODCHANNEL * const pChn = pChannel;\
 	nPos = pChn->nPosLo;\
-	const signed short *p = (signed short *)(pChn->pCurrentSample+(pChn->nPos*2));\
+	const signed int *p = (signed int *)(pChn->pCurrentSample+(pChn->nPos*2));\
 	if (pChn->dwFlags & CHN_STEREO) p += pChn->nPos;\
 	int *pvol = pbuffer;\
 	do {
@@ -1437,7 +1437,7 @@ static LONG MPPFASTCALL GetSampleCount(MODCHANNEL *pChn, LONG nSamples)
 		if ((nPos < 0) || (nInc < 0)) return 0;
 	}
 	if ((nPos < 0) || (nPos >= (LONG)pChn->nLength)) return 0;
-	LONG nPosLo = (USHORT)pChn->nPosLo, nSmpCount = nSamples;
+	LONG nPosLo = (Uint)pChn->nPosLo, nSmpCount = nSamples;
 	if (nInc < 0)
 	{
 		LONG nInv = -nInc;
@@ -1774,7 +1774,7 @@ cliphigh:
 DWORD MPPASMCALL X86_Convert32To16(LPVOID lp16, int *pBuffer, DWORD lSampleCount, LPLONG lpMin, LPLONG lpMax)
 {
 	int vumin = *lpMin, vumax = *lpMax;
-	signed short *p = (signed short *)lp16;
+	signed int *p = (signed int *)lp16;
 	for (UINT i=0; i<lSampleCount; i++)
 	{
 		int n = pBuffer[i];

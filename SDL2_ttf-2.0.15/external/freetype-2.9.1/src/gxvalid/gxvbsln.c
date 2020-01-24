@@ -54,7 +54,7 @@
   typedef struct  GXV_bsln_DataRec_
   {
     FT_Bytes   ctlPoints_p;
-    FT_UShort  defaultBaseline;
+    FT_Uint  defaultBaseline;
 
   } GXV_bsln_DataRec, *GXV_bsln_Data;
 
@@ -71,12 +71,12 @@
   /*************************************************************************/
 
   static void
-  gxv_bsln_LookupValue_validate( FT_UShort            glyph,
+  gxv_bsln_LookupValue_validate( FT_Uint            glyph,
                                  GXV_LookupValueCPtr  value_p,
                                  GXV_Validator        gxvalid )
   {
-    FT_UShort     v = value_p->u;
-    FT_UShort*    ctlPoints;
+    FT_Uint     v = value_p->u;
+    FT_Uint*    ctlPoints;
 
     FT_UNUSED( glyph );
 
@@ -86,7 +86,7 @@
     if ( v >= GXV_BSLN_VALUE_COUNT )
       FT_INVALID_DATA;
 
-    ctlPoints = (FT_UShort*)GXV_BSLN_DATA( ctlPoints_p );
+    ctlPoints = (FT_Uint*)GXV_BSLN_DATA( ctlPoints_p );
     if ( ctlPoints && ctlPoints[v] == GXV_BSLN_VALUE_EMPTY )
       FT_INVALID_DATA;
 
@@ -122,25 +122,25 @@
   */
 
   static GXV_LookupValueDesc
-  gxv_bsln_LookupFmt4_transit( FT_UShort            relative_gindex,
+  gxv_bsln_LookupFmt4_transit( FT_Uint            relative_gindex,
                                GXV_LookupValueCPtr  base_value_p,
                                FT_Bytes             lookuptbl_limit,
                                GXV_Validator        gxvalid )
   {
     FT_Bytes             p;
     FT_Bytes             limit;
-    FT_UShort            offset;
+    FT_Uint            offset;
     GXV_LookupValueDesc  value;
 
     /* XXX: check range ? */
-    offset = (FT_UShort)( base_value_p->u +
-                          ( relative_gindex * sizeof ( FT_UShort ) ) );
+    offset = (FT_Uint)( base_value_p->u +
+                          ( relative_gindex * sizeof ( FT_Uint ) ) );
 
     p     = gxvalid->lookuptbl_head + offset;
     limit = lookuptbl_limit;
     GXV_LIMIT_CHECK( 2 );
 
-    value.u = FT_NEXT_USHORT( p );
+    value.u = FT_NEXT_Uint( p );
 
     return value;
   }
@@ -197,11 +197,11 @@
   {
     FT_Bytes   p = tables;
 
-    FT_UShort  stdGlyph;
-    FT_UShort  ctlPoint;
+    FT_Uint  stdGlyph;
+    FT_Uint  ctlPoint;
     FT_Int     i;
 
-    FT_UShort  defaultBaseline = GXV_BSLN_DATA( defaultBaseline );
+    FT_Uint  defaultBaseline = GXV_BSLN_DATA( defaultBaseline );
 
 
     GXV_NAME_ENTER( "parts format 2" );
@@ -209,7 +209,7 @@
     GXV_LIMIT_CHECK( 2 + ( 2 * GXV_BSLN_VALUE_COUNT ) );
 
     /* stdGlyph */
-    stdGlyph = FT_NEXT_USHORT( p );
+    stdGlyph = FT_NEXT_Uint( p );
     GXV_TRACE(( " (stdGlyph = %u)\n", stdGlyph ));
 
     gxv_glyphid_validate( stdGlyph, gxvalid );
@@ -220,7 +220,7 @@
     /* ctlPoints */
     for ( i = 0; i < GXV_BSLN_VALUE_COUNT; i++ )
     {
-      ctlPoint = FT_NEXT_USHORT( p );
+      ctlPoint = FT_NEXT_Uint( p );
       if ( ctlPoint == GXV_BSLN_VALUE_EMPTY )
       {
         if ( i == defaultBaseline )
@@ -282,8 +282,8 @@
     FT_Bytes  limit = 0;
 
     FT_ULong   version;
-    FT_UShort  format;
-    FT_UShort  defaultBaseline;
+    FT_Uint  format;
+    FT_Uint  defaultBaseline;
 
     GXV_Validate_Func  fmt_funcs_table [] =
     {
@@ -304,8 +304,8 @@
 
     GXV_LIMIT_CHECK( 4 + 2 + 2 );
     version         = FT_NEXT_ULONG( p );
-    format          = FT_NEXT_USHORT( p );
-    defaultBaseline = FT_NEXT_USHORT( p );
+    format          = FT_NEXT_Uint( p );
+    defaultBaseline = FT_NEXT_Uint( p );
 
     /* only version 1.0 is defined (1996) */
     if ( version != 0x00010000UL )

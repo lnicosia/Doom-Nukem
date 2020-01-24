@@ -1055,7 +1055,7 @@ SDL_vsscanf(const char *text, const char *fmt, va_list ap)
             int radix = 10;
             enum
             {
-                DO_SHORT,
+                DO_int,
                 DO_INT,
                 DO_LONG,
                 DO_LONGLONG
@@ -1107,7 +1107,7 @@ SDL_vsscanf(const char *text, const char *fmt, va_list ap)
                     suppress = SDL_TRUE;
                     break;
                 case 'h':
-                    if (inttype > DO_SHORT) {
+                    if (inttype > DO_int) {
                         ++inttype;
                     }
                     break;
@@ -1153,10 +1153,10 @@ SDL_vsscanf(const char *text, const char *fmt, va_list ap)
                         text += advance;
                         if (advance && !suppress) {
                             switch (inttype) {
-                            case DO_SHORT:
+                            case DO_int:
                                 {
-                                    short *valuep = va_arg(ap, short *);
-                                    *valuep = (short) value;
+                                    int *valuep = va_arg(ap, int *);
+                                    *valuep = (int) value;
                                 }
                                 break;
                             case DO_INT:
@@ -1207,10 +1207,10 @@ SDL_vsscanf(const char *text, const char *fmt, va_list ap)
                         text += advance;
                         if (advance && !suppress) {
                             switch (inttype) {
-                            case DO_SHORT:
+                            case DO_int:
                                 {
-                                    short *valuep = va_arg(ap, short *);
-                                    *valuep = (short) value;
+                                    int *valuep = va_arg(ap, int *);
+                                    *valuep = (int) value;
                                 }
                                 break;
                             case DO_INT:
@@ -1599,7 +1599,7 @@ SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, const char *fmt, 
                     done = SDL_TRUE;
                     break;
                 case 'h':
-                    /* short is promoted to int when passed through (...) */
+                    /* int is promoted to int when passed through (...) */
                     break;
                 case 'l':
                     if (inttype < DO_LONGLONG) {

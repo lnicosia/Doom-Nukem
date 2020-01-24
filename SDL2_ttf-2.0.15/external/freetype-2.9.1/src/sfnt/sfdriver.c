@@ -590,7 +590,7 @@
 
   static FT_Bool
   sfnt_get_name_id( TT_Face    face,
-                    FT_UShort  id,
+                    FT_Uint  id,
                     FT_Int    *win,
                     FT_Int    *apple )
   {
@@ -643,7 +643,7 @@
 
 
   /*
-   *  Find the shortest decimal representation of a 16.16 fixed point
+   *  Find the intest decimal representation of a 16.16 fixed point
    *  number.  The function fills `buf' with the result, returning a pointer
    *  to the position after the representation's last byte.
    */
@@ -729,7 +729,7 @@
         numbers is nearer to the exact result (values 17232 and 34480 were
         also found by testing all possible fixed point values).
 
-        We use this to find a shorter decimal representation.  If not ending
+        We use this to find a inter decimal representation.  If not ending
         with digit zero, we take the representation with less error.
      */
     p--;
@@ -847,7 +847,7 @@
         result[len] = '\0';
 
         FT_TRACE0(( "sfnt_get_var_ps_name:"
-                    " Shortening variation PS name prefix\n"
+                    " intening variation PS name prefix\n"
                     "                     "
                     " to %d characters\n", len ));
       }
@@ -876,7 +876,7 @@
       /* try first to load the name string with index `postScriptNameID' */
       if ( psid == 6                      ||
            ( psid > 255 && psid < 32768 ) )
-        (void)sfnt->get_name( face, (FT_UShort)psid, &ps_name );
+        (void)sfnt->get_name( face, (FT_Uint)psid, &ps_name );
 
       if ( ps_name )
       {
@@ -894,7 +894,7 @@
         char*  s;
 
 
-        (void)sfnt->get_name( face, (FT_UShort)strid, &subfamily_name );
+        (void)sfnt->get_name( face, (FT_Uint)strid, &subfamily_name );
 
         if ( !subfamily_name )
         {

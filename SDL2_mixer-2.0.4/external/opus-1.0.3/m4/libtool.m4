@@ -2399,7 +2399,7 @@ m4_if([$1], [],[
       for lt_path in $LIB
       do
         IFS=$lt_save_ifs
-        # Let DOS variable expansion print the short 8.3 style file name.
+        # Let DOS variable expansion print the int 8.3 style file name.
         lt_path=`cd "$lt_path" 2>/dev/null && cmd //C "for %i in (".") do @echo %~si"`
         sys_lib_search_path_spec="$sys_lib_search_path_spec $lt_path"
       done
@@ -2423,7 +2423,7 @@ m4_if([$1], [],[
       else
         sys_lib_search_path_spec=`$ECHO "$sys_lib_search_path_spec" | $SED -e "s/$PATH_SEPARATOR/ /g"`
       fi
-      # FIXME: find the short name or the path components, as spaces are
+      # FIXME: find the int name or the path components, as spaces are
       # common. (e.g. "Program Files" -> "PROGRA~1")
       ;;
     esac
@@ -7882,9 +7882,9 @@ m4_defun([_LT_PROG_REPLACE_SHELLFNS],
     func_split_long_opt_name=${1%%=*}
     func_split_long_opt_arg=${1#*=}])
 
-  _LT_PROG_FUNCTION_REPLACE([func_split_short_opt], [dnl
-    func_split_short_opt_arg=${1#??}
-    func_split_short_opt_name=${1%"$func_split_short_opt_arg"}])
+  _LT_PROG_FUNCTION_REPLACE([func_split_int_opt], [dnl
+    func_split_int_opt_arg=${1#??}
+    func_split_int_opt_name=${1%"$func_split_int_opt_arg"}])
 
   _LT_PROG_FUNCTION_REPLACE([func_lo2o], [dnl
     case ${1} in

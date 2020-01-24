@@ -377,13 +377,13 @@
     case PS_DICT_STD_HW:
       retval = sizeof ( type1->private_dict.standard_width[0] );
       if ( value && value_len >= retval )
-        *((FT_UShort *)value) = type1->private_dict.standard_width[0];
+        *((FT_Uint *)value) = type1->private_dict.standard_width[0];
       break;
 
     case PS_DICT_STD_VW:
       retval = sizeof ( type1->private_dict.standard_height[0] );
       if ( value && value_len >= retval )
-        *((FT_UShort *)value) = type1->private_dict.standard_height[0];
+        *((FT_Uint *)value) = type1->private_dict.standard_height[0];
       break;
 
     case PS_DICT_NUM_BLUE_VALUES:
@@ -397,7 +397,7 @@
       {
         retval = sizeof ( type1->private_dict.blue_values[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.blue_values[idx];
+          *((FT_int *)value) = type1->private_dict.blue_values[idx];
       }
       break;
 
@@ -430,7 +430,7 @@
       {
         retval = sizeof ( type1->private_dict.other_blues[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.other_blues[idx];
+          *((FT_int *)value) = type1->private_dict.other_blues[idx];
       }
       break;
 
@@ -445,7 +445,7 @@
       {
         retval = sizeof ( type1->private_dict.family_blues[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.family_blues[idx];
+          *((FT_int *)value) = type1->private_dict.family_blues[idx];
       }
       break;
 
@@ -460,7 +460,7 @@
       {
         retval = sizeof ( type1->private_dict.family_other_blues[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.family_other_blues[idx];
+          *((FT_int *)value) = type1->private_dict.family_other_blues[idx];
       }
       break;
 
@@ -475,7 +475,7 @@
       {
         retval = sizeof ( type1->private_dict.snap_widths[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.snap_widths[idx];
+          *((FT_int *)value) = type1->private_dict.snap_widths[idx];
       }
       break;
 
@@ -490,7 +490,7 @@
       {
         retval = sizeof ( type1->private_dict.snap_heights[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.snap_heights[idx];
+          *((FT_int *)value) = type1->private_dict.snap_heights[idx];
       }
       break;
 
@@ -512,7 +512,7 @@
       {
         retval = sizeof ( type1->private_dict.min_feature[idx] );
         if ( value && value_len >= retval )
-          *((FT_Short *)value) = type1->private_dict.min_feature[idx];
+          *((FT_int *)value) = type1->private_dict.min_feature[idx];
       }
       break;
 
@@ -543,19 +543,19 @@
     case PS_DICT_UNDERLINE_POSITION:
       retval = sizeof ( type1->font_info.underline_position );
       if ( value && value_len >= retval )
-        *((FT_Short *)value) = type1->font_info.underline_position;
+        *((FT_int *)value) = type1->font_info.underline_position;
       break;
 
     case PS_DICT_UNDERLINE_THICKNESS:
       retval = sizeof ( type1->font_info.underline_thickness );
       if ( value && value_len >= retval )
-        *((FT_UShort *)value) = type1->font_info.underline_thickness;
+        *((FT_Uint *)value) = type1->font_info.underline_thickness;
       break;
 
     case PS_DICT_FS_TYPE:
       retval = sizeof ( type1->font_extra.fs_type );
       if ( value && value_len >= retval )
-        *((FT_UShort *)value) = type1->font_extra.fs_type;
+        *((FT_Uint *)value) = type1->font_extra.fs_type;
       break;
 
     case PS_DICT_VERSION:

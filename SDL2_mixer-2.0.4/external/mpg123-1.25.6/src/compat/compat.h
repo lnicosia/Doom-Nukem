@@ -265,7 +265,7 @@ void  compat_dlclose(void *handle);
 
 /* Blocking write/read of data with signal resilience.
    Both continue after being interrupted by signals and always return the
-   amount of processed data (shortage indicating actual problem or EOF). */
+   amount of processed data (intage indicating actual problem or EOF). */
 size_t unintr_write(int fd, void const *buffer, size_t bytes);
 size_t unintr_read (int fd, void *buffer, size_t bytes);
 

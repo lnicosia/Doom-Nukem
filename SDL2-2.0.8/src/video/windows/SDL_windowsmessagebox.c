@@ -44,10 +44,10 @@ typedef struct
     DWORD exStyle;
     DWORD style;
     WORD cDlgItems;
-    short x;
-    short y;
-    short cx;
-    short cy;
+    int x;
+    int y;
+    int cx;
+    int cy;
 } DLGTEMPLATEEX;
 
 typedef struct
@@ -55,10 +55,10 @@ typedef struct
     DWORD helpID;
     DWORD exStyle;
     DWORD style;
-    short x;
-    short y;
-    short cx;
-    short cy;
+    int x;
+    int y;
+    int cx;
+    int cy;
     DWORD id;
 } DLGITEMTEMPLATEEX;
 
@@ -166,7 +166,7 @@ static SDL_bool AddDialogString(WIN_DialogData *dialog, const char *string)
 
 static int s_BaseUnitsX;
 static int s_BaseUnitsY;
-static void Vec2ToDLU(short *x, short *y)
+static void Vec2ToDLU(int *x, int *y)
 {
     SDL_assert(s_BaseUnitsX != 0); /* we init in WIN_ShowMessageBox(), which is the only public function... */
 

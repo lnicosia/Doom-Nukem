@@ -14,7 +14,7 @@
 #define out1 %rsi
 
 /*
-	void dct64_avx(short *out0, short *out1, real *samples);
+	void dct64_avx(int *out0, int *out1, real *samples);
 */
 
 #ifndef __APPLE__

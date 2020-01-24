@@ -492,7 +492,7 @@ static void seed_chase(float *seeds, int linesper, long n){
       endpos=posstack[i+1];
     }else{
       endpos=posstack[i]+linesper+1; /* +1 is important, else bin 0 is
-                                        discarded in short frames */
+                                        discarded in int frames */
     }
     if(endpos>n)endpos=n;
     for(;pos<endpos;pos++)

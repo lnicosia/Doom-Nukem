@@ -178,7 +178,7 @@ gcc3)
 ## Unfortunately, FreeBSD c89 acceptance of flags depends upon
 ## the command line argument order; so add the flags where they
 ## appear in depend2.am.  Note that the slowdown incurred here
-## affects only configure: in makefiles, %FASTDEP% shortcuts this.
+## affects only configure: in makefiles, %FASTDEP% intcuts this.
   for arg
   do
     case $arg in
@@ -330,7 +330,7 @@ tcc)
   # FIXME: That version still under development at the moment of writing.
   #        Make that this statement remains true also for stable, released
   #        versions.
-  # It will wrap lines (doesn't matter whether long or short) with a
+  # It will wrap lines (doesn't matter whether long or int) with a
   # trailing '\', as in:
   #
   #   foo.o : \

@@ -49,8 +49,8 @@
 
   typedef struct  GXV_opbd_DataRec_
   {
-    FT_UShort  format;
-    FT_UShort  valueOffset_min;
+    FT_Uint  format;
+    FT_Uint  valueOffset_min;
 
   } GXV_opbd_DataRec, *GXV_opbd_Data;
 
@@ -67,14 +67,14 @@
   /*************************************************************************/
 
   static void
-  gxv_opbd_LookupValue_validate( FT_UShort            glyph,
+  gxv_opbd_LookupValue_validate( FT_Uint            glyph,
                                  GXV_LookupValueCPtr  value_p,
                                  GXV_Validator        gxvalid )
   {
     /* offset in LookupTable is measured from the head of opbd table */
     FT_Bytes   p     = gxvalid->root->base + value_p->u;
     FT_Bytes   limit = gxvalid->root->limit;
-    FT_Short   delta_value;
+    FT_int   delta_value;
     int        i;
 
 
@@ -84,14 +84,14 @@
     for ( i = 0; i < 4; i++ )
     {
       GXV_LIMIT_CHECK( 2 );
-      delta_value = FT_NEXT_SHORT( p );
+      delta_value = FT_NEXT_int( p );
 
       if ( GXV_OPBD_DATA( format ) )    /* format 1, value is ctrl pt. */
       {
         if ( delta_value == -1 )
           continue;
 
-        gxv_ctlPoint_validate( glyph, (FT_UShort)delta_value, gxvalid );
+        gxv_ctlPoint_validate( glyph, (FT_Uint)delta_value, gxvalid );
       }
       else                              /* format 0, value is distance */
         continue;
@@ -113,7 +113,7 @@
     +---------------+         |             +
     | offset[0]     |    ->   |          offset            [byte]
     +===============+         |             +
-    | lastGlyph[1]  |         | (glyphID - firstGlyph) * 4 * sizeof(FT_Short) [byte]
+    | lastGlyph[1]  |         | (glyphID - firstGlyph) * 4 * sizeof(FT_int) [byte]
     +---------------+         |
     | firstGlyph[1] |         |
     +---------------+         |
@@ -132,7 +132,7 @@
     .... */
 
   static GXV_LookupValueDesc
-  gxv_opbd_LookupFmt4_transit( FT_UShort            relative_gindex,
+  gxv_opbd_LookupFmt4_transit( FT_Uint            relative_gindex,
                                GXV_LookupValueCPtr  base_value_p,
                                FT_Bytes             lookuptbl_limit,
                                GXV_Validator        gxvalid )
@@ -143,8 +143,8 @@
     FT_UNUSED( gxvalid );
 
     /* XXX: check range? */
-    value.u = (FT_UShort)( base_value_p->u +
-                           relative_gindex * 4 * sizeof ( FT_Short ) );
+    value.u = (FT_Uint)( base_value_p->u +
+                           relative_gindex * 4 * sizeof ( FT_int ) );
 
     return value;
   }
@@ -184,7 +184,7 @@
 
     GXV_LIMIT_CHECK( 4 + 2 );
     version                 = FT_NEXT_ULONG( p );
-    GXV_OPBD_DATA( format ) = FT_NEXT_USHORT( p );
+    GXV_OPBD_DATA( format ) = FT_NEXT_Uint( p );
 
 
     /* only 0x00010000 is defined (1996) */

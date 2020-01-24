@@ -616,7 +616,7 @@ if test x$with_old_mac_fonts = xyes; then
       ],
       [
 
-        short res = 0;
+        int res = 0;
 
 
         UseResFile( res );
@@ -726,7 +726,7 @@ elif test x$with_old_mac_fonts = xyes -a x$with_fsspec != x; then
       [
 
         FCBPBPtr          paramBlock;
-        short             vRefNum;
+        int             vRefNum;
         long              dirID;
         ConstStr255Param  fileName;
         FSSpec*           spec;
@@ -772,7 +772,7 @@ elif test x$with_old_mac_fonts = xyes -a x$with_fsref != x; then
       ],
       [
 
-        short                vRefNum;
+        int                vRefNum;
         long                 dirID;
         ConstStr255Param     fileName;
 

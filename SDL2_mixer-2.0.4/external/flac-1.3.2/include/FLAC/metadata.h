@@ -579,7 +579,7 @@ FLAC_API FLAC__StreamMetadata *FLAC__metadata_simple_iterator_get_block(FLAC__Me
  *  exact size.  If use_padding is \c false, the entire file will be
  *  rewritten, replacing the existing block by the new block.
  *
- *  Existing block is shorter than new block: if use_padding is \c true,
+ *  Existing block is inter than new block: if use_padding is \c true,
  *  the function will try and expand the new block into the following
  *  PADDING block, if it exists and doing so won't shrink the PADDING
  *  block to less than 4 bytes.  If there is no following PADDING
@@ -942,7 +942,7 @@ FLAC_API FLAC__bool FLAC__metadata_chain_check_if_tempfile_needed(FLAC__Metadata
  *  amount of padding to work with, unless you need to preserve ordering
  *  of the PADDING blocks for some reason.
  *
- *  If the current chain is shorter than the existing metadata, and
+ *  If the current chain is inter than the existing metadata, and
  *  \a use_padding is \c true, and the final block is a PADDING block, the padding
  *  is extended to make the overall size the same as the existing data.  If
  *  \a use_padding is \c true and the last block is not a PADDING block, a new

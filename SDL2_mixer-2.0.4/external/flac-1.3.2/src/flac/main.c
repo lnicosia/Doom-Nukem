@@ -58,14 +58,14 @@ static int do_it(void);
 
 static FLAC__bool init_options(void);
 static int parse_options(int argc, char *argv[]);
-static int parse_option(int short_option, const char *long_option, const char *option_argument);
+static int parse_option(int int_option, const char *long_option, const char *option_argument);
 static void free_options(void);
 static void add_compression_setting_bool(compression_setting_type_t type, FLAC__bool value);
 static void add_compression_setting_string(compression_setting_type_t type, const char *value);
 static void add_compression_setting_unsigned(compression_setting_type_t type, unsigned value);
 
 static int usage_error(const char *message, ...);
-static void short_usage(void);
+static void int_usage(void);
 static void show_version(void);
 static void show_help(void);
 static void show_explain(void);
@@ -84,7 +84,7 @@ static char *local_strdup(const char *source);
 
 /*
  * share__getopt format struct; note that for long options with no
- * short option equivalent we just set the 'val' field to 0.
+ * int option equivalent we just set the 'val' field to 0.
  */
 static struct share__option long_options_[] = {
 	/*
@@ -357,7 +357,7 @@ int do_it(void)
 	else {
 		if(option_values.num_files == 0) {
 			if(flac__utils_verbosity_ >= 1)
-				short_usage();
+				int_usage();
 			return 0;
 		}
 
@@ -615,22 +615,22 @@ FLAC__bool init_options(void)
 
 int parse_options(int argc, char *argv[])
 {
-	int short_option;
+	int int_option;
 	int option_index = 1;
 	FLAC__bool had_error = false;
-	const char *short_opts = "0123456789aA:b:cdefFhHl:mMo:pP:q:r:sS:tT:vVw";
+	const char *int_opts = "0123456789aA:b:cdefFhHl:mMo:pP:q:r:sS:tT:vVw";
 
-	while ((short_option = share__getopt_long(argc, argv, short_opts, long_options_, &option_index)) != -1) {
-		switch (short_option) {
-			case 0: /* long option with no equivalent short option */
-				had_error |= (parse_option(short_option, long_options_[option_index].name, share__optarg) != 0);
+	while ((int_option = share__getopt_long(argc, argv, int_opts, long_options_, &option_index)) != -1) {
+		switch (int_option) {
+			case 0: /* long option with no equivalent int option */
+				had_error |= (parse_option(int_option, long_options_[option_index].name, share__optarg) != 0);
 				break;
 			case '?':
 			case ':':
 				had_error = true;
 				break;
-			default: /* short option */
-				had_error |= (parse_option(short_option, 0, share__optarg) != 0);
+			default: /* int option */
+				had_error |= (parse_option(int_option, 0, share__optarg) != 0);
 				break;
 		}
 	}
@@ -654,11 +654,11 @@ int parse_options(int argc, char *argv[])
 	return 0;
 }
 
-int parse_option(int short_option, const char *long_option, const char *option_argument)
+int parse_option(int int_option, const char *long_option, const char *option_argument)
 {
 	const char *violation;
 
-	if(short_option == 0) {
+	if(int_option == 0) {
 		FLAC__ASSERT(0 != long_option);
 		if(0 == strcmp(long_option, "totally-silent")) {
 			flac__utils_verbosity_ = 0;
@@ -919,7 +919,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 		}
 	}
 	else {
-		switch(short_option) {
+		switch(int_option) {
 			case 'h':
 				option_values.show_help = true;
 				break;
@@ -970,7 +970,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 			case '6':
 			case '7':
 			case '8':
-				add_compression_setting_unsigned(CST_COMPRESSION_LEVEL, short_option-'0');
+				add_compression_setting_unsigned(CST_COMPRESSION_LEVEL, int_option-'0');
 				break;
 			case '9':
 				return usage_error("ERROR: compression level '9' is reserved\n");
@@ -1003,7 +1003,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 				FLAC__ASSERT(0 != option_argument);
 				option_values.padding = atoi(option_argument);
 				if(option_values.padding < 0)
-					return usage_error("ERROR: argument to -%c must be >= 0; for no padding use -%c-\n", short_option, short_option);
+					return usage_error("ERROR: argument to -%c must be >= 0; for no padding use -%c-\n", int_option, int_option);
 				break;
 			case 'b':
 				{
@@ -1011,7 +1011,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 					FLAC__ASSERT(0 != option_argument);
 					i = atoi(option_argument);
 					if((i < (int)FLAC__MIN_BLOCK_SIZE || i > (int)FLAC__MAX_BLOCK_SIZE))
-						return usage_error("ERROR: invalid blocksize (-%c) '%d', must be >= %u and <= %u\n", short_option, i, FLAC__MIN_BLOCK_SIZE, FLAC__MAX_BLOCK_SIZE);
+						return usage_error("ERROR: invalid blocksize (-%c) '%d', must be >= %u and <= %u\n", int_option, i, FLAC__MIN_BLOCK_SIZE, FLAC__MAX_BLOCK_SIZE);
 					add_compression_setting_unsigned(CST_BLOCKSIZE, (unsigned)i);
 				}
 				break;
@@ -1027,7 +1027,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 					FLAC__ASSERT(0 != option_argument);
 					i = atoi(option_argument);
 					if(i > FLAC__MAX_LPC_ORDER)
-						return usage_error("ERROR: invalid LPC order (-%c) '%d', must be >= %u and <= %u\n", short_option, i, 0, FLAC__MAX_LPC_ORDER);
+						return usage_error("ERROR: invalid LPC order (-%c) '%d', must be >= %u and <= %u\n", int_option, i, 0, FLAC__MAX_LPC_ORDER);
 					add_compression_setting_unsigned(CST_MAX_LPC_ORDER, i);
 				}
 				break;
@@ -1052,7 +1052,7 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 					FLAC__ASSERT(0 != option_argument);
 					i = atoi(option_argument);
 					if((i > 0 && (i < FLAC__MIN_QLP_COEFF_PRECISION || i > FLAC__MAX_QLP_COEFF_PRECISION)))
-						return usage_error("ERROR: invalid value '%d' for qlp coeff precision (-%c), must be 0 or between %u and %u, inclusive\n", i, short_option, FLAC__MIN_QLP_COEFF_PRECISION, FLAC__MAX_QLP_COEFF_PRECISION);
+						return usage_error("ERROR: invalid value '%d' for qlp coeff precision (-%c), must be 0 or between %u and %u, inclusive\n", i, int_option, FLAC__MIN_QLP_COEFF_PRECISION, FLAC__MAX_QLP_COEFF_PRECISION);
 					add_compression_setting_unsigned(CST_QLP_COEFF_PRECISION, i);
 				}
 				break;
@@ -1066,17 +1066,17 @@ int parse_option(int short_option, const char *long_option, const char *option_a
 						add_compression_setting_unsigned(CST_MIN_RESIDUAL_PARTITION_ORDER, 0);
 						i = atoi(option_argument);
 						if(i > FLAC__MAX_RICE_PARTITION_ORDER)
-							return usage_error("ERROR: invalid value '%d' for residual partition order (-%c), must be between 0 and %u, inclusive\n", i, short_option, FLAC__MAX_RICE_PARTITION_ORDER);
+							return usage_error("ERROR: invalid value '%d' for residual partition order (-%c), must be between 0 and %u, inclusive\n", i, int_option, FLAC__MAX_RICE_PARTITION_ORDER);
 						add_compression_setting_unsigned(CST_MAX_RESIDUAL_PARTITION_ORDER, i);
 					}
 					else {
 						i = atoi(option_argument);
 						if(i > FLAC__MAX_RICE_PARTITION_ORDER)
-							return usage_error("ERROR: invalid value '%d' for min residual partition order (-%c), must be between 0 and %u, inclusive\n", i, short_option, FLAC__MAX_RICE_PARTITION_ORDER);
+							return usage_error("ERROR: invalid value '%d' for min residual partition order (-%c), must be between 0 and %u, inclusive\n", i, int_option, FLAC__MAX_RICE_PARTITION_ORDER);
 						add_compression_setting_unsigned(CST_MIN_RESIDUAL_PARTITION_ORDER, i);
 						i = atoi(++p);
 						if(i > FLAC__MAX_RICE_PARTITION_ORDER)
-							return usage_error("ERROR: invalid value '%d' for max residual partition order (-%c), must be between 0 and %u, inclusive\n", i, short_option, FLAC__MAX_RICE_PARTITION_ORDER);
+							return usage_error("ERROR: invalid value '%d' for max residual partition order (-%c), must be between 0 and %u, inclusive\n", i, int_option, FLAC__MAX_RICE_PARTITION_ORDER);
 						add_compression_setting_unsigned(CST_MAX_RESIDUAL_PARTITION_ORDER, i);
 					}
 				}
@@ -1200,11 +1200,11 @@ static void usage_summary(void)
 	printf("\n");
 }
 
-void short_usage(void)
+void int_usage(void)
 {
 	usage_header();
 	printf("\n");
-	printf("This is the short help; for all options use 'flac --help'; for even more\n");
+	printf("This is the int help; for all options use 'flac --help'; for even more\n");
 	printf("instructions use 'flac --explain'\n");
 	printf("\n");
 	printf("Be sure to read the list of known bugs at:\n");
@@ -1487,7 +1487,7 @@ void show_explain(void)
 	printf("                               for the picture file, or a complete specification\n");
 	printf("                               whose parts are separated by | characters.  Some\n");
 	printf("                               parts may be left empty to invoke default values.\n");
-	printf("                               Using a filename is shorthand for \"||||FILE\".\n");
+	printf("                               Using a filename is inthand for \"||||FILE\".\n");
 	printf("                               The SPECIFICATION format is:\n");
 	printf("         [TYPE]|[MIME-TYPE]|[DESCRIPTION]|[WIDTHxHEIGHTxDEPTH[/COLORS]]|FILE\n");
 	printf("           TYPE is optional; it is a number from one of:\n");

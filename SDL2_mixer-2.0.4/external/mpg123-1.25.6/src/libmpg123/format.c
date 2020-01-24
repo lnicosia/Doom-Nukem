@@ -575,7 +575,7 @@ static void conv_s16_to_f32(struct outbuffer *buf)
 	/* Does that make any sense? In x86, there is an actual instruction to divide
 	   float by integer ... but then, if we have that FPU, we don't really need
 	   fixed point decoder hacks ...? */
-	float scale = 1./SHORT_SCALE;
+	float scale = 1./int_SCALE;
 
 	if(buf->size < count*sizeof(float))
 	{

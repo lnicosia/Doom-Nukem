@@ -765,10 +765,10 @@ diff -up libmodplug-0.8.9.0/src/load_wav.cpp~ libmodplug-0.8.9.0/src/load_wav.cp
  };
  
 -
- BOOL IMAADPCMUnpack16(signed short *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes, UINT pkBlkAlign)
+ BOOL IMAADPCMUnpack16(signed int *pdest, UINT nLen, LPBYTE psrc, DWORD dwBytes, UINT pkBlkAlign)
  //------------------------------------------------------------------------------------------------
  {
-@@ -215,3 +216,4 @@ BOOL IMAADPCMUnpack16(signed short *pdes
+@@ -215,3 +216,4 @@ BOOL IMAADPCMUnpack16(signed int *pdes
  	}
  	return TRUE;
  }

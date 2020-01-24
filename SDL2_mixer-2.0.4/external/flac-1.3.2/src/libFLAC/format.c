@@ -307,7 +307,7 @@ FLAC_API unsigned FLAC__format_seektable_sort(FLAC__StreamMetadata_SeekTable *se
 }
 
 /*
- * also disallows non-shortest-form encodings, c.f.
+ * also disallows non-intest-form encodings, c.f.
  *   http://www.unicode.org/versions/corrigendum1.html
  * and a more clear explanation at the end of this section:
  *   http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8

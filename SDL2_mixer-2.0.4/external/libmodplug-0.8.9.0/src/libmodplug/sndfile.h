@@ -408,7 +408,7 @@ typedef struct _MODCHANNEL
 	LONG nPortamentoSlide, nAutoVibDepth;
 	UINT nAutoVibPos, nVibratoPos, nTremoloPos, nPanbrelloPos;
 	// 16-bit members
-	signed short nVolSwing, nPanSwing;
+	signed int nVolSwing, nPanSwing;
 	// 8-bit members
 	BYTE nNote, nNNA;
 	BYTE nNewNote, nNewIns, nCommand, nArpeggio;
@@ -973,11 +973,11 @@ int _muldivr(long a, long b, long c);
 #ifdef __GNUC__
 # define bswap_16(x) \
     (__extension__							      \
-     ({ unsigned short int __bsx = (x);					      \
+     ({ unsigned int int __bsx = (x);					      \
         ((((__bsx) >> 8) & 0xff) | (((__bsx) & 0xff) << 8)); }))
 #else
-static __inline unsigned short int
-bswap_16 (unsigned short int __bsx)
+static __inline unsigned int int
+bswap_16 (unsigned int int __bsx)
 {
   return ((((__bsx) >> 8) & 0xff) | (((__bsx) & 0xff) << 8));
 }
@@ -1000,10 +1000,10 @@ bswap_32 (unsigned int __bsx)
 #endif
 
 #if (defined ARM) && (defined _WIN32_WCE)
-static __inline unsigned short int
+static __inline unsigned int int
 ARM_get16(const void *data)
 {
-	unsigned short int s;
+	unsigned int int s;
 	memcpy(&s,data,sizeof(s));
 	return s;
 }

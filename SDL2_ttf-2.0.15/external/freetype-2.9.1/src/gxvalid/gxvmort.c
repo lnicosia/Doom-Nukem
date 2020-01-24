@@ -84,7 +84,7 @@
 
   /*
    * nFeatureFlags is typed to FT_ULong to accept that in
-   * mort (typed FT_UShort) and morx (typed FT_ULong).
+   * mort (typed FT_Uint) and morx (typed FT_ULong).
    */
   FT_LOCAL_DEF( void )
   gxv_mort_featurearray_validate( FT_Bytes       table,
@@ -102,8 +102,8 @@
     for ( i = 0; i < nFeatureFlags; i++ )
     {
       GXV_LIMIT_CHECK( 2 + 2 + 4 + 4 );
-      f.featureType    = FT_NEXT_USHORT( p );
-      f.featureSetting = FT_NEXT_USHORT( p );
+      f.featureType    = FT_NEXT_Uint( p );
+      f.featureSetting = FT_NEXT_Uint( p );
       f.enableFlags    = FT_NEXT_ULONG( p );
       f.disableFlags   = FT_NEXT_ULONG( p );
 
@@ -119,7 +119,7 @@
 
 
   FT_LOCAL_DEF( void )
-  gxv_mort_coverage_validate( FT_UShort      coverage,
+  gxv_mort_coverage_validate( FT_Uint      coverage,
                               GXV_Validator  gxvalid )
   {
     FT_UNUSED( gxvalid );
@@ -150,7 +150,7 @@
   static void
   gxv_mort_subtables_validate( FT_Bytes       table,
                                FT_Bytes       limit,
-                               FT_UShort      nSubtables,
+                               FT_Uint      nSubtables,
                                GXV_Validator  gxvalid )
   {
     FT_Bytes  p = table;
@@ -166,7 +166,7 @@
 
     };
 
-    FT_UShort  i;
+    FT_Uint  i;
 
 
     GXV_NAME_ENTER( "subtables in a chain" );
@@ -175,8 +175,8 @@
     {
       GXV_Validate_Func  func;
 
-      FT_UShort  length;
-      FT_UShort  coverage;
+      FT_Uint  length;
+      FT_Uint  coverage;
 #ifdef GXV_LOAD_UNUSED_VARS
       FT_ULong   subFeatureFlags;
 #endif
@@ -185,8 +185,8 @@
 
 
       GXV_LIMIT_CHECK( 2 + 2 + 4 );
-      length          = FT_NEXT_USHORT( p );
-      coverage        = FT_NEXT_USHORT( p );
+      length          = FT_NEXT_Uint( p );
+      coverage        = FT_NEXT_Uint( p );
 #ifdef GXV_LOAD_UNUSED_VARS
       subFeatureFlags = FT_NEXT_ULONG( p );
 #else
@@ -230,8 +230,8 @@
     FT_ULong   defaultFlags;
 #endif
     FT_ULong   chainLength;
-    FT_UShort  nFeatureFlags;
-    FT_UShort  nSubtables;
+    FT_Uint  nFeatureFlags;
+    FT_Uint  nSubtables;
 
 
     GXV_NAME_ENTER( "mort chain header" );
@@ -243,8 +243,8 @@
     p += 4;
 #endif
     chainLength   = FT_NEXT_ULONG( p );
-    nFeatureFlags = FT_NEXT_USHORT( p );
-    nSubtables    = FT_NEXT_USHORT( p );
+    nFeatureFlags = FT_NEXT_Uint( p );
+    nSubtables    = FT_NEXT_Uint( p );
 
     gxv_mort_featurearray_validate( p, table + chainLength,
                                     nFeatureFlags, gxvalid );

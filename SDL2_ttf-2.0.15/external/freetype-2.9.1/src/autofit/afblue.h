@@ -395,7 +395,7 @@ FT_BEGIN_HEADER
   typedef struct  AF_Blue_StringRec_
   {
     AF_Blue_String  string;
-    FT_UShort       properties;
+    FT_Uint       properties;
 
   } AF_Blue_StringRec;
 

@@ -67,8 +67,8 @@ struct OpusCustomMode {
    const opus_int16   *eBands;   /**< Definition for each "pseudo-critical band" */
 
    int         maxLM;
-   int         nbShortMdcts;
-   int         shortMdctSize;
+   int         nbintMdcts;
+   int         intMdctSize;
 
    int          nbAllocVectors; /**< Number of lines in the matrix below */
    const unsigned char   *allocVectors;   /**< Number of bits in each band for several rates */

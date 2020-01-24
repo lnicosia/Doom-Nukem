@@ -41,7 +41,7 @@
   static void
   gxv_morx_subtables_validate( FT_Bytes       table,
                                FT_Bytes       limit,
-                               FT_UShort      nSubtables,
+                               FT_Uint      nSubtables,
                                GXV_Validator  gxvalid )
   {
     FT_Bytes  p = table;
@@ -57,7 +57,7 @@
 
     };
 
-    FT_UShort  i;
+    FT_Uint  i;
 
 
     GXV_NAME_ENTER( "subtables in a chain" );
@@ -92,7 +92,7 @@
       GXV_LIMIT_CHECK( rest );
 
       /* morx coverage consists of mort_coverage & 16bit padding */
-      gxv_mort_coverage_validate( (FT_UShort)( ( coverage >> 16 ) | coverage ),
+      gxv_mort_coverage_validate( (FT_Uint)( ( coverage >> 16 ) | coverage ),
                                   gxvalid );
       if ( type > 5 )
         FT_INVALID_FORMAT;
@@ -147,7 +147,7 @@
       FT_INVALID_DATA;
 
     gxv_morx_subtables_validate( p, table + chainLength,
-                                 (FT_UShort)nSubtables, gxvalid );
+                                 (FT_Uint)nSubtables, gxvalid );
 
     gxvalid->subtable_length = chainLength;
 

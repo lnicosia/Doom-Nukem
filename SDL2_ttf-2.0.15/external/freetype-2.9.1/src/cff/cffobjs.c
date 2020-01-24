@@ -126,34 +126,34 @@
 
     count = priv->num_blue_values = cpriv->num_blue_values;
     for ( n = 0; n < count; n++ )
-      priv->blue_values[n] = (FT_Short)cpriv->blue_values[n];
+      priv->blue_values[n] = (FT_int)cpriv->blue_values[n];
 
     count = priv->num_other_blues = cpriv->num_other_blues;
     for ( n = 0; n < count; n++ )
-      priv->other_blues[n] = (FT_Short)cpriv->other_blues[n];
+      priv->other_blues[n] = (FT_int)cpriv->other_blues[n];
 
     count = priv->num_family_blues = cpriv->num_family_blues;
     for ( n = 0; n < count; n++ )
-      priv->family_blues[n] = (FT_Short)cpriv->family_blues[n];
+      priv->family_blues[n] = (FT_int)cpriv->family_blues[n];
 
     count = priv->num_family_other_blues = cpriv->num_family_other_blues;
     for ( n = 0; n < count; n++ )
-      priv->family_other_blues[n] = (FT_Short)cpriv->family_other_blues[n];
+      priv->family_other_blues[n] = (FT_int)cpriv->family_other_blues[n];
 
     priv->blue_scale = cpriv->blue_scale;
     priv->blue_shift = (FT_Int)cpriv->blue_shift;
     priv->blue_fuzz  = (FT_Int)cpriv->blue_fuzz;
 
-    priv->standard_width[0]  = (FT_UShort)cpriv->standard_width;
-    priv->standard_height[0] = (FT_UShort)cpriv->standard_height;
+    priv->standard_width[0]  = (FT_Uint)cpriv->standard_width;
+    priv->standard_height[0] = (FT_Uint)cpriv->standard_height;
 
     count = priv->num_snap_widths = cpriv->num_snap_widths;
     for ( n = 0; n < count; n++ )
-      priv->snap_widths[n] = (FT_Short)cpriv->snap_widths[n];
+      priv->snap_widths[n] = (FT_int)cpriv->snap_widths[n];
 
     count = priv->num_snap_heights = cpriv->num_snap_heights;
     for ( n = 0; n < count; n++ )
-      priv->snap_heights[n] = (FT_Short)cpriv->snap_heights[n];
+      priv->snap_heights[n] = (FT_int)cpriv->snap_heights[n];
 
     priv->force_bold     = cpriv->force_bold;
     priv->language_group = cpriv->language_group;
@@ -861,20 +861,20 @@
         cffface->bbox.xMax = ( dict->font_bbox.xMax + 0xFFFF ) >> 16;
         cffface->bbox.yMax = ( dict->font_bbox.yMax + 0xFFFF ) >> 16;
 
-        cffface->units_per_EM = (FT_UShort)( dict->units_per_em );
+        cffface->units_per_EM = (FT_Uint)( dict->units_per_em );
 
-        cffface->ascender  = (FT_Short)( cffface->bbox.yMax );
-        cffface->descender = (FT_Short)( cffface->bbox.yMin );
+        cffface->ascender  = (FT_int)( cffface->bbox.yMax );
+        cffface->descender = (FT_int)( cffface->bbox.yMin );
 
-        cffface->height = (FT_Short)( ( cffface->units_per_EM * 12 ) / 10 );
+        cffface->height = (FT_int)( ( cffface->units_per_EM * 12 ) / 10 );
         if ( cffface->height < cffface->ascender - cffface->descender )
-          cffface->height = (FT_Short)( cffface->ascender -
+          cffface->height = (FT_int)( cffface->ascender -
                                         cffface->descender );
 
         cffface->underline_position  =
-          (FT_Short)( dict->underline_position >> 16 );
+          (FT_int)( dict->underline_position >> 16 );
         cffface->underline_thickness =
-          (FT_Short)( dict->underline_thickness >> 16 );
+          (FT_int)( dict->underline_thickness >> 16 );
 
         /* retrieve font family & style name */
         if ( dict->family_name )

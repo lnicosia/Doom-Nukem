@@ -60,7 +60,7 @@ FT_BEGIN_HEADER
 #define cf2_intToFixed( i )                                              \
           ( (CF2_Fixed)( (FT_UInt32)(i) << 16 ) )
 #define cf2_fixedToInt( x )                                              \
-          ( (FT_Short)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
+          ( (FT_int)( ( (FT_UInt32)(x) + 0x8000U ) >> 16 ) )
 #define cf2_fixedRound( x )                                              \
           ( (CF2_Fixed)( ( (FT_UInt32)(x) + 0x8000U ) & 0xFFFF0000UL ) )
 #define cf2_doubleToFixed( f )                                           \

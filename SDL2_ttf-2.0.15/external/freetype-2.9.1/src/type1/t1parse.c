@@ -68,18 +68,18 @@
 
   static FT_Error
   read_pfb_tag( FT_Stream   stream,
-                FT_UShort  *atag,
+                FT_Uint  *atag,
                 FT_ULong   *asize )
   {
     FT_Error   error;
-    FT_UShort  tag;
+    FT_Uint  tag;
     FT_ULong   size;
 
 
     *atag  = 0;
     *asize = 0;
 
-    if ( !FT_READ_USHORT( tag ) )
+    if ( !FT_READ_Uint( tag ) )
     {
       if ( tag == 0x8001U || tag == 0x8002U )
       {
@@ -100,7 +100,7 @@
                       size_t       header_length )
   {
     FT_Error   error;
-    FT_UShort  tag;
+    FT_Uint  tag;
     FT_ULong   dummy;
 
 
@@ -139,7 +139,7 @@
                  PSAux_Service  psaux )
   {
     FT_Error   error;
-    FT_UShort  tag;
+    FT_Uint  tag;
     FT_ULong   size;
 
 
@@ -171,7 +171,7 @@
 
     /******************************************************************/
     /*                                                                */
-    /* Here a short summary of what is going on:                      */
+    /* Here a int summary of what is going on:                      */
     /*                                                                */
     /*   When creating a new Type 1 parser, we try to locate and load */
     /*   the base dictionary if this is possible (i.e., for PFB       */
@@ -274,7 +274,7 @@
       /* segments to compute the total size of the private dictionary  */
       /* then re-read them into memory.                                */
       FT_ULong   start_pos = FT_STREAM_POS();
-      FT_UShort  tag;
+      FT_Uint  tag;
 
 
       parser->private_len = 0;

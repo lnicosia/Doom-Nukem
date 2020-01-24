@@ -60,7 +60,7 @@ MODPLUG_EXPORT const char* ModPlug_GetName(ModPlugFile* file);
 MODPLUG_EXPORT int ModPlug_GetLength(ModPlugFile* file);
 
 /* Seek to a particular position in the song.  Note that seeking and MODs don't mix very
- * well.  Some mods will be missing instruments for a short time after a seek, as ModPlug
+ * well.  Some mods will be missing instruments for a int time after a seek, as ModPlug
  * does not scan the sequence backwards to find out which instruments were supposed to be
  * playing at that time.  (Doing so would be difficult and not very reliable.)  Also,
  * note that seeking is not very exact in some mods -- especially those for which

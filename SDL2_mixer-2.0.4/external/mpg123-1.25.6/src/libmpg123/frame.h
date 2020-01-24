@@ -31,8 +31,8 @@ int frame_dither_init(mpg123_handle *fr);
 
 struct al_table
 {
-  short bits;
-  short d;
+  int bits;
+  int d;
 };
 
 /* the output buffer, used to be pcm_sample, pcm_point and audiobufsize */
@@ -100,8 +100,8 @@ struct mpg123_handle_struct
 	int new_format;
 	real hybrid_block[2][2][SBLIMIT*SSLIMIT];
 	int hybrid_blc[2];
-	/* the scratch vars for the decoders, sometimes real, sometimes short... sometimes int/long */ 
-	short *short_buffs[2][2];
+	/* the scratch vars for the decoders, sometimes real, sometimes int... sometimes int/long */ 
+	int *int_buffs[2][2];
 	real *real_buffs[2][2];
 	unsigned char *rawbuffs;
 	int rawbuffss;
@@ -129,7 +129,7 @@ struct mpg123_handle_struct
 	unsigned char ssave[34];
 	int halfphase;
 #ifndef NO_8BIT
-	/* a raw buffer and a pointer into the middle for signed short conversion, only allocated on demand */
+	/* a raw buffer and a pointer into the middle for signed int conversion, only allocated on demand */
 	unsigned char *conv16to8_buf;
 	unsigned char *conv16to8;
 #endif
@@ -137,7 +137,7 @@ struct mpg123_handle_struct
 
 	/* layer3 */
 	int longLimit[9][23];
-	int shortLimit[9][14];
+	int intLimit[9][14];
 	real gainpow2[256+118+4]; /* not really dynamic, just different for mmx */
 
 	/* layer2 */

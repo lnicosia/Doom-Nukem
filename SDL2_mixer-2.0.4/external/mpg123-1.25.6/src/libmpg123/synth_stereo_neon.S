@@ -14,7 +14,7 @@
 #define SAMPLES r3
 
 /*
-	int synth_1to1_s_neon_asm(short *window, short *b0l, short *b0r, short *samples, int bo1);
+	int synth_1to1_s_neon_asm(int *window, int *b0l, int *b0r, int *samples, int bo1);
 	return value: number of clipped samples
 */
 

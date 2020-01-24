@@ -66,7 +66,7 @@ typedef struct vorbis_info_psy{
 typedef struct{
   int   eighth_octave_lines;
 
-  /* for block long/short tuning; encode only */
+  /* for block long/int tuning; encode only */
   float preecho_thresh[VE_BANDS];
   float postecho_thresh[VE_BANDS];
   float stretch_penalty;

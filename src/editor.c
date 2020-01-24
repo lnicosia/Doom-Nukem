@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/16 18:00:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/17 10:24:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,11 @@ int		editor(t_env *env)
 		}
 		else
 		{
-			if (env->player.sector != -1)
-					start_event(&env->sectors[env->player.sector].stand_events,
-					&env->sectors[env->player.sector].nb_stand_events, env);
-			if (env->global_events)
-					start_event(&env->global_events,
-					&env->nb_global_events, env);
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
 		if (!env->input_box.state && env->saving)
 			save_map(env);
-		if (env->events)
-		{
-			if (pop_events2(env))
-				return (-1);
-		}
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(env->confirmation_box, env);

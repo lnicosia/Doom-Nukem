@@ -165,13 +165,13 @@
     FT_Error    error;
 
     FT_Int      num_glyphs;
-    FT_UShort   num_names;
+    FT_Uint   num_names;
 
-    FT_UShort*  glyph_indices = NULL;
+    FT_Uint*  glyph_indices = NULL;
     FT_Char**   name_strings  = NULL;
 
 
-    if ( FT_READ_USHORT( num_glyphs ) )
+    if ( FT_READ_Uint( num_glyphs ) )
       goto Exit;
 
     /* UNDOCUMENTED!  The number of glyphs in this table can be smaller */
@@ -196,7 +196,7 @@
         goto Fail;
 
       for ( n = 0; n < num_glyphs; n++ )
-        glyph_indices[n] = FT_GET_USHORT();
+        glyph_indices[n] = FT_GET_Uint();
 
       FT_FRAME_EXIT();
     }
@@ -218,14 +218,14 @@
         {
           idx -= 257;
           if ( idx > num_names )
-            num_names = (FT_UShort)idx;
+            num_names = (FT_Uint)idx;
         }
       }
     }
 
     /* now load the name strings */
     {
-      FT_UShort  n;
+      FT_Uint  n;
 
 
       if ( FT_NEW_ARRAY( name_strings, num_names ) )
@@ -286,8 +286,8 @@
       TT_Post_20  table = &face->postscript_names.names.format_20;
 
 
-      table->num_glyphs    = (FT_UShort)num_glyphs;
-      table->num_names     = (FT_UShort)num_names;
+      table->num_glyphs    = (FT_Uint)num_glyphs;
+      table->num_names     = (FT_Uint)num_names;
       table->glyph_indices = glyph_indices;
       table->glyph_names   = name_strings;
     }
@@ -295,7 +295,7 @@
 
   Fail1:
     {
-      FT_UShort  n;
+      FT_Uint  n;
 
 
       for ( n = 0; n < num_names; n++ )
@@ -325,7 +325,7 @@
     FT_UNUSED( post_limit );
 
 
-    if ( FT_READ_USHORT( num_glyphs ) )
+    if ( FT_READ_Uint( num_glyphs ) )
       goto Exit;
 
     /* check the number of glyphs */
@@ -364,7 +364,7 @@
       TT_Post_25  table = &face->postscript_names.names.format_25;
 
 
-      table->num_glyphs = (FT_UShort)num_glyphs;
+      table->num_glyphs = (FT_Uint)num_glyphs;
       table->offsets    = offset_table;
     }
 
@@ -434,7 +434,7 @@
       if ( format == 0x00020000L )
       {
         TT_Post_20  table = &names->names.format_20;
-        FT_UShort   n;
+        FT_Uint   n;
 
 
         FT_FREE( table->glyph_indices );
@@ -533,7 +533,7 @@
 
       if ( idx < (FT_UInt)table->num_glyphs )
       {
-        FT_UShort  name_index = table->glyph_indices[idx];
+        FT_Uint  name_index = table->glyph_indices[idx];
 
 
         if ( name_index < 258 )

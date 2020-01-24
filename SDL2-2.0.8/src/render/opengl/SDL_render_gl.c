@@ -694,7 +694,7 @@ convert_format(GL_RenderData *renderdata, Uint32 pixel_format,
     case SDL_PIXELFORMAT_UYVY:
         *internalFormat = GL_RGB8;
         *format = GL_YCBCR_422_APPLE;
-        *type = GL_UNSIGNED_SHORT_8_8_APPLE;
+        *type = GL_UNSIGNED_int_8_8_APPLE;
         break;
 #endif
     default:

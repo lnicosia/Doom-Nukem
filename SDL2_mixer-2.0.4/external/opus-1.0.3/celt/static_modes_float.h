@@ -582,8 +582,8 @@ static const CELTMode mode48000_960_120 = {
 {0.85000610f, 0.0000000f, 1.0000000f, 1.0000000f, },    /* preemph */
 eband5ms,       /* eBands */
 3,      /* maxLM */
-8,      /* nbShortMdcts */
-120,    /* shortMdctSize */
+8,      /* nbintMdcts */
+120,    /* intMdctSize */
 11,     /* nbAllocVectors */
 band_allocation,        /* allocVectors */
 logN400,        /* logN */

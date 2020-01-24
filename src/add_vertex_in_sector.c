@@ -114,8 +114,8 @@ int		modify_vertices_in_sector(t_env *env, int index, int sector)
 {
 	int	i;
 
-	if (!(env->sectors[sector].vertices = (short *)ft_realloc(env->sectors[sector].vertices, sizeof(short)
-	* (env->sectors[sector].nb_vertices + 1), sizeof(short) * (env->sectors[sector].nb_vertices + 2))))
+	if (!(env->sectors[sector].vertices = (int *)ft_realloc(env->sectors[sector].vertices, sizeof(int)
+	* (env->sectors[sector].nb_vertices + 1), sizeof(int) * (env->sectors[sector].nb_vertices + 2))))
 		return (ft_perror("Could not realloc vertices"));
 	env->sectors[sector].nb_vertices++;
 	i = env->sectors[sector].nb_vertices;
@@ -134,8 +134,8 @@ int		modify_textures(t_env *env, int index, int sector)
 	int	i;
 
 	i = 0;
-	if (!(env->sectors[sector].textures = (short *)ft_realloc(env->sectors[sector].textures, sizeof(short)
-	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
+	if (!(env->sectors[sector].textures = (int *)ft_realloc(env->sectors[sector].textures, sizeof(int)
+	* env->sectors[sector].nb_vertices, sizeof(int) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc textures"));
 	i = env->sectors[sector].nb_vertices;
 	while (i > index + 1)
@@ -165,13 +165,13 @@ int		modify_double_tab_in_sector(t_env *env, int index, int sector, double **tab
 	return (0);
 }
 
-int		modify_short_tab_in_sector(t_env *env, int index, int sector, short **tab)
+int		modify_int_tab_in_sector(t_env *env, int index, int sector, int **tab)
 {
 	int	i;
 
-	if (!(*tab = (short*)ft_realloc(*tab, sizeof(short)
-	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
-		return (ft_perror("Could not realloc short tab"));
+	if (!(*tab = (int*)ft_realloc(*tab, sizeof(int)
+	* env->sectors[sector].nb_vertices, sizeof(int) * (env->sectors[sector].nb_vertices + 1))))
+		return (ft_perror("Could not realloc int tab"));
 	i = 0;
 	i = env->sectors[sector].nb_vertices;
 	while (i > index + 1)
@@ -189,7 +189,7 @@ int		modify_t_v2_tab_in_sector(t_env *env, int index, int sector,t_v2 **tab)
 
 	if (!(*tab = (t_v2*)ft_realloc(*tab, sizeof(t_v2)
 	* env->sectors[sector].nb_vertices, sizeof(t_v2) * (env->sectors[sector].nb_vertices + 1))))
-		return (ft_perror("Could not realloc short tab"));
+		return (ft_perror("Could not realloc int tab"));
 	i = 0;
 	i = env->sectors[sector].nb_vertices;
 	while (i > index + 1)
@@ -270,8 +270,8 @@ int		modify_neighbors(t_env *env, int index, int sector)
 {
 	int	i;
 
-	if (!(env->sectors[sector].neighbors = (short *)ft_realloc(env->sectors[sector].neighbors, sizeof(short)
-	* env->sectors[sector].nb_vertices, sizeof(short) * (env->sectors[sector].nb_vertices + 1))))
+	if (!(env->sectors[sector].neighbors = (int *)ft_realloc(env->sectors[sector].neighbors, sizeof(int)
+	* env->sectors[sector].nb_vertices, sizeof(int) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc neighbors"));
 	i = env->sectors[sector].nb_vertices;
 	while (i > index + 1)
@@ -303,9 +303,9 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_neighbors(env, j, sector))
 				return (-1);
-			/*if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
+			/*if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
 				return (-1);*/
-			if (modify_short_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
+			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors))
 				return (-1);

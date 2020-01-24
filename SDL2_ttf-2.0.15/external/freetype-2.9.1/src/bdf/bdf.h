@@ -132,14 +132,14 @@ FT_BEGIN_HEADER
 
   typedef struct  bdf_bbx_t_
   {
-    unsigned short  width;
-    unsigned short  height;
+    unsigned int  width;
+    unsigned int  height;
 
-    short           x_offset;
-    short           y_offset;
+    int           x_offset;
+    int           y_offset;
 
-    short           ascent;
-    short           descent;
+    int           ascent;
+    int           descent;
 
   } bdf_bbx_t;
 
@@ -148,20 +148,20 @@ FT_BEGIN_HEADER
   {
     char*           name;        /* Glyph name.                          */
     long            encoding;    /* Glyph encoding.                      */
-    unsigned short  swidth;      /* Scalable width.                      */
-    unsigned short  dwidth;      /* Device width.                        */
+    unsigned int  swidth;      /* Scalable width.                      */
+    unsigned int  dwidth;      /* Device width.                        */
     bdf_bbx_t       bbx;         /* Glyph bounding box.                  */
     unsigned char*  bitmap;      /* Glyph bitmap.                        */
     unsigned long   bpr;         /* Number of bytes used per row.        */
-    unsigned short  bytes;       /* Number of bytes used for the bitmap. */
+    unsigned int  bytes;       /* Number of bytes used for the bitmap. */
 
   } bdf_glyph_t;
 
 
   typedef struct  bdf_glyphlist_t_
   {
-    unsigned short  pad;          /* Pad to 4-byte boundary.              */
-    unsigned short  bpp;          /* Bits per pixel.                      */
+    unsigned int  pad;          /* Pad to 4-byte boundary.              */
+    unsigned int  bpp;          /* Bits per pixel.                      */
     long            start;        /* Beginning encoding value of glyphs.  */
     long            end;          /* Ending encoding value of glyphs.     */
     bdf_glyph_t*    glyphs;       /* Glyphs themselves.                   */
@@ -183,7 +183,7 @@ FT_BEGIN_HEADER
 
     int              spacing;        /* Font spacing value.                 */
 
-    unsigned short   monowidth;      /* Logical width for monowidth font.   */
+    unsigned int   monowidth;      /* Logical width for monowidth font.   */
 
     long             default_char;   /* Encoding of the default glyph.      */
 
@@ -214,8 +214,8 @@ FT_BEGIN_HEADER
     unsigned long    nmod[34816];    /* Bitmap indicating modified glyphs.  */
     unsigned long    umod[34816];    /* Bitmap indicating modified          */
                                      /* unencoded glyphs.                   */
-    unsigned short   modified;       /* Boolean indicating font modified.   */
-    unsigned short   bpp;            /* Bits per pixel.                     */
+    unsigned int   modified;       /* Boolean indicating font modified.   */
+    unsigned int   bpp;            /* Bits per pixel.                     */
 
     FT_Memory        memory;
 

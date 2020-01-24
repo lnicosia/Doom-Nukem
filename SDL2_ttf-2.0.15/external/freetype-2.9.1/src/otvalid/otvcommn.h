@@ -70,7 +70,7 @@ FT_BEGIN_HEADER
 #define FT_INVALID_( _error )                                     \
           ft_validator_error( otvalid->root, FT_THROW( _error ) )
 
-#define OTV_OPTIONAL_TABLE( _table )  FT_UShort  _table;      \
+#define OTV_OPTIONAL_TABLE( _table )  FT_Uint  _table;      \
                                       FT_Bytes   _table ## _p
 
 #define OTV_OPTIONAL_TABLE32( _table )  FT_ULong  _table;       \
@@ -79,7 +79,7 @@ FT_BEGIN_HEADER
 #define OTV_OPTIONAL_OFFSET( _offset )           \
           FT_BEGIN_STMNT                         \
             _offset ## _p = p;                   \
-            _offset       = FT_NEXT_USHORT( p ); \
+            _offset       = FT_NEXT_Uint( p ); \
           FT_END_STMNT
 
 #define OTV_OPTIONAL_OFFSET32( _offset )        \
@@ -91,7 +91,7 @@ FT_BEGIN_HEADER
 #define OTV_LIMIT_CHECK( _count )                      \
           FT_BEGIN_STMNT                               \
             if ( p + (_count) > otvalid->root->limit ) \
-              FT_INVALID_TOO_SHORT;                    \
+              FT_INVALID_TOO_int;                    \
           FT_END_STMNT
 
 #define OTV_SIZE_CHECK( _size )                                     \

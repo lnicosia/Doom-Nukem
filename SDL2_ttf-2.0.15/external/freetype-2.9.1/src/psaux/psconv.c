@@ -559,7 +559,7 @@
                        FT_Byte*    limit,
                        FT_Byte*    buffer,
                        FT_Offset   n,
-                       FT_UShort*  seed )
+                       FT_Uint*  seed )
   {
     FT_Byte*  p;
     FT_UInt   r;
@@ -587,7 +587,7 @@
     }
 
     *cursor = p + n;
-    *seed   = (FT_UShort)s;
+    *seed   = (FT_Uint)s;
 
 #else /* 0 */
 
@@ -596,7 +596,7 @@
       FT_Byte  b = (FT_Byte)( *p ^ ( s >> 8 ) );
 
 
-      s = (FT_UShort)( ( *p + s ) * 52845U + 22719 );
+      s = (FT_Uint)( ( *p + s ) * 52845U + 22719 );
       *buffer++ = b;
     }
     *cursor = p;

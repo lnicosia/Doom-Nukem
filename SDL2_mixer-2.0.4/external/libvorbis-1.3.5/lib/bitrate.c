@@ -36,7 +36,7 @@ void vorbis_bitrate_init(vorbis_info *vi,bitrate_manager_state *bm){
     long ratesamples=vi->rate;
     int  halfsamples=ci->blocksizes[0]>>1;
 
-    bm->short_per_long=ci->blocksizes[1]/ci->blocksizes[0];
+    bm->int_per_long=ci->blocksizes[1]/ci->blocksizes[0];
     bm->managed=1;
 
     bm->avg_bitsper= rint(1.*bi->avg_rate*halfsamples/ratesamples);
@@ -82,8 +82,8 @@ int vorbis_bitrate_addblock(vorbis_block *vb){
 
   int  choice=rint(bm->avgfloat);
   long this_bits=oggpack_bytes(vbi->packetblob[choice])*8;
-  long min_target_bits=(vb->W?bm->min_bitsper*bm->short_per_long:bm->min_bitsper);
-  long max_target_bits=(vb->W?bm->max_bitsper*bm->short_per_long:bm->max_bitsper);
+  long min_target_bits=(vb->W?bm->min_bitsper*bm->int_per_long:bm->min_bitsper);
+  long max_target_bits=(vb->W?bm->max_bitsper*bm->int_per_long:bm->max_bitsper);
   int  samples=ci->blocksizes[vb->W]>>1;
   long desired_fill=bi->reservoir_bits*bi->reservoir_bias;
   if(!bm->managed){
@@ -101,7 +101,7 @@ int vorbis_bitrate_addblock(vorbis_block *vb){
   /* look ahead for avg floater */
   if(bm->avg_bitsper>0){
     double slew=0.;
-    long avg_target_bits=(vb->W?bm->avg_bitsper*bm->short_per_long:bm->avg_bitsper);
+    long avg_target_bits=(vb->W?bm->avg_bitsper*bm->int_per_long:bm->avg_bitsper);
     double slewlimit= 15./bi->slew_damp;
 
     /* choosing a new floater:
@@ -220,7 +220,7 @@ int vorbis_bitrate_addblock(vorbis_block *vb){
 
   /* avg reservoir */
   if(bm->avg_bitsper>0){
-    long avg_target_bits=(vb->W?bm->avg_bitsper*bm->short_per_long:bm->avg_bitsper);
+    long avg_target_bits=(vb->W?bm->avg_bitsper*bm->int_per_long:bm->avg_bitsper);
     bm->avg_reservoir+=this_bits-avg_target_bits;
   }
 

@@ -98,7 +98,7 @@ typedef struct {
   long     samplerate_max_restriction;
 
 
-  const int     *blocksize_short;
+  const int     *blocksize_int;
   const int     *blocksize_long;
 
   const att3    *psy_tone_masteratt;
@@ -117,7 +117,7 @@ typedef struct {
   const int         *psy_noise_dBsuppress;
 
   const compandblock  *psy_noise_compand;
-  const double        *psy_noise_compand_short_mapping;
+  const double        *psy_noise_compand_int_mapping;
   const double        *psy_noise_compand_long_mapping;
 
   const int      *psy_noise_normal_start[2];
@@ -441,14 +441,14 @@ static int book_dup_or_new(codec_setup_info *ci,const static_codebook *book){
 }
 
 static void vorbis_encode_blocksize_setup(vorbis_info *vi,double s,
-                                         const int *shortb,const int *longb){
+                                         const int *intb,const int *longb){
 
   codec_setup_info *ci=vi->codec_setup;
   int is=s;
 
-  int blockshort=shortb[is];
+  int blockint=intb[is];
   int blocklong=longb[is];
-  ci->blocksizes[0]=blockshort;
+  ci->blocksizes[0]=blockint;
   ci->blocksizes[1]=blocklong;
 
 }
@@ -703,11 +703,11 @@ int vorbis_encode_setup_init(vorbis_info *vi){
 
   hi->set_in_stone=1;
   /* choose block sizes from configured sizes as well as paying
-     attention to long_block_p and short_block_p.  If the configured
-     short and long blocks are the same length, we set long_block_p
-     and unset short_block_p */
+     attention to long_block_p and int_block_p.  If the configured
+     int and long blocks are the same length, we set long_block_p
+     and unset int_block_p */
   vorbis_encode_blocksize_setup(vi,hi->base_setting,
-                                setup->blocksize_short,
+                                setup->blocksize_int,
                                 setup->blocksize_long);
   if(ci->blocksizes[0]==ci->blocksizes[1])singleblock=1;
 
@@ -719,7 +719,7 @@ int vorbis_encode_setup_init(vorbis_info *vi){
                               setup->floor_params,
                               setup->floor_mapping_list[i]);
 
-  /* setup of [mostly] short block detection and stereo*/
+  /* setup of [mostly] int block detection and stereo*/
   vorbis_encode_global_psych_setup(vi,hi->trigger_setting,
                                    setup->global_params,
                                    setup->global_mapping);
@@ -772,10 +772,10 @@ int vorbis_encode_setup_init(vorbis_info *vi){
   /* noise companding setup */
   vorbis_encode_compand_setup(vi,hi->block[i0].noise_compand_setting,0,
                               setup->psy_noise_compand,
-                              setup->psy_noise_compand_short_mapping);
+                              setup->psy_noise_compand_int_mapping);
   vorbis_encode_compand_setup(vi,hi->block[1].noise_compand_setting,1,
                               setup->psy_noise_compand,
-                              setup->psy_noise_compand_short_mapping);
+                              setup->psy_noise_compand_int_mapping);
   if(!singleblock){
     vorbis_encode_compand_setup(vi,hi->block[2].noise_compand_setting,2,
                                 setup->psy_noise_compand,

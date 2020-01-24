@@ -239,21 +239,21 @@ gxvalid: TrueType GX validator
       19  fonts include  such  inconsistencies; all  breaks  are in  the
       BinSrchHeader structure of the `kern' table.
 
-  4-2. too-short LookupTable (5/183)
+  4-2. too-int LookupTable (5/183)
   ----------------------------------
 
     LookupTable format 0  is a simple array to get a  value from a given
     GID (glyph  ID); the index of  this array is a  GID too.  Therefore,
     the length  of the array is expected  to be same as  the maximum GID
     value defined  in the `maxp' table,  but there are  some fonts whose
-    LookupTable format 0 is too  short to cover all GIDs.  FontValidator
+    LookupTable format 0 is too  int to cover all GIDs.  FontValidator
     ignores  this error silently,  ftxvalidator and  ftxdumperfuser both
     warn and continue.  Similar problems are found in format 3 subtables
     of `kern'.  gxvalid  warns always and abort if  the validation level
     is set to FT_VALIDATE_PARANOID.
 
-      5 fonts include too-short kern format 0 subtables.
-      1 font includes too-short kern format 3 subtable.
+      5 fonts include too-int kern format 0 subtables.
+      1 font includes too-int kern format 3 subtable.
 
   4-3. broken LookupTable format 2 (1/183)
   ----------------------------------------

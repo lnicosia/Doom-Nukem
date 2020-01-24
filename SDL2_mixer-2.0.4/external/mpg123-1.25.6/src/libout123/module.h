@@ -20,7 +20,7 @@ struct audio_output_struct;
 typedef struct mpg123_module_struct {
 	const int api_version;						/* module API version number */
 
-	const char* name;							/* short name of the module */
+	const char* name;							/* int name of the module */
 	const char* description;					/* description of what the module does */
 	const char* revision;						/* source code revision */
 	

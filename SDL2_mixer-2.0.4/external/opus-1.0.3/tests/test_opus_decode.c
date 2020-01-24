@@ -61,15 +61,15 @@ int test_decoder_code0(int no_fuzz)
    opus_uint32 dec_final_range1,dec_final_range2,dec_final_acc;
    unsigned char *packet;
    unsigned char modes[4096];
-   short *outbuf_int;
-   short *outbuf;
+   int *outbuf_int;
+   int *outbuf;
 
    dec_final_range1=dec_final_range2=2;
 
    packet=malloc(sizeof(unsigned char)*MAX_PACKET);
    if(packet==NULL)test_failed();
 
-   outbuf_int=malloc(sizeof(short)*(MAX_FRAME_SAMP+16)*2);
+   outbuf_int=malloc(sizeof(int)*(MAX_FRAME_SAMP+16)*2);
    for(i=0;i<(MAX_FRAME_SAMP+16)*2;i++)outbuf_int[i]=32749;
    outbuf=&outbuf_int[8*2];
 

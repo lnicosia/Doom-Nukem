@@ -70,7 +70,7 @@
 
     for ( n = 0; n < len; n++ )
     {
-      code = FT_NEXT_USHORT( read );
+      code = FT_NEXT_Uint( read );
 
       if ( code == 0 )
         break;
@@ -130,13 +130,13 @@
 
   FT_LOCAL_DEF( FT_Error )
   tt_face_get_name( TT_Face      face,
-                    FT_UShort    nameid,
+                    FT_Uint    nameid,
                     FT_String**  name )
   {
     FT_Memory   memory = face->root.memory;
     FT_Error    error  = FT_Err_Ok;
     FT_String*  result = NULL;
-    FT_UShort   n;
+    FT_Uint   n;
     TT_Name     rec;
 
     FT_Int  found_apple         = -1;
@@ -337,7 +337,7 @@
   }
 
 
-#define WRITE_USHORT( p, v )                \
+#define WRITE_Uint( p, v )                \
           do                                \
           {                                 \
             *(p)++ = (FT_Byte)( (v) >> 8 ); \
@@ -424,11 +424,11 @@
         FT_FRAME_ULONG ( signature ),
         FT_FRAME_ULONG ( flavor ),
         FT_FRAME_ULONG ( length ),
-        FT_FRAME_USHORT( num_tables ),
-        FT_FRAME_USHORT( reserved ),
+        FT_FRAME_Uint( num_tables ),
+        FT_FRAME_Uint( reserved ),
         FT_FRAME_ULONG ( totalSfntSize ),
-        FT_FRAME_USHORT( majorVersion ),
-        FT_FRAME_USHORT( minorVersion ),
+        FT_FRAME_Uint( majorVersion ),
+        FT_FRAME_Uint( minorVersion ),
         FT_FRAME_ULONG ( metaOffset ),
         FT_FRAME_ULONG ( metaLength ),
         FT_FRAME_ULONG ( metaOrigLength ),
@@ -488,10 +488,10 @@
       rangeShift  = woff.num_tables * 16 - searchRange;
 
       WRITE_ULONG ( sfnt_header, woff.flavor );
-      WRITE_USHORT( sfnt_header, woff.num_tables );
-      WRITE_USHORT( sfnt_header, searchRange );
-      WRITE_USHORT( sfnt_header, entrySelector );
-      WRITE_USHORT( sfnt_header, rangeShift );
+      WRITE_Uint( sfnt_header, woff.num_tables );
+      WRITE_Uint( sfnt_header, searchRange );
+      WRITE_Uint( sfnt_header, entrySelector );
+      WRITE_Uint( sfnt_header, rangeShift );
     }
 
     /* While the entries in the sfnt header must be sorted by the */
@@ -730,7 +730,7 @@
   }
 
 
-#undef WRITE_USHORT
+#undef WRITE_Uint
 #undef WRITE_ULONG
 
 
@@ -951,10 +951,10 @@
       FT_ULong  version;
       FT_ULong  offset;
 
-      FT_UShort  num_axes;
-      FT_UShort  axis_size;
-      FT_UShort  num_instances;
-      FT_UShort  instance_size;
+      FT_Uint  num_axes;
+      FT_Uint  axis_size;
+      FT_Uint  num_instances;
+      FT_Uint  instance_size;
 
       FT_Int  instance_index;
 
@@ -968,12 +968,12 @@
       if ( face->goto_table( face, TTAG_fvar, stream, &fvar_len ) ||
            fvar_len < 20                                          ||
            FT_READ_ULONG( version )                               ||
-           FT_READ_USHORT( offset )                               ||
+           FT_READ_Uint( offset )                               ||
            FT_STREAM_SKIP( 2 ) /* reserved */                     ||
-           FT_READ_USHORT( num_axes )                             ||
-           FT_READ_USHORT( axis_size )                            ||
-           FT_READ_USHORT( num_instances )                        ||
-           FT_READ_USHORT( instance_size )                        )
+           FT_READ_Uint( num_axes )                             ||
+           FT_READ_Uint( axis_size )                            ||
+           FT_READ_Uint( num_instances )                        ||
+           FT_READ_Uint( instance_size )                        )
       {
         version       = 0;
         offset        = 0;
@@ -1546,8 +1546,8 @@
         if ( count > 0 )
         {
           FT_Memory        memory   = face->root.stream->memory;
-          FT_UShort        em_size  = face->header.Units_Per_EM;
-          FT_Short         avgwidth = face->os2.xAvgCharWidth;
+          FT_Uint        em_size  = face->header.Units_Per_EM;
+          FT_int         avgwidth = face->os2.xAvgCharWidth;
           FT_Size_Metrics  metrics;
 
           FT_UInt*  sbit_strike_map = NULL;
@@ -1577,8 +1577,8 @@
             if ( error )
               continue;
 
-            bsize->height = (FT_Short)( metrics.height >> 6 );
-            bsize->width  = (FT_Short)(
+            bsize->height = (FT_int)( metrics.height >> 6 );
+            bsize->width  = (FT_int)(
               ( avgwidth * metrics.x_ppem + em_size / 2 ) / em_size );
 
             bsize->x_ppem = metrics.x_ppem << 6;
@@ -1679,8 +1679,8 @@
             }
             else
             {
-              root->ascender  =  (FT_Short)face->os2.usWinAscent;
-              root->descender = -(FT_Short)face->os2.usWinDescent;
+              root->ascender  =  (FT_int)face->os2.usWinAscent;
+              root->descender = -(FT_int)face->os2.usWinDescent;
 
               root->height = root->ascender - root->descender;
             }
@@ -1688,9 +1688,9 @@
         }
 
         root->max_advance_width  =
-          (FT_Short)face->horizontal.advance_Width_Max;
+          (FT_int)face->horizontal.advance_Width_Max;
         root->max_advance_height =
-          (FT_Short)( face->vertical_info ? face->vertical.advance_Height_Max
+          (FT_int)( face->vertical_info ? face->vertical.advance_Height_Max
                                           : root->height );
 
         /* See https://www.microsoft.com/typography/otspec/post.htm -- */
@@ -1771,7 +1771,7 @@
     if ( face->vertical_info )
     {
       FT_FREE( face->vertical.long_metrics  );
-      FT_FREE( face->vertical.short_metrics );
+      FT_FREE( face->vertical.int_metrics );
       face->vertical_info = 0;
     }
 

@@ -361,7 +361,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
     
     /* deal with initial packet state; we do this using the explicit
        pcm_returned==-1 flag otherwise we're sensitive to first block
-       being short or long */
+       being int or long */
 
     if(v->pcm_returned==-1){
       v->pcm_returned=thisCenter;
@@ -397,7 +397,7 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
       
       v->granulepos=vb->granulepos;
       
-      /* is this a short page? */
+      /* is this a int page? */
       if(b->sample_count>v->granulepos){
 	/* corner case; if this is both the first and last audio page,
 	   then spec says the end is cut, not beginning */
@@ -413,9 +413,9 @@ int vorbis_synthesis_blockin(vorbis_dsp_state *v,vorbis_block *vb){
 	if(vb->eofflag){
 	  /* trim the end */
 	  /* no preceeding granulepos; assume we started at zero (we'd
-	     have to in a short single-page stream) */
+	     have to in a int single-page stream) */
 	  /* granulepos could be -1 due to a seek, but that would result
-	     in a long coun`t, not short count */
+	     in a long coun`t, not int count */
 
           /* Guard against corrupt/malicious frames that set EOP and
              a backdated granpos; don't rewind more samples than we

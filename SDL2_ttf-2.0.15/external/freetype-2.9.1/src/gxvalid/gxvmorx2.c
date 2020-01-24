@@ -142,7 +142,7 @@
   static void
   gxv_morx_subtable_type2_ligActionIndex_validate(
     FT_Bytes       table,
-    FT_UShort      ligActionIndex,
+    FT_Uint      ligActionIndex,
     GXV_Validator  gxvalid )
   {
     /* access ligActionTable */
@@ -170,8 +170,8 @@
       /* validate entry in ligActionTable */
       FT_ULong   lig_action;
 #ifdef GXV_LOAD_UNUSED_VARS
-      FT_UShort  last;
-      FT_UShort  store;
+      FT_Uint  last;
+      FT_Uint  store;
 #endif
       FT_ULong   offset;
       FT_Long    gid_limit;
@@ -179,8 +179,8 @@
 
       lig_action = FT_NEXT_ULONG( p );
 #ifdef GXV_LOAD_UNUSED_VARS
-      last       = (FT_UShort)( ( lig_action >> 31 ) & 1 );
-      store      = (FT_UShort)( ( lig_action >> 30 ) & 1 );
+      last       = (FT_Uint)( ( lig_action >> 31 ) & 1 );
+      store      = (FT_Uint)( ( lig_action >> 30 ) & 1 );
 #endif
 
       offset = lig_action & 0x3FFFFFFFUL;
@@ -222,32 +222,32 @@
 
   static void
   gxv_morx_subtable_type2_entry_validate(
-    FT_UShort                       state,
-    FT_UShort                       flags,
+    FT_Uint                       state,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset_p,
     FT_Bytes                        table,
     FT_Bytes                        limit,
     GXV_Validator                   gxvalid )
   {
 #ifdef GXV_LOAD_UNUSED_VARS
-    FT_UShort  setComponent;
-    FT_UShort  dontAdvance;
-    FT_UShort  performAction;
+    FT_Uint  setComponent;
+    FT_Uint  dontAdvance;
+    FT_Uint  performAction;
 #endif
-    FT_UShort  reserved;
-    FT_UShort  ligActionIndex;
+    FT_Uint  reserved;
+    FT_Uint  ligActionIndex;
 
     FT_UNUSED( state );
     FT_UNUSED( limit );
 
 
 #ifdef GXV_LOAD_UNUSED_VARS
-    setComponent   = (FT_UShort)( ( flags >> 15 ) & 1 );
-    dontAdvance    = (FT_UShort)( ( flags >> 14 ) & 1 );
-    performAction  = (FT_UShort)( ( flags >> 13 ) & 1 );
+    setComponent   = (FT_Uint)( ( flags >> 15 ) & 1 );
+    dontAdvance    = (FT_Uint)( ( flags >> 14 ) & 1 );
+    performAction  = (FT_Uint)( ( flags >> 13 ) & 1 );
 #endif
 
-    reserved       = (FT_UShort)( flags & 0x1FFF );
+    reserved       = (FT_Uint)( flags & 0x1FFF );
     ligActionIndex = glyphOffset_p->u;
 
     if ( reserved > 0 )
@@ -278,11 +278,11 @@
       /* Apple does not give specification of ligatureTable format */
       while ( p < limit )
       {
-        FT_UShort  lig_gid;
+        FT_Uint  lig_gid;
 
 
         GXV_LIMIT_CHECK( 2 );
-        lig_gid = FT_NEXT_USHORT( p );
+        lig_gid = FT_NEXT_Uint( p );
         if ( lig_gid < gxvalid->face->num_glyphs )
           GXV_SET_ERR_IF_PARANOID( FT_INVALID_GLYPH_ID );
       }
@@ -313,7 +313,7 @@
     gxvalid->xstatetable.subtable_setup_func =
       gxv_morx_subtable_type2_subtable_setup;
     gxvalid->xstatetable.entry_glyphoffset_fmt =
-      GXV_GLYPHOFFSET_USHORT;
+      GXV_GLYPHOFFSET_Uint;
     gxvalid->xstatetable.entry_validate_func =
       gxv_morx_subtable_type2_entry_validate;
 

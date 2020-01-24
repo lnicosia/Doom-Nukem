@@ -68,7 +68,7 @@ static long	cast(t_data *data)
 	if (data->size == 1)
 		nb = (char)nb;
 	else if (data->size == 2)
-		nb = (short)nb;
+		nb = (int)nb;
 	else if (data->size == 4)
 		nb = (int)nb;
 	return (nb);

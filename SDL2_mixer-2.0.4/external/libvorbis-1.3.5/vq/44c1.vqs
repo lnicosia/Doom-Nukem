@@ -2,7 +2,7 @@
 GO
 
 >_44c1s_s noninterleaved
-haux 44c1_s/resaux_0.vqd _44c1_s_short 0,16,2 9
+haux 44c1_s/resaux_0.vqd _44c1_s_int 0,16,2 9
 
 >_44c1_s noninterleaved
 haux 44c1_s/resaux_1.vqd _44c1_s_long 0,64,2 9
@@ -34,7 +34,7 @@ haux 44c1_s/resaux_1.vqd _44c1_s_long 0,64,2 9
 
 
 >_44c1s_sm noninterleaved
-haux 44c1_sm/resaux_0.vqd _44c1_sm_short 0,16,2 9
+haux 44c1_sm/resaux_0.vqd _44c1_sm_int 0,16,2 9
 
 >_44c1_sm noninterleaved
 haux 44c1_sm/resaux_1.vqd _44c1_sm_long 0,64,2 9

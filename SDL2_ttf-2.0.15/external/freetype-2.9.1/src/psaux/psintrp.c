@@ -2893,7 +2893,7 @@
           CF2_Int  byte2 = cf2_buf_readByte( charstring );
 
 
-          v = (FT_Short)( ( byte1 << 8 ) |
+          v = (FT_int)( ( byte1 << 8 ) |
                             byte2        );
 
           FT_TRACE4(( " %d", v ));

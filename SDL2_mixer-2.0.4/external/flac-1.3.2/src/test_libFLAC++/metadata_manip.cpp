@@ -434,7 +434,7 @@ static bool compare_chain_(FLAC::Metadata::Chain &chain, unsigned current_positi
 		return die_("chain has more blocks than expected");
 
 	if(i < our_metadata_.num_blocks)
-		return die_("short block count in chain");
+		return die_("int block count in chain");
 
 	if(0 != current_block) {
 		printf("CURRENT_POSITION... ");
@@ -641,7 +641,7 @@ static bool test_file_(bool is_ogg, bool ignore_metadata)
 		return false;
 
 	if(mc_our_block_number_ != our_metadata_.num_blocks)
-		return die_("short metadata block count");
+		return die_("int metadata block count");
 
 	printf("PASSED\n");
 	return true;

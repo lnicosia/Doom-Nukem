@@ -316,7 +316,7 @@
 
       FTC_CMAP_NODE( node )->indices[char_code -
                                      FTC_CMAP_NODE( node )->first]
-        = (FT_UShort)gindex;
+        = (FT_Uint)gindex;
     }
 
   Exit:

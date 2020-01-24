@@ -420,7 +420,7 @@
                                    FT_Int    charcode )
   {
     FT_UInt    n;
-    FT_UShort  glyph_sid;
+    FT_Uint  glyph_sid;
 
     FT_Service_CFFLoad  cffload;
 
@@ -501,9 +501,9 @@
     FT_Fixed*          stack;
     FT_Int             charstring_type =
                          decoder->cff->top_font.font_dict.charstring_type;
-    FT_UShort          num_designs =
+    FT_Uint          num_designs =
                          decoder->cff->top_font.font_dict.num_designs;
-    FT_UShort          num_axes =
+    FT_Uint          num_axes =
                          decoder->cff->top_font.font_dict.num_axes;
 
     T2_Hints_Funcs  hinter;
@@ -562,7 +562,7 @@
         {
           if ( ip + 1 >= limit )
             goto Syntax_Error;
-          val = (FT_Short)( ( (FT_UShort)ip[0] << 8 ) | ip[1] );
+          val = (FT_int)( ( (FT_Uint)ip[0] << 8 ) | ip[1] );
           ip += 2;
         }
         else if ( v < 247 )
@@ -599,7 +599,7 @@
 
 #ifdef FT_DEBUG_LEVEL_TRACE
         if ( !( val & 0xFFFFL ) )
-          FT_TRACE4(( " %hd", (FT_Short)( (FT_UInt32)val >> 16 ) ));
+          FT_TRACE4(( " %hd", (FT_int)( (FT_UInt32)val >> 16 ) ));
         else
           FT_TRACE4(( " %.5f", val / 65536.0 ));
 #endif

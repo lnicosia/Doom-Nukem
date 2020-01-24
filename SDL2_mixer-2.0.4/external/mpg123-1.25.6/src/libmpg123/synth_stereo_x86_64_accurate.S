@@ -9,13 +9,13 @@
 #include "mangle.h"
 
 #ifdef IS_MSABI
-/* short *window; */
+/* int *window; */
 #define WINDOW %rsi
-/* short *b0l; */
+/* int *b0l; */
 #define B0L %rdx
-/* short *b0r; */
+/* int *b0r; */
 #define B0R %r8
-/* short *samples; */
+/* int *samples; */
 #define SAMPLES %r9
 #else
 /* real *window; */
@@ -33,7 +33,7 @@
 #define TEMP_CLIP (%rsp)
 
 /*
-	int synth_1to1_s_x86_64_accurate_asm(real *window, real *b0l, real *b0r, short *samples, int bo1);
+	int synth_1to1_s_x86_64_accurate_asm(real *window, real *b0l, real *b0r, int *samples, int bo1);
 	return value: number of clipped samples
 */
 

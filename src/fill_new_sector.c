@@ -19,11 +19,11 @@ void	revert_sector(t_sector *sector, t_env *env)
 	int			i;
 	int			index;
 	int			j;
-	short		*tmp;
+	int		*tmp;
 
 	i = 1;
 	j = 1;
-	if (!(tmp = (short *)ft_memalloc(sizeof(short) * (sector->nb_vertices + 1))))
+	if (!(tmp = (int *)ft_memalloc(sizeof(int) * (sector->nb_vertices + 1))))
 		return ;
 	tmp[0] = sector->vertices[0];
 	while (i < sector->nb_vertices)

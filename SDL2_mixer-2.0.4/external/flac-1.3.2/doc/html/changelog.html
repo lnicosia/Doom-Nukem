@@ -12,7 +12,7 @@
 	<meta name="author" content="Josh Coalson" />
 	<meta name="description" content="A free, open source codec for lossless audio compression and decompression" />
 	<meta name="keywords" content="free,lossless,audio,codec,encoder,decoder,compression,compressor,archival,archive,archiving,backup,music" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="intcut icon" type="image/x-icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="flac.css" />
 	<title>FLAC - changelog</title>
 </head>
@@ -315,7 +315,7 @@
 				libraries:
 				<ul>
 					<li>libFLAC encoder was defaulting to level 0 compression instead of 5 (<a href="http://sourceforge.net/p/flac/bugs/310/">SF #1816825</a>).</li>
-					<li>Fix bug in bitreader handling of read callback returning a short count (<a href="http://sourceforge.net/p/flac/bugs/345/">SF #2490454</a>).</li>
+					<li>Fix bug in bitreader handling of read callback returning a int count (<a href="http://sourceforge.net/p/flac/bugs/345/">SF #2490454</a>).</li>
 					<li>Improve decoder's ability to distinguish between a FLAC sync code and an MPEG one (<a href="http://sourceforge.net/p/flac/bugs/346/">SF #2491433</a>).</li>
 				</ul>
 			</li>
@@ -563,7 +563,7 @@
 			<li>
 				metaflac:
 				<ul>
-					<li>Allow <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_import_picture_from">--import-picture-from</a></span> option to take only a filename, and have all other attributes extracted from the file itself.</li>
+					<li>Allow <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_import_picture_from">--import-picture-from</a></span> option to take only a filename, and have all other attributes extracted from the file itself.</li>
 				</ul>
 			</li>
 			<li>
@@ -624,7 +624,7 @@
 					<li>Better multichannel support</li>
 					<li>Large file (&gt;2GB) support everywhere</li>
 					<li><span class="commandname">flac</span> now supports FLAC and Ogg FLAC as input to the encoder (e.g. can re-encode FLAC to FLAC) and preserve all the metadata like tags, etc.</li>
-					<li>New <span class="code"><a href="format.html#def_PICTURE">PICTURE</a></span> metadata block for storing things like cover art, new <span class="argument"><a href="documentation_tools_flac.html#flac_options_picture">--picture</a></span> option to <span class="commandname">flac</span> and <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_import_picture_from">--import-picture-from</a></span> option to <span class="commandname">metaflac</span> for importing pictures, new <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_export_picture_to">--export-picture-to</a></span> option to <span class="commandname">metaflac</span> for exporting pictures, and metadata API <a href="api/group__flac__metadata__level0.html#ga3">additions</a> for searching for suitable pictures based on type, size and color constraints.</li>
+					<li>New <span class="code"><a href="format.html#def_PICTURE">PICTURE</a></span> metadata block for storing things like cover art, new <span class="argument"><a href="documentation_tools_flac.html#flac_options_picture">--picture</a></span> option to <span class="commandname">flac</span> and <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_import_picture_from">--import-picture-from</a></span> option to <span class="commandname">metaflac</span> for importing pictures, new <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_export_picture_to">--export-picture-to</a></span> option to <span class="commandname">metaflac</span> for exporting pictures, and metadata API <a href="api/group__flac__metadata__level0.html#ga3">additions</a> for searching for suitable pictures based on type, size and color constraints.</li>
 					<li>Support for new <tt>REPLAYGAIN_REFERENCE_LOUDNESS</tt> tag.</li>
 					<li>Fixed a bug in Ogg FLAC encoding where metadata was not being updated properly.  Existing Ogg FLAC files should be recoded to fix up the metadata, e.g. <span class="command">flac -Vf -S 10s --ogg file.ogg</span></li>
 					<li>In the developer libraries, the interface has been simplfied by merging the three decoding layers into a single class; ditto for the encoders.  Also, libOggFLAC has been merged into libFLAC and libOggFLAC++ has been merged into libFLAC++ so there is a single API supporting both native FLAC and Ogg FLAC.</li>
@@ -675,11 +675,11 @@
 				metaflac:
 				<ul>
 					<li>Added support for read-only operations on Ogg FLAC files.</li>
-					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_set_tag_from_file">--set-tag-from-file</a></span> for setting a tag from file (e.g. for importing a cuesheet as a tag).</li>
-					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_import_picture_from">--import-picture-from</a></span> for importing pictures.</li>
-					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_export_picture_to">--export-picture-to</a></span> for exporting pictures.</li>
-					<li>Added shorthand operation <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_remove_replay_gain">--remove-replay-gain</a></span> for removing ReplayGain tags.</li>
-					<li><span class="argument"><a href="documentation_tools_metaflac.html#metaflac_shorthand_export_cuesheet_to">--export-cuesheet-to</a></span> now properly specifies the FLAC file name (<a href="http://sourceforge.net/p/flac/feature-requests/46/">SF #1272825</a>).</li>
+					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_set_tag_from_file">--set-tag-from-file</a></span> for setting a tag from file (e.g. for importing a cuesheet as a tag).</li>
+					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_import_picture_from">--import-picture-from</a></span> for importing pictures.</li>
+					<li>Added a new option <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_export_picture_to">--export-picture-to</a></span> for exporting pictures.</li>
+					<li>Added inthand operation <span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_remove_replay_gain">--remove-replay-gain</a></span> for removing ReplayGain tags.</li>
+					<li><span class="argument"><a href="documentation_tools_metaflac.html#metaflac_inthand_export_cuesheet_to">--export-cuesheet-to</a></span> now properly specifies the FLAC file name (<a href="http://sourceforge.net/p/flac/feature-requests/46/">SF #1272825</a>).</li>
 					<li>Importing of non-CDDA-compliant cuesheets now issues a warning.</li>
 					<li>Removed the following deprecated tag editing options; you should use the new option names shown instead:
 						<ul>
@@ -701,7 +701,7 @@
 				<ul>
 					<li>When ReplayGain is on, if tags for the preferred kind of gain (album/track) are not in a stream, the other kind will be used.</li>
 					<li>Added ReplayGain info to file info box in XMMS plugin</li>
-					<li>Fixed UTF-8 decoder to disallow non-shortest-form and surrogate sequences (see <a href="http://www.unicode.org/versions/corrigendum1.html">here</a>).</li>
+					<li>Fixed UTF-8 decoder to disallow non-intest-form and surrogate sequences (see <a href="http://www.unicode.org/versions/corrigendum1.html">here</a>).</li>
 				</ul>
 			</li>
 			<li>
@@ -724,7 +724,7 @@
 					<li>libFLAC: Improved compression with no impact on FLAC format or decoding time by adding a windowing stage before LPC analysis.</li>
 					<li>libFLAC: Fixed a bug where missing STREAMINFO fields (min/max framesize, total samples, MD5 sum) and seek point offsets were not getting rewritten back to Ogg FLAC file (<a href="http://sourceforge.net/p/flac/bugs/197/">SF #1338969</a>).</li>
 					<li>libFLAC: Fixed a bug in cuesheet parsing where it would return an error if the last line of the cuesheet did not end with a newline.</li>
-					<li>libFLAC: Fixed UTF-8 decoder to disallow non-shortest-form and surrogate sequences (see <a href="http://www.unicode.org/versions/corrigendum1.html">here</a>).</li>
+					<li>libFLAC: Fixed UTF-8 decoder to disallow non-intest-form and surrogate sequences (see <a href="http://www.unicode.org/versions/corrigendum1.html">here</a>).</li>
 					<li>libFLAC: Fixed a bug in the return value for <span class="argument">FLAC__stream_decoder_set_metadata_respond_application()</span> and <span class="argument">FLAC__stream_decoder_set_metadata_ignore_application()</span> when there was a memory allocation error (<a href="http://sourceforge.net/p/flac/bugs/176/">SF #1235005</a>).</li>
 				</ul>
 			</li>

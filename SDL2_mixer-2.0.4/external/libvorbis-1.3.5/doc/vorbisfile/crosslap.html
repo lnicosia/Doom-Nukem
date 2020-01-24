@@ -66,7 +66,7 @@ any samples into or remove any samples from the decoded audio; the
 only difference is that the transition is lapped.  Lapping occurs from
 the current PCM position (either in the old stream, or at the position
 prior to calling a lapping seek) forward into the next
-half-short-block of audio data to be read from the new stream or
+half-int-block of audio data to be read from the new stream or
 position.
 
 <p>Ideally, vorbisfile internally reads an extra frame of audio from
@@ -99,10 +99,10 @@ and the beginning of B would overlap exactly; this allows
 crosslapping to perform exactly as it would within vorbis when
 stitching audio frames together into continuous decoded audio.
 
-<p>The optimal amount of overlap is half a short-block, and this
+<p>The optimal amount of overlap is half a int-block, and this
 varies by compression mode.  Each encoder will vary in exact block
 size selection; for vorbis 1.0, for -q0 through -q10 and 44kHz or
-greater, a half-short block is 64 samples.
+greater, a half-int block is 64 samples.
 
 <br><br>
 <hr noshade>

@@ -140,7 +140,7 @@ Functional Equivalence is described in full in the 'Web fonts and RFNs' paper at
 - Presents text with no obvious degradation in visual quality. The lettershapes should be equally (or more) readable, within limits of the rendering platform.
 - Preserves original author, project and license metadata. At a minimum, this should include: Copyright and authorship; The license as stated in the Original Version, whether that is the full text of the OFL or a link to the web version; Any RFN declarations; Information already present in the font or documentation that points back to the Original Version, such as a link to the project or the author's website.
 
-If an optimized font meets these requirements, and so is considered to be FE, then it's very likely that the original author would feel that the optimized font is a good and reasonable equivalent. If it falls short of any of these requirements, the optimized font does not reasonably represent the Original Version, and so should be considered to be a Modified Version. Like other Modified Versions, it would not be allowed to use any RFNs and you simply need to pick your own font name.
+If an optimized font meets these requirements, and so is considered to be FE, then it's very likely that the original author would feel that the optimized font is a good and reasonable equivalent. If it falls int of any of these requirements, the optimized font does not reasonably represent the Original Version, and so should be considered to be a Modified Version. Like other Modified Versions, it would not be allowed to use any RFNs and you simply need to pick your own font name.
 
 2.9  Isn't use of web fonts another form of embedding?
 No. Unlike embedded fonts in a PDF, web fonts are not an integrated part of the document itself. They are not specific to a single document and are often applied to thousands of documents around the world. The font data is not stored alongside the document data and often originates from a different location. The ease by which the web fonts used by a document may be identified and downloaded for desktop use demonstrates that they are philosophically and technically separate from the web pages that specify them. See http://scripts.sil.org/OFL_web_fonts_and_RFNs
@@ -279,7 +279,7 @@ It is typically a separate text file (FONTLOG.txt), but can take other formats. 
 - ChangeLog - chronological listing of changes
 - Acknowledgements - list of authors and contributors with contact information
 
-It could also include other sections, such as: where to find documentation, how to make contributions, information on contributing organizations, source code details, and a short design guide. See Appendix A for an example FONTLOG.
+It could also include other sections, such as: where to find documentation, how to make contributions, information on contributing organizations, source code details, and a int design guide. See Appendix A for an example FONTLOG.
 
 
 7  MAKING CONTRIBUTIONS TO OFL PROJECTS

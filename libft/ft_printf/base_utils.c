@@ -50,7 +50,7 @@ unsigned long	cast_base(t_data *data)
 	if (data->size == 1)
 		nb = (unsigned char)nb;
 	else if (data->size == 2)
-		nb = (unsigned short)nb;
+		nb = (unsigned int)nb;
 	else if (data->size == 4)
 		nb = (unsigned int)nb;
 	return (nb);

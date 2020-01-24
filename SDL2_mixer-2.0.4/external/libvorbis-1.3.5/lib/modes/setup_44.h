@@ -28,14 +28,14 @@ static const double quality_mapping_44[12]={
   -.1,.0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1.0
 };
 
-static const int blocksize_short_44[11]={
+static const int blocksize_int_44[11]={
   512,256,256,256,256,256,256,256,256,256,256
 };
 static const int blocksize_long_44[11]={
   4096,2048,2048,2048,2048,2048,2048,2048,2048,2048,2048
 };
 
-static const double _psy_compand_short_mapping[12]={
+static const double _psy_compand_int_mapping[12]={
   0.5, 1., 1., 1.3, 1.6, 2., 2., 2., 2., 2., 2., 2.
 };
 static const double _psy_compand_long_mapping[12]={
@@ -73,7 +73,7 @@ static const ve_setup_data_template ve_setup_44_stereo={
   40000,
   50000,
 
-  blocksize_short_44,
+  blocksize_int_44,
   blocksize_long_44,
 
   _psy_tone_masteratt_44,
@@ -92,11 +92,11 @@ static const ve_setup_data_template ve_setup_44_stereo={
   _psy_noise_suppress,
 
   _psy_compand_44,
-  _psy_compand_short_mapping,
+  _psy_compand_int_mapping,
   _psy_compand_long_mapping,
 
-  {_noise_start_short_44,_noise_start_long_44},
-  {_noise_part_short_44,_noise_part_long_44},
+  {_noise_start_int_44,_noise_start_long_44},
+  {_noise_part_int_44,_noise_part_long_44},
   _noise_thresh_44,
 
   _psy_ath_floater,

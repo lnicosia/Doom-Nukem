@@ -878,7 +878,7 @@ FT_BEGIN_HEADER
 
     FT_Byte   format;
     FT_Byte   max_grays;
-    FT_Short  pitch;
+    FT_int  pitch;
     FT_Char   xadvance;
     FT_Char   yadvance;
 

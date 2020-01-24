@@ -125,7 +125,7 @@ FT_BEGIN_HEADER
   FT_LOCAL( FT_Int )
   ps_parser_to_coord_array( PS_Parser  parser,
                             FT_Int     max_coords,
-                            FT_Short*  coords );
+                            FT_int*  coords );
 
   FT_LOCAL( FT_Int )
   ps_parser_to_fixed_array( PS_Parser  parser,
@@ -298,7 +298,7 @@ FT_BEGIN_HEADER
   FT_LOCAL( void )
   t1_decrypt( FT_Byte*   buffer,
               FT_Offset  length,
-              FT_UShort  seed );
+              FT_Uint  seed );
 
 
   FT_LOCAL( FT_UInt32 )

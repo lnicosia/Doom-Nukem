@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
     int k;
     opus_int32 skip=0;
     int stop=0;
-    short *in, *out;
+    int *in, *out;
     int application=OPUS_APPLICATION_AUDIO;
     double bits=0.0, bits_max=0.0, bits_act=0.0, bits2=0.0, nrg;
     int bandwidth=-1;
@@ -464,7 +464,7 @@ int main(int argc, char *argv[])
        size = ftell(fin);
        fprintf(stderr, "File size is %d bytes\n", size);
        fseek(fin, 0, SEEK_SET);
-       mode_switch_time = size/sizeof(short)/channels/nb_modes_in_list;
+       mode_switch_time = size/sizeof(int)/channels/nb_modes_in_list;
        fprintf(stderr, "Switching mode every %d samples\n", mode_switch_time);
     }
 
@@ -547,9 +547,9 @@ int main(int argc, char *argv[])
                        (long)sampling_rate, bitrate_bps*0.001,
                        bandwidth_string, frame_size);
 
-    in = (short*)malloc(max_frame_size*channels*sizeof(short));
-    out = (short*)malloc(max_frame_size*channels*sizeof(short));
-    fbytes = (unsigned char*)malloc(max_frame_size*channels*sizeof(short));
+    in = (int*)malloc(max_frame_size*channels*sizeof(int));
+    out = (int*)malloc(max_frame_size*channels*sizeof(int));
+    fbytes = (unsigned char*)malloc(max_frame_size*channels*sizeof(int));
     data[0] = (unsigned char*)calloc(max_payload_bytes,sizeof(char));
     if ( use_inbandfec ) {
         data[1] = (unsigned char*)calloc(max_payload_bytes,sizeof(char));
@@ -617,7 +617,7 @@ int main(int argc, char *argv[])
                 opus_encoder_ctl(enc, OPUS_SET_FORCE_CHANNELS(mode_list[curr_mode][3]));
                 frame_size = mode_list[curr_mode][2];
             }
-            err = fread(fbytes, sizeof(short)*channels, frame_size, fin);
+            err = fread(fbytes, sizeof(int)*channels, frame_size, fin);
             curr_read = err;
             for(i=0;i<curr_read*channels;i++)
             {
@@ -709,12 +709,12 @@ int main(int argc, char *argv[])
                        int i;
                        for(i=0;i<(output_samples-skip)*channels;i++)
                        {
-                          short s;
+                          int s;
                           s=out[i+(skip*channels)];
                           fbytes[2*i]=s&0xFF;
                           fbytes[2*i+1]=(s>>8)&0xFF;
                        }
-                       if (fwrite(fbytes, sizeof(short)*channels, output_samples-skip, fout) != (unsigned)(output_samples-skip)){
+                       if (fwrite(fbytes, sizeof(int)*channels, output_samples-skip, fout) != (unsigned)(output_samples-skip)){
                           fprintf(stderr, "Error writing.\n");
                           return EXIT_FAILURE;
                        }

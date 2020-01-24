@@ -109,7 +109,7 @@ typedef struct		s_render_projectile
 	int				xend;
 	int				yend;
 	int				index;
-	short			brightness;
+	int			brightness;
 	Uint32			light_color;
 	int				intensity;
 	double			xrange;
@@ -146,7 +146,7 @@ typedef struct		s_render_object
 	int				xend;
 	int				yend;
 	int				index;
-	short			brightness;
+	int			brightness;
 	Uint32			light_color;
 	int				intensity;
 	double			xrange;
@@ -281,7 +281,7 @@ void			draw_bottom_wall(t_sector sector, t_render render,
 		t_env *env);
 void			draw_skybox(t_render render, int mode, t_env *env);
 void			precompute_skybox(t_env *env);
-short			get_vertex_nb_in_sector(short vertex, t_sector sector);
+int			get_vertex_nb_in_sector(int vertex, t_sector sector);
 void			precompute_neighbors(int i, t_camera *camera, t_sector *sector,
 		t_env *env);
 void			draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data,

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/25 16:19:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 12:26:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_v2	get_sector_normal(t_sector sector, t_env *env)
 ** Returns a vertex euclidean distance from its sector's first vertex (in 2d).
 */
 
-double	get_distance(t_sector sector, short vertex_nb, t_env *env)
+double	get_distance(t_sector sector, int vertex_nb, t_env *env)
 {
 	t_vertex	v0;
 	t_vertex	v1;
@@ -191,6 +191,7 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 	}
 	sector->floors[i] = sector->floors[0];
 	sector->ceilings[i] = sector->ceilings[0];
+	set_sector_xmax(env, sector);
 }
 
 void	precompute_slopes(t_env *env)

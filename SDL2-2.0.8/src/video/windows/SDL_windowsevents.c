@@ -296,7 +296,7 @@ static void
 WIN_CheckAsyncMouseRelease(SDL_WindowData *data)
 {
     Uint32 mouseFlags;
-    SHORT keyState;
+    int keyState;
 
     /* mouse buttons may have changed state here, we need to resync them,
        but we will get a WM_MOUSEMOVE right away which will fix things up if in non raw mode also
@@ -584,7 +584,7 @@ WIN_WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEWHEEL:
     case WM_MOUSEHWHEEL:
         {
-            short amount = GET_WHEEL_DELTA_WPARAM(wParam);
+            int amount = GET_WHEEL_DELTA_WPARAM(wParam);
             float fAmount = (float) amount / WHEEL_DELTA;
             if (msg == WM_MOUSEWHEEL)
                 SDL_SendMouseWheel(data->window, 0, 0.0f, fAmount, SDL_MOUSEWHEEL_NORMAL);
@@ -614,7 +614,7 @@ WIN_WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             SDL_Scancode code = WindowsScanCodeToSDLScanCode(lParam, wParam);
             const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
 
-            /* Detect relevant keyboard shortcuts */
+            /* Detect relevant keyboard intcuts */
             if (keyboardState[SDL_SCANCODE_LALT] == SDL_PRESSED || keyboardState[SDL_SCANCODE_RALT] == SDL_PRESSED) {
                 /* ALT+F4: Close window */
                 if (code == SDL_SCANCODE_F4 && ShouldGenerateWindowCloseOnAltF4()) {

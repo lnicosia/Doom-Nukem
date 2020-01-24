@@ -466,7 +466,7 @@
   extern
 #endif
 #endif
-  const short  ft_mac_names[FT_NUM_MAC_NAMES]
+  const int  ft_mac_names[FT_NUM_MAC_NAMES]
 #ifdef  DEFINE_PS_TABLES_DATA
   =
   {
@@ -505,7 +505,7 @@
   extern
 #endif
 #endif
-  const short  ft_sid_names[FT_NUM_SID_NAMES]
+  const int  ft_sid_names[FT_NUM_SID_NAMES]
 #ifdef  DEFINE_PS_TABLES_DATA
   =
   {
@@ -550,7 +550,7 @@
   extern
 #endif
 #endif
-  const unsigned short  t1_standard_encoding[256]
+  const unsigned int  t1_standard_encoding[256]
 #ifdef  DEFINE_PS_TABLES_DATA
   =
   {
@@ -583,7 +583,7 @@
   extern
 #endif
 #endif
-  const unsigned short  t1_expert_encoding[256]
+  const unsigned int  t1_expert_encoding[256]
 #ifdef  DEFINE_PS_TABLES_DATA
   =
   {

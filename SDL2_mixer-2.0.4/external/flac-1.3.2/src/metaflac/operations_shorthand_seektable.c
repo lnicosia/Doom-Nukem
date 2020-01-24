@@ -26,11 +26,11 @@
 #include "FLAC/stream_decoder.h"
 #include "FLAC/metadata.h"
 #include "share/grabbag.h"
-#include "operations_shorthand.h"
+#include "operations_inthand.h"
 
 static FLAC__bool populate_seekpoint_values(const char *filename, FLAC__StreamMetadata *block, FLAC__bool *needs_write);
 
-FLAC__bool do_shorthand_operation__add_seekpoints(const char *filename, FLAC__Metadata_Chain *chain, const char *specification, FLAC__bool *needs_write)
+FLAC__bool do_inthand_operation__add_seekpoints(const char *filename, FLAC__Metadata_Chain *chain, const char *specification, FLAC__bool *needs_write)
 {
 	FLAC__bool ok = true, found_seektable_block = false;
 	FLAC__StreamMetadata *block = 0;

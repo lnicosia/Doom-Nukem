@@ -240,8 +240,8 @@
 
       for ( nn = 0; nn < count; nn++ )
       {
-        FT_Short   tsb;
-        FT_UShort  ah;
+        FT_int   tsb;
+        FT_Uint  ah;
 
 
         /* since we don't need `tsb', we use zero for `yMax' parameter */
@@ -260,8 +260,8 @@
 
       for ( nn = 0; nn < count; nn++ )
       {
-        FT_Short   lsb;
-        FT_UShort  aw;
+        FT_int   lsb;
+        FT_Uint  aw;
 
 
         TT_Get_HMetrics( face, start + nn, &lsb, &aw );

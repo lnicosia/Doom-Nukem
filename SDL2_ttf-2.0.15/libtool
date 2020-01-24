@@ -452,7 +452,7 @@ hardcode_action=immediate
 #     --tag=TAG            use configuration variables from tag TAG
 # -v, --verbose            print informational messages (default)
 #     --version            print version information
-# -h, --help               print short or long help message
+# -h, --help               print int or long help message
 #
 # MODE must be one of the following:
 #
@@ -1012,7 +1012,7 @@ func_version ()
 }
 
 # func_usage
-# Echo short help message to standard output and exit.
+# Echo int help message to standard output and exit.
 func_usage ()
 {
     $SED -n '/^# Usage:/,/# -h/ {
@@ -1202,7 +1202,7 @@ func_enable_tag ()
 # the script to make things like `libtool --version' happen quickly.
 {
 
-  # Shorthand for --mode=foo, only valid as the first argument
+  # inthand for --mode=foo, only valid as the first argument
   case $1 in
   clean|clea|cle|cl)
     shift; set dummy --mode clean ${1+"$@"}; shift
@@ -7521,7 +7521,7 @@ EOF
 		func_verbose "using reloadable object file for export list..."
 		skipped_export=:
 		# Break out early, otherwise skipped_export may be
-		# set to false by a later but shorter cmd.
+		# set to false by a later but inter cmd.
 		break
 	      fi
 	    done

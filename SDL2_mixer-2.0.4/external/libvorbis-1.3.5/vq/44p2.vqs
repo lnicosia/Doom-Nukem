@@ -1,7 +1,7 @@
 GO
 
 >_44p2 noninterleaved
-haux 44p2/resaux_0.vqd _44p2_short 0,42,2 8
+haux 44p2/resaux_0.vqd _44p2_int 0,42,2 8
 haux 44p2/resaux_1.vqd _44p2_long 0,170,2 8
 haux 44p2/resaux_2.vqd _44p2_lfe 0,2,2 2
 	

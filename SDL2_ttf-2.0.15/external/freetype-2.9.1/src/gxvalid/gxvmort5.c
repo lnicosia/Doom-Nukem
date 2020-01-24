@@ -49,28 +49,28 @@
 
   typedef struct  GXV_mort_subtable_type5_StateOptRec_
   {
-    FT_UShort   classTable;
-    FT_UShort   stateArray;
-    FT_UShort   entryTable;
+    FT_Uint   classTable;
+    FT_Uint   stateArray;
+    FT_Uint   entryTable;
 
 #define GXV_MORT_SUBTABLE_TYPE5_HEADER_SIZE  GXV_STATETABLE_HEADER_SIZE
 
-    FT_UShort*  classTable_length_p;
-    FT_UShort*  stateArray_length_p;
-    FT_UShort*  entryTable_length_p;
+    FT_Uint*  classTable_length_p;
+    FT_Uint*  stateArray_length_p;
+    FT_Uint*  entryTable_length_p;
 
   }  GXV_mort_subtable_type5_StateOptRec,
     *GXV_mort_subtable_type5_StateOptRecData;
 
 
   FT_LOCAL_DEF( void )
-  gxv_mort_subtable_type5_subtable_setup( FT_UShort      table_size,
-                                          FT_UShort      classTable,
-                                          FT_UShort      stateArray,
-                                          FT_UShort      entryTable,
-                                          FT_UShort*     classTable_length_p,
-                                          FT_UShort*     stateArray_length_p,
-                                          FT_UShort*     entryTable_length_p,
+  gxv_mort_subtable_type5_subtable_setup( FT_Uint      table_size,
+                                          FT_Uint      classTable,
+                                          FT_Uint      stateArray,
+                                          FT_Uint      entryTable,
+                                          FT_Uint*     classTable_length_p,
+                                          FT_Uint*     stateArray_length_p,
+                                          FT_Uint*     entryTable_length_p,
                                           GXV_Validator  gxvalid )
   {
     GXV_mort_subtable_type5_StateOptRecData  optdata =
@@ -97,8 +97,8 @@
 
 
   static void
-  gxv_mort_subtable_type5_InsertList_validate( FT_UShort      offset,
-                                               FT_UShort      count,
+  gxv_mort_subtable_type5_InsertList_validate( FT_Uint      offset,
+                                               FT_Uint      count,
                                                FT_Bytes       table,
                                                FT_Bytes       limit,
                                                GXV_Validator  gxvalid )
@@ -127,11 +127,11 @@
 #else
     while ( p < table + offset + ( count * 2 ) )
     {
-      FT_UShort insert_glyphID;
+      FT_Uint insert_glyphID;
 
 
       GXV_LIMIT_CHECK( 2 );
-      insert_glyphID = FT_NEXT_USHORT( p );
+      insert_glyphID = FT_NEXT_Uint( p );
       GXV_TRACE(( " 0x%04x", insert_glyphID ));
     }
     GXV_TRACE(( "\n" ));
@@ -142,7 +142,7 @@
   static void
   gxv_mort_subtable_type5_entry_validate(
     FT_Byte                         state,
-    FT_UShort                       flags,
+    FT_Uint                       flags,
     GXV_StateTable_GlyphOffsetCPtr  glyphOffset,
     FT_Bytes                        table,
     FT_Bytes                        limit,
@@ -158,8 +158,8 @@
 #endif
     FT_Byte    currentInsertCount;
     FT_Byte    markedInsertCount;
-    FT_UShort  currentInsertList;
-    FT_UShort  markedInsertList;
+    FT_Uint  currentInsertList;
+    FT_Uint  markedInsertList;
 
     FT_UNUSED( state );
 
@@ -176,8 +176,8 @@
     currentInsertCount   = (FT_Byte)( ( flags >> 5 ) & 0x1F   );
     markedInsertCount    = (FT_Byte)(   flags        & 0x001F );
 
-    currentInsertList    = (FT_UShort)( glyphOffset->ul >> 16 );
-    markedInsertList     = (FT_UShort)( glyphOffset->ul       );
+    currentInsertList    = (FT_Uint)( glyphOffset->ul >> 16 );
+    markedInsertList     = (FT_Uint)( glyphOffset->ul       );
 
     if ( 0 != currentInsertList && 0 != currentInsertCount )
     {

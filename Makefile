@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/22 18:14:33 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/22 18:23:20 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c \
-		 get_existing_vertex.c add_vertex.c get_clockwise_order.c \
+		 get_existing_vertex.c add_vertex.c \
 		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
@@ -54,7 +54,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 split_sector_utils.c selection_tab.c init_hud.c
+		 split_sector_utils.c selection_tab.c init_hud.c write_events.c \
+		 write_events_utils.c write_events_utils2.c init_events_writers.c \
+		 write_event_conditions.c write_event_conditions_utils.c \
+		 write_event_conditions_utils2.c init_event_conditions_writers.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -96,7 +99,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_floor_sprites_both.c bmp_parser_ui.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
-		   draw_ceiling_sprites_both.c \
+		   draw_ceiling_sprites_both.c get_clockwise_order.c \
 		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c \
 		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
 		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
@@ -123,6 +126,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   set_condition_target.c set_condition_target2.c \
 		   init_events_parser_target_parsers.c parse_event_exec_conditions.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
+		   event_checkers.c check_vertex_event.c intersects_with_player.c \
+		   parse_events_links.c events_links_protection.c set_event_link.c \
+		   get_event_array.c get_event_nb.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

@@ -330,14 +330,14 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	}
 	env->sectors[parser->sectors_count].nb_vertices = parser->
 		sector_vertices_count;
-	if (!(env->sectors[parser->sectors_count].vertices = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].vertices = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	if (!(env->sectors[parser->sectors_count].neighbors = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].neighbors = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector neighbors:"));
-	if (!(env->sectors[parser->sectors_count].textures = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].textures = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].sprites = (t_wall_sprites*)
 				malloc(sizeof(t_wall_sprites) * (parser->sector_vertices_count + 1))))
@@ -378,11 +378,11 @@ int			init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!(env->sectors[parser->sectors_count].wall_width = (double*)
 				malloc(sizeof(double) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector wall_size:"));
-	if (!(env->sectors[parser->sectors_count].selected = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].selected = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
-	if (!(env->sectors[parser->sectors_count].nb_sprites = (short*)
-				malloc(sizeof(short) * (parser->sector_vertices_count + 1))))
+	if (!(env->sectors[parser->sectors_count].nb_sprites = (int*)
+				malloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));
 	if (!(env->sectors[parser->sectors_count].xmin = (int*)
 				malloc(sizeof(int) * (env->h))))
@@ -641,7 +641,7 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		(*line)++;
 		if ((env->sectors[parser->sectors_count].nb_sprites[i] = count_wall_sprites(*line, parser)) == -1)
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)ft_memalloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (int*)ft_memalloc(sizeof(int) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
@@ -683,7 +683,7 @@ int			parse_sector_sprite(t_env *env, char **line, t_map_parser *parser)
 		// OLD VERSION
 
 		/*env->sectors[parser->sectors_count].nb_sprites[i] = 1;
-		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (short*)ft_memalloc(sizeof(short) * env->sectors[parser->sectors_count].nb_sprites[i])))
+		if (!(env->sectors[parser->sectors_count].sprites[i].sprite = (int*)ft_memalloc(sizeof(int) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].sprites[i].pos = (t_v2*)ft_memalloc(sizeof(t_v2) * env->sectors[parser->sectors_count].nb_sprites[i])))
 			return (-1);

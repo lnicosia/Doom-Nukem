@@ -613,7 +613,7 @@
   af_direction_compute( FT_Pos  dx,
                         FT_Pos  dy )
   {
-    FT_Pos        ll, ss;  /* long and short arm lengths */
+    FT_Pos        ll, ss;  /* long and int arm lengths */
     AF_Direction  dir;     /* candidate direction        */
 
 
@@ -845,7 +845,7 @@
       {
         FT_Vector*  vec           = outline->points;
         char*       tag           = outline->tags;
-        FT_Short    endpoint      = outline->contours[0];
+        FT_int    endpoint      = outline->contours[0];
         AF_Point    end           = points + endpoint;
         AF_Point    prev          = end;
         FT_Int      contour_index = 0;
@@ -859,13 +859,13 @@
           point->in_dir  = (FT_Char)AF_DIR_NONE;
           point->out_dir = (FT_Char)AF_DIR_NONE;
 
-          point->fx = (FT_Short)vec->x;
-          point->fy = (FT_Short)vec->y;
+          point->fx = (FT_int)vec->x;
+          point->fy = (FT_int)vec->y;
           point->ox = point->x = FT_MulFix( vec->x, x_scale ) + x_delta;
           point->oy = point->y = FT_MulFix( vec->y, y_scale ) + y_delta;
 
-          end->fx = (FT_Short)outline->points[endpoint].x;
-          end->fy = (FT_Short)outline->points[endpoint].y;
+          end->fx = (FT_int)outline->points[endpoint].x;
+          end->fy = (FT_int)outline->points[endpoint].y;
 
           switch ( FT_CURVE_TAG( *tag ) )
           {
@@ -905,14 +905,14 @@
       {
         AF_Point*  contour       = hints->contours;
         AF_Point*  contour_limit = contour + hints->num_contours;
-        short*     end           = outline->contours;
-        short      idx           = 0;
+        int*     end           = outline->contours;
+        int      idx           = 0;
 
 
         for ( ; contour < contour_limit; contour++, end++ )
         {
           contour[0] = points + idx;
-          idx        = (short)( end[0] + 1 );
+          idx        = (int)( end[0] + 1 );
         }
       }
 

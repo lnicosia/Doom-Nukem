@@ -82,8 +82,8 @@
 
     {
       FT_Byte*   p           = bdf->table;
-      FT_UInt    version     = FT_NEXT_USHORT( p );
-      FT_UInt    num_strikes = FT_NEXT_USHORT( p );
+      FT_UInt    version     = FT_NEXT_Uint( p );
+      FT_UInt    num_strikes = FT_NEXT_Uint( p );
       FT_ULong   strings     = FT_NEXT_ULONG ( p );
       FT_UInt    count;
       FT_Byte*   strike;
@@ -108,7 +108,7 @@
 
       for ( ; count > 0; count-- )
       {
-        FT_UInt  num_items = FT_PEEK_USHORT( p + 2 );
+        FT_UInt  num_items = FT_PEEK_Uint( p + 2 );
 
         /*
          *  We don't need to check the value sets themselves, since this
@@ -174,8 +174,8 @@
 
     for ( ; count > 0; count-- )
     {
-      FT_UInt  _ppem  = FT_NEXT_USHORT( p );
-      FT_UInt  _count = FT_NEXT_USHORT( p );
+      FT_UInt  _ppem  = FT_NEXT_Uint( p );
+      FT_UInt  _count = FT_NEXT_Uint( p );
 
 
       if ( _ppem == size->metrics.y_ppem )
@@ -192,7 +192,7 @@
     p = strike;
     for ( ; count > 0; count-- )
     {
-      FT_UInt  type = FT_PEEK_USHORT( p + 4 );
+      FT_UInt  type = FT_PEEK_Uint( p + 4 );
 
 
       if ( ( type & 0x10 ) != 0 )

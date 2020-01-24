@@ -154,7 +154,7 @@ timer_addRemoveTimer(void *arg)
   _paramValue = param;
   _timerCallbackCalled = 0;
 
-  /* Set timer with a short delay */
+  /* Set timer with a int delay */
   id = SDL_AddTimer(10, _timerTestCallback, (void *)&param);
   SDLTest_AssertPass("Call to SDL_AddTimer(10, param)");
   SDLTest_AssertCheck(id > 0, "Check result value, expected: >0, got: %d", id);
