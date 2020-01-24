@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 19:08:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:58:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct		s_env
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
+	double				difficulty;
 }					t_env;
 
 /*

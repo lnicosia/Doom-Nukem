@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 17:57:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/24 18:18:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,19 @@ void	save_init_data(t_env *env)
 	}
 }
 
-int	hola(void *param, void *env)
+void	set_enemies_hp(t_env *env)
 {
-	(void)param;
-	(void)env;
-	ft_printf("Hola\n");
-	return (1);
-}
+	int i;
 
-int	cc(void *param, void *env)
-{
-	(void)param;
-	(void)env;
-	ft_printf("cc\n");
-	return (1);
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].exists)
+			env->enemies[i].health = env->enemies[i].map_hp *
+				env->difficulty;
+		ft_printf("enemy health %d\n", env->enemies[i].health);
+		i++;
+	}
 }
 
 int		init_game(int ac, char **av)
@@ -69,6 +68,7 @@ int		init_game(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
+	env.difficulty = 1;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
@@ -115,6 +115,7 @@ int		init_game(int ac, char **av)
 		env.enemies[i].exists = 1;
 		i++;
 	}
+	set_enemies_hp(&env);
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
@@ -140,75 +141,5 @@ int		init_game(int ac, char **av)
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
-	if (ft_strequ(av[1], "maps/events.map"))
-		init_events_map(&env);
-	if (ft_strequ(av[1], "maps/piece.map"))
-	{
-		env.sectors[0].wall_sprites[1].nb_press_events[0] = 3;
-		env.sectors[0].wall_sprites[1].press_events[0] = 
-		(t_event*)ft_memalloc(sizeof(t_event)
-		* env.sectors[0].wall_sprites[1].nb_press_events[0]);
-		env.sectors[0].wall_sprites[1].press_events[0][0] =
-		new_func_event(&hola, NULL);
-		env.sectors[0].wall_sprites[1].press_events[0][0].max_uses = 10;
-		env.sectors[0].wall_sprites[1].press_events[0][1] =
-		new_func_event(&cc, NULL);
-		env.sectors[0].wall_sprites[1].press_events[0][1].max_uses = 2;
-		env.sectors[0].wall_sprites[1].press_events[0][2] =
-		new_fixed_event(INT, env.sectors[0].wall_sprites[1].sprite, 1, 0);
-		env.sectors[0].wall_sprites[1].press_events[0][2].nb_launch_conditions = 1;
-		env.sectors[0].wall_sprites[1].press_events[0][2].launch_conditions =
-		(t_condition*)ft_memalloc(sizeof(t_condition) *
-		env.sectors[0].wall_sprites[1].press_events[0][2].nb_launch_conditions);
-		env.sectors[0].wall_sprites[1].press_events[0][2].launch_conditions[0].target = &env.sectors[0].wall_sprites[1].nb_press_events[0];
-		env.sectors[0].wall_sprites[1].press_events[0][2].launch_conditions[0].value = 1;
-		env.sectors[0].wall_sprites[1].press_events[0][2].launch_conditions[0].type = EQUALS;
-		env.sectors[0].wall_sprites[1].press_events[0][2].launch_conditions[0].target_type = INT;
-		env.sectors[0].wall_sprites[1].press_events[0][2].max_uses = 1;
-
-		env.sectors[0].wall_sprites[1].nb_press_events[1] = 4;
-		env.sectors[0].wall_sprites[1].press_events[1] = 
-		(t_event*)ft_memalloc(sizeof(t_event)
-		* env.sectors[0].wall_sprites[1].nb_press_events[1]);
-
-		env.sectors[0].wall_sprites[1].press_events[1][0] =
-		new_fixed_event(INT, &env.sectors[0].brightness, 64, 0);
-		env.sectors[0].wall_sprites[1].press_events[1][0].nb_launch_conditions = 1;
-		env.sectors[0].wall_sprites[1].press_events[1][0].launch_conditions =
-		(t_condition*)ft_memalloc(sizeof(t_condition) *
-		env.sectors[0].wall_sprites[1].press_events[1][0].nb_launch_conditions);
-		env.sectors[0].wall_sprites[1].press_events[1][0].launch_conditions[0].target = &env.sectors[0].brightness;
-		env.sectors[0].wall_sprites[1].press_events[1][0].launch_conditions[0].value = -64;
-		env.sectors[0].wall_sprites[1].press_events[1][0].launch_conditions[0].type = EQUALS;
-		env.sectors[0].wall_sprites[1].press_events[1][0].launch_conditions[0].target_type = INT;
-
-		env.sectors[0].wall_sprites[1].press_events[1][1] =
-		new_fixed_event(INT, &env.sectors[0].brightness, -64, 0);
-		env.sectors[0].wall_sprites[1].press_events[1][1].nb_launch_conditions = 1;
-		env.sectors[0].wall_sprites[1].press_events[1][1].launch_conditions =
-		(t_condition*)ft_memalloc(sizeof(t_condition) *
-		env.sectors[0].wall_sprites[1].press_events[1][1].nb_launch_conditions);
-		env.sectors[0].wall_sprites[1].press_events[1][1].launch_conditions[0].target = &env.sectors[0].brightness;
-		env.sectors[0].wall_sprites[1].press_events[1][1].launch_conditions[0].value = 64;
-		env.sectors[0].wall_sprites[1].press_events[1][1].launch_conditions[0].type = EQUALS;
-		env.sectors[0].wall_sprites[1].press_events[1][1].launch_conditions[0].target_type = INT;
-
-
-		env.sectors[0].wall_sprites[1].press_events[1][2] =
-		new_fixed_event(INT, &env.sectors[0].wall_sprites[1].sprite[1], 2, 0);
-
-
-		env.sectors[0].wall_sprites[1].press_events[1][3] =
-		new_fixed_event(INT, &env.sectors[0].wall_sprites[1].sprite[1], 1, 0);
-
-		env.nb_global_events = 1;
-		env.global_events =
-		(t_event*)ft_memalloc(sizeof(t_event) * env.nb_global_events);
-		env.global_events[0] =
-		new_fixed_event(INT, &env.enemies[0].sprite,
-		7, 0);
-		env.global_events[0].max_uses = 1;
-		env.global_events[0].delay = 1000;
-	}
 	return (doom(&env));
 }

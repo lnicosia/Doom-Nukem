@@ -20,10 +20,10 @@ void	selected_information_on_enemy(t_env *env)
 	if (env->selected_stat == 0 && time - env->time.tick2 > 300)
 	{
 		env->time.tick2 = time;
-		if (env->inputs.left && env->enemies[env->selected_enemy].health > 5)
-			env->enemies[env->selected_enemy].health -= 5;
-		if (env->inputs.right && env->enemies[env->selected_enemy].health < 100)
-			env->enemies[env->selected_enemy].health += 5;
+		if (env->inputs.left && env->enemies[env->selected_enemy].map_hp > 5)
+			env->enemies[env->selected_enemy].map_hp -= 5;
+		if (env->inputs.right)
+			env->enemies[env->selected_enemy].map_hp += 5;
 	}
 	else if (env->selected_stat == 1 && time - env->time.tick2 > 300)
 	{

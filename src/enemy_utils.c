@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:58:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:59:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,14 +328,14 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 				if (env->enemies[i].behavior == RANGED_PROJECTILE)
 				{
 					create_projectile(env, new_projectile_data(env->enemies[i].pos, env->enemies[i].angle * CONVERT_RADIANS, 1, 1),
-						new_projectile_stats(0.6, env->enemies[i].damage, 0.8, env->enemies[i].eyesight - 2.2),
+						new_projectile_stats(0.6, env->enemies[i].damage * env->difficulty, 0.8, env->enemies[i].eyesight - 2.2),
 						enemy_angle_z(env, i));
 				}
 				else if (env->enemies[i].behavior == RANGED_AIMBOT)
 				{
 					env->player.hit = 1;
-					env->player.health -= ft_clamp(env->enemies[i].damage - env->player.armor, 0, env->enemies[i].damage);
-					env->player.armor -= ft_clamp(env->enemies[i].damage, 0, env->player.armor);
+					env->player.health -= ft_clamp(env->enemies[i].damage * env->difficulty - env->player.armor, 0, env->enemies[i].damage);
+					env->player.armor -= ft_clamp(env->enemies[i].damage * env->difficulty, 0, env->player.armor);
 				}
 				if (env->player.health < 0)
 					env->player.health = 0;

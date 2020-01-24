@@ -139,7 +139,7 @@ void	print_enemy_informations(t_env *env)
 	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->selected_enemy),
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 80), new_printable_text("health: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].health), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].map_hp), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(560, 80), new_printable_text("speed: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].speed), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(600, 80), new_printable_text("damages: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);

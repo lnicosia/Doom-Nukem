@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/23 19:08:00 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:58:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -887,6 +887,7 @@ typedef struct		s_enemies
 	int				brightness;
 	Uint32			light_color;
 	int				intensity;
+	int				map_hp;
 	int				health;
 	int				damage;
 	int				exists;

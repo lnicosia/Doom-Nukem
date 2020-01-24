@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/24 16:58:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before enemy health", "a digit",
 					**line, parser));
-	env->enemies[parser->enemies_count].health = ft_atoi(*line);
-	if (env->enemies[parser->enemies_count].health <= 0)
+	env->enemies[parser->enemies_count].map_hp = ft_atoi(*line);
+	if (env->enemies[parser->enemies_count].map_hp <= 0)
 		return (custom_error_with_line("Enemy must have 1 or more health points", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')

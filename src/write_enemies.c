@@ -19,7 +19,7 @@ static void	write_enemy(int fd, t_enemies enemy)
 	ft_dprintf(fd, "[%d %.f] ",
 			enemy.sprite, enemy.scale);
 	ft_dprintf(fd, "[%d %d %d]\n",
-			enemy.health, enemy.speed, enemy.damage);
+			enemy.map_hp, enemy.speed, enemy.damage);
 
 }
 
