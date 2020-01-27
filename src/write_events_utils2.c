@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:36:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:19:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:09:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void		vertex_writer(int fd, t_event event)
 
 void		weapon_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%d %d)", event.update_param.weapon);
+	ft_dprintf(fd, " (%d)", event.update_param.weapon);
 }
 
 void		enemy_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%d %d %d)", event.update_param.enemy);
+	ft_dprintf(fd, " (%d)", event.update_param.enemy);
 }
 
 void		object_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%d %d %d)", event.update_param.object);
+	ft_dprintf(fd, " (%d)", event.update_param.object);
 }

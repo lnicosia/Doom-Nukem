@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 11:54:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:41:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,20 @@ t_events_parser *eparser)
 	set_condition_target(env, eparser);
 	eparser->event.launch_conditions[eparser->condition_count].target_type =
 	eparser->target_types[eparser->condition_index];
+	eparser->event.launch_conditions[eparser->condition_count].sector =
+	eparser->condition_sector;
+	eparser->event.launch_conditions[eparser->condition_count].wall =
+	eparser->condition_wall;
+	eparser->event.launch_conditions[eparser->condition_count].sprite =
+	eparser->condition_sprite;
+	eparser->event.launch_conditions[eparser->condition_count].enemy =
+	eparser->condition_enemy;
+	eparser->event.launch_conditions[eparser->condition_count].weapon =
+	eparser->condition_weapon;
+	eparser->event.launch_conditions[eparser->condition_count].vertex =
+	eparser->condition_vertex;
+	eparser->event.launch_conditions[eparser->condition_count].object =
+	eparser->condition_object;
 	if (**line != '}')
 		return (invalid_char("after launch condition declarartion", "'}'",
 		**line, parser));

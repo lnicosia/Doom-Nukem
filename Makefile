@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/22 18:23:20 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/27 10:47:08 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
+		 write_events_links.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 19:07:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 11:13:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,12 @@ t_events_parser *eparser)
 	if (**line != ']')
 		return (invalid_char("after target index", "']'", **line, parser));
 	(*line)++;
-	if (**line)
-		return (extra_data("link target", parser));
 	return (0);
 }
 
 int		parse_link_source(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	if (!**line)
-		return (missing_data("link source and target", parser));
-	if (**line != '[')
-		return (invalid_char("before source type", "'['", **line, parser));
-	(*line)++;
-	if (!**line)
-		return (missing_data("source type", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before source type", "a digit", **line, parser));
 		eparser->source_type = ft_atoi(*line);
@@ -110,6 +101,15 @@ int		parse_link(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
 	(*line)++;
+	if (parse_link_source(env, parser, line, eparser))
+		return (-1);
+	if (parse_link_target(env, parser, line, eparser))
+		return (-1);
+	if (!**line || **line == ']')
+		return (missing_data("link type", parser));
+	if (**line != '[')
+		return (invalid_char("before link type", "'['", **line, parser));
+	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("link type", parser));
 	if (valid_number(*line, parser))
@@ -122,11 +122,6 @@ t_events_parser *eparser)
 		return (missing_data("closing ']' brace after link type", parser));
 	if (**line != ']')
 		return (invalid_char("after link type", "']'", **line, parser));
-	(*line)++;
-	if (parse_link_source(env, parser, line, eparser))
-		return (-1);
-	if (parse_link_target(env, parser, line, eparser))
-		return (-1);
 	if (set_event_link(env, eparser))
 		return (-1);
 	return (0);

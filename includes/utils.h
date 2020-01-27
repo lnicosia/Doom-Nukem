@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 15:14:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 11:38:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,16 @@ typedef struct		s_condition
 	int				object;
 	int				vertex;
 	int				weapon;
+	int				source_type;
+	int				source_index;
+	int				source_sector;
+	int				source_wall;
+	int				source_sprite;
+	int				source_enemy;
+	int				target_sector;
+	int				target_wall;
+	int				target_sprite;
+	int				target_enemy;
 	void			*target;
 }					t_condition;
 
@@ -530,7 +540,7 @@ typedef struct		s_player
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
-	int			sector;
+	int				sector;
 	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;

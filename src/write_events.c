@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:19:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:11:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,25 @@ void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 	writers[event.target_index](fd, event);
 	ft_dprintf(fd, "]", event.target_index);
 	ft_dprintf(fd, "[%d ", event.mod_type);
-	if (event.mod_type == 0)
-		ft_dprintf(fd, "%f %f]", event.goal, event.speed);
-	else if (event.mod_type == 1)
+	if (event.mod_type == FIXED)
+	{
+		if (event.type == DOUBLE)
+			ft_dprintf(fd, "%f %f]", event.goal, event.speed);
+		else if (event.type == INT)
+			ft_dprintf(fd, "%d %f]", (int)event.goal, event.speed);
+		else if (event.type == UINT32)
+			ft_dprintf(fd, "%X %f]", (Uint32)event.goal, event.speed);
+	}
+	else if (event.mod_type == INCR)
+	{
 		ft_dprintf(fd, "%f %f]", event.start_incr, event.speed);
+		if (event.type == DOUBLE)
+			ft_dprintf(fd, "%f %f]", event.start_incr, event.speed);
+		else if (event.type == INT)
+			ft_dprintf(fd, "%d %f]", (int)event.start_incr, event.speed);
+		else if (event.type == UINT32)
+			ft_dprintf(fd, "%X %f]", (Uint32)event.start_incr, event.speed);
+	}
 	write_event_conditions(fd, event);
 	ft_dprintf(fd, "[%d %d]\n", (int)event.delay, event.max_uses);
 }
