@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/23 18:32:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:13:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void    shot(t_env *env)
 	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKET)
 	{
 		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
-			new_projectile_stats(0.5, 50, 0.8, env->player.eyesight - 0.4),
+			new_projectile_stats(0.5, env->weapons[env->player.curr_weapon].damage, 0.8, env->player.eyesight - 0.4),
 			env->player.camera.angle_z);
 	}
 	else
@@ -199,7 +199,11 @@ void    weapon_animation(t_env *env, int nb)
 void    weapon_change(t_env *env)
 {
 	int time_spent;
+	int	next_weapon;
 
+	next_weapon = next_possessed_weapon(env);
+	if (next_weapon < 0)
+		return ;
 	if (env->weapon_change.start == 0)
 	{
 		env->weapon_change.start = SDL_GetTicks();
@@ -210,10 +214,11 @@ void    weapon_change(t_env *env)
 		env->weapons[0].weapon_switch  = 75 * (int)(time_spent / 70);
 	if (time_spent > 4 * 70)
 	{
-		if (env->sdl.event.wheel.y > 0)
+		env->player.curr_weapon = next_weapon;
+		/*if (env->sdl.event.wheel.y > 0)
 			env->player.curr_weapon = (env->player.curr_weapon >= NB_WEAPONS - 1 ? 0 : env->player.curr_weapon + 1);
 		else if (env->sdl.event.wheel.y < 0)
-			env->player.curr_weapon = (env->player.curr_weapon <= 0 ? NB_WEAPONS - 1 : env->player.curr_weapon - 1);
+			env->player.curr_weapon = (env->player.curr_weapon <= 0 ? NB_WEAPONS - 1 : env->player.curr_weapon - 1);*/
 		env->weapons[0].weapon_switch = 0;
 		env->weapon_change.start = 0;
 		env->weapon_change.on_going = 0;
@@ -242,21 +247,33 @@ int		aoe_damage(double distance, double radius, int damage)
 	return ((int)(damage * percentage));
 }
 
-int		is_next_weapon_possessed(t_env *env)
+int		next_possessed_weapon(t_env *env)
 {
+	int i;
+
 	if (env->sdl.event.wheel.y > 0)
 	{
-		if (env->player.curr_weapon == NB_WEAPONS - 1)
-			return (env->weapons[0].possessed);
-		else
-			return (env->weapons[env->player.curr_weapon + 1].possessed);
+		i = (env->player.curr_weapon == NB_WEAPONS - 1) ? 0 : env->player.curr_weapon + 1;
+		while (i != env->player.curr_weapon)
+		{
+			if (env->weapons[i].possessed)
+				return (i);
+			i++;
+			if (i >= NB_WEAPONS)
+				i = 0;
+		}
 	}
 	if (env->sdl.event.wheel.y < 0)
 	{
-		if (env->player.curr_weapon == 0)
-			return (env->weapons[NB_WEAPONS - 1].possessed);
-		else
-			return (env->weapons[env->player.curr_weapon - 1].possessed);
+		i = (env->player.curr_weapon == 0) ? NB_WEAPONS - 1 : env->player.curr_weapon - 1;
+		while (i != env->player.curr_weapon)
+		{
+			if (env->weapons[i].possessed)
+				return (i);
+			i--;
+			if (i < 0)
+				i = NB_WEAPONS - 1;
+		}
 	}
-	return (0);
+	return (-1);
 }

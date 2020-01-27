@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/23 18:54:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:25:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,14 @@ void    init_weapons(t_env *env)
     env->weapons[1].max_ammo = 40;
     env->weapons[1].range = 50;
     env->weapons[1].splash = 0;
+
+	env->weapons[2].possessed = 1;
+	env->weapons[2].first_sprite = 0;
+	env->weapons[2].nb_sprites = 15;
+	env->weapons[2].ammo_type = SHELL;
+	env->weapons[2].ammo = 25;
+	env->weapons[2].damage = 125;
+	env->weapons[2].max_ammo = 25;
+	env->weapons[2].splash = 1;
+	env->weapons[2].range = 30;
 }

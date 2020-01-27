@@ -23,7 +23,6 @@ int	draw_render(t_camera *camera, t_env *env)
 	draw_explosions(*camera, env);
 	if (draw_enemies(*camera, env))
 		return (-1);
-	draw_enemies(*camera, env);
 	draw_players(*camera, env);
 	return (0);
 }
