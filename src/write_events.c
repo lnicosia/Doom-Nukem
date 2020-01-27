@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 17:11:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 13:38:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 	}
 	else if (event.mod_type == INCR)
 	{
-		ft_dprintf(fd, "%f %f]", event.start_incr, event.speed);
 		if (event.type == DOUBLE)
 			ft_dprintf(fd, "%f %f]", event.start_incr, event.speed);
 		else if (event.type == INT)
