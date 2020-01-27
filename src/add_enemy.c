@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_enemy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/07 13:32:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:12:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	add_enemy(t_env *env)
 	enemy.exists = 1;
 	enemy.sector = get_sector_no_z(env, new_v3(enemy.pos.x, enemy.pos.y, 0));
 	enemy.speed = 40;
-	enemy.health = 40;
+	enemy.map_hp = 40;
 	enemy.damage = 25;
 	if (enemy.sector != -1)
 	{

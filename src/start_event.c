@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:38:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:53:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		update_event(t_event *event)
 			event->incr = -event->incr;
 	}
 	event->start_time = SDL_GetTicks();
+	event->last_tick = event->start_time;
+	event->total = 0;
 	if (event->speed)
 		event->end_time = event->start_time + fabs(event->goal - event->start_value)
 		/ event->speed;

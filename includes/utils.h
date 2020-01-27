@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 12:18:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:01:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,6 @@ typedef struct		s_sprite
 	t_point			start[8];
 	t_point			end[8];
 	t_point			size[8];
-	double			ratio[8];
 	int				reversed[8];
 	int				rest_sprite;
 	int				curr_sprite;
@@ -301,6 +300,16 @@ typedef struct		s_condition
 	int				object;
 	int				vertex;
 	int				weapon;
+	int				source_type;
+	int				source_index;
+	int				source_sector;
+	int				source_wall;
+	int				source_sprite;
+	int				source_enemy;
+	int				target_sector;
+	int				target_wall;
+	int				target_sprite;
+	int				target_enemy;
 	void			*target;
 }					t_condition;
 
@@ -312,7 +321,9 @@ typedef struct		s_event
 	double			start_incr;
 	double			incr;
 	double			speed;
+	double			total;
 	Uint32			start_time;
+	Uint32			last_tick;
 	Uint32			end_time;
 	Uint32			start_delay;
 	Uint32			delay;
@@ -529,7 +540,7 @@ typedef struct		s_player
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;
-	int			sector;
+	int				sector;
 	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;

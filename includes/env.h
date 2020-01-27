@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 11:54:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:00:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -589,6 +589,7 @@ int					check_brightness_event(t_event *event, void *penv);
 int					check_int_overflow_event(t_event *event, void *penv);
 int					check_double_overflow_event(t_event *event, void *penv);
 int					check_gravity_event(t_event *event, void *penv);
+int					check_portal_event(t_event *event, void *penv);
 int					check_true_false_event(t_event *event, void *penv);
 int					check_vertex_x_event(t_event *event, void *penv);
 int					check_vertex_y_event(t_event *event, void *penv);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 17:10:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:48:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EVENTS_PARSER_H
 # include "map_parser.h"
 # define MAX_TRIGGER_TYPES 6
-# define MAX_TARGET_TYPES 66
+# define MAX_TARGET_TYPES 67
 
 typedef enum		e_trigger
 {
@@ -201,6 +201,8 @@ int					set_event_target_type4(t_env *env, t_events_parser *parser);
 int					count_conditions(char *line, t_map_parser *parser);
 int					intersects_with_wall(t_sector *sector, t_v3 pos, int wall,
 t_env *env);
+int					intersects_with_wall_no_portal_check(t_sector *sector,
+t_v3 pos, int wall, t_env *env);
 int					intersects_with_sector(t_sector *sector, t_v3 pos, 
 t_env *env);
 int					pos_changed_sector(t_env *env, t_sector *sector,

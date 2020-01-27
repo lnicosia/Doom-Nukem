@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:20:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:44:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	init_events_parser_checkers(t_events_parser *eparser)
 	eparser->checkers[SECTOR_WALL_ALIGN_Y] = &check_align_event;
 	eparser->checkers[SECTOR_WALL_SCALE_X] = &check_scale_event;
 	eparser->checkers[SECTOR_WALL_SCALE_Y] = &check_scale_event;
-	eparser->checkers[SECTOR_WALL_PORTAL] = &check_true_false_event;
+	eparser->checkers[SECTOR_WALL_PORTAL] = &check_portal_event;
 	eparser->checkers[SECTOR_WALL_SPRITES_SPRITE] = &check_sprite_event;
 	eparser->checkers[SECTOR_WALL_SPRITES_POS_X] = &check_align_event;
 	eparser->checkers[SECTOR_WALL_SPRITES_POS_Y] = &check_align_event;

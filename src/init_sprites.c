@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 18:40:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:16:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[0].end[0].y = 256;
 	env->wall_sprites[0].size[0].x = 128;
 	env->wall_sprites[0].size[0].y = 256;
-	env->wall_sprites[0].ratio[0] = env->wall_sprites[0].size[0].x
-	/ (double)env->wall_sprites[0].size[0].y;
 	env->wall_sprites[0].reversed[0] = 0;
 	
 	// Bouton OFF
@@ -51,8 +49,6 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[1].end[0].y = 64;
 	env->wall_sprites[1].size[0].x = 64;
 	env->wall_sprites[1].size[0].y = 64;
-	env->wall_sprites[1].ratio[0] = env->wall_sprites[1].size[0].x
-	/ (double)env->wall_sprites[1].size[0].y;
 	env->wall_sprites[1].reversed[0] = 0;
 
 	// Bouton ON
@@ -69,8 +65,6 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[2].end[0].y = 64;
 	env->wall_sprites[2].size[0].x = 64;
 	env->wall_sprites[2].size[0].y = 64;
-	env->wall_sprites[2].ratio[0] = env->wall_sprites[2].size[0].x
-	/ (double)env->wall_sprites[2].size[0].y;
 	env->wall_sprites[2].reversed[0] = 0;
 
 	// Bullet hole
@@ -87,8 +81,6 @@ int			init_wall_sprites(t_env *env)
 	env->wall_sprites[3].end[0].y = 600;
 	env->wall_sprites[3].size[0].x = 600;
 	env->wall_sprites[3].size[0].y = 600;
-	env->wall_sprites[3].ratio[0] = env->wall_sprites[3].size[0].x
-	/ (double)env->wall_sprites[3].size[0].y;
 	env->wall_sprites[3].reversed[0] = 0;
 	return (0);
 }

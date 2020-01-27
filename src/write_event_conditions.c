@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:25:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:57:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:45:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "events_conditions.h"
 
 void	write_condition(int fd, void (*writers[])(int, t_condition),
 t_condition condition)
@@ -31,7 +32,9 @@ void	write_event_conditions(int fd, t_event event)
 	ft_dprintf(fd, "[");
 	while (i < event.nb_launch_conditions)
 	{
-		write_condition(fd, writers, event.launch_conditions[i]);
+		if (event.launch_conditions[i].type != EVENT_ENDED
+			&& event.launch_conditions[i].type != EVENT_ENDED_START)
+			write_condition(fd, writers, event.launch_conditions[i]);
 		i++;
 	}
 	ft_dprintf(fd, "]");
@@ -39,7 +42,9 @@ void	write_event_conditions(int fd, t_event event)
 	ft_dprintf(fd, "[");
 	while (i < event.nb_exec_conditions)
 	{
-		write_condition(fd, writers, event.exec_conditions[i]);
+		if (event.exec_conditions[i].type != EVENT_ENDED
+			&& event.exec_conditions[i].type != EVENT_ENDED_START)
+			write_condition(fd, writers, event.exec_conditions[i]);
 		i++;
 	}
 	ft_dprintf(fd, "]");
