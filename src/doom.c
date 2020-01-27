@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 19:07:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 13:43:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		launch_events(t_env *env)
 {
 	if (env->player.sector != -1
 			&& env->sectors[env->player.sector].stand_events
-			&& env->sectors[env->player.sector].nb_stand_events)
+			&& env->sectors[env->player.sector].nb_stand_events
+			&& !env->player.state.jump)
 	{
 		if (start_event(&env->sectors[env->player.sector].stand_events,
 					&env->sectors[env->player.sector].nb_stand_events, env))

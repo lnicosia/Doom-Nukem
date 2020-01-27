@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:39:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 15:15:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:46:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		save_map(t_env *env)
 	write_objects(fd, env);
 	write_enemies(fd, env);
 	write_events(fd, env);
+	write_events_links(fd, env);
 	write_player(fd, env);
 	if (close(fd))
 		return (ft_printf("Could not close the file\n"));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 12:26:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:01:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	init_player(t_env *env)
 	env->player.state.fly = 0;
 	env->player.state.crouch = 0;
 	env->player.state.walk = 0;
-	env->gravity.force = -9.81;
 	env->gravity.collision = 0;
 }
 

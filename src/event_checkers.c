@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 17:24:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:04:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,7 +411,23 @@ int		check_true_false_event(t_event *event, void *penv)
 	if ((event->incr > 0 && *(int*)event->target == 1)
 			|| (event->incr < 0 && *(int*)event->target == 0)
 			|| (!event->speed && (int)event->goal != 1
-				&& (int)event->goal != 2))
+				&& (int)event->goal != 0))
+		return (1);
+	return (0);
+}
+
+int		check_portal_event(t_event *event, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if ((event->incr > 0 && *(int*)event->target == 1)
+			|| (event->incr < 0 && *(int*)event->target == 0)
+			|| (!event->speed && (int)event->goal != 1
+				&& (int)event->goal != 0))
+		return (1);
+	if (intersects_with_wall_no_portal_check(&env->sectors[event->
+		check_param.sector], env->player.pos, event->check_param.wall, env))
 		return (1);
 	return (0);
 }

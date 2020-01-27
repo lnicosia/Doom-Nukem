@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 15:36:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:16:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,10 +182,10 @@ static void	write_sector(int fd, t_sector sector)
 	write_sector_portals(fd, sector);
 	write_sector_textures(fd, sector);
 	write_sector_wall_sprites(fd, sector);
-	/*ft_dprintf(fd, "[%d %x %d] ", (int)(sector.brightness),
+	ft_dprintf(fd, "[%d %x %d %f]\n", (int)(sector.brightness),
+	sector.light_color, (int)sector.intensity, sector.gravity);
+	/*ft_dprintf(fd, "[%d 0 0]\n", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity);*/
-	ft_dprintf(fd, "[%d 0 0]\n", (int)(sector.brightness),
-	sector.light_color, (int)sector.intensity);
 	//write_interactions_related_data(fd, sector);
 }
 

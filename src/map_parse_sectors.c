@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 14:26:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:31:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -633,13 +633,13 @@ t_map_parser *parser)
 	return (0);
 }
 
-int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
+int			parse_sector_general(t_env *env, char **line, t_map_parser *parser)
 {
 	if (**line != '[')
 		return (invalid_char("before sector light data", "'['", **line, parser));
 	(*line)++;
 	if (!**line)
-		return (missing_data("light data", parser));
+		return (missing_data("sector general data", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before light brightness", "a digit", **line, parser));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
@@ -648,13 +648,15 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error("Light brightness must be between -255 and 255"));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
-		return (missing_data("light color hue", parser));
+		return (missing_data("light color hue, light color intensity and "
+		"sector gravity", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after light brightness", "a digit or space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
-		return (missing_data("light color hue", parser));
+		return (missing_data("light color hue, light color intensity and "
+		"sector gravity", parser));
 	if (valid_hexa(*line, parser))
 		return (invalid_char("before light color hue", "an hexa digit or space(s)",
 					**line, parser));
@@ -662,13 +664,15 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 	"0123456789ABCDEF");
 	*line = skip_hexa(*line);
 	if (!**line || **line == ']')
-		return (missing_data("light color intensity", parser));
+		return (missing_data("light color intensity and sector gravity",
+		parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after light color hue", "a digit or space(s)",
 					**line, parser));
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
-		return (missing_data("light color intensity", parser));
+		return (missing_data("light color intensity and sector gravity",
+		parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before light color intensity", "a digit or space(s)",
 					**line, parser));
@@ -677,8 +681,28 @@ int			parse_sector_light(t_env *env, char **line, t_map_parser *parser)
 			env->sectors[parser->sectors_count].intensity > 255)
 		return (custom_error("Light color intensity must be between -255 and 255"));
 	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("sector gravity", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after sector light color intensity",
+		"a digit or space(s)", **line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("sector gravity",
+		parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before sector gravity", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].gravity = ft_atof(*line);
+	if (env->sectors[parser->sectors_count].gravity < -10 ||
+		env->sectors[parser->sectors_count].gravity >= 0)
+		return (custom_error_with_line("Invalid gravity value", parser));
+	*line = skip_number(*line);
+	if (!**line)
+		return (missing_data("closing ']' brace after sector gravity",
+		parser));
 	if (**line != ']')
-		return (invalid_char("after sector light color intensity", "']'", **line, parser));
+		return (invalid_char("after sector gravity", "']'", **line, parser));
 	(*line)++;
 	if (**line != '\0')
 		return (extra_data(*line, parser));
@@ -693,6 +717,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	parser->sector_sprites_count = 0;
 	env->sectors[parser->sectors_count].sprite_time = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
+	env->sectors[parser->sectors_count].gravity = -9.81;
 	if (parse_floor(env, &line, parser))
 		return (-1);
 	if (parse_floor_sprites(env, &line, parser))
@@ -725,7 +750,7 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 	//return (custom_error("Error while parsing sector textures"));
 	if (parse_sector_wall_sprites(env, &line, parser))
 		return (-1);
-	if (parse_sector_light(env, &line, parser))
+	if (parse_sector_general(env, &line, parser))
 		return (-1);
 		//return (custom_error("Error while parsing sector light"));
 	return (0);
