@@ -20,8 +20,12 @@ void	print_sprite_tab(t_env *env)
 		print_ceiling_sprite_tab(env);	
 	else if (env->selected_floor_sprite != -1)
 		print_floor_sprite_tab(env);
-	draw_button(env, env->editor.next_sprite);
-	draw_button(env, env->editor.previous_sprite);
+	if (env->selected_floor_sprite != -1 || env->selected_wall_sprite_sprite != -1
+	|| env->selected_ceiling_sprite != -1)
+	{
+		draw_button(env, env->editor.next_sprite);
+		draw_button(env, env->editor.previous_sprite);
+	}
 }
 
 void	print_sector_tab(t_env *env)
