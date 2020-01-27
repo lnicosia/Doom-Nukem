@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 17:46:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:47:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_v2) * sector->floor_sprites.nb_sprites,
 					sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc floor sprites scale"));
-	sector->floor_sprites.sprite[sector->floor_sprites.nb_sprites] = 3;
+	sector->floor_sprites.sprite[sector->floor_sprites.nb_sprites] = BULLET_HOLE;
 	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites] = new_v2(0.4, 0.4);
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites] =
 		get_floor_bullet_hole_pos(sector, projectile, env);
@@ -47,11 +47,11 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites].y -=
 		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y / 2;
 	sector->floor_sprites_scale[sector->floor_sprites.nb_sprites].x =
-		env->wall_sprites[sector->floor_sprites
+		env->object_sprites[sector->floor_sprites
 		.sprite[sector->floor_sprites.nb_sprites]].size[0].x /
 		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].x;
 	sector->floor_sprites_scale[sector->floor_sprites.nb_sprites].y =
-		env->wall_sprites[sector->floor_sprites
+		env->object_sprites[sector->floor_sprites
 		.sprite[sector->floor_sprites.nb_sprites]].size[0].y /
 		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y;
 	sector->floor_sprites.nb_sprites++;
@@ -100,7 +100,7 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
 					sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc ceiling sprites scale"));
-	sector->ceiling_sprites.sprite[sector->ceiling_sprites.nb_sprites] = 3;
+	sector->ceiling_sprites.sprite[sector->ceiling_sprites.nb_sprites] = BULLET_HOLE;
 	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites] = new_v2(0.4,
 			0.4);
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites] =
@@ -110,11 +110,11 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites].y -=
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y / 2;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].x =
-		env->wall_sprites[sector->ceiling_sprites
+		env->object_sprites[sector->ceiling_sprites
 		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].x /
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].y =
-		env->wall_sprites[sector->ceiling_sprites
+		env->object_sprites[sector->ceiling_sprites
 		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y;
 	sector->ceiling_sprites.nb_sprites++;

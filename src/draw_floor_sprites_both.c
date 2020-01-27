@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:49:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 15:45:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:46:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_floor_sprites_both(t_sector sector, t_render render, t_env *env)
 		j = 0;
 		while (j < sector.floor_sprites.nb_sprites)
 		{
-			sprite = env->wall_sprites[sector.floor_sprites.sprite[j]];
+			sprite = env->object_sprites[sector.floor_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
 			/*sprite_x = (x - sector.floor_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.floor_sprites.scale[j].x;

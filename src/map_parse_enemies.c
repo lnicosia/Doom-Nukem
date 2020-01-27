@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:23:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 
 static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 {
+	int	parse;
+
 	if (**line != '[')
 		return (invalid_char("before enemy sprite", "'['", **line, parser));
 	(*line)++;
@@ -78,10 +80,11 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before enemy sprite", "a digit",
 					**line, parser));
-	env->enemies[parser->enemies_count].sprite = ft_atoi(*line);
-	if (env->enemies[parser->enemies_count].sprite < 0
-			|| env->enemies[parser->enemies_count].sprite >= MAX_SPRITES)
+	parse = ft_atoi(*line);
+	if (parse < 0
+			|| parse >= MAX_ENEMIES)
 		return (custom_error_with_line("Invalid sprite texture", parser));
+	env->enemies[parser->enemies_count].sprite = env->enemy_main_sprite[parse];
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy scale", parser));

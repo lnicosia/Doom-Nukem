@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:54:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 15:40:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:46:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_env *env)
 		j = 0;
 		while (j < sector.ceiling_sprites.nb_sprites)
 		{
-			sprite = env->wall_sprites[sector.ceiling_sprites.sprite[j]];
+			sprite = env->object_sprites[sector.ceiling_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
 			/*sprite_x = (x - sector.ceiling_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.ceiling_sprites.scale[j].x;

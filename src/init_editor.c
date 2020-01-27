@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 15:00:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:33:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not load textures\n", &env));
 	if (generate_mipmaps(&env))
 		return (crash("Could not generate mipmaps\n", &env));
-	if (init_wall_sprites(&env))
-		return (crash("Could not load wall sprites\n", &env));
 	if (init_object_sprites(&env))
 		return (crash("Could not load object sprites\n", &env));
 	if (init_enemy_sprites(&env))

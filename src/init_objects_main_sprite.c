@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:24:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 17:32:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:35:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,8 @@ void	init_objects_main_sprite(t_env *env)
 	env->object_main_sprite[9] = GREEN_ARMOR;
 	env->object_main_sprite[10] = CANDLE;
 	env->object_main_sprite[11] = BARREL;
+	env->object_main_sprite[12] = GRID;
+	env->object_main_sprite[13] = BUTTON_OFF;
+	env->object_main_sprite[14] = BUTTON_ON;
+	env->object_main_sprite[15] = BULLET_HOLE;
 }

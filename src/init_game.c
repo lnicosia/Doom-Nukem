@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 17:57:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:33:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int		init_game(int ac, char **av)
 		return (crash("Could not load fonts\n", &env));
 	if (init_textures(&env))
 		return (crash("Could not load textures\n", &env));
-	if (init_wall_sprites(&env))
-		return (crash("Could not load wall sprites\n", &env));
 	if (init_object_sprites(&env))
 		return (crash("Could not load object sprites\n", &env));
 	if (init_enemy_sprites(&env))

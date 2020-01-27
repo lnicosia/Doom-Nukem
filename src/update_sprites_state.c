@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:46:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	update_walls_sprites_state(t_env *env)
 				if (diff > 200)
 				{
 					env->sectors[i].sprite_time = env->time.milli_s;
-					env->sectors[i].wall_sprites[j].sprite[k] = env->wall_sprites[env->sectors[i].wall_sprites[j].sprite[k]].rest_sprite;
+					env->sectors[i].wall_sprites[j].sprite[k] = env->object_sprites[env->sectors[i].wall_sprites[j].sprite[k]].rest_sprite;
 				}
 			}
 			j++;
