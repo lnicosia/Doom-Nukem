@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:49:22 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:02:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void	general_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
 }
 
 void	sector_tab(void *target)
@@ -168,6 +170,8 @@ void	sector_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.general_tab.state = UP;
 	env->editor.general_tab.anim_state = REST;
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
 }
 
 void	sprite_tab(void *target)
@@ -179,4 +183,19 @@ void	sprite_tab(void *target)
 	env->editor.general_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
+}
+
+void	events_tab(void *target)
+{
+	t_env *env;
+
+	env = (t_env *)target;
+	env->editor.general_tab.state = UP;
+	env->editor.general_tab.anim_state = REST;
+	env->editor.sector_tab.state = UP;
+	env->editor.sector_tab.anim_state = REST;
+	env->editor.sprite_tab.state = UP;
+	env->editor.sprite_tab.anim_state = REST;
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 15:04:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:05:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		editor_3d_keyup(t_env *env)
 		button_keyup(&env->editor.general_tab, env);
 		button_keyup(&env->editor.sprite_tab, env);
 		button_keyup(&env->editor.sector_tab, env);
+		button_keyup(&env->editor.events_tab, env);
 		button_keyup(&env->editor.change_mode, env);	
 		button_keyup(&env->editor.launch_game, env);
 		button_keyup(&env->editor.texture_background, env);

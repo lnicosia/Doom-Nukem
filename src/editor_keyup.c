@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:58:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:07:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
+	button_keyup(&env->editor.events_tab, env);
 	if (env->editor.selected_sector != -1)
 		sector_buttons_up(env);
 	if (env->editor.selected_player != -1)

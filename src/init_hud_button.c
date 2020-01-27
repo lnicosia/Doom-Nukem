@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/14 12:08:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:28:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ void	init_informations_tab(t_env *env)
 	env->editor.sprite_tab = new_tab_button(WHEN_DOWN, &sprite_tab, env, env);
     env->editor.sprite_tab.str = "Sprites";
     env->editor.sprite_tab.pos = new_point(238,425);
+	env->editor.events_tab = new_tab_button(WHEN_DOWN, &events_tab, env, env);
+    env->editor.events_tab.str = "Events";
+    env->editor.events_tab.pos = new_point(357,425);
 }
 
 int		init_editor_hud(t_env *env)
@@ -132,5 +135,6 @@ int		init_editor_hud(t_env *env)
 	init_informations_tab(env);
 	init_options_buttons(env);
 	init_editor_tab_buttons(env);
+	init_events_selection_buttons(env);
 	return (1);
 }

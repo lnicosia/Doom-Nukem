@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 14:53:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:36:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	init_editor_data(t_env *env)
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;
 	env->selected_ceiling = -1;
+	env->selected_floor_sprite = -1;
+	env->selected_ceiling_sprite= -1;
 	env->selected_wall_sprite_sprite = -1;
 	env->selected_wall_sprite_wall = -1;
 	env->hovered_wall_sprite_sprite = -1;

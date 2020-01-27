@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:57:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 17:42:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,9 @@ void				print_object_sector_tab(t_env *env);
 void				print_floor_sprite_tab(t_env *env);
 void				print_ceiling_sprite_tab(t_env *env);
 void				print_wall_sprite_tab(t_env *env);
+void				print_global_events_tab(t_env *env);
+void				print_sector_events_tab(t_env *env);
+void				print_wall_sprite_events_tab(t_env *env);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
@@ -327,6 +330,7 @@ void				add_object_button(void *target);
 void				general_tab(void *target);
 void				sector_tab(void *target);
 void				sprite_tab(void *target);
+void				events_tab(void *param);
 void				change_sprite(void *target);
 void				change_var(void *target);
 void				wall_buttons(t_env *env);
@@ -627,6 +631,7 @@ void				shift_floor_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall, 
 int sprite, t_env *env);
+void				init_events_selection_buttons(t_env *env);
 
 /*
 ** enemies functions
