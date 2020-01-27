@@ -6,76 +6,87 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 17:17:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 14:49:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	change_ceiling_sprite(t_button_next *next)
+void	change_ceiling_sprite(t_button_next *button)
 {
 	t_env *env;
 
-	env = next->env;
-	if (next->type == PREVIOUS)
+	env = button->env;
+	if (button->button_type == PREVIOUS)
 	{
 		if (env->selected_ceiling_sprite > 0)
 			env->selected_ceiling_sprite--;
+		env->editor.previous_sprite.state = UP;
+		env->editor.previous_sprite.anim_state = REST;
 	}
-	else if (next->type == NEXT)
+	else if (button->button_type == NEXT)
 	{
-		if (env->selected_ceiling_sprite < MAX_WALL_SPRITES)
+		if (env->selected_ceiling_sprite <
+		env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1)
 			env->selected_ceiling_sprite++;
+		env->editor.next_sprite.state = UP;
+		env->editor.next_sprite.anim_state = REST;
 	}
 }
 
-void	change_floor_sprite(t_button_next *next)
+void	change_floor_sprite(t_button_next *button)
 {
 	t_env *env;
 
-	env = next->env;
-	if (next->type == PREVIOUS)
+	env = button->env;
+	if (button->type == PREVIOUS)
 	{
 		if (env->selected_floor_sprite > 0)
 			env->selected_floor_sprite--;
 	}
-	else if (next->type == NEXT)
+	else if (button->type == NEXT)
 	{
-		if (env->selected_floor_sprite < MAX_WALL_SPRITES)
+		if (env->selected_floor_sprite <
+		env->sectors[env->selected_floor].floor_sprites.nb_sprites)
 			env->selected_floor_sprite++;
 	}
 }
 
-void	change_wall_sprite(t_button_next *next)
-{
+void	change_wall_sprite(t_button_next *button)
+{	
 	t_env *env;
 
-	env = next->env;
-	if (next->type == PREVIOUS)
+	env = button->env;
+	if (button->type == PREVIOUS)
 	{
 		if (env->editor.selected_wall_sprite > 0)
 			env->editor.selected_wall_sprite--;
 	}
-	else if (next->type == NEXT)
+	else if (button->type == NEXT)
 	{
-		if (env->editor.selected_wall_sprite < MAX_WALL_SPRITES)
+		if (env->editor.selected_wall_sprite <
+		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites)
 			env->editor.selected_wall_sprite++;
 	}
 }
 
 void	change_sprite(void *target)
 {
-	t_button_next	*next;
+	t_button_next	*button;
 	t_env			*env;
 	 
-	next = (t_button_next*)target;
-	env = next->env;
-	if (next->type == WALL_S)
-		change_wall_sprite(next);
-	else if (next->type == FLOOR_S)
-		change_floor_sprite(next);
-	else if (next->type == CEILING_S)
-		change_ceiling_sprite(next);
+	env = (t_env *)target;
+	button = NULL;
+	if (env->editor.next_sprite.state == DOWN)
+		button = &env->editor.next_sprite_env;
+	else if (env->editor.previous_sprite.state == DOWN)
+		button = &env->editor.previous_sprite_env;
+	if (button->type == WALL_S)
+		change_wall_sprite(button);
+	else if (button->type == FLOOR_S)
+		change_floor_sprite(button);
+	else if (button->type == CEILING_S)
+		change_ceiling_sprite(button);
 }
 
 void	add_object_button(void *target)

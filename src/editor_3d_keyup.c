@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 17:13:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 12:12:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ int		editor_3d_keyup(t_env *env)
 			ceiling_sprite_buttons_up(env);
 		if (env->selected_wall_sprite_sprite != -1)
 			wall_sprite_buttons_up(env);
+		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1)
+		{
+			button_keyup(&env->editor.next_sprite, env);
+			button_keyup(&env->editor.previous_sprite, env);
+		}
 		if (env->editor.draw_selection_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)

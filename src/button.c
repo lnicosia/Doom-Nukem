@@ -213,8 +213,8 @@ t_button	new_next_button(int type, void (*action)(void *), void *param, t_env *e
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[15].surface || !env->ui_textures[16].surface
-		|| !env->ui_textures[17].surface)
+	if (!env->ui_textures[18].surface || !env->ui_textures[19].surface
+		|| !env->ui_textures[20].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[15].surface;
 	new.img_pressed = env->ui_textures[16].surface;
@@ -232,8 +232,8 @@ t_button	new_previous_button(int type, void (*action)(void *), void *param, t_en
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[18].surface || !env->ui_textures[19].surface
-		|| !env->ui_textures[20].surface)
+	if (!env->ui_textures[15].surface || !env->ui_textures[16].surface
+		|| !env->ui_textures[17].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[18].surface;
 	new.img_pressed = env->ui_textures[19].surface;

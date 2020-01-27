@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:07:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 14:47:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 14:17:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	print_wall_sprite_tab(t_env *env)
 {
+	env->editor.next_sprite_env.type = WALL_S;
+	env->editor.previous_sprite_env.type = WALL_S;
 	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.sp_wall_sprite.num.str = ft_sitoa(env->selected_wall_sprite_sprite);
 	env->editor.hud.sp_wall_sprite.t_num.target = &env->selected_wall_sprite_sprite;

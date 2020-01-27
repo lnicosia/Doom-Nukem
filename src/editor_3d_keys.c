@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 17:11:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 12:04:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,6 +509,12 @@ int		editor_3d_keys(t_env *env)
 			wall_buttons(env);
 		if (env->selected_enemy != -1)
 			enemy_buttons(env);
+		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1)
+		{
+			button_keys(&env->editor.next_sprite, env);
+			button_keys(&env->editor.previous_sprite, env);
+		}
 		if (env->selected_floor_sprite != -1)
 			floor_sprite_buttons(env);
 		if (env->selected_ceiling_sprite != -1)

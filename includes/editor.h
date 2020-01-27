@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 17:37:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 14:35:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct		s_button_next
 	int				max;
 	int				min;
 	int				type;
-	int				button;
+	int				button_type;
 	t_point			pos;
 }					t_button_next;
 
@@ -216,6 +216,7 @@ typedef struct	s_editor
 	t_button		launch_game;
 	t_button		texture_background;
 	t_button		enemy_background;
+	t_button		sprite_background;
 	t_button		sector_tab;
 	t_button		sprite_tab;
 	t_button		general_tab;
@@ -227,6 +228,8 @@ typedef struct	s_editor
 	t_button		next_sprite;
 	t_button_next	previous_sprite_env;
 	t_button		previous_sprite;
+	t_button		sprite_selection[MAX_WALL_SPRITES];
+	t_button		current_sprite_selection[MAX_WALL_SPRITES];
 }				t_editor;
 
 #endif

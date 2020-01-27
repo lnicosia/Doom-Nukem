@@ -17,9 +17,11 @@ void	print_sprite_tab(t_env *env)
 	if (env->selected_wall_sprite_wall != -1)
 		print_wall_sprite_tab(env);
 	else if (env->selected_ceiling_sprite != -1)
-		print_ceiling_sprite_tab(env);
+		print_ceiling_sprite_tab(env);	
 	else if (env->selected_floor_sprite != -1)
 		print_floor_sprite_tab(env);
+	draw_button(env, env->editor.next_sprite);
+	draw_button(env, env->editor.previous_sprite);
 }
 
 void	print_sector_tab(t_env *env)
