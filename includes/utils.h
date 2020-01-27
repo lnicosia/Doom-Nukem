@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 13:44:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:59:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 3
+# define MAX_UI_TEXTURES 21
+# define MAX_MONSTER_MINI 14
 # define MAX_SPRITES 22
 # define MAX_WALL_SPRITES 4
 # define CONVERT_RADIANS 0.0174532925199432955
@@ -36,6 +37,7 @@
 # define NB_WEAPONS 2
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
+# define MAX_OBJECTS 12
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -65,10 +67,24 @@ typedef enum		e_target_type
 	POS
 }			t_target_type;
 
+typedef enum		e_change_sprite
+{
+	NEXT,
+	PREVIOUS
+}					t_change_sprite;
+
+typedef enum		e_sprite_type
+{
+	WALL_S,
+	FLOOR_S,
+	CEILING_S
+}					t_sprite_type;
+
 typedef enum		e_button_action_type
 {
 	ON_PRESS,
-	WHEN_DOWN
+	WHEN_DOWN,
+	ON_RELEASE
 }					t_button_action_type;
 
 typedef enum		e_event_mod_type
@@ -1050,11 +1066,13 @@ typedef struct		s_button
 	char			*str;
 	TTF_Font		*font;
 	int				state;
-	int			draw;
+	int				draw;
 	int				anim_state;
 	void			(*down_action)(void *);
+	void			(*release_action)(void *);
 	void			(*press_action)(void *);
 	void			*param;
+	void			*release_param;
 }					t_button;
 
 /*

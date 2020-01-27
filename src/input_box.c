@@ -17,6 +17,41 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	if (type < 0 || type > 2 || !target)
 		return (-1);
+	box->size = new_point(50, 200);
+	box->pos = pos;
+	box->type = type;
+	box->state = 1;
+	box->accept_inputs = 0;
+	if (type == INT)
+	{
+		box->int_target = (int*)target;
+		if (!(box->str = ft_itoa(*((int*)target))))
+			return (-1);
+		set_double_stats(box);
+	}
+	else if (type == DOUBLE)
+	{
+		box->double_target = (double*)target;
+		if (!(box->str = ft_itoa((int)*((double*)target))))
+			return (-1);
+		set_double_stats(box);
+	}
+	else if (type == STRING)
+	{
+		box->str_target = (char**)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		box->str = ft_strdup(*(char**)target);
+	}
+	box->cursor = ft_strlen(box->str);
+	return (0);
+}
+
+int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
+{
+	if (type < 0 || type > 2 || !target)
+		return (-1);
+	box->size = new_point(96, 32);
 	box->pos = pos;
 	box->type = type;
 	box->state = 1;

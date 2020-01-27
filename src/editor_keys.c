@@ -42,7 +42,7 @@ int			editor_keys(t_env *env)
 	/*
 	**	Moving the map with arrows
 	*/
-
+	
 	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.x -= 3;
 	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
@@ -65,12 +65,35 @@ int			editor_keys(t_env *env)
 	**	control of the sector status with +/-
 	*/
 
+	button_keys(&env->editor.add_enemy, env);
+	button_keys(&env->editor.add_object, env);
+	button_keys(&env->editor.save, env);
+	button_keys(&env->editor.general_tab, env);
+	button_keys(&env->editor.sprite_tab, env);
+	button_keys(&env->editor.sector_tab, env);
+	button_keys(&env->editor.change_mode, env);
+	button_keys(&env->editor.launch_game, env);
+	button_keys(&env->editor.texture_background, env);
+	button_keys(&env->editor.enemy_background, env);
+	if (env->editor.selected_sector != -1)
+		sector_buttons(env);
+	if (env->editor.selected_player != -1)
+		player_buttons(env);
+	if (env->selected_enemy != -1)
+		enemy_buttons(env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
-			//ft_printf("%d\n", i);
 			button_keys(&env->editor.textures[i], env);
+			i++;
+		}
+	}
+	if (env->editor.draw_enemy_tab)
+	{
+		while (i < MAX_ENEMIES)
+		{
+			button_keys(&env->editor.enemy_tab[i], env);
 			i++;
 		}
 	}
@@ -96,42 +119,6 @@ int			editor_keys(t_env *env)
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
 		time = SDL_GetTicks();
-		/*if (env->inputs.plus && env->sectors[env->editor.selected_sector].status < 5
-		&& time - env->time.tick4 > 300)
-		{
-			env->sectors[env->editor.selected_sector].status++;
-			env->time.tick4 = time;
-		}
-		if (env->inputs.minus && env->sectors[env->editor.selected_sector].status > 0
-		&& time - env->time.tick4 > 300)
-		{
-			env->sectors[env->editor.selected_sector].status--;
-			env->time.tick4 = time;
-		}
-		if (env->sectors[env->editor.selected_sector].status == 3)
-		{
-			env->teleport.create = 1;
-			env->hidden_sect.create = 0;
-		}
-		if (env->sectors[env->editor.selected_sector].status == 5)
-		{
-			env->hidden_sect.sector = env->editor.selected_sector;
-			env->hidden_sect.create = 1;
-			env->teleport.create = 0;
-		}*/
 	}
-	/*if (env->inputs.left_click && env->teleport.create)
-	{
-		env->teleport.tmp_pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
-		env->teleport.tmp_pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-		create_teleport(env);
-	}
-	if (env->inputs.left_click && env->hidden_sect.create)
-	{
-		if (env->selected_enemy != -1)
-			create_hidden_sector(env);
-		else
-			ft_printf("please select an enemy to complete the creation\n");
-	}*/
 	return (0);
 }

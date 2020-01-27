@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 17:59:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:55:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ static int	threaded_get_relative_pos(t_camera camera, t_env *env)
 	t_enemy_thread	enemies_threads[THREADS];
 	pthread_t		threads[THREADS];
 
-	env->current_enemy = 0;
 	i = 0;
 	while (i < THREADS)
 	{

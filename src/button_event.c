@@ -41,8 +41,8 @@ int	is_mouse_on_button(t_button b, t_point mouse)
 
 void	button_keyup(t_button *b, t_env *env)
 {
-	if (!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my))
-		|| b->anim_state != PRESSED)
+	if ((!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my))
+		|| b->anim_state != PRESSED))
 	{
 		b->anim_state = REST;
 		return ;

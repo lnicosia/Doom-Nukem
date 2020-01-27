@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 13:44:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:57:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
+	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
@@ -119,7 +120,6 @@ typedef struct		s_env
 	t_point				minimap_size;
 	t_point				crosshair_pos;
 	int					current_object;
-	int					current_enemy;
 	int					objects_start;
 	int					objects_end;
 	int					test_time;
@@ -130,6 +130,8 @@ typedef struct		s_env
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
+	int					enemy_main_sprite[MAX_ENEMIES];
+	int					object_main_sprite[MAX_OBJECTS];
 }					t_env;
 
 /*
@@ -148,6 +150,54 @@ typedef struct		s_env
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
 void				init_editor_data(t_env *env);
+void				init_editor_tab_buttons(t_env *env);
+void				init_floor_buttons(t_env *env);
+void				init_ceilling_buttons(t_env *env);
+void				init_wall_buttons(t_env *env);
+void				init_floor_general_env(t_env *env);
+void				init_floor_sector_env(t_env *env);
+void				init_floor_sprite_env(t_env *env);
+void				init_floor_general_buttons(t_env *env);
+void				init_floor_sector_buttons(t_env *env);
+void				init_floor_sprite_buttons(t_env *env);
+void				init_wall_general_env(t_env *env);
+void				init_wall_sector_env(t_env *env);
+void				init_wall_sprite_env(t_env *env);
+void				init_wall_general_buttons(t_env *env);
+void				init_wall_sector_buttons(t_env *env);
+void				init_wall_sprite_buttons(t_env *env);
+void				init_ceilling_general_env(t_env *env);
+void				init_ceilling_sector_env(t_env *env);
+void				init_ceilling_sprite_env(t_env *env);
+void				init_ceilling_general_buttons(t_env *env);
+void				init_ceilling_sector_buttons(t_env *env);
+void				init_ceilling_sprite_buttons(t_env *env);
+void				init_add_buttons(t_env *env);
+void				init_add_enemy_buttons(t_env *env);
+void				init_add_object_buttons(t_env *env);
+void				init_sector_general_env(t_env *env);
+void				init_sector_sector_env(t_env *env);
+void				init_sector_general_buttons(t_env *env);
+void				init_sector_sector_buttons(t_env *env);
+void				init_player_general_env(t_env *env);
+void				init_player_sector_env(t_env *env);
+void				init_player_sprite_env(t_env *env);
+void				init_player_general_buttons(t_env *env);
+void				init_player_sector_buttons(t_env *env);
+void				init_player_sprite_buttons(t_env *env);
+void				init_enemy_general_env(t_env *env);
+void				init_enemy_sector_env(t_env *env);
+void				init_enemy_sprite_env(t_env *env);
+void				init_enemy_general_buttons(t_env *env);
+void				init_enemy_sector_buttons(t_env *env);
+void				init_enemy_sprite_buttons(t_env *env);
+void				init_object_general_env(t_env *env);
+void				init_object_sector_env(t_env *env);
+void				init_object_sprite_env(t_env *env);
+void				init_object_general_buttons(t_env *env);
+void				init_object_sector_buttons(t_env *env);
+void				init_object_sprite_buttons(t_env *env);
+
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
@@ -209,7 +259,7 @@ int					*get_vertex_sectors(t_env *env, int index);
 int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
-int					editor_buttonup(t_env *env);
+int					editor_button_up(t_env *env);
 int					delete_enemy(t_env *env, int enemy);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
@@ -223,6 +273,8 @@ void				input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);
 int					new_input_box(t_input_box *box, t_point pos,
+						int type, void *target);
+int					new_input_var(t_input_box *box, t_point pos,
 						int type, void *target);
 int					set_double_stats(t_input_box *box);
 int					validate_input(t_input_box *box, t_env *env);
@@ -240,7 +292,61 @@ void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
 void				update_int_tab(int index, int size, int **tab);
 void				selection_tab(t_env *env, int nb_slots);
+void				enemy_tab(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
+void				editor_mode_button(t_env *env);
+void				editor_save_button(t_env *env);
+void				editor_launch_game(t_env *env);
+void				going_in_2D_mode(t_env *env);
+void				going_in_3D_mode(t_env *env);
+void				print_vertex_informations(t_env *env);
+void				print_object_informations(t_env *env);
+void				print_sector_informations(t_env *env);
+void				print_enemy_informations(t_env *env);
+void				print_floor_general_tab(t_env *env);
+void				print_ceiling_general_tab(t_env *env);
+void				print_player_general_tab(t_env *env);
+void				print_wall_general_tab(t_env *env);
+void				print_sector_general_tab(t_env *env);
+void				print_enemy_general_tab(t_env *env);
+void				print_object_general_tab(t_env *env);
+void				print_floor_sector_tab(t_env *env);
+void				print_ceiling_sector_tab(t_env *env);
+void				print_player_sector_tab(t_env *env);
+void				print_wall_sector_tab(t_env *env);
+void				print_enemy_sector_tab(t_env *env);
+void				print_object_sector_tab(t_env *env);
+void				print_floor_sprite_tab(t_env *env);
+void				print_ceiling_sprite_tab(t_env *env);
+void				print_wall_sprite_tab(t_env *env);
+void				nothing(void *target);
+void				save_texture(void *target);
+void				save_enemy(void *target);
+void				add_enemy_button(void *target);
+void				add_object_button(void *target);
+void				general_tab(void *target);
+void				sector_tab(void *target);
+void				sprite_tab(void *target);
+void				change_sprite(void *target);
+void				change_var(void *target);
+void				wall_buttons(t_env *env);
+void				ceiling_buttons(t_env *env);
+void				floor_buttons(t_env *env);
+void				sector_buttons(t_env *env);
+void				player_buttons(t_env *env);
+void				enemy_buttons(t_env *env);
+void				floor_sprite_buttons(t_env *env);
+void				ceiling_sprite_buttons(t_env *env);
+void				wall_sprite_buttons(t_env *env);
+void				wall_buttons_up(t_env *env);
+void				ceiling_buttons_up(t_env *env);
+void				floor_buttons_up(t_env *env);
+void				sector_buttons_up(t_env *env);
+void				player_buttons_up(t_env *env);
+void				enemy_buttons_up(t_env *env);
+void				floor_sprite_buttons_up(t_env *env);
+void				ceiling_sprite_buttons_up(t_env *env);
+void				wall_sprite_buttons_up(t_env *env);
 
 /*
 ** Main functions
@@ -280,6 +386,7 @@ int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
 void				init_enemies_data(t_env *env);
 void				init_objects_data(t_env *env);
+void				init_objects_main_sprite(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
@@ -306,6 +413,7 @@ void				init_events_map(t_env *env);
 int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_bmp_ui_textures(char *file, int index, t_env *env);
+int					parse_bmp_mini_enemies_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
@@ -361,7 +469,19 @@ t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
 t_button			new_image_button(int type, void (*action)(void *),
 void *param, t_env *env);
+t_button			new_hud_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_hud_pos_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_background_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_tab_button(int type, void (*action)(void *),
+void *param, t_env *env);
 t_button			new_rectangle_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_next_button(int type, void (*action)(void *),
+void *param, t_env *env);
+t_button			new_previous_button(int type, void (*action)(void *),
 void *param, t_env *env);
 void				draw_button(t_env *env, t_button b);
 

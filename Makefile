@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
+#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/27 10:47:08 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/27 14:59:07 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,26 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 split_sector_utils.c selection_tab.c init_hud.c write_events.c \
+		 write_events.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
 		 write_events_links.c \
+		 split_sector_utils.c selection_tab.c init_hud_button.c\
+		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
+		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
+		 init_editor_tab_buttons.c editor_ceiling_tab_button.c \
+		 editor_floor_tab_button.c editor_wall_tab_button.c \
+		 editor_env_wall_buttons.c editor_env_floor_buttons.c \
+		 editor_env_ceilling_buttons.c  change_editor_mode.c \
+		 editor_3d_button_keys.c editor_3d_button_keyup.c enemy_tab.c \
+		 init_add_buttons.c editor_env_sector_buttons.c \
+		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
+		 editor_button_keyup.c editor_env_player_buttons.c \
+		 editor_player_tab_button.c editor_enemy_tabs.c \
+		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
+		 editor_object_tabs.c editor_env_object_buttons.c \
+		 editor_object_tab_button.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -97,7 +112,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
-		   draw_floor_sprites_both.c bmp_parser_ui.c \
+		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_enemies.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c get_clockwise_order.c \
@@ -129,7 +144,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
-		   get_event_array.c get_event_nb.c \
+		   get_event_array.c get_event_nb.c init_objects_main_sprite.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

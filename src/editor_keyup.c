@@ -26,7 +26,7 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
 	{
 		env->options.test = env->options.test ? 0 : 1;
-		if (env->editor.selected_sector != -1
+			if (env->editor.selected_sector != -1
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{
@@ -45,7 +45,7 @@ int	editor_keyup(t_env *env)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
 		confirmation_box_keyup(&env->confirmation_box, env);
-	if (env->sdl.mx > 200 && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
@@ -62,11 +62,23 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_player = -1;
 		env->selected_enemy = -1;
 	}
+	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
+			&& !env->confirmation_box.state
+			&& env->editor.start_vertex == -1
+			&& env->editor.dragged_player == 1
+			&& env->editor.selected_player == 1
+			&& env->editor.dragged_object == -1
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_enemy == -1)
+	{
+		
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1
 		&& env->editor.dragged_vertex == -1
-		&& !env->editor.in_game)
+		&& !env->editor.in_game
+		&& env->sdl.mx > 400)
 	{
 		clicked_vertex = get_existing_vertex(env);
 		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
@@ -146,11 +158,8 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	/*&& env->editor.selected_vertex != -1*/)
+	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 	{
-		/*if (env->editor.add.v1 == -1 && env->editor.add.v2 == -1)
-			env->editor.select_vertex_on_going = 1;*/
 		if ((is_mouse_on_a_wall(env)))
 		{
 			if (add_vertex_in_sector(env))
@@ -161,12 +170,35 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
+	button_keyup(&env->editor.add_enemy, env);
+	button_keyup(&env->editor.add_object, env);
+	button_keyup(&env->editor.save, env);
+	button_keyup(&env->editor.change_mode, env);
+	button_keyup(&env->editor.launch_game, env);
+	button_keyup(&env->editor.texture_background, env);
+	button_keyup(&env->editor.enemy_background, env);
+	button_keyup(&env->editor.sector_tab, env);
+	button_keyup(&env->editor.general_tab, env);
+	button_keyup(&env->editor.sprite_tab, env);
+	if (env->editor.selected_sector != -1)
+		sector_buttons_up(env);
+	if (env->editor.selected_player != -1)
+		player_buttons_up(env);
+	if (env->selected_enemy != -1)
+		enemy_buttons_up(env);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
-			//ft_printf("%d\n", i);
 			button_keyup(&env->editor.textures[i], env);
+			i++;
+		}
+	}
+	if (env->editor.draw_enemy_tab)
+	{
+		while (i < MAX_ENEMIES)
+		{
+			button_keyup(&env->editor.enemy_tab[i], env);
 			i++;
 		}
 	}
@@ -175,5 +207,14 @@ int	editor_keyup(t_env *env)
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
+	&& (env->sdl.my < 317 && env->sdl.my > 253))
+		env->editor.draw_enemy_tab = 1;
+	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_enemy_tab = 0;
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_enemy && env->sdl.mx > 400)
+		add_enemy(env);
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_object && env->sdl.mx > 400)
+		add_object(env);
 	return (0);
 }

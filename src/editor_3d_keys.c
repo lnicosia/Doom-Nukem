@@ -6,11 +6,13 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 10:35:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:54:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+
 
 int		editor_3d_keys(t_env *env)
 {
@@ -408,7 +410,6 @@ int		editor_3d_keys(t_env *env)
 		env->sectors[env->selected_floor].floor_slope -= 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_enemies_z(env);
-		update_enemies_z(env);
 		update_objects_z(env);
 	}
 	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
@@ -416,7 +417,6 @@ int		editor_3d_keys(t_env *env)
 	{
 		env->sectors[env->selected_floor].floor_slope += 0.01;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_enemies_z(env);
 		update_objects_z(env);
 	}
 	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02
@@ -500,12 +500,41 @@ int		editor_3d_keys(t_env *env)
 	}
 	if (env->editor.tab)
 	{
+		button_keys(&env->editor.save, env);
+		button_keys(&env->editor.sprite_tab, env);
+		button_keys(&env->editor.general_tab, env);
+		button_keys(&env->editor.sector_tab, env);
+		button_keys(&env->editor.change_mode, env);
+		button_keys(&env->editor.launch_game, env);
+		button_keys(&env->editor.texture_background, env);
+		if (env->selected_ceiling != -1)
+			ceiling_buttons(env);
+		if (env->selected_floor != -1)
+			floor_buttons(env);
+		if (env->editor.selected_wall != -1)
+			wall_buttons(env);
+		if (env->selected_enemy != -1)
+			enemy_buttons(env);
+		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1)
+		{
+			button_keys(&env->editor.next_sprite, env);
+			button_keys(&env->editor.previous_sprite, env);
+		}
+		if (env->selected_floor_sprite != -1)
+			floor_sprite_buttons(env);
+		if (env->selected_ceiling_sprite != -1)
+			ceiling_sprite_buttons(env);
+		if (env->selected_wall_sprite_sprite != -1)
+			wall_sprite_buttons(env);
+	}
+	if (env->editor.tab)
+	{
 		i = 0;
 		if (env->editor.draw_selection_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)
 			{
-				//ft_printf("%d\n", i);
 				button_keys(&env->editor.textures[i], env);
 				i++;
 			}

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 13:32:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:20:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ int	add_object(t_env *env)
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
+	env->editor.create_object = 0;
+	env->editor.add_object.state = UP;
+	env->nb_objects++;
 	return (0);
 }

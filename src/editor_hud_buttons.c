@@ -3,44 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   editor_hud_buttons.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/06 09:41:16 by marvin            #+#    #+#             */
-/*   Updated: 2020/01/06 09:41:16 by marvin           ###   ########.fr       */
+/*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
+/*   Updated: 2020/01/13 13:52:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	launch_game(void *target)
+{
+	t_env *env;
+	char  *str;
+	char  *tmp;
+
+	env = (void*)target;
+	tmp = NULL;
+	tmp = env->save_file;
+	env->editor.game = 0;
+	str = ft_strdup("./doom ");
+	env->save_file = ft_strdup("maps/tmp.map");
+	save_map(env);
+	str = (char*)ft_realloc(str, sizeof(char) * 7, sizeof(char) * ft_strlen(env->save_file));
+	str = ft_strcat(str, env->save_file);
+	ft_printf("starting game from editor:\n%s\n", str);  
+	system (str);
+	ft_strdel(&env->save_file);
+	env->save_file = tmp;
+	free(str);
+}
+
 void    change_mode(void *target)
 {
-        t_env *env;
+    t_env *env;
 
-        env = (t_env*)target;
-        if (!valid_map(env))
-        {
-                env->editor.selected_vertex = -1;
-                env->editor.selected_sector = -1;
-                env->editor.selected_player = -1;
-                env->editor.selected_object = -1;
-                env->selected_enemy = -1;
-                env->editor.in_game = 1;
-                env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
-                free_camera(&env->player.camera, env);
-                precompute_slopes(env);
-        /*      if (init_camera_arrays(&env->player.camera, env))
-                        return (ft_printf("Could not init camera arrays\n"));
-                if (env->sector_list)
-                        ft_memdel((void**)&env->sector_list);
-                if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-                        return (ft_printf("Could not allocate sector list\n", env));*/
-                update_camera_position(&env->player.camera);
-                update_player_z(env);
-                ft_bzero(&env->inputs, sizeof(env->inputs));
-                env->options.mouse = 1;
-                SDL_SetRelativeMouseMode(1);
-                SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-                SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-        }
+    env = (t_env*)target;
+	if (env->editor.in_game)
+		going_in_2D_mode(env);
+	else
+		going_in_3D_mode(env);
 }
 
 void	save_button(void *target)
@@ -48,46 +50,65 @@ void	save_button(void *target)
 	t_env *env;
 
 	env = (t_env*)target;
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
-        {
-                SDL_SetRelativeMouseMode(0);
-                SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-                new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-                STRING, &env->save_file);
-                env->inputs.s = 0;
-                env->inputs.ctrl = 0;
-        }
+	if (!valid_map(env))
+    {
+    	SDL_SetRelativeMouseMode(0);
+    	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+        new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+        STRING, &env->save_file);
+        env->inputs.s = 0;
+        env->inputs.ctrl = 0;
+    }
 
 }
 
 void	editor_mode_button(t_env *env)
 {
-	env->editor.change_mode = new_image_button(PRESSED, &change_mode, env, env);
-        env->editor.change_mode.img_up = &env->sprite_textures[env->wall_sprites[2].texture];
-        env->editor.change_mode.img_pressed = &env->sprite_textures[env->wall_sprites[1].texture];
-        env->editor.change_mode.img_down = &env->sprite_textures[env->wall_sprites[1].texture];
-        env->editor.change_mode.size_up = new_point(64, 64);
-        env->editor.change_mode.size_down = new_point(env->editor.current_texture_selection.img_down->surface->w,
-        env->editor.change_mode.img_down->surface->h);
-        env->editor.change_mode.size_hover = new_point(env->editor.current_texture_selection.img_hover->surface->w,
-        env->editor.change_mode.img_hover->surface->h);
-        env->editor.change_mode.size_pressed = new_point(env->editor.current_texture_selection.img_pressed->surface->w,
-        env->editor.change_mode.img_pressed->surface->h);
-        env->editor.change_mode.pos = new_point(0, 0);
+	env->editor.change_mode = new_image_button(WHEN_DOWN, &change_mode, env, env);
+    env->editor.change_mode.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
+	env->editor.change_mode.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
+	env->editor.change_mode.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.change_mode.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.change_mode.size_up = new_point(64, 64);
+    env->editor.change_mode.size_down = new_point(env->editor.change_mode.img_down->w,
+	env->editor.change_mode.img_down->h);
+    env->editor.change_mode.size_hover = new_point(env->editor.change_mode.img_hover->w,
+    env->editor.change_mode.img_hover->h);
+    env->editor.change_mode.size_pressed = new_point(env->editor.change_mode.img_pressed->w,
+    env->editor.change_mode.img_pressed->h);
+	env->editor.change_mode.pos = new_point(0, 0);
 }
 
 void	editor_save_button(t_env *env)
 {
-	env->editor.save = new_image_button(WHEN_DOWN, &change_mode, env, env);
-        env->editor.save.img_up = &env->sprite_textures[env->wall_sprites[2].texture];
-        env->editor.save.img_pressed = &env->sprite_textures[env->wall_sprites[1].texture];
-        env->editor.save.img_down = &env->sprite_textures[env->wall_sprites[1].texture];
-        env->editor.save.size_up = new_point(64, 64);
-        env->editor.save.size_down = new_point(env->editor.current_texture_selection.img_down->surface->w,
-        env->editor.save.img_down->surface->h);
-        env->editor.save.size_hover = new_point(env->editor.current_texture_selection.img_hover->surface->w,
-        env->editor.save.img_hover->surface->h);
-        env->editor.save.size_pressed = new_point(env->editor.current_texture_selection.img_pressed->surface->w,
-        env->editor.save.img_pressed->surface->h);
-        env->editor.save.pos = new_point(66, 0);
+	env->editor.save = new_image_button(WHEN_DOWN, &save_button, env, env);
+    env->editor.save.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.save.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.save.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.save.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.save.size_up = new_point(64, 64);
+    env->editor.save.size_down = new_point(env->editor.save.img_down->w,
+    env->editor.save.img_down->h);
+    env->editor.save.size_hover = new_point(env->editor.save.img_hover->w,
+    env->editor.save.img_hover->h);
+    env->editor.save.size_pressed = new_point(env->editor.save.img_pressed->w,
+    env->editor.save.img_pressed->h);
+    env->editor.save.pos = new_point(66, 0);
+}
+
+void	editor_launch_game(t_env *env)
+{
+	env->editor.launch_game = new_image_button(WHEN_DOWN, &launch_game, env, env);
+    env->editor.launch_game.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.launch_game.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.launch_game.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.launch_game.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.launch_game.size_up = new_point(64, 64);
+    env->editor.launch_game.size_down = new_point(env->editor.launch_game.img_down->w,
+    env->editor.launch_game.img_down->h);
+    env->editor.launch_game.size_hover = new_point(env->editor.launch_game.img_hover->w,
+    env->editor.launch_game.img_hover->h);
+    env->editor.launch_game.size_pressed = new_point(env->editor.launch_game.img_pressed->w,
+    env->editor.launch_game.img_pressed->h);
+    env->editor.launch_game.pos = new_point(132, 0);
 }

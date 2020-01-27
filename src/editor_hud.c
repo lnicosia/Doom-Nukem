@@ -12,15 +12,55 @@
 
 #include "env.h"
 
-void	select_informations(t_env *env)
+void	print_sprite_tab(t_env *env)
 {
-	if (env->selected_enemy != -1)
-		print_text(new_point(520 + env->selected_stat * 40, 30), new_printable_text("->|                              |<-",
-				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
-	else if (env->editor.selected_sector != -1)
-		print_text(new_point(520 + env->selected_stat * 40, 30), new_printable_text("->|                             |<-",
-				env->sdl.fonts.alice30, 0xFF00FF00, 30), env);
+	if (env->selected_wall_sprite_wall != -1)
+		print_wall_sprite_tab(env);
+	else if (env->selected_ceiling_sprite != -1)
+		print_ceiling_sprite_tab(env);	
+	else if (env->selected_floor_sprite != -1)
+		print_floor_sprite_tab(env);
+	draw_button(env, env->editor.next_sprite);
+	draw_button(env, env->editor.previous_sprite);
+}
 
+void	print_sector_tab(t_env *env)
+{
+	/*
+	if (env->editor.selected_vertex != -1)
+		print_vertex_general_tab(env);*/
+	if (env->editor.selected_object != -1 || env->selected_object != -1)
+		print_object_sector_tab(env);
+	else if (env->selected_enemy != -1)
+		print_enemy_sector_tab(env);
+	else if (env->editor.selected_player != -1)
+		print_player_sector_tab(env);
+	else if (env->selected_ceiling != -1)
+		print_ceiling_sector_tab(env);
+	else if (env->selected_floor != -1)
+		print_floor_sector_tab(env);
+	else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
+		print_wall_sector_tab(env);
+}
+
+void	print_general_tab(t_env *env)
+{
+	/*if (env->editor.selected_vertex != -1)
+		print_vertex_general_tab(env);*/
+	if (env->editor.selected_object != -1 || env->selected_object != -1)
+		print_object_general_tab(env);
+	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
+		print_sector_general_tab(env);
+	else if (env->selected_ceiling != -1)
+		print_ceiling_general_tab(env);
+	else if (env->selected_floor != -1)
+		print_floor_general_tab(env);
+	else if (env->editor.selected_player != -1)
+		print_player_general_tab(env);
+	else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
+		print_wall_general_tab(env);
+	else if (env->selected_enemy != -1)
+		print_enemy_general_tab(env);
 }
 
 void	print_vertex_informations(t_env *env)
@@ -36,124 +76,8 @@ void	print_vertex_informations(t_env *env)
 	print_text(new_point(580, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 }
 
-void	print_sector_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("sector ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->editor.selected_sector), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("floor: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 80), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 80), new_printable_text("Bright: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].brightness), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(680, 80), new_printable_text("(f) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(680, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].floor_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(720, 80), new_printable_text("(C) Slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(720, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(760, 80), new_printable_text("status: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	if (env->editor.tab)
-		select_informations(env);
-}
-
-void	print_object_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("object ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 180), new_printable_text(ft_sitoa(env->editor.selected_object), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	if (env->editor.selected_object != -1)
-	{
-		print_text(new_point(560, 80), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(600, 80), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(640, 80), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->objects[env->editor.selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	}
-	else
-	{
-		print_text(new_point(560, 80), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(600, 80), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(640, 80), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->objects[env->selected_object].pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	}
-}
-
-void	print_player_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("player ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 80), new_printable_text("pos_x : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->player.pos.x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("pos_y : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->player.pos.y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 80), new_printable_text("pos_z : ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->player.pos.z), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-
-}
-
-void	print_wall_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("Wall ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->editor.selected_wall), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("Texture:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-
-}
-
-void	print_ceiling_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("Ceiling",
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->selected_ceiling),
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("Ceiling: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 80), new_printable_text("Ceiling slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 270), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].ceiling_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-}
-
-void	print_floor_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("floor",
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->selected_floor),
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("floor: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_floor].floor), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 80), new_printable_text("floor slope: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_floor].floor_slope), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_floor].floor_texture), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-}
-
-void	print_enemy_informations(t_env *env)
-{
-	print_text(new_point(450, 180), new_printable_text("enemy",
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->selected_enemy),
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 80), new_printable_text("health: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(520, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].health), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 80), new_printable_text("speed: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(560, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].speed), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 80), new_printable_text("damages: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].damage), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 80), new_printable_text("sprite: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(640, 230), new_printable_text(ft_sitoa(env->enemies[env->selected_enemy].sprite), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	if (env->editor.in_game)
-		select_informations(env);
-}
-
 void	editor_hud(t_env *env)
 {
-	t_point	center;
-
 	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
 	{
 		if (env->editor.in_game)
@@ -163,10 +87,27 @@ void	editor_hud(t_env *env)
 			new_point(0 , 0),
 			new_point(400, 900));
 		}
+		draw_rectangle(env,
+				new_rectangle(0x00000000, 0xFF888888, 1, 5),
+				new_point(0 , 64),
+				new_point(400, 270));
+		draw_button(env, env->editor.add_enemy);
+		draw_button(env, env->editor.add_object);
+		draw_button(env, env->editor.texture_background);
+		draw_button(env, env->editor.enemy_background);
 		draw_button(env, env->editor.current_texture_selection);
-		//draw_button(env, env->editor.current_enemy_selection);
-		//draw_button(env, env->editor.change_mode);
-		//draw_button(env, env->editor.save);
+		draw_button(env, env->editor.current_enemy_selection);
+		draw_button(env, env->editor.change_mode);
+		draw_button(env, env->editor.launch_game);
+		draw_button(env, env->editor.save);
+		draw_button(env, env->editor.general_tab);
+		draw_button(env, env->editor.sector_tab);
+		if (env->editor.in_game)
+			draw_button(env, env->editor.sprite_tab);
+		draw_rectangle(env,
+				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
+				new_point(0 , 450),
+				new_point(400, 450));
 		print_text(new_point(100, 50), new_printable_text("Mipmapping:",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
 		if (env->options.show_minimap)
@@ -175,50 +116,15 @@ void	editor_hud(t_env *env)
 		else
 			print_text(new_point(100, 175), new_printable_text("[OFF]",
 		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
-		draw_rectangle(env,
-				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(0 , 64),
-				new_point(400, 270));
-		draw_rectangle(env,
-				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(10 , 435),
-				new_point(380, 450));
-		center.x = 100;
-		center.y = 200;
-		draw_circle_free(new_circle(0xFFFFFF00, 0xFFFFFF00, center, 15), env);
-		print_text(new_point(150, 60), new_printable_text("Object", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		center.x = 100;
-		center.y = 270;
-		draw_circle_free(new_circle(0xFF0000FF, 0xFF0000FF, center, 15), env);
-		print_text(new_point(220, 60), new_printable_text("enemy", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		print_text(new_point(450, 50), new_printable_text("Selected: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		if (env->editor.selected_vertex != -1)
-			print_vertex_informations(env);
-		else if (env->editor.selected_player != -1)
-			print_player_informations(env);
-		else if (env->editor.selected_object != -1 || env->selected_object != -1)
-			print_object_informations(env);
-		else if (env->editor.selected_sector != -1 && !env->editor.in_game)
-			print_sector_informations(env);
-		else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
-			print_wall_informations(env);
-		else if (env->selected_ceiling != -1)
-			print_ceiling_informations(env);
-		else if (env->selected_floor != -1)
-			print_floor_informations(env);
-		else if (env->selected_enemy != -1)
-			print_enemy_informations(env);
-		else
-			print_text(new_point(450, 180), new_printable_text("none", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+		if (env->editor.sector_tab.state == DOWN)
+			print_sector_tab(env);
+		if (env->editor.sprite_tab.state == DOWN)
+			print_sprite_tab(env);
+		if (env->editor.general_tab.state == DOWN)
+			print_general_tab(env);
 		if (env->editor.draw_selection_tab)
 			selection_tab(env, MAX_WALL_TEXTURE);
+		if (env->editor.draw_enemy_tab)
+			enemy_tab(env, MAX_ENEMIES);
 	}
-/*	if (env->editor.tab)
-	{
-			draw_rectangle(env,
-			new_rectangle(0x00000000, 0xFF888888, 1, 5),
-			new_point(10 , 435),
-			new_point(380, 450));
-		draw_button(env, env->editor.current_texture_selection);
-	}*/
 }
