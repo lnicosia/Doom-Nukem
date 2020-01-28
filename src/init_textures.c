@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:12:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 10:51:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load default button\n"));
 	if (parse_bmp("images/UI/button-default-hover.bmp", 30, env))
 		return (ft_printf("Failed to load default button\n"));
-	if (parse_bmp("images/wall_sprites/MIDSPACE.bmp", 31, env))
+	if (parse_bmp("images/sprites/MIDSPACE.bmp", 31, env))
 		return (ft_printf("Failed to load midspace\n"));
-	if (parse_bmp("images/wall_sprites/button_off.bmp", 32, env))
+	if (parse_bmp("images/sprites/button_off.bmp", 32, env))
 		return (ft_printf("Failed to load midspace\n"));
-	if (parse_bmp("images/wall_sprites/button_on.bmp", 33, env))
+	if (parse_bmp("images/sprites/button_on.bmp", 33, env))
 		return (ft_printf("Failed to load midspace\n"));
 	if (parse_bmp("images/sprites/objects_sprites.bmp", 34, env))
 		return (ft_printf("Failed to load object sprites\n"));
-	if (parse_bmp("images/wall_sprites/bullet_hole.bmp", 35, env))
+	if (parse_bmp("images/sprites/bullet_hole.bmp", 35, env))
 		return (ft_printf("Failed to load object sprites\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));

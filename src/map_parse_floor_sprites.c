@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 18:43:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:39:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ int		parse_floor_sprites(t_env *env, char **line, t_map_parser *parser)
 		(*line)++;
 		parse = ft_atoi(*line);
 		if (parse < 0 || parse >= MAX_OBJECTS)
-			return (custom_error_with_line("Invalid floor sprite texture", parser));
+			return (custom_error_with_line("Invalid floor sprite texture",
+			parser));
 		env->sectors[parser->sectors_count].floor_sprites.sprite[i] =
-		env->object_main_sprite[parse];
+		env->objects_main_sprites[parse];
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].floor_sprites.pos[i].x = ft_atof(*line);

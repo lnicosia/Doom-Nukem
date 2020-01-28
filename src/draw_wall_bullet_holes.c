@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 18:49:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:39:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	draw_wall_bullet_holes(t_sector sector, t_render render, t_env *env)
 	while (bullet_holes)
 	{
 	  	curr = (t_bullet_hole*)bullet_holes->content;
-		start = env->object_sprites[3].start[0];
-		end = env->object_sprites[3].end[0];
+		start = env->object_sprites[BULLET_HOLE].start[0];
+		end = env->object_sprites[BULLET_HOLE].end[0];
 		pos =  curr->pos.x / sector.wall_width[render.i]
 		* curr->scale.x;
 		if (render.camera->v[render.sector][render.i + 1].vz)

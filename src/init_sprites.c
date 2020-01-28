@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 18:32:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:40:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[2].texture = 22;
 	env->object_sprites[2].death_counterpart = 2;
 	env->object_sprites[2].oriented = 0;
-	env->object_sprites[2].rest_sprite = 0;
+	env->object_sprites[2].rest_sprite = 2;
 	env->object_sprites[2].reversed[0] = 0;
 	env->object_sprites[2].start[0].x = 47;
 	env->object_sprites[2].start[0].y = 70;
@@ -124,7 +124,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[3].texture = 22;
 	env->object_sprites[3].death_counterpart = 3;
 	env->object_sprites[3].oriented = 0;
-	env->object_sprites[3].rest_sprite = 0;
+	env->object_sprites[3].rest_sprite = 3;
 	env->object_sprites[3].reversed[0] = 0;
 	env->object_sprites[3].start[0].x = 426;
 	env->object_sprites[3].start[0].y = 179;
@@ -138,7 +138,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[4].texture = 22;
 	env->object_sprites[4].death_counterpart = 22;
 	env->object_sprites[4].oriented = 0;
-	env->object_sprites[4].rest_sprite = 0;
+	env->object_sprites[4].rest_sprite = 4;
 	env->object_sprites[4].reversed[0] = 0;
 	env->object_sprites[4].start[0].x = 586;
 	env->object_sprites[4].start[0].y = 118;
@@ -152,7 +152,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[5].texture = 22;
 	env->object_sprites[5].death_counterpart = 5;
 	env->object_sprites[5].oriented = 0;
-	env->object_sprites[5].rest_sprite = 0;
+	env->object_sprites[5].rest_sprite = 5;
 	env->object_sprites[5].reversed[0] = 0;
 	env->object_sprites[5].start[0].x = 219;
 	env->object_sprites[5].start[0].y = 328;
@@ -166,7 +166,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[6].texture = 22;
 	env->object_sprites[6].death_counterpart = 6;
 	env->object_sprites[6].oriented = 0;
-	env->object_sprites[6].rest_sprite = 0;
+	env->object_sprites[6].rest_sprite = 6;
 	env->object_sprites[6].reversed[0] = 0;
 	env->object_sprites[6].start[0].x = 343;
 	env->object_sprites[6].start[0].y = 115;
@@ -237,7 +237,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[11].death_counterpart = 16;
 	env->object_sprites[11].nb_death_sprites = 1;
 	env->object_sprites[11].oriented = 0;
-	env->object_sprites[11].rest_sprite = 0;
+	env->object_sprites[11].rest_sprite = 11;
 	env->object_sprites[11].reversed[0] = 0;
 	env->object_sprites[11].start[0].x = 511;
 	env->object_sprites[11].start[0].y = 122;
@@ -326,7 +326,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[17].texture = 22;
 	env->object_sprites[17].death_counterpart = 17;
 	env->object_sprites[17].oriented = 0;
-	env->object_sprites[17].rest_sprite = 0;
+	env->object_sprites[17].rest_sprite = 17;
 	env->object_sprites[17].reversed[0] = 0;
 	env->object_sprites[17].start[0].x = 337;
 	env->object_sprites[17].start[0].y = 224;
@@ -341,7 +341,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[18].death_counterpart = 19;
 	env->object_sprites[18].nb_death_sprites = 1;
 	env->object_sprites[18].oriented = 0;
-	env->object_sprites[18].rest_sprite = 0;
+	env->object_sprites[18].rest_sprite = 18;
 	env->object_sprites[18].reversed[0] = 0;
 	env->object_sprites[18].start[0].x = 597;
 	env->object_sprites[18].start[0].y = 159;
@@ -385,7 +385,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[21].death_counterpart = 21;
 	env->object_sprites[21].nb_death_sprites = 8;
 	env->object_sprites[21].oriented = 0;
-	env->object_sprites[21].rest_sprite = 0;
+	env->object_sprites[21].rest_sprite = 21;
 	env->object_sprites[21].reversed[0] = 0;
 
 	env->object_sprites[21].start[0].x = 48;
@@ -451,7 +451,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[22].curr_sprite = 22;
 	env->object_sprites[22].nb_death_sprites = 3;
 	env->object_sprites[22].oriented = 0;
-	env->object_sprites[22].rest_sprite = 0;
+	env->object_sprites[22].rest_sprite = 22;
 	env->object_sprites[22].reversed[0] = 0;
 
 	env->object_sprites[22].start[0].x = 1;
@@ -479,7 +479,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[23].texture = 31;
 	env->object_sprites[23].death_counterpart = 0;
 	env->object_sprites[23].pursuit_sprite = 0;
-	env->object_sprites[23].rest_sprite = 0;
+	env->object_sprites[23].rest_sprite = 23;
 	env->object_sprites[23].curr_sprite = 0;
 	env->object_sprites[23].oriented = 0;
 	env->object_sprites[23].nb_death_sprites = 0;
@@ -495,7 +495,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[24].texture = 32;
 	env->object_sprites[24].death_counterpart = 1;
 	env->object_sprites[24].pursuit_sprite = 1;
-	env->object_sprites[24].rest_sprite = 1;
+	env->object_sprites[24].rest_sprite = 24;
 	env->object_sprites[24].curr_sprite = 1;
 	env->object_sprites[24].oriented = 0;
 	env->object_sprites[24].nb_death_sprites = 1;
@@ -511,7 +511,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[25].texture = 33;
 	env->object_sprites[25].death_counterpart = 2;
 	env->object_sprites[25].pursuit_sprite = 2;
-	env->object_sprites[25].rest_sprite = 2;
+	env->object_sprites[25].rest_sprite = 25;
 	env->object_sprites[25].curr_sprite = 0;
 	env->object_sprites[25].oriented = 0;
 	env->object_sprites[25].nb_death_sprites = 2;
@@ -527,7 +527,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[26].texture = 35;
 	env->object_sprites[26].death_counterpart = 3;
 	env->object_sprites[26].pursuit_sprite = 3;
-	env->object_sprites[26].rest_sprite = 3;
+	env->object_sprites[26].rest_sprite = 26;
 	env->object_sprites[26].curr_sprite = 0;
 	env->object_sprites[26].oriented = 0;
 	env->object_sprites[26].nb_death_sprites = 0;
@@ -538,6 +538,42 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[26].size[0].x = 600;
 	env->object_sprites[26].size[0].y = 600;
 	env->object_sprites[26].reversed[0] = 0;
+
+	//Lost soul
+	env->object_sprites[27].texture = 23;
+	env->object_sprites[27].death_counterpart = 4;
+	env->object_sprites[27].pursuit_sprite = 2;
+	env->object_sprites[27].firing_sprite = 2;
+	env->object_sprites[27].rest_sprite = 27;
+	env->object_sprites[27].curr_sprite = 0;
+	env->object_sprites[27].oriented = 1;
+	env->object_sprites[27].nb_death_sprites = 6;
+	env->object_sprites[27].start[0].x = 44;
+	env->object_sprites[27].start[0].y = 120;
+	env->object_sprites[27].end[0].x = 87;
+	env->object_sprites[27].end[0].y = 165;
+	env->object_sprites[27].size[0].x = 44;
+	env->object_sprites[27].size[0].y = 46;
+	env->object_sprites[27].reversed[0] = 0;
+
+	// cyber demon
+	env->object_sprites[28].texture = 24;
+	env->object_sprites[28].death_counterpart = 12;
+	env->object_sprites[28].pursuit_sprite = 6;
+	env->object_sprites[28].firing_sprite = 9;
+	env->object_sprites[28].rest_sprite = 28;
+	env->object_sprites[28].curr_sprite = 5;
+	env->object_sprites[28].oriented = 1;
+	env->object_sprites[28].nb_death_sprites = 8;
+	env->object_sprites[28].start[0].x = 44;
+	env->object_sprites[28].start[0].y = 33;
+	env->object_sprites[28].end[0].x = 125;
+	env->object_sprites[28].end[0].y = 140;
+	env->object_sprites[28].size[0].x = 82;
+	env->object_sprites[28].size[0].y = 108;
+	env->object_sprites[28].reversed[0] = 0;
+
+
 	return (0);
 }
 int			init_enemy_sprites(t_env *env)
@@ -1499,8 +1535,8 @@ int			init_enemy_sprites(t_env *env)
 	env->enemy_sprites[12].size[7].x = 139;
 	env->enemy_sprites[12].size[7].y = 134;
 	env->enemy_sprites[12].reversed[7] = 0;
-	env->enemy_main_sprite[0] = LOST_SOUL;
-	env->enemy_main_sprite[1] = CYBER_DEMON;
-	init_objects_main_sprite(env);
+	env->enemies_main_sprites[0] = LOST_SOUL;
+	env->enemies_main_sprites[1] = CYBER_DEMON;
+	init_objects_main_sprites(env);
 	return (0);
 }

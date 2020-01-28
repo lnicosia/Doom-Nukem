@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 18:23:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:24:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (parse < 0
 			|| parse >= MAX_ENEMIES)
 		return (custom_error_with_line("Invalid sprite texture", parser));
-	env->enemies[parser->enemies_count].sprite = env->enemy_main_sprite[parse];
+	env->enemies[parser->enemies_count].sprite =
+	env->enemies_main_sprites[parse];
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy scale", parser));

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 18:21:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:24:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid sprite texture", parser));
-	env->objects[parser->objects_count].sprite = env->object_main_sprite[parse];
+	env->objects[parser->objects_count].sprite =
+	env->objects_main_sprites[parse];
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object scale", parser));

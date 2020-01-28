@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 18:41:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 10:41:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ typedef struct		s_env
 	char				*save_file;
 	t_list				*events;
 	t_list				*queued_values;
-	int					enemy_main_sprite[MAX_ENEMIES];
-	int					object_main_sprite[MAX_OBJECTS];
+	int					enemies_main_sprites[MAX_ENEMIES];
+	int					objects_main_sprites[MAX_OBJECTS];
 }					t_env;
 
 /*
@@ -389,7 +389,7 @@ int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
 void				init_enemies_data(t_env *env);
 void				init_objects_data(t_env *env);
-void				init_objects_main_sprite(t_env *env);
+void				init_objects_main_sprites(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
@@ -688,6 +688,11 @@ int					update_ceiling_texture_event(t_event *event, void *penv);
 int					update_sector_entities_event(t_event *event, void *penv);
 int					update_object_sector_event(t_event *event, void *penv);
 int					update_enemy_sector_event(t_event *event, void *penv);
+int					update_object_sprite_event(t_event *event, void *penv);
+int					update_enemy_sprite_event(t_event *event, void *penv);
+int					update_wall_sprite_event(t_event *event, void *penv);
+int					update_floor_sprite_event(t_event *event, void *penv);
+int					update_ceiling_sprite_event(t_event *event, void *penv);
 int					update_vertex_event(t_event *event, void *penv);
 int					delete_itself_event(t_event *event, void *penv);
 

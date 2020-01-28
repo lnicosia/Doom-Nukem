@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 17:02:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:29:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	save_enemy(void *param)
 
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
-	env->editor.current_enemy = env->enemy_main_sprite[i];
+	env->editor.current_enemy = env->enemies_main_sprites[i];
 	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
