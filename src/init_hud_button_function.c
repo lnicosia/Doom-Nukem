@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 09:29:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:18:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,24 @@ void	change_floor_sprite(t_button_next *button)
 	t_env *env;
 
 	env = button->env;
-	if (button->type == PREVIOUS)
+	if (button->button_type == PREVIOUS)
 	{
+		ft_printf("previous | num in: %d\n", env->selected_floor_sprite);
 		if (env->selected_floor_sprite > 0)
 			env->selected_floor_sprite--;
+		env->editor.previous_sprite.state = UP;
+		env->editor.previous_sprite.anim_state = REST;
+		ft_printf("---> num out: %d\n", env->selected_floor_sprite);
 	}
-	else if (button->type == NEXT)
+	else if (button->button_type == NEXT)
 	{
+		ft_printf("next | num in: %d\n", env->selected_floor_sprite);
 		if (env->selected_floor_sprite <
-		env->sectors[env->selected_floor].floor_sprites.nb_sprites)
+		env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
 			env->selected_floor_sprite++;
+		env->editor.next_sprite.state = UP;
+		env->editor.next_sprite.anim_state = REST;
+		ft_printf("num out: %d\n", env->selected_floor_sprite);
 	}
 }
 
@@ -57,16 +65,20 @@ void	change_wall_sprite(t_button_next *button)
 	t_env *env;
 
 	env = button->env;
-	if (button->type == PREVIOUS)
+	if (button->button_type == PREVIOUS)
 	{
-		if (env->editor.selected_wall_sprite > 0)
-			env->editor.selected_wall_sprite--;
+		if (env->selected_wall_sprite_sprite > 0)
+			env->selected_wall_sprite_sprite--;
+		env->editor.previous_sprite.state = UP;
+		env->editor.previous_sprite.anim_state = REST;
 	}
-	else if (button->type == NEXT)
+	else if (button->button_type == NEXT)
 	{
-		if (env->editor.selected_wall_sprite <
-		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites)
-			env->editor.selected_wall_sprite++;
+		if (env->selected_wall_sprite_sprite <
+		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1)
+			env->selected_wall_sprite_sprite++;
+		env->editor.next_sprite.state = UP;
+		env->editor.next_sprite.anim_state = REST;
 	}
 }
 

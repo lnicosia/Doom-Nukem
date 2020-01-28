@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 17:05:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:35:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,17 @@ int		editor_3d_keyup(t_env *env)
 
 	i = 0;
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& !env->confirmation_box.state && !env->input_box.state
-		&& !env->editor.enter_locked)
+			&& !env->confirmation_box.state && !env->input_box.state
+			&& !env->editor.enter_locked)
 	{
+		reset_selection(env);
 		env->editor.in_game = 0;
-		env->selected_floor = -1;
-		env->selected_ceiling = -1;
-		env->selected_object = -1;
-		env->selected_enemy = -1;
-		env->selected_wall1 = -1;
-		env->selected_wall2 = -1;
 		env->inputs.enter = 0;
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
 	if (env->editor.in_game
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT && !env->editor.tab)
+			&& env->sdl.event.button.button == SDL_BUTTON_LEFT && !env->editor.tab)
 		env->editor.select = 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
@@ -57,9 +52,9 @@ int		editor_3d_keyup(t_env *env)
 				&& env->editor.current_texture >= 0
 				&& env->editor.current_texture < MAX_WALL_TEXTURE)
 		{
-				if (apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env))
-					return (-1);
+			if (apply_texture(env->editor.current_texture,
+						&env->sectors[env->editor.selected_sector], env))
+				return (-1);
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
@@ -82,9 +77,9 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.tab = env->editor.tab ? 0 : 1;
 		//env->options.mouse = env->options.mouse ? 0 : 1;
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x,
-		&env->sdl.mouse_y);
+				&env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x,
-		&env->sdl.mouse_y);
+				&env->sdl.mouse_y);
 		if (!env->editor.tab)
 		{
 			env->editor.sprite_tab.state = UP;
@@ -96,7 +91,7 @@ int		editor_3d_keyup(t_env *env)
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& env->editor.enter_locked)
+			&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_z)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
@@ -110,10 +105,27 @@ int		editor_3d_keyup(t_env *env)
 		button_keyup(&env->editor.general_tab, env);
 		button_keyup(&env->editor.sprite_tab, env);
 		button_keyup(&env->editor.sector_tab, env);
-		button_keyup(&env->editor.events_tab, env);
 		button_keyup(&env->editor.change_mode, env);	
 		button_keyup(&env->editor.launch_game, env);
 		button_keyup(&env->editor.texture_background, env);
+		if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+			&& env->global_events > 0)
+			|| (env->editor.selected_sector != -1 &&
+					(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+					 || env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+					 || env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+				|| (env->selected_floor != -1 &&
+					(env->sectors[env->selected_floor].nb_stand_events > 0
+					 || env->sectors[env->selected_floor].nb_walk_in_events > 0
+					 || env->sectors[env->selected_floor].nb_walk_out_events > 0))
+				|| (env->selected_wall_sprite_sprite != -1 && 
+					(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+					 || env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+		{
+			button_keyup(&env->editor.events_tab, env);
+			button_keyup(&env->editor.next_events, env);
+			button_keyup(&env->editor.previous_events, env);
+		}
 		if (env->selected_ceiling != -1)
 			ceiling_buttons_up(env);
 		if (env->editor.selected_wall != -1)
@@ -129,7 +141,7 @@ int		editor_3d_keyup(t_env *env)
 		if (env->selected_wall_sprite_sprite != -1)
 			wall_sprite_buttons_up(env);
 		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
-		|| env->selected_wall_sprite_sprite != -1)
+				|| env->selected_wall_sprite_sprite != -1)
 		{
 			button_keyup(&env->editor.next_sprite, env);
 			button_keyup(&env->editor.previous_sprite, env);
@@ -143,7 +155,7 @@ int		editor_3d_keyup(t_env *env)
 			}
 		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-		&& (env->sdl.my < 414 && env->sdl.my > 350))
+				&& (env->sdl.my < 414 && env->sdl.my > 350))
 			env->editor.draw_selection_tab = 1;
 		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 			env->editor.draw_selection_tab = 0;

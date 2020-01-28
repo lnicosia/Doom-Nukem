@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 17:07:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:34:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,7 @@ int	editor_keyup(t_env *env)
 	{
 		if (!valid_map(env))
 		{
-			env->editor.selected_vertex = -1;
-			env->editor.selected_sector = -1;
-			env->editor.selected_player = -1;
-			env->editor.selected_object = -1;
+			reset_selection(env);
 			env->selected_enemy = -1;
 			env->editor.in_game = 1;
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
@@ -180,7 +177,24 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
-	button_keyup(&env->editor.events_tab, env);
+	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+		&& env->global_events > 0)
+		|| (env->editor.selected_sector != -1 &&
+			(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+			|| (env->selected_floor != -1 &&
+			(env->sectors[env->selected_floor].nb_stand_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_in_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_out_events > 0))
+			|| (env->selected_wall_sprite_sprite != -1 && 
+			(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+	{
+		button_keyup(&env->editor.events_tab, env);
+		button_keyup(&env->editor.next_events, env);
+		button_keyup(&env->editor.previous_events, env);
+	}
 	if (env->editor.selected_sector != -1)
 		sector_buttons_up(env);
 	if (env->editor.selected_player != -1)

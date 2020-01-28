@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:17:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 16:54:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	print_ceiling_sprite_tab(t_env *env)
 	env->editor.hud.sp_ceiling_sprite.t_num.target = &env->selected_ceiling_sprite;
 	draw_button(env, env->editor.hud.sp_ceiling_sprite.num);
 	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.sp_ceiling_sprite.num.str = ft_sitoa(env->sectors[env->selected_ceiling].ceiling_sprites.sprite[env->selected_ceiling_sprite]);
+	env->editor.hud.sp_ceiling_sprite.num.str =
+	ft_sitoa(env->sectors[env->selected_ceiling].ceiling_sprites.sprite[env->selected_ceiling_sprite]);
 	env->editor.hud.sp_ceiling_sprite.t_num.target = &env->selected_ceiling_sprite;
 	draw_button(env, env->editor.hud.sp_ceiling_sprite.num);
 	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
