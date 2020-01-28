@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:28:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:53:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:51:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ void	button_keyup(t_button *b, t_env *env)
 		return ;
 	}
 	b->anim_state = REST;
-	b->state = b->state == UP ? DOWN : UP;
+	if (!b->release_action)
+		b->state = b->state == UP ? DOWN : UP;
 	if (b->state == DOWN)
 	{
 		if (b->down_action)
 			b->down_action(b->param);
+	}
+	if (b->state == UP)
+	{
+		if (b->release_action)
+			b->release_action(b->release_param);
 	}
 }
 

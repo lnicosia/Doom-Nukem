@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:22:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 12:24:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:50:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	reset_selection(t_env *env)
 	env->selected_wall_sprite_wall = -1;
 	env->selected_floor_sprite = -1;
 	env->selected_ceiling_sprite = -1;
+	env->editor.selected_events = 0;
+	env->editor.selected_event = 0;
 }

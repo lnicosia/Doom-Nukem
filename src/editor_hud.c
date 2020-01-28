@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 13:33:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:20:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	print_events_tab(t_env *env)
 {
 	(void)env;
-	if (env->selected_floor != -1 || env->editor.selected_sector != -1)
+	if (env->selected_wall_sprite_wall == -1
+		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
 	{
 		print_sector_events_tab(env);
 	}
 	else if (env->selected_wall_sprite_wall != -1)
 	{
+		print_wall_sprite_events_tab(env);
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 	{
@@ -122,18 +124,6 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.save);
 		draw_button(env, env->editor.general_tab);
 		draw_button(env, env->editor.sector_tab);
-		if (env->editor.in_game)
-			draw_button(env, env->editor.sprite_tab);
-		draw_rectangle(env,
-				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
-				new_point(0 , 450),
-				new_point(400, 450));
-		if (env->editor.sector_tab.state == DOWN)
-			print_sector_tab(env);
-		if (env->editor.sprite_tab.state == DOWN)
-			print_sprite_tab(env);
-		if (env->editor.general_tab.state == DOWN)
-			print_general_tab(env);
 		if ((env->editor.selected_sector == -1 && env->selected_floor == -1
 			&& env->nb_global_events > 0)
 			|| (env->editor.selected_sector != -1 &&
@@ -149,6 +139,33 @@ void	editor_hud(t_env *env)
 			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
 		{
 			draw_button(env, env->editor.events_tab);
+		}
+		if (env->editor.in_game)
+			draw_button(env, env->editor.sprite_tab);
+		draw_rectangle(env,
+				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
+				new_point(0 , 450),
+				new_point(400, 450));
+		if (env->editor.sector_tab.state == DOWN)
+			print_sector_tab(env);
+		else if (env->editor.sprite_tab.state == DOWN)
+			print_sprite_tab(env);
+		else if (env->editor.general_tab.state == DOWN)
+			print_general_tab(env);
+		else if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+			&& env->nb_global_events > 0)
+			|| (env->editor.selected_sector != -1 &&
+			(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+			|| (env->selected_floor != -1 &&
+			(env->sectors[env->selected_floor].nb_stand_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_in_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_out_events > 0))
+			|| (env->selected_wall_sprite_sprite != -1 && 
+			(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+		{
 			if (env->editor.events_tab.state == DOWN)
 				print_events_tab(env);
 		}

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 12:35:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:25:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -522,8 +522,33 @@ int		editor_3d_keys(t_env *env)
 					 || env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
 		{
 			button_keys(&env->editor.events_tab, env);
-			button_keys(&env->editor.next_events, env);
-			button_keys(&env->editor.previous_events, env);
+			if (env->editor.events_tab.state == DOWN)
+			{
+				button_keys(&env->editor.next_events, env);
+				button_keys(&env->editor.previous_events, env);
+			}
+			if ((env->selected_wall_sprite_wall != -1
+				&& ((env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].wall_sprites[env->
+				selected_wall_sprite_wall].nb_press_events[env->
+				selected_wall_sprite_sprite] > 1)
+				|| (env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].wall_sprites[env->
+				selected_wall_sprite_wall].nb_shoot_events[env->
+				selected_wall_sprite_sprite] > 1)))
+				|| (env->editor.selected_sector != -1
+				&& ((env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].nb_stand_events > 1)
+				|| (env->editor.selected_events == 1 && env->sectors[env->
+				editor.selected_sector].nb_walk_in_events > 1)
+				|| (env->editor.selected_events == 2 && env->sectors[env->
+				editor.selected_sector].nb_walk_out_events > 1)))
+				|| (env->editor.selected_sector == -1
+				&& env->selected_floor == -1 && env->nb_global_events > 1))
+			{
+				button_keys(&env->editor.next_event, env);
+				button_keys(&env->editor.previous_event, env);
+			}
 		}
 		if (env->selected_ceiling != -1)
 			ceiling_buttons(env);
