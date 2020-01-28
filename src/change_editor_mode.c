@@ -6,13 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 14:48:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 15:55:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	going_in_3D_mode(t_env *env)
+int		going_in_3D_mode(t_env *env)
 {
 	env->editor.selected_vertex = -1;
     env->editor.selected_sector = -1;
@@ -37,17 +37,19 @@ void	going_in_3D_mode(t_env *env)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	}
+	return (0);
 }
 
-void	going_in_2D_mode(t_env *env)
+int		going_in_2D_mode(t_env *env)
 {
-		env->editor.in_game = 0;
-		env->selected_floor = -1;
-		env->selected_ceiling = -1;
-		env->selected_object = -1;
-		env->selected_enemy = -1;
-		env->selected_wall1 = -1;
-		env->selected_wall2 = -1;
-		env->inputs.enter = 0;
-		SDL_SetRelativeMouseMode(0);
+	env->editor.in_game = 0;
+	env->selected_floor = -1;
+	env->selected_ceiling = -1;
+	env->selected_object = -1;
+	env->selected_enemy = -1;
+	env->selected_wall1 = -1;
+	env->selected_wall2 = -1;
+	env->inputs.enter = 0;
+	SDL_SetRelativeMouseMode(0);
+	return (0);
 }

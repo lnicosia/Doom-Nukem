@@ -39,13 +39,13 @@ int	is_mouse_on_button(t_button b, t_point mouse)
 	return (1);
 }
 
-void	button_keyup(t_button *b, t_env *env)
+int		button_keyup(t_button *b, t_env *env)
 {
 	if ((!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my))
 		|| b->anim_state != PRESSED))
 	{
 		b->anim_state = REST;
-		return ;
+		return (0);
 	}
 	b->anim_state = REST;
 	b->state = b->state == UP ? DOWN : UP;
@@ -54,22 +54,27 @@ void	button_keyup(t_button *b, t_env *env)
 		if (b->down_action)
 			b->down_action(b->param);
 	}
+	return (0);
 }
 
-void	button_keys(t_button *b, t_env *env)
+int		button_keys(t_button *b, t_env *env)
 {
 	if (!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my)))
 	{
 		if (b->anim_state == HOVER)
 			b->anim_state = REST;
-		return ;
+		return (0);
 	}
 	if (env->inputs.left_click)
 	{
 		b->anim_state = PRESSED;
 		if (b->press_action)
-			b->press_action(b->param);
+		{
+			if (!b->press_action(b->param))
+				return (-1);
+		}
 	}
 	else if (b->state == UP)
 		b->anim_state = HOVER;
+	return (0);
 }

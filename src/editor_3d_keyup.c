@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 12:19:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 12:23:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,14 @@ int		editor_3d_keyup(t_env *env)
 			while (i < MAX_WALL_TEXTURE)
 			{
 				button_keyup(&env->editor.textures[i], env);
+				i++;
+			}
+		}
+		if (env->editor.draw_enemy_tab)
+		{
+			while (i < MAX_ENEMIES)
+			{
+				button_keyup(&env->editor.enemy_tab[i], env);
 				i++;
 			}
 		}

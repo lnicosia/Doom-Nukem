@@ -67,7 +67,7 @@ void	print_general_tab(t_env *env)
 		print_enemy_general_tab(env);
 }
 
-void	print_vertex_informations(t_env *env)
+int		print_vertex_informations(t_env *env)
 {
 	print_text(new_point(450, 180), new_printable_text("vertex ",
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
@@ -78,6 +78,7 @@ void	print_vertex_informations(t_env *env)
 	print_text(new_point(540, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(580, 80), new_printable_text("Y:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(580, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	return (0);
 }
 
 void	editor_hud(t_env *env)

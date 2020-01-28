@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 14:59:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:09:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1068,9 +1068,9 @@ typedef struct		s_button
 	int				state;
 	int				draw;
 	int				anim_state;
-	void			(*down_action)(void *);
-	void			(*release_action)(void *);
-	void			(*press_action)(void *);
+	int				(*down_action)(void *);
+	int				(*release_action)(void *);
+	int				(*press_action)(void *);
 	void			*param;
 	void			*release_param;
 }					t_button;

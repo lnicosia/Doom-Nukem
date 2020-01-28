@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	print_object_sector_tab(t_env *env)
+int		print_object_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("object:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
@@ -27,9 +27,10 @@ void	print_object_sector_tab(t_env *env)
 	env->editor.hud.s_object.intensity.str = ft_sitoa(env->sectors[env->objects[env->editor.selected_object].sector].intensity);
 	env->editor.hud.s_object.t_intensity.target = &env->sectors[env->objects[env->editor.selected_object].sector].intensity;
 	draw_button(env, env->editor.hud.s_object.intensity);
+	return (0);
 }
 
-void	print_object_general_tab(t_env *env)
+int		print_object_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_object.pos_x.str = ft_sitoa(env->objects[env->selected_object].pos.x);
@@ -45,4 +46,5 @@ void	print_object_general_tab(t_env *env)
 	env->editor.hud.g_object.health.str = ft_sitoa(env->objects[env->selected_object].health);
 	env->editor.hud.g_object.t_health.target = &env->objects[env->selected_object].health;
 	draw_button(env, env->editor.hud.g_object.health);
+	return (0);
 }

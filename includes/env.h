@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 10:39:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 17:01:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,43 +295,46 @@ void				selection_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
-void				editor_mode_button(t_env *env);
-void				editor_save_button(t_env *env);
-void				editor_launch_game(t_env *env);
-void				going_in_2D_mode(t_env *env);
-void				going_in_3D_mode(t_env *env);
-void				print_vertex_informations(t_env *env);
+int					editor_mode_button(t_env *env);
+int					editor_save_button(t_env *env);
+int					editor_launch_game(t_env *env);
+int					going_in_2D_mode(t_env *env);
+int					going_in_3D_mode(t_env *env);
+int					print_vertex_informations(t_env *env);
 
 /*
 **	prints and draw buttons for informations on a selected element 
 */
 
-void				print_floor_general_tab(t_env *env);
-void				print_ceiling_general_tab(t_env *env);
-void				print_player_general_tab(t_env *env);
-void				print_wall_general_tab(t_env *env);
-void				print_sector_general_tab(t_env *env);
-void				print_enemy_general_tab(t_env *env);
-void				print_object_general_tab(t_env *env);
-void				print_floor_sector_tab(t_env *env);
-void				print_ceiling_sector_tab(t_env *env);
-void				print_player_sector_tab(t_env *env);
-void				print_wall_sector_tab(t_env *env);
-void				print_enemy_sector_tab(t_env *env);
-void				print_object_sector_tab(t_env *env);
-void				print_floor_sprite_tab(t_env *env);
-void				print_ceiling_sprite_tab(t_env *env);
-void				print_wall_sprite_tab(t_env *env);
-void				nothing(void *target);
-void				save_texture(void *target);
-void				save_enemy(void *target);
-void				add_enemy_button(void *target);
-void				add_object_button(void *target);
-void				general_tab(void *target);
-void				sector_tab(void *target);
-void				sprite_tab(void *target);
-void				change_sprite(void *target);
-void				change_var(void *target);
+int					print_floor_general_tab(t_env *env);
+int					print_ceiling_general_tab(t_env *env);
+int					print_player_general_tab(t_env *env);
+int					print_wall_general_tab(t_env *env);
+int					print_sector_general_tab(t_env *env);
+int					print_enemy_general_tab(t_env *env);
+int					print_object_general_tab(t_env *env);
+int					print_floor_sector_tab(t_env *env);
+int					print_ceiling_sector_tab(t_env *env);
+int					print_player_sector_tab(t_env *env);
+int					print_wall_sector_tab(t_env *env);
+int					print_enemy_sector_tab(t_env *env);
+int					print_object_sector_tab(t_env *env);
+int					print_floor_sprite_tab(t_env *env);
+int					print_ceiling_sprite_tab(t_env *env);
+int					print_wall_sprite_tab(t_env *env);
+int					nothing(void *target);
+int					save_texture(void *target);
+int					save_enemy(void *target);
+int					add_enemy_button(void *target);
+int					add_object_button(void *target);
+int					general_tab(void *target);
+int					sector_tab(void *target);
+int					sprite_tab(void *target);
+int					change_sprite(void *target);
+int					change_var(void *target);
+int					update_wall_texture_button(void *penv);
+int					update_ceiling_texture_button(void *penv);
+int					update_floor_texture_button(void *penv);
 
 /*
 **	buttons for selections
@@ -477,21 +480,21 @@ t_button			new_button(t_rectangle up, t_rectangle pressed,
 t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
 t_texture *down, t_texture *hover);
-t_button			new_image_button(int type, void (*action)(void *),
+t_button			new_image_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_hud_button(int type, void (*action)(void *),
+t_button			new_hud_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_hud_pos_button(int type, void (*action)(void *),
+t_button			new_hud_pos_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_background_button(int type, void (*action)(void *),
+t_button			new_background_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_tab_button(int type, void (*action)(void *),
+t_button			new_tab_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_rectangle_button(int type, void (*action)(void *),
+t_button			new_rectangle_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_next_button(int type, void (*action)(void *),
+t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_previous_button(int type, void (*action)(void *),
+t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				draw_button(t_env *env, t_button b);
 
@@ -599,8 +602,8 @@ int					check_player_z(t_env *env);
 void				hidden_sectors(t_env *env);
 void				create_hidden_sector(t_env *env);
 void				activate_sector(t_env *env, int i);
-void				button_keys(t_button *b, t_env *env);
-void				button_keyup(t_button *b, t_env *env);
+int					button_keys(t_button *b, t_env *env);
+int					button_keyup(t_button *b, t_env *env);
 void				draw_button_text(t_button b, t_env *env);
 int					is_mouse_on_button(t_button b, t_point mouse);
 t_point				get_button_current_size(t_button b);

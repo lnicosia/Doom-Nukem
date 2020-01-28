@@ -6,18 +6,19 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:23:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 14:02:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 15:28:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	printf_player_sprite_tab(t_env *env)
+int		printf_player_sprite_tab(t_env *env)
 {
 	(void)env;
+	return (0);
 }
 
-void	print_player_sector_tab(t_env *env)
+int		print_player_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("Player:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
@@ -32,9 +33,10 @@ void	print_player_sector_tab(t_env *env)
 	env->editor.hud.s_player.intensity.str = ft_sitoa(env->sectors[env->player.sector].intensity);
 	env->editor.hud.s_player.t_intensity.target = &env->sectors[env->player.sector].intensity;
 	draw_button(env, env->editor.hud.s_player.intensity);
+	return (0);
 }
 
-void	print_player_general_tab(t_env *env)
+int		print_player_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_player.pos_x.str = ft_sitoa(env->player.pos.x);
@@ -58,4 +60,5 @@ void	print_player_general_tab(t_env *env)
 	env->editor.hud.g_player.speed.str = ft_sitoa(env->player.speed);
 	env->editor.hud.g_player.t_speed.target = &env->player.speed;
 	draw_button(env, env->editor.hud.g_player.speed);
+	return (0);
 }

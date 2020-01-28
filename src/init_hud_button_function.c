@@ -6,13 +6,56 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 11:09:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 17:15:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	change_ceiling_sprite(t_button_next *button)
+int		update_wall_texture_button(void *penv)
+{
+	t_env	*env;
+	env = (t_env*)penv;
+	if (env->sectors[env->editor.selected_sector].
+		textures[env->editor.selected_wall] < 0)
+		env->contains_skybox = 1;
+	if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
+		env->wall_textures[env->sectors[env->editor.selected_sector].
+		textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+		return (-1);
+	if (set_camera_map_array(&env->player.camera, env->editor.selected_sector,
+		env->editor.selected_wall, env))
+		return (-1);
+	return (0);
+} 
+
+int			update_ceiling_texture_button(void *penv)
+{
+	t_env	*env;
+	env = (t_env*)penv;
+	if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
+		env->contains_skybox = 1;
+	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
+		env->wall_textures[env->sectors[env->selected_ceiling].
+		ceiling_texture], env))
+		return (-1);
+	return (0);
+}
+
+int			update_floor_texture_button(void *penv)
+{
+	t_env	*env;
+	env = (t_env*)penv;
+	if (env->sectors[env->selected_floor].floor_texture < 0)
+		env->contains_skybox = 1;
+	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
+		env->wall_textures[env->sectors[env->selected_floor].
+		floor_texture], env))
+		return (-1);
+	return (0);
+}
+
+int		change_ceiling_sprite(t_button_next *button)
 {
 	t_env *env;
 
@@ -32,9 +75,10 @@ void	change_ceiling_sprite(t_button_next *button)
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}
+	return (0);
 }
 
-void	change_floor_sprite(t_button_next *button)
+int		change_floor_sprite(t_button_next *button)
 {
 	t_env *env;
 
@@ -54,9 +98,10 @@ void	change_floor_sprite(t_button_next *button)
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}
+	return (0);
 }
 
-void	change_wall_sprite(t_button_next *button)
+int		change_wall_sprite(t_button_next *button)
 {	
 	t_env *env;
 
@@ -76,9 +121,10 @@ void	change_wall_sprite(t_button_next *button)
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}
+	return (0);
 }
 
-void	change_sprite(void *target)
+int		change_sprite(void *target)
 {
 	t_button_next	*button;
 	t_env			*env;
@@ -95,9 +141,10 @@ void	change_sprite(void *target)
 		change_floor_sprite(button);
 	else if (button->type == CEILING_S)
 		change_ceiling_sprite(button);
+	return (0);
 }
 
-void	add_object_button(void *target)
+int		add_object_button(void *target)
 {
 	t_env *env;
 
@@ -108,10 +155,11 @@ void	add_object_button(void *target)
 	else
 		env->editor.add_object.state = UP;
 		env->editor.add_object.anim_state = REST;
+	return (0);
 }
 
 
-void	add_enemy_button(void *target)
+int		add_enemy_button(void *target)
 {
 	t_env *env;
 
@@ -121,9 +169,10 @@ void	add_enemy_button(void *target)
 	else
 		env->editor.add_object.state = UP;
 		env->editor.add_object.anim_state = REST;
+	return (0);
 }
 
-void	save_texture(void *param)
+int		save_texture(void *param)
 {
 	t_env	*env;
 	int		i;
@@ -136,10 +185,28 @@ void	save_texture(void *param)
 	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
 	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
 	env->editor.draw_selection_tab = 0;
-
+	if (env->editor.in_game)
+	{
+		if (env->selected_floor != -1)
+		{
+			env->sectors[env->selected_floor].floor_texture = i;
+			update_floor_texture_button((void *)env);
+		}
+		else if (env->selected_ceiling != -1)
+		{
+			env->sectors[env->selected_ceiling].ceiling_texture = i;
+			update_ceiling_texture_button((void *)env);
+		}
+		else if (env->editor.selected_wall != -1)
+		{
+			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] = i;
+			update_wall_texture_button((void *)env);
+		}
+	}
+	return (0);
 }
 
-void	save_enemy(void *param)
+int		save_enemy(void *param)
 {
 	t_env	*env;
 	int		i;
@@ -151,15 +218,19 @@ void	save_enemy(void *param)
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[i].surface;
+	if (env->selected_enemy != -1)
+		env->enemies[env->selected_enemy].sprite = env->enemy_main_sprite[i];
 	env->editor.draw_enemy_tab = 0;
+	return (0);
 }
 
-void	nothing(void *target)
+int		nothing(void *target)
 {
 	(void)target;
+	return (0);
 }
 
-void	general_tab(void *target)
+int		general_tab(void *target)
 {
 	t_env *env;
 
@@ -168,9 +239,10 @@ void	general_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
+	return (0);
 }
 
-void	sector_tab(void *target)
+int		sector_tab(void *target)
 {
 	t_env *env;
 
@@ -179,9 +251,10 @@ void	sector_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.general_tab.state = UP;
 	env->editor.general_tab.anim_state = REST;
+	return (0);
 }
 
-void	sprite_tab(void *target)
+int		sprite_tab(void *target)
 {
 	t_env *env;
 
@@ -190,4 +263,5 @@ void	sprite_tab(void *target)
 	env->editor.general_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
+	return (0);
 }
