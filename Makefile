@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/28 17:16:14 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/28 17:47:48 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_player_tab_button.c editor_enemy_tabs.c \
 		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
-		 editor_object_tab_button.c sprite_selection.c
+		 sprite_selection.c \
+		 editor_object_tab_button.c print_events_tabs.c \
+		 init_events_selection_buttons.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -144,7 +146,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
-		   get_event_array.c get_event_nb.c init_objects_main_sprite.c \
+		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

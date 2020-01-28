@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 17:15:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:08:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,13 @@ int		save_enemy(void *param)
 
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
-	env->editor.current_enemy = env->enemy_main_sprite[i];
+	env->editor.current_enemy = env->enemies_main_sprites[i];
 	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[i].surface;
 	if (env->selected_enemy != -1)
-		env->enemies[env->selected_enemy].sprite = env->enemy_main_sprite[i];
+		env->enemies[env->selected_enemy].sprite = env->enemies_main_sprites[i];
 	env->editor.draw_enemy_tab = 0;
 	return (0);
 }
@@ -239,7 +239,9 @@ int		general_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
-	return (0);
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
+	return(0);
 }
 
 int		sector_tab(void *target)
@@ -251,6 +253,8 @@ int		sector_tab(void *target)
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.general_tab.state = UP;
 	env->editor.general_tab.anim_state = REST;
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
 	return (0);
 }
 
@@ -263,5 +267,21 @@ int		sprite_tab(void *target)
 	env->editor.general_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
 	env->editor.sector_tab.anim_state = REST;
+	env->editor.events_tab.state = UP;
+	env->editor.events_tab.anim_state = REST;
+	return (0);
+}
+
+int		events_tab(void *target)
+{
+	t_env *env;
+
+	env = (t_env *)target;
+	env->editor.general_tab.state = UP;
+	env->editor.general_tab.anim_state = REST;
+	env->editor.sector_tab.state = UP;
+	env->editor.sector_tab.anim_state = REST;
+	env->editor.sprite_tab.state = UP;
+	env->editor.sprite_tab.anim_state = REST;
 	return (0);
 }

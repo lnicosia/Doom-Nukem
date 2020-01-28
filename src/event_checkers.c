@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 16:04:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:08:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,9 +277,9 @@ int		check_texture_event(t_event *event, void *penv)
 int		check_sprite_event(t_event *event, void *penv)
 {
 	(void)penv;
-	if ((event->incr > 0 && *(int*)event->target >= MAX_WALL_SPRITES - 1)
+	if ((event->incr > 0 && *(int*)event->target >= MAX_OBJECT_SPRITES - 1)
 			|| (event->incr < 0 && *(int*)event->target <= 0)
-			|| (!event->speed && ((int)event->goal >= MAX_WALL_SPRITES
+			|| (!event->speed && ((int)event->goal >= MAX_OBJECT_SPRITES
 					|| (int)event->goal < 0)))
 		return (1);
 	return (0);

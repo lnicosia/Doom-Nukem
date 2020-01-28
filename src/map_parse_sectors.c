@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 12:31:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:24:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -540,6 +540,7 @@ t_map_parser *parser)
 {
 	int	i;
 	int	j;
+	int	parse;
 
 	if (!**line)
 		return (missing_data("sprites and light", parser));
@@ -594,10 +595,11 @@ t_map_parser *parser)
 			< env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)
 		{
 			(*line)++;
-			env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] = ft_atoi(*line);
-			if (env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] < -1
-					|| env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] > MAX_WALL_SPRITES)
+			parse = ft_atoi(*line);
+			if (parse < -1 || parse > MAX_OBJECTS)
 				return (custom_error_with_line("Invalid sprite texture", parser));
+			env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] =
+			env->objects_main_sprites[parse];
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
 			env->sectors[parser->sectors_count].wall_sprites[i].pos[j].x = ft_atof(*line);

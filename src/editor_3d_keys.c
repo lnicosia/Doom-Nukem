@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 12:15:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:00:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int		editor_3d_keys(t_env *env)
 			|| env->inputs.right)
 		Mix_PlayChannel(-1, env->sound.footstep, 0);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
-			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going || env->inputs.lgui)
-			&& env->player.health > 0 && !env->inputs.ctrl
+						|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
+						|| env->crouch.on_going || env->inputs.lgui)
+					&& env->player.health > 0 && !env->inputs.ctrl
 
-			&&  (((env->selected_enemy == -1 && env->editor.tab)
-				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab)))
-			|| (env->player.state.climb || env->player.state.drop))
-		&& !env->editor.tab)
+					&&  (((env->selected_enemy == -1 && env->editor.tab)
+							|| (env->selected_enemy != -1 && !env->editor.tab))
+						|| (env->selected_enemy == -1 && !env->editor.tab)))
+				|| (env->player.state.climb || env->player.state.drop))
+			&& !env->editor.tab)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)
@@ -48,7 +48,7 @@ int		editor_3d_keys(t_env *env)
 		SDL_SetRelativeMouseMode(0);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-		STRING, &env->save_file);
+				STRING, &env->save_file);
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
@@ -66,28 +66,28 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 8)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
+						&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 8)
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
 				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -MAX_SKYBOX)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 1;
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 1;
 			}
 			else if (env->inputs.up)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 10)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
+						&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 10)
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
 				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 1)
-				env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
+					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
 			}
 			if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < 0)
 				env->contains_skybox = 1;
 			if (set_sector_wall_map_array(&env->sectors[env->editor.
-				selected_sector], env->wall_textures[env->sectors[env->
-				editor.selected_sector].textures[env->editor.selected_wall]],
-				env->editor.selected_wall, env))
+						selected_sector], env->wall_textures[env->sectors[env->
+						editor.selected_sector].textures[env->editor.selected_wall]],
+						env->editor.selected_wall, env))
 				return (-1);
 			if (set_camera_map_array(&env->player.camera,
-				env->editor.selected_sector, env->editor.selected_wall, env))
+						env->editor.selected_sector, env->editor.selected_wall, env))
 				return (-1);
 		}
 	}
@@ -130,10 +130,10 @@ int		editor_3d_keys(t_env *env)
 			else
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
 			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+						env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
 				return (-1);
 			if (set_camera_map_array(&env->player.camera,
-				env->editor.selected_sector, env->editor.selected_wall, env))
+						env->editor.selected_sector, env->editor.selected_wall, env))
 				return (-1);
 		}
 		if (env->inputs.minus1)
@@ -148,10 +148,10 @@ int		editor_3d_keys(t_env *env)
 			else
 				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x /= 1.1;
 			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-				env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
+						env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
 				return (-1);
 			if (set_camera_map_array(&env->player.camera,
-				env->editor.selected_sector, env->editor.selected_wall, env))
+						env->editor.selected_sector, env->editor.selected_wall, env))
 				return (-1);
 		}
 	}
@@ -168,32 +168,32 @@ int		editor_3d_keys(t_env *env)
 			&& env->selected_wall_sprite_sprite != -1)
 	{
 		wall_sprites_keys(env,
-		&env->sectors[env->editor.selected_sector].
-		wall_sprites[env->selected_wall_sprite_wall].
-		pos[env->selected_wall_sprite_sprite],
-		&env->sectors[env->editor.selected_sector].
-		wall_sprites[env->selected_wall_sprite_wall].
-		scale[env->selected_wall_sprite_sprite]);
+				&env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				pos[env->selected_wall_sprite_sprite],
+				&env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				scale[env->selected_wall_sprite_sprite]);
 	}
 	if (env->editor.in_game
-		&& env->selected_ceiling != -1
-		&& env->selected_ceiling_sprite != -1)
+			&& env->selected_ceiling != -1
+			&& env->selected_ceiling_sprite != -1)
 	{
 		wall_sprites_keys(env,
-		&env->sectors[env->selected_ceiling].
-		ceiling_sprites.pos[env->selected_ceiling_sprite],
-		&env->sectors[env->selected_ceiling].
-		ceiling_sprites.scale[env->selected_ceiling_sprite]);
+				&env->sectors[env->selected_ceiling].
+				ceiling_sprites.pos[env->selected_ceiling_sprite],
+				&env->sectors[env->selected_ceiling].
+				ceiling_sprites.scale[env->selected_ceiling_sprite]);
 	}
 	if (env->editor.in_game
-		&& env->selected_floor != -1
-		&& env->selected_floor_sprite != -1)
+			&& env->selected_floor != -1
+			&& env->selected_floor_sprite != -1)
 	{
 		wall_sprites_keys(env,
-		&env->sectors[env->selected_floor].
-		floor_sprites.pos[env->selected_floor_sprite],
-		&env->sectors[env->selected_floor].
-		floor_sprites.scale[env->selected_floor_sprite]);
+				&env->sectors[env->selected_floor].
+				floor_sprites.pos[env->selected_floor_sprite],
+				&env->sectors[env->selected_floor].
+				floor_sprites.scale[env->selected_floor_sprite]);
 	}
 
 	/*
@@ -202,11 +202,11 @@ int		editor_3d_keys(t_env *env)
 	 */
 
 	if (env->editor.in_game && env->selected_ceiling != -1
-		&& env->selected_ceiling_sprite == -1
+			&& env->selected_ceiling_sprite == -1
 			&& (env->inputs.down || env->inputs.up
-			|| env->inputs.plus || env->inputs.minus
-			|| env->inputs.comma || env->inputs.period
-			|| env->inputs.equals || env->inputs.minus1))
+				|| env->inputs.plus || env->inputs.minus
+				|| env->inputs.comma || env->inputs.period
+				|| env->inputs.equals || env->inputs.minus1))
 	{
 		if (time - env->time.scroll_tick > 200)
 		{
@@ -214,7 +214,7 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture > 9 - MAX_SKYBOX)
+						&& env->sectors[env->selected_ceiling].ceiling_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_ceiling].ceiling_texture--;
@@ -222,7 +222,7 @@ int		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 10)
+						&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 10)
 					env->sectors[env->selected_ceiling].ceiling_texture += 10;
 				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_ceiling].ceiling_texture++;
@@ -286,22 +286,22 @@ int		editor_3d_keys(t_env *env)
 				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
 		}
 		if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-			env->wall_textures[env->sectors[env->selected_ceiling].
-			ceiling_texture], env))
+					env->wall_textures[env->sectors[env->selected_ceiling].
+					ceiling_texture], env))
 			return (-1);
 	}
-	
+
 	/*
 	 * *	selection of textures on ceiling and floor
 	 **	All the || conditions: reset time only if those keys are pressed
 	 */
 
 	if (env->editor.in_game && env->selected_floor != -1
-		&& env->selected_floor_sprite == -1
+			&& env->selected_floor_sprite == -1
 			&& (env->inputs.down || env->inputs.up
-			|| env->inputs.plus || env->inputs.minus
-			|| env->inputs.comma || env->inputs.period
-			|| env->inputs.equals || env->inputs.minus1))
+				|| env->inputs.plus || env->inputs.minus
+				|| env->inputs.comma || env->inputs.period
+				|| env->inputs.equals || env->inputs.minus1))
 	{
 		if (time - env->time.tick > 200 && env->editor.tab)
 		{
@@ -309,7 +309,7 @@ int		editor_3d_keys(t_env *env)
 			if (env->inputs.down && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_floor].floor_texture > 9 - MAX_SKYBOX)
+						&& env->sectors[env->selected_floor].floor_texture > 9 - MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture -= 10;
 				else if (env->sectors[env->selected_floor].floor_texture > -MAX_SKYBOX)
 					env->sectors[env->selected_floor].floor_texture--;
@@ -317,7 +317,7 @@ int		editor_3d_keys(t_env *env)
 			else if (env->inputs.up && env->editor.tab)
 			{
 				if (env->inputs.shift
-					&& env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 10)
+						&& env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 10)
 					env->sectors[env->selected_floor].floor_texture += 10;
 				else if (env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 1)
 					env->sectors[env->selected_floor].floor_texture++;
@@ -380,8 +380,8 @@ int		editor_3d_keys(t_env *env)
 				env->sectors[env->selected_floor].floor_map_scale.x *= 1.1;
 		}
 		if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-			env->wall_textures[env->sectors[env->selected_floor].floor_texture],
-			env))
+					env->wall_textures[env->sectors[env->selected_floor].floor_texture],
+					env))
 			return (-1);
 	}
 
@@ -485,6 +485,49 @@ int		editor_3d_keys(t_env *env)
 		button_keys(&env->editor.change_mode, env);
 		button_keys(&env->editor.launch_game, env);
 		button_keys(&env->editor.texture_background, env);
+		if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+			&& env->global_events > 0)
+			|| (env->editor.selected_sector != -1 &&
+					(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+					 || env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+					 || env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+				|| (env->selected_floor != -1 &&
+					(env->sectors[env->selected_floor].nb_stand_events > 0
+					 || env->sectors[env->selected_floor].nb_walk_in_events > 0
+					 || env->sectors[env->selected_floor].nb_walk_out_events > 0))
+				|| (env->selected_wall_sprite_sprite != -1 && 
+					(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+					 || env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+		{
+			button_keys(&env->editor.events_tab, env);
+			if (env->editor.events_tab.state == DOWN)
+			{
+				button_keys(&env->editor.next_events, env);
+				button_keys(&env->editor.previous_events, env);
+			}
+			if ((env->selected_wall_sprite_wall != -1
+				&& ((env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].wall_sprites[env->
+				selected_wall_sprite_wall].nb_press_events[env->
+				selected_wall_sprite_sprite] > 1)
+				|| (env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].wall_sprites[env->
+				selected_wall_sprite_wall].nb_shoot_events[env->
+				selected_wall_sprite_sprite] > 1)))
+				|| (env->editor.selected_sector != -1
+				&& ((env->editor.selected_events == 0 && env->sectors[env->
+				editor.selected_sector].nb_stand_events > 1)
+				|| (env->editor.selected_events == 1 && env->sectors[env->
+				editor.selected_sector].nb_walk_in_events > 1)
+				|| (env->editor.selected_events == 2 && env->sectors[env->
+				editor.selected_sector].nb_walk_out_events > 1)))
+				|| (env->editor.selected_sector == -1
+				&& env->selected_floor == -1 && env->nb_global_events > 1))
+			{
+				button_keys(&env->editor.next_event, env);
+				button_keys(&env->editor.previous_event, env);
+			}
+		}
 		if (env->selected_ceiling != -1)
 			ceiling_buttons(env);
 		if (env->selected_floor != -1)
@@ -496,7 +539,7 @@ int		editor_3d_keys(t_env *env)
 		if (env->selected_object != -1)
 			object_buttons(env);
 		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
-		|| env->selected_wall_sprite_sprite != -1)
+				|| env->selected_wall_sprite_sprite != -1)
 		{
 			button_keys(&env->editor.next_sprite, env);
 			button_keys(&env->editor.previous_sprite, env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/09 14:04:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:26:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,49 @@ int			editor_keys(t_env *env)
 		player_buttons(env);
 	if (env->selected_enemy != -1)
 		enemy_buttons(env);
+	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+		&& env->global_events > 0)
+		|| (env->editor.selected_sector != -1 &&
+			(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+			|| (env->selected_floor != -1 &&
+			(env->sectors[env->selected_floor].nb_stand_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_in_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_out_events > 0))
+			|| (env->selected_wall_sprite_sprite != -1 && 
+			(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+	{
+		button_keys(&env->editor.events_tab, env);
+		if (env->editor.events_tab.state == DOWN)
+		{
+			button_keys(&env->editor.next_events, env);
+			button_keys(&env->editor.previous_events, env);
+		}
+		if ((env->selected_wall_sprite_wall != -1
+			&& ((env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].wall_sprites[env->
+			selected_wall_sprite_wall].nb_press_events[env->
+			selected_wall_sprite_sprite] > 1)
+			|| (env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].wall_sprites[env->
+			selected_wall_sprite_wall].nb_shoot_events[env->
+			selected_wall_sprite_sprite] > 1)))
+			|| (env->editor.selected_sector != -1
+			&& ((env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].nb_stand_events > 1)
+			|| (env->editor.selected_events == 1 && env->sectors[env->
+			editor.selected_sector].nb_walk_in_events > 1)
+			|| (env->editor.selected_events == 2 && env->sectors[env->
+			editor.selected_sector].nb_walk_out_events > 1)))
+			|| (env->editor.selected_sector == -1
+			&& env->selected_floor == -1 && env->nb_global_events > 1))
+		{
+			button_keys(&env->editor.next_event, env);
+			button_keys(&env->editor.previous_event, env);
+		}
+	}
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

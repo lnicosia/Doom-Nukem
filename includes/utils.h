@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 15:09:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:00:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@
 # define MAX_TEXTURES 36
 # define MAX_UI_TEXTURES 21
 # define MAX_MONSTER_MINI 14
-# define MAX_SPRITES 22
-# define MAX_WALL_SPRITES 4
+# define MAX_OBJECT_SPRITES 28
+# define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 2
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 12
+# define MAX_OBJECTS 18
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -54,9 +54,16 @@
 # define LAMP 7
 # define MONITOR_OFF 11
 # define MONITOR_ON 12
+# define MONITOR_DESTROYED 16
 # define GREEN_ARMOR 17
 # define CANDLE 18
 # define BARREL 20
+# define GRID 23
+# define BUTTON_OFF 24
+# define BUTTON_ON 25
+# define BULLET_HOLE 26
+# define LOST_SOUL_OBJECT 27
+# define CYBER_DEMON_OBJECT 28
 
 typedef enum		e_target_type
 {

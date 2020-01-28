@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 15:42:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 14:23:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 	i = render.current_ceiling - 1;
 	zbuffer = env->zbuffer;
 	pixels = env->sdl.texture_pixels;
-	sprite_pixels = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
+	sprite_pixels = env->sprite_textures[env->object_sprites[sector.wall_sprites[render.i]
 		.sprite[sprite]].texture].str;
-	sprite_w = env->sprite_textures[env->wall_sprites[sector.wall_sprites[render.i]
+	sprite_w = env->sprite_textures[env->object_sprites[sector.wall_sprites[render.i]
 		.sprite[sprite]].texture].surface->w;
 	pos = sector.wall_sprites[render.i].pos[sprite].y / (sector.ceiling - sector.floor);
-	start = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].start[0].y;
-	end = env->wall_sprites[sector.wall_sprites[render.i].sprite[sprite]].end[0].y;
+	start = env->object_sprites[sector.wall_sprites[render.i].sprite[sprite]].start[0].y;
+	end = env->object_sprites[sector.wall_sprites[render.i].sprite[sprite]].end[0].y;
 	x = render.sprite_x;
 	while (++i <= render.current_floor)
 	{
@@ -64,11 +64,11 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 				if (env->editor.select)
 				{
 					reset_selection(env);
+					if (env->editor.selected_events == 2)
+						env->editor.selected_events = 1;
 					env->selected_wall_sprite_wall = render.i;
 					env->selected_wall_sprite_sprite = sprite;
 					env->editor.selected_sector = sector.num;
-					env->editor.sprite_tab.state = DOWN;
-					env->editor.sprite_tab.anim_state = PRESSED;
 				}
 				if (env->playing
 						&& sector.wall_sprites[render.i].nb_press_events[sprite])
@@ -130,8 +130,8 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 	{
 		if (sector.wall_sprites[render.i].sprite[i] != -1)
 		{
-			start = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].start[0];
-			end = env->wall_sprites[sector.wall_sprites[render.i].sprite[i]].end[0];
+			start = env->object_sprites[sector.wall_sprites[render.i].sprite[i]].start[0];
+			end = env->object_sprites[sector.wall_sprites[render.i].sprite[i]].end[0];
 			pos = (sector.wall_sprites[render.i].pos[i].x)
 				/ sector.wall_width[render.i]
 				* render.camera->v[render.sector][render.i].sprite_scale[i].x;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/10 15:58:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:52:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_vertex = -1;
 		env->editor.selected_object = -1;
 		env->editor.selected_player = -1;
+		env->editor.selected_events = 0;
+		env->editor.selected_event = 0;
+		if (env->editor.selected_sector == -1)
+		{
+			env->selected_floor = -1;
+			env->selected_ceiling = -1;
+		}
 		env->selected_enemy = -1;
 	}
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
@@ -128,11 +135,7 @@ int	editor_keyup(t_env *env)
 	{
 		if (!valid_map(env))
 		{
-			env->editor.selected_vertex = -1;
-			env->editor.selected_sector = -1;
-			env->editor.selected_player = -1;
-			env->editor.selected_object = -1;
-			env->selected_enemy = -1;
+			reset_selection(env);
 			env->editor.in_game = 1;
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			free_camera(&env->player.camera, env);
@@ -180,6 +183,49 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
+	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+		&& env->global_events > 0)
+		|| (env->editor.selected_sector != -1 &&
+			(env->sectors[env->editor.selected_sector].nb_stand_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
+			|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
+			|| (env->selected_floor != -1 &&
+			(env->sectors[env->selected_floor].nb_stand_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_in_events > 0
+			|| env->sectors[env->selected_floor].nb_walk_out_events > 0))
+			|| (env->selected_wall_sprite_sprite != -1 && 
+			(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
+			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+	{
+		button_keyup(&env->editor.events_tab, env);
+		if (env->editor.events_tab.state == DOWN)
+		{
+			button_keyup(&env->editor.next_events, env);
+			button_keyup(&env->editor.previous_events, env);
+		}
+		if ((env->selected_wall_sprite_wall != -1
+			&& ((env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].wall_sprites[env->
+			selected_wall_sprite_wall].nb_press_events[env->
+			selected_wall_sprite_sprite] > 1)
+			|| (env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].wall_sprites[env->
+			selected_wall_sprite_wall].nb_shoot_events[env->
+			selected_wall_sprite_sprite] > 1)))
+			|| (env->editor.selected_sector != -1
+			&& ((env->editor.selected_events == 0 && env->sectors[env->
+			editor.selected_sector].nb_stand_events > 1)
+			|| (env->editor.selected_events == 1 && env->sectors[env->
+			editor.selected_sector].nb_walk_in_events > 1)
+			|| (env->editor.selected_events == 2 && env->sectors[env->
+			editor.selected_sector].nb_walk_out_events > 1)))
+			|| (env->editor.selected_sector == -1
+			&& env->selected_floor == -1 && env->nb_global_events > 1))
+		{
+			button_keyup(&env->editor.next_event, env);
+			button_keyup(&env->editor.previous_event, env);
+		}
+	}
 	if (env->editor.selected_sector != -1)
 		sector_buttons_up(env);
 	if (env->editor.selected_player != -1)

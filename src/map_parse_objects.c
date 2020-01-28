@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 13:43:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 09:24:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 {
+	int		parse;
+
 	if (**line != '[')
 		return (invalid_char("before object sprite", "'['", **line, parser));
 	(*line)++;
@@ -23,10 +25,11 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before object sprite", "a digit",
 					**line, parser));
-	env->objects[parser->objects_count].sprite = ft_atoi(*line);
-	if (env->objects[parser->objects_count].sprite < 0
-			|| env->objects[parser->objects_count].sprite >= MAX_SPRITES)
+	parse = ft_atoi(*line);
+	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid sprite texture", parser));
+	env->objects[parser->objects_count].sprite =
+	env->objects_main_sprites[parse];
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object scale", parser));

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/13 13:52:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 12:09:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int		save_button(void *target)
 int		editor_mode_button(t_env *env)
 {
 	env->editor.change_mode = new_image_button(WHEN_DOWN, &change_mode, env, env);
-    env->editor.change_mode.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
-	env->editor.change_mode.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
-	env->editor.change_mode.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.change_mode.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.change_mode.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+	env->editor.change_mode.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+	env->editor.change_mode.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.change_mode.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.change_mode.size_up = new_point(64, 64);
     env->editor.change_mode.size_down = new_point(env->editor.change_mode.img_down->w,
 	env->editor.change_mode.img_down->h);
@@ -85,10 +85,10 @@ int		editor_mode_button(t_env *env)
 int		editor_save_button(t_env *env)
 {
 	env->editor.save = new_image_button(WHEN_DOWN, &save_button, env, env);
-    env->editor.save.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.save.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.save.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.save.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.save.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.save.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.save.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.save.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.size_up = new_point(64, 64);
     env->editor.save.size_down = new_point(env->editor.save.img_down->w,
     env->editor.save.img_down->h);
@@ -103,10 +103,10 @@ int		editor_save_button(t_env *env)
 int		editor_launch_game(t_env *env)
 {
 	env->editor.launch_game = new_image_button(WHEN_DOWN, &launch_game, env, env);
-    env->editor.launch_game.img_up = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.launch_game.img_pressed = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.launch_game.img_down = env->sprite_textures[env->wall_sprites[2].texture].surface;
-    env->editor.launch_game.img_hover = env->sprite_textures[env->wall_sprites[2].texture].surface;
+    env->editor.launch_game.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.launch_game.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.launch_game.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+    env->editor.launch_game.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.size_up = new_point(64, 64);
     env->editor.launch_game.size_down = new_point(env->editor.launch_game.img_down->w,
     env->editor.launch_game.img_down->h);

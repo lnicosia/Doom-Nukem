@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:56:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 17:00:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 10:32:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ t_env *env)
 		j = 0;
 		while (j < sector.ceiling_sprites.nb_sprites)
 		{
-			sprite = env->wall_sprites[sector.ceiling_sprites.sprite[j]];
+			sprite = env->object_sprites[sector.ceiling_sprites.sprite[j]];
 			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
 			/*sprite_x = (x - sector.ceiling_sprites.pos[j].x)
 				* (sprite.size[0].x) / sector.ceiling_sprites.scale[j].x;
 			sprite_y = (y - sector.ceiling_sprites.pos[j].y)
 				* (sprite.size[0].y) / sector.ceiling_sprites.scale[j].y;*/
 			sprite_x = (x - sector.ceiling_sprites.pos[j].x)
-				* sector.ceiling_sprites_scale[j].x;
+				* sector.ceiling_sprites_scale[j].x + sprite.start[0].x;
 			sprite_y = (y - sector.ceiling_sprites.pos[j].y)
-				* sector.ceiling_sprites_scale[j].y;
+				* sector.ceiling_sprites_scale[j].y + sprite.start[0].y;
 			if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
 					&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
 					&& sprite_pixels[(int)sprite_x
