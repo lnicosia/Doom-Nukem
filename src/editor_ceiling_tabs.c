@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 16:54:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:22:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_ceiling_sprite_tab(t_env *env)
 void	print_ceiling_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("Sector:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(480, 230), new_printable_text(ft_sitoa(env->sectors[env->selected_ceiling].num),
+	print_text(new_point(480, 230), new_printable_text(ft_sitoa(env->selected_ceiling),
 	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.s_ceilling.brightness.str = ft_itoa(env->sectors[env->selected_ceiling].brightness);

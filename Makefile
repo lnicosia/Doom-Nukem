@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/27 16:57:11 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/28 12:18:32 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c selected_information.c \
+		 editor_start_game.c apply_texture.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
@@ -73,7 +73,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_player_tab_button.c editor_enemy_tabs.c \
 		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
-		 editor_object_tab_button.c
+		 editor_object_tab_button.c sprite_selection.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:07:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:17:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:21:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_wall_sprite_tab(t_env *env)
 void	print_wall_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("Sector:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(480, 230), new_printable_text(ft_sitoa(env->sectors[env->editor.selected_wall].num),
+	print_text(new_point(480, 230), new_printable_text(ft_sitoa(env->editor.selected_sector),
 	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.s_wall.brightness.str = ft_itoa(env->sectors[env->editor.selected_sector].brightness);

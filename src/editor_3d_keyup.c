@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 15:04:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:19:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int		editor_3d_keyup(t_env *env)
 		env->selected_wall1 = -1;
 		env->selected_wall2 = -1;
 		env->inputs.enter = 0;
+		env->editor.sprite_tab.state = UP;
+		env->editor.general_tab.state = UP;
+		env->editor.sector_tab.state = UP;
+		env->editor.sprite_tab.anim_state = REST;
+		env->editor.general_tab.anim_state = REST;
+		env->editor.sector_tab.anim_state = REST;
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
@@ -121,6 +127,8 @@ int		editor_3d_keyup(t_env *env)
 			floor_buttons_up(env);
 		if (env->selected_enemy != -1)
 			enemy_buttons_up(env);
+		if (env->selected_object != -1)
+			object_buttons_up(env);
 		if (env->selected_floor_sprite != -1)
 			floor_sprite_buttons_up(env);
 		if (env->selected_ceiling_sprite != -1)
@@ -146,6 +154,11 @@ int		editor_3d_keyup(t_env *env)
 			env->editor.draw_selection_tab = 1;
 		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 			env->editor.draw_selection_tab = 0;
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
+		&& (env->sdl.my < 317 && env->sdl.my > 253))
+			env->editor.draw_enemy_tab = 1;
+		else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+			env->editor.draw_enemy_tab = 0;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 15:24:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 10:29:07 by sipatry          ###   ########.fr       */	
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ void	print_object_sector_tab(t_env *env)
 void	print_object_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.g_object.pos_x.str = ft_sitoa(env->objects[env->editor.selected_object].pos.x);
-	env->editor.hud.g_object.t_pos_x.target = &env->objects[env->editor.selected_object].pos.x;
+	env->editor.hud.g_object.pos_x.str = ft_sitoa(env->objects[env->selected_object].pos.x);
+	env->editor.hud.g_object.t_pos_x.target = &env->objects[env->selected_object].pos.x;
 	draw_button(env, env->editor.hud.g_object.pos_x);
-	env->editor.hud.g_object.pos_y.str = ft_sitoa(env->objects[env->editor.selected_object].pos.y);
-	env->editor.hud.g_object.t_pos_y.target = &env->objects[env->editor.selected_object].pos.y;
+	env->editor.hud.g_object.pos_y.str = ft_sitoa(env->objects[env->selected_object].pos.y);
+	env->editor.hud.g_object.t_pos_y.target = &env->objects[env->selected_object].pos.y;
 	draw_button(env, env->editor.hud.g_object.pos_y);
-	env->editor.hud.g_object.pos_z.str = ft_sitoa(env->objects[env->editor.selected_object].pos.z);
-	env->editor.hud.g_object.t_pos_z.target = &env->objects[env->editor.selected_object].pos.z;
+	env->editor.hud.g_object.pos_z.str = ft_sitoa(env->objects[env->selected_object].pos.z);
+	env->editor.hud.g_object.t_pos_z.target = &env->objects[env->selected_object].pos.z;
 	draw_button(env, env->editor.hud.g_object.pos_z);
 	print_text(new_point(560, 60), new_printable_text("Health: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.g_object.health.str = ft_sitoa(env->objects[env->editor.selected_object].health);
-	env->editor.hud.g_object.t_health.target = &env->objects[env->editor.selected_object].health;
+	env->editor.hud.g_object.health.str = ft_sitoa(env->objects[env->selected_object].health);
+	env->editor.hud.g_object.t_health.target = &env->objects[env->selected_object].health;
 	draw_button(env, env->editor.hud.g_object.health);
 }

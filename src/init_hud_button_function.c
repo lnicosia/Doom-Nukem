@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 16:49:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 11:09:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,18 @@ void	change_floor_sprite(t_button_next *button)
 	env = button->env;
 	if (button->button_type == PREVIOUS)
 	{
-		ft_printf("previous | num in: %d\n", env->selected_floor_sprite);
 		if (env->selected_floor_sprite > 0)
 			env->selected_floor_sprite--;
 		env->editor.previous_sprite.state = UP;
 		env->editor.previous_sprite.anim_state = REST;
-		ft_printf("---> num out: %d\n", env->selected_floor_sprite);
 	}
 	else if (button->button_type == NEXT)
 	{
-		ft_printf("next | num in: %d\n", env->selected_floor_sprite);
 		if (env->selected_floor_sprite <
 		env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
 			env->selected_floor_sprite++;
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
-		ft_printf("num out: %d\n", env->selected_floor_sprite);
 	}
 }
 
@@ -111,6 +107,7 @@ void	add_object_button(void *target)
 		env->editor.create_object = 1;
 	else
 		env->editor.add_object.state = UP;
+		env->editor.add_object.anim_state = REST;
 }
 
 
@@ -122,7 +119,8 @@ void	add_enemy_button(void *target)
 	if (!env->editor.draw_enemy_tab)
 		env->editor.create_enemy = 1;
 	else
-		env->editor.add_enemy.state = UP;
+		env->editor.add_object.state = UP;
+		env->editor.add_object.anim_state = REST;
 }
 
 void	save_texture(void *param)
@@ -138,6 +136,7 @@ void	save_texture(void *param)
 	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
 	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
 	env->editor.draw_selection_tab = 0;
+
 }
 
 void	save_enemy(void *param)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:57:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 10:39:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,7 @@ void				update_double_tab(int index, double size, double **tab);
 void				update_int_tab(int index, int size, int **tab);
 void				selection_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
+void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 void				editor_mode_button(t_env *env);
 void				editor_save_button(t_env *env);
@@ -300,9 +301,11 @@ void				editor_launch_game(t_env *env);
 void				going_in_2D_mode(t_env *env);
 void				going_in_3D_mode(t_env *env);
 void				print_vertex_informations(t_env *env);
-void				print_object_informations(t_env *env);
-void				print_sector_informations(t_env *env);
-void				print_enemy_informations(t_env *env);
+
+/*
+**	prints and draw buttons for informations on a selected element 
+*/
+
 void				print_floor_general_tab(t_env *env);
 void				print_ceiling_general_tab(t_env *env);
 void				print_player_general_tab(t_env *env);
@@ -329,12 +332,18 @@ void				sector_tab(void *target);
 void				sprite_tab(void *target);
 void				change_sprite(void *target);
 void				change_var(void *target);
+
+/*
+**	buttons for selections
+*/
+
 void				wall_buttons(t_env *env);
 void				ceiling_buttons(t_env *env);
 void				floor_buttons(t_env *env);
 void				sector_buttons(t_env *env);
 void				player_buttons(t_env *env);
 void				enemy_buttons(t_env *env);
+void				object_buttons(t_env *env);
 void				floor_sprite_buttons(t_env *env);
 void				ceiling_sprite_buttons(t_env *env);
 void				wall_sprite_buttons(t_env *env);
@@ -344,6 +353,7 @@ void				floor_buttons_up(t_env *env);
 void				sector_buttons_up(t_env *env);
 void				player_buttons_up(t_env *env);
 void				enemy_buttons_up(t_env *env);
+void				object_buttons_up(t_env *env);
 void				floor_sprite_buttons_up(t_env *env);
 void				ceiling_sprite_buttons_up(t_env *env);
 void				wall_sprite_buttons_up(t_env *env);

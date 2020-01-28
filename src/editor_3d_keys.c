@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 14:54:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:15:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,28 +470,6 @@ int		editor_3d_keys(t_env *env)
 		}
 	}
 
-	/*
-	 * *	select the stats of an enemy
-	 */
-
-	if (env->editor.tab && env->selected_enemy != -1 && env->editor.in_game)
-	{
-		time = SDL_GetTicks();
-		if (!env->time.tick2)
-			env->time.tick2 = SDL_GetTicks();
-		if (env->inputs.backward && env->selected_stat < 3 && time - env->time.tick2 > 250)
-		{
-			env->time.tick2 = time;
-			env->selected_stat++;
-		}
-		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 250)
-		{
-			env->time.tick2 = time;
-			env->selected_stat--;
-		}
-		if (env->selected_enemy != -1)
-			selected_information_on_enemy(env);
-	}
 	if (env->inputs.right_click && !env->option)
 	{
 		//ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);
@@ -515,6 +493,8 @@ int		editor_3d_keys(t_env *env)
 			wall_buttons(env);
 		if (env->selected_enemy != -1)
 			enemy_buttons(env);
+		if (env->selected_object != -1)
+			object_buttons(env);
 		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
 		|| env->selected_wall_sprite_sprite != -1)
 		{
@@ -536,6 +516,14 @@ int		editor_3d_keys(t_env *env)
 			while (i < MAX_WALL_TEXTURE)
 			{
 				button_keys(&env->editor.textures[i], env);
+				i++;
+			}
+		}
+		if (env->editor.draw_enemy_tab)
+		{
+			while (i < MAX_ENEMIES)
+			{
+				button_keys(&env->editor.enemy_tab[i], env);
 				i++;
 			}
 		}

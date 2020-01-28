@@ -6,11 +6,28 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 17:06:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 10:47:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	object_buttons_up(t_env *env)
+{
+	if (env->editor.sector_tab.state == DOWN)
+	{
+		button_keyup(&env->editor.hud.s_object.brightness, env);
+		button_keyup(&env->editor.hud.s_object.color, env);
+		button_keyup(&env->editor.hud.s_object.intensity, env);
+	}
+	if (env->editor.general_tab.state == DOWN)
+	{
+		button_keyup(&env->editor.hud.g_object.pos_x, env);
+		button_keyup(&env->editor.hud.g_object.pos_y, env);
+		button_keyup(&env->editor.hud.g_object.pos_z, env);
+		button_keyup(&env->editor.hud.g_object.health, env);
+	}
+}
 
 void	wall_sprite_buttons_up(t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 15:00:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:13:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	init_editor(int ac, char **av)
 	init_inputs(&env);
 	init_player(&env);
 	init_animations(&env);
+	init_objects_data(&env);
+	init_enemies_data(&env);
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
 	if (init_sound(&env))
