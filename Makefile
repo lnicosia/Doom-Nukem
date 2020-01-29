@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/29 13:37:25 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/29 17:27:05 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,13 +48,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
-		 draw_grid_player.c draw_grid_objects.c \
+		 draw_grid_player.c draw_grid_objects.c events_tab_conditions.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 write_events.c init_print_target_data.c \
+		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
@@ -75,6 +75,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
 		 editor_object_tab_button.c print_events_tabs.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
+		 are_condition_selection_buttons_visible.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 14:56:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:17:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ typedef struct	s_editor
 	int				current_enemy;
 	int				selected_events;
 	size_t			selected_event;
+	size_t			selected_launch_condition;
+	size_t			selected_exec_condition;
 	t_v2			center;
 	double			scale;
 	t_list			*vertices;
@@ -235,6 +237,10 @@ typedef struct	s_editor
 	t_button		previous_events;
 	t_button		next_event;
 	t_button		previous_event;
+	t_button		next_launch_condition;
+	t_button		previous_launch_condition;
+	t_button		next_exec_condition;
+	t_button		previous_exec_condition;
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection[MAX_OBJECTS];
 }				t_editor;

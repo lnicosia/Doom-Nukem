@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 15:52:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 16:12:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_player = -1;
 		env->editor.selected_events = 0;
 		env->editor.selected_event = 0;
+		env->editor.selected_launch_condition = 0;
+		env->editor.selected_exec_condition = 0;
 		if (env->editor.selected_sector == -1)
 		{
 			env->selected_floor = -1;
@@ -183,19 +185,7 @@ int	editor_keyup(t_env *env)
 	button_keyup(&env->editor.sector_tab, env);
 	button_keyup(&env->editor.general_tab, env);
 	button_keyup(&env->editor.sprite_tab, env);
-	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
-		&& env->global_events > 0)
-		|| (env->editor.selected_sector != -1 &&
-			(env->sectors[env->editor.selected_sector].nb_stand_events > 0
-			|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
-			|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
-			|| (env->selected_floor != -1 &&
-			(env->sectors[env->selected_floor].nb_stand_events > 0
-			|| env->sectors[env->selected_floor].nb_walk_in_events > 0
-			|| env->sectors[env->selected_floor].nb_walk_out_events > 0))
-			|| (env->selected_wall_sprite_sprite != -1 && 
-			(env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_press_events[env->selected_wall_sprite_sprite] > 0
-			|| env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_shoot_events[env->selected_wall_sprite_sprite] > 0)))
+	if (is_events_tab_visible(env))
 	{
 		button_keyup(&env->editor.events_tab, env);
 		if (env->editor.events_tab.state == DOWN)
@@ -203,27 +193,20 @@ int	editor_keyup(t_env *env)
 			button_keyup(&env->editor.next_events, env);
 			button_keyup(&env->editor.previous_events, env);
 		}
-		if ((env->selected_wall_sprite_wall != -1
-			&& ((env->editor.selected_events == 0 && env->sectors[env->
-			editor.selected_sector].wall_sprites[env->
-			selected_wall_sprite_wall].nb_press_events[env->
-			selected_wall_sprite_sprite] > 1)
-			|| (env->editor.selected_events == 0 && env->sectors[env->
-			editor.selected_sector].wall_sprites[env->
-			selected_wall_sprite_wall].nb_shoot_events[env->
-			selected_wall_sprite_sprite] > 1)))
-			|| (env->editor.selected_sector != -1
-			&& ((env->editor.selected_events == 0 && env->sectors[env->
-			editor.selected_sector].nb_stand_events > 1)
-			|| (env->editor.selected_events == 1 && env->sectors[env->
-			editor.selected_sector].nb_walk_in_events > 1)
-			|| (env->editor.selected_events == 2 && env->sectors[env->
-			editor.selected_sector].nb_walk_out_events > 1)))
-			|| (env->editor.selected_sector == -1
-			&& env->selected_floor == -1 && env->nb_global_events > 1))
+		if (are_event_selection_buttons_visible(env))
 		{
 			button_keyup(&env->editor.next_event, env);
 			button_keyup(&env->editor.previous_event, env);
+		}
+		if (are_launch_condition_selection_buttons_visible(env))
+		{
+			button_keyup(&env->editor.next_launch_condition, env);
+			button_keyup(&env->editor.previous_launch_condition, env);
+		}
+		if (are_exec_condition_selection_buttons_visible(env))
+		{
+			button_keyup(&env->editor.next_exec_condition, env);
+			button_keyup(&env->editor.previous_exec_condition, env);
 		}
 	}
 	if (env->editor.selected_sector != -1)
