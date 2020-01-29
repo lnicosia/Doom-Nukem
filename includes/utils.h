@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 21:54:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/29 18:46:26 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -673,9 +673,11 @@ typedef struct		s_audio
 	int				b_music;
 	int				b_weapon;
 	FMOD_SYSTEM		*system;
-	FMOD_SOUND		*shot;
 	FMOD_RESULT		result;
-	Mix_Music		*background;
+	FMOD_CHANNEL	*music_chan;
+	FMOD_CHANNEL	*player_movement_chan;
+	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_SOUND		*at_dooms_gate;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;
 }					t_audio;
@@ -740,8 +742,7 @@ typedef struct		s_weapons
 	int				max_ammo;
 	int				damage;
 	int				splash;
-	Mix_Chunk		*sound;
-	Mix_Chunk		*empty;
+	FMOD_SOUND		*shot;
 }					t_weapons;
 
 typedef struct		s_projectile_stats

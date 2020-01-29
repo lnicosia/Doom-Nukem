@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 11:55:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:20:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,8 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->objects);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
-	if (env->sound.background)
-		Mix_FreeMusic(env->sound.background);
+	/*if (env->sound.background)
+		Mix_FreeMusic(env->sound.background);*/
 	if (env->sound.footstep)
 		Mix_FreeChunk(env->sound.footstep);
 	if (env->sound.jump)
@@ -201,14 +201,14 @@ void		free_all(t_env *env)
 	if (env->input_box.str)
 		ft_strdel(&env->input_box.str);
 	i = 0;
-	while (i < NB_WEAPONS)
+	/*while (i < NB_WEAPONS)
 	{
 		if (env->weapons[i].empty)
 			Mix_FreeChunk(env->weapons[i].empty);
 		if (env->weapons[i].sound)
 			Mix_FreeChunk(env->weapons[i].sound);
 		i++;
-	}
+	}*/
 	free_events(env->global_events, env->nb_global_events);
 	free_events(env->wall_bullet_holes_events,
 	env->nb_wall_bullet_holes_events);
