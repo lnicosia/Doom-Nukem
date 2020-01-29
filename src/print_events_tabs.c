@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 15:42:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 13:39:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,28 @@ void	print_global_events_tab(t_env *env)
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
 	if (env->nb_global_events > 0)
 		print_event_selection(env, env->nb_global_events);
+	print_event(env, env->global_events[env->editor.selected_event]);
 }
 
 void	print_sector_events(t_env *env)
 {
+	t_sector	sector;
+
+	if (env->selected_floor != -1)
+		sector = env->sectors[env->selected_floor];
+	else if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
 	if (env->editor.selected_events == 0
-		&& env->sectors[env->editor.selected_sector].nb_stand_events > 0)
-		print_event_selection(env,
-		env->sectors[env->editor.selected_sector].nb_stand_events);
+		&& sector.nb_stand_events > 0)
+		print_event_selection(env, sector.nb_stand_events);
 	else if (env->editor.selected_events == 1
-		&& env->sectors[env->editor.selected_sector].nb_walk_in_events > 0)
+		&& sector.nb_walk_in_events > 0)
 		print_event_selection(env,
-		env->sectors[env->editor.selected_sector].nb_walk_in_events);
+		sector.nb_walk_in_events);
 	if (env->editor.selected_events == 2
-		&& env->sectors[env->editor.selected_sector].nb_walk_out_events > 0)
+		&& sector.nb_walk_out_events > 0)
 		print_event_selection(env,
-		env->sectors[env->editor.selected_sector].nb_walk_out_events);
+		sector.nb_walk_out_events);
 }
 
 void	print_wall_sprite_events(t_env *env)
@@ -72,10 +78,16 @@ void	print_wall_sprite_events(t_env *env)
 
 void	print_sector_events_tab(t_env *env)
 {
-	if (env->editor.selected_sector != -1)
+	t_sector	sector;
+
+	if (env->selected_floor != -1)
+		sector = env->sectors[env->selected_floor];
+	else if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
+	/*if (env->editor.selected_sector != -1)
 		env->selected_floor = env->editor.selected_sector;
 	else if (env->selected_floor != -1)
-		env->editor.selected_sector = env->selected_floor;
+		env->editor.selected_sector = env->selected_floor;*/
 	if (env->editor.selected_events == 0)
 		print_text(new_point(470, 150), new_printable_text("Stand events",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
@@ -88,6 +100,12 @@ void	print_sector_events_tab(t_env *env)
 	draw_button(env, env->editor.next_events);
 	draw_button(env, env->editor.previous_events);
 	print_sector_events(env);
+	if (env->editor.selected_events == 0 && sector.nb_stand_events > 0)
+		print_event(env, sector.stand_events[env->editor.selected_event]);
+	else if (env->editor.selected_events == 1 && sector.nb_walk_in_events > 0)
+		print_event(env, sector.walk_in_events[env->editor.selected_event]);
+	else if (env->editor.selected_events == 2 && sector.nb_walk_out_events > 0)
+		print_event(env, sector.walk_out_events[env->editor.selected_event]);
 }
 
 void	print_wall_sprite_events_tab(t_env *env)
@@ -101,4 +119,20 @@ void	print_wall_sprite_events_tab(t_env *env)
 	draw_button(env, env->editor.next_events);
 	draw_button(env, env->editor.previous_events);
 	print_wall_sprite_events(env);
+	if (env->editor.selected_events == 0
+		&& env->sectors[env->editor.selected_sector]
+		.wall_sprites[env->selected_wall_sprite_wall]
+		.nb_press_events[env->selected_wall_sprite_sprite] > 0)
+		print_event(env, env->sectors[env->editor.selected_sector]
+		.wall_sprites[env->selected_wall_sprite_wall]
+		.press_events[env->selected_wall_sprite_sprite]
+		[env->editor.selected_event]);
+	else if (env->editor.selected_events == 1
+		&& env->sectors[env->editor.selected_sector]
+		.wall_sprites[env->selected_wall_sprite_wall]
+		.nb_shoot_events[env->selected_wall_sprite_sprite] > 0)
+		print_event(env, env->sectors[env->editor.selected_sector]
+		.wall_sprites[env->selected_wall_sprite_wall]
+		.shoot_events[env->selected_wall_sprite_sprite]
+		[env->editor.selected_event]);
 }

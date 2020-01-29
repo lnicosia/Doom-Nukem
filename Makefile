@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/28 12:24:54 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/29 13:37:25 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c \
-		 get_existing_vertex.c add_vertex.c \
+		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
 		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
@@ -54,11 +54,11 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c selected_information.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 write_events.c \
+		 write_events.c init_print_target_data.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c \
+		 write_events_links.c print_target_functions.c \
 		 split_sector_utils.c selection_tab.c init_hud_button.c\
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
@@ -74,7 +74,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
 		 editor_object_tab_button.c print_events_tabs.c \
-		 init_events_selection_buttons.c \
+		 init_events_selection_buttons.c print_event.c init_event_types.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 10:41:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 12:26:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define OY1 env->vertices[env->sectors[sector].vertices[i]].y
 # define OY2 env->vertices[env->sectors[sector].vertices[i + 1]].y
+# define MAX_TRIGGER_TYPES 6
+# define MAX_TARGET_TYPES 67
 
 typedef struct		s_env
 {
@@ -131,20 +133,23 @@ typedef struct		s_env
 	t_list				*queued_values;
 	int					enemies_main_sprites[MAX_ENEMIES];
 	int					objects_main_sprites[MAX_OBJECTS];
+	char				*event_types[MAX_TARGET_TYPES + 1];
+	int					(*print_target_data[MAX_TARGET_TYPES + 1])(struct s_env *,
+	t_event);
 }					t_env;
 
 /*
- * **	  -------------
- * **	 ---------------
- * **	----FUNCTIONS----
- * **	 ---------------
- * **	  -------------
- * */
+**	  -------------
+**	 ---------------
+**	----FUNCTIONS----
+**	 ---------------
+**	  -------------
+*/
 
 
 /*
- * ** Editor functions
- * */
+** Editor functions
+*/
 
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
@@ -320,7 +325,18 @@ void				print_ceiling_sprite_tab(t_env *env);
 void				print_wall_sprite_tab(t_env *env);
 void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
+void				print_event(t_env *env, t_event event);
 void				print_wall_sprite_events_tab(t_env *env);
+int					print_sector_target(t_env *env, t_event event);
+int					print_wall_target(t_env *env, t_event event);
+int					print_wall_sprite_target(t_env *env, t_event event);
+int					print_floor_sprite_target(t_env *env, t_event event);
+int					print_vertex_target(t_env *env, t_event event);
+int					print_weapon_target(t_env *env, t_event event);
+int					print_enemy_target(t_env *env, t_event event);
+int					print_object_target(t_env *env, t_event event);
+int					print_event_target(t_env *env, t_event event);
+int					print_nothing_target(t_env *env, t_event event);
 void				nothing(void *target);
 void				save_texture(void *target);
 void				save_enemy(void *target);
@@ -391,6 +407,8 @@ void				init_enemies_data(t_env *env);
 void				init_objects_data(t_env *env);
 void				init_objects_main_sprites(t_env *env);
 void				init_sector_list(t_env *env, int curr);
+void				init_event_types(t_env *env);
+void				init_print_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
 int					generate_mipmaps(t_env *env);
