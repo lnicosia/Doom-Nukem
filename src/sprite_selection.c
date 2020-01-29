@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:34:34 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 11:34:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 10:33:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sprite_selection(t_env *env, int nb_slots)
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
 				new_point(180, 490),
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
-	while (i < MAX_WALL_SPRITES)
+	while (i < MAX_OBJECTS)
 	{
 		draw_button(env, env->editor.sprite_selection[i]);
 		i++;
