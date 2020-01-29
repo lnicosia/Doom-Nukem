@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 17:01:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/28 21:54:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "SDL.h"
 # include "SDL_ttf.h"
 # include "SDL_mixer.h"
+# include "fmod.h"
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
@@ -671,6 +672,9 @@ typedef struct		s_audio
 	int				b_footstep;
 	int				b_music;
 	int				b_weapon;
+	FMOD_SYSTEM		*system;
+	FMOD_SOUND		*shot;
+	FMOD_RESULT		result;
 	Mix_Music		*background;
 	Mix_Chunk		*footstep;
 	Mix_Chunk		*jump;

@@ -14,6 +14,11 @@
 
 int     init_sound(t_env *env)
 {
+	FMOD_System_Create(&env->sound.system);
+	FMOD_System_Init(env->sound.system, 1, FMOD_INIT_NORMAL, NULL);
+	env->sound.result = FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav", FMOD_CREATESAMPLE, 0, &env->sound.shot);
+	if (env->sound.result != FMOD_OK)
+		return (ft_printf("Failed to load shotgun_shot.wav with FMOD lib"));
 	env->sound.b_jump = 20;
 	env->sound.b_footstep = 20;
 	env->sound.b_weapon = 20;
