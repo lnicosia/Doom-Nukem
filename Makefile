@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/28 17:47:48 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/29 17:05:32 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_player_tab_button.c editor_enemy_tabs.c \
 		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
-		 sprite_selection.c \
+		 sprite_selection.c init_sprite_selection_buttons.c\
 		 editor_object_tab_button.c print_events_tabs.c \
 		 init_events_selection_buttons.c \
 
@@ -115,6 +115,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
 		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_enemies.c \
+		   bmp_parser_ui_objects.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c get_clockwise_order.c \

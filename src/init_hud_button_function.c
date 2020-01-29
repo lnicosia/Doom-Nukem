@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 18:08:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 17:36:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,38 @@ int		save_enemy(void *param)
 	if (env->selected_enemy != -1)
 		env->enemies[env->selected_enemy].sprite = env->enemies_main_sprites[i];
 	env->editor.draw_enemy_tab = 0;
+	return (0);
+}
+
+int		save_sprite(void *param)
+{
+	t_env	*env;
+	t_wall_sprites *sprite;
+	int		i;
+
+	env = ((t_button_target*)param)->env;
+	i = ((t_button_target*)param)->i;
+	env->editor.current_sprite = env->objects_main_sprites[i];
+	env->editor.current_sprite_selection.img_down = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_up = env->mini_objects_textures[i].surface;
+	if (env->selected_wall_sprite_sprite != -1)
+	{
+		sprite = env->sectors[env->editor.selected_sector].wall_sprites;
+		sprite[env->selected_wall_sprite_wall].sprite[env->selected_wall_sprite_sprite] = env->objects_main_sprites[i];
+	}
+	if (env->selected_ceiling_sprite != -1)
+	{
+		sprite = &env->sectors[env->selected_ceiling].ceiling_sprites;
+		sprite->sprite[env->selected_ceiling_sprite] = env->objects_main_sprites[i];
+	}
+	if (env->selected_floor_sprite != -1)
+	{
+		sprite = &env->sectors[env->selected_floor].floor_sprites;
+		sprite->sprite[env->selected_floor_sprite] = env->objects_main_sprites[i];
+	}
+	env->editor.draw_sprite_tab = 0;
 	return (0);
 }
 

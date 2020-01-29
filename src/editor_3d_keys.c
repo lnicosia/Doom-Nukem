@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 18:00:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 16:10:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -543,6 +543,7 @@ int		editor_3d_keys(t_env *env)
 		{
 			button_keys(&env->editor.next_sprite, env);
 			button_keys(&env->editor.previous_sprite, env);
+			button_keys(&env->editor.current_sprite_selection, env);
 		}
 		if (env->selected_floor_sprite != -1)
 			floor_sprite_buttons(env);
@@ -567,6 +568,14 @@ int		editor_3d_keys(t_env *env)
 			while (i < MAX_ENEMIES)
 			{
 				button_keys(&env->editor.enemy_tab[i], env);
+				i++;
+			}
+		}
+		if (env->editor.draw_sprite_tab)
+		{
+			while (i < MAX_OBJECTS)
+			{
+				button_keys(&env->editor.sprite_selection[i], env);
 				i++;
 			}
 		}

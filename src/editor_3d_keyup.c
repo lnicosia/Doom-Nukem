@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 18:00:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 16:10:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int		editor_3d_keyup(t_env *env)
 		{
 			button_keyup(&env->editor.next_sprite, env);
 			button_keyup(&env->editor.previous_sprite, env);
+			button_keyup(&env->editor.current_sprite_selection, env);
 		}
 		if (env->editor.draw_selection_tab)
 		{
@@ -195,6 +196,14 @@ int		editor_3d_keyup(t_env *env)
 				i++;
 			}
 		}
+		if (env->editor.draw_sprite_tab)
+		{
+			while (i < MAX_OBJECTS)
+			{
+				button_keyup(&env->editor.sprite_selection[i], env);
+				i++;
+			}
+		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 				&& (env->sdl.my < 414 && env->sdl.my > 350))
 			env->editor.draw_selection_tab = 1;
@@ -205,6 +214,11 @@ int		editor_3d_keyup(t_env *env)
 			env->editor.draw_enemy_tab = 1;
 		else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 			env->editor.draw_enemy_tab = 0;
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 234 && env->sdl.mx > 170)
+		&& (env->sdl.my < 517 && env->sdl.my > 450))
+			env->editor.draw_sprite_tab = 1;
+		else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+			env->editor.draw_sprite_tab = 0;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 18:07:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 16:13:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_env
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
+	t_texture			mini_objects_textures[MAX_OBJECTS];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
@@ -196,6 +197,7 @@ void				init_object_sprite_env(t_env *env);
 void				init_object_general_buttons(t_env *env);
 void				init_object_sector_buttons(t_env *env);
 void				init_object_sprite_buttons(t_env *env);
+int					init_array_sprite_buttons(t_env *env);
 
 int					editor(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
@@ -304,6 +306,8 @@ void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_wall_sprite_events_tab(t_env *env);
 int					events_tab(void *target);
+t_button_target		*new_button_target(t_env *env, int i);
+
 
 /*
 **	prints and draw buttons for informations on a selected element 
@@ -328,6 +332,7 @@ int					print_wall_sprite_tab(t_env *env);
 int					nothing(void *target);
 int					save_texture(void *target);
 int					save_enemy(void *target);
+int					save_sprite(void *target);
 int					add_enemy_button(void *target);
 int					add_object_button(void *target);
 int					general_tab(void *target);
@@ -430,6 +435,7 @@ int					parse_bmp(char *file, int index, t_env *env);
 int					parse_bmp_wall_textures(char *file, int index, t_env *env);
 int					parse_bmp_ui_textures(char *file, int index, t_env *env);
 int					parse_bmp_mini_enemies_textures(char *file, int index, t_env *env);
+int					parse_bmp_mini_objects_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);

@@ -43,6 +43,8 @@ void	print_sprite_tab(t_env *env)
 	{
 		draw_button(env, env->editor.next_sprite);
 		draw_button(env, env->editor.previous_sprite);
+		draw_button(env, env->editor.sprite_background);
+		draw_button(env, env->editor.current_sprite_selection);
 	}
 }
 
@@ -174,5 +176,7 @@ void	editor_hud(t_env *env)
 			selection_tab(env, MAX_WALL_TEXTURE);
 		if (env->editor.draw_enemy_tab)
 			enemy_tab(env, MAX_ENEMIES);
+		if (env->editor.draw_sprite_tab)
+			sprite_selection(env, MAX_OBJECTS);
 	}
 }
