@@ -53,7 +53,7 @@ void	confirmation_box_keys(t_confirmation_box *box, t_env *env)
 		box->no.anim_state = PRESSED;
 }
 
-void	no_pressed(void *target)
+int		no_pressed(void *target)
 {
 	t_confirmation_box	*box;
 	
@@ -61,9 +61,10 @@ void	no_pressed(void *target)
 	box->state = 0;
 	if (box->no_action)
 		box->no_action(box->no_target);
+	return (0);
 }
 
-void	yes_pressed(void *target)
+int		yes_pressed(void *target)
 {
 	t_confirmation_box	*box;
 	
@@ -71,6 +72,7 @@ void	yes_pressed(void *target)
 	box->state = 0;
 	if (box->yes_action)
 		box->yes_action(box->yes_target);
+	return (0);
 }
 
 void	new_buttons(t_confirmation_box *box, int height, t_env *env)

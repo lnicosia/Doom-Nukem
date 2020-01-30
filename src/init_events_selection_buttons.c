@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_events_selection_buttons.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 14:14:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:30:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	next_events(void *penv)
+int		next_events(void *penv)
 {
 	t_env	*env;
 
@@ -30,9 +30,10 @@ void	next_events(void *penv)
 	env->editor.selected_event = 0;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
+	return (0);
 }
 
-void	prec_events(void *penv)
+int		prec_events(void *penv)
 {
 	t_env	*env;
 
@@ -50,9 +51,10 @@ void	prec_events(void *penv)
 	env->editor.selected_event = 0;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
+	return (0);
 }
 
-void	next_event(void *penv)
+int		next_event(void *penv)
 {
 	t_env	*env;
 
@@ -88,9 +90,10 @@ void	next_event(void *penv)
 		env->editor.selected_event = 0;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
+	return (0);
 }
 
-void	previous_event(void *penv)
+int		previous_event(void *penv)
 {
 	t_env	*env;
 
@@ -129,9 +132,10 @@ void	previous_event(void *penv)
 	}
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
+	return (0);
 }
 
-void	next_launch_condition(void *penv)
+int		next_launch_condition(void *penv)
 {
 	t_env	*env;
 
@@ -174,9 +178,10 @@ void	next_launch_condition(void *penv)
 		&& env->editor.selected_launch_condition >=
 		env->global_events[env->editor.selected_event].nb_launch_conditions)
 		env->editor.selected_launch_condition = 0;
+	return (0);
 }
 
-void	previous_launch_condition(void *penv)
+int		previous_launch_condition(void *penv)
 {
 	t_env	*env;
 
@@ -222,9 +227,10 @@ void	previous_launch_condition(void *penv)
 			env->editor.selected_launch_condition =
 			env->global_events[env->editor.selected_event].nb_launch_conditions - 1;
 	}
+	return (0);
 }
 
-void	next_exec_condition(void *penv)
+int		next_exec_condition(void *penv)
 {
 	t_env	*env;
 
@@ -267,9 +273,10 @@ void	next_exec_condition(void *penv)
 		&& env->editor.selected_exec_condition >=
 		env->global_events[env->editor.selected_event].nb_exec_conditions)
 		env->editor.selected_exec_condition = 0;
+	return (0);
 }
 
-void	previous_exec_condition(void *penv)
+int		previous_exec_condition(void *penv)
 {
 	t_env	*env;
 
@@ -315,6 +322,7 @@ void	previous_exec_condition(void *penv)
 			env->editor.selected_exec_condition =
 			env->global_events[env->editor.selected_event].nb_exec_conditions - 1;
 	}
+	return (0);
 }
 
 void	init_events_selection_buttons(t_env *env)

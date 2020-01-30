@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 12:18:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:00:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	init_editor_data(t_env *env)
 	env->selected_enemy = -1;
 	env->selected_object = -1;
 	env->editor.current_texture = 7;
-	
+	env->editor.current_enemy = 0;
+	env->editor.current_sprite = 0;
 }

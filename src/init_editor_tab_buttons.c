@@ -6,13 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 15:25:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 15:28:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	change_var(void *target)
+int		change_var(void *target)
 {
 	t_button_tab	*button;
 	t_env			*env;
@@ -21,6 +21,7 @@ void	change_var(void *target)
 	env = button->env;
 	new_input_var(&env->input_box, button->pos,
 	button->type, button->target);
+	return (0);
 }
 
 void	init_wall_buttons(t_env *env)

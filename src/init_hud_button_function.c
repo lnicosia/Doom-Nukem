@@ -6,102 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 12:18:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:26:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	change_ceiling_sprite(t_button_next *button)
-{
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		if (env->selected_ceiling_sprite > 0)
-			env->selected_ceiling_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-	}
-	else if (button->button_type == NEXT)
-	{
-		if (env->selected_ceiling_sprite <
-		env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1)
-			env->selected_ceiling_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-	}
-}
-
-void	change_floor_sprite(t_button_next *button)
-{
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		ft_printf("previous | num in: %d\n", env->selected_floor_sprite);
-		if (env->selected_floor_sprite > 0)
-			env->selected_floor_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-		ft_printf("---> num out: %d\n", env->selected_floor_sprite);
-	}
-	else if (button->button_type == NEXT)
-	{
-		ft_printf("next | num in: %d\n", env->selected_floor_sprite);
-		if (env->selected_floor_sprite <
-		env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
-			env->selected_floor_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-		ft_printf("num out: %d\n", env->selected_floor_sprite);
-	}
-}
-
-void	change_wall_sprite(t_button_next *button)
-{	
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		if (env->selected_wall_sprite_sprite > 0)
-			env->selected_wall_sprite_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-	}
-	else if (button->button_type == NEXT)
-	{
-		if (env->selected_wall_sprite_sprite <
-		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1)
-			env->selected_wall_sprite_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-	}
-}
-
-void	change_sprite(void *target)
-{
-	t_button_next	*button;
-	t_env			*env;
-	 
-	env = (t_env *)target;
-	button = NULL;
-	if (env->editor.next_sprite.state == DOWN)
-		button = &env->editor.next_sprite_env;
-	else if (env->editor.previous_sprite.state == DOWN)
-		button = &env->editor.previous_sprite_env;
-	if (button->type == WALL_S)
-		change_wall_sprite(button);
-	else if (button->type == FLOOR_S)
-		change_floor_sprite(button);
-	else if (button->type == CEILING_S)
-		change_ceiling_sprite(button);
-}
-
-void	add_object_button(void *target)
+int		add_object_button(void *target)
 {
 	t_env *env;
 
@@ -111,10 +22,12 @@ void	add_object_button(void *target)
 		env->editor.create_object = 1;
 	else
 		env->editor.add_object.state = UP;
+		env->editor.add_object.anim_state = REST;
+	return (0);
 }
 
 
-void	add_enemy_button(void *target)
+int		add_enemy_button(void *target)
 {
 	t_env *env;
 
@@ -122,10 +35,32 @@ void	add_enemy_button(void *target)
 	if (!env->editor.draw_enemy_tab)
 		env->editor.create_enemy = 1;
 	else
-		env->editor.add_enemy.state = UP;
+		env->editor.add_object.state = UP;
+		env->editor.add_object.anim_state = REST;
+	return (0);
 }
 
-void	save_texture(void *param)
+int		open_enemy_selection(void *param)
+{
+	t_env *env;
+
+	ft_printf("coucou\n");
+	env = (t_env *)param;
+	env->editor.draw_enemy_tab = 1;
+	return (0);
+}
+
+
+int		open_wall_sprite_selection(void *param)
+{
+	t_env *env;
+
+	env = ((t_button_target*)param)->env;
+	env->editor.draw_sprite_tab = 1;
+	return (0);
+}
+
+int		save_texture(void *param)
 {
 	t_env	*env;
 	int		i;
@@ -138,9 +73,30 @@ void	save_texture(void *param)
 	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
 	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
 	env->editor.draw_selection_tab = 0;
+	if (env->editor.in_game)
+	{
+		if (env->selected_floor != -1)
+		{
+			env->sectors[env->selected_floor].floor_texture = i;
+			update_floor_texture_button((void *)env);
+		}
+		else if (env->selected_ceiling != -1)
+		{
+			env->sectors[env->selected_ceiling].ceiling_texture = i;
+			update_ceiling_texture_button((void *)env);
+		}
+		else if (env->editor.selected_wall != -1)
+		{
+			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] = i;
+			update_wall_texture_button((void *)env);
+		}
+	}
+	env->editor.current_texture_selection.state = UP;
+	env->editor.current_texture_selection.anim_state = REST;
+	return (0);
 }
 
-void	save_enemy(void *param)
+int		save_enemy(void *param)
 {
 	t_env	*env;
 	int		i;
@@ -152,15 +108,55 @@ void	save_enemy(void *param)
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
 	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[i].surface;
+	if (env->selected_enemy != -1)
+		env->enemies[env->selected_enemy].sprite = env->enemies_main_sprites[i];
 	env->editor.draw_enemy_tab = 0;
+	env->editor.current_enemy_selection.state = UP;
+	env->editor.current_enemy_selection.anim_state = REST;
+	return (0);
 }
 
-void	nothing(void *target)
+int		save_sprite(void *param)
+{
+	t_env	*env;
+	t_wall_sprites *sprite;
+	int		i;
+
+	env = ((t_button_target*)param)->env;
+	i = ((t_button_target*)param)->i;
+	env->editor.current_sprite = env->objects_main_sprites[i];
+	env->editor.current_sprite_selection.img_down = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[i].surface;
+	env->editor.current_sprite_selection.img_up = env->mini_objects_textures[i].surface;
+	if (env->selected_wall_sprite_sprite != -1)
+	{
+		sprite = env->sectors[env->editor.selected_sector].wall_sprites;
+		sprite[env->selected_wall_sprite_wall].sprite[env->selected_wall_sprite_sprite] = env->objects_main_sprites[i];
+	}
+	if (env->selected_ceiling_sprite != -1)
+	{
+		sprite = &env->sectors[env->selected_ceiling].ceiling_sprites;
+		sprite->sprite[env->selected_ceiling_sprite] = env->objects_main_sprites[i];
+	}
+	if (env->selected_floor_sprite != -1)
+	{
+		sprite = &env->sectors[env->selected_floor].floor_sprites;
+		sprite->sprite[env->selected_floor_sprite] = env->objects_main_sprites[i];
+	}
+	env->editor.draw_sprite_tab = 0;
+	env->editor.current_sprite_selection.state = UP;
+	env->editor.current_sprite_selection.anim_state = REST;
+	return (0);
+}
+
+int		nothing(void *target)
 {
 	(void)target;
+	return (0);
 }
 
-void	general_tab(void *target)
+int		general_tab(void *target)
 {
 	t_env *env;
 
@@ -171,9 +167,10 @@ void	general_tab(void *target)
 	env->editor.sector_tab.anim_state = REST;
 	env->editor.events_tab.state = UP;
 	env->editor.events_tab.anim_state = REST;
+	return(0);
 }
 
-void	sector_tab(void *target)
+int		sector_tab(void *target)
 {
 	t_env *env;
 
@@ -184,9 +181,10 @@ void	sector_tab(void *target)
 	env->editor.general_tab.anim_state = REST;
 	env->editor.events_tab.state = UP;
 	env->editor.events_tab.anim_state = REST;
+	return (0);
 }
 
-void	sprite_tab(void *target)
+int		sprite_tab(void *target)
 {
 	t_env *env;
 
@@ -197,9 +195,10 @@ void	sprite_tab(void *target)
 	env->editor.sector_tab.anim_state = REST;
 	env->editor.events_tab.state = UP;
 	env->editor.events_tab.anim_state = REST;
+	return (0);
 }
 
-void	events_tab(void *target)
+int		events_tab(void *target)
 {
 	t_env *env;
 
@@ -210,4 +209,5 @@ void	events_tab(void *target)
 	env->editor.sector_tab.anim_state = REST;
 	env->editor.sprite_tab.state = UP;
 	env->editor.sprite_tab.anim_state = REST;
+	return (0);
 }

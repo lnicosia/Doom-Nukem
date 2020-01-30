@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	launch_game(void *target)
+int		launch_game(void *target)
 {
 	t_env *env;
 	char  *str;
@@ -32,9 +32,10 @@ void	launch_game(void *target)
 	ft_strdel(&env->save_file);
 	env->save_file = tmp;
 	free(str);
+	return (0);
 }
 
-void    change_mode(void *target)
+int		change_mode(void *target)
 {
     t_env *env;
 
@@ -43,9 +44,10 @@ void    change_mode(void *target)
 		going_in_2D_mode(env);
 	else
 		going_in_3D_mode(env);
+	return (0);
 }
 
-void	save_button(void *target)
+int		save_button(void *target)
 {
 	t_env *env;
 
@@ -59,10 +61,10 @@ void	save_button(void *target)
         env->inputs.s = 0;
         env->inputs.ctrl = 0;
     }
-
+	return (0);
 }
 
-void	editor_mode_button(t_env *env)
+int		editor_mode_button(t_env *env)
 {
 	env->editor.change_mode = new_image_button(WHEN_DOWN, &change_mode, env, env);
     env->editor.change_mode.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -77,9 +79,10 @@ void	editor_mode_button(t_env *env)
     env->editor.change_mode.size_pressed = new_point(env->editor.change_mode.img_pressed->w,
     env->editor.change_mode.img_pressed->h);
 	env->editor.change_mode.pos = new_point(0, 0);
+	return (0);
 }
 
-void	editor_save_button(t_env *env)
+int		editor_save_button(t_env *env)
 {
 	env->editor.save = new_image_button(WHEN_DOWN, &save_button, env, env);
     env->editor.save.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -94,9 +97,10 @@ void	editor_save_button(t_env *env)
     env->editor.save.size_pressed = new_point(env->editor.save.img_pressed->w,
     env->editor.save.img_pressed->h);
     env->editor.save.pos = new_point(66, 0);
+	return (0);
 }
 
-void	editor_launch_game(t_env *env)
+int		editor_launch_game(t_env *env)
 {
 	env->editor.launch_game = new_image_button(WHEN_DOWN, &launch_game, env, env);
     env->editor.launch_game.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -111,4 +115,5 @@ void	editor_launch_game(t_env *env)
     env->editor.launch_game.size_pressed = new_point(env->editor.launch_game.img_pressed->w,
     env->editor.launch_game.img_pressed->h);
     env->editor.launch_game.pos = new_point(132, 0);
+	return (0);
 }

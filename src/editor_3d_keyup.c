@@ -24,6 +24,12 @@ int		editor_3d_keyup(t_env *env)
 		reset_selection(env);
 		env->editor.in_game = 0;
 		env->inputs.enter = 0;
+		env->editor.sprite_tab.state = UP;
+		env->editor.general_tab.state = UP;
+		env->editor.sector_tab.state = UP;
+		env->editor.sprite_tab.anim_state = REST;
+		env->editor.general_tab.anim_state = REST;
+		env->editor.sector_tab.anim_state = REST;
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
@@ -140,6 +146,8 @@ int		editor_3d_keyup(t_env *env)
 			floor_buttons_up(env);
 		if (env->selected_enemy != -1)
 			enemy_buttons_up(env);
+		if (env->selected_object != -1)
+			object_buttons_up(env);
 		if (env->selected_floor_sprite != -1)
 			floor_sprite_buttons_up(env);
 		if (env->selected_ceiling_sprite != -1)
@@ -151,6 +159,7 @@ int		editor_3d_keyup(t_env *env)
 		{
 			button_keyup(&env->editor.next_sprite, env);
 			button_keyup(&env->editor.previous_sprite, env);
+			button_keyup(&env->editor.current_sprite_selection, env);
 		}
 		if (env->editor.draw_selection_tab)
 		{
@@ -160,11 +169,46 @@ int		editor_3d_keyup(t_env *env)
 				i++;
 			}
 		}
+		if (env->editor.draw_enemy_tab)
+		{
+			while (i < MAX_ENEMIES)
+			{
+				button_keyup(&env->editor.enemy_tab[i], env);
+				i++;
+			}
+		}
+		if (env->editor.draw_sprite_tab)
+		{
+			while (i < MAX_OBJECTS)
+			{
+				button_keyup(&env->editor.sprite_selection[i], env);
+				i++;
+			}
+		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 				&& (env->sdl.my < 414 && env->sdl.my > 350))
 			env->editor.draw_selection_tab = 1;
-		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == UP)
 			env->editor.draw_selection_tab = 0;
+		if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == DOWN)
+		{
+			env->editor.current_enemy_selection.state = UP;
+			env->editor.current_enemy_selection.anim_state = REST;
+		}
+		else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == UP)
+			env->editor.draw_enemy_tab = 0;
+		if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_sprite_selection.state == DOWN)
+		{
+			env->editor.current_sprite_selection.state = UP;
+			env->editor.current_sprite_selection.anim_state = REST;
+		}
+		else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_sprite_selection.state == UP)
+			env->editor.draw_sprite_tab = 0;
 	}
 	return (0);
 }

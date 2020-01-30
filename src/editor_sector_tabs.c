@@ -6,13 +6,13 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:52:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 10:13:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/28 15:30:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	print_sector_general_tab(t_env *env)
+int		print_sector_general_tab(t_env *env)
 {
 	print_text(new_point(450, 80), new_printable_text("sector ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(450, 180), new_printable_text(ft_sitoa(env->editor.selected_sector), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
@@ -44,4 +44,5 @@ void	print_sector_general_tab(t_env *env)
 	env->editor.hud.g_sector.ceiling_slope.str = ft_itoa(env->sectors[env->editor.selected_sector].ceiling_slope);
 	env->editor.hud.g_sector.t_ceiling_slope.target = &env->sectors[env->editor.selected_sector].ceiling_slope;
 	draw_button(env, env->editor.hud.g_sector.ceiling_slope);
+	return (0);
 }

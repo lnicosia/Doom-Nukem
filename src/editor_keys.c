@@ -121,23 +121,6 @@ int			editor_keys(t_env *env)
 			i++;
 		}
 	}
-	if (env->editor.tab && env->editor.selected_sector != -1 && !env->editor.in_game)
-	{
-		time = SDL_GetTicks();
-		if (!env->time.tick2)
-			env->time.tick2 = SDL_GetTicks();
-		if (env->inputs.backward && env->selected_stat < 3 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			env->selected_stat++;
-		}
-		else if (env->inputs.forward && env->selected_stat > 0 && time - env->time.tick2 > 300)
-		{
-			env->time.tick2 = time;
-			env->selected_stat--;
-		}
-		selected_information_in_sector(env);
-	}
 	if ((env->inputs.plus || env->inputs.minus) && !env->editor.in_game && env->editor.selected_sector != -1)
 	{
 		if (!env->time.tick4)

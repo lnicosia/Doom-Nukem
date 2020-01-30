@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 16:14:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/29 14:28:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int					parse_pixel_data_ui(int fd, t_bmp_parser *parser,
 int index, t_env *env);
 int					parse_pixel_data_ui_mini(int fd, t_bmp_parser *parser,
 int index, t_env *env);
-
+int					parse_pixel_data_ui_mini_objects(int fd, t_bmp_parser *parser,
+int index, t_env *env);
 #endif

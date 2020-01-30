@@ -87,7 +87,7 @@ int		init_enemy_selection_button(t_env *env)
 		env->editor.enemy_tab[i].pos = new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
 		i++;
 	}
-	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN, &save_enemy, &env->editor.current_enemy_selection, env);
+	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN, &open_enemy_selection, env, env);
 	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[env->editor.current_enemy].surface;
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[env->editor.current_enemy].surface;
 	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[env->editor.current_enemy].surface;
@@ -132,6 +132,7 @@ int		init_editor_hud(t_env *env)
 		return (0);
 	init_add_buttons(env);
 	init_enemy_selection_button(env);
+	init_array_sprite_buttons(env);
 	init_informations_tab(env);
 	init_options_buttons(env);
 	init_editor_tab_buttons(env);
