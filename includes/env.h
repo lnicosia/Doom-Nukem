@@ -333,9 +333,9 @@ void				print_wall_sprite_tab(t_env *env);
 void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
-void				print_event_launch_condition(t_env *env, t_event *event,
+void				print_event_launch_condition(t_env *env,
 t_condition *condition);
-void				print_event_exec_condition(t_env *env, t_event *event,
+void				print_event_exec_condition(t_env *env, 
 t_condition *condition);
 void				print_wall_sprite_events_tab(t_env *env);
 int					print_sector_target(t_env *env, t_event *event,

@@ -112,8 +112,8 @@ void	print_event_launch_conditions(t_env *env, t_event *event)
 	print_text(new_point(680, 245), new_printable_text(
 	ft_sitoa((int)env->editor.selected_launch_condition),
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	print_event_launch_condition(env, event, &event->
-	launch_conditions[env->editor.selected_launch_condition]);
+	print_event_launch_condition(env,
+	&event->launch_conditions[env->editor.selected_launch_condition]);
 	if (event->nb_launch_conditions <= 1)
 		return ;
 	draw_button(env, env->editor.next_launch_condition);
@@ -131,8 +131,8 @@ void	print_event_exec_conditions(t_env *env, t_event *event)
 	print_text(new_point(800, 245), new_printable_text(
 	ft_sitoa((int)env->editor.selected_exec_condition),
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	print_event_exec_condition(env, event, &event->
-	exec_conditions[env->editor.selected_exec_condition]);
+	print_event_exec_condition(env,
+	&event->exec_conditions[env->editor.selected_exec_condition]);
 	if (event->nb_launch_conditions <= 1)
 		return ;
 	draw_button(env, env->editor.next_exec_condition);

@@ -36,13 +36,11 @@ static char	*get_condition_type_str(t_condition *condition)
 	return ("");
 }
 
-void		print_event_link(t_env *env, t_event *event,
-t_condition *condition)
+void		print_event_link(t_env *env, t_condition *condition)
 {
 	t_point	text_size;
 	int		pos;
 
-	(void)event;
 	pos = 30;
 	pos = env->print_link_target_data[condition->target_type](env, condition,
 	new_point(710, pos), 15);
@@ -71,8 +69,7 @@ t_condition *condition)
 	}
 }
 
-void		print_event_launch_condition(t_env *env, t_event *event,
-t_condition *condition)
+void		print_event_launch_condition(t_env *env, t_condition *condition)
 {
 	t_point	text_size;
 	int		pos;
@@ -98,16 +95,14 @@ t_condition *condition)
 		env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 	}
 	else
-		print_event_link(env, event, condition);
+		print_event_link(env, condition);
 }
 
-void		print_event_exec_condition(t_env *env, t_event *event,
-t_condition *condition)
+void		print_event_exec_condition(t_env *env, t_condition *condition)
 {
 	t_point	text_size;
 	int		pos;
 
-	(void)event;
 	pos = env->print_condition_target_data[condition->target_index](env,
 	condition, new_point(830, 30), 15);
 	print_text(new_point(830, pos), new_printable_text(
