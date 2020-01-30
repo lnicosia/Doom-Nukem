@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 14:19:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:03:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,9 @@ typedef struct		s_env
 	int					enemies_main_sprites[MAX_ENEMIES];
 	int					objects_main_sprites[MAX_OBJECTS];
 	char				*event_types[MAX_TARGET_TYPES + 1];
+	char				*event_links_types[MAX_TRIGGER_TYPES + 1];
 	int					(*print_target_data[MAX_TARGET_TYPES + 1])(struct s_env *,
-	t_event *, t_point);
+	t_event *, t_point, int size);
 }					t_env;
 
 /*
@@ -332,25 +333,25 @@ void				print_event_exec_condition(t_env *env, t_event *event,
 t_condition *condition);
 void				print_wall_sprite_events_tab(t_env *env);
 int					print_sector_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_wall_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_wall_sprite_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_floor_sprite_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_vertex_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_weapon_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_enemy_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_object_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_event_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					print_nothing_target(t_env *env, t_event *event,
-t_point pos);
+t_point pos, int size);
 int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
@@ -426,6 +427,7 @@ void				init_objects_data(t_env *env);
 void				init_objects_main_sprites(t_env *env);
 void				init_sector_list(t_env *env, int curr);
 void				init_event_types(t_env *env);
+void				init_event_links_types(t_env *env);
 void				init_print_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 11:54:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:48:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_event_types3(t_env *env)
 	env->event_types[OBJECT_X] = "Object          X";
 	env->event_types[OBJECT_Y] = "Object          Y";
 	env->event_types[OBJECT_Z] = "Object          Z";
+	env->event_types[END_OF_EVENT] = "End of event";
 }
 
 void	init_event_types2(t_env *env)

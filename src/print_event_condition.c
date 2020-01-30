@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:00:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 14:42:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:04:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,79 @@ static char	*get_condition_type_str(t_condition *condition)
 	return ("");
 }
 
+void		print_event_link(t_env *env, t_event *event,
+t_condition *condition)
+{
+	t_point	text_size;
+
+	(void)event;
+	(void)condition;
+	print_text(new_point(710, 30), new_printable_text(
+	env->event_links_types[condition->target_type],
+	env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
+	TTF_SizeText(env->sdl.fonts.lato15,
+	env->event_links_types[condition->target_type], &text_size.x, &text_size.y);
+	print_text(new_point(710, text_size.x + 35), new_printable_text(
+	ft_sitoa(condition->target_index),
+	env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
+	if (condition->type == EVENT_ENDED)
+	{
+		TTF_SizeText(env->sdl.fonts.lato15, "ended", &text_size.x,
+		&text_size.y);
+		print_text(new_point(735, 200 - text_size.x / 2),
+		new_printable_text("ended", env->sdl.fonts.lato15, 0xFFFFFFFF, 0), env);
+	}
+	else
+	{
+		TTF_SizeText(env->sdl.fonts.lato15, "ended (starter)", &text_size.x,
+		&text_size.y);
+		print_text(new_point(735, 200 - text_size.x / 2),
+		new_printable_text("ended (starter)", env->sdl.fonts.lato15, 0xFFFFFFFF,
+		0b0101), env);
+	}
+}
+
 void		print_event_launch_condition(t_env *env, t_event *event,
 t_condition *condition)
 {
-	print_text(new_point(710, 30), new_printable_text(
-	env->event_types[condition->target_index],
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0b0101), env);
-	env->print_target_data[condition->target_index](env, event,
-	new_point(710, 90));
-	print_text(new_point(740, 120), new_printable_text(
-	get_condition_type_str(condition),
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	t_point	text_size;
+
 	if (condition->type < EVENT_ENDED)
-		print_text(new_point(740, 250), new_printable_text(
+	{
+		print_text(new_point(710, 30), new_printable_text(
+		env->event_types[condition->target_index],
+		env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
+		env->print_target_data[condition->target_index](env, event,
+		new_point(710, 90), 15);
+		print_text(new_point(735, 120), new_printable_text(
+		get_condition_type_str(condition),
+		env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato15, get_condition_type_str(condition),
+		&text_size.x, &text_size.y);
+		print_text(new_point(735, text_size.x + 125), new_printable_text(
 		ft_sitoa(condition->value),
-		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
+	}
+	else
+		print_event_link(env, event, condition);
 }
 
 void		print_event_exec_condition(t_env *env, t_event *event,
 t_condition *condition)
 {
+	t_point	text_size;
+
 	print_text(new_point(830, 30), new_printable_text(
 	env->event_types[condition->target_index],
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 	env->print_target_data[condition->target_index](env, event,
-	new_point(830, 90));
-	print_text(new_point(860, 120), new_printable_text(
+	new_point(830, 90), 15);
+	print_text(new_point(855, 120), new_printable_text(
 	get_condition_type_str(condition),
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	if (condition->type < EVENT_ENDED)
-		print_text(new_point(860, 250), new_printable_text(
-		ft_sitoa(condition->value),
-		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
+	TTF_SizeText(env->sdl.fonts.lato15, get_condition_type_str(condition),
+	&text_size.x, &text_size.y);
+	print_text(new_point(855, text_size.x + 125), new_printable_text(
+	ft_sitoa(condition->value),
+	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 14:29:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:03:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	print_event(t_env *env, t_event *event)
 	event_types[event->target_index],
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	env->print_target_data[event->target_index](env, event,
-	new_point(540, 135));
+	new_point(540, 135), 20);
 	print_text(new_point(570, 10), new_printable_text("Action: ",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	print_event_action(env, event);

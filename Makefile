@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/30 14:13:33 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/30 15:23:45 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
 		 editor_object_tab_button.c print_events_tabs.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
-		 are_condition_selection_buttons_visible.c \
+		 are_condition_selection_buttons_visible.c init_event_links_types.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
