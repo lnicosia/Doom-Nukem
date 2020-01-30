@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_target_functions.c                           :+:      :+:    :+:   */
+/*   print_condition_functions.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,8 @@
 
 #include "env.h"
 
-int		print_sector_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_sector_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -24,15 +25,16 @@ int		print_sector_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Sector", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Sector", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sector),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sector),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sector),
+	TTF_SizeText(font, ft_sitoa(condition->sector),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_wall_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_wall_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -44,24 +46,24 @@ int		print_wall_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Sector", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Sector", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sector),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sector),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sector),
+	TTF_SizeText(font, ft_sitoa(condition->sector),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	print_text(pos, new_printable_text("wall", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "wall", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.wall),
+	print_text(pos, new_printable_text(ft_sitoa(condition->wall),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.wall),
+	TTF_SizeText(font, ft_sitoa(condition->wall),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_floor_sprite_target(t_env *env, t_event *event, t_point pos,
-int size)
+int		print_floor_sprite_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -74,23 +76,25 @@ int size)
 	print_text(pos, new_printable_text("Sector", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Sector", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sector),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sector),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sector),
+	TTF_SizeText(font, ft_sitoa(condition->sector),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text("floor sprite", font, 0xFFFFFFFF, 0), env);
+	print_text(pos, new_printable_text("floor sprite", font, 0xFFFFFFFF, 0),
+	env);
 	TTF_SizeText(font, "floor sprite", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sprite),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sprite),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sprite),
+	TTF_SizeText(font, ft_sitoa(condition->sprite),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_wall_sprite_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_wall_sprite_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -102,31 +106,32 @@ int		print_wall_sprite_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Sector", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Sector", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sector),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sector),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sector),
+	TTF_SizeText(font, ft_sitoa(condition->sector),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	print_text(pos, new_printable_text("wall", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "wall", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.wall),
+	print_text(pos, new_printable_text(ft_sitoa(condition->wall),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.wall),
+	TTF_SizeText(font, ft_sitoa(condition->wall),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	print_text(pos, new_printable_text("sprite", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "sprite", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sprite),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sprite),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sprite),
+	TTF_SizeText(font, ft_sitoa(condition->sprite),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_vertex_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_vertex_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -138,9 +143,9 @@ int		print_vertex_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Vertex", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Vertex", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.vertex),
+	print_text(pos, new_printable_text(ft_sitoa(condition->vertex),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.vertex),
+	TTF_SizeText(font, ft_sitoa(condition->vertex),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);

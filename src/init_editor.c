@@ -48,8 +48,10 @@ int	init_editor(int ac, char **av)
 	init_player(&env);
 	init_animations(&env);
 	init_event_types(&env);
-	init_event_links_types(&env);
 	init_print_target_data(&env);
+	init_print_condition_target_data(&env);
+	init_event_links_types(&env);
+	init_print_link_target_data(&env);
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
 	if (init_sound(&env))

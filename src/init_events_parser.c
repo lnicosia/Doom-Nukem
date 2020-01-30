@@ -61,14 +61,14 @@ void	init_events_parser_links_protection(t_events_parser *eparser)
 	eparser->event_exists[PRESS] = &press_event_exists;
 	eparser->event_exists[SHOOT] = &shoot_event_exists;
 	eparser->event_exists[STAND] = &stand_event_exists;
-	eparser->event_exists[WALK_IN] = &walk_out_event_exists;
-	eparser->event_exists[WALK_OUT] = &walk_in_event_exists;
+	eparser->event_exists[WALK_IN] = &walk_in_event_exists;
+	eparser->event_exists[WALK_OUT] = &walk_out_event_exists;
 	eparser->event_exists[DEATH] = &death_event_exists;
 	eparser->get_event_array[GLOBAL] = &get_global_event;
 	eparser->get_event_array[PRESS] = &get_press_event;
 	eparser->get_event_array[SHOOT] = &get_shoot_event;
 	eparser->get_event_array[STAND] = &get_stand_event;
-	eparser->get_event_array[WALK_IN] = &get_walk_out_event;
-	eparser->get_event_array[WALK_OUT] = &get_walk_in_event;
+	eparser->get_event_array[WALK_IN] = &get_walk_in_event;
+	eparser->get_event_array[WALK_OUT] = &get_walk_out_event;
 	eparser->get_event_array[DEATH] = &get_death_event;
 }

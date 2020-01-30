@@ -14,54 +14,90 @@
 
 void	print_event_action(t_env *env, t_event *event)
 {
+	t_point	text_size;
+	int		pos;
+
+	pos = 75;
 	if (event->mod_type == FIXED)
 	{
-		print_text(new_point(570, 75), new_printable_text("Go to",
+		print_text(new_point(570, pos), new_printable_text("Go to",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, "Go to",
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
 		print_text(new_point(570, 130), new_printable_text(
 		ft_sitoa((int)event->goal),
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, ft_sitoa((int)event->goal),
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
 	}
 	else if (event->mod_type == INCR)
 	{
 		print_text(new_point(570, 75), new_printable_text("Add",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, "Add",
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
 		print_text(new_point(570, 115), new_printable_text(
 		ft_sitoa((int)event->start_incr),
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, ft_sitoa((int)event->start_incr),
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
 	}
 	if (event->mod_type == FUNC)
+	{
 		print_text(new_point(570, 75), new_printable_text("Func",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, "Func",
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
+	}
 	if (event->mod_type != FUNC)
 	{
-		print_text(new_point(570, 275), new_printable_text("Speed: ",
+		pos += 10;
+		print_text(new_point(570, pos), new_printable_text("Speed:",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		TTF_SizeText(env->sdl.fonts.lato20, "Speed:",
+		&text_size.x, &text_size.y);
+		pos += text_size.x + 5;
 		if (event->speed != 0)
-			print_text(new_point(570, 335), new_printable_text(
+			print_text(new_point(570, pos), new_printable_text(
 			ft_sitoa(event->speed),
 			env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 		else
-			print_text(new_point(570, 335), new_printable_text("Instant",
+			print_text(new_point(570, pos), new_printable_text("Instant",
 			env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	}
 }
 
 void	print_event_various_data(t_env *env, t_event *event)
 {
-	print_text(new_point(600, 50), new_printable_text("Delay:",
+	t_point	text_size;
+	int		pos;
+
+	pos = 50;
+	print_text(new_point(600, pos), new_printable_text("Delay:",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 120), new_printable_text(
-	ft_sitoa(event->delay),
+	TTF_SizeText(env->sdl.fonts.lato20, "Delay:", &text_size.x, &text_size.y);
+	pos += text_size.x + 5;
+	print_text(new_point(600, pos), new_printable_text(	ft_sitoa(event->delay),
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	print_text(new_point(600, 200), new_printable_text("Max uses:",
+	TTF_SizeText(env->sdl.fonts.lato20, ft_sitoa(event->delay),
+	&text_size.x, &text_size.y);
+	pos += text_size.x + 15;
+	print_text(new_point(600, pos), new_printable_text("Max uses:",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	TTF_SizeText(env->sdl.fonts.lato20, "Max uses:",
+	&text_size.x, &text_size.y);
+	pos += text_size.x + 5;
 	if (event->max_uses != 0)
-		print_text(new_point(600, 300), new_printable_text(
+		print_text(new_point(600, pos), new_printable_text(
 		ft_sitoa((int)event->max_uses),
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	else
-		print_text(new_point(600, 300), new_printable_text("Inf.",
+		print_text(new_point(600, pos), new_printable_text("Inf.",
 		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 }
 
@@ -105,13 +141,16 @@ void	print_event_exec_conditions(t_env *env, t_event *event)
 
 void	print_event(t_env *env, t_event *event)
 {
-	print_text(new_point(540, 10), new_printable_text("Target: ",
+	t_point	pos;
+
+	print_text(new_point(540, 10), new_printable_text("Target:",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	/*print_text(new_point(540, 75), new_printable_text(env->
+	TTF_SizeText(env->sdl.fonts.lato20, "Target:", &pos.x, &pos.y);
+	pos.x = env->print_target_data[event->target_index](env, event,
+	new_point(540, pos.x + 15), 20);
+	print_text(new_point(540, pos.x), new_printable_text(env->
 	event_types[event->target_index],
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);*/
-	env->print_target_data[event->target_index](env, event,
-	new_point(540, 75), 20);
+	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	print_text(new_point(570, 10), new_printable_text("Action: ",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	print_event_action(env, event);

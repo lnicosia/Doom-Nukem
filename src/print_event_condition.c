@@ -40,28 +40,32 @@ void		print_event_link(t_env *env, t_event *event,
 t_condition *condition)
 {
 	t_point	text_size;
+	int		pos;
 
 	(void)event;
-	print_text(new_point(710, 30), new_printable_text(
+	pos = 30;
+	pos = env->print_link_target_data[condition->target_type](env, condition,
+	new_point(710, pos), 15);
+	print_text(new_point(710, pos), new_printable_text(
 	env->event_links_types[condition->target_type],
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
 	TTF_SizeText(env->sdl.fonts.lato15,
 	env->event_links_types[condition->target_type], &text_size.x, &text_size.y);
-	print_text(new_point(710, text_size.x + 35), new_printable_text(
+	pos += text_size.x + 5;
+	print_text(new_point(710, pos), new_printable_text(
 	ft_sitoa(condition->target_index),
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
+	TTF_SizeText(env->sdl.fonts.lato15, ft_sitoa(condition->target_index),
+	&text_size.x, &text_size.y);
+	pos += text_size.x + 5;
 	if (condition->type == EVENT_ENDED)
 	{
-		TTF_SizeText(env->sdl.fonts.lato15, "ended", &text_size.x,
-		&text_size.y);
-		print_text(new_point(735, 200 - text_size.x / 2),
+		print_text(new_point(710, pos),
 		new_printable_text("ended", env->sdl.fonts.lato15, 0xFFFFFFFF, 0), env);
 	}
 	else
 	{
-		TTF_SizeText(env->sdl.fonts.lato15, "ended (starter)", &text_size.x,
-		&text_size.y);
-		print_text(new_point(735, 200 - text_size.x / 2),
+		print_text(new_point(710, pos),
 		new_printable_text("ended (starter)", env->sdl.fonts.lato15, 0xFFFFFFFF,
 		0b0101), env);
 	}
@@ -71,20 +75,25 @@ void		print_event_launch_condition(t_env *env, t_event *event,
 t_condition *condition)
 {
 	t_point	text_size;
+	int		pos;
 
 	if (condition->type < EVENT_ENDED)
 	{
-		print_text(new_point(710, 30), new_printable_text(
+		pos = env->print_condition_target_data[condition->target_index](env,
+		condition, new_point(710, 30), 15);
+		print_text(new_point(710, pos), new_printable_text(
 		env->event_types[condition->target_index],
 		env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
-		env->print_target_data[condition->target_index](env, event,
-		new_point(710, 90), 15);
-		print_text(new_point(735, 120), new_printable_text(
+		TTF_SizeText(env->sdl.fonts.lato15,
+		env->event_types[condition->target_index], &text_size.x, &text_size.y);
+		pos += text_size.x + 5;
+		print_text(new_point(710, pos), new_printable_text(
 		get_condition_type_str(condition),
 		env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 		TTF_SizeText(env->sdl.fonts.lato15, get_condition_type_str(condition),
 		&text_size.x, &text_size.y);
-		print_text(new_point(735, text_size.x + 125), new_printable_text(
+		pos += text_size.x + 5;
+		print_text(new_point(710, pos), new_printable_text(
 		ft_sitoa(condition->value),
 		env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 	}
@@ -96,18 +105,24 @@ void		print_event_exec_condition(t_env *env, t_event *event,
 t_condition *condition)
 {
 	t_point	text_size;
+	int		pos;
 
-	print_text(new_point(830, 30), new_printable_text(
+	(void)event;
+	pos = env->print_condition_target_data[condition->target_index](env,
+	condition, new_point(830, 30), 15);
+	print_text(new_point(830, pos), new_printable_text(
 	env->event_types[condition->target_index],
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
-	env->print_target_data[condition->target_index](env, event,
-	new_point(830, 90), 15);
-	print_text(new_point(855, 120), new_printable_text(
+	TTF_SizeText(env->sdl.fonts.lato15,
+	env->event_types[condition->target_index], &text_size.x, &text_size.y);
+	pos += text_size.x + 5;
+	print_text(new_point(830, pos), new_printable_text(
 	get_condition_type_str(condition),
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 	TTF_SizeText(env->sdl.fonts.lato15, get_condition_type_str(condition),
 	&text_size.x, &text_size.y);
-	print_text(new_point(855, text_size.x + 125), new_printable_text(
+	pos += text_size.x + 5;
+	print_text(new_point(830, pos), new_printable_text(
 	ft_sitoa(condition->value),
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 30), env);
 }

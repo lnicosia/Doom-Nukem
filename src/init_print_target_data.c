@@ -50,15 +50,15 @@ void	init_print_target_data2(t_env *env)
 	env->print_target_data[SECTOR_FLOOR_SPRITES_SCALE_Y] =
 	&print_floor_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_SPRITE] =
-	&print_floor_sprite_target;
+	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_POS_X] =
-	&print_floor_sprite_target;
+	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_POS_Y] =
-	&print_floor_sprite_target;
+	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_SCALE_X] =
-	&print_floor_sprite_target;
+	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_SCALE_Y] =
-	&print_floor_sprite_target;
+	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_BRIGHTNESS] = &print_sector_target;
 	env->print_target_data[SECTOR_LIGHT_COLOR] = &print_sector_target;
 	env->print_target_data[SECTOR_INTENSITY] = &print_sector_target;

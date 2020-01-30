@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_target_functions2.c                          :+:      :+:    :+:   */
+/*   print_condition_functions2.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,8 @@
 
 #include "env.h"
 
-int		print_weapon_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_weapon_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -24,16 +25,16 @@ int		print_weapon_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Weapon", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Weapon", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.weapon),
+	print_text(pos, new_printable_text(ft_sitoa(condition->weapon),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.weapon),
+	TTF_SizeText(font, ft_sitoa(condition->weapon),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_ceiling_sprite_target(t_env *env, t_event *event, t_point pos,
-int size)
+int		print_ceiling_sprite_condition_target(t_env *env,
+t_condition *condition, t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -46,23 +47,24 @@ int size)
 	print_text(pos, new_printable_text("Sector", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Sector", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sector),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sector),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sector),
+	TTF_SizeText(font, ft_sitoa(condition->sector),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	print_text(pos, new_printable_text("ceiling sprite", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "ceiling sprite", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.sprite),
+	print_text(pos, new_printable_text(ft_sitoa(condition->sprite),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.sprite),
+	TTF_SizeText(font, ft_sitoa(condition->sprite),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_enemy_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_enemy_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -74,15 +76,16 @@ int		print_enemy_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Enemy", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Enemy", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.enemy),
+	print_text(pos, new_printable_text(ft_sitoa(condition->enemy),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.enemy),
+	TTF_SizeText(font, ft_sitoa(condition->enemy),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_object_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_object_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	TTF_Font	*font;
 	t_point		text_size;
@@ -94,18 +97,19 @@ int		print_object_target(t_env *env, t_event *event, t_point pos, int size)
 	print_text(pos, new_printable_text("Object", font, 0xFFFFFFFF, 0), env);
 	TTF_SizeText(font, "Object", &text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
-	print_text(pos, new_printable_text(ft_sitoa(event->update_param.object),
+	print_text(pos, new_printable_text(ft_sitoa(condition->object),
 	font, 0xFFFFFFFF, 0), env);
-	TTF_SizeText(font, ft_sitoa(event->update_param.object),
+	TTF_SizeText(font, ft_sitoa(condition->object),
 	&text_size.x, &text_size.y);
 	pos.y += text_size.x + 5;
 	return (pos.y);
 }
 
-int		print_nothing_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_nothing_condition_target(t_env *env, t_condition *condition,
+t_point pos, int size)
 {
 	(void)env;
-	(void)event;
+	(void)condition;
 	(void)pos;
 	(void)size;
 	return (pos.y);
