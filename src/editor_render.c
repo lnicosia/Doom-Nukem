@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 17:46:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:03:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int		editor_render(t_env *env)
 {
-	if (env->options.animations)
-		update_sprites_state(env);
 	reset_clipped(env);
 	if (!env->input_box.state)
 		editor_3d_keys(env);

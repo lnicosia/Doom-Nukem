@@ -6,11 +6,25 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 12:16:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:01:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "save.h"
+
+int			get_main_sprite(int sprite, t_env *env)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_OBJECTS)
+	{
+		if (sprite == env->objects_main_sprites[i])
+			return (i);
+		i++;
+	}
+	return (i);
+}
 
 static void	write_sector_textures(int fd, t_sector sector)
 {
@@ -89,7 +103,7 @@ static void	write_sector_vertices(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-static void	write_sector_wall_sprites(int fd, t_sector sector)
+static void	write_sector_wall_sprites(int fd, t_sector sector, t_env *env)
 {
 	int	i;
 	int	j;
@@ -103,7 +117,7 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 		while (j < sector.wall_sprites[i].nb_sprites)
 		{
 			ft_dprintf(fd, "[%d %f %f %f %f]",
-					sector.wall_sprites[i].sprite[j],
+					get_main_sprite(sector.wall_sprites[i].sprite[j], env),
 					sector.wall_sprites[i].pos[j].x,
 					sector.wall_sprites[i].pos[j].y,
 					sector.wall_sprites[i].scale[j].x,
@@ -116,7 +130,7 @@ static void	write_sector_wall_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-static void	write_sector_floor_sprites(int fd, t_sector sector)
+static void	write_sector_floor_sprites(int fd, t_sector sector, t_env *env)
 {
 	int	i;
 
@@ -125,7 +139,7 @@ static void	write_sector_floor_sprites(int fd, t_sector sector)
 	while (i < sector.floor_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
-				sector.floor_sprites.sprite[i],
+				get_main_sprite(sector.floor_sprites.sprite[i], env),
 				sector.floor_sprites.pos[i].x,
 				sector.floor_sprites.pos[i].y,
 				sector.floor_sprites.scale[i].x,
@@ -135,7 +149,7 @@ static void	write_sector_floor_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-static void	write_sector_ceiling_sprites(int fd, t_sector sector)
+static void	write_sector_ceiling_sprites(int fd, t_sector sector, t_env *env)
 {
 	int	i;
 
@@ -144,7 +158,7 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 	while (i < sector.ceiling_sprites.nb_sprites)
 	{
 		ft_dprintf(fd, "[%d %f %f %f %f]",
-				sector.ceiling_sprites.sprite[i],
+				get_main_sprite(sector.ceiling_sprites.sprite[i], env),
 				sector.ceiling_sprites.pos[i].x,
 				sector.ceiling_sprites.pos[i].y,
 				sector.ceiling_sprites.scale[i].x,
@@ -154,39 +168,25 @@ static void	write_sector_ceiling_sprites(int fd, t_sector sector)
 	ft_dprintf(fd, ") ");
 }
 
-/*static void	write_interactions_related_data(int fd, t_sector sector)
-{
-	ft_dprintf(fd, "[%d (%d %d) (%d %d %f)]\n",
-			(int)(sector.status),
-			(int)(sector.tp.x),
-			(int)(sector.tp.y),
-			sector.enemy_flag,
-			sector.activated,
-			sector.start_floor);
-}*/
-
-static void	write_sector(int fd, t_sector sector)
+static void	write_sector(int fd, t_sector sector, t_env *env)
 {
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
 			sector.floor, sector.floor_slope, sector.floor_texture,
 			sector.floor_map_align.x, sector.floor_map_align.y,
 			sector.floor_map_scale.x, sector.floor_map_scale.y);
-	write_sector_floor_sprites(fd, sector);
+	write_sector_floor_sprites(fd, sector, env);
 	ft_dprintf(fd, "[%.5f %.5f %d %.5f %.5f %.5f %.5f] ",
 			sector.ceiling, sector.ceiling_slope, sector.ceiling_texture,
 			sector.ceiling_map_align.x, sector.ceiling_map_align.y,
 			sector.ceiling_map_scale.x, sector.ceiling_map_scale.y);
-	write_sector_ceiling_sprites(fd, sector);
+	write_sector_ceiling_sprites(fd, sector, env);
 	write_sector_vertices(fd, sector);
 	write_sector_neighbors(fd, sector);
 	write_sector_portals(fd, sector);
 	write_sector_textures(fd, sector);
-	write_sector_wall_sprites(fd, sector);
+	write_sector_wall_sprites(fd, sector, env);
 	ft_dprintf(fd, "[%d %x %d %f]\n", (int)(sector.brightness),
 	sector.light_color, (int)sector.intensity, sector.gravity);
-	/*ft_dprintf(fd, "[%d 0 0]\n", (int)(sector.brightness),
-	sector.light_color, (int)sector.intensity);*/
-	//write_interactions_related_data(fd, sector);
 }
 
 void		write_sectors(int fd, t_env *env)
@@ -197,7 +197,7 @@ void		write_sectors(int fd, t_env *env)
 	ft_dprintf(fd, "\nS %d\n", env->nb_sectors);
 	while (i < env->nb_sectors)
 	{
-		write_sector(fd, env->sectors[i]);
+		write_sector(fd, env->sectors[i], env);
 		i++;
 	}
 }
