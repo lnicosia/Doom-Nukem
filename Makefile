@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/29 12:07:23 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/30 17:27:01 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ EDITOR_DIR = .
 LIBFT_DIR = libft
 SDL_DIR = SDL2-2.0.8/include
 SDL_TTF_DIR = SDL2_ttf-2.0.15
-SDL_MIXER_DIR = SDL2_mixer-2.0.4
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 
@@ -150,7 +149,7 @@ OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(SDL_MIXER_DIR) -I $(FMOD_INC_DIR)\
+		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -flto -Ofast \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
@@ -164,13 +163,11 @@ ifeq ($(DEBUG), 1)
 endif
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
-              /usr/local/bin/SDL2_mixer.dll \
               /usr/local/bin/SDL2_ttf.dll \
               -L/usr/local/lib -lcygwin -lSDL2main \
 
 SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
-	  -F ~/Library/Frameworks/ -framework SDL2_mixer \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
 

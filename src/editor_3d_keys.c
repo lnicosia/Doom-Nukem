@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/17 10:35:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:57:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int		editor_3d_keys(t_env *env)
 	time = SDL_GetTicks();
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		Mix_PlayChannel(-1, env->sound.footstep, 0);
+	{
+		FMOD_System_PlaySound(env->sound.system, env->sound.footstep, 0, 0,
+		&env->sound.footstep_chan);
+		FMOD_Channel_SetVolume(env->sound.footstep_chan, env->sound.ambient_vol);
+	}
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 			|| env->crouch.on_going || env->inputs.lgui)

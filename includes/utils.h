@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 18:46:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:25:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define SDL_MAIN_HANDLED
 # include "SDL.h"
 # include "SDL_ttf.h"
-# include "SDL_mixer.h"
 # include "fmod.h"
 # include <fcntl.h>
 # include <pthread.h>
@@ -665,22 +664,19 @@ typedef struct		s_fonts
 ** Sound structure
 */
 
-typedef struct		s_audio
+typedef struct		s_sound
 {
-	int				g_music;
-	int				b_jump;
-	int				b_footstep;
-	int				b_music;
-	int				b_weapon;
+	double			music_vol;
+	double			ambient_vol;
 	FMOD_SYSTEM		*system;
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
 	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_CHANNEL	*footstep_chan;
 	FMOD_SOUND		*at_dooms_gate;
-	Mix_Chunk		*footstep;
-	Mix_Chunk		*jump;
-}					t_audio;
+	FMOD_SOUND		*footstep;
+}					t_sound;
 
 /*
 **	Contains every data needed for an animation on the screen

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/29 18:49:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:24:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,11 @@ void    weapon_animation(t_env *env, int nb)
 	{
 		env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
-		/*if (env->weapons[nb].ammo <= 0)
-			Mix_PlayChannel(2, env->weapons[nb].empty, 0);*/
 		if (env->weapons[nb].ammo > 0)
 		{
 			shot(env);
-			FMOD_Channel_SetVolume(env->sound.player_shots_chan, 0.1);
-			FMOD_System_PlaySound(env->sound.system, env->weapons[nb].shot, 0, 0, &env->sound.player_shots_chan);
+			FMOD_System_PlaySound(env->sound.system, env->weapons[nb].shot, 0, 0, &env->sound.player_shots_chan);	
+			FMOD_Channel_SetVolume(env->sound.player_shots_chan, env->sound.ambient_vol);
 			env->weapons[nb].ammo--;
 		}
 	}

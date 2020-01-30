@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 19:05:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:24:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,10 @@ int		init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	//Mix_PlayMusic(env.sound.background, -1);
 	FMOD_System_PlaySound(env.sound.system, env.sound.at_dooms_gate, 0, 0, &env.sound.music_chan);
-	FMOD_Channel_SetVolume(env.sound.music_chan, 0.7);
+	FMOD_Channel_SetVolume(env.sound.music_chan, env.sound.music_vol);
 	float volume;
 	FMOD_Channel_GetVolume(env.sound.music_chan, &volume);
-	ft_printf("{cyan} volume musique = %f {reset}\n", volume);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init fixed camera\n", &env));

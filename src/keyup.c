@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 14:14:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 15:56:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 	{
-		env->option = env->option ? 0 : 1;
+		//env->option = env->option ? 0 : 1;
 		if (env->option)
 			SDL_SetRelativeMouseMode(0);
 		else if (env->player.health > 0)
@@ -109,63 +109,11 @@ int		keyup(t_env *env)
 	return (0);
 }
 
-void	screen_options(t_env *env)
-{
-	add_button(env, 30, env->h_w - 40, env->h_h - 200, 2);
-	add_button(env, 31, env->h_w + 160, env->h_h - 200, 3);
-	print_text(new_point(env->h_h - 200, env->h_w - 250), new_printable_text("Resolution :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	print_text(new_point(env->h_h - 200 , env->h_w + 5), new_printable_text(env->res[env->i], env->sdl.fonts.alice30, 0x960018FF, 30), env);
-}
-
-void	sound_options(t_env *env)
-{
-	char	*sound;
-
-	sound = ft_sitoa(env->sound.g_music);
-	add_button(env, 30, env->h_w - 40, env->h_h - 100, 4);
-	add_button(env, 31, env->h_w + 160, env->h_h - 100, 5);
-	print_text(new_point(env->h_h - 100 , env->h_w - 250), new_printable_text("Sound :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	print_text(new_point(env->h_h - 100 , env->h_w + 65), new_printable_text(sound, env->sdl.fonts.alice30, 0x960018FF, 30), env);
-
-}
-
 int		open_options(t_env *env)
 {
 	SDL_SetRelativeMouseMode(0);
 	clear_image(env);
-	add_image(env, 29, 0, 0);
-	add_button(env, 0, env->h_w + 350, env->h_h + 350, 1);
-	print_text(new_point(env->h / 4 - 100, env->h_w - 250), new_printable_text("PARAMETERS", env->sdl.fonts.alice70, 0x960018FF, 70), env);
-	print_text(new_point(env->h_h + 350 , env->h_w + 350), new_printable_text("APPLIQUER", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	print_text(new_point(env->h_h, env->h_w - 250), new_printable_text("Select menu :", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	print_text(new_point(env->h_h, env->h_w + 65), new_printable_text("GO", env->sdl.fonts.alice30, 0x960018FF, 30), env);
-	add_button(env, 0, env->h_w + 65, env->h_h, 7);
-	screen_options(env);
-	sound_options(env);
 	update_screen(env);
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->option)
-	{
-		if (env->inputs.left_click
-				&& button_leftclick(env, 2)
-				&& env->i > 0)
-			env->i--;
-		else if (env->inputs.left_click
-				&& button_leftclick(env, 3)
-				&& env->i < 2)
-			env->i++;
-		else if (env->inputs.left_click
-				&& button_leftclick(env, 4)
-				&& env->sound.g_music > 5)
-			env->sound.g_music -= 5;
-		else if (env->inputs.left_click
-				&& button_leftclick(env, 5)
-				&& env->sound.g_music < 100)
-			env->sound.g_music += 5;
-		else if (env->inputs.left_click
-				&& button_leftclick(env, 1))
-			env->aplicate_changes = 1;
-		env->inputs.left_click = 0;
-	}
 	if (env->aplicate_changes)
 	{
 		free_all_sdl_relative(env);

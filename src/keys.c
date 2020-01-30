@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 19:08:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:05:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		Mix_PlayChannel(-1, env->sound.footstep, 0);
+	{
+		FMOD_System_PlaySound(env->sound.system, env->sound.footstep, 0, 0,
+		&env->sound.footstep_chan);
+		FMOD_Channel_SetVolume(env->sound.footstep_chan, env->sound.ambient_vol);
+	}
 	if (env->inputs.right_click)
 	{
 		float volume;

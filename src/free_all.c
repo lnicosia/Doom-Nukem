@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 14:20:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:00:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,19 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->ymax);
 }
 
+void		free_audio(t_env *env, int i)
+{
+	while (i < NB_WEAPONS)
+	{
+		FMOD_Sound_Release(env->weapons[i].shot);
+		i++;
+	}
+	FMOD_Sound_Release(env->sound.footstep);
+	FMOD_Sound_Release(env->sound.at_dooms_gate);
+	FMOD_System_Close(env->sound.system);
+	FMOD_System_Release(env->sound.system);
+}
+
 void		free_all(t_env *env)
 {
 	int 	i;
@@ -180,12 +193,6 @@ void		free_all(t_env *env)
 		ft_memdel((void**)&env->objects);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
-	/*if (env->sound.background)
-		Mix_FreeMusic(env->sound.background);*/
-	if (env->sound.footstep)
-		Mix_FreeChunk(env->sound.footstep);
-	if (env->sound.jump)
-		Mix_FreeChunk(env->sound.jump);
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	if (env->events)
@@ -201,14 +208,6 @@ void		free_all(t_env *env)
 	if (env->input_box.str)
 		ft_strdel(&env->input_box.str);
 	i = 0;
-	/*while (i < NB_WEAPONS)
-	{
-		if (env->weapons[i].empty)
-			Mix_FreeChunk(env->weapons[i].empty);
-		if (env->weapons[i].sound)
-			Mix_FreeChunk(env->weapons[i].sound);
-		i++;
-	}*/
 	free_events(env->global_events, env->nb_global_events);
 	free_events(env->wall_bullet_holes_events,
 	env->nb_wall_bullet_holes_events);
@@ -226,9 +225,9 @@ void		free_all(t_env *env)
 			env->projectiles = tmplst;
 		}
 	}
+	free_audio(env, 0);
 	free_textures(env);
 	TTF_Quit();
-	Mix_CloseAudio();
 	SDL_Quit();
 	ft_printf("Exiting..\n");
 }

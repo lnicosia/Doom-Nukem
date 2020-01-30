@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 16:03:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:12:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,6 @@ void	init_inputs(t_env *env)
 	env->inputs.up = 0;
 	env->inputs.down = 0;
 	env->inputs.tab = 0;
-}
-
-int		button_leftclick(t_env *env, int nb)
-{
-	int	xmax;
-	int	ymax;
-
-	if (env->button[nb].image == 30 || env->button[nb].image == 31)
-	{
-		xmax = env->button[nb].x + 40;
-		ymax = env->button[nb].y + 40;
-	}
-	else
-	{
-		xmax = env->button[nb].x + 150;
-		ymax = env->button[nb].y + 150;
-	}
-	if ((env->sdl.mx >= env->button[nb].x
-		&& env->sdl.mx <= xmax)
-		&& (env->sdl.my >=  env->button[nb].y
-		&& env->sdl.my <= ymax))
-		return (1);
-	else
-		return (0);
 }
 
 void	set_inputs(t_env *env, int mode)
