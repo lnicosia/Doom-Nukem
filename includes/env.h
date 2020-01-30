@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 11:02:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:19:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ typedef struct		s_env
 	int					objects_main_sprites[MAX_OBJECTS];
 	char				*event_types[MAX_TARGET_TYPES + 1];
 	int					(*print_target_data[MAX_TARGET_TYPES + 1])(struct s_env *,
-	t_event *);
+	t_event *, t_point);
 }					t_env;
 
 /*
@@ -326,19 +326,31 @@ void				print_wall_sprite_tab(t_env *env);
 void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
-void				print_event_condition(t_env *env, t_event *event,
+void				print_event_launch_condition(t_env *env, t_event *event,
+t_condition *condition);
+void				print_event_exec_condition(t_env *env, t_event *event,
 t_condition *condition);
 void				print_wall_sprite_events_tab(t_env *env);
-int					print_sector_target(t_env *env, t_event *event);
-int					print_wall_target(t_env *env, t_event *event);
-int					print_wall_sprite_target(t_env *env, t_event *event);
-int					print_floor_sprite_target(t_env *env, t_event *event);
-int					print_vertex_target(t_env *env, t_event *event);
-int					print_weapon_target(t_env *env, t_event *event);
-int					print_enemy_target(t_env *env, t_event *event);
-int					print_object_target(t_env *env, t_event *event);
-int					print_event_target(t_env *env, t_event *event);
-int					print_nothing_target(t_env *env, t_event *event);
+int					print_sector_target(t_env *env, t_event *event,
+t_point pos);
+int					print_wall_target(t_env *env, t_event *event,
+t_point pos);
+int					print_wall_sprite_target(t_env *env, t_event *event,
+t_point pos);
+int					print_floor_sprite_target(t_env *env, t_event *event,
+t_point pos);
+int					print_vertex_target(t_env *env, t_event *event,
+t_point pos);
+int					print_weapon_target(t_env *env, t_event *event,
+t_point pos);
+int					print_enemy_target(t_env *env, t_event *event,
+t_point pos);
+int					print_object_target(t_env *env, t_event *event,
+t_point pos);
+int					print_event_target(t_env *env, t_event *event,
+t_point pos);
+int					print_nothing_target(t_env *env, t_event *event,
+t_point pos);
 int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);

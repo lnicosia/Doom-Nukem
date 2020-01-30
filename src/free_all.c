@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 11:55:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:39:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,10 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.alice30);
 	if (env->sdl.fonts.alice70)
 		TTF_CloseFont(env->sdl.fonts.alice70);
+	if (env->sdl.fonts.lato10)
+		TTF_CloseFont(env->sdl.fonts.lato10);
+	if (env->sdl.fonts.lato15)
+		TTF_CloseFont(env->sdl.fonts.lato15);
 	if (env->sdl.fonts.lato20)
 		TTF_CloseFont(env->sdl.fonts.lato20);
 	if (env->sdl.fonts.lato50)

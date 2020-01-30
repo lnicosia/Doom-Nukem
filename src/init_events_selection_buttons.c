@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 17:26:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:14:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,13 +192,13 @@ void	previous_launch_condition(void *penv)
 				env->sectors[env->editor.selected_sector]
 				.wall_sprites[env->selected_wall_sprite_wall]
 				.press_events[env->selected_wall_sprite_sprite]
-				[env->editor.selected_event].nb_launch_conditions;
+				[env->editor.selected_event].nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_launch_condition =
 				env->sectors[env->editor.selected_sector]
 				.wall_sprites[env->selected_wall_sprite_wall]
 				.shoot_events[env->selected_wall_sprite_sprite]
-				[env->editor.selected_event].nb_launch_conditions;
+				[env->editor.selected_event].nb_launch_conditions - 1;
 		}
 		else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 		{
@@ -206,21 +206,21 @@ void	previous_launch_condition(void *penv)
 				env->editor.selected_launch_condition =
 				env->sectors[env->editor.selected_sector]
 				.stand_events[env->editor.selected_event]
-				.nb_launch_conditions;
+				.nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_launch_condition =
 				env->sectors[env->editor.selected_sector]
 				.walk_in_events[env->editor.selected_event]
-				.nb_launch_conditions;
+				.nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 2)
 				env->editor.selected_launch_condition =
 				env->sectors[env->editor.selected_sector]
 				.walk_out_events[env->editor.selected_event]
-				.nb_launch_conditions;
+				.nb_launch_conditions - 1;
 		}
 		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 			env->editor.selected_launch_condition =
-			env->global_events[env->editor.selected_event].nb_launch_conditions;
+			env->global_events[env->editor.selected_event].nb_launch_conditions - 1;
 	}
 }
 
@@ -285,13 +285,13 @@ void	previous_exec_condition(void *penv)
 				env->sectors[env->editor.selected_sector]
 				.wall_sprites[env->selected_wall_sprite_wall]
 				.press_events[env->selected_wall_sprite_sprite]
-				[env->editor.selected_event].nb_exec_conditions;
+				[env->editor.selected_event].nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_exec_condition =
 				env->sectors[env->editor.selected_sector]
 				.wall_sprites[env->selected_wall_sprite_wall]
 				.shoot_events[env->selected_wall_sprite_sprite]
-				[env->editor.selected_event].nb_exec_conditions;
+				[env->editor.selected_event].nb_exec_conditions - 1;
 		}
 		else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 		{
@@ -299,21 +299,21 @@ void	previous_exec_condition(void *penv)
 				env->editor.selected_exec_condition =
 				env->sectors[env->editor.selected_sector]
 				.stand_events[env->editor.selected_event]
-				.nb_exec_conditions;
+				.nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_exec_condition =
 				env->sectors[env->editor.selected_sector]
 				.walk_in_events[env->editor.selected_event]
-				.nb_exec_conditions;
+				.nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 2)
 				env->editor.selected_exec_condition =
 				env->sectors[env->editor.selected_sector]
 				.walk_out_events[env->editor.selected_event]
-				.nb_exec_conditions;
+				.nb_exec_conditions - 1;
 		}
 		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 			env->editor.selected_exec_condition =
-			env->global_events[env->editor.selected_event].nb_exec_conditions;
+			env->global_events[env->editor.selected_event].nb_exec_conditions - 1;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:20:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:39:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -679,6 +679,8 @@ typedef struct		s_fonts
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
+	TTF_Font		*lato10;
+	TTF_Font		*lato15;
 	TTF_Font		*lato20;
 	TTF_Font		*lato50;
 }					t_fonts;
