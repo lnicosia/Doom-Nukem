@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 11:53:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:34:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,26 @@ t_events_parser *eparser)
 	eparser->condition_enemy = eparser->current_enemy;
 	eparser->condition_weapon = eparser->current_weapon;
 	eparser->condition_object = eparser->current_object;
+	eparser->event.exec_conditions[eparser->condition_count].target_index =
+	eparser->condition_index;
 	eparser->event.exec_conditions[eparser->condition_count].target =
 	set_condition_target(env, eparser);
 	eparser->event.exec_conditions[eparser->condition_count].target_type =
 	eparser->target_types[eparser->condition_index];
+	eparser->event.exec_conditions[eparser->condition_count].sector =
+	eparser->condition_sector;
+	eparser->event.exec_conditions[eparser->condition_count].wall =
+	eparser->condition_wall;
+	eparser->event.exec_conditions[eparser->condition_count].sprite =
+	eparser->condition_sprite;
+	eparser->event.exec_conditions[eparser->condition_count].enemy =
+	eparser->condition_enemy;
+	eparser->event.exec_conditions[eparser->condition_count].weapon =
+	eparser->condition_weapon;
+	eparser->event.exec_conditions[eparser->condition_count].vertex =
+	eparser->condition_vertex;
+	eparser->event.exec_conditions[eparser->condition_count].object =
+	eparser->condition_object;
 	if (**line != '}')
 		return (invalid_char("after exec condition declarartion", "'}'",
 		**line, parser));
