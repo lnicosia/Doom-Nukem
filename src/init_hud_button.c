@@ -87,7 +87,7 @@ int		init_enemy_selection_button(t_env *env)
 		env->editor.enemy_tab[i].pos = new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
 		i++;
 	}
-	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN, &save_enemy, new_button_target(env, i), env);
+	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN, &open_enemy_selection, env, env);
 	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[env->editor.current_enemy].surface;
 	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[env->editor.current_enemy].surface;
 	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[env->editor.current_enemy].surface;

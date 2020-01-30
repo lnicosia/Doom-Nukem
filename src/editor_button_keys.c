@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 10:46:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 12:25:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	enemy_buttons(t_env *env)
 {
+	button_keys(&env->editor.current_enemy_selection, env);
+	button_keys(&env->editor.enemy_background, env);
 	if (env->editor.sector_tab.state == DOWN)
 	{
 		button_keys(&env->editor.hud.s_enemy.brightness, env);

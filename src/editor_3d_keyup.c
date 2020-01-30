@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 16:10:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 14:58:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,17 +207,26 @@ int		editor_3d_keyup(t_env *env)
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 				&& (env->sdl.my < 414 && env->sdl.my > 350))
 			env->editor.draw_selection_tab = 1;
-		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == UP)
 			env->editor.draw_selection_tab = 0;
-		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
-		&& (env->sdl.my < 317 && env->sdl.my > 253))
-			env->editor.draw_enemy_tab = 1;
-		else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == DOWN)
+		{
+			env->editor.current_enemy_selection.state = UP;
+			env->editor.current_enemy_selection.anim_state = REST;
+		}
+		else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_enemy_selection.state == UP)
 			env->editor.draw_enemy_tab = 0;
-		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 234 && env->sdl.mx > 170)
-		&& (env->sdl.my < 517 && env->sdl.my > 450))
-			env->editor.draw_sprite_tab = 1;
-		else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_sprite_selection.state == DOWN)
+		{
+			env->editor.current_sprite_selection.state = UP;
+			env->editor.current_sprite_selection.anim_state = REST;
+		}
+		else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.current_sprite_selection.state == UP)
 			env->editor.draw_sprite_tab = 0;
 	}
 	return (0);

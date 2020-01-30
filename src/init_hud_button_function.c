@@ -6,143 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 17:36:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 14:26:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		update_wall_texture_button(void *penv)
-{
-	t_env	*env;
-	env = (t_env*)penv;
-	if (env->sectors[env->editor.selected_sector].
-		textures[env->editor.selected_wall] < 0)
-		env->contains_skybox = 1;
-	if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-		env->wall_textures[env->sectors[env->editor.selected_sector].
-		textures[env->editor.selected_wall]], env->editor.selected_wall, env))
-		return (-1);
-	if (set_camera_map_array(&env->player.camera, env->editor.selected_sector,
-		env->editor.selected_wall, env))
-		return (-1);
-	return (0);
-} 
-
-int			update_ceiling_texture_button(void *penv)
-{
-	t_env	*env;
-	env = (t_env*)penv;
-	if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
-		env->contains_skybox = 1;
-	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-		env->wall_textures[env->sectors[env->selected_ceiling].
-		ceiling_texture], env))
-		return (-1);
-	return (0);
-}
-
-int			update_floor_texture_button(void *penv)
-{
-	t_env	*env;
-	env = (t_env*)penv;
-	if (env->sectors[env->selected_floor].floor_texture < 0)
-		env->contains_skybox = 1;
-	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-		env->wall_textures[env->sectors[env->selected_floor].
-		floor_texture], env))
-		return (-1);
-	return (0);
-}
-
-int		change_ceiling_sprite(t_button_next *button)
-{
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		if (env->selected_ceiling_sprite > 0)
-			env->selected_ceiling_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-	}
-	else if (button->button_type == NEXT)
-	{
-		if (env->selected_ceiling_sprite <
-		env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1)
-			env->selected_ceiling_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-	}
-	return (0);
-}
-
-int		change_floor_sprite(t_button_next *button)
-{
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		if (env->selected_floor_sprite > 0)
-			env->selected_floor_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-	}
-	else if (button->button_type == NEXT)
-	{
-		if (env->selected_floor_sprite <
-		env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
-			env->selected_floor_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-	}
-	return (0);
-}
-
-int		change_wall_sprite(t_button_next *button)
-{	
-	t_env *env;
-
-	env = button->env;
-	if (button->button_type == PREVIOUS)
-	{
-		if (env->selected_wall_sprite_sprite > 0)
-			env->selected_wall_sprite_sprite--;
-		env->editor.previous_sprite.state = UP;
-		env->editor.previous_sprite.anim_state = REST;
-	}
-	else if (button->button_type == NEXT)
-	{
-		if (env->selected_wall_sprite_sprite <
-		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1)
-			env->selected_wall_sprite_sprite++;
-		env->editor.next_sprite.state = UP;
-		env->editor.next_sprite.anim_state = REST;
-	}
-	return (0);
-}
-
-int		change_sprite(void *target)
-{
-	t_button_next	*button;
-	t_env			*env;
-	 
-	env = (t_env *)target;
-	button = NULL;
-	if (env->editor.next_sprite.state == DOWN)
-		button = &env->editor.next_sprite_env;
-	else if (env->editor.previous_sprite.state == DOWN)
-		button = &env->editor.previous_sprite_env;
-	if (button->type == WALL_S)
-		change_wall_sprite(button);
-	else if (button->type == FLOOR_S)
-		change_floor_sprite(button);
-	else if (button->type == CEILING_S)
-		change_ceiling_sprite(button);
-	return (0);
-}
 
 int		add_object_button(void *target)
 {
@@ -169,6 +37,26 @@ int		add_enemy_button(void *target)
 	else
 		env->editor.add_object.state = UP;
 		env->editor.add_object.anim_state = REST;
+	return (0);
+}
+
+int		open_enemy_selection(void *param)
+{
+	t_env *env;
+
+	ft_printf("coucou\n");
+	env = (t_env *)param;
+	env->editor.draw_enemy_tab = 1;
+	return (0);
+}
+
+
+int		open_wall_sprite_selection(void *param)
+{
+	t_env *env;
+
+	env = ((t_button_target*)param)->env;
+	env->editor.draw_sprite_tab = 1;
 	return (0);
 }
 
@@ -203,6 +91,8 @@ int		save_texture(void *param)
 			update_wall_texture_button((void *)env);
 		}
 	}
+	env->editor.current_texture_selection.state = UP;
+	env->editor.current_texture_selection.anim_state = REST;
 	return (0);
 }
 
@@ -221,6 +111,8 @@ int		save_enemy(void *param)
 	if (env->selected_enemy != -1)
 		env->enemies[env->selected_enemy].sprite = env->enemies_main_sprites[i];
 	env->editor.draw_enemy_tab = 0;
+	env->editor.current_enemy_selection.state = UP;
+	env->editor.current_enemy_selection.anim_state = REST;
 	return (0);
 }
 
@@ -253,6 +145,8 @@ int		save_sprite(void *param)
 		sprite->sprite[env->selected_floor_sprite] = env->objects_main_sprites[i];
 	}
 	env->editor.draw_sprite_tab = 0;
+	env->editor.current_sprite_selection.state = UP;
+	env->editor.current_sprite_selection.anim_state = REST;
 	return (0);
 }
 

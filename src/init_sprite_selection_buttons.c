@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:41:55 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 17:02:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 15:00:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_array_sprite_buttons(t_env *env)
 		env->editor.sprite_selection[i].pos = new_point(180 + (64 * (i % mod)) + 5, 490 + 5 + (64 * (i / mod)));
 		i++;
 	}
-     	env->editor.current_sprite_selection = new_image_button(WHEN_DOWN, &save_sprite, new_button_target(env, i), env);
+     	env->editor.current_sprite_selection = new_image_button(WHEN_DOWN, &open_wall_sprite_selection, new_button_target(env, i), env);
 		env->editor.current_sprite_selection.img_up = env->mini_objects_textures[env->editor.current_sprite].surface;
 		env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[env->editor.current_sprite].surface;
 		env->editor.current_sprite_selection.img_down = env->mini_objects_textures[env->editor.current_sprite].surface;
