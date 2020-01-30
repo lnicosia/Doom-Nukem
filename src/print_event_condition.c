@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:00:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 16:04:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:36:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_condition *condition)
 	t_point	text_size;
 
 	(void)event;
-	(void)condition;
 	print_text(new_point(710, 30), new_printable_text(
 	env->event_links_types[condition->target_type],
 	env->sdl.fonts.lato15, 0xFFFFFFFF, 0b0101), env);
