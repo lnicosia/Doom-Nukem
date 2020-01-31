@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:53:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:19:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ int		print_floor_sprite_tab(t_env *env)
 {
 	env->editor.next_sprite_env.type = FLOOR_S;	
 	env->editor.previous_sprite_env.type = FLOOR_S;	
-	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.sp_floor_sprite.num.str = ft_sitoa(env->selected_floor_sprite);
-	env->editor.hud.sp_floor_sprite.t_num.target = &env->selected_floor_sprite;
-	draw_button(env, env->editor.hud.sp_floor_sprite.num);
 	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.sp_floor_sprite.pos_x.str = ft_sitoa(
 	env->sectors[env->selected_floor].floor_sprites.pos[env->selected_floor_sprite].x);

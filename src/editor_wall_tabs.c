@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:07:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 14:30:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:18:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ int		print_wall_sprite_tab(t_env *env)
 	env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
 	env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
 	env->editor.current_sprite_selection.img_up = env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
-	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.sp_wall_sprite.num.str = ft_sitoa(env->selected_wall_sprite_sprite);
-	env->editor.hud.sp_wall_sprite.t_num.target = &env->selected_wall_sprite_sprite;
-	draw_button(env, env->editor.hud.sp_wall_sprite.num);
 	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.sp_wall_sprite.pos_x.str = ft_sitoa(
 	env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].pos[env->selected_wall_sprite_sprite].x);

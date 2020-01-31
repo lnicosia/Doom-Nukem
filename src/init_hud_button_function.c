@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 14:58:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:04:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int		open_enemy_selection(void *param)
 {
 	t_env *env;
 
-	ft_printf("coucou\n");
 	env = (t_env *)param;
 	env->editor.draw_enemy_tab = 1;
 	return (0);
@@ -65,14 +64,26 @@ int		save_texture(void *param)
 	t_env	*env;
 	int		i;
 
+	
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_texture = i;
-	env->editor.current_texture_selection.img_down = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_pressed = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
-	env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
-	env->editor.draw_selection_tab = 0;
+	if (i >= 0)
+	{
+		env->editor.current_texture_selection.img_down = env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_pressed = env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
+	}
+	if (i < 0)
+	{
+		env->contains_skybox = 1;
+		env->editor.current_texture = i;
+		env->editor.current_texture_selection.img_down = env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_pressed = env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_hover = env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_up = env->mini_skyboxes[-i - 1].surface;
+	}
 	if (env->editor.in_game)
 	{
 		if (env->selected_floor != -1)
@@ -97,6 +108,7 @@ int		save_texture(void *param)
 	}
 	env->editor.current_texture_selection.state = UP;
 	env->editor.current_texture_selection.anim_state = REST;
+	env->editor.draw_selection_tab = 0;
 	return (0);
 }
 

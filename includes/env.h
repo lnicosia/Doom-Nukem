@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 15:43:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:14:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_env
 	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
 	t_texture			mini_objects_textures[MAX_OBJECTS];
+	t_texture			mini_skyboxes[MAX_SKYBOX];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
@@ -207,8 +208,10 @@ void				init_object_general_buttons(t_env *env);
 void				init_object_sector_buttons(t_env *env);
 void				init_object_sprite_buttons(t_env *env);
 int					init_array_sprite_buttons(t_env *env);
+int					init_skybox_selection_buttons(t_env *env);
 
 int					editor(t_env *env);
+int					draw_editor_tabs(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
@@ -393,6 +396,7 @@ int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
 t_button_target		*new_button_target(t_env *env, int i);
+void				new_tabs_position(t_env *env);
 
 
 /*
@@ -534,6 +538,7 @@ int					parse_bmp_skybox_textures(char *file, int index,
 int num_sky, t_env *env);
 int					parse_bmp_mini_enemies_textures(char *file, int index, t_env *env);
 int					parse_bmp_mini_objects_textures(char *file, int index, t_env *env);
+int					parse_bmp_mini_skyboxes_textures(char *file, int index, t_env *env);
 int					parse_bmp_skybox_textures(char *file, int index, int num_sky, t_env *env);
 int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);

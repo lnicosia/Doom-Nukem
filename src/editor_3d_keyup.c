@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 15:33:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:11:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		editor_3d_keyup(t_env *env)
 			env->editor.sector_tab.anim_state = REST;
 		}
 	}
-	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		if (env->sdl.event.key.keysym.sym == env->keys.enter
 			&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_z)
@@ -185,15 +185,24 @@ int		editor_3d_keyup(t_env *env)
 		}
 		if (env->editor.draw_selection_tab)
 		{
+			i = 0;
 			while (i < MAX_WALL_TEXTURE)
 			{
 				if (button_keyup(&env->editor.textures[i], env))
 					return (-1);
 				i++;
 			}
+			i = 0;
+			while (i < MAX_SKYBOX)
+			{
+				if (button_keyup(&env->editor.skyboxes[i], env))
+					return (-1);
+				i++;
+			}
 		}
 		if (env->editor.draw_enemy_tab)
 		{
+			i = 0;
 			while (i < MAX_ENEMIES)
 			{
 				if (button_keyup(&env->editor.enemy_tab[i], env))
@@ -203,10 +212,11 @@ int		editor_3d_keyup(t_env *env)
 		}
 		if (env->editor.draw_sprite_tab)
 		{
+			i = 0;
 			while (i < MAX_OBJECTS)
 			{
 				if (button_keyup(&env->editor.sprite_selection[i], env))
-					return (-1);
+				return (-1);
 				i++;
 			}
 		}

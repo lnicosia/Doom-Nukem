@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/31 14:24:41 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/31 16:18:08 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,9 +78,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
 		 are_condition_selection_buttons_visible.c init_event_links_types.c \
 		 print_link_target_functions.c print_condition_target_functions.c \
-		 print_condition_target_functions2.c \
-		 init_print_condition_target_data.c update_textures_buttons.c \
+		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
+		 update_textures_buttons.c init_skybox_selection_buttons.c \
+		 draw_editor_tabs.c new_tabs_position.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -120,7 +121,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
 		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_enemies.c \
-		   bmp_parser_ui_objects.c \
+		   bmp_parser_ui_objects.c bmp_parser_ui_skyboxes.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c get_clockwise_order.c \

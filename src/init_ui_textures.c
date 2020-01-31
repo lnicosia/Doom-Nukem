@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 14:18:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 13:41:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ int		init_mini_ui_textures(t_env *env)
 	if (parse_bmp_mini_enemies_textures("images/ui/mini/lost_soul_mini.bmp", 0, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_mini_enemies_textures("images/ui/mini/cyber_demon_mini.bmp", 1, env))
+		return (custom_error("Invalid bmp files"));
+	return (0);
+}
+
+int		init_mini_skyboxes_selection(t_env *env)
+{
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight.bmp", 0, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula.bmp", 1, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery.bmp", 2, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
@@ -109,6 +120,8 @@ int		init_ui_textures(t_env *env)
 	if (init_mini_ui_textures(env))
 		return (custom_error("error while parsing the miniatures of the enemies"));
 	if (init_ui_mini_objects_textures(env))
-		return (custom_error("error while parsing the miniatures of the objects"));		
+		return (custom_error("error while parsing the miniatures of the objects"));
+	if (init_mini_skyboxes_selection(env))
+		return (custom_error("error while parsing the miniatures of the skyboxes"));		
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 11:37:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 13:40:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:19:23 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	init_floor_sprite_env(t_env *env)
 {
-	env->editor.hud.sp_floor_sprite.t_num.env = env;
-	env->editor.hud.sp_floor_sprite.t_num.pos = new_point(0, 0);
-	env->editor.hud.sp_floor_sprite.t_num.type = INT;
 	env->editor.hud.sp_floor_sprite.t_pos_x.env = env;
 	env->editor.hud.sp_floor_sprite.t_pos_x.pos = new_point(0, 0);
 	env->editor.hud.sp_floor_sprite.t_pos_x.type = DOUBLE;
