@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 16:11:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:53:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ int		editor_3d_keyup(t_env *env)
 	{
 		if (button_keyup(&env->editor.save, env))
 			return (-1);
-		if (button_keyup(&env->editor.general_tab, env))
-			return (-1);
 		if (button_keyup(&env->editor.sprite_tab, env))
 			return (-1);
-		if (button_keyup(&env->editor.sector_tab, env))
+		else if (button_keyup(&env->editor.general_tab, env))
+			return (-1);
+		else if (button_keyup(&env->editor.sector_tab, env))
 			return (-1);
 		if (button_keyup(&env->editor.change_mode, env))	
 			return (-1);
@@ -173,8 +173,8 @@ int		editor_3d_keyup(t_env *env)
 				return (-1);
 		if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons_up(env))
 				return (-1);
-		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
-				|| env->selected_wall_sprite_sprite != -1)
+		if ((env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1) && env->editor.sprite_tab.state == DOWN)
 		{
 			if (button_keyup(&env->editor.next_sprite, env))
 				return (-1);

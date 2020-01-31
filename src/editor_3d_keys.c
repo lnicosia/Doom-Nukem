@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:38:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:46:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,9 +488,9 @@ int		editor_3d_keys(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.sprite_tab, env))
 			return (-1);
-		if (button_keys(&env->editor.general_tab, env))
+		else if (button_keys(&env->editor.general_tab, env))
 			return (-1);
-		if (button_keys(&env->editor.sector_tab, env))
+		else if (button_keys(&env->editor.sector_tab, env))
 			return (-1);
 		if (button_keys(&env->editor.change_mode, env))
 			return (-1);
@@ -541,8 +541,8 @@ int		editor_3d_keys(t_env *env)
 				return (-1);
 		if (env->selected_object != -1 && object_buttons(env))
 				return (-1);
-		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
-				|| env->selected_wall_sprite_sprite != -1)
+		if ((env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1) && env->editor.sprite_tab.state == DOWN)
 		{
 			if (button_keys(&env->editor.next_sprite, env))
 				return (-1);

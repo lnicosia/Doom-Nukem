@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:04:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:52:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ int		save_sprite(void *param)
 		env->selected_floor_sprite, env);
 	}
 	env->editor.draw_sprite_tab = 0;
-	env->editor.current_sprite_selection.state = UP;
-	env->editor.current_sprite_selection.anim_state = REST;
 	return (0);
 }
 
