@@ -239,6 +239,12 @@ int	editor_keyup(t_env *env)
 			button_keyup(&env->editor.textures[i], env);
 			i++;
 		}
+		i = 0;
+		while (i < MAX_SKYBOX)
+		{
+			button_keyup(&env->editor.skyboxes[i], env);
+			i++;
+		}
 	}
 	if (env->editor.draw_enemy_tab)
 	{

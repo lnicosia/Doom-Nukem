@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 16:10:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:01:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -560,6 +560,12 @@ int		editor_3d_keys(t_env *env)
 			while (i < MAX_WALL_TEXTURE)
 			{
 				button_keys(&env->editor.textures[i], env);
+				i++;
+			}
+			i = 0;
+			while (i < MAX_SKYBOX)
+			{
+				button_keys(&env->editor.skyboxes[i], env);
 				i++;
 			}
 		}

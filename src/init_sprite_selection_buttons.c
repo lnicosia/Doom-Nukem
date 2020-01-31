@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:41:55 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 15:00:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/30 16:02:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	init_array_sprite_buttons(t_env *env)
 		env->editor.sprite_selection[i].pos = new_point(180 + (64 * (i % mod)) + 5, 490 + 5 + (64 * (i / mod)));
 		i++;
 	}
-     	env->editor.current_sprite_selection = new_image_button(WHEN_DOWN, &open_wall_sprite_selection, new_button_target(env, i), env);
-		env->editor.current_sprite_selection.img_up = env->mini_objects_textures[env->editor.current_sprite].surface;
-		env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[env->editor.current_sprite].surface;
-		env->editor.current_sprite_selection.img_down = env->mini_objects_textures[env->editor.current_sprite].surface;
-		env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[env->editor.current_sprite].surface;
-		env->editor.current_sprite_selection.size_up = new_point(64, 64);
-		env->editor.current_sprite_selection.size_down = new_point(64, 64);
-		env->editor.current_sprite_selection.size_hover = new_point(64, 64);
-		env->editor.current_sprite_selection.size_pressed = new_point(64, 64);
-        env->editor.current_sprite_selection.pos = new_point(170, 450);
-		env->editor.sprite_background = new_background_button(WHEN_DOWN, &nothing, &env->editor.texture_background, env);
-		env->editor.sprite_background.pos = new_point(168, 448);
+    env->editor.current_sprite_selection = new_image_button(WHEN_DOWN, &open_wall_sprite_selection, new_button_target(env, i), env);
+	env->editor.current_sprite_selection.img_up = env->mini_objects_textures[env->editor.current_sprite].surface;
+	env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[env->editor.current_sprite].surface;
+	env->editor.current_sprite_selection.img_down = env->mini_objects_textures[env->editor.current_sprite].surface;
+	env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[env->editor.current_sprite].surface;
+	env->editor.current_sprite_selection.size_up = new_point(64, 64);
+	env->editor.current_sprite_selection.size_down = new_point(64, 64);
+	env->editor.current_sprite_selection.size_hover = new_point(64, 64);
+	env->editor.current_sprite_selection.size_pressed = new_point(64, 64);
+	env->editor.current_sprite_selection.pos = new_point(170, 450);
+	env->editor.sprite_background = new_background_button(WHEN_DOWN, &nothing, &env->editor.texture_background, env);
+	env->editor.sprite_background.pos = new_point(168, 448);
 	return (1);
 }

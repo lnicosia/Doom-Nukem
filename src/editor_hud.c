@@ -125,7 +125,10 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.change_mode);
 		draw_button(env, env->editor.launch_game);
 		draw_button(env, env->editor.save);
-		draw_button(env, env->editor.general_tab);
+		if ((env->editor.in_game && (env->selected_ceiling_sprite == -1
+		&& env->selected_floor_sprite == -1 && env->selected_wall_sprite_sprite == -1))
+		|| !env->editor.in_game)
+			draw_button(env, env->editor.general_tab);
 		draw_button(env, env->editor.sector_tab);
 		if ((env->editor.selected_sector == -1 && env->selected_floor == -1
 			&& env->nb_global_events > 0)
@@ -143,8 +146,19 @@ void	editor_hud(t_env *env)
 		{
 			draw_button(env, env->editor.events_tab);
 		}
-		if (env->editor.in_game)
+		if (env->editor.in_game && env->editor.tab &&
+		(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
+		|| env->selected_wall_sprite_sprite != -1))
+		{
+			env->editor.sprite_tab.pos = new_point(0, 425);
+			env->editor.events_tab.pos = new_point(238, 425);
 			draw_button(env, env->editor.sprite_tab);
+		}
+		else
+		{
+			env->editor.sprite_tab.pos = new_point(238, 425);
+			env->editor.events_tab.pos = new_point(357, 425);
+		}
 		draw_rectangle(env,
 				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
 				new_point(0 , 450),
@@ -173,10 +187,15 @@ void	editor_hud(t_env *env)
 				print_events_tab(env);
 		}
 		if (env->editor.draw_selection_tab)
-			selection_tab(env, MAX_WALL_TEXTURE);
+			selection_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
 		if (env->editor.draw_enemy_tab)
 			enemy_tab(env, MAX_ENEMIES);
 		if (env->editor.draw_sprite_tab)
 			sprite_selection(env, MAX_OBJECTS);
+		if (env->editor.draw_selection_tab || env->editor.draw_enemy_tab
+		|| env->editor.draw_sprite_tab)
+			env->editor.selection_tab = 1;
+		else
+			env->editor.selection_tab = 0;
 	}
 }

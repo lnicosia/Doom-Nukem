@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:30:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:21:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ int		print_ceiling_sprite_tab(t_env *env)
 {
 	env->editor.next_sprite_env.type = CEILING_S;	
 	env->editor.previous_sprite_env.type = CEILING_S;	
-	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.sp_ceiling_sprite.num.str = ft_sitoa(env->selected_ceiling_sprite);
-	env->editor.hud.sp_ceiling_sprite.t_num.target = &env->selected_ceiling_sprite;
-	draw_button(env, env->editor.hud.sp_ceiling_sprite.num);
-	print_text(new_point(520, 60), new_printable_text("Num: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.sp_ceiling_sprite.num.str =
-	ft_sitoa(env->sectors[env->selected_ceiling].ceiling_sprites.sprite[env->selected_ceiling_sprite]);
-	env->editor.hud.sp_ceiling_sprite.t_num.target = &env->selected_ceiling_sprite;
-	draw_button(env, env->editor.hud.sp_ceiling_sprite.num);
 	print_text(new_point(560, 60), new_printable_text("Pos: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.sp_ceiling_sprite.pos_x.str = ft_sitoa(
 	env->sectors[env->selected_ceiling].ceiling_sprites.pos[env->selected_ceiling_sprite].x);

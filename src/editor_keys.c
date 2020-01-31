@@ -131,6 +131,12 @@ int			editor_keys(t_env *env)
 			button_keys(&env->editor.textures[i], env);
 			i++;
 		}
+		i = 0;
+		while (i < MAX_SKYBOX)
+		{
+			button_keys(&env->editor.skyboxes[i], env);
+			i++;
+		}
 	}
 	if (env->editor.draw_enemy_tab)
 	{

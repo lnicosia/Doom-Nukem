@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 11:24:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 14:11:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:19:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	init_ceilling_sprite_env(t_env *env)
 {
-	env->editor.hud.sp_ceiling_sprite.t_num.env = env;
-	env->editor.hud.sp_ceiling_sprite.t_num.pos = new_point(0, 0);
-	env->editor.hud.sp_ceiling_sprite.t_num.type = INT;
 	env->editor.hud.sp_ceiling_sprite.t_pos_x.env = env;
 	env->editor.hud.sp_ceiling_sprite.t_pos_x.pos = new_point(0, 0);
 	env->editor.hud.sp_ceiling_sprite.t_pos_x.type = DOUBLE;

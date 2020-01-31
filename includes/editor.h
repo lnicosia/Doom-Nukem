@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 15:23:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:19:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct		s_var_sp
 	t_button		scale_y;
 	t_button		pos_x;
 	t_button		pos_y;
-	t_button		num;
 	t_button_tab	t_scale_x;
 	t_button_tab	t_scale_y;
 	t_button_tab	t_pos_x;
@@ -227,6 +226,7 @@ typedef struct	s_editor
 	t_button		general_tab;
 	t_button		events_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
+	t_button		skyboxes[MAX_SKYBOX];
 	t_button		enemy_tab[MAX_MONSTER_MINI];
 	t_button		add_enemy;
 	t_button		add_object;
@@ -240,6 +240,7 @@ typedef struct	s_editor
 	t_button		previous_event;
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection;
+	int				selection_tab;
 }				t_editor;
 
 #endif
