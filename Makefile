@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/31 14:09:32 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/31 15:22:22 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 sprite_selection.c init_sprite_selection_buttons.c\
 		 editor_object_tab_button.c print_events_tabs.c \
 		 init_events_selection_buttons.c update_textures_buttons.c \
-		 change_sprite_buttons.c init_skybox_selection_buttons.c 
+		 change_sprite_buttons.c init_skybox_selection_buttons.c \
+		 draw_editor_tabs.c new_tabs_position.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 12:25:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:43:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	player_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.g_player.pos_x, env);
-		button_keys(&env->editor.hud.g_player.pos_y, env);
-		button_keys(&env->editor.hud.g_player.pos_z, env);
 		button_keys(&env->editor.hud.g_player.health, env);
 		button_keys(&env->editor.hud.g_player.armor, env);
 		button_keys(&env->editor.hud.g_player.speed, env);

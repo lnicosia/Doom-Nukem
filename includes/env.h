@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 12:18:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 15:23:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int					init_array_sprite_buttons(t_env *env);
 int					init_skybox_selection_buttons(t_env *env);
 
 int					editor(t_env *env);
+int					draw_editor_tabs(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
@@ -311,6 +312,7 @@ int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
 t_button_target		*new_button_target(t_env *env, int i);
+void				new_tabs_position(t_env *env);
 
 
 /*

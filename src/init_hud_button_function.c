@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 14:22:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 15:53:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		save_texture(void *param)
 	if (i < 0)
 	{
 		env->contains_skybox = 1;
-		env->editor.current_texture = -i - 1;
+		env->editor.current_texture = i;
 		env->editor.current_texture_selection.img_down = env->mini_skyboxes[-i - 1].surface;
 		env->editor.current_texture_selection.img_pressed = env->mini_skyboxes[-i - 1].surface;
 		env->editor.current_texture_selection.img_hover = env->mini_skyboxes[-i - 1].surface;
