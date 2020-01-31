@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
+#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/31 17:31:56 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/01/31 18:40:08 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,22 +44,45 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c \
-		 get_existing_vertex.c add_vertex.c \
+		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
 		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
-		 draw_grid_player.c draw_grid_objects.c \
+		 draw_grid_player.c draw_grid_objects.c events_tab_conditions.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c selected_information.c \
+		 editor_start_game.c apply_texture.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 split_sector_utils.c selection_tab.c init_hud.c write_events.c \
+		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c \
+		 write_events_links.c print_target_functions.c \
+		 split_sector_utils.c selection_tab.c init_hud_button.c\
+		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
+		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
+		 init_editor_tab_buttons.c editor_ceiling_tab_button.c \
+		 editor_floor_tab_button.c editor_wall_tab_button.c \
+		 editor_env_wall_buttons.c editor_env_floor_buttons.c \
+		 editor_env_ceilling_buttons.c  change_editor_mode.c \
+		 editor_3d_button_keys.c editor_3d_button_keyup.c enemy_tab.c \
+		 init_add_buttons.c editor_env_sector_buttons.c \
+		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
+		 editor_button_keyup.c editor_env_player_buttons.c \
+		 editor_player_tab_button.c editor_enemy_tabs.c \
+		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
+		 editor_object_tabs.c editor_env_object_buttons.c \
+		 sprite_selection.c init_sprite_selection_buttons.c\
+		 editor_object_tab_button.c print_events_tabs.c \
+		 init_events_selection_buttons.c print_event.c init_event_types.c \
+		 are_condition_selection_buttons_visible.c init_event_links_types.c \
+		 print_link_target_functions.c print_condition_target_functions.c \
+		 print_condition_target_functions2.c init_print_condition_target_data.c\
+		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
+		 update_textures_buttons.c init_skybox_selection_buttons.c \
+		 draw_editor_tabs.c new_tabs_position.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -98,7 +121,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
-		   draw_floor_sprites_both.c bmp_parser_ui.c \
+		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_enemies.c \
+		   bmp_parser_ui_objects.c bmp_parser_ui_skyboxes.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
 		   draw_ceiling_sprites_both.c get_clockwise_order.c \
@@ -130,12 +154,13 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
-		   get_event_array.c get_event_nb.c \
+		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
+		   precompute_floor_ceiling_sprites_scales.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h
+		  events_parser.h \
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))

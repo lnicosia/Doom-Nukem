@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_grid_player.c								 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/21 13:40:49 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/01/13 17:22:57 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_player.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/01/27 14:54:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -67,10 +67,4 @@ void	draw_grid_player(t_env *env)
 			circle.center.y + env->player.camera.angle_sin * circle.radius * 2,
 			0);
 	fill_triangle(v, 0xFFFF0000, env);
-	/*if (env->editor.selected_player == 1)
-	{
-		circle.radius *= 0.75;
-		circle.color = 0xFF00FF00;
-		draw_circle(circle, env);
-	}*/
 }

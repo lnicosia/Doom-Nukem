@@ -6,15 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 16:48:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:19:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_PARSER_H
 # define EVENTS_PARSER_H
 # include "map_parser.h"
-# define MAX_TRIGGER_TYPES 6
-# define MAX_TARGET_TYPES 67
 
 typedef enum		e_trigger
 {

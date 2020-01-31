@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 14:54:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:39:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@
 # define PLAYER_YPOS env->player.pos.y
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 3
-# define MAX_SPRITES 22
-# define MAX_WALL_SPRITES 4
+# define MAX_UI_TEXTURES 21
+# define MAX_MONSTER_MINI 14
+# define MAX_OBJECT_SPRITES 28
+# define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 3
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
+# define MAX_OBJECTS 18
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -52,9 +54,16 @@
 # define LAMP 7
 # define MONITOR_OFF 11
 # define MONITOR_ON 12
+# define MONITOR_DESTROYED 16
 # define GREEN_ARMOR 17
 # define CANDLE 18
 # define BARREL 20
+# define GRID 23
+# define BUTTON_OFF 24
+# define BUTTON_ON 25
+# define BULLET_HOLE 26
+# define LOST_SOUL_OBJECT 27
+# define CYBER_DEMON_OBJECT 28
 
 typedef enum		e_target_type
 {
@@ -65,10 +74,24 @@ typedef enum		e_target_type
 	POS
 }			t_target_type;
 
+typedef enum		e_change_sprite
+{
+	NEXT,
+	PREVIOUS
+}					t_change_sprite;
+
+typedef enum		e_sprite_type
+{
+	WALL_S,
+	FLOOR_S,
+	CEILING_S
+}					t_sprite_type;
+
 typedef enum		e_button_action_type
 {
 	ON_PRESS,
-	WHEN_DOWN
+	WHEN_DOWN,
+	ON_RELEASE
 }					t_button_action_type;
 
 typedef enum		e_event_mod_type
@@ -657,6 +680,8 @@ typedef struct		s_fonts
 	TTF_Font		*bebasneue;
 	TTF_Font		*montserrat20;
 	TTF_Font		*playfair_display20;
+	TTF_Font		*lato10;
+	TTF_Font		*lato15;
 	TTF_Font		*lato20;
 	TTF_Font		*lato50;
 }					t_fonts;
@@ -1054,11 +1079,13 @@ typedef struct		s_button
 	char			*str;
 	TTF_Font		*font;
 	int				state;
-	int			draw;
+	int				draw;
 	int				anim_state;
-	void			(*down_action)(void *);
-	void			(*press_action)(void *);
+	int				(*down_action)(void *);
+	int				(*release_action)(void *);
+	int				(*press_action)(void *);
 	void			*param;
+	void			*release_param;
 }					t_button;
 
 /*
@@ -1093,14 +1120,14 @@ typedef struct		s_input_box
 	TTF_Font		*font;
 	t_point			size;
 	t_point			pos;
-	int			state;
-	int			type;
-	int			caps;
-	int			period;
-	int			selecting;
-	int			cursor_state;
-	int			add_period;
-	int			accept_inputs;
+	int				state;
+	int				type;
+	int				caps;
+	int				period;
+	int				selecting;
+	int				cursor_state;
+	int				add_period;
+	int				accept_inputs;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
@@ -1109,6 +1136,7 @@ typedef struct		s_input_box
 	size_t			select_start;
 	size_t			select_end;
 	char			*str;
+	char			*error_message;
 	Uint32			del_timer;
 	Uint32			del_delay;
 	Uint32			cursor_timer;
@@ -1119,10 +1147,11 @@ typedef struct		s_input_box
 	Uint32			input_delay;
 	Uint32			same_touch_timer;
 	char			**str_target;
-	int			*int_target;
+	int				*int_target;
 	double			*double_target;
 	void			*target;
-	void			(*action)(void *);
+	int				(*check)(void *);
+	int				(*update)(void *);
 }					t_input_box;
   
 #endif

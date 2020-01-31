@@ -226,18 +226,11 @@ int		modify_t_list_tab_in_sector(t_env *env, int index, int sector,t_list ***tab
 {
 	int	i;
 
+	(void)index;
 	if (!(*tab = (t_list**)ft_realloc(*tab, sizeof(t_list*)
-	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
+	* env->sectors[sector].nb_vertices, sizeof(t_list*) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc t_list tab"));
-	i = 0;
 	i = env->sectors[sector].nb_vertices;
-	ft_memmove(&(*tab)[i + 1], &(*tab)[0], sizeof(t_list*));
-	while (i > index + 1)
-	{
-		ft_memmove(&(*tab)[i], &(*tab)[i -1], sizeof(t_list*));
-		//(*tab)[i] = (*tab)[i - 1];
-		i--;
-	}
 	ft_bzero(&(*tab)[i], sizeof(t_list*));
 	return (0);
 }
@@ -325,10 +318,16 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_t_v2_tab_in_sector(env, j, sector, &env->sectors[sector].align))
 				return (-1);
+			ft_printf("wall\n");
 			if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].wall_sprites))
 				return (-1);
+			ft_printf("bullet\n");
+			if (modify_t_list_tab_in_sector(env, j, sector, &env->sectors[sector].wall_bullet_holes))
+				return (-1);
+			ft_printf("end\n");
 			if (modify_walls_map_lvl(env, sector))
 				return (-1);
+			ft_printf("ta maman\n");
 			break;
 		}
         j++;

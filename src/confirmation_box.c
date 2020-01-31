@@ -6,15 +6,16 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 09:04:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:24:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
+int		confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN
+		&& box->yes.anim_state == PRESSED
 		&& box->no.anim_state != PRESSED)
 	{
 		if (box->yes_action)
@@ -23,6 +24,7 @@ void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 		env->editor.enter_locked = 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& box->type == YESNO
 		&& box->yes.anim_state != PRESSED)
 	{
 		if (box->no_action)
@@ -32,28 +34,33 @@ void	confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP
 		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
 	{
-		if (box->yes.anim_state != PRESSED)
-			button_keyup(&box->no, env);
-		if (box->no.anim_state != PRESSED)
-			button_keyup(&box->yes, env);
+		if (box->yes.anim_state != PRESSED && button_keyup(&box->no, env))
+			return (-1);
+		if (box->no.anim_state != PRESSED && button_keyup(&box->yes, env))
+			return (-1);
 	}
+	return (0);
 }
 
-void	confirmation_box_keys(t_confirmation_box *box, t_env *env)
+int		confirmation_box_keys(t_confirmation_box *box, t_env *env)
 {
-	if (box->yes.anim_state != PRESSED)
-		button_keys(&box->no, env);
-	if (box->no.anim_state != PRESSED)
-		button_keys(&box->yes, env);
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN
+	if (box->yes.anim_state != PRESSED
+		&& box->type == YESNO
+		&& button_keys(&box->no, env))
+		return (-1);
+	if (box->no.anim_state != PRESSED && button_keys(&box->yes, env))
+		return (-1);
+	if (env->inputs.enter
 		&& box->no.anim_state != PRESSED)
 		box->yes.anim_state = PRESSED;
-	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+	if (env->inputs.backspace
+		&& box->type == YESNO
 		&& box->yes.anim_state != PRESSED)
 		box->no.anim_state = PRESSED;
+	return (0);
 }
 
-void	no_pressed(void *target)
+int		no_pressed(void *target)
 {
 	t_confirmation_box	*box;
 	
@@ -61,9 +68,10 @@ void	no_pressed(void *target)
 	box->state = 0;
 	if (box->no_action)
 		box->no_action(box->no_target);
+	return (0);
 }
 
-void	yes_pressed(void *target)
+int		yes_pressed(void *target)
 {
 	t_confirmation_box	*box;
 	
@@ -71,6 +79,7 @@ void	yes_pressed(void *target)
 	box->state = 0;
 	if (box->yes_action)
 		box->yes_action(box->yes_target);
+	return (0);
 }
 
 void	new_buttons(t_confirmation_box *box, int height, t_env *env)
@@ -112,7 +121,7 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 	else
 	{
 		box->yes.pos.x = env->w / 2 - box->yes.size_up.x / 2;
-		box->yes.pos.y = env->h / 2 + box->size.y / 2 - height - 10;
+		box->yes.pos.y = env->h / 2 + box->size.y / 2 - height - 15;
 		box->yes.str = "Ok";
 	}
 }
@@ -126,6 +135,8 @@ int			get_box_size(t_confirmation_box *box)
 	TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y);
 	box->size.x = ft_max(yes_size.x * 3, text_size.x + 20);
 	box->size.y = ft_max(yes_size.y * 3, 50);
+	if (box->type != YESNO)
+		box->size.y += 10;
 	return (yes_size.y);
 }
 
@@ -144,19 +155,28 @@ int type, t_env *env)
 	box->yes_target = NULL;
 	box->no_action = NULL;
 	box->no_target = NULL;
+	box->no.state = UP;
+	box->no.anim_state = REST;
+	box->yes.state = UP;
+	box->yes.anim_state = REST;
 	return (0);
 }
 
-int			draw_confirmation_box(t_confirmation_box box, t_env *env)
+int			draw_confirmation_box(t_confirmation_box *box, t_env *env)
 {
+	t_point	text_size;
+
 	draw_rectangle(env,
 			new_rectangle(0xFFAAAAAA, 0xFF666666, 1, 2),
-			new_point(env->w / 2 - box.size.x / 2, env->h / 2 - box.size.y / 2),
-			new_point(box.size.x, box.size.y));
-	draw_button(env, box.yes);
-	draw_button(env, box.no);
-	print_text(new_point(env->h / 2 - box.size.y / 3,
-				env->w / 2 - box.size.x / 2 + 10),
-			new_printable_text(box.str, box.font, 0xFFFFFFFF, 0), env);
+			new_point(env->w / 2 - box->size.x / 2,
+			env->h / 2 - box->size.y / 2),
+			new_point(box->size.x, box->size.y));
+	draw_button(env, box->yes);
+	if (box->type == YESNO)
+		draw_button(env, box->no);
+	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
+	print_text(new_point(env->h / 2 - box->size.y / 3,
+				env->w / 2 - text_size.x / 2),
+			new_printable_text(box->str, box->font, 0xFFFFFFFF, 0), env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 15:59:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:39:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ int		doom(t_env *env)
 						|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 						|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
 					update_inputs(env);
-				if (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP)
-					keyup(env);
+				if (env->sdl.event.type == SDL_KEYUP
+					|| env->sdl.event.type == SDL_MOUSEBUTTONUP)
+				{
+					if (keyup(env))
+						return (-1);
+				}
 				if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going &&
 					!env->shot.on_going && env->player.health > 0)
 					weapon_change(env);
@@ -102,7 +106,8 @@ int		doom(t_env *env)
 				explosion_collision_player(env);
 				enemy_melee_hit(env);
 				player_combat_state(env);
-				keys(env);
+				if (keys(env))
+					return (-1);
 			}
 			if (env->events)
 			{
@@ -114,7 +119,10 @@ int		doom(t_env *env)
 			if (env->player.health <= 0)
 				death(env);
 			if (env->confirmation_box.state)
-				confirmation_box_keys(&env->confirmation_box, env);
+			{
+				if (confirmation_box_keys(&env->confirmation_box, env))
+					return (-1);
+			}
 		}
 		if (env->menu_start)
 			start_game_menu(env);

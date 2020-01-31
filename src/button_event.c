@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:28:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 15:53:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:01:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,45 @@ int	is_mouse_on_button(t_button b, t_point mouse)
 	return (1);
 }
 
-void	button_keyup(t_button *b, t_env *env)
+int		button_keyup(t_button *b, t_env *env)
 {
-	if (!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my))
-		|| b->anim_state != PRESSED)
+	if ((!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my))
+		|| b->anim_state != PRESSED))
 	{
 		b->anim_state = REST;
-		return ;
+		return (0);
 	}
 	b->anim_state = REST;
-	b->state = b->state == UP ? DOWN : UP;
+	if (!b->release_action)
+		b->state = b->state == UP ? DOWN : UP;
 	if (b->state == DOWN)
 	{
-		if (b->down_action)
-			b->down_action(b->param);
+		if (b->down_action && b->down_action(b->param))
+			return (-1);
 	}
+	if (b->state == UP)
+	{
+		if (b->release_action && b->release_action(b->release_param))
+			return (-1);
+	}
+	return (0);
 }
 
-void	button_keys(t_button *b, t_env *env)
+int		button_keys(t_button *b, t_env *env)
 {
 	if (!is_mouse_on_button(*b, new_point(env->sdl.mx, env->sdl.my)))
 	{
 		if (b->anim_state == HOVER)
 			b->anim_state = REST;
-		return ;
+		return (0);
 	}
 	if (env->inputs.left_click)
 	{
 		b->anim_state = PRESSED;
-		if (b->press_action)
-			b->press_action(b->param);
+		if (b->press_action && b->press_action(b->param))
+			return (-1);
 	}
 	else if (b->state == UP)
 		b->anim_state = HOVER;
+	return (0);
 }

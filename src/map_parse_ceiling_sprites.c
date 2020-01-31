@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 11:00:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
+	int	parse;
 
 	if (!**line)
 		return (missing_data("ceiling sprites", parser));
@@ -41,10 +42,11 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	while (i < parser->sector_ceiling_sprites_count)
 	{
 		(*line)++;
-		env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] = ft_atoi(*line);
-		if (env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] < 0
-				|| env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] > MAX_WALL_SPRITES)
+		parse= ft_atoi(*line);
+		if (parse < 0 || parse> MAX_OBJECTS)
 			return (custom_error_with_line("Invalid ceiling sprite texture", parser));
+		env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] =
+		env->objects_main_sprites[parse];
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].ceiling_sprites.pos[i].x = ft_atof(*line);
@@ -61,14 +63,7 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y = ft_atof(*line);
 		if (env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y <= 0)
 			return (custom_error_with_line("Floor sprite scale must be positive", parser));
-		env->sectors[parser->sectors_count].ceiling_sprites_scale[i].x
-		= env->wall_sprites[env->sectors[parser->sectors_count]
-		.ceiling_sprites.sprite[i]].size[0].x
-		/ env->sectors[parser->sectors_count].ceiling_sprites.scale[i].x;
-		env->sectors[parser->sectors_count].ceiling_sprites_scale[i].y
-		= env->wall_sprites[env->sectors[parser->sectors_count]
-		.ceiling_sprites.sprite[i]].size[0].y
-		/ env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y;
+		precompute_ceiling_sprite_scales(parser->sectors_count, i, env);
 		*line = skip_number(*line);
 		(*line)++;
 		i++;

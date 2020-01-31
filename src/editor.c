@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 10:24:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:18:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int		editor(t_env *env)
 				}
 			}
 			if (env->input_box.state)
-				input_box_keys(&env->input_box, env);
+			{
+				if (input_box_keys(&env->input_box, env))
+					return (-1);
+			}
 		}
 		if (!env->editor.in_game)
 		{
@@ -87,18 +90,9 @@ int		editor(t_env *env)
 			save_map(env);
 		editor_hud(env);
 		if (env->confirmation_box.state)
-			draw_confirmation_box(env->confirmation_box, env);
+			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
-		print_text(new_point(env->h - 50, 300), new_printable_text("Mipmapping",
-		env->sdl.fonts.lato20, 0xFFFFFFFF, 20), env);
-		if (env->options.mipmapping)
-		print_text(new_point(env->h - 50, 450), new_printable_text("[ON]",
-		env->sdl.fonts.lato20, 0x00FF00FF, 20), env);
-		else
-		print_text(new_point(env->h - 50, 450), new_printable_text("[OFF]",
-		env->sdl.fonts.lato20, 0xFF0000FF, 20), env);
-
 		/*
 		**	Show the result of the mipmap generation
 		*/

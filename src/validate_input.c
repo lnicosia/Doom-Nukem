@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 15:10:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:40:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 int	validate_input(t_input_box *box, t_env *env)
 {
-	(void)env;
+	if (box->check && box->check(env))
+	{
+		// Confirmation box avec message d'erreur
+		update_confirmation_box(&env->confirmation_box, box->error_message,
+		ERROR, env);
+		box->state = 0;
+		return (0);
+	}
 	if (box->type == INT)
 	{
 		if (!box->int_target)
 		{
 			ft_printf("Error: no int target for input box\n");
-			return (-1);
+			return (1);
 		}
 		*(box->int_target) = ft_atoi(box->str);
 	}
@@ -29,7 +36,7 @@ int	validate_input(t_input_box *box, t_env *env)
 		if (!box->double_target)
 		{
 			ft_printf("Error: no double target for input box\n");
-			return (-1);
+			return (1);
 		}
 		*(box->double_target) = ft_atof(box->str);
 	}
@@ -38,13 +45,15 @@ int	validate_input(t_input_box *box, t_env *env)
 		if (!box->str_target)
 		{
 			ft_printf("Error: no string target for input box\n");
-			return (-1);
+			return (1);
 		}
 		if (box->str_target)
 			ft_strdel(box->str_target);
 		*(box->str_target) = ft_strdup(box->str);
 		env->saving = 1;
 	}
+	if (box->update && box->update(env))
+		return (-1);
 	box->state = 0;
 	return (0);
 }

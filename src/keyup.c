@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:56:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:37:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,11 @@ int		keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
-	//if (env->confirmation_box.state)
-		//confirmation_box_keyup_ig(&env->confirmation_box, env);
 	if (env->confirmation_box.state)
-		confirmation_box_keyup(&env->confirmation_box, env);
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 12:12:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:41:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	if (type < 0 || type > 2 || !target)
 		return (-1);
+	box->size = new_point(200, 50);
 	box->pos = pos;
 	box->type = type;
 	box->state = 1;
@@ -43,6 +44,51 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		box->str = ft_strdup(*(char**)target);
 	}
 	box->cursor = ft_strlen(box->str);
+	box->select_start = 0;
+	box->select_end = ft_strlen(box->str);
+	box->check = 0;
+	box->update = 0;
+	box->error_message = "Error";
+	return (0);
+}
+
+int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
+{
+	if (type < 0 || type > 2 || !target)
+		return (-1);
+	box->size = new_point(96, 32);
+	box->pos = pos;
+	box->type = type;
+	box->state = 1;
+	box->accept_inputs = 0;
+	if (type == INT)
+	{
+		box->int_target = (int*)target;
+		if (!(box->str = ft_itoa(*((int*)target))))
+			return (-1);
+		set_double_stats(box);
+	}
+	else if (type == DOUBLE)
+	{
+		box->double_target = (double*)target;
+		if (!(box->str = ft_itoa((int)*((double*)target))))
+			return (-1);
+		set_double_stats(box);
+	}
+	else if (type == STRING)
+	{
+		box->str_target = (char**)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		box->str = ft_strdup(*(char**)target);
+	}
+	box->cursor = ft_strlen(box->str);
+	box->accept_inputs = 1;
+	box->select_start = 0;
+	box->select_end = ft_strlen(box->str);
+	box->check = 0;
+	box->update = 0;
+	box->error_message = "Error";
 	return (0);
 }
 
@@ -173,12 +219,17 @@ void	draw_input_box(t_input_box *box, t_env *env)
 	}
 }
 
-void	input_box_keys(t_input_box *box, t_env *env)
+int		input_box_keys(t_input_box *box, t_env *env)
 {
+	int		res;
+
 	if (env->inputs.enter
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
 	{
-		validate_input(box, env);
+		if ((res = validate_input(box, env)) == -1)
+			return (-1);
+		else if (res == 1)
+			return (0);
 		env->inputs.enter = 0;
 		env->editor.enter_locked = 1;
 	}
@@ -251,7 +302,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			else if (box->type == STRING)
 				parse_str_input(box, env);
 		}
-		else if (env->sdl.event.key.keysym.sym == 's')
+		else if (box->type == STRING && env->sdl.event.key.keysym.sym == 's')
 			box->accept_inputs = 1;
 	}
 	else if (env->inputs.left_click)
@@ -263,19 +314,14 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			|| env->sdl.my < box->pos.y
 			|| env->sdl.my > box->pos.y + box->size.y))
 		{
-			if (box->type != STRING)
-				validate_input(box, env);
-			else
+			box->state = 0;
+			if (env->editor.in_game && !env->editor.tab)
 			{
-				box->state = 0;
-				if (env->editor.in_game)
-				{
-					SDL_SetRelativeMouseMode(1);
-					SDL_GetRelativeMouseState(&env->sdl.mouse_x,
-					&env->sdl.mouse_y);
-					SDL_GetRelativeMouseState(&env->sdl.mouse_x,
-					&env->sdl.mouse_y);
-				}
+				SDL_SetRelativeMouseMode(1);
+				SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+				&env->sdl.mouse_y);
+				SDL_GetRelativeMouseState(&env->sdl.mouse_x,
+				&env->sdl.mouse_y);
 			}
 		}
 	}
@@ -283,9 +329,9 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->selecting = 0;
 
 	else
-		return ;
+		return (0);
 	if (!box->state)
-		return ;
+		return (0);
 	/*ft_printf("size = %d\n", ft_strlen(box->str));
 	ft_printf("cursor index = %d\n", box->cursor);
 	ft_printf("period index = %d\n", box->period_index);
@@ -300,4 +346,5 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	ft_printf("minus state = %d\n", box->minus);
 	ft_printf("period state = %d\n", box->period);
 	ft_printf("\n");*/
+	return (0);
 }

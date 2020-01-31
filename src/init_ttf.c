@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 18:38:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:40:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,18 @@ int		init_ttf(t_env *env)
 	}
 	if (!(env->sdl.fonts.lato20 =
 		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato10 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 10)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato15 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 15)))
 	{
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
