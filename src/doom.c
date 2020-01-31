@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 15:01:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:59:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		doom(t_env *env)
 				explosion_collision_enemies(env);
 				explosion_collision_player(env);
 				enemy_melee_hit(env);
+				player_combat_state(env);
 				keys(env);
 			}
 			if (env->events)
@@ -127,6 +128,7 @@ int		doom(t_env *env)
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));
 		}
+		FMOD_System_Update(env->sound.system);
 	}
 	free_all(env);
 	return (0);

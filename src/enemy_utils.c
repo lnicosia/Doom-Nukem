@@ -6,12 +6,50 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/24 13:59:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:09:43 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
+
+void	player_combat_state(t_env *env)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].exists && env->enemies[i].health > 0)
+		{
+			if (env->enemies[i].last_player_pos.x == env->player.pos.x &&
+				env->enemies[i].last_player_pos.y == env->player.pos.y &&
+				env->enemies[i].last_player_pos.z == env->player.head_z)
+			{
+				if (env->player.in_combat == 0)
+				{
+					env->player.in_combat = 1;
+					play_music(env, &env->sound.music_chan,
+						env->sound.at_dooms_gate, env->sound.music_vol);
+					return ;
+				}
+			}
+			else
+				count++;
+		}
+		else
+			count++;
+		i++;
+	}
+	if (env->player.in_combat && count == env->nb_enemies)
+	{
+		env->player.in_combat = 0;
+		play_music(env, &env->sound.music_chan, env->sound.mt_erebus,
+			env->sound.music_vol);
+	}
+}
 
 /*
 ** Function needs to be moved to another file

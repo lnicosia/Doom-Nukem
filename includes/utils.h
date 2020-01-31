@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 17:25:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:54:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -561,6 +561,7 @@ typedef struct		s_player
 	int				infinite_ammo;
 	int				changed_sector;
 	int				old_sector;
+	int				in_combat;
 }					t_player;
 
 /*
@@ -675,6 +676,7 @@ typedef struct		s_sound
 	FMOD_CHANNEL	*player_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
 	FMOD_SOUND		*at_dooms_gate;
+	FMOD_SOUND		*mt_erebus;
 	FMOD_SOUND		*footstep;
 }					t_sound;
 

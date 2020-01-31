@@ -34,5 +34,6 @@ int		editor_render(t_env *env)
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	env->editor.select = 0;
+	FMOD_System_Update(env->sound.system);
 	return (0);
 }

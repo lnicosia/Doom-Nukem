@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:00:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:55:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void		free_audio(t_env *env, int i)
 	}
 	FMOD_Sound_Release(env->sound.footstep);
 	FMOD_Sound_Release(env->sound.at_dooms_gate);
+	FMOD_Sound_Release(env->sound.mt_erebus);
 	FMOD_System_Close(env->sound.system);
 	FMOD_System_Release(env->sound.system);
 }

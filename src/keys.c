@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:05:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:51:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-	{
-		FMOD_System_PlaySound(env->sound.system, env->sound.footstep, 0, 0,
-		&env->sound.footstep_chan);
-		FMOD_Channel_SetVolume(env->sound.footstep_chan, env->sound.ambient_vol);
-	}
+		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
+			env->sound.ambient_vol);
 	if (env->inputs.right_click)
 	{
-		float volume;
-		FMOD_Channel_GetVolume(env->sound.music_chan, &volume);
-		volume = (volume > 0.9) ? 0 : volume;
-		FMOD_Channel_SetVolume(env->sound.music_chan, volume += 0.1);
-		ft_printf("player.pos: x= %f y= %f z= %f\n", env->player.pos.x, env->player.pos.y, env->player.pos.z);
+		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
+		FMOD_System_PlaySound(env->sound.system, env->sound.mt_erebus, 0, 0, &env->sound.music_chan);
+		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
+		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
 	}
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1

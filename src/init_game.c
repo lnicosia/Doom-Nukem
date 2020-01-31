@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 17:24:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:21:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	set_enemies_hp(t_env *env)
 		if (env->enemies[i].exists)
 			env->enemies[i].health = env->enemies[i].map_hp *
 				env->difficulty;
-		ft_printf("enemy health %d\n", env->enemies[i].health);
 		i++;
 	}
 }
@@ -122,10 +121,7 @@ int		init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	FMOD_System_PlaySound(env.sound.system, env.sound.at_dooms_gate, 0, 0, &env.sound.music_chan);
-	FMOD_Channel_SetVolume(env.sound.music_chan, env.sound.music_vol);
-	float volume;
-	FMOD_Channel_GetVolume(env.sound.music_chan, &volume);
+	play_music(&env, &env.sound.music_chan, env.sound.mt_erebus, env.sound.music_vol);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init fixed camera\n", &env));

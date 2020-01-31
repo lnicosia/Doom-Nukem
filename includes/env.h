@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 12:23:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:20:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -508,7 +508,11 @@ void				shift_floor_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall, 
 int sprite, t_env *env);
-
+void				play_sound(t_env *env, FMOD_CHANNEL **chan,
+						FMOD_SOUND *sound, float vol);
+void				play_music(t_env *env, FMOD_CHANNEL **chan,
+						FMOD_SOUND *sound, float vol);
+void				player_combat_state(t_env *env);
 /*
 ** enemies functions
 */
