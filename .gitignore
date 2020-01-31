@@ -29,7 +29,6 @@ src/*.swp
 *.dll
 *.so
 *.so.*
-*.dylib
 
 # Executables
 *.exe
