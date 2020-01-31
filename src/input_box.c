@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 15:50:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:41:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	box->cursor = ft_strlen(box->str);
 	box->select_start = 0;
 	box->select_end = ft_strlen(box->str);
+	box->check = 0;
+	box->update = 0;
+	box->error_message = "Error";
 	return (0);
 }
 
@@ -83,6 +86,9 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->accept_inputs = 1;
 	box->select_start = 0;
 	box->select_end = ft_strlen(box->str);
+	box->check = 0;
+	box->update = 0;
+	box->error_message = "Error";
 	return (0);
 }
 

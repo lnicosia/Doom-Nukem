@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 17:59:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:18:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	draw_game(t_env *env)
 		&& env->hovered_wall_sprite_sector != -1)
 		print_press_text(env);
 	if (env->confirmation_box.state)
-		draw_confirmation_box(env->confirmation_box, env);
+		draw_confirmation_box(&env->confirmation_box, env);
 	if (env->options.zbuffer)
 		update_screen_zbuffer(env);
 	else

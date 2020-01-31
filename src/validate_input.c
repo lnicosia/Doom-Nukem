@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 15:45:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:40:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	validate_input(t_input_box *box, t_env *env)
 	if (box->check && box->check(env))
 	{
 		// Confirmation box avec message d'erreur
-		return (1);
+		update_confirmation_box(&env->confirmation_box, box->error_message,
+		ERROR, env);
+		box->state = 0;
+		return (0);
 	}
 	if (box->type == INT)
 	{

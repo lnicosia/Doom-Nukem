@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:14:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:17:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,6 +398,28 @@ int					open_wall_sprite_selection(void *param);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 
+/*
+**	Input boxes checkers and updaters
+*/
+
+int					check_floor_slope_input_box(void *penv);
+int					check_floor_input_box(void *penv);
+int					check_ceiling_slope_input_box(void *penv);
+int					check_ceiling_input_box(void *penv);
+int					check_texture_input_box(void *penv);
+int					check_sprite_input_box(void *penv);
+int					check_scale_input_box(void *penv);
+int					check_light_data_input_box(void *penv);
+int					check_gravity_input_box(void *penv);
+int					check_true_false_input_box(void *penv);
+int					check_portal_input_box(void *penv);
+int					update_sector_input_box(void *penv);
+int					update_floor_sprite_scale_input_box(void *penv);
+int					update_ceiling_sprite_scale_input_box(void *penv);
+int					update_sector_entities_input_box(void *penv);
+int					update_object_sector_input_box(void *penv);
+int					update_enemy_sector_input_box(void *penv);
+
 
 /*
 **	prints and draw buttons for informations on a selected element 
@@ -585,7 +607,7 @@ Uint32				apply_light_color(Uint32 src, Uint32 color, int intensity);
 Uint32				apply_light_brightness(Uint32 src, int brightness);
 int					update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
-int					draw_confirmation_box(t_confirmation_box box, t_env *env);
+int					draw_confirmation_box(t_confirmation_box *box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,

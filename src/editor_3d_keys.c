@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 16:12:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:58:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ int		editor_3d_keys(t_env *env)
 				STRING, &env->save_file);
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keys(&env->confirmation_box, env))
+			return (-1);
 	}
 	/*
 	 * *	selection of textures on walls
