@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:16:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:28:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int	draw_editor_tabs(t_env *env)
 	(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1))
 		draw_button(env, env->editor.sprite_tab);
-
 	new_tabs_position(env);
 	if (env->editor.sector_tab.state == DOWN)
 		print_sector_tab(env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:04:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:14:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ int		save_sprite(void *param)
 		env->selected_floor_sprite, env);
 	}
 	env->editor.draw_sprite_tab = 0;
-	env->editor.current_sprite_selection.state = UP;
-	env->editor.current_sprite_selection.anim_state = REST;
 	return (0);
 }
 
@@ -181,6 +179,7 @@ int		general_tab(void *target)
 	t_env *env;
 
 	env = (t_env *)target;
+	ft_printf("3");
 	env->editor.sprite_tab.state = UP;
 	env->editor.sprite_tab.anim_state = REST;
 	env->editor.sector_tab.state = UP;
@@ -194,6 +193,7 @@ int		sector_tab(void *target)
 {
 	t_env *env;
 
+	ft_printf("4");
 	env = (t_env *)target;
 	env->editor.sprite_tab.state = UP;
 	env->editor.sprite_tab.anim_state = REST;
@@ -208,6 +208,7 @@ int		sprite_tab(void *target)
 {
 	t_env *env;
 
+	ft_printf("5");
 	env = (t_env *)target;
 	env->editor.general_tab.state = UP;
 	env->editor.general_tab.anim_state = REST;
