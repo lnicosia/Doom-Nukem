@@ -3,64 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   editor_button_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 12:25:37 by sipatry          ###   ########.fr       */
+/*   Created: 2020/01/31 15:19:37 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/01/31 15:20:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	enemy_buttons(t_env *env)
+int	enemy_buttons(t_env *env)
 {
-	button_keys(&env->editor.current_enemy_selection, env);
-	button_keys(&env->editor.enemy_background, env);
+	if (button_keys(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.enemy_background, env))
+		return (-1);
 	if (env->editor.sector_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.s_enemy.brightness, env);
-		button_keys(&env->editor.hud.s_enemy.color, env);
-		button_keys(&env->editor.hud.s_enemy.intensity, env);
+		if (button_keys(&env->editor.hud.s_enemy.brightness, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_enemy.color, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_enemy.intensity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.g_enemy.pos_x, env);
-		button_keys(&env->editor.hud.g_enemy.pos_y, env);
-		button_keys(&env->editor.hud.g_enemy.pos_z, env);
-		button_keys(&env->editor.hud.g_enemy.health, env);
-		button_keys(&env->editor.hud.g_enemy.speed, env);
+		if (button_keys(&env->editor.hud.g_enemy.pos_x, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.pos_y, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.pos_z, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.health, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.speed, env))
+			return (-1);
 	}
+	return (0);
 }
 
-void	player_buttons(t_env *env)
+int	player_buttons(t_env *env)
 {
 	if (env->editor.sector_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.s_player.brightness, env);
-		button_keys(&env->editor.hud.s_player.color, env);
-		button_keys(&env->editor.hud.s_player.intensity, env);
+		if (button_keys(&env->editor.hud.s_player.brightness, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_player.color, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_player.intensity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.g_player.pos_x, env);
-		button_keys(&env->editor.hud.g_player.pos_y, env);
-		button_keys(&env->editor.hud.g_player.pos_z, env);
-		button_keys(&env->editor.hud.g_player.health, env);
-		button_keys(&env->editor.hud.g_player.armor, env);
-		button_keys(&env->editor.hud.g_player.speed, env);
+		if (button_keys(&env->editor.hud.g_player.health, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_player.armor, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_player.speed, env))
+			return (-1);
 	}
+	return (0);
 }
 
-void	sector_buttons(t_env *env)
+int	sector_buttons(t_env *env)
 {
 	if (env->editor.general_tab.state == DOWN)
 	{
-		button_keys(&env->editor.hud.g_sector.brightness, env);
-		button_keys(&env->editor.hud.g_sector.color, env);
-		button_keys(&env->editor.hud.g_sector.intensity, env);
-		button_keys(&env->editor.hud.g_sector.floor, env);
-		button_keys(&env->editor.hud.g_sector.ceiling, env);
-		button_keys(&env->editor.hud.g_sector.floor_slope, env);
-		button_keys(&env->editor.hud.g_sector.ceiling_slope, env);
+		if (button_keys(&env->editor.hud.g_sector.brightness, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.color, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.floor, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.ceiling, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.floor_slope, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.ceiling_slope, env))
+			return (-1);
 	}
+	return (0);
 }

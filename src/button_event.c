@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:28:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 13:51:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:01:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int		button_keyup(t_button *b, t_env *env)
 		b->state = b->state == UP ? DOWN : UP;
 	if (b->state == DOWN)
 	{
-		if (b->down_action)
-			b->down_action(b->param);
+		if (b->down_action && b->down_action(b->param))
+			return (-1);
 	}
 	if (b->state == UP)
 	{
-		if (b->release_action)
-			b->release_action(b->release_param);
+		if (b->release_action && b->release_action(b->release_param))
+			return (-1);
 	}
 	return (0);
 }
@@ -74,11 +74,8 @@ int		button_keys(t_button *b, t_env *env)
 	if (env->inputs.left_click)
 	{
 		b->anim_state = PRESSED;
-		if (b->press_action)
-		{
-			if (!b->press_action(b->param))
-				return (-1);
-		}
+		if (b->press_action && b->press_action(b->param))
+			return (-1);
 	}
 	else if (b->state == UP)
 		b->anim_state = HOVER;

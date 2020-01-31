@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 16:08:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:24:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,60 +478,79 @@ int		editor_3d_keys(t_env *env)
 	}
 	if (env->editor.tab)
 	{
-		button_keys(&env->editor.save, env);
-		button_keys(&env->editor.sprite_tab, env);
-		button_keys(&env->editor.general_tab, env);
-		button_keys(&env->editor.sector_tab, env);
-		button_keys(&env->editor.change_mode, env);
-		button_keys(&env->editor.launch_game, env);
-		button_keys(&env->editor.texture_background, env);
+		if (button_keys(&env->editor.save, env))
+			return (-1);
+		if (button_keys(&env->editor.sprite_tab, env))
+			return (-1);
+		if (button_keys(&env->editor.general_tab, env))
+			return (-1);
+		if (button_keys(&env->editor.sector_tab, env))
+			return (-1);
+		if (button_keys(&env->editor.change_mode, env))
+			return (-1);
+		if (button_keys(&env->editor.launch_game, env))
+			return (-1);
+		if (button_keys(&env->editor.texture_background, env))
+			return (-1);
 		if (is_events_tab_visible(env))
 		{
-			button_keys(&env->editor.events_tab, env);
+			if (button_keys(&env->editor.events_tab, env))
+				return (-1);
 			if (env->editor.events_tab.state == DOWN)
 			{
-				button_keys(&env->editor.next_events, env);
-				button_keys(&env->editor.previous_events, env);
+				if (button_keys(&env->editor.next_events, env))
+					return (-1);
+				if (button_keys(&env->editor.previous_events, env))
+					return (-1);
 			}
 			if (are_event_selection_buttons_visible(env))
 			{
-				button_keys(&env->editor.next_event, env);
-				button_keys(&env->editor.previous_event, env);
+				if (button_keys(&env->editor.next_event, env))
+					return (-1);
+				if (button_keys(&env->editor.previous_event, env))
+					return (-1);
 			}
 			if (are_launch_condition_selection_buttons_visible(env))
 			{
-				button_keys(&env->editor.next_launch_condition, env);
-				button_keys(&env->editor.previous_launch_condition, env);
+				if (button_keys(&env->editor.next_launch_condition, env))
+					return (-1);
+				if (button_keys(&env->editor.previous_launch_condition, env))
+					return (-1);
 			}
 			if (are_exec_condition_selection_buttons_visible(env))
 			{
-				button_keys(&env->editor.next_exec_condition, env);
-				button_keys(&env->editor.previous_exec_condition, env);
+				if (button_keys(&env->editor.next_exec_condition, env))
+					return (-1);
+				if (button_keys(&env->editor.previous_exec_condition, env))
+					return (-1);
 			}
 		}
-		if (env->selected_ceiling != -1)
-			ceiling_buttons(env);
-		if (env->selected_floor != -1)
-			floor_buttons(env);
-		if (env->editor.selected_wall != -1)
-			wall_buttons(env);
-		if (env->selected_enemy != -1)
-			enemy_buttons(env);
-		if (env->selected_object != -1)
-			object_buttons(env);
+		if (env->selected_ceiling != -1 && ceiling_buttons(env))
+				return (-1);
+		if (env->selected_floor != -1 && floor_buttons(env))
+				return (-1);
+		if (env->editor.selected_wall != -1 && wall_buttons(env))
+				return (-1);
+		if (env->selected_enemy != -1 && enemy_buttons(env))
+				return (-1);
+		if (env->selected_object != -1 && object_buttons(env))
+				return (-1);
 		if (env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
 				|| env->selected_wall_sprite_sprite != -1)
 		{
-			button_keys(&env->editor.next_sprite, env);
-			button_keys(&env->editor.previous_sprite, env);
-			button_keys(&env->editor.current_sprite_selection, env);
+			if (button_keys(&env->editor.next_sprite, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_sprite, env))
+				return (-1);
+			if (button_keys(&env->editor.current_sprite_selection, env))
+				return (-1);
 		}
-		if (env->selected_floor_sprite != -1)
-			floor_sprite_buttons(env);
-		if (env->selected_ceiling_sprite != -1)
-			ceiling_sprite_buttons(env);
-		if (env->selected_wall_sprite_sprite != -1)
-			wall_sprite_buttons(env);
+		if (env->selected_floor_sprite != -1 && floor_sprite_buttons(env))
+				return (-1);
+		if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons(env))
+				return (-1);
+		if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons(env))
+				return (-1);
 	}
 	if (env->editor.tab)
 	{
@@ -540,7 +559,8 @@ int		editor_3d_keys(t_env *env)
 		{
 			while (i < MAX_WALL_TEXTURE)
 			{
-				button_keys(&env->editor.textures[i], env);
+				if (button_keys(&env->editor.textures[i], env))
+					return (-1);
 				i++;
 			}
 		}
@@ -548,7 +568,8 @@ int		editor_3d_keys(t_env *env)
 		{
 			while (i < MAX_ENEMIES)
 			{
-				button_keys(&env->editor.enemy_tab[i], env);
+				if (button_keys(&env->editor.enemy_tab[i], env))
+					return (-1);
 				i++;
 			}
 		}
@@ -556,7 +577,8 @@ int		editor_3d_keys(t_env *env)
 		{
 			while (i < MAX_OBJECTS)
 			{
-				button_keys(&env->editor.sprite_selection[i], env);
+				if (button_keys(&env->editor.sprite_selection[i], env))
+					return (-1);
 				i++;
 			}
 		}

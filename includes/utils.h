@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 11:56:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 13:55:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1132,6 +1132,7 @@ typedef struct		s_input_box
 	size_t			select_start;
 	size_t			select_end;
 	char			*str;
+	char			*error_message;
 	Uint32			del_timer;
 	Uint32			del_delay;
 	Uint32			cursor_timer;

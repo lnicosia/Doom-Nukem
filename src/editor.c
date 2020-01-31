@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/27 14:54:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:38:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int		editor(t_env *env)
 				}
 			}
 			if (env->input_box.state)
-				input_box_keys(&env->input_box, env);
+			{
+				if (input_box_keys(&env->input_box, env))
+					return (-1);
+			}
 		}
 		if (!env->editor.in_game)
 		{

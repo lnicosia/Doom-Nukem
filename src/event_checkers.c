@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:08:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:03:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,24 +125,14 @@ int		check_floor_slope_event(t_event *event, void *penv)
 		sector.floor_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
-	{
-		sector.floor_slope = prec;
-		update_sector_slope(env, &sector);
 		return (1);
-	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
-		{
-			sector.floor_slope = prec;
-			update_sector_slope(env, &sector);
 			return (1);
-		}
 	}
-	sector.floor_slope = prec;
-	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -164,24 +154,14 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 		sector.ceiling_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
-	{
-		sector.ceiling_slope = prec;
-		update_sector_slope(env, &sector);
 		return (1);
-	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
-		{
-			sector.ceiling_slope = prec;
-			update_sector_slope(env, &sector);
 			return (1);
-		}
 	}
-	sector.ceiling_slope = prec;
-	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -203,24 +183,14 @@ int		check_floor_event(t_event *event, void *penv)
 		sector.floor = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
-	{
-		sector.floor = prec;
-		update_sector_slope(env, &sector);
 		return (1);
-	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
-		{
-			sector.floor = prec;
-			update_sector_slope(env, &sector);
 			return (1);
-		}
 	}
-	sector.floor = prec;
-	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -242,24 +212,14 @@ int		check_ceiling_event(t_event *event, void *penv)
 		sector.ceiling = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
-	{
-		sector.ceiling = prec;
-		update_sector_slope(env, &sector);
 		return (1);
-	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
-		{
-			sector.ceiling = prec;
-			update_sector_slope(env, &sector);
 			return (1);
-		}
 	}
-	sector.ceiling = prec;
-	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -346,7 +306,7 @@ int		check_color_event(t_event *event, void *penv)
 				0xFFFFFFFF)
 			|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
 			|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF
-					|| (Uint32)event->goal <= 0)))
+					|| (Uint32)event->goal < 0)))
 		return (1);
 	return (0);
 }

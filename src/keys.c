@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:48:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 15:33:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int		keys(t_env *env)
 			&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
 	if (env->confirmation_box.state)
-		confirmation_box_keys(&env->confirmation_box, env);
+	{
+		if (confirmation_box_keys(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->inputs.e
 		&& env->hovered_wall_sprite_sprite != -1
 		&& env->hovered_wall_sprite_wall != -1

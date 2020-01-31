@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 11:00:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:58:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,21 @@ int		save_texture(void *param)
 		if (env->selected_floor != -1)
 		{
 			env->sectors[env->selected_floor].floor_texture = i;
-			update_floor_texture_button((void *)env);
+			if (update_floor_texture_button(env))
+				return (-1);
 		}
 		else if (env->selected_ceiling != -1)
 		{
 			env->sectors[env->selected_ceiling].ceiling_texture = i;
-			update_ceiling_texture_button((void *)env);
+			if (update_ceiling_texture_button(env))
+				return (-1);
 		}
 		else if (env->editor.selected_wall != -1)
 		{
-			env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] = i;
-			update_wall_texture_button((void *)env);
+			env->sectors[env->editor.selected_sector].
+			textures[env->editor.selected_wall] = i;
+			if (update_wall_texture_button(env))
+				return (-1);
 		}
 	}
 	env->editor.current_texture_selection.state = UP;

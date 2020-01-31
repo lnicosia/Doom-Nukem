@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 10:59:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:43:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 void				draw_input_box(t_input_box *box, t_env *env);
-void				input_box_keys(t_input_box *box, t_env *env);
+int					input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);
 int					new_input_box(t_input_box *box, t_point pos,
@@ -434,26 +434,26 @@ int					update_floor_texture_button(void *penv);
 **	buttons for selections
 */
 
-void				wall_buttons(t_env *env);
-void				ceiling_buttons(t_env *env);
-void				floor_buttons(t_env *env);
-void				sector_buttons(t_env *env);
-void				player_buttons(t_env *env);
-void				enemy_buttons(t_env *env);
-void				object_buttons(t_env *env);
-void				floor_sprite_buttons(t_env *env);
-void				ceiling_sprite_buttons(t_env *env);
-void				wall_sprite_buttons(t_env *env);
-void				wall_buttons_up(t_env *env);
-void				ceiling_buttons_up(t_env *env);
-void				floor_buttons_up(t_env *env);
-void				sector_buttons_up(t_env *env);
-void				player_buttons_up(t_env *env);
-void				enemy_buttons_up(t_env *env);
-void				object_buttons_up(t_env *env);
-void				floor_sprite_buttons_up(t_env *env);
-void				ceiling_sprite_buttons_up(t_env *env);
-void				wall_sprite_buttons_up(t_env *env);
+int					wall_buttons(t_env *env);
+int					ceiling_buttons(t_env *env);
+int					floor_buttons(t_env *env);
+int					sector_buttons(t_env *env);
+int					player_buttons(t_env *env);
+int					enemy_buttons(t_env *env);
+int					object_buttons(t_env *env);
+int					floor_sprite_buttons(t_env *env);
+int					ceiling_sprite_buttons(t_env *env);
+int					wall_sprite_buttons(t_env *env);
+int					wall_buttons_up(t_env *env);
+int					ceiling_buttons_up(t_env *env);
+int					floor_buttons_up(t_env *env);
+int					sector_buttons_up(t_env *env);
+int					player_buttons_up(t_env *env);
+int					enemy_buttons_up(t_env *env);
+int					object_buttons_up(t_env *env);
+int					floor_sprite_buttons_up(t_env *env);
+int					ceiling_sprite_buttons_up(t_env *env);
+int					wall_sprite_buttons_up(t_env *env);
 
 /*
 ** Main functions
@@ -629,8 +629,8 @@ int					draw_players(t_camera camera, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 int					keyup(t_env *env);
-void				confirmation_box_keys(t_confirmation_box *box, t_env *env);
-void				confirmation_box_keyup(t_confirmation_box *box, t_env *env);
+int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
+int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);

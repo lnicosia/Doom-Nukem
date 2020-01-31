@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 12:28:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:50:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,17 @@ void	draw_input_box(t_input_box *box, t_env *env)
 	}
 }
 
-void	input_box_keys(t_input_box *box, t_env *env)
+int		input_box_keys(t_input_box *box, t_env *env)
 {
+	int		res;
+
 	if (env->inputs.enter
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
 	{
-		validate_input(box, env);
+		if ((res = validate_input(box, env)) == -1)
+			return (-1);
+		else if (res == 1)
+			return (0);
 		env->inputs.enter = 0;
 		env->editor.enter_locked = 1;
 	}
@@ -304,7 +309,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			|| env->sdl.my > box->pos.y + box->size.y))
 		{
 			box->state = 0;
-			if (env->editor.in_game)
+			if (env->editor.in_game && !env->editor.tab)
 			{
 				SDL_SetRelativeMouseMode(1);
 				SDL_GetRelativeMouseState(&env->sdl.mouse_x,
@@ -318,9 +323,9 @@ void	input_box_keys(t_input_box *box, t_env *env)
 		box->selecting = 0;
 
 	else
-		return ;
+		return (0);
 	if (!box->state)
-		return ;
+		return (0);
 	/*ft_printf("size = %d\n", ft_strlen(box->str));
 	ft_printf("cursor index = %d\n", box->cursor);
 	ft_printf("period index = %d\n", box->period_index);
@@ -335,4 +340,5 @@ void	input_box_keys(t_input_box *box, t_env *env)
 	ft_printf("minus state = %d\n", box->minus);
 	ft_printf("period state = %d\n", box->period);
 	ft_printf("\n");*/
+	return (0);
 }

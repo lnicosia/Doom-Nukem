@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/31 09:53:27 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/01/31 14:24:41 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 print_link_target_functions.c print_condition_target_functions.c \
 		 print_condition_target_functions2.c \
 		 init_print_condition_target_data.c update_textures_buttons.c \
-		 change_sprite_buttons.c
+		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

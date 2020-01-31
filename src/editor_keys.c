@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 12:27:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:32:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int			editor_keys(t_env *env)
 	objects_selection(env);
 	vertices_selection(env);
 	if (env->confirmation_box.state)
-		confirmation_box_keys(&env->confirmation_box, env);
+	{
+		if (confirmation_box_keys(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->inputs.right_click)
 	{
 		env->editor.center.x += env->sdl.mouse_x;
@@ -65,51 +68,71 @@ int			editor_keys(t_env *env)
 	**	control of the sector status with +/-
 	*/
 
-	button_keys(&env->editor.add_enemy, env);
-	button_keys(&env->editor.add_object, env);
-	button_keys(&env->editor.save, env);
-	button_keys(&env->editor.general_tab, env);
-	button_keys(&env->editor.sprite_tab, env);
-	button_keys(&env->editor.sector_tab, env);
-	button_keys(&env->editor.change_mode, env);
-	button_keys(&env->editor.launch_game, env);
-	button_keys(&env->editor.texture_background, env);
-	button_keys(&env->editor.enemy_background, env);
-	if (env->editor.selected_sector != -1)
-		sector_buttons(env);
-	if (env->editor.selected_player != -1)
-		player_buttons(env);
-	if (env->selected_enemy != -1)
-		enemy_buttons(env);
+	if (button_keys(&env->editor.add_enemy, env))
+		return (-1);
+	if (button_keys(&env->editor.add_object, env))
+		return (-1);
+	if (button_keys(&env->editor.save, env))
+		return (-1);
+	if (button_keys(&env->editor.general_tab, env))
+		return (-1);
+	if (button_keys(&env->editor.sprite_tab, env))
+		return (-1);
+	if (button_keys(&env->editor.sector_tab, env))
+		return (-1);
+	if (button_keys(&env->editor.change_mode, env))
+		return (-1);
+	if (button_keys(&env->editor.launch_game, env))
+		return (-1);
+	if (button_keys(&env->editor.texture_background, env))
+		return (-1);
+	if (button_keys(&env->editor.enemy_background, env))
+		return (-1);
+	if (env->editor.selected_sector != -1 && sector_buttons(env))
+		return (-1);
+	if (env->editor.selected_player != -1 && player_buttons(env))
+		return (-1);
+	if (env->selected_enemy != -1 && enemy_buttons(env))
+		return (-1);
 	if (is_events_tab_visible(env))
 	{
-		button_keys(&env->editor.events_tab, env);
+		if (button_keys(&env->editor.events_tab, env))
+			return (-1);
 		if (env->editor.events_tab.state == DOWN)
 		{
-			button_keys(&env->editor.next_events, env);
-			button_keys(&env->editor.previous_events, env);
+			if (button_keys(&env->editor.next_events, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_events, env))
+				return (-1);
 		}
 		if (are_event_selection_buttons_visible(env))
 		{
-			button_keys(&env->editor.next_event, env);
-			button_keys(&env->editor.previous_event, env);
+			if (button_keys(&env->editor.next_event, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_event, env))
+				return (-1);
 		}
 		if (are_launch_condition_selection_buttons_visible(env))
 		{
-			button_keys(&env->editor.next_launch_condition, env);
-			button_keys(&env->editor.previous_launch_condition, env);
+			if (button_keys(&env->editor.next_launch_condition, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_launch_condition, env))
+				return (-1);
 		}
 		if (are_exec_condition_selection_buttons_visible(env))
 		{
-			button_keys(&env->editor.next_exec_condition, env);
-			button_keys(&env->editor.previous_exec_condition, env);
+			if (button_keys(&env->editor.next_exec_condition, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_exec_condition, env))
+				return (-1);
 		}
 	}
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
-			button_keys(&env->editor.textures[i], env);
+			if (button_keys(&env->editor.textures[i], env))
+				return (-1);
 			i++;
 		}
 	}
@@ -117,7 +140,8 @@ int			editor_keys(t_env *env)
 	{
 		while (i < MAX_ENEMIES)
 		{
-			button_keys(&env->editor.enemy_tab[i], env);
+			if (button_keys(&env->editor.enemy_tab[i], env))
+				return (-1);
 			i++;
 		}
 	}

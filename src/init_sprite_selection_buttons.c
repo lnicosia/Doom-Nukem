@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:41:55 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 15:00:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 14:41:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	init_array_sprite_buttons(t_env *env)
 	else
 		mod = 5;
 	i = 0;
-	while (i < MAX_WALL_TEXTURE)
+	while (i < MAX_OBJECTS)
 	{
 		// NE PAS OUBLIER DE FREE LES NEW_BUTTON_TARGET
 		env->editor.sprite_selection[i] = new_image_button(WHEN_DOWN, &save_sprite, new_button_target(env, i), env);
