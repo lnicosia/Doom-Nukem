@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 11:08:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:58:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			else if (box->type == STRING)
 				parse_str_input(box, env);
 		}
-		else if (env->sdl.event.key.keysym.sym == 's')
+		else
 			box->accept_inputs = 1;
 	}
 	else if (env->inputs.left_click)
