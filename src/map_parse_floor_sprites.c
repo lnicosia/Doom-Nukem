@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 09:39:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:00:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,7 @@ int		parse_floor_sprites(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].floor_sprites.scale[i].y = ft_atof(*line);
 		if (env->sectors[parser->sectors_count].floor_sprites.scale[i].y <= 0)
 			return (custom_error_with_line("Floor sprite scale must be positive", parser));
-		env->sectors[parser->sectors_count].floor_sprites_scale[i].x
-		= env->object_sprites[env->sectors[parser->sectors_count]
-		.floor_sprites.sprite[i]].size[0].x
-		/ env->sectors[parser->sectors_count].floor_sprites.scale[i].x;
-		env->sectors[parser->sectors_count].floor_sprites_scale[i].y
-		= env->object_sprites[env->sectors[parser->sectors_count]
-		.floor_sprites.sprite[i]].size[0].y
-		/ env->sectors[parser->sectors_count].floor_sprites.scale[i].y;
+		precompute_floor_sprite_scales(parser->sectors_count, i, env);
 		*line = skip_number(*line);
 		(*line)++;
 		i++;

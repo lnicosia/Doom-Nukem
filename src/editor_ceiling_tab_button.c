@@ -6,32 +6,47 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 14:10:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 11:06:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+int		change_ceiling_sprite_scale(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab *)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	precompute_ceiling_sprite_scales(env->selected_ceiling,
+	env->selected_ceiling_sprite, env);
+	return (0);
+}
+
 void	init_ceilling_sprite_buttons(t_env *env)
 {
-	env->editor.hud.sp_ceiling_sprite.num = new_hud_button(WHEN_DOWN, &change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_num, env);
+	env->editor.hud.sp_ceiling_sprite.num = new_hud_button(WHEN_DOWN,
+	&change_var, &env->editor.hud.sp_ceiling_sprite.t_num, env);
 	env->editor.hud.sp_ceiling_sprite.num.pos = new_point(250, 520);
 	env->editor.hud.sp_ceiling_sprite.t_num.pos = new_point(250, 520);
-	env->editor.hud.sp_ceiling_sprite.pos_x = new_hud_pos_button(WHEN_DOWN, &change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_pos_x, env);
+	env->editor.hud.sp_ceiling_sprite.pos_x = new_hud_pos_button(WHEN_DOWN,
+	&change_var, &env->editor.hud.sp_ceiling_sprite.t_pos_x, env);
 	env->editor.hud.sp_ceiling_sprite.pos_x.pos = new_point(250, 560);
 	env->editor.hud.sp_ceiling_sprite.t_pos_x.pos = new_point(250, 560);
-	env->editor.hud.sp_ceiling_sprite.pos_y = new_hud_pos_button(WHEN_DOWN, &change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_pos_y, env);
+	env->editor.hud.sp_ceiling_sprite.pos_y = new_hud_pos_button(WHEN_DOWN,
+	&change_var, &env->editor.hud.sp_ceiling_sprite.t_pos_y, env);
 	env->editor.hud.sp_ceiling_sprite.pos_y.pos = new_point(300, 560);
 	env->editor.hud.sp_ceiling_sprite.t_pos_y.pos = new_point(300, 560);
-	env->editor.hud.sp_ceiling_sprite.scale_x = new_hud_pos_button(WHEN_DOWN, &change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_scale_x, env);
+	env->editor.hud.sp_ceiling_sprite.scale_x = new_hud_pos_button(WHEN_DOWN,
+	&change_ceiling_sprite_scale, &env->editor.hud.sp_ceiling_sprite.t_scale_x,
+	env);
 	env->editor.hud.sp_ceiling_sprite.scale_x.pos = new_point(250, 600);
 	env->editor.hud.sp_ceiling_sprite.t_scale_x.pos = new_point(300, 600);
-	env->editor.hud.sp_ceiling_sprite.scale_y = new_hud_pos_button(WHEN_DOWN, &change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_scale_y, env);
+	env->editor.hud.sp_ceiling_sprite.scale_y = new_hud_pos_button(WHEN_DOWN,
+	&change_ceiling_sprite_scale, &env->editor.hud.sp_ceiling_sprite.t_scale_y,
+	env);
 	env->editor.hud.sp_ceiling_sprite.scale_y.pos = new_point(300, 600);
 	env->editor.hud.sp_ceiling_sprite.t_scale_y.pos = new_point(300, 600);
 }

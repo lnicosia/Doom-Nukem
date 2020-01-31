@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 16:03:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 10:59:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -755,6 +755,10 @@ t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
 void				init_events_selection_buttons(t_env *env);
+int					precompute_floor_sprite_scales(int sector, int sprite,
+t_env *env);
+int					precompute_ceiling_sprite_scales(int sector, int sprite,
+t_env *env);
 
 /*
 ** enemies functions

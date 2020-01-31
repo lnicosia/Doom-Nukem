@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/30 11:30:56 by sipatry          ###   ########.fr        #
+#    Updated: 2020/01/31 09:53:27 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,6 +153,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
+		   precompute_floor_ceiling_sprites_scales.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

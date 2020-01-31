@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 18:00:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 11:31:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1116,14 +1116,14 @@ typedef struct		s_input_box
 	TTF_Font		*font;
 	t_point			size;
 	t_point			pos;
-	int			state;
-	int			type;
-	int			caps;
-	int			period;
-	int			selecting;
-	int			cursor_state;
-	int			add_period;
-	int			accept_inputs;
+	int				state;
+	int				type;
+	int				caps;
+	int				period;
+	int				selecting;
+	int				cursor_state;
+	int				add_period;
+	int				accept_inputs;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
@@ -1142,10 +1142,11 @@ typedef struct		s_input_box
 	Uint32			input_delay;
 	Uint32			same_touch_timer;
 	char			**str_target;
-	int			*int_target;
+	int				*int_target;
 	double			*double_target;
 	void			*target;
-	void			(*action)(void *);
+	int				(*check)(void *);
+	int				(*update)(void *);
 }					t_input_box;
   
 #endif

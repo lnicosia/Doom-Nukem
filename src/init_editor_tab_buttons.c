@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:28:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 10:45:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int		change_var(void *target)
 
 	button = (t_button_tab *)target;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos,
-	button->type, button->target);
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	return (0);
 }
 

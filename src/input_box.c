@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 12:12:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 11:08:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	if (type < 0 || type > 2 || !target)
 		return (-1);
-	box->size = new_point(50, 200);
+	box->size = new_point(200, 50);
 	box->pos = pos;
 	box->type = type;
 	box->state = 1;

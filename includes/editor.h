@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 15:23:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 10:57:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,6 @@ typedef struct	s_hud
 
 }				t_hud;
 
-
-typedef struct	s_plr
-{
-	double		x;
-	double		y;
-	double		z;
-	double		angle;
-	int			sector;
-}				t_plr;
-
 typedef struct  s_add_vertex
 {
     int *sector_list;
@@ -199,7 +189,6 @@ typedef struct	s_editor
 	double			scale;
 	t_list			*vertices;
 	t_hud			hud;
-	t_plr			player;
 	t_list			*current_vertices;
 	int				reverted;
 	int				in_game;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 14:26:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/01/31 11:00:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,15 @@ int		save_sprite(void *param)
 	{
 		sprite = &env->sectors[env->selected_ceiling].ceiling_sprites;
 		sprite->sprite[env->selected_ceiling_sprite] = env->objects_main_sprites[i];
+		precompute_ceiling_sprite_scales(env->selected_ceiling,
+		env->selected_ceiling_sprite, env);
 	}
 	if (env->selected_floor_sprite != -1)
 	{
 		sprite = &env->sectors[env->selected_floor].floor_sprites;
 		sprite->sprite[env->selected_floor_sprite] = env->objects_main_sprites[i];
+		precompute_floor_sprite_scales(env->selected_floor,
+		env->selected_floor_sprite, env);
 	}
 	env->editor.draw_sprite_tab = 0;
 	env->editor.current_sprite_selection.state = UP;
