@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 15:10:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:22:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 int	validate_input(t_input_box *box, t_env *env)
 {
 	(void)env;
+	if (box->check && box->check(env))
+	{
+		// Confirmation box avec message d'erreur
+		return (0);
+	}
 	if (box->type == INT)
 	{
 		if (!box->int_target)
@@ -45,6 +50,8 @@ int	validate_input(t_input_box *box, t_env *env)
 		*(box->str_target) = ft_strdup(box->str);
 		env->saving = 1;
 	}
+	if (box->update && box->update(env))
+		return (-1);
 	box->state = 0;
 	return (0);
 }

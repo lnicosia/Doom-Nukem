@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 16:45:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:14:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -596,7 +596,7 @@ t_map_parser *parser)
 		{
 			(*line)++;
 			parse = ft_atoi(*line);
-			if (parse < -1 || parse >= MAX_OBJECTS)
+			if (parse < 0 || parse >= MAX_OBJECTS)
 				return (custom_error_with_line("Invalid sprite texture", parser));
 			env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] =
 			env->objects_main_sprites[parse];

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 11:58:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:24:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		box->str = ft_strdup(*(char**)target);
 	}
 	box->cursor = ft_strlen(box->str);
+	box->accept_inputs = 1;
 	return (0);
 }
 
@@ -286,7 +287,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			else if (box->type == STRING)
 				parse_str_input(box, env);
 		}
-		else
+		else if (box->type == STRING && env->sdl.event.key.keysym.sym == 's')
 			box->accept_inputs = 1;
 	}
 	else if (env->inputs.left_click)
@@ -298,10 +299,10 @@ void	input_box_keys(t_input_box *box, t_env *env)
 			|| env->sdl.my < box->pos.y
 			|| env->sdl.my > box->pos.y + box->size.y))
 		{
-			if (box->type != STRING)
-				validate_input(box, env);
-			else
-			{
+			//if (box->type != STRING)
+				//validate_input(box, env);
+			//else
+			//{
 				box->state = 0;
 				if (env->editor.in_game)
 				{
@@ -311,7 +312,7 @@ void	input_box_keys(t_input_box *box, t_env *env)
 					SDL_GetRelativeMouseState(&env->sdl.mouse_x,
 					&env->sdl.mouse_y);
 				}
-			}
+			//}
 		}
 	}
 	else if (env->sdl.event.type == SDL_MOUSEBUTTONUP)

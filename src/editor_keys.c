@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 11:57:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:24:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			editor_keys(t_env *env)
 	{
 		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
 		STRING, &env->save_file);
-		env->input_box.accept_inputs = 0;
+		//env->input_box.accept_inputs = 0;
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
