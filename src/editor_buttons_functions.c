@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:10:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:49:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 20:24:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		change_brightness_or_intensity(void *param)
+int		change_color(void *param)
 {
 	t_button_tab	*button;
 	t_env			*env;
@@ -39,6 +39,47 @@ int		change_gravity(void *param)
 	env->input_box.error_message = "Error: gravity must be between -0.1 and"
 	" -10";
 	return (0);
+}
+
+int		change_wall_texture_scale(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab *)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	env->input_box.check = &check_scale_input_box;
+	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	return (0);
+}
+
+int		change_ceiling_sprite_scale(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab *)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	env->input_box.check = &check_scale_input_box;
+	env->input_box.update = &update_ceiling_sprite_scale_input_box;
+	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	return (0);
+}
+
+int		change_floor_sprite_scale(void *param)
+{
+        t_button_tab    *button;
+        t_env                   *env;
+
+        button = (t_button_tab *)param;
+        env = button->env;
+        new_input_var(&env->input_box, button->pos, button->type, button->target);
+        env->input_box.check = &check_scale_input_box;
+        env->input_box.update = &update_floor_sprite_scale_input_box;
+        env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+        return (0);
 }
 
 int		change_ceiling_texture_scale(void *param)

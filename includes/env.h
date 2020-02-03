@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:48:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 20:25:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,11 +437,13 @@ int					open_wall_sprite_selection(void *param);
 int					change_var(void *target);
 int					change_floor_sprite_scale(void *penv);
 int					change_ceiling_sprite_scale(void *penv);
-int					change_brightness_or_intensity(void *penv);
+int					change_wall_sprite_scale(void *penv);
+int					change_color(void *penv);
 int					change_gravity(void *penv);
 int					change_sprite(void *target);
 int					change_ceiling_texture_scale(void *target);
 int					change_floor_texture_scale(void *target);
+int					change_wall_texture_scale(void *target);
 int					change_ceiling_texture_align(void *target);
 int					change_floor_texture_align(void *target);
 int					change_floor_height(void *target);
