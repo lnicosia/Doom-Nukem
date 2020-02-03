@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:46:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:05:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,6 +337,7 @@ int		editor_3d_keys(t_env *env)
 		else if (env->inputs.minus)
 			env->sectors[env->selected_floor].floor -= 0.05;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		update_sector_entities_z(env, env->selected_floor);
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 14:23:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:22:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		check_floor_slope_input_box(void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	int			i;
 
 	env = (t_env*)penv;
 	sector = env->sectors[env->selected_floor];
@@ -26,14 +27,38 @@ int		check_floor_slope_input_box(void *penv)
 	sector.floor_slope = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.floor_slope = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == env->selected_floor)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			sector.floor_slope = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == env->selected_floor
+			&& get_floor_at_pos(sector, env->enemies[i].pos, env) +
+			env->enemies[i].scale + env->enemies[i].height_on_floor >=
+			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
+		{
+			sector.floor_slope = prec;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	sector.floor_slope = env->sectors[env->selected_floor].floor_slope;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -43,6 +68,7 @@ int		check_ceiling_slope_input_box(void *penv)
 	t_sector	sector;
 	double		z;
 	double		prec;
+	int			i;
 
 	env = (t_env*)penv;
 	sector = env->sectors[env->selected_ceiling];
@@ -50,47 +76,97 @@ int		check_ceiling_slope_input_box(void *penv)
 	sector.ceiling_slope = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.ceiling_slope = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == env->selected_ceiling)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			sector.ceiling_slope = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == env->selected_ceiling
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
+		{
+			sector.ceiling_slope = prec;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	sector.ceiling_slope = env->sectors[env->selected_floor].ceiling_slope;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
-int		check_floor_input_box(void *penv)
+int		check_floor_height_input_box(void *penv)
 {
 	t_env		*env;
 	t_sector	sector;
 	double		z;
 	double		prec;
+	int			i;
 
+	ft_printf("checking floor height\n");
 	env = (t_env*)penv;
 	sector = env->sectors[env->selected_floor];
 	prec = sector.floor;
 	sector.floor = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.floor = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == env->selected_floor)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			sector.floor = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == env->selected_floor
+			&& get_floor_at_pos(sector, env->enemies[i].pos, env) +
+			env->enemies[i].scale + env->enemies[i].height_on_floor >=
+			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
+		{
+			sector.floor = prec;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	sector.floor = env->sectors[env->selected_floor].floor;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
-int		check_ceiling_input_box(void *penv)
+int		check_ceiling_height_input_box(void *penv)
 {
 	t_env		*env;
 	t_sector	sector;
 	double		z;
 	double		prec;
+	int			i;
 
 	env = (t_env*)penv;
 	sector = env->sectors[env->selected_ceiling];
@@ -98,14 +174,37 @@ int		check_ceiling_input_box(void *penv)
 	sector.ceiling = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		sector.ceiling = prec;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == env->selected_ceiling)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			sector.ceiling = prec;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == env->selected_ceiling
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
+		{
+			sector.ceiling = prec;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	sector.ceiling = prec;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -164,7 +263,7 @@ int		check_gravity_input_box(void *penv)
 
 	env = (t_env*)penv;
 	value = ft_atof(env->input_box.str);
-	if (value <= -255 || value >= 255)
+	if (value > -0.1 || value < -10)
 		return (1);
 	return (0);
 }
@@ -191,7 +290,7 @@ int		check_portal_input_box(void *penv)
 	if (value != 0 && value != 1)
 		return (1);
 	if (intersects_with_wall_no_portal_check(&env->
-		sectors[env->editor.selected_sector], env->player.pos, 
+		sectors[env->editor.selected_sector], env->player.pos,
 	env->editor.selected_wall, env))
 		return (1);
 	return (0);

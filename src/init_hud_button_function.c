@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:52:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:07:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,27 @@ int		save_texture(void *param)
 	env->editor.current_texture = i;
 	if (i >= 0)
 	{
-		env->editor.current_texture_selection.img_down = env->wall_textures[i].maps[6];
-		env->editor.current_texture_selection.img_pressed = env->wall_textures[i].maps[6];
-		env->editor.current_texture_selection.img_hover = env->wall_textures[i].maps[6];
-		env->editor.current_texture_selection.img_up = env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_down =
+		env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_pressed =
+		env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_hover =
+		env->wall_textures[i].maps[6];
+		env->editor.current_texture_selection.img_up =
+		env->wall_textures[i].maps[6];
 	}
 	if (i < 0)
 	{
 		env->contains_skybox = 1;
 		env->editor.current_texture = i;
-		env->editor.current_texture_selection.img_down = env->mini_skyboxes[-i - 1].surface;
-		env->editor.current_texture_selection.img_pressed = env->mini_skyboxes[-i - 1].surface;
-		env->editor.current_texture_selection.img_hover = env->mini_skyboxes[-i - 1].surface;
-		env->editor.current_texture_selection.img_up = env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_down =
+		env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_pressed =
+		env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_hover =
+		env->mini_skyboxes[-i - 1].surface;
+		env->editor.current_texture_selection.img_up =
+		env->mini_skyboxes[-i - 1].surface;
 	}
 	if (env->editor.in_game)
 	{

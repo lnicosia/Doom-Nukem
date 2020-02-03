@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:05:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:34:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ void	init_events_parser_updaters2(t_events_parser *eparser)
 	eparser->updaters[SECTOR_CEILING_SPRITES_POS_Y] = 0;
 	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_X] = 0;
 	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_Y] = 0;
-	eparser->updaters[SECTOR_BRIGHTNESS] = &update_sector_entities_event;
-	eparser->updaters[SECTOR_LIGHT_COLOR] = &update_sector_entities_event;
-	eparser->updaters[SECTOR_INTENSITY] = &update_sector_entities_event;
+	eparser->updaters[SECTOR_BRIGHTNESS] = &update_sector_entities_light_event;
+	eparser->updaters[SECTOR_LIGHT_COLOR] = &update_sector_entities_light_event;
+	eparser->updaters[SECTOR_INTENSITY] = &update_sector_entities_light_event;
 	eparser->updaters[SECTOR_GRAVITY] = 0;
 	eparser->updaters[VERTEX_X] = &update_vertex_event;
 	eparser->updaters[VERTEX_Y] = &update_vertex_event;
 	eparser->updaters[PLAYER_X] = &update_player_z_event;
 	eparser->updaters[PLAYER_Y] = &update_player_z_event;
-	eparser->updaters[PLAYER_Z] = &update_player_z_event;
+	eparser->updaters[PLAYER_Z] = 0;
 	eparser->updaters[PLAYER_HP] = 0;
 	eparser->updaters[PLAYER_ARMOR] = 0;
 	init_events_parser_updaters3(eparser);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:58:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 12:31:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:39:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	init_enemy_sprite_buttons(t_env *env)
 
 void	init_enemy_sector_buttons(t_env *env)
 {
-	env->editor.hud.s_enemy.brightness = new_hud_button(ON_RELEASE, &change_var,
+	env->editor.hud.s_enemy.brightness = new_hud_button(ON_RELEASE,
+	&change_brightness_or_intensity,
 	&env->editor.hud.s_enemy.t_brightness, env);
 	env->editor.hud.s_enemy.brightness.pos = new_point(250, 520);
 	env->editor.hud.s_enemy.t_brightness.pos = new_point(250, 520);
@@ -27,7 +28,8 @@ void	init_enemy_sector_buttons(t_env *env)
 	&env->editor.hud.s_enemy.t_color, env);
 	env->editor.hud.s_enemy.color.pos = new_point(250, 560);
 	env->editor.hud.s_enemy.t_color.pos = new_point(250, 560);
-	env->editor.hud.s_enemy.intensity = new_hud_button(ON_RELEASE, &change_var,
+	env->editor.hud.s_enemy.intensity = new_hud_button(ON_RELEASE,
+	&change_brightness_or_intensity,
 	&env->editor.hud.s_enemy.t_intensity, env);
 	env->editor.hud.s_enemy.intensity.pos = new_point(250, 600);
 	env->editor.hud.s_enemy.t_intensity.pos = new_point(250, 600);
