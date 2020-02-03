@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:14:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:07:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct		s_env
 	(struct s_env *, t_condition *, t_point, int size);
 	int					(*print_link_target_data[MAX_TRIGGER_TYPES + 1])
 	(struct s_env *, t_condition *, t_point, int size);
+	t_button			start_game_button;
 }					t_env;
 
 /*
@@ -550,6 +551,7 @@ t_projectile_stats	new_projectile_stats(double size_2d, int damage,
 double speed, double height);
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage,
 int sprite);
+int					start_game_button(t_env *env);
 void				init_events_map(t_env *env);
 
 /*
@@ -812,7 +814,9 @@ int					dying_enemy(t_env *env, int i, int nb_sprites);
 int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
 int					draw_enemy(t_camera camera, t_enemies *enemy, t_env *env,
-int death_sprite);
+						int death_sprite);
+int					menu_keys(t_env *env);
+int					menu_keyup(t_env *env);
 
 /*
 ** objects functions
