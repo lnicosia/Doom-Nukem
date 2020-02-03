@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 14:19:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:25:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ void	init_floor_general_buttons(t_env *env)
 	&env->editor.hud.g_floor.t_slope, env);
 	env->editor.hud.g_floor.slope.pos = new_point(250, 560);
 	env->editor.hud.g_floor.t_slope.pos = new_point(250, 560);
-	env->editor.hud.g_floor.texture = new_hud_button(ON_RELEASE, &change_var,
-	&env->editor.hud.g_floor.t_texture, env);
-	env->editor.hud.g_floor.texture.pos = new_point(250, 600);
-	env->editor.hud.g_floor.t_texture.pos = new_point(250, 600);
 	env->editor.hud.g_floor.texture_scale_x = new_hud_button(ON_RELEASE, &change_var,
 	&env->editor.hud.g_floor.t_texture_scale_x, env);
 	env->editor.hud.g_floor.texture_scale_x.pos = new_point(250, 640);

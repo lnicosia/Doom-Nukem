@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:28:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:24:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,6 @@ int		print_ceiling_general_tab(t_env *env)
 	env->editor.hud.g_ceilling.slope.str = ft_sitoa(env->sectors[env->selected_ceiling].ceiling_slope);
 	env->editor.hud.g_ceilling.t_slope.target = &env->sectors[env->selected_ceiling].ceiling_slope;
 	draw_button(env, env->editor.hud.g_ceilling.slope);
-	print_text(new_point(600, 60), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.g_ceilling.texture.str = ft_sitoa(env->sectors[env->selected_ceiling].ceiling_texture);
-	env->editor.hud.g_ceilling.t_texture.target = &env->sectors[env->selected_ceiling].ceiling_texture;
-	draw_button(env, env->editor.hud.g_ceilling.texture);
 	print_text(new_point(640, 60), new_printable_text("Scale X: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_ceilling.texture_scale_x.str = ft_sitoa(env->sectors[env->selected_ceiling].ceiling_map_scale.x);
 	env->editor.hud.g_ceilling.t_texture_scale_x.target = &env->sectors[env->selected_ceiling].ceiling_map_scale.x;

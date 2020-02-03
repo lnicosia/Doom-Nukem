@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 14:22:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 16:05:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,7 @@ int					change_var(void *target);
 int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
+int					next_selected_wall(void	*target);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 

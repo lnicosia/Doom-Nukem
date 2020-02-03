@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 12:03:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:24:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ int	wall_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_wall.texture, env))
+		if (button_keys(&env->editor.next_wall, env))
+			return (-1);
+		if (button_keys(&env->editor.previous_wall, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_wall.texture_scale_x, env))
 			return (-1);
@@ -126,8 +128,6 @@ int	floor_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.slope, env))
 			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture, env))
-			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.texture_scale_x, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.texture_scale_y, env))
@@ -156,8 +156,6 @@ int	ceiling_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_ceilling.height, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_ceilling.slope, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_ceilling.texture_scale_x, env))
 			return (-1);

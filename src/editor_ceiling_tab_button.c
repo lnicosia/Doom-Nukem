@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:25:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:25:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,6 @@ void	init_ceilling_general_buttons(t_env *env)
 	&env->editor.hud.g_ceilling.t_slope, env);
 	env->editor.hud.g_ceilling.slope.pos = new_point(250, 560);
 	env->editor.hud.g_ceilling.t_slope.pos = new_point(250, 560);
-	env->editor.hud.g_ceilling.texture = new_hud_button(ON_RELEASE, &change_var,
-	&env->editor.hud.g_ceilling.t_texture, env);
-	env->editor.hud.g_ceilling.texture.pos = new_point(250, 600);
-	env->editor.hud.g_ceilling.t_texture.pos = new_point(250, 600);
 	env->editor.hud.g_ceilling.texture_scale_x = new_hud_button(ON_RELEASE, &change_var,
 	&env->editor.hud.g_ceilling.t_texture_scale_x, env);
 	env->editor.hud.g_ceilling.texture_scale_x.pos = new_point(250, 640);

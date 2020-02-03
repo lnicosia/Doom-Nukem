@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 13:30:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:17:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ int		print_wall_sector_tab(t_env *env)
 
 int		print_wall_general_tab(t_env *env)
 {
-	print_text(new_point(520, 60), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.g_wall.texture.str = ft_sitoa(env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]);
-	env->editor.hud.g_wall.t_texture.target = &env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall];
-	draw_button(env, env->editor.hud.g_wall.texture);
+	draw_button(env, env->editor.next_wall);
+	draw_button(env, env->editor.previous_wall);
 	print_text(new_point(560, 60), new_printable_text("Scale X: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_wall.texture_scale_x.str = ft_sitoa(env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x);
 	env->editor.hud.g_wall.t_texture_scale_x.target = &env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x;
