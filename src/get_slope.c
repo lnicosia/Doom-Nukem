@@ -13,7 +13,6 @@
 #include "env.h"
 #include "render.h"
 
-
 /*
 **	rotate vertices in selected sector wich make the slope rotate too
 */
@@ -33,18 +32,26 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 		if (i == 1)
 		{
 			sector.vertices[j] = sector.vertices[j + 1];
+//			sector.neighbors[j] = sector.neighbors[j + 1];
 			j++;
 		}
 		if (i == -1)
 		{
 			sector.vertices[j] = sector.vertices[j - 1];
+//			sector.neighbors[j] = sector.neighbors[j - 1];
 			j--;
 		}
 	}
 	if (i == 1)
+	{
 		sector.vertices[sector.nb_vertices] = sector.vertices[0];
+//		sector.vertices[sector.nb_vertices] = sector.neighbors[0];
+	}
 	else if (i == -1)
+	{
 		sector.vertices[0] = sector.vertices[sector.nb_vertices];
+//		sector.neighbors[0] = sector.neighbors[sector.nb_vertices];
+	}
 	return (sector);
 }
 
@@ -52,15 +59,15 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 ** Returns the given sector's normal starting from its first vertex.
 */
 
-t_v2	get_sector_normal(t_sector sector, t_env *env)
+t_v2	get_sector_normal(t_sector sector, t_env *env, int start_slope)
 {
 	t_vertex	v1;
 	t_vertex	v2;
 	t_v2		normal;
 	double		norm;
 
-	v1 = env->vertices[sector.vertices[0]];
-	v2 = env->vertices[sector.vertices[1]];
+	v1 = env->vertices[sector.vertices[start_slope]];
+	v2 = env->vertices[sector.vertices[start_slope + 1]];
 	norm = sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2));
 	normal.x = -((v2.y - v1.y) / norm);
 	normal.y = -((v2.x - v1.x) / norm);
@@ -70,7 +77,7 @@ t_v2	get_sector_normal(t_sector sector, t_env *env)
 /*
 ** Returns a vertex euclidean distance from its sector's first vertex (in 2d).
 */
-
+/*
 double	get_distance(t_sector sector, int vertex_nb, t_env *env)
 {
 	t_vertex	v0;
@@ -78,14 +85,14 @@ double	get_distance(t_sector sector, int vertex_nb, t_env *env)
 	t_vertex	vmid;
 	t_vertex	vi;
 
-	v0 = env->vertices[sector.vertices[0]];
-	v1 = env->vertices[sector.vertices[1]];
+	v0 = env->vertices[sector.vertices[sector.start_slope]];
+	v1 = env->vertices[sector.vertices[sector.start_slope + 1]];
 	vi = env->vertices[sector.vertices[vertex_nb]];
 	vmid.x = (v0.x + v1.x) / 2;
 	vmid.y = (v0.y + v1.y) / 2;
 	return (sqrt(pow(vi.x - vmid.x, 2) + pow(vi.y - vmid.y, 2)));
 }
-
+*/
 /*
 ** Returns the floor height at a certain pos in a given sector
 ** (according to the sector's slope)
@@ -96,8 +103,8 @@ double	get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env)
 	double		res;
 	t_vertex	v0;
 
-	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (pos.x - v0.x) - sector.normal.y * (pos.y - v0.y);
+	v0 = env->vertices[sector.vertices[sector.start_floor_slope]];
+	res = sector.floor_normal.x * (pos.x - v0.x) - sector.floor_normal.y * (pos.y - v0.y);
 	res = res * sector.floor_slope + sector.floor;
 	return (res);
 }
@@ -112,12 +119,12 @@ double	get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env)
 	double		res;
 	t_vertex	v0;
 
-	v0 = env->vertices[sector.vertices[0]];
-	res = sector.normal.x * (pos.x - v0.x) - sector.normal.y * (pos.y - v0.y);
+	v0 = env->vertices[sector.vertices[sector.start_ceiling_slope]];
+	res = sector.ceiling_normal.x * (pos.x - v0.x) - sector.ceiling_normal.y * (pos.y - v0.y);
 	res = res * sector.ceiling_slope + sector.ceiling;
 	return (res);
 }
-
+/*
 void	check_slopes(t_env *env)
 {
 	int	i;
@@ -137,7 +144,7 @@ void	check_slopes(t_env *env)
 		}
 		i++;
 	}
-}
+}*/
 
 void	update_sector_slope(t_env *env, t_sector *sector)
 {
@@ -202,7 +209,8 @@ void	precompute_slopes(t_env *env)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		env->sectors[i].normal = get_sector_normal(env->sectors[i], env);
+		env->sectors[i].floor_normal = get_sector_normal(env->sectors[i], env, env->sectors[i].start_floor_slope);
+		env->sectors[i].ceiling_normal = get_sector_normal(env->sectors[i], env, env->sectors[i].start_ceiling_slope);
 		update_sector_slope(env, &env->sectors[i]);
 		i++;
 	}

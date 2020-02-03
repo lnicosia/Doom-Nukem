@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:14:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 14:22:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -692,7 +692,7 @@ void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env);
 double				get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env);
-t_v2				get_sector_normal(t_sector sector, t_env *env);
+t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);

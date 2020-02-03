@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:07:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:17:57 by sipatry          ###   ########.fr       */
+/*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/03 13:30:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int		print_wall_sprite_sector_tab(t_env *env)
 	print_text(new_point(520, 60), new_printable_text("Brightness:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.s_wall_sprite.brightness.str = ft_itoa(env->sectors[env->editor.selected_sector].brightness);
 	env->editor.hud.s_wall_sprite.t_brightness.target = &env->sectors[env->editor.selected_sector].brightness;
-	draw_button(env, env->editor.hud.s_wall.brightness);
+	draw_button(env, env->editor.hud.s_wall_sprite.brightness);
 	print_text(new_point(560, 60), new_printable_text("Light_color:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.s_wall_sprite.color.str = ft_sitoa(env->sectors[env->editor.selected_sector].light_color);
 	env->editor.hud.s_wall_sprite.t_color.target = &env->sectors[env->editor.selected_sector].light_color;
-	draw_button(env, env->editor.hud.s_wall.color);
+	draw_button(env, env->editor.hud.s_wall_sprite.color);
 	print_text(new_point(600, 60), new_printable_text("Intensity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.s_wall_sprite.intensity.str = ft_sitoa(env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall_sprite.t_intensity.target = &env->sectors[env->editor.selected_sector].intensity;
-	draw_button(env, env->editor.hud.s_wall.intensity);
+	draw_button(env, env->editor.hud.s_wall_sprite.intensity);
 	return (0);
 }
 

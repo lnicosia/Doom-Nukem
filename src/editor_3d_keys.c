@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:46:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 14:49:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,17 +432,22 @@ int		editor_3d_keys(t_env *env)
 	{
 		if (!env->time.tick3)
 			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 250)
+		if (env->inputs.left && time - env->time.tick3 > 250
+		&& env->sectors[env->selected_floor].start_floor_slope
+		< env->sectors[env->selected_floor].nb_vertices)
 		{
-			env->sectors[env->selected_floor] = rotate_vertices(env, 1, env->selected_floor);
+			env->sectors[env->selected_floor].start_floor_slope++;
 			env->time.tick3 = time;
 		}
-		else if (env->inputs.right && time - env->time.tick3 > 250)
+		else if (env->inputs.right && time - env->time.tick3 > 250
+		&& env->sectors[env->selected_floor].start_floor_slope > 0)
 		{
-			env->sectors[env->selected_floor] = rotate_vertices(env, -1, env->selected_floor);
+			env->sectors[env->selected_floor].start_floor_slope--;
 			env->time.tick3 = time;
 		}
-		env->sectors[env->selected_floor].normal = get_sector_normal(env->sectors[env->selected_floor], env);
+		env->sectors[env->selected_floor].floor_normal =
+		get_sector_normal(env->sectors[env->selected_floor], env,
+		env->sectors[env->selected_floor]. start_floor_slope);
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		clear_portals(env);
 		while (i < env->nb_sectors)
@@ -455,17 +460,22 @@ int		editor_3d_keys(t_env *env)
 	{
 		if (!env->time.tick3)
 			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 250)
+		if (env->inputs.left && time - env->time.tick3 > 250
+		&& env->sectors[env->selected_ceiling].start_ceiling_slope
+		< env->sectors[env->selected_ceiling].nb_vertices)
 		{
-			env->sectors[env->selected_ceiling] = rotate_vertices(env, 1, env->selected_ceiling);
+			env->sectors[env->selected_ceiling].start_ceiling_slope++;
 			env->time.tick3 = time;
 		}
-		else if (env->inputs.right && time - env->time.tick3 > 250)
+		else if (env->inputs.right && time - env->time.tick3 > 250
+		&& env->sectors[env->selected_ceiling].start_ceiling_slope > 0)
 		{
-			env->sectors[env->selected_ceiling] = rotate_vertices(env, -1, env->selected_ceiling);
+			env->sectors[env->selected_ceiling].start_ceiling_slope--;
 			env->time.tick3 = time;
 		}
-		env->sectors[env->selected_ceiling].normal = get_sector_normal(env->sectors[env->selected_ceiling], env);
+		env->sectors[env->selected_ceiling].ceiling_normal =
+		get_sector_normal(env->sectors[env->selected_ceiling],
+		env, env->sectors[env->selected_ceiling].start_ceiling_slope);
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 		update_player_z(env);
 		clear_portals(env);
@@ -478,7 +488,6 @@ int		editor_3d_keys(t_env *env)
 
 	if (env->inputs.right_click && !env->option)
 	{
-		//ft_printf("player pos %f, %f\n", env->player.pos.x, env->player.pos.y);
 		if (env->weapons[env->player.curr_weapon].ammo < env->weapons[env->player.curr_weapon].max_ammo)
 			env->weapons[env->player.curr_weapon].ammo++;
 	}
