@@ -27,6 +27,10 @@ int		print_object_sector_tab(t_env *env)
 	env->editor.hud.s_object.intensity.str = ft_sitoa(env->sectors[env->objects[env->editor.selected_object].sector].intensity);
 	env->editor.hud.s_object.t_intensity.target = &env->sectors[env->objects[env->editor.selected_object].sector].intensity;
 	draw_button(env, env->editor.hud.s_object.intensity);
+	print_text(new_point(640, 60), new_printable_text("Gravity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.s_object.gravity.str = ft_sitoa(env->sectors[env->objects[env->editor.selected_object].sector].gravity);
+	env->editor.hud.s_object.t_gravity.target = &env->sectors[env->objects[env->editor.selected_object].sector].gravity;
+	draw_button(env, env->editor.hud.s_object.gravity);
 	return (0);
 }
 

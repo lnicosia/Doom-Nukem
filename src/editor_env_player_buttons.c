@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:24:09 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 14:46:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:03:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_player_sector_env(t_env *env)
 	env->editor.hud.s_player.t_intensity.type = INT;
 	env->editor.hud.s_player.t_gravity.env = env;
 	env->editor.hud.s_player.t_gravity.pos = new_point(0, 0);
-	env->editor.hud.s_player.t_gravity.type = INT;
+	env->editor.hud.s_player.t_gravity.type = DOUBLE;
 }
 
 void	init_player_general_env(t_env *env)

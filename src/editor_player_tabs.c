@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:23:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:28:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:04:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int		print_player_sector_tab(t_env *env)
 	env->editor.hud.s_player.intensity.str = ft_sitoa(env->sectors[env->player.sector].intensity);
 	env->editor.hud.s_player.t_intensity.target = &env->sectors[env->player.sector].intensity;
 	draw_button(env, env->editor.hud.s_player.intensity);
+	print_text(new_point(600, 60), new_printable_text("Gravity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.s_player.gravity.str = ft_sitoa(env->sectors[env->player.sector].gravity);
+	env->editor.hud.s_player.t_gravity.target = &env->sectors[env->player.sector].gravity;
+	draw_button(env, env->editor.hud.s_player.gravity);
 	return (0);
 }
 

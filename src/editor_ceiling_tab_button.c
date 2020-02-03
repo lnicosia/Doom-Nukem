@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:25:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:48:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	init_ceilling_sector_buttons(t_env *env)
 	&env->editor.hud.s_ceilling.t_gravity, env);
 	env->editor.hud.s_ceilling.gravity.pos = new_point(250, 640);
 	env->editor.hud.s_ceilling.t_gravity.pos = new_point(250, 640);
-	//env->editor.hud.s_ceilling.gravity.str = ;
 }
 
 void	init_ceilling_general_buttons(t_env *env)

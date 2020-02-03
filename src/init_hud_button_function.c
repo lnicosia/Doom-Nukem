@@ -6,11 +6,17 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:16:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:30:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		change_slope_direction(void *target)
+{
+	(void)target;
+	return (0);
+}
 
 int		next_selected_wall(void *target)
 {

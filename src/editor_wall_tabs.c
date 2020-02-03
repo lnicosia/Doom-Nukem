@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:17:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:23:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int		print_wall_sprite_sector_tab(t_env *env)
 	env->editor.hud.s_wall_sprite.intensity.str = ft_sitoa(env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall_sprite.t_intensity.target = &env->sectors[env->editor.selected_sector].intensity;
 	draw_button(env, env->editor.hud.s_wall_sprite.intensity);
+	print_text(new_point(640, 60), new_printable_text("Gravity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.s_wall_sprite.gravity.str = ft_sitoa(env->sectors[env->editor.selected_sector].gravity);
+	env->editor.hud.s_wall_sprite.t_gravity.target = &env->sectors[env->editor.selected_sector].gravity;
+	draw_button(env, env->editor.hud.s_wall_sprite.gravity);
 	return (0);
 }
 
@@ -84,6 +88,10 @@ int		print_wall_sector_tab(t_env *env)
 	env->editor.hud.s_wall.intensity.str = ft_sitoa(env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall.t_intensity.target = &env->sectors[env->editor.selected_sector].intensity;
 	draw_button(env, env->editor.hud.s_wall.intensity);
+	print_text(new_point(640, 60), new_printable_text("Gravity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.s_wall.gravity.str = ft_sitoa(env->sectors[env->editor.selected_sector].gravity);
+	env->editor.hud.s_wall.t_gravity.target = &env->sectors[env->editor.selected_sector].gravity;
+	draw_button(env, env->editor.hud.s_wall.gravity);
 	return (0);
 }
 

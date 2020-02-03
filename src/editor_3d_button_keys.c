@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:24:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:19:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	object_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.s_object.color, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.s_object.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_object.gravity, env))
 			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
@@ -40,6 +42,8 @@ int	wall_sprite_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.s_wall_sprite.color, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.s_wall_sprite.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_wall_sprite.gravity, env))
 			return (-1);
 	}
 	if (env->editor.sprite_tab.state == DOWN)
@@ -92,6 +96,8 @@ int	wall_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_wall.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_wall.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
@@ -121,6 +127,8 @@ int	floor_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_floor.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_floor.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
@@ -149,6 +157,8 @@ int	ceiling_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.s_ceilling.color, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.s_ceilling.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_ceilling.gravity, env))
 			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
