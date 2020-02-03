@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:22:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:54:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ int	enemy_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_enemy.pos_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_enemy.pos_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_enemy.pos_z, env))
-			return (-1);
 		if (button_keys(&env->editor.hud.g_enemy.health, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_enemy.speed, env))

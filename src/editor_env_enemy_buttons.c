@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:59:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/22 15:27:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:07:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_enemy_sector_env(t_env *env)
 	env->editor.hud.s_enemy.t_intensity.type = INT;
 	env->editor.hud.s_enemy.t_gravity.env = env;
 	env->editor.hud.s_enemy.t_gravity.pos = new_point(0, 0);
-	env->editor.hud.s_enemy.t_gravity.type = INT;
+	env->editor.hud.s_enemy.t_gravity.type = DOUBLE;
 }
 
 void	init_enemy_general_env(t_env *env)

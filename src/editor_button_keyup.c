@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_button_keyup.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:59:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:08:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:53:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ int	enemy_buttons_up(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.hud.g_enemy.pos_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.pos_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.pos_z, env))
-			return (-1);
 		if (button_keyup(&env->editor.hud.g_enemy.health, env))
 			return (-1);
 		if (button_keyup(&env->editor.hud.g_enemy.speed, env))

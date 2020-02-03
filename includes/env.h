@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 15:19:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:48:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void				init_editor_tab_buttons(t_env *env);
 void				init_floor_buttons(t_env *env);
 void				init_ceilling_buttons(t_env *env);
 void				init_wall_buttons(t_env *env);
+void				init_wall_sprite_buttons(t_env *env);
 void				init_floor_general_env(t_env *env);
 void				init_floor_sector_env(t_env *env);
 void				init_floor_sprite_env(t_env *env);
@@ -173,9 +174,11 @@ void				init_floor_sector_buttons(t_env *env);
 void				init_floor_sprite_buttons(t_env *env);
 void				init_wall_general_env(t_env *env);
 void				init_wall_sector_env(t_env *env);
+void				init_wall_sprite_sector_env(t_env *env);
 void				init_wall_sprite_env(t_env *env);
 void				init_wall_general_buttons(t_env *env);
 void				init_wall_sector_buttons(t_env *env);
+void				init_wall_sprite_sector_buttons(t_env *env);
 void				init_wall_sprite_buttons(t_env *env);
 void				init_ceilling_general_env(t_env *env);
 void				init_ceilling_sector_env(t_env *env);
@@ -325,6 +328,7 @@ void				print_event_launch_condition(t_env *env,
 t_condition *condition);
 void				print_event_exec_condition(t_env *env, 
 t_condition *condition);
+int					print_wall_sprite_sector_tab(t_env *env);
 void				print_wall_sprite_events_tab(t_env *env);
 int					print_sector_target(t_env *env, t_event *event,
 t_point pos, int size);
@@ -444,6 +448,7 @@ int					change_floor_height(void *target);
 int					change_floor_slope(void *target);
 int					change_ceiling_height(void *target);
 int					change_ceiling_slope(void *target);
+int					next_selected_wall(void	*target);
 
 /*
 **	prints and draw buttons for informations on a selected element 
@@ -697,7 +702,7 @@ void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env);
 double				get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env);
-t_v2				get_sector_normal(t_sector sector, t_env *env);
+t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);

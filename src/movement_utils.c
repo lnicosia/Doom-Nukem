@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:09:06 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/21 12:14:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:37:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ double		floor_height(t_env *env, t_movement motion, int sector_dest)
 	double	height;
 
 	height = motion.eyesight + env->sectors[sector_dest].floor +
-		(env->sectors[sector_dest].normal.x * (motion.pos.x - FUTURE_V0X) -
-		env->sectors[sector_dest].normal.y * (motion.pos.y - FUTURE_V0Y)) *
+		(env->sectors[sector_dest].floor_normal.x * (motion.pos.x - FUTURE_V0X) -
+		env->sectors[sector_dest].floor_normal.y * (motion.pos.y - FUTURE_V0Y)) *
 		env->sectors[sector_dest].floor_slope;
 	return (height);
 }

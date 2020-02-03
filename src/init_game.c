@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:37:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:59:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		init_game(int ac, char **av)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.difficulty = 1;
-	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
 	env.playing = 1;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 09:40:42 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 17:25:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:05:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,8 @@ void	init_sector_general_buttons(t_env *env)
 	&env->editor.hud.g_sector.t_ceiling_slope, env);
 	env->editor.hud.g_sector.ceiling_slope.pos = new_point(250, 760);
 	env->editor.hud.g_sector.t_ceiling_slope.pos = new_point(250, 760);
+	env->editor.hud.g_sector.gravity = new_hud_button(ON_RELEASE, &change_var,
+	&env->editor.hud.g_sector.t_gravity, env);
+	env->editor.hud.g_sector.gravity.pos = new_point(250, 800);
+	env->editor.hud.g_sector.t_gravity.pos = new_point(250, 800);
 }

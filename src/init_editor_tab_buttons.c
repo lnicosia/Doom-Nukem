@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 10:45:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:11:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	init_wall_buttons(t_env *env)
 	init_wall_general_env(env);
 	init_wall_sector_env(env);
 	init_wall_sprite_env(env);
+	init_wall_sprite_sector_env(env);
 	init_wall_general_buttons(env);
 	init_wall_sector_buttons(env);
+	init_wall_sprite_sector_buttons(env);
 	init_wall_sprite_buttons(env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 13:41:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:39:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,12 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/previous-pressed.bmp", 19, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/previous-hover.bmp", 20, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-pressed.bmp", 22, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
 		return (custom_error("Invalid bmp files"));
 	if (init_mini_ui_textures(env))
 		return (custom_error("error while parsing the miniatures of the enemies"));

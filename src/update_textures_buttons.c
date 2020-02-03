@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 10:53:12 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:08:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:02:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int			update_ceiling_texture_button(void *penv)
 {
 	t_env	*env;
 	env = (t_env*)penv;
-	ft_printf("updating ceiling %d texture\n", env->selected_ceiling);
 	if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
 		env->contains_skybox = 1;
 	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
