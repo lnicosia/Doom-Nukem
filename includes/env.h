@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:40:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:14:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void				init_editor_tab_buttons(t_env *env);
 void				init_floor_buttons(t_env *env);
 void				init_ceilling_buttons(t_env *env);
 void				init_wall_buttons(t_env *env);
+void				init_wall_sprite_buttons(t_env *env);
 void				init_floor_general_env(t_env *env);
 void				init_floor_sector_env(t_env *env);
 void				init_floor_sprite_env(t_env *env);
@@ -173,9 +174,11 @@ void				init_floor_sector_buttons(t_env *env);
 void				init_floor_sprite_buttons(t_env *env);
 void				init_wall_general_env(t_env *env);
 void				init_wall_sector_env(t_env *env);
+void				init_wall_sprite_sector_env(t_env *env);
 void				init_wall_sprite_env(t_env *env);
 void				init_wall_general_buttons(t_env *env);
 void				init_wall_sector_buttons(t_env *env);
+void				init_wall_sprite_sector_buttons(t_env *env);
 void				init_wall_sprite_buttons(t_env *env);
 void				init_ceilling_general_env(t_env *env);
 void				init_ceilling_sector_env(t_env *env);
@@ -325,6 +328,7 @@ void				print_event_launch_condition(t_env *env,
 t_condition *condition);
 void				print_event_exec_condition(t_env *env, 
 t_condition *condition);
+int					print_wall_sprite_sector_tab(t_env *env);
 void				print_wall_sprite_events_tab(t_env *env);
 int					print_sector_target(t_env *env, t_event *event,
 t_point pos, int size);

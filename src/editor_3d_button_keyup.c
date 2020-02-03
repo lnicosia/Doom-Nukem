@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_button_keyup.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:13:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:21:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,26 @@ int	object_buttons_up(t_env *env)
 
 int	wall_sprite_buttons_up(t_env *env)
 {
-	if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_x, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_y, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_x, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_y, env))
-		return (-1);
+	if (env->editor.sector_tab.state == DOWN)
+	{
+		if (button_keyup(&env->editor.hud.s_wall_sprite.brightness, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.s_wall_sprite.color, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.s_wall_sprite.intensity, env))
+			return (-1);
+	}
+	if (env->editor.sprite_tab.state == DOWN)
+	{
+		if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_x, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_y, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_x, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_y, env))
+			return (-1);
+	}
 	return (0);
 }
 

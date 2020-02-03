@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 16:14:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:44:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct	s_hud
 	t_var_g		g_enemy;
 	t_var_g		g_object;
 	t_var_s		s_wall;
+	t_var_s		s_wall_sprite;
 	t_var_s		s_floor;
 	t_var_s		s_ceilling;
 	t_var_s		s_sector;

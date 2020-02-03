@@ -66,7 +66,7 @@ int		save_button(void *target)
 
 int		editor_mode_button(t_env *env)
 {
-	env->editor.change_mode = new_image_button(WHEN_DOWN, &change_mode, env, env);
+	env->editor.change_mode = new_image_button(ON_RELEASE, &change_mode, env, env);
     env->editor.change_mode.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
 	env->editor.change_mode.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
 	env->editor.change_mode.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -84,7 +84,7 @@ int		editor_mode_button(t_env *env)
 
 int		editor_save_button(t_env *env)
 {
-	env->editor.save = new_image_button(WHEN_DOWN, &save_button, env, env);
+	env->editor.save = new_image_button(ON_RELEASE, &save_button, env, env);
     env->editor.save.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -102,7 +102,7 @@ int		editor_save_button(t_env *env)
 
 int		editor_launch_game(t_env *env)
 {
-	env->editor.launch_game = new_image_button(WHEN_DOWN, &launch_game, env, env);
+	env->editor.launch_game = new_image_button(ON_RELEASE, &launch_game, env, env);
     env->editor.launch_game.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
