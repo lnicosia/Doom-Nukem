@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:30:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 19:00:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,55 @@
 
 int		change_slope_direction(void *target)
 {
-	(void)target;
+	t_env			*env;
+	t_button_next	*button;
+	t_sector		*sector;
+	
+	button = NULL;
+	env = (t_env *)target;
+	if (env->editor.next_slope_swap.state == DOWN)
+		button = &env->editor.next_slope_swap_env;
+	if (env->editor.previous_slope_swap.state == DOWN)
+		button = &env->editor.previous_slope_swap_env;
+	if (env->selected_ceiling != -1)
+	{
+		sector = &env->sectors[env->selected_ceiling];
+		if (button->button_type == NEXT)
+		{
+			if (sector->start_ceiling_slope < sector->nb_vertices - 1)
+				sector->start_ceiling_slope++;
+		}
+		else if (button->button_type == PREVIOUS)
+		{
+			if (sector->start_ceiling_slope > 0)
+				sector->start_ceiling_slope--;
+		}
+	}
+	else if (env->selected_floor != -1)
+	{
+		sector = &env->sectors[env->selected_floor];
+		if (button->button_type == NEXT)
+		{
+			if (sector->start_floor_slope < sector->nb_vertices - 1)
+				sector->start_floor_slope++;
+		}
+		else if (button->button_type == PREVIOUS)
+		{
+			if (sector->start_floor_slope > 0)
+				sector->start_floor_slope--;
+		}
+	}
+	env->editor.previous_slope_swap.state = UP;
+	env->editor.previous_slope_swap.anim_state = REST;
+	env->editor.next_slope_swap.state = UP;
+	env->editor.next_slope_swap.anim_state = REST;
 	return (0);
 }
 
 int		next_selected_wall(void *target)
 {
-	t_env *env;
-	t_button_next *button;
+	t_env 			*env;
+	t_button_next	*button;
 
 	env = (t_env *)target;
 	button = NULL;

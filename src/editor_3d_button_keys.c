@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:19:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 19:04:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ int	floor_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.texture_align_y, env))
 			return (-1);
+		if (button_keys(&env->editor.previous_slope_swap, env))
+			return (-1);
+		if (button_keys(&env->editor.next_slope_swap, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -174,6 +178,10 @@ int	ceiling_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_ceilling.texture_align_x, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_ceilling.texture_align_y, env))
+			return (-1);
+		if (button_keys(&env->editor.previous_slope_swap, env))
+			return (-1);
+		if (button_keys(&env->editor.next_slope_swap, env))
 			return (-1);
 	}
 	return (0);
