@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 18:00:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 09:30:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 /*
 **	Interaction test function
 */
+
+int	hola2(void *param)
+{
+	(void)param;
+	ft_printf("Hola\n");
+	return (1);
+}
 
 int	hola(void *param, void *env)
 {

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:40:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:16:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,20 +382,6 @@ int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
-int					nothing(void *target);
-int					save_texture(void *target);
-int					save_enemy(void *target);
-int					add_enemy_button(void *target);
-int					add_object_button(void *target);
-int					general_tab(void *target);
-int					sector_tab(void *target);
-int					sprite_tab(void *target);
-int					events_tab(void *param);
-int					change_sprite(void *target);
-int					change_var(void *target);
-int					events_tab(void *target);
-int					open_enemy_selection(void *param);
-int					open_wall_sprite_selection(void *param);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 
@@ -421,6 +407,34 @@ int					update_sector_entities_input_box(void *penv);
 int					update_object_sector_input_box(void *penv);
 int					update_enemy_sector_input_box(void *penv);
 
+/*
+**	Editor buttons functions
+*/
+
+int					nothing(void *target);
+int					save_texture(void *target);
+int					save_enemy(void *target);
+int					save_sprite(void *target);
+int					add_enemy_button(void *target);
+int					add_object_button(void *target);
+int					general_tab(void *target);
+int					sector_tab(void *target);
+int					sprite_tab(void *target);
+int					change_sprite(void *target);
+int					change_var(void *target);
+int					update_wall_texture_button(void *penv);
+int					update_ceiling_texture_button(void *penv);
+int					update_floor_texture_button(void *penv);
+int					save_texture(void *target);
+int					save_enemy(void *target);
+int					add_enemy_button(void *target);
+int					add_object_button(void *target);
+int					events_tab(void *target);
+int					open_enemy_selection(void *param);
+int					open_wall_sprite_selection(void *param);
+int					change_floor_sprite_scale(void *penv);
+int					change_ceiling_sprite_scale(void *penv);
+int					change_brightness_or_intensity(void *penv);
 
 /*
 **	prints and draw buttons for informations on a selected element 
@@ -442,20 +456,6 @@ int					print_object_sector_tab(t_env *env);
 int					print_floor_sprite_tab(t_env *env);
 int					print_ceiling_sprite_tab(t_env *env);
 int					print_wall_sprite_tab(t_env *env);
-int					nothing(void *target);
-int					save_texture(void *target);
-int					save_enemy(void *target);
-int					save_sprite(void *target);
-int					add_enemy_button(void *target);
-int					add_object_button(void *target);
-int					general_tab(void *target);
-int					sector_tab(void *target);
-int					sprite_tab(void *target);
-int					change_sprite(void *target);
-int					change_var(void *target);
-int					update_wall_texture_button(void *penv);
-int					update_ceiling_texture_button(void *penv);
-int					update_floor_texture_button(void *penv);
 
 /*
 **	buttons for selections
