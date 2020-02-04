@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 16:09:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:12:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,16 @@ int	draw_editor_tabs(t_env *env)
 	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ))
 	|| (!env->editor.in_game && (env->editor.selected_sector != -1 || env->editor.selected_player != -1
-	|| env->editor.selected_object != -1 || env->selected_enemy != -1)))
+	|| env->editor.selected_object != -1 || env->selected_enemy != -1 ||
+	env->selected_object != -1)))
 		draw_button(env, env->editor.general_tab);
 	if ((!env->editor.in_game && (env->editor.selected_player != -1 || env->selected_enemy != -1
 	|| env->editor.selected_object != -1)) || (env->editor.in_game
 	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1 ||
-	env->selected_floor != -1 || env->selected_enemy != -1
-	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1 
-	|| env->selected_ceiling != -1)))
+	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ||
+	env->selected_wall_sprite_sprite != -1 || env->selected_ceiling != -1 ||
+	env->selected_object != -1)))
 		draw_button(env, env->editor.sector_tab);
 	if (is_events_tab_visible(env))
 		draw_button(env, env->editor.events_tab);
