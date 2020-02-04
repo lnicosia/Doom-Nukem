@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 17:18:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:02:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,7 @@ int		keyup(t_env *env)
 		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
-	{
-		//env->option = env->option ? 0 : 1;
-		if (env->option)
-			SDL_SetRelativeMouseMode(0);
-		else if (env->player.health > 0)
-			SDL_SetRelativeMouseMode(1);
-	}
+		env->option = env->option ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)

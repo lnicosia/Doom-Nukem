@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 11:53:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/31 17:46:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:50:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		init_sound(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[1].shot) != FMOD_OK)
 		return (ft_printf("Failed to load raygun_shot.wav"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/at_dooms_gate.wav",
+	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",//should be at_dooms_gate.wav
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.at_dooms_gate) != FMOD_OK)
 		return (ft_printf("Failed to load at_dooms_gate.wav"));

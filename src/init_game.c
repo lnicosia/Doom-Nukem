@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 18:01:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:58:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,9 @@ int		init_game(int ac, char **av)
 	option_menu_button(&env);
 	return_button(&env);
 	exit_button(&env);
-	//music_vol_down_menu_button(&env);
-	//music_vol_up_menu_button(&env);
+	music_vol_down_button(&env);
+	music_vol_up_button(&env);
+	sounds_vol_up_button(&env);
+	sounds_vol_down_button(&env);
 	return (doom(&env));
 }

@@ -44,26 +44,6 @@ int		previous_difficulty(void *target)
 	return (1);
 }
 
-int		music_volume_up(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	if (env->sound.ambient_vol <= 0.90)
-		env->sound.ambient_vol += 0.1;
-	return (1);
-}
-
-int		music_volume_down(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	if (env->sound.ambient_vol >= 0.10)
-		env->sound.ambient_vol -= 0.1;
-	return (1);
-}
-
 int		open_options(void *target)
 {
 	t_env *env;
@@ -129,25 +109,7 @@ int		prev_difficulty_button(t_env *env)
 		env->h_h + env->previous_difficulty.size_down.y);
 	return (0);
 }
-/*
-int		music_vol_up_menu_button(t_env *env)
-{
-	env->music_vol_up_menu = new_plus_button(ON_RELEASE,
-		&music_volume_up, env, env);
-	env->music_vol_up_menu.pos = new_point(env->h_w - env->h_w / 2,
-		env->h_h + env->h_h / 2 + env->music_vol_up_menu.size_down.y);
-	return (0);	
-}
 
-int		music_vol_down_menu_button(t_env *env)
-{
-	env->music_vol_down_menu = new_plus_button(ON_RELEASE,
-		&music_volume_down, env, env);
-	env->music_vol_down_menu.pos = new_point(env->h_w + env->h_w / 2,
-		env->h_h + env->h_h / 2 + env->music_vol_down_menu.size_down.y);
-	return (0);	
-}
-*/
 void	print_difficulty(t_env *env)
 {
 	if (env->difficulty == 0.5)
@@ -175,8 +137,6 @@ void	start_game_menu(t_env *env)
 	draw_button(env, env->previous_difficulty, NULL);
 	draw_button(env, env->option_menu, "OPTIONS");
 	draw_button(env, env->exit_button, "EXIT");
-	//draw_button(env, env->music_vol_up_menu);
-	//draw_button(env, env->music_vol_down_menu);
 	print_difficulty(env);
 	while (SDL_PollEvent(&env->sdl.event))
 	{

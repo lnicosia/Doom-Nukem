@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 18:04:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:57:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,10 @@ typedef struct		s_env
 	t_button			option_menu;
 	t_button			exit_button;
 	t_button			return_button;
-	t_button			music_vol_down_menu;
-	t_button			music_vol_up_menu;
+	t_button			music_vol_down;
+	t_button			music_vol_up;
+	t_button			sounds_vol_up;
+	t_button			sounds_vol_down;
 }					t_env;
 
 /*
@@ -579,8 +581,10 @@ int sprite);
 int					start_game_button(t_env *env);
 int					next_difficulty_button(t_env *env);
 int					prev_difficulty_button(t_env *env);
-int					music_vol_up_menu_button(t_env *env);
-int					music_vol_down_menu_button(t_env *env);
+int					music_vol_up_button(t_env *env);
+int					music_vol_down_button(t_env *env);
+int					sounds_vol_up_button(t_env *env);
+int					sounds_vol_down_button(t_env *env);
 int					option_menu_button(t_env *env);
 int					exit_button(t_env *env);
 int					return_button(t_env *env);
@@ -670,6 +674,10 @@ void *param, t_env *env);
 t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_previous_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button	new_minus_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button	new_plus_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				draw_button(t_env *env, t_button b, char *str);
 
