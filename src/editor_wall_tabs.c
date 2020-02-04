@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:30:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 16:22:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,11 @@ int		print_wall_general_tab(t_env *env)
 	env->editor.hud.g_wall.texture_align_y.str = ft_sitoa(env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y);
 	env->editor.hud.g_wall.t_texture_align_y.target = &env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y;
 	draw_button(env, env->editor.hud.g_wall.texture_align_y);
-	if (env->sectors[env->editor.selected_sector].neighbors[env->selected_wall1] != -1)
+	if (env->sectors[env->editor.selected_sector].neighbors[env->editor.selected_wall] != -1)
 	{
-		ft_printf("coucou\n");
 		print_text(new_point(720, 60), new_printable_text("Portal: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-		env->editor.hud.g_wall.portal.str = ft_sitoa(env->sectors[env->editor.selected_sector].portals[env->selected_wall1]);
-		env->editor.hud.g_wall.t_portal.target = &env->sectors[env->editor.selected_sector].portals[env->selected_wall1];
+		env->editor.hud.g_wall.portal.str = ft_sitoa(env->sectors[env->editor.selected_sector].portals[env->editor.selected_wall]);
+		env->editor.hud.g_wall.t_portal.target = &env->sectors[env->editor.selected_sector].portals[env->editor.selected_wall];
 		draw_button(env, env->editor.hud.g_wall.portal);
 	}
 	return (0);
