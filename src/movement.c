@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 14:23:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:55:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	update_player_pos(t_env *env)
 		t_movement	motion;
 		int			prev_highest_sect;
 
-		motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
+		motion = new_movement(env->player.sector, env->player.size_2d,
+		env->player.eyesight, env->player.pos);
 		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);

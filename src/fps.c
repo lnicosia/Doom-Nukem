@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:21:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 18:10:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:30:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	fps(t_env *env)
 	double			fps;
 
 	new_time = SDL_GetTicks();
-	//ft_printf("time = %d\n", (int)(new_time - env->sdl.time));
 	fps = 1000 / (new_time - env->sdl.time);
 	env->fps_count++;
 	if (new_time - env->frame_timer >= 1000)
@@ -27,8 +26,9 @@ void	fps(t_env *env)
 		env->fps = env->fps_count;
 		env->fps_count = 0;
 	}
+	ft_snprintf(env->snprintf, 20, "%d", env->fps);
 	print_text(new_point(0, 10), new_printable_text(
-				ft_sitoa(env->fps),
+				env->snprintf,
 				env->sdl.fonts.lato20,
 				0xFFFFFFFF,
 				0),

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:31:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:52:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	player_selection(t_env *env)
 		env->player.sector = get_sector_no_z_origin(env, env->player.pos,
 		env->player.sector);
 		if (env->player.sector != -1)
+		{
+			update_player_pos(env);
 			update_player_z(env);
+		}
 	}
 	else
 		env->editor.dragged_player = -1;

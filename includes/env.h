@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:07:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:26:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,7 @@ int					print_vertex_informations(t_env *env);
 void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
+char				*get_condition_type_str(t_condition *condition);
 void				print_event_launch_condition(t_env *env,
 t_condition *condition);
 void				print_event_exec_condition(t_env *env, 
