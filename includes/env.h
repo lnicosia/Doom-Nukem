@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 11:25:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 17:07:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct		s_env
 	size_t				nb_floor_bullet_holes_events;
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
+	char				*snprintf;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -659,7 +660,7 @@ t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
-void				draw_button(t_env *env, t_button b);
+void				draw_button(t_env *env, t_button b, char *str);
 
 /*
 ** Main pipeline functions
@@ -779,7 +780,7 @@ void				create_hidden_sector(t_env *env);
 void				activate_sector(t_env *env, int i);
 int					button_keys(t_button *b, t_env *env);
 int					button_keyup(t_button *b, t_env *env);
-void				draw_button_text(t_button b, t_env *env);
+void				draw_button_text(t_button b, char *str, t_env *env);
 int					is_mouse_on_button(t_button b, t_point mouse);
 t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
@@ -825,6 +826,8 @@ int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
+size_t				get_decimal_len(double nb);
+size_t				get_double_len(double nb);
 
 /*
 ** enemies functions

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:37:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:09:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,8 @@ void		free_all(t_env *env)
 		ft_strdel(&env->res[2]);
 	if (env->input_box.str)
 		ft_strdel(&env->input_box.str);
+	if (env->snprintf)
+		ft_strdel(&env->snprintf);
 	i = 0;
 	free_events(env->global_events, env->nb_global_events);
 	free_events(env->wall_bullet_holes_events,

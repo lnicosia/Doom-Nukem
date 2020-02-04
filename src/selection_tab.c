@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:10:46 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/04 18:01:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:37:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	selection_tab(t_env *env, int nb_slots)
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10 + 20));
 	while (i < MAX_WALL_TEXTURE)
 	{
-		draw_button(env, env->editor.textures[i]);
+		draw_button(env, env->editor.textures[i], env->editor.textures[i].str);
 		i++;
 	}
 	i = 0;
 	while (i < MAX_SKYBOX)
 	{
-		draw_button(env, env->editor.skyboxes[i]);
+		draw_button(env, env->editor.skyboxes[i], env->editor.skyboxes[i].str);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:55:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:36:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 17:20:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	init_object_general_env(t_env *env)
 	env->editor.hud.g_object.t_pos_y.type = DOUBLE;
 	env->editor.hud.g_object.t_pos_z.env = env;
 	env->editor.hud.g_object.t_pos_z.pos = new_point(0, 0);
-	env->editor.hud.g_object.t_pos_z.type = INT;
+	env->editor.hud.g_object.t_pos_z.type = DOUBLE;
 	env->editor.hud.g_object.t_health.env = env;
 	env->editor.hud.g_object.t_health.pos = new_point(0, 0);
-	env->editor.hud.g_object.t_health.type = DOUBLE;
+	env->editor.hud.g_object.t_health.type = INT;
 	env->editor.hud.g_object.t_scale.env = env;
 	env->editor.hud.g_object.t_scale.pos = new_point(0, 0);
 	env->editor.hud.g_object.t_scale.type = DOUBLE;
 	env->editor.hud.g_object.t_damage.env = env;
 	env->editor.hud.g_object.t_damage.pos = new_point(0, 0);
-	env->editor.hud.g_object.t_damage.type = DOUBLE;
+	env->editor.hud.g_object.t_damage.type = INT;
 }

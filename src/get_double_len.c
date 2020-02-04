@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_snprintf.c                                      :+:      :+:    :+:   */
+/*   get_double_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/13 10:27:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 15:00:03 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/04 15:28:29 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/04 16:11:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		ft_snprintf(char *restrict str, size_t size,
-const char * restrict format, ...)
+size_t		get_decimal_len(double nb)
 {
-	t_data	data;
+	size_t	i;
 
-	if (!format)
-		return (-1);
-	init_data(&data, 1);
-	data.str = str;
-	data.str_size = size;
-	data.mode = STR;
-	va_start(data.ap, format);
-	parse_format(format, &data);
-	str[data.i] = '\0';
-	va_end(data.ap);
-	return (data.ret);
+	if (nb < 0)
+		nb = -nb;
+	nb = nb * 1000000;
+	i = 5;
+	while (i > 0)
+	{
+		nb /= 10;
+		if ((size_t)nb % 10)
+			return (i);
+		i--;
+	}
+	return (0);
+}
+
+size_t		get_double_len(double nb)
+{
+	size_t	dec;
+
+	dec = get_decimal_len(nb);
+	if (dec)
+		dec++;
+	if (nb < 0)
+		dec++;
+	return (ft_getlen(nb) + dec);
 }

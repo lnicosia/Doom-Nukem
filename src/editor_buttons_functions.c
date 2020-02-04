@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:10:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 11:24:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 17:17:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		change_enemy_damage(void *param)
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	env->input_box.check = &check_damage_input_box;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.error_message = "Error: damage must be between 0 and 100";
 	return (0);
 }
 
@@ -116,7 +116,7 @@ int		change_object_damage(void *param)
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	env->input_box.check = &check_damage_input_box;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.error_message = "Error: damage must be between 0 and 100";
 	return (0);
 }
 
