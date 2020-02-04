@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:13:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:51:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	editor_keyup(t_env *env)
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_enemy == -1)
 	{
+		reset_selection(env);
 		env->editor.selected_sector = get_sector_no_z(env,
 				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
 					(env->sdl.my - env->editor.center.y) / env->editor.scale,
 					0));
-		reset_selection(env);
 		env->editor.selected_vertex = -1;
 		env->editor.selected_player = -1;
 		env->editor.selected_events = 0;
