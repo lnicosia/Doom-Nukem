@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 12:14:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:52:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,45 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].floor_max = env->sectors[parser->
 		sectors_count].floor;
 	*line = skip_number(*line);
+
+
+
 	if (!**line || **line == ']')
 		return (missing_data("floor slope and texture", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor height", "a digit or space(s)",
 					**line, parser));
-	*line = skip_spaces(*line);
+	*line = skip_spaces(*line);	
 	if (!**line || **line == ']')
-		return (missing_data("floor slope and texture", parser));
+		return (missing_data("floor slope, direction and texture", parser));
 	if (valid_number(*line, parser)){
 		return (invalid_char("before floor slope", "a digit or space(s)",
 					**line, parser));}
 		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 	*line = skip_number(*line);
+
+
+
+
+
+	if (!**line || **line == ']')
+		return (missing_data("floor slope direction and texture", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after floor slope", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("floor slope direction and texture", parser));
+	if (valid_number(*line, parser)){
+		return (invalid_char("before floor slope direction", "a digit or space(s)",
+					**line, parser));}
+		env->sectors[parser->sectors_count].start_floor_slope = ft_atof(*line);
+	*line = skip_number(*line);
+
+
+
+
+	
 	if (!**line || **line == ']')
 		return (missing_data("floor texture", parser));
 	if (**line && **line != ' ')
@@ -157,6 +183,12 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_max =
 	env->sectors[parser->sectors_count].ceiling;
 	*line = skip_number(*line);
+
+
+
+
+
+
 	if (!**line || **line == ']')
 		return (missing_data("ceiling slope", parser));
 	if (**line && **line != ' ')
@@ -170,6 +202,31 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 					**line, parser));
 	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
 	*line = skip_number(*line);
+
+
+
+
+
+
+
+	if (!**line || **line == ']')
+		return (missing_data("ceiling slope direction", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after ceiling slope", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("ceiling slope direction", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before ceiling slope direction", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].start_ceiling_slope = ft_atof(*line);
+	*line = skip_number(*line);
+
+
+
+
+
 	if (!**line || **line == ']')
 		return (missing_data("ceiling texture", parser));
 	if (**line && **line != ' ')
@@ -185,7 +242,6 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].ceiling_texture < -MAX_SKYBOX || env->
 			sectors[parser->sectors_count].ceiling_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid ceiling texture", parser));
-
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling align.x", parser));
