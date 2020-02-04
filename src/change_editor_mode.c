@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:18:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:44:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ int		going_in_2D_mode(t_env *env)
 	env->editor.in_game = 0;
 	env->inputs.enter = 0;
 	SDL_SetRelativeMouseMode(0);
+	env->editor.center.x = -env->player.pos.x * env->editor.scale +
+	env->h_w + 200;
+	env->editor.center.y = -env->player.pos.y * env->editor.scale + env->h_h;
 	return (0);
 }

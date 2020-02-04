@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:43:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:42:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init skybox\n", &env));
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
-	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w;
+	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w + 200;
 	env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
 	env.player.state.fly = 1;
 	return (editor(&env));
