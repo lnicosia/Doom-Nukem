@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 15:34:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:13:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	editor_keyup(t_env *env)
 				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
 					(env->sdl.my - env->editor.center.y) / env->editor.scale,
 					0));
+		reset_selection(env);
 		env->editor.selected_vertex = -1;
-		env->editor.selected_object = -1;
 		env->editor.selected_player = -1;
 		env->editor.selected_events = 0;
 		env->editor.selected_event = 0;

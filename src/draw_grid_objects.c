@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 14:54:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:18:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,9 @@ void	draw_grid_objects(t_env *env)
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_enemy == -1)
 			{
+				reset_selection(env);
 				env->editor.dragged_object = i;
-				env->editor.selected_object = i;
-				env->editor.selected_vertex = -1;
-				env->editor.selected_sector = -1;
-				env->editor.selected_player = -1;
-				env->selected_enemy = -1;
+				env->selected_object = i;
 			}
 		}
 		else
@@ -63,7 +60,7 @@ void	draw_grid_objects(t_env *env)
 			color = 0xFFFFFF00;
 			scale = env->editor.scale / 2.0;
 		}
-		if (env->editor.selected_object == i)
+		if (env->selected_object == i)
 			color = 0xFF00FF00;
 		if (env->editor.dragged_object != i)
 			draw_circle(new_circle(color, color, center, scale), env);

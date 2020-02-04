@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 14:54:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:18:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ void	draw_grid_player(t_env *env)
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1)
 			{
+				reset_selection(env);
 				env->editor.dragged_player = 1;
 				env->editor.selected_player = 1;
-				env->editor.selected_object = -1;
-				env->editor.selected_vertex = -1;
-				env->editor.selected_sector = -1;
 			}
 		}
 		else
