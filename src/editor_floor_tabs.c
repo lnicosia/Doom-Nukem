@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:41:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:08:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ int		print_floor_sector_tab(t_env *env)
 	env->editor.hud.s_floor.intensity.str = ft_sitoa(env->sectors[env->selected_floor].intensity);
 	env->editor.hud.s_floor.t_intensity.target = &env->sectors[env->selected_floor].intensity;
 	draw_button(env, env->editor.hud.s_floor.intensity);
+	print_text(new_point(640, 60), new_printable_text("Gravity:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.s_floor.gravity.str = ft_sitoa(env->sectors[env->selected_floor].gravity);
+	env->editor.hud.s_floor.t_gravity.target = &env->sectors[env->selected_floor].gravity;
+	draw_button(env, env->editor.hud.s_floor.gravity);
 	return (0);
 }
 
@@ -71,10 +75,6 @@ int		print_floor_general_tab(t_env *env)
 	env->editor.hud.g_floor.slope.str = ft_sitoa(env->sectors[env->selected_floor].floor_slope);
 	env->editor.hud.g_floor.t_slope.target = &env->sectors[env->selected_floor].floor_slope;
 	draw_button(env, env->editor.hud.g_floor.slope);
-	print_text(new_point(600, 60), new_printable_text("Texture: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	env->editor.hud.g_floor.texture.str = ft_sitoa(env->sectors[env->selected_floor].floor_texture);
-	env->editor.hud.g_floor.t_texture.target = &env->sectors[env->selected_floor].floor_texture;
-	draw_button(env, env->editor.hud.g_floor.texture);
 	print_text(new_point(640, 60), new_printable_text("Scale X: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	env->editor.hud.g_floor.texture_scale_x.str = ft_sitoa(env->sectors[env->selected_floor].floor_map_scale.x);
 	env->editor.hud.g_floor.t_texture_scale_x.target = &env->sectors[env->selected_floor].floor_map_scale.x;

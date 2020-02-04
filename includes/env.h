@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:07:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:16:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ typedef struct		s_env
 	int					drawing;
 	double				horizon;
 	int					option;
-	int					menu_start;
+	int					menu;
+	int					in_game;
 	int					menu_select;
 	int					menu_edit;
 	int					aplicate_changes;
@@ -116,7 +117,6 @@ typedef struct		s_env
 	int					nb_vertices;
 	int					nb_objects;
 	int					nb_enemies;
-	int					first_frame;
 	int					*ymax;
 	int					*ymin;
 	t_point				minimap_pos;
@@ -145,6 +145,13 @@ typedef struct		s_env
 	int					(*print_link_target_data[MAX_TRIGGER_TYPES + 1])
 	(struct s_env *, t_condition *, t_point, int size);
 	t_button			start_game_button;
+	t_button			previous_difficulty;
+	t_button			next_difficulty;
+	t_button			option_menu;
+	t_button			exit_button;
+	t_button			return_button;
+	t_button			music_vol_down_menu;
+	t_button			music_vol_up_menu;
 }					t_env;
 
 /*
@@ -401,6 +408,7 @@ int					change_var(void *target);
 int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
+int					next_selected_wall(void	*target);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 
@@ -552,6 +560,13 @@ double speed, double height);
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage,
 int sprite);
 int					start_game_button(t_env *env);
+int					next_difficulty_button(t_env *env);
+int					prev_difficulty_button(t_env *env);
+int					music_vol_up_menu_button(t_env *env);
+int					music_vol_down_menu_button(t_env *env);
+int					option_menu_button(t_env *env);
+int					exit_button(t_env *env);
+int					return_button(t_env *env);
 void				init_events_map(t_env *env);
 
 /*
@@ -694,7 +709,7 @@ void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env);
 double				get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env);
-t_v2				get_sector_normal(t_sector sector, t_env *env);
+t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
@@ -719,9 +734,10 @@ void				fall(t_env *env);
 void				drop(t_env *env);
 void				jump(t_env *env);
 void				crouch(t_env *env);
-int					open_options(t_env *env);
+//int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
+void				option_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
@@ -798,7 +814,10 @@ int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
-
+int					menu_keys(t_env *env);
+int					menu_keyup(t_env *env);
+int					option_menu_keyup(t_env *env);
+int					option_menu_keys(t_env *env);
 /*
 ** enemies functions
 */
@@ -815,8 +834,6 @@ int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
 int					draw_enemy(t_camera camera, t_enemies *enemy, t_env *env,
 						int death_sprite);
-int					menu_keys(t_env *env);
-int					menu_keyup(t_env *env);
 
 /*
 ** objects functions

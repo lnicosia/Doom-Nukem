@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:52:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:30:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:05:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,9 @@ int		print_sector_general_tab(t_env *env)
 	env->editor.hud.g_sector.ceiling_slope.str = ft_itoa(env->sectors[env->editor.selected_sector].ceiling_slope);
 	env->editor.hud.g_sector.t_ceiling_slope.target = &env->sectors[env->editor.selected_sector].ceiling_slope;
 	draw_button(env, env->editor.hud.g_sector.ceiling_slope);
+	print_text(new_point(800, 60), new_printable_text("Gravity: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.g_sector.gravity.str = ft_itoa(env->sectors[env->editor.selected_sector].gravity);
+	env->editor.hud.g_sector.t_gravity.target = &env->sectors[env->editor.selected_sector].gravity;
+	draw_button(env, env->editor.hud.g_sector.gravity);
 	return (0);
 }

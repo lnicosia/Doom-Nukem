@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 11:37:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 14:19:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 17:49:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_floor_sector_env(t_env *env)
 	env->editor.hud.s_floor.t_intensity.type = INT;
 	env->editor.hud.s_floor.t_gravity.env = env;
 	env->editor.hud.s_floor.t_gravity.pos = new_point(0, 0);
-	env->editor.hud.s_floor.t_gravity.type = INT;
+	env->editor.hud.s_floor.t_gravity.type = DOUBLE;
 }
 
 void	init_floor_general_env(t_env *env)
@@ -52,9 +52,6 @@ void	init_floor_general_env(t_env *env)
 	env->editor.hud.g_floor.t_slope.env = env;
 	env->editor.hud.g_floor.t_slope.pos = new_point(0, 0);
 	env->editor.hud.g_floor.t_slope.type = DOUBLE;
-	env->editor.hud.g_floor.t_texture.env = env;
-	env->editor.hud.g_floor.t_texture.pos = new_point(0, 0);
-	env->editor.hud.g_floor.t_texture.type = INT;
 	env->editor.hud.g_floor.t_texture_scale_x.env = env;
 	env->editor.hud.g_floor.t_texture_scale_x.pos = new_point(0, 0);
 	env->editor.hud.g_floor.t_texture_scale_x.type = DOUBLE;

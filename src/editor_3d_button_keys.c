@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:28:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:19:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ int	object_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_object.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_object.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_object.pos_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_object.pos_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_object.pos_z, env))
-			return (-1);
 		if (button_keys(&env->editor.hud.g_object.health, env))
 			return (-1);
 	}
@@ -46,6 +42,8 @@ int	wall_sprite_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.s_wall_sprite.color, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.s_wall_sprite.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_wall_sprite.gravity, env))
 			return (-1);
 	}
 	if (env->editor.sprite_tab.state == DOWN)
@@ -98,10 +96,14 @@ int	wall_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_wall.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_wall.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_wall.texture, env))
+		if (button_keys(&env->editor.next_wall, env))
+			return (-1);
+		if (button_keys(&env->editor.previous_wall, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_wall.texture_scale_x, env))
 			return (-1);
@@ -125,14 +127,14 @@ int	floor_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_floor.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_floor.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
 		if (button_keys(&env->editor.hud.g_floor.height, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.slope, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_floor.texture_scale_x, env))
 			return (-1);
@@ -156,14 +158,14 @@ int	ceiling_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_ceilling.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_ceilling.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
 		if (button_keys(&env->editor.hud.g_ceilling.height, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_ceilling.slope, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_ceilling.texture_scale_x, env))
 			return (-1);

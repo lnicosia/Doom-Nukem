@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:37:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:18:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		keyup(t_env *env)
 	}
 	return (0);
 }
-
+/*
 int		open_options(t_env *env)
 {
 	SDL_SetRelativeMouseMode(0);
@@ -126,4 +126,4 @@ int		open_options(t_env *env)
 		env->aplicate_changes = 0;
 	}
 	return (0);
-}
+}*/

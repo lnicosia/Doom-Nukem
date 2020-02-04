@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 11:39:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 14:35:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,7 +389,8 @@ typedef struct		s_bullet_hole
 
 typedef struct		s_sector
 {
-	t_v2			normal;
+	t_v2			floor_normal;
+	t_v2			ceiling_normal;
 	double			floor;
 	double			floor_slope;
 	int				floor_texture;
@@ -446,6 +447,9 @@ typedef struct		s_sector
 	t_event			*stand_events;
 	t_event			*walk_in_events;
 	t_event			*walk_out_events;
+	int				start_floor_slope;
+	int				start_ceiling_slope;
+	int				start_slope;
 }					t_sector;
 
 typedef struct		s_vertex

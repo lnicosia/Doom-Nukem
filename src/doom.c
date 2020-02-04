@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 15:22:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:31:47 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		doom(t_env *env)
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
-		if (env->first_frame)
+		if (env->in_game && !env->menu & !env->option)
 		{
 			while (SDL_PollEvent(&env->sdl.event))
 			{
@@ -124,14 +124,15 @@ int		doom(t_env *env)
 					return (-1);
 			}
 		}
-		if (env->menu_start)
+		if (env->menu && !env->in_game && !env->option)
 			start_game_menu(env);
 		else
 		{
 			if (env->option)
 			{
-				if (open_options(env))
-					return (crash("Could not process options pannel\n", env));
+				option_menu(env);
+				/*if (open_options(env))
+					return (crash("Could not process options pannel\n", env));*/
 			}
 			else if (draw_game(env))
 				return (ft_printf("Crash in game loop\n"));

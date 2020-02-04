@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:06:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:12:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ int		init_game(int ac, char **av)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.difficulty = 1;
-	env.menu_start = 1;
+	env.menu = 1;
+	env.in_game = 0;
+	env.option = 0;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
 	env.playing = 1;
-	env.first_frame = 0; //flag value = 1 once the first frame is shown
 	init_player(&env);
 	init_editor_data(&env);
 	if (init_screen_size(&env))
@@ -140,5 +141,12 @@ int		init_game(int ac, char **av)
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
 	start_game_button(&env);
+	next_difficulty_button(&env);
+	prev_difficulty_button(&env);
+	option_menu_button(&env);
+	return_button(&env);
+	exit_button(&env);
+	//music_vol_down_menu_button(&env);
+	//music_vol_up_menu_button(&env);
 	return (doom(&env));
 }

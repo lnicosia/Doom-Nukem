@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 10:44:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:27:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,14 @@ typedef struct	s_editor
 	t_button		next_sprite;
 	t_button_next	previous_sprite_env;
 	t_button		previous_sprite;
+	t_button_next	next_wall_env;
+	t_button_next	previous_wall_env;
+	t_button		next_wall;
+	t_button		previous_wall;
+	t_button_next	next_slope_swap_env;
+	t_button_next	previous_slope_swap_env;
+	t_button		previous_slope_swap;
+	t_button		next_slope_swap;
 	t_button		next_events;
 	t_button		previous_events;
 	t_button		next_event;
