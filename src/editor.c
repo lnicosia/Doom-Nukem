@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:18:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:03:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@ int		editor(t_env *env)
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
 		while (SDL_PollEvent(&env->sdl.event))
 		{
-			if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP && env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
+			if (env->sdl.event.type == SDL_QUIT
+				|| (env->sdl.event.type == SDL_KEYUP
+				&& env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				env->running = 0;
 			else if (env->sdl.event.type == SDL_KEYDOWN
-					|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
-					|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
+					|| env->sdl.event.type == SDL_KEYUP
+					|| env->sdl.event.type == SDL_MOUSEBUTTONDOWN
+					|| env->sdl.event.type == SDL_MOUSEBUTTONUP
+					|| env->sdl.event.type == SDL_MOUSEWHEEL)
 				update_inputs(env);
-			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONUP))
+			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP
+				|| env->sdl.event.type == SDL_MOUSEBUTTONUP))
 			{
 				if (!env->editor.in_game)
 				{
@@ -93,23 +98,6 @@ int		editor(t_env *env)
 			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
-		/*
-		**	Show the result of the mipmap generation
-		*/
-		/*if (env->options.l)
-		{
-			size_t	i = 0;
-			t_point	pos = new_point(0,
-			0);
-			while (i < env->wall_textures[8].nb_maps)
-			{
-				apply_surface(env->wall_textures[8].maps[i], pos,
-				new_point(env->wall_textures[8].maps[i]->w, env->wall_textures[8].maps[i]->h),
-				env);
-				pos.y += env->wall_textures[8].maps[i]->w;
-				i++;
-			}
-		}*/
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

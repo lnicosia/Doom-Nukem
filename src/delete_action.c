@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 13:34:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:17:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		delete_action(t_env *env)
 			&& !current_vertices_contains(env, env->editor.selected_vertex))
 	{
 		i = 0;
-		ft_printf("cc\n");
 		delete_vertex(env, env->editor.selected_vertex);
 		delete_invalid_sectors(env);
 		delete_invalid_vertices(env);
@@ -60,10 +59,10 @@ int		delete_action(t_env *env)
 		env->confirmation_box.yes_action = delete_selected_sector;
 		env->confirmation_box.yes_target = env;
 	}
-	if (env->editor.selected_object != -1)
+	if (env->selected_object != -1)
 	{
-		delete_object(env, env->editor.selected_object);
-		env->editor.selected_object = -1;
+		delete_object(env, env->selected_object);
+		env->selected_object = -1;
 	}
 	env->inputs.del = 0;
 	return (0);

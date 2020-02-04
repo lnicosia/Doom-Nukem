@@ -88,7 +88,6 @@ int		start_game_button(t_env *env)
 {
 	env->start_game_button = new_image_button(ON_RELEASE, &start_game,
 		env, env);
-	env->start_game_button.str = "START";
 	env->start_game_button.pos =
 		new_point(env->h_w - env->start_game_button.size_down.x / 2,
 		(env->h_h - env->start_game_button.size_down.y / 2) / 2);
@@ -99,7 +98,6 @@ int		option_menu_button(t_env *env)
 {
 	env->option_menu = new_image_button(ON_RELEASE, &open_options,
 		env, env);
-	env->option_menu.str = "OPTIONS";
 	env->option_menu.pos = new_point(env->h_w - env->option_menu.size_up.x / 2,
 		env->h_h + env->h_h / 4 + env->option_menu.size_up.y);
 	return (0);
@@ -109,7 +107,6 @@ int		exit_button(t_env *env)
 {
 	env->exit_button = new_image_button(ON_RELEASE, &exit_button_func,
 		env, env);
-	env->exit_button.str = "EXIT";
 	env->exit_button.pos = new_point(env->h_w - env->exit_button.size_up.x / 2,
 		env->h_h + env->h_h / 2 + env->exit_button.size_up.y);
 	return (0);
@@ -173,11 +170,11 @@ void	start_game_menu(t_env *env)
 	SDL_SetRelativeMouseMode(0);
 	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
 		new_point(env->w, env->h), env);
-	draw_button(env, env->start_game_button);
-	draw_button(env, env->next_difficulty);
-	draw_button(env, env->previous_difficulty);
-	draw_button(env, env->option_menu);
-	draw_button(env, env->exit_button);
+	draw_button(env, env->start_game_button, "START");
+	draw_button(env, env->next_difficulty, NULL);
+	draw_button(env, env->previous_difficulty, NULL);
+	draw_button(env, env->option_menu, "OPTIONS");
+	draw_button(env, env->exit_button, "EXIT");
 	//draw_button(env, env->music_vol_up_menu);
 	//draw_button(env, env->music_vol_down_menu);
 	print_difficulty(env);

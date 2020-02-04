@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:38:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:37:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,19 @@ void	editor_hud(t_env *env)
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
 				new_point(0 , 64),
 				new_point(400, 270));
-		draw_button(env, env->editor.add_enemy);
-		draw_button(env, env->editor.add_object);
-		draw_button(env, env->editor.texture_background);
-		draw_button(env, env->editor.enemy_background);
-		draw_button(env, env->editor.current_texture_selection);
-		draw_button(env, env->editor.current_enemy_selection);
-		draw_button(env, env->editor.change_mode);
-		draw_button(env, env->editor.launch_game);
-		draw_button(env, env->editor.save);
+		draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
+		draw_button(env, env->editor.add_object, env->editor.add_object.str);
+		draw_button(env, env->editor.texture_background,
+		env->editor.texture_background.str);
+		draw_button(env, env->editor.enemy_background,
+		env->editor.enemy_background.str);
+		draw_button(env, env->editor.current_texture_selection,
+		env->editor.current_texture_selection.str);
+		draw_button(env, env->editor.current_enemy_selection,
+		env->editor.current_enemy_selection.str);
+		draw_button(env, env->editor.change_mode, env->editor.change_mode.str);
+		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
+		draw_button(env, env->editor.save, env->editor.save.str);
 		draw_rectangle(env,
 				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
 				new_point(0 , 450),

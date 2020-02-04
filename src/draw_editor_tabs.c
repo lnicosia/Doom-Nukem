@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 16:09:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:36:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ void	print_sprite_tab(t_env *env)
 	if (env->selected_floor_sprite != -1 || env->selected_wall_sprite_sprite != -1
 	|| env->selected_ceiling_sprite != -1)
 	{
-		draw_button(env, env->editor.next_sprite);
-		draw_button(env, env->editor.previous_sprite);
-		draw_button(env, env->editor.sprite_background);
-		draw_button(env, env->editor.current_sprite_selection);
+		draw_button(env, env->editor.next_sprite, env->editor.next_sprite.str);
+		draw_button(env, env->editor.previous_sprite,
+		env->editor.previous_sprite.str);
+		draw_button(env, env->editor.sprite_background,
+		env->editor.sprite_background.str);
+		draw_button(env, env->editor.current_sprite_selection,
+		env->editor.current_sprite_selection.str);
 	}
 }
 
@@ -54,7 +57,7 @@ void	print_sector_tab(t_env *env)
 	/*
 	if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);*/
-	if (env->editor.selected_object != -1 || env->selected_object != -1)
+	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_sector_tab(env);
 	else if (env->selected_enemy != -1)
 		print_enemy_sector_tab(env);
@@ -75,7 +78,7 @@ void	print_general_tab(t_env *env)
 {
 	/*if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);*/
-	if (env->editor.selected_object != -1 || env->selected_object != -1)
+	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_general_tab(env);
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 		print_sector_general_tab(env);
@@ -95,13 +98,16 @@ int		print_vertex_informations(t_env *env)
 {
 	print_text(new_point(450, 180), new_printable_text("vertex ",
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->editor.selected_vertex),
+	ft_snprintf(env->snprintf, 20, "%d", env->editor.selected_vertex);
+	print_text(new_point(450, 280), new_printable_text(env->snprintf,
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(490, 50), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(490, 50), new_printable_text("Coordinates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(540, 80), new_printable_text("X:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(540, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].x);
+	print_text(new_point(540, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(580, 80), new_printable_text("Y:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(580, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].y);
+	print_text(new_point(580, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	return (0);
 }
 
@@ -109,25 +115,25 @@ int	draw_editor_tabs(t_env *env)
 {
 	if ((env->editor.in_game && (env->selected_ceiling_sprite == -1
 	&& env->selected_floor_sprite == -1 && env->selected_wall_sprite_sprite == -1)
-	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
+	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ))
 	|| (!env->editor.in_game && (env->editor.selected_sector != -1 || env->editor.selected_player != -1
-	|| env->editor.selected_object != -1 || env->selected_enemy != -1)))
-		draw_button(env, env->editor.general_tab);
+	|| env->selected_object != -1 || env->selected_enemy != -1)))
+		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
 	if ((!env->editor.in_game && (env->editor.selected_player != -1 || env->selected_enemy != -1
-	|| env->editor.selected_object != -1)) || (env->editor.in_game
-	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
+	|| env->selected_object != -1)) || (env->editor.in_game
+	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1 ||
 	env->selected_floor != -1 || env->selected_enemy != -1
 	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1 
 	|| env->selected_ceiling != -1)))
-		draw_button(env, env->editor.sector_tab);
+		draw_button(env, env->editor.sector_tab, env->editor.sector_tab.str);
 	if (is_events_tab_visible(env))
-		draw_button(env, env->editor.events_tab);
+		draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
 	if (env->editor.in_game && env->editor.tab &&
 	(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1))
-		draw_button(env, env->editor.sprite_tab);
+		draw_button(env, env->editor.sprite_tab, env->editor.sprite_tab.str);
 	new_tabs_position(env);
 	if (env->editor.sector_tab.state == DOWN)
 		print_sector_tab(env);

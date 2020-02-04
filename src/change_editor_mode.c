@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 15:55:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:44:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 int		going_in_3D_mode(t_env *env)
 {
-	env->editor.selected_vertex = -1;
-    env->editor.selected_sector = -1;
-    env->editor.selected_player = -1;
-    env->editor.selected_object = -1;
-    env->selected_enemy = -1;
+	reset_selection(env);
     env->editor.in_game = 1;
     env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
     free_camera(&env->player.camera, env);
@@ -42,14 +38,12 @@ int		going_in_3D_mode(t_env *env)
 
 int		going_in_2D_mode(t_env *env)
 {
+	reset_selection(env);
 	env->editor.in_game = 0;
-	env->selected_floor = -1;
-	env->selected_ceiling = -1;
-	env->selected_object = -1;
-	env->selected_enemy = -1;
-	env->selected_wall1 = -1;
-	env->selected_wall2 = -1;
 	env->inputs.enter = 0;
 	SDL_SetRelativeMouseMode(0);
+	env->editor.center.x = -env->player.pos.x * env->editor.scale +
+	env->h_w + 200;
+	env->editor.center.y = -env->player.pos.y * env->editor.scale + env->h_h;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 16:52:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:33:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ void	print_event_launch_conditions(t_env *env, t_event *event)
 	&event->launch_conditions[env->editor.selected_launch_condition]);
 	if (event->nb_launch_conditions <= 1)
 		return ;
-	draw_button(env, env->editor.next_launch_condition);
-	draw_button(env, env->editor.previous_launch_condition);
+	draw_button(env, env->editor.next_launch_condition,
+	env->editor.next_launch_condition.str);
+	draw_button(env, env->editor.previous_launch_condition,
+	env->editor.previous_launch_condition.str);
 }
 
 void	print_event_exec_conditions(t_env *env, t_event *event)
@@ -135,8 +137,10 @@ void	print_event_exec_conditions(t_env *env, t_event *event)
 	&event->exec_conditions[env->editor.selected_exec_condition]);
 	if (event->nb_launch_conditions <= 1)
 		return ;
-	draw_button(env, env->editor.next_exec_condition);
-	draw_button(env, env->editor.previous_exec_condition);
+	draw_button(env, env->editor.next_exec_condition,
+	env->editor.next_exec_condition.str);
+	draw_button(env, env->editor.previous_exec_condition,
+	env->editor.previous_exec_condition.str);
 }
 
 void	print_event(t_env *env, t_event *event)

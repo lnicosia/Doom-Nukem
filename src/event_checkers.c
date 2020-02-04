@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 14:03:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:12:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	double		z;
 	double		prec;
 	Uint32		time;
+	int			i;
 
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
@@ -125,14 +126,37 @@ int		check_floor_slope_event(t_event *event, void *penv)
 		sector.floor_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		prec = sector.floor_slope;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			prec = sector.floor_slope;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == event->check_param.sector
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->player.pos, env))
+		{
+			prec = sector.floor_slope;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	prec = sector.floor_slope;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -143,6 +167,7 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	double		z;
 	double		prec;
 	Uint32		time;
+	int			i;
 
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
@@ -154,14 +179,37 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 		sector.ceiling_slope = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		prec = sector.ceiling_slope;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			prec = sector.ceiling_slope;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == event->check_param.sector
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->player.pos, env))
+		{
+			prec = sector.floor_slope;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	prec = sector.ceiling_slope;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -172,6 +220,7 @@ int		check_floor_event(t_event *event, void *penv)
 	double		z;
 	double		prec;
 	Uint32		time;
+	int			i;
 
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
@@ -183,14 +232,37 @@ int		check_floor_event(t_event *event, void *penv)
 		sector.floor = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		prec = sector.floor;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			prec = sector.floor;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == event->check_param.sector
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->player.pos, env))
+		{
+			prec = sector.floor_slope;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	prec = sector.floor;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 
@@ -201,6 +273,7 @@ int		check_ceiling_event(t_event *event, void *penv)
 	double		z;
 	double		prec;
 	Uint32		time;
+	int			i;
 
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
@@ -212,14 +285,37 @@ int		check_ceiling_event(t_event *event, void *penv)
 		sector.ceiling = event->goal;
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
+	{
+		prec = sector.ceiling;
+		update_sector_slope(env, &sector);
 		return (1);
+	}
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
+		{
+			prec = sector.ceiling;
+			update_sector_slope(env, &sector);
 			return (1);
+		}
 	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == event->check_param.sector
+			&& env->enemies[i].pos.z + env->enemies[i].scale >=
+			get_ceiling_at_pos(sector, env->player.pos, env))
+		{
+			prec = sector.floor_slope;
+			update_sector_slope(env, &sector);
+			return (1);
+		}
+		i++;
+	}
+	prec = sector.ceiling;
+	update_sector_slope(env, &sector);
 	return (0);
 }
 

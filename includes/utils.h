@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 14:35:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/03 18:47:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,7 +507,7 @@ typedef struct		s_camera
 	double			*head_y;
 	int				*screen_sectors;
 	int				*screen_pos;
-	int			*rendered_sectors;
+	int				*rendered_sectors;
 	int				*xmin;
 	int				*xmax;
 	int				computed;
@@ -921,6 +921,7 @@ typedef struct		s_enemies
 	int				nb_firing_state;
 	int				seen;
 	int				saw_player;
+	double			height_on_floor;
 	double			scale;
 	double			angle;
 	double			size_2d;

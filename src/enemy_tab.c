@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:03:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 16:10:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:33:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	enemy_tab(t_env *env, int nb_slots)
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
 	while (i < MAX_ENEMIES)
 	{
-		draw_button(env, env->editor.enemy_tab[i]);
+		draw_button(env, env->editor.enemy_tab[i], env->editor.enemy_tab[i].str);
 		i++;
 	}
 }

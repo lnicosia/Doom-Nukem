@@ -6,21 +6,21 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/09 12:17:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:49:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void		draw_button_text(t_button b, t_env *env)
+void		draw_button_text(t_button b, char *str, t_env *env)
 {
 	t_printable_text	text;
-	t_point			pos;
-	t_point			text_size;
-	t_point			button_size;
-	Uint32			color;
+	t_point				pos;
+	t_point				text_size;
+	t_point				button_size;
+	Uint32				color;
 
-	if (!b.str || !b.font)
+	if (!str || !b.font)
 		return ;
 	color = 0xFFFFFFFF;
 	button_size = new_point(0, 0);
@@ -44,10 +44,10 @@ void		draw_button_text(t_button b, t_env *env)
 		color = b.down_text_color;
 		button_size = b.size_down;
 	}
-	TTF_SizeText(b.font, b.str, &text_size.x, &text_size.y);
+	TTF_SizeText(b.font, str, &text_size.x, &text_size.y);
 	pos = new_point(b.pos.y + button_size.y / 2 - text_size.y / 2,
 	b.pos.x + button_size.x / 2 - text_size.x / 2);
-	text = new_printable_text(b.str, b.font, color, button_size.y);
+	text = new_printable_text(str, b.font, color, button_size.y);
 	print_text(pos, text, env);
 }
 
@@ -109,6 +109,52 @@ t_button	new_image_button(int type, int (*action)(void *), void *param, t_env *e
 	new.img_pressed = env->ui_textures[1].surface;
 	new.img_down = env->ui_textures[1].surface;
 	new.img_hover = env->ui_textures[2].surface;
+	new.size_up = new_point(new.img_up->w,
+	new.img_up->h);
+	new.size_down = new_point(new.img_down->w,
+	new.img_down->h);
+	new.size_hover = new_point(new.img_hover->w,
+	new.img_hover->h);
+	new.size_pressed = new_point(new.img_pressed->w,
+	new.img_pressed->h);
+	return (new);
+}
+
+t_button	new_plus_button(int type, int (*action)(void *), void *param, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+	if (!env->ui_textures[12].surface || !env->ui_textures[13].surface
+		|| !env->ui_textures[14].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[12].surface;
+	new.img_pressed = env->ui_textures[13].surface;
+	new.img_down = env->ui_textures[13].surface;
+	new.img_hover = env->ui_textures[14].surface;
+	new.size_up = new_point(new.img_up->w,
+	new.img_up->h);
+	new.size_down = new_point(new.img_down->w,
+	new.img_down->h);
+	new.size_hover = new_point(new.img_hover->w,
+	new.img_hover->h);
+	new.size_pressed = new_point(new.img_pressed->w,
+	new.img_pressed->h);
+	return (new);
+}
+
+t_button	new_minus_button(int type, int (*action)(void *), void *param, t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+	if (!env->ui_textures[21].surface || !env->ui_textures[22].surface
+		|| !env->ui_textures[23].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[21].surface;
+	new.img_pressed = env->ui_textures[22].surface;
+	new.img_down = env->ui_textures[22].surface;
+	new.img_hover = env->ui_textures[23].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,
@@ -246,7 +292,7 @@ t_button	new_previous_button(int type, int (*action)(void *), void *param, t_env
 	return (new);
 }
 
-void	draw_button(t_env *env, t_button b)
+void	draw_button(t_env *env, t_button b, char *str)
 {
 	t_point	pos;
 
@@ -273,5 +319,5 @@ void	draw_button(t_env *env, t_button b)
 		else if (b.state == DOWN)
 			apply_surface(b.img_down, pos, b.size_down, env);
 	}
-	draw_button_text(b, env);
+	draw_button_text(b, str, env);
 }

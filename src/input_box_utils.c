@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/08 10:04:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:55:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,9 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 		return (0);
 	if (!ft_isdigit(new))
 	{
-		if (new != '-' || (new == '-' && box->cursor))
-		return (0);
+		if (new != '-' || (new == '-' && box->cursor && box->select_start != 0
+			&& box->select_end != ft_strlen(box->str)))
+			return (0);
 	}
 	if (ft_strlen(box->str) - box->minus >= 9 || (box->minus && !box->cursor))
 		return (0);
@@ -168,8 +169,9 @@ int		parse_double_input(t_input_box *box, t_env *env)
 	{
 		if ((new != '.' && new != '-')
 			|| (new == '.' && box->period)
-			|| (new == '-' && box->cursor))
-		return (0);
+			|| (new == '-' && box->cursor && box->select_start != 0
+			&& box->select_end != ft_strlen(box->str)))
+			return (0);
 	}
 	else if ((box->float_count >= 5 && box->cursor > box->period_index)
 		|| (box->minus && !box->cursor)

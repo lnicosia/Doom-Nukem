@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 17:53:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:23:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int		parse_events(t_env *env, t_map_parser *parser)
 		else if (ft_strlen(line) == 5 && ft_strequ(line, "Links"))
 		{
 			if (parse_events_links(env, parser))
+			{
+				ft_strdel(&tmp);
 				return (-1);
+			}
+			ft_strdel(&tmp);
 			break ;
 		}
 		else if (!*line)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 17:21:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:42:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.sprite_tab.anim_state = REST;
 		env->editor.general_tab.anim_state = REST;
 		env->editor.sector_tab.anim_state = REST;
+		env->editor.center.x = -env->player.pos.x * env->editor.scale +
+		env->h_w + 200;
+		env->editor.center.y = -env->player.pos.y * env->editor.scale +
+		env->h_h;
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:01:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 17:14:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:32:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # include <unistd.h>
 # include <stdarg.h>
 # define BUFF_SIZE 4096
+
+typedef enum	e_modes
+{
+	STDOUT,
+	STR
+}				t_modes;
 
 typedef struct	s_padding
 {
@@ -40,12 +46,19 @@ typedef struct	s_data
 	int				prec;
 	int				size;
 	int				ret;
+	int				mode;
 	const char		*invalid;
+	char			*restrict str;
+	size_t			str_size;
 	t_padding		padding;
 }				t_data;
 
 int				ft_printf(const char *restrict format, ...);
 int				ft_dprintf(int fd, const char *restrict format, ...);
+int				ft_sprintf(char *restrict str,
+const char *restrict format, ...);
+int				ft_snprintf(char *restrict str, size_t size,
+const char *restrict format, ...);
 void			init_data(t_data *data, int fd);
 void			parse_format(const char *restrict format, t_data *data);
 void			pf_putchar(t_data *data);

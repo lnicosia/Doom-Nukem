@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/01/27 14:59:40 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/04 11:06:45 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 pf_invalid.c pf_putaddr.c pf_putchar.c pf_putfloat.c \
 				 pf_putlong_base.c pf_putnbr.c pf_putnbr_base.c \
 				 pf_putpercent.c pf_putstr.c pf_putunbr.c pf_strnequ.c \
-				 put_padding.c putfloat_utils.c
+				 put_padding.c putfloat_utils.c ft_snprintf.c \
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
 

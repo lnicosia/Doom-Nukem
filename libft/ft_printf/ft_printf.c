@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:03:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/28 17:15:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:00:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,24 @@ static void	(*const g_printers[128])(t_data *data) =
 	['F'] = &pf_putfloat
 };
 
-void		fill_buffer(t_data *data, const char *s, unsigned int size)
+void		fill_str(t_data *data, const char *s, unsigned int size)
 {
 	unsigned int	i;
 
 	i = 0;
-	if (data->ret != -1)
-		data->ret += size;
-	if (data->i + size > 2147483647)
-		data->ret = -1;
+	while (i < size && data->i < (int)data->str_size - 1)
+	{
+		data->str[data->i] = s[i];
+		i++;
+		data->i++;
+	}
+}
+
+void		fill_output_buffer(t_data *data, const char *s, unsigned int size)
+{
+	unsigned int	i;
+
+	i = 0;
 	if (data->i + size >= BUFF_SIZE)
 	{
 		write(data->fd, data->buffer, data->i);
@@ -59,6 +68,21 @@ void		fill_buffer(t_data *data, const char *s, unsigned int size)
 	}
 	else
 		write(data->fd, s, size);
+}
+
+void		fill_buffer(t_data *data, const char *s, unsigned int size)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (data->ret != -1)
+		data->ret += size;
+	if (data->i + size > 2147483647)
+		data->ret = -1;
+	if (data->mode == STDOUT)
+		fill_output_buffer(data, s, size);
+	else if (data->mode == STR)
+		fill_str(data, s, size);
 }
 
 void		reset_options(t_data *data)
@@ -83,6 +107,7 @@ void		init_data(t_data *data, int fd)
 	i = -1;
 	data->i = 0;
 	data->ret = 0;
+	data->mode = STDOUT;
 	data->fd = fd;
 	while (++i < BUFF_SIZE)
 		data->buffer[i] = '\0';
