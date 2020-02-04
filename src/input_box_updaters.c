@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:20:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 08:37:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			update_sector_entities_light_input_box(void *penv)
 	return (0);
 }
 
-int			update_object_sector_input_box(void *penv)
+int			update_object_input_box(void *penv)
 {
 	t_env	*env;
 
@@ -78,7 +78,7 @@ int			update_object_sector_input_box(void *penv)
 	return (0);
 }
 
-int			update_enemy_sector_input_box(void *penv)
+int			update_enemy_input_box(void *penv)
 {
 	t_env	*env;
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 20:15:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 09:21:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	init_floor_sprite_buttons(t_env *env)
 void	init_floor_sector_buttons(t_env *env)
 {
 	env->editor.hud.s_floor.brightness = new_hud_button(ON_RELEASE,
-	&change_color, &env->editor.hud.s_floor.t_brightness, env);
+	&change_brightness_or_intensity,
+	&env->editor.hud.s_floor.t_brightness, env);
 	env->editor.hud.s_floor.brightness.pos = new_point(250, 520);
 	env->editor.hud.s_floor.t_brightness.pos = new_point(250, 520);
 	env->editor.hud.s_floor.color = new_hud_button(ON_RELEASE,
@@ -45,7 +46,8 @@ void	init_floor_sector_buttons(t_env *env)
 	env->editor.hud.s_floor.color.pos = new_point(250, 560);
 	env->editor.hud.s_floor.t_color.pos = new_point(250, 560);
 	env->editor.hud.s_floor.intensity = new_hud_button(ON_RELEASE,
-	&change_color, &env->editor.hud.s_floor.t_intensity, env);
+	&change_brightness_or_intensity,
+	&env->editor.hud.s_floor.t_intensity, env);
 	env->editor.hud.s_floor.intensity.pos = new_point(250, 600);
 	env->editor.hud.s_floor.t_intensity.pos = new_point(250, 600);
 	env->editor.hud.s_floor.gravity = new_hud_button(ON_RELEASE,

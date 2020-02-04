@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 20:25:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 09:17:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,12 +404,14 @@ int					check_light_data_input_box(void *penv);
 int					check_gravity_input_box(void *penv);
 int					check_true_false_input_box(void *penv);
 int					check_portal_input_box(void *penv);
+int					check_health_input_box(void *target);
+int					check_speed_input_box(void *target);
 int					update_sector_input_box(void *penv);
 int					update_floor_sprite_scale_input_box(void *penv);
 int					update_ceiling_sprite_scale_input_box(void *penv);
 int					update_sector_entities_light_input_box(void *penv);
-int					update_object_sector_input_box(void *penv);
-int					update_enemy_sector_input_box(void *penv);
+int					update_object_input_box(void *penv);
+int					update_enemy_input_box(void *penv);
 
 /*
 **	Editor buttons functions
@@ -439,6 +441,7 @@ int					change_floor_sprite_scale(void *penv);
 int					change_ceiling_sprite_scale(void *penv);
 int					change_wall_sprite_scale(void *penv);
 int					change_color(void *penv);
+int					change_brightness_or_intensity(void *penv);
 int					change_gravity(void *penv);
 int					change_sprite(void *target);
 int					change_ceiling_texture_scale(void *target);
@@ -450,6 +453,8 @@ int					change_floor_height(void *target);
 int					change_floor_slope(void *target);
 int					change_ceiling_height(void *target);
 int					change_ceiling_slope(void *target);
+int					change_health(void *target);
+int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 
 /*

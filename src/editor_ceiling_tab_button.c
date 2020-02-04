@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 20:15:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 09:32:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 void	init_ceilling_sprite_buttons(t_env *env)
 {
 	env->editor.hud.sp_ceiling_sprite.pos_x = new_hud_pos_button(ON_RELEASE,
-	&change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_pos_x, env);
+	&change_var, &env->editor.hud.sp_ceiling_sprite.t_pos_x, env);
 	env->editor.hud.sp_ceiling_sprite.pos_x.pos = new_point(250, 560);
 	env->editor.hud.sp_ceiling_sprite.t_pos_x.pos = new_point(250, 560);
 	env->editor.hud.sp_ceiling_sprite.pos_y = new_hud_pos_button(ON_RELEASE,
-	&change_var,
-	&env->editor.hud.sp_ceiling_sprite.t_pos_y, env);
+	&change_var, &env->editor.hud.sp_ceiling_sprite.t_pos_y, env);
 	env->editor.hud.sp_ceiling_sprite.pos_y.pos = new_point(300, 560);
 	env->editor.hud.sp_ceiling_sprite.t_pos_y.pos = new_point(300, 560);
 	env->editor.hud.sp_ceiling_sprite.scale_x = new_hud_pos_button(ON_RELEASE,
@@ -39,7 +37,8 @@ void	init_ceilling_sprite_buttons(t_env *env)
 void	init_ceilling_sector_buttons(t_env *env)
 {
 	env->editor.hud.s_ceilling.brightness = new_hud_button(ON_RELEASE,
-	&change_color, &env->editor.hud.s_ceilling.t_brightness, env);
+	&change_brightness_or_intensity,
+	&env->editor.hud.s_ceilling.t_brightness, env);
 	env->editor.hud.s_ceilling.brightness.pos = new_point(250, 520);
 	env->editor.hud.s_ceilling.t_brightness.pos = new_point(250, 520);
 	env->editor.hud.s_ceilling.color = new_hud_button(ON_RELEASE,
@@ -47,7 +46,8 @@ void	init_ceilling_sector_buttons(t_env *env)
 	env->editor.hud.s_ceilling.color.pos = new_point(250, 560);
 	env->editor.hud.s_ceilling.t_color.pos = new_point(250, 560);
 	env->editor.hud.s_ceilling.intensity = new_hud_button(ON_RELEASE,
-	&change_color, &env->editor.hud.s_ceilling.t_intensity, env);
+	&change_brightness_or_intensity,
+	&env->editor.hud.s_ceilling.t_intensity, env);
 	env->editor.hud.s_ceilling.intensity.pos = new_point(250, 600);
 	env->editor.hud.s_ceilling.t_intensity.pos = new_point(250, 600);
 	env->editor.hud.s_ceilling.gravity = new_hud_button(ON_RELEASE,
