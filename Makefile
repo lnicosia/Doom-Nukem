@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/03 19:07:45 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/04 11:47:36 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,11 +82,11 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
-		 draw_editor_tabs.c new_tabs_position.c \
+		 draw_editor_tabs.c new_tabs_position.c editor_buttons_functions.c \
 
-SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c \
+SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
-		   print_text.c bmp_parser.c bmp_parser_wall.c \
+		   print_text.c bmp_parser.c bmp_parser_wall.c update_sprites_light.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \

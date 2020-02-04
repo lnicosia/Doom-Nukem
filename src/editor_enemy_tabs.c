@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:55:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:08:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:27:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,13 @@ int		print_enemy_general_tab(t_env *env)
 	env->editor.hud.g_enemy.speed.str = ft_sitoa(env->enemies[env->selected_enemy].speed);
 	env->editor.hud.g_enemy.t_speed.target = &env->enemies[env->selected_enemy].speed;
 	draw_button(env, env->editor.hud.g_enemy.speed);
+	print_text(new_point(640, 60), new_printable_text("Scale: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.g_enemy.scale.str = ft_sitoa(env->enemies[env->selected_enemy].scale);
+	env->editor.hud.g_enemy.t_scale.target = &env->enemies[env->selected_enemy].scale;
+	draw_button(env, env->editor.hud.g_enemy.scale);
+	print_text(new_point(680, 60), new_printable_text("Damage: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->editor.hud.g_enemy.damage.str = ft_sitoa(env->enemies[env->selected_enemy].damage);
+	env->editor.hud.g_enemy.t_damage.target = &env->enemies[env->selected_enemy].damage;
+	draw_button(env, env->editor.hud.g_enemy.damage);
 	return (0);
 }

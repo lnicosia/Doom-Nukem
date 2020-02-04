@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/23 18:35:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:42:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;
+			env->enemies[i].height_on_floor = 5;
 		}
-		else if (env->enemies[i].sprite >= 5 && env->enemies[i].sprite < 10)
+		else if (env->enemies[i].sprite >= 5 && env->enemies[i].sprite < 13)
 		{
 			env->enemies[i].height_ratio = 2.5;
 			env->enemies[i].width_ratio = 0.375;
@@ -50,6 +51,7 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].nb_rest_state = 4;
 			env->enemies[i].nb_pursuit_state = 4;
 			env->enemies[i].nb_firing_state = 3;
+			env->enemies[i].height_on_floor = 0;
 		}
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;
@@ -68,7 +70,8 @@ void		init_objects_data(t_env *env)
 	{
 		env->objects[i].exists = 1;
 		env->objects[i].size_2d = env->objects[i].scale;
-		env->objects[i].health = 1;
+		env->objects[i].map_hp = 1;
+		env->objects[i].health = env->objects[i].map_hp;
 		env->objects[i].explosion_size = 0;
 		env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 		if (env->objects[i].sprite == 0)

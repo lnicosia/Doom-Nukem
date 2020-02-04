@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:59:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:23:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:30:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int	enemy_buttons_up(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.hud.g_enemy.speed, env))
 			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.scale, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.damage, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -49,7 +53,7 @@ int	player_buttons_up(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.hud.s_player.intensity, env))
 			return (-1);
-		if (button_keyup(&env->editor.hud.g_player.gravity, env))
+		if (button_keyup(&env->editor.hud.s_player.gravity, env))
 			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)

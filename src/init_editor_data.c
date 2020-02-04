@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 10:25:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:14:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_editor_data(t_env *env)
 	env->editor.start_vertex = -1;
 	env->player.sector = -1;
 	env->editor.selected_sector = -1;
-	env->editor.selected_object = -1;
 	env->editor.selected_vertex = -1;
 	env->editor.selected_player = -1;
 	env->editor.selected_wall = -1;

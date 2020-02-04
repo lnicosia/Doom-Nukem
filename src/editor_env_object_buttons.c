@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:55:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:02:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:32:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ void	init_object_general_env(t_env *env)
 	env->editor.hud.g_object.t_speed.env = env;
 	env->editor.hud.g_object.t_speed.pos = new_point(0, 0);
 	env->editor.hud.g_object.t_speed.type = DOUBLE;
+	env->editor.hud.g_object.t_scale.env = env;
+	env->editor.hud.g_object.t_scale.pos = new_point(0, 0);
+	env->editor.hud.g_object.t_scale.type = DOUBLE;
+	env->editor.hud.g_object.t_damage.env = env;
+	env->editor.hud.g_object.t_damage.pos = new_point(0, 0);
+	env->editor.hud.g_object.t_damage.type = DOUBLE;
 }

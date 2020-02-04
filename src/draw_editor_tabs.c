@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:12:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:32:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_sector_tab(t_env *env)
 	/*
 	if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);*/
-	if (env->editor.selected_object != -1 || env->selected_object != -1)
+	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_sector_tab(env);
 	else if (env->selected_enemy != -1)
 		print_enemy_sector_tab(env);
@@ -75,7 +75,7 @@ void	print_general_tab(t_env *env)
 {
 	/*if (env->editor.selected_vertex != -1)
 		print_vertex_general_tab(env);*/
-	if (env->editor.selected_object != -1 || env->selected_object != -1)
+	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_general_tab(env);
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
 		print_sector_general_tab(env);
@@ -109,15 +109,14 @@ int	draw_editor_tabs(t_env *env)
 {
 	if ((env->editor.in_game && (env->selected_ceiling_sprite == -1
 	&& env->selected_floor_sprite == -1 && env->selected_wall_sprite_sprite == -1)
-	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
+	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ))
 	|| (!env->editor.in_game && (env->editor.selected_sector != -1 || env->editor.selected_player != -1
-	|| env->editor.selected_object != -1 || env->selected_enemy != -1 ||
-	env->selected_object != -1)))
+	|| env->selected_object != -1 || env->selected_enemy != -1)))
 		draw_button(env, env->editor.general_tab);
 	if ((!env->editor.in_game && (env->editor.selected_player != -1 || env->selected_enemy != -1
-	|| env->editor.selected_object != -1)) || (env->editor.in_game
-	&& (env->editor.selected_object != - 1 || env->editor.selected_wall != - 1 ||
+	|| env->selected_object != -1)) || (env->editor.in_game
+	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
 	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1 ||
 	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ||
 	env->selected_wall_sprite_sprite != -1 || env->selected_ceiling != -1 ||

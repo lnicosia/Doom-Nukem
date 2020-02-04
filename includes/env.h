@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 19:07:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:25:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,22 +386,6 @@ int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
-int					nothing(void *target);
-int					save_texture(void *target);
-int					save_enemy(void *target);
-int					add_enemy_button(void *target);
-int					add_object_button(void *target);
-int					general_tab(void *target);
-int					sector_tab(void *target);
-int					sprite_tab(void *target);
-int					events_tab(void *param);
-int					change_sprite(void *target);
-int					change_var(void *target);
-int					events_tab(void *target);
-int					open_enemy_selection(void *param);
-int					open_wall_sprite_selection(void *param);
-int					next_selected_wall(void	*target);
-int					change_slope_direction(void	*target);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 
@@ -410,24 +394,74 @@ void				new_tabs_position(t_env *env);
 */
 
 int					check_floor_slope_input_box(void *penv);
-int					check_floor_input_box(void *penv);
+int					check_floor_height_input_box(void *penv);
 int					check_ceiling_slope_input_box(void *penv);
-int					check_ceiling_input_box(void *penv);
+int					check_ceiling_height_input_box(void *penv);
 int					check_texture_input_box(void *penv);
 int					check_sprite_input_box(void *penv);
 int					check_scale_input_box(void *penv);
+int					check_damage_input_box(void *penv);
 int					check_light_data_input_box(void *penv);
 int					check_gravity_input_box(void *penv);
 int					check_true_false_input_box(void *penv);
 int					check_portal_input_box(void *penv);
+int					check_health_input_box(void *target);
+int					check_speed_input_box(void *target);
 int					update_sector_input_box(void *penv);
 int					update_floor_sprite_scale_input_box(void *penv);
 int					update_ceiling_sprite_scale_input_box(void *penv);
-int					update_sector_entities_input_box(void *penv);
-int					update_object_sector_input_box(void *penv);
-int					update_enemy_sector_input_box(void *penv);
+int					update_sector_entities_light_input_box(void *penv);
+int					update_object_input_box(void *penv);
+int					update_enemy_input_box(void *penv);
 
+/*
+**	Editor buttons functions
+*/
 
+int					nothing(void *target);
+int					save_texture(void *target);
+int					save_enemy(void *target);
+int					save_sprite(void *target);
+int					add_enemy_button(void *target);
+int					add_object_button(void *target);
+int					general_tab(void *target);
+int					sector_tab(void *target);
+int					sprite_tab(void *target);
+int					update_wall_texture_button(void *penv);
+int					update_ceiling_texture_button(void *penv);
+int					update_floor_texture_button(void *penv);
+int					save_texture(void *target);
+int					save_enemy(void *target);
+int					add_enemy_button(void *target);
+int					add_object_button(void *target);
+int					events_tab(void *target);
+int					open_enemy_selection(void *param);
+int					open_wall_sprite_selection(void *param);
+int					change_var(void *target);
+int					change_floor_sprite_scale(void *penv);
+int					change_ceiling_sprite_scale(void *penv);
+int					change_wall_sprite_scale(void *penv);
+int					change_color(void *penv);
+int					change_brightness_or_intensity(void *penv);
+int					change_gravity(void *penv);
+int					change_sprite(void *target);
+int					change_enemy_scale(void *target);
+int					change_enemy_damage(void *target);
+int					change_object_damage(void *target);
+int					change_object_scale(void *target);
+int					change_ceiling_texture_scale(void *target);
+int					change_floor_texture_scale(void *target);
+int					change_wall_texture_scale(void *target);
+int					change_ceiling_texture_align(void *target);
+int					change_floor_texture_align(void *target);
+int					change_floor_height(void *target);
+int					change_floor_slope(void *target);
+int					change_ceiling_height(void *target);
+int					change_ceiling_slope(void *target);
+int					change_health(void *target);
+int					change_speed(void *target);
+int					next_selected_wall(void	*target);
+int					change_slope_direction(void	*target);
 /*
 **	prints and draw buttons for informations on a selected element 
 */
@@ -448,20 +482,6 @@ int					print_object_sector_tab(t_env *env);
 int					print_floor_sprite_tab(t_env *env);
 int					print_ceiling_sprite_tab(t_env *env);
 int					print_wall_sprite_tab(t_env *env);
-int					nothing(void *target);
-int					save_texture(void *target);
-int					save_enemy(void *target);
-int					save_sprite(void *target);
-int					add_enemy_button(void *target);
-int					add_object_button(void *target);
-int					general_tab(void *target);
-int					sector_tab(void *target);
-int					sprite_tab(void *target);
-int					change_sprite(void *target);
-int					change_var(void *target);
-int					update_wall_texture_button(void *penv);
-int					update_ceiling_texture_button(void *penv);
-int					update_floor_texture_button(void *penv);
 
 /*
 **	buttons for selections
@@ -710,6 +730,13 @@ void				set_sectors_xmax(t_env *env);
 int					keys(t_env *env);
 void				update_player_z(t_env *env);
 void				update_enemy_z(t_env *env, int i);
+void				update_enemy_light(t_env *env, int i);
+void				update_enemy(t_env *env, int i);
+void				update_object_z(t_env *env, int i);
+void				update_object_light(t_env *env, int i);
+void				update_object(t_env *env, int i);
+void				update_sector_entities_light(t_env *env, int sector);
+void				update_sector_entities_z(t_env *env, int sector);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, t_sector *sector);
 void				game_time(t_env *env);
@@ -855,7 +882,8 @@ int					update_player_z_event(t_event *event, void *penv);
 int					update_wall_texture_event(t_event *event, void *penv);
 int					update_floor_texture_event(t_event *event, void *penv);
 int					update_ceiling_texture_event(t_event *event, void *penv);
-int					update_sector_entities_event(t_event *event, void *penv);
+int					update_sector_entities_light_event(t_event *event,
+void *penv);
 int					update_object_sector_event(t_event *event, void *penv);
 int					update_enemy_sector_event(t_event *event, void *penv);
 int					update_object_sprite_event(t_event *event, void *penv);

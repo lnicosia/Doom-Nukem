@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:40:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:41:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,6 @@ t_event_param	empty_event_param(void)
 
 	ft_bzero(&new, sizeof(new));
 	return (new);
-}
-
-int			update_sector_event(t_event *event, void *penv)
-{
-	t_env	*env;
-
-	env = (t_env*)penv;
-	update_sector_slope(env, &env->sectors[event->update_param.sector]);
-	//if (env->player.sector == event->update_param.sector)
-		//update_player_pos(env);
-	return (0);
 }
 
 int			update_player_pos_event(t_event *event, void *penv)
@@ -126,7 +115,26 @@ int			delete_itself_event(t_event *event, void *penv)
 	return (0);
 }
 
-int			update_sector_entities_event(t_event *event, void *penv)
+int			update_sector_event(t_event *event, void *penv)
+{
+	t_env	*env;
+	int		i;
+
+	env = (t_env*)penv;
+	update_sector_slope(env, &env->sectors[event->update_param.sector]);
+	if (env->player.sector == event->update_param.sector)
+		update_player_z(env);
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == event->update_param.sector)
+			update_enemy_z(env, i);
+		i++;
+	}
+	return (0);
+}
+
+int			update_sector_entities_light_event(t_event *event, void *penv)
 {
 	t_env	*env;
 	int		i;
@@ -136,28 +144,14 @@ int			update_sector_entities_event(t_event *event, void *penv)
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].sector == event->update_param.sector)
-		{
-			env->enemies[i].brightness =
-			env->sectors[event->update_param.sector].brightness;
-			env->enemies[i].light_color =
-			env->sectors[event->update_param.sector].light_color;
-			env->enemies[i].intensity =
-			env->sectors[event->update_param.sector].intensity;
-		}
+			update_enemy_light(env, i);
 		i++;
 	}
 	i = 0;
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].sector == event->update_param.sector)
-		{
-			env->objects[i].brightness =
-			env->sectors[event->update_param.sector].brightness;
-			env->objects[i].light_color =
-			env->sectors[event->update_param.sector].light_color;
-			env->objects[i].intensity =
-			env->sectors[event->update_param.sector].intensity;
-		}
+			update_object_light(env, i);
 		i++;
 	}
 	return (0);
@@ -168,15 +162,7 @@ int			update_object_sector_event(t_event *event, void *penv)
 	t_env	*env;
 
 	env = (t_env*)penv;
-	env->objects[event->update_param.object].sector = get_sector(env,
-	env->objects[event->update_param.object].pos, 
-	env->objects[event->update_param.object].sector);
-	env->objects[event->update_param.object].brightness =
-	env->sectors[env->objects[event->update_param.object].sector].brightness;
-	env->objects[event->update_param.object].light_color =
-	env->sectors[env->objects[event->update_param.object].sector].light_color;
-	env->objects[event->update_param.object].intensity =
-	env->sectors[env->objects[event->update_param.object].sector].intensity;
+	update_object_light(env, event->update_param.object);
 	return (0);
 }
 
@@ -185,15 +171,7 @@ int			update_enemy_sector_event(t_event *event, void *penv)
 	t_env	*env;
 
 	env = (t_env*)penv;
-	env->enemies[event->update_param.enemy].sector = get_sector(env,
-	env->enemies[event->update_param.enemy].pos, 
-	env->enemies[event->update_param.enemy].sector);
-	env->enemies[event->update_param.enemy].brightness =
-	env->sectors[env->enemies[event->update_param.enemy].sector].brightness;
-	env->enemies[event->update_param.enemy].light_color =
-	env->sectors[env->enemies[event->update_param.enemy].sector].light_color;
-	env->enemies[event->update_param.enemy].intensity =
-	env->sectors[env->enemies[event->update_param.enemy].sector].intensity;
+	update_enemy(env, event->update_param.enemy);
 	return (0);
 }
 

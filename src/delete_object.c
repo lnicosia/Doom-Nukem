@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/08/26 15:39:31 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/10/11 17:27:00 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2020/02/04 10:16:40 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int	delete_object(t_env *env, int object)
 			sizeof(t_object),
 			sizeof(t_object) * object);
 	env->nb_objects--;
-	env->editor.selected_object = -1;
+	env->selected_object = -1;
 	return (0);
 }

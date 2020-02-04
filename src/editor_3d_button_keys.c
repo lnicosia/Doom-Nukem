@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 19:04:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:30:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	object_buttons(t_env *env)
 	if (env->editor.general_tab.state == DOWN)
 	{
 		if (button_keys(&env->editor.hud.g_object.health, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_object.scale, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_object.damage, env))
 			return (-1);
 	}
 	return (0);

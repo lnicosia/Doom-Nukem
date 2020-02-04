@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 17:41:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/03 10:49:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ int		input_box_keys(t_input_box *box, t_env *env)
 		box->move_cursor_timer = SDL_GetTicks();
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_RIGHT
-		&& box->cursor < ft_strlen(box->str) && SDL_GetTicks()
+		&& box->cursor <= ft_strlen(box->str) && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
 		if (box->select_start == box->select_end)
