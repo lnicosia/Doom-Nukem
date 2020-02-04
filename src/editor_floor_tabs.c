@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:49:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:18:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		print_floor_general_tab(t_env *env)
 	env->editor.hud.g_floor.slope.str = ft_sitoa(env->sectors[env->selected_floor].floor_slope);
 	env->editor.hud.g_floor.t_slope.target = &env->sectors[env->selected_floor].floor_slope;
 	draw_button(env, env->editor.hud.g_floor.slope);
+	print_text(new_point(600, 100), new_printable_text("Slope direction", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	draw_button(env, env->editor.previous_slope_swap);
 	draw_button(env, env->editor.next_slope_swap);
 	print_text(new_point(640, 60), new_printable_text("Scale X: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);

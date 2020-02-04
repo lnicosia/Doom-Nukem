@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 19:01:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:20:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		print_ceiling_general_tab(t_env *env)
 	env->editor.hud.g_ceilling.slope.str = ft_sitoa(env->sectors[env->selected_ceiling].ceiling_slope);
 	env->editor.hud.g_ceilling.t_slope.target = &env->sectors[env->selected_ceiling].ceiling_slope;
 	draw_button(env, env->editor.hud.g_ceilling.slope);
+	print_text(new_point(600, 100), new_printable_text("Slope direction", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	draw_button(env, env->editor.previous_slope_swap);
 	draw_button(env, env->editor.next_slope_swap);
 	print_text(new_point(640, 60), new_printable_text("Scale X: ", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
