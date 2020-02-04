@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 12:09:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:25:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ int		next_selected_wall(void *target)
 		{
 			env->editor.selected_wall = env->sectors[env->editor.selected_sector].nb_vertices - 1;
 			env->selected_wall1 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->sectors[env->editor.selected_sector].nb_vertices - 2]].num;
-			env->selected_wall2 =
 			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->sectors[env->editor.selected_sector].nb_vertices - 1]].num;
+			env->selected_wall2 =
+			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->sectors[env->editor.selected_sector].nb_vertices]].num;
 		}
 	}
 	env->editor.next_wall.state = UP;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 11:30:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:32:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int	wall_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_wall.texture_align_x, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_wall.texture_align_y, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_wall.portal, env))
 			return (-1);
 	}
 	return (0);
