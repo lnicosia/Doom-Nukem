@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:19:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:21:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,16 @@ int		print_vertex_informations(t_env *env)
 {
 	print_text(new_point(450, 180), new_printable_text("vertex ",
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(450, 280), new_printable_text(ft_sitoa(env->editor.selected_vertex),
+	ft_snprintf(env->snprintf, 20, "%d", env->editor.selected_vertex);
+	print_text(new_point(450, 280), new_printable_text(env->snprintf,
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(490, 50), new_printable_text("Coordonates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(490, 50), new_printable_text("Coordinates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(540, 80), new_printable_text("X:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(540, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].x), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].x);
+	print_text(new_point(540, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	print_text(new_point(580, 80), new_printable_text("Y:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(580, 230), new_printable_text(ft_sitoa(env->vertices[env->editor.selected_vertex].y), env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].y);
+	print_text(new_point(580, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	return (0);
 }
 

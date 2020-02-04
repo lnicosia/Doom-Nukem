@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_snprintf.c                                      :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/13 10:27:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 11:35:05 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/04 11:13:14 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/04 12:02:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
+#include <stdio.h>
 
-int		ft_snprintf(char *restrict str, size_t size,
-const char * restrict format, ...)
+int	main(int ac, char **av)
 {
-	t_data	data;
+	char	*str;
+	char	*printf_str;
 
-	if (!format)
-		return (-1);
-	init_data(&data, 1);
-	data.str = str;
-	data.str_size = size;
-	data.mode = STR;
-	va_start(data.ap, format);
-	parse_format(format, &data);
-	str[size] = '\0';
-	va_end(data.ap);
-	return (data.ret);
+	str = ft_strnew(2);
+	printf_str = ft_strnew(2);
+	ft_snprintf(str, 9, "%f", 45.78465);
+	snprintf(printf_str, 9, "%f", 45.78465);
+	printf("my res = %d\nprintf res = %d\n",
+	ft_printf("moi: str: '%s'\n", str),
+	printf("lui: str: '%s'\n", printf_str));
+	return (0);
 }

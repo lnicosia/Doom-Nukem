@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 10:25:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/01/06 10:25:22 by marvin           ###   ########.fr       */
+/*   Updated: 2020/02/04 12:21:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ void	ammo_hud(t_env *env)
 
 void	draw_hud(t_env *env)
 {
-	char *str;
-
-	str = ft_sitoa(env->player.health);
+	ft_snprintf(env->snprintf, 20, "%d", env->player.health);
 	armor_life_hud(env);
 	ammo_hud(env);
-	print_text(new_point(830, 300), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
-	str = ft_sitoa(env->player.armor);
-	print_text(new_point(830, 80), new_printable_text(str, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
+	print_text(new_point(830, 300), new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
+	ft_snprintf(env->snprintf, 20, "%d", env->player.armor);
+	print_text(new_point(830, 80), new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0), env);
 	print_ammo(env);
 }
