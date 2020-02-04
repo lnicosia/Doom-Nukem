@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 10:49:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:12:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
+	size_t	len;
+
 	if (type < 0 || type > 2 || !target)
 		return (-1);
 	box->size = new_point(200, 50);
@@ -22,9 +24,12 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
+	len = 0;
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
+		if (box->str)
+			ft_strdel(&box->str);
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
 		set_double_stats(box);
@@ -32,8 +37,12 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	else if (type == DOUBLE)
 	{
 		box->double_target = (double*)target;
-		if (!(box->str = ft_itoa((int)*((double*)target))))
+		if (box->str)
+			ft_strdel(&box->str);
+		len = get_double_len(*(box->double_target));
+		if (!(box->str = ft_strnew(len)))
 			return (-1);
+		ft_snprintf(box->str, len + 1, "%.5f", *(box->double_target));
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -54,6 +63,8 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 
 int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 {
+	size_t	len;
+
 	if (type < 0 || type > 2 || !target)
 		return (-1);
 	box->size = new_point(96, 32);
@@ -61,6 +72,7 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
+	len = 0;
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
@@ -71,8 +83,12 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	else if (type == DOUBLE)
 	{
 		box->double_target = (double*)target;
-		if (!(box->str = ft_itoa((int)*((double*)target))))
+		if (box->str)
+			ft_strdel(&box->str);
+		len = get_double_len(*(box->double_target));
+		if (!(box->str = ft_strnew(len)))
 			return (-1);
+		ft_snprintf(box->str, len + 1, "%.5f", *(box->double_target));
 		set_double_stats(box);
 	}
 	else if (type == STRING)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:24:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:24:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,9 @@ int			draw_confirmation_box(t_confirmation_box *box, t_env *env)
 			new_point(env->w / 2 - box->size.x / 2,
 			env->h / 2 - box->size.y / 2),
 			new_point(box->size.x, box->size.y));
-	draw_button(env, box->yes);
+	draw_button(env, box->yes, box->yes.str);
 	if (box->type == YESNO)
-		draw_button(env, box->no);
+		draw_button(env, box->no, box->no.str);
 	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
 	print_text(new_point(env->h / 2 - box->size.y / 3,
 				env->w / 2 - text_size.x / 2),

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 18:03:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:31:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	print_event_selection(t_env *env, size_t nb)
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
 	if (nb > 1)
 	{
-		draw_button(env, env->editor.next_event);
-		draw_button(env, env->editor.previous_event);
+		draw_button(env, env->editor.next_event, env->editor.next_event.str);
+		draw_button(env, env->editor.previous_event,
+		env->editor.previous_event.str);
 	}
 }
 
@@ -99,8 +100,9 @@ void	print_sector_events_tab(t_env *env)
 	else if (env->editor.selected_events == 2)
 		print_text(new_point(470, 145), new_printable_text("Walk out events",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
-	draw_button(env, env->editor.next_events);
-	draw_button(env, env->editor.previous_events);
+	draw_button(env, env->editor.next_events, env->editor.next_events.str);
+	draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str);
 	print_sector_events(env);
 	if (env->editor.selected_events == 0 && sector.nb_stand_events > 0)
 		print_event(env, &sector.stand_events[env->editor.selected_event]);
@@ -118,8 +120,9 @@ void	print_wall_sprite_events_tab(t_env *env)
 	else if (env->editor.selected_events == 1)
 		print_text(new_point(470, 150), new_printable_text("Shoot events",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
-	draw_button(env, env->editor.next_events);
-	draw_button(env, env->editor.previous_events);
+	draw_button(env, env->editor.next_events, env->editor.next_events.str);
+	draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str);
 	print_wall_sprite_events(env);
 	if (env->editor.selected_events == 0
 		&& env->sectors[env->editor.selected_sector]

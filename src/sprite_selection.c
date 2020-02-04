@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:34:34 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/29 10:33:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:33:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	sprite_selection(t_env *env, int nb_slots)
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
 	while (i < MAX_OBJECTS)
 	{
-		draw_button(env, env->editor.sprite_selection[i]);
+		draw_button(env, env->editor.sprite_selection[i],
+		env->editor.sprite_selection[i].str);
 		i++;
 	}
 }
