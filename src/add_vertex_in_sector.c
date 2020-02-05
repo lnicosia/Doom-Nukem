@@ -204,18 +204,15 @@ int		modify_t_v2_tab_in_sector(t_env *env, int index, int sector,t_v2 **tab)
 int		modify_t_wall_sprites_tab_in_sector(t_env *env, int index, int sector,t_wall_sprites **tab)
 {
 	int	i;
-
+	
 	(void)index;
 	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
 	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc t_wall_sprites tab"));
-	i = 0;
-	i = env->sectors[sector].nb_vertices;
-	ft_memmove(&(*tab)[i + 1], &(*tab)[0], sizeof(t_wall_sprites));
+	i = env->sectors[sector].nb_vertices - 1;
 	while (i > index + 1)
 	{
 		ft_memmove(&(*tab)[i], &(*tab)[i -1], sizeof(t_wall_sprites));
-		//(*tab)[i] = (*tab)[i - 1];
 		i--;
 	}
 	ft_bzero(&(*tab)[i], sizeof(t_wall_sprites));
@@ -238,10 +235,8 @@ int		modify_t_list_tab_in_sector(t_env *env, int index, int sector,t_list ***tab
 int		modify_walls_map_lvl(t_env *env, int sector)
 {
 	int	j;
-	//t_sector	*sector;
-	
+		
 	j = 0;
-	//sector = &env->sectors[sect];
 	while (j < env->sectors[sector].nb_vertices - 1)
 	{
 		if (env->sectors[sector].walls_map_lvl[j])
@@ -249,22 +244,13 @@ int		modify_walls_map_lvl(t_env *env, int sector)
 		j++;
 	}
 	ft_memdel((void**)&env->sectors[sector].walls_map_lvl);
-/*	j = 0;
-	while(j < sector->nb_vertices)
-	{
-		free(sector->walls_map_lvl[j]);
-		if (!(sector->walls_map_lvl[j] = (double*)ft_memalloc(sizeof(double)
-		* env->wall_textures[sector->textures[j]].nb_maps)))
-			return (custom_error("Could not malloc a sector map_lvl array"));
-		j++;
-	}*/
+	j = 0;
 	if (!(env->sectors[sector].walls_map_lvl = (double **)ft_realloc(env->sectors[sector].walls_map_lvl, sizeof(double*)
 	* env->sectors[sector].nb_vertices, sizeof(double*) * (env->sectors[sector].nb_vertices + 1))))
 		return (ft_perror("Could not realloc walls_map_lvl"));
 	while(j < env->sectors[sector].nb_vertices)
 	{
 		set_sector_wall_map_array(&env->sectors[sector], env->wall_textures[env->sectors[sector].textures[j]], j, env);
-		get_current_wall_map(env->sectors[sector].textures[j], )
 		j++;
 	}
 	return (0);
@@ -329,11 +315,11 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);
 			if (modify_t_v2_tab_in_sector(env, j, sector, &env->sectors[sector].align))
 				return (-1);
-			/*if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].wall_sprites))
-				return (-1);*/
-			if (modify_t_list_tab_in_sector(env, j, sector, &env->sectors[sector].wall_bullet_holes))
-				return (-1);
 			if (modify_walls_map_lvl(env, sector))
+				return (-1);
+			if (modify_t_wall_sprites_tab_in_sector(env, j, sector, &env->sectors[sector].wall_sprites))
+				return (-1);
+			if (modify_t_list_tab_in_sector(env, j, sector, &env->sectors[sector].wall_bullet_holes))
 				return (-1);
 			break;
 		}
