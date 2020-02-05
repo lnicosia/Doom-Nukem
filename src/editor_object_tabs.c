@@ -53,19 +53,19 @@ int		print_object_general_tab(t_env *env)
 	print_text(new_point(520, 60), new_printable_text("Pos: ",
 	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->objects[env->selected_object].pos.x),
+	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.x)),
 	env->objects[env->selected_object].pos.x),
 	env->editor.hud.g_object.t_pos_x.target =
 	&env->objects[env->selected_object].pos.x;
 	draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->objects[env->selected_object].pos.y),
+	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.y)),
 	env->objects[env->selected_object].pos.y);
 	env->editor.hud.g_object.t_pos_y.target =
 	&env->objects[env->selected_object].pos.y;
 	draw_button(env, env->editor.hud.g_object.pos_y, env->snprintf);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->objects[env->selected_object].pos.z),
+	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.z)),
 	env->objects[env->selected_object].pos.z);
 	env->editor.hud.g_object.t_pos_z.target =
 	&env->objects[env->selected_object].pos.z;

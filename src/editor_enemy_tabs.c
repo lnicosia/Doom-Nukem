@@ -59,19 +59,19 @@ int		print_enemy_general_tab(t_env *env)
 	print_text(new_point(520, 60), new_printable_text("Pos: ",
 	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->enemies[env->selected_enemy].pos.x),
+	ft_min(1, get_decimal_len(env->enemies[env->selected_enemy].pos.x)),
 	env->enemies[env->selected_enemy].pos.x);
 	env->editor.hud.g_enemy.t_pos_x.target =
 	&env->enemies[env->selected_enemy].pos.x;
 	draw_button(env, env->editor.hud.g_enemy.pos_x, env->snprintf);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->enemies[env->selected_enemy].pos.y),
+	ft_min(1, get_decimal_len(env->enemies[env->selected_enemy].pos.y)),
 	env->enemies[env->selected_enemy].pos.y);
 	env->editor.hud.g_enemy.t_pos_y.target =
 	&env->enemies[env->selected_enemy].pos.y;
 	draw_button(env, env->editor.hud.g_enemy.pos_y, env->snprintf);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->enemies[env->selected_enemy].pos.z),
+	ft_min(1, get_decimal_len(env->enemies[env->selected_enemy].pos.z)),
 	env->enemies[env->selected_enemy].pos.z);
 	env->editor.hud.g_enemy.t_pos_z.target =
 	&env->enemies[env->selected_enemy].pos.z;
