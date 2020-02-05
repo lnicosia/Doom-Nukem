@@ -16,6 +16,7 @@
 int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
+	size_t	dec_len;
 
 	if (type < 0 || type > 2 || !target)
 		return (-1);
@@ -40,9 +41,11 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		if (box->str)
 			ft_strdel(&box->str);
 		len = get_double_len(*(box->double_target));
+		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
-		ft_snprintf(box->str, len + 1, "%.5f", *(box->double_target));
+		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
+		*(box->double_target));
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -64,6 +67,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
+	size_t	dec_len;
 
 	if (type < 0 || type > 2 || !target)
 		return (-1);
@@ -86,9 +90,11 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		if (box->str)
 			ft_strdel(&box->str);
 		len = get_double_len(*(box->double_target));
+		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
-		ft_snprintf(box->str, len + 1, "%.5f", *(box->double_target));
+		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
+		*(box->double_target));
 		set_double_stats(box);
 	}
 	else if (type == STRING)

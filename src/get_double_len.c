@@ -11,19 +11,21 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
 size_t		get_decimal_len(double nb)
 {
 	size_t	i;
+	double	a;
 
 	if (nb < 0)
 		nb = -nb;
-	nb = nb * 1000000;
+	nb = modf(nb, &a) * 1000000;
 	i = 5;
 	while (i > 0)
 	{
 		nb /= 10;
-		if ((size_t)nb % 10)
+		if ((size_t)round(nb) % 10)
 			return (i);
 		i--;
 	}

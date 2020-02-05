@@ -26,7 +26,7 @@ void	fps(t_env *env)
 		env->fps = env->fps_count;
 		env->fps_count = 0;
 	}
-	ft_snprintf(env->snprintf, 20, "%d", env->fps);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->fps);
 	print_text(new_point(0, 10), new_printable_text(
 				env->snprintf,
 				env->sdl.fonts.lato20,
