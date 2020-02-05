@@ -294,11 +294,13 @@ int		input_box_keys(t_input_box *box, t_env *env)
 		&& box->cursor <= ft_strlen(box->str) && SDL_GetTicks()
 		- box->move_cursor_timer > box->move_cursor_delay)
 	{
-		if (box->select_start == box->select_end)
+		if (box->select_start == box->select_end
+			&& box->cursor < ft_strlen(box->str))
 			box->cursor++;
 		else
 		{
-			box->cursor = ft_max(box->select_end, box->select_start);
+			if (box->cursor < ft_strlen(box->str))
+				box->cursor = ft_max(box->select_end, box->select_start);
 			box->select_start = 0;
 			box->select_end = 0;
 		}
