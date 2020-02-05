@@ -28,10 +28,19 @@ static int	get_main_sprite(int sprite, t_env *env)
 
 static void	write_enemy(int fd, t_enemies enemy, t_env *env)
 {
-	ft_dprintf(fd, "[%.f %.f %.f %.f] ",
-			enemy.pos.y, enemy.pos.x, enemy.pos.z, enemy.angle);
-	ft_dprintf(fd, "[%d %.f] ",
-			get_main_sprite(enemy.sprite, env), enemy.scale);
+	ft_dprintf(fd, "[%.*f %.*f %.*f %.*f] ",
+			ft_min(5, get_decimal_len(enemy.pos.y)),
+			enemy.pos.y,
+			ft_min(5, get_decimal_len(enemy.pos.x)),
+			enemy.pos.x,
+			ft_min(5, get_decimal_len(enemy.pos.z)),
+			enemy.pos.z,
+			ft_min(5, get_decimal_len(enemy.angle)),
+			enemy.angle);
+	ft_dprintf(fd, "[%d %.*f] ",
+			get_main_sprite(enemy.sprite, env),
+			ft_min(5, get_decimal_len(enemy.scale)),
+			enemy.scale);
 	ft_dprintf(fd, "[%d %d %d]\n",
 			enemy.map_hp, enemy.speed, enemy.damage);
 

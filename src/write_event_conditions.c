@@ -16,7 +16,8 @@
 void	write_condition(int fd, void (*writers[])(int, t_condition),
 t_condition condition)
 {
-	ft_dprintf(fd, "{%d %f %d", condition.type, condition.value,
+	ft_dprintf(fd, "{%d %.*f %d", condition.type,
+	ft_min(5, get_decimal_len(condition.value)), condition.value,
 	condition.target_index);
 	writers[condition.target_index](fd, condition);
 	ft_dprintf(fd, "}");
