@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 09:21:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:47:26 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_floor_sprite_buttons(t_env *env)
 	&change_floor_sprite_scale,
 	&env->editor.hud.sp_floor_sprite.t_scale_x, env);
 	env->editor.hud.sp_floor_sprite.scale_x.pos = new_point(250, 600);
-	env->editor.hud.sp_floor_sprite.t_scale_x.pos = new_point(300, 600);
+	env->editor.hud.sp_floor_sprite.t_scale_x.pos = new_point(250, 600);
 	env->editor.hud.sp_floor_sprite.scale_y = new_hud_pos_button(ON_RELEASE,
 	&change_floor_sprite_scale,
 	&env->editor.hud.sp_floor_sprite.t_scale_y, env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 19:55:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:59:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	animations(t_env *env)
 			&& !env->player.state.climb && !env->player.state.drop)
 		jump(env);
 	if (((env->inputs.ctrl && env->player.eyesight > 3)
-				|| env->player.state.crouch) && !env->editor.in_game)
+	|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
 }

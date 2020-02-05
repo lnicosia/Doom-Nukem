@@ -129,6 +129,8 @@ int	editor_keyup(t_env *env)
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
+				if (ft_lstlen(env->editor.current_vertices) == 2 && check_pos_vertices(env))
+					split_sector(env);
 			}
 		}
 		env->inputs.space = 0;
