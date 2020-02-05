@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/07 16:18:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:09:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct  s_movement
     double      size_2d;
     double      eyesight;
     t_v3        pos;
+	t_v3		future;
 }               t_movement;
 
 typedef struct  s_data

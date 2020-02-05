@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/23 19:07:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:43:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,22 @@
 
 int		check_ceiling(t_env *env, t_movement motion, int sector_dest)
 {
-	t_v3	pos;
-
-	pos.x = FUTURE_X;
-	pos.y = FUTURE_Y;
-	pos.z = FUTURE_Z;
-	if (pos.z + motion.eyesight > get_ceiling_at_pos(env->sectors[sector_dest],
-		pos, env) - 1)
+	if (motion.future.z + motion.eyesight >
+		get_ceiling_at_pos(env->sectors[sector_dest], motion.future, env) - 1)
 		return (0);
 	return (1);
 }
 
 int		check_floor(t_env *env, t_movement motion, int sector_dest)
 {
-	t_v3	pos;
 	double	floor;
 
-	pos.x = FUTURE_X;
-	pos.y = FUTURE_Y;
-	pos.z = FUTURE_Z;
-	floor = get_floor_at_pos(env->sectors[sector_dest], pos, env);
-	if (floor > pos.z + 2 && sector_dest != motion.sector)
+	floor = get_floor_at_pos(env->sectors[sector_dest], motion.future, env);
+	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > pos.z && sector_dest == motion.sector)
+	else if (floor > motion.future.z && sector_dest == motion.sector)
 		return (0);
-	if (env->player.state.jump && pos.z < floor)
+	if (env->player.state.jump && motion.future.z < floor)
 		return (0);
 	return (1);
 }
@@ -121,9 +112,9 @@ t_v3	collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 
 	i = 0;
 	wall = motion.wall;
-	FUTURE_X = move.x + motion.pos.x;
-	FUTURE_Y = move.y + motion.pos.y;
-	FUTURE_Z = motion.pos.z + move.z;
+	motion.future.x = move.x + motion.pos.x;
+	motion.future.y = move.y + motion.pos.y;
+	motion.future.z = move.z + motion.pos.z;
 	env->sector_list[wall.sector_dest] = 1;
 	norme_mov = sqrt(move.x * move.x + move.y * move.y);
 	if ((!check_ceiling(env, motion, wall.sector_dest) ||
@@ -142,9 +133,9 @@ t_v3	collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 	while (i < env->sectors[wall.sector_dest].nb_vertices)
 	{
 		if ((hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R),
-			new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) ||
+			new_v2(motion.future.x, motion.future.y), motion.size_2d) ||
 			intersection_check(new_v2(X1R, Y1R), new_v2(X2R, Y2R),
-			new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) &&
+			new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))) &&
 			(RNEIGHBOR < 0 || (env->sectors[wall.sector_dest].portals[i] == 0 &&
 			env->sectors[wall.sector_dest].portals[i] != wall.sector_or)))
 		{
@@ -164,7 +155,7 @@ t_v3	collision_rec(t_env *env, t_v3 move, t_movement motion, int recu)
 	i = 0;
 	while (i < env->sectors[wall.sector_dest].nb_vertices)
 	{
-		if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) && RNEIGHBOR >= 0 &&
+		if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R), new_v2(motion.future.x, motion.future.y), motion.size_2d) && RNEIGHBOR >= 0 &&
 			env->sector_list[RNEIGHBOR] == 0 && env->sectors[wall.sector_dest].portals[i] == 1)
 		{
 			if ((!check_ceiling(env, motion, wall.sector_dest) || !check_floor(env, motion, RNEIGHBOR)))
@@ -185,21 +176,24 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
     double      norme_mov;
     double      norme_wall;
 
-	FUTURE_X = motion.pos.x + move.x;
-	FUTURE_Y = motion.pos.y + move.y;
-	FUTURE_Z = motion.pos.z + move.z;
+	motion.future.x = motion.pos.x + move.x;
+	motion.future.y = motion.pos.y + move.y;
+	motion.future.z = motion.pos.z + move.z;
 	i = 0;
 	init_sector_list(env, motion.sector);
 	if (motion.sector == -1)
 		return (new_v3(0, 0, 0));
+	if (get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.future, env) -
+		get_floor_at_pos(env->sectors[motion.sector], motion.future, env) < motion.eyesight + 1)
+	return (new_v3(0, 0, 0));
 	if (!check_ceiling(env, motion, motion.lowest_ceiling))
 		move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
 	else if (!check_floor(env, motion, motion.sector))
 		move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
-		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d)) ||
-			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y))) && 
+		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d)) ||
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))) && 
 			(NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
 		{
 			norme_mov = sqrt(move.x * move.x + move.y * move.y);
@@ -218,8 +212,8 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 	i = 0;
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
-		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(FUTURE_X, FUTURE_Y), motion.size_2d) ||
-			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(FUTURE_X, FUTURE_Y)))) &&
+		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d) ||
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y)))) &&
 			NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
 		{
 			motion.wall.sector_or = motion.sector;

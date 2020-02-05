@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 14:49:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 11:20:49 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	init_player(t_env *env)
 	env->player.state.walk = 0;
 	env->gravity.collision = 0;
 	env->player.in_combat = 0;
+	env->player.curr_weapon = 0;
 }
 
 int		parse_map(char *file, t_env *env)

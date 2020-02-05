@@ -99,9 +99,12 @@ void	crouch(t_env *env)
 {
 	double	time;
 	t_v3	pos;
+	int		lowest_ceil;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
+	lowest_ceil = find_lowest_ceiling(env, new_movement(env->player.sector,
+		env->player.size_2d, env->player.eyesight, env->player.pos));
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.crouch)
 	{
@@ -121,7 +124,7 @@ void	crouch(t_env *env)
 	if ((env->player.eyesight <= 3 && env->inputs.ctrl)
 	|| (env->player.eyesight >= 6 && !env->inputs.ctrl)
 	|| ((env->player.pos.z + env->player.eyesight >
-	get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1)
+	get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1)
 	&& env->player.eyesight < 6))
 	{
 		if (env->inputs.ctrl)
@@ -129,16 +132,15 @@ void	crouch(t_env *env)
 		else
 		{
 			if (env->player.pos.z + env->player.eyesight >
-			get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1
-			&& env->player.eyesight < 6)
-				env->player.eyesight = get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1 - env->player.pos.z;
-			else if (env->player.eyesight > 6)
+			get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1)
+				env->player.eyesight = get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1 - env->player.pos.z;
+			if (env->player.eyesight > 6)
 			{
 				env->player.state.crouch = 0;
 				env->player.eyesight = 6;
 			}
 		}
-
 		env->time.d_time = 0;
 	}
+	update_player_z(env);
 }
