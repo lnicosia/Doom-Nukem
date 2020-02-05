@@ -6,27 +6,27 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/16 14:09:08 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:31:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void	projectile_coord(t_v3 pos, t_projectile *projectile, double angle_z, double height)
+void	projectile_coord(t_v3 pos, t_projectile *projectile, t_projectile_data_2 data2, double height)
 {
-	projectile->pos.x = 2.5 * cos(projectile->angle) + pos.x;
-	projectile->pos.y = 2.5 * sin(projectile->angle) + pos.y;
-	projectile->pos.z = 2.5 * -angle_z + pos.z + height;
+	projectile->pos.x = (data2.radius + 2.5) * cos(projectile->angle) + pos.x;
+	projectile->pos.y = (data2.radius + 2.5) * sin(projectile->angle) + pos.y;
+	projectile->pos.z = (data2.radius + 2.5) * -data2.angle_z + pos.z + height;
 //	projectile->pos.z = height;
 	projectile->dest.x = 100000000 * cos(projectile->angle)
 	+ projectile->pos.x;
 	projectile->dest.y = 100000000 * sin(projectile->angle)
 	+ projectile->pos.y;
-	projectile->dest.z = 100000000 * -angle_z + projectile->pos.z;
+	projectile->dest.z = 100000000 * -data2.angle_z + projectile->pos.z;
 }
 
-int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, double angle_z)
+int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, t_projectile_data_2 data2)
 {
 	t_list	*new;
 
@@ -36,7 +36,7 @@ int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats st
 	((t_projectile*)new->content)->sprite = data.sprite;
 	((t_projectile*)new->content)->speed = stats.speed;
 	((t_projectile*)new->content)->angle = data.angle;
-	projectile_coord(data.pos, ((t_projectile*)new->content), angle_z, stats.height);
+	projectile_coord(data.pos, ((t_projectile*)new->content), data2, stats.height);
 	((t_projectile*)new->content)->scale = data.scale;
 	((t_projectile*)new->content)->damage = stats.damage;
 	((t_projectile*)new->content)->size_2d = stats.size_2d;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/31 13:44:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:25:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    shot(t_env *env)
 	{
 		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
 			new_projectile_stats(0.5, env->weapons[env->player.curr_weapon].damage, 0.8, env->player.eyesight - 0.4),
-			env->player.camera.angle_z);
+			new_projectile_data_2(env->player.camera.angle_z, env->player.size_2d));
 	}
 	else
 	{

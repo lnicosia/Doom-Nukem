@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 18:36:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:20:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -788,6 +788,12 @@ typedef struct		s_projectile_data
 	double			angle;
 	int				sprite;
 }					t_projectile_data;
+
+typedef struct		s_projectile_data_2
+{
+	double			angle_z;
+	double			radius;
+}					t_projectile_data_2;
 
 /*
 ** Projectile structure
