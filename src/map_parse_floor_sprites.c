@@ -23,9 +23,11 @@ int		parse_floor_sprites(t_env *env, char **line, t_map_parser *parser)
 	if (**line != '(')
 		return (invalid_char("before floor sprites", "'('", **line, parser));
 	(*line)++;
-	if ((parser->sector_floor_sprites_count = count_floor_sprites(*line, parser)) == -1)
+	if ((parser->sector_floor_sprites_count =
+		count_floor_sprites(*line, parser)) == -1)
 		return (custom_error("Error while counting floor sprites"));
-	env->sectors[parser->sectors_count].floor_sprites.nb_sprites = parser->sector_floor_sprites_count;
+	env->sectors[parser->sectors_count].floor_sprites.nb_sprites =
+	parser->sector_floor_sprites_count;
 	if (!(env->sectors[parser->sectors_count].floor_sprites.sprite = (int*)
 		malloc(sizeof(int) * parser->sector_floor_sprites_count)))
 		return (ft_perror("Could not malloc sector floor sprite indexes"));
@@ -50,20 +52,38 @@ int		parse_floor_sprites(t_env *env, char **line, t_map_parser *parser)
 		env->objects_main_sprites[parse];
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].floor_sprites.pos[i].x = ft_atof(*line);
+		env->sectors[parser->sectors_count].floor_sprites.pos[i].x =
+		ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].floor_sprites.pos[i].y = ft_atof(*line);
+		env->sectors[parser->sectors_count].floor_sprites.pos[i].y =
+		ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].floor_sprites.scale[i].x = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].floor_sprites.scale[i].x <= 0)
-			return (custom_error_with_line("Floor sprite scale must be positive", parser));
+		env->sectors[parser->sectors_count].floor_sprites.scale[i].x =
+		ft_atof(*line);
+		if ((env->sectors[parser->sectors_count].floor_sprites.scale[i].x < 0.1
+			&& env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].x > -0.1)
+			|| env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].x > 100
+			|| env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].x < -100)
+			return (custom_error_with_line("Floor sprite scale must be"
+			"betweem 0.1 and 100", parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
-		env->sectors[parser->sectors_count].floor_sprites.scale[i].y = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].floor_sprites.scale[i].y <= 0)
-			return (custom_error_with_line("Floor sprite scale must be positive", parser));
+		env->sectors[parser->sectors_count].floor_sprites.scale[i].y =
+		ft_atof(*line);
+		if ((env->sectors[parser->sectors_count].floor_sprites.scale[i].y < 0.1
+			&& env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].y > -0.1)
+			|| env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].y > 100
+			|| env->sectors[parser->sectors_count].
+			floor_sprites.scale[i].y < -100)
+			return (custom_error_with_line("Floor sprite scale must be"
+			"betweem 0.1 and 100", parser));
 		precompute_floor_sprite_scales(parser->sectors_count, i, env);
 		*line = skip_number(*line);
 		(*line)++;

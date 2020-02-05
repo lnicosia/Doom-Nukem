@@ -71,6 +71,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							env->player.pos)) == -1)
 				return (custom_error_with_line("Player is not in any sector",
 							parser));
+			if (!env->sectors[env->player.sector].gravity)
+				env->player.state.fly = 1;
 			env->player.highest_sect = env->player.sector;
 			env->player.camera.pos = env->player.pos;
 			env->player.camera.pos.z = env->player.pos.z + 8;

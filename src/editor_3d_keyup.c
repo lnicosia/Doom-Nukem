@@ -75,7 +75,10 @@ int		editor_3d_keyup(t_env *env)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 	{
-		env->player.state.fly = env->player.state.fly ? 0 : 1;
+		if (env->player.state.fly == 0)
+			env->player.state.fly = 1;
+		else if (env->sectors[env->player.sector].gravity)
+			env->player.state.fly = 0;
 		env->player.pos.z += 0.01;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)

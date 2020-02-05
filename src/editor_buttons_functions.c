@@ -50,12 +50,12 @@ int		change_gravity(void *param)
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	env->input_box.check = &check_gravity_input_box;
-	env->input_box.error_message = "Error: gravity must be between -0.1 and"
-	" -10";
+	env->input_box.error_message = "Error: gravity must be 0 or"
+	" between -1 and -10";
 	return (0);
 }
 
-int		change_wall_texture_scale(void *param)
+int		change_texture_scale(void *param)
 {
 	t_button_tab	*button;
 	t_env			*env;
@@ -63,8 +63,9 @@ int		change_wall_texture_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.check = &check_texture_scale_input_box;
+	env->input_box.update = &update_wall_texture_button;
+	env->input_box.error_message = "Error: scale must be between 1 and 100";
 	return (0);
 }
 
@@ -76,7 +77,7 @@ int		change_enemy_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
 	return (0);
 }
@@ -102,7 +103,7 @@ int		change_object_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
 	return (0);
 }
@@ -122,15 +123,15 @@ int		change_object_damage(void *param)
 
 int		change_wall_sprite_scale(void *param)
 {
-	t_button_tab	*button;
-	t_env			*env;
+	t_button_tab    *button;
+	t_env                   *env;
 
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
-	return (0);
+        return (0);
 }
 
 int		change_ceiling_sprite_scale(void *param)
@@ -141,7 +142,7 @@ int		change_ceiling_sprite_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_sprite_scale_input_box;
 	env->input_box.update = &update_ceiling_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
 	return (0);
@@ -149,15 +150,15 @@ int		change_ceiling_sprite_scale(void *param)
 
 int		change_floor_sprite_scale(void *param)
 {
-        t_button_tab    *button;
-        t_env                   *env;
+	t_button_tab    *button;
+	t_env                   *env;
 
-        button = (t_button_tab *)param;
-        env = button->env;
-        new_input_var(&env->input_box, button->pos, button->type, button->target);
-        env->input_box.check = &check_scale_input_box;
-        env->input_box.update = &update_floor_sprite_scale_input_box;
-        env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	button = (t_button_tab *)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	env->input_box.check = &check_sprite_scale_input_box;
+	env->input_box.update = &update_floor_sprite_scale_input_box;
+	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
         return (0);
 }
 
@@ -169,9 +170,9 @@ int		change_ceiling_texture_scale(void *param)
 	button = (t_button_tab*)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_texture_scale_input_box;
 	env->input_box.update = &update_ceiling_texture_button;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.error_message = "Error: scale must be between 1 and 100";
 	return (0);
 }
 
@@ -183,9 +184,9 @@ int		change_floor_texture_scale(void *param)
 	button = (t_button_tab*)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_scale_input_box;
+	env->input_box.check = &check_texture_scale_input_box;
 	env->input_box.update = &update_floor_texture_button;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.error_message = "Error: scale must be between 1 and 100";
 	return (0);
 }
 

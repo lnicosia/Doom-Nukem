@@ -80,11 +80,11 @@ void	init_wall_sector_buttons(t_env *env)
 void	init_wall_general_buttons(t_env *env)
 {
 	env->editor.hud.g_wall.texture_scale_x = new_hud_button(ON_RELEASE,
-	&change_wall_texture_scale, &env->editor.hud.g_wall.t_texture_scale_x, env);
+	&change_texture_scale, &env->editor.hud.g_wall.t_texture_scale_x, env);
 	env->editor.hud.g_wall.texture_scale_x.pos = new_point(250, 560);
 	env->editor.hud.g_wall.t_texture_scale_x.pos = new_point(250, 560);
 	env->editor.hud.g_wall.texture_scale_y = new_hud_button(ON_RELEASE,
-	&change_wall_texture_scale, &env->editor.hud.g_wall.t_texture_scale_y, env);
+	&change_texture_scale, &env->editor.hud.g_wall.t_texture_scale_y, env);
 	env->editor.hud.g_wall.texture_scale_y.pos = new_point(250, 600);
 	env->editor.hud.g_wall.t_texture_scale_y.pos = new_point(250, 600);
 	env->editor.hud.g_wall.texture_align_x = new_hud_button(ON_RELEASE,

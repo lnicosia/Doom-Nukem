@@ -118,7 +118,6 @@ int		check_floor_height_input_box(void *penv)
 	double		prec;
 	int			i;
 
-	ft_printf("checking floor height\n");
 	env = (t_env*)penv;
 	sector = env->sectors[env->selected_floor];
 	prec = sector.floor;
@@ -232,7 +231,7 @@ int		check_sprite_input_box(void *penv)
 	return (0);
 }
 
-int		check_scale_input_box(void *penv)
+int		check_sprite_scale_input_box(void *penv)
 {
 	double	scale;
 	t_env	*env;
@@ -244,6 +243,17 @@ int		check_scale_input_box(void *penv)
 	return (0);
 }
 
+int		check_texture_scale_input_box(void *penv)
+{
+	double	scale;
+	t_env	*env;
+
+	env = (t_env*)penv;
+	scale = ft_atof(env->input_box.str);
+	if (scale < 1 || scale > 100)
+		return (1);
+	return (0);
+}
 
 int		check_damage_input_box(void *penv)
 {
@@ -276,7 +286,7 @@ int		check_gravity_input_box(void *penv)
 
 	env = (t_env*)penv;
 	value = ft_atof(env->input_box.str);
-	if (value > -0.1 || value < -10)
+	if (value && (value > -1 || value < -10))
 		return (1);
 	return (0);
 }
