@@ -576,7 +576,7 @@ typedef struct		s_player
 	int				killed;
 	double			nb_shots;
 	double			touched;
-	int				accuracy;
+	double			accuracy;
 	double			head_z;
 	t_state			state;
 	double			velocity;
