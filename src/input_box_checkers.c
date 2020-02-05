@@ -22,7 +22,10 @@ int		check_floor_slope_input_box(void *penv)
 	int			i;
 
 	env = (t_env*)penv;
-	sector = env->sectors[env->selected_floor];
+	if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
+	else
+		sector = env->sectors[env->selected_floor];
 	prec = sector.floor_slope;
 	sector.floor_slope = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
@@ -32,7 +35,7 @@ int		check_floor_slope_input_box(void *penv)
 		update_sector_slope(env, &sector);
 		return (1);
 	}
-	if (env->player.sector == env->selected_floor)
+	if (env->player.sector == sector.num)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
@@ -46,7 +49,7 @@ int		check_floor_slope_input_box(void *penv)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].sector == env->selected_floor
+		if (env->enemies[i].sector == sector.num
 			&& get_floor_at_pos(sector, env->enemies[i].pos, env) +
 			env->enemies[i].scale + env->enemies[i].height_on_floor >=
 			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
@@ -57,7 +60,7 @@ int		check_floor_slope_input_box(void *penv)
 		}
 		i++;
 	}
-	sector.floor_slope = env->sectors[env->selected_floor].floor_slope;
+	sector.floor_slope = prec;
 	update_sector_slope(env, &sector);
 	return (0);
 }
@@ -71,7 +74,10 @@ int		check_ceiling_slope_input_box(void *penv)
 	int			i;
 
 	env = (t_env*)penv;
-	sector = env->sectors[env->selected_ceiling];
+	if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
+	else
+		sector = env->sectors[env->selected_ceiling];
 	prec = sector.ceiling_slope;
 	sector.ceiling_slope = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
@@ -81,7 +87,7 @@ int		check_ceiling_slope_input_box(void *penv)
 		update_sector_slope(env, &sector);
 		return (1);
 	}
-	if (env->player.sector == env->selected_ceiling)
+	if (env->player.sector == sector.num)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
@@ -95,7 +101,7 @@ int		check_ceiling_slope_input_box(void *penv)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].sector == env->selected_ceiling
+		if (env->enemies[i].sector == sector.num
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
 		{
@@ -105,7 +111,7 @@ int		check_ceiling_slope_input_box(void *penv)
 		}
 		i++;
 	}
-	sector.ceiling_slope = env->sectors[env->selected_floor].ceiling_slope;
+	sector.ceiling_slope = prec;
 	update_sector_slope(env, &sector);
 	return (0);
 }
@@ -119,7 +125,10 @@ int		check_floor_height_input_box(void *penv)
 	int			i;
 
 	env = (t_env*)penv;
-	sector = env->sectors[env->selected_floor];
+	if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
+	else
+		sector = env->sectors[env->selected_floor];
 	prec = sector.floor;
 	sector.floor = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
@@ -129,7 +138,7 @@ int		check_floor_height_input_box(void *penv)
 		update_sector_slope(env, &sector);
 		return (1);
 	}
-	if (env->player.sector == env->selected_floor)
+	if (env->player.sector == sector.num)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
@@ -143,7 +152,7 @@ int		check_floor_height_input_box(void *penv)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].sector == env->selected_floor
+		if (env->enemies[i].sector == sector.num
 			&& get_floor_at_pos(sector, env->enemies[i].pos, env) +
 			env->enemies[i].scale + env->enemies[i].height_on_floor >=
 			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
@@ -154,7 +163,7 @@ int		check_floor_height_input_box(void *penv)
 		}
 		i++;
 	}
-	sector.floor = env->sectors[env->selected_floor].floor;
+	sector.floor = prec;
 	update_sector_slope(env, &sector);
 	return (0);
 }
@@ -168,7 +177,10 @@ int		check_ceiling_height_input_box(void *penv)
 	int			i;
 
 	env = (t_env*)penv;
-	sector = env->sectors[env->selected_ceiling];
+	if (env->editor.selected_sector != -1)
+		sector = env->sectors[env->editor.selected_sector];
+	else
+		sector = env->sectors[env->selected_ceiling];
 	prec = sector.ceiling;
 	sector.ceiling = ft_atof(env->input_box.str);
 	update_sector_slope(env, &sector);
@@ -178,7 +190,7 @@ int		check_ceiling_height_input_box(void *penv)
 		update_sector_slope(env, &sector);
 		return (1);
 	}
-	if (env->player.sector == env->selected_ceiling)
+	if (env->player.sector == sector.num)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
@@ -192,7 +204,7 @@ int		check_ceiling_height_input_box(void *penv)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].sector == env->selected_ceiling
+		if (env->enemies[i].sector == sector.num
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->enemies[i].pos, env))
 		{
