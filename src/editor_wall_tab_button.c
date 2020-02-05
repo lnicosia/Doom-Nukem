@@ -46,11 +46,11 @@ void	init_wall_sprite_buttons(t_env *env)
 	env->editor.hud.sp_wall_sprite.pos_y.pos = new_point(300, 560);
 	env->editor.hud.sp_wall_sprite.t_pos_y.pos = new_point(300, 560);
 	env->editor.hud.sp_wall_sprite.scale_x = new_hud_pos_button(ON_RELEASE,
-	&change_var, &env->editor.hud.sp_wall_sprite.t_scale_x, env);
+	&change_wall_sprite_scale, &env->editor.hud.sp_wall_sprite.t_scale_x, env);
 	env->editor.hud.sp_wall_sprite.scale_x.pos = new_point(250, 600);
 	env->editor.hud.sp_wall_sprite.t_scale_x.pos = new_point(250, 600);
 	env->editor.hud.sp_wall_sprite.scale_y = new_hud_pos_button(ON_RELEASE,
-	&change_var, &env->editor.hud.sp_wall_sprite.t_scale_y, env);
+	&change_wall_sprite_scale, &env->editor.hud.sp_wall_sprite.t_scale_y, env);
 	env->editor.hud.sp_wall_sprite.scale_y.pos = new_point(300, 600);
 	env->editor.hud.sp_wall_sprite.t_scale_y.pos = new_point(300, 600);
 }

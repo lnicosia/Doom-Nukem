@@ -120,6 +120,19 @@ int		change_object_damage(void *param)
 	return (0);
 }
 
+int		change_wall_sprite_scale(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab *)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	env->input_box.check = &check_scale_input_box;
+	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	return (0);
+}
+
 int		change_ceiling_sprite_scale(void *param)
 {
 	t_button_tab	*button;

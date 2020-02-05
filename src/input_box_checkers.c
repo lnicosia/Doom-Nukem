@@ -239,7 +239,7 @@ int		check_scale_input_box(void *penv)
 
 	env = (t_env*)penv;
 	scale = ft_atof(env->input_box.str);
-	if (scale < 0.1 || scale > 100)
+	if ((scale < 0.1 && scale > -0.1) || scale > 100 || scale < -100)
 		return (1);
 	return (0);
 }
