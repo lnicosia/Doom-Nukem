@@ -28,10 +28,19 @@ static int	get_main_sprite(int sprite, t_env *env)
 
 static void	write_object(int fd, t_object object, t_env *env)
 {
-	ft_dprintf(fd, "[%.3f %.3f %.3f %.3f] ",
-			object.pos.y, object.pos.x, object.pos.z, object.angle);
-	ft_dprintf(fd, "[%d %.f]\n",
-			get_main_sprite(object.sprite, env), object.scale);
+	ft_dprintf(fd, "[%.*f %.*f %.*f %.*f] ",
+			ft_min(5, get_decimal_len(object.pos.y)),
+			object.pos.y,
+			ft_min(5, get_decimal_len(object.pos.x)),
+			object.pos.x,
+			ft_min(5, get_decimal_len(object.pos.z)),
+			object.pos.z,
+			ft_min(5, get_decimal_len(object.angle)),
+			object.angle);
+	ft_dprintf(fd, "[%d %.*f]\n",
+			get_main_sprite(object.sprite, env),
+			ft_min(5, get_decimal_len(object.scale)),
+			object.scale);
 }
 
 void		write_objects(int fd, t_env *env)

@@ -20,6 +20,13 @@ int		editor_render(t_env *env)
 		if (editor_3d_keys(env))
 			return (-1);
 	}
+	if (env->player.changed_sector)
+	{
+		env->player.changed_sector = 0;
+		env->player.old_sector = -1;
+		if (env->sectors[env->player.sector].gravity == 0)
+			env->player.state.fly = 1;
+	}
 	animations(env);
 	if (draw_walls(&env->player.camera, env))
 		return (crash("Failed to draw walls\n", env));

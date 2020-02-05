@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:36:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:07:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	print_sprite_tab(t_env *env)
 
 void	print_sector_tab(t_env *env)
 {
-	/*
-	if (env->editor.selected_vertex != -1)
-		print_vertex_general_tab(env);*/
 	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_sector_tab(env);
 	else if (env->selected_enemy != -1)
@@ -76,8 +73,6 @@ void	print_sector_tab(t_env *env)
 
 void	print_general_tab(t_env *env)
 {
-	/*if (env->editor.selected_vertex != -1)
-		print_vertex_general_tab(env);*/
 	if (env->selected_object != -1 || env->selected_object != -1)
 		print_object_general_tab(env);
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
@@ -96,37 +91,43 @@ void	print_general_tab(t_env *env)
 
 int		print_vertex_informations(t_env *env)
 {
-	print_text(new_point(450, 180), new_printable_text("vertex ",
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "vertex %d", env->editor.selected_vertex);
+	print_text(new_point(450, 180), new_printable_text(env->snprintf,
 				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	ft_snprintf(env->snprintf, 20, "%d", env->editor.selected_vertex);
-	print_text(new_point(450, 280), new_printable_text(env->snprintf,
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(490, 50), new_printable_text("Coordinates:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(540, 80), new_printable_text("X:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].x);
-	print_text(new_point(540, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	print_text(new_point(580, 80), new_printable_text("Y:", env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
-	ft_snprintf(env->snprintf, 20, "%.5f", env->vertices[env->editor.selected_vertex].y);
-	print_text(new_point(580, 230), new_printable_text(env->snprintf, env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	print_text(new_point(490, 50), new_printable_text("Coordinates:",
+	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "X: %.*f",
+	get_decimal_len(env->vertices[env->editor.selected_vertex].x),
+	env->vertices[env->editor.selected_vertex].x);
+	print_text(new_point(540, 80), new_printable_text(env->snprintf,
+	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Y: %.*f",
+	get_decimal_len(env->vertices[env->editor.selected_vertex].y),
+	env->vertices[env->editor.selected_vertex].y);
+	print_text(new_point(580, 80), new_printable_text(env->snprintf,
+	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
 	return (0);
 }
 
 int	draw_editor_tabs(t_env *env)
 {
 	if ((env->editor.in_game && (env->selected_ceiling_sprite == -1
-	&& env->selected_floor_sprite == -1 && env->selected_wall_sprite_sprite == -1)
+	&& env->selected_floor_sprite == -1
+	&& env->selected_wall_sprite_sprite == -1)
 	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
-	env->selected_floor != -1 || env->selected_enemy != -1 || env->selected_ceiling != -1 ))
-	|| (!env->editor.in_game && (env->editor.selected_sector != -1 || env->editor.selected_player != -1
+	env->selected_floor != -1 || env->selected_enemy != -1
+	|| env->selected_ceiling != -1 ))
+	|| (!env->editor.in_game && (env->editor.selected_sector != -1
+	|| env->editor.selected_player != -1
 	|| env->selected_object != -1 || env->selected_enemy != -1)))
 		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
-	if ((!env->editor.in_game && (env->editor.selected_player != -1 || env->selected_enemy != -1
+	if ((!env->editor.in_game && (env->editor.selected_player != -1
+		|| env->selected_enemy != -1
 	|| env->selected_object != -1)) || (env->editor.in_game
 	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||
-	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1 ||
-	env->selected_floor != -1 || env->selected_enemy != -1
-	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1 
-	|| env->selected_ceiling != -1)))
+	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1
+	|| env->selected_floor != -1 || env->selected_enemy != -1
+	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1 )))
 		draw_button(env, env->editor.sector_tab, env->editor.sector_tab.str);
 	if (is_events_tab_visible(env))
 		draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
@@ -134,7 +135,6 @@ int	draw_editor_tabs(t_env *env)
 	(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1))
 		draw_button(env, env->editor.sprite_tab, env->editor.sprite_tab.str);
-	new_tabs_position(env);
 	if (env->editor.sector_tab.state == DOWN)
 		print_sector_tab(env);
 	else if (env->editor.sprite_tab.state == DOWN)

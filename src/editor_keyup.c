@@ -240,6 +240,8 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (env->selected_enemy != -1 && enemy_buttons_up(env))
 		return (-1);
+	if (env->selected_object != -1 && object_buttons_up(env))
+		return (-1);
 	if (env->editor.draw_selection_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)

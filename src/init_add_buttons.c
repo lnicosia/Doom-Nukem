@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init_add_buttons.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipa	try <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 11:29:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 17:23:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:15:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"env.h"
+
+void	init_change_slope_direction_buttons(t_env *env)
+{
+	env->editor.next_slope_swap = new_next_button(WHEN_DOWN, &change_slope_direction, env, env);
+	env->editor.next_slope_swap_env.env = env;
+	env->editor.next_slope_swap.pos = new_point(315, 600);
+	env->editor.next_slope_swap_env.button_type = NEXT;
+	env->editor.previous_slope_swap = new_previous_button(WHEN_DOWN, &change_slope_direction, env, env);
+	env->editor.previous_slope_swap_env.env = env;
+	env->editor.previous_slope_swap.pos = new_point(60, 600);
+	env->editor.previous_slope_swap_env.button_type = PREVIOUS;
+}
 
 void	init_change_wall_buttons(t_env *env)
 {
@@ -70,4 +82,5 @@ void	init_add_buttons(t_env *env)
 	init_add_object_button(env);
 	init_change_sprite_button(env);
 	init_change_wall_buttons(env);
+	init_change_slope_direction_buttons(env);
 }

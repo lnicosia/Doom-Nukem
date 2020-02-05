@@ -14,10 +14,9 @@
 
 void	print_event_selection(t_env *env, size_t nb)
 {
-	print_text(new_point(500, 170), new_printable_text("Event ",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
-	print_text(new_point(500, 230), new_printable_text(ft_sitoa((int)env->
-	editor.selected_event),
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Event %d",
+	env->editor.selected_event);
+	print_text(new_point(500, 170), new_printable_text(env->snprintf,
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
 	if (nb > 1)
 	{
@@ -87,10 +86,6 @@ void	print_sector_events_tab(t_env *env)
 		sector = env->sectors[env->selected_floor];
 	else if (env->editor.selected_sector != -1)
 		sector = env->sectors[env->editor.selected_sector];
-	/*if (env->editor.selected_sector != -1)
-		env->selected_floor = env->editor.selected_sector;
-	else if (env->selected_floor != -1)
-		env->editor.selected_sector = env->selected_floor;*/
 	if (env->editor.selected_events == 0)
 		print_text(new_point(470, 150), new_printable_text("Stand events",
 	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);

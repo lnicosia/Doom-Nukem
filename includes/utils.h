@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 18:47:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:36:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
+# define SNPRINTF_SIZE 1024
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
 # define MAX_UI_TEXTURES 24
@@ -348,7 +349,6 @@ typedef struct		s_event
 	Uint32			start_time;
 	Uint32			last_tick;
 	Uint32			end_time;
-	Uint32			start_delay;
 	Uint32			delay;
 	int				target_index;
 	int				mod_type;
@@ -576,7 +576,7 @@ typedef struct		s_player
 	int				killed;
 	double			nb_shots;
 	double			touched;
-	int				accuracy;
+	double			accuracy;
 	double			head_z;
 	t_state			state;
 	double			velocity;
@@ -882,6 +882,7 @@ typedef struct		s_object
 	int				solid;
 	int				ammo;
 	int				damage;
+	int				map_hp;
 	int				health;
 	int				sector;
 	int				exists;

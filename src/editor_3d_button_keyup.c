@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:18:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:31:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	object_buttons_up(t_env *env)
 	else if (env->editor.general_tab.state == DOWN)
 	{
 		if (button_keyup(&env->editor.hud.g_object.health, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_object.scale, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_object.damage, env))
 			return (-1);
 	}
 	return (0);
@@ -113,6 +117,8 @@ int	wall_buttons_up(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.hud.g_wall.texture_align_y, env))
 			return (-1);
+		if (button_keyup(&env->editor.hud.g_wall.portal, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -144,6 +150,10 @@ int	floor_buttons_up(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.hud.g_floor.texture_align_y, env))
 			return (-1);
+		if (button_keyup(&env->editor.previous_slope_swap, env))
+			return (-1);
+		if (button_keyup(&env->editor.next_slope_swap, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -174,6 +184,10 @@ int	ceiling_buttons_up(t_env *env)
 		if (button_keyup(&env->editor.hud.g_ceilling.texture_align_x, env))
 			return (-1);
 		if (button_keyup(&env->editor.hud.g_ceilling.texture_align_y, env))
+			return (-1);
+		if (button_keyup(&env->editor.previous_slope_swap, env))
+			return (-1);
+		if (button_keyup(&env->editor.next_slope_swap, env))
 			return (-1);
 	}
 	return (0);

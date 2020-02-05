@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:42:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:05:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int		editor_3d_keyup(t_env *env)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 	{
-		env->player.state.fly = env->player.state.fly ? 0 : 1;
+		if (env->player.state.fly == 0)
+			env->player.state.fly = 1;
+		else if (env->sectors[env->player.sector].gravity)
+			env->player.state.fly = 0;
 		env->player.pos.z += 0.01;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
@@ -114,6 +117,7 @@ int		editor_3d_keyup(t_env *env)
 	}
 	if (env->editor.tab)
 	{
+		new_tabs_position(env);
 		if (button_keyup(&env->editor.save, env))
 			return (-1);
 		if (button_keyup(&env->editor.sprite_tab, env))

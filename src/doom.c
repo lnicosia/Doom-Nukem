@@ -53,12 +53,18 @@ int		launch_events(t_env *env)
 	}
 	if (env->player.changed_sector)
 	{
-		if (env->player.sector != -1 && env->sectors[env->player.sector].nb_walk_in_events > 0)
-			start_event(&env->sectors[env->player.sector].walk_in_events, &env->sectors[env->player.sector].nb_walk_in_events, env);
+		if (env->sectors[env->player.sector].gravity == 0)
+			env->player.state.fly = 1;
+		else
+			env->player.state.fly = 0;
+		if (env->player.sector != -1 && env->sectors[env->player.sector]
+			.nb_walk_in_events > 0)
+			start_event(&env->sectors[env->player.sector].walk_in_events,
+			&env->sectors[env->player.sector].nb_walk_in_events, env);
 		if (env->player.old_sector != -1
 				&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
 			start_event(&env->sectors[env->player.old_sector].walk_out_events,
-					&env->sectors[env->player.old_sector].nb_walk_out_events, env);
+				&env->sectors[env->player.old_sector].nb_walk_out_events, env);
 		env->player.changed_sector = 0;
 		env->player.old_sector = -1;
 	}
@@ -78,11 +84,15 @@ int		doom(t_env *env)
 		{
 			while (SDL_PollEvent(&env->sdl.event))
 			{
-				if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP && env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
+				if (env->sdl.event.type == SDL_QUIT
+					|| (env->sdl.event.type == SDL_KEYUP
+					&& env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
 					env->running = 0;
 				else if (env->sdl.event.type == SDL_KEYDOWN
-						|| env->sdl.event.type == SDL_KEYUP || env->sdl.event.type == SDL_MOUSEBUTTONDOWN
-						|| env->sdl.event.type == SDL_MOUSEBUTTONUP || env->sdl.event.type == SDL_MOUSEWHEEL)
+						|| env->sdl.event.type == SDL_KEYUP
+						|| env->sdl.event.type == SDL_MOUSEBUTTONDOWN
+						|| env->sdl.event.type == SDL_MOUSEBUTTONUP
+						|| env->sdl.event.type == SDL_MOUSEWHEEL)
 					update_inputs(env);
 				if (env->sdl.event.type == SDL_KEYUP
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP)
@@ -90,7 +100,8 @@ int		doom(t_env *env)
 					if (keyup(env))
 						return (-1);
 				}
-				if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.on_going &&
+				if (env->sdl.event.type == SDL_MOUSEWHEEL
+					&& !env->weapon_change.on_going &&
 					!env->shot.on_going && env->player.health > 0)
 					weapon_change(env);
 			}

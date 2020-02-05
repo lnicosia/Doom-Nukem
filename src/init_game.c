@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 19:58:32 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:34:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,17 @@ int		init_game(int ac, char **av)
 	int		i;
 
 	i = 0;
-	if (ac != 2)
+	if (ac < 2)
 		return (ft_printf("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.difficulty = 1;
-	env.menu = 1;
-	env.in_game = 0;
+	if (ac == 3)
+	{
+		env.menu = 1;
+		env.in_game = 0;
+	}
+	else if (ac == 2)
+		env.in_game = 1;
 	env.option = 0;
 	env.menu_select = 1;
 	env.running = 1;
@@ -82,7 +87,7 @@ int		init_game(int ac, char **av)
 	init_options(&env);
 	init_keys(&env);
 	init_inputs(&env);
-	if (!(env.snprintf = ft_strnew(20)))
+	if (!(env.snprintf = ft_strnew(SNPRINTF_SIZE)))
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));

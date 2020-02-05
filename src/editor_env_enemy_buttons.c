@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:59:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:07:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 17:20:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ void	init_enemy_general_env(t_env *env)
 	env->editor.hud.g_enemy.t_pos_y.type = DOUBLE;
 	env->editor.hud.g_enemy.t_pos_z.env = env;
 	env->editor.hud.g_enemy.t_pos_z.pos = new_point(0, 0);
-	env->editor.hud.g_enemy.t_pos_z.type = INT;
+	env->editor.hud.g_enemy.t_pos_z.type = DOUBLE;
 	env->editor.hud.g_enemy.t_health.env = env;
 	env->editor.hud.g_enemy.t_health.pos = new_point(0, 0);
-	env->editor.hud.g_enemy.t_health.type = DOUBLE;
+	env->editor.hud.g_enemy.t_health.type = INT;
 	env->editor.hud.g_enemy.t_speed.env = env;
 	env->editor.hud.g_enemy.t_speed.pos = new_point(0, 0);
 	env->editor.hud.g_enemy.t_speed.type = DOUBLE;
+	env->editor.hud.g_enemy.t_scale.env = env;
+	env->editor.hud.g_enemy.t_scale.pos = new_point(0, 0);
+	env->editor.hud.g_enemy.t_scale.type = DOUBLE;
+	env->editor.hud.g_enemy.t_damage.env = env;
+	env->editor.hud.g_enemy.t_damage.pos = new_point(0, 0);
+	env->editor.hud.g_enemy.t_damage.type = INT;
 }

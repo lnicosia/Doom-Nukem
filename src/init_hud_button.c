@@ -35,7 +35,8 @@ int	init_array_texture_buttons(t_env *env)
 	while (i < MAX_WALL_TEXTURE)
 	{
 		// NE PAS OUBLIER DE FREE LES NEW_BUTTON_TARGET
-		env->editor.textures[i] = new_image_button(ON_RELEASE, &save_texture, new_button_target(env, i), env);
+		env->editor.textures[i] = new_image_button(ON_RELEASE, &save_texture,
+		new_button_target(env, i), env);
 		env->editor.textures[i].img_up = env->wall_textures[i].maps[6];
 		env->editor.textures[i].img_pressed = env->wall_textures[i].maps[6];
 		env->editor.textures[i].img_down = env->wall_textures[i].maps[6];
@@ -44,20 +45,27 @@ int	init_array_texture_buttons(t_env *env)
 		env->editor.textures[i].size_down = new_point(64, 64);
 		env->editor.textures[i].size_hover = new_point(64, 64);
 		env->editor.textures[i].size_pressed = new_point(64, 64);
-		env->editor.textures[i].pos = new_point(60 + (64 * (i % mod)) + 5, 370 + 5 + (64 * (i / mod)));
+		env->editor.textures[i].pos =
+		new_point(60 + (64 * (i % mod)) + 5, 370 + 5 + (64 * (i / mod)));
 		i++;
 	}
-     	env->editor.current_texture_selection = new_image_button(ON_RELEASE, &save_texture, &env->editor.current_texture_selection, env);
-		env->editor.current_texture_selection.img_up = env->wall_textures[env->editor.current_texture].maps[6];
-		env->editor.current_texture_selection.img_pressed = env->wall_textures[env->editor.current_texture].maps[6];
-		env->editor.current_texture_selection.img_down = env->wall_textures[env->editor.current_texture].maps[6];
-		env->editor.current_texture_selection.img_hover = env->wall_textures[env->editor.current_texture].maps[6];
+     	env->editor.current_texture_selection = new_image_button(ON_RELEASE,
+		&save_texture, &env->editor.current_texture_selection, env);
+		env->editor.current_texture_selection.img_up =
+		env->wall_textures[env->editor.current_texture].maps[6];
+		env->editor.current_texture_selection.img_pressed =
+		env->wall_textures[env->editor.current_texture].maps[6];
+		env->editor.current_texture_selection.img_down =
+		env->wall_textures[env->editor.current_texture].maps[6];
+		env->editor.current_texture_selection.img_hover =
+		env->wall_textures[env->editor.current_texture].maps[6];
 		env->editor.current_texture_selection.size_up = new_point(64, 64);
 		env->editor.current_texture_selection.size_down = new_point(64, 64);
 		env->editor.current_texture_selection.size_hover = new_point(64, 64);
 		env->editor.current_texture_selection.size_pressed = new_point(64, 64);
         env->editor.current_texture_selection.pos = new_point(13, 353);
-		env->editor.texture_background = new_background_button(ON_RELEASE, &nothing, &env->editor.texture_background, env);
+		env->editor.texture_background = new_background_button(ON_RELEASE,
+		&nothing, &env->editor.texture_background, env);
 		env->editor.texture_background.pos = new_point(10, 350);
 	return (1);
 }
@@ -75,29 +83,41 @@ int		init_enemy_selection_button(t_env *env)
  	while (i < MAX_ENEMIES)
 	{
 		env->editor.enemy_tab[i].img_up = env->wall_textures[i].maps[6];
-		env->editor.enemy_tab[i] = new_image_button(ON_RELEASE, &save_enemy, new_button_target(env, i), env);
-		env->editor.enemy_tab[i].img_up = env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_pressed = env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_down = env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_hover = env->mini_enemies_textures[i].surface;
+		env->editor.enemy_tab[i] = new_image_button(ON_RELEASE,
+		&save_enemy, new_button_target(env, i), env);
+		env->editor.enemy_tab[i].img_up =
+		env->mini_enemies_textures[i].surface;
+		env->editor.enemy_tab[i].img_pressed =
+		env->mini_enemies_textures[i].surface;
+		env->editor.enemy_tab[i].img_down =
+		env->mini_enemies_textures[i].surface;
+		env->editor.enemy_tab[i].img_hover =
+		env->mini_enemies_textures[i].surface;
 		env->editor.enemy_tab[i].size_up = new_point(64, 64);
 		env->editor.enemy_tab[i].size_down = new_point(64, 64);
         env->editor.enemy_tab[i].size_hover = new_point(64, 64);
         env->editor.enemy_tab[i].size_pressed = new_point(64, 64);
-		env->editor.enemy_tab[i].pos = new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
+		env->editor.enemy_tab[i].pos =
+		new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
 		i++;
 	}
-	env->editor.current_enemy_selection = new_image_button(ON_RELEASE, &open_enemy_selection, env, env);
-	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[env->editor.current_enemy].surface;
-	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[env->editor.current_enemy].surface;
-	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[env->editor.current_enemy].surface;
-	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[env->editor.current_enemy].surface;
+	env->editor.current_enemy_selection = new_image_button(ON_RELEASE,
+	&open_enemy_selection, env, env);
+	env->editor.current_enemy_selection.img_up =
+	env->mini_enemies_textures[env->editor.current_enemy].surface;
+	env->editor.current_enemy_selection.img_pressed =
+	env->mini_enemies_textures[env->editor.current_enemy].surface;
+	env->editor.current_enemy_selection.img_down =
+	env->mini_enemies_textures[env->editor.current_enemy].surface;
+	env->editor.current_enemy_selection.img_hover =
+	env->mini_enemies_textures[env->editor.current_enemy].surface;
 	env->editor.current_enemy_selection.size_up = new_point(64, 64);
 	env->editor.current_enemy_selection.size_down = new_point(64, 64);
     env->editor.current_enemy_selection.size_hover = new_point(64, 64);
     env->editor.current_enemy_selection.size_pressed = new_point(64, 64);	
     env->editor.current_enemy_selection.pos = new_point(13, 253);
-	env->editor.enemy_background = new_background_button(ON_RELEASE, &nothing, &env->editor.enemy_background, env);
+	env->editor.enemy_background = new_background_button(ON_RELEASE,
+	&nothing, &env->editor.enemy_background, env);
 	env->editor.enemy_background.pos = new_point(10, 250);
 	return (1);
 }

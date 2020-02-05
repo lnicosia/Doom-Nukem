@@ -153,28 +153,8 @@ void	init_player(t_env *env)
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);
 	env->player.speed = 0.1;
-	env->player.pos.z = 0;
 	env->player.health = 100;
-	env->player.killed = 0;
-	env->player.touched = 0;
-	env->player.nb_shots = 0;
-	env->player.accuracy = 0;
 	env->player.size_2d = 0.75;
-	env->player.velocity = 0;
-	env->player.acceleration = 0;
-	env->player.drop_flag = 0;
-	env->gravity.velocity = 0;
-	env->gravity.acceleration = 0;
-	env->player.state.drop = 0;
-	env->player.state.fall = 0;
-	env->player.state.climb = 0;
-	env->player.state.jump = 0;
-	env->player.state.fly = 0;
-	env->player.state.crouch = 0;
-	env->player.state.walk = 0;
-	env->gravity.collision = 0;
-	env->player.in_combat = 0;
-	env->player.curr_weapon = 0;
 }
 
 int		parse_map(char *file, t_env *env)

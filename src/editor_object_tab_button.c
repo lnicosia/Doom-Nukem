@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:54:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 09:18:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:36:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ void	init_object_general_buttons(t_env *env)
 	&change_health, &env->editor.hud.g_object.t_health, env);
 	env->editor.hud.g_object.health.pos = new_point(250, 560);
 	env->editor.hud.g_object.t_health.pos = new_point(250, 560);
-	env->editor.hud.g_object.speed = new_hud_button(ON_RELEASE,
-	&change_speed, &env->editor.hud.g_object.t_speed, env);
-	env->editor.hud.g_object.speed.pos = new_point(250, 600);
-	env->editor.hud.g_object.t_speed.pos = new_point(250, 600);
+	env->editor.hud.g_object.scale = new_hud_button(ON_RELEASE,
+	&change_object_scale, &env->editor.hud.g_object.t_scale, env);
+	env->editor.hud.g_object.scale.pos = new_point(250, 600);
+	env->editor.hud.g_object.t_scale.pos = new_point(250, 600);
+	env->editor.hud.g_object.damage = new_hud_button(ON_RELEASE,
+	&change_object_scale, &env->editor.hud.g_object.t_damage, env);
+	env->editor.hud.g_object.damage.pos = new_point(250, 640);
+	env->editor.hud.g_object.t_damage.pos = new_point(250, 640);
 }

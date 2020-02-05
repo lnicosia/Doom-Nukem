@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 18:47:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:01:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ int		editor_3d_keys(t_env *env)
 				ceiling_sprites.pos[env->selected_ceiling_sprite],
 				&env->sectors[env->selected_ceiling].
 				ceiling_sprites.scale[env->selected_ceiling_sprite]);
+		precompute_ceiling_sprite_scales(env->selected_ceiling,
+		env->selected_ceiling_sprite, env);
 	}
 	if (env->editor.in_game
 			&& env->selected_floor != -1
@@ -200,6 +202,8 @@ int		editor_3d_keys(t_env *env)
 				floor_sprites.pos[env->selected_floor_sprite],
 				&env->sectors[env->selected_floor].
 				floor_sprites.scale[env->selected_floor_sprite]);
+		precompute_floor_sprite_scales(env->selected_floor,
+		env->selected_floor_sprite, env);
 	}
 
 	/*

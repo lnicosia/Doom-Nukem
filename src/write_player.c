@@ -14,7 +14,8 @@
 
 void	write_player(int fd, t_env *env)
 {
-	ft_dprintf(fd, "\n%.3f %.3f %d\n",
-			env->player.pos.y, env->player.pos.x,
+	ft_dprintf(fd, "\n%.*f %.*f %d\n",
+			ft_min(5, get_decimal_len(env->player.pos.y)), env->player.pos.y,
+			ft_min(5, get_decimal_len(env->player.pos.x)), env->player.pos.x,
 			(int)(env->player.camera.angle * CONVERT_DEGREES) % 360);
 }

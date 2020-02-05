@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 19:57:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:26:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,7 @@ int					print_vertex_informations(t_env *env);
 void				print_global_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
+char				*get_condition_type_str(t_condition *condition);
 void				print_event_launch_condition(t_env *env,
 t_condition *condition);
 void				print_event_exec_condition(t_env *env, 
@@ -410,7 +411,9 @@ int					check_ceiling_slope_input_box(void *penv);
 int					check_ceiling_height_input_box(void *penv);
 int					check_texture_input_box(void *penv);
 int					check_sprite_input_box(void *penv);
-int					check_scale_input_box(void *penv);
+int					check_sprite_scale_input_box(void *penv);
+int					check_texture_scale_input_box(void *penv);
+int					check_damage_input_box(void *penv);
 int					check_light_data_input_box(void *penv);
 int					check_gravity_input_box(void *penv);
 int					check_true_false_input_box(void *penv);
@@ -455,9 +458,13 @@ int					change_color(void *penv);
 int					change_brightness_or_intensity(void *penv);
 int					change_gravity(void *penv);
 int					change_sprite(void *target);
+int					change_enemy_scale(void *target);
+int					change_texture_scale(void *target);
+int					change_enemy_damage(void *target);
+int					change_object_damage(void *target);
+int					change_object_scale(void *target);
 int					change_ceiling_texture_scale(void *target);
 int					change_floor_texture_scale(void *target);
-int					change_wall_texture_scale(void *target);
 int					change_ceiling_texture_align(void *target);
 int					change_floor_texture_align(void *target);
 int					change_floor_height(void *target);
@@ -467,7 +474,7 @@ int					change_ceiling_slope(void *target);
 int					change_health(void *target);
 int					change_speed(void *target);
 int					next_selected_wall(void	*target);
-
+int					change_slope_direction(void	*target);
 /*
 **	prints and draw buttons for informations on a selected element 
 */

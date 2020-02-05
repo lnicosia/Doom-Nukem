@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:46:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 18:22:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:27:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,7 @@ void	init_wall_general_env(t_env *env)
 	env->editor.hud.g_wall.t_texture_align_y.env = env;
 	env->editor.hud.g_wall.t_texture_align_y.pos = new_point(0, 0);
 	env->editor.hud.g_wall.t_texture_align_y.type = DOUBLE;
+	env->editor.hud.g_wall.t_portal.env = env;
+	env->editor.hud.g_wall.t_portal.pos = new_point(0, 0);
+	env->editor.hud.g_wall.t_portal.type = INT;
 }

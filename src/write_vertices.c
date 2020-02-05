@@ -32,7 +32,9 @@ void	write_vertices(int fd, t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		ft_dprintf(fd, "%-*.5f %.5f\n", padding, env->vertices[i].y, env->vertices[i].x);
+		ft_dprintf(fd, "%.*f %.*f\n", 
+		ft_min(5, get_decimal_len(env->vertices[i].y)), env->vertices[i].y,
+		ft_min(5, get_decimal_len(env->vertices[i].x)), env->vertices[i].x);
 		i++;
 	}
 }

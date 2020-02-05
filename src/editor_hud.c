@@ -23,7 +23,7 @@ void	editor_hud(t_env *env)
 			new_point(0 , 0),
 			new_point(400, 900));
 		}
-		draw_rectangle(env,
+		draw_rectangle(env,	
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
 				new_point(0 , 64),
 				new_point(400, 270));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 12:14:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:52:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,26 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (**line && **line != ' ')
 		return (invalid_char("after floor height", "a digit or space(s)",
 					**line, parser));
-	*line = skip_spaces(*line);
+	*line = skip_spaces(*line);	
 	if (!**line || **line == ']')
-		return (missing_data("floor slope and texture", parser));
+		return (missing_data("floor slope, direction and texture", parser));
 	if (valid_number(*line, parser)){
 		return (invalid_char("before floor slope", "a digit or space(s)",
 					**line, parser));}
 		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
+		return (missing_data("floor slope direction and texture", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after floor slope", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("floor slope direction and texture", parser));
+	if (valid_number(*line, parser)){
+		return (invalid_char("before floor slope direction", "a digit or space(s)",
+					**line, parser));}
+		env->sectors[parser->sectors_count].start_floor_slope = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor texture", parser));
@@ -69,7 +82,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].floor_map_align.x = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor align.y", parser));
@@ -82,8 +95,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_align.y = ft_atoi(*line);
-
+	env->sectors[parser->sectors_count].floor_map_align.y = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].floor_texture < 0)
 		env->contains_skybox = 1;
 	*line = skip_number(*line);
@@ -98,9 +110,11 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor scale.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_scale.x = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].floor_map_scale.x <= 0)
-		return (custom_error_with_line("Floor scale must be positive", parser));
+	env->sectors[parser->sectors_count].floor_map_scale.x = ft_atof(*line);
+	if (env->sectors[parser->sectors_count].floor_map_scale.x < 1
+		|| env->sectors[parser->sectors_count].floor_map_scale.x > 100)
+		return (custom_error_with_line("Floor scale must be"
+		"between 1 and 100", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.y", parser));
@@ -113,9 +127,11 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before floor scale.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].floor_map_scale.y = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].floor_map_scale.y <= 0)
-		return (custom_error_with_line("Floor scale must be positive", parser));
+	env->sectors[parser->sectors_count].floor_map_scale.y = ft_atof(*line);
+	if (env->sectors[parser->sectors_count].floor_map_scale.y < 1
+		|| env->sectors[parser->sectors_count].floor_map_scale.y > 100)
+		return (custom_error_with_line("Floor scale must be"
+		"between 1 and 100", parser));
 
 	if (set_sector_floor_map_array(&env->sectors[parser->sectors_count], 
 		env->wall_textures[env->sectors[parser->sectors_count].floor_texture],
@@ -171,6 +187,19 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
+		return (missing_data("ceiling slope direction", parser));
+	if (**line && **line != ' ')
+		return (invalid_char("after ceiling slope", "a digit or space(s)",
+					**line, parser));
+	*line = skip_spaces(*line);
+	if (!**line || **line == ']')
+		return (missing_data("ceiling slope direction", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before ceiling slope direction", "a digit or space(s)",
+					**line, parser));
+	env->sectors[parser->sectors_count].start_ceiling_slope = ft_atoi(*line);
+	*line = skip_number(*line);
+	if (!**line || **line == ']')
 		return (missing_data("ceiling texture", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after ceiling slope", "a digit or space(s)",
@@ -185,7 +214,6 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (env->sectors[parser->sectors_count].ceiling_texture < -MAX_SKYBOX || env->
 			sectors[parser->sectors_count].ceiling_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid ceiling texture", parser));
-
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling align.x", parser));
@@ -198,7 +226,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_align.x = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_map_align.x = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling align.y", parser));
@@ -211,7 +239,7 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling align.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_align.y = ft_atoi(*line);
+	env->sectors[parser->sectors_count].ceiling_map_align.y = ft_atof(*line);
 
 	if (env->sectors[parser->sectors_count].ceiling_texture < 0)
 		env->contains_skybox = 1;
@@ -227,9 +255,11 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling scale.x", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_scale.x = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].ceiling_map_scale.x <= 0)
-		return (custom_error_with_line("Ceiling scale must be positive", parser));
+	env->sectors[parser->sectors_count].ceiling_map_scale.x = ft_atof(*line);
+	if (env->sectors[parser->sectors_count].ceiling_map_scale.x < 1
+		|| env->sectors[parser->sectors_count].ceiling_map_scale.x > 100)
+		return (custom_error_with_line("Ceiling scale must be"
+		"between 1 and 100", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.y", parser));
@@ -242,10 +272,12 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before ceiling scale.y", "a digit or space(s)",
 					**line, parser));
-	env->sectors[parser->sectors_count].ceiling_map_scale.y = ft_atoi(*line);
-	if (env->sectors[parser->sectors_count].ceiling_map_scale.y <= 0)
-		return (custom_error_with_line("Ceiling scale must be positive", parser));
-	
+	env->sectors[parser->sectors_count].ceiling_map_scale.y = ft_atof(*line);
+	if (env->sectors[parser->sectors_count].ceiling_map_scale.y < 1
+		|| env->sectors[parser->sectors_count].ceiling_map_scale.y > 100)
+		return (custom_error_with_line("Ceiling scale must be"
+		"between 1 and 100", parser));
+
 	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
 		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture], 
 		env))
@@ -511,13 +543,17 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].x <= 0)
-			return (custom_error_with_line("Wall scale must be positive", parser));
+		if (env->sectors[parser->sectors_count].scale[i].x < 1
+			|| env->sectors[parser->sectors_count].scale[i].x > 100)
+			return (custom_error_with_line("Wall scale must be"
+			"between 1 and 100", parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-		if (env->sectors[parser->sectors_count].scale[i].y <= 0)
-			return (custom_error_with_line("Wall scale must be positive", parser));
+		if (env->sectors[parser->sectors_count].scale[i].y < 1
+			|| env->sectors[parser->sectors_count].scale[i].y > 100)
+			return (custom_error_with_line("Wall scale must be"
+			"between 1 and 100", parser));
 		*line = skip_number(*line);
 		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
 			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
@@ -597,7 +633,8 @@ t_map_parser *parser)
 			(*line)++;
 			parse = ft_atoi(*line);
 			if (parse < 0 || parse >= MAX_OBJECTS)
-				return (custom_error_with_line("Invalid sprite texture", parser));
+				return (custom_error_with_line("Invalid sprite texture",
+				parser));
 			env->sectors[parser->sectors_count].wall_sprites[i].sprite[j] =
 			env->objects_main_sprites[parse];
 			*line = skip_number(*line);
@@ -612,13 +649,30 @@ t_map_parser *parser)
 			*line = skip_spaces(*line);
 			env->sectors[parser->sectors_count].wall_sprites[i].scale[j].x =
 			ft_atof(*line);
-			if (env->sectors[parser->sectors_count].wall_sprites[i].scale[j].x <= 0)
-				return (custom_error_with_line("Sprite scale must be positive", parser));
+			if ((env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].x < 0.1
+				&& env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].x > -0.1)
+				|| env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].x > 100
+				|| env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].x < -100)
+				return (custom_error_with_line("Sprite scale must be"
+				"between 0.1 and 100", parser));
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
-			env->sectors[parser->sectors_count].wall_sprites[i].scale[j].y = ft_atof(*line);
-			if (env->sectors[parser->sectors_count].wall_sprites[i].scale[j].y <= 0)
-				return (custom_error_with_line("Sprite scale must be positive", parser));
+			env->sectors[parser->sectors_count].wall_sprites[i].scale[j].y =
+			ft_atof(*line);
+			if ((env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].y < 0.1
+				&& env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].y > -0.1)
+				|| env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].y > 100
+				|| env->sectors[parser->sectors_count].
+				wall_sprites[i].scale[j].y < -100)
+				return (custom_error_with_line("Sprite scale must be positive"
+				"between 0.1 and 100", parser));
 			*line = skip_number(*line);
 			(*line)++;
 			j++;
@@ -699,9 +753,11 @@ int			parse_sector_general(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before sector gravity", "a digit or space(s)",
 					**line, parser));
 	env->sectors[parser->sectors_count].gravity = ft_atof(*line);
-	if (env->sectors[parser->sectors_count].gravity < -10 ||
-		env->sectors[parser->sectors_count].gravity >= 0)
-		return (custom_error_with_line("Invalid gravity value", parser));
+	if (env->sectors[parser->sectors_count].gravity
+		&& (env->sectors[parser->sectors_count].gravity < -10 ||
+		env->sectors[parser->sectors_count].gravity > -1))
+		return (custom_error_with_line("Gravity must be 0 or"
+		" between -1 and -10", parser));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("closing ']' brace after sector gravity",

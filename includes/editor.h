@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 10:13:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:25:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct	s_var_g
 	t_button		health;
 	t_button		armor;
 	t_button		speed;
+	t_button		scale;
+	t_button		damage;
+	t_button		portal;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -104,6 +107,9 @@ typedef struct	s_var_g
 	t_button_tab	t_health;
 	t_button_tab	t_armor;
 	t_button_tab	t_speed;
+	t_button_tab	t_scale;
+	t_button_tab	t_damage;
+	t_button_tab	t_portal;
 }				t_var_g;
 
 typedef struct	s_hud

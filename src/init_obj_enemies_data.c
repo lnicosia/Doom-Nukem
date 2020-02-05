@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 12:00:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:42:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void		init_objects_data(t_env *env)
 	{
 		env->objects[i].exists = 1;
 		env->objects[i].size_2d = env->objects[i].scale;
-		env->objects[i].health = 1;
+		env->objects[i].map_hp = 1;
+		env->objects[i].health = env->objects[i].map_hp;
 		env->objects[i].explosion_size = 0;
 		env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 		if (env->objects[i].sprite == 0)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:54:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/04 11:30:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,18 @@ int	enemy_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.s_enemy.intensity, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.s_enemy.gravity, env))
+			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
 		if (button_keys(&env->editor.hud.g_enemy.health, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_enemy.speed, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.scale, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.damage, env))
 			return (-1);
 	}
 	return (0);
@@ -46,6 +52,8 @@ int	player_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.s_player.color, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.s_player.intensity, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.s_player.gravity, env))
 			return (-1);
 	}
 	if (env->editor.general_tab.state == DOWN)
@@ -77,6 +85,8 @@ int	sector_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_sector.floor_slope, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_sector.ceiling_slope, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_sector.gravity, env))
 			return (-1);
 	}
 	return (0);
