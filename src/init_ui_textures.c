@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 17:48:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 20:23:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,84 @@
 
 int		init_mini_ui_textures(t_env *env)
 {
-	if (parse_bmp_mini_enemies_textures("images/ui/mini/lost_soul_mini.bmp", 0, env))
+	if (parse_bmp_mini_enemies_textures("images/ui/mini/lost_soul_mini.bmp", 0,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_enemies_textures("images/ui/mini/cyber_demon_mini.bmp", 1, env))
+	if (parse_bmp_mini_enemies_textures("images/ui/mini/cyber_demon_mini.bmp",
+		1, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
 
 int		init_mini_skyboxes_selection(t_env *env)
 {
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight.bmp", 0, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight.bmp", 0,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula.bmp", 1, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula.bmp", 1,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery.bmp", 2, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery"
+		".bmp", 2, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
 
 int		init_ui_mini_objects_textures(t_env *env)
 {
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 0, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 0,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 1, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 1,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 2, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 2,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 3, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 3,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 4, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 4,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 5, env))
-		return (custom_error("Invalid bmp files"));	
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 6, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 5,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 7, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 6,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 8, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 7,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 9, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 8,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 10, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 9,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 11, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 10,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 12, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 11,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 13, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 12,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 14, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 13,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 15, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 14,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 16, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 15,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 17, env))
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 16,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 17,
+		env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
@@ -124,18 +147,37 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
 		return (custom_error("Invalid bmp files"));
 	if (init_mini_ui_textures(env))
-		return (custom_error("error while parsing the miniatures of the enemies"));
+		return (custom_error("error while parsing the miniatures of"
+		" the enemies"));
 	if (init_ui_mini_objects_textures(env))
-		return (custom_error("error while parsing the miniatures of the objects"));
+		return (custom_error("error while parsing the miniatures of"
+		" the objects"));
 	if (init_mini_skyboxes_selection(env))
-		return (custom_error("error while parsing the miniatures of the skyboxes"));
+		return (custom_error("error while parsing the miniatures of"
+		" the skyboxes"));
 	if (parse_bmp_ui_textures("images/ui/play_icon.bmp", 24, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/target.bmp", 25, env))
+	if (parse_bmp_ui_textures("images/ui/target_icon.bmp", 25, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/event_icon.bmp", 26, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/condition_icon.bmp", 27, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/play_icon_down.bmp", 28, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/target_icon_down.bmp", 29, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/event_icon_down.bmp", 30, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/condition_icon_down.bmp", 31, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/play_icon_hover.bmp", 32, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/target_icon_hover.bmp", 33, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/event_icon_hover.bmp", 34, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/condition_icon_hover.bmp", 35, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }

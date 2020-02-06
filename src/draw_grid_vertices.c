@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/07/25 11:52:27 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/02/04 10:15:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:44:35 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	draw_grid_vertices(t_env *env)
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
+					&& env->editor.event_panel_dragged == -1
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_enemy == -1

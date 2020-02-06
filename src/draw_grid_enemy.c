@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:17:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:44:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	draw_grid_enemies(t_env *env)
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
+					&& env->editor.event_panel_dragged == -1
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_enemy == -1

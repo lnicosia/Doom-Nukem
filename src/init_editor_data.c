@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:14:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:47:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_editor_data(t_env *env)
 	env->editor.dragged_vertex = -1;
 	env->editor.dragged_player = -1;
 	env->editor.dragged_enemy = -1;
+	env->editor.event_panel_dragged = -1;
 	env->selected_wall1 = -1;
 	env->selected_wall2 = -1;
 	env->selected_floor = -1;

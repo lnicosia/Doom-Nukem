@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 19:17:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:37:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # define TARGET_ICON 25
 # define ACTION_ICON 26
 # define CONDITION_ICON 27
+# define EVENT_ICON_DOWN 28
+# define TARGET_ICON_DOWN 29
+# define ACTION_ICON_DOWN 30
+# define CONDITION_ICON_DOWN 31
+# define EVENT_ICON_HOVER 32
+# define TARGET_ICON_HOVER 33
+# define ACTION_ICON_HOVER 34
+# define CONDITION_ICON_HOVER 35
 
 typedef struct		s_button_tab
 {
@@ -224,6 +232,7 @@ typedef struct	s_editor
 	int				create_enemy;
 	int				create_object;
 	int				creating_event;
+	int				event_panel_dragged;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;

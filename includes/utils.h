@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 18:29:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 20:13:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define SNPRINTF_SIZE 1024
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 28
+# define MAX_UI_TEXTURES 36
 # define MAX_MONSTER_MINI 14
 # define MAX_OBJECT_SPRITES 28
 # define MAX_ENEMY_SPRITES 13

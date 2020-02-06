@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 19:20:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 20:30:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -694,6 +694,22 @@ t_button	new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button	new_plus_button(int type, int (*action)(void *),
 void *param, t_env *env);
+void				set_button_up_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_down_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_pressed_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_hover_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_up_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_down_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_pressed_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_hover_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
 
 /*

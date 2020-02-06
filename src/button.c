@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 19:16:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:09:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ t_button	new_rectangle_button(int type, int (*action)(void *), void *param, t_en
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	new.up = new_rectangle(0xFFf1f2f3, 0xFFf1f2f3, 1, 2);
-	new.down = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 2);
-	new.pressed = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 2);
-	new.hover = new_rectangle(0xFFFFFFFF, 0xFFFFFFFF, 1, 2);
+	new.up = new_rectangle(0xFFf1f2f3, 0xFFf1f2f3, 1, 0);
+	new.down = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 0);
+	new.pressed = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 0);
+	new.hover = new_rectangle(0xFFf7f8f9, 0xFFf7f8f9, 1, 0);
 	new.size_up = new_point(env->editor.event_panel.size.y / 5 - 2,
 	env->editor.event_panel.size.y / 5 - 2);
 	new.size_pressed = new_point(env->editor.event_panel.size.y / 5 - 2,

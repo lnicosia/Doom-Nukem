@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 19:22:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:46:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	editor_keyup(t_env *env)
 	int	i;
 
 	i = 0;
+	if (env->editor.creating_event)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
@@ -51,8 +56,12 @@ int	editor_keyup(t_env *env)
 		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.event_panel_dragged)
+		env->editor.event_panel_dragged = -1;
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
+			&& env->editor.event_panel_dragged == -1
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1
@@ -80,6 +89,7 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
+			&& env->editor.event_panel_dragged == -1
 			&& env->editor.dragged_player == 1
 			&& env->editor.selected_player == 1
 			&& env->editor.dragged_object == -1
@@ -89,6 +99,7 @@ int	editor_keyup(t_env *env)
 		
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
+		&& env->editor.event_panel_dragged == -1
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1
 		&& env->editor.dragged_vertex == -1
@@ -267,11 +278,6 @@ int	editor_keyup(t_env *env)
 				return (-1);
 			i++;
 		}
-	}
-	if (env->editor.creating_event)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 	&& (env->sdl.my < 414 && env->sdl.my > 350))

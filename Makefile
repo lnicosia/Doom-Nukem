@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/06 19:19:33 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/06 21:48:42 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c init_editor_data.c \
+		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c \
 		   print_debug.c init_animations.c vertices_utils.c \
@@ -177,7 +177,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -flto -Ofast \
+		  -Ofast \
+		  #-flto \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
@@ -240,13 +241,13 @@ $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@gcc -c $< -o $@ $(CFLAGS) 
+	gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@gcc -c $< -o $@ $(CFLAGS) 
+	gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@gcc -c $< -o $@ $(CFLAGS) 
+	gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
 	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
