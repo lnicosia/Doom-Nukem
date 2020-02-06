@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_wall.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:30:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:05:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 11:51:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			i++;
 			continue;
 		}
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->editor.select)
 			{

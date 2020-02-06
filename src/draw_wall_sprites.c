@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 14:23:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:58:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 				&& sprite_pixels[(int)x
 				+ sprite_w * (int)y] != 0xFFC10099)
 		{
-			if (render.x == env->h_w && i == env->h_h)
+			if (((env->editor.tab
+				&& render.x == env->sdl.mx && i == env->sdl.my)
+				|| (!env->editor.tab && render.x == env->h_w
+				&& i == env->h_h)))
 			{
 				if (env->editor.select)
 				{

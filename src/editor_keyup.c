@@ -273,8 +273,8 @@ int	editor_keyup(t_env *env)
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
-	&& (env->sdl.my < 317 && env->sdl.my > 253))
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 304 && env->sdl.mx > 240)
+	&& (env->sdl.my < 341 && env->sdl.my > 277))
 		env->editor.draw_enemy_tab = 1;
 	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_enemy_tab = 0;

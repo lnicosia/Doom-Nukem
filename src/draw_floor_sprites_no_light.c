@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:31:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:13:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	draw_floor_sprites_no_light(t_sector sector, t_render render, t_env *env)
 					+ env->sprite_textures[sprite.texture].surface->w
 					* (int)sprite_y] != 0xFFC10099)
 			{
-				if (env->editor.select && render.x == env->h_w && i == env->h_h)
+				if (env->editor.select && ((env->editor.tab
+				&& render.x == env->sdl.mx && i == env->sdl.my)
+				|| (!env->editor.tab && render.x == env->h_w
+				&& i == env->h_h)))
 				{
 					reset_selection(env);
 					env->selected_floor = sector.num;

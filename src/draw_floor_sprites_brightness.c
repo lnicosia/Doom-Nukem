@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:50:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:26:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:12:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	draw_floor_sprites_brightness(t_sector sector, t_render render, t_env *env)
 					+ env->sprite_textures[sprite.texture].surface->w
 					* (int)sprite_y] != 0xFFC10099)
 			{
-				if (env->editor.select && render.x == env->h_w && i == env->h_h)
+				if (env->editor.select && ((env->editor.tab
+				&& render.x == env->sdl.mx && i == env->sdl.my)
+				|| (!env->editor.tab && render.x == env->h_w
+				&& i == env->h_h)))
 				{
 					reset_selection(env);
 					env->selected_floor = sector.num;

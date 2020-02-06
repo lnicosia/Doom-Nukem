@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:03:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:33:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 18:00:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	enemy_tab(t_env *env, int nb_slots)
 	else
 		mod = 5;
 	while (test % mod != 0)
-		test++;	
+		test++;
 	draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
 				new_point(50, 290),

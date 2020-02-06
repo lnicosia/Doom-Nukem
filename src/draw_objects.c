@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/08 17:57:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:57:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ static void		*object_loop(void *param)
 						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->objects[object.num].seen = 1;
-				if (env->editor.select && x == env->h_w && y == env->h_h)
+				if (env->editor.select && ((env->editor.tab
+				&& x == env->sdl.mx && y == env->sdl.my)
+				|| (!env->editor.tab && x == env->h_w
+				&& y == env->h_h)))
 				{
 					reset_selection(env);
 					env->selected_object = object.num;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_ceiling_color.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:25:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:06:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 12:02:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	draw_vline_ceiling_color(t_sector sector, t_vline vline, t_render render,
 			map_lvl = get_current_ceiling_map(sector.ceiling_texture, z, &render, env);
 		texture_pixels = env->wall_textures[sector.ceiling_texture].
 		maps[map_lvl]->pixels;
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->editor.select)
 			{

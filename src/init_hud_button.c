@@ -101,7 +101,7 @@ int		init_enemy_selection_button(t_env *env)
 		new_point(50 + (64 * (i % mod)) + 5, 290 + 5 + (64 * (i / mod)));
 		i++;
 	}
-	env->editor.current_enemy_selection = new_image_button(ON_RELEASE,
+	env->editor.current_enemy_selection = new_image_button(WHEN_DOWN,
 	&open_enemy_selection, env, env);
 	env->editor.current_enemy_selection.img_up =
 	env->mini_enemies_textures[env->editor.current_enemy].surface;
@@ -115,10 +115,10 @@ int		init_enemy_selection_button(t_env *env)
 	env->editor.current_enemy_selection.size_down = new_point(64, 64);
     env->editor.current_enemy_selection.size_hover = new_point(64, 64);
     env->editor.current_enemy_selection.size_pressed = new_point(64, 64);	
-    env->editor.current_enemy_selection.pos = new_point(13, 253);
+    env->editor.current_enemy_selection.pos = new_point(240, 277);
 	env->editor.enemy_background = new_background_button(ON_RELEASE,
 	&nothing, &env->editor.enemy_background, env);
-	env->editor.enemy_background.pos = new_point(10, 250);
+	env->editor.enemy_background.pos = new_point(240, 277);
 	return (1);
 }
 
