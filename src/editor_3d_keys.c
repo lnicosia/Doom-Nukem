@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 12:01:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/06 19:22:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -608,6 +608,11 @@ int		editor_3d_keys(t_env *env)
 					return (-1);
 				i++;
 			}
+		}
+		if (env->editor.creating_event)
+		{
+			if (event_panel_keys(env))
+				return (-1);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/05 17:56:56 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/06 19:19:33 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
 				explosion.c init_events_map.c draw_explosion.c \
-				explosion_maths.c menu_keys.c option_menu.c option_menu_keys.c\
+				explosion_maths.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -53,7 +53,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c \
+		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
@@ -83,6 +83,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
 		 draw_editor_tabs.c new_tabs_position.c editor_buttons_functions.c \
+		 event_panel.c event_panel_keys.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -156,6 +157,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c \
+		   menu_keys.c option_menu.c option_menu_keys.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \

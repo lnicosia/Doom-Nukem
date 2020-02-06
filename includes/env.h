@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 19:26:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 19:20:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -522,6 +522,12 @@ int					ceiling_sprite_buttons_up(t_env *env);
 int					wall_sprite_buttons_up(t_env *env);
 
 /*
+**	Event panel
+*/
+
+int					draw_event_panel(t_env *env);
+
+/*
 ** Main functions
 */
 
@@ -661,6 +667,8 @@ int					draw_confirmation_box(t_confirmation_box *box, t_env *env);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
+		t_point size);
+void				draw_rectangle_alpha(t_env *env, t_rectangle r, t_point pos,
 		t_point size);
 t_button			new_button(t_rectangle up, t_rectangle pressed,
 t_rectangle down, t_rectangle hover);
@@ -849,12 +857,15 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
+void				init_event_panel_buttons(t_env *env);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
 int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
+int					event_panel_keys(t_env *env);
+int					event_panel_keyup(t_env *env);
 int					option_menu_keyup(t_env *env);
 int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);

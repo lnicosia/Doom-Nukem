@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:25:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/06 19:17:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define EDITOR_H
 
 # include "utils.h"
+# define EVENT_ICON 24
+# define TARGET_ICON 25
+# define ACTION_ICON 26
+# define CONDITION_ICON 27
 
 typedef struct		s_button_tab
 {
@@ -163,6 +167,16 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef struct	s_event_panel
+{
+	t_point		pos;
+	t_point		size;
+	t_button	target_tab;
+	t_button	action_tab;
+	t_button	launch_conditions_tab;
+	t_button	exec_conditions_tab;
+}				t_event_panel;
+
 typedef struct	s_editor
 {
 	t_v2			start_pos;
@@ -209,6 +223,7 @@ typedef struct	s_editor
 	int				draw_sprite_tab;
 	int				create_enemy;
 	int				create_object;
+	int				creating_event;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;
@@ -249,6 +264,8 @@ typedef struct	s_editor
 	t_button		previous_exec_condition;
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection;
+	t_button		create_event_button;
+	t_event_panel	event_panel;
 	int				selection_tab;
 }				t_editor;
 

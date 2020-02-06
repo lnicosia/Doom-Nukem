@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 11:39:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/06 17:48:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,14 @@ int		init_ui_textures(t_env *env)
 	if (init_ui_mini_objects_textures(env))
 		return (custom_error("error while parsing the miniatures of the objects"));
 	if (init_mini_skyboxes_selection(env))
-		return (custom_error("error while parsing the miniatures of the skyboxes"));		
+		return (custom_error("error while parsing the miniatures of the skyboxes"));
+	if (parse_bmp_ui_textures("images/ui/play_icon.bmp", 24, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/target.bmp", 25, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/event_icon.bmp", 26, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/condition_icon.bmp", 27, env))
+		return (custom_error("Invalid bmp files"));
 	return (0);
 }

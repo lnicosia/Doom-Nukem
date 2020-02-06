@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:37:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:18:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ void	editor_hud(t_env *env)
 {
 	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
 	{
-		if (env->editor.in_game)
-		{
-			draw_rectangle(env,
-			new_rectangle(0x00000000, 0xFF888888, 1, 5),
-			new_point(0 , 0),
-			new_point(400, 900));
-		}
+		draw_rectangle(env,
+		new_rectangle(0x1e272e, 0xFF888888, 1, 0),
+		new_point(0 , 0),
+		new_point(400, 900));
 		draw_rectangle(env,	
-				new_rectangle(0x00000000, 0xFF888888, 1, 5),
+				new_rectangle(0x1e272e, 0xFF888888, 1, 5),
 				new_point(0 , 64),
 				new_point(400, 270));
 		draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
@@ -41,7 +38,7 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
 		draw_button(env, env->editor.save, env->editor.save.str);
 		draw_rectangle(env,
-				new_rectangle(0x00000000, 0x2C3E50, 1, 5),
+				new_rectangle(0x1e272e, 0x2C3E50, 1, 5),
 				new_point(0 , 450),
 				new_point(400, 450));
 		draw_editor_tabs(env);
@@ -55,4 +52,6 @@ void	editor_hud(t_env *env)
 		else
 			env->editor.selection_tab = 0;
 	}
+	if (env->editor.creating_event)
+		draw_event_panel(env);
 }

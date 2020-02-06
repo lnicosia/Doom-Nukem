@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 18:36:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 18:29:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define SNPRINTF_SIZE 1024
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
-# define MAX_UI_TEXTURES 24
+# define MAX_UI_TEXTURES 28
 # define MAX_MONSTER_MINI 14
 # define MAX_OBJECT_SPRITES 28
 # define MAX_ENEMY_SPRITES 13
@@ -200,6 +200,11 @@ typedef struct		s_circle
 	t_point			center;
 	int				radius;
 }					t_circle;
+
+typedef enum		s_ui_textures
+{
+	BACKGROUND
+}					t_ui_textures;
 
 typedef struct		s_state
 {
@@ -688,6 +693,8 @@ typedef struct		s_fonts
 	TTF_Font		*lato15;
 	TTF_Font		*lato20;
 	TTF_Font		*lato50;
+	TTF_Font		*lato_bold50;
+	TTF_Font		*lato_black50;
 }					t_fonts;
 
 /*

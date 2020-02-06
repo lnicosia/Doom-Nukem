@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/28 12:09:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:26:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int		save_button(void *target)
 
 int		editor_mode_button(t_env *env)
 {
-	env->editor.change_mode = new_image_button(ON_RELEASE, &change_mode, env, env);
-    env->editor.change_mode.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+	env->editor.change_mode = new_tab_button(ON_RELEASE, &change_mode, env, env);
+    /*env->editor.change_mode.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
 	env->editor.change_mode.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
 	env->editor.change_mode.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.change_mode.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -77,15 +77,15 @@ int		editor_mode_button(t_env *env)
     env->editor.change_mode.size_hover = new_point(env->editor.change_mode.img_hover->w,
     env->editor.change_mode.img_hover->h);
     env->editor.change_mode.size_pressed = new_point(env->editor.change_mode.img_pressed->w,
-    env->editor.change_mode.img_pressed->h);
+    env->editor.change_mode.img_pressed->h);*/
 	env->editor.change_mode.pos = new_point(0, 0);
 	return (0);
 }
 
 int		editor_save_button(t_env *env)
 {
-	env->editor.save = new_image_button(ON_RELEASE, &save_button, env, env);
-    env->editor.save.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+	env->editor.save = new_tab_button(ON_RELEASE, &save_button, env, env);
+    /*env->editor.save.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.save.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -95,15 +95,15 @@ int		editor_save_button(t_env *env)
     env->editor.save.size_hover = new_point(env->editor.save.img_hover->w,
     env->editor.save.img_hover->h);
     env->editor.save.size_pressed = new_point(env->editor.save.img_pressed->w,
-    env->editor.save.img_pressed->h);
-    env->editor.save.pos = new_point(66, 0);
+    env->editor.save.img_pressed->h);*/
+    env->editor.save.pos = new_point(120, 0);
 	return (0);
 }
 
 int		editor_launch_game(t_env *env)
 {
-	env->editor.launch_game = new_image_button(ON_RELEASE, &launch_game, env, env);
-    env->editor.launch_game.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
+	env->editor.launch_game = new_tab_button(ON_RELEASE, &launch_game, env, env);
+    /*env->editor.launch_game.img_up = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.img_pressed = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.img_down = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
     env->editor.launch_game.img_hover = env->sprite_textures[env->object_sprites[BUTTON_OFF].texture].surface;
@@ -113,7 +113,7 @@ int		editor_launch_game(t_env *env)
     env->editor.launch_game.size_hover = new_point(env->editor.launch_game.img_hover->w,
     env->editor.launch_game.img_hover->h);
     env->editor.launch_game.size_pressed = new_point(env->editor.launch_game.img_pressed->w,
-    env->editor.launch_game.img_pressed->h);
-    env->editor.launch_game.pos = new_point(132, 0);
+    env->editor.launch_game.img_pressed->h);*/
+    env->editor.launch_game.pos = new_point(240, 0);
 	return (0);
 }

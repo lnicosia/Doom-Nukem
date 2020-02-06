@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 12:09:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 18:32:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,10 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato20);
 	if (env->sdl.fonts.lato50)
 		TTF_CloseFont(env->sdl.fonts.lato50);
+	if (env->sdl.fonts.lato_bold50)
+		TTF_CloseFont(env->sdl.fonts.lato_bold50);
+	if (env->sdl.fonts.lato_black50)
+		TTF_CloseFont(env->sdl.fonts.lato_black50);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
 	free_camera(&env->player.camera, env);

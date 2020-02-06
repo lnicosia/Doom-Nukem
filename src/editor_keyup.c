@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:51:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 19:22:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,11 @@ int	editor_keyup(t_env *env)
 				return (-1);
 			i++;
 		}
+	}
+	if (env->editor.creating_event)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 	&& (env->sdl.my < 414 && env->sdl.my > 350))

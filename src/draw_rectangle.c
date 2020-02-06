@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2019/09/02 15:03:32 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/25 16:38:45 by gaerhard		 ###   ########.fr	   */
+/*   Updated: 2020/02/06 15:00:27 by lnicosia         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -55,6 +55,42 @@ void		draw_rectangle(t_env *env, t_rectangle r, t_point pos, t_point size)
 				env->sdl.texture_pixels[x + y * env->w] = r.line_color;
 			else if (r.filled)
 				env->sdl.texture_pixels[x + y * env->w] = r.inside_color;
+		}
+	}
+}
+
+/*
+**	Draw the given rectangle at the given position
+*/
+
+void		draw_rectangle_alpha(t_env *env, t_rectangle r, t_point pos,
+t_point size)
+{
+	int		x;
+	int		y;
+	Uint32	*pixels;
+	int		coord;
+
+	if (pos.x < 0 || pos.y < 0 || pos.x >= env->w || pos.y >= env->h
+			|| size.x <= 0 || size.y <= 0)
+		return ;
+	pixels = env->sdl.texture_pixels;
+	y = pos.y - 1;
+	while (++y <= pos.y + size.y && y < env->h)
+	{
+		x = pos.x - 1;
+		while (++x <= pos.x + size.x && x < env->w)
+		{
+			coord = x + y * env->w;
+			if (y < pos.y + r.line_size
+					|| y > pos.y + size.y - r.line_size
+					|| x < pos.x + r.line_size
+					|| x > pos.x + size.x - r.line_size)
+				pixels[coord] =
+				blend_alpha(r.line_color, pixels[coord], 20);
+			else if (r.filled)
+				env->sdl.texture_pixels[coord] =
+				blend_alpha(r.inside_color, pixels[coord], 20);
 		}
 	}
 }

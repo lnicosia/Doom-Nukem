@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 17:05:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/06 19:22:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,11 @@ int		editor_3d_keyup(t_env *env)
 				return (-1);
 				i++;
 			}
+		}
+		if (env->editor.creating_event)
+		{
+			if (event_panel_keyup(env))
+				return (-1);
 		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
 				&& (env->sdl.my < 414 && env->sdl.my > 350))
