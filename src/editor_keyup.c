@@ -70,6 +70,8 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_event = 0;
 		env->editor.selected_launch_condition = 0;
 		env->editor.selected_exec_condition = 0;
+		env->editor.general_tab.state = DOWN;
+		env->editor.general_tab.anim_state = PRESSED;
 		if (env->editor.selected_sector == -1)
 		{
 			env->selected_floor = -1;
@@ -268,13 +270,13 @@ int	editor_keyup(t_env *env)
 			i++;
 		}
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-	&& (env->sdl.my < 414 && env->sdl.my > 350))
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
+	&& (env->sdl.my < 208 && env->sdl.my > 80))
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 304 && env->sdl.mx > 240)
-	&& (env->sdl.my < 341 && env->sdl.my > 277))
+	&& (env->sdl.my < 404 && env->sdl.my > 340))
 		env->editor.draw_enemy_tab = 1;
 	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_enemy_tab = 0;

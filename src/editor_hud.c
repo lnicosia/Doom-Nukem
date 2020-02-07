@@ -16,23 +16,30 @@ void	editor_hud(t_env *env)
 {
 	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
 	{
+		//background
 		draw_rectangle(env,
-			new_rectangle(0xbdc3c7, 0xFF888888, 1, 0),
+			new_rectangle(0xbdc3c7, 0xbdc3c7, 1, 0),
 			new_point(0 , 0),
 			new_point(400, 900));
+		// left rectangle
 		draw_rectangle(env,	
-			new_rectangle(0xFFFFFFFF, 0xFF888888, 1, 0),
-			new_point(20 , 64),
-			new_point(360, 300));
-		apply_surface(env->ui_textures[24].surface, new_point(270, 240), new_point(128, 89), env);
-		apply_surface(env->ui_textures[24].surface, new_point(170, 240), new_point(128, 89), env);
-		apply_surface(env->ui_textures[24].surface, new_point(70, 240), new_point(128, 89), env);
+			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+			new_point(20 , 40),
+			new_point(170, 360));
+		// right rectangle
+		draw_rectangle(env,	
+			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+			new_point(210 , 40),
+			new_point(170, 360));
+		apply_surface(env->ui_textures[24].surface, new_point(296, 230), new_point(128, 89), env);
+		apply_surface(env->ui_textures[24].surface, new_point(196, 230), new_point(128, 89), env);
+		//apply_surface(env->ui_textures[24].surface, new_point(120, 230), new_point(128, 89), env);
 		draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
 		draw_button(env, env->editor.add_object, env->editor.add_object.str);
-		draw_button(env, env->editor.texture_background,
+		/*draw_button(env, env->editor.texture_background,
 		env->editor.texture_background.str);
 		draw_button(env, env->editor.enemy_background,
-		env->editor.enemy_background.str);
+		env->editor.enemy_background.str);*/
 		draw_button(env, env->editor.current_texture_selection,
 		env->editor.current_texture_selection.str);
 		draw_button(env, env->editor.current_enemy_selection,
@@ -41,7 +48,7 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
 		draw_button(env, env->editor.save, env->editor.save.str);
 		draw_rectangle(env,
-				new_rectangle(0xFFFFFFFF, 0x2C3E50, 1, 0),
+				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 				new_point(20 , 450),
 				new_point(360, 430));
 		draw_editor_tabs(env);

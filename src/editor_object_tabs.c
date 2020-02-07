@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:02:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 14:44:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,30 @@
 int		print_object_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("object:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->sectors[env->objects[env->selected_object].sector].brightness);
 	env->editor.hud.s_object.t_brightness.target =
 	&env->sectors[env->objects[env->selected_object].sector].brightness;
 	draw_button(env, env->editor.hud.s_object.brightness, env->snprintf);
 	print_text(new_point(560, 60), new_printable_text("Light_color:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 	env->sectors[env->objects[env->selected_object].sector].light_color);
 	env->editor.hud.s_object.t_color.target =
 	&env->sectors[env->objects[env->selected_object].sector].light_color;
 	draw_button(env, env->editor.hud.s_object.color, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Intensity:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->sectors[env->objects[env->selected_object].sector].intensity);
 	env->editor.hud.s_object.t_intensity.target =
 	&env->sectors[env->objects[env->selected_object].sector].intensity;
 	draw_button(env, env->editor.hud.s_object.intensity, env->snprintf);
 	print_text(new_point(640, 60), new_printable_text("Gravity:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->objects[env->selected_object].sector].
 	gravity), env->sectors[env->objects[env->selected_object].sector].gravity);
@@ -51,7 +51,7 @@ int		print_object_sector_tab(t_env *env)
 int		print_object_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Pos: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.x)),
 	env->objects[env->selected_object].pos.x),
@@ -71,14 +71,14 @@ int		print_object_general_tab(t_env *env)
 	&env->objects[env->selected_object].pos.z;
 	draw_button(env, env->editor.hud.g_object.pos_z, env->snprintf);
 	print_text(new_point(560, 60), new_printable_text("Health: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->objects[env->selected_object].health);
 	env->editor.hud.g_object.t_health.target =
 	&env->objects[env->selected_object].health;
 	draw_button(env, env->editor.hud.g_object.health, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Scale: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->objects[env->selected_object].scale),
 	env->objects[env->selected_object].scale);
@@ -86,7 +86,7 @@ int		print_object_general_tab(t_env *env)
 	&env->objects[env->selected_object].scale;
 	draw_button(env, env->editor.hud.g_object.scale, env->snprintf);
 	print_text(new_point(640, 60), new_printable_text("Damage: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->objects[env->selected_object].damage);
 	env->editor.hud.g_object.t_damage.target =

@@ -53,6 +53,8 @@ void	draw_grid_enemies(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_enemy = i;
 				env->selected_enemy = i;
+				env->editor.general_tab.state = DOWN;
+				env->editor.general_tab.anim_state = PRESSED;
 			}
 		}
 		else

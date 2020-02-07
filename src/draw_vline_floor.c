@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:50:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 11:52:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 15:13:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	draw_vline_floor(t_sector sector, t_vline vline,
 			{
 				reset_selection(env);
 				env->selected_floor = render.sector;
+				env->editor.general_tab.state = DOWN;
+				env->editor.general_tab.anim_state = PRESSED;
 			}
 			if (env->playing)
 			{

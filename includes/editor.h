@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:25:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 11:40:11 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ typedef struct	s_editor
 	t_button		general_tab;
 	t_button		events_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
-	t_button		skyboxes[MAX_SKYBOX];
+	t_button		skyboxes[MAX_SKYBOX + MAX_SKYBOX];
 	t_button		enemy_tab[MAX_MONSTER_MINI];
 	t_button		add_enemy;
 	t_button		add_object;

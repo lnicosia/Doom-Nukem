@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 17:34:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 16:22:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ int		init_mini_skyboxes_selection(t_env *env)
 	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula.bmp", 1, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery.bmp", 2, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight_128.bmp", 3, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula_128.bmp", 4, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery_128.bmp", 5, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
@@ -144,6 +150,20 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/background-pressed2.bmp", 33, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/background-hover2.bmp", 34, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/add_enemy.bmp", 35, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-up2.bmp", 36, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-pressed2.bmp", 37, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/onglet-hover2.bmp", 38, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/hud-button-up.bmp", 39, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/hud-button-pressed.bmp", 40, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/hud-button-hover.bmp", 41, env))
 		return (custom_error("Invalid bmp files"));
 	if (init_mini_ui_textures(env))
 		return (custom_error("error while parsing the miniatures of the enemies"));
