@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:44:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:08:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	draw_grid_enemies(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_enemy = i;
 				env->selected_enemy = i;
+				new_tabs_position(env);
 			}
 		}
 		else

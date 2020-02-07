@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 16:46:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:42:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,18 @@ int		draw_event_panel(t_env *env)
 	//ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Events");
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Events", &text_size.x, &text_size.y);
 	print_text(new_point(env->editor.event_panel.pos.y + 17,
-	env->editor.event_panel.pos.x + 110),
+	env->editor.event_panel.pos.x + 70),
 	new_printable_text("Events", env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
 
-	/*apply_surface(env->ui_textures[EVENT_ICON].surface,
+	apply_surface(env->ui_textures[EVENT_ICON].surface,
 	new_point(env->editor.event_panel.pos.y +
-	(50 - env->ui_textures[EVENT_ICON].surface->h / 2),
+	(env->editor.event_panel.top_size / 2 -
+	env->ui_textures[EVENT_ICON].surface->h / 2),
 	env->editor.event_panel.pos.x +
-	(50 - env->ui_textures[EVENT_ICON].surface->h / 2)),
+	(env->editor.event_panel.top_size / 2 -
+	env->ui_textures[EVENT_ICON].surface->h / 2)),
 	new_point(env->ui_textures[EVENT_ICON].surface->w,
-	env->ui_textures[EVENT_ICON].surface->h), env);*/
+	env->ui_textures[EVENT_ICON].surface->h), env);
 
 	draw_target_tab(env);
 	draw_action_tab(env);

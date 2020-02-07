@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 16:21:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:52:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,15 +175,32 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef struct	s_target_panel
+{
+	t_button	sector;
+	t_button	wall;
+	t_button	wall_sprite;
+	t_button	weapon;
+	t_button	enemy;
+	t_button	object;
+	t_button	player;
+	t_button	other;
+	t_button	floor;
+	t_button	ceiling;
+	t_button	sector_other;
+}				t_target_panel;
+
 typedef struct	s_event_panel
 {
-	t_point		pos;
-	t_point		size;
-	int			top_size;
-	t_button	target_tab;
-	t_button	action_tab;
-	t_button	launch_conditions_tab;
-	t_button	exec_conditions_tab;
+	t_event			event;
+	t_point			pos;
+	t_point			size;
+	int				top_size;
+	t_button		target_tab;
+	t_button		action_tab;
+	t_button		launch_conditions_tab;
+	t_button		exec_conditions_tab;
+	t_target_panel	target_panel;
 }				t_event_panel;
 
 typedef struct	s_editor

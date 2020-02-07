@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 15:31:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:00:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -879,6 +879,10 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
 void				init_event_panel_buttons(t_env *env);
+void				init_target_panel_buttons(t_env *env);
+void				init_action_panel_buttons(t_env *env);
+void				init_launch_conditions_panel_buttons(t_env *env);
+void				init_exec_conditions_panel_buttons(t_env *env);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,

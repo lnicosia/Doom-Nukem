@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:43:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:05:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:10:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	draw_vline_wall_both(t_sector sector, t_vline vline,
 				= env->sectors[render.sector].vertices[render.i];
 				env->selected_wall2
 				= env->sectors[render.sector].vertices[render.i + 1];
+				new_tabs_position(env);
 			}
 			if (env->playing)
 			{

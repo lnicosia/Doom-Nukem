@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 19:22:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:55:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int		editor_3d_keys(t_env *env)
 			&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
 	if (env->editor.in_game && env->inputs.right_click)
+	{
 		reset_selection(env);
+		new_tabs_position(env);
+	}
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
 		SDL_SetRelativeMouseMode(0);
@@ -512,17 +515,14 @@ int		editor_3d_keys(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.texture_background, env))
 			return (-1);
-		if (is_events_tab_visible(env))
+		if (button_keys(&env->editor.events_tab, env))
+			return (-1);
+		if (env->editor.events_tab.state == DOWN)
 		{
-			if (button_keys(&env->editor.events_tab, env))
+			if (button_keys(&env->editor.next_events, env))
 				return (-1);
-			if (env->editor.events_tab.state == DOWN)
-			{
-				if (button_keys(&env->editor.next_events, env))
-					return (-1);
-				if (button_keys(&env->editor.previous_events, env))
-					return (-1);
-			}
+			if (button_keys(&env->editor.previous_events, env))
+				return (-1);
 			if (are_event_selection_buttons_visible(env))
 			{
 				if (button_keys(&env->editor.next_event, env))

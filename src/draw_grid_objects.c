@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:44:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:09:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	draw_grid_objects(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_object = i;
 				env->selected_object = i;
+				new_tabs_position(env);
 			}
 		}
 		else

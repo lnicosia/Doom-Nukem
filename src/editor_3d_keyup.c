@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 14:18:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:56:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		editor_3d_keyup(t_env *env)
 			&& !env->editor.enter_locked)
 	{
 		reset_selection(env);
+		new_tabs_position(env);
 		env->editor.in_game = 0;
 		env->inputs.enter = 0;
 		env->editor.sprite_tab.state = UP;
@@ -120,7 +121,6 @@ int		editor_3d_keyup(t_env *env)
 	}
 	if (env->editor.tab)
 	{
-		new_tabs_position(env);
 		if (button_keyup(&env->editor.save, env))
 			return (-1);
 		if (button_keyup(&env->editor.sprite_tab, env))
@@ -135,17 +135,14 @@ int		editor_3d_keyup(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.texture_background, env))
 			return (-1);
-		if (is_events_tab_visible(env))
+		if (button_keyup(&env->editor.events_tab, env))
+			return (-1);
+		if (env->editor.events_tab.state == DOWN)
 		{
-			if (button_keyup(&env->editor.events_tab, env))
+			if (button_keyup(&env->editor.next_events, env))
 				return (-1);
-			if (env->editor.events_tab.state == DOWN)
-			{
-				if (button_keyup(&env->editor.next_events, env))
-					return (-1);
-				if (button_keyup(&env->editor.previous_events, env))
-					return (-1);
-			}
+			if (button_keyup(&env->editor.previous_events, env))
+				return (-1);
 			if (are_event_selection_buttons_visible(env))
 			{
 				if (button_keyup(&env->editor.next_event, env))

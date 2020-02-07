@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:25:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:05:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:09:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_render render, t_env *env)
 			{
 				reset_selection(env);
 				env->selected_ceiling = render.sector;
+				new_tabs_position(env);
 			}
 			if (env->playing)
 			{

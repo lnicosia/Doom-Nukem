@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:44:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:08:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	draw_grid_player(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_player = 1;
 				env->editor.selected_player = 1;
+				new_tabs_position(env);
 			}
 		}
 		else

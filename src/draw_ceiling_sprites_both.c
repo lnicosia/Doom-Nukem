@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:54:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:31:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:01:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_env *env)
 					env->selected_ceiling_sprite = j;
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
+					new_tabs_position(env);
 				}
 				pixels[coord] = apply_light_both(
 				sprite_pixels[(int)sprite_x +

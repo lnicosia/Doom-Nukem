@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/07 15:30:03 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/07 18:24:13 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
-		 draw_grid_player.c draw_grid_objects.c events_tab_conditions.c \
+		 draw_grid_player.c draw_grid_objects.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
@@ -82,8 +82,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
-		 draw_editor_tabs.c new_tabs_position.c editor_buttons_functions.c \
-		 event_panel.c event_panel_target_tab.c \
+		 draw_editor_tabs.c editor_buttons_functions.c \
+		 event_panel.c event_panel_target_tab.c init_target_panel_buttons.c \
+		 init_action_panel_buttons.c init_launch_conditions_panel_buttons.c \
+		 init_exec_conditions_panel_buttons.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -95,7 +97,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   fill_triangle_minimap.c color_utils.c camera.c \
+		   fill_triangle_minimap.c color_utils.c camera.c new_tabs_position.c \
 		   print_debug.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
@@ -111,7 +113,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c event_panel_keys.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
-		   init_obj_enemies_data.c reset_selection.c \
+		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c map_parse_events.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \

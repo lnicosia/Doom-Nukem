@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:07:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 18:35:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ int	draw_editor_tabs(t_env *env)
 	|| env->selected_floor != -1 || env->selected_enemy != -1
 	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1 )))
 		draw_button(env, env->editor.sector_tab, env->editor.sector_tab.str);
-	if (is_events_tab_visible(env))
-		draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
+	draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
 	if (env->editor.in_game && env->editor.tab &&
 	(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1))
@@ -141,11 +140,8 @@ int	draw_editor_tabs(t_env *env)
 		print_sprite_tab(env);
 	else if (env->editor.general_tab.state == DOWN)
 		print_general_tab(env);
-	else if (is_events_tab_visible(env))
-	{
-		if (env->editor.events_tab.state == DOWN)
-			print_events_tab(env);
-	}
+	if (env->editor.events_tab.state == DOWN)
+		print_events_tab(env);
 	if (env->editor.draw_selection_tab)
 		selection_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
 	return (0);

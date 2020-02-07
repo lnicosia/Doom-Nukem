@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:50:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:26:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:02:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	draw_floor_sprites_brightness(t_sector sector, t_render render, t_env *env)
 					env->selected_floor_sprite = j;
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
+					new_tabs_position(env);
 				}
 				//ft_printf("writing\n");
 				pixels[coord] = apply_light_brightness(

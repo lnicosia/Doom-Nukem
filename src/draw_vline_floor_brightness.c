@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:52:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/06 17:06:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:09:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	draw_vline_floor_brightness(t_sector sector, t_vline vline,
 			{
 				reset_selection(env);
 				env->selected_floor = render.sector;
+				new_tabs_position(env);
 			}
 			if (env->playing)
 			{

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:38:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:01:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ static void		*enemy_loop(void *param)
 				{
 					reset_selection(env);
 					env->selected_enemy = enemy.num;
+					new_tabs_position(env);
 				}
 				if (!env->options.lighting
 					|| (!sector.brightness && !sector.intensity))
