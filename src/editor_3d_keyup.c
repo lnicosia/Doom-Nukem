@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 18:06:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 17:30:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,8 +228,8 @@ int		editor_3d_keyup(t_env *env)
 				i++;
 			}
 		}
-		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-				&& (env->sdl.my < 414 && env->sdl.my > 350))
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
+		&& (env->sdl.my < 208 && env->sdl.my > 80))
 			env->editor.draw_selection_tab = 1;
 		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.current_enemy_selection.state == UP)

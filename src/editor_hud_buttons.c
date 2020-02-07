@@ -64,6 +64,14 @@ int		save_button(void *target)
 	return (0);
 }
 
+int		editor_options_button(t_env *env)
+{
+	env->editor.options = new_image_button(ON_RELEASE, NULL, env, env);
+	env->editor.options.str = "OPTIONS";
+	env->editor.options.pos = new_point(40, 210);
+	return (0);
+}
+
 int		editor_mode_button(t_env *env)
 {
 	env->editor.change_mode = new_image_button(ON_RELEASE, &change_mode, env, env);

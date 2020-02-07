@@ -128,6 +128,7 @@ void	init_options_buttons(t_env *env)
 	editor_mode_button(env);
 	editor_save_button(env);
 	editor_launch_game(env);
+	editor_options_button(env);
 }
 
 void	init_informations_tab(t_env *env)

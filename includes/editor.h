@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 11:40:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 17:35:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct	s_editor
 	t_button		previous_exec_condition;
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection;
+	t_button		options;
 	int				selection_tab;
 }				t_editor;
 

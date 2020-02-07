@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 19:26:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:37:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,7 @@ void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 int					editor_mode_button(t_env *env);
+int					editor_options_button(t_env *env);
 int					editor_save_button(t_env *env);
 int					editor_launch_game(t_env *env);
 int					going_in_2D_mode(t_env *env);

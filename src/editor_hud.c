@@ -25,7 +25,12 @@ void	editor_hud(t_env *env)
 		draw_rectangle(env,	
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 			new_point(20 , 40),
-			new_point(170, 360));
+			new_point(170, 225));
+		// music rectangle
+		draw_rectangle(env,	
+			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+			new_point(20 , 290),
+			new_point(170, 110));
 		// right rectangle
 		draw_rectangle(env,	
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
@@ -46,6 +51,7 @@ void	editor_hud(t_env *env)
 		env->editor.current_enemy_selection.str);
 		draw_button(env, env->editor.change_mode, env->editor.change_mode.str);
 		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
+		draw_button(env, env->editor.options, env->editor.options.str);
 		draw_button(env, env->editor.save, env->editor.save.str);
 		draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
