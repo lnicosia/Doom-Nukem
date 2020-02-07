@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 18:00:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 21:49:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,10 +526,35 @@ int					wall_sprite_buttons_up(t_env *env);
 */
 
 int					draw_event_panel(t_env *env);
-int					draw_event_panel_target_tab(t_env *env);
-int					draw_event_panel_action_tab(t_env *env);
-int					draw_event_panel_launch_conditions_tab(t_env *env);
-int					draw_event_panel_exec_conditions_tab(t_env *env);
+int					draw_target_panel(t_env *env);
+int					draw_action_pane(t_env *env);
+int					draw_launch_conditions_panel(t_env *env);
+int					draw_exec_conditions_panel(t_env *env);
+int					target_panel_keys(t_env *env);
+int					action_pane_keys(t_env *env);
+int					launch_conditions_panel_keys(t_env *env);
+int					exec_conditions_panel_keys(t_env *env);
+int					target_panel_keyup(t_env *env);
+int					action_pane_keyup(t_env *env);
+int					launch_conditions_panel_keyup(t_env *env);
+int					exec_conditions_panel_keyup(t_env *env);
+t_button			new_red_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_blue_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_yellow_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_green_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_orange_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_dark_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_purple_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_turquoise_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+void				update_target_panel_button_pos(t_env *env);
 
 /*
 ** Main functions
@@ -698,6 +723,8 @@ t_button	new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button	new_plus_button(int type, int (*action)(void *),
 void *param, t_env *env);
+t_button			init_button(int type, int (*action)(void *), void *param,
+t_env *env);
 void				set_button_up_image(t_button *b, t_env *env,
 SDL_Surface *surface);
 void				set_button_down_image(t_button *b, t_env *env,

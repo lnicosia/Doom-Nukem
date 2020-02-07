@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 17:59:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:33:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ void	init_event_panel_buttons(t_env *env)
 	env->editor.event_panel.top_size = 75;
 	env->editor.event_panel.size =
 	new_point(600, 400 + env->editor.event_panel.top_size);
+	env->editor.event_panel.content_panel_size =
+	new_point(env->editor.event_panel.size.x - 100,
+	env->editor.event_panel.size.y - env->editor.event_panel.top_size);
 	env->editor.event_panel.pos =
 	new_point(env->h_w - env->editor.event_panel.size.x / 2,
 	env->h_h - env->editor.event_panel.size.y / 2);

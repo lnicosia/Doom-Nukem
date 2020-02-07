@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 17:42:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 20:25:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ void	draw_exec_conditions_tab(t_env *env)
 void	draw_event_panel_tab_content(t_env *env)
 {
 	if (env->editor.event_panel.target_tab.state == DOWN)
-		draw_event_panel_target_tab(env);
+		draw_target_panel(env);
 	/*else if (env->editor.event_panel.action_tab.state == DOWN)
-		draw_action_tab_content(env);
+		draw_action_panel(env);
 	else if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
-		draw_launch_conditions_tab_content(env);
+		draw_launch_conditions_panel(env);
 	else if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
-		draw_exec_conditions_tab_content(env);*/
+		draw_exec_conditions_panel(env);*/
 }
 
 int		draw_event_panel(t_env *env)

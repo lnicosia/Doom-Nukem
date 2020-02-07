@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/07 18:24:13 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/07 21:21:41 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,9 +83,12 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
 		 draw_editor_tabs.c editor_buttons_functions.c \
-		 event_panel.c event_panel_target_tab.c init_target_panel_buttons.c \
+		 event_panel.c target_panel.c init_target_panel_buttons.c \
 		 init_action_panel_buttons.c init_launch_conditions_panel_buttons.c \
-		 init_exec_conditions_panel_buttons.c \
+		 init_exec_conditions_panel_buttons.c target_panel_keys.c \
+		 action_panel_keys.c launch_conditions_panel_keys.c \
+		 exec_conditions_panel_keys.c event_panel_keys.c \
+		 new_event_panel_buttons.c new_event_panel_buttons2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -111,7 +114,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
-		   movement_utils.c update_sprites_state.c event_panel_keys.c \
+		   movement_utils.c update_sprites_state.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
