@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:03:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:46:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,16 @@ int		draw_event_panel(t_env *env)
 	t_point		text_size;
 
 	// Ecran de debbug/placement
-	draw_rectangle_alpha(env, new_rectangle(0xdcdde1, 0xdcdde1, 1, 0),
+	draw_rectangle(env, new_rectangle(0xc8ccd0, 0xc8ccd0, 1, 0),
 	env->editor.event_panel.pos, env->editor.event_panel.size);
 
 	// Bande du haut
-	draw_rectangle_alpha(env, new_rectangle(0xFFf1f2f3, 0xFFf1f2f3, 1, 0),
+	draw_rectangle(env, new_rectangle(0xFFf1f2f3, 0xFFf1f2f3, 1, 0),
 	env->editor.event_panel.pos, new_point(env->editor.event_panel.size.x,
 	env->editor.event_panel.size.y / 5 - 2));
 
 	// Background
-	draw_rectangle_alpha(env, new_rectangle(0xe3e4e8, 0xe3e4e8 + 100, 1, 0),
+	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xe3e4e8 + 100, 1, 0),
 	new_point(env->editor.event_panel.pos.x + 100,
 	env->editor.event_panel.pos.y + 100),
 	new_point(env->editor.event_panel.size.x -

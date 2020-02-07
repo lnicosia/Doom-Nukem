@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 19:22:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:18:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int		editor_3d_keyup(t_env *env)
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.event_panel_dragged)
+		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game
 			&& env->sdl.event.button.button == SDL_BUTTON_LEFT && !env->editor.tab)
 		env->editor.select = 1;

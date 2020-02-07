@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_rectangle.c								   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/09/02 15:03:32 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/02/06 15:00:27 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_rectangle.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 12:02:57 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/07 14:11:33 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -39,13 +39,10 @@ void		draw_rectangle(t_env *env, t_rectangle r, t_point pos, t_point size)
 	int	x;
 	int	y;
 
-	if (pos.x < 0 || pos.y < 0 || pos.x >= env->w || pos.y >= env->h
-			|| size.x <= 0 || size.y <= 0)
-		return ;
-	y = pos.y - 1;
+	y = ft_max(-1, pos.y - 1);
 	while (++y <= pos.y + size.y && y < env->h)
 	{
-		x = pos.x - 1;
+		x = ft_max(-1, pos.x - 1);
 		while (++x <= pos.x + size.x && x < env->w)
 		{
 			if (y < pos.y + r.line_size
@@ -71,14 +68,11 @@ t_point size)
 	Uint32	*pixels;
 	int		coord;
 
-	if (pos.x < 0 || pos.y < 0 || pos.x >= env->w || pos.y >= env->h
-			|| size.x <= 0 || size.y <= 0)
-		return ;
 	pixels = env->sdl.texture_pixels;
-	y = pos.y - 1;
+	y = ft_max(-1, pos.y - 1);
 	while (++y <= pos.y + size.y && y < env->h)
 	{
-		x = pos.x - 1;
+		x = ft_max(-1, pos.x - 1);
 		while (++x <= pos.x + size.x && x < env->w)
 		{
 			coord = x + y * env->w;
