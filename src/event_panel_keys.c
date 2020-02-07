@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 15:23:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:38:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ int		event_panel_keys(t_env *env)
 		env->editor.event_panel.target_tab.pos.x =
 		env->editor.event_panel.pos.x;
 		env->editor.event_panel.target_tab.pos.y =
-		env->editor.event_panel.pos.y + 100;
+		env->editor.event_panel.pos.y + env->editor.event_panel.top_size;
 		env->editor.event_panel.action_tab.pos.x =
 		env->editor.event_panel.pos.x;
 		env->editor.event_panel.action_tab.pos.y =
-		env->editor.event_panel.pos.y + 200;
+		env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 100;
 		env->editor.event_panel.launch_conditions_tab.pos.x =
 		env->editor.event_panel.pos.x;
 		env->editor.event_panel.launch_conditions_tab.pos.y =
-		env->editor.event_panel.pos.y + 300;
+		env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 200;
 		env->editor.event_panel.exec_conditions_tab.pos.x =
 		env->editor.event_panel.pos.x;
 		env->editor.event_panel.exec_conditions_tab.pos.y =
-		env->editor.event_panel.pos.y + 400;
+		env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 300;
 	}
 	return (0);
 }

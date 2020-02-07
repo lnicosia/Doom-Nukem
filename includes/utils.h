@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 20:13:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:41:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -692,9 +692,30 @@ typedef struct		s_fonts
 	TTF_Font		*lato10;
 	TTF_Font		*lato15;
 	TTF_Font		*lato20;
+	TTF_Font		*lato25;
+	TTF_Font		*lato30;
+	TTF_Font		*lato35;
+	TTF_Font		*lato40;
+	TTF_Font		*lato45;
 	TTF_Font		*lato50;
-	TTF_Font		*lato_bold50;
+	TTF_Font		*lato_black10;
+	TTF_Font		*lato_black15;
+	TTF_Font		*lato_black20;
+	TTF_Font		*lato_black25;
+	TTF_Font		*lato_black30;
+	TTF_Font		*lato_black35;
+	TTF_Font		*lato_black40;
+	TTF_Font		*lato_black45;
 	TTF_Font		*lato_black50;
+	TTF_Font		*lato_bold10;
+	TTF_Font		*lato_bold15;
+	TTF_Font		*lato_bold20;
+	TTF_Font		*lato_bold25;
+	TTF_Font		*lato_bold30;
+	TTF_Font		*lato_bold35;
+	TTF_Font		*lato_bold40;
+	TTF_Font		*lato_bold45;
+	TTF_Font		*lato_bold50;
 }					t_fonts;
 
 /*

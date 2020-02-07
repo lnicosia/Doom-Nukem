@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:21:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:39:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ int		exec_conditions_tab_func(void *param)
 
 void	init_event_panel_buttons(t_env *env)
 {
-	env->editor.event_panel.size = new_point(600, 500);
+	env->editor.event_panel.top_size = 75;
+	env->editor.event_panel.size =
+	new_point(600, 400 + env->editor.event_panel.top_size);
 	env->editor.event_panel.pos =
 	new_point(env->h_w - env->editor.event_panel.size.x / 2,
 	env->h_h - env->editor.event_panel.size.y / 2);
@@ -78,20 +80,20 @@ void	init_event_panel_buttons(t_env *env)
 	&target_tab_func, env, env);
 	env->editor.event_panel.target_tab.pos =
 	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + 100);
+	env->editor.event_panel.pos.y + env->editor.event_panel.top_size);
 	env->editor.event_panel.action_tab = new_rectangle_button(WHEN_DOWN,
 	&action_tab_func, env, env);
 	env->editor.event_panel.action_tab.pos =
 	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + 200);
+	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 100);
 	env->editor.event_panel.launch_conditions_tab = new_rectangle_button(
 	WHEN_DOWN, &launch_conditions_tab_func, env, env);
 	env->editor.event_panel.launch_conditions_tab.pos =
 	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + 300);
+	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 200);
 	env->editor.event_panel.exec_conditions_tab = new_rectangle_button(
 	WHEN_DOWN, &exec_conditions_tab_func, env, env);
 	env->editor.event_panel.exec_conditions_tab.pos =
 	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + 400);
+	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 300);
 }

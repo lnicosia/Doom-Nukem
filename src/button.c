@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:09:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:34:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,10 @@ t_button	new_rectangle_button(int type, int (*action)(void *), void *param, t_en
 	new.down = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 0);
 	new.pressed = new_rectangle(0xFFe3e4e8, 0xFFe3e4e8, 1, 0);
 	new.hover = new_rectangle(0xFFf7f8f9, 0xFFf7f8f9, 1, 0);
-	new.size_up = new_point(env->editor.event_panel.size.y / 5 - 2,
-	env->editor.event_panel.size.y / 5 - 2);
-	new.size_pressed = new_point(env->editor.event_panel.size.y / 5 - 2,
-	env->editor.event_panel.size.y / 5 - 2);
-	new.size_down = new_point(env->editor.event_panel.size.y / 5 - 2,
-	env->editor.event_panel.size.y / 5 - 2);
-	new.size_hover = new_point(env->editor.event_panel.size.y / 5 - 2,
-	env->editor.event_panel.size.y / 5 - 2);
+	new.size_up = new_point(98, 98);
+	new.size_pressed = new_point(98, 98);
+	new.size_down = new_point(98, 98);
+	new.size_hover = new_point(98, 98);
 	return (new);
 }
 

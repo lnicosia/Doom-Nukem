@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 20:23:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:07:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,11 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/play_icon_down.bmp", 28, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/target_icon_down.bmp", 29, env))
+	if (parse_bmp_ui_textures("images/ui/target_icon_down_blue.bmp", 29, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/event_icon_down.bmp", 30, env))
+	if (parse_bmp_ui_textures("images/ui/event_icon_down_blue.bmp", 30, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/condition_icon_down.bmp", 31, env))
+	if (parse_bmp_ui_textures("images/ui/condition_icon_down_blue.bmp", 31, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/play_icon_hover.bmp", 32, env))
 		return (custom_error("Invalid bmp files"));

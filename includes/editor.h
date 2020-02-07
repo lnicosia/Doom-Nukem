@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 21:37:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:21:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct	s_event_panel
 {
 	t_point		pos;
 	t_point		size;
+	int			top_size;
 	t_button	target_tab;
 	t_button	action_tab;
 	t_button	launch_conditions_tab;
