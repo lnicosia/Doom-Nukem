@@ -6,11 +6,25 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 13:38:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:23:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		is_mouse_on_event_panel(t_env *env)
+{
+	if (env->editor.event_panel_dragged == 1)
+		return (1);
+	if (env->sdl.mx >= env->editor.event_panel.pos.x
+		&& env->sdl.mx <= env->editor.event_panel.pos.x +
+		env->editor.event_panel.size.x 
+		&& env->sdl.my >= env->editor.event_panel.pos.y
+		&& env->sdl.my <= env->editor.event_panel.pos.y +
+		env->editor.event_panel.size.y)
+		return (1);
+	return (0);
+}
 
 int		event_panel_keys(t_env *env)
 {

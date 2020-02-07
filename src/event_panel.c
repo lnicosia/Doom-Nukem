@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 13:46:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:32:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,18 @@ void	draw_exec_conditions_tab(t_env *env)
 	new_point(img->w, img->h), env);
 }
 
+void	draw_event_panel_tab_content(t_env *env)
+{
+	if (env->editor.event_panel.target_tab.state == DOWN)
+		draw_event_panel_target_tab(env);
+	/*else if (env->editor.event_panel.action_tab.state == DOWN)
+		draw_action_tab_content(env);
+	else if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
+		draw_launch_conditions_tab_content(env);
+	else if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
+		draw_exec_conditions_tab_content(env);*/
+}
+
 int		draw_event_panel(t_env *env)
 {
 	t_point		text_size;
@@ -125,6 +137,6 @@ int		draw_event_panel(t_env *env)
 	draw_launch_conditions_tab(env);
 	draw_exec_conditions_tab(env);
 
-	
+	draw_event_panel_tab_content(env);
 	return (0);
 }

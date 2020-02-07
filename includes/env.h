@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 20:30:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:31:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,6 +526,10 @@ int					wall_sprite_buttons_up(t_env *env);
 */
 
 int					draw_event_panel(t_env *env);
+int					draw_event_panel_target_tab(t_env *env);
+int					draw_event_panel_action_tab(t_env *env);
+int					draw_event_panel_launch_conditions_tab(t_env *env);
+int					draw_event_panel_exec_conditions_tab(t_env *env);
 
 /*
 ** Main functions
@@ -833,6 +837,7 @@ int					button_keys(t_button *b, t_env *env);
 int					button_keyup(t_button *b, t_env *env);
 void				draw_button_text(t_button b, char *str, t_env *env);
 int					is_mouse_on_button(t_button b, t_point mouse);
+int					is_mouse_on_event_panel(t_env *env);
 t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);

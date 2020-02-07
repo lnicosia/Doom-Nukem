@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/06 21:48:42 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/07 15:30:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
 		 draw_editor_tabs.c new_tabs_position.c editor_buttons_functions.c \
-		 event_panel.c event_panel_keys.c \
+		 event_panel.c event_panel_target_tab.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -109,7 +109,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
-		   movement_utils.c update_sprites_state.c \
+		   movement_utils.c update_sprites_state.c event_panel_keys.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
@@ -217,6 +217,7 @@ RESET :="\033[0m"
 
 all:
 	@make -C $(LIBFT_DIR) -j8
+	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
@@ -241,23 +242,28 @@ $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	gcc -c $< -o $@ $(CFLAGS) 
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
+	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 	@install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
+	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 	@install_name_tool -add_rpath @executable_path/sound_lib $(GAME_NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!"${RESET}
 
 clean: 
 	@make clean -C libft
