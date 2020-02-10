@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:30:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 14:53:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:03:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ int		draw_target_panel(t_env *env)
 	panel.pos.x + 100 + (panel.size.x - 100) / 2 - text_size.x / 2),
 	new_printable_text("Choose your event's target",
 	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	if (panel.event.target)
+		env->print_target_data[panel.event.target_index](env, &panel.event,
+		new_point(panel.pos.y + panel.top_size + 17 + text_size.y,
+		panel.pos.x + 100 + (panel.size.x - 100) / 2 - text_size.x / 2), 20);
 	phase = get_target_selection_phase(env);
 	if (phase == 0)
 		draw_first_phase_selection(env);
