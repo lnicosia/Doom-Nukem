@@ -108,7 +108,11 @@ int		current_vertices_contains(t_env *env, int vertex)
 	{
 		v = (t_vertex*)tmp->content;
 		if (v->num == vertex)
-			return (1);
+		{
+			if (ft_lstlen(env->editor.current_vertices) < 3
+			&& vertex == env->editor.start_vertex)
+				return (1);
+		}
 		tmp = tmp->next;
 	}
 	return (0);

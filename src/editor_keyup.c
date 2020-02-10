@@ -111,8 +111,10 @@ int	editor_keyup(t_env *env)
 		&& env->sdl.mx > 400)
 	{
 		clicked_vertex = get_existing_vertex(env);
+		//ft_printf("clicked_vertex: %d\n", clicked_vertex);
 		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
 		{
+		//	ft_printf("add vertex\n");
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);

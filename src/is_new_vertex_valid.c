@@ -298,8 +298,7 @@ int		is_new_vertex_valid(t_env *env, int index)
 		return (0);
 	if (!env->editor.current_vertices)
 		return (1);
-	if (index != env->editor.start_vertex
-			&& current_vertices_contains(env, index))
+	if (current_vertices_contains(env, index))
 		return (0);
 	if (new_wall_intersects(env, index))
 		return (0);

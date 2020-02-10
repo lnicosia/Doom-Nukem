@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:54:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 16:50:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 			/ render.line_height;
-		/*x = yalpha * render.camera->v[render.sector]
+		/*x = yalpha * render.camera->v[rend	er.sector]
 		  [render.i].sprite_scale[sprite].y + start;
 		  if (x >= start && x < end
 		  && sprite_pixels[(int)x
