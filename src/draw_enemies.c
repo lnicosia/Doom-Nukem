@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:38:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 10:37:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ static void		*enemy_loop(void *param)
 				+ texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->enemies[enemy.num].seen = 1;
-				if (env->editor.select && x == env->h_w && y == env->h_h)
+				if ((env->editor.select == 1 && x == env->sdl.mx && y == env->sdl.my)
+				|| (!env->editor.tab && env->editor.select == 1 && x == env->h_w && y == env->h_h))
 				{
 					reset_selection(env);
 					env->selected_enemy = enemy.num;
