@@ -1,0 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   floor_panel.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/10 13:12:01 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "env.h"
+
+void	update_target_panel_to_floor(t_env *env)
+{
+}
+
+void	draw_floor_panel(t_env *env)
+{
+	(void)env;
+	draw_button(env, env->editor.event_panel.target_panel.height, "Height");
+}

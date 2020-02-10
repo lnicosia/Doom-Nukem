@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 12:21:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:33:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,12 @@ typedef struct	s_target_panel
 	int				enemy_type;
 	int				object_type;
 	int				player_type;
-	int				other_type;
+	int				vertex_type;
 	int				floor_type;
 	int				ceiling_type;
 	int				sector_other_type;
+	int				target_type;
+	int				target_main_type;
 	t_button		next;
 	t_button		previous;
 	t_button		sector;
@@ -204,17 +206,11 @@ typedef struct	s_target_panel
 	t_button		enemy;
 	t_button		object;
 	t_button		player;
-	t_button		other;
+	t_button		vertex;
 	t_button		floor;
 	t_button		ceiling;
 	t_button		sector_other;
-	t_button		scale_x;
-	t_button		scale_y;
-	t_button		align_x;
-	t_button		align_y;
-	t_button		texture;
-	t_button		height;
-	t_button		slope;
+	t_button		targets[8];
 }				t_target_panel;
 
 typedef struct	s_event_panel
@@ -279,6 +275,7 @@ typedef struct	s_editor
 	int				create_object;
 	int				creating_event;
 	int				event_panel_dragged;
+	int				selecting_target;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 11:33:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:59:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -527,10 +527,30 @@ int					wall_sprite_buttons_up(t_env *env);
 
 int					draw_event_panel(t_env *env);
 int					draw_target_panel(t_env *env);
+int					draw_floor_panel(t_env *env);
+int					draw_ceiling_panel(t_env *env);
+int					draw_wall_panel(t_env *env);
+int					draw_sector_other_panel(t_env *env);
+int					draw_vertex_panel(t_env *env);
+int					draw_player_panel(t_env *env);
+int					draw_enemy_panel(t_env *env);
+int					draw_object_panel(t_env *env);
+int					draw_weapon_panel(t_env *env);
+int					draw_wall_sprite_panel(t_env *env);
 int					draw_action_pane(t_env *env);
 int					draw_launch_conditions_panel(t_env *env);
 int					draw_exec_conditions_panel(t_env *env);
 int					target_panel_keys(t_env *env);
+int					select_sector(void *param);
+int					select_wall(void *param);
+int					select_floor(void *param);
+int					select_ceiling(void *param);
+int					select_object(void *param);
+int					select_enemy(void *param);
+int					select_weapon(void *param);
+int					select_wall_sprite(void *param);
+int					set_int_button(void *param);
+int					choose_target(void *param);
 int					action_pane_keys(t_env *env);
 int					launch_conditions_panel_keys(t_env *env);
 int					exec_conditions_panel_keys(t_env *env);

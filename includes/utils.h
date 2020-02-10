@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 11:41:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:11:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1063,8 +1063,8 @@ typedef struct		s_printable_text
 }					t_printable_text;
 
 /*
- **	Data to manipulate menus
- */
+**	Data to manipulate menus
+*/
 
 typedef struct		s_menu
 {
