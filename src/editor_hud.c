@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:37:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:18:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	editor_hud(t_env *env)
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 			new_point(20 , 290),
 			new_point(170, 110));
+		print_text(new_point(300, 75), new_printable_text("Ambiance",
+		env->sdl.fonts.lato15 , 0x00000000, 15), env);
+		print_text(new_point(345, 90), new_printable_text("Fight",
+		env->sdl.fonts.lato15, 0x00000000, 15), env);
 		// right rectangle
 		draw_rectangle(env,	
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
@@ -68,4 +72,6 @@ void	editor_hud(t_env *env)
 		else
 			env->editor.selection_tab = 0;
 	}
+	if (env->editor.creating_event)
+		draw_event_panel(env);
 }

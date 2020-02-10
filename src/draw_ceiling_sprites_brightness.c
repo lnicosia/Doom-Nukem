@@ -6,9 +6,10 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:52:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 13:47:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 12:03:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "env.h"
 #include "render.h"
@@ -78,6 +79,7 @@ t_env *env)
 					env->selected_ceiling_sprite = j;
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
+					new_tabs_position(env);
 				}
 				pixels[coord] = apply_light_brightness(
 				sprite_pixels[(int)sprite_x

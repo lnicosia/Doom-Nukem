@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 17:37:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 14:51:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,6 +523,41 @@ int					ceiling_sprite_buttons_up(t_env *env);
 int					wall_sprite_buttons_up(t_env *env);
 
 /*
+**	Event panel
+*/
+
+int					draw_event_panel(t_env *env);
+int					draw_target_panel(t_env *env);
+int					draw_action_pane(t_env *env);
+int					draw_launch_conditions_panel(t_env *env);
+int					draw_exec_conditions_panel(t_env *env);
+int					target_panel_keys(t_env *env);
+int					action_pane_keys(t_env *env);
+int					launch_conditions_panel_keys(t_env *env);
+int					exec_conditions_panel_keys(t_env *env);
+int					target_panel_keyup(t_env *env);
+int					action_pane_keyup(t_env *env);
+int					launch_conditions_panel_keyup(t_env *env);
+int					exec_conditions_panel_keyup(t_env *env);
+t_button			new_red_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_blue_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_yellow_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_green_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_orange_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_dark_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_purple_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_turquoise_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+void				update_target_panel_button_pos(t_env *env);
+
+/*
 ** Main functions
 */
 
@@ -663,6 +698,8 @@ t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
 		t_point size);
+void				draw_rectangle_alpha(t_env *env, t_rectangle r, t_point pos,
+		t_point size);
 t_button			new_button(t_rectangle up, t_rectangle pressed,
 t_rectangle down, t_rectangle hover);
 t_button			new_button_img(t_texture *up, t_texture *pressed,
@@ -687,6 +724,24 @@ t_button	new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button	new_plus_button(int type, int (*action)(void *),
 void *param, t_env *env);
+t_button			init_button(int type, int (*action)(void *), void *param,
+t_env *env);
+void				set_button_up_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_down_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_pressed_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_hover_image(t_button *b, t_env *env,
+SDL_Surface *surface);
+void				set_button_up_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_down_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_pressed_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
+void				set_button_hover_rectangle(t_button *b, t_env *env,
+t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
 
 /*
@@ -810,6 +865,7 @@ int					button_keys(t_button *b, t_env *env);
 int					button_keyup(t_button *b, t_env *env);
 void				draw_button_text(t_button b, char *str, t_env *env);
 int					is_mouse_on_button(t_button b, t_point mouse);
+int					is_mouse_on_event_panel(t_env *env);
 t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
@@ -850,12 +906,19 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
+void				init_event_panel_buttons(t_env *env);
+void				init_target_panel_buttons(t_env *env);
+void				init_action_panel_buttons(t_env *env);
+void				init_launch_conditions_panel_buttons(t_env *env);
+void				init_exec_conditions_panel_buttons(t_env *env);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
 int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
+int					event_panel_keys(t_env *env);
+int					event_panel_keyup(t_env *env);
 int					option_menu_keyup(t_env *env);
 int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);

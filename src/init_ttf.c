@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:43:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 14:40:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:53:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,6 @@ int		init_ttf(t_env *env)
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
 	}
-	if (!(env->sdl.fonts.lato20 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
 	if (!(env->sdl.fonts.lato10 =
 		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 10)))
 	{
@@ -88,8 +82,152 @@ int		init_ttf(t_env *env)
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
 	}
+	if (!(env->sdl.fonts.lato20 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato25 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 25)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato30 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 30)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato35 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 35)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato40 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 40)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato45 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 45)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
 	if (!(env->sdl.fonts.lato50 =
 		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 50)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold10 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 10)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold15 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 15)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold20 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold25 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 25)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold30 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 30)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold35 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 35)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold40 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 40)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold45 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 45)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_bold50 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 50)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black10 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 10)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black15 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 15)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black20 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black25 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 25)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black30 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 30)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black35 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 35)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black40 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 40)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black45 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 45)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato_black50 =
+		TTF_OpenFont("fonts/lato/Lato-Black.ttf", 50)))
 	{
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);

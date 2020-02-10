@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 17:35:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 13:21:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 # define EDITOR_H
 
 # include "utils.h"
+# define EVENT_ICON 42
+# define TARGET_ICON 43
+# define ACTION_ICON 44
+# define CONDITION_ICON 45
+# define EVENT_ICON_DOWN 46
+# define TARGET_ICON_DOWN 47
+# define ACTION_ICON_DOWN 48
+# define CONDITION_ICON_DOWN 49
+# define EVENT_ICON_HOVER 50
+# define TARGET_ICON_HOVER 51
+# define ACTION_ICON_HOVER 52
+# define CONDITION_ICON_HOVER 53
 
 typedef struct		s_button_tab
 {
@@ -163,6 +175,35 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef struct	s_target_panel
+{
+	t_button	sector;
+	t_button	wall;
+	t_button	wall_sprite;
+	t_button	weapon;
+	t_button	enemy;
+	t_button	object;
+	t_button	player;
+	t_button	other;
+	t_button	floor;
+	t_button	ceiling;
+	t_button	sector_other;
+}				t_target_panel;
+
+typedef struct	s_event_panel
+{
+	t_event			event;
+	t_point			pos;
+	t_point			size;
+	int				top_size;
+	t_point			content_panel_size;
+	t_button		target_tab;
+	t_button		action_tab;
+	t_button		launch_conditions_tab;
+	t_button		exec_conditions_tab;
+	t_target_panel	target_panel;
+}				t_event_panel;
+
 typedef struct	s_editor
 {
 	t_v2			start_pos;
@@ -209,6 +250,8 @@ typedef struct	s_editor
 	int				draw_sprite_tab;
 	int				create_enemy;
 	int				create_object;
+	int				creating_event;
+	int				event_panel_dragged;
 	t_texture		miniature;
 	t_button		current_texture_selection;
 	t_button		current_enemy_selection;
@@ -250,6 +293,8 @@ typedef struct	s_editor
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection;
 	t_button		options;
+	t_button		create_event_button;
+	t_event_panel	event_panel;
 	int				selection_tab;
 }				t_editor;
 

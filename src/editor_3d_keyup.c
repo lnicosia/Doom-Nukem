@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 17:30:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 11:58:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		editor_3d_keyup(t_env *env)
 			&& !env->editor.enter_locked)
 	{
 		reset_selection(env);
+		new_tabs_position(env);
 		env->editor.in_game = 0;
 		env->inputs.enter = 0;
 		env->editor.sprite_tab.state = UP;
@@ -37,6 +38,9 @@ int		editor_3d_keyup(t_env *env)
 		SDL_SetRelativeMouseMode(0);
 		return (0);
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.event_panel_dragged)
+		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game
 			&& env->sdl.event.button.button == SDL_BUTTON_LEFT && env->sdl.mx > 400)
 		env->editor.select = 1;
@@ -117,7 +121,6 @@ int		editor_3d_keyup(t_env *env)
 	}
 	if (env->editor.tab)
 	{
-		new_tabs_position(env);
 		if (button_keyup(&env->editor.save, env))
 			return (-1);
 		if (button_keyup(&env->editor.sprite_tab, env))
@@ -132,17 +135,14 @@ int		editor_3d_keyup(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.texture_background, env))
 			return (-1);
-		if (is_events_tab_visible(env))
+		if (button_keyup(&env->editor.events_tab, env))
+			return (-1);
+		if (env->editor.events_tab.state == DOWN)
 		{
-			if (button_keyup(&env->editor.events_tab, env))
+			if (button_keyup(&env->editor.next_events, env))
 				return (-1);
-			if (env->editor.events_tab.state == DOWN)
-			{
-				if (button_keyup(&env->editor.next_events, env))
-					return (-1);
-				if (button_keyup(&env->editor.previous_events, env))
-					return (-1);
-			}
+			if (button_keyup(&env->editor.previous_events, env))
+				return (-1);
 			if (are_event_selection_buttons_visible(env))
 			{
 				if (button_keyup(&env->editor.next_event, env))
@@ -227,6 +227,11 @@ int		editor_3d_keyup(t_env *env)
 				return (-1);
 				i++;
 			}
+		}
+		if (env->editor.creating_event)
+		{
+			if (event_panel_keyup(env))
+				return (-1);
 		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
 		&& (env->sdl.my < 208 && env->sdl.my > 80))

@@ -109,33 +109,50 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	if (env->selected_wall1 == sector->vertices[i]
 			&& env->selected_wall2 == sector->vertices[i + 1])
 		sector->selected[i] = 1;
-	camera->v[sector->num][i].clipped_xrange = camera->v[sector->num][i].clipped_x2
+	camera->v[sector->num][i].clipped_xrange =
+	camera->v[sector->num][i].clipped_x2
 		- camera->v[sector->num][i].clipped_x1;
-	camera->v[sector->num][i].xrange = camera->v[sector->num][i + 1].x - camera->v[sector->num][i].x;
-	camera->v[sector->num][i].zrange = camera->v[sector->num][i].vz - camera->v[sector->num][i + 1].vz;
-	camera->v[sector->num][i].zcomb = camera->v[sector->num][i + 1].vz * camera->v[sector->num][i].vz;
-	camera->v[sector->num][i].x0z1 = env->vertices[sector->vertices[i]].x
+	camera->v[sector->num][i].xrange =
+	camera->v[sector->num][i + 1].x - camera->v[sector->num][i].x;
+	camera->v[sector->num][i].zrange =
+	camera->v[sector->num][i].vz - camera->v[sector->num][i + 1].vz;
+	camera->v[sector->num][i].zcomb =
+	camera->v[sector->num][i + 1].vz * camera->v[sector->num][i].vz;
+	camera->v[sector->num][i].x0z1 =
+	env->vertices[sector->vertices[i]].x
 		* camera->v[sector->num][i + 1].vz;
-	camera->v[sector->num][i].x1z0 = env->vertices[sector->vertices[i + 1]].x
+	camera->v[sector->num][i].x1z0 =
+	env->vertices[sector->vertices[i + 1]].x
 		* camera->v[sector->num][i].vz;
-	camera->v[sector->num][i].xzrange = camera->v[sector->num][i].x1z0 - camera->v[sector->num][i].x0z1;
-	camera->v[sector->num][i].y0z1 = env->vertices[sector->vertices[i]].y
+	camera->v[sector->num][i].xzrange =
+	camera->v[sector->num][i].x1z0 - camera->v[sector->num][i].x0z1;
+	camera->v[sector->num][i].y0z1 =
+	env->vertices[sector->vertices[i]].y
 		* camera->v[sector->num][i + 1].vz;
-	camera->v[sector->num][i].y1z0 = env->vertices[sector->vertices[i + 1]].y
+	camera->v[sector->num][i].y1z0 =
+	env->vertices[sector->vertices[i + 1]].y
 		* camera->v[sector->num][i].vz;
-	camera->v[sector->num][i].yzrange = camera->v[sector->num][i].y1z0 - camera->v[sector->num][i].y0z1;
-	camera->v[sector->num][i].floor_range = camera->v[sector->num][i].f2 - camera->v[sector->num][i].f1;
-	camera->v[sector->num][i].ceiling_range = camera->v[sector->num][i].c2 - camera->v[sector->num][i].c1;
-	camera->v[sector->num][i].no_slope_floor_range = camera->v[sector->num][i].no_slope_f2
+	camera->v[sector->num][i].yzrange =
+	camera->v[sector->num][i].y1z0 - camera->v[sector->num][i].y0z1;
+	camera->v[sector->num][i].floor_range =
+	camera->v[sector->num][i].f2 - camera->v[sector->num][i].f1;
+	camera->v[sector->num][i].ceiling_range =
+	camera->v[sector->num][i].c2 - camera->v[sector->num][i].c1;
+	camera->v[sector->num][i].no_slope_floor_range =
+	camera->v[sector->num][i].no_slope_f2
 		- camera->v[sector->num][i].no_slope_f1;
-	camera->v[sector->num][i].no_slope_ceiling_range = camera->v[sector->num][i].no_slope_c2
-		- camera->v[sector->num][i].no_slope_c1;
+	camera->v[sector->num][i].no_slope_ceiling_range =
+	camera->v[sector->num][i].no_slope_c2 -
+	camera->v[sector->num][i].no_slope_c1;
 	if (camera->v[sector->num][i + 1].vz)
 	{
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i + 1].vz);
+			camera->v[sector->num][i].texture_scale[k].x =
+			((env->wall_textures[sector->textures[i]].maps[k]->w /
+			sector->scale[i].x) * sector->wall_width[i] /
+			camera->v[sector->num][i + 1].vz);
 			k++;
 		}
 		j = 0;
@@ -164,7 +181,10 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		k = 0;
 		while (k < env->wall_textures[sector->textures[i]].nb_maps)
 		{
-			camera->v[sector->num][i].texture_scale[k].x = ((env->wall_textures[sector->textures[i]].maps[k]->w / sector->scale[i].x) * sector->wall_width[i] / camera->v[sector->num][i].clipped_vz2);
+			camera->v[sector->num][i].texture_scale[k].x =
+			((env->wall_textures[sector->textures[i]].maps[k]->w /
+			sector->scale[i].x) * sector->wall_width[i] /
+			camera->v[sector->num][i].clipped_vz2);
 			k++;
 		}
 		j = 0;

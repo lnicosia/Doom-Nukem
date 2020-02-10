@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:51:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:56:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	editor_keyup(t_env *env)
 	int	i;
 
 	i = 0;
+	if (env->editor.creating_event)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
@@ -51,8 +56,13 @@ int	editor_keyup(t_env *env)
 		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->editor.event_panel_dragged)
+		env->editor.event_panel_dragged = -1;
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
+			&& env->editor.event_panel_dragged == -1
+			&& (!is_mouse_on_event_panel(env) || !env->editor.creating_event)
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
 			&& env->editor.dragged_object == -1
@@ -78,10 +88,12 @@ int	editor_keyup(t_env *env)
 			env->selected_ceiling = -1;
 		}
 		env->selected_enemy = -1;
+		new_tabs_position(env);
 	}
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
+			&& env->editor.event_panel_dragged == -1
 			&& env->editor.dragged_player == 1
 			&& env->editor.selected_player == 1
 			&& env->editor.dragged_object == -1
@@ -91,6 +103,7 @@ int	editor_keyup(t_env *env)
 		
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
+		&& env->editor.event_panel_dragged == -1
 		&& env->editor.dragged_player == -1
 		&& env->editor.dragged_object == -1
 		&& env->editor.dragged_vertex == -1
@@ -149,6 +162,7 @@ int	editor_keyup(t_env *env)
 		{
 			reset_selection(env);
 			env->editor.in_game = 1;
+			new_tabs_position(env);
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			free_camera(&env->player.camera, env);
 			precompute_slopes(env);
@@ -205,17 +219,14 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.sprite_tab, env))
 		return (-1);
-	if (is_events_tab_visible(env))
+	if (button_keyup(&env->editor.events_tab, env))
+		return (-1);
+	if (env->editor.events_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.events_tab, env))
+		if (button_keyup(&env->editor.next_events, env))
 			return (-1);
-		if (env->editor.events_tab.state == DOWN)
-		{
-			if (button_keyup(&env->editor.next_events, env))
-				return (-1);
-			if (button_keyup(&env->editor.previous_events, env))
-				return (-1);
-		}
+		if (button_keyup(&env->editor.previous_events, env))
+			return (-1);
 		if (are_event_selection_buttons_visible(env))
 		{
 			if (button_keyup(&env->editor.next_event, env))

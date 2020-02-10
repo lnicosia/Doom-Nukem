@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/07 12:04:56 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/10 15:05:17 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
-		 draw_grid_player.c draw_grid_objects.c events_tab_conditions.c \
+		 draw_grid_player.c draw_grid_objects.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c \
+		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
@@ -82,7 +82,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
-		 draw_editor_tabs.c new_tabs_position.c editor_buttons_functions.c \
+		 draw_editor_tabs.c editor_buttons_functions.c \
+		 event_panel.c target_panel.c init_target_panel_buttons.c \
+		 init_action_panel_buttons.c init_launch_conditions_panel_buttons.c \
+		 init_exec_conditions_panel_buttons.c target_panel_keys.c \
+		 action_panel_keys.c launch_conditions_panel_keys.c \
+		 exec_conditions_panel_keys.c event_panel_keys.c \
+		 new_event_panel_buttons.c new_event_panel_buttons2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -92,9 +98,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
 		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c init_editor_data.c \
+		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   fill_triangle_minimap.c color_utils.c camera.c \
+		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
@@ -110,7 +116,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
-		   init_obj_enemies_data.c reset_selection.c \
+		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c map_parse_events.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \
@@ -156,7 +162,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c \
-		   menu_keys.c option_menu.c option_menu_keys.c\
+		   menu_keys.c option_menu.c option_menu_keys.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
@@ -177,6 +183,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
+		  #-flto \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
@@ -215,6 +222,7 @@ RESET :="\033[0m"
 
 all:
 	@make -C $(LIBFT_DIR) -j8
+	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
@@ -239,23 +247,28 @@ $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
+	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 	@install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(EDITOR_DIR)/$(EDITOR_NAME)' with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
+	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 	@install_name_tool -add_rpath @executable_path/sound_lib $(GAME_NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(GAME_DIR)/$(GAME_NAME)' with success!"${RESET}
+	@echo ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!"${RESET}
 
 clean: 
 	@make clean -C libft

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 10:18:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:09:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	draw_grid_objects(t_env *env)
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
+					&& env->editor.event_panel_dragged == -1
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
@@ -55,6 +56,7 @@ void	draw_grid_objects(t_env *env)
 				env->selected_object = i;
 				env->editor.general_tab.state = DOWN;
 				env->editor.general_tab.anim_state = PRESSED;
+				new_tabs_position(env);
 			}
 		}
 		else
