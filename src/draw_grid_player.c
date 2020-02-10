@@ -48,9 +48,7 @@ void	draw_grid_player(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_player = 1;
 				env->editor.selected_player = 1;
-				env->editor.general_tab.state = DOWN;
-				env->editor.general_tab.anim_state = PRESSED;
-				new_tabs_position(env);
+				tabs_gestion(env);
 			}
 		}
 		else

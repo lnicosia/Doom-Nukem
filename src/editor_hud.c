@@ -42,13 +42,8 @@ void	editor_hud(t_env *env)
 			new_point(170, 360));
 		apply_surface(env->ui_textures[24].surface, new_point(296, 230), new_point(128, 89), env);
 		apply_surface(env->ui_textures[24].surface, new_point(196, 230), new_point(128, 89), env);
-		//apply_surface(env->ui_textures[24].surface, new_point(120, 230), new_point(128, 89), env);
 		draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
 		draw_button(env, env->editor.add_object, env->editor.add_object.str);
-		/*draw_button(env, env->editor.texture_background,
-		env->editor.texture_background.str);
-		draw_button(env, env->editor.enemy_background,
-		env->editor.enemy_background.str);*/
 		draw_button(env, env->editor.current_texture_selection,
 		env->editor.current_texture_selection.str);
 		draw_button(env, env->editor.current_enemy_selection,

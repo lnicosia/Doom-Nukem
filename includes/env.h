@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 14:51:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 15:29:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,6 +401,7 @@ int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
+void				tabs_gestion(t_env *env);
 
 /*
 **	Input boxes checkers and updaters

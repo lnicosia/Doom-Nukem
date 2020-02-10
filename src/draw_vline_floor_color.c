@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:51:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 11:59:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 15:36:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	draw_vline_floor_color(t_sector sector, t_vline vline,
 				env->selected_floor = render.sector;
 				env->editor.general_tab.state = DOWN;
 				env->editor.general_tab.anim_state = PRESSED;
-				new_tabs_position(env);
+				tabs_gestion(env);
 			}
 			if (env->playing)
 			{

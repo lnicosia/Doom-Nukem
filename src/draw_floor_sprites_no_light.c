@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 10:12:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 12:02:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 15:40:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void	draw_floor_sprites_no_light(t_sector sector, t_render render, t_env *env)
 					reset_selection(env);
 					env->selected_floor = sector.num;
 					env->selected_floor_sprite = j;
-					env->editor.sprite_tab.state = DOWN;
-					env->editor.sprite_tab.anim_state = PRESSED;
-					new_tabs_position(env);
+					tabs_gestion(env);
 				}
 				pixels[coord] = sprite_pixels[(int)sprite_x
 					+ env->sprite_textures[sprite.texture].surface->w
