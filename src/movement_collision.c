@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 15:43:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:42:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
 	{
 		if (env->objects[i].exists && env->objects[i].solid)
 		{
+			ft_printf("<------------------------------>\n");
+			ft_printf("top of object %f\n", env->objects[i].pos.z + env->objects[i].height);
+			ft_printf("bottom of object %f\n", env->objects[i].pos.z);
+			ft_printf("player head %f\n", futur.z + eyesight);
+			ft_printf("player feets %f\n", futur.z);
 			if (distance_two_points_2d(env->objects[i].pos.x,
-				env->objects[i].pos.y, futur.x, futur.y) < 1.75
-				&& env->objects[i].pos.z >= futur.z - 1 &&
-				env->objects[i].pos.z <= eyesight + futur.z +
-				env->objects[i].height)
+				env->objects[i].pos.y, futur.x, futur.y) < env->objects[i].size_2d
+				&& ((pos.z <= env->objects[i].pos.z + env->objects[i].height && pos.z >= env->objects[i].pos.z) ||
+				(pos.z + eyesight + 1 <= env->objects[i].pos.z + env->objects[i].height && pos.z + eyesight + 1 >= env->objects[i].pos.z)))
 				return (0);
 		}
 		i++;

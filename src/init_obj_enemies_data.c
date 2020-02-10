@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 11:42:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 15:30:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		init_objects_data(t_env *env)
 		env->objects[i].map_hp = 1;
 		env->objects[i].health = env->objects[i].map_hp;
 		env->objects[i].explosion_size = 0;
-		env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
 		if (env->objects[i].sprite == 0)
 		{
 			env->objects[i].height_ratio = 0.5;
@@ -247,6 +246,8 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 50;	
 		}
+		env->objects[i].height = env->objects[i].height_ratio * env->objects[i].scale;
+		ft_printf("object %d height = %f\n", i, env->objects[i].height);
 		i++;
 	}
 }
