@@ -58,10 +58,10 @@ t_env *env)
 
 	ft_bzero(&new, sizeof(t_button));
 	new.pos = new_point(env->h_w - 111, env->h_h - 23);
-	new.up_text_color = 0xFFFFFFFF;
-	new.hover_text_color = 0xFFFFFFFF;
-	new.pressed_text_color = 0xEEEEEEFF;
-	new.down_text_color = 0xEEEEEEFF;
+	new.up_text_color = 0x00000000;
+	new.hover_text_color = 0x00000000;
+	new.pressed_text_color = 0x00000000;
+	new.down_text_color = 0x00000000;
 	if (!env->sdl.fonts.lato20)
 		ft_dprintf(STDERR_FILENO, "Button font has not been init yet!\n");
 	new.font = env->sdl.fonts.lato20;
@@ -104,13 +104,13 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[0].surface || !env->ui_textures[1].surface
-		|| !env->ui_textures[2].surface)
+	if (!env->ui_textures[39].surface || !env->ui_textures[40].surface
+		|| !env->ui_textures[41].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[0].surface;
-	new.img_pressed = env->ui_textures[1].surface;
-	new.img_down = env->ui_textures[1].surface;
-	new.img_hover = env->ui_textures[2].surface;
+	new.img_up = env->ui_textures[39].surface;
+	new.img_pressed = env->ui_textures[40].surface;
+	new.img_down = env->ui_textures[40].surface;
+	new.img_hover = env->ui_textures[41].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,
@@ -128,13 +128,13 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[12].surface || !env->ui_textures[13].surface
-		|| !env->ui_textures[14].surface)
+	if (!env->ui_textures[26].surface || !env->ui_textures[27].surface
+		|| !env->ui_textures[28].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[12].surface;
-	new.img_pressed = env->ui_textures[13].surface;
-	new.img_down = env->ui_textures[13].surface;
-	new.img_hover = env->ui_textures[14].surface;
+	new.img_up = env->ui_textures[35].surface;
+	new.img_pressed = env->ui_textures[35].surface;
+	new.img_down = env->ui_textures[35].surface;
+	new.img_hover = env->ui_textures[35].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,
@@ -175,13 +175,13 @@ t_button	new_background_button(int type, int (*action)(void *), void *param, t_e
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[3].surface || !env->ui_textures[5].surface
-		|| !env->ui_textures[5].surface)
+	if (!env->ui_textures[32].surface || !env->ui_textures[33].surface
+		|| !env->ui_textures[34].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[3].surface;
-	new.img_pressed = env->ui_textures[4].surface;
-	new.img_down = env->ui_textures[4].surface;
-	new.img_hover = env->ui_textures[5].surface;
+	new.img_up = env->ui_textures[32].surface;
+	new.img_pressed = env->ui_textures[33].surface;
+	new.img_down = env->ui_textures[33].surface;
+	new.img_hover = env->ui_textures[34].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,
@@ -198,13 +198,13 @@ t_button	new_tab_button(int type, int (*action)(void *), void *param, t_env *env
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[6].surface || !env->ui_textures[7].surface
-		|| !env->ui_textures[8].surface)
+	if (!env->ui_textures[36].surface || !env->ui_textures[37].surface
+		|| !env->ui_textures[38].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[6].surface;
-	new.img_pressed = env->ui_textures[7].surface;
-	new.img_down = env->ui_textures[7].surface;
-	new.img_hover = env->ui_textures[8].surface;
+	new.img_up = env->ui_textures[36].surface;
+	new.img_pressed = env->ui_textures[37].surface;
+	new.img_down = env->ui_textures[37].surface;
+	new.img_hover = env->ui_textures[38].surface;
 	new.size_up = new_point(new.img_up->w,
 	new.img_up->h);
 	new.size_down = new_point(new.img_down->w,

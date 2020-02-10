@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_wall_both.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:43:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:10:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:39:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	draw_vline_wall_both(t_sector sector, t_vline vline,
 			i++;
 			continue;
 		}
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->editor.select)
 			{
@@ -89,7 +90,10 @@ void	draw_vline_wall_both(t_sector sector, t_vline vline,
 				= env->sectors[render.sector].vertices[render.i];
 				env->selected_wall2
 				= env->sectors[render.sector].vertices[render.i + 1];
+				env->editor.general_tab.state = DOWN;
+				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
+				check_event_creation(env);
 			}
 			if (env->playing)
 			{

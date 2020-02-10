@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:04:26 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 12:07:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 11:43:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	parse_mini_skyboxes_textures(int fd, int index, t_env *env)
 {
 	t_bmp_parser	parser;
 
-	if (index >= MAX_SKYBOX)
+	if (index >= MAX_SKYBOX + MAX_SKYBOX)
 		return (ft_printf("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
 		return (ft_printf("Error in file header\n"));

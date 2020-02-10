@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:10:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:40:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 				&& sprite_pixels[(int)x
 				+ sprite_w * (int)y] != 0xFFC10099)
 		{
-			if (render.x == env->h_w && i == env->h_h)
+			if (((env->editor.tab
+				&& render.x == env->sdl.mx && i == env->sdl.my)
+				|| (!env->editor.tab && render.x == env->h_w
+				&& i == env->h_h)))
 			{
 				if (env->editor.select)
 				{
@@ -69,7 +72,10 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 					env->selected_wall_sprite_wall = render.i;
 					env->selected_wall_sprite_sprite = sprite;
 					env->editor.selected_sector = sector.num;
+					env->editor.sprite_tab.state = DOWN;
+					env->editor.sprite_tab.anim_state = PRESSED;
 					new_tabs_position(env);
+					check_event_creation(env);
 				}
 				if (env->playing
 						&& sector.wall_sprites[render.i].nb_press_events[sprite])

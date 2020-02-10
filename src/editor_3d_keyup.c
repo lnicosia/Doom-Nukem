@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:56:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:58:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		editor_3d_keyup(t_env *env)
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game
-			&& env->sdl.event.button.button == SDL_BUTTON_LEFT && !env->editor.tab)
+			&& env->sdl.event.button.button == SDL_BUTTON_LEFT && env->sdl.mx > 400)
 		env->editor.select = 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 		env->options.contouring = env->options.contouring ? 0 : 1;
@@ -233,8 +233,8 @@ int		editor_3d_keyup(t_env *env)
 			if (event_panel_keyup(env))
 				return (-1);
 		}
-		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-				&& (env->sdl.my < 414 && env->sdl.my > 350))
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
+		&& (env->sdl.my < 208 && env->sdl.my > 80))
 			env->editor.draw_selection_tab = 1;
 		else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.current_enemy_selection.state == UP)

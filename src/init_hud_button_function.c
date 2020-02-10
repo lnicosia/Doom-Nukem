@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:25:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 14:55:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,26 +201,26 @@ int		save_texture(void *param)
 	if (i >= 0)
 	{
 		env->editor.current_texture_selection.img_down =
-		env->wall_textures[i].maps[6];
+		env->wall_textures[i].maps[7];
 		env->editor.current_texture_selection.img_pressed =
-		env->wall_textures[i].maps[6];
+		env->wall_textures[i].maps[7];
 		env->editor.current_texture_selection.img_hover =
-		env->wall_textures[i].maps[6];
+		env->wall_textures[i].maps[7];
 		env->editor.current_texture_selection.img_up =
-		env->wall_textures[i].maps[6];
+		env->wall_textures[i].maps[7];
 	}
 	if (i < 0)
 	{
 		env->contains_skybox = 1;
 		env->editor.current_texture = i;
 		env->editor.current_texture_selection.img_down =
-		env->mini_skyboxes[-i - 1].surface;
+		env->mini_skyboxes[MAX_SKYBOX + (-i - 1)].surface;
 		env->editor.current_texture_selection.img_pressed =
-		env->mini_skyboxes[-i - 1].surface;
+		env->mini_skyboxes[MAX_SKYBOX + (-i - 1)].surface;
 		env->editor.current_texture_selection.img_hover =
-		env->mini_skyboxes[-i - 1].surface;
+		env->mini_skyboxes[MAX_SKYBOX + (-i - 1)].surface;
 		env->editor.current_texture_selection.img_up =
-		env->mini_skyboxes[-i - 1].surface;
+		env->mini_skyboxes[MAX_SKYBOX + (-i - 1)].surface;
 	}
 	if (env->editor.in_game)
 	{
@@ -309,61 +309,5 @@ int		save_sprite(void *param)
 int		nothing(void *target)
 {
 	(void)target;
-	return (0);
-}
-
-int		general_tab(void *target)
-{
-	t_env *env;
-
-	env = (t_env *)target;
-	env->editor.sprite_tab.state = UP;
-	env->editor.sprite_tab.anim_state = REST;
-	env->editor.sector_tab.state = UP;
-	env->editor.sector_tab.anim_state = REST;
-	env->editor.events_tab.state = UP;
-	env->editor.events_tab.anim_state = REST;
-	return(0);
-}
-
-int		sector_tab(void *target)
-{
-	t_env *env;
-
-	env = (t_env *)target;
-	env->editor.sprite_tab.state = UP;
-	env->editor.sprite_tab.anim_state = REST;
-	env->editor.general_tab.state = UP;
-	env->editor.general_tab.anim_state = REST;
-	env->editor.events_tab.state = UP;
-	env->editor.events_tab.anim_state = REST;
-	return (0);
-}
-
-int		sprite_tab(void *target)
-{
-	t_env *env;
-
-	env = (t_env *)target;
-	env->editor.general_tab.state = UP;
-	env->editor.general_tab.anim_state = REST;
-	env->editor.sector_tab.state = UP;
-	env->editor.sector_tab.anim_state = REST;
-	env->editor.events_tab.state = UP;
-	env->editor.events_tab.anim_state = REST;
-	return (0);
-}
-
-int		events_tab(void *target)
-{
-	t_env *env;
-
-	env = (t_env *)target;
-	env->editor.general_tab.state = UP;
-	env->editor.general_tab.anim_state = REST;
-	env->editor.sector_tab.state = UP;
-	env->editor.sector_tab.anim_state = REST;
-	env->editor.sprite_tab.state = UP;
-	env->editor.sprite_tab.anim_state = REST;
 	return (0);
 }

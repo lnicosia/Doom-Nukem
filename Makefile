@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/10 14:54:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/10 16:08:31 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
 				explosion.c init_events_map.c draw_explosion.c \
-				explosion_maths.c \
+				explosion_maths.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c floor_panel.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -100,11 +100,11 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   fill_triangle_minimap.c color_utils.c camera.c new_tabs_position.c \
+		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
-		   physics.c map_parse_player.c create_portals.c \
+		   physics.c map_parse_player.c create_portals.c set_new_event_target.c\
 		   sound_utils.c draw_rectangle.c confirmation_box.c\
 		   draw_objects.c sprites_maths.c draw_players.c \
 		   map_parse_objects.c map_init_objects.c delete_vertex.c \

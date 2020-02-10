@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 14:59:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:07:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,7 @@ void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 int					editor_mode_button(t_env *env);
+int					editor_options_button(t_env *env);
 int					editor_save_button(t_env *env);
 int					editor_launch_game(t_env *env);
 int					going_in_2D_mode(t_env *env);
@@ -400,6 +401,7 @@ int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
+int					check_event_creation(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
@@ -576,6 +578,7 @@ t_button			new_turquoise_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				update_target_panel_button_pos(t_env *env);
 int					get_target_selection_phase(t_env *env);
+int					set_new_event_target(t_env *env);
 
 /*
 ** Main functions

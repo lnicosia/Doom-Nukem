@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/10 11:31:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 			i++;
 			continue;
 		}
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->playing)
 			{
@@ -199,7 +200,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 			i++;
 			continue;
 		}
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->playing)
 			{
@@ -336,7 +338,8 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 			i++;
 			continue;
 		}
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->playing)
 			{

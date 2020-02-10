@@ -28,7 +28,7 @@ void	selection_tab(t_env *env, int nb_slots)
 		test++;	
 	draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(60, 370),
+				new_point(300, 150),
 				new_point((64 * mod) + 10, (64 * (test / mod)) + 10 + 20));
 	while (i < MAX_WALL_TEXTURE)
 	{

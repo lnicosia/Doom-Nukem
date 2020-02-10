@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/05 16:41:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/07 14:43:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		print_floor_sprite_tab(t_env *env)
 	env->editor.next_sprite_env.type = FLOOR_S;	
 	env->editor.previous_sprite_env.type = FLOOR_S;	
 	print_text(new_point(560, 60), new_printable_text("Pos: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].
 	floor_sprites.pos[env->selected_floor_sprite].x),
@@ -35,7 +35,7 @@ int		print_floor_sprite_tab(t_env *env)
 	selected_floor].floor_sprites.pos[env->selected_floor_sprite].y;
 	draw_button(env, env->editor.hud.sp_floor_sprite.pos_y, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Scale: ", 
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].
 	floor_sprites.scale[env->selected_floor_sprite].x),
@@ -58,33 +58,33 @@ int		print_floor_sprite_tab(t_env *env)
 int		print_floor_sector_tab(t_env *env)
 {
 	print_text(new_point(480, 60), new_printable_text("Sector:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->sectors[env->selected_floor].num),
 	print_text(new_point(480, 230), new_printable_text(env->snprintf,
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->sectors[env->selected_floor].brightness);
 	env->editor.hud.s_floor.t_brightness.target =
 	&env->sectors[env->selected_floor].brightness;
 	draw_button(env, env->editor.hud.s_floor.brightness, env->snprintf);
 	print_text(new_point(560, 60), new_printable_text("Light_color:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 	env->sectors[env->selected_floor].light_color);
 	env->editor.hud.s_floor.t_color.target =
 	&env->sectors[env->selected_floor].light_color;
 	draw_button(env, env->editor.hud.s_floor.color, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Intensity:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->sectors[env->selected_floor].intensity);
 	env->editor.hud.s_floor.t_intensity.target =
 	&env->sectors[env->selected_floor].intensity;
 	draw_button(env, env->editor.hud.s_floor.intensity, env->snprintf);
 	print_text(new_point(640, 60), new_printable_text("Gravity:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].gravity),
 	env->sectors[env->selected_floor].gravity);
@@ -97,7 +97,7 @@ int		print_floor_sector_tab(t_env *env)
 int		print_floor_general_tab(t_env *env)
 {
 	print_text(new_point(520, 60), new_printable_text("Height: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor),
 	env->sectors[env->selected_floor].floor);
@@ -105,7 +105,7 @@ int		print_floor_general_tab(t_env *env)
 	&env->sectors[env->selected_floor].floor;
 	draw_button(env, env->editor.hud.g_floor.height, env->snprintf);
 	print_text(new_point(560, 60), new_printable_text("Slope: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_slope),
 	env->sectors[env->selected_floor].floor_slope);
@@ -115,7 +115,7 @@ int		print_floor_general_tab(t_env *env)
 	draw_button(env, env->editor.previous_slope_swap, NULL);
 	draw_button(env, env->editor.next_slope_swap, NULL);
 	print_text(new_point(640, 60), new_printable_text("Scale X: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_map_scale.x),
 	env->sectors[env->selected_floor].floor_map_scale.x);
@@ -123,7 +123,7 @@ int		print_floor_general_tab(t_env *env)
 	&env->sectors[env->selected_floor].floor_map_scale.x;
 	draw_button(env, env->editor.hud.g_floor.texture_scale_x, env->snprintf);
 	print_text(new_point(680, 60), new_printable_text("Scale Y: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_map_scale.y),
 	env->sectors[env->selected_floor].floor_map_scale.y);
@@ -131,7 +131,7 @@ int		print_floor_general_tab(t_env *env)
 	&env->sectors[env->selected_floor].floor_map_scale.y;
 	draw_button(env, env->editor.hud.g_floor.texture_scale_y, env->snprintf);
 	print_text(new_point(720, 60), new_printable_text("Align X: ", 
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_map_align.x),
 	env->sectors[env->selected_floor].floor_map_align.x);
@@ -139,7 +139,7 @@ int		print_floor_general_tab(t_env *env)
 	&env->sectors[env->selected_floor].floor_map_align.x;
 	draw_button(env, env->editor.hud.g_floor.texture_align_x, env->snprintf);
 	print_text(new_point(760, 60), new_printable_text("Align Y: ",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.alice30, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_map_align.y),
 	env->sectors[env->selected_floor].floor_map_align.y);

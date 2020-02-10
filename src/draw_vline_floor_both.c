@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_floor_both.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:09:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:40:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ void	draw_vline_floor_both(t_sector sector, t_vline vline,
 			map_lvl = get_current_floor_map(sector.floor_texture, z, &render, env);
 		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].
 			maps[map_lvl]->pixels;
-		if (vline.x == env->h_w && i == env->h_h)
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
 			if (env->editor.select)
 			{
 				reset_selection(env);
 				env->selected_floor = render.sector;
+				env->editor.general_tab.state = DOWN;
+				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
+				check_event_creation(env);
 			}
 			if (env->playing)
 			{

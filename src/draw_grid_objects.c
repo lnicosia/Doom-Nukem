@@ -54,6 +54,8 @@ void	draw_grid_objects(t_env *env)
 				reset_selection(env);
 				env->editor.dragged_object = i;
 				env->selected_object = i;
+				env->editor.general_tab.state = DOWN;
+				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
 			}
 		}

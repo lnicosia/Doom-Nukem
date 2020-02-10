@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 14:33:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:24:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 # define EDITOR_H
 
 # include "utils.h"
-# define EVENT_ICON 24
-# define TARGET_ICON 25
-# define ACTION_ICON 26
-# define CONDITION_ICON 27
-# define EVENT_ICON_DOWN 28
-# define TARGET_ICON_DOWN 29
-# define ACTION_ICON_DOWN 30
-# define CONDITION_ICON_DOWN 31
-# define EVENT_ICON_HOVER 32
-# define TARGET_ICON_HOVER 33
-# define ACTION_ICON_HOVER 34
-# define CONDITION_ICON_HOVER 35
-# define PREVIOUS_ICON 36
-# define NEXT_ICON 37
-# define PREVIOUS_ICON_DOWN 38
-# define NEXT_ICON_DOWN 39
-# define PREVIOUS_ICON_HOVER 40
-# define NEXT_ICON_HOVER 41
+# define EVENT_ICON 42
+# define TARGET_ICON 43
+# define ACTION_ICON 44
+# define CONDITION_ICON 45
+# define EVENT_ICON_DOWN 46
+# define TARGET_ICON_DOWN 47
+# define ACTION_ICON_DOWN 48
+# define CONDITION_ICON_DOWN 49
+# define EVENT_ICON_HOVER 50
+# define TARGET_ICON_HOVER 51
+# define ACTION_ICON_HOVER 52
+# define CONDITION_ICON_HOVER 53
+# define PREVIOUS_ICON 54
+# define NEXT_ICON 55
+# define PREVIOUS_ICON_DOWN 56
+# define NEXT_ICON_DOWN 57
+# define PREVIOUS_ICON_HOVER 58
+# define NEXT_ICON_HOVER 59
 
 typedef struct		s_button_tab
 {
@@ -290,7 +290,7 @@ typedef struct	s_editor
 	t_button		general_tab;
 	t_button		events_tab;
 	t_button		textures[MAX_WALL_TEXTURE];
-	t_button		skyboxes[MAX_SKYBOX];
+	t_button		skyboxes[MAX_SKYBOX + MAX_SKYBOX];
 	t_button		enemy_tab[MAX_MONSTER_MINI];
 	t_button		add_enemy;
 	t_button		add_object;
@@ -316,6 +316,7 @@ typedef struct	s_editor
 	t_button		previous_exec_condition;
 	t_button		sprite_selection[MAX_OBJECTS];
 	t_button		current_sprite_selection;
+	t_button		options;
 	t_button		create_event_button;
 	t_event_panel	event_panel;
 	int				selection_tab;

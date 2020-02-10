@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:56:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:57:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ int	editor_keyup(t_env *env)
 		env->editor.tab = env->editor.tab ? 0 : 1;
 	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_g)
 		env->editor.game = env->editor.game ? 0 : 1;
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
@@ -80,6 +75,8 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_event = 0;
 		env->editor.selected_launch_condition = 0;
 		env->editor.selected_exec_condition = 0;
+		env->editor.general_tab.state = DOWN;
+		env->editor.general_tab.anim_state = PRESSED;
 		if (env->editor.selected_sector == -1)
 		{
 			env->selected_floor = -1;
@@ -87,6 +84,12 @@ int	editor_keyup(t_env *env)
 		}
 		env->selected_enemy = -1;
 		new_tabs_position(env);
+		check_event_creation(env);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
 	}
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
@@ -279,13 +282,13 @@ int	editor_keyup(t_env *env)
 			i++;
 		}
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 74 && env->sdl.mx > 10)
-	&& (env->sdl.my < 414 && env->sdl.my > 350))
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
+	&& (env->sdl.my < 208 && env->sdl.my > 80))
 		env->editor.draw_selection_tab = 1;
 	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_selection_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 67 && env->sdl.mx > 13)
-	&& (env->sdl.my < 317 && env->sdl.my > 253))
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 304 && env->sdl.mx > 240)
+	&& (env->sdl.my < 404 && env->sdl.my > 340))
 		env->editor.draw_enemy_tab = 1;
 	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
 		env->editor.draw_enemy_tab = 0;

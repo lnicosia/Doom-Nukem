@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:52:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 19:01:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:38:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ t_env *env)
 					+ env->sprite_textures[sprite.texture].surface->w
 					* (int)sprite_y] != 0xFFC10099)
 			{
-				if (env->editor.select && render.x == env->h_w && i == env->h_h)
+				if (env->editor.select && ((env->editor.tab
+				&& render.x == env->sdl.mx && i == env->sdl.my)
+				|| (!env->editor.tab && render.x == env->h_w
+				&& i == env->h_h)))
 				{
 					reset_selection(env);
 					env->selected_ceiling = sector.num;
@@ -76,6 +79,7 @@ t_env *env)
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
 					new_tabs_position(env);
+					check_event_creation(env);
 				}
 				pixels[coord] = sprite_pixels[(int)sprite_x
 					+ env->sprite_textures[sprite.texture].surface->w
