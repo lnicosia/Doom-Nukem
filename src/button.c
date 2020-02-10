@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 16:34:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:49:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_env *env)
 	return (new);
 }
 
-t_button	new_rectangle_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_rectangle_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -97,7 +98,8 @@ t_button	new_rectangle_button(int type, int (*action)(void *), void *param, t_en
 	return (new);
 }
 
-t_button	new_image_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_image_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -120,7 +122,8 @@ t_button	new_image_button(int type, int (*action)(void *), void *param, t_env *e
 	return (new);
 }
 
-t_button	new_plus_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_plus_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -143,7 +146,8 @@ t_button	new_plus_button(int type, int (*action)(void *), void *param, t_env *en
 	return (new);
 }
 
-t_button	new_minus_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_minus_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -212,7 +216,8 @@ t_button	new_tab_button(int type, int (*action)(void *), void *param, t_env *env
 	return (new);
 }
 
-t_button	new_hud_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_hud_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -235,7 +240,8 @@ t_button	new_hud_button(int type, int (*action)(void *), void *param, t_env *env
 	return (new);
 }
 
-t_button	new_hud_pos_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_hud_pos_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -254,7 +260,8 @@ t_button	new_hud_pos_button(int type, int (*action)(void *), void *param, t_env 
 	return (new);
 }
 
-t_button	new_next_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_next_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 
@@ -273,7 +280,8 @@ t_button	new_next_button(int type, int (*action)(void *), void *param, t_env *en
 	return (new);
 }
 
-t_button	new_previous_button(int type, int (*action)(void *), void *param, t_env *env)
+t_button	new_previous_button(int type, int (*action)(void *), void *param,
+t_env *env)
 {
 	t_button	new;
 

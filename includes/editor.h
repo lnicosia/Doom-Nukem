@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 19:33:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:21:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define TARGET_ICON_HOVER 33
 # define ACTION_ICON_HOVER 34
 # define CONDITION_ICON_HOVER 35
+# define PREVIOUS_ICON 36
+# define NEXT_ICON 37
+# define PREVIOUS_ICON_DOWN 38
+# define NEXT_ICON_DOWN 39
+# define PREVIOUS_ICON_HOVER 40
+# define NEXT_ICON_HOVER 41
 
 typedef struct		s_button_tab
 {
@@ -177,17 +183,38 @@ typedef struct	s_button_target
 
 typedef struct	s_target_panel
 {
-	t_button	sector;
-	t_button	wall;
-	t_button	wall_sprite;
-	t_button	weapon;
-	t_button	enemy;
-	t_button	object;
-	t_button	player;
-	t_button	other;
-	t_button	floor;
-	t_button	ceiling;
-	t_button	sector_other;
+	int				target_selection_phase;
+	int				sector_type;
+	int				wall_type;
+	int				wall_sprite_type;
+	int				weapon_type;
+	int				enemy_type;
+	int				object_type;
+	int				player_type;
+	int				other_type;
+	int				floor_type;
+	int				ceiling_type;
+	int				sector_other_type;
+	t_button		next;
+	t_button		previous;
+	t_button		sector;
+	t_button		wall;
+	t_button		wall_sprite;
+	t_button		weapon;
+	t_button		enemy;
+	t_button		object;
+	t_button		player;
+	t_button		other;
+	t_button		floor;
+	t_button		ceiling;
+	t_button		sector_other;
+	t_button		scale_x;
+	t_button		scale_y;
+	t_button		align_x;
+	t_button		align_y;
+	t_button		texture;
+	t_button		height;
+	t_button		slope;
 }				t_target_panel;
 
 typedef struct	s_event_panel

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 16:07:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:43:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,18 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/event_icon_hover.bmp", 34, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/condition_icon_hover.bmp", 35, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/previous_arrow.bmp", 36, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/next_arrow.bmp", 37, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/previous_arrow_down.bmp", 38, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/next_arrow_down.bmp", 39, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/previous_arrow_hover.bmp", 40, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/next_arrow_hover.bmp", 41, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }

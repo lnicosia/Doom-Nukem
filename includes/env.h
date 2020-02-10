@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 21:49:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:33:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -555,6 +555,7 @@ void *param, t_env *env);
 t_button			new_turquoise_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				update_target_panel_button_pos(t_env *env);
+int					get_target_selection_phase(t_env *env);
 
 /*
 ** Main functions
@@ -719,9 +720,13 @@ t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button	new_minus_button(int type, int (*action)(void *),
+t_button			new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button	new_plus_button(int type, int (*action)(void *),
+t_button			new_plus_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_next_arrow(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_previous_arrow(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			init_button(int type, int (*action)(void *), void *param,
 t_env *env);
