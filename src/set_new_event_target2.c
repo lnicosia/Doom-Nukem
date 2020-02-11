@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:23:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:38:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_target_panel *target_panel)
 	else if (target_panel->selected_button == 1)
 	{
 		panel->event.target = &env->sectors[sector].portals[wall];
-		panel->event.target_index = SECTOR_WALL_ALIGN_Y;
+		panel->event.target_index = SECTOR_WALL_PORTAL;
 		panel->event.type = INT;
 	}
 	else if (target_panel->selected_button == 2)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/06 21:47:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:40:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_editor_data(t_env *env)
 	env->editor.selected_sector = -1;
 	env->editor.selected_vertex = -1;
 	env->editor.selected_player = -1;
+	env->editor.selected_weapon = -1;
 	env->editor.selected_wall = -1;
 	env->editor.selected_wall_sprite = -1;
 	env->editor.dragged_object = -1;
