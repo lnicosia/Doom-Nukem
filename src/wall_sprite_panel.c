@@ -6,31 +6,56 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 13:43:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:33:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
 
+int		set_wall_sprite_panel_buttons_state2(t_env *env)
+{
+	if (env->editor.event_panel.event.target_index ==
+		SECTOR_WALL_SPRITES_SCALE_X
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_FLOOR_SPRITES_SCALE_X
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_CEILING_SPRITES_SCALE_X)
+		env->editor.event_panel.target_panel.targets[3].state = DOWN;
+	else if (env->editor.event_panel.event.target_index ==
+		SECTOR_WALL_SPRITES_SCALE_Y
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_FLOOR_SPRITES_SCALE_Y
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_CEILING_SPRITES_SCALE_Y)
+		env->editor.event_panel.target_panel.targets[4].state = DOWN;
+	return (0);
+}
+
 int		set_wall_sprite_panel_buttons_state(t_env *env)
 {
 	if (env->editor.event_panel.event.target_index ==
-		SECTOR_WALL_SPRITES_SPRITE)
+		SECTOR_WALL_SPRITES_SPRITE
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_FLOOR_SPRITES_SPRITE
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_CEILING_SPRITES_SPRITE)
 		env->editor.event_panel.target_panel.targets[0].state = DOWN;
 	else if (env->editor.event_panel.event.target_index ==
-		SECTOR_WALL_SPRITES_POS_X)
+		SECTOR_WALL_SPRITES_POS_X
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_FLOOR_SPRITES_POS_X
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_CEILING_SPRITES_POS_X)
 		env->editor.event_panel.target_panel.targets[1].state = DOWN;
 	else if (env->editor.event_panel.event.target_index ==
-		SECTOR_WALL_SPRITES_POS_Y)
+		SECTOR_WALL_SPRITES_POS_Y
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_FLOOR_SPRITES_POS_Y
+		|| env->editor.event_panel.event.target_index ==
+		SECTOR_CEILING_SPRITES_POS_Y)
 		env->editor.event_panel.target_panel.targets[2].state = DOWN;
-	else if (env->editor.event_panel.event.target_index ==
-		SECTOR_WALL_SPRITES_SCALE_X)
-		env->editor.event_panel.target_panel.targets[3].state = DOWN;
-	else if (env->editor.event_panel.event.target_index ==
-		SECTOR_WALL_SPRITES_SCALE_Y)
-		env->editor.event_panel.target_panel.targets[4].state = DOWN;
-	return (0);
+	return (set_wall_sprite_panel_buttons_state2(env));
 }
 
 int		select_wall_sprite(void *param)

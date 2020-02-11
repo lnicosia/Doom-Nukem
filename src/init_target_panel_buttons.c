@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 15:53:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:00:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,26 @@ int			choose_target(void *param)
 {
 	t_env	*env;
 	int		i;
+	int		select;
 
 	env = (t_env*)param;
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 1;
+	select = 0;
 	reset_selection(env);
 	new_tabs_position(env);
 	i = 0;
 	while (i < 8)
 	{
-		if (env->editor.event_panel.target_panel.targets[i].state == DOWN)
+		if (env->editor.event_panel.target_panel.targets[i].state == DOWN
+			&& env->editor.event_panel.target_panel.selected_button != i
+			&& select == 0)
+		{
 			env->editor.event_panel.target_panel.selected_button = i;
+			select = 1;
+		}
+		env->editor.event_panel.target_panel.targets[i].state = UP;
+		env->editor.event_panel.target_panel.targets[i].anim_state = REST;
 		i++;
 	}
 	if (env->editor.event_panel.target_panel.player_type)

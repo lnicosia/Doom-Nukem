@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:44:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 15:39:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:23:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_target_panel *target_panel, int sector)
 	int		sprite;
 
 	sprite = env->selected_floor_sprite;
-	if (target_panel->targets[3].state == DOWN)
+	if (target_panel->selected_button == 3)
 	{
 		panel->event.target =
 		&env->sectors[sector].floor_sprites.scale[sprite].x;
 		panel->event.target_index = SECTOR_FLOOR_SPRITES_SCALE_X;
 	}
-	else if (target_panel->targets[4].state == DOWN)
+	else if (target_panel->selected_button == 4)
 	{
 		panel->event.target =
 		&env->sectors[sector].floor_sprites.scale[sprite].y;
@@ -35,7 +35,6 @@ t_target_panel *target_panel, int sector)
 	panel->event.check_param.sector = sector;
 	panel->event.update_param.sprite = sprite;
 	panel->event.check_param.sprite = sprite;
-	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -45,20 +44,20 @@ t_target_panel *target_panel, int sector)
 	int		sprite;
 
 	sprite = env->selected_floor_sprite;
-	if (target_panel->targets[0].state == DOWN)
+	if (target_panel->selected_button == 0)
 	{
 		panel->event.target =
 		&env->sectors[sector].floor_sprites.sprite[sprite];
 		panel->event.target_index = SECTOR_FLOOR_SPRITES_SPRITE;
 		panel->event.type = INT;
 	}
-	else if (target_panel->targets[1].state == DOWN)
+	else if (target_panel->selected_button == 1)
 	{
 		panel->event.target =
 		&env->sectors[sector].floor_sprites.pos[sprite].x;
 		panel->event.target_index = SECTOR_FLOOR_SPRITES_POS_X;
 	}
-	else if (target_panel->targets[2].state == DOWN)
+	else if (target_panel->selected_button == 2)
 	{
 		panel->event.target =
 		&env->sectors[sector].floor_sprites.pos[sprite].x;
@@ -73,13 +72,13 @@ t_target_panel *target_panel, int sector)
 	int		sprite;
 
 	sprite = env->selected_ceiling_sprite;
-	if (target_panel->targets[3].state == DOWN)
+	if (target_panel->selected_button == 3)
 	{
 		panel->event.target =
 		&env->sectors[sector].ceiling_sprites.scale[sprite].x;
 		panel->event.target_index = SECTOR_CEILING_SPRITES_SCALE_X;
 	}
-	else if (target_panel->targets[4].state == DOWN)
+	else if (target_panel->selected_button == 4)
 	{
 		panel->event.target =
 		&env->sectors[sector].ceiling_sprites.scale[sprite].y;
@@ -89,7 +88,6 @@ t_target_panel *target_panel, int sector)
 	panel->event.check_param.sector = sector;
 	panel->event.update_param.sprite = sprite;
 	panel->event.check_param.sprite = sprite;
-	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -99,20 +97,20 @@ t_target_panel *target_panel, int sector)
 	int		sprite;
 
 	sprite = env->selected_ceiling_sprite;
-	if (target_panel->targets[0].state == DOWN)
+	if (target_panel->selected_button == 0)
 	{
 		panel->event.target =
 		&env->sectors[sector].ceiling_sprites.sprite[sprite];
 		panel->event.target_index = SECTOR_CEILING_SPRITES_SPRITE;
 		panel->event.type = INT;
 	}
-	else if (target_panel->targets[1].state == DOWN)
+	else if (target_panel->selected_button == 1)
 	{
 		panel->event.target =
 		&env->sectors[sector].ceiling_sprites.pos[sprite].x;
 		panel->event.target_index = SECTOR_CEILING_SPRITES_POS_X;
 	}
-	else if (target_panel->targets[2].state == DOWN)
+	else if (target_panel->selected_button == 2)
 	{
 		panel->event.target =
 		&env->sectors[sector].ceiling_sprites.pos[sprite].x;

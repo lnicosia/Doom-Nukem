@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 15:13:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:22:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -621,7 +621,7 @@ int					set_wall_sprite_panel_buttons_state(t_env *env);
 int					set_object_panel_buttons_state(t_env *env);
 int					set_enemy_panel_buttons_state(t_env *env);
 int					set_weapon_panel_buttons_state(t_env *env);
-void				set_target_panel_buttons_state(t_env *env);
+void				set_buttons_state(t_env *env);
 
 /*
 ** Main functions

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:36:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 12:29:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:49:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		check_event_creation4(t_env *env)
 	env->editor.event_panel.target_tab.state = UP;
 	env->editor.event_panel.action_tab.state = DOWN;
 	set_new_event_target(env);
+	if (env->editor.event_panel.event.target)
+		set_buttons_state(env);
 	return (0);
 }
 
