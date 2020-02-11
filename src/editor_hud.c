@@ -42,13 +42,8 @@ void	editor_hud(t_env *env)
 			new_point(170, 360));
 		apply_surface(env->ui_textures[24].surface, new_point(296, 230), new_point(128, 89), env);
 		apply_surface(env->ui_textures[24].surface, new_point(196, 230), new_point(128, 89), env);
-		//apply_surface(env->ui_textures[24].surface, new_point(120, 230), new_point(128, 89), env);
 		draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
 		draw_button(env, env->editor.add_object, env->editor.add_object.str);
-		/*draw_button(env, env->editor.texture_background,
-		env->editor.texture_background.str);
-		draw_button(env, env->editor.enemy_background,
-		env->editor.enemy_background.str);*/
 		draw_button(env, env->editor.current_texture_selection,
 		env->editor.current_texture_selection.str);
 		draw_button(env, env->editor.current_enemy_selection,
@@ -66,11 +61,11 @@ void	editor_hud(t_env *env)
 			enemy_tab(env, MAX_ENEMIES);
 		if (env->editor.draw_sprite_tab)
 			sprite_selection(env, MAX_OBJECTS);
-		if (env->editor.draw_selection_tab || env->editor.draw_enemy_tab
+		if (env->editor.draw_texture_tab || env->editor.draw_enemy_tab
 		|| env->editor.draw_sprite_tab)
-			env->editor.selection_tab = 1;
+			env->editor.texture_tab = 1;
 		else
-			env->editor.selection_tab = 0;
+			env->editor.texture_tab = 0;
 	}
 	if (env->editor.creating_event)
 		draw_event_panel(env);

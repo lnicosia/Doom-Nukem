@@ -28,8 +28,8 @@ int		check_vertex_inside_sector(t_env *env, t_v2 vertex)
 		j = 0;
 		while (j < env->sectors[i].nb_vertices)
 		{
-			if (vertex.x == env->vertices[env->sectors[i].vertices[j]].x &&
-				vertex.y == env->vertices[env->sectors[i].vertices[j]].y)
+			if (vertex.x == env->vertices[env->sectors[i].vertices[j]].x
+			&& vertex.y == env->vertices[env->sectors[i].vertices[j]].y)
 				return (1);
 			j++;
 		}

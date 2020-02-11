@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 10:48:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:45:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 			continue;
 		yalpha = (i - render.no_slope_current_ceiling)
 			/ render.line_height;
-		/*x = yalpha * render.camera->v[render.sector]
+		/*x = yalpha * render.camera->v[rend	er.sector]
 		  [render.i].sprite_scale[sprite].y + start;
 		  if (x >= start && x < end
 		  && sprite_pixels[(int)x
@@ -72,9 +72,7 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 					env->selected_wall_sprite_wall = render.i;
 					env->selected_wall_sprite_sprite = sprite;
 					env->editor.selected_sector = sector.num;
-					env->editor.sprite_tab.state = DOWN;
-					env->editor.sprite_tab.anim_state = PRESSED;
-					new_tabs_position(env);
+					tabs_gestion(env);
 				}
 				if (env->playing
 						&& sector.wall_sprites[render.i].nb_press_events[sprite])

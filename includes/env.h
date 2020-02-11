@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:22:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:44:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,7 +312,7 @@ int					del_char(t_input_box *box, int mode);
 int					delete_box_selection(t_input_box *box);
 char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
-int					apply_texture(int texture, t_sector *sector, t_env *env);
+int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
 void				split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
@@ -322,7 +322,7 @@ void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
 void				update_double_tab(int index, double size, double **tab);
 void				update_int_tab(int index, int size, int **tab);
-void				selection_tab(t_env *env, int nb_slots);
+void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
@@ -402,6 +402,16 @@ int					are_exec_condition_selection_buttons_visible(t_env *env);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 int					check_event_creation(t_env *env);
+void				tabs_gestion(t_env *env);
+int					change_target_texture(t_env *env);
+void				editor_show_tab(t_env *env);
+int					general_keyup(t_env *env);
+int					sprite_tab_keyup(t_env *env);
+int					events_tab_keyup(t_env *env);
+int					editor_3d_tabs_keyup(t_env *env);
+void				editor_options_tab_keyup(t_env *env);
+void				editor_wall_sprites_keys(t_env *env);
+void				change_ceiling_floor_height(t_env *env);
 
 /*
 **	Input boxes checkers and updaters

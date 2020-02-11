@@ -40,7 +40,7 @@ int	get_existing_vertex(t_env *env)
 	{
 		vertex = env->vertices[i];
 		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
+		&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
 			return (vertex.num);
 		i++;
 	}

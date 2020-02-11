@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 14:55:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 15:48:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ int		save_texture(void *param)
 	}
 	env->editor.current_texture_selection.state = UP;
 	env->editor.current_texture_selection.anim_state = REST;
-	env->editor.draw_selection_tab = 0;
+	env->editor.draw_texture_tab = 0;
 	return (0);
 }
 
