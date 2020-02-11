@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:56:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:38:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:44:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_env *env)
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
 					new_tabs_position(env);
-					check_event_creation(env);
 				}
 				pixels[coord] = apply_light_color(sprite_pixels[(int)sprite_x
 				+ env->sprite_textures[sprite.texture].surface->w

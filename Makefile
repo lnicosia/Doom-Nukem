@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/10 16:08:31 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/11 10:38:00 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c set_new_event_target.c\
 		   sound_utils.c draw_rectangle.c confirmation_box.c\
-		   draw_objects.c sprites_maths.c draw_players.c \
+		   draw_objects.c sprites_maths.c draw_players.c check_event_creation.c\
 		   map_parse_objects.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \

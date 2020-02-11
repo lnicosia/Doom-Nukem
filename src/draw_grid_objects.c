@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 19:09:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:49:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	draw_grid_objects(t_env *env)
 				env->editor.general_tab.state = DOWN;
 				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
+				check_event_creation(env);
 			}
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 15:44:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:45:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ static void		*object_loop(void *param)
 					reset_selection(env);
 					env->selected_object = object.num;
 					new_tabs_position(env);
-					check_event_creation(env);
 				}
 				if (!env->options.lighting
 					|| (!sector.brightness && !sector.intensity))

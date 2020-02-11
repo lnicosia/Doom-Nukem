@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:25:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:40:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:47:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	draw_vline_ceiling_both(t_sector sector, t_vline vline, t_render render,
 				env->editor.general_tab.state = DOWN;
 				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
-				check_event_creation(env);
 			}
 			if (env->playing)
 			{

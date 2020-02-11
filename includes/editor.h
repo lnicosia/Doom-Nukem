@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 15:24:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:01:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,22 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef enum	e_target_panel_types
+{
+	SECTOR_TYPE,
+	WALL_TYPE,
+	WALL_SPRITE_TYPE,
+	WEAPON_TYPE,
+	ENEMY_TYPE,
+	OBJECT_TYPE,
+	VERTEX_TYPE,
+	PLAYER_TYPE,
+	OTHER_TYPE,
+	FLOOR_TYPE,
+	CEILING_TYPE,
+	SECTOR_OTHER_TYPE
+}				t_target_panel_types;
+
 typedef struct	s_target_panel
 {
 	int				target_selection_phase;
@@ -197,6 +213,7 @@ typedef struct	s_target_panel
 	int				sector_other_type;
 	int				target_type;
 	int				target_main_type;
+	int				previous_type;
 	t_button		next;
 	t_button		previous;
 	t_button		sector;

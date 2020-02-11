@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:14:02 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 16:06:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:36:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,6 @@ int		events_tab(void *target)
 	env->editor.sector_tab.anim_state = REST;
 	env->editor.sprite_tab.state = UP;
 	env->editor.sprite_tab.anim_state = REST;
-	return (0);
-}
-
-int		check_event_creation(t_env *env)
-{
-	t_target_panel	panel;
-
-	if (env->editor.selecting_target == 0)
-		return (0);
-	panel = env->editor.event_panel.target_panel;
-	if (panel.floor_type)
-	{
-		if (env->selected_floor == -1 && env->editor.selected_sector == -1)
-			return (update_confirmation_box(&env->confirmation_box,
-			"Please select a floor", ERROR, env));
-	}
-	env->editor.creating_event = 1;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.action_tab.anim_state = DOWN;
-	set_new_event_target(env);
 	return (0);
 }
 

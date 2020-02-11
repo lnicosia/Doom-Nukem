@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:40:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:48:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 					env->editor.sprite_tab.state = DOWN;
 					env->editor.sprite_tab.anim_state = PRESSED;
 					new_tabs_position(env);
-					check_event_creation(env);
 				}
 				if (env->playing
 						&& sector.wall_sprites[render.i].nb_press_events[sprite])

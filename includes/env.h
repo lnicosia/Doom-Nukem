@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 16:07:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:28:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -543,9 +543,11 @@ int					draw_action_pane(t_env *env);
 int					draw_launch_conditions_panel(t_env *env);
 int					draw_exec_conditions_panel(t_env *env);
 int					target_panel_keys(t_env *env);
-int					select_sector(void *param);
+int					select_sector_other(void *param);
 int					select_wall(void *param);
 int					select_floor(void *param);
+int					select_vertex(void *param);
+int					select_player(void *param);
 int					select_ceiling(void *param);
 int					select_object(void *param);
 int					select_enemy(void *param);

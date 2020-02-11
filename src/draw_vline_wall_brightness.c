@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:42:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:39:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:48:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_render render, t_env *env)
 				env->editor.general_tab.state = DOWN;
 				env->editor.general_tab.anim_state = PRESSED;
 				new_tabs_position(env);
-				check_event_creation(env);
 			}
 			if (env->playing)
 			{
