@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:52:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 18:43:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,16 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef struct	s_action_panel
+{
+	t_button	go_to;
+	t_button	add;
+	t_button	func;
+	t_button	value;
+	t_button	delay;
+	t_button	max_uses;
+}				t_action_panel;
+
 typedef enum	e_target_panel_types
 {
 	SECTOR_TYPE,
@@ -242,6 +252,7 @@ typedef struct	s_event_panel
 	t_button		launch_conditions_tab;
 	t_button		exec_conditions_tab;
 	t_target_panel	target_panel;
+	t_action_panel	action_panel;
 }				t_event_panel;
 
 typedef struct	s_editor

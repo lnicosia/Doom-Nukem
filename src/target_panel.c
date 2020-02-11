@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:30:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 10:32:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:17:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int		draw_target_panel(t_env *env)
 	{
 		env->print_target_data[panel.event.target_index](env, &panel.event,
 		new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,
-		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2), 20);
+		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
+		20);
 		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
 		&text_size2.x, &text_size2.y);
 		print_text(new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,

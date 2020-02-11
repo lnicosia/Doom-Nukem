@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:44:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 18:52:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -539,6 +539,9 @@ int					wall_sprite_buttons_up(t_env *env);
 
 int					draw_event_panel(t_env *env);
 int					draw_target_panel(t_env *env);
+int					draw_action_panel(t_env *env);
+int					draw_launch_conditions_panel(t_env *env);
+int					draw_exec_conditions_panel(t_env *env);
 int					draw_floor_panel(t_env *env);
 int					draw_ceiling_panel(t_env *env);
 int					draw_wall_panel(t_env *env);
@@ -553,6 +556,9 @@ int					draw_action_pane(t_env *env);
 int					draw_launch_conditions_panel(t_env *env);
 int					draw_exec_conditions_panel(t_env *env);
 int					target_panel_keys(t_env *env);
+int					action_panel_keys(t_env *env);
+int					launch_condition_panel_keys(t_env *env);
+int					exec_condition_panel_keys(t_env *env);
 int					select_sector_other(void *param);
 int					select_wall(void *param);
 int					select_floor(void *param);
@@ -589,6 +595,9 @@ void *param, t_env *env);
 t_button			new_turquoise_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				update_target_panel_button_pos(t_env *env);
+void				update_action_panel_button_pos(t_env *env);
+void				update_launch_conditions_panel_button_pos(t_env *env);
+void				update_exec_conditions_panel_button_pos(t_env *env);
 int					get_target_selection_phase(t_env *env);
 int					set_new_event_target(t_env *env);
 int					select_floor_target(t_env *env, t_event_panel *panel,

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 19:33:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:39:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	init_event_panel_buttons(t_env *env)
 	new_point(env->editor.event_panel.pos.x,
 	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 300);
 	init_target_panel_buttons(env);
+	init_action_panel_buttons(env);
 }

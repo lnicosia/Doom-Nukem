@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/11 17:52:46 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/11 18:07:16 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 exec_conditions_panel_keys.c event_panel_keys.c \
 		 new_event_panel_buttons.c new_event_panel_buttons2.c \
 		 editor_tab_gestion.c editor_wall_sprites_keys.c \
-		 3d_edit_function.c
+		 3d_edit_function.c action_panel.c launch_conditions_panel.c \
+		 exec_conditions_panel.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
