@@ -6,13 +6,33 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:25:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:40:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 18:44:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	change_ceiling_floor_height(t_env *env)
+int		increse_wall_texture_scale(t_env *env)
+{
+	if (env->selected_floor)
+		increase_floor_texture_scale(env);
+	if (env->selected_ceiling)
+		increase_ceiling_texture_scale(env);
+	if (env->editor.selected_wall)
+		increase_floor_texture_scale(env);
+}
+
+int		reduce_wall_texture_scale(t_env *env)
+{
+	if (env->selected_floor)
+		reduce_floor_texture_scale(env);
+	if (env->selected_ceiling)
+		reduce_ceiling_texture_scale(env);
+	if (env->editor.selected_wall)
+		reduce_floor_texture_scale(env);
+}
+
+int		change_ceiling_floor_height(t_env *env)
 {
 	if (env->selected_ceiling != -1)
 	{
