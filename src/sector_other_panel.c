@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 11:57:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:50:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int		select_sector_other(void *param)
 
 	env = (t_env*)param;
 	env->editor.event_panel.target_panel.sector_other_type = 1;
-	if (env->editor.event_panel.target_panel.previous_type == SECTOR_OTHER_TYPE)
-		return (0);
 	i = 0;
 	while (i < 8)
 	{

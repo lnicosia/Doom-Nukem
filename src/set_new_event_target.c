@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 14:09:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:56:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ t_target_panel *target_panel, int sector)
 		panel->event.target = &env->sectors[sector].floor_map_scale.y;
 		panel->event.target_index = SECTOR_FLOOR_SCALE_Y;
 	}
+	panel->event.update_param.sector = sector;
+	panel->event.check_param.sector = sector;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -46,7 +49,6 @@ t_target_panel *target_panel)
 
 	sector = env->editor.selected_sector == -1 ? env->selected_floor : env->
 	editor.selected_sector;
-	panel->event.update_param.sector = sector;
 	if (target_panel->targets[1].state == DOWN)
 		panel->event.type = INT;
 	if (target_panel->targets[0].state == DOWN)
@@ -64,9 +66,7 @@ t_target_panel *target_panel)
 		panel->event.target = &env->sectors[sector].floor_slope;
 		panel->event.target_index = SECTOR_FLOOR_SLOPE;
 	}
-	else
-		return (select_floor_target2(env, panel, target_panel, sector));
-	return (0);
+	return (select_floor_target2(env, panel, target_panel, sector));
 }
 
 int		select_ceiling_target2(t_env *env, t_event_panel *panel,
@@ -92,6 +92,9 @@ t_target_panel *target_panel, int sector)
 		panel->event.target = &env->sectors[sector].ceiling_map_scale.y;
 		panel->event.target_index = SECTOR_CEILING_SCALE_Y;
 	}
+	panel->event.update_param.sector = sector;
+	panel->event.check_param.sector = sector;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -102,7 +105,6 @@ t_target_panel *target_panel)
 
 	sector = env->editor.selected_sector == -1 ? env->selected_ceiling : env->
 	editor.selected_sector;
-	panel->event.update_param.sector = sector;
 	if (target_panel->targets[1].state == DOWN)
 		panel->event.type = INT;
 	if (target_panel->targets[0].state == DOWN)
@@ -120,38 +122,34 @@ t_target_panel *target_panel)
 		panel->event.target = &env->sectors[sector].ceiling_slope;
 		panel->event.target_index = SECTOR_CEILING_SLOPE;
 	}
-	else
-		return (select_ceiling_target2(env, panel, target_panel, sector));
-	return (0);
+	return (select_ceiling_target2(env, panel, target_panel, sector));
 }
 
 int		set_new_event_target(t_env *env)
 {
 	t_event_panel	*panel;
-	t_target_panel	*target_panel;
 
 	panel = &env->editor.event_panel;
-	target_panel = &panel->target_panel;
 	env->editor.event_panel.event.type = DOUBLE;
-	if (target_panel->floor_type)
-		return (select_floor_target(env, panel, target_panel));
-	else if (target_panel->ceiling_type)
-		return (select_ceiling_target(env, panel, target_panel));
-	else if (target_panel->wall_type)
-		return (select_wall_target(env, panel, target_panel));
-	else if (target_panel->wall_sprite_type)
-		return (select_wall_sprite_target(env, panel, target_panel));
-	else if (target_panel->vertex_type)
-		return (select_vertex_target(env, panel, target_panel));
-	else if (target_panel->weapon_type)
-		return (select_weapon_target(env, panel, target_panel));
-	else if (target_panel->player_type)
-		return (select_player_target(env, panel, target_panel));
-	else if (target_panel->enemy_type)
-		return (select_enemy_target(env, panel, target_panel));
-	else if (target_panel->object_type)
-		return (select_object_target(env, panel, target_panel));
-	else if (target_panel->sector_other_type)
-		return (select_sector_other_target(env, panel, target_panel));
+	if (panel->target_panel.floor_type)
+		return (select_floor_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.ceiling_type)
+		return (select_ceiling_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.wall_type)
+		return (select_wall_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.wall_sprite_type)
+		return (select_wall_sprite_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.vertex_type)
+		return (select_vertex_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.weapon_type)
+		return (select_weapon_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.player_type)
+		return (select_player_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.enemy_type)
+		return (select_enemy_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.object_type)
+		return (select_object_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.sector_other_type)
+		return (select_sector_other_target(env, panel, &panel->target_panel));
 	return (0);
 }

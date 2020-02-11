@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 14:03:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:38:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ t_target_panel *target_panel, int enemy)
 		panel->event.target_index = ENEMY_HP;
 		panel->event.type = INT;
 	}
+	panel->event.update_param.enemy = enemy;
+	panel->event.check_param.enemy = enemy;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -98,6 +101,11 @@ t_target_panel *target_panel, int sector)
 		panel->event.target = &env->sectors[sector].scale[wall].y;
 		panel->event.target_index = SECTOR_WALL_SCALE_Y;
 	}
+	panel->event.update_param.sector = sector;
+	panel->event.check_param.sector = sector;
+	panel->event.update_param.wall = wall;
+	panel->event.check_param.wall = wall;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 

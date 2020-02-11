@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 12:20:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:49:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ typedef struct	s_target_panel
 	int				sector_other_type;
 	int				target_type;
 	int				target_main_type;
-	int				previous_type;
+	int				selected_button;
 	t_button		next;
 	t_button		previous;
 	t_button		sector;

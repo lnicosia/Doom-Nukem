@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 12:28:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:53:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,11 @@ int			set_int_button(void *param)
 	return (0);
 }
 
-int			set_previous_type(t_env *env)
-{
-	if (env->editor.event_panel.target_panel.sector_type)
-		env->editor.event_panel.target_panel.previous_type = SECTOR_TYPE;
-	if (env->editor.event_panel.target_panel.wall_type)
-		env->editor.event_panel.target_panel.previous_type = WALL_TYPE;
-	else if (env->editor.event_panel.target_panel.wall_type)
-		env->editor.event_panel.target_panel.previous_type = WALL_TYPE;
-	else if (env->editor.event_panel.target_panel.wall_sprite_type)
-		env->editor.event_panel.target_panel.previous_type = WALL_SPRITE_TYPE;
-	else if (env->editor.event_panel.target_panel.object_type)
-		env->editor.event_panel.target_panel.previous_type = OBJECT_TYPE;
-	else if (env->editor.event_panel.target_panel.enemy_type)
-		env->editor.event_panel.target_panel.previous_type = ENEMY_TYPE;
-	else if (env->editor.event_panel.target_panel.weapon_type)
-		env->editor.event_panel.target_panel.previous_type = WEAPON_TYPE;
-	else if (env->editor.event_panel.target_panel.player_type)
-		env->editor.event_panel.target_panel.previous_type = PLAYER_TYPE;
-	else if (env->editor.event_panel.target_panel.vertex_type)
-		env->editor.event_panel.target_panel.previous_type = VERTEX_TYPE;
-	else if (env->editor.event_panel.target_panel.sector_other_type)
-		env->editor.event_panel.target_panel.previous_type = SECTOR_OTHER_TYPE;
-	else if (env->editor.event_panel.target_panel.ceiling_type)
-		env->editor.event_panel.target_panel.previous_type = CEILING_TYPE;
-	else if (env->editor.event_panel.target_panel.floor_type)
-		env->editor.event_panel.target_panel.previous_type = FLOOR_TYPE;
-	return (0);
-}
-
 int			previous_target_selection_phase(void *param)
 {
 	t_env	*env;
 
 	env = (t_env*)param;
-	set_previous_type(env);
 	if (get_target_selection_phase(env) == 1)
 	{
 		env->editor.event_panel.target_panel.sector_type = 0;
@@ -136,12 +106,20 @@ void		update_target_panel_button_pos(t_env *env)
 int			choose_target(void *param)
 {
 	t_env	*env;
+	int		i;
 
 	env = (t_env*)param;
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 1;
 	reset_selection(env);
 	new_tabs_position(env);
+	i = 0;
+	while (i < 8)
+	{
+		if (env->editor.event_panel.target_panel.targets[i].state == DOWN)
+			env->editor.event_panel.target_panel.selected_button = i;
+		i++;
+	}
 	if (env->editor.event_panel.target_panel.player_type)
 		return (0);
 	if (update_confirmation_box(&env->confirmation_box, "Please now select"

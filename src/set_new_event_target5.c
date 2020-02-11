@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:44:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 14:03:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:39:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_target_panel *target_panel)
 		panel->event.target_index = PLAYER_INFINITE_AMMO;
 		panel->event.type = INT;
 	}
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -92,6 +93,9 @@ t_target_panel *target_panel, int object)
 		panel->event.target = &env->objects[object].health;
 		panel->event.target_index = OBJECT_HP;
 	}
+	panel->event.update_param.object = object;
+	panel->event.check_param.object = object;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 14:09:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:13:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -611,6 +611,17 @@ int					set_floor_sprite(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel, int sector);
 int					set_ceiling_sprite(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel, int sector);
+int					set_floor_panel_buttons_state(t_env *env);
+int					set_ceiling_panel_buttons_state(t_env *env);
+int					set_sector_other_panel_buttons_state(t_env *env);
+int					set_player_panel_buttons_state(t_env *env);
+int					set_vertex_panel_buttons_state(t_env *env);
+int					set_wall_panel_buttons_state(t_env *env);
+int					set_wall_sprite_panel_buttons_state(t_env *env);
+int					set_object_panel_buttons_state(t_env *env);
+int					set_enemy_panel_buttons_state(t_env *env);
+int					set_weapon_panel_buttons_state(t_env *env);
+void				set_target_panel_buttons_state(t_env *env);
 
 /*
 ** Main functions

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:44:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 13:51:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:39:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ t_target_panel *target_panel, int sector)
 		&env->sectors[sector].floor_sprites.scale[sprite].y;
 		panel->event.target_index = SECTOR_FLOOR_SPRITES_SCALE_Y;
 	}
+	panel->event.update_param.sector = sector;
+	panel->event.check_param.sector = sector;
+	panel->event.update_param.sprite = sprite;
+	panel->event.check_param.sprite = sprite;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
@@ -80,6 +85,11 @@ t_target_panel *target_panel, int sector)
 		&env->sectors[sector].ceiling_sprites.scale[sprite].y;
 		panel->event.target_index = SECTOR_CEILING_SPRITES_SCALE_Y;
 	}
+	panel->event.update_param.sector = sector;
+	panel->event.check_param.sector = sector;
+	panel->event.update_param.sprite = sprite;
+	panel->event.check_param.sprite = sprite;
+	set_target_panel_buttons_state(env);
 	return (0);
 }
 
