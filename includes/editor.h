@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 11:01:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 12:20:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ typedef struct	s_editor
 	int				selected_sector;
 	int				selected_player;
 	int				selected_vertex;
+	int				selected_weapon;
 	int				selected_wall;
 	int				dragged_object;
 	int				selected_wall_sprite;

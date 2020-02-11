@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 11:28:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 12:28:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,15 @@ int			choose_target(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
-	if (update_confirmation_box(&env->confirmation_box, "Please now select"
-		" your target", CONFIRM, env))
-		return (-1);
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 1;
 	reset_selection(env);
 	new_tabs_position(env);
+	if (env->editor.event_panel.target_panel.player_type)
+		return (0);
+	if (update_confirmation_box(&env->confirmation_box, "Please now select"
+		" your target", CONFIRM, env))
+		return (-1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/11 10:38:00 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/11 14:06:49 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,15 +114,15 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
-		   movement_utils.c update_sprites_state.c \
+		   movement_utils.c update_sprites_state.c set_new_event_target2.c \
 		   select_line.c draw_wall_sprites.c input_box.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c map_parse_events.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \
-		   input_box_mouse.c delete_box_selection.c \
+		   input_box_mouse.c delete_box_selection.c set_new_event_target3.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
-		   pop_events.c start_event.c event_updaters.c \
+		   pop_events.c start_event.c event_updaters.c set_new_event_target4.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
@@ -141,8 +141,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
 		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
-		   print_press_text.c modify_wall_sprite.c \
-		   draw_wall_bullet_holes.c intersect_maths.c \
+		   print_press_text.c modify_wall_sprite.c set_new_event_target5.c \
+		   draw_wall_bullet_holes.c intersect_maths.c set_new_event_target6.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
 		   event_ended_condition.c event_ended_start_condition.c \

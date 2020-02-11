@@ -6,13 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:55:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 12:12:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-
 
 int		editor_3d_keys(t_env *env)
 {
@@ -26,15 +24,14 @@ int		editor_3d_keys(t_env *env)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
 			env->sound.ambient_vol);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
-						|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-						|| env->crouch.on_going || env->inputs.lgui)
-					&& env->player.health > 0 && !env->inputs.ctrl
-
-					&&  (((env->selected_enemy == -1 && env->editor.tab)
-							|| (env->selected_enemy != -1 && !env->editor.tab))
-						|| (env->selected_enemy == -1 && !env->editor.tab)))
-				|| (env->player.state.climb || env->player.state.drop))
-			&& !env->editor.tab)
+		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
+		|| env->crouch.on_going || env->inputs.lgui)
+		&& env->player.health > 0 && !env->inputs.ctrl
+		&&  (((env->selected_enemy == -1 && env->editor.tab)
+		|| (env->selected_enemy != -1 && !env->editor.tab))
+		|| (env->selected_enemy == -1 && !env->editor.tab)))
+		|| (env->player.state.climb || env->player.state.drop))
+		&& !env->editor.tab)
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
 			&& env->options.minimap_scale * 1.2 < 100)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 11:59:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 13:43:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		draw_wall_sprite_panel(t_env *env)
 	draw_button(env, env->editor.event_panel.target_panel.targets[0],
 	"Sprite");
 	draw_button(env, env->editor.event_panel.target_panel.targets[1],
-	"Align X");
+	"Pos X");
 	draw_button(env, env->editor.event_panel.target_panel.targets[2],
-	"Align Y");
+	"Pos Y");
 	draw_button(env, env->editor.event_panel.target_panel.targets[3],
 	"Scale X");
 	draw_button(env, env->editor.event_panel.target_panel.targets[4],

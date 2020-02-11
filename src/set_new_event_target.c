@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 17:24:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 14:09:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,18 +138,20 @@ int		set_new_event_target(t_env *env)
 	else if (target_panel->ceiling_type)
 		return (select_ceiling_target(env, panel, target_panel));
 	else if (target_panel->wall_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_wall_target(env, panel, target_panel));
 	else if (target_panel->wall_sprite_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_wall_sprite_target(env, panel, target_panel));
 	else if (target_panel->vertex_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_vertex_target(env, panel, target_panel));
 	else if (target_panel->weapon_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_weapon_target(env, panel, target_panel));
 	else if (target_panel->player_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_player_target(env, panel, target_panel));
 	else if (target_panel->enemy_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_enemy_target(env, panel, target_panel));
 	else if (target_panel->object_type)
-		return (select_ceiling_target(env, panel, target_panel));
+		return (select_object_target(env, panel, target_panel));
+	else if (target_panel->sector_other_type)
+		return (select_sector_other_target(env, panel, target_panel));
 	return (0);
 }

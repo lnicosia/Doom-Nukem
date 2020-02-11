@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 11:28:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 14:09:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,6 +581,36 @@ void *param, t_env *env);
 void				update_target_panel_button_pos(t_env *env);
 int					get_target_selection_phase(t_env *env);
 int					set_new_event_target(t_env *env);
+int					select_floor_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_floor_target2(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel, int sector);
+int					select_ceiling_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_ceiling_target2(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel, int sector);
+int					select_wall_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_enemy_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_object_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_wall_sprite_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_weapon_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_vertex_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_sector_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_player_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_sector_other_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					set_floor_sprite(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel, int sector);
+int					set_ceiling_sprite(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel, int sector);
 
 /*
 ** Main functions
