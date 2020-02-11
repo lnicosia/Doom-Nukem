@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/06 21:48:30 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/11 17:59:20 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,15 +84,18 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR) $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
+	@printf "\e[0;36m[INFO] Linking ${NAME}\e[0m\n"
 	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
 	@ranlib $(NAME)
-	@echo ${GREEN}"[INFO] Compiled '$(NAME)' with success"${RESET}
+	@echo ${GREEN}"[INFO] Linked $(NAME) with success"${RESET}
 
 clean: 
 	@rm -f $(OBJ)
