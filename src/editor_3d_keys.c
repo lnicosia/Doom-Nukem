@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:55:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:28:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,42 +172,10 @@ int		editor_3d_keys(t_env *env)
 
 
 	if (env->editor.in_game
-			&& env->editor.selected_sector != -1
-			&& env->selected_wall_sprite_wall != -1
-			&& env->selected_wall_sprite_sprite != -1)
-	{
-		wall_sprites_keys(env,
-				&env->sectors[env->editor.selected_sector].
-				wall_sprites[env->selected_wall_sprite_wall].
-				pos[env->selected_wall_sprite_sprite],
-				&env->sectors[env->editor.selected_sector].
-				wall_sprites[env->selected_wall_sprite_wall].
-				scale[env->selected_wall_sprite_sprite]);
-	}
-	if (env->editor.in_game
-			&& env->selected_ceiling != -1
-			&& env->selected_ceiling_sprite != -1)
-	{
-		wall_sprites_keys(env,
-				&env->sectors[env->selected_ceiling].
-				ceiling_sprites.pos[env->selected_ceiling_sprite],
-				&env->sectors[env->selected_ceiling].
-				ceiling_sprites.scale[env->selected_ceiling_sprite]);
-		precompute_ceiling_sprite_scales(env->selected_ceiling,
-		env->selected_ceiling_sprite, env);
-	}
-	if (env->editor.in_game
-			&& env->selected_floor != -1
-			&& env->selected_floor_sprite != -1)
-	{
-		wall_sprites_keys(env,
-				&env->sectors[env->selected_floor].
-				floor_sprites.pos[env->selected_floor_sprite],
-				&env->sectors[env->selected_floor].
-				floor_sprites.scale[env->selected_floor_sprite]);
-		precompute_floor_sprite_scales(env->selected_floor,
-		env->selected_floor_sprite, env);
-	}
+		&& (env->selected_wall_sprite_sprite != -1
+		|| env->selected_ceiling_sprite != -1
+		|| env->selected_floor_sprite != -1))
+		editor_wall_sprites_keys(env);
 
 	/*
 	 * *	selection of textures on ceiling and floor
@@ -243,13 +211,16 @@ int		editor_3d_keys(t_env *env)
 			if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
 				env->contains_skybox = 1;
 		}
-		if (env->inputs.plus
-				&& env->sectors[env->selected_ceiling].ceiling > env->sectors[env->selected_ceiling].floor + 1)
-			env->sectors[env->selected_ceiling].ceiling += 0.05;
-		if (env->inputs.minus
-				&& env->sectors[env->selected_ceiling].ceiling)
-			env->sectors[env->selected_ceiling].ceiling -= 0.05;
-		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+
+		/*
+		**	Change ceiling or floor height
+		*/
+
+		if ((env->inputs.plus || env->inputs.minus)
+		&& (env->selected_ceiling || env->selected_floor))
+			change_ceiling_floor_height(env);
+
+	
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
@@ -278,25 +249,28 @@ int		editor_3d_keys(t_env *env)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
 			{
-				env->sectors[env->selected_ceiling].ceiling_map_scale.y /= 1.1;
-				env->sectors[env->selected_ceiling].ceiling_map_scale.x /= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.y *= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
 			}
 			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_map_scale.y /= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.y *= 1.1;
 			else
-				env->sectors[env->selected_ceiling].ceiling_map_scale.x /= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
 		}
 		if (env->inputs.minus1)
 		{
-			if (env->inputs.shift && !env->inputs.ctrl)
+			if (env->inputs.shift && !env->inputs.ctrl
+			&& env->sectors[env->selected_ceiling].ceiling_map_scale.y > 1
+			&& env->sectors[env->selected_ceiling].ceiling_map_scale.x > 1)
 			{
-				env->sectors[env->selected_ceiling].ceiling_map_scale.y *= 1.1;
-				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.y /= 1.1;
+				env->sectors[env->selected_ceiling].ceiling_map_scale.x /= 1.1;
 			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_map_scale.y *= 1.1;
-			else
-				env->sectors[env->selected_ceiling].ceiling_map_scale.x *= 1.1;
+			else if (env->inputs.ctrl
+			&& env->sectors[env->selected_ceiling].ceiling_map_scale.y > 1)
+				env->sectors[env->selected_ceiling].ceiling_map_scale.y /= 1.1;
+			else if (env->sectors[env->selected_ceiling].ceiling_map_scale.x > 1)
+				env->sectors[env->selected_ceiling].ceiling_map_scale.x /= 1.1;
 		}
 		if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
 					env->wall_textures[env->sectors[env->selected_ceiling].
@@ -575,7 +549,7 @@ int		editor_3d_keys(t_env *env)
 	if (env->editor.tab)
 	{
 		i = 0;
-		if (env->editor.draw_selection_tab)
+		if (env->editor.draw_texture_tab)
 		{
 			while (i < MAX_WALL_TEXTURE)
 			{

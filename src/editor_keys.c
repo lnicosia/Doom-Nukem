@@ -126,7 +126,7 @@ int			editor_keys(t_env *env)
 				return (-1);
 		}
 	}
-	if (env->editor.draw_selection_tab)
+	if (env->editor.draw_texture_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{

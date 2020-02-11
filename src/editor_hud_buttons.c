@@ -40,10 +40,13 @@ int		change_mode(void *target)
     t_env *env;
 
     env = (t_env*)target;
-	if (env->editor.in_game)
-		going_in_2D_mode(env);
-	else
-		going_in_3D_mode(env);
+	if (env->nb_sectors >= 1)
+	{
+		if (env->editor.in_game)
+			going_in_2D_mode(env);
+		else
+			going_in_3D_mode(env);
+	}
 	return (0);
 }
 

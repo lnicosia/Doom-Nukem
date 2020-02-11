@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 13:21:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 15:47:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ typedef struct	s_editor
 	t_add_vertex	add;
 	t_split			split;
 	int				select_vertex_on_going;
-	int				draw_selection_tab;
+	int				draw_texture_tab;
 	int				draw_enemy_tab;
 	int				draw_object_tab;
 	int				draw_sprite_texture_tab;
@@ -295,7 +295,7 @@ typedef struct	s_editor
 	t_button		options;
 	t_button		create_event_button;
 	t_event_panel	event_panel;
-	int				selection_tab;
+	int				texture_tab;
 }				t_editor;
 
 #endif

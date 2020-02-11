@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/10 15:53:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/11 15:43:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	draw_editor_tabs(t_env *env)
 		print_general_tab(env);
 	if (env->editor.events_tab.state == DOWN)
 		print_events_tab(env);
-	if (env->editor.draw_selection_tab)
-		selection_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
+	if (env->editor.draw_texture_tab)
+		texture_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	selection_tab(t_env *env, int nb_slots)
+void	texture_tab(t_env *env, int nb_slots)
 {
 	int mod;
 	int	test;

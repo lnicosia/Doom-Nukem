@@ -28,7 +28,7 @@ int	editor_keyup(t_env *env)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_t)
+/*	if (env->sdl.event.key.keysym.sym == SDLK_t)
 	{
 		env->options.test = env->options.test ? 0 : 1;
 		if (env->editor.selected_sector != -1
@@ -39,10 +39,10 @@ int	editor_keyup(t_env *env)
 				&env->sectors[env->editor.selected_sector], env))
 					return (-1);
 		}
-		/*else if (env->editor.selected_sector != -1
-		&& env->edito.curren)*/
+		else if (env->editor.selected_sector != -1
+		&& env->edito.curren)
 
-	}
+	}*/
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.l = env->options.l ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
@@ -161,30 +161,7 @@ int	editor_keyup(t_env *env)
 		&& !env->editor.enter_locked)
 	{
 		if (!valid_map(env))
-		{
-			reset_selection(env);
-			env->editor.in_game = 1;
-			new_tabs_position(env);
-			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
-			free_camera(&env->player.camera, env);
-			precompute_slopes(env);
-			if (init_camera_arrays(&env->player.camera, env))
-				return (ft_printf("Could not init camera arrays\n"));
-			if (env->sector_list)
-				ft_memdel((void**)&env->sector_list);
-			if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-				return (ft_printf("Could not allocate sector list\n", env));
-			update_camera_position(&env->player.camera);
-			update_player_z(env);
-			ft_bzero(&env->inputs, sizeof(env->inputs));
-			env->options.mouse = 1;
-			if (!env->editor.tab)
-			{
-				SDL_SetRelativeMouseMode(1);
-				SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-				SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-			}
-		}
+			going_in_3D_mode(env);
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
@@ -259,7 +236,7 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (env->selected_object != -1 && object_buttons_up(env))
 		return (-1);
-	if (env->editor.draw_selection_tab)
+	if (env->editor.draw_texture_tab)
 	{
 		while (i < MAX_WALL_TEXTURE)
 		{
@@ -285,9 +262,9 @@ int	editor_keyup(t_env *env)
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
 	&& (env->sdl.my < 208 && env->sdl.my > 80))
-		env->editor.draw_selection_tab = 1;
-	else if (env->editor.draw_selection_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_selection_tab = 0;
+		env->editor.draw_texture_tab = 1;
+	else if (env->editor.draw_texture_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->editor.draw_texture_tab = 0;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 304 && env->sdl.mx > 240)
 	&& (env->sdl.my < 404 && env->sdl.my > 340))
 		env->editor.draw_enemy_tab = 1;

@@ -61,11 +61,11 @@ void	editor_hud(t_env *env)
 			enemy_tab(env, MAX_ENEMIES);
 		if (env->editor.draw_sprite_tab)
 			sprite_selection(env, MAX_OBJECTS);
-		if (env->editor.draw_selection_tab || env->editor.draw_enemy_tab
+		if (env->editor.draw_texture_tab || env->editor.draw_enemy_tab
 		|| env->editor.draw_sprite_tab)
-			env->editor.selection_tab = 1;
+			env->editor.texture_tab = 1;
 		else
-			env->editor.selection_tab = 0;
+			env->editor.texture_tab = 0;
 	}
 	if (env->editor.creating_event)
 		draw_event_panel(env);
