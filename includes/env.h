@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 18:52:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:33:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,8 @@ int					new_input_box(t_input_box *box, t_point pos,
 						int type, void *target);
 int					new_input_var(t_input_box *box, t_point pos,
 						int type, void *target);
+/*int					new_event_panel_box(t_input_box *box, t_point pos,
+						int type, void *target);*/
 int					set_double_stats(t_input_box *box);
 int					validate_input(t_input_box *box, t_env *env);
 int					del_char(t_input_box *box, int mode);
@@ -575,7 +577,7 @@ int					action_pane_keys(t_env *env);
 int					launch_conditions_panel_keys(t_env *env);
 int					exec_conditions_panel_keys(t_env *env);
 int					target_panel_keyup(t_env *env);
-int					action_pane_keyup(t_env *env);
+int					action_panel_keyup(t_env *env);
 int					launch_conditions_panel_keyup(t_env *env);
 int					exec_conditions_panel_keyup(t_env *env);
 t_button			new_red_panel_button(int type, int (*action)(void *),
@@ -593,6 +595,8 @@ void *param, t_env *env);
 t_button			new_purple_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_turquoise_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_small_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 void				update_target_panel_button_pos(t_env *env);
 void				update_action_panel_button_pos(t_env *env);
@@ -641,6 +645,9 @@ int					set_object_panel_buttons_state(t_env *env);
 int					set_enemy_panel_buttons_state(t_env *env);
 int					set_weapon_panel_buttons_state(t_env *env);
 void				set_buttons_state(t_env *env);
+int					set_event_value(void *param);
+int					set_event_delay(void *param);
+int					set_event_max_uses(void *param);
 
 /*
 ** Main functions

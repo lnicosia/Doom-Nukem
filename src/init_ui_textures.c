@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:27:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:51:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/background-hover2.bmp", 34, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/add_enemy.bmp", 35, env))
+	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/onglet-up2.bmp", 36, env))
 		return (custom_error("Invalid bmp files"));

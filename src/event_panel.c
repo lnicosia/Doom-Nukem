@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 18:16:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:14:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,22 @@ int		draw_event_panel(t_env *env)
 	draw_exec_conditions_tab(env);
 
 	draw_event_panel_tab_content(env);
+	/*int x, y = 0;
+	x = env->editor.event_panel.pos.x + 100
+	+ env->editor.event_panel.content_panel_size.x / 2;
+	y = env->editor.event_panel.pos.y + env->editor.event_panel.top_size;
+	while (y <= env->editor.event_panel.pos.y + env->editor.event_panel.size.y)
+	{
+		env->sdl.texture_pixels[x + y * env->w] = 0;
+		y++;
+	}
+	x = env->editor.event_panel.pos.x + 100;
+	y = env->editor.event_panel.pos.y + env->editor.event_panel.top_size
+	+ env->editor.event_panel.content_panel_size.y / 2;
+	while (x <= env->editor.event_panel.pos.x + env->editor.event_panel.size.x)
+	{
+		env->sdl.texture_pixels[x + y * env->w] = 0;
+		x++;
+	}*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 18:43:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:32:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,10 @@ typedef struct	s_action_panel
 	t_button	value;
 	t_button	delay;
 	t_button	max_uses;
+	Uint32		uint32_value;
+	double		double_value;
+	int			int_value;
+	int			delay_value;
 }				t_action_panel;
 
 typedef enum	e_target_panel_types

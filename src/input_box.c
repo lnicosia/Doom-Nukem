@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 16:12:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 11:58:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		return (-1);
 	box->size = new_point(200, 50);
 	box->pos = pos;
+	box->rectangle = new_rectangle(0xFFFFFFFF, 0xFF606060, 1, 3);
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
@@ -73,6 +74,7 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		return (-1);
 	box->size = new_point(96, 32);
 	box->pos = pos;
+	box->rectangle = new_rectangle(0xFFFFFFFF, 0xFF606060, 1, 3);
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
@@ -119,7 +121,7 @@ int	init_input_box(t_input_box *box, t_env *env)
 	ft_bzero(box, sizeof(*box));
 	box->type = DOUBLE;
 	box->del_delay = 25;
-	box->input_delay = 100;
+	box->input_delay = 50;
 	box->move_cursor_delay = 100;
 	box->cursor_delay = 500;
 	if (!(box->str = ft_strnew(0)))
@@ -206,7 +208,7 @@ void	draw_box_selection(t_input_box *box, t_env *env)
 
 void	draw_input_box(t_input_box *box, t_env *env)
 {
-	int	x;
+	/*int	x;
 	int	y;
 
 	y = box->pos.y;
@@ -223,7 +225,8 @@ void	draw_input_box(t_input_box *box, t_env *env)
 			x++;
 		}
 		y++;
-	}
+	}*/
+	draw_rectangle(env, box->rectangle, box->pos, box->size);
 	if (box->select_start != box->select_end)
 		draw_box_selection(box, env);
 	draw_input_box_content(box, env);

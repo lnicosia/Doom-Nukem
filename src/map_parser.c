@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/05 11:20:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/12 13:36:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			if (valid_number(line, parser) == WRONG_CHAR)
 				return (invalid_char("sectors numbers",
 							"space or a digit", *line, parser));
-			env->nb_sectors = atoi(line);
+			env->nb_sectors = ft_atoi(line);
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			line = skip_number(line);
 			if (*line && *line == ' ')
