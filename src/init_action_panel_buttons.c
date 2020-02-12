@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 15:35:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:53:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int		set_event_func(void *param)
 void	update_action_panel_button_pos(t_env *env)
 {
 	t_event_panel	*panel;
-	int				action_type_buttons_place;
 
 	panel = &env->editor.event_panel;
-	action_type_buttons_place = 3 * panel->action_panel.go_to.size_up.x;
 	panel->action_panel.add.pos = new_point(panel->pos.x + 100 +
 	panel->content_panel_size.x / 2 - panel->action_panel.add.size_up.x / 2,
 	panel->pos.y + panel->top_size + panel->content_panel_size.y / 2
@@ -79,10 +77,13 @@ void	update_action_panel_button_pos(t_env *env)
 	panel->action_panel.max_uses.pos = new_point(panel->pos.x + 100 +
 	panel->content_panel_size.x * 0.75
 	- panel->action_panel.delay.size_up.x / 2, panel->action_panel.delay.pos.y);
-	panel->action_panel.value.pos = new_point(panel->pos.x + 100
-	+ panel->content_panel_size.x / 2 - panel->action_panel.value.size_up.x / 2,
+	panel->action_panel.value.pos = new_point(panel->pos.x + 90
+	+ panel->content_panel_size.x / 2 - panel->action_panel.value.size_up.x,
 	panel->pos.y + panel->top_size + panel->content_panel_size.y / 2
 	- panel->action_panel.value.size_up.y / 2);
+	panel->action_panel.speed.pos = new_point(panel->pos.x + 100
+	+ panel->content_panel_size.x / 2 + 10,
+	panel->action_panel.value.pos.y);
 }
 
 void	init_action_panel_buttons(t_env *env)
@@ -96,6 +97,8 @@ void	init_action_panel_buttons(t_env *env)
 	WHEN_DOWN, &set_event_func, env, env);
 	env->editor.event_panel.action_panel.value = new_green_panel_button(
 	ON_RELEASE, &set_event_value, env, env);
+	env->editor.event_panel.action_panel.speed = new_green_panel_button(
+	ON_RELEASE, &set_event_speed, env, env);
 	env->editor.event_panel.action_panel.delay = new_blue_panel_button(
 	ON_RELEASE, &set_event_delay, env, env);
 	env->editor.event_panel.action_panel.max_uses = new_blue_panel_button(

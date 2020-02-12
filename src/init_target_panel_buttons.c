@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:00:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:31:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, select_player, env, env);
 	env->editor.event_panel.target_panel.vertex = new_turquoise_panel_button(
 	ON_RELEASE, select_vertex, env, env);
-	update_target_panel_button_pos(env);
 	env->editor.event_panel.target_panel.floor = new_red_panel_button(
 	ON_RELEASE, select_floor, env, env);
 	env->editor.event_panel.target_panel.ceiling = new_green_panel_button(
@@ -176,4 +175,5 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, &previous_target_selection_phase, env, env);
 	env->editor.event_panel.target_panel.previous = new_previous_arrow(
 	ON_RELEASE, &previous_target_selection_phase, env, env);
+	update_target_panel_button_pos(env);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 16:07:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:47:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		close_event_panel(void *param)
 void	init_ok_button(t_env *env)
 {
 	env->editor.event_panel.ok = new_rectangle_button(
-	WHEN_DOWN, NULL, NULL, env);
+	ON_RELEASE, &create_event, env, env);
 	env->editor.event_panel.ok.size_up.y = env->editor.event_panel.top_size - 2;
 	env->editor.event_panel.ok.size_up.x = 98;
 	env->editor.event_panel.ok.size_down =
@@ -30,12 +30,17 @@ void	init_ok_button(t_env *env)
 	env->editor.event_panel.ok.size_up;
 	env->editor.event_panel.ok.size_hover =
 	env->editor.event_panel.ok.size_up;
+	env->editor.event_panel.ok.font = env->sdl.fonts.lato_bold30;
+	env->editor.event_panel.ok.up_text_color = 0x88c057FF;
+	env->editor.event_panel.ok.down_text_color = 0x88c057FF;
+	env->editor.event_panel.ok.pressed_text_color = 0x88c057FF;
+	env->editor.event_panel.ok.hover_text_color = 0x88c057FF;
 }
 
 void	init_cancel_button(t_env *env)
 {
 	env->editor.event_panel.cancel = new_rectangle_button(
-	WHEN_DOWN, &close_event_panel, &env->editor.creating_event, env);
+	ON_RELEASE, &close_event_panel, &env->editor.creating_event, env);
 	env->editor.event_panel.cancel.size_up.y =
 	env->editor.event_panel.top_size - 2;
 	env->editor.event_panel.cancel.size_up.x = 98;

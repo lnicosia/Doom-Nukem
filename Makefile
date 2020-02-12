@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/12 15:24:14 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/12 17:57:26 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   print_text.c bmp_parser.c bmp_parser_wall.c update_sprites_light.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c get_double_len.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
-		   check_bmp_parsing.c keyup.c render_utils.c movement.c \
+		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
 		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
@@ -189,8 +189,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  #-flto \
 		  #-fsanitize=address -g3 \
+		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

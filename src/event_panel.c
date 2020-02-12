@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:05:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 15:48:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:42:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		draw_event_panel(t_env *env)
 	draw_launch_conditions_tab(env);
 	draw_exec_conditions_tab(env);
 
-	draw_button(env, env->editor.event_panel.ok, "Ok");
+	draw_button(env, env->editor.event_panel.ok, "OK");
 	draw_button(env, env->editor.event_panel.cancel, "X");
 
 	draw_event_panel_tab_content(env);

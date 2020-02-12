@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 11:35:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:02:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1188,5 +1188,15 @@ typedef struct		s_input_box
 	int				(*check)(void *);
 	int				(*update)(void *);
 }					t_input_box;
-  
+
+typedef struct		s_event_trigger
+{
+	int				index;
+	int				sector;
+	int				wall;
+	int				enemy;
+	int				object;
+	int				sprite;
+}					t_event_trigger;
+
 #endif

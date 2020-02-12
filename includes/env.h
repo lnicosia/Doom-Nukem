@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 15:29:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:51:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -651,8 +651,24 @@ int					set_enemy_panel_buttons_state(t_env *env);
 int					set_weapon_panel_buttons_state(t_env *env);
 void				set_buttons_state(t_env *env);
 int					set_event_value(void *param);
+int					set_event_speed(void *param);
 int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
+int					create_event(void *param);
+int					new_global_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_press_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_shoot_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_stand_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_walk_in_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_walk_out_event(t_env *env, t_event_trigger trigger,
+t_event event);
+int					new_death_event(t_env *env, t_event_trigger trigger,
+t_event event);
 
 /*
 ** Main functions

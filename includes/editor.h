@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 15:23:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:23:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ typedef struct	s_action_panel
 	t_button	add;
 	t_button	func;
 	t_button	value;
+	t_button	speed;
 	t_button	delay;
 	t_button	max_uses;
 	Uint32		uint32_value;
@@ -249,7 +250,6 @@ typedef struct	s_event_panel
 	t_event			event;
 	t_point			pos;
 	t_point			size;
-	int				top_size;
 	t_point			content_panel_size;
 	t_button		target_tab;
 	t_button		action_tab;
@@ -259,6 +259,8 @@ typedef struct	s_event_panel
 	t_button		cancel;
 	t_target_panel	target_panel;
 	t_action_panel	action_panel;
+	t_event_trigger	trigger;
+	int				top_size;
 }				t_event_panel;
 
 typedef struct	s_editor
@@ -354,6 +356,8 @@ typedef struct	s_editor
 	t_button		options;
 	t_button		create_event_button;
 	t_event_panel	event_panel;
+	t_button		new_event;
+	t_button		modify_event;
 	int				texture_tab;
 }				t_editor;
 

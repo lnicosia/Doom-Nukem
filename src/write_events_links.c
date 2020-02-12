@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:47:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 12:00:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:00:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void		write_event_link(int fd, t_condition condition)
 {
+	ft_printf("cc\n");
 	ft_dprintf(fd, "[%d ", condition.source_type);
 	if (condition.source_type == PRESS || condition.source_type == SHOOT)
 		ft_dprintf(fd, "(%d %d %d) ", condition.source_sector,
@@ -62,18 +63,21 @@ void		write_sector_links(int fd, t_sector sector)
 	size_t	i;
 
 	i = 0;
+	ft_printf("%d stand events \n", sector.nb_stand_events);
 	while (i < sector.nb_stand_events)
 	{
 		write_event_links(fd, sector.stand_events[i]);
 		i++;
 	}
 	i = 0;
+	ft_printf("%d walk in events \n", sector.nb_walk_in_events);
 	while (i < sector.nb_walk_in_events)
 	{
 		write_event_links(fd, sector.walk_in_events[i]);
 		i++;
 	}
 	i = 0;
+	ft_printf("%d walk out events \n", sector.nb_walk_out_events);
 	while (i < sector.nb_walk_out_events)
 	{
 		write_event_links(fd, sector.walk_out_events[i]);
@@ -88,6 +92,7 @@ void		write_events_links(int fd, t_env *env)
 
 	ft_dprintf(fd, "Links\n");
 	i = 0;
+	ft_printf("%d global events \n", env->nb_global_events);
 	while (i < env->nb_global_events)
 	{
 		write_event_links(fd, env->global_events[i]);
