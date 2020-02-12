@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 11:29:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 14:31:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 15:01:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	init_change_sprite_button(t_env *env)
 
 void	init_add_object_button(t_env *env)
 {
-	env->editor.add_object = new_plus_button(WHEN_DOWN, &add_object_button, env, env);
+	env->editor.add_object = new_add_button(WHEN_DOWN, &add_object_button, env, env);
     env->editor.add_object.pos = new_point(293, 220);
 }
 
 void	init_add_enemy_button(t_env *env)
 {
-	env->editor.add_enemy = new_plus_button(WHEN_DOWN, &add_enemy_button, env, env);
+	env->editor.add_enemy = new_add_button(WHEN_DOWN, &add_enemy_button, env, env);
     env->editor.add_enemy.pos = new_point(293, 320);
 }
 

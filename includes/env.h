@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 12:00:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 17:05:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,6 +421,10 @@ int					increase_wall_texture_scale(t_env *env);
 int					increase_walls_texture_scale(t_env *env);
 int					reduce_walls_texture_scale(t_env *env);
 int					check_entities_height(t_env *env);
+void				left_wall_texture_alignement(t_env *env);
+void				right_wall_texture_alignement(t_env *env);
+int					increase_wall_texture_number(t_env *env, t_sector *sector);
+int					decrease_wall_texture_number(t_env *env, t_sector *sector);
 
 /*
 **	Input boxes checkers and updaters
@@ -813,7 +817,7 @@ t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_plus_button(int type, int (*action)(void *),
+t_button			new_add_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_next_arrow(int type, int (*action)(void *),
 void *param, t_env *env);

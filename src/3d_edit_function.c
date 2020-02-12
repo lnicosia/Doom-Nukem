@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:25:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 12:06:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 15:49:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int		increase_walls_texture_scale(t_env *env)
 {
-	if (env->selected_floor)
+	if (env->selected_floor != -1)
 	{
 		if (increase_floor_texture_scale(env))
 			return (-1);
 	}
-	if (env->selected_ceiling)
+	if (env->selected_ceiling != -1)
 	{
 		if (increase_ceiling_texture_scale(env))
 			return (-1);
 	}
-	if (env->editor.selected_wall)
+	if (env->editor.selected_wall != -1)
 	{
-		if (increase_floor_texture_scale(env))
+		if (increase_wall_texture_scale(env))
 			return (-1);
 	}
 	return (0);
@@ -34,23 +34,25 @@ int		increase_walls_texture_scale(t_env *env)
 
 int		reduce_walls_texture_scale(t_env *env)
 {
-	if (env->selected_floor)
+	if (env->selected_floor != -1)
 	{
 		if (reduce_floor_texture_scale(env))
 			return (-1);
 	}
-	if (env->selected_ceiling)
+	if (env->selected_ceiling != -1)
 	{
 		if (reduce_ceiling_texture_scale(env))
 			return (-1);
 	}
-	if (env->editor.selected_wall)
+	if (env->editor.selected_wall != -1)
 	{
-		if (reduce_floor_texture_scale(env))
+		if (reduce_wall_texture_scale(env))
 			return (-1);
 	}
 	return (0);
 }
+
+
 
 void	change_ceiling_floor_height(t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 12:11:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 17:29:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,30 @@ int		change_textures_scales(t_env *env)
 	return (0);
 }
 
+int		change_walls_texture(t_env *env)
+{
+	t_sector	*sector;
+
+	sector = NULL;
+	if (env->selected_floor != -1)
+		sector = &env->sectors[env->selected_floor];
+	if (env->editor.selected_wall != -1)
+		sector = &env->sectors[env->editor.selected_sector];
+	if (env->selected_ceiling != -1)
+		sector = &env->sectors[env->selected_ceiling];
+	if (env->inputs.down)
+	{
+		if (decrease_wall_texture_number(env, sector))
+			return (-1);
+	}
+	if (env->inputs.up)
+	{
+		if (increase_wall_texture_number(env, sector))
+			return (-1);
+	}
+	return (0);
+}
+
 int		editor_3d_keys(t_env *env)
 {
 	double	time;
@@ -38,14 +62,22 @@ int		editor_3d_keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
-
+	
 	/*
-	**	control textures scales
+	**	Change texture pos and scale on wall floor and ceiling
 	*/
 
-	if (change_textures_scales(env))
-		return (-1);
-
+	if (env->editor.in_game
+	&& env->editor.selected_wall != -1)
+	{
+		if (env->inputs.comma)
+			left_wall_texture_alignement(env);
+		if (env->inputs.period)
+			right_wall_texture_alignement(env);
+		if (change_textures_scales(env))
+			return (-1);
+	}
+	
 	/*
 	**	Sprites on wall 
 	*/
@@ -64,6 +96,15 @@ int		editor_3d_keys(t_env *env)
 	&& (env->selected_ceiling || env->selected_floor))
 		change_ceiling_floor_height(env);
 
+	/*
+	**	Change Walls textures
+	*/
+
+	if (change_walls_texture(env))
+		return (-1);
+
+
+		
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
@@ -103,161 +144,31 @@ int		editor_3d_keys(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	/*
-	 * *	selection of textures on walls
-	 **	"&& (env->inputs.down || env->inputs.up))": reset time only if those keys are pressed
-	 */
-	if (env->editor.tab && env->editor.in_game
-			&& env->editor.selected_wall != -1
-			&& (env->inputs.down || env->inputs.up))
+	if (env->inputs.comma)
 	{
-		if (time - env->time.scroll_tick > 200)
+		if (env->inputs.shift && !env->inputs.ctrl
+		&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000
+		&& env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
 		{
-			env->time.scroll_tick = time;
-			if (env->inputs.down)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > 8)
-					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 10;
-				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] > -MAX_SKYBOX)
-					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] -= 1;
-			}
-			else if (env->inputs.up)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 10)
-					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] += 10;
-				else if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < MAX_WALL_TEXTURE - 1)
-					env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]++;
-			}
-			if (env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall] < 0)
-				env->contains_skybox = 1;
-			if (set_sector_wall_map_array(&env->sectors[env->editor.
-						selected_sector], env->wall_textures[env->sectors[env->
-						editor.selected_sector].textures[env->editor.selected_wall]],
-						env->editor.selected_wall, env))
-				return (-1);
-			if (set_camera_map_array(&env->player.camera,
-						env->editor.selected_sector, env->editor.selected_wall, env))
-				return (-1);
+			env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
+			env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 		}
+		else if (env->inputs.ctrl)
+			env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
+		else
+			env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 	}
-	if (env->editor.in_game
-			&& env->editor.selected_wall != -1)
+	if (env->inputs.period)
 	{
-		if (env->inputs.comma)
+		if (env->inputs.shift && !env->inputs.ctrl)
 		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y -= 1;
-			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x -= 1;
+			env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
+			env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 		}
-		if (env->inputs.period)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].y += 1;
-			else
-				env->sectors[env->editor.selected_sector].align[env->editor.selected_wall].x += 1;
-		}
-		if (env->inputs.equals)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y *= 1.1;
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].y *= 1.1;
-			else
-				env->sectors[env->editor.selected_sector].scale[env->editor.selected_wall].x *= 1.1;
-			if (set_sector_wall_map_array(&env->sectors[env->editor.selected_sector],
-						env->wall_textures[env->sectors[env->editor.selected_sector].textures[env->editor.selected_wall]], env->editor.selected_wall, env))
-				return (-1);
-			if (set_camera_map_array(&env->player.camera,
-						env->editor.selected_sector, env->editor.selected_wall, env))
-				return (-1);
-		}
-		
-	}
-
-
-	/*
-	**	selection of textures on ceiling and floor
-	**	All the || conditions: reset time only if those keys are pressed
-	*/
-
-	if (env->editor.in_game && env->selected_ceiling != -1
-			&& env->selected_ceiling_sprite == -1
-			&& (env->inputs.down || env->inputs.up
-				|| env->inputs.plus || env->inputs.minus
-				|| env->inputs.comma || env->inputs.period
-				|| env->inputs.equals || env->inputs.minus1))
-	{
-		if (time - env->time.scroll_tick > 200)
-		{
-			env->time.scroll_tick = time;
-			if (env->inputs.down && env->editor.tab)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->selected_ceiling].ceiling_texture > 9 - MAX_SKYBOX)
-					env->sectors[env->selected_ceiling].ceiling_texture -= 10;
-				else if (env->sectors[env->selected_ceiling].ceiling_texture > -MAX_SKYBOX)
-					env->sectors[env->selected_ceiling].ceiling_texture--;
-			}
-			else if (env->inputs.up && env->editor.tab)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 10)
-					env->sectors[env->selected_ceiling].ceiling_texture += 10;
-				else if (env->sectors[env->selected_ceiling].ceiling_texture < MAX_WALL_TEXTURE - 1)
-					env->sectors[env->selected_ceiling].ceiling_texture++;
-			}
-			if (env->sectors[env->selected_ceiling].ceiling_texture < 0)
-				env->contains_skybox = 1;
-		}
-
-
-
-		/*
-		**
-		*/
-
-		if (env->inputs.comma)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl
-			&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000
-			&& env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
-			{
-				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
-				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
-			else
-				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
-		}
-		if (env->inputs.period)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
-				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
-			else
-				env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
-		}
+		else if (env->inputs.ctrl)
+			env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
+		else
+			env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
 	}
 
 	/*
@@ -272,28 +183,6 @@ int		editor_3d_keys(t_env *env)
 				|| env->inputs.comma || env->inputs.period
 				|| env->inputs.equals || env->inputs.minus1))
 	{
-		if (time - env->time.tick > 200 && env->editor.tab)
-		{
-			env->time.tick = time;
-			if (env->inputs.down && env->editor.tab)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->selected_floor].floor_texture > 9 - MAX_SKYBOX)
-					env->sectors[env->selected_floor].floor_texture -= 10;
-				else if (env->sectors[env->selected_floor].floor_texture > -MAX_SKYBOX)
-					env->sectors[env->selected_floor].floor_texture--;
-			}
-			else if (env->inputs.up && env->editor.tab)
-			{
-				if (env->inputs.shift
-						&& env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 10)
-					env->sectors[env->selected_floor].floor_texture += 10;
-				else if (env->sectors[env->selected_floor].floor_texture < MAX_WALL_TEXTURE - 1)
-					env->sectors[env->selected_floor].floor_texture++;
-			}
-			if (env->sectors[env->selected_floor].floor_texture < 0)
-				env->contains_skybox = 1;
-		}
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)
