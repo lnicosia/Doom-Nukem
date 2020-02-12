@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 17:29:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 18:09:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,21 @@ int		change_walls_texture(t_env *env)
 	return (0);
 }
 
+int		change_slopes(t_env *env)
+{
+	if (env->inputs.plus)
+	{
+		if (increase_slope(env))
+			return (-1);
+	}
+	else if (env->inputs.minus)
+	{
+		if (decrease_slope(env))
+			return (-1);
+	}
+	return (0);
+}
+
 int		editor_3d_keys(t_env *env)
 {
 	double	time;
@@ -62,11 +77,6 @@ int		editor_3d_keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
-	
-	/*
-	**	Change texture pos and scale on wall floor and ceiling
-	*/
-
 	if (env->editor.in_game
 	&& env->editor.selected_wall != -1)
 	{
@@ -77,34 +87,22 @@ int		editor_3d_keys(t_env *env)
 		if (change_textures_scales(env))
 			return (-1);
 	}
-	
-	/*
-	**	Sprites on wall 
-	*/
-
 	if (env->editor.in_game
 		&& (env->selected_wall_sprite_sprite != -1
 		|| env->selected_ceiling_sprite != -1
 		|| env->selected_floor_sprite != -1))
 		editor_wall_sprites_keys(env);
-		
-	/*
-	**	Change ceiling or floor height
-	*/
-
 	if ((env->inputs.plus || env->inputs.minus)
 	&& (env->selected_ceiling || env->selected_floor))
 		change_ceiling_floor_height(env);
-
-	/*
-	**	Change Walls textures
-	*/
-
 	if (change_walls_texture(env))
 		return (-1);
-
-
-		
+	if (env->inputs.ctrl && (env->inputs.plus || env->inputs.minus))
+	{
+		if (change_slopes(env))
+			return (-1);
+	}	
+			
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
@@ -209,43 +207,6 @@ int		editor_3d_keys(t_env *env)
 		}
 	}
 
-	/*
-	 * *	selection of slopes on floor and ceiling
-	 */
-	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_ceiling != -1)
-	{
-		env->sectors[env->selected_ceiling].ceiling_slope -= 0.01;
-		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
-	}
-	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_ceiling != -1)
-	{
-		env->sectors[env->selected_ceiling].ceiling_slope += 0.01;
-		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
-	}
-	if (env->selected_ceiling != -1 && env->sectors[env->selected_ceiling].ceiling_slope <= 0.02
-			&& env->sectors[env->selected_ceiling].ceiling_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
-		env->sectors[env->selected_ceiling].ceiling_slope = 0;
-
-	if (env->inputs.down && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_floor != -1)
-	{
-		env->sectors[env->selected_floor].floor_slope -= 0.01;
-		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_enemies_z(env);
-		update_objects_z(env);
-	}
-	if (env->inputs.up && !env->inputs.shift && !env->editor.tab
-			&& env->editor.in_game && env->selected_floor != -1)
-	{
-		env->sectors[env->selected_floor].floor_slope += 0.01;
-		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_objects_z(env);
-	}
-	if (env->selected_floor != -1 && env->sectors[env->selected_floor].floor_slope <= 0.02
-			&& env->sectors[env->selected_floor].floor_slope >= -0.02 && (!env->inputs.up && !env->inputs.down))
-		env->sectors[env->selected_floor].floor_slope = 0;
 	if (env->selected_floor != -1 && env->editor.in_game && env->inputs.ctrl)
 	{
 		if (!env->time.tick3)

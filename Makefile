@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/12 17:20:08 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/12 18:03:07 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 3d_edit_function.c reduce_texture_scales_functions.c \
 		 increase_texture_scales_functions.c keys_checkers.c \
 		 3d_edit_texture_scale_functions.c 3d_edit_walls_texture_number.c \
+		 3d_edit_slopes.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
