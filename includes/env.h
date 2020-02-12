@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:44:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 12:00:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,6 +412,15 @@ int					editor_3d_tabs_keyup(t_env *env);
 void				editor_options_tab_keyup(t_env *env);
 void				editor_wall_sprites_keys(t_env *env);
 void				change_ceiling_floor_height(t_env *env);
+int					reduce_ceiling_texture_scale(t_env *env);
+int					reduce_floor_texture_scale(t_env *env);
+int					reduce_wall_texture_scale(t_env *env);
+int					increase_ceiling_texture_scale(t_env *env);
+int					increase_floor_texture_scale(t_env *env);
+int					increase_wall_texture_scale(t_env *env);
+int					increase_walls_texture_scale(t_env *env);
+int					reduce_walls_texture_scale(t_env *env);
+int					check_entities_height(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
@@ -438,6 +447,12 @@ int					update_ceiling_sprite_scale_input_box(void *penv);
 int					update_sector_entities_light_input_box(void *penv);
 int					update_object_input_box(void *penv);
 int					update_enemy_input_box(void *penv);
+
+/*
+**	Keys and keyup checkers and updaters
+*/
+
+int					height_check(t_env *env);
 
 /*
 **	Editor buttons functions

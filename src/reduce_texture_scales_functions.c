@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:30:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 18:30:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 11:05:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int		reduce_ceiling_texture_scale(t_env *env)
 	else if (sector->scale[env->selected_ceiling].x > 1)
 		sector->scale[env->selected_ceiling].x /= 1.1;
 	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-	env->wall_textures[sector->textures[env->selected_ceiling]],
-	env->selected_ceiling, env))
+	env->wall_textures[sector->textures[env->selected_ceiling]], env))
 		return (-1);
 	return (0);
 }
@@ -54,8 +53,7 @@ int		reduce_floor_texture_scale(t_env *env)
 	else if (sector->scale[env->selected_floor].x > 1)
 		sector->scale[env->selected_floor].x /= 1.1;
 	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-	env->wall_textures[sector->textures[env->selected_floor]],
-	env->selected_floor, env))
+	env->wall_textures[sector->textures[env->selected_floor]], env))
 		return (-1);
 	return (0);
 }

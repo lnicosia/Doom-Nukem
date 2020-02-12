@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 18:54:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/12 12:11:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int		change_textures_scales(t_env *env)
 {
 	if (env->inputs.minus1
-	&& (env->editor.selected_wall != -1 || env->selected_floor 1= -1
-	|| env->editor.selected_ceiling != -1))
+	&& (env->editor.selected_wall != -1 || env->selected_floor != -1
+	|| env->selected_ceiling != -1))
 	{
-		if (reduce_wall_texture_scale(env))
+		if (reduce_walls_texture_scale(env))
 			return (-1);
 	}
 	if (env->inputs.equals
-	&& (env->editor.selected_wall != -1 || env->selected_floor 1= -1
-	|| env->editor.selected_ceiling != -1))
+	&& (env->editor.selected_wall != -1 || env->selected_floor != -1
+	|| env->selected_ceiling != -1))
 	{
-		if (increase_wall_texture_scale(env))
+		if (increase_walls_texture_scale(env))
 			return (-1);
 	}
 	return (0);
@@ -38,6 +38,32 @@ int		editor_3d_keys(t_env *env)
 
 	i = 0;
 	time = SDL_GetTicks();
+
+	/*
+	**	control textures scales
+	*/
+
+	if (change_textures_scales(env))
+		return (-1);
+
+	/*
+	**	Sprites on wall 
+	*/
+
+	if (env->editor.in_game
+		&& (env->selected_wall_sprite_sprite != -1
+		|| env->selected_ceiling_sprite != -1
+		|| env->selected_floor_sprite != -1))
+		editor_wall_sprites_keys(env);
+		
+	/*
+	**	Change ceiling or floor height
+	*/
+
+	if ((env->inputs.plus || env->inputs.minus)
+	&& (env->selected_ceiling || env->selected_floor))
+		change_ceiling_floor_height(env);
+
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
@@ -164,40 +190,11 @@ int		editor_3d_keys(t_env *env)
 		
 	}
 
+
 	/*
-	**	control textures scales
+	**	selection of textures on ceiling and floor
+	**	All the || conditions: reset time only if those keys are pressed
 	*/
-
-	if (change_textures_scales(env))
-		return (-1);
-
-	/*
-	 * *	Sprites on wall 
-	 */
-
-	if (env->editor.in_game
-		&& (env->selected_wall_sprite_sprite != -1
-		|| env->selected_ceiling_sprite != -1
-		|| env->selected_floor_sprite != -1))
-	{
-		if (editor_wall_sprites_keys(env))
-			return (-1)
-	}
-	/*
-	**	Change ceiling or floor height
-	*/
-
-	if ((env->inputs.plus || env->inputs.minus)
-	&& (env->selected_ceiling || env->selected_floor))
-	{
-		if (change_ceiling_floor_height(env))
-			return (-1);
-	}
-
-	/*
-	 * *	selection of textures on ceiling and floor
-	 **	All the || conditions: reset time only if those keys are pressed
-	 */
 
 	if (env->editor.in_game && env->selected_ceiling != -1
 			&& env->selected_ceiling_sprite == -1
@@ -237,7 +234,9 @@ int		editor_3d_keys(t_env *env)
 
 		if (env->inputs.comma)
 		{
-			if (env->inputs.shift && !env->inputs.ctrl)
+			if (env->inputs.shift && !env->inputs.ctrl
+			&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000
+			&& env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
 			{
 				env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
 				env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
@@ -295,13 +294,6 @@ int		editor_3d_keys(t_env *env)
 			if (env->sectors[env->selected_floor].floor_texture < 0)
 				env->contains_skybox = 1;
 		}
-		if (env->inputs.plus
-				&& env->sectors[env->selected_floor].floor < env->sectors[env->selected_floor].ceiling - 1)
-			env->sectors[env->selected_floor].floor += 0.05;
-		else if (env->inputs.minus)
-			env->sectors[env->selected_floor].floor -= 0.05;
-		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_sector_entities_z(env, env->selected_floor);
 		if (env->inputs.comma)
 		{
 			if (env->inputs.shift && !env->inputs.ctrl)

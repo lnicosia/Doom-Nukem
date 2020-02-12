@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ioncrease_texture_scales_functions.c               :+:      :+:    :+:   */
+/*   increase_texture_scales_functions.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,8 +27,7 @@ int		increase_ceiling_texture_scale(t_env *env)
 	else
 		sector->scale[env->selected_ceiling].x *= 1.1;
 	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-	env->wall_textures[sector->textures[env->selected_ceiling]],
-	env->selected_ceiling, env))
+	env->wall_textures[sector->textures[env->selected_ceiling]], env))
 		return (-1);
 	return (0);
 }
@@ -48,8 +47,7 @@ int		increase_floor_texture_scale(t_env *env)
 	else
 		sector->scale[env->selected_floor].x *= 1.1;
 	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-	env->wall_textures[sector->textures[env->selected_floor]],
-	env->selected_floor, env))
+	env->wall_textures[sector->textures[env->selected_floor]], env))
 		return (-1);
 	return (0);
 }
@@ -76,3 +74,4 @@ int		increase_wall_texture_scale(t_env *env)
 	env->editor.selected_sector, env->editor.selected_wall, env))
 		return (-1);
 	return (0);
+}
