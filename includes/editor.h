@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 14:32:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:23:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,8 @@ typedef struct	s_event_panel
 	t_button		action_tab;
 	t_button		launch_conditions_tab;
 	t_button		exec_conditions_tab;
+	t_button		ok;
+	t_button		cancel;
 	t_target_panel	target_panel;
 	t_action_panel	action_panel;
 }				t_event_panel;

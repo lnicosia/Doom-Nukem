@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 14:34:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:35:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	init_action_panel_buttons(t_env *env)
 	ON_RELEASE, &set_event_delay, env, env);
 	env->editor.event_panel.action_panel.max_uses = new_blue_panel_button(
 	ON_RELEASE, &set_event_max_uses, env, env);
+	update_action_panel_button_pos(env);
 }

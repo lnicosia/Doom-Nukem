@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/12 11:23:13 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/12 15:24:14 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-		 draw_grid_walls.c draw_grid_vertices.c \
+		 draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
 		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
 		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \

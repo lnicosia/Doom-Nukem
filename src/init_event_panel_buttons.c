@@ -6,66 +6,69 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 18:39:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:07:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		target_tab_func(void *param)
+int		close_event_panel(void *param)
 {
-	t_env	*env;
-
-	env = (t_env*)param;
-	env->editor.event_panel.action_tab.state = UP;
-	env->editor.event_panel.action_tab.anim_state = REST;
-	env->editor.event_panel.launch_conditions_tab.state = UP;
-	env->editor.event_panel.launch_conditions_tab.anim_state = REST;
-	env->editor.event_panel.exec_conditions_tab.state = UP;
-	env->editor.event_panel.exec_conditions_tab.anim_state = REST;
+	(*(int*)param) = 0;
 	return (0);
 }
 
-int		action_tab_func(void *param)
+void	init_ok_button(t_env *env)
 {
-	t_env	*env;
-
-	env = (t_env*)param;
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.launch_conditions_tab.state = UP;
-	env->editor.event_panel.launch_conditions_tab.anim_state = REST;
-	env->editor.event_panel.exec_conditions_tab.state = UP;
-	env->editor.event_panel.exec_conditions_tab.anim_state = REST;
-	return (0);
+	env->editor.event_panel.ok = new_rectangle_button(
+	WHEN_DOWN, NULL, NULL, env);
+	env->editor.event_panel.ok.size_up.y = env->editor.event_panel.top_size - 2;
+	env->editor.event_panel.ok.size_up.x = 98;
+	env->editor.event_panel.ok.size_down =
+	env->editor.event_panel.ok.size_up;
+	env->editor.event_panel.ok.size_pressed =
+	env->editor.event_panel.ok.size_up;
+	env->editor.event_panel.ok.size_hover =
+	env->editor.event_panel.ok.size_up;
 }
 
-int		launch_conditions_tab_func(void *param)
+void	init_cancel_button(t_env *env)
 {
-	t_env	*env;
-
-	env = (t_env*)param;
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = UP;
-	env->editor.event_panel.action_tab.anim_state = REST;
-	env->editor.event_panel.exec_conditions_tab.state = UP;
-	env->editor.event_panel.exec_conditions_tab.anim_state = REST;
-	return (0);
+	env->editor.event_panel.cancel = new_rectangle_button(
+	WHEN_DOWN, &close_event_panel, &env->editor.creating_event, env);
+	env->editor.event_panel.cancel.size_up.y =
+	env->editor.event_panel.top_size - 2;
+	env->editor.event_panel.cancel.size_up.x = 98;
+	env->editor.event_panel.cancel.size_down =
+	env->editor.event_panel.cancel.size_up;
+	env->editor.event_panel.cancel.size_pressed =
+	env->editor.event_panel.cancel.size_up;
+	env->editor.event_panel.cancel.size_hover =
+	env->editor.event_panel.cancel.size_up;
+	env->editor.event_panel.cancel.font = env->sdl.fonts.lato_black40;
+	env->editor.event_panel.cancel.up_text_color = 0xed7161FF;
+	env->editor.event_panel.cancel.down_text_color = 0xed7161FF;
+	env->editor.event_panel.cancel.pressed_text_color = 0xed7161FF;
+	env->editor.event_panel.cancel.hover_text_color = 0xed7161FF;
 }
 
-int		exec_conditions_tab_func(void *param)
+void	update_event_panel_button_pos(t_env *env)
 {
-	t_env	*env;
+	t_event_panel	*panel;
 
-	env = (t_env*)param;
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = UP;
-	env->editor.event_panel.action_tab.anim_state = REST;
-	env->editor.event_panel.launch_conditions_tab.state = UP;
-	env->editor.event_panel.launch_conditions_tab.anim_state = REST;
-	return (0);
+	panel = &env->editor.event_panel;
+	panel->target_tab.pos = new_point(panel->pos.x,
+	panel->pos.y + panel->top_size);
+	panel->action_tab.pos = new_point(panel->pos.x,
+	panel->pos.y + panel->top_size + 100);
+	panel->launch_conditions_tab.pos = new_point(panel->pos.x,
+	panel->pos.y + panel->top_size + 200);
+	panel->exec_conditions_tab.pos = new_point(panel->pos.x,
+	panel->pos.y + panel->top_size + 300);
+	panel->ok.pos = new_point(panel->pos.x + panel->size.x - 198,
+	panel->pos.y);
+	panel->cancel.pos = new_point(panel->pos.x + panel->size.x - 98,
+	panel->pos.y);
 }
 
 void	init_event_panel_buttons(t_env *env)
@@ -81,24 +84,15 @@ void	init_event_panel_buttons(t_env *env)
 	env->h_h - env->editor.event_panel.size.y / 2);
 	env->editor.event_panel.target_tab = new_rectangle_button(WHEN_DOWN,
 	&target_tab_func, env, env);
-	env->editor.event_panel.target_tab.pos =
-	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + env->editor.event_panel.top_size);
 	env->editor.event_panel.action_tab = new_rectangle_button(WHEN_DOWN,
 	&action_tab_func, env, env);
-	env->editor.event_panel.action_tab.pos =
-	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 100);
 	env->editor.event_panel.launch_conditions_tab = new_rectangle_button(
 	WHEN_DOWN, &launch_conditions_tab_func, env, env);
-	env->editor.event_panel.launch_conditions_tab.pos =
-	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 200);
 	env->editor.event_panel.exec_conditions_tab = new_rectangle_button(
 	WHEN_DOWN, &exec_conditions_tab_func, env, env);
-	env->editor.event_panel.exec_conditions_tab.pos =
-	new_point(env->editor.event_panel.pos.x,
-	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 300);
+	init_ok_button(env);
+	init_cancel_button(env);
+	update_event_panel_button_pos(env);
 	init_target_panel_buttons(env);
 	init_action_panel_buttons(env);
 }
