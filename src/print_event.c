@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 17:28:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:31:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	print_event_action(t_env *env, t_event *event)
 	}
 	if (event->mod_type == FUNC)
 		print_text(new_point(570, 75), new_printable_text("Func",
-		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	if (event->mod_type != FUNC)
 		print_text(new_point(570, 15), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+		env->sdl.fonts.lato20, 0x333333FF, 30), env);
 }
 
 void	print_event_various_data(t_env *env, t_event *event)
@@ -62,19 +62,19 @@ void	print_event_various_data(t_env *env, t_event *event)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Delay: %u Max uses: inf.",
 		event->max_uses);
 	print_text(new_point(600, 15), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 }
 
 void	print_event_launch_conditions(t_env *env, t_event *event)
 {
 	print_text(new_point(650, 130), new_printable_text("Launch conditions",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	if (event->nb_launch_conditions == 0)
 		return ;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Condition %d",
 	env->editor.selected_launch_condition);
 	print_text(new_point(680, 150), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	print_event_launch_condition(env,
 	&event->launch_conditions[env->editor.selected_launch_condition]);
 	if (event->nb_launch_conditions <= 1)
@@ -88,13 +88,13 @@ void	print_event_launch_conditions(t_env *env, t_event *event)
 void	print_event_exec_conditions(t_env *env, t_event *event)
 {
 	print_text(new_point(770, 117), new_printable_text("Execution conditions",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	if (event->nb_exec_conditions == 0)
 		return ;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Condition %d",
 	env->editor.selected_exec_condition);
 	print_text(new_point(800, 150), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	print_event_exec_condition(env,
 	&event->exec_conditions[env->editor.selected_exec_condition]);
 	if (event->nb_launch_conditions <= 1)
@@ -110,7 +110,7 @@ void	print_event(t_env *env, t_event *event)
 	env->print_target_data[event->target_index](env, event,
 	new_point(540, 15), 20);
 	print_text(new_point(540, 15), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	print_event_action(env, event);
 	print_event_various_data(env, event);
 	print_event_launch_conditions(env, event);

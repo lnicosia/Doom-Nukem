@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 18:51:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:25:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1023,6 +1023,7 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
+void				init_events_creation_buttons(t_env *env);
 void				init_event_panel_buttons(t_env *env);
 void				init_target_panel_buttons(t_env *env);
 void				init_action_panel_buttons(t_env *env);

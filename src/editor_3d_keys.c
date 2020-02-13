@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:45:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:43:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -493,6 +493,8 @@ int		editor_3d_keys(t_env *env)
 			if (button_keys(&env->editor.next_events, env))
 				return (-1);
 			if (button_keys(&env->editor.previous_events, env))
+				return (-1);
+			if (button_keys(&env->editor.new_event, env))
 				return (-1);
 			if (are_event_selection_buttons_visible(env))
 			{

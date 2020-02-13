@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 16:54:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:45:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int		editor_3d_tabs_keyup(t_env *env)
 		if (button_keyup(&env->editor.next_events, env))
 			return (-1);
 		if (button_keyup(&env->editor.previous_events, env))
+			return (-1);
+		if (button_keyup(&env->editor.new_event, env))
 			return (-1);
 	}
 	if (env->editor.sprite_tab.state == DOWN)

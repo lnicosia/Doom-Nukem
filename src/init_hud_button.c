@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 18:03:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:42:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ int		init_editor_hud(t_env *env)
 	init_editor_tab_buttons(env);
 	init_events_selection_buttons(env);
 	init_event_panel_buttons(env);
+	init_events_creation_buttons(env);
 	return (1);
 }

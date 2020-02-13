@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:26:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:32:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		print_weapon_target(t_env *env, t_event *event, t_point pos, int size)
 		font = env->sdl.fonts.lato15;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Weapon %d %s",
 	event->update_param.weapon, env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0xFFFFFFFF, 0), env);
+	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
@@ -42,7 +42,7 @@ int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Sector %d ceiling sprite"
 	" %d %s", event->update_param.sector, event->update_param.sprite,
 	env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0xFFFFFFFF, 0), env);
+	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
@@ -58,7 +58,7 @@ int		print_enemy_target(t_env *env, t_event *event, t_point pos, int size)
 		font = env->sdl.fonts.lato15;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Enemy %d %s",
 	event->update_param.enemy, env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0xFFFFFFFF, 0), env);
+	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
@@ -74,7 +74,7 @@ int		print_object_target(t_env *env, t_event *event, t_point pos, int size)
 	(void)pos;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Object %d %s",
 	event->update_param.object, env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0xFFFFFFFF, 0), env);
+	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 

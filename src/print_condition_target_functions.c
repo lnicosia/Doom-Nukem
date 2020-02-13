@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 19:30:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:32:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_point pos, int size)
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 30), env);
+	font, 0x333333FF, 30), env);
 	return (pos.y);
 }
 
@@ -45,7 +45,7 @@ t_point pos, int size)
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 30), env);
+	font, 0x333333FF, 30), env);
 	return (pos.y);
 }
 
@@ -64,7 +64,7 @@ t_point pos, int size)
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 30), env);
+	font, 0x333333FF, 30), env);
 	return (pos.y);
 }
 
@@ -83,7 +83,7 @@ t_point pos, int size)
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 30), env);
+	font, 0x333333FF, 30), env);
 	return (pos.y);
 }
 
@@ -101,6 +101,6 @@ t_point pos, int size)
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 30), env);
+	font, 0x333333FF, 30), env);
 	return (pos.y);
 }
