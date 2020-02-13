@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:31:47 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:26:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ int		doom(t_env *env)
 				if (env->sdl.event.type == SDL_MOUSEWHEEL
 					&& !env->weapon_change.on_going &&
 					!env->shot.on_going && env->player.health > 0)
-					weapon_change(env);
+				{
+					env->player.next_weapon = next_possessed_weapon(env);
+					if (env->player.next_weapon >= 0)
+						weapon_change(env);
+				}
 			}
 			update_sprites_state(env);
 			if (projectiles_movement(env))

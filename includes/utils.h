@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 12:15:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:43:36 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -583,6 +583,7 @@ typedef struct		s_player
 	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;
+	int				next_weapon;
 	int				health;
 	int				armor;
 	int				killed;
@@ -643,6 +644,9 @@ typedef struct		s_keys
 	Sint32			p;
 	Sint32			a;
 	Sint32			lgui;
+	Sint32			nb1;
+	Sint32			nb2;
+	Sint32			nb3;
 }					t_keys;
 
 /*
@@ -680,6 +684,9 @@ typedef struct		s_inputs
 	uint8_t			end;
 	uint8_t			a;
 	uint8_t			lgui;
+	uint8_t			nb1;
+	uint8_t			nb2;
+	uint8_t			nb3;
 }					t_inputs;
 
 /*

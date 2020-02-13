@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:12:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:54:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	init_inputs(t_env *env)
 	env->inputs.up = 0;
 	env->inputs.down = 0;
 	env->inputs.tab = 0;
+	env->inputs.nb1 = 0;
+	env->inputs.nb2 = 0;
+	env->inputs.nb3 = 0;
 }
 
 void	set_inputs(t_env *env, int mode)
@@ -97,6 +100,12 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.a = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.lgui)
 		env->inputs.lgui = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.nb1)
+		env->inputs.nb1 = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.nb2)
+		env->inputs.nb2 = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.nb3)
+		env->inputs.nb3 = mode;
 }
 
 void	update_inputs(t_env *env)

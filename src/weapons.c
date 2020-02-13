@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 19:25:30 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:26:51 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,11 +198,7 @@ void    weapon_animation(t_env *env, int nb)
 void    weapon_change(t_env *env)
 {
 	int time_spent;
-	int	next_weapon;
 
-	next_weapon = next_possessed_weapon(env);
-	if (next_weapon < 0)
-		return ;
 	if (env->weapon_change.start == 0)
 	{
 		env->weapon_change.start = SDL_GetTicks();
@@ -213,11 +209,7 @@ void    weapon_change(t_env *env)
 		env->weapons[0].weapon_switch  = 75 * (int)(time_spent / 70);
 	if (time_spent > 4 * 70)
 	{
-		env->player.curr_weapon = next_weapon;
-		/*if (env->sdl.event.wheel.y > 0)
-			env->player.curr_weapon = (env->player.curr_weapon >= NB_WEAPONS - 1 ? 0 : env->player.curr_weapon + 1);
-		else if (env->sdl.event.wheel.y < 0)
-			env->player.curr_weapon = (env->player.curr_weapon <= 0 ? NB_WEAPONS - 1 : env->player.curr_weapon - 1);*/
+		env->player.curr_weapon = env->player.next_weapon;
 		env->weapons[0].weapon_switch = 0;
 		env->weapon_change.start = 0;
 		env->weapon_change.on_going = 0;

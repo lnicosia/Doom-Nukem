@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 18:42:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:54:58 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,27 @@ int		keys(t_env *env)
 	{
 		env->press_wall_sprite_color = 0xFFFFFFFF;
 		env->press_wall_sprite_intensity = 64;
+	}
+	if (env->inputs.nb1)
+	{
+		env->player.next_weapon = 0;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+	}
+	else if (env->inputs.nb2)
+	{
+		env->player.next_weapon = 1;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+	}
+	else if (env->inputs.nb3)
+	{
+		env->player.next_weapon = 2;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
 	}
 	return (0);
 }
