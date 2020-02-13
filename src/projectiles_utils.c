@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 11:40:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 14:44:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:13:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,14 @@ t_projectile_stats		new_projectile_stats(double size_2d, int damage, double spee
 	new.speed = speed;
 	new.damage = damage;
 	new.height = height;
+	return (new);
+}
+
+t_projectile_data_2		new_projectile_data_2(double angle_z, double radius)
+{
+	t_projectile_data_2	new;
+
+	new.angle_z = angle_z;
+	new.radius = radius;
 	return (new);
 }

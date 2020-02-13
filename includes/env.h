@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:44:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:30:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -693,6 +693,7 @@ int					set_sector_ceiling_map_array(t_sector *sector,
 t_texture texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale,
 int sprite);
+t_projectile_data_2	new_projectile_data_2(double angle_z, double radius);
 t_projectile_stats	new_projectile_stats(double size_2d, int damage,
 double speed, double height);
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage,
@@ -861,7 +862,7 @@ int					next_possessed_weapon(t_env *env);
 void				print_ammo(t_env *env);
 void				shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,
-t_projectile_stats stats, double angle_z);
+t_projectile_stats stats, t_projectile_data_2 data2);
 int					create_explosion(t_env *env, t_explosion_data data,
 int centered_sprite);
 int					explosion_collision_player(t_env *env);

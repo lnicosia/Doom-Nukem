@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:57:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/23 18:55:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/05 21:55:55 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    objects_collision(t_env *env, t_v3 pos)
     i = 0;
     while (i < env->nb_objects)
     {
-        if (env->objects[i].exists && distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < 1.75 &&
+        if (env->objects[i].exists && distance_two_points_2d(env->objects[i].pos.x, env->objects[i].pos.y, pos.x, pos.y) < env->objects[i].size_2d &&
             pos.z <= env->objects[i].height + env->objects[i].pos.z && pos.z >= env->objects[i].pos.z)
         {
 			if (env->objects[i].type == HEAL && env->player.health < 100)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:25:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:29:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@
 # define BULLET_HOLE 26
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
+# define NB_MUSICS 2
+
+typedef	enum		e_musics_list
+{
+	MT_EREBUS,
+	AT_DOOMS_GATE
+}					t_musics_list;
 
 typedef enum		e_target_type
 {
@@ -73,7 +80,7 @@ typedef enum		e_target_type
 	STRING,
 	UINT32,
 	POS
-}			t_target_type;
+}					t_target_type;
 
 typedef enum		e_change_sprite
 {
@@ -719,6 +726,16 @@ typedef struct		s_fonts
 }					t_fonts;
 
 /*
+** Music list
+*/
+
+typedef	struct		s_music_list
+{
+	FMOD_SOUND		*music;
+	char			*str;
+}					t_music_list;
+
+/*
 ** Sound structure
 */
 
@@ -726,14 +743,14 @@ typedef struct		s_sound
 {
 	double			music_vol;
 	double			ambient_vol;
+	double			current_music;
 	FMOD_SYSTEM		*system;
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
 	FMOD_CHANNEL	*player_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
-	FMOD_SOUND		*at_dooms_gate;
-	FMOD_SOUND		*mt_erebus;
+	t_music_list	musics[2];
 	FMOD_SOUND		*footstep;
 }					t_sound;
 
@@ -816,6 +833,12 @@ typedef struct		s_projectile_data
 	double			angle;
 	int				sprite;
 }					t_projectile_data;
+
+typedef struct		s_projectile_data_2
+{
+	double			angle_z;
+	double			radius;
+}					t_projectile_data_2;
 
 /*
 ** Projectile structure

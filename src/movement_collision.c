@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 15:43:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:02:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,25 @@ int     hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size)
 	return (0);
 }
 
-int		check_objects(t_env *env, t_v3 move, t_v3 pos, double eyesight)
+int		check_objects(t_env *env, t_v3 move, t_movement motion)
 {
 	int		i;
 	t_v3	futur;
+	double	eyesight;
 
-	i = 0;	
-	futur.x = move.x + pos.x;
-	futur.y = move.y + pos.y;
-	futur.z = move.z + pos.z;
+	i = 0;
+	futur.x = move.x + motion.pos.x;
+	futur.y = move.y + motion.pos.y;
+	futur.z = move.z + motion.pos.z;
+	eyesight = motion.eyesight;
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].exists && env->objects[i].solid)
 		{
 			if (distance_two_points_2d(env->objects[i].pos.x,
-				env->objects[i].pos.y, futur.x, futur.y) < 1.75
-				&& env->objects[i].pos.z >= futur.z - 1 &&
-				env->objects[i].pos.z <= eyesight + futur.z +
-				env->objects[i].height)
+				env->objects[i].pos.y, futur.x, futur.y) < env->objects[i].size_2d + motion.size_2d &&
+				((motion.pos.z <= env->objects[i].pos.z + env->objects[i].height && motion.pos.z >= env->objects[i].pos.z) ||
+				(motion.pos.z + eyesight + 1 <= env->objects[i].pos.z + env->objects[i].height && motion.pos.z + eyesight + 1 >= env->objects[i].pos.z)))
 				return (0);
 		}
 		i++;
@@ -227,7 +228,7 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 		}
 		i++;
 	}
-	if (check_objects(env, move, motion.pos, motion.eyesight))
+	if (check_objects(env, move, motion))
 		return (move);
 	return (new_v3(0, 0, 0));
 }
