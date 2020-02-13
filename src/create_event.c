@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 18:57:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 10:47:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int		create_event2(t_env *env)
 		" been saved!", CONFIRM, env))
 		return (-1);
 	env->editor.creating_event = 0;
+	env->editor.selecting_target = 0;
 	return (0);
 }
 
 void	set_event(t_env *env, t_event *event)
 {
 	event->delay = env->editor.event_panel.action_panel.delay_value;
-	event->speed = 0;
 	if (event->type == INT)
 	{
 		event->goal = env->editor.event_panel.action_panel.int_value;
