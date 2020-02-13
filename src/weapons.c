@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 14:26:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:34:13 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,33 +236,45 @@ int		aoe_damage(double distance, double radius, int damage)
 	return ((int)(damage * percentage));
 }
 
-int		next_possessed_weapon(t_env *env)
+int		next_weapon_wheel_up(t_env *env)
 {
 	int i;
 
+	i = (env->player.curr_weapon == NB_WEAPONS - 1) ? 0 :
+	env->player.curr_weapon + 1;
+	while (i != env->player.curr_weapon)
+	{
+		if (env->weapons[i].possessed)
+			return (i);
+		i++;
+		if (i >= NB_WEAPONS)
+			i = 0;
+	}
+	return (-1);
+}
+
+int		next_weapon_wheel_down(t_env *env)
+{
+	int  i;
+
+	i = (env->player.curr_weapon == 0) ? NB_WEAPONS - 1 :
+		env->player.curr_weapon - 1;
+	while (i != env->player.curr_weapon)
+	{
+		if (env->weapons[i].possessed)
+			return (i);
+		i--;
+		if (i < 0)
+			i = NB_WEAPONS - 1;
+	}
+	return (-1);
+}
+
+int		next_possessed_weapon(t_env *env)
+{
 	if (env->sdl.event.wheel.y > 0)
-	{
-		i = (env->player.curr_weapon == NB_WEAPONS - 1) ? 0 : env->player.curr_weapon + 1;
-		while (i != env->player.curr_weapon)
-		{
-			if (env->weapons[i].possessed)
-				return (i);
-			i++;
-			if (i >= NB_WEAPONS)
-				i = 0;
-		}
-	}
+		return (next_weapon_wheel_up(env));
 	if (env->sdl.event.wheel.y < 0)
-	{
-		i = (env->player.curr_weapon == 0) ? NB_WEAPONS - 1 : env->player.curr_weapon - 1;
-		while (i != env->player.curr_weapon)
-		{
-			if (env->weapons[i].possessed)
-				return (i);
-			i--;
-			if (i < 0)
-				i = NB_WEAPONS - 1;
-		}
-	}
+		return (next_weapon_wheel_down(env));
 	return (-1);
 }
