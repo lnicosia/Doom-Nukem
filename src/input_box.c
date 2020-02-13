@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 11:58:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:12:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	draw_input_box_content(t_input_box *box, t_env *env)
 	TTF_SizeText(box->font, box->str, &size.x, &size.y);
 	pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
 	box->pos.x + 6);
-	text = new_printable_text(box->str, box->font, 0x000000, box->size.x);
+	text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
 	print_text(pos, text, env);
 }
 

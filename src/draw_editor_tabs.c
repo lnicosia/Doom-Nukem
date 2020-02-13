@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 15:43:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:20:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,19 @@ int		print_vertex_informations(t_env *env)
 {
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "vertex %d", env->editor.selected_vertex);
 	print_text(new_point(450, 180), new_printable_text(env->snprintf,
-				env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+				env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	print_text(new_point(490, 50), new_printable_text("Coordinates:",
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "X: %.*f",
 	get_decimal_len(env->vertices[env->editor.selected_vertex].x),
 	env->vertices[env->editor.selected_vertex].x);
 	print_text(new_point(540, 80), new_printable_text(env->snprintf,
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Y: %.*f",
 	get_decimal_len(env->vertices[env->editor.selected_vertex].y),
 	env->vertices[env->editor.selected_vertex].y);
 	print_text(new_point(580, 80), new_printable_text(env->snprintf,
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
 	return (0);
 }
 

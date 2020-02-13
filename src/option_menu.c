@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 11:43:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:16:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,13 @@ void	print_music_vol(t_env *env)
 {
 	print_text(new_point(env->h_h +
 		env->music_vol_up.size_down.y, env->h_w),
-		new_printable_text("MUSIC", env->sdl.fonts.alice30,
+		new_printable_text("MUSIC", env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->sound.music_vol * 100);
 	print_text(new_point(env->h_h +
 		env->music_vol_up.size_down.y + 35, env->h_w),
-		new_printable_text(env->snprintf, env->sdl.fonts.alice30,
+		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 }
 
@@ -155,13 +155,13 @@ void	print_sounds_vol(t_env *env)
 {
 	print_text(new_point(env->h_h + env->h_h / 4 +
 		env->sounds_vol_up.size_down.y, env->h_w),
-		new_printable_text("SOUNDS", env->sdl.fonts.alice30,
+		new_printable_text("SOUNDS", env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->sound.ambient_vol * 100);
 	print_text(new_point( env->h_h + env->h_h / 4 +
 		env->sounds_vol_up.size_down.y + 35, env->h_w),
-		new_printable_text(env->snprintf, env->sdl.fonts.alice30,
+		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 }
 
