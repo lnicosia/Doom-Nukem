@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:25:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:20:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,6 +414,21 @@ int					editor_3d_tabs_keyup(t_env *env);
 void				editor_options_tab_keyup(t_env *env);
 void				editor_wall_sprites_keys(t_env *env);
 void				change_ceiling_floor_height(t_env *env);
+int					reduce_ceiling_texture_scale(t_env *env);
+int					reduce_floor_texture_scale(t_env *env);
+int					reduce_wall_texture_scale(t_env *env);
+int					increase_ceiling_texture_scale(t_env *env);
+int					increase_floor_texture_scale(t_env *env);
+int					increase_wall_texture_scale(t_env *env);
+int					increase_walls_texture_scale(t_env *env);
+int					reduce_walls_texture_scale(t_env *env);
+int					check_entities_height(t_env *env);
+void				left_wall_texture_alignement(t_env *env);
+void				right_wall_texture_alignement(t_env *env);
+int					increase_wall_texture_number(t_env *env, t_sector *sector);
+int					decrease_wall_texture_number(t_env *env, t_sector *sector);
+int					increase_slope(t_env *env);
+int					decrease_slope(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
@@ -440,6 +455,12 @@ int					update_ceiling_sprite_scale_input_box(void *penv);
 int					update_sector_entities_light_input_box(void *penv);
 int					update_object_input_box(void *penv);
 int					update_enemy_input_box(void *penv);
+
+/*
+**	Keys and keyup checkers and updaters
+*/
+
+int					height_check(t_env *env);
 
 /*
 **	Editor buttons functions
@@ -835,7 +856,7 @@ t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
-t_button			new_plus_button(int type, int (*action)(void *),
+t_button			new_add_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_next_arrow(int type, int (*action)(void *),
 void *param, t_env *env);

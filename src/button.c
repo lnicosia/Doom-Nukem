@@ -122,14 +122,14 @@ t_env *env)
 	return (new);
 }
 
-t_button	new_plus_button(int type, int (*action)(void *), void *param,
+t_button	new_add_button(int type, int (*action)(void *), void *param,
 t_env *env)
 {
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[26].surface || !env->ui_textures[27].surface
-		|| !env->ui_textures[28].surface)
+	if (!env->ui_textures[35].surface || !env->ui_textures[35].surface
+		|| !env->ui_textures[35].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[35].surface;
 	new.img_pressed = env->ui_textures[35].surface;

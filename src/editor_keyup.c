@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:47:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:25:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,13 @@ int	editor_keyup(t_env *env)
 		env->editor.selected_event = 0;
 		env->editor.selected_launch_condition = 0;
 		env->editor.selected_exec_condition = 0;
-		env->editor.general_tab.state = DOWN;
-		env->editor.general_tab.anim_state = PRESSED;
 		if (env->editor.selected_sector == -1)
 		{
 			env->selected_floor = -1;
 			env->selected_ceiling = -1;
 		}
 		env->selected_enemy = -1;
-		new_tabs_position(env);
+		tabs_gestion(env);
 		check_event_creation(env);
 	}
 	if (env->confirmation_box.state)

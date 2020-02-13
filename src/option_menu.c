@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 11:16:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:19:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		return_button(t_env *env)
 
 int		music_vol_up_button(t_env *env)
 {
-	env->music_vol_up = new_plus_button(ON_RELEASE,
+	env->music_vol_up = new_add_button(ON_RELEASE,
 		&music_volume_up, env, env);
 	env->music_vol_up.pos = new_point(env->h_w + env->h_w / 4,
 		env->h_h + env->music_vol_up.size_down.y);
@@ -121,7 +121,7 @@ int		music_vol_down_button(t_env *env)
 
 int		sounds_vol_up_button(t_env *env)
 {
-	env->sounds_vol_up = new_plus_button(ON_RELEASE,
+	env->sounds_vol_up = new_add_button(ON_RELEASE,
 		&sounds_volume_up, env, env);
 	env->sounds_vol_up.pos = new_point(env->h_w + env->h_w / 4,
 		env->h_h + env->h_h / 4 + env->sounds_vol_up.size_down.y);
