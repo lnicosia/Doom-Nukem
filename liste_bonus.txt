@@ -1,0 +1,5 @@
+mip mapping
+mini map (semi transparence etc)
+impacts de balles
+zbuffer
+wall sprites sur sol et plafond

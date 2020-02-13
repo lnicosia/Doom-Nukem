@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:31:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:14:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,5 @@ void	print_event(t_env *env, t_event *event)
 	print_event_various_data(env, event);
 	print_event_launch_conditions(env, event);
 	print_event_exec_conditions(env, event);
+	draw_button(env, env->editor.modify_event, "Modify event");
 }

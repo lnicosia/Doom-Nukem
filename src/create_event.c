@@ -6,12 +6,25 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 10:47:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:26:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+
+int		check_event_validity2(t_env *env, t_event event)
+{
+	(void)event;
+	if (env->editor.event_panel.event.max_uses < 0)
+	{
+		if (update_confirmation_box(&env->confirmation_box, "Number"
+			" of uses can not be negative", ERROR, env))
+			return (-1);
+		return (-1);
+	}
+	return (0);
+}
 
 int		check_event_validity(t_env *env, t_event event)
 {
@@ -36,14 +49,7 @@ int		check_event_validity(t_env *env, t_event event)
 			return (-1);
 		return (-1);
 	}
-	if (env->editor.event_panel.event.max_uses < 0)
-	{
-		if (update_confirmation_box(&env->confirmation_box, "Number"
-			" of uses can not be negative", ERROR, env))
-			return (-1);
-		return (-1);
-	}
-	return (0);
+	return (check_event_validity2(env, event));
 }
 
 int		create_event2(t_env *env)
@@ -86,6 +92,46 @@ void	set_event(t_env *env, t_event *event)
 		event->goal = env->editor.event_panel.action_panel.uint32_value;
 		event->start_incr = env->editor.event_panel.action_panel.uint32_value;
 	}
+}
+
+int		save_event2(t_env *env, t_event_panel *panel)
+{
+	if (panel->trigger.index == STAND)
+		env->sectors[panel->trigger.sector].
+		stand_events[panel->selected_event] = panel->event;
+	else if (panel->trigger.index == WALK_IN)
+		env->sectors[panel->trigger.sector].
+		walk_in_events[panel->selected_event] = panel->event;
+	else if (panel->trigger.index == WALK_OUT)
+		env->sectors[panel->trigger.sector].
+		walk_out_events[panel->selected_event] = panel->event;
+	//else if (panel->trigger.index == DEATH)
+	return (0);
+}
+
+int		save_event(void *param)
+{
+	t_env			*env;
+	t_event_panel	*panel;
+
+	env = (t_env*)param;
+	panel = &env->editor.event_panel;
+	if (check_event_validity(env, panel->event))
+		return (0);
+	env->editor.creating_event = 0;
+	env->editor.selecting_target = 0;
+	set_event(env, &panel->event);
+	if (panel->trigger.index == GLOBAL)
+		env->global_events[panel->selected_event] = panel->event;
+	else if (panel->trigger.index == PRESS)
+		env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.wall].
+		press_events[panel->trigger.sprite][panel->selected_event] =
+		panel->event;
+	else if (panel->trigger.index == SHOOT)
+		env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.wall].
+		shoot_events[panel->trigger.sprite][panel->selected_event] =
+		panel->event;
+	return (save_event2(env, panel));
 }
 
 int		create_event(void *param)

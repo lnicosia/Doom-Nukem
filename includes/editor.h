@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 18:23:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:07:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ typedef struct	s_event_panel
 	t_target_panel	target_panel;
 	t_action_panel	action_panel;
 	t_event_trigger	trigger;
+	int				selected_event;
 	int				top_size;
 }				t_event_panel;
 

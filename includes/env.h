@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 12:20:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:36:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,6 +399,7 @@ int					print_wall_sprite_link_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
+int					is_modify_event_button_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
 t_button_target		*new_button_target(t_env *env, int i);
@@ -676,6 +677,7 @@ int					set_event_speed(void *param);
 int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
 int					create_event(void *param);
+int					save_event(void *param);
 int					new_global_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_press_event(t_env *env, t_event_trigger trigger,
