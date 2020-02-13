@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 14:36:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:55:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -678,6 +678,8 @@ int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
 int					create_event(void *param);
 int					save_event(void *param);
+int					modify_event(void *param);
+int					delete_event(void *param);
 int					new_global_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_press_event(t_env *env, t_event_trigger trigger,

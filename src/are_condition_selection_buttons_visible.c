@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 17:18:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 17:19:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:25:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int sector, int wall, int sprite)
 
 	event = env->editor.selected_event;
 	events = env->editor.selected_events;
+	ft_printf("sector = %d\n", sector);
+	ft_printf("event = %d\n", event);
 	if ((env->selected_wall_sprite_wall != -1
 		&& ((events == 0 && env->sectors[sector].wall_sprites[wall].
 		nb_press_events[sprite] > 0 && env->sectors[sector].

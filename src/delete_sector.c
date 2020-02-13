@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/19 14:20:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:49:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		delete_sector(t_env *env, int sector)
 	i = 0;
 	free_sector(&env->sectors[sector]);
 	//ft_printf("del sector\n");
-	env->sectors = ft_delindex(env->sectors,
+	env->sectors = (t_sector*)ft_delindex(env->sectors,
 			 sizeof(t_sector) * env->nb_sectors,
 			 sizeof(t_sector),
 			 sizeof(t_sector) * sector);

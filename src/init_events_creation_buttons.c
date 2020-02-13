@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 15:12:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:47:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	init_events_creation_buttons(t_env *env)
 {
 	env->editor.new_event = new_dark_panel_button(ON_RELEASE,
 	&new_event, env, env);
-	env->editor.new_event.pos = new_point(60, env->h - 100);
+	env->editor.new_event.pos = new_point(140, env->h - 200);
 	env->editor.new_event.size_up.x = 120;
 	env->editor.new_event.size_down = env->editor.new_event.size_up;
 	env->editor.new_event.size_pressed = env->editor.new_event.size_up;
@@ -170,4 +170,11 @@ void	init_events_creation_buttons(t_env *env)
 	env->editor.modify_event.size_down = env->editor.new_event.size_up;
 	env->editor.modify_event.size_pressed = env->editor.new_event.size_up;
 	env->editor.modify_event.size_hover = env->editor.new_event.size_up;
+	env->editor.delete_event = new_dark_panel_button(ON_RELEASE,
+	delete_event, env, env);
+	env->editor.delete_event.pos = new_point(60, env->h - 100);
+	env->editor.delete_event.size_up = env->editor.new_event.size_up;
+	env->editor.delete_event.size_down = env->editor.new_event.size_up;
+	env->editor.delete_event.size_pressed = env->editor.new_event.size_up;
+	env->editor.delete_event.size_hover = env->editor.new_event.size_up;
 }

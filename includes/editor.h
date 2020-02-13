@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 15:07:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:31:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,6 +359,7 @@ typedef struct	s_editor
 	t_event_panel	event_panel;
 	t_button		new_event;
 	t_button		modify_event;
+	t_button		delete_event;
 	int				texture_tab;
 }				t_editor;
 

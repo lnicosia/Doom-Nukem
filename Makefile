@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/13 12:21:10 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/13 17:12:10 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
 		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		 is_new_vertex_valid.c add_enemy.c enemy_selection.c \
+		 is_new_vertex_valid.c add_enemy.c enemy_selection.c delete_event.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
@@ -192,8 +192,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-Ofast \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \
