@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 14:09:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:06:34 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct  s_movement
     t_wall      wall;
     int         sector;
 	int			lowest_ceiling;
+	int			flight;
     double      size_2d;
     double      eyesight;
     t_v3        pos;

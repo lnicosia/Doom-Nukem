@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_checkers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 16:12:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:05:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		check_x_collision_event(t_event *event, void *penv)
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
 	movement = new_movement(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
+	movement.flight = env->player.state.fly;
 	move.x = event->incr;
 	if (!event->speed)
 	{
@@ -56,6 +57,7 @@ int		check_y_collision_event(t_event *event, void *penv)
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
 	movement = new_movement(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
+	movement.flight = env->player.state.fly;
 	move.y = event->incr;
 	if (!event->speed)
 	{
@@ -87,6 +89,7 @@ int		check_z_collision_event(t_event *event, void *penv)
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
 	movement = new_movement(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
+	movement.flight = env->player.state.fly;
 	move.z = event->incr;
 	if (!event->speed)
 	{

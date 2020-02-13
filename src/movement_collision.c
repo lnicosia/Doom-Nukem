@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/11 17:02:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:10:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_floor(t_env *env, t_movement motion, int sector_dest)
 	floor = get_floor_at_pos(env->sectors[sector_dest], motion.future, env);
 	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > motion.future.z && sector_dest == motion.sector)
+	else if (floor > motion.future.z + 0.5 && sector_dest == motion.sector)
 		return (0);
 	if (env->player.state.jump && motion.future.z < floor)
 		return (0);
@@ -189,12 +189,14 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 	return (new_v3(0, 0, 0));
 	if (!check_ceiling(env, motion, motion.lowest_ceiling))
 		move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
-	else if (!check_floor(env, motion, motion.sector))
+	if (!check_floor(env, motion, motion.sector) && motion.flight)
 		move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
+	else if (!(check_floor(env, motion, motion.sector)))
+		return (new_v3(0, 0, 0));
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
 		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d)) ||
-			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))) && 
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))) &&
 			(NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
 		{
 			norme_mov = sqrt(move.x * move.x + move.y * move.y);

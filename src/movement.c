@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/05 17:59:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:05:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	move_player(t_env *env)
 	movement = 0;
 	move = new_v3(0, 0, 0);
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
+	motion.flight = env->player.state.fly;
 	motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 	if (env->player.state.fly && env->inputs.space)
 		move.z += 0.2;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 11:32:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:03:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
 			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+			motion.flight = enemy.type;
 			move = check_collision(env, move, motion, 0);
 			if (move.x == 0 && move.y == 0 && enemy.speed != 0)
 			{
@@ -330,6 +331,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
 			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
+			motion.flight = enemy.type;
 			move = check_collision(env, move, motion, 0);
 			if (move.x == 0 && move.y == 0)
 			{

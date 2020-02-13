@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:29:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:15:05 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -732,7 +732,7 @@ typedef struct		s_fonts
 typedef	struct		s_music_list
 {
 	FMOD_SOUND		*music;
-	char			*str;
+	char			*music_name;
 }					t_music_list;
 
 /*
