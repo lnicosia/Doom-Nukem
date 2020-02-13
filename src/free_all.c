@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 12:09:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:47:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,13 @@ void		free_audio(t_env *env, int i)
 		FMOD_Sound_Release(env->weapons[i].shot);
 		i++;
 	}
+	i = 0;
 	FMOD_Sound_Release(env->sound.footstep);
-	FMOD_Sound_Release(env->sound.at_dooms_gate);
-	FMOD_Sound_Release(env->sound.mt_erebus);
+	while (i < NB_MUSICS)
+	{
+		FMOD_Sound_Release(env->sound.musics[i].music);
+		i++;
+	}
 	FMOD_System_Close(env->sound.system);
 	FMOD_System_Release(env->sound.system);
 }

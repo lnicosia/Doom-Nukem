@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 19:24:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:41:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	player_combat_state(t_env *env)
 				{
 					env->player.in_combat = 1;
 					play_music(env, &env->sound.music_chan,
-						env->sound.at_dooms_gate, env->sound.music_vol);
+						env->sound.musics[1].music, env->sound.music_vol);
 					return ;
 				}
 			}
@@ -46,7 +46,7 @@ void	player_combat_state(t_env *env)
 	if (env->player.in_combat && count == env->nb_enemies)
 	{
 		env->player.in_combat = 0;
-		play_music(env, &env->sound.music_chan, env->sound.mt_erebus,
+		play_music(env, &env->sound.music_chan, env->sound.musics[0].music,
 			env->sound.music_vol);
 	}
 }

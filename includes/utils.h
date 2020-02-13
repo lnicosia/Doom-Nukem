@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/05 19:20:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:45:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@
 # define BULLET_HOLE 26
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
+# define NB_MUSICS 2
+
+typedef	enum		e_musics_list
+{
+	MT_EREBUS,
+	AT_DOOMS_GATE
+}					t_musics_list;
 
 typedef enum		e_target_type
 {
@@ -73,7 +80,7 @@ typedef enum		e_target_type
 	STRING,
 	UINT32,
 	POS
-}			t_target_type;
+}					t_target_type;
 
 typedef enum		e_change_sprite
 {
@@ -691,6 +698,16 @@ typedef struct		s_fonts
 }					t_fonts;
 
 /*
+** Music list
+*/
+
+typedef	struct		s_music_list
+{
+	FMOD_SOUND		*music;
+	char			*str;
+}					t_music_list;
+
+/*
 ** Sound structure
 */
 
@@ -698,14 +715,14 @@ typedef struct		s_sound
 {
 	double			music_vol;
 	double			ambient_vol;
+	double			current_music;
 	FMOD_SYSTEM		*system;
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
 	FMOD_CHANNEL	*player_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
-	FMOD_SOUND		*at_dooms_gate;
-	FMOD_SOUND		*mt_erebus;
+	t_music_list	musics[2];
 	FMOD_SOUND		*footstep;
 }					t_sound;
 

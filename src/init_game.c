@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:34:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/11 19:00:46 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	play_music(&env, &env.sound.music_chan, env.sound.mt_erebus, env.sound.music_vol);
+	play_music(&env, &env.sound.music_chan, env.sound.musics[0].music, env.sound.music_vol);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init fixed camera\n", &env));
@@ -146,7 +146,8 @@ int		init_game(int ac, char **av)
 	update_camera_position(&env.fixed_camera);
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
-	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d, env.player.eyesight, env.player.pos));
+	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d,
+		env.player.eyesight, env.player.pos));
 	start_game_button(&env);
 	next_difficulty_button(&env);
 	prev_difficulty_button(&env);
