@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 12:01:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:21:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		new_event(void *param)
 
 	env = (t_env*)param;
 	env->editor.creating_event = 1;
+	ft_bzero(&env->editor.event_panel.event,
+	sizeof(env->editor.event_panel.event));
 	ft_bzero(&env->editor.event_panel.trigger,
 	sizeof(env->editor.event_panel.trigger));
 	if (env->selected_wall_sprite_wall != -1)
