@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 14:56:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:37:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,8 +421,8 @@ int					increase_wall_texture_scale(t_env *env);
 int					increase_walls_texture_scale(t_env *env);
 int					reduce_walls_texture_scale(t_env *env);
 int					check_entities_height(t_env *env);
-void				left_wall_texture_alignement(t_env *env);
-void				right_wall_texture_alignement(t_env *env);
+int					left_walls_texture_align(t_env *env);
+int					right_walls_texture_align(t_env *env);
 int					increase_wall_texture_number(t_env *env, t_sector *sector);
 int					decrease_wall_texture_number(t_env *env, t_sector *sector);
 int					increase_slope(t_env *env);
@@ -430,6 +430,12 @@ int					decrease_slope(t_env *env);
 void				change_floor_slope_start(t_env *env);
 void				change_ceiling_slope_start(t_env *env);
 void				change_slope_start(t_env *env);
+int					editor_3d_tab_keys(t_env *env);
+int					selection_tab_button_keys(t_env *env);
+int					wall_edit_keys(t_env *env);
+void				editor_wall_sprites_keys(t_env *env);
+int					change_textures_scales(t_env *env);
+int					change_walls_texture_scale(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
