@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_wall_texture_scale_functions.c                  :+:      :+:    :+:   */
+/*   3d_edit_texture_wall_align_functions.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:57:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 14:58:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 12:21:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,3 @@ void	right_wall_texture_alignement(t_env *env)
 		env->sectors[env->editor.selected_sector].
 		align[env->editor.selected_wall].x += 1;
 }
-
-void	reduce_texture_scale

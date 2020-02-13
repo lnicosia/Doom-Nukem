@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 18:09:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 15:10:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ int		editor_3d_keys(t_env *env)
 			left_wall_texture_alignement(env);
 		if (env->inputs.period)
 			right_wall_texture_alignement(env);
-		if (change_textures_scales(env))
-			return (-1);
 	}
+	if (change_textures_scales(env))
+			return (-1);
 	if (env->editor.in_game
 		&& (env->selected_wall_sprite_sprite != -1
 		|| env->selected_ceiling_sprite != -1
@@ -94,7 +94,11 @@ int		editor_3d_keys(t_env *env)
 		editor_wall_sprites_keys(env);
 	if ((env->inputs.plus || env->inputs.minus)
 	&& (env->selected_ceiling || env->selected_floor))
+	{
 		change_ceiling_floor_height(env);
+		if (env->selected_floor != -1)
+			update_sector_entities_z(env, env->selected_floor);
+	}
 	if (change_walls_texture(env))
 		return (-1);
 	if (env->inputs.ctrl && (env->inputs.plus || env->inputs.minus))
@@ -142,128 +146,11 @@ int		editor_3d_keys(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->inputs.comma)
-	{
-		if (env->inputs.shift && !env->inputs.ctrl
-		&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000
-		&& env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
-		{
-			env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
-			env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
-		}
-		else if (env->inputs.ctrl)
-			env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
-		else
-			env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
-	}
-	if (env->inputs.period)
-	{
-		if (env->inputs.shift && !env->inputs.ctrl)
-		{
-			env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
-			env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
-		}
-		else if (env->inputs.ctrl)
-			env->sectors[env->selected_ceiling].ceiling_map_align.y += 1;
-		else
-			env->sectors[env->selected_ceiling].ceiling_map_align.x += 1;
-	}
 
-	/*
-	 * *	selection of textures on ceiling and floor
-	 **	All the || conditions: reset time only if those keys are pressed
-	 */
-
-	if (env->editor.in_game && env->selected_floor != -1
-			&& env->selected_floor_sprite == -1
-			&& (env->inputs.down || env->inputs.up
-				|| env->inputs.plus || env->inputs.minus
-				|| env->inputs.comma || env->inputs.period
-				|| env->inputs.equals || env->inputs.minus1))
-	{
-		if (env->inputs.comma)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->selected_floor].floor_map_align.y -= 1;
-				env->sectors[env->selected_floor].floor_map_align.x -= 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_map_align.y -= 1;
-			else
-				env->sectors[env->selected_floor].floor_map_align.x -= 1;
-		}
-		if (env->inputs.period)
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				env->sectors[env->selected_floor].floor_map_align.y += 1;
-				env->sectors[env->selected_floor].floor_map_align.x += 1;
-			}
-			else if (env->inputs.ctrl)
-				env->sectors[env->selected_floor].floor_map_align.y += 1;
-			else
-				env->sectors[env->selected_floor].floor_map_align.x += 1;
-		}
-	}
-
-	if (env->selected_floor != -1 && env->editor.in_game && env->inputs.ctrl)
-	{
-		if (!env->time.tick3)
-			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 250
-		&& env->sectors[env->selected_floor].start_floor_slope
-		< env->sectors[env->selected_floor].nb_vertices)
-		{
-			env->sectors[env->selected_floor].start_floor_slope++;
-			env->time.tick3 = time;
-		}
-		else if (env->inputs.right && time - env->time.tick3 > 250
-		&& env->sectors[env->selected_floor].start_floor_slope > 0)
-		{
-			env->sectors[env->selected_floor].start_floor_slope--;
-			env->time.tick3 = time;
-		}
-		env->sectors[env->selected_floor].floor_normal =
-		get_sector_normal(env->sectors[env->selected_floor], env,
-		env->sectors[env->selected_floor]. start_floor_slope);
-		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		clear_portals(env);
-		while (i < env->nb_sectors)
-		{
-			create_portals(env, env->sectors[i]);
-			i++;
-		}
-	}
-	if (env->selected_ceiling != -1 && env->editor.in_game && env->inputs.ctrl)
-	{
-		if (!env->time.tick3)
-			env->time.tick3 = SDL_GetTicks();
-		if (env->inputs.left && time - env->time.tick3 > 250
-		&& env->sectors[env->selected_ceiling].start_ceiling_slope
-		< env->sectors[env->selected_ceiling].nb_vertices)
-		{
-			env->sectors[env->selected_ceiling].start_ceiling_slope++;
-			env->time.tick3 = time;
-		}
-		else if (env->inputs.right && time - env->time.tick3 > 250
-		&& env->sectors[env->selected_ceiling].start_ceiling_slope > 0)
-		{
-			env->sectors[env->selected_ceiling].start_ceiling_slope--;
-			env->time.tick3 = time;
-		}
-		env->sectors[env->selected_ceiling].ceiling_normal =
-		get_sector_normal(env->sectors[env->selected_ceiling],
-		env, env->sectors[env->selected_ceiling].start_ceiling_slope);
-		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
-		update_player_z(env);
-		clear_portals(env);
-		while (i < env->nb_sectors)
-		{
-			create_portals(env, env->sectors[i]);
-			i++;
-		}
-	}
+	if (env->inputs.ctrl &&
+	(env->inputs.left || env->inputs.right)
+	&& (env->selected_ceiling != -1 || env->selected_floor !=-1))
+		change_slope_start(env);
 
 	if (env->inputs.right_click && !env->option)
 	{

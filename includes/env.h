@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 18:05:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:56:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,6 +427,9 @@ int					increase_wall_texture_number(t_env *env, t_sector *sector);
 int					decrease_wall_texture_number(t_env *env, t_sector *sector);
 int					increase_slope(t_env *env);
 int					decrease_slope(t_env *env);
+void				change_floor_slope_start(t_env *env);
+void				change_ceiling_slope_start(t_env *env);
+void				change_slope_start(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
