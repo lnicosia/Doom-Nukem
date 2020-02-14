@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 15:37:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:35:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,19 @@ void	print_event_exec_conditions(t_env *env, t_event *event)
 
 void	print_event(t_env *env, t_event *event)
 {
+	t_point	text_size;
+
 	env->print_target_data[event->target_index](env, event,
 	new_point(540, 15), 20);
-	print_text(new_point(540, 15), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0x333333FF, 0), env);
-	print_event_action(env, event);
+	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+	&text_size.y);
+	print_text(new_point(540, 200 - text_size.x / 2),
+	new_printable_text(env->snprintf, env->sdl.fonts.lato20,
+	0x333333FF, 0), env);
+	/*print_event_action(env, event);
 	print_event_various_data(env, event);
 	print_event_launch_conditions(env, event);
-	print_event_exec_conditions(env, event);
+	print_event_exec_conditions(env, event);*/
 	draw_button(env, env->editor.modify_event, "Modify event");
 	draw_button(env, env->editor.delete_event, "Delete event");
 }

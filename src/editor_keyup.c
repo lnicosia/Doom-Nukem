@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 15:36:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:39:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	editor_keyup(t_env *env)
 	{
 		if (event_panel_keyup(env))
 			return (-1);
+	}
+	if (env->editor.selecting_target && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_target = 0;
+		env->editor.creating_event = 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
@@ -221,7 +227,7 @@ int	editor_keyup(t_env *env)
 			if (button_keyup(&env->editor.previous_event, env))
 				return (-1);
 		}
-		if (are_launch_condition_selection_buttons_visible(env))
+		/*if (are_launch_condition_selection_buttons_visible(env))
 		{
 			if (button_keyup(&env->editor.next_launch_condition, env))
 				return (-1);
@@ -234,7 +240,7 @@ int	editor_keyup(t_env *env)
 				return (-1);
 			if (button_keyup(&env->editor.previous_exec_condition, env))
 				return (-1);
-		}
+		}*/
 	}
 	if (env->editor.selected_sector != -1 && sector_buttons_up(env))
 		return (-1);
