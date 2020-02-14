@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 15:49:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 13:41:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		delete_sector(t_env *env, int sector)
 		env->sectors[i].num--;
 		i++;
 	}
+	env->editor.selected_sector = -1;
+	tabs_gestion(env);
 	return (0);
 }
 
