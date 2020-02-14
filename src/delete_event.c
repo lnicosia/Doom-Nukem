@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:42:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 13:43:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 13:58:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_event **events, size_t *nb)
 		events = &env->sectors[panel->trigger.sector].walk_out_events;
 		nb = &env->sectors[panel->trigger.sector].nb_walk_out_events;
 	}
+	free_event(&(*events)[panel->selected_event]);
 	*events = (t_event*)ft_delindex(*events, sizeof(t_event) * *nb,
 	sizeof(t_event), sizeof(t_event) * panel->selected_event);
 	(*nb)--;
