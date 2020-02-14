@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 12:18:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:12:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,17 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/plus-button-hover.bmp", 14, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/next-up.bmp", 15, env))
+	if (parse_bmp_ui_textures("images/ui/next-up2.bmp", 15, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/next-pressed.bmp", 16, env))
+	if (parse_bmp_ui_textures("images/ui/next-pressed2.bmp", 16, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/next-hover.bmp", 17, env))
+	if (parse_bmp_ui_textures("images/ui/next-hover2.bmp", 17, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-up.bmp", 18, env))
+	if (parse_bmp_ui_textures("images/ui/previous-up2.bmp", 18, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-pressed.bmp", 19, env))
+	if (parse_bmp_ui_textures("images/ui/previous-pressed2.bmp", 19, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-hover.bmp", 20, env))
+	if (parse_bmp_ui_textures("images/ui/previous-hover2.bmp", 20, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
 		return (custom_error("Invalid bmp files"));
