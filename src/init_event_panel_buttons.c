@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 16:47:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:49:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	init_event_panel_buttons(t_env *env)
 	update_event_panel_button_pos(env);
 	init_target_panel_buttons(env);
 	init_action_panel_buttons(env);
+	init_launch_conditions_panel_buttons(env);
 }

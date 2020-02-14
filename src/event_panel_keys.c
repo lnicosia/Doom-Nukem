@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 15:49:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:30:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	drag_panel(t_env *env)
 		update_event_panel_button_pos(env);
 		update_target_panel_button_pos(env);
 		update_action_panel_button_pos(env);
+		update_launch_conditions_panel_button_pos(env);
 	}
 	return (0);
 }
@@ -82,12 +83,12 @@ int		event_panel_keys(t_env *env)
 		if (action_panel_keys(env))
 			return (-1);
 	}
-	/*if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
+	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
 	{
 		if (launch_conditions_panel_keys(env))
 			return (-1);
 	}
-	if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
+	/*if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
 	{
 		if (exec_conditions_panel_keys(env))
 			return (-1);
@@ -119,12 +120,12 @@ int		event_panel_keyup(t_env *env)
 		if (action_panel_keyup(env))
 			return (-1);
 	}
-	/*if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
+	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
 	{
 		if (launch_conditions_panel_keyup(env))
 			return (-1);
 	}
-	if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
+	/*if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
 	{
 		if (exec_conditions_panel_keyup(env))
 			return (-1);

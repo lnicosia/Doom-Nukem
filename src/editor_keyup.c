@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 14:39:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:45:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ int	editor_keyup(t_env *env)
 	int	i;
 
 	i = 0;
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
@@ -66,6 +61,7 @@ int	editor_keyup(t_env *env)
 			&& (!is_mouse_on_event_panel(env) || !env->editor.creating_event)
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
+			&& !env->editor.creating_event
 			&& env->editor.dragged_object == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_enemy == -1)
@@ -89,6 +85,11 @@ int	editor_keyup(t_env *env)
 		env->selected_enemy = -1;
 		tabs_gestion(env);
 		check_event_creation(env);
+	}
+	if (env->editor.creating_event && !env->confirmation_box.state)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
 	}
 	if (env->confirmation_box.state)
 	{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 15:47:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:47:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int		modify_event(void *param)
 	int		sector;
 
 	env = (t_env*)param;
+	target_tab_func(env);
 	env->editor.creating_event = 1;
+	env->editor.event_panel.target_tab.state = DOWN;
 	env->editor.event_panel.selected_event = env->editor.selected_event;
 	if (env->selected_floor != -1)
 		sector = env->selected_floor;
@@ -148,6 +150,8 @@ int		modify_event(void *param)
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 	{
 		env->editor.event_panel.trigger.index = GLOBAL;
+		env->editor.event_panel.event =
+		env->global_events[env->editor.selected_event];
 	}
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;

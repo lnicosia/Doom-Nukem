@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:00:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:31:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 19:42:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*get_condition_type_str(t_condition *condition)
 	else if (condition->type == GREATER_OR_EQUALS)
 		return ("is greater than or equal to");
 	else if (condition->type == EVENT_ENDED)
-		return ("Event ended");
+		return ("event ended");
 	else if (condition->type == EVENT_ENDED_START)
-		return ("Event ended (start)");
+		return ("event ended (start)");
 	else if (condition->type == FUNCTION)
 		return ("Function");
 	return ("");
