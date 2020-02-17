@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 16:48:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/17 16:25:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 int		change_textures_scales(t_env *env)
 {
-	if (env->inputs.minus1
-	&& (env->editor.selected_wall != -1 || env->selected_floor != -1
-	|| env->selected_ceiling != -1))
+	if (env->editor.key_delay > INPUT_DELAY
+	&& env->editor.selected_wall_sprite == -1
+	&& env->selected_floor_sprite == -1
+	&& env->selected_ceiling_sprite == -1)
 	{
-		if (reduce_walls_texture_scale(env))
-			return (-1);
-	}
-	if (env->inputs.equals
-	&& (env->editor.selected_wall != -1 || env->selected_floor != -1
-	|| env->selected_ceiling != -1))
-	{
-		if (increase_walls_texture_scale(env))
-			return (-1);
+		if ((env->inputs.minus1)
+		&& (env->editor.selected_wall != -1 || env->selected_floor != -1
+		|| env->selected_ceiling != -1))
+		{
+			if (reduce_walls_texture_scale(env))
+				return (-1);
+		}
+		if ((env->inputs.equals)
+		&& (env->editor.selected_wall != -1 || env->selected_floor != -1
+		|| env->selected_ceiling != -1))
+		{
+			if (increase_walls_texture_scale(env))
+				return (-1);
+		}
 	}
 	return (0);
 }
@@ -48,8 +54,15 @@ int		check_move_player_conditions(t_env *env)
 
 int		editor_3d_keys(t_env *env)
 {
+	if (env->editor.tab)
+	{
+		if (editor_3d_tab_keys(env))
+			return (-1);
+	}
 	if (wall_edit_keys(env))
 		return (-1);
+	if (check_move_player_conditions(env))
+		move_player(env);
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		reset_selection(env);
@@ -69,22 +82,15 @@ int		editor_3d_keys(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->editor.tab)
-	{
-		if (editor_3d_tab_keys(env))
-			return (-1);
-	}
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
 			env->sound.ambient_vol);
-	if (check_move_player_conditions(env))
-		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift
-			&& env->options.minimap_scale * 1.2 < 100)
+	&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;
 	if (env->inputs.minus && !env->inputs.shift
-			&& env->options.minimap_scale / 1.2 > 1)
+	&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 17:37:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/17 17:08:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,8 @@ int					init_skybox_selection_buttons(t_env *env);
 int					editor(t_env *env);
 int					draw_editor_tabs(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
+void				wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
+void				editor_wall_sprites_keyup(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
@@ -410,7 +412,7 @@ int					sprite_tab_keyup(t_env *env);
 int					events_tab_keyup(t_env *env);
 int					editor_3d_tabs_keyup(t_env *env);
 void				editor_options_tab_keyup(t_env *env);
-void				editor_wall_sprites_keys(t_env *env);
+void				editor_wall_sprites_keyup(t_env *env);
 void				change_ceiling_floor_height(t_env *env);
 int					reduce_ceiling_texture_scale(t_env *env);
 int					reduce_floor_texture_scale(t_env *env);
@@ -433,9 +435,14 @@ void				change_slope_start(t_env *env);
 int					editor_3d_tab_keys(t_env *env);
 int					selection_tab_button_keys(t_env *env);
 int					wall_edit_keys(t_env *env);
+int					wall_edit_keyup(t_env *env);
 void				editor_wall_sprites_keys(t_env *env);
 int					change_textures_scales(t_env *env);
 int					change_walls_texture_scale(t_env *env);
+int					change_slopes(t_env *env);
+int					change_texture_alignement(t_env *env);
+int					change_textures_scales(t_env *env);
+int					change_walls_texture(t_env *env);
 
 /*
 **	Input boxes checkers and updaters
@@ -468,6 +475,8 @@ int					update_enemy_input_box(void *penv);
 */
 
 int					height_check(t_env *env);
+int					check_sprite_pos(t_v2 *pos);
+int					check_texture_scale(t_env *env, t_v2 *scale);
 
 /*
 **	Editor buttons functions
@@ -517,6 +526,14 @@ int					change_health(void *target);
 int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
+
+/*
+**
+*/
+
+void				change_ceiling_floor_height_keyup(t_env *env);
+void				check_height_protections(t_env *env, t_sector *sector);
+
 /*
 **	prints and draw buttons for informations on a selected element 
 */

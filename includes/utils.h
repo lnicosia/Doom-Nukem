@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 18:51:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/14 14:28:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define PLAYER_XPOS env->player.pos.x
 # define PLAYER_YPOS env->player.pos.y
 # define SNPRINTF_SIZE 1024
+# define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 36
 # define MAX_UI_TEXTURES 60

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:25:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 15:50:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/17 12:04:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,27 @@ int		reduce_walls_texture_scale(t_env *env)
 
 void	check_height_protections(t_env * env, t_sector *sector)
 {
-	if (height_check(env))
+	if (env->editor.key_delay > INPUT_DELAY
+	|| env->editor.keyup_allowed)
 	{
-		if (env->selected_ceiling != -1)
-			sector->ceiling -= 0.1;
-		if (env->selected_floor != -1)
-			sector->floor += 0.1;
-	}
-	if (check_entities_height(env))
-	{
-		if (env->selected_ceiling != -1 && !env->inputs.ctrl)
-			sector->ceiling += 0.1;
-		if (env->selected_floor != -1 && !env->inputs.ctrl)
-			sector->floor -= 0.1;
-		if (env->selected_ceiling != -1 && env->inputs.ctrl)
-			sector->ceiling_slope += 0.01;
-		if (env->selected_floor != -1 && env->inputs.ctrl)
-			sector->floor_slope -= 0.01;
+		if (height_check(env))
+		{
+			if (env->selected_ceiling != -1)
+				sector->ceiling -= 0.1;
+			if (env->selected_floor != -1)
+				sector->floor += 0.1;
+		}
+		if (check_entities_height(env))
+		{
+			if (env->selected_ceiling != -1 && !env->inputs.ctrl)
+				sector->ceiling += 0.1;
+			if (env->selected_floor != -1 && !env->inputs.ctrl)
+				sector->floor -= 0.1;
+			if (env->selected_ceiling != -1 && env->inputs.ctrl)
+				sector->ceiling_slope += 0.01;
+			if (env->selected_floor != -1 && env->inputs.ctrl)
+				sector->floor_slope -= 0.01;
+		}
 	}
 }
 
@@ -81,23 +85,27 @@ void	change_ceiling_floor_height(t_env *env)
 	t_sector	*sector;
 
 	sector = NULL;
-	if (env->selected_ceiling != -1)
+	if (env->editor.key_delay > INPUT_DELAY)
 	{
-		sector = &env->sectors[env->selected_ceiling];
-		if (env->inputs.plus && !env->inputs.ctrl)
-			env->sectors[env->selected_ceiling].ceiling += 0.1;
-		if (env->inputs.minus && !env->inputs.ctrl)
-			env->sectors[env->selected_ceiling].ceiling -= 0.1;
-		check_height_protections(env, sector);
-		
-	}
-	else if (env->selected_floor != -1)
-	{
-		sector = &env->sectors[env->selected_ceiling];
-		if (env->inputs.plus && !env->inputs.ctrl)
-			env->sectors[env->selected_floor].floor += 0.1;
-		else if (env->inputs.minus && !env->inputs.ctrl)
-			env->sectors[env->selected_floor].floor -= 0.1;	
-		check_height_protections(env, sector);
+		if (env->selected_ceiling != -1)
+		{
+			sector = &env->sectors[env->selected_ceiling];
+			if (env->inputs.plus && !env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling += 0.1;
+			if (env->inputs.minus && !env->inputs.ctrl)
+				env->sectors[env->selected_ceiling].ceiling -= 0.1;
+			check_height_protections(env, sector);
+			update_sector_slope(env, sector);	
+		}
+		else if (env->selected_floor != -1)
+		{
+			sector = &env->sectors[env->selected_floor];
+			if (env->inputs.plus && !env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor += 0.1;
+			else if (env->inputs.minus && !env->inputs.ctrl)
+				env->sectors[env->selected_floor].floor -= 0.1;	
+			check_height_protections(env, sector);
+			update_sector_slope(env, sector);	
+		}
 	}
 }

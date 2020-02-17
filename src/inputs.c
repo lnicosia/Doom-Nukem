@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:12:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:58:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,16 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.a = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.lgui)
 		env->inputs.lgui = mode;
+	if (!env->editor.key_delay && mode)
+		env->editor.start_key_delay = SDL_GetTicks() - 1;
+	if (mode)
+		env->editor.key_delay = SDL_GetTicks() - env->editor.start_key_delay;
+	else if (env->editor.key_delay && !mode)
+		env->editor.key_delay = 0;
+	if (env->editor.key_delay < 200)
+		env->editor.keyup_allowed = 1;
+	else
+		env->editor.keyup_allowed = 0;
 }
 
 void	update_inputs(t_env *env)

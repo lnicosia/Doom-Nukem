@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_wall_sprites_keys.c                         :+:      :+:    :+:   */
+/*   editor_wall_sprites_keyup.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/11 16:56:58 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 15:12:28 by sipatry          ###   ########.fr       */
+/*   Created: 2020/02/17 15:00:53 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/17 15:13:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	wall_keys(t_env *env)
+void	wall_keyup(t_env *env)
 {
-	wall_sprites_keys(env,
+	wall_sprites_keyup(env,
 		&env->sectors[env->editor.selected_sector].
 		wall_sprites[env->selected_wall_sprite_wall].
 		pos[env->selected_wall_sprite_sprite],
@@ -23,9 +23,9 @@ void	wall_keys(t_env *env)
 		scale[env->selected_wall_sprite_sprite]);
 }
 
-void	ceiling_keys(t_env *env)
+void	ceiling_keyup(t_env *env)
 {
-	wall_sprites_keys(env,
+	wall_sprites_keyup(env,
 		&env->sectors[env->selected_ceiling].
 		ceiling_sprites.pos[env->selected_ceiling_sprite],
 		&env->sectors[env->selected_ceiling].
@@ -34,9 +34,9 @@ void	ceiling_keys(t_env *env)
 	env->selected_ceiling_sprite, env);
 }
 
-void	floor_keys(t_env *env)
+void	floor_keyup(t_env *env)
 {
-	wall_sprites_keys(env,
+	wall_sprites_keyup(env,
 		&env->sectors[env->selected_floor].
 		floor_sprites.pos[env->selected_floor_sprite],
 		&env->sectors[env->selected_floor].
@@ -45,19 +45,19 @@ void	floor_keys(t_env *env)
 	env->selected_floor_sprite, env);
 }
 
-void	editor_wall_sprites_keys(t_env *env)
+void	editor_wall_sprites_keyup(t_env *env)
 {
 	if (env->editor.in_game
 			&& env->editor.selected_sector != -1
 			&& env->selected_wall_sprite_wall != -1
 			&& env->selected_wall_sprite_sprite != -1)
-		wall_keys(env);
+		wall_keyup(env);
 	if (env->editor.in_game
 			&& env->selected_ceiling != -1
 			&& env->selected_ceiling_sprite != -1)
-		ceiling_keys(env);
+		ceiling_keyup(env);
 	if (env->editor.in_game
 			&& env->selected_floor != -1
 			&& env->selected_floor_sprite != -1)
-		floor_keys(env);
+		floor_keyup(env);
 }

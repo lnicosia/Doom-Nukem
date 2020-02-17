@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:52:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/14 13:45:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,9 @@ typedef struct	s_event_panel
 typedef struct	s_editor
 {
 	t_v2			start_pos;
+	int				key_delay;
+	int				keyup_allowed;
+	int				start_key_delay;
 	int				existing_vertex;
 	int				divide_sector;
 	int				split_sector;
