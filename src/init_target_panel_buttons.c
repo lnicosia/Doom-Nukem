@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 17:31:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:57:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ double nb, t_env *env)
 	(button->size_up.y + 4) * nb);
 }
 
-void		update_target_panel_button_pos(t_env *env)
+void		update_target_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -175,5 +175,5 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, &previous_target_selection_phase, env, env);
 	env->editor.event_panel.target_panel.previous = new_previous_arrow(
 	ON_RELEASE, &previous_target_selection_phase, env, env);
-	update_target_panel_button_pos(env);
+	update_target_panel_buttons_pos(env);
 }

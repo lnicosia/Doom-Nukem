@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 18:30:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 12:30:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,33 @@ static int	drag_panel(t_env *env)
 		ft_clamp(env->editor.event_panel.pos.x, 0, env->w - 1);
 		env->editor.event_panel.pos.y =
 		ft_clamp(env->editor.event_panel.pos.y, 0, env->h - 1);
-		update_event_panel_button_pos(env);
-		update_target_panel_button_pos(env);
-		update_action_panel_button_pos(env);
-		update_launch_conditions_panel_button_pos(env);
+		update_event_panel_buttons_pos(env);
+		update_target_panel_buttons_pos(env);
+		update_action_panel_buttons_pos(env);
+		update_launch_conditions_panel_buttons_pos(env);
+		update_condition_panel_buttons_pos(env);
 	}
 	return (0);
 }
 
 int		event_panel_keys(t_env *env)
 {
+	set_dragging(env);
+	drag_panel(env);
 	if (button_keys(&env->editor.event_panel.target_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.event_panel.action_tab, env))
-		return (-1);
-	if (button_keys(&env->editor.event_panel.launch_conditions_tab, env))
-		return (-1);
-	if (button_keys(&env->editor.event_panel.exec_conditions_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.event_panel.ok, env))
 		return (-1);
 	if (button_keys(&env->editor.event_panel.cancel, env))
 		return (-1);
-	set_dragging(env);
-	drag_panel(env);
+	if (env->editor.creating_condition)
+		return (condition_panel_keys(env));
+	if (button_keys(&env->editor.event_panel.launch_conditions_tab, env))
+		return (-1);
+	if (button_keys(&env->editor.event_panel.exec_conditions_tab, env))
+		return (-1);
 	if (env->editor.event_panel.target_tab.state == DOWN)
 	{
 		if (target_panel_keys(env))
@@ -102,13 +105,15 @@ int		event_panel_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.event_panel.action_tab, env))
 		return (-1);
-	if (button_keyup(&env->editor.event_panel.launch_conditions_tab, env))
-		return (-1);
-	if (button_keyup(&env->editor.event_panel.exec_conditions_tab, env))
-		return (-1);
 	if (button_keyup(&env->editor.event_panel.ok, env))
 		return (-1);
 	if (button_keyup(&env->editor.event_panel.cancel, env))
+		return (-1);
+	if (env->editor.creating_condition)
+		return (condition_panel_keyup(env));
+	if (button_keyup(&env->editor.event_panel.launch_conditions_tab, env))
+		return (-1);
+	if (button_keyup(&env->editor.event_panel.exec_conditions_tab, env))
 		return (-1);
 	if (env->editor.event_panel.target_tab.state == DOWN)
 	{

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 18:53:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:56:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		set_event_func(void *param)
 	return (0);
 }
 
-void	update_action_panel_button_pos(t_env *env)
+void	update_action_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -103,5 +103,5 @@ void	init_action_panel_buttons(t_env *env)
 	ON_RELEASE, &set_event_delay, env, env);
 	env->editor.event_panel.action_panel.max_uses = new_blue_panel_button(
 	ON_RELEASE, &set_event_max_uses, env, env);
-	update_action_panel_button_pos(env);
+	update_action_panel_buttons_pos(env);
 }

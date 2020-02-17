@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 16:55:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 12:28:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -562,6 +562,7 @@ int					wall_sprite_buttons_up(t_env *env);
 */
 
 int					draw_event_panel(t_env *env);
+int					draw_condition_panel(t_env *env);
 int					draw_target_panel(t_env *env);
 int					draw_action_panel(t_env *env);
 int					draw_launch_conditions_panel(t_env *env);
@@ -624,11 +625,14 @@ t_button			new_turquoise_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_small_panel_button(int type, int (*action)(void *),
 void *param, t_env *env);
-void				update_event_panel_button_pos(t_env *env);
-void				update_target_panel_button_pos(t_env *env);
-void				update_action_panel_button_pos(t_env *env);
-void				update_launch_conditions_panel_button_pos(t_env *env);
-void				update_exec_conditions_panel_button_pos(t_env *env);
+t_button			new_condition_panel_button(int type, int (*action)(void *),
+void *param, t_env *env);
+void				update_event_panel_buttons_pos(t_env *env);
+void				update_target_panel_buttons_pos(t_env *env);
+void				update_action_panel_buttons_pos(t_env *env);
+void				update_launch_conditions_panel_buttons_pos(t_env *env);
+void				update_exec_conditions_panel_buttons_pos(t_env *env);
+void				update_condition_panel_buttons_pos(t_env *env);
 int					get_target_selection_phase(t_env *env);
 int					set_new_event_target(t_env *env);
 int					select_floor_target(t_env *env, t_event_panel *panel,
@@ -678,6 +682,7 @@ int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
 int					create_event(void *param);
 int					save_event(void *param);
+int					save_condition(void *param);
 int					modify_event(void *param);
 int					delete_event(void *param);
 int					new_global_event(t_env *env, t_event_trigger trigger,
@@ -694,6 +699,7 @@ int					new_walk_out_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_death_event(t_env *env, t_event_trigger trigger,
 t_event event);
+int					delete_launch_condition(void *param);
 
 /*
 ** Main functions
@@ -1054,6 +1060,7 @@ void				init_target_panel_buttons(t_env *env);
 void				init_action_panel_buttons(t_env *env);
 void				init_launch_conditions_panel_buttons(t_env *env);
 void				init_exec_conditions_panel_buttons(t_env *env);
+void				init_condition_panel_buttons(t_env *env);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
@@ -1062,6 +1069,8 @@ int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
 int					event_panel_keys(t_env *env);
 int					event_panel_keyup(t_env *env);
+int					condition_panel_keys(t_env *env);
+int					condition_panel_keyup(t_env *env);
 int					option_menu_keyup(t_env *env);
 int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);

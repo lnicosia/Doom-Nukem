@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 15:49:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:56:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int		close_event_panel(void *param)
 {
-	(*(int*)param) = 0;
+	t_env	*env;
+
+	env = (t_env*)param;
+	if (env->editor.creating_condition)
+		env->editor.creating_condition = 0;
+	else
+		env->editor.creating_event = 0;
 	return (0);
 }
 
@@ -40,7 +46,7 @@ void	init_ok_button(t_env *env)
 void	init_cancel_button(t_env *env)
 {
 	env->editor.event_panel.cancel = new_rectangle_button(
-	ON_RELEASE, &close_event_panel, &env->editor.creating_event, env);
+	ON_RELEASE, &close_event_panel, env, env);
 	env->editor.event_panel.cancel.size_up.y =
 	env->editor.event_panel.top_size - 2;
 	env->editor.event_panel.cancel.size_up.x = 98;
@@ -57,7 +63,7 @@ void	init_cancel_button(t_env *env)
 	env->editor.event_panel.cancel.hover_text_color = 0xed7161FF;
 }
 
-void	update_event_panel_button_pos(t_env *env)
+void	update_event_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -97,8 +103,9 @@ void	init_event_panel_buttons(t_env *env)
 	WHEN_DOWN, &exec_conditions_tab_func, env, env);
 	init_ok_button(env);
 	init_cancel_button(env);
-	update_event_panel_button_pos(env);
+	update_event_panel_buttons_pos(env);
 	init_target_panel_buttons(env);
 	init_action_panel_buttons(env);
 	init_launch_conditions_panel_buttons(env);
+	init_condition_panel_buttons(env);
 }

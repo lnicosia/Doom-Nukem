@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 20:15:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:56:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			previous_launch_condition1(void *param)
 	return (0);
 }
 
-void		update_launch_conditions_panel_button_pos(t_env *env)
+void		update_launch_conditions_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -67,6 +67,8 @@ int			new_launch_condition(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
+	env->editor.creating_condition = 1;
+	env->editor.event_panel.ok.release_action = &save_condition;
 	return (0);
 }
 
@@ -77,10 +79,10 @@ void		init_launch_conditions_panel_buttons(t_env *env)
 	env->editor.event_panel.next_launch_condition =
 	new_next_arrow(ON_RELEASE, &next_launch_condition1, env, env);
 	env->editor.event_panel.new_launch_condition =
-	new_dark_panel_button(ON_RELEASE, &new_launch_condition, NULL, env);
+	new_dark_panel_button(ON_RELEASE, &new_launch_condition, env, env);
 	env->editor.event_panel.modify_launch_condition =
 	new_dark_panel_button(ON_RELEASE, NULL, NULL, env);
 	env->editor.event_panel.delete_launch_condition =
-	new_dark_panel_button(ON_RELEASE, NULL, NULL, env);
-	update_launch_conditions_panel_button_pos(env);
+	new_dark_panel_button(ON_RELEASE, &delete_launch_condition, env, env);
+	update_launch_conditions_panel_buttons_pos(env);
 }

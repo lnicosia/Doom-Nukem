@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/14 20:22:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:47:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,8 +276,17 @@ typedef struct	s_event_panel
 
 typedef struct	s_condition_panel
 {
-	t_button	target_tab;
 	t_button	condition_tab;
+	t_button	target_tab;
+	t_button	equals;
+	t_button	different;
+	t_button	less;
+	t_button	greater;
+	t_button	less_or_equals;
+	t_button	greater_or_equals;
+	t_button	event_ended;
+	t_button	event_ended_start;
+	t_button	function;
 }				t_condition_panel;
 
 typedef struct	s_editor

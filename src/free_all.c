@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 16:45:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 10:56:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,10 @@ void		free_all(t_env *env)
 	t_list	*tmplst;
 
 	ft_printf("Freeing data..\n");
+	if (env->editor.creating_event)
+		save_event(env);
 	if (!env)
-		exit(0);
+		return ;
 	free_all_sdl_relative(env);
 	if (env->sdl.fonts.amazdoom70)
 		TTF_CloseFont(env->sdl.fonts.amazdoom70);

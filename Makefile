@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/14 13:58:55 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/17 12:28:07 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				explosion.c init_events_map.c draw_explosion.c \
 				explosion_maths.c
 
-SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
+SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
 		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
@@ -75,7 +75,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		 editor_object_tabs.c editor_env_object_buttons.c \
 		 sprite_selection.c init_sprite_selection_buttons.c\
-		 editor_object_tab_button.c print_events_tabs.c \
+		 editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
 		 are_condition_selection_buttons_visible.c init_event_links_types.c \
 		 print_link_target_functions.c print_condition_target_functions.c \
@@ -95,7 +95,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 init_events_creation_buttons.c reduce_texture_scales_functions.c \
 		 increase_texture_scales_functions.c keys_checkers.c \
 		 3d_edit_texture_scale_functions.c 3d_edit_walls_texture_number.c \
-		 3d_edit_slopes.c \
+		 3d_edit_slopes.c delete_launch_condition.c \
+		 init_condition_panel_buttons.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -103,7 +104,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c get_double_len.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
-		   get_slope.c update_player_z.c movement_collision.c \
+		   get_slope.c update_player_z.c movement_collision.c condition_panel.c\
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
@@ -156,7 +157,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   different_condition.c init_events.c init_events_parser.c \
 		   new_global_event.c new_press_event.c new_shoot_event.c \
 		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
-		   new_death_event.c parse_event_target.c \
+		   new_death_event.c parse_event_target.c modify_event.c \
 		   init_events_parser_target_types.c parse_event_launch_conditions.c \
 		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \
@@ -174,8 +175,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   weapon_panel.c enemy_panel.c object_panel.c player_panel.c \
 		   vertex_panel.c sector_other_panel.c \
 
-HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h \
-		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h \
+HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
+		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
 		  events_parser.h \
 
