@@ -282,6 +282,67 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 	return (1);
 }
 
+int		new_sector_contains(t_vertex *tmp_sect, t_vertex v1, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (v1.x == tmp_sect[i].x && v1.y == tmp_sect[i].y)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+/*
+** Returns 1 if there's no exisiting vertex in the new sector
+*/
+
+int		is_sector_empty(t_env *env, t_v2 last_vertex)
+{
+	int		i;
+	int		size;
+	t_list	*tmp;
+
+	i = 0;
+	size = 1;
+	tmp = env->editor.current_vertices;
+	while (tmp)
+	{
+		size++;
+		tmp = tmp->next;
+	}
+	if (size <= 2)
+		return (1);
+	tmp = env->editor.current_vertices;
+	if (!(env->tmp_sector = (t_vertex *)malloc(sizeof(t_vertex) * size)))
+		return (0);
+	while (tmp)
+	{
+		env->tmp_sector[i].x = ((t_vertex*)tmp->content)->x;
+		env->tmp_sector[i].y = ((t_vertex*)tmp->content)->y;
+		tmp = tmp->next;
+		i++;
+	}
+	env->tmp_sector[i].x = last_vertex.x;
+	env->tmp_sector[i].y = last_vertex.y;
+	i = 0;
+	while (i < env->nb_vertices)
+	{
+		if (!new_sector_contains(env->tmp_sector, env->vertices[i], size) &&
+			inside_tmp_sect(env->vertices[i], env->tmp_sector, size))
+		{
+			free(env->tmp_sector);
+			return (0);
+		}
+		i++;
+	}
+	free(env->tmp_sector);
+	return (1);
+}
+
 /*
 **	Returns 1 if a vertex is valid
 **	(no intersection with current or existing sector,
@@ -298,6 +359,8 @@ int		is_new_vertex_valid(t_env *env, int index)
 		return (0);
 	if (!env->editor.current_vertices)
 		return (1);
+	if (!is_sector_empty(env, vertex))
+		return (0);
 	if (current_vertices_contains(env, index))
 		return (0);
 	if (new_wall_intersects(env, index))

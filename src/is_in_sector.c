@@ -39,6 +39,22 @@ int     diff_sign(double nb1, double nb2)
 	return (1);
 }
 
+double	find_xmax(t_vertex *tmp_sect, int size)
+{
+	double	xmax;
+	int		i;
+
+	i = 0;
+	xmax = tmp_sect[0].x;
+	while (i < size)
+	{
+		if (xmax < tmp_sect[i].x)
+			xmax = tmp_sect[i].x;
+		i++;
+	}
+	return (xmax);
+}
+
 /*
 **	Returns if a pos is in a certain sector
 */
@@ -75,6 +91,44 @@ int     is_in_sector(t_env *env, int sector, t_v3 pos)
 	return (1);
 }
 
+int		inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size)
+{
+	int		count;
+	int		i;
+	double	start_pos;
+	double	end_pos;
+	double	xmax;
+
+	i = 0;
+	count = 0;
+	xmax = find_xmax(tmp_sect, size);
+	while (i < size - 1)
+	{
+		start_pos = (v1.x - tmp_sect[i].x) *
+			(tmp_sect[i + 1].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
+			(tmp_sect[i + 1].x - tmp_sect[i].x);
+		end_pos = (xmax + 1 - tmp_sect[i].x) *
+			(tmp_sect[i + 1].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
+			(tmp_sect[i + 1].x - tmp_sect[i].x);
+		if (diff_sign(start_pos, end_pos) && in_range(v1.y, tmp_sect[i].y,
+			tmp_sect[i + 1].y))
+			count++;
+		i++;
+	}
+	start_pos = (v1.x - tmp_sect[i].x) *
+		(tmp_sect[0].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
+		(tmp_sect[0].x - tmp_sect[i].x);
+	end_pos = (xmax + 1 - tmp_sect[i].x) *
+		(tmp_sect[0].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
+		(tmp_sect[0].x - tmp_sect[i].x);
+	if (diff_sign(start_pos, end_pos) && in_range(v1.y, tmp_sect[i].y,
+			tmp_sect[0].y))
+		count++;
+	if (count % 2 == 0)
+		return (0);
+	return (1);
+}
+
 /*
 **	Returns if a pos is in a certain sector
 **	without checking z
@@ -89,7 +143,6 @@ int     is_in_sector_no_z(t_env *env, int sector, t_v2 pos)
 
 	i = 0;
 	count = 0;
-	//ft_printf("Checking sector %d\n", sector);
 	if (sector < 0 || sector >= env->nb_sectors)
 		return (0);
 	while (i < env->sectors[sector].nb_vertices)
@@ -101,10 +154,6 @@ int     is_in_sector_no_z(t_env *env, int sector, t_v2 pos)
 		i++;
 	}
 	if (count % 2 == 0)
-	{
-		//ft_printf("KO\n");
 		return (0);
-	}
-	//ft_printf("OK\n");
 	return (1);
 }

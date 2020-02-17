@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:30:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/14 19:40:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_env
 	t_animation			weapon_change;
 	t_animation			player_hurt;
 	t_vertex			*vertices;
+	t_vertex			*tmp_sector;
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemies			*enemies;
@@ -917,6 +918,7 @@ void				option_menu(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
+int					inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size);
 int					is_in_sector(t_env *env, int sector, t_v3 pos);
 int					is_in_sector_no_z(t_env *env, int sector, t_v2 pos);
 double				distance_two_points_2d(double x1, double y1, double x2,

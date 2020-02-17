@@ -95,8 +95,8 @@ int		is_vertex_used(t_env *env, int vertex)
 }
 
 /*
- **	Returns 0 if the given vertex does not belong to the current sector
- */
+**	Returns 0 if the given vertex does not belong to the current sector
+*/
 
 int		current_vertices_contains(t_env *env, int vertex)
 {

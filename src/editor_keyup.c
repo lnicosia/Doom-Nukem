@@ -120,9 +120,7 @@ int	editor_keyup(t_env *env)
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
 			if (env->editor.start_vertex == -1) //Nouveau secteur
-			{
 				env->editor.start_vertex = env->nb_vertices - 1;
-			}
 		}
 		else if (clicked_vertex >= 0)
 		{
