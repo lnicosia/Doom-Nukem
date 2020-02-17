@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:12:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 12:21:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 15:47:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events_conditions.h"
 
 void	draw_condition_type_tab(t_env *env)
 {
@@ -52,6 +53,16 @@ void	draw_condition_target_tab(t_env *env)
 
 void	draw_condition_condition_panel(t_env *env)
 {
+	t_point		text_size;
+
+	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition type",
+	&text_size.x, &text_size.y);
+	print_text(new_point(env->editor.event_panel.pos.y +
+	env->editor.event_panel.top_size + 17,
+	env->editor.event_panel.pos.x + 100 +
+	env->editor.event_panel.content_panel_size.x / 2 - text_size.x / 2),
+	new_printable_text("Choose your condition type",
+	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
 	draw_button(env, env->editor.condition_panel.equals, "=");
 	draw_button(env, env->editor.condition_panel.different, "!=");
 	draw_button(env, env->editor.condition_panel.less, "<");
@@ -63,12 +74,21 @@ void	draw_condition_condition_panel(t_env *env)
 	draw_button(env, env->editor.condition_panel.function, "func");
 }
 
+void	draw_condition_target_panel(t_env *env)
+{
+	if (env->editor.condition_panel.condition.type < EVENT_ENDED)
+		draw_condition_targets_panel(env);
+	/*else if (env->editor.condition_panel.condition.type == EVENT_ENDED
+		|| env->editor.condition_panel.condition.type == EVENT_ENDED_START)
+		draw_condition_event_panel(env);*/
+}
+
 void	draw_condition_panel_tab_content(t_env *env)
 {
 	if (env->editor.event_panel.target_tab.state == DOWN)
 		draw_condition_condition_panel(env);
-	/*else if (env->editor.event_panel.action_tab.state == DOWN)
-		draw_condition_target_panel(env);*/
+	else if (env->editor.event_panel.action_tab.state == DOWN)
+		draw_condition_target_panel(env);
 }
 
 int		draw_condition_panel(t_env *env)
@@ -116,7 +136,7 @@ int		draw_condition_panel(t_env *env)
 	draw_condition_type_tab(env);
 	draw_condition_target_tab(env);
 	draw_condition_panel_tab_content(env);
-	int x, y = 0;
+	/*int x, y = 0;
 	x = env->editor.event_panel.pos.x + 100
 	+ env->editor.event_panel.content_panel_size.x / 2;
 	y = env->editor.event_panel.pos.y + env->editor.event_panel.top_size;
@@ -132,6 +152,6 @@ int		draw_condition_panel(t_env *env)
 	{
 		env->sdl.texture_pixels[x + y * env->w] = 0;
 		x++;
-	}
+	}*/
 	return (0);
 }

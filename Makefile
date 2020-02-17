@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/17 12:28:07 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/17 15:27:52 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 increase_texture_scales_functions.c keys_checkers.c \
 		 3d_edit_texture_scale_functions.c 3d_edit_walls_texture_number.c \
 		 3d_edit_slopes.c delete_launch_condition.c \
-		 init_condition_panel_buttons.c \
+		 init_condition_panel_buttons.c condition_type_buttons_functions.c \
+		 condition_type_buttons_functions2.c init_condition_target_buttons.c \
+		 condition_target_panel.c condition_panel.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -104,7 +106,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   bmp_parser_skybox.c bmp_parser_utils.c get_double_len.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
-		   get_slope.c update_player_z.c movement_collision.c condition_panel.c\
+		   get_slope.c update_player_z.c movement_collision.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
 		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
