@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 14:35:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:51:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int		modify_event(void *param)
 	env->editor.creating_event = 1;
 	env->editor.event_panel.target_tab.state = DOWN;
 	env->editor.event_panel.selected_event = env->editor.selected_event;
+	ft_bzero(&env->editor.event_panel.trigger,
+	sizeof(env->editor.event_panel.trigger));
+	set_trigger(env, &env->editor.event_panel.trigger);
 	if (env->selected_floor != -1)
 		sector = env->selected_floor;
 	else
 		sector = env->editor.selected_sector;
-	ft_bzero(&env->editor.event_panel.trigger,
-	sizeof(env->editor.event_panel.trigger));
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0)
 		{
-			env->editor.event_panel.trigger.type = PRESS;
 			env->editor.event_panel.event =
 			env->sectors[env->editor.selected_sector].
 			wall_sprites[env->selected_wall_sprite_wall].
@@ -84,47 +84,35 @@ int		modify_event(void *param)
 		}
 		else if (env->editor.selected_events == 1)
 		{
-			env->editor.event_panel.trigger.type = SHOOT;
 			env->editor.event_panel.event =
 			env->sectors[env->editor.selected_sector].
 			wall_sprites[env->selected_wall_sprite_wall].
 			shoot_events[env->selected_wall_sprite_sprite]
 			[env->editor.selected_event];
 		}
-		env->editor.event_panel.trigger.sector = env->editor.selected_sector;
-		env->editor.event_panel.trigger.wall = env->selected_wall_sprite_wall;
-		env->editor.event_panel.trigger.sprite =
-		env->selected_wall_sprite_sprite;
 	}
 	else if (env->selected_wall_sprite_wall == -1
 		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
 	{
 		if (env->editor.selected_events == 0)
 		{
-			env->editor.event_panel.trigger.type = STAND;
 			env->editor.event_panel.event =
 			env->sectors[sector].stand_events[env->editor.selected_event];
 		}
 		else if (env->editor.selected_events == 1)
 		{
-			env->editor.event_panel.trigger.type = WALK_IN;
 			env->editor.event_panel.event =
 			env->sectors[sector].walk_in_events[env->editor.selected_event];
 		}
 		else if (env->editor.selected_events == 2)
 		{
-			env->editor.event_panel.trigger.type = WALK_OUT;
 			env->editor.event_panel.event =
 			env->sectors[sector].walk_out_events[env->editor.selected_event];
 		}
-		env->editor.event_panel.trigger.sector = sector;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
-	{
-		env->editor.event_panel.trigger.type = GLOBAL;
 		env->editor.event_panel.event =
 		env->global_events[env->editor.selected_event];
-	}
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;
 	return (0);

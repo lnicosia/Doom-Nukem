@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:44:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:04:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:29:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_target_panel *target_panel)
 	}
 	else if (target_panel->selected_button == 8)
 	{
-		panel->condition.target = &env->player.infinite_ammo;
+		panel->condition.target = &env->player.sector;
 		panel->condition.target_index = PLAYER_SECTOR;
 		panel->condition.target_type = INT;
 	}

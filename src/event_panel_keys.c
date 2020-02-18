@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:57:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:39:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	drag_panel(t_env *env)
 		update_target_panel_buttons_pos(env);
 		update_action_panel_buttons_pos(env);
 		update_conditions_panel_buttons_pos(env);
-		update_conditions_panel_buttons_pos(env);
+		update_condition_panel_buttons_pos(env);
 		update_condition_target_buttons_pos(env);
 	}
 	return (0);

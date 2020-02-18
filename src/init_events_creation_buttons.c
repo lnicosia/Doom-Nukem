@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:11:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:03:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void	set_trigger(t_env *env, t_event_trigger *trigger)
 {
+	int		sector;
+
+	sector = -1;
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0)
@@ -28,6 +31,10 @@ void	set_trigger(t_env *env, t_event_trigger *trigger)
 	else if (env->selected_wall_sprite_wall == -1
 		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
 	{
+		if (env->selected_floor != -1)
+			sector = env->selected_floor;
+		else if (env->editor.selected_sector != -1)
+			sector = env->editor.selected_sector;
 		if (env->editor.selected_events == 0)
 			trigger->type = STAND;
 		else if (env->editor.selected_events == 1)
@@ -58,7 +65,24 @@ int		select_event(void *param)
 	set_trigger(env, &env->editor.condition_panel.condition.target_trigger);
 	env->editor.condition_panel.condition.target =
 	get_event_array(env, env->editor.condition_panel.condition.target_trigger);
+	env->editor.selecting_event = 0;
 	return (0);
+}
+
+void	reset_target_selection(t_target_panel *panel)
+{
+	panel->sector_type = 0;
+	panel->wall_type = 0;
+	panel->wall_sprite_type = 0;
+	panel->weapon_type = 0;
+	panel->object_type = 0;
+	panel->vertex_type = 0;
+	panel->enemy_type = 0;
+	panel->floor_type = 0;
+	panel->ceiling_type = 0;
+	panel->player_type = 0;
+	panel->sector_other_type = 0;
+	panel->target_selection_phase = 0;
 }
 
 int		new_event(void *param)
@@ -73,6 +97,8 @@ int		new_event(void *param)
 	sizeof(env->editor.event_panel.trigger));
 	set_trigger(env, &env->editor.event_panel.trigger);
 	env->editor.event_panel.ok.release_action = &create_event;
+	env->editor.event_panel.target_tab.state = DOWN;
+	reset_target_selection(&env->editor.event_panel.target_panel);
 	return (0);
 }
 

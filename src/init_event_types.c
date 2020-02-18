@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 14:48:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:16:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_event_types3(t_env *env)
 {
 	env->event_types[PLAYER_SPEED] = "Player speed";
+	env->event_types[PLAYER_SECTOR] = "Player sector";
 	env->event_types[PLAYER_INVINCIBLE] = "Invincible mode";
 	env->event_types[PLAYER_INFINITE_AMMO] = "Infinite ammo mode";
 	env->event_types[PLAYER_SECTOR] = "Player sector";

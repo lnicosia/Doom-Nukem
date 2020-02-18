@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 14:37:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:51:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int		save_event2(t_env *env, t_event_panel *panel)
 		env->sectors[panel->trigger.sector].
 		walk_out_events[panel->selected_event] = panel->event;
 	//else if (panel->trigger.type == DEATH)
+	panel->selected_event = -1;
 	return (0);
 }
 

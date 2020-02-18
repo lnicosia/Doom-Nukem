@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 22:15:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ int		close_event_panel(void *param)
 		env->editor.selecting_condition_target = 0;
 		env->editor.selecting_event = 0;
 	}
-	else if (env->editor.creating_event)
+	else
 	{
 		env->editor.creating_event = 0;
 		env->editor.selecting_target = 0;
+		env->editor.event_panel.selected_event = -1;
 	}
 	return (0);
 }

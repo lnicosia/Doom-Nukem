@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 17:40:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 22:18:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void		update_conditions_panel_buttons_pos(t_env *env)
 int			new_condition(void *param)
 {
 	t_env	*env;
+	int		i;
 
 	env = (t_env*)param;
 	env->editor.creating_condition = 1;
@@ -94,8 +95,21 @@ int			new_condition(void *param)
 		env->editor.creating_launch_condition = 1;
 	else if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
 		env->editor.creating_exec_condition = 1;
-	env->editor.event_panel.ok.release_action = &save_condition;
+	env->editor.event_panel.ok.release_action = &create_condition;
 	env->editor.event_panel.target_tab.state = DOWN;
+	ft_bzero(&env->editor.condition_panel.condition, sizeof(t_condition));
+	i = 0;
+	while (i < 9)
+	{
+		env->editor.condition_panel.target_panel.targets[i].state = UP;
+		env->editor.condition_panel.target_panel.targets[i].anim_state = REST;
+		i++;
+	}
+	env->editor.condition_panel.int_value = 0;
+	env->editor.condition_panel.uint32_value = 0;
+	env->editor.condition_panel.double_value = 0;
+	reset_target_selection(&env->editor.condition_panel.target_panel);
+	set_condition_panel_buttons_state(env, -1);
 	return (0);
 }
 
@@ -108,7 +122,7 @@ void		init_conditions_tabs_buttons(t_env *env)
 	env->editor.event_panel.new_condition =
 	new_dark_panel_button(ON_RELEASE, &new_condition, env, env);
 	env->editor.event_panel.modify_condition =
-	new_dark_panel_button(ON_RELEASE, NULL, NULL, env);
+	new_dark_panel_button(ON_RELEASE, &modify_condition, env, env);
 	env->editor.event_panel.delete_condition =
 	new_dark_panel_button(ON_RELEASE, &delete_condition, env, env);
 	update_conditions_panel_buttons_pos(env);

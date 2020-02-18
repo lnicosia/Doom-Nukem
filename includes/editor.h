@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 15:31:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:13:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,9 +293,13 @@ typedef struct	s_condition_panel
 	t_button				event_ended;
 	t_button				event_ended_start;
 	t_button				function;
+	t_button				value;
 	t_condition				condition;
 	t_target_panel			target_panel;
 	t_select_event_panel	event_panel;
+	Uint32					uint32_value;
+	double					double_value;
+	int						int_value;
 }				t_condition_panel;
 
 typedef struct	s_editor

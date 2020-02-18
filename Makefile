@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/18 16:57:18 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/18 22:16:16 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,9 +85,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 draw_editor_tabs.c editor_buttons_functions.c \
 		 event_panel.c target_panel.c init_target_panel_buttons.c \
 		 init_action_panel_buttons.c init_conditions_tabs_buttons.c \
-		 target_panel_keys.c \
+		 target_panel_keys.c modify_condition.c \
 		 action_panel_keys.c conditions_panel_keys.c \
-		 event_panel_keys.c \
+		 event_panel_keys.c modify_event.c \
 		 new_event_panel_buttons.c new_event_panel_buttons2.c \
 		 editor_tab_gestion.c editor_wall_sprites_keys.c \
 		 3d_edit_function.c action_panel.c conditions_tabs.c \
@@ -169,7 +169,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   different_condition.c init_events.c init_events_parser.c \
 		   new_global_event.c new_press_event.c new_shoot_event.c \
 		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
-		   new_death_event.c parse_event_target.c modify_event.c \
+		   new_death_event.c parse_event_target.c \
 		   init_events_parser_target_types.c parse_event_launch_conditions.c \
 		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \

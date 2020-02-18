@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 15:58:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:44:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -722,9 +722,11 @@ int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
 int					create_event(void *param);
 int					save_event(void *param);
-int					save_condition(void *param);
 int					modify_event(void *param);
 int					delete_event(void *param);
+int					save_condition(void *param);
+int					create_condition(void *param);
+int					modify_condition(void *param);
 int					new_global_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_press_event(t_env *env, t_event_trigger trigger,
@@ -749,8 +751,7 @@ int					set_less_or_equals(void *param);
 int					set_event_ended(void *param);
 int					set_event_ended_start(void *param);
 int					set_function(void *param);
-void				set_condition_panel_buttons_state(t_env *env,
-t_button *button);
+void				set_condition_panel_buttons_state(t_env *env, int type);
 void				set_condition_panel_buttons_pos(t_button *button,
 double side, double tier, t_env *env);
 int					set_new_condition_target(t_env *env);
@@ -786,6 +787,11 @@ int					set_condition_ceiling_sprite(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel, int sector);
 void				set_condition_buttons_state(t_env *env);
 t_event				*get_event_array(t_env *env, t_event_trigger trigger);
+int					close_event_panel(void *param);
+void				reset_target_selection(t_target_panel *panel);
+int					new_event_panel_value_box(t_input_box *box,
+int type, void *target, t_env *env);
+int					close_event_panel(void *param);
 
 /*
 ** Main functions
@@ -1141,6 +1147,7 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
 void				init_events_creation_buttons(t_env *env);
+void				set_trigger(t_env *env, t_event_trigger *trigger);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,

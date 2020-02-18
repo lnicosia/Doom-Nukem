@@ -6,11 +6,31 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:44:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 11:46:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 22:05:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		set_condition_value(void *param)
+{
+	t_env	*env;
+	void	*target;
+
+	env = (t_env*)param;
+	target = NULL;
+	if (env->editor.condition_panel.condition.target_type == INT)
+		target = &env->editor.condition_panel.int_value;
+	else if (env->editor.condition_panel.condition.target_type == DOUBLE)
+		target = &env->editor.condition_panel.double_value;
+	else if (env->editor.condition_panel.condition.target_type == UINT32)
+		target = &env->editor.condition_panel.uint32_value;
+	if (new_event_panel_value_box(&env->input_box,
+		env->editor.condition_panel.condition.target_type,
+		target, env))
+		return (-1);
+	return (0);
+}
 
 void	set_condition_panel_buttons_pos(t_button *button, double side,
 double tier, t_env *env)
@@ -37,6 +57,7 @@ void	update_condition_panel_buttons_pos(t_env *env)
 	set_condition_panel_buttons_pos(&panel->event_ended, 1, 1, env);
 	set_condition_panel_buttons_pos(&panel->event_ended_start, 0, 1, env);
 	set_condition_panel_buttons_pos(&panel->function, -1, 1, env);
+	set_condition_panel_buttons_pos(&panel->value, 0.75, 2, env);
 }
 
 void	init_condition_panel_buttons(t_env *env)
@@ -62,6 +83,8 @@ void	init_condition_panel_buttons(t_env *env)
 	WHEN_DOWN, &set_event_ended_start, env, env);
 	panel->function = new_condition_panel_button(
 	WHEN_DOWN, &set_function, env, env);
+	panel->value = new_green_panel_button(ON_RELEASE, &set_condition_value,
+	env, env);
 	update_condition_panel_buttons_pos(env);
 	init_condition_target_buttons(env);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:12:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:16:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 22:02:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,17 @@ void	draw_condition_condition_panel(t_env *env)
 	draw_button(env, env->editor.condition_panel.event_ended, "end");
 	draw_button(env, env->editor.condition_panel.event_ended_start, "end(start)");
 	draw_button(env, env->editor.condition_panel.function, "func");
+	if (env->editor.condition_panel.condition.target_type == INT)
+		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
+		env->editor.condition_panel.int_value);
+	else if (env->editor.condition_panel.condition.target_type == DOUBLE)
+		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+		get_decimal_len(env->editor.condition_panel.double_value),
+		env->editor.condition_panel.double_value);
+	else if (env->editor.condition_panel.condition.target_type == UINT32)
+		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
+		env->editor.condition_panel.uint32_value);
+	draw_button(env, env->editor.condition_panel.value, env->snprintf);
 }
 
 void	draw_condition_target_panel(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 12:01:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/30 11:09:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:49:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_main_sprite(int sprite, t_env *env)
 	int		i;
 
 	i = 0;
-	while (i < MAX_OBJECTS)
+	while (i < MAX_ENEMIES)
 	{
 		if (sprite == env->enemies_main_sprites[i])
 			return (i);
