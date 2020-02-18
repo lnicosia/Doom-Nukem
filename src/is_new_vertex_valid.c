@@ -333,7 +333,7 @@ int		is_sector_empty(t_env *env, t_v2 last_vertex)
 	{
 		if (!new_sector_contains(env->tmp_sector, env->vertices[i], size) &&
 			inside_tmp_sect(env->vertices[i], env->tmp_sector, size))
-		{
+		{	
 			free(env->tmp_sector);
 			return (0);
 		}
