@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:31:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:37:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 		panel->targets[6].state = DOWN;
 	else if (index == PLAYER_INFINITE_AMMO)
 		panel->targets[7].state = DOWN;
+	else if (index == PLAYER_SECTOR)
+		panel->targets[8].state = DOWN;
 	return (0);
 }
 
@@ -65,6 +67,8 @@ int		select_player(void *param)
 			set_player_panel_buttons_state(panel,
 			env->editor.event_panel.event.target_index);
 	}
+	update_condition_target_buttons_pos(env);
+	update_target_panel_buttons_pos(env);
 	return (0);
 }
 

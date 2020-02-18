@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 13:58:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 08:41:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,7 @@ typedef struct	s_editor
 	int					creating_event;
 	int					event_panel_dragged;
 	int					selecting_target;
+	int					selecting_condition_target;
 	int					creating_condition;
 	t_texture			miniature;
 	t_button			current_texture_selection;

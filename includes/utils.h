@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 12:20:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 09:24:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,9 @@ typedef struct		s_condition
 	int				target_wall;
 	int				target_sprite;
 	int				target_enemy;
+	int				target_vertex;
+	int				target_object;
+	int				target_weapon;
 	void			*target;
 }					t_condition;
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:30:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:35:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,31 @@ void		update_condition_target_buttons_pos(t_env *env)
 	set_condition_panel_buttons_pos(&panel->player, 1.5, 1, env);
 	set_condition_panel_buttons_pos(&panel->vertex, 2.5, 1, env);
 	set_condition_panel_buttons_pos(&panel->floor, 0, 0, env);
-	set_condition_panel_buttons_pos(&panel->ceiling, 0, 1, env);
-	set_condition_panel_buttons_pos(&panel->sector_other, 0, 2, env);
+	set_condition_panel_buttons_pos(&panel->ceiling, 1, 0, env);
+	set_condition_panel_buttons_pos(&panel->sector_other, 2, 0, env);
 	panel->previous.pos =
 	new_point(env->editor.event_panel.pos.x + 110,
 	env->editor.event_panel.pos.y + env->editor.event_panel.top_size + 80);
-	set_condition_panel_buttons_pos(&panel->targets[0], -0.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->targets[1], 0.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->targets[2], 1.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->targets[3], 2.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->targets[4], -1, 1, env);
-	set_condition_panel_buttons_pos(&panel->targets[5], 0, 1, env);
-	set_condition_panel_buttons_pos(&panel->targets[6], 1, 1, env);
-	set_condition_panel_buttons_pos(&panel->targets[7], 2, 1, env);
-	set_condition_panel_buttons_pos(&panel->targets[8], 3, 1, env);
+	set_condition_panel_buttons_pos(&panel->targets[0], 2.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->targets[1], 1.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->targets[2], 0.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->targets[3], -0.5, 0, env);
+	if (panel->player_type)
+	{
+		set_condition_panel_buttons_pos(&panel->targets[4], 3, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[5], 2, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[6], 1, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[7], 0, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[8], -1, 1, env);
+	}
+	else
+	{
+		set_condition_panel_buttons_pos(&panel->targets[4], 2.5, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[5], 1.5, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[6], 0.5, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[7], -0.5, 1, env);
+		set_condition_panel_buttons_pos(&panel->targets[8], -1.5, 1, env);
+	}
 }
 
 void		init_condition_target_buttons(t_env *env)
@@ -69,7 +80,7 @@ void		init_condition_target_buttons(t_env *env)
 	ON_RELEASE, select_floor, env, env);
 	panel->target_panel.ceiling = new_condition_panel_button(
 	ON_RELEASE, select_ceiling, env, env);
-	panel->target_panel.sector_other = new_yellow_panel_button(
+	panel->target_panel.sector_other = new_condition_panel_button(
 	ON_RELEASE, select_sector_other, env, env);
 	i = 0;
 	while (i < 9)
@@ -81,6 +92,6 @@ void		init_condition_target_buttons(t_env *env)
 	panel->target_panel.next = new_next_arrow(
 	ON_RELEASE, &previous_target_selection_phase, env, env);
 	panel->target_panel.previous = new_previous_arrow(
-	ON_RELEASE, &previous_target_selection_phase, &panel->target_panel, env);
+	ON_RELEASE, &previous_target_selection_phase, env, env);
 	update_condition_target_buttons_pos(env);
 }

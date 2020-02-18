@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:29:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ int			set_int_button(void *param)
 int			previous_target_selection_phase(void *param)
 {
 	t_target_panel	*panel;
+	t_env			*env;
 
-	panel = (t_target_panel*)param;
+	env = (t_env*)param;
+	if (env->editor.creating_condition)
+		panel = &env->editor.condition_panel.target_panel;
+	else
+		panel = &env->editor.event_panel.target_panel;
 	if (get_target_selection_phase(panel) == 1)
 		panel->sector_type = 0;
 	if (get_target_selection_phase(panel) == 2)
@@ -51,6 +56,8 @@ int			previous_target_selection_phase(void *param)
 		panel->ceiling_type = 0;
 		panel->sector_other_type = 0;
 	}
+	update_condition_target_buttons_pos(env);
+	update_target_panel_buttons_pos(env);
 	return (0);
 }
 
@@ -101,31 +108,42 @@ void		update_target_panel_buttons_pos(t_env *env)
 
 int			choose_target(void *param)
 {
-	t_env	*env;
-	int		i;
-	int		select;
+	t_env			*env;
+	int				i;
+	int				select;
+	t_target_panel	*panel;
 
 	env = (t_env*)param;
-	env->editor.creating_event = 0;
-	env->editor.selecting_target = 1;
+	if (env->editor.creating_condition)
+	{
+		env->editor.creating_condition = 0;
+		env->editor.creating_event = 0;
+		env->editor.selecting_condition_target = 1;
+		panel = &env->editor.condition_panel.target_panel;
+	}
+	else
+	{
+		env->editor.creating_event = 0;
+		env->editor.selecting_target = 1;
+		panel = &env->editor.event_panel.target_panel;
+	}
 	select = 0;
 	reset_selection(env);
 	new_tabs_position(env);
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
-		if (env->editor.event_panel.target_panel.targets[i].state == DOWN
-			&& env->editor.event_panel.target_panel.selected_button != i
+		if (panel->targets[i].state == DOWN && panel->selected_button != i
 			&& select == 0)
 		{
-			env->editor.event_panel.target_panel.selected_button = i;
+			panel->selected_button = i;
 			select = 1;
 		}
-		env->editor.event_panel.target_panel.targets[i].state = UP;
-		env->editor.event_panel.target_panel.targets[i].anim_state = REST;
+		panel->targets[i].state = UP;
+		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.event_panel.target_panel.player_type)
+	if (panel->player_type)
 		return (0);
 	if (update_confirmation_box(&env->confirmation_box, "Please now select"
 		" your target", CONFIRM, env))
@@ -168,10 +186,8 @@ void		init_target_panel_buttons(t_env *env)
 		i++;
 	}
 	env->editor.event_panel.target_panel.next = new_next_arrow(
-	ON_RELEASE, &previous_target_selection_phase,
-	&env->editor.event_panel.target_panel, env);
+	ON_RELEASE, &previous_target_selection_phase, env, env);
 	env->editor.event_panel.target_panel.previous = new_previous_arrow(
-	ON_RELEASE, &previous_target_selection_phase,
-	&env->editor.event_panel.target_panel, env);
+	ON_RELEASE, &previous_target_selection_phase, env, env);
 	update_target_panel_buttons_pos(env);
 }

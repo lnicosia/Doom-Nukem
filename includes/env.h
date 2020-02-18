@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 16:18:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 10:50:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -738,6 +738,38 @@ void				set_condition_panel_buttons_state(t_env *env,
 t_button *button);
 void				set_condition_panel_buttons_pos(t_button *button,
 double side, double tier, t_env *env);
+int					set_new_condition_target(t_env *env);
+int					select_floor_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_floor_condition_target2(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel, int sector);
+int					select_ceiling_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_ceiling_condition_target2(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel, int sector);
+int					select_wall_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_enemy_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_object_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_wall_sprite_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_weapon_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_vertex_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_sector_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_player_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_sector_other_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					set_condition_floor_sprite(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel, int sector);
+int					set_condition_ceiling_sprite(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel, int sector);
+void				set_condition_buttons_state(t_env *env);
 
 /*
 ** Main functions

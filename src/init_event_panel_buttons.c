@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 11:56:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 10:33:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		close_event_panel(void *param)
 	env = (t_env*)param;
 	if (env->editor.creating_condition)
 		env->editor.creating_condition = 0;
-	else
+	else if (env->editor.creating_event)
 		env->editor.creating_event = 0;
 	return (0);
 }
