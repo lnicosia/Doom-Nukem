@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 14:10:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:38:29 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int		check_floor(t_env *env, t_movement motion, int sector_dest)
 	floor = get_floor_at_pos(env->sectors[sector_dest], motion.future, env);
 	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if (floor > motion.future.z + 0.5 && sector_dest == motion.sector)
+	else if ((floor > motion.future.z + 0.5 && sector_dest == motion.sector &&
+		!motion.flight) || 
+		(floor > motion.future.z && sector_dest == motion.sector &&
+		motion.flight))
 		return (0);
 	if (env->player.state.jump && motion.future.z < floor)
 		return (0);
