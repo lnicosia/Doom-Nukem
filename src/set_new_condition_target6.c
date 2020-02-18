@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:04:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 10:13:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:04:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_condition_panel *panel, t_target_panel *target_panel, int sector)
 		panel->condition.target = &env->sectors[sector].gravity;
 		panel->condition.target_index = SECTOR_GRAVITY;
 	}
-	panel->condition.target_sector = sector;
+	panel->condition.sector = sector;
 	return (0);
 }
 
@@ -66,7 +66,7 @@ t_target_panel *target_panel)
 		panel->condition.target = &env->vertices[env->editor.selected_vertex].y;
 		panel->condition.target_index = VERTEX_Y;
 	}
-	panel->condition.target_vertex = env->editor.selected_vertex;
+	panel->condition.vertex = env->editor.selected_vertex;
 	return (0);
 }
 
@@ -86,6 +86,6 @@ t_target_panel *target_panel)
 		&env->weapons[env->editor.selected_weapon].range;
 		panel->condition.target_index = WEAPON_RANGE;
 	}
-	panel->condition.target_weapon = env->editor.selected_weapon;
+	panel->condition.weapon = env->editor.selected_weapon;
 	return (0);
 }

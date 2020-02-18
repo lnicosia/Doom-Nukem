@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 10:29:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 14:35:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		modify_event(void *param)
 	{
 		if (env->editor.selected_events == 0)
 		{
-			env->editor.event_panel.trigger.index = PRESS;
+			env->editor.event_panel.trigger.type = PRESS;
 			env->editor.event_panel.event =
 			env->sectors[env->editor.selected_sector].
 			wall_sprites[env->selected_wall_sprite_wall].
@@ -84,7 +84,7 @@ int		modify_event(void *param)
 		}
 		else if (env->editor.selected_events == 1)
 		{
-			env->editor.event_panel.trigger.index = SHOOT;
+			env->editor.event_panel.trigger.type = SHOOT;
 			env->editor.event_panel.event =
 			env->sectors[env->editor.selected_sector].
 			wall_sprites[env->selected_wall_sprite_wall].
@@ -101,19 +101,19 @@ int		modify_event(void *param)
 	{
 		if (env->editor.selected_events == 0)
 		{
-			env->editor.event_panel.trigger.index = STAND;
+			env->editor.event_panel.trigger.type = STAND;
 			env->editor.event_panel.event =
 			env->sectors[sector].stand_events[env->editor.selected_event];
 		}
 		else if (env->editor.selected_events == 1)
 		{
-			env->editor.event_panel.trigger.index = WALK_IN;
+			env->editor.event_panel.trigger.type = WALK_IN;
 			env->editor.event_panel.event =
 			env->sectors[sector].walk_in_events[env->editor.selected_event];
 		}
 		else if (env->editor.selected_events == 2)
 		{
-			env->editor.event_panel.trigger.index = WALK_OUT;
+			env->editor.event_panel.trigger.type = WALK_OUT;
 			env->editor.event_panel.event =
 			env->sectors[sector].walk_out_events[env->editor.selected_event];
 		}
@@ -121,7 +121,7 @@ int		modify_event(void *param)
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 	{
-		env->editor.event_panel.trigger.index = GLOBAL;
+		env->editor.event_panel.trigger.type = GLOBAL;
 		env->editor.event_panel.event =
 		env->global_events[env->editor.selected_event];
 	}

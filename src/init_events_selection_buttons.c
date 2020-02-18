@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 10:30:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 16:55:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,32 +57,38 @@ int		prec_events(void *penv)
 int		next_event(void *penv)
 {
 	t_env	*env;
+	int		sector;
 
 	env = (t_env *)penv;
+	sector = -1;
 	env->editor.selected_event++;
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if ((env->editor.selected_events == 0
 			&& env->editor.selected_event >= env->sectors[env->
-			editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-			.nb_press_events[env->selected_wall_sprite_sprite])
+			editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+			nb_press_events[env->selected_wall_sprite_sprite])
 			|| (env->editor.selected_events == 1
 			&& env->editor.selected_event >= env->sectors[env->
-			editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-			.nb_shoot_events[env->selected_wall_sprite_sprite]))
+			editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+			nb_shoot_events[env->selected_wall_sprite_sprite]))
 			env->editor.selected_event = 0;
 	}
 	else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 	{
+		if (env->selected_floor != -1)
+			sector = env->selected_floor;
+		else
+			sector = env->editor.selected_sector;
 		if ((env->editor.selected_events == 0
-			&& env->editor.selected_event >= env->sectors[env->
-			editor.selected_sector].nb_stand_events)
+			&& env->editor.selected_event >=
+			env->sectors[sector].nb_stand_events)
 			|| (env->editor.selected_events == 1
-			&& env->editor.selected_event >= env->sectors[env->
-			editor.selected_sector].nb_walk_in_events)
+			&& env->editor.selected_event >=
+			env->sectors[sector].nb_walk_in_events)
 			|| (env->editor.selected_events == 2
-			&& env->editor.selected_event >= env->sectors[env->
-			editor.selected_sector].nb_walk_out_events))
+			&& env->editor.selected_event >=
+			env->sectors[sector].nb_walk_out_events))
 			env->editor.selected_event = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
@@ -96,8 +102,10 @@ int		next_event(void *penv)
 int		previous_event(void *penv)
 {
 	t_env	*env;
+	int		sector;
 
 	env = (t_env *)penv;
+	sector = -1;
 	if (env->editor.selected_event > 0)
 		env->editor.selected_event--;
 	else
@@ -117,15 +125,19 @@ int		previous_event(void *penv)
 		}
 		else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 		{
+			if (env->selected_floor != -1)
+				sector = env->selected_floor;
+			else
+				sector = env->editor.selected_sector;
 			if (env->editor.selected_events == 0)
-				env->editor.selected_event = env->sectors[env->
-					editor.selected_sector].nb_stand_events - 1;
+				env->editor.selected_event =
+				env->sectors[sector].nb_stand_events - 1;
 			else if (env->editor.selected_events == 1)
-				env->editor.selected_event = env->sectors[env->
-					editor.selected_sector].nb_walk_in_events - 1;
+				env->editor.selected_event =
+				env->sectors[sector].nb_walk_in_events - 1;
 			else if (env->editor.selected_events == 2)
-				env->editor.selected_event = env->sectors[env->
-					editor.selected_sector].nb_walk_out_events - 1;
+				env->editor.selected_event =
+				env->sectors[sector].nb_walk_out_events - 1;
 		}
 		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 			env->editor.selected_event = env->nb_global_events - 1;
@@ -138,40 +150,46 @@ int		previous_event(void *penv)
 int		next_launch_condition(void *penv)
 {
 	t_env	*env;
+	int		sector;
 
 	env = (t_env *)penv;
+	sector = -1;
 	env->editor.selected_launch_condition++;
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0
 		&& env->editor.selected_launch_condition >= env->sectors[env->
-		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-		.press_events[env->selected_wall_sprite_sprite]
+		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+		press_events[env->selected_wall_sprite_sprite]
 		[env->editor.selected_event].nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 		else if (env->editor.selected_events == 1
 		&& env->editor.selected_launch_condition >= env->sectors[env->
-		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-		.shoot_events[env->selected_wall_sprite_sprite]
+		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+		shoot_events[env->selected_wall_sprite_sprite]
 		[env->editor.selected_event].nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 	}
 	else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 	{
+		if (env->selected_floor != -1)
+			sector = env->selected_floor;
+		else
+			sector = env->editor.selected_sector;
 		if (env->editor.selected_events == 0
-		&& env->editor.selected_launch_condition >= env->sectors[env->
-		editor.selected_sector].stand_events[env->editor.selected_event]
-		.nb_launch_conditions)
+		&& env->editor.selected_launch_condition >=
+		env->sectors[sector].stand_events[env->editor.selected_event].
+		nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 		else if (env->editor.selected_events == 1
-		&& env->editor.selected_launch_condition >= env->sectors[env->
-		editor.selected_sector].walk_in_events[env->editor.selected_event]
-		.nb_launch_conditions)
+		&& env->editor.selected_launch_condition >=
+		env->sectors[sector].walk_in_events[env->editor.selected_event].
+		nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 		else if (env->editor.selected_events == 2
-		&& env->editor.selected_launch_condition >= env->sectors[env->
-		editor.selected_sector].walk_out_events[env->editor.selected_event]
-		.nb_launch_conditions)
+		&& env->editor.selected_launch_condition >=
+		env->sectors[sector].walk_out_events[env->editor.selected_event].
+		nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
@@ -184,8 +202,10 @@ int		next_launch_condition(void *penv)
 int		previous_launch_condition(void *penv)
 {
 	t_env	*env;
+	int		sector;
 
 	env = (t_env *)penv;
+	sector = -1;
 	if (env->editor.selected_launch_condition > 0)
 		env->editor.selected_launch_condition--;
 	else
@@ -194,34 +214,37 @@ int		previous_launch_condition(void *penv)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_launch_condition =
-				env->sectors[env->editor.selected_sector]
-				.wall_sprites[env->selected_wall_sprite_wall]
-				.press_events[env->selected_wall_sprite_sprite]
+				env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				press_events[env->selected_wall_sprite_sprite]
 				[env->editor.selected_event].nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_launch_condition =
-				env->sectors[env->editor.selected_sector]
-				.wall_sprites[env->selected_wall_sprite_wall]
-				.shoot_events[env->selected_wall_sprite_sprite]
+				env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				shoot_events[env->selected_wall_sprite_sprite]
 				[env->editor.selected_event].nb_launch_conditions - 1;
 		}
 		else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 		{
+			if (env->selected_floor != -1)
+				sector = env->selected_floor;
+			else
+				sector = env->editor.selected_sector;
 			if (env->editor.selected_events == 0)
-				env->editor.selected_launch_condition =
-				env->sectors[env->editor.selected_sector]
-				.stand_events[env->editor.selected_event]
-				.nb_launch_conditions - 1;
+				env->editor.selected_launch_condition = env->sectors[sector].
+				stand_events[env->editor.selected_event].
+				nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_launch_condition =
-				env->sectors[env->editor.selected_sector]
-				.walk_in_events[env->editor.selected_event]
-				.nb_launch_conditions - 1;
+				env->sectors[sector].
+				walk_in_events[env->editor.selected_event].
+				nb_launch_conditions - 1;
 			else if (env->editor.selected_events == 2)
 				env->editor.selected_launch_condition =
-				env->sectors[env->editor.selected_sector]
-				.walk_out_events[env->editor.selected_event]
-				.nb_launch_conditions - 1;
+				env->sectors[sector].
+				walk_out_events[env->editor.selected_event].
+				nb_launch_conditions - 1;
 		}
 		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 			env->editor.selected_launch_condition =
@@ -233,40 +256,43 @@ int		previous_launch_condition(void *penv)
 int		next_exec_condition(void *penv)
 {
 	t_env	*env;
+	int		sector;
 
 	env = (t_env *)penv;
+	sector = -1;
 	env->editor.selected_exec_condition++;
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0
 		&& env->editor.selected_exec_condition >= env->sectors[env->
-		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-		.press_events[env->selected_wall_sprite_sprite]
+		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+		press_events[env->selected_wall_sprite_sprite]
 		[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 		else if (env->editor.selected_events == 1
 		&& env->editor.selected_exec_condition >= env->sectors[env->
-		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall]
-		.shoot_events[env->selected_wall_sprite_sprite]
+		editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].
+		shoot_events[env->selected_wall_sprite_sprite]
 		[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 	}
 	else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 	{
+		if (env->selected_floor != -1)
+			sector = env->selected_floor;
+		else
+			sector = env->editor.selected_sector;
 		if (env->editor.selected_events == 0
-		&& env->editor.selected_exec_condition >= env->sectors[env->
-		editor.selected_sector].stand_events[env->editor.selected_event]
-		.nb_exec_conditions)
+		&& env->editor.selected_exec_condition >= env->sectors[sector].
+		stand_events[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 		else if (env->editor.selected_events == 1
-		&& env->editor.selected_exec_condition >= env->sectors[env->
-		editor.selected_sector].walk_in_events[env->editor.selected_event]
-		.nb_exec_conditions)
+		&& env->editor.selected_exec_condition >= env->sectors[sector].
+		walk_in_events[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 		else if (env->editor.selected_events == 2
-		&& env->editor.selected_exec_condition >= env->sectors[env->
-		editor.selected_sector].walk_out_events[env->editor.selected_event]
-		.nb_exec_conditions)
+		&& env->editor.selected_exec_condition >= env->sectors[sector].
+		walk_out_events[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
@@ -289,34 +315,34 @@ int		previous_exec_condition(void *penv)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_exec_condition =
-				env->sectors[env->editor.selected_sector]
-				.wall_sprites[env->selected_wall_sprite_wall]
-				.press_events[env->selected_wall_sprite_sprite]
+				env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				press_events[env->selected_wall_sprite_sprite]
 				[env->editor.selected_event].nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_exec_condition =
-				env->sectors[env->editor.selected_sector]
-				.wall_sprites[env->selected_wall_sprite_wall]
-				.shoot_events[env->selected_wall_sprite_sprite]
+				env->sectors[env->editor.selected_sector].
+				wall_sprites[env->selected_wall_sprite_wall].
+				shoot_events[env->selected_wall_sprite_sprite]
 				[env->editor.selected_event].nb_exec_conditions - 1;
 		}
 		else if (env->selected_floor != -1 || env->editor.selected_sector != -1)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_exec_condition =
-				env->sectors[env->editor.selected_sector]
-				.stand_events[env->editor.selected_event]
-				.nb_exec_conditions - 1;
+				env->sectors[env->editor.selected_sector].
+				stand_events[env->editor.selected_event].
+				nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 1)
 				env->editor.selected_exec_condition =
-				env->sectors[env->editor.selected_sector]
-				.walk_in_events[env->editor.selected_event]
-				.nb_exec_conditions - 1;
+				env->sectors[env->editor.selected_sector].
+				walk_in_events[env->editor.selected_event].
+				nb_exec_conditions - 1;
 			else if (env->editor.selected_events == 2)
 				env->editor.selected_exec_condition =
-				env->sectors[env->editor.selected_sector]
-				.walk_out_events[env->editor.selected_event]
-				.nb_exec_conditions - 1;
+				env->sectors[env->editor.selected_sector].
+				walk_out_events[env->editor.selected_event].
+				nb_exec_conditions - 1;
 		}
 		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 			env->editor.selected_exec_condition =

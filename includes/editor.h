@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 08:41:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:31:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,16 +257,11 @@ typedef struct	s_event_panel
 	t_button		exec_conditions_tab;
 	t_button		ok;
 	t_button		cancel;
-	t_button		next_launch_condition;
-	t_button		previous_launch_condition;
-	t_button		next_exec_condition;
-	t_button		previous_exec_condition;
-	t_button		new_launch_condition;
-	t_button		modify_launch_condition;
-	t_button		delete_launch_condition;
-	t_button		new_exec_condition;
-	t_button		modify_exec_condition;
-	t_button		delete_exec_condition;
+	t_button		next_condition;
+	t_button		previous_condition;
+	t_button		new_condition;
+	t_button		modify_condition;
+	t_button		delete_condition;
 	t_target_panel	target_panel;
 	t_action_panel	action_panel;
 	t_event_trigger	trigger;
@@ -274,21 +269,33 @@ typedef struct	s_event_panel
 	int				top_size;
 }				t_event_panel;
 
+typedef struct	s_select_event_panel
+{
+	t_button	global;
+	t_button	press;
+	t_button	shoot;
+	t_button	stand;
+	t_button	walk_in;
+	t_button	walk_out;
+	t_button	death;
+}				t_select_event_panel;
+
 typedef struct	s_condition_panel
 {
-	t_button		condition_tab;
-	t_button		target_tab;
-	t_button		equals;
-	t_button		different;
-	t_button		less;
-	t_button		greater;
-	t_button		less_or_equals;
-	t_button		greater_or_equals;
-	t_button		event_ended;
-	t_button		event_ended_start;
-	t_button		function;
-	t_condition		condition;
-	t_target_panel	target_panel;
+	t_button				condition_tab;
+	t_button				target_tab;
+	t_button				equals;
+	t_button				different;
+	t_button				less;
+	t_button				greater;
+	t_button				less_or_equals;
+	t_button				greater_or_equals;
+	t_button				event_ended;
+	t_button				event_ended_start;
+	t_button				function;
+	t_condition				condition;
+	t_target_panel			target_panel;
+	t_select_event_panel	event_panel;
 }				t_condition_panel;
 
 typedef struct	s_editor
@@ -343,6 +350,9 @@ typedef struct	s_editor
 	int					selecting_target;
 	int					selecting_condition_target;
 	int					creating_condition;
+	int					creating_launch_condition;
+	int					creating_exec_condition;
+	int					selecting_event;
 	t_texture			miniature;
 	t_button			current_texture_selection;
 	t_button			current_enemy_selection;
@@ -390,6 +400,7 @@ typedef struct	s_editor
 	t_button			new_event;
 	t_button			modify_event;
 	t_button			delete_event;
+	t_button			select_event;
 	int					texture_tab;
 }				t_editor;
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 10:12:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 13:24:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,6 @@ void	print_event(t_env *env, t_event *event)
 	print_event_exec_conditions(env, event);*/
 	draw_button(env, env->editor.modify_event, "Modify event");
 	draw_button(env, env->editor.delete_event, "Delete event");
+	if (env->editor.selecting_event)
+		draw_button(env, env->editor.select_event, "Select me");
 }

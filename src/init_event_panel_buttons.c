@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 10:33:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:25:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,27 @@ int		close_event_panel(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
+	env->editor.event_panel.target_tab.state = UP;
+	env->editor.event_panel.action_tab.state = UP;
+	env->editor.event_panel.launch_conditions_tab.state = UP;
+	env->editor.event_panel.exec_conditions_tab.state = UP;
 	if (env->editor.creating_condition)
+	{
+		if (env->editor.creating_launch_condition)
+			env->editor.event_panel.launch_conditions_tab.state = DOWN;
+		else
+			env->editor.event_panel.exec_conditions_tab.state = DOWN;
 		env->editor.creating_condition = 0;
+		env->editor.creating_launch_condition = 0;
+		env->editor.creating_exec_condition = 0;
+		env->editor.selecting_condition_target = 0;
+		env->editor.selecting_event = 0;
+	}
 	else if (env->editor.creating_event)
+	{
 		env->editor.creating_event = 0;
+		env->editor.selecting_target = 0;
+	}
 	return (0);
 }
 
@@ -106,6 +123,6 @@ void	init_event_panel_buttons(t_env *env)
 	update_event_panel_buttons_pos(env);
 	init_target_panel_buttons(env);
 	init_action_panel_buttons(env);
-	init_launch_conditions_panel_buttons(env);
+	init_conditions_tabs_buttons(env);
 	init_condition_panel_buttons(env);
 }

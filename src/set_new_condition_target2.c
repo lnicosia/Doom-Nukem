@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 10:14:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:03:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ t_target_panel *target_panel, int enemy)
 	{
 		panel->condition.target = &env->enemies[enemy].damage;
 		panel->condition.target_index = ENEMY_DAMAGE;
-		panel->condition.target_type = INT;
+		panel->condition.target_index = INT;
 	}
 	else if (target_panel->selected_button == 7)
 	{
 		panel->condition.target = &env->enemies[enemy].health;
 		panel->condition.target_index = ENEMY_HP;
-		panel->condition.target_type = INT;
+		panel->condition.target_index = INT;
 	}
-	panel->condition.target_enemy = enemy;
+	panel->condition.enemy = enemy;
 	return (0);
 }
 
@@ -63,7 +63,7 @@ t_target_panel *target_panel)
 	{
 		panel->condition.target = &env->enemies[enemy].sprite;
 		panel->condition.target_index = ENEMY_SPRITE;
-		panel->condition.target_type = INT;
+		panel->condition.target_index = INT;
 	}
 	else if (target_panel->selected_button == 1)
 	{
@@ -99,8 +99,8 @@ t_target_panel *target_panel, int sector)
 		panel->condition.target = &env->sectors[sector].scale[wall].y;
 		panel->condition.target_index = SECTOR_WALL_SCALE_Y;
 	}
-	panel->condition.target_sector = sector;
-	panel->condition.target_wall = wall;
+	panel->condition.sector = sector;
+	panel->condition.wall = wall;
 	return (0);
 }
 
@@ -116,7 +116,7 @@ t_target_panel *target_panel)
 	{
 		panel->condition.target = &env->sectors[sector].textures[wall];
 		panel->condition.target_index = SECTOR_WALL_TEXTURE;
-		panel->condition.target_type = INT;
+		panel->condition.target_index = INT;
 	}
 	else if (target_panel->selected_button == 1)
 	{

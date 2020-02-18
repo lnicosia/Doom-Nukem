@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:12:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 15:47:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:16:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	draw_condition_target_panel(t_env *env)
 {
 	if (env->editor.condition_panel.condition.type < EVENT_ENDED)
 		draw_condition_targets_panel(env);
-	/*else if (env->editor.condition_panel.condition.type == EVENT_ENDED
+	else if (env->editor.condition_panel.condition.type == EVENT_ENDED
 		|| env->editor.condition_panel.condition.type == EVENT_ENDED_START)
-		draw_condition_event_panel(env);*/
+		draw_condition_event_panel(env);
 }
 
 void	draw_condition_panel_tab_content(t_env *env)
@@ -99,7 +99,7 @@ int		draw_condition_panel(t_env *env)
 	draw_rectangle(env, new_rectangle(0xc8ccd0, 0xc8ccd0, 1, 0),
 	new_point(env->editor.event_panel.pos.x, env->editor.event_panel.pos.y),
 	new_point(env->editor.event_panel.size.x,
-	env->editor.event_panel.size.y - 200));
+	env->editor.event_panel.size.y - 100));
 
 	// Bande du haut
 	draw_rectangle(env, new_rectangle(0xFFf1f2f3, 0xFFf1f2f3, 1, 0),
@@ -111,7 +111,7 @@ int		draw_condition_panel(t_env *env)
 	new_point(env->editor.event_panel.pos.x + 100,
 	env->editor.event_panel.pos.y + env->editor.event_panel.top_size),
 	new_point(env->editor.event_panel.size.x - 100,
-	env->editor.event_panel.size.y - env->editor.event_panel.top_size - 200));
+	env->editor.event_panel.size.y - env->editor.event_panel.top_size - 100));
 
 	// Text
 	//ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Events");

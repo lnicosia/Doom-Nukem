@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 10:55:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 14:37:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,20 @@ int		check_event_validity(t_env *env, t_event event)
 
 int		create_event2(t_env *env)
 {
-	if (env->editor.event_panel.trigger.index == WALK_IN
+	if (env->editor.event_panel.trigger.type == WALK_IN
 		&& new_walk_in_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.index == WALK_OUT
+	else if (env->editor.event_panel.trigger.type == WALK_OUT
 		&& new_walk_out_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.index == DEATH
+	else if (env->editor.event_panel.trigger.type == DEATH
 		&& new_death_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	if (update_confirmation_box(&env->confirmation_box, "Your event has"
-		" been saved!", CONFIRM, env))
+	if (update_confirmation_box(&env->confirmation_box, "Event saved",
+		CONFIRM, env))
 		return (-1);
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 0;
@@ -96,16 +96,16 @@ void	set_event(t_env *env, t_event *event)
 
 int		save_event2(t_env *env, t_event_panel *panel)
 {
-	if (panel->trigger.index == STAND)
+	if (panel->trigger.type == STAND)
 		env->sectors[panel->trigger.sector].
 		stand_events[panel->selected_event] = panel->event;
-	else if (panel->trigger.index == WALK_IN)
+	else if (panel->trigger.type == WALK_IN)
 		env->sectors[panel->trigger.sector].
 		walk_in_events[panel->selected_event] = panel->event;
-	else if (panel->trigger.index == WALK_OUT)
+	else if (panel->trigger.type == WALK_OUT)
 		env->sectors[panel->trigger.sector].
 		walk_out_events[panel->selected_event] = panel->event;
-	//else if (panel->trigger.index == DEATH)
+	//else if (panel->trigger.type == DEATH)
 	return (0);
 }
 
@@ -121,13 +121,13 @@ int		save_event(void *param)
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 0;
 	set_event(env, &panel->event);
-	if (panel->trigger.index == GLOBAL)
+	if (panel->trigger.type == GLOBAL)
 		env->global_events[panel->selected_event] = panel->event;
-	else if (panel->trigger.index == PRESS)
+	else if (panel->trigger.type == PRESS)
 		env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.wall].
 		press_events[panel->trigger.sprite][panel->selected_event] =
 		panel->event;
-	else if (panel->trigger.index == SHOOT)
+	else if (panel->trigger.type == SHOOT)
 		env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.wall].
 		shoot_events[panel->trigger.sprite][panel->selected_event] =
 		panel->event;
@@ -142,19 +142,19 @@ int		create_event(void *param)
 	if (check_event_validity(env, env->editor.event_panel.event))
 		return (0);
 	set_event(env, &env->editor.event_panel.event);
-	if (env->editor.event_panel.trigger.index == GLOBAL
+	if (env->editor.event_panel.trigger.type == GLOBAL
 		&& new_global_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.index == PRESS
+	else if (env->editor.event_panel.trigger.type == PRESS
 		&& new_press_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.index == SHOOT
+	else if (env->editor.event_panel.trigger.type == SHOOT
 		&& new_shoot_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.index == STAND
+	else if (env->editor.event_panel.trigger.type == STAND
 		&& new_stand_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);

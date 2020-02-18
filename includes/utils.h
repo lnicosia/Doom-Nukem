@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 09:24:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:02:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,12 +315,23 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
+typedef struct		s_event_trigger
+{
+	int				type;
+	int				index;
+	int				sector;
+	int				wall;
+	int				enemy;
+	int				object;
+	int				sprite;
+}					t_event_trigger;
+
 typedef struct		s_condition
 {
 	int				type;
 	double			value;
-	int				target_type;
 	int				target_index;
+	int				target_type;
 	int				sector;
 	int				wall;
 	int				sprite;
@@ -329,19 +340,8 @@ typedef struct		s_condition
 	int				object;
 	int				vertex;
 	int				weapon;
-	int				source_type;
-	int				source_index;
-	int				source_sector;
-	int				source_wall;
-	int				source_sprite;
-	int				source_enemy;
-	int				target_sector;
-	int				target_wall;
-	int				target_sprite;
-	int				target_enemy;
-	int				target_vertex;
-	int				target_object;
-	int				target_weapon;
+	t_event_trigger	source_trigger;
+	t_event_trigger	target_trigger;
 	void			*target;
 }					t_condition;
 
@@ -1191,15 +1191,5 @@ typedef struct		s_input_box
 	int				(*check)(void *);
 	int				(*update)(void *);
 }					t_input_box;
-
-typedef struct		s_event_trigger
-{
-	int				index;
-	int				sector;
-	int				wall;
-	int				enemy;
-	int				object;
-	int				sprite;
-}					t_event_trigger;
 
 #endif

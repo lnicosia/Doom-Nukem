@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:42:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 13:58:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 14:22:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 void	delete_selected_event3(t_env *env, t_event_panel *panel,
 t_event **events, size_t *nb)
 {
-	if (panel->trigger.index == WALK_IN)
+	if (panel->trigger.type == WALK_IN)
 	{
 		events = &env->sectors[panel->trigger.sector].walk_in_events;
 		nb = &env->sectors[panel->trigger.sector].nb_walk_in_events;
 	}
-	else if (panel->trigger.index == WALK_OUT)
+	else if (panel->trigger.type == WALK_OUT)
 	{
 		events = &env->sectors[panel->trigger.sector].walk_out_events;
 		nb = &env->sectors[panel->trigger.sector].nb_walk_out_events;
@@ -37,14 +37,14 @@ t_event **events, size_t *nb)
 void	delete_selected_event2(t_env *env, t_event_panel *panel,
 t_event **events, size_t *nb)
 {
-	if (panel->trigger.index == SHOOT)
+	if (panel->trigger.type == SHOOT)
 	{
 		events = &env->sectors[panel->trigger.sector].
 		wall_sprites[panel->trigger.wall].press_events[panel->trigger.sprite];
 		nb = &env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.
 		wall].nb_shoot_events[panel->trigger.sprite];
 	}
-	else if (panel->trigger.index == STAND)
+	else if (panel->trigger.type == STAND)
 	{
 		events = &env->sectors[panel->trigger.sector].stand_events;
 		nb = &env->sectors[panel->trigger.sector].nb_stand_events;
@@ -63,12 +63,12 @@ void	delete_selected_event(void *param)
 	panel = &env->editor.event_panel;
 	events = NULL;
 	nb = 0;
-	if (panel->trigger.index == GLOBAL)
+	if (panel->trigger.type == GLOBAL)
 	{
 		events = &env->global_events;
 		nb = &env->nb_global_events;
 	}
-	else if (panel->trigger.index == PRESS)
+	else if (panel->trigger.type == PRESS)
 	{
 		events = &env->sectors[panel->trigger.sector].
 		wall_sprites[panel->trigger.wall].press_events[panel->trigger.sprite];

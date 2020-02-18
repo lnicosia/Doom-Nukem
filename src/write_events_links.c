@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:47:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 10:44:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:08:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,30 @@
 
 void		write_event_link(int fd, t_condition condition)
 {
-	ft_dprintf(fd, "[%d ", condition.source_type);
-	if (condition.source_type == PRESS || condition.source_type == SHOOT)
-		ft_dprintf(fd, "(%d %d %d) ", condition.source_sector,
-		condition.source_wall, condition.source_sprite);
-	else if (condition.source_type == STAND || condition.source_type == WALK_IN
-		|| condition.source_type == WALK_OUT)
-		ft_dprintf(fd, "(%d) ", condition.source_sector);
-	else if (condition.source_type == DEATH)
-		ft_dprintf(fd, "(%d) ", condition.source_enemy);
-	ft_dprintf(fd, "%d]", condition.source_index);
-	ft_dprintf(fd, "[%d ", condition.target_type);
-	if (condition.target_type == PRESS || condition.target_type == SHOOT)
-		ft_dprintf(fd, "(%d %d %d) ", condition.target_sector,
-		condition.target_wall, condition.target_sprite);
-	else if (condition.target_type == STAND || condition.target_type == WALK_IN
-		|| condition.target_type == WALK_OUT)
-		ft_dprintf(fd, "(%d) ", condition.target_sector);
-	else if (condition.target_type == DEATH)
-		ft_dprintf(fd, "(%d) ", condition.target_enemy);
-	ft_dprintf(fd, "%d]", condition.target_index);
+	ft_dprintf(fd, "[%d ", condition.source_trigger.type);
+	if (condition.source_trigger.type == PRESS
+		|| condition.source_trigger.type == SHOOT)
+		ft_dprintf(fd, "(%d %d %d) ", condition.source_trigger.sector,
+		condition.source_trigger.wall, condition.source_trigger.sprite);
+	else if (condition.source_trigger.type == STAND
+		|| condition.source_trigger.type == WALK_IN
+		|| condition.source_trigger.type == WALK_OUT)
+		ft_dprintf(fd, "(%d) ", condition.source_trigger.sector);
+	else if (condition.source_trigger.type == DEATH)
+		ft_dprintf(fd, "(%d) ", condition.source_trigger.enemy);
+	ft_dprintf(fd, "%d]", condition.source_trigger.index);
+	ft_dprintf(fd, "[%d ", condition.target_trigger.type);
+	if (condition.target_trigger.type == PRESS
+		|| condition.target_type == SHOOT)
+		ft_dprintf(fd, "(%d %d %d) ", condition.target_trigger.sector,
+		condition.target_trigger.wall, condition.target_trigger.sprite);
+	else if (condition.target_trigger.type == STAND
+		|| condition.target_type == WALK_IN
+		|| condition.target_trigger.type == WALK_OUT)
+		ft_dprintf(fd, "(%d) ", condition.target_trigger.sector);
+	else if (condition.target_trigger.type == DEATH)
+		ft_dprintf(fd, "(%d) ", condition.target_trigger.enemy);
+	ft_dprintf(fd, "%d]", condition.target_trigger.index);
 	if (condition.type == EVENT_ENDED)
 		ft_dprintf(fd, "[0]\n", condition.type);
 	else

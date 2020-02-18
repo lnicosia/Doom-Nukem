@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 10:14:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:09:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_target_panel *target_panel, int sector)
 		panel->condition.target = &env->sectors[sector].floor_map_scale.y;
 		panel->condition.target_index = SECTOR_FLOOR_SCALE_Y;
 	}
-	panel->condition.target_sector = sector;
+	panel->condition.sector = sector;
 	return (0);
 }
 
@@ -90,7 +90,7 @@ t_target_panel *target_panel, int sector)
 		panel->condition.target = &env->sectors[sector].ceiling_map_scale.y;
 		panel->condition.target_index = SECTOR_CEILING_SCALE_Y;
 	}
-	panel->condition.target_sector = sector;
+	panel->condition.sector = sector;
 	return (0);
 }
 

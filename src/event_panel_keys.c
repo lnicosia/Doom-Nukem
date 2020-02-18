@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 11:41:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:57:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		is_mouse_on_event_panel(t_env *env)
 		env->editor.event_panel.size.x
 		&& env->sdl.my >= env->editor.event_panel.pos.y
 		&& env->sdl.my <= env->editor.event_panel.pos.y +
-		env->editor.event_panel.size.y - 200)
+		env->editor.event_panel.size.y - 100)
 		return (1);
 	return (0);
 }
@@ -61,8 +61,8 @@ static int	drag_panel(t_env *env)
 		update_event_panel_buttons_pos(env);
 		update_target_panel_buttons_pos(env);
 		update_action_panel_buttons_pos(env);
-		update_launch_conditions_panel_buttons_pos(env);
-		update_condition_panel_buttons_pos(env);
+		update_conditions_panel_buttons_pos(env);
+		update_conditions_panel_buttons_pos(env);
 		update_condition_target_buttons_pos(env);
 	}
 	return (0);
@@ -96,16 +96,12 @@ int		event_panel_keys(t_env *env)
 		if (action_panel_keys(env))
 			return (-1);
 	}
-	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
+	if (env->editor.event_panel.launch_conditions_tab.state == DOWN
+		|| env->editor.event_panel.exec_conditions_tab.state == DOWN)
 	{
-		if (launch_conditions_panel_keys(env))
+		if (conditions_panel_keys(env))
 			return (-1);
 	}
-	/*if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
-	{
-		if (exec_conditions_panel_keys(env))
-			return (-1);
-	}*/
 	return (0);
 }
 
@@ -135,15 +131,11 @@ int		event_panel_keyup(t_env *env)
 		if (action_panel_keyup(env))
 			return (-1);
 	}
-	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
+	if (env->editor.event_panel.launch_conditions_tab.state == DOWN
+		|| env->editor.event_panel.exec_conditions_tab.state == DOWN)
 	{
-		if (launch_conditions_panel_keyup(env))
+		if (conditions_panel_keyup(env))
 			return (-1);
 	}
-	/*if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
-	{
-		if (exec_conditions_panel_keyup(env))
-			return (-1);
-	}*/
 	return (0);
 }

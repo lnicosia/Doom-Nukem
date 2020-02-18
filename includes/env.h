@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 10:50:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 15:58:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -564,10 +564,10 @@ int					wall_sprite_buttons_up(t_env *env);
 int					draw_event_panel(t_env *env);
 int					draw_condition_panel(t_env *env);
 int					draw_condition_targets_panel(t_env *env);
+int					draw_condition_event_panel(t_env *env);
 int					draw_target_panel(t_env *env);
 int					draw_action_panel(t_env *env);
-int					draw_launch_conditions_panel(t_env *env);
-int					draw_exec_conditions_panel(t_env *env);
+int					draw_conditions_panel(t_env *env);
 int					draw_floor_panel(t_env *env, t_target_panel *panel);
 int					draw_ceiling_panel(t_env *env, t_target_panel *panel);
 int					draw_wall_panel(t_env *env, t_target_panel *panel);
@@ -587,6 +587,21 @@ void				draw_second_phase_selection(t_env *env,
 t_target_panel *panel);
 void				draw_third_phase_selection(t_env *env,
 t_target_panel *panel);
+void				init_event_panel_buttons(t_env *env);
+void				init_target_panel_buttons(t_env *env);
+void				init_action_panel_buttons(t_env *env);
+void				init_conditions_tabs_buttons(t_env *env);
+void				init_exec_conditions_panel_buttons(t_env *env);
+void				init_condition_panel_buttons(t_env *env);
+void				init_condition_event_buttons(t_env *env);
+void				init_condition_target_buttons(t_env *env);
+void				init_condition_event_buttons(t_env *env);
+int					event_panel_keys(t_env *env);
+int					event_panel_keyup(t_env *env);
+int					condition_panel_keys(t_env *env);
+int					condition_panel_keyup(t_env *env);
+int					condition_target_keys(t_env *env);
+int					condition_target_keyup(t_env *env);
 int					target_panel_keys(t_env *env, t_target_panel *panel);
 int					first_phase_keys(t_env *env, t_target_panel *panel);
 int					first_phase_keyup(t_env *env, t_target_panel *panel);
@@ -595,8 +610,8 @@ int					second_phase_keyup(t_env *env, t_target_panel *panel);
 int					third_phase_keys(t_env *env, t_target_panel *panel);
 int					third_phase_keyup(t_env *env, t_target_panel *panel);
 int					action_panel_keys(t_env *env);
-int					launch_condition_panel_keys(t_env *env);
-int					exec_condition_panel_keys(t_env *env);
+int					conditions_panel_keys(t_env *env);
+int					conditions_panel_keyup(t_env *env);
 int					target_tab_func(void *param);
 int					action_tab_func(void *param);
 int					launch_conditions_tab_func(void *param);
@@ -643,7 +658,7 @@ void *param, t_env *env);
 void				update_event_panel_buttons_pos(t_env *env);
 void				update_target_panel_buttons_pos(t_env *env);
 void				update_action_panel_buttons_pos(t_env *env);
-void				update_launch_conditions_panel_buttons_pos(t_env *env);
+void				update_conditions_panel_buttons_pos(t_env *env);
 void				update_exec_conditions_panel_buttons_pos(t_env *env);
 void				update_condition_panel_buttons_pos(t_env *env);
 void				update_condition_target_buttons_pos(t_env *env);
@@ -724,7 +739,7 @@ int					new_walk_out_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_death_event(t_env *env, t_event_trigger trigger,
 t_event event);
-int					delete_launch_condition(void *param);
+int					delete_condition(void *param);
 int					set_equals(void *param);
 int					set_less(void *param);
 int					set_different(void *param);
@@ -770,6 +785,7 @@ t_condition_panel *panel, t_target_panel *target_panel, int sector);
 int					set_condition_ceiling_sprite(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel, int sector);
 void				set_condition_buttons_state(t_env *env);
+t_event				*get_event_array(t_env *env, t_event_trigger trigger);
 
 /*
 ** Main functions
@@ -1125,25 +1141,12 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
 void				init_events_creation_buttons(t_env *env);
-void				init_event_panel_buttons(t_env *env);
-void				init_target_panel_buttons(t_env *env);
-void				init_action_panel_buttons(t_env *env);
-void				init_launch_conditions_panel_buttons(t_env *env);
-void				init_exec_conditions_panel_buttons(t_env *env);
-void				init_condition_panel_buttons(t_env *env);
-void				init_condition_target_buttons(t_env *env);
 int					precompute_floor_sprite_scales(int sector, int sprite,
 t_env *env);
 int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
 int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
-int					event_panel_keys(t_env *env);
-int					event_panel_keyup(t_env *env);
-int					condition_panel_keys(t_env *env);
-int					condition_panel_keyup(t_env *env);
-int					condition_target_keys(t_env *env);
-int					condition_target_keyup(t_env *env);
 int					option_menu_keyup(t_env *env);
 int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);

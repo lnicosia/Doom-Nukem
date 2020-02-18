@@ -1,8 +1,35 @@
 #include "events_parser.h"
 
 /*
- **	Mode == source or target
- */
+**	Mode == source or target
+*/
+
+t_event	*get_event_array(t_env *env, t_event_trigger trigger)
+{
+	if (trigger.index == GLOBAL)
+		return (&env->global_events[trigger.index]);
+	else if (trigger.index == PRESS)
+		return (&env->sectors[trigger.sector]
+				.wall_sprites[trigger.wall]
+				.press_events[trigger.sprite][trigger.index]);
+	else if (trigger.index == SHOOT)
+		return (&env->sectors[trigger.sector]
+				.wall_sprites[trigger.wall]
+				.shoot_events[trigger.sprite][trigger.index]);
+	else if (trigger.index == STAND)
+		return (&env->sectors[trigger.sector]
+				.stand_events[trigger.index]);
+	else if (trigger.index == WALK_IN)
+		return (&env->sectors[trigger.sector]
+				.walk_in_events[trigger.index]);
+	else if (trigger.index == STAND)
+		return (&env->sectors[trigger.sector]
+				.walk_out_events[trigger.index]);
+	/*else if (trigger.index == DEATH)
+		return (&env->sectors[trigger.sector]
+				.stand_events[trigger.index]);*/
+	return (0);
+}
 
 t_event	*get_global_event(t_env *env, t_events_parser *eparser, int mode)
 {

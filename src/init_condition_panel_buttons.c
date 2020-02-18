@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:44:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 15:13:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:46:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	update_condition_panel_buttons_pos(t_env *env)
 	t_condition_panel	*panel;
 
 	panel = &env->editor.condition_panel;
-	set_condition_panel_buttons_pos(&panel->equals, -0.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->different, 0.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->less, 1.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->greater, 2.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->less_or_equals, -1, 1, env);
-	set_condition_panel_buttons_pos(&panel->greater_or_equals, 0, 1, env);
+	set_condition_panel_buttons_pos(&panel->equals, 2.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->different, 1.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->less, 0.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->greater, -0.5, 0, env);
+	set_condition_panel_buttons_pos(&panel->less_or_equals, 3, 1, env);
+	set_condition_panel_buttons_pos(&panel->greater_or_equals, 2, 1, env);
 	set_condition_panel_buttons_pos(&panel->event_ended, 1, 1, env);
-	set_condition_panel_buttons_pos(&panel->event_ended_start, 2, 1, env);
-	set_condition_panel_buttons_pos(&panel->function, 3, 1, env);
+	set_condition_panel_buttons_pos(&panel->event_ended_start, 0, 1, env);
+	set_condition_panel_buttons_pos(&panel->function, -1, 1, env);
 }
 
 void	init_condition_panel_buttons(t_env *env)
