@@ -12,7 +12,7 @@
 
 #include "save.h"
 
-static int	get_main_sprite(int sprite, t_env *env)
+static int	get_main_enemy_sprite(int sprite, t_env *env)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ static void	write_enemy(int fd, t_enemies enemy, t_env *env)
 			ft_min(5, get_decimal_len(enemy.angle)),
 			enemy.angle);
 	ft_dprintf(fd, "[%d %.*f] ",
-			get_main_sprite(enemy.sprite, env),
+			get_main_enemy_sprite(enemy.sprite, env),
 			ft_min(5, get_decimal_len(enemy.scale)),
 			enemy.scale);
 	ft_dprintf(fd, "[%d %d %d]\n",

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 11:24:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 17:48:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 19:18:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,7 @@ void	init_ceilling_general_env(t_env *env)
 	env->editor.hud.g_ceilling.t_texture_align_y.env = env;
 	env->editor.hud.g_ceilling.t_texture_align_y.pos = new_point(0, 0);
 	env->editor.hud.g_ceilling.t_texture_align_y.type = DOUBLE;
+	env->editor.hud.g_ceilling.t_add_sprite.env = env;
+	env->editor.hud.g_ceilling.t_add_sprite.pos = new_point(0, 0);
+	env->editor.hud.g_ceilling.t_add_sprite.type = DOUBLE;
 }

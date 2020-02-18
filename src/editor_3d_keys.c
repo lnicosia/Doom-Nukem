@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:25:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 14:36:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		editor_3d_keys(t_env *env)
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		reset_selection(env);
-		new_tabs_position(env);
+		tabs_gestion(env);
 	}
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{

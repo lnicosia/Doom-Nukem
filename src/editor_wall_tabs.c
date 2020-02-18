@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 14:43:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 18:29:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		print_wall_sprite_tab(t_env *env)
 	
 	env->editor.next_sprite_env.type = WALL_S;
 	env->editor.previous_sprite_env.type = WALL_S;
-	env->editor.current_sprite = env->selected_wall_sprite_sprite;
 	env->editor.current_sprite_selection.img_down =
 	env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
 	env->editor.current_sprite_selection.img_pressed =
@@ -219,5 +218,7 @@ int		print_wall_general_tab(t_env *env)
 		portals[env->editor.selected_wall];
 		draw_button(env, env->editor.hud.g_wall.portal, env->snprintf);
 	}
+	draw_button(env, env->editor.hud.g_wall.add_sprite,
+	env->editor.hud.g_wall.add_sprite.str);
 	return (0);
 }

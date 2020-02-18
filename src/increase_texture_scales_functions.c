@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   increase_texture_scales_functions.c               :+:      :+:    :+:   */
+/*   increase_texture_scales_functions.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/11 18:48:19 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 18:51:40 by sipatry          ###   ########.fr       */
+/*   Created: 2020/02/17 18:06:29 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/18 10:54:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		increase_ceiling_texture_scale(t_env *env)
 	t_sector *sector;
 
 	sector = &env->sectors[env->selected_ceiling];
-	if (check_texture_scale(env, sector->ceiling_scale))
+	if (check_texture_scale(env, &sector->ceiling_map_scale))
 	{
 		if (env->inputs.shift && !env->inputs.ctrl)
 		{
@@ -40,7 +40,7 @@ int		increase_floor_texture_scale(t_env *env)
 	t_sector *sector;
 
 	sector = &env->sectors[env->selected_floor];
-	if (check_texture_scale(env, sector->floor_scale))
+	if (check_texture_scale(env, &sector->floor_map_scale))
 	{
 		if (env->inputs.shift && !env->inputs.ctrl)
 		{

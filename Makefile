@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/17 17:00:50 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/18 19:27:54 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 editor_3d_tab_keys.c selection_tabs_button_keys.c \
 		 3d_edit_right_walls_texture_align.c 3d_edit_left_walls_texture_align.c \
 		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
-		 editor_wall_sprites_keyup.c wall_sprites_keyup.c 
+		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
+		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

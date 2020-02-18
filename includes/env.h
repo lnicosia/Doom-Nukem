@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 17:08:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 17:51:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,6 +443,8 @@ int					change_slopes(t_env *env);
 int					change_texture_alignement(t_env *env);
 int					change_textures_scales(t_env *env);
 int					change_walls_texture(t_env *env);
+int					check_height_at_pos(t_env *env, t_sector sector,
+t_v3 pos, int target_height);
 
 /*
 **	Input boxes checkers and updaters
@@ -455,6 +457,7 @@ int					check_ceiling_height_input_box(void *penv);
 int					check_texture_input_box(void *penv);
 int					check_sprite_input_box(void *penv);
 int					check_sprite_scale_input_box(void *penv);
+int					check_entities_sprite_scale_input_box(void *penv);
 int					check_texture_scale_input_box(void *penv);
 int					check_damage_input_box(void *penv);
 int					check_light_data_input_box(void *penv);
@@ -487,6 +490,7 @@ int					save_texture(void *target);
 int					save_enemy(void *target);
 int					save_sprite(void *target);
 int					add_enemy_button(void *target);
+int					add_sprite(void *target);
 int					add_object_button(void *target);
 int					general_tab(void *target);
 int					sector_tab(void *target);
@@ -501,6 +505,9 @@ int					add_object_button(void *target);
 int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
+int					update_ceiling_sprite_arrays(t_env *env);
+int					update_floor_sprite_arrays(t_env *env);
+int					update_wall_sprite_arrays(t_env *env);
 int					change_var(void *target);
 int					change_floor_sprite_scale(void *penv);
 int					change_ceiling_sprite_scale(void *penv);
@@ -526,6 +533,7 @@ int					change_health(void *target);
 int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
+int 				get_main_sprite(int sprite, t_env *env);
 
 /*
 **

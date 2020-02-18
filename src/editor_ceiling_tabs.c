@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 14:45:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 19:21:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ int		print_ceiling_general_tab(t_env *env)
 	env->editor.hud.g_ceilling.t_texture_align_y.target =
 	&env->sectors[env->selected_ceiling].ceiling_map_align.y;
 	draw_button(env, env->editor.hud.g_ceilling.texture_align_y, env->snprintf);
+	draw_button(env, env->editor.hud.g_ceilling.add_sprite, env->editor.hud.g_ceilling.add_sprite.str);
 	return (0);
 }

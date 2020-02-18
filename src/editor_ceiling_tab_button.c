@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 09:32:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:26:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,9 @@ void	init_ceilling_general_buttons(t_env *env)
 	&env->editor.hud.g_ceilling.t_texture_align_y, env);
 	env->editor.hud.g_ceilling.texture_align_y.pos = new_point(250, 760);
 	env->editor.hud.g_ceilling.t_texture_align_y.pos = new_point(250, 760);
+	env->editor.hud.g_ceilling.add_sprite = new_image_button(ON_RELEASE,
+	&add_sprite, env, env);
+	env->editor.hud.g_ceilling.add_sprite.str = "ADD SPRITE";
+	env->editor.hud.g_ceilling.add_sprite.pos = new_point(230, 820);
+	env->editor.hud.g_ceilling.t_add_sprite.pos = new_point(230, 820);
 }

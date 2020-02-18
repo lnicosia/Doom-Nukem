@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:30:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 17:23:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 10:54:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		reduce_ceiling_texture_scale(t_env *env)
 	t_sector *sector;
 
 	sector = &env->sectors[env->selected_ceiling];
-	if (check_texture_scale(env, sector->ceiling_scale))
+	if (check_texture_scale(env, &sector->ceiling_map_scale))
 	{
 		if (env->inputs.shift && !env->inputs.ctrl
 		&& sector->ceiling_map_scale.y > 1
@@ -43,7 +43,7 @@ int		reduce_floor_texture_scale(t_env *env)
 	t_sector *sector;
 
 	sector = &env->sectors[env->selected_floor];
-	if (check_texture_scale(env, sector->floor_scale))
+	if (check_texture_scale(env, &sector->floor_map_scale))
 	{
 		if (env->inputs.shift && !env->inputs.ctrl
 		&& sector->floor_map_scale.y > 1
