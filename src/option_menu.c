@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 18:15:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:32:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int		return_button_func(void	*target)
 	env = (t_env*)target;
 	env->option = 0;
 	if (env->in_game)
+	{
+		ft_printf("return_button\n");
 		SDL_SetRelativeMouseMode(1);
+	}
 	return (1);
 }
 
@@ -103,7 +106,7 @@ int		return_button(t_env *env)
 
 int		music_vol_up_button(t_env *env)
 {
-	env->music_vol_up = new_plus_button(ON_RELEASE,
+	env->music_vol_up = new_add_button(ON_RELEASE,
 		&music_volume_up, env, env);
 	env->music_vol_up.pos = new_point(env->h_w + env->h_w / 4,
 		env->h_h + env->music_vol_up.size_down.y);
@@ -121,7 +124,7 @@ int		music_vol_down_button(t_env *env)
 
 int		sounds_vol_up_button(t_env *env)
 {
-	env->sounds_vol_up = new_plus_button(ON_RELEASE,
+	env->sounds_vol_up = new_add_button(ON_RELEASE,
 		&sounds_volume_up, env, env);
 	env->sounds_vol_up.pos = new_point(env->h_w + env->h_w / 4,
 		env->h_h + env->h_h / 4 + env->sounds_vol_up.size_down.y);
@@ -141,13 +144,13 @@ void	print_music_vol(t_env *env)
 {
 	print_text(new_point(env->h_h +
 		env->music_vol_up.size_down.y, env->h_w),
-		new_printable_text("MUSIC", env->sdl.fonts.alice30,
+		new_printable_text("MUSIC", env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->sound.music_vol * 100);
 	print_text(new_point(env->h_h +
 		env->music_vol_up.size_down.y + 35, env->h_w),
-		new_printable_text(env->snprintf, env->sdl.fonts.alice30,
+		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 }
 
@@ -155,13 +158,13 @@ void	print_sounds_vol(t_env *env)
 {
 	print_text(new_point(env->h_h + env->h_h / 4 +
 		env->sounds_vol_up.size_down.y, env->h_w),
-		new_printable_text("SOUNDS", env->sdl.fonts.alice30,
+		new_printable_text("SOUNDS", env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->sound.ambient_vol * 100);
 	print_text(new_point( env->h_h + env->h_h / 4 +
 		env->sounds_vol_up.size_down.y + 35, env->h_w),
-		new_printable_text(env->snprintf, env->sdl.fonts.alice30,
+		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
 }
 

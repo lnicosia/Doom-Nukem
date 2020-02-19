@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:36:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/26 14:09:35 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:15:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void    print_results(t_env *env)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "You killed %d enemy",
 		env->player.killed);
 	print_text(new_point(280, 220), new_printable_text(env->snprintf,
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Accuracy: %.f%%",
 	env->player.accuracy);
 	print_text(new_point(360, 220), new_printable_text(env->snprintf,
-	env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+	env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 }

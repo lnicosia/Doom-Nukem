@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:52:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:43:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ typedef struct		s_var_sp
 	t_button		scale_y;
 	t_button		pos_x;
 	t_button		pos_y;
+	t_button		add_sprite;
 	t_button_tab	t_scale_x;
 	t_button_tab	t_scale_y;
 	t_button_tab	t_pos_x;
 	t_button_tab	t_pos_y;
 	t_button_tab	t_num;
+	t_button_tab	t_add_sprite;
 }					t_var_sp;
 
 typedef struct		s_var_s
@@ -104,6 +106,7 @@ typedef struct	s_var_g
 	t_button		scale;
 	t_button		damage;
 	t_button		portal;
+	t_button		add_sprite;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -128,6 +131,7 @@ typedef struct	s_var_g
 	t_button_tab	t_scale;
 	t_button_tab	t_damage;
 	t_button_tab	t_portal;
+	t_button_tab	t_add_sprite;
 }				t_var_g;
 
 typedef struct	s_hud
@@ -181,6 +185,21 @@ typedef struct	s_button_target
 	int			i;
 }				t_button_target;
 
+typedef struct	s_action_panel
+{
+	t_button	go_to;
+	t_button	add;
+	t_button	func;
+	t_button	value;
+	t_button	speed;
+	t_button	delay;
+	t_button	max_uses;
+	Uint32		uint32_value;
+	double		double_value;
+	int			int_value;
+	int			delay_value;
+}				t_action_panel;
+
 typedef enum	e_target_panel_types
 {
 	SECTOR_TYPE,
@@ -227,7 +246,7 @@ typedef struct	s_target_panel
 	t_button		floor;
 	t_button		ceiling;
 	t_button		sector_other;
-	t_button		targets[8];
+	t_button		targets[9];
 }				t_target_panel;
 
 typedef struct	s_event_panel
@@ -235,109 +254,166 @@ typedef struct	s_event_panel
 	t_event			event;
 	t_point			pos;
 	t_point			size;
-	int				top_size;
 	t_point			content_panel_size;
 	t_button		target_tab;
 	t_button		action_tab;
 	t_button		launch_conditions_tab;
 	t_button		exec_conditions_tab;
+	t_button		ok;
+	t_button		cancel;
+	t_button		next_condition;
+	t_button		previous_condition;
+	t_button		new_condition;
+	t_button		modify_condition;
+	t_button		delete_condition;
 	t_target_panel	target_panel;
+	t_action_panel	action_panel;
+	t_event_trigger	trigger;
+	int				selected_event;
+	int				top_size;
 }				t_event_panel;
+
+typedef struct	s_select_event_panel
+{
+	t_button	global;
+	t_button	press;
+	t_button	shoot;
+	t_button	stand;
+	t_button	walk_in;
+	t_button	walk_out;
+	t_button	death;
+}				t_select_event_panel;
+
+typedef struct	s_condition_panel
+{
+	t_button				condition_tab;
+	t_button				target_tab;
+	t_button				equals;
+	t_button				different;
+	t_button				less;
+	t_button				greater;
+	t_button				less_or_equals;
+	t_button				greater_or_equals;
+	t_button				event_ended;
+	t_button				event_ended_start;
+	t_button				function;
+	t_button				value;
+	t_condition				condition;
+	t_target_panel			target_panel;
+	t_select_event_panel	event_panel;
+	Uint32					uint32_value;
+	double					double_value;
+	int						int_value;
+	int						selected_condition;
+}				t_condition_panel;
 
 typedef struct	s_editor
 {
-	t_v2			start_pos;
-	int				existing_vertex;
-	int				divide_sector;
-	int				split_sector;
-	int				selected_sector;
-	int				selected_player;
-	int				selected_vertex;
-	int				selected_weapon;
-	int				selected_wall;
-	int				dragged_object;
-	int				selected_wall_sprite;
-	int				dragged_player;
-	int				dragged_vertex;
-	int				dragged_enemy;
-	int				start_vertex;
-	int				nb_vertex;
-	int				player_exist;
-	int				tab;
-	int				select;
-	int				current_texture;
-	int				current_enemy;
-	int				current_sprite;
-	int				selected_events;
-	size_t			selected_event;
-	size_t			selected_launch_condition;
-	size_t			selected_exec_condition;
-	t_v2			center;
-	double			scale;
-	t_list			*vertices;
-	t_hud			hud;
-	t_list			*current_vertices;
-	int				reverted;
-	int				in_game;
-	int				game;
-	int				enter_locked;
-	t_add_vertex	add;
-	t_split			split;
-	int				select_vertex_on_going;
-	int				draw_texture_tab;
-	int				draw_enemy_tab;
-	int				draw_object_tab;
-	int				draw_sprite_texture_tab;
-	int				draw_sprite_tab;
-	int				create_enemy;
-	int				create_object;
-	int				creating_event;
-	int				event_panel_dragged;
-	int				selecting_target;
-	t_texture		miniature;
-	t_button		current_texture_selection;
-	t_button		current_enemy_selection;
-	t_button		change_mode;
-	t_button		save;
-	t_button		launch_game;
-	t_button		texture_background;
-	t_button		enemy_background;
-	t_button		sprite_background;
-	t_button		sector_tab;
-	t_button		sprite_tab;
-	t_button		general_tab;
-	t_button		events_tab;
-	t_button		textures[MAX_WALL_TEXTURE];
-	t_button		skyboxes[MAX_SKYBOX + MAX_SKYBOX];
-	t_button		enemy_tab[MAX_MONSTER_MINI];
-	t_button		add_enemy;
-	t_button		add_object;
-	t_button_next	next_sprite_env;
-	t_button		next_sprite;
-	t_button_next	previous_sprite_env;
-	t_button		previous_sprite;
-	t_button_next	next_wall_env;
-	t_button_next	previous_wall_env;
-	t_button		next_wall;
-	t_button		previous_wall;
-	t_button_next	next_slope_swap_env;
-	t_button_next	previous_slope_swap_env;
-	t_button		previous_slope_swap;
-	t_button		next_slope_swap;
-	t_button		next_events;
-	t_button		previous_events;
-	t_button		next_event;
-	t_button		previous_event;
-	t_button		next_launch_condition;
-	t_button		previous_launch_condition;
-	t_button		next_exec_condition;
-	t_button		previous_exec_condition;
-	t_button		sprite_selection[MAX_OBJECTS];
-	t_button		current_sprite_selection;
-	t_button		options;
-	t_button		create_event_button;
-	t_event_panel	event_panel;
-	int				texture_tab;
+	t_v2				start_pos;
+	int					key_delay;
+	int					keyup_allowed;
+	int					start_key_delay;
+	int					existing_vertex;
+	int					divide_sector;
+	int					split_sector;
+	int					selected_sector;
+	int					selected_player;
+	int					selected_vertex;
+	int					selected_weapon;
+	int					selected_wall;
+	int					dragged_object;
+	int					selected_wall_sprite;
+	int					dragged_player;
+	int					dragged_vertex;
+	int					dragged_enemy;
+	int					start_vertex;
+	int					nb_vertex;
+	int					player_exist;
+	int					tab;
+	int					select;
+	int					current_texture;
+	int					current_enemy;
+	int					current_sprite;
+	int					selected_events;
+	size_t				selected_event;
+	size_t				selected_launch_condition;
+	size_t				selected_exec_condition;
+	t_v2				center;
+	double				scale;
+	t_list				*vertices;
+	t_hud				hud;
+	t_list				*current_vertices;
+	int					reverted;
+	int					in_game;
+	int					game;
+	int					enter_locked;
+	t_add_vertex		add;
+	t_split				split;
+	int					select_vertex_on_going;
+	int					draw_texture_tab;
+	int					draw_enemy_tab;
+	int					draw_object_tab;
+	int					draw_sprite_texture_tab;
+	int					draw_sprite_tab;
+	int					create_enemy;
+	int					create_object;
+	int					creating_event;
+	int					event_panel_dragged;
+	int					selecting_target;
+	int					selecting_condition_target;
+	int					creating_condition;
+	int					creating_launch_condition;
+	int					creating_exec_condition;
+	int					selecting_event;
+	t_texture			miniature;
+	t_button			current_texture_selection;
+	t_button			current_enemy_selection;
+	t_button			change_mode;
+	t_button			save;
+	t_button			launch_game;
+	t_button			texture_background;
+	t_button			enemy_background;
+	t_button			sprite_background;
+	t_button			sector_tab;
+	t_button			sprite_tab;
+	t_button			general_tab;
+	t_button			events_tab;
+	t_button			textures[MAX_WALL_TEXTURE];
+	t_button			skyboxes[MAX_SKYBOX + MAX_SKYBOX];
+	t_button			enemy_tab[MAX_MONSTER_MINI];
+	t_button			add_enemy;
+	t_button			add_object;
+	t_button_next		next_sprite_env;
+	t_button			next_sprite;
+	t_button_next		previous_sprite_env;
+	t_button			previous_sprite;
+	t_button_next		next_wall_env;
+	t_button_next		previous_wall_env;
+	t_button			next_wall;
+	t_button			previous_wall;
+	t_button_next		next_slope_swap_env;
+	t_button_next		previous_slope_swap_env;
+	t_button			previous_slope_swap;
+	t_button			next_slope_swap;
+	t_button			next_events;
+	t_button			previous_events;
+	t_button			next_event;
+	t_button			previous_event;
+	t_button			next_launch_condition;
+	t_button			previous_launch_condition;
+	t_button			next_exec_condition;
+	t_button			previous_exec_condition;
+	t_button			sprite_selection[MAX_OBJECTS];
+	t_button			current_sprite_selection;
+	t_button			options;
+	t_button			create_event_button;
+	t_event_panel		event_panel;
+	t_condition_panel	condition_panel;
+	t_button			new_event;
+	t_button			modify_event;
+	t_button			delete_event;
+	t_button			select_event;
+	int					texture_tab;
 }				t_editor;
 
 #endif

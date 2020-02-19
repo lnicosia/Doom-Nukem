@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 11:31:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 14:19:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,15 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 			{
 				reset_selection(env);
 				if (wall_data.mode == CEILING)
+				{
 					env->selected_ceiling = render.sector;
+					tabs_gestion(env);
+				}
 				else if (wall_data.mode == FLOOR)
+				{
+					tabs_gestion(env);
 					env->selected_floor = render.sector;
+				}
 				else
 				{
 					if (env->editor.in_game)
@@ -105,6 +111,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
 					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
+				tabs_gestion(env);			
 			}
 		}
 		yalpha = (i - render.max_ceiling) / render.line_height;
@@ -226,6 +233,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
 					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
+				tabs_gestion(env);
 			}
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;
@@ -364,6 +372,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
 					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
 				}
+				tabs_gestion(env);
 			}
 		}
 		y = alpha * render.texel.y + (1.0 - alpha) * 5;

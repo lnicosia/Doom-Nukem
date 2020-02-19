@@ -29,7 +29,7 @@ int		launch_game(void *target)
 	str = ft_strcat(str, env->save_file);
 	ft_printf("starting game from editor:\n%s\n", str);  
 	system (str);
-	ft_strdel(&env->save_file);
+	//ft_strdel(&env->save_file);
 	env->save_file = tmp;
 	free(str);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 14:18:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 11:17:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,10 @@ void	editor_hud(t_env *env)
 			env->editor.texture_tab = 0;
 	}
 	if (env->editor.creating_event)
-		draw_event_panel(env);
+	{
+		if (env->editor.creating_condition)
+			draw_condition_panel(env);
+		else
+			draw_event_panel(env);
+	}
 }

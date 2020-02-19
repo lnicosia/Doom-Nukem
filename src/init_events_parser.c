@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:23:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:06:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:59:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	init_events_parser_trigger_parsers(t_events_parser *eparser)
 void	init_events_parser(t_events_parser *eparser)
 {
 	init_events_parser_trigger_parsers(eparser);
-	eparser->new_events[GLOBAL] = &new_global_event;
-	eparser->new_events[PRESS] = &new_press_event;
-	eparser->new_events[SHOOT] = &new_shoot_event;
-	eparser->new_events[STAND] = &new_stand_event;
-	eparser->new_events[WALK_IN] = &new_walk_in_event;
-	eparser->new_events[WALK_OUT] = &new_walk_out_event;
-	eparser->new_events[DEATH] = &new_death_event;
+	eparser->new_events[GLOBAL] = &new_parser_global_event;
+	eparser->new_events[PRESS] = &new_parser_press_event;
+	eparser->new_events[SHOOT] = &new_parser_shoot_event;
+	eparser->new_events[STAND] = &new_parser_stand_event;
+	eparser->new_events[WALK_IN] = &new_parser_walk_in_event;
+	eparser->new_events[WALK_OUT] = &new_parser_walk_out_event;
+	eparser->new_events[DEATH] = &new_parser_death_event;
 	init_events_parser_target_parsers(eparser);
 	init_events_parser_target_types(eparser);
 	init_events_parser_updaters(eparser);

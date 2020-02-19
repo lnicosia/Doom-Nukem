@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:49:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:06:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		j = 0;
 		while (j < sector->wall_sprites[i].nb_sprites)
 		{
+		//	ft_printf("%d\n", j);
 			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
 				(env->object_sprites[sector->wall_sprites[i].sprite[j]].size[0].x

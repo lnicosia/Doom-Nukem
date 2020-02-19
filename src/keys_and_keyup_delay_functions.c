@@ -1,13 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_launch_conditions_panel_buttons.c             :+:      :+:    :+:   */
+/*   keys_and_keyup_delay_functions.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 18:01:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 18:01:31 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/14 10:14:35 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/14 11:31:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		key_delay(t_env *env, double start)
+{
+	double	tick;
+
+	tick = SDL_GetTicks();
+	if (env->editor.key_delay > 200)
+		return (-1);
+	return (0);
+} 

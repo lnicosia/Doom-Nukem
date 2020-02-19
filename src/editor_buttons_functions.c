@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:10:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 17:17:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:30:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int		change_color(void *param)
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	env->input_box.update = &update_sector_entities_light_input_box;
-	env->input_box.error_message = "Error: brightness/intensity must be"
-	" between -256 and 256";
+	env->input_box.error_message = "Error: color must be an hexa ARGB color";
 	return (0);
 }
 
@@ -77,7 +76,7 @@ int		change_enemy_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_sprite_scale_input_box;
+	env->input_box.check = &check_entities_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
 	return (0);
 }
@@ -103,7 +102,7 @@ int		change_object_scale(void *param)
 	button = (t_button_tab *)param;
 	env = button->env;
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
-	env->input_box.check = &check_sprite_scale_input_box;
+	env->input_box.check = &check_entities_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
 	return (0);
 }

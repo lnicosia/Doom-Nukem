@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:32:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:26:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	object_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
+		if (button_keys(&env->editor.hud.g_object.pos_z, env))
+			return (-1);
 		if (button_keys(&env->editor.hud.g_object.health, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_object.scale, env))
@@ -59,6 +61,8 @@ int	wall_sprite_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.sp_wall_sprite.scale_x, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.sp_wall_sprite.scale_y, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.sp_wall_sprite.add_sprite, env))
 			return (-1);
 	}
 	return (0);
@@ -119,6 +123,8 @@ int	wall_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.hud.g_wall.portal, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.g_wall.add_sprite, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -154,6 +160,8 @@ int	floor_buttons(t_env *env)
 			return (-1);
 		if (button_keys(&env->editor.next_slope_swap, env))
 			return (-1);
+		if (button_keys(&env->editor.hud.g_floor.add_sprite, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -188,6 +196,8 @@ int	ceiling_buttons(t_env *env)
 		if (button_keys(&env->editor.previous_slope_swap, env))
 			return (-1);
 		if (button_keys(&env->editor.next_slope_swap, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_ceilling.add_sprite, env))
 			return (-1);
 	}
 	return (0);

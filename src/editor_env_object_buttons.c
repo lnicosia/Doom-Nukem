@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:55:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:20:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 09:34:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_object_sector_env(t_env *env)
 	env->editor.hud.s_object.t_brightness.type = INT;
 	env->editor.hud.s_object.t_color.env = env;
 	env->editor.hud.s_object.t_color.pos = new_point(0, 0);
-	env->editor.hud.s_object.t_color.type = INT;
+	env->editor.hud.s_object.t_color.type = UINT32;
 	env->editor.hud.s_object.t_intensity.env = env;
 	env->editor.hud.s_object.t_intensity.pos = new_point(0, 0);
 	env->editor.hud.s_object.t_intensity.type = INT;

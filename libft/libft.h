@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 11:16:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:03:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void			ft_putnbr(int nb);
 char			*ft_strdup(const char *s1);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
+int				ft_ishexa(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
@@ -143,7 +144,7 @@ double			ft_fmax(double nb1, double nb2);
 char			*ft_strjoin_free(char *s1, const char *s2);
 int				get_next_line(int fd, char **line);
 int				ft_count(int nb);
-int				ft_atoi_base(char *str, char *base);
+long			ft_atoi_base(char *str, char *base);
 int				ft_dprintf(int fd, const char *restrict format, ...);
 int				ft_printf(const char *restrict format, ...);
 int				ft_snprintf(const char *restrict format, ...);
@@ -164,5 +165,6 @@ t_list			*ft_lstdelnode(t_list **list, t_list *node);
 t_plane			new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
 t_v3			get_intersection_line_plane(t_v3 p1, t_v3 p2, t_plane plane,
 t_v3 p3);
+char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 16:12:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:51:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = new_point(200, 50);
 	box->pos = pos;
+	box->rectangle = new_rectangle(0xFFFFFFFF, 0xFF606060, 1, 3);
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
@@ -46,6 +48,19 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		set_double_stats(box);
+	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -68,11 +83,13 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = new_point(96, 32);
 	box->pos = pos;
+	box->rectangle = new_rectangle(0xFFFFFFFF, 0xFF606060, 1, 3);
 	box->type = type;
 	box->state = 1;
 	box->accept_inputs = 0;
@@ -95,6 +112,19 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		set_double_stats(box);
+	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -119,7 +149,7 @@ int	init_input_box(t_input_box *box, t_env *env)
 	ft_bzero(box, sizeof(*box));
 	box->type = DOUBLE;
 	box->del_delay = 25;
-	box->input_delay = 100;
+	box->input_delay = 50;
 	box->move_cursor_delay = 100;
 	box->cursor_delay = 500;
 	if (!(box->str = ft_strnew(0)))
@@ -141,7 +171,7 @@ void	draw_input_box_content(t_input_box *box, t_env *env)
 	TTF_SizeText(box->font, box->str, &size.x, &size.y);
 	pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
 	box->pos.x + 6);
-	text = new_printable_text(box->str, box->font, 0x000000, box->size.x);
+	text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
 	print_text(pos, text, env);
 }
 
@@ -206,7 +236,7 @@ void	draw_box_selection(t_input_box *box, t_env *env)
 
 void	draw_input_box(t_input_box *box, t_env *env)
 {
-	int	x;
+	/*int	x;
 	int	y;
 
 	y = box->pos.y;
@@ -223,7 +253,8 @@ void	draw_input_box(t_input_box *box, t_env *env)
 			x++;
 		}
 		y++;
-	}
+	}*/
+	draw_rectangle(env, box->rectangle, box->pos, box->size);
 	if (box->select_start != box->select_end)
 		draw_box_selection(box, env);
 	draw_input_box_content(box, env);
@@ -257,22 +288,28 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->inputs.backspace)
 	{
-		if (box->select_start != box->select_end)
+		if (box->select_start != box->select_end
+			&& (box->type != UINT32 || (box->select_start > 2
+			&& box->select_end > 2)))
 			delete_box_selection(box);
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor > 0 && (box->str[box->cursor - 1] != '.'
-			|| box->float_count + box->int_count <= 9))
+			|| box->float_count + box->int_count <= 9)
+		&& (box->type != UINT32 || box->cursor > 2))
 			del_char(box, 0);
 		env->inputs.backspace = 0;
 	}
 	else if (env->inputs.del)
 	{
-		if (box->select_start != box->select_end)
+		if (box->select_start != box->select_end
+			&& (box->type != UINT32 || (box->select_start > 2
+			&& box->select_end > 2)))
 			delete_box_selection(box);
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor < ft_strlen(box->str)
 		&& (box->str[box->cursor] != '.'
-			|| box->float_count + box->int_count <= 9))
+			|| box->float_count + box->int_count <= 9)
+		&& (box->type != UINT32 || box->cursor > 1))
 			del_char(box, 1);
 		env->inputs.del = 0;
 	}
@@ -323,6 +360,8 @@ int		input_box_keys(t_input_box *box, t_env *env)
 				parse_integer_input(box, env);
 			else if (box->type == DOUBLE)
 				parse_double_input(box, env);
+			else if (box->type == UINT32)
+				parse_uint32_input(box, env);
 			else if (box->type == STRING)
 				parse_str_input(box, env);
 		}

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:47:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 18:39:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,9 @@ void	init_floor_general_buttons(t_env *env)
 	&env->editor.hud.g_floor.t_texture_align_y, env);
 	env->editor.hud.g_floor.texture_align_y.pos = new_point(250, 760);
 	env->editor.hud.g_floor.t_texture_align_y.pos = new_point(250, 760);
+	env->editor.hud.g_floor.add_sprite = new_image_button(ON_RELEASE,
+	&add_sprite, env, env);
+	env->editor.hud.g_floor.add_sprite.str = "ADD SPRITE";
+	env->editor.hud.g_floor.add_sprite.pos = new_point(230, 820);
+	env->editor.hud.g_floor.t_add_sprite.pos = new_point(230, 820);
 }

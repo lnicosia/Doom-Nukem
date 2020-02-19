@@ -6,35 +6,52 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:31:28 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:23:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:25:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
 
+void		set_buttons_state2(t_env *env)
+{
+	if (env->editor.event_panel.target_panel.player_type)
+		set_player_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
+	if (env->editor.event_panel.target_panel.vertex_type)
+		set_vertex_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
+	if (env->editor.event_panel.target_panel.sector_other_type)
+		set_sector_other_panel_buttons_state(
+		&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
+}
+
 void		set_buttons_state(t_env *env)
 {
 	if (env->editor.event_panel.target_panel.floor_type)
-		set_floor_panel_buttons_state(env);
+		set_floor_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.ceiling_type)
-		set_ceiling_panel_buttons_state(env);
+		set_ceiling_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.wall_type)
-		set_wall_panel_buttons_state(env);
+		set_wall_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.wall_sprite_type)
-		set_wall_sprite_panel_buttons_state(env);
+		set_wall_sprite_panel_buttons_state(
+		&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.weapon_type)
-		set_weapon_panel_buttons_state(env);
+		set_weapon_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.enemy_type)
-		set_enemy_panel_buttons_state(env);
+		set_enemy_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.object_type)
-		set_object_panel_buttons_state(env);
-	if (env->editor.event_panel.target_panel.player_type)
-		set_player_panel_buttons_state(env);
-	if (env->editor.event_panel.target_panel.vertex_type)
-		set_vertex_panel_buttons_state(env);
-	if (env->editor.event_panel.target_panel.sector_other_type)
-		set_sector_other_panel_buttons_state(env);
+		set_object_panel_buttons_state(&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
+	set_buttons_state2(env);
 }
 
 int			set_wall_sprite2(t_env *env, t_event_panel *panel,
