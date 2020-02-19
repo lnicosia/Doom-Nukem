@@ -14,52 +14,59 @@
 
 void	wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale)
 {
-	if (env->inputs.comma)
+	if (env->editor.key_delay > INPUT_DELAY)
 	{
-		if (env->inputs.shift && !env->inputs.ctrl)
+		if (env->inputs.comma
+		&& check_sprite_pos(pos))
 		{
-			pos->y--;
-			pos->x--;
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				pos->y--;
+				pos->x--;
+			}
+			else if (env->inputs.ctrl)
+				pos->y--;
+			else
+				pos->x--;
 		}
-		else if (env->inputs.ctrl)
-			pos->y--;
-		else
-			pos->x--;
-	}
-	if (env->inputs.period)
-	{
-		if (env->inputs.shift && !env->inputs.ctrl)
+		if (env->inputs.period
+		&& check_sprite_pos(pos))
 		{
-			pos->x++;
-			pos->y++;
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				pos->x++;
+				pos->y++;
+			}
+			else if (env->inputs.ctrl)
+				pos->y++;
+			else
+				pos->x++;
 		}
-		else if (env->inputs.ctrl)
-			pos->y++;
-		else
-			pos->x++;
-	}
-	if (env->inputs.equals)
-	{
-		if (env->inputs.shift && !env->inputs.ctrl)
+		if (env->inputs.equals
+		&& check_texture_scale(env, scale))
 		{
-			scale->x *= 1.1;
-			scale->y *= 1.1;
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				scale->x *= 1.1;
+				scale->y *= 1.1;
+			}
+			else if (env->inputs.ctrl)
+				scale->y *= 1.1;
+			else
+				scale->x *= 1.1;
 		}
-		else if (env->inputs.ctrl)
-			scale->y *= 1.1;
-		else
-			scale->x *= 1.1;
-	}
-	if (env->inputs.minus1)
-	{
-		if (env->inputs.shift && !env->inputs.ctrl)
+		if (env->inputs.minus1
+		&& check_texture_scale(env, scale))
 		{
-			scale->x /= 1.1;
-			scale->y /= 1.1;
+			if (env->inputs.shift && !env->inputs.ctrl)
+			{
+				scale->x /= 1.1;
+				scale->y /= 1.1;
+			}
+			else if (env->inputs.ctrl)
+				scale->y /= 1.1;
+			else
+				scale->x /= 1.1;
 		}
-		else if (env->inputs.ctrl)
-			scale->y /= 1.1;
-		else
-			scale->x /= 1.1;
 	}
 }

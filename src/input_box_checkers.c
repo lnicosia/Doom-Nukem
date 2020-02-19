@@ -6,10 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 11:23:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 13:54:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "collision.h"
 #include "events_parser.h"
 
@@ -252,6 +253,33 @@ int		check_sprite_scale_input_box(void *penv)
 	scale = ft_atof(env->input_box.str);
 	if ((scale < 0.1 && scale > -0.1) || scale > 100 || scale < -100)
 		return (1);
+	return (0);
+}
+
+int		check_entities_sprite_scale_input_box(void *penv)
+{
+	double		scale;
+	t_env		*env;
+	t_sector	sector;
+
+	env = (t_env*)penv;
+	scale = ft_atof(env->input_box.str);
+	if (env->selected_object != -1)
+		sector = env->sectors[env->objects[env->selected_object].sector];
+	if (env->selected_enemy != -1)
+		sector = env->sectors[env->enemies[env->selected_enemy].sector];
+	if (scale < 0.1 || scale > 100)
+		return (1);
+	else if (env->selected_enemy != -1
+	&& check_height_at_pos(env, sector,
+	env->enemies[env->selected_enemy].pos,
+	(env->enemies[env->selected_enemy].scale + 1)))
+		return (-1);
+	else if (env->selected_object != -1
+	&& check_height_at_pos(env, sector,
+	env->objects[env->selected_object].pos,
+	(env->objects[env->selected_object].scale + 1)))
+		return (-1);
 	return (0);
 }
 

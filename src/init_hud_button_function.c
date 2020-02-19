@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 15:48:58 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 19:25:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,30 @@ int		save_enemy(void *param)
 	env->editor.draw_enemy_tab = 0;
 	env->editor.current_enemy_selection.state = UP;
 	env->editor.current_enemy_selection.anim_state = REST;
+	return (0);
+}
+
+int		add_sprite(void *param)
+{
+	t_env *env;
+
+	env = (t_env *)param;
+	if (env->selected_floor != -1)
+	{
+		if (update_floor_sprite_arrays(env))
+			return (-1);
+	}
+	if (env->selected_ceiling != -1)
+	{
+		if (update_ceiling_sprite_arrays(env))
+			return (-1);
+	}
+	if (env->selected_wall_sprite_wall != -1
+	|| env->editor.selected_wall != -1)
+	{
+		if (update_wall_sprite_arrays(env))
+			return (-1);
+	}
 	return (0);
 }
 

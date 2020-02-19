@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
+#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/19 11:17:08 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/19 11:47:38 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,9 +93,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 3d_edit_function.c action_panel.c conditions_tabs.c \
 		 event_panel_input_box.c \
 		 init_events_creation_buttons.c reduce_texture_scales_functions.c \
-		 increase_texture_scales_functions.c keys_checkers.c \
-		 3d_edit_texture_scale_functions.c 3d_edit_walls_texture_number.c \
-		 3d_edit_slopes.c delete_condition.c \
+		 increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
 		 init_condition_panel_buttons.c condition_type_buttons_functions.c \
 		 condition_type_buttons_functions2.c init_condition_target_buttons.c \
 		 condition_target_panel.c condition_panel.c \
@@ -109,6 +107,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 set_new_event_target3.c set_new_event_target4.c \
 		 set_new_event_target5.c set_new_event_target6.c \
 		 condition_event_panel.c init_condition_event_buttons.c \
+		 3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
+		 3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
+		 editor_3d_tab_keys.c selection_tabs_button_keys.c \
+		 3d_edit_right_walls_texture_align.c 3d_edit_left_walls_texture_align.c \
+		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
+		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
+		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

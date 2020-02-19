@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 10:50:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:43:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ typedef struct		s_var_sp
 	t_button		scale_y;
 	t_button		pos_x;
 	t_button		pos_y;
+	t_button		add_sprite;
 	t_button_tab	t_scale_x;
 	t_button_tab	t_scale_y;
 	t_button_tab	t_pos_x;
 	t_button_tab	t_pos_y;
 	t_button_tab	t_num;
+	t_button_tab	t_add_sprite;
 }					t_var_sp;
 
 typedef struct		s_var_s
@@ -104,6 +106,7 @@ typedef struct	s_var_g
 	t_button		scale;
 	t_button		damage;
 	t_button		portal;
+	t_button		add_sprite;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -128,6 +131,7 @@ typedef struct	s_var_g
 	t_button_tab	t_scale;
 	t_button_tab	t_damage;
 	t_button_tab	t_portal;
+	t_button_tab	t_add_sprite;
 }				t_var_g;
 
 typedef struct	s_hud
@@ -306,6 +310,9 @@ typedef struct	s_condition_panel
 typedef struct	s_editor
 {
 	t_v2				start_pos;
+	int					key_delay;
+	int					keyup_allowed;
+	int					start_key_delay;
 	int					existing_vertex;
 	int					divide_sector;
 	int					split_sector;

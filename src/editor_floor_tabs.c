@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:19:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:30:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,6 @@ int		print_floor_general_tab(t_env *env)
 	env->editor.hud.g_floor.t_texture_align_y.target =
 	&env->sectors[env->selected_floor].floor_map_align.y;
 	draw_button(env, env->editor.hud.g_floor.texture_align_y, env->snprintf);
+	draw_button(env, env->editor.hud.g_floor.add_sprite, env->editor.hud.g_floor.add_sprite.str);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:18:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:40:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ int					init_skybox_selection_buttons(t_env *env);
 int					editor(t_env *env);
 int					draw_editor_tabs(t_env *env);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
+void				wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
+void				editor_wall_sprites_keyup(t_env *env);
 void				start_editor_menu(t_env *env);
 void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
@@ -414,7 +416,7 @@ int					sprite_tab_keyup(t_env *env);
 int					events_tab_keyup(t_env *env);
 int					editor_3d_tabs_keyup(t_env *env);
 void				editor_options_tab_keyup(t_env *env);
-void				editor_wall_sprites_keys(t_env *env);
+void				editor_wall_sprites_keyup(t_env *env);
 void				change_ceiling_floor_height(t_env *env);
 int					reduce_ceiling_texture_scale(t_env *env);
 int					reduce_floor_texture_scale(t_env *env);
@@ -425,12 +427,28 @@ int					increase_wall_texture_scale(t_env *env);
 int					increase_walls_texture_scale(t_env *env);
 int					reduce_walls_texture_scale(t_env *env);
 int					check_entities_height(t_env *env);
-void				left_wall_texture_alignement(t_env *env);
-void				right_wall_texture_alignement(t_env *env);
+int					left_walls_texture_align(t_env *env);
+int					right_walls_texture_align(t_env *env);
 int					increase_wall_texture_number(t_env *env, t_sector *sector);
 int					decrease_wall_texture_number(t_env *env, t_sector *sector);
 int					increase_slope(t_env *env);
 int					decrease_slope(t_env *env);
+void				change_floor_slope_start(t_env *env);
+void				change_ceiling_slope_start(t_env *env);
+void				change_slope_start(t_env *env);
+int					editor_3d_tab_keys(t_env *env);
+int					selection_tab_button_keys(t_env *env);
+int					wall_edit_keys(t_env *env);
+int					wall_edit_keyup(t_env *env);
+void				editor_wall_sprites_keys(t_env *env);
+int					change_textures_scales(t_env *env);
+int					change_walls_texture_scale(t_env *env);
+int					change_slopes(t_env *env);
+int					change_texture_alignement(t_env *env);
+int					change_textures_scales(t_env *env);
+int					change_walls_texture(t_env *env);
+int					check_height_at_pos(t_env *env, t_sector sector,
+t_v3 pos, int target_height);
 
 /*
 **	Input boxes checkers and updaters
@@ -443,6 +461,7 @@ int					check_ceiling_height_input_box(void *penv);
 int					check_texture_input_box(void *penv);
 int					check_sprite_input_box(void *penv);
 int					check_sprite_scale_input_box(void *penv);
+int					check_entities_sprite_scale_input_box(void *penv);
 int					check_texture_scale_input_box(void *penv);
 int					check_damage_input_box(void *penv);
 int					check_light_data_input_box(void *penv);
@@ -463,6 +482,8 @@ int					update_enemy_input_box(void *penv);
 */
 
 int					height_check(t_env *env);
+int					check_sprite_pos(t_v2 *pos);
+int					check_texture_scale(t_env *env, t_v2 *scale);
 
 /*
 **	Editor buttons functions
@@ -473,6 +494,7 @@ int					save_texture(void *target);
 int					save_enemy(void *target);
 int					save_sprite(void *target);
 int					add_enemy_button(void *target);
+int					add_sprite(void *target);
 int					add_object_button(void *target);
 int					general_tab(void *target);
 int					sector_tab(void *target);
@@ -487,6 +509,9 @@ int					add_object_button(void *target);
 int					events_tab(void *target);
 int					open_enemy_selection(void *param);
 int					open_wall_sprite_selection(void *param);
+int					update_ceiling_sprite_arrays(t_env *env);
+int					update_floor_sprite_arrays(t_env *env);
+int					update_wall_sprite_arrays(t_env *env);
 int					change_var(void *target);
 int					change_floor_sprite_scale(void *penv);
 int					change_ceiling_sprite_scale(void *penv);
@@ -512,6 +537,15 @@ int					change_health(void *target);
 int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
+int 				get_main_sprite(int sprite, t_env *env);
+
+/*
+**
+*/
+
+void				change_ceiling_floor_height_keyup(t_env *env);
+void				check_height_protections(t_env *env, t_sector *sector);
+
 /*
 **	prints and draw buttons for informations on a selected element 
 */
