@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 14:49:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:02:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	editor_show_tab(t_env *env)
 	&env->sdl.mouse_y);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x,
 	&env->sdl.mouse_y);
-	if (!env->editor.tab)
+	/*if (!env->editor.tab)
 	{
 		env->editor.sprite_tab.state = UP;
 		env->editor.general_tab.state = UP;
@@ -140,5 +140,6 @@ void	editor_show_tab(t_env *env)
 		env->editor.sprite_tab.anim_state = REST;
 		env->editor.general_tab.anim_state = REST;
 		env->editor.sector_tab.anim_state = REST;
-	}
+	}*/
+	tabs_gestion(env);
 }
