@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 09:29:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:19:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,27 @@ int		add_char(t_input_box *box, char c)
 
 int		parse_uint32_input(t_input_box *box, t_env *env)
 {
+	char	new;
+
 	(void)box;
-	(void)env;
+	new = ft_getchar(env->sdl.event.key.keysym.sym, env->inputs.shift);
+	if (!new || !ft_ishexa(new) || ft_strlen(box->str) > 9)
+		return (0);
+	if (box->select_start < 2)
+		box->select_start = 2;
+	if (box->select_end < 2)
+		box->select_end = 2;
+	if (box->cursor <= 1)
+		box->cursor = 2;
+	/*if ((box->select_start <= 2 || box->select_end <= 1)
+		&& box->select_end != box->select_start)
+	{
+		box->select_start = 2;
+		//box->select_end = 3;
+		box->cursor = 2;
+	}*/
+	if (add_char(box, new))
+		return (-1);
 	return (0);
 }
 
@@ -143,8 +162,7 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	new = ft_getchar(env->sdl.event.key.keysym.sym,
-			env->inputs.shift);
+	new = ft_getchar(env->sdl.event.key.keysym.sym, env->inputs.shift);
 	if (!new)
 		return (0);
 	if (!ft_isdigit(new))
@@ -168,8 +186,7 @@ int		parse_double_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	new = ft_getchar(env->sdl.event.key.keysym.sym,
-			env->inputs.shift);
+	new = ft_getchar(env->sdl.event.key.keysym.sym, env->inputs.shift);
 	if (!new)
 		return (0);
 	if (!ft_isdigit(new))
@@ -237,8 +254,7 @@ int		parse_str_input(t_input_box *box, t_env *env)
 {
 	char	new;
 
-	new = ft_getchar(env->sdl.event.key.keysym.sym,
-			env->inputs.shift);
+	new = ft_getchar(env->sdl.event.key.keysym.sym, env->inputs.shift);
 	if (!new)
 		return (0);
 	env->sdl.event.key.keysym.sym = 0;

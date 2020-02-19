@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/02/01 12:16:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:03:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		set_res(char *nbr, char *base_from, int res, int j)
+long	set_res(char *nbr, char *base_from, int res, int j)
 {
 	if (base_from[j] >= 'a' && base_from[j] < 'z')
 	{
@@ -29,12 +29,12 @@ int		set_res(char *nbr, char *base_from, int res, int j)
 	return (res);
 }
 
-int		ft_atoi_base(char *nbr, char *base_from)
+long	ft_atoi_base(char *nbr, char *base_from)
 {
-	int res;
-	int j;
-	int k;
-	int neg;
+	long	res;
+	int		j;
+	int		k;
+	int		neg;
 
 	neg = 1;
 	res = 0;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 09:44:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:51:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,22 +288,28 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->inputs.backspace)
 	{
-		if (box->select_start != box->select_end)
+		if (box->select_start != box->select_end
+			&& (box->type != UINT32 || (box->select_start > 2
+			&& box->select_end > 2)))
 			delete_box_selection(box);
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor > 0 && (box->str[box->cursor - 1] != '.'
-			|| box->float_count + box->int_count <= 9))
+			|| box->float_count + box->int_count <= 9)
+		&& (box->type != UINT32 || box->cursor > 2))
 			del_char(box, 0);
 		env->inputs.backspace = 0;
 	}
 	else if (env->inputs.del)
 	{
-		if (box->select_start != box->select_end)
+		if (box->select_start != box->select_end
+			&& (box->type != UINT32 || (box->select_start > 2
+			&& box->select_end > 2)))
 			delete_box_selection(box);
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor < ft_strlen(box->str)
 		&& (box->str[box->cursor] != '.'
-			|| box->float_count + box->int_count <= 9))
+			|| box->float_count + box->int_count <= 9)
+		&& (box->type != UINT32 || box->cursor > 1))
 			del_char(box, 1);
 		env->inputs.del = 0;
 	}
