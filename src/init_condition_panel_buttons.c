@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:44:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:05:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:59:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		set_condition_value(void *param)
 		env->editor.condition_panel.condition.target_type,
 		target, env))
 		return (-1);
+	env->input_box.pos = env->editor.condition_panel.value.pos;
 	return (0);
 }
 

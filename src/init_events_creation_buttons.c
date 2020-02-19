@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 21:03:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:14:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,14 @@ int		new_event(void *param)
 	set_trigger(env, &env->editor.event_panel.trigger);
 	env->editor.event_panel.ok.release_action = &create_event;
 	env->editor.event_panel.target_tab.state = DOWN;
+	env->editor.event_panel.action_tab.state = UP;
+	env->editor.event_panel.launch_conditions_tab.state = UP;
+	env->editor.event_panel.exec_conditions_tab.state = UP;
+	env->editor.event_panel.action_panel.delay_value = 0;
+	env->editor.event_panel.action_panel.uint32_value = 0;
+	env->editor.event_panel.action_panel.double_value = 0;
+	env->editor.event_panel.action_panel.int_value = 0;
+	env->editor.event_panel.selected_event = -1;
 	reset_target_selection(&env->editor.event_panel.target_panel);
 	return (0);
 }

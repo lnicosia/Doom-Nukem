@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:30:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:16:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:54:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		modify_condition(void *param)
 		env->editor.condition_panel.condition =
 		env->editor.event_panel.event.
 		launch_conditions[env->editor.selected_launch_condition];
+		env->editor.condition_panel.selected_condition =
+		env->editor.selected_launch_condition;
 	}
 	else if (env->editor.event_panel.exec_conditions_tab.state == DOWN)
 	{
@@ -31,6 +33,8 @@ int		modify_condition(void *param)
 		env->editor.condition_panel.condition =
 		env->editor.event_panel.event.
 		exec_conditions[env->editor.selected_exec_condition];
+		env->editor.condition_panel.selected_condition =
+		env->editor.selected_exec_condition;
 	}
 	env->editor.event_panel.ok.release_action = &save_condition;
 	env->editor.event_panel.target_tab.state = DOWN;

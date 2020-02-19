@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:23:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 20:49:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:56:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int		set_equals(void *param)
 	env->editor.condition_panel.condition.type = EQUALS;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
 
@@ -35,9 +32,6 @@ int		set_different(void *param)
 	env->editor.condition_panel.condition.type = DIFFERENT;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
 
@@ -49,9 +43,6 @@ int		set_less(void *param)
 	env->editor.condition_panel.condition.type = LESS;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
 
@@ -63,9 +54,6 @@ int		set_greater(void *param)
 	env->editor.condition_panel.condition.type = GREATER;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
 
@@ -77,8 +65,5 @@ int		set_less_or_equals(void *param)
 	env->editor.condition_panel.condition.type = LESS_OR_EQUALS;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }

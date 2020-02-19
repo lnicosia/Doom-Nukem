@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 21:13:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:50:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ typedef struct	s_condition_panel
 	Uint32					uint32_value;
 	double					double_value;
 	int						int_value;
+	int						selected_condition;
 }				t_condition_panel;
 
 typedef struct	s_editor

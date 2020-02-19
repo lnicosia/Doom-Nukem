@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:25:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:16:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:51:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int		save_condition(void *param)
 		env->editor.event_panel.ok.release_action = &create_event;
 	if (env->editor.creating_launch_condition)
 		env->editor.event_panel.event.
-		launch_conditions[env->editor.selected_launch_condition] =
+		launch_conditions[env->editor.condition_panel.selected_condition] =
 		env->editor.condition_panel.condition;
 	else if (env->editor.creating_exec_condition)
 		env->editor.event_panel.event.
-		exec_conditions[env->editor.selected_exec_condition] =
+		exec_conditions[env->editor.condition_panel.selected_condition] =
 		env->editor.condition_panel.condition;
 	close_event_panel(env);
 	return (0);

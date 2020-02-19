@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:23:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 21:01:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:56:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ int		set_greater_or_equals(void *param)
 	env->editor.condition_panel.condition.type = GREATER_OR_EQUALS;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
 
@@ -66,9 +63,6 @@ int		set_event_ended(void *param)
 	env->editor.condition_panel.condition.type = EVENT_ENDED;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	env->editor.selecting_event = 1;
 	return (0);
 }
@@ -81,9 +75,6 @@ int		set_event_ended_start(void *param)
 	env->editor.condition_panel.condition.type = EVENT_ENDED_START;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	env->editor.selecting_event = 1;
 	return (0);
 }
@@ -96,8 +87,5 @@ int		set_function(void *param)
 	env->editor.condition_panel.condition.type = FUNCTION;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.action_tab.state = DOWN;
 	return (0);
 }
