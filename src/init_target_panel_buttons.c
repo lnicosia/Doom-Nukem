@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 13:30:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:44:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,16 @@ int			choose_target(void *param)
 	env = (t_env*)param;
 	if (env->editor.creating_condition)
 	{
+		panel = &env->editor.condition_panel.target_panel;
 		env->editor.creating_condition = 0;
 		env->editor.creating_event = 0;
 		env->editor.selecting_condition_target = 1;
-		panel = &env->editor.condition_panel.target_panel;
 	}
 	else
 	{
+		panel = &env->editor.event_panel.target_panel;
 		env->editor.creating_event = 0;
 		env->editor.selecting_target = 1;
-		panel = &env->editor.event_panel.target_panel;
 	}
 	select = 0;
 	reset_selection(env);
@@ -144,7 +144,10 @@ int			choose_target(void *param)
 		i++;
 	}
 	if (panel->player_type)
+	{
+		check_event_creation(env);
 		return (0);
+	}
 	if (update_confirmation_box(&env->confirmation_box, "Select a target",
 		CONFIRM, env))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 15:00:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:16:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,6 @@ int	editor_keyup(t_env *env)
 	int	i;
 
 	i = 0;
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
-	if (env->editor.selecting_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
-	{
-		env->editor.selecting_target = 0;
-		env->editor.creating_event = 1;
-	}
-	if (env->editor.selecting_condition_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
-	{
-		env->editor.selecting_condition_target = 0;
-		env->editor.creating_event = 1;
-		env->editor.creating_condition = 1;
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
@@ -97,6 +79,24 @@ int	editor_keyup(t_env *env)
 		env->selected_enemy = -1;
 		tabs_gestion(env);
 		check_event_creation(env);
+	}
+	if (env->editor.creating_event && !env->confirmation_box.state)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
+	if (env->editor.selecting_target && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_target = 0;
+		env->editor.creating_event = 1;
+	}
+	if (env->editor.selecting_condition_target && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_condition_target = 0;
+		env->editor.creating_event = 1;
+		env->editor.creating_condition = 1;
 	}
 	if (env->confirmation_box.state)
 	{

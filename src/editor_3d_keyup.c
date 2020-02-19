@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 14:55:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:22:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,6 @@ void	draw_selection_tabs(t_env *env)
 
 int		editor_3d_keyup(t_env *env)
 {
-	if (env->editor.creating_event && !env->confirmation_box.state
-			&& env->editor.tab)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
 	if (wall_edit_keyup(env))
 		return (-1);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
@@ -114,6 +108,12 @@ int		editor_3d_keyup(t_env *env)
 				|| !is_mouse_on_event_panel(env)))
 		env->editor.select = 1;
 
+	if (env->editor.creating_event && !env->confirmation_box.state
+			&& env->editor.tab)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 	{
 		if (env->player.state.fly == 0)
