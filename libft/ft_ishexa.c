@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor_panel.c                                      :+:      :+:    :+:   */
+/*   ft_ishexa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 13:12:01 by lnicosia         ###   ########.fr       */
+/*   Created: 2018/11/07 14:24:37 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/19 09:54:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-
-void	update_target_panel_to_floor(t_env *env)
+int		ft_ishexa(int c)
 {
-}
-
-void	draw_floor_panel(t_env *env)
-{
-	(void)env;
-	draw_button(env, env->editor.event_panel.target_panel.height, "Height");
+	if ((c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f')
+		|| (c >= '0' && c <= '9'))
+		return (1);
+	return (0);
 }

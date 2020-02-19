@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 17:40:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:58:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ int	validate_input(t_input_box *box, t_env *env)
 			return (1);
 		}
 		*(box->double_target) = ft_atof(box->str);
+	}
+	else if (box->type == UINT32)
+	{
+		if (!box->uint32_target)
+		{
+			ft_printf("Error: no Uint32 target for input box\n");
+			return (1);
+		}
+		*(box->uint32_target) = ft_atoi_base(box->str, "0123456789ABCDEF");
 	}
 	else if (box->type == STRING)
 	{

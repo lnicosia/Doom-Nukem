@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 14:31:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:34:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_event_selection(t_env *env, size_t nb)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Event %d",
 	env->editor.selected_event);
 	print_text(new_point(500, 170), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	if (nb > 1)
 	{
 		draw_button(env, env->editor.next_event, env->editor.next_event.str);
@@ -29,7 +29,7 @@ void	print_event_selection(t_env *env, size_t nb)
 void	print_global_events_tab(t_env *env)
 {
 	print_text(new_point(470, 150), new_printable_text("Global events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	if (env->nb_global_events > 0)
 	{
 		print_event_selection(env, env->nb_global_events);
@@ -88,13 +88,13 @@ void	print_sector_events_tab(t_env *env)
 		sector = env->sectors[env->editor.selected_sector];
 	if (env->editor.selected_events == 0)
 		print_text(new_point(470, 150), new_printable_text("Stand events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	else if (env->editor.selected_events == 1)
 		print_text(new_point(470, 145), new_printable_text("Walk in events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	else if (env->editor.selected_events == 2)
 		print_text(new_point(470, 145), new_printable_text("Walk out events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	draw_button(env, env->editor.next_events, env->editor.next_events.str);
 	draw_button(env, env->editor.previous_events,
 	env->editor.previous_events.str);
@@ -111,10 +111,10 @@ void	print_wall_sprite_events_tab(t_env *env)
 {
 	if (env->editor.selected_events == 0)
 		print_text(new_point(470, 150), new_printable_text("Press events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	else if (env->editor.selected_events == 1)
 		print_text(new_point(470, 150), new_printable_text("Shoot events",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	draw_button(env, env->editor.next_events, env->editor.next_events.str);
 	draw_button(env, env->editor.previous_events,
 	env->editor.previous_events.str);

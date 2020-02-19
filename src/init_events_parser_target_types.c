@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:20:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:15:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_events_parser_target_types3(t_events_parser *eparser)
 	eparser->target_types[ENEMY_SCALE] = DOUBLE;
 	eparser->target_types[ENEMY_DAMAGE] = INT;
 	eparser->target_types[ENEMY_HP] = INT;
-	eparser->target_types[ENEMY_SPEED] = DOUBLE;
+	eparser->target_types[ENEMY_SPEED] = INT;
 	eparser->target_types[ENEMY_X] = DOUBLE;
 	eparser->target_types[ENEMY_Y] = DOUBLE;
 	eparser->target_types[ENEMY_Z] = DOUBLE;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 11:49:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:14:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,14 @@ t_env *env)
 	return (new);
 }
 
-t_button	new_plus_button(int type, int (*action)(void *), void *param,
+t_button	new_add_button(int type, int (*action)(void *), void *param,
 t_env *env)
 {
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[26].surface || !env->ui_textures[27].surface
-		|| !env->ui_textures[28].surface)
+	if (!env->ui_textures[35].surface || !env->ui_textures[35].surface
+		|| !env->ui_textures[35].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[35].surface;
 	new.img_pressed = env->ui_textures[35].surface;
@@ -237,6 +237,10 @@ t_env *env)
 	new.img_hover->h);
 	new.size_pressed = new_point(new.img_pressed->w,
 	new.img_pressed->h);
+	new.up_text_color = 0x333333FF;
+	new.hover_text_color = 0x333333FF;
+	new.pressed_text_color = 0x333333FF;
+	new.down_text_color = 0x333333FF;
 	return (new);
 }
 
@@ -257,6 +261,10 @@ t_env *env)
 	new.size_down = new_point(50, 32);
 	new.size_hover = new_point(50, 32);
 	new.size_pressed = new_point(50, 32);
+	new.up_text_color = 0x333333FF;
+	new.hover_text_color = 0x333333FF;
+	new.pressed_text_color = 0x333333FF;
+	new.down_text_color = 0x333333FF;
 	return (new);
 }
 

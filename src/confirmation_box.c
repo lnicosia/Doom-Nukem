@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/10 15:56:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:46:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,35 @@ int		yes_pressed(void *target)
 
 void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 {
-	if (box->type == YESNO)
-	{
-		box->no = new_rectangle_button(WHEN_DOWN, &no_pressed, box, env);
-		box->no.up = new_rectangle(0xFFDD0000, 0xFF990000, 1, 2);
-		box->no.down = new_rectangle(0xFF990000, 0xFF990000, 1, 2);
-		box->no.pressed = new_rectangle(0xFF990000, 0xFF990000, 1, 2);
-		box->no.hover = new_rectangle(0xFFEE0000, 0xFFAA0000, 1, 2);
-		box->no.size_up.x = box->size.x / 2;
-		box->no.size_up.y = height + 5;
-		box->no.size_pressed = box->no.size_up;
-		box->no.size_down = box->no.size_up;
-		box->no.size_hover = box->no.size_up;
-		box->no.pos.x = env->w / 2 - box->size.x / 2;
-		box->no.pos.y = env->h / 2 + box->size.y / 2 - height - 5;
-		box->no.str = "No";
-		box->no.font = box->font;
-	}
+	box->no = new_rectangle_button(WHEN_DOWN, &no_pressed, box, env);
+	box->no.up = new_rectangle(0xFFDD0000, 0xFF990000, 1, 2);
+	box->no.down = new_rectangle(0xFF990000, 0xFF990000, 1, 2);
+	box->no.pressed = new_rectangle(0xFF990000, 0xFF990000, 1, 2);
+	box->no.hover = new_rectangle(0xFFEE0000, 0xFFAA0000, 1, 2);
+	box->no.size_up.x = box->size.x / 2;
+	box->no.size_up.y = height + 5;
+	box->no.size_pressed = box->no.size_up;
+	box->no.size_down = box->no.size_up;
+	box->no.size_hover = box->no.size_up;
+	box->no.pos.x = env->w / 2 - box->size.x / 2;
+	box->no.pos.y = env->h / 2 + box->size.y / 2 - height - 5;
+	box->no.str = "No";
+	box->no.font = box->font;
 	box->yes = new_rectangle_button(WHEN_DOWN, &yes_pressed, box, env);
-	box->yes.up = new_rectangle(0xFF00DD00, 0xFF009900, 1, 2);
-	box->yes.down = new_rectangle(0xFF009900, 0xFF009900, 1, 2);
-	box->yes.pressed = new_rectangle(0xFF009900, 0xFF009900, 1, 2);
-	box->yes.hover = new_rectangle(0xFF00EE00, 0xFF00AA00, 1, 2);
+	if (box->type == ERROR)
+	{
+		box->yes.up = box->no.up;
+		box->yes.down = box->no.down;
+		box->yes.pressed = box->no.pressed;
+		box->yes.hover = box->no.hover;
+	}
+	else
+	{
+		box->yes.up = new_rectangle(0xFF00DD00, 0xFF009900, 1, 2);
+		box->yes.down = new_rectangle(0xFF009900, 0xFF009900, 1, 2);
+		box->yes.pressed = new_rectangle(0xFF009900, 0xFF009900, 1, 2);
+		box->yes.hover = new_rectangle(0xFF00EE00, 0xFF00AA00, 1, 2);
+	}
 	box->yes.font = box->font;
 	box->yes.size_up.x = box->size.x / 2;
 	box->yes.size_up.y = height + 5;

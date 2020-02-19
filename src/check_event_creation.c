@@ -6,11 +6,40 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:36:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 16:49:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 12:06:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		new_condition_target(t_env *env)
+{
+	env->editor.creating_event = 1;
+	env->editor.creating_condition = 1;
+	env->editor.selecting_condition_target = 0;
+	env->editor.condition_panel.target_tab.anim_state = REST;
+	env->editor.condition_panel.target_tab.state = UP;
+	set_new_condition_target(env);
+	if (env->editor.condition_panel.condition.target)
+		set_condition_buttons_state(env);
+	return (0);
+}
+
+int		new_event_target(t_env *env)
+{
+	env->editor.creating_event = 1;
+	env->editor.selecting_target = 0;
+	env->editor.event_panel.target_tab.anim_state = REST;
+	env->editor.event_panel.target_tab.state = UP;
+	env->editor.event_panel.action_tab.state = DOWN;
+	set_new_event_target(env);
+	env->editor.event_panel.action_panel.double_value = 0;
+	env->editor.event_panel.action_panel.int_value = 0;
+	env->editor.event_panel.action_panel.uint32_value = 0;
+	if (env->editor.event_panel.event.target)
+		set_buttons_state(env);
+	return (0);
+}
 
 int		check_event_creation4(t_env *env)
 {
@@ -19,13 +48,10 @@ int		check_event_creation4(t_env *env)
 		env->editor.tab = 1;
 		SDL_SetRelativeMouseMode(0);
 	}
-	env->editor.creating_event = 1;
-	env->editor.event_panel.target_tab.anim_state = REST;
-	env->editor.event_panel.target_tab.state = UP;
-	env->editor.event_panel.action_tab.state = DOWN;
-	set_new_event_target(env);
-	if (env->editor.event_panel.event.target)
-		set_buttons_state(env);
+	if (env->editor.selecting_target)
+		return (new_event_target(env));
+	else if (env->editor.selecting_condition_target)
+		return (new_condition_target(env));
 	return (0);
 }
 
@@ -81,9 +107,13 @@ int		check_event_creation(t_env *env)
 {
 	t_target_panel	panel;
 
-	if (env->editor.selecting_target == 0)
+	if (!env->editor.selecting_target
+		&& !env->editor.selecting_condition_target)
 		return (0);
-	panel = env->editor.event_panel.target_panel;
+	if (env->editor.selecting_condition_target)
+		panel = env->editor.condition_panel.target_panel;
+	else
+		panel = env->editor.event_panel.target_panel;
 	if (panel.floor_type)
 	{
 		if (env->selected_floor == -1 && env->editor.selected_sector == -1)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 10:19:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:02:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,19 +176,19 @@ void				init_events_parser_target_types(t_events_parser *eparser);
 void				init_events_parser_checkers(t_events_parser *eparser);
 void				init_events_parser_updaters(t_events_parser *eparser);
 void				init_events_parser_links_protection(t_events_parser *eparser);
-int					new_global_event(t_env *env, t_map_parser *parser,
+int					new_parser_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_press_event(t_env *env, t_map_parser *parser,
+int					new_parser_press_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_shoot_event(t_env *env, t_map_parser *parser,
+int					new_parser_shoot_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_stand_event(t_env *env, t_map_parser *parser,
+int					new_parser_stand_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_walk_in_event(t_env *env, t_map_parser *parser,
+int					new_parser_walk_in_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_walk_out_event(t_env *env, t_map_parser *parser,
+int					new_parser_walk_out_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int					new_death_event(t_env *env, t_map_parser *parser,
+int					new_parser_death_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 void				*set_event_target(t_env *env, t_events_parser *parser);
 void				*set_event_target4(t_env *env, t_events_parser *parser);

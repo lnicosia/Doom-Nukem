@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:46:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:27:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 09:35:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_wall_sprite_sector_env(t_env *env)
 	env->editor.hud.s_wall_sprite.t_brightness.type = INT;
 	env->editor.hud.s_wall_sprite.t_color.env = env;
 	env->editor.hud.s_wall_sprite.t_color.pos = new_point(0, 0);
-	env->editor.hud.s_wall_sprite.t_color.type = INT;
+	env->editor.hud.s_wall_sprite.t_color.type = UINT32;
 	env->editor.hud.s_wall_sprite.t_intensity.env = env;
 	env->editor.hud.s_wall_sprite.t_intensity.pos = new_point(0, 0);
 	env->editor.hud.s_wall_sprite.t_intensity.type = INT;
@@ -51,7 +51,7 @@ void	init_wall_sector_env(t_env *env)
 	env->editor.hud.s_wall.t_brightness.type = INT;
 	env->editor.hud.s_wall.t_color.env = env;
 	env->editor.hud.s_wall.t_color.pos = new_point(0, 0);
-	env->editor.hud.s_wall.t_color.type = INT;
+	env->editor.hud.s_wall.t_color.type = UINT32;
 	env->editor.hud.s_wall.t_intensity.env = env;
 	env->editor.hud.s_wall.t_intensity.pos = new_point(0, 0);
 	env->editor.hud.s_wall.t_intensity.type = INT;

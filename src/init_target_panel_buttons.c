@@ -6,24 +6,21 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:00:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int			get_target_selection_phase(t_env *env)
+int			get_target_selection_phase(t_target_panel *panel)
 {
-	t_target_panel	panel;
-
-	panel = env->editor.event_panel.target_panel;
-	if (panel.sector_type && !panel.floor_type && !panel.ceiling_type
-		&& !panel.sector_other_type)
+	if (panel->sector_type && !panel->floor_type && !panel->ceiling_type
+		&& !panel->sector_other_type)
 		return (1);
-	else if (panel.wall_type || panel.wall_sprite_type
-		|| panel.weapon_type || panel.enemy_type || panel.object_type
-		|| panel.player_type || panel.vertex_type || panel.floor_type
-		|| panel.ceiling_type || panel.sector_other_type)
+	else if (panel->wall_type || panel->wall_sprite_type
+		|| panel->weapon_type || panel->enemy_type || panel->object_type
+		|| panel->player_type || panel->vertex_type || panel->floor_type
+		|| panel->ceiling_type || panel->sector_other_type)
 		return (2);
 	return (0);
 }
@@ -36,26 +33,31 @@ int			set_int_button(void *param)
 
 int			previous_target_selection_phase(void *param)
 {
-	t_env	*env;
+	t_target_panel	*panel;
+	t_env			*env;
 
 	env = (t_env*)param;
-	if (get_target_selection_phase(env) == 1)
+	if (env->editor.creating_condition)
+		panel = &env->editor.condition_panel.target_panel;
+	else
+		panel = &env->editor.event_panel.target_panel;
+	if (get_target_selection_phase(panel) == 1)
+		panel->sector_type = 0;
+	if (get_target_selection_phase(panel) == 2)
 	{
-		env->editor.event_panel.target_panel.sector_type = 0;
+		panel->wall_type = 0;
+		panel->wall_sprite_type = 0;
+		panel->object_type = 0;
+		panel->weapon_type = 0;
+		panel->enemy_type = 0;
+		panel->player_type = 0;
+		panel->vertex_type = 0;
+		panel->floor_type = 0;
+		panel->ceiling_type = 0;
+		panel->sector_other_type = 0;
 	}
-	if (get_target_selection_phase(env) == 2)
-	{
-		env->editor.event_panel.target_panel.wall_type = 0;
-		env->editor.event_panel.target_panel.wall_sprite_type = 0;
-		env->editor.event_panel.target_panel.object_type = 0;
-		env->editor.event_panel.target_panel.weapon_type = 0;
-		env->editor.event_panel.target_panel.enemy_type = 0;
-		env->editor.event_panel.target_panel.player_type = 0;
-		env->editor.event_panel.target_panel.vertex_type = 0;
-		env->editor.event_panel.target_panel.floor_type = 0;
-		env->editor.event_panel.target_panel.ceiling_type = 0;
-		env->editor.event_panel.target_panel.sector_other_type = 0;
-	}
+	update_condition_target_buttons_pos(env);
+	update_target_panel_buttons_pos(env);
 	return (0);
 }
 
@@ -72,7 +74,7 @@ double nb, t_env *env)
 	(button->size_up.y + 4) * nb);
 }
 
-void		update_target_panel_button_pos(t_env *env)
+void		update_target_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -88,10 +90,11 @@ void		update_target_panel_button_pos(t_env *env)
 	set_target_panel_button_pos(&panel->target_panel.floor, 0, 0, env);
 	set_target_panel_button_pos(&panel->target_panel.ceiling, 0, 1, env);
 	set_target_panel_button_pos(&panel->target_panel.sector_other, 0, 2, env);
-	panel->target_panel.previous.pos = new_point((panel->pos.x + 100 +
+	panel->target_panel.previous.pos =
+	new_point((panel->pos.x + 100 +
 	panel->target_panel.sector.pos.x) / 2 -
-	panel->target_panel.previous.size_up.x / 2, panel->pos.y + panel->top_size +
-	panel->content_panel_size.y / 2 -
+	panel->target_panel.previous.size_up.x / 2,
+	panel->pos.y + panel->top_size + panel->content_panel_size.y / 2 -
 	panel->target_panel.previous.size_up.y / 2);
 	set_target_panel_button_pos(&panel->target_panel.targets[0], -1, 0, env);
 	set_target_panel_button_pos(&panel->target_panel.targets[1], -1, 1, env);
@@ -105,31 +108,42 @@ void		update_target_panel_button_pos(t_env *env)
 
 int			choose_target(void *param)
 {
-	t_env	*env;
-	int		i;
-	int		select;
+	t_env			*env;
+	int				i;
+	int				select;
+	t_target_panel	*panel;
 
 	env = (t_env*)param;
-	env->editor.creating_event = 0;
-	env->editor.selecting_target = 1;
+	if (env->editor.creating_condition)
+	{
+		env->editor.creating_condition = 0;
+		env->editor.creating_event = 0;
+		env->editor.selecting_condition_target = 1;
+		panel = &env->editor.condition_panel.target_panel;
+	}
+	else
+	{
+		env->editor.creating_event = 0;
+		env->editor.selecting_target = 1;
+		panel = &env->editor.event_panel.target_panel;
+	}
 	select = 0;
 	reset_selection(env);
 	new_tabs_position(env);
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
-		if (env->editor.event_panel.target_panel.targets[i].state == DOWN
-			&& env->editor.event_panel.target_panel.selected_button != i
+		if (panel->targets[i].state == DOWN && panel->selected_button != i
 			&& select == 0)
 		{
-			env->editor.event_panel.target_panel.selected_button = i;
+			panel->selected_button = i;
 			select = 1;
 		}
-		env->editor.event_panel.target_panel.targets[i].state = UP;
-		env->editor.event_panel.target_panel.targets[i].anim_state = REST;
+		panel->targets[i].state = UP;
+		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.event_panel.target_panel.player_type)
+	if (panel->player_type)
 		return (0);
 	if (update_confirmation_box(&env->confirmation_box, "Please now select"
 		" your target", CONFIRM, env))
@@ -158,7 +172,6 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, select_player, env, env);
 	env->editor.event_panel.target_panel.vertex = new_turquoise_panel_button(
 	ON_RELEASE, select_vertex, env, env);
-	update_target_panel_button_pos(env);
 	env->editor.event_panel.target_panel.floor = new_red_panel_button(
 	ON_RELEASE, select_floor, env, env);
 	env->editor.event_panel.target_panel.ceiling = new_green_panel_button(
@@ -166,7 +179,7 @@ void		init_target_panel_buttons(t_env *env)
 	env->editor.event_panel.target_panel.sector_other = new_yellow_panel_button(
 	ON_RELEASE, select_sector_other, env, env);
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		env->editor.event_panel.target_panel.targets[i] =
 		new_yellow_panel_button(WHEN_DOWN, &choose_target, env, env);
@@ -176,4 +189,5 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, &previous_target_selection_phase, env, env);
 	env->editor.event_panel.target_panel.previous = new_previous_arrow(
 	ON_RELEASE, &previous_target_selection_phase, env, env);
+	update_target_panel_buttons_pos(env);
 }

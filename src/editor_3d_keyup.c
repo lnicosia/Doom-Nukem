@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:45:17 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/18 13:46:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int		editor_3d_keyup(t_env *env)
 	int i;
 
 	i = 0;
+	if (env->editor.creating_event && !env->confirmation_box.state
+		&& env->editor.tab)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 	&& !env->confirmation_box.state && !env->input_box.state
 	&& !env->editor.enter_locked)
@@ -29,8 +35,10 @@ int		editor_3d_keyup(t_env *env)
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->sdl.mx > 400 && !env->editor.creating_event
-		&& !env->confirmation_box.state)
+		&& env->sdl.mx > 400
+		&& !env->confirmation_box.state
+		&& ((!env->editor.creating_event && !env->editor.creating_condition)
+		|| env->editor.selecting_event))
 		env->editor.select = 1;
 
 	if (env->sdl.event.key.keysym.sym == SDLK_t
@@ -102,11 +110,6 @@ int		editor_3d_keyup(t_env *env)
 				return (-1);
 				i++;
 			}
-		}
-		if (env->editor.creating_event)
-		{
-			if (event_panel_keyup(env))
-				return (-1);
 		}
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
 		&& (env->sdl.my < 208 && env->sdl.my > 80))

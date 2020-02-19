@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 19:47:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 19:40:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%s %d %s",
 	env->event_links_types[condition->target_type],
 	condition->target_index, ended);
-	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);
+	/*print_text(pos, new_printable_text(env->snprintf,
+	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
@@ -52,8 +52,8 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d %s %d %s",
 	condition->sector, env->event_links_types[condition->target_type],
 	condition->target_index, ended);
-	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);
+	/*print_text(pos, new_printable_text(env->snprintf,
+	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
@@ -74,8 +74,8 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d %s %d %s",
 	condition->enemy, env->event_links_types[condition->target_type],
 	condition->target_index, condition->value, ended);
-	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);
+	/*print_text(pos, new_printable_text(env->snprintf,
+	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
@@ -97,7 +97,7 @@ t_point pos, int size)
 	" %s %d %s", condition->sector, condition->wall, condition->sprite,
 	env->event_links_types[condition->target_type], condition->target_index,
 	ended);
-	print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);
+	/*print_text(pos, new_printable_text(env->snprintf,
+	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }

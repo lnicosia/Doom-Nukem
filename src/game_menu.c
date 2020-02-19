@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/21 15:53:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:17:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,15 @@ void	print_difficulty(t_env *env)
 	if (env->difficulty == 0.5)
 		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("EASY",
-			env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 	if (env->difficulty == 1)
 		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("NORMAL",
-			env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 	if (env->difficulty == 1.5)
 		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("HARD",
-			env->sdl.fonts.alice30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 }
 
 void	start_game_menu(t_env *env)

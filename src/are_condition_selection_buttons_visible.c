@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 17:18:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/29 17:19:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/14 13:35:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int sector, int wall, int sprite)
 		nb_stand_events > 0 && env->sectors[sector].stand_events[event].
 		nb_launch_conditions > 1) || (events == 1 && env->sectors[sector].
 		nb_walk_in_events > 0 && env->sectors[sector].walk_in_events[event].
-		nb_launch_conditions > 1) || (events == 2 && env->sectors[sector].
+		nb_launch_conditions > 1)
+		|| (events == 2 && env->sectors[sector].
 		nb_walk_out_events > 0 && env->sectors[sector].walk_out_events[event].
 		nb_launch_conditions > 1))) || (sector == -1 && env->selected_floor ==
 		-1 && env->nb_global_events > 0 && env->global_events[event].

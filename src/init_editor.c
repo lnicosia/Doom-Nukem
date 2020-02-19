@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:40:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:42:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int	init_editor(int ac, char **av)
 	env.player.health = 100;
 	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w + 200;
 	env.editor.center.y = -env.player.pos.y * env.editor.scale + env.h_h;
-	env.player.state.fly = 1;
-	env.editor.creating_event = 0;
 	new_tabs_position(&env);
 	return (editor(&env));
 }

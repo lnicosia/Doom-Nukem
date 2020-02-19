@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 15:33:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:41:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	double_event(t_event *curr)
 {
 	Uint32	time;
 	double	*target;
+	double	new_total;
 
 	target = (double*)curr->target;
 	if (!curr->speed)
@@ -38,10 +39,17 @@ int	double_event(t_event *curr)
 	}
 	else
 	{
-		curr->total = curr->total + (SDL_GetTicks() - curr->last_tick)
+		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
 		* fabs(curr->incr);
-		if (curr->total < fabs(curr->start_incr))
+		if (new_total < fabs(curr->start_incr))
+		{
+			if (curr->start_incr > 0)
+				*target += new_total - curr->total;
+			else
+				*target -= new_total - curr->total;
+			curr->total = new_total;
 			curr->last_tick = SDL_GetTicks();
+		}
 		else
 			return (1);
 	}

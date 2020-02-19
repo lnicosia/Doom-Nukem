@@ -72,8 +72,8 @@ static int	check_sector(t_sector sector, t_env *env)
 
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
-	if (sector.floor_max > sector.ceiling_min)
-		return (ft_printf("Sector %d slopes are too strong (floor and ceiling intersect)\n", sector.num));
+/*	if (sector.floor_max > sector.ceiling_min)
+		return (ft_printf("Sector %d slopes are too strong (floor and ceiling intersect)\n", sector.num));*/
 	i = 0;
 	vertex = env->vertices[0];
 	while (i < sector.nb_vertices)
