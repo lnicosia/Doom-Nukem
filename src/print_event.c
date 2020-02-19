@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 13:24:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:44:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	print_event_action(t_env *env, t_event *event)
 {
 	char	*speed;
+	t_point	text_size;
 
 	if (event->speed != 0)
 		speed = ft_sitoa(event->speed);
@@ -49,19 +50,29 @@ void	print_event_action(t_env *env, t_event *event)
 		print_text(new_point(570, 75), new_printable_text("Func",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	if (event->mod_type != FUNC)
-		print_text(new_point(570, 15), new_printable_text(env->snprintf,
+	{
+		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+		&text_size.y);
+		print_text(new_point(570, 200 - text_size.x / 2),
+		new_printable_text(env->snprintf,
 		env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	}
 }
 
 void	print_event_various_data(t_env *env, t_event *event)
 {
+	t_point	text_size;
+
 	if (event->max_uses != 0)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Delay: %u Max uses: %d",
 		event->delay, event->max_uses);
 	else
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Delay: %u Max uses: inf.",
-		event->max_uses);
-	print_text(new_point(600, 15), new_printable_text(env->snprintf,
+		event->delay);
+	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+	&text_size.y);
+	print_text(new_point(600, 200 - text_size.x / 2),
+	new_printable_text(env->snprintf,
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 }
 

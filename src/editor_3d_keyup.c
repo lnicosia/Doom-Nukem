@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 15:22:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:11:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		editor_3d_keyup(t_env *env)
 			&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->sdl.mx > 400
+			&& (env->sdl.mx > 400 || !env->editor.tab)
 			&& !env->confirmation_box.state
 			&& ((!env->editor.creating_event && !env->editor.creating_condition)
 				|| !is_mouse_on_event_panel(env)))
