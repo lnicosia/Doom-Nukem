@@ -32,7 +32,7 @@ int		save_map(t_env *env)
 	if (close(fd))
 		return (ft_printf("Could not close the file\n"));
 	ft_printf("{reset}");
-	if (env->editor.in_game)
+	if (env->editor.in_game && !env->editor.tab)
 		SDL_SetRelativeMouseMode(1);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	return (0);

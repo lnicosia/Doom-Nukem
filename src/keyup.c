@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 19:02:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:30:47 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,3 @@ int		keyup(t_env *env)
 	}
 	return (0);
 }
-/*
-int		open_options(t_env *env)
-{
-	SDL_SetRelativeMouseMode(0);
-	clear_image(env);
-	update_screen(env);
-	if (env->aplicate_changes)
-	{
-		free_all_sdl_relative(env);
-		set_screen_size(env);
-		set_camera(&env->player.camera, env);
-		if (set_sdl(env))
-			return (ft_printf("Could not re load sdl\n"));
-		env->inputs.left_click = 0;
-		env->aplicate_changes = 0;
-	}
-	return (0);
-}*/
