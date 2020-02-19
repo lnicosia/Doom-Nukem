@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:12:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:44:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = new_point(200, 50);
 	box->pos = pos;
@@ -49,6 +50,19 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		*(box->double_target));
 		set_double_stats(box);
 	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
+		set_double_stats(box);
+	}
 	else if (type == STRING)
 	{
 		box->str_target = (char**)target;
@@ -69,8 +83,9 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = new_point(96, 32);
 	box->pos = pos;
@@ -97,6 +112,19 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		set_double_stats(box);
+	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -326,6 +354,8 @@ int		input_box_keys(t_input_box *box, t_env *env)
 				parse_integer_input(box, env);
 			else if (box->type == DOUBLE)
 				parse_double_input(box, env);
+			else if (box->type == UINT32)
+				parse_uint32_input(box, env);
 			else if (box->type == STRING)
 				parse_str_input(box, env);
 		}

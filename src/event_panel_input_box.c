@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:22:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:05:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:43:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_env *env)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = env->editor.event_panel.action_panel.value.size_up;
 	box->pos = env->editor.event_panel.action_panel.value.pos;
@@ -46,6 +47,19 @@ t_env *env)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		set_double_stats(box);
+	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -69,8 +83,9 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 {
 	size_t	len;
 	size_t	dec_len;
+	char	*tmp;
 
-	if (type < 0 || type > 2 || !target)
+	if (type < 0 || type > 3 || !target)
 		return (-1);
 	box->size = env->editor.event_panel.action_panel.value.size_up;
 	box->pos = env->editor.event_panel.action_panel.value.pos;
@@ -98,6 +113,19 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		set_double_stats(box);
+	}
+	else if (type == UINT32)
+	{
+		box->uint32_target = (Uint32*)target;
+		if (box->str)
+			ft_strdel(&box->str);
+		if (!(tmp = ft_strnew(15)))
+			return (-1);
+		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
+		if (!(box->str = ft_strdup(tmp)))
+			return (-1);
+		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
 	else if (type == STRING)

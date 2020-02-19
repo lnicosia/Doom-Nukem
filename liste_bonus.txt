@@ -4,3 +4,5 @@ impacts de balles
 zbuffer
 wall sprites sur sol et plafond
 fov
+changer mur de depart de la pente
+sens de pente different entre sol et plafond

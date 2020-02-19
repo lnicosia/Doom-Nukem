@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:02:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:05:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1187,6 +1187,7 @@ typedef struct		s_input_box
 	char			**str_target;
 	int				*int_target;
 	double			*double_target;
+	Uint32			*uint32_target;
 	void			*target;
 	int				(*check)(void *);
 	int				(*update)(void *);

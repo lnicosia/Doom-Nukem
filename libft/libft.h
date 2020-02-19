@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 11:16:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:21:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ t_list			*ft_lstdelnode(t_list **list, t_list *node);
 t_plane			new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
 t_v3			get_intersection_line_plane(t_v3 p1, t_v3 p2, t_plane plane,
 t_v3 p3);
+char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
 
 #endif

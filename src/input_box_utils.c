@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 10:55:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:29:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,13 @@ int		add_char(t_input_box *box, char c)
 		ft_strdel(&box->str);
 	box->str = res;
 	box->cursor++;
+	return (0);
+}
+
+int		parse_uint32_input(t_input_box *box, t_env *env)
+{
+	(void)box;
+	(void)env;
 	return (0);
 }
 
