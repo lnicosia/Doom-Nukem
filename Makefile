@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/19 11:47:38 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/19 17:54:40 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -174,7 +174,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   different_condition.c init_events.c init_events_parser.c \
 		   new_global_event.c new_press_event.c new_shoot_event.c \
 		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
-		   new_death_event.c parse_event_target.c \
+		   new_death_event.c parse_event_target.c portal_loop.c \
 		   init_events_parser_target_types.c parse_event_launch_conditions.c \
 		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \

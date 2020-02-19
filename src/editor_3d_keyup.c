@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 17:11:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:11:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,12 @@ int		editor_3d_keyup(t_env *env)
 			&& !env->confirmation_box.state
 			&& ((!env->editor.creating_event && !env->editor.creating_condition)
 				|| !is_mouse_on_event_panel(env)))
-		env->editor.select = 1;
+	{
+		if (env->inputs.ctrl)
+			env->editor.select_portal = 1;
+		else	
+			env->editor.select = 1;
+	}
 
 	if (env->editor.creating_event && !env->confirmation_box.state
 			&& env->editor.tab)

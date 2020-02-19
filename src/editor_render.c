@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 10:12:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:12:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		editor_render(t_env *env)
 		&& env->editor.select)
 		check_event_creation(env);
 	env->editor.select = 0;
+	env->editor.select_portal = 0;
 	FMOD_System_Update(env->sound.system);
 	return (0);
 }

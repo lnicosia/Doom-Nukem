@@ -8,3 +8,4 @@ changer mur de depart de la pente
 sens de pente different entre sol et plafond
 lancer le jeu via l'editeur (peut etre)
 les textes sont centres dans leur ui respective
+portabilite
