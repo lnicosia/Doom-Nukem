@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 11:36:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:30:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int			choose_target(void *param)
 	}
 	if (panel->player_type)
 		return (0);
-	if (update_confirmation_box(&env->confirmation_box, "Please now select"
-		" your target", CONFIRM, env))
+	if (update_confirmation_box(&env->confirmation_box, "Select a target",
+		CONFIRM, env))
 		return (-1);
 	return (0);
 }

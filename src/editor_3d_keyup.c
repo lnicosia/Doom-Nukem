@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:34:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 14:55:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		selection_tabs_keyup(t_env *env)
 		while (i < MAX_OBJECTS)
 		{
 			if (button_keyup(&env->editor.sprite_selection[i], env))
-			return (-1);
+				return (-1);
 			i++;
 		}
 	}
@@ -61,35 +61,35 @@ int		selection_tabs_keyup(t_env *env)
 void	draw_selection_tabs(t_env *env)
 {
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
-	&& (env->sdl.my < 208 && env->sdl.my > 80))
+			&& (env->sdl.my < 208 && env->sdl.my > 80))
 		env->editor.draw_texture_tab = 1;
 	else if (env->editor.draw_texture_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->editor.current_enemy_selection.state == UP)
+			&& env->editor.current_enemy_selection.state == UP)
 		env->editor.draw_texture_tab = 0;
 	if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->editor.current_enemy_selection.state == DOWN)
+			&& env->editor.current_enemy_selection.state == DOWN)
 	{
 		env->editor.current_enemy_selection.state = UP;
 		env->editor.current_enemy_selection.anim_state = REST;
 	}
 	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->editor.current_enemy_selection.state == UP)
+			&& env->editor.current_enemy_selection.state == UP)
 		env->editor.draw_enemy_tab = 0;
 	if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->editor.current_sprite_selection.state == DOWN)
+			&& env->editor.current_sprite_selection.state == DOWN)
 	{
 		env->editor.current_sprite_selection.state = UP;
 		env->editor.current_sprite_selection.anim_state = REST;
 	}
 	else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-	&& env->editor.current_sprite_selection.state == UP)
+			&& env->editor.current_sprite_selection.state == UP)
 		env->editor.draw_sprite_tab = 0;
 }
 
 int		editor_3d_keyup(t_env *env)
 {
 	if (env->editor.creating_event && !env->confirmation_box.state
-		&& env->editor.tab)
+			&& env->editor.tab)
 	{
 		if (event_panel_keyup(env))
 			return (-1);
@@ -97,23 +97,23 @@ int		editor_3d_keyup(t_env *env)
 	if (wall_edit_keyup(env))
 		return (-1);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-	&& !env->confirmation_box.state && !env->input_box.state
-	&& !env->editor.enter_locked)
+			&& !env->confirmation_box.state && !env->input_box.state
+			&& !env->editor.enter_locked)
 	{
 		going_in_2D_mode(env);
 		return (0);
 	}
 	editor_options_tab_keyup(env);
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->editor.event_panel_dragged)
+			&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
 	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->sdl.mx > 400
-		&& !env->confirmation_box.state
-		&& ((!env->editor.creating_event && !env->editor.creating_condition)
-		|| env->editor.selecting_event))
+			&& env->sdl.mx > 400
+			&& !env->confirmation_box.state
+			&& ((!env->editor.creating_event && !env->editor.creating_condition)
+				|| !is_mouse_on_event_panel(env)))
 		env->editor.select = 1;
-	
+
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 	{
 		if (env->player.state.fly == 0)
@@ -123,8 +123,8 @@ int		editor_3d_keyup(t_env *env)
 		env->player.pos.z += 0.01;
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-	&& env->editor.enter_locked)
-	env->editor.enter_locked = 0;
+			&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->confirmation_box.state)
@@ -146,6 +146,19 @@ int		editor_3d_keyup(t_env *env)
 				return (-1);
 		}
 		draw_selection_tabs(env);
+	}
+	if (env->editor.selecting_target && !env->confirmation_box.state
+			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_target = 0;
+		env->editor.creating_event = 1;
+	}
+	if (env->editor.selecting_condition_target && !env->confirmation_box.state
+			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_condition_target = 0;
+		env->editor.creating_event = 1;
+		env->editor.creating_condition = 1;
 	}
 	return (0);
 }

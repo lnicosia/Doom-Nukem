@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:14:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:49:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int		select_event(void *param)
 	env->editor.condition_panel.condition.target =
 	get_event_array(env, env->editor.condition_panel.condition.target_trigger);
 	env->editor.selecting_event = 0;
+	env->editor.event_panel.target_tab.state = UP;
+	env->editor.event_panel.action_tab.state = DOWN;
+	if (update_confirmation_box(&env->confirmation_box,
+		"Event selected", CONFIRM, env))
+		return (-1);
 	return (0);
 }
 
