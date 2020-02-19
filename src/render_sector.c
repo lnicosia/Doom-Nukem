@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:05:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:23:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,35 @@ int		colorize_selected_portal(t_render_vertex v1, t_sector sector,
 	return (0);
 }
 
+int		select_portal(t_render_vertex v1, t_sector sector,
+		t_render render, t_env *env)
+{
+	t_render_thread	rt[THREADS];
+	pthread_t			threads[THREADS];
+	int					i;
+
+	i = 0;
+	while (i < THREADS)
+	{
+		render.thread = i;
+		rt[i].v1 = v1;
+		rt[i].sector = sector;
+		rt[i].render = render;
+		rt[i].env = env;
+		rt[i].xstart = render.xstart + (render.xend - render.xstart)
+			/ (double)THREADS * i;
+		rt[i].xend = render.xstart + (render.xend - render.xstart)
+			/ (double)THREADS * (i + 1);
+		if (pthread_create(&threads[i], NULL, select_portal_loop, &rt[i]))
+			return (-1);
+		i++;
+	}
+	while (i-- > 0)
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
+}
+
 int		render_sector(t_render render, t_env *env)
 {
 	int				i;
@@ -246,6 +275,11 @@ int		render_sector(t_render render, t_env *env)
 			if (env->editor.selected_wall == render.i
 				&& env->editor.selected_sector == sector.num)
 				colorize_selected_portal(v1, sector, render, env);
+			if (env->editor.select_portal
+				&& ((env->editor.tab && env->sdl.mx >= render.xstart
+				&& env->sdl.mx <= render.xend) || (!env->editor.tab
+				&& env->h_w >= render.xstart && env->h_w <= render.xend)))
+				select_portal(v1, sector, render, env);
 			j = -1;
 			while (++j < env->w)
 			{

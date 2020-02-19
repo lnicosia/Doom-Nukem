@@ -4,6 +4,7 @@ impacts de balles
 zbuffer
 wall sprites sur sol et plafond
 fov
+plusieurs resolutions
 changer mur de depart de la pente
 sens de pente different entre sol et plafond
 lancer le jeu via l'editeur (peut etre)

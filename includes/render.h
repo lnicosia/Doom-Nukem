@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 17:55:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:18:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,7 @@ t_env *env);
 int				get_current_ceiling_map(int texture, double z, t_render *render,
 t_env *env);
 void			*portal_loop(void *param);
+void			*select_portal_loop(void *param);
 
 /*
 **	Sprite part
