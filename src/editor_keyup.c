@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 11:39:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:12:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,6 @@ int	editor_keyup(t_env *env)
 	int	i;
 
 	i = 0;
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
-	if (env->editor.selecting_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
-	{
-		env->editor.selecting_target = 0;
-		env->editor.creating_event = 1;
-	}
-	if (env->editor.selecting_condition_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
-	{
-		env->editor.selecting_condition_target = 0;
-		env->editor.creating_event = 1;
-		env->editor.creating_condition = 1;
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
 		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
@@ -99,6 +81,24 @@ int	editor_keyup(t_env *env)
 		env->selected_enemy = -1;
 		tabs_gestion(env);
 		check_event_creation(env);
+	}
+	if (env->editor.creating_event && !env->confirmation_box.state)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
+	if (env->editor.selecting_target && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_target = 0;
+		env->editor.creating_event = 1;
+	}
+	if (env->editor.selecting_condition_target && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_condition_target = 0;
+		env->editor.creating_event = 1;
+		env->editor.creating_condition = 1;
 	}
 	if (env->confirmation_box.state)
 	{
@@ -215,11 +215,9 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (env->editor.events_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.next_events, env))
-			return (-1);
-		if (button_keyup(&env->editor.previous_events, env))
-			return (-1);
-		if (button_keyup(&env->editor.new_event, env))
+		if (!env->editor.selecting_target && !env->editor.selecting_event
+			&& !env->editor.selecting_condition_target
+			&& button_keyup(&env->editor.new_event, env))
 			return (-1);
 		if (is_modify_event_button_visible(env))
 		{
@@ -235,20 +233,13 @@ int	editor_keyup(t_env *env)
 			if (button_keyup(&env->editor.previous_event, env))
 				return (-1);
 		}
-		/*if (are_launch_condition_selection_buttons_visible(env))
+		if (are_events_selection_buttons_visible(env))
 		{
-			if (button_keyup(&env->editor.next_launch_condition, env))
+			if (button_keyup(&env->editor.next_events, env))
 				return (-1);
-			if (button_keyup(&env->editor.previous_launch_condition, env))
+			if (button_keyup(&env->editor.previous_events, env))
 				return (-1);
 		}
-		if (are_exec_condition_selection_buttons_visible(env))
-		{
-			if (button_keyup(&env->editor.next_exec_condition, env))
-				return (-1);
-			if (button_keyup(&env->editor.previous_exec_condition, env))
-				return (-1);
-		}*/
 	}
 	if (env->editor.selected_sector != -1 && sector_buttons_up(env))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 16:21:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:00:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,9 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (env->editor.events_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.next_events, env))
-			return (-1);
-		if (button_keys(&env->editor.previous_events, env))
-			return (-1);
-		if (button_keys(&env->editor.new_event, env))
+		if (!env->editor.selecting_target && !env->editor.selecting_event
+			&& !env->editor.selecting_condition_target
+			&& button_keys(&env->editor.new_event, env))
 			return (-1);
 		if (is_modify_event_button_visible(env))
 		{
@@ -120,20 +118,12 @@ int			editor_keys(t_env *env)
 			if (button_keys(&env->editor.previous_event, env))
 				return (-1);
 		}
-		/*if (are_launch_condition_selection_buttons_visible(env))
+		if (are_events_selection_buttons_visible(env))
 		{
-			if (button_keys(&env->editor.next_launch_condition, env))
-				return (-1);
-			if (button_keys(&env->editor.previous_launch_condition, env))
+			if (button_keys(&env->editor.next_events, env)
+				|| button_keys(&env->editor.previous_events, env))
 				return (-1);
 		}
-		if (are_exec_condition_selection_buttons_visible(env))
-		{
-			if (button_keys(&env->editor.next_exec_condition, env))
-				return (-1);
-			if (button_keys(&env->editor.previous_exec_condition, env))
-				return (-1);
-		}*/
 	}
 	if (env->editor.draw_texture_tab)
 	{

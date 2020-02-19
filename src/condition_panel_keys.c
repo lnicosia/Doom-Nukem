@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:28:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 21:33:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:22:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int		condition_condition_keyup(t_env *env)
 int		condition_panel_keys(t_env *env)
 {
 	if (env->editor.event_panel.target_tab.state == DOWN)
-		return (condition_condition_keys(env));
+	{
+		if (condition_condition_keys(env))
+			return (-1);
+	}
 	else if (env->editor.event_panel.action_tab.state == DOWN)
 	{
 		if (target_panel_keys(env, &env->editor.condition_panel.target_panel))
@@ -82,7 +85,10 @@ int		condition_panel_keys(t_env *env)
 int		condition_panel_keyup(t_env *env)
 {
 	if (env->editor.event_panel.target_tab.state == DOWN)
-		return (condition_condition_keyup(env));
+	{
+		if (condition_condition_keyup(env))
+			return (-1);
+	}
 	else if (env->editor.event_panel.action_tab.state == DOWN)
 	{
 		if (target_panel_keyup(env, &env->editor.condition_panel.target_panel))

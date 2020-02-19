@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:43:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 18:09:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,6 +331,7 @@ typedef struct	s_editor
 	int					player_exist;
 	int					tab;
 	int					select;
+	int					select_portal;
 	int					current_texture;
 	int					current_enemy;
 	int					current_sprite;

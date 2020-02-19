@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:44:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:45:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 18:37:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,10 @@ void	draw_vline_wall_color(t_sector sector, t_vline vline, t_render render, t_en
 		//ft_printf("y = %d\n", (int)y);
 			pixels[coord] = apply_light_color(texture_pixels[(int)x
 			+ render.texture_w * (int)y], sector.light_color, sector.intensity);
-		if (env->editor.in_game && sector.selected[render.i] && !env->editor.select)
+		if (env->editor.in_game && sector.selected[render.i]
+			&& !env->editor.select && !env->editor.select_portal)
 			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		zbuffer[coord] = render.z;
-		if (env->options.zbuffer || env->options.contouring)
-			if (i == (int)(render.max_ceiling)
-					|| i == (int)(render.neighbor_max_ceiling)
-					|| i == (int)(render.max_floor)
-					|| i == (int)(render.neighbor_max_floor))
-				pixels[coord] = 0xFFFF0000;
 		i++;
 	}
 }

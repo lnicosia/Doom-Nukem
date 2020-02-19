@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 16:10:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:12:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -402,6 +402,7 @@ int					print_wall_sprite_link_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int					is_events_tab_visible(t_env *env);
 int					are_event_selection_buttons_visible(t_env *env);
+int					are_events_selection_buttons_visible(t_env *env);
 int					is_modify_event_button_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
