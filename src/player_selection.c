@@ -32,3 +32,23 @@ void	player_selection(t_env *env)
 	else
 		env->editor.dragged_player = -1;
 }
+
+void	starting_player_selection(t_env *env)
+{
+	if (env->inputs.left_click && env->editor.dragged_start_player == 1)
+	{
+		env->player.starting_pos.x = (env->sdl.mx - env->editor.center.x)
+		/ env->editor.scale;
+		env->player.starting_pos.y = (env->sdl.my - env->editor.center.y)
+		/ env->editor.scale;
+		env->player.starting_sector = get_sector_no_z_origin(env, env->player.starting_pos,
+		env->player.starting_sector);
+		if (env->player.starting_sector != -1)
+		{
+			update_player_pos(env);
+			update_player_z(env);
+		}
+	}
+	else
+		env->editor.dragged_start_player = -1;
+}

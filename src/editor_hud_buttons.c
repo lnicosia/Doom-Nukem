@@ -14,22 +14,33 @@
 
 int		launch_game(void *target)
 {
-	t_env *env;
-	char  *str;
-	char  *tmp;
+	t_env	*env;
+	char	*str;
+	char	*tmp;
+	int		status;
 
 	env = (void*)target;
 	tmp = NULL;
 	tmp = env->save_file;
 	env->editor.game = 0;
-	str = ft_strdup("./doom ");
+	str = ft_strdup("./doom");
 	env->save_file = ft_strdup("maps/tmp.map");
 	save_map(env);
-	str = (char*)ft_realloc(str, sizeof(char) * 7, sizeof(char) * ft_strlen(env->save_file));
-	str = ft_strcat(str, env->save_file);
-	ft_printf("starting game from editor:\n%s\n", str);  
-	system (str);
-	//ft_strdel(&env->save_file);
+	env->c_pid = fork();
+	if (env->c_pid == 0)
+	{
+		ft_printf("starting child\n");
+		env->c_pid = execve(str, &env->save_file, NULL);
+	}
+	while (env->c_pid > 0)
+	{
+		ft_printf("waiting for the child to end\n");	
+		if ( (env->pid = wait(&status)) < 0)
+		{
+      		perror("wait");
+      		exit(1);
+    	}
+	}
 	env->save_file = tmp;
 	free(str);
 	return (0);
@@ -96,5 +107,49 @@ int		editor_launch_game(t_env *env)
 	env->editor.launch_game = new_image_button(ON_RELEASE, &launch_game, env, env);
 	env->editor.launch_game.str = "START";
     env->editor.launch_game.pos = new_point(40, 160);
+	return (0);
+}
+
+int	next_ambiance_music(void *target)
+{
+	t_env	*env;
+
+	env = (t_env *)target;
+	if (env->sound.current_music < NB_MUSICS - 1)
+		env->sound.current_music++;
+	env->editor.ambiance_music = env->sound.current_music;
+	return (0);
+}
+
+int	previous_ambiance_music(void *target)
+{
+	t_env	*env;
+
+	env = (t_env *)target;
+	if (env->sound.current_music > 0)
+		env->sound.current_music--;
+	env->editor.ambiance_music = env->sound.current_music;
+	return (0);
+}
+
+int	next_fighting_music(void *target)
+{
+	t_env	*env;
+
+	env = (t_env *)target;
+	if (env->sound.current_music < NB_MUSICS - 1)
+		env->sound.current_music++;
+	env->editor.fighting_music = env->sound.current_music;
+	return (0);
+}
+
+int	previous_fighting_music(void *target)
+{
+	t_env	*env;
+
+	env = (t_env *)target;
+	if (env->sound.current_music > 0)
+		env->sound.current_music--;
+	env->editor.fighting_music = env->sound.current_music;
 	return (0);
 }

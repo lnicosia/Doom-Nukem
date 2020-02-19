@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:40:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:56:01 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ typedef struct		s_env
 	t_button			music_vol_up;
 	t_button			sounds_vol_up;
 	t_button			sounds_vol_down;
+	pid_t				pid;
+	pid_t				c_pid;
 }					t_env;
 
 /*
@@ -261,6 +263,7 @@ int					get_existing_vertex(t_env *env);
 int					get_existing_not_dragged_vertex(t_env *env);
 void				add_player(t_env *env);
 void				draw_grid_player(t_env *env);
+void				draw_grid_start_player(t_env *env);
 void				draw_grid_objects(t_env *env);
 void				editor_hud(t_env *env);
 int					get_clockwise_order(t_env *env);
@@ -273,6 +276,7 @@ int					save_map(t_env *env);
 void				revert_sector(t_sector *sector, t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
+void				starting_player_selection(t_env *env);
 void				objects_selection(t_env *env);
 void				vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
@@ -433,9 +437,9 @@ int					increase_wall_texture_number(t_env *env, t_sector *sector);
 int					decrease_wall_texture_number(t_env *env, t_sector *sector);
 int					increase_slope(t_env *env);
 int					decrease_slope(t_env *env);
-void				change_floor_slope_start(t_env *env);
-void				change_ceiling_slope_start(t_env *env);
-void				change_slope_start(t_env *env);
+int					change_floor_slope_start(t_env *env);
+int					change_ceiling_slope_start(t_env *env);
+int					change_slope_start(t_env *env);
 int					editor_3d_tab_keys(t_env *env);
 int					selection_tab_button_keys(t_env *env);
 int					wall_edit_keys(t_env *env);
@@ -449,6 +453,11 @@ int					change_textures_scales(t_env *env);
 int					change_walls_texture(t_env *env);
 int					check_height_at_pos(t_env *env, t_sector sector,
 t_v3 pos, int target_height);
+int					next_ambiance_music(void *target);
+int					previous_ambiance_music(void *target);
+int					next_fighting_music(void *target);
+int					previous_fighting_music(void *target);
+
 
 /*
 **	Input boxes checkers and updaters

@@ -14,6 +14,9 @@
 
 void	editor_hud(t_env *env)
 {
+	t_point	center;
+
+	center = new_point(0, 0);
 	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
 	{
 		//background
@@ -31,10 +34,27 @@ void	editor_hud(t_env *env)
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 			new_point(20 , 290),
 			new_point(170, 110));
-		print_text(new_point(300, 75), new_printable_text("Ambiance",
-		env->sdl.fonts.lato15 , 0x00000000, 15), env);
+		TTF_SizeText(env->sdl.fonts.lato_bold15, "Ambiance", &center.x, &center.y);
+		print_text(new_point(300, 105 - center.x / 2), new_printable_text("Ambiance",
+		env->sdl.fonts.lato_bold15 , 0x00000000, 15), env);
+
+		/*print_text(new_point(300, 85), new_printable_text(
+		env->sound.musics[env->editor.ambiance_music].music_name,
+		env->sdl.fonts.lato15 , 0x00000000, 15), env);*/
+
+		TTF_SizeText(env->sdl.fonts.lato15, "Ambiance music", &center.x, &center.y);
+		print_text(new_point(322, 105 - center.x / 2), new_printable_text(
+		"Ambiance music",
+		env->sdl.fonts.lato15 , 0x00000000, 15), env);	
+
+		TTF_SizeText(env->sdl.fonts.lato_bold15, "fight", &center.x, &center.y);
 		print_text(new_point(345, 90), new_printable_text("Fight",
-		env->sdl.fonts.lato15, 0x00000000, 15), env);
+		env->sdl.fonts.lato_bold15, 0x00000000, 15), env);
+
+		TTF_SizeText(env->sdl.fonts.lato15, "Fighting music", &center.x, &center.y);
+		print_text(new_point(367, 105 - center.x / 2), new_printable_text(
+		"Fighting music",
+		env->sdl.fonts.lato15 , 0x00000000, 15), env);
 		// right rectangle
 		draw_rectangle(env,	
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
@@ -52,6 +72,17 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
 		draw_button(env, env->editor.options, env->editor.options.str);
 		draw_button(env, env->editor.save, env->editor.save.str);
+		if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
+		{
+			draw_button(env, env->editor.previous_ambiance_music,
+			env->editor.previous_ambiance_music.str);
+			draw_button(env, env->editor.next_ambiance_music,
+			env->editor.next_ambiance_music.str);
+			draw_button(env, env->editor.previous_fighting_music,
+			env->editor.previous_fighting_music.str);
+			draw_button(env, env->editor.next_fighting_music,
+			env->editor.next_fighting_music.str);
+		}
 		draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 				new_point(20 , 450),

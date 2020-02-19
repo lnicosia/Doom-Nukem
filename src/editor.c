@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 12:07:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:50:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		editor(t_env *env)
 {
 	while (env->running)
 	{
+		env->pid = getpid();
 		clear_image(env);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
@@ -78,6 +79,8 @@ int		editor(t_env *env)
 			draw_grid_vertices(env);
 			if (env->editor.player_exist || env->editor.dragged_player == 1)
 				draw_grid_player(env);
+			if (env->editor.player_exist || env->editor.dragged_start_player == 1)
+				draw_grid_start_player(env);
 			if (env->editor.dragged_object != -1 || env->nb_objects > 0)
 				draw_grid_objects(env);
 			if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)
