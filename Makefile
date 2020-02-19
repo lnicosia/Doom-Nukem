@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/19 14:10:27 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/02/19 18:21:40 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c \
 		 exec_conditions_panel_keys.c event_panel_keys.c \
 		 new_event_panel_buttons.c new_event_panel_buttons2.c \
 		 editor_tab_gestion.c editor_wall_sprites_keys.c \
-		 3d_edit_function.c
+		 3d_edit_function.c delete_sector.c update_entities.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -111,7 +111,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_objects.c sprites_maths.c draw_players.c check_event_creation.c\
 		   map_parse_objects.c map_init_objects.c delete_vertex.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
-		   sprite_maths_enemies.c draw_enemies.c button.c delete_sector.c \
+		   sprite_maths_enemies.c draw_enemies.c button.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
@@ -190,7 +190,6 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -Ofast \
 		  -fsanitize=address -g3
 		  #-flto \
-		  # \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

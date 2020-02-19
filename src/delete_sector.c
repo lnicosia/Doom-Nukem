@@ -43,13 +43,16 @@ int		delete_sector(t_env *env, int sector)
 			 sizeof(t_sector),
 			 sizeof(t_sector) * sector);
 	env->nb_sectors--;
-	//ft_printf("del sector ok\n");
+	free(env->sector_list);
+	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not allocate sector list\n"));
 	i = sector;
 	while (i < env->nb_sectors)
 	{
 		env->sectors[i].num--;
 		i++;
 	}
+	update_entities_sectors(env);
 	return (0);
 }
 
