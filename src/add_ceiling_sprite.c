@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:15:12 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:06:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 12:12:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	update_ceiling_sprite_arrays(t_env *env)
 	sizeof(int) * ceiling->nb_sprites, sizeof(int)
 	* (ceiling->nb_sprites + 1))))
 		return (-1);
-	ceiling->sprite[ceiling->nb_sprites] = env->editor.current_sprite;
+	ceiling->sprite[ceiling->nb_sprites] =
+	env->objects_main_sprites[env->editor.current_sprite];
 	if (!(ceiling->pos = (t_v2*)ft_realloc(ceiling->pos,
 	sizeof(t_v2) * ceiling->nb_sprites, sizeof(t_v2)
 	* (ceiling->nb_sprites + 1))))

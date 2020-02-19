@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:02:25 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 18:30:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 12:11:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	update_wall_sprite_arrays(t_env *env)
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		sector = &env->sectors[env->editor.selected_sector];
-		wall = &sector->wall_sprites[env->selected_wall_sprite_sprite];
+		wall = &sector->wall_sprites[env->selected_wall_sprite_wall];
 		index = env->selected_wall_sprite_wall;
 	}
 	if (env->editor.selected_wall != -1)
@@ -34,7 +34,7 @@ int	update_wall_sprite_arrays(t_env *env)
 	if (!(wall->sprite = (int*)ft_realloc(wall->sprite,
 	sizeof(int) * wall->nb_sprites, sizeof(int) * (wall->nb_sprites + 1))))
 		return (-1);
-	wall->sprite[wall->nb_sprites] = env->editor.current_sprite;
+	wall->sprite[wall->nb_sprites] = env->objects_main_sprites[env->editor.current_sprite];
 	if (!(wall->pos = (t_v2*)ft_realloc(wall->pos,
 	sizeof(t_v2) * wall->nb_sprites, sizeof(t_v2)
 	* (wall->nb_sprites + 1))))

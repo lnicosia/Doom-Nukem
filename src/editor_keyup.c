@@ -36,6 +36,8 @@ int	editor_keyup(t_env *env)
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
+	if (env->sdl.event.key.keysym.sym == SDLK_g)
+		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;

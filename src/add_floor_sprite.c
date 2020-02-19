@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:47:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:06:41 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 12:12:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	update_floor_sprite_arrays(t_env *env)
 	sizeof(int) * floor->nb_sprites, sizeof(int)
 	* (floor->nb_sprites + 1))))
 		return (-1);
-	floor->sprite[floor->nb_sprites] = env->editor.current_sprite;
+	floor->sprite[floor->nb_sprites] =
+	env->objects_main_sprites[env->editor.current_sprite];
 	if (!(floor->pos = (t_v2*)ft_realloc(floor->pos,
 	sizeof(t_v2) * floor->nb_sprites, sizeof(t_v2)
 	* (floor->nb_sprites + 1))))
