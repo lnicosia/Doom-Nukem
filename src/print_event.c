@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 16:44:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:52:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,37 @@
 
 void	print_event_action(t_env *env, t_event *event)
 {
-	char	*speed;
 	t_point	text_size;
 
-	if (event->speed != 0)
-		speed = ft_sitoa(event->speed);
-	else
-		speed = "Instant";
 	if (event->mod_type == FIXED)
 	{
 		if (event->type == INT)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to %d"
-			" Speed = %s", (int)event->goal, speed);
+			" Speed = %.*f", (int)event->goal,
+			get_decimal_len(event->speed), event->speed);
 		else if (event->type == DOUBLE)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to %.*f"
-			" Speed = %s", get_decimal_len(event->goal), event->goal, speed);
+			" Speed = %.*f", get_decimal_len(event->goal), event->goal,
+			get_decimal_len(event->speed), event->speed);
 		if (event->type == UINT32)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to 0x%X"
-			" Speed = %s", (Uint32)event->goal, speed);
+			" Speed = %.*f", (Uint32)event->goal,
+			get_decimal_len(event->speed), event->speed);
 	}
 	else if (event->mod_type == INCR)
 	{
 		if (event->type == INT)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add %d"
-			" Speed = %s", (int)event->start_incr, speed);
+			" Speed = %.*f", (int)event->start_incr,
+			get_decimal_len(event->speed), event->speed);
 		else if (event->type == DOUBLE)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add %.*f"
-			" Speed = %s", get_decimal_len(event->start_incr),
-			event->start_incr, speed);
+			" Speed = %.*f", get_decimal_len(event->start_incr),
+			event->start_incr, get_decimal_len(event->speed), event->speed);
 		if (event->type == UINT32)
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add 0x%X"
-			" Speed = %s", (Uint32)event->start_incr, speed);
+			" Speed = %.*f", (Uint32)event->start_incr,
+			get_decimal_len(event->speed), event->speed);
 	}
 	if (event->mod_type == FUNC)
 		print_text(new_point(570, 75), new_printable_text("Func",

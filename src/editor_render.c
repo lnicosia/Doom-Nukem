@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:12:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:43:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		editor_render(t_env *env)
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	if ((env->editor.selecting_target || env->editor.selecting_condition_target)
-		&& env->editor.select)
+		&& (env->editor.select || env->editor.select_portal))
 		check_event_creation(env);
 	env->editor.select = 0;
 	env->editor.select_portal = 0;
