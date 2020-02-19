@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 14:27:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:43:59 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,9 @@ int			add_sector(t_env *env)
 	env->sectors[env->nb_sectors] = sector;
 	create_portals(env, sector);
 	env->nb_sectors++;
+	free(env->sector_list);
+	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not allocate sector list"));
 	get_new_floor_and_ceiling(env);
 	return (0);
 }

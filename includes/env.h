@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 19:12:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:16:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ int					delete_enemy(t_env *env, int enemy);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
+void				update_entities_sectors(t_env *env);
 void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);

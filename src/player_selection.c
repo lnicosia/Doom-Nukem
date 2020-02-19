@@ -21,8 +21,7 @@ void	player_selection(t_env *env)
 		/ env->editor.scale;
 		env->player.pos.y = (env->sdl.my - env->editor.center.y)
 		/ env->editor.scale;
-		env->player.sector = get_sector_no_z_origin(env, env->player.pos,
-		env->player.sector);
+		env->player.sector = get_sector_no_z(env, env->player.pos);
 		if (env->player.sector != -1)
 		{
 			update_player_pos(env);
