@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:46:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 14:47:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:23:02 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	init_wall_sprite_env(t_env *env)
 	env->editor.hud.sp_wall_sprite.t_scale_y.env = env;
 	env->editor.hud.sp_wall_sprite.t_scale_y.pos = new_point(0, 0);
 	env->editor.hud.sp_wall_sprite.t_scale_y.type = DOUBLE;
+	env->editor.hud.sp_wall_sprite.t_add_sprite.env = env;
+	env->editor.hud.sp_wall_sprite.t_add_sprite.pos = new_point(0, 0);
+	env->editor.hud.sp_wall_sprite.t_add_sprite.type = DOUBLE;
 }
 
 void	init_wall_sector_env(t_env *env)

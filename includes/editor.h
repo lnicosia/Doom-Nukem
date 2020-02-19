@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 14:45:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:21:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ typedef struct		s_var_sp
 	t_button		scale_y;
 	t_button		pos_x;
 	t_button		pos_y;
+	t_button		add_sprite;
 	t_button_tab	t_scale_x;
 	t_button_tab	t_scale_y;
 	t_button_tab	t_pos_x;
 	t_button_tab	t_pos_y;
 	t_button_tab	t_num;
+	t_button_tab	t_add_sprite;
 }					t_var_sp;
 
 typedef struct		s_var_s

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:02:17 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 17:00:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:15:50 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,18 @@ int		change_texture_alignement(t_env *env)
 	|| env->selected_floor != -1 || env->selected_ceiling != -1)
 	&& env->editor.key_delay > INPUT_DELAY)
 	{
-		if (env->inputs.comma)
+		if (env->inputs.comma
+		&& env->selected_floor_sprite == -1
+		&& env->selected_ceiling_sprite == -1
+		&& env->selected_wall_sprite_sprite == -1)
 		{
 			if (left_walls_texture_align(env))
 				return (-1);
 		}
-		if (env->inputs.period)
+		if (env->inputs.period
+		&& env->selected_floor_sprite == -1
+		&& env->selected_ceiling_sprite == -1
+		&& env->selected_wall_sprite_sprite == -1)
 		{
 			if (right_walls_texture_align(env))
 				return (-1);

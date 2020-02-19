@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 18:29:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:20:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int		print_wall_sprite_tab(t_env *env)
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	scale[env->selected_wall_sprite_sprite].y;
 	draw_button(env, env->editor.hud.sp_wall_sprite.scale_y, env->snprintf);
+	draw_button(env, env->editor.hud.sp_wall_sprite.add_sprite,
+	env->editor.hud.sp_wall_sprite.add_sprite.str);
 	return (0);
 }
 

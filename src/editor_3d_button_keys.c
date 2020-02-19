@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 18:44:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 11:25:46 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	wall_sprite_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.sp_wall_sprite.scale_x, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.sp_wall_sprite.scale_y, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.sp_wall_sprite.add_sprite, env))
 			return (-1);
 	}
 	return (0);
