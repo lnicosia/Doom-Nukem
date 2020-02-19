@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:29:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 13:37:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,11 @@ int		editor_3d_tabs_keyup(t_env *env)
 
 void	editor_show_tab(t_env *env)
 {
-	if (env->editor.tab)
-		SDL_SetRelativeMouseMode(1);
-	else
-		SDL_SetRelativeMouseMode(0);
 	env->editor.tab = env->editor.tab ? 0 : 1;
+	if (env->editor.tab)
+		SDL_SetRelativeMouseMode(0);
+	else if (!env->editor.tab)
+		SDL_SetRelativeMouseMode(1);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x,
 	&env->sdl.mouse_y);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x,
