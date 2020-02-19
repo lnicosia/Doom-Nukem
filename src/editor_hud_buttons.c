@@ -6,11 +6,15 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/06 14:26:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:03:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+/*
+**
+*/
 
 int		launch_game(void *target)
 {
