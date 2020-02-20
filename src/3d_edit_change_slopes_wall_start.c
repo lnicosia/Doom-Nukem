@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 12:29:41 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 17:29:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 10:53:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,5 @@ int		change_slope_start(t_env *env)
 		sect = env->selected_ceiling;
 	}
 	update_sector_entities_z(env, sect);
-	clear_portals(env);
-	while (i < env->nb_sectors)
-	{
-		create_portals(env, env->sectors[i]);
-		i++;
-	}
 	return (0);
 }

@@ -116,5 +116,4 @@ void	draw_grid_start_player(t_env *env)
 	if (env->editor.selected_player == 1)
 		circle.line_color = 0xFF00FF00;
 	draw_circle(circle, env);
-	ft_printf("start_player: %f | %f\n", env->player.starting_pos.x, env->player.starting_pos.y);
 }
