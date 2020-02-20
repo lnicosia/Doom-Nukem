@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 12:30:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 13:49:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int		editor_3d_keyup(t_env *env)
 		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
 	{
-		ft_printf("call\n");
 		if (launch_game(env))
 			return (-1);
 	}
