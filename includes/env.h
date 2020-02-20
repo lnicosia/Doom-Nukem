@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:51:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1070,11 +1070,11 @@ t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,
 t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
-void				weapon_animation(t_env *env, int sprite);
+int					weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 int					next_possessed_weapon(t_env *env);
 void				print_ammo(t_env *env);
-void				shot(t_env *env);
+int					shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,
 t_projectile_stats stats, t_projectile_data_2 data2);
 int					create_explosion(t_env *env, t_explosion_data data,

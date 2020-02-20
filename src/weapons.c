@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 15:34:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:16:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		hitscan_objects(t_env *env, int i)
 	return (-1);
 }
 
-void    shot(t_env *env)
+int		shot(t_env *env)
 {
 	int	i;
 	int	hit;
@@ -80,7 +80,14 @@ void    shot(t_env *env)
 				env->enemies[i].health -= damage_done(*env, env->enemies[i].rotated_pos.z);
 				hit = 1;
 				if (env->enemies[i].health <= 0)
+				{
 					env->player.killed++;
+					if (env->enemies[i].nb_death_events > 0
+						&& env->enemies[i].death_events
+						&& start_event(&env->enemies[i].death_events,
+						&env->enemies[i].nb_death_events, env))
+						return (-1);
+				}
 				env->enemies[i].hit = 1;
 			}
 			i++;
@@ -108,6 +115,7 @@ void    shot(t_env *env)
 	if (hit)
 		env->player.touched += 1;
 	env->player.nb_shots += 1;
+	return (0);
 }
 
 void    draw_weapon(t_env *env, int sprite)
@@ -163,7 +171,7 @@ void    draw_weapon(t_env *env, int sprite)
 	}
 }
 
-void    weapon_animation(t_env *env, int nb)
+int		weapon_animation(t_env *env, int nb)
 {
 	if (env->shot.start == 0)
 	{
@@ -171,7 +179,8 @@ void    weapon_animation(t_env *env, int nb)
 		env->shot.start = SDL_GetTicks();
 		if (env->weapons[nb].ammo > 0)
 		{
-			shot(env);
+			if (shot(env))
+				return (-1);
 			play_sound(env, &env->sound.player_shots_chan, env->weapons[nb].shot,
 				env->sound.ambient_vol);
 			env->weapons[nb].ammo--;
@@ -193,6 +202,7 @@ void    weapon_animation(t_env *env, int nb)
 		env->shot.start = 0;
 		env->shot.on_going = 0;
 	}
+	return (0);
 }
 
 void    weapon_change(t_env *env)

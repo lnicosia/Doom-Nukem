@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 19:31:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:16:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,15 @@ int		projectiles_movement(t_env *env)
 				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
 				env->nb_explosions++;
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
+				if (env->enemies[nb].health <= 0)
+				{
+					env->player.killed++;
+					if (env->enemies[nb].nb_death_events > 0
+						&& env->enemies[nb].death_events
+						&& start_event(&env->enemies[nb].death_events,
+						&env->enemies[nb].nb_death_events, env))
+						return (-1);
+				}
 				continue ;
 			}
 			nb = projectile_object_collision(env, projectile->pos,

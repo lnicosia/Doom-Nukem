@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_event_array.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/20 19:03:20 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/20 19:04:07 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 /*
@@ -25,9 +37,9 @@ t_event	*get_event_array(t_env *env, t_event_trigger trigger)
 	else if (trigger.index == STAND)
 		return (&env->sectors[trigger.sector]
 				.walk_out_events[trigger.index]);
-	/*else if (trigger.index == DEATH)
-		return (&env->sectors[trigger.sector]
-				.stand_events[trigger.index]);*/
+	else if (trigger.index == DEATH)
+		return (&env->enemies[trigger.enemy]
+				.death_events[trigger.index]);
 	return (0);
 }
 
@@ -96,8 +108,11 @@ t_event	*get_walk_out_event(t_env *env, t_events_parser *eparser, int mode)
 
 t_event	*get_death_event(t_env *env, t_events_parser *eparser, int mode)
 {
-	(void)env;
-	(void)eparser;
-	(void)mode;
+	if (!mode)
+		return (&env->enemies[eparser->source_enemy]
+				.death_events[eparser->source_index]);
+	else
+		return (&env->enemies[eparser->target_enemy]
+				.death_events[eparser->target_index]);
 	return (0);
 }

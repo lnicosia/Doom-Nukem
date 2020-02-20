@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:42:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1012,6 +1012,8 @@ typedef struct		s_enemies
 	t_animation		rest;
 	t_animation		pursue;
 	t_animation		fire;
+	t_event			*death_events;
+	size_t			nb_death_events;
 }					t_enemies;
 
 /*
