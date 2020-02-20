@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:17:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:04:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,12 @@ void		free_all(t_env *env)
 
 	ft_printf("Freeing data..\n");
 	if (env->editor.creating_event)
-		save_event(env);
+	{
+		if (env->editor.event_panel.selected_event != -1)
+			save_event(env);
+		else
+			create_event(env);
+	}
 	if (!env)
 		return ;
 	free_all_sdl_relative(env);
