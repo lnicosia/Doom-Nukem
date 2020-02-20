@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 13:49:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 18:33:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,13 @@ int		editor_3d_keyup(t_env *env)
 			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
 		env->editor.selecting_condition_target = 0;
+		env->editor.creating_event = 1;
+		env->editor.creating_condition = 1;
+	}
+	if (env->editor.selecting_event && !env->confirmation_box.state
+			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_event = 0;
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}

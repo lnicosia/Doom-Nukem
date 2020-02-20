@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 15:15:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:30:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		parse_value(t_env *env, t_map_parser *parser, char **line,
 			value = ft_atoi(*line);
 		*line = skip_number(*line);
 	}
-	if (eparser->event.type == DOUBLE)
+	if (eparser->event.type == DOUBLE || eparser->event.type == FUNC)
 	{
 		if (valid_number(*line, parser))
 			return (invalid_char("before event value", "a digit", **line,
@@ -49,7 +49,7 @@ int		parse_value(t_env *env, t_map_parser *parser, char **line,
 	return (0);
 }
 
-int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
+int		classic_action_parsing(t_env *env, t_map_parser *parser, char **line,
 		t_events_parser *eparser)
 {
 	(*line)++;
@@ -63,7 +63,7 @@ int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
 	if (valid_number(*line, parser))
 		return (invalid_char("before event type", "a digit", **line, parser));
 	eparser->event.mod_type = ft_atoi(*line);
-	if (eparser->event.mod_type < 0 || eparser->event.mod_type >= 3)
+	if (eparser->event.mod_type < 0 || eparser->event.mod_type >= 2)
 		return (custom_error_with_line("Invalid event type", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -95,4 +95,12 @@ int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
 		return (invalid_char("after event type declaration", "']'",
 					**line, parser));
 		return (0);
+}
+
+int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
+		t_events_parser *eparser)
+{
+	//if (earser->target_index == WIN)
+	//else
+	return (classic_action_parsing(env, parser, line, eparser));
 }

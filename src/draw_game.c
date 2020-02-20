@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/31 18:18:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:31:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	draw_game(t_env *env)
 	env->test_time = SDL_GetTicks();
 	if (draw_render(&env->player.camera, env))
 		return (crash("Failed to draw render\n", env));
-	if (((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going) && env->player.health > 0)
+	if (((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going) && !env->confirmation_box.state)
 		weapon_animation(env, env->player.curr_weapon);
 	else if (env->player.health > 0)
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
@@ -81,7 +81,7 @@ int	draw_game(t_env *env)
 		update_screen_zbuffer(env);
 	else
 		update_screen(env);
-	if (env->player.health > 0)
+	if (!env->confirmation_box.state)
 		view(env);
 	return (0);
 }

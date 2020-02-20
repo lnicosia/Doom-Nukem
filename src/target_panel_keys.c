@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:26:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:32:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:46:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		first_phase_keys(t_env *env, t_target_panel *panel)
 		return (-1);
 	if (button_keys(&panel->vertex, env))
 		return (-1);
+	if (button_keys(&panel->other, env))
+		return (-1);
 	return (0);
 }
 
@@ -50,6 +52,8 @@ int		first_phase_keyup(t_env *env, t_target_panel *panel)
 	if (button_keyup(&panel->player, env))
 		return (-1);
 	if (button_keyup(&panel->vertex, env))
+		return (-1);
+	if (button_keyup(&panel->other, env))
 		return (-1);
 	return (0);
 }
@@ -100,6 +104,8 @@ int		third_phase_keys(t_env *env, t_target_panel *panel)
 		max = 4;
 	else if (panel->vertex_type)
 		max = 2;
+	else if (panel->other_type)
+		max = 1;
 	else
 		max = 8;
 	i = 0;
@@ -131,6 +137,8 @@ int		third_phase_keyup(t_env *env, t_target_panel *panel)
 		max = 5;
 	else if (panel->vertex_type)
 		max = 2;
+	else if (panel->other_type)
+		max = 1;
 	else
 		max = 8;
 	i = 0;

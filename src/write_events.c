@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 11:15:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:50:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 {
 	writers[event.target_index](fd, event);
-	ft_dprintf(fd, "]", event.target_index);
+	if (event.target_index >= MAX_REAL_TARGET_TYPES)
+	{
+		ft_dprintf(fd, "][0 0 0]");
+		write_event_conditions(fd, event);
+		ft_dprintf(fd, "[%d %d]\n", (int)event.delay, event.max_uses);
+		return ;
+	}
+	ft_dprintf(fd, "]");
 	ft_dprintf(fd, "[%d ", event.mod_type);
 	if (event.mod_type == FIXED)
 	{
@@ -51,8 +58,6 @@ void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 			ft_min(5, get_decimal_len(event.speed)),
 			event.speed);
 	}
-	else if (event.mod_type == FUNC)
-		ft_dprintf(fd, "0 0]");
 	write_event_conditions(fd, event);
 	ft_dprintf(fd, "[%d %d]\n", (int)event.delay, event.max_uses);
 }

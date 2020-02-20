@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:31:28 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:25:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:00:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void		set_buttons_state2(t_env *env)
 		env->editor.event_panel.event.target_index);
 	if (env->editor.event_panel.target_panel.sector_other_type)
 		set_sector_other_panel_buttons_state(
+		&env->editor.event_panel.target_panel,
+		env->editor.event_panel.event.target_index);
+	if (env->editor.event_panel.target_panel.other_type)
+		set_other_panel_buttons_state(
 		&env->editor.event_panel.target_panel,
 		env->editor.event_panel.event.target_index);
 }

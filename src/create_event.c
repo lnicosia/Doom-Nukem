@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:09:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:29:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_event_validity2(t_env *env, t_event event)
 
 int		check_event_validity(t_env *env, t_event event)
 {
-	if (!event.target)
+	if (event.target_index == -1)
 	{
 		if (update_confirmation_box(&env->confirmation_box, "Please set"
 			" a target before saving the event", ERROR, env))
