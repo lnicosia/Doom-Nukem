@@ -61,26 +61,64 @@ static int	is_inside(t_sector sector, t_env *env)
 }
 
 
+int			check_duplicate_vertices(t_sector sector, t_env *env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i  <sector.nb_vertices)
+	{
+		j =  i + 1;
+		while (j < sector.nb_vertices)
+		{
+			if ((env->vertices[sector.vertices[i]].x ==
+			env->vertices[sector.vertices[j]].x)
+			&& (env->vertices[sector.vertices[i]].y ==
+			env->vertices[sector.vertices[j]].y))
+			{
+				return (ft_printf("vertex %d is a duplicate of vertex %d",
+				sector.vertices[j], sector.vertices[i]));
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			check_slopes_start(t_sector sector)
+{
+	if (sector.start_ceiling_slope > sector.nb_vertices
+	|| sector.start_ceiling_slope < 0)
+		return (ft_printf("Ceiling "));
+	if (sector.start_floor_slope > sector.nb_vertices
+	|| sector.start_floor_slope < 0)
+		return (ft_printf("Floor "));
+	return (0);
+}
+
+int			distance_bewteen_ceiling_and_floor(t_sector sector)
+{
+	if (sector.ceiling - sector.floor > 1000)
+		return (-1);
+	return (0);
+}
+
 /*
 **	Check sector validity
 */
 
 static int	check_sector(t_sector sector, t_env *env)
 {
-	int			i;
-	t_vertex	vertex;
-
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
-/*	if (sector.floor_max > sector.ceiling_min)
-		return (ft_printf("Sector %d slopes are too strong (floor and ceiling intersect)\n", sector.num));*/
-	i = 0;
-	vertex = env->vertices[0];
-	while (i < sector.nb_vertices)
-	{
-		vertex = env->vertices[sector.vertices[i]];
-		i++;
-	}
+/*	if (check_duplicate_vertices(sector, env))
+		return (ft_printf("in sector %d\n", sector.num));*/
+	if (check_slopes_start(sector))
+		return (ft_printf("slope direction isn't valid\n"));
+	if (distance_bewteen_ceiling_and_floor(sector))
+		return (ft_printf("Distance between floor and ceiling exceed 1000\n"));
 	return (0);
 }
 
@@ -104,11 +142,7 @@ int			valid_map(t_env *env)
 			return (ft_printf("Sector %d was not valid\n", i));
 		i++;
 	}
-	i = 0;
-	while (i < env->nb_vertices)
-	{
-		i++;
-	}
+
 	ft_printf("{reset}");
 	return (0);
 }

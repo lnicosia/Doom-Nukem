@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/12 13:36:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:01:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ int		parse_map(char *file, t_env *env)
 	if (parse_sectors(env, &parser))
 		return (custom_error("Error while parsing sectors"));
 				//return (-1);
-	precompute_slopes(env);
 	if (init_objects(env, &parser))
 		return (-1);
 	//return (custom_error("Could not init objects"));
@@ -206,7 +205,6 @@ int		parse_map(char *file, t_env *env)
 	//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &parser));
-	update_player_z(env);
 	set_sectors_xmax(env);
 	init_enemies_data(env);
 	init_objects_data(env);

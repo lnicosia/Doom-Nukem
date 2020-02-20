@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 19:00:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:01:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int		init_game(int ac, char **av)
 		return (crash("Invalid map!\n", &env));
 	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not allocate sector list\n", &env));
+	precompute_slopes(&env);
+	update_player_z(&env);
 	while (i < env.nb_objects)
 	{
 		env.objects[i].exists = 1;
