@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/21 12:26:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:15:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ double	get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env)
 
 	v0 = env->vertices[sector.vertices[sector.start_floor_slope]];
 	res = sector.floor_normal.x * (pos.x - v0.x) - sector.floor_normal.y * (pos.y - v0.y);
-	res = res * sector.floor_slope + sector.floor;
+	res = res * sector.floor_slope * CONVERT_RADIANS + sector.floor;
 	return (res);
 }
 
@@ -121,7 +121,7 @@ double	get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env)
 
 	v0 = env->vertices[sector.vertices[sector.start_ceiling_slope]];
 	res = sector.ceiling_normal.x * (pos.x - v0.x) - sector.ceiling_normal.y * (pos.y - v0.y);
-	res = res * sector.ceiling_slope + sector.ceiling;
+	res = res * sector.ceiling_slope * CONVERT_RADIANS + sector.ceiling;
 	return (res);
 }
 /*

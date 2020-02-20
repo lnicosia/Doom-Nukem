@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 19:12:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:30:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1097,6 +1097,7 @@ void				update_object_light(t_env *env, int i);
 void				update_object(t_env *env, int i);
 void				update_sector_entities_light(t_env *env, int sector);
 void				update_sector_entities_z(t_env *env, int sector);
+void				update_sector_enemies_z(t_env *env, int sector);
 void				update_floor(t_env *env);
 void				update_sector_slope(t_env *env, t_sector *sector);
 void				game_time(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 19:00:46 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:50:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		init_game(int ac, char **av)
 	env.editor.player_exist = 1;
 	env.playing = 1;
 	init_player(&env);
-	init_editor_data(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

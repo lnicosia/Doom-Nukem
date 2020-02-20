@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:28:39 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:15:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:30:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	update_object_z(t_env *env, int i)
 		env->objects[i].pos.z = 0;
 }
 
-void	update_sector_entities_z(t_env *env, int sector)
+void	update_sector_enemies_z(t_env *env, int sector)
 {
 	int	i;
 
@@ -59,6 +59,11 @@ void	update_sector_entities_z(t_env *env, int sector)
 			update_enemy_z(env, i);
 		i++;
 	}
+}
+
+void	update_sector_entities_z(t_env *env, int sector)
+{
+	update_sector_enemies_z(env, sector);
 	if (env->player.sector == sector)
 		update_player_z(env);
 }
