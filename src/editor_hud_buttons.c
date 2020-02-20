@@ -22,59 +22,29 @@ int		launch_game(void *target)
 	char	*str;
 	char	**tmp;
 	char	*map_name;
-	int		res;
+	t_v3	tmp_pos;
 
 	env = (void*)target;
 	map_name = ft_strdup(env->save_file);
 	env->editor.game = 0;
 	str = ft_strdup("./doom");
-	tmp = ft_strsplit("./doom maps/piece.map", ' ');
-	env->save_file = map_name;
-	printf("sqlut\n");
-	printf("sqlut\n");
-	printf("sqlut\n");
-	env->pid = fork();
-	if (env->pid == 0)
-	{
-		ft_printf("launch game\n");
-		ft_printf("starting child\n");
-		execv(str, tmp);
-	}
-	else
-	{
-		ft_printf("waiting for the child to end\n");
-		if ( (env->pid = wait(&res)) < 0)
-		{
-      		perror("wait");
-      		exit(1);
-    	}
-	}
-	
-	printf("sqlut\n");
-	return (0);
-/*	t_env *env;
-	char  *str;
-	char  *tmp;
-	t_v3	tmp_pos;
-
-	env = (void*)target;
-	tmp = NULL;
-	tmp = env->save_file;
-	env->editor.game = 0;
+	tmp = ft_strsplit("./doom maps/tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
-	str = ft_strdup("./doom ");
-	env->save_file = ft_strdup("maps/tmp.map");
+	env->save_file  = ft_strdup("maps/tmp.map");
 	save_map(env);
-	str = (char*)ft_realloc(str, sizeof(char) * 7, sizeof(char) * ft_strlen(env->save_file));
-	str = ft_strcat(str, env->save_file);
-	ft_printf("starting game from editor:\n%s\n", str);  
-	system (str);
 	ft_strdel(&env->save_file);
-	env->save_file = tmp;
+	env->save_file = map_name;
+	env->pid = fork();
+	if (env->pid == 0)
+		execv(str, tmp);
+	else
+	{
+		if ( (env->pid = wait(NULL)) < 0)
+      		exit(1);
+	}
 	env->player.starting_pos = tmp_pos;
-	free(str);
-	return (0);*/
+	return (0);
 }
 
 int		change_mode(void *target)
