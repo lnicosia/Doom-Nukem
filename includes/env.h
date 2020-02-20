@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 15:48:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:49:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -725,6 +725,8 @@ t_target_panel *target_panel);
 int					select_sector_target(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel);
 int					select_player_target(t_env *env, t_event_panel *panel,
+t_target_panel *target_panel);
+int					select_other_target(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel);
 int					select_sector_other_target(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel);

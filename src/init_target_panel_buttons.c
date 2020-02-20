@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 16:05:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:52:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int			choose_target(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (panel->player_type)
+	if (panel->player_type || panel->other_type)
 	{
 		check_event_creation(env);
 		return (0);

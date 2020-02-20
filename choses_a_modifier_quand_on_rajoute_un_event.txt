@@ -13,3 +13,5 @@ Si besoin de parametres:
 creer parser
 creer action panel
 other_panel.c
+init_print_target_data.c
+print_event.c (partie action: print les parametres s'il y en a)

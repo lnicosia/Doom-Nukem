@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 14:58:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:44:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,5 @@ int		init_game(int ac, char **av)
 	music_vol_up_button(&env);
 	sounds_vol_up_button(&env);
 	sounds_vol_down_button(&env);
-	if (ft_strequ(av[1], "maps/events.map"))
-	{
-		ft_printf("{green}Custom events{reset}\n");
-		env.sectors[18].walk_in_events = (t_event*)ft_memalloc(sizeof(t_event));
-		env.sectors[18].nb_walk_in_events = 1;
-		env.sectors[18].walk_in_events[0] = new_func_event(&win, NULL);
-	}
 	return (doom(&env));
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:49:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:21:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:58:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		*set_event_target8(t_env *env, t_events_parser *eparser)
 	else if (eparser->target_index == OBJECT_Z)
 		return (&env->objects[eparser->target_object].pos.z);
 	else if (eparser->target_index >= MAX_REAL_TARGET_TYPES)
-		return (set_event_function);
+		return (set_event_function(env, eparser));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 14:05:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:43:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	print_event_action(t_env *env, t_event *event)
 			" Speed = %.*f", (Uint32)event->start_incr,
 			get_decimal_len(event->speed), event->speed);
 	}
-	if (event->mod_type == FUNC)
+	if (event->target_index >= MAX_REAL_TARGET_TYPES)
 	{
 	}
-	if (event->mod_type != FUNC)
+	else
 	{
 		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
 		&text_size.y);
