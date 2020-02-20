@@ -28,6 +28,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (invalid_char("player y",
 							"a digit", *line, parser));
 			env->player.pos.y = ft_atof(line);
+			env->player.starting_pos.y = ft_atof(line);
 			line = skip_number(line);
 			if (*line && *line != ' ')
 				return (invalid_char("player y",
@@ -41,6 +42,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (invalid_char("player x",
 							"space or a digit", *line, parser));
 			env->player.pos.x = ft_atof(line);
+			env->player.starting_pos.x = ft_atof(line);
 			line = skip_number(line);
 			if (*line && *line != ' ')
 				return (invalid_char("player x",

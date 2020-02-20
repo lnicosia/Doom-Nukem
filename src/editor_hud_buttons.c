@@ -51,11 +51,14 @@ int		launch_game(void *target)
 	t_env *env;
 	char  *str;
 	char  *tmp;
+	t_v3	tmp_pos;
 
 	env = (void*)target;
 	tmp = NULL;
 	tmp = env->save_file;
 	env->editor.game = 0;
+	tmp_pos = env->player.starting_pos;
+	env->player.starting_pos = env->player.pos;
 	str = ft_strdup("./doom ");
 	env->save_file = ft_strdup("maps/tmp.map");
 	save_map(env);
@@ -65,6 +68,7 @@ int		launch_game(void *target)
 	system (str);
 	ft_strdel(&env->save_file);
 	env->save_file = tmp;
+	env->player.starting_pos = tmp_pos;
 	free(str);
 	return (0);
 }
