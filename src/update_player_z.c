@@ -47,7 +47,6 @@ void	update_player_z(t_env *env)
 			env->player.pos.z = get_ceiling_at_pos(*sector, env->player.pos, env)
 			- env->player.eyesight - 1;
 		}
-		env->player.head_z + 1);
 		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->player.camera.pos.z = env->player.head_z;
 	}
