@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:26:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 19:53:41 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("floor height, slope and texture", parser));
 	if (valid_double(*line, parser))
-		return (invalid_char("Number of digits too great", "max 9 digit", **line, parser));
+		return (ft_printf("invalid double 9 digits max before point 5 after\n"));
 	env->sectors[parser->sectors_count].floor = ft_atof(*line);
 	env->sectors[parser->sectors_count].floor_min = env->sectors[parser->
 		sectors_count].floor;
@@ -36,9 +36,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);	
 	if (!**line || **line == ']')
 		return (missing_data("floor slope, direction and texture", parser));
-	if (valid_number(*line, parser)){
-		return (invalid_char("before floor slope", "a digit or space(s)",
-					**line, parser));}
+	if (valid_double(*line, parser))
+		return (ft_printf("invalid double 9 digits max before point 5 after\n"));
 		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -49,9 +48,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope direction and texture", parser));
-	if (valid_number(*line, parser)){
-		return (invalid_char("before floor slope direction", "a digit or space(s)",
-					**line, parser));}
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int 9 digits max\n"));
 		env->sectors[parser->sectors_count].start_floor_slope = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
