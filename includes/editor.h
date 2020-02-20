@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 18:09:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:35:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ typedef struct	s_action_panel
 {
 	t_button	go_to;
 	t_button	add;
-	t_button	func;
 	t_button	value;
 	t_button	speed;
 	t_button	delay;
@@ -229,6 +228,7 @@ typedef struct	s_target_panel
 	int				vertex_type;
 	int				floor_type;
 	int				ceiling_type;
+	int				other_type;
 	int				sector_other_type;
 	int				target_type;
 	int				target_main_type;
@@ -245,6 +245,7 @@ typedef struct	s_target_panel
 	t_button		vertex;
 	t_button		floor;
 	t_button		ceiling;
+	t_button		other;
 	t_button		sector_other;
 	t_button		targets[9];
 }				t_target_panel;

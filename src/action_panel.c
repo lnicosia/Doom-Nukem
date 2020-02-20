@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:06:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 18:48:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:59:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,8 @@ int		draw_action_panel(t_env *env)
 	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
 	draw_button(env, panel.action_panel.go_to, "Go to");
 	draw_button(env, panel.action_panel.add, "Add");
-	draw_button(env, panel.action_panel.func, "Other");
-	if (env->editor.event_panel.event.mod_type != FUNC)
-	{
-		draw_event_value_panel(env);
-		draw_event_speed_panel(env);
-	}
+	draw_event_value_panel(env);
+	draw_event_speed_panel(env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 	env->editor.event_panel.action_panel.delay_value);
 	draw_button(env, panel.action_panel.delay, env->snprintf);

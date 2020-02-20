@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 11:34:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:20:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_events_parser *eparser)
 		parser));
 		eparser->condition_index = ft_atof(*line);
 	if (eparser->condition_index < 0
-			|| eparser->condition_index >= MAX_TARGET_TYPES)
+			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
 		return (custom_error_with_line("Invalid exec condition target",
 		parser));
 	*line = skip_number(*line);

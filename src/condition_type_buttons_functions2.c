@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:23:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 13:41:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:55:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	set_condition_panel_buttons_state(t_env *env, int type)
 		env->editor.condition_panel.event_ended.state = DOWN;
 	if (type == EVENT_ENDED_START)
 		env->editor.condition_panel.event_ended_start.state = DOWN;
-	if (type == FUNC)
+	if (type == FUNCTION)
 		env->editor.condition_panel.function.state = DOWN;
 }
 

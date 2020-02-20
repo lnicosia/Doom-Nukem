@@ -1,0 +1,3 @@
+events_parser.h (enum)
+MAX_TRIGGER_TYPES (env.h)
+init_events_parser.c

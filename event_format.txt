@@ -97,15 +97,14 @@ _Object health						|	63	| Parsing: Object	|
 _Object x							|	64	| Parsing: Object	|
 _Object y							|	65	| Parsing: Object	|
 _Object z							|	66	| Parsing: Object	|
-_End of event						|	67	| Parsing: Event	|
 //Cas particuliers
+_Win								|	67	| Parsing:			|
 _Ajouter ennemi						|		| Parsing:			|
 _Jump								|		| Parsing:			|
 
 Types:
 _FIXED: [0 #Value #Duration]
 _INCR	[1 #Value #Duration]
-_FUNC	[2 #Func]
 
 Events:
 _global								| 0		| Parsing: + #numero		|

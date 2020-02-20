@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 10:30:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:48:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define OY1 env->vertices[env->sectors[sector].vertices[i]].y
 # define OY2 env->vertices[env->sectors[sector].vertices[i + 1]].y
-# define MAX_TRIGGER_TYPES 6
-# define MAX_TARGET_TYPES 67
 
 typedef struct		s_env
 {
@@ -173,6 +171,7 @@ typedef struct		s_env
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
 void				init_editor_data(t_env *env);
+void				init_selection_data(t_env *env);
 void				init_editor_tab_buttons(t_env *env);
 void				init_floor_buttons(t_env *env);
 void				init_ceilling_buttons(t_env *env);
@@ -608,6 +607,7 @@ int					draw_floor_panel(t_env *env, t_target_panel *panel);
 int					draw_ceiling_panel(t_env *env, t_target_panel *panel);
 int					draw_wall_panel(t_env *env, t_target_panel *panel);
 int					draw_sector_other_panel(t_env *env, t_target_panel *panel);
+int					draw_other_panel(t_env *env, t_target_panel *panel);
 int					draw_vertex_panel(t_env *env, t_target_panel *panel);
 int					draw_player_panel(t_env *env, t_target_panel *panel);
 int					draw_enemy_panel(t_env *env, t_target_panel *panel);
@@ -653,6 +653,7 @@ int					action_tab_func(void *param);
 int					launch_conditions_tab_func(void *param);
 int					exec_conditions_tab_func(void *param);
 int					select_sector_other(void *param);
+int					select_other(void *param);
 int					select_wall(void *param);
 int					select_floor(void *param);
 int					select_vertex(void *param);
@@ -751,6 +752,8 @@ int					set_enemy_panel_buttons_state(t_target_panel *panel,
 int index);
 int					set_weapon_panel_buttons_state(t_target_panel *panel,
 int index);
+int					set_other_panel_buttons_state(t_target_panel *panel,
+int index);
 void				set_buttons_state(t_env *env);
 int					set_event_value(void *param);
 int					set_event_speed(void *param);
@@ -816,6 +819,8 @@ t_condition_panel *panel, t_target_panel *target_panel);
 int					select_player_condition_target(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel);
 int					select_sector_other_condition_target(t_env *env,
+t_condition_panel *panel, t_target_panel *target_panel);
+int					select_other_condition_target(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel);
 int					set_condition_floor_sprite(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel, int sector);
@@ -1107,7 +1112,6 @@ void				fall(t_env *env);
 void				drop(t_env *env);
 void				jump(t_env *env);
 void				crouch(t_env *env);
-//int					open_options(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
 void				option_menu(t_env *env);
@@ -1132,6 +1136,7 @@ int					project_wall(int i, t_camera *camera, t_sector *sector,
 t_env *env);
 void				update_sprites_state(t_env *env);
 void				death(t_env *env);
+void				stop_game(void *param);
 void				respawn(void *param);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
@@ -1197,6 +1202,7 @@ int					option_menu_keyup(t_env *env);
 int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);
 size_t				get_double_len(double nb);
+int					win(void *param, void *penv);
 
 /*
 ** enemies functions

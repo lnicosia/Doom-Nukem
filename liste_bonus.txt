@@ -1,5 +1,5 @@
 mip mapping
-mini map (semi transparence etc)
+mini map (semi transparence, champ de vision)
 impacts de balles
 zbuffer
 wall sprites sur sol et plafond
@@ -10,3 +10,4 @@ sens de pente different entre sol et plafond
 lancer le jeu via l'editeur (peut etre)
 les textes sont centres dans leur ui respective
 portabilite
+CAMERAS

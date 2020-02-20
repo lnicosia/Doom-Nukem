@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:52:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:05:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	print_event_action(t_env *env, t_event *event)
 			get_decimal_len(event->speed), event->speed);
 	}
 	if (event->mod_type == FUNC)
-		print_text(new_point(570, 75), new_printable_text("Func",
-		env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	{
+	}
 	if (event->mod_type != FUNC)
 	{
 		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
