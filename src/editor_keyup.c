@@ -19,7 +19,10 @@ int	editor_keyup(t_env *env)
 
 	i = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->editor.game = env->editor.game ? 0 : 1;
+	{
+		if (launch_game(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
