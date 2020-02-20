@@ -1,3 +1,7 @@
 events_parser.h (enum)
 MAX_TRIGGER_TYPES (env.h)
 init_events_parser.c
+map_parse_events.c (parse_event_trigger)
+are_condition_selection_buttons_visible.c
+events_tab_conditions.c
+writers?
