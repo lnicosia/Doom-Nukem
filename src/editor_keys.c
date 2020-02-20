@@ -28,6 +28,7 @@ int			editor_keys(t_env *env)
 		if (delete_action(env))
 			return (-1);
 	player_selection(env);
+	starting_player_selection(env);
 	enemy_selection(env);
 	objects_selection(env);
 	vertices_selection(env);

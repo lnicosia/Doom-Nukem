@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:02:27 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 17:23:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 17:48:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		check_texture_scale(t_env *env, t_v2 *scale)
 {
-	ft_printf("%f | %f\n", scale->x, scale->y);
 	if ((scale->x >= 0.1 && scale->x <= 100.0)
 	&& (scale->y >= 0.1 && scale->y <= 100.0))
 	{

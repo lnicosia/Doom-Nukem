@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:11:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 11:58:38 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,10 @@ int		editor_3d_keyup(t_env *env)
 			&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->editor.game = env->editor.game ? 0 : 1;
+	{
+		if (launch_game(env))
+			return (-1);
+	}
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keyup(&env->confirmation_box, env))

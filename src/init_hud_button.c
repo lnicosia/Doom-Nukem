@@ -147,11 +147,28 @@ void	init_informations_tab(t_env *env)
     env->editor.events_tab.pos = new_point(377,425);
 }
 
+void	init_music_selection_buttons(t_env *env)
+{
+	env->editor.next_ambiance_music =
+	new_next_button(ON_RELEASE, &next_ambiance_music, env, env);
+	env->editor.next_ambiance_music.pos = new_point(160, 315);
+	env->editor.previous_ambiance_music =
+	new_previous_button(ON_RELEASE, &previous_ambiance_music, env, env);
+	env->editor.previous_ambiance_music.pos = new_point(25, 315);
+	env->editor.next_fighting_music =
+	new_next_button(ON_RELEASE, &next_fighting_music, env, env);
+	env->editor.next_fighting_music.pos = new_point(160, 360);
+	env->editor.previous_fighting_music =
+	new_previous_button(ON_RELEASE, &previous_fighting_music, env, env);
+	env->editor.previous_fighting_music.pos = new_point(25, 360);
+}
+
 int		init_editor_hud(t_env *env)
 {
 	if (!init_array_texture_buttons(env))
 		return (0);
 	init_add_buttons(env);
+	init_music_selection_buttons(env);
 	init_enemy_selection_button(env);
 	init_array_sprite_buttons(env);
 	init_skybox_selection_buttons(env);

@@ -297,6 +297,8 @@ int     modify_sector(t_env *env, int sector)
 				return (-1);*/
 			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
 				return (-1);
+			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].portals))
+				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors))
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].ceilings))

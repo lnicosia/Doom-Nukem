@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 18:09:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 11:23:18 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,7 @@ typedef struct	s_editor
 	int					dragged_object;
 	int					selected_wall_sprite;
 	int					dragged_player;
+	int					dragged_start_player;
 	int					dragged_vertex;
 	int					dragged_enemy;
 	int					start_vertex;
@@ -414,7 +415,13 @@ typedef struct	s_editor
 	t_button			modify_event;
 	t_button			delete_event;
 	t_button			select_event;
+	t_button			next_ambiance_music;
+	t_button			previous_ambiance_music;
+	t_button			next_fighting_music;
+	t_button			previous_fighting_music;
 	int					texture_tab;
+	int					ambiance_music;
+	int					fighting_music;
 }				t_editor;
 
 #endif

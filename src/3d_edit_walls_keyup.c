@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:45:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:16:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/19 17:36:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ int		slopes_keyup(t_env *env)
 		&& (env->sdl.event.key.keysym.sym == SDLK_RIGHT
 		|| env->sdl.event.key.keysym.sym == SDLK_LEFT)
 		&& (env->selected_ceiling != -1 || env->selected_floor !=-1))
-			change_slope_start(env);
+		{
+			if (change_slope_start(env))
+				return (-1);
+		}
 	}
 	return (0);
 }

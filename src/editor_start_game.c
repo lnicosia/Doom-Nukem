@@ -30,7 +30,6 @@ int editor_start_game(t_env *env)
   ft_printf("starting game from editor:\n%s\n", str);  
   if (!(system (str)))
     return (0);
-  ft_strdel(&env->save_file);
   env->save_file = tmp;
   free(str);
   return (1);
