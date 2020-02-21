@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 16:55:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:08:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ int		next_event(void *penv)
 	env = (t_env *)penv;
 	sector = -1;
 	env->editor.selected_event++;
-	if (env->selected_wall_sprite_wall != -1)
+	if (env->selected_enemy != -1
+		&& env->editor.selected_event >= env->enemies[env->selected_enemy].
+		nb_death_events)
+		env->editor.selected_event = 0;
+	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if ((env->editor.selected_events == 0
 			&& env->editor.selected_event >= env->sectors[env->
@@ -110,7 +114,10 @@ int		previous_event(void *penv)
 		env->editor.selected_event--;
 	else
 	{
-		if (env->selected_wall_sprite_wall != -1)
+		if (env->selected_enemy != -1)
+			env->editor.selected_event = env->enemies[env->selected_enemy].
+			nb_death_events - 1;
+		else if (env->selected_wall_sprite_wall != -1)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_event = env->sectors[env->
@@ -155,7 +162,11 @@ int		next_launch_condition(void *penv)
 	env = (t_env *)penv;
 	sector = -1;
 	env->editor.selected_launch_condition++;
-	if (env->selected_wall_sprite_wall != -1)
+	if (env->selected_enemy != -1 && env->editor.selected_launch_condition >=
+		env->enemies[env->selected_enemy].
+		death_events[env->editor.selected_events].nb_launch_conditions)
+		env->editor.selected_launch_condition = 0;
+	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0
 		&& env->editor.selected_launch_condition >= env->sectors[env->
@@ -210,7 +221,11 @@ int		previous_launch_condition(void *penv)
 		env->editor.selected_launch_condition--;
 	else
 	{
-		if (env->selected_wall_sprite_wall != -1)
+		if (env->selected_enemy != -1)
+			env->editor.selected_launch_condition = env->enemies[env->
+			selected_enemy].death_events[env->editor.selected_event].
+			nb_launch_conditions;
+		else if (env->selected_wall_sprite_wall != -1)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_launch_condition =
@@ -261,7 +276,11 @@ int		next_exec_condition(void *penv)
 	env = (t_env *)penv;
 	sector = -1;
 	env->editor.selected_exec_condition++;
-	if (env->selected_wall_sprite_wall != -1)
+	if (env->selected_enemy != -1 && env->editor.selected_exec_condition >=
+		env->enemies[env->selected_enemy].
+		death_events[env->editor.selected_events].nb_exec_conditions)
+		env->editor.selected_exec_condition = 0;
+	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0
 		&& env->editor.selected_exec_condition >= env->sectors[env->
@@ -311,7 +330,11 @@ int		previous_exec_condition(void *penv)
 		env->editor.selected_exec_condition--;
 	else
 	{
-		if (env->selected_wall_sprite_wall != -1)
+		if (env->selected_enemy != -1)
+			env->editor.selected_exec_condition = env->enemies[env->
+			selected_enemy].death_events[env->editor.selected_event].
+			nb_exec_conditions;
+		else if (env->selected_wall_sprite_wall != -1)
 		{
 			if (env->editor.selected_events == 0)
 				env->editor.selected_exec_condition =

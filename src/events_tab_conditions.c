@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:35:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 14:46:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 09:27:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int			is_events_tab_visible(t_env *env)
 {
 	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
 		&& env->nb_global_events > 0)
-		|| (env->editor.selected_sector != -1 &&
+		|| (env->selected_enemy != -1 && env->enemies[env->selected_enemy].
+		nb_death_events > 0) || (env->editor.selected_sector != -1 &&
 		(env->sectors[env->editor.selected_sector].nb_stand_events > 0
 		|| env->sectors[env->editor.selected_sector].nb_walk_in_events > 0
 		|| env->sectors[env->editor.selected_sector].nb_walk_out_events > 0))
@@ -60,7 +61,9 @@ int			are_event_selection_buttons_visible(t_env *env)
 		|| (env->editor.selected_events == 2
 		&& env->sectors[sector].nb_walk_out_events > 1)))
 		|| (env->editor.selected_sector == -1
-		&& env->selected_floor == -1 && env->nb_global_events > 1))
+		&& env->selected_floor == -1 && env->nb_global_events > 1)
+		|| (env->selected_enemy != -1 && env->enemies[env->selected_enemy].
+		nb_death_events > 1))
 		return (1);
 	return (0);
 }
@@ -93,7 +96,9 @@ int			is_modify_event_button_visible(t_env *env)
 		|| (env->editor.selected_events == 2
 		&& env->sectors[sector].nb_walk_out_events > 0)))
 		|| (env->editor.selected_sector == -1
-		&& env->selected_floor == -1 && env->nb_global_events > 0))
+		&& env->selected_floor == -1 && env->nb_global_events > 0)
+		|| (env->selected_enemy != -1 && env->enemies[env->selected_enemy].
+		nb_death_events > 0))
 		return (1);
 	return (0);
 }
