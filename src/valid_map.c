@@ -87,6 +87,68 @@ int			check_duplicate_vertices(t_sector sector, t_env *env)
 	return (0);
 }
 
+int			check_intersection_with_sector(t_sector sector, t_env *env, t_vertex vt1, t_vertex vt2)
+{
+	int		i;
+	t_v2	v1;
+	t_v2	v2;
+	t_v2	v3;
+	t_v2	v4;
+
+	i = 0;
+	v1 = new_v2(vt1.x, vt1.y);
+	v2 = new_v2(vt2.x, vt2.y);
+	while (i < sector.nb_vertices)
+	{
+		v3 = new_v2(env->vertices[sector.vertices[i]].x,
+		env->vertices[sector.vertices[i]].y);
+		v4 = new_v2(env->vertices[sector.vertices[i + 1]].x,
+		env->vertices[sector.vertices[i + 1]].y);
+		if (segments_intersect(v1, v2, v3, v4))
+		{
+			if ((env->vertices[sector.vertices[i]].num != vt1.num
+			&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
+			|| (env->vertices[sector.vertices[i]].num == vt1.num
+			&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
+			|| (env->vertices[sector.vertices[i]].num == vt2.num
+			&& env->vertices[sector.vertices[i + 1]].num != vt1.num)
+			|| (env->vertices[sector.vertices[i]].num != vt1.num
+			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)
+			|| (env->vertices[sector.vertices[i]].num != vt2.num
+			&& env->vertices[sector.vertices[i + 1]].num == vt1.num))
+				return (0);
+			else
+				return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			check_vertices(t_sector sector, t_env *env)
+{
+	int			i;
+	int			j;
+	t_vertex	v1;
+	t_vertex	v2;
+
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		v1 = env->vertices[sector.vertices[i]];
+		v2 = env->vertices[sector.vertices[i + 1]];
+		j = 0;
+		while (j < env->nb_sectors)
+		{
+			if (check_intersection_with_sector(env->sectors[j], env, v1, v2))
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int			check_slopes_start(t_sector sector)
 {
 	if (sector.start_ceiling_slope > sector.nb_vertices
@@ -113,8 +175,8 @@ static int	check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d has a duplicate\n", sector.num));
-/*	if (check_duplicate_vertices(sector, env))
-		return (ft_printf("in sector %d\n", sector.num));*/
+	if (check_vertices(sector, env))
+		return (ft_printf("Vertices invalid\n"));
 	if (check_slopes_start(sector))
 		return (ft_printf("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))
