@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 19:12:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:52:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	editor_keyup(t_env *env)
 
 	i = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->editor.game = env->editor.game ? 0 : 1;
+	{
+		if (launch_game(env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_m)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
@@ -97,6 +100,13 @@ int	editor_keyup(t_env *env)
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
 		env->editor.selecting_condition_target = 0;
+		env->editor.creating_event = 1;
+		env->editor.creating_condition = 1;
+	}
+	if (env->editor.selecting_event && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		env->editor.selecting_event = 0;
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}

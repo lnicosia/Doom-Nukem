@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:30:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 15:59:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:45:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	draw_first_phase_selection(t_env *env, t_target_panel *panel)
 	draw_button(env, panel->object, "Object");
 	draw_button(env, panel->player, "Player");
 	draw_button(env, panel->vertex, "Vertex");
+	draw_button(env, panel->other, "Other");
 }
 
 void	draw_third_phase_selection(t_env *env, t_target_panel *panel)
@@ -47,6 +48,8 @@ void	draw_third_phase_selection(t_env *env, t_target_panel *panel)
 		draw_ceiling_panel(env, panel);
 	else if (panel->sector_other_type)
 		draw_sector_other_panel(env, panel);
+	else if (panel->other_type)
+		draw_other_panel(env, panel);
 }
 
 void	draw_second_phase_selection(t_env *env, t_target_panel *panel)

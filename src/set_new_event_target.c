@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 14:07:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:44:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,7 @@ int		set_new_event_target(t_env *env)
 		return (select_object_target(env, panel, &panel->target_panel));
 	else if (panel->target_panel.sector_other_type)
 		return (select_sector_other_target(env, panel, &panel->target_panel));
+	else if (panel->target_panel.other_type)
+		return (select_other_target(env, panel, &panel->target_panel));
 	return (0);
 }

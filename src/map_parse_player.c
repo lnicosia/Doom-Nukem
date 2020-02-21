@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/20 17:22:17 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 10:46:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (invalid_char("player y",
 							"a digit", *line, parser));
 			env->player.pos.y = ft_atof(line);
+			env->player.starting_pos.y = ft_atof(line);
 			line = skip_number(line);
 			if (*line && *line != ' ')
 				return (invalid_char("player y",
@@ -41,6 +42,7 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (invalid_char("player x",
 							"space or a digit", *line, parser));
 			env->player.pos.x = ft_atof(line);
+			env->player.starting_pos.x = ft_atof(line);
 			line = skip_number(line);
 			if (*line && *line != ' ')
 				return (invalid_char("player x",

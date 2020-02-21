@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/19 13:36:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 14:16:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void		death(t_env *env)
 		if (update_confirmation_box(&env->confirmation_box,
 			"You died... Respawn?", YESNO, env))
 			return ;
-		env->confirmation_box.yes_action = respawn;
+		env->confirmation_box.yes_action = &respawn;
 		env->confirmation_box.yes_target = env;
-		env->confirmation_box.no_action = stop_game;
+		env->confirmation_box.no_action = &stop_game;
 		env->confirmation_box.no_target = env;
 	}
 }

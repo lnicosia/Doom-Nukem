@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:17:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:22:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		launch_events(t_env *env)
 	}
 	if (env->player.changed_sector)
 	{
+		env->player.changed_sector = 0;
+		env->player.old_sector = -1;
 		if (env->sectors[env->player.sector].gravity == 0)
 			env->player.state.fly = 1;
 		else
@@ -65,8 +67,6 @@ int		launch_events(t_env *env)
 				&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
 			start_event(&env->sectors[env->player.old_sector].walk_out_events,
 				&env->sectors[env->player.old_sector].nb_walk_out_events, env);
-		env->player.changed_sector = 0;
-		env->player.old_sector = -1;
 	}
 	return (0);
 }
@@ -112,7 +112,7 @@ int		doom(t_env *env)
 			update_sprites_state(env);
 			if (projectiles_movement(env))
 				return (-1);
-			if (env->player.health > 0)
+			if (!env->confirmation_box.state)
 			{
 				enemy_ai(env);
 				objects_collision(env, env->player.pos);

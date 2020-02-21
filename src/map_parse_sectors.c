@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 15:52:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 18:26:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("floor height, slope and texture", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before floor height", "a digit", **line, parser));
+	if (valid_double(*line, parser))
+		return (invalid_char("Number of digits too great", "max 9 digit", **line, parser));
 	env->sectors[parser->sectors_count].floor = ft_atof(*line);
 	env->sectors[parser->sectors_count].floor_min = env->sectors[parser->
 		sectors_count].floor;

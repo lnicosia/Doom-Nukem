@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 15:11:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:30:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	reset_target_selection(t_target_panel *panel)
 	panel->floor_type = 0;
 	panel->ceiling_type = 0;
 	panel->player_type = 0;
+	panel->other_type = 0;
 	panel->sector_other_type = 0;
 	panel->target_selection_phase = 0;
 }
@@ -111,6 +112,7 @@ int		new_event(void *param)
 	env->editor.event_panel.action_panel.double_value = 0;
 	env->editor.event_panel.action_panel.int_value = 0;
 	env->editor.event_panel.selected_event = -1;
+	env->editor.event_panel.event.target_index = -1;
 	reset_target_selection(&env->editor.event_panel.target_panel);
 	return (0);
 }

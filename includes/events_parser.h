@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 17:02:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:24:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef enum		e_events_targets
 	OBJECT_X,
 	OBJECT_Y,
 	OBJECT_Z,
-	END_OF_EVENT
+	WIN
 }					t_events_targets;
 
 typedef struct		s_events_parser
@@ -194,6 +194,7 @@ void				*set_event_target(t_env *env, t_events_parser *parser);
 void				*set_event_target4(t_env *env, t_events_parser *parser);
 void				*set_condition_target(t_env *env, t_events_parser *parser);
 void				*set_condition_target4(t_env *env, t_events_parser *parser);
+void				*set_event_function(t_env *env, t_events_parser *parser);
 int					set_event_target_type(t_env *env, t_events_parser *parser);
 int					set_event_target_type4(t_env *env, t_events_parser *parser);
 int					count_conditions(char *line, t_map_parser *parser);

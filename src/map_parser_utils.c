@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:28:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:25:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,16 @@ int		valid_number(char *line, t_map_parser *parser)
 int		valid_int(char *line, t_map_parser *parser)
 {
 	(void)parser;
-	if (!*line)
-		return (MISSING_CHAR);
-	if ((*line < '0' || *line > '9') && *line != '-')
-		return (WRONG_CHAR);
+	int	nb_digits;
+
+	nb_digits = 0;
+	while(*line >= '0' && *line <= '9')
+	{
+		if (nb_digits > 9)
+			return (ft_printf("Too many digits\n"));
+		nb_digits++;
+		line++;
+	}
 	return (0);
 }
 
@@ -79,11 +85,29 @@ int		valid_int(char *line, t_map_parser *parser)
 
 int		valid_double(char *line, t_map_parser *parser)
 {
+	int	point;
+	int	pre_point;
+	int	after_point;
+
+	point = 0;
+	pre_point = 0;
+	after_point = 0;
 	(void)parser;
-	if (!*line)
-		return (MISSING_CHAR);
-	if ((*line < '0' || *line > '9') && *line != '-')
-		return (WRONG_CHAR);
+	while((*line >= '0' && *line <= '9')
+	|| (*line == '.'))
+	{
+		if (*line == '.' && !point)
+			point = 1;
+		else if (*line == '.' && point)
+			return (ft_printf("excessive number of points\n"));
+		if (pre_point > 9 || after_point > 5)
+			return (ft_printf("Too many digits\n"));
+		if (!point)
+			pre_point++;
+		if (point)
+			after_point++;
+		line++;
+	}
 	return (0);
 }
 

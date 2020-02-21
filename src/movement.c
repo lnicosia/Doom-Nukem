@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 19:02:34 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:34:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,9 @@ void	move_player(t_env *env)
 	motion.flight = env->player.state.fly;
 	motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 	if (env->player.state.fly && env->inputs.space)
-		move.z += 0.2;
+		move.z += 0.5 * speed;
 	if (env->player.state.fly && env->inputs.lgui)
-		move.z -= 0.2;
+		move.z -= 0.5 * speed;
 	if (env->inputs.forward && !env->inputs.backward)
 	{
 		move.x += env->player.camera.angle_cos * speed;

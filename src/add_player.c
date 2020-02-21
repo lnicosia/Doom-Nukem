@@ -29,8 +29,10 @@ static void	calcul_player_pos(t_env *env)
 	}
 	pos.x /= sector.nb_vertices;
 	pos.y /= sector.nb_vertices;
-	env->player.pos.x = pos.x;
+	env->player.pos.x = pos.x + 1;
 	env->player.pos.y = pos.y;
+	env->player.starting_pos.x = pos.x;
+	env->player.starting_pos.y = pos.y;
 }
 
 void		add_player(t_env *env)
@@ -44,6 +46,8 @@ void		add_player(t_env *env)
 	{
 		env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 		env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
+		env->player.starting_pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
+		env->player.starting_pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
 	}
 	env->player.camera.angle = 0;
 	env->player.camera.angle_z = 0;

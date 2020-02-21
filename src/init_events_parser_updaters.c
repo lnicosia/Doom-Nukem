@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 14:34:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:54:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_events_parser_updaters3(t_events_parser *eparser)
 	eparser->updaters[OBJECT_X] = &update_object_sector_event;
 	eparser->updaters[OBJECT_Y] = &update_object_sector_event;
 	eparser->updaters[OBJECT_Z] = &update_object_sector_event;
+	eparser->updaters[WIN] = 0;
 }
 
 void	init_events_parser_updaters2(t_events_parser *eparser)

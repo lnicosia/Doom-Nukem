@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:44:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 18:33:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
 # define NB_MUSICS 2
+# define MAX_TRIGGER_TYPES 6
+# define MAX_TARGET_TYPES 68
+# define MAX_REAL_TARGET_TYPES 67
 
 typedef	enum		e_musics_list
 {
@@ -80,7 +83,7 @@ typedef enum		e_target_type
 	DOUBLE,
 	STRING,
 	UINT32,
-	POS
+	FUNC
 }					t_target_type;
 
 typedef enum		e_change_sprite
@@ -107,7 +110,6 @@ typedef enum		e_event_mod_type
 {
 	FIXED,
 	INCR,
-	FUNC
 }					t_event_mod_type;
 
 typedef enum		e_button_state
@@ -571,6 +573,7 @@ typedef	struct		s_init_data
 typedef struct		s_player
 {
 	t_v3			pos;
+	t_v3			starting_pos;
 	t_v3			old_pos;
 	t_camera		camera;
 	t_init_data		player_init_data;
@@ -584,6 +587,7 @@ typedef struct		s_player
 	double			size_2d;
 	double			rotation_speed;
 	int				sector;
+	int				starting_sector;
 	int				lowest_sect;
 	int				highest_sect;
 	int				curr_weapon;

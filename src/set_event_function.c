@@ -1,20 +1,25 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_press_text.c                                 :+:      :+:    :+:   */
+/*   set_event_function.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 11:44:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 11:52:34 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/20 15:21:23 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/20 17:58:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events_parser.h"
 
-void	print_press_text(t_env *env)
+void	*set_event_function(t_env *env, t_events_parser *eparser)
 {
-	print_text(new_point(env->h - 200, env->h_w),
-	new_printable_text("Press [E]", env->sdl.fonts.lato50, 0xFFFFFFFF, 30), env);
+	(void)env;
+	if (eparser->target_index == WIN)
+	{
+		eparser->event.exec_func = &win;
+		eparser->event.mod_type = FUNC;
+		eparser->event.type = FUNC;
+	}
+	return (0);
 }

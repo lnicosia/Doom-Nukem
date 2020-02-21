@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:25:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 12:32:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 14:13:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	change_ceiling_floor_height(t_env *env)
 			if (env->inputs.minus && !env->inputs.ctrl)
 				env->sectors[env->selected_ceiling].ceiling -= (0.1 * (env->editor.key_delay / 500));
 			check_height_protections(env, sector);
-			update_sector_slope(env, sector);	
+			update_sector_slope(env, sector);
+			update_player_z(env);
 		}
 		else if (env->selected_floor != -1)
 		{
@@ -131,7 +132,8 @@ void	change_ceiling_floor_height(t_env *env)
 			else if (env->inputs.minus && !env->inputs.ctrl)
 				env->sectors[env->selected_floor].floor -= 0.1 * (env->editor.key_delay / 500);
 			check_height_protections(env, sector);
-			update_sector_slope(env, sector);	
+			update_sector_slope(env, sector);
+			update_player_z(env);	
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:36:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 12:06:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/20 17:02:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		new_event_target(t_env *env)
 	env->editor.event_panel.action_panel.double_value = 0;
 	env->editor.event_panel.action_panel.int_value = 0;
 	env->editor.event_panel.action_panel.uint32_value = 0;
-	if (env->editor.event_panel.event.target)
+	if (env->editor.event_panel.event.target_index != -1)
 		set_buttons_state(env);
 	return (0);
 }

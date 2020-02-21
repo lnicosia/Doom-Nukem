@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 19:25:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 14:12:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,6 @@ int		change_slope_direction(void *target)
 		env, env->sectors[env->selected_ceiling].start_ceiling_slope);
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 		update_player_z(env);
-		clear_portals(env);
-		while (i < env->nb_sectors)
-		{
-			create_portals(env, env->sectors[i]);
-			i++;
-		}
 	}
 	else if (env->selected_floor != -1)
 	{
@@ -72,12 +66,7 @@ int		change_slope_direction(void *target)
 		get_sector_normal(env->sectors[env->selected_floor], env,
 		env->sectors[env->selected_floor]. start_floor_slope);
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		clear_portals(env);
-		while (i < env->nb_sectors)
-		{
-			create_portals(env, env->sectors[i]);
-			i++;
-		}
+		update_player_z(env);
 	}
 	env->editor.previous_slope_swap.state = UP;
 	env->editor.previous_slope_swap.anim_state = REST;
