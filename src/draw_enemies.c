@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 10:45:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:30:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		update_enemies_z(t_env *env)
 	}
 }
 
-static int	get_sprite_direction(t_enemies enemy)
+static int	get_sprite_direction(t_enemy enemy)
 {
 	double	angle;
 
@@ -74,7 +74,7 @@ static int	get_sprite_direction(t_enemies enemy)
 static void		*enemy_loop(void *param)
 {
 	t_env			*env;
-	t_enemies		enemy;
+	t_enemy		enemy;
 	t_render_object	orender;
 	t_sprite		sprite;
 	int				x;
@@ -155,7 +155,7 @@ static void		*enemy_loop(void *param)
 	return (NULL);
 }
 
-static int		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env *env)
+static int		threaded_enemy_loop(t_enemy enemy, t_render_object orender, t_env *env)
 {
 	t_enemy_thread	et[THREADS];
 	pthread_t		threads[THREADS];
@@ -179,7 +179,7 @@ static int		threaded_enemy_loop(t_enemies enemy, t_render_object orender, t_env 
 	return (0);
 }
 
-int				draw_enemy(t_camera camera, t_enemies *enemy, t_env *env, int death_sprite)
+int				draw_enemy(t_camera camera, t_enemy *enemy, t_env *env, int death_sprite)
 {
 	t_render_object	orender;
 	t_sprite		sprite;

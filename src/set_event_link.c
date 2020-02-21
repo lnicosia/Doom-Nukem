@@ -27,6 +27,8 @@ int		set_event_link(t_env *env, t_events_parser *eparser)
 	source_array->launch_conditions[source_array->nb_launch_conditions]
 	.source_trigger.enemy = eparser->source_enemy;
 	source_array->launch_conditions[source_array->nb_launch_conditions]
+	.source_trigger.object = eparser->source_object;
+	source_array->launch_conditions[source_array->nb_launch_conditions]
 	.source_trigger.index = eparser->source_index;
 	source_array->launch_conditions[source_array->nb_launch_conditions]
 	.target_trigger.type = eparser->target_type;
@@ -38,6 +40,8 @@ int		set_event_link(t_env *env, t_events_parser *eparser)
 	.target_trigger.sprite = eparser->target_sprite;
 	source_array->launch_conditions[source_array->nb_launch_conditions]
 	.target_trigger.enemy = eparser->target_enemy;
+	source_array->launch_conditions[source_array->nb_launch_conditions]
+	.target_trigger.object = eparser->target_object;
 	source_array->launch_conditions[source_array->nb_launch_conditions]
 	.target_trigger.index = eparser->target_index;
 	source_array->nb_launch_conditions++;

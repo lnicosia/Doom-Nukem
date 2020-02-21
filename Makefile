@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/21 18:07:20 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/02/21 21:15:36 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 sprite_selection.c init_sprite_selection_buttons.c\
 		 editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
-		 are_condition_selection_buttons_visible.c init_event_links_types.c \
+		 are_launch_condition_selection_buttons_visible.c \
+		 are_exec_condition_selection_buttons_visible.c \
+		 init_event_links_types.c is_event_tabs_visible.c \
 		 print_link_target_functions.c print_condition_target_functions.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
@@ -176,7 +178,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   different_condition.c init_events.c init_events_parser.c \
 		   new_global_event.c new_press_event.c new_shoot_event.c \
 		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
-		   new_death_event.c parse_event_target.c portal_loop.c \
+		   new_enemy_event.c parse_event_target.c portal_loop.c \
 		   init_events_parser_target_types.c parse_event_launch_conditions.c \
 		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \
@@ -188,7 +190,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
-		   precompute_floor_ceiling_sprites_scales.c \
+		   precompute_floor_ceiling_sprites_scales.c new_object_event.c \
 		   menu_keys.c option_menu.c option_menu_keys.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
@@ -209,8 +211,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-Ofast \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/21 15:20:11 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/21 11:22:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	add_object(t_env *env)
 {
 	t_object	object;
 
+	ft_bzero(&object, sizeof(t_object));
 	object.num = env->nb_objects;
 	object.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	object.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;

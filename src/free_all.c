@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 10:04:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 11:02:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,42 @@ void		free_audio(t_env *env, int i)
 	FMOD_System_Release(env->sound.system);
 }
 
+void		free_objects(t_env *env)
+{
+	int		i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].nb_collision_events > 0
+			&& env->objects[i].collision_events)
+			free_events(env->objects[i].collision_events,
+			env->objects[i].nb_collision_events);
+		i++;
+	}
+	ft_memdel((void**)&env->objects);
+}
+
+void		free_enemies(t_env *env)
+{
+	int		i;
+
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].nb_death_events > 0
+			&& env->enemies[i].death_events)
+			free_events(env->enemies[i].death_events,
+			env->enemies[i].nb_death_events);
+		if (env->enemies[i].nb_collision_events > 0
+			&& env->enemies[i].collision_events)
+			free_events(env->enemies[i].collision_events,
+			env->enemies[i].nb_collision_events);
+		i++;
+	}
+	ft_memdel((void**)&env->enemies);
+}
+
 void		free_all(t_env *env)
 {
 	int 	i;
@@ -238,6 +274,14 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato_bold50);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
+	if (env->enemies)
+		free_enemies(env);
+	if (env->objects)
+		free_objects(env);
+	if (env->player.colliding_objects)
+		ft_memdel((void**)&env->player.colliding_objects);
+	if (env->player.colliding_enemies)
+		ft_memdel((void**)&env->player.colliding_enemies);
 	free_camera(&env->player.camera, env);
 	if (env->sectors)
 		free_sectors(env);

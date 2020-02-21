@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:04:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_env
 	t_vertex			*tmp_sector;
 	t_sector			*sectors;
 	t_object			*objects;
-	t_enemies			*enemies;
+	t_enemy				*enemies;
 	t_sprite			enemy_sprites[MAX_ENEMY_SPRITES + 1];
 	t_sprite			object_sprites[MAX_OBJECT_SPRITES + 1];
 	t_texture			sprite_textures[MAX_TEXTURES];
@@ -71,6 +71,8 @@ typedef struct		s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					fatal_error;
+	int					checking_collisions_with_player;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -344,6 +346,8 @@ int					going_in_2D_mode(t_env *env);
 int					going_in_3D_mode(t_env *env);
 int					print_vertex_informations(t_env *env);
 void				print_global_events_tab(t_env *env);
+void				print_enemy_events_tab(t_env *env);
+void				print_object_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
 char				*get_condition_type_str(t_condition *condition);
@@ -402,6 +406,8 @@ t_condition *condition, t_point pos, int size);
 int					print_sector_link_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int					print_enemy_link_target(t_env *env,
+t_condition *condition, t_point pos, int size);
+int					print_object_link_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int					print_wall_sprite_link_target(t_env *env,
 t_condition *condition, t_point pos, int size);
@@ -793,6 +799,10 @@ int					new_walk_out_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_death_event(t_env *env, t_event_trigger trigger,
 t_event event);
+int					new_enemy_collision_event(t_env *env,
+t_event_trigger trigger, t_event event);
+int					new_object_collision_event(t_env *env,
+t_event_trigger trigger, t_event event);
 int					delete_condition(void *param);
 int					set_equals(void *param);
 int					set_less(void *param);
@@ -1070,11 +1080,11 @@ t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,
 t_v3 destination);
 
 void				draw_weapon(t_env *env, int sprite);
-void				weapon_animation(t_env *env, int sprite);
+int					weapon_animation(t_env *env, int sprite);
 void				weapon_change(t_env *env);
 int					next_possessed_weapon(t_env *env);
 void				print_ammo(t_env *env);
-void				shot(t_env *env);
+int					shot(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,
 t_projectile_stats stats, t_projectile_data_2 data2);
 int					create_explosion(t_env *env, t_explosion_data data,
@@ -1096,7 +1106,7 @@ t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
-void				move_player(t_env *env);
+int					move_player(t_env *env);
 void				update_player_pos(t_env *env);
 void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, int origin);
@@ -1231,7 +1241,7 @@ void				pursuing_enemy(t_env *env, int i);
 int					dying_enemy(t_env *env, int i, int nb_sprites);
 int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
-int					draw_enemy(t_camera camera, t_enemies *enemy, t_env *env,
+int					draw_enemy(t_camera camera, t_enemy *enemy, t_env *env,
 						int death_sprite);
 
 /*

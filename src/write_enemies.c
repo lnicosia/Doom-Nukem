@@ -6,7 +6,7 @@
 /*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 12:01:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 17:49:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:33:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_main_enemy_sprite(int sprite, t_env *env)
 	return (i);
 }
 
-static void	write_enemy(int fd, t_enemies enemy, t_env *env)
+static void	write_enemy(int fd, t_enemy enemy, t_env *env)
 {
 	ft_dprintf(fd, "[%.*f %.*f %.*f %.*f] ",
 			ft_min(5, get_decimal_len(enemy.pos.y)),

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 20:05:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define NB_WEAPONS 3
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 18
+# define MAX_OBJECTS 19
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -48,6 +48,7 @@
 # define MAX_H 1440
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
+# define MINIGUN 0
 # define HEALTH_PACK 2
 # define SHELL_AMMO 3
 # define ROCKETS_AMMO 4
@@ -67,7 +68,7 @@
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
 # define NB_MUSICS 2
-# define MAX_TRIGGER_TYPES 6
+# define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
 
@@ -477,7 +478,7 @@ typedef struct		s_vertex
 	double			x;
 	double			y;
 	int				clipped[2];
-	int			num;
+	int				num;
 }					t_vertex;
 
 /*
@@ -610,6 +611,8 @@ typedef struct		s_player
 	int				changed_sector;
 	int				old_sector;
 	int				in_combat;
+	int				*colliding_objects;
+	int				*colliding_enemies;
 }					t_player;
 
 /*
@@ -956,9 +959,11 @@ typedef struct		s_object
 	int				nb_rest_state;
 	t_animation		rest;
 	t_animation		death;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
 }					t_object;
 
-typedef struct		s_enemies
+typedef struct		s_enemy
 {
 	t_v3			pos;
 	t_v3			last_player_pos;
@@ -1012,7 +1017,11 @@ typedef struct		s_enemies
 	t_animation		rest;
 	t_animation		pursue;
 	t_animation		fire;
-}					t_enemies;
+	t_event			*death_events;
+	size_t			nb_death_events;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
+}					t_enemy;
 
 /*
 ** SDL data necessities

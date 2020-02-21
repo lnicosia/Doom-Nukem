@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 14:19:25 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/09/22 11:41:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:32:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		init_enemies(t_env *env, t_map_parser *parser)
 			if (env->nb_enemies < 0)
 				return (custom_error("You can not declare less than 0 enemies"));
 			if (env->nb_enemies
-					&& !(env->enemies = (t_enemies*)ft_memalloc(sizeof(t_enemies)
+					&& !(env->enemies = (t_enemy*)ft_memalloc(sizeof(t_enemy)
 							* (env->nb_enemies))))
 				return (ft_perror("Could not malloc enemies:"));
 			ft_strdel(&tmp);

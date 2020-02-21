@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 10:50:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:32:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*get_enemy_relative_pos(void *param)
 	return (NULL);
 }
 
-void	get_translated_enemy_pos(t_camera camera, t_enemies *enemy)
+void	get_translated_enemy_pos(t_camera camera, t_enemy *enemy)
 {
 	/*object->translated_left_bottom.x = (object.pos.x - object.width / 2.0)
 		- camera.pos.x;
@@ -56,7 +56,7 @@ void	get_translated_enemy_pos(t_camera camera, t_enemies *enemy)
 	enemy->translated_pos.y = enemy->pos.z - camera.pos.z;
 }
 
-void	get_rotated_enemy_pos(t_camera camera, t_enemies *enemy)
+void	get_rotated_enemy_pos(t_camera camera, t_enemy *enemy)
 {
 	/*object->rotated_left_bottom.x = object->translated_left_bottom.x
 		* camera.angle_sin - object->translated_left_bottom.z
@@ -86,7 +86,7 @@ void	get_rotated_enemy_pos(t_camera camera, t_enemies *enemy)
 		+ enemy->rotated_pos.z * camera.angle_z;
 }
 
-void	project_enemy(t_render_object *erender, t_enemies enemy, t_env *env)
+void	project_enemy(t_render_object *erender, t_enemy enemy, t_env *env)
 {
 	double	scale;
 

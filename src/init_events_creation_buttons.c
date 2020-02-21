@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:30:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:05:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,20 @@ void	set_trigger(t_env *env, t_event_trigger *trigger)
 	int		sector;
 
 	sector = -1;
-	if (env->selected_wall_sprite_wall != -1)
+	if (env->selected_enemy != -1)
+	{
+		if (env->editor.selected_events == 0)
+			trigger->type = ENEMY_COLLISION;
+		else if (env->editor.selected_events == 1)
+			trigger->type = DEATH;
+		trigger->enemy = env->selected_enemy;
+	}
+	else if (env->selected_object != -1)
+	{
+		trigger->type = OBJECT_COLLISION;
+		trigger->object = env->selected_object;
+	}
+	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0)
 			trigger->type = PRESS;
@@ -107,6 +120,8 @@ int		new_event(void *param)
 	env->editor.event_panel.action_tab.state = UP;
 	env->editor.event_panel.launch_conditions_tab.state = UP;
 	env->editor.event_panel.exec_conditions_tab.state = UP;
+	env->editor.event_panel.action_panel.go_to.state = DOWN;
+	env->editor.event_panel.action_panel.add.state = UP;
 	env->editor.event_panel.action_panel.delay_value = 0;
 	env->editor.event_panel.action_panel.uint32_value = 0;
 	env->editor.event_panel.action_panel.double_value = 0;

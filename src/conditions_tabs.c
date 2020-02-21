@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:07:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:17:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:30:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		draw_condition(t_env *env, t_condition *condition)
 	}
 	else
 	{
-		env->print_link_target_data[condition->target_index](env,
+		env->print_link_target_data[condition->target_trigger.type](env,
 		condition, new_point(panel->pos.x + 100,
 		panel->pos.y + panel->top_size + panel->content_panel_size.y / 4), 20);
 		TTF_SizeText(env->sdl.fonts.lato_bold20, env->snprintf, &text_size.x,
