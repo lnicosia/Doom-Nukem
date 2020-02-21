@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 10:07:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:35:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_global_events_tab(t_env *env)
 	}
 }
 
-void	print_enemies_events_tab(t_env *env)
+void	print_enemy_events_tab(t_env *env)
 {
 	t_point		text_size;
 

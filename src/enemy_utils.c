@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 14:03:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:30:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	enemy_far_left_right(t_env *env, int nb)
 	env->enemies[nb].far_right.y = 1000 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
 }
 
-int	 is_in_enemy_fov(t_enemies enemy, t_player player, double distance)
+int	 is_in_enemy_fov(t_enemy enemy, t_player player, double distance)
 {
 	t_v2	player_pos;
 	t_v2	enemy_pos;
@@ -250,7 +250,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 	return (distance);
 }
 
-void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
+void	melee_ai(t_env *env, t_enemy enemy, double distance, int i)
 {
 	t_v3 		direction;
 	t_v3 		move;
@@ -313,7 +313,7 @@ double	enemy_angle_z(t_env *env, int i)
 	return (angle_z);
 }
 
-void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
+void	ranged_ai(t_env *env, t_enemy enemy, double distance, int i)
 {
 	t_v3		direction;
 	t_v3 		move;

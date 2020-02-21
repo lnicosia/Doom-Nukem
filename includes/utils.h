@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:42:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:29:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
 # define NB_MUSICS 2
-# define MAX_TRIGGER_TYPES 6
+# define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
 
@@ -610,6 +610,8 @@ typedef struct		s_player
 	int				changed_sector;
 	int				old_sector;
 	int				in_combat;
+	int				*colliding_objects;
+	int				*colliding_enemies;
 }					t_player;
 
 /*
@@ -956,9 +958,11 @@ typedef struct		s_object
 	int				nb_rest_state;
 	t_animation		rest;
 	t_animation		death;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
 }					t_object;
 
-typedef struct		s_enemies
+typedef struct		s_enemy
 {
 	t_v3			pos;
 	t_v3			last_player_pos;
@@ -1014,7 +1018,9 @@ typedef struct		s_enemies
 	t_animation		fire;
 	t_event			*death_events;
 	size_t			nb_death_events;
-}					t_enemies;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
+}					t_enemy;
 
 /*
 ** SDL data necessities

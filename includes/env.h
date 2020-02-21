@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 09:21:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:31:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_env
 	t_vertex			*tmp_sector;
 	t_sector			*sectors;
 	t_object			*objects;
-	t_enemies			*enemies;
+	t_enemy			*enemies;
 	t_sprite			enemy_sprites[MAX_ENEMY_SPRITES + 1];
 	t_sprite			object_sprites[MAX_OBJECT_SPRITES + 1];
 	t_texture			sprite_textures[MAX_TEXTURES];
@@ -344,7 +344,7 @@ int					going_in_2D_mode(t_env *env);
 int					going_in_3D_mode(t_env *env);
 int					print_vertex_informations(t_env *env);
 void				print_global_events_tab(t_env *env);
-void				print_enemies_events_tab(t_env *env);
+void				print_enemy_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
 char				*get_condition_type_str(t_condition *condition);
@@ -1232,7 +1232,7 @@ void				pursuing_enemy(t_env *env, int i);
 int					dying_enemy(t_env *env, int i, int nb_sprites);
 int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
-int					draw_enemy(t_camera camera, t_enemies *enemy, t_env *env,
+int					draw_enemy(t_camera camera, t_enemy *enemy, t_env *env,
 						int death_sprite);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 09:58:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:35:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	print_events_tab(t_env *env)
 {
 	if (env->selected_enemy != -1)
-		print_enemies_events_tab(env);
+		print_enemy_events_tab(env);
 	else if (env->selected_wall_sprite_wall == -1
 		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
 		print_sector_events_tab(env);

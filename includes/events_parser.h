@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:24:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:28:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ typedef enum		e_trigger
 	STAND,
 	WALK_IN,
 	WALK_OUT,
-	DEATH
+	DEATH,
+	ENEMY_COLLISION,
+	OBJECT_COLLISION
 }					t_trigger;
 
 typedef enum		e_events_targets

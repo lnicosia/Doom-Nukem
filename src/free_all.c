@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:46:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:24:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,10 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
 	if (env->enemies)
 		free_enemies(env);
+	if (env->player.colliding_objects)
+		ft_memdel((void**)&env->player.colliding_objects);
+	if (env->player.colliding_enemies)
+		ft_memdel((void**)&env->player.colliding_enemies);
 	free_camera(&env->player.camera, env);
 	if (env->sectors)
 		free_sectors(env);

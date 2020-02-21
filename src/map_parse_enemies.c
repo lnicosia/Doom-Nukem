@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:36:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:27:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,5 +249,8 @@ int			parse_enemies(t_env *env, t_map_parser *parser)
 	}
 	else
 		return (missing_data("player data", parser));
+	if (!(env->player.colliding_enemies = (int*)ft_memalloc(sizeof(int)
+		* env->nb_enemies)))
+		return (ft_perror("Could not malloc player colliding enemies"));
 	return (0);
 }

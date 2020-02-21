@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 18:15:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 18:09:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:31:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			draw_players(t_camera camera, t_env *env)
 {
-	t_enemies	player;
+	t_enemy	player;
 
 	if (camera.pos.x == env->player.pos.x && camera.pos.y == env->player.pos.y
 			&& camera.pos.z == env->player.head_z)
