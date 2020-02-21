@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 15:00:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:22:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_point pos, int size)
 	else
 		ended = "ended (start)";
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%s %d %s",
-	env->event_links_types[condition->target_type],
+	env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/
@@ -50,7 +50,7 @@ t_point pos, int size)
 	else
 		ended = "ended (start)";
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d %s %d %s",
-	condition->sector, env->event_links_types[condition->target_type],
+	condition->sector, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/
@@ -71,8 +71,8 @@ t_point pos, int size)
 		ended = "ended";
 	else
 		ended = "ended (start)";
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d %s %d %s",
-	condition->object, env->event_links_types[condition->target_type],
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d %s %d %s",
+	condition->object, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, condition->value, ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/
@@ -94,7 +94,7 @@ t_point pos, int size)
 	else
 		ended = "ended (start)";
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d %s %d %s",
-	condition->enemy, env->event_links_types[condition->target_type],
+	condition->enemy, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, condition->value, ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/
@@ -117,7 +117,8 @@ t_point pos, int size)
 		ended = "ended (start)";
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d wall %d sprite %d"
 	" %s %d %s", condition->sector, condition->wall, condition->sprite,
-	env->event_links_types[condition->target_type], condition->target_trigger.index,
+	env->event_links_types[condition->target_trigger.type],
+	condition->target_trigger.index,
 	ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/

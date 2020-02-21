@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:23:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 13:55:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:08:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		set_greater_or_equals(void *param)
 	env->editor.condition_panel.condition.type = GREATER_OR_EQUALS;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
+	env->editor.selecting_event = 0;
 	return (0);
 }
 
@@ -97,5 +98,6 @@ int		set_function(void *param)
 	env->editor.condition_panel.condition.type = FUNCTION;
 	set_condition_panel_buttons_state(env,
 	env->editor.condition_panel.condition.type);
+	env->editor.selecting_event = 0;
 	return (0);
 }

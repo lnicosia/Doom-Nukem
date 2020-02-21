@@ -15,15 +15,17 @@ write_events.c
 write_events_links.c
 write_event*.c
 ****_parser
-get_event_array.c
+get_event_array.c (get_***_event + get_event_array a update)
 events_links_protection.c
 create_event.c (create_event(), save_event ())
 delete_event.c
-print_link_target_functions.c
-init_event_links_types.c
 init_events_creation_buttons.c
 env.h (print_***_events_tab)
 init_events_selection_buttons.c
 draw_editor_tabs.c
 print_events_tabs.c
 print_event.c
+print_link_target_functions.c
+init_event_links_types.c
+set_event_link.c
+modify_event.c

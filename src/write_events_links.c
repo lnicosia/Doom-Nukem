@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:47:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 14:57:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:36:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,48 @@ void		write_sector_links(int fd, t_sector sector)
 	}
 }
 
+void		write_enemies_links(int fd, t_env *env)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		j = 0;
+		while (j < env->enemies[i].nb_collision_events)
+		{
+			write_event_links(fd, env->enemies[i].collision_events[j]);
+			j++;
+		}
+		j = 0;
+		while (j < env->enemies[i].nb_death_events)
+		{
+			write_event_links(fd, env->enemies[i].death_events[j]);
+			j++;
+		}
+		i++;
+	}
+}
+
+void		write_objects_links(int fd, t_env *env)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		j = 0;
+		while (j < env->objects[i].nb_collision_events)
+		{
+			write_event_links(fd, env->objects[i].collision_events[j]);
+			j++;
+		}
+		i++;
+	}
+}
+
 void		write_events_links(int fd, t_env *env)
 {
 	size_t	i;
@@ -107,4 +149,6 @@ void		write_events_links(int fd, t_env *env)
 		write_sector_links(fd, env->sectors[j]);
 		j++;
 	}
+	write_enemies_links(fd, env);
+	write_objects_links(fd, env);
 }

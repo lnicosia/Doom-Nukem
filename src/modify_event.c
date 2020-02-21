@@ -6,12 +6,26 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 21:51:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:05:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+
+void			set_action_type_buttons_state(t_env *env)
+{
+	if (env->editor.event_panel.event.mod_type == FIXED)
+	{
+		env->editor.event_panel.action_panel.go_to.state = DOWN;
+		env->editor.event_panel.action_panel.add.state = UP;
+	}
+	else if (env->editor.event_panel.event.mod_type == INCR)
+	{
+		env->editor.event_panel.action_panel.go_to.state = UP;
+		env->editor.event_panel.action_panel.add.state = DOWN;
+	}
+}
 
 int             target_tab_func(void *param)
 {
@@ -72,7 +86,19 @@ int		modify_event(void *param)
 		sector = env->selected_floor;
 	else
 		sector = env->editor.selected_sector;
-	if (env->selected_wall_sprite_wall != -1)
+	if (env->selected_enemy != -1)
+	{
+		if (env->editor.selected_events == 0)
+			env->editor.event_panel.event = env->enemies[env->selected_enemy].
+			collision_events[env->editor.selected_event];
+		else if (env->editor.selected_events == 1)
+			env->editor.event_panel.event = env->enemies[env->selected_enemy].
+			death_events[env->editor.selected_event];
+	}
+	else if (env->selected_object != -1)
+		env->editor.event_panel.event = env->objects[env->selected_object].
+		collision_events[env->editor.selected_event];
+	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0)
 		{
@@ -115,5 +141,6 @@ int		modify_event(void *param)
 		env->global_events[env->editor.selected_event];
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;
+	set_action_type_buttons_state(env);
 	return (0);
 }

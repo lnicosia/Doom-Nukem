@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 15:19:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:37:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,10 +459,10 @@ void	init_events_selection_buttons(t_env *env)
 {
 	env->editor.next_events = new_next_button(ON_RELEASE,
 			&next_events, env, env);
-	env->editor.next_events.pos = new_point(290, 470);
+	env->editor.next_events.pos = new_point(310, 470);
 	env->editor.previous_events = new_previous_button(ON_RELEASE,
 			&prec_events, env, env);
-	env->editor.previous_events.pos = new_point(90, 470);
+	env->editor.previous_events.pos = new_point(70, 470);
 	env->editor.next_event = new_next_button(ON_RELEASE,
 			&next_event, env, env);
 	env->editor.next_event.pos = new_point(290, 500);

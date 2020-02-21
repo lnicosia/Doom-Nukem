@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 10:35:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:50:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,61 @@ void	print_global_events_tab(t_env *env)
 	}
 }
 
+void	print_object_events_tab(t_env *env)
+{
+	t_point		text_size;
+
+	TTF_SizeText(env->sdl.fonts.lato20, "Collision events",
+	&text_size.x, &text_size.y);
+	print_text(new_point(470, 200 - text_size.x / 2),
+	new_printable_text("Collision events",
+	env->sdl.fonts.lato20, 0x333333FF, 0), env);
+	if (env->objects[env->selected_object].nb_collision_events > 0)
+	{
+		print_event_selection(env, env->objects[env->selected_object].
+		nb_collision_events);
+		print_event(env, &env->objects[env->selected_object].
+		collision_events[env->editor.selected_event]);
+	}
+}
+
 void	print_enemy_events_tab(t_env *env)
 {
 	t_point		text_size;
 
-	TTF_SizeText(env->sdl.fonts.lato20, "Enemy death events",
-	&text_size.x, &text_size.y);
-	print_text(new_point(470, 200 - text_size.x / 2),
-	new_printable_text("Enemy death events",
-	env->sdl.fonts.lato20, 0x333333FF, 0), env);
-	if (env->enemies[env->selected_enemy].nb_death_events > 0)
+	if (env->editor.selected_events == 0)
 	{
-		print_event_selection(env, env->enemies[env->selected_enemy].
-		nb_death_events);
-		print_event(env, &env->enemies[env->selected_enemy].
-		death_events[env->editor.selected_event]);
+		TTF_SizeText(env->sdl.fonts.lato20, "Collision events",
+		&text_size.x, &text_size.y);
+		print_text(new_point(470, 200 - text_size.x / 2),
+		new_printable_text("Collision events",
+		env->sdl.fonts.lato20, 0x333333FF, 0), env);
+		if (env->enemies[env->selected_enemy].nb_collision_events > 0)
+		{
+			print_event_selection(env, env->enemies[env->selected_enemy].
+			nb_collision_events);
+			print_event(env, &env->enemies[env->selected_enemy].
+			collision_events[env->editor.selected_event]);
+		}
 	}
+	else if (env->editor.selected_events == 1)
+	{
+		TTF_SizeText(env->sdl.fonts.lato20, "On death events",
+		&text_size.x, &text_size.y);
+		print_text(new_point(470, 200 - text_size.x / 2),
+		new_printable_text("On death events",
+		env->sdl.fonts.lato20, 0x333333FF, 0), env);
+		if (env->enemies[env->selected_enemy].nb_death_events > 0)
+		{
+			print_event_selection(env, env->enemies[env->selected_enemy].
+			nb_death_events);
+			print_event(env, &env->enemies[env->selected_enemy].
+			death_events[env->editor.selected_event]);
+		}
+	}
+	draw_button(env, env->editor.next_events, env->editor.next_events.str);
+	draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str);
 }
 
 void	print_sector_events(t_env *env)

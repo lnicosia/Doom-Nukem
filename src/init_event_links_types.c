@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 15:22:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 15:01:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:18:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		init_event_links_types(t_env *env)
 	env->event_links_types[WALK_IN] = "walk in event";
 	env->event_links_types[WALK_OUT] = "walk out event";
 	env->event_links_types[DEATH] = "death event";
+	env->event_links_types[ENEMY_COLLISION] = "collision event";
+	env->event_links_types[OBJECT_COLLISION] = "collision event";
 }
 
 void		init_print_link_target_data(t_env *env)

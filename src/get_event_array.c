@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:03:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 13:40:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:17:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,32 @@ t_event	*get_event_array(t_env *env, t_event_trigger trigger)
 {
 	if (trigger.index == GLOBAL)
 		return (&env->global_events[trigger.index]);
-	else if (trigger.index == PRESS)
+	else if (trigger.type == PRESS)
 		return (&env->sectors[trigger.sector]
 				.wall_sprites[trigger.wall]
 				.press_events[trigger.sprite][trigger.index]);
-	else if (trigger.index == SHOOT)
+	else if (trigger.type == SHOOT)
 		return (&env->sectors[trigger.sector]
 				.wall_sprites[trigger.wall]
 				.shoot_events[trigger.sprite][trigger.index]);
-	else if (trigger.index == STAND)
+	else if (trigger.type == STAND)
 		return (&env->sectors[trigger.sector]
 				.stand_events[trigger.index]);
-	else if (trigger.index == WALK_IN)
+	else if (trigger.type == WALK_IN)
 		return (&env->sectors[trigger.sector]
 				.walk_in_events[trigger.index]);
-	else if (trigger.index == STAND)
+	else if (trigger.type == STAND)
 		return (&env->sectors[trigger.sector]
 				.walk_out_events[trigger.index]);
-	else if (trigger.index == DEATH)
+	else if (trigger.type == DEATH)
 		return (&env->enemies[trigger.enemy]
 				.death_events[trigger.index]);
+	else if (trigger.type == ENEMY_COLLISION)
+		return (&env->enemies[trigger.enemy]
+				.collision_events[trigger.index]);
+	else if (trigger.type == OBJECT_COLLISION)
+		return (&env->objects[trigger.object]
+				.collision_events[trigger.index]);
 	return (0);
 }
 
