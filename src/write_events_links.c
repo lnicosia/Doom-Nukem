@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:47:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 15:08:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 14:57:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ void		write_event_link(int fd, t_condition condition)
 		|| condition.target_type == WALK_IN
 		|| condition.target_trigger.type == WALK_OUT)
 		ft_dprintf(fd, "(%d) ", condition.target_trigger.sector);
-	else if (condition.target_trigger.type == DEATH)
+	else if (condition.target_trigger.type == DEATH
+		|| condition.target_trigger.type == ENEMY_COLLISION)
 		ft_dprintf(fd, "(%d) ", condition.target_trigger.enemy);
+	else if (condition.target_trigger.type == DEATH
+		|| condition.target_trigger.type == OBJECT_COLLISION)
+		ft_dprintf(fd, "(%d) ", condition.target_trigger.object);
 	ft_dprintf(fd, "%d]", condition.target_trigger.index);
 	if (condition.type == EVENT_ENDED)
 		ft_dprintf(fd, "[0]\n", condition.type);

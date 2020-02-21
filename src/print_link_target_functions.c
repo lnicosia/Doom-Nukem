@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 15:08:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:00:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,28 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d %s %d %s",
 	condition->sector, env->event_links_types[condition->target_type],
 	condition->target_trigger.index, ended);
+	/*print_text(pos, new_printable_text(env->snprintf,
+	font, 0xFFFFFFFF, 0), env);*/
+	return (pos.y);
+}
+
+int		print_object_link_target(t_env *env, t_condition *condition,
+t_point pos, int size)
+{
+	TTF_Font	*font;
+	char		*ended;
+
+	if (size == 20)
+		font = env->sdl.fonts.lato20;
+	else
+		font = env->sdl.fonts.lato15;
+	if (condition->type == EVENT_ENDED)
+		ended = "ended";
+	else
+		ended = "ended (start)";
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d %s %d %s",
+	condition->object, env->event_links_types[condition->target_type],
+	condition->target_trigger.index, condition->value, ended);
 	/*print_text(pos, new_printable_text(env->snprintf,
 	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);

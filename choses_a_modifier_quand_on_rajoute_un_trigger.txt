@@ -11,6 +11,9 @@ parse_event_target.c
 are_condition_selection_buttons_visible.c \\ NON (USELESS)
 events_tab_conditions.c
 writers?
+write_events.c
+write_events_links.c
+write_event*.c
 ****_parser
 get_event_array.c
 events_links_protection.c
@@ -18,7 +21,6 @@ create_event.c (create_event(), save_event ())
 delete_event.c
 print_link_target_functions.c
 init_event_links_types.c
-write_events_links.c
 init_events_creation_buttons.c
 env.h (print_***_events_tab)
 init_events_selection_buttons.c

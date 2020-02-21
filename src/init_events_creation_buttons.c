@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 09:05:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:03:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,18 @@ void	set_trigger(t_env *env, t_event_trigger *trigger)
 		else if (env->editor.selected_sector != -1)
 			trigger->sector = env->editor.selected_sector;
 	}
-	else if (env->editor.selected_sector == -1 && env->selected_enemy != -1)
+	else if (env->selected_enemy != -1)
 	{
+		if (env->editor.selected_events == 0)
+			trigger->type = ENEMY_COLLISION;
+		else if (env->editor.selected_events == 1)
+			trigger->type = DEATH;
 		trigger->enemy = env->selected_enemy;
-		trigger->type = DEATH;
+	}
+	else if (env->selected_object != -1)
+	{
+		trigger->type = OBJECT_COLLISION;
+		trigger->object = env->selected_object;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 		trigger->type = GLOBAL;

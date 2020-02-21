@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 15:22:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 15:37:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:01:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void		init_print_link_target_data(t_env *env)
 	env->print_link_target_data[WALK_IN] = &print_sector_link_target;
 	env->print_link_target_data[WALK_OUT] = &print_sector_link_target;
 	env->print_link_target_data[DEATH] = &print_enemy_link_target;
+	env->print_link_target_data[ENEMY_COLLISION] = &print_enemy_link_target;
+	env->print_link_target_data[OBJECT_COLLISION] = &print_object_link_target;
 }

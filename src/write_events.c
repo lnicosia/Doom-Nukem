@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 11:20:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 14:54:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,43 @@ void (*writers[])(int, t_event))
 				j++;
 			}
 		}
+		if (env->enemies[i].nb_collision_events > 0
+			&& env->enemies[i].collision_events)
+		{
+			j = 0;
+			while (j < env->enemies[i].nb_collision_events)
+			{
+				ft_dprintf(fd, "[7 (%d)][%d", i,
+				env->enemies[i].collision_events[j].target_index);
+				write_event(fd, env->enemies[i].collision_events[j], writers);
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+void	write_objects_events(int fd, t_env *env,
+void (*writers[])(int, t_event))
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		if (env->objects[i].nb_collision_events > 0
+			&& env->objects[i].collision_events)
+		{
+			j = 0;
+			while (j < env->objects[i].nb_collision_events)
+			{
+				ft_dprintf(fd, "[8 (%d)][%d", i,
+				env->objects[i].collision_events[j].target_index);
+				write_event(fd, env->objects[i].collision_events[j], writers);
+				j++;
+			}
+		}
 		i++;
 	}
 }
@@ -178,4 +215,5 @@ void	write_events(int fd, t_env *env)
 	}
 	i = 0;
 	write_enemies_events(fd, env, writers);
+	write_objects_events(fd, env, writers);
 }

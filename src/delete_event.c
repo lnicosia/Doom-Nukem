@@ -6,12 +6,28 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:42:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 09:08:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 14:59:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+
+void	delete_selected_event4(t_env *env, t_event_panel *panel,
+t_event **events, size_t *nb)
+{
+	if (panel->trigger.type == OBJECT_COLLISION)
+	{
+		events = &env->objects[panel->trigger.object].collision_events;
+		nb = &env->objects[panel->trigger.object].nb_collision_events;
+	}
+	free_event(&(*events)[panel->selected_event]);
+	*events = (t_event*)ft_delindex(*events, sizeof(t_event) * *nb,
+	sizeof(t_event), sizeof(t_event) * panel->selected_event);
+	(*nb)--;
+	if (env->editor.selected_event == *nb)
+		env->editor.selected_event--;
+}
 
 void	delete_selected_event3(t_env *env, t_event_panel *panel,
 t_event **events, size_t *nb)
@@ -26,12 +42,12 @@ t_event **events, size_t *nb)
 		events = &env->enemies[panel->trigger.enemy].death_events;
 		nb = &env->enemies[panel->trigger.enemy].nb_death_events;
 	}
-	free_event(&(*events)[panel->selected_event]);
-	*events = (t_event*)ft_delindex(*events, sizeof(t_event) * *nb,
-	sizeof(t_event), sizeof(t_event) * panel->selected_event);
-	(*nb)--;
-	if (env->editor.selected_event == *nb)
-		env->editor.selected_event--;
+	else if (panel->trigger.type == ENEMY_COLLISION)
+	{
+		events = &env->enemies[panel->trigger.enemy].collision_events;
+		nb = &env->enemies[panel->trigger.enemy].nb_collision_events;
+	}
+	delete_selected_event4(env, panel, events, nb);
 }
 
 void	delete_selected_event2(t_env *env, t_event_panel *panel,
