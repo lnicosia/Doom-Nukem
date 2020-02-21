@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:34:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:48:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,10 @@ void	move_player(t_env *env)
 	if (!movement && (env->player.state.climb || env->player.state.drop))
 		movement = 1;
 	if (movement)
+	{
 			update_player_pos(env);
+			animations(env);
+	}
 	if (!env->player.state.jump && !env->player.state.fall
 		&& !env->player.state.climb && !env->player.state.drop
 		&& !env->player.state.fall && !env->player.state.fly)
