@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 09:24:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 20:23:04 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object sprite and scale", parser));
 	if (valid_number(*line, parser))
-		return (invalid_char("before object sprite", "a digit",
-					**line, parser));
+		return (ft_printf("Invalid"));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid sprite texture", parser));
@@ -39,9 +38,8 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object scale", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before object scale", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for object scale\n"));
 	env->objects[parser->objects_count].scale = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line)
@@ -62,8 +60,8 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("object y, x, z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before object y", "a digit", **line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for object %d pos.y\n", parser->objects_count));
 	env->objects[parser->objects_count].pos.y = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -74,8 +72,8 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object x, z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before object x", "a digit", **line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for object %d pos.x\n", parser->objects_count));
 	env->objects[parser->objects_count].pos.x = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -86,9 +84,8 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before object z", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for object %d pos.z\n", parser->objects_count));		
 	env->objects[parser->objects_count].pos.z = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -99,9 +96,8 @@ static int	parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("object angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before object angle", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for object %d angle\n", parser->objects_count));
 	env->objects[parser->objects_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line)

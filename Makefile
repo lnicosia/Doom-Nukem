@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/21 16:51:37 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/21 20:54:23 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -210,9 +210,9 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 		  #-flto \
+		  -Ofast \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \

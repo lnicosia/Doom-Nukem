@@ -37,6 +37,8 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
 	t_v2	intersection;
 
+	//if ((v4.x == v1.x && v4.y == v1.y))
+	//return (0);
 	intersection = get_intersection(v1, v2, v3, v4);
 	if ((intersection.x < v1.x && intersection.x < v2.x)
 			|| (intersection.x > v1.x && intersection.x > v2.x)
@@ -55,6 +57,8 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 			return (1);
 		return (0);
 	}
+	if (v2.x == v3.x && v2.y == v3.y)
+		return (0);
 	return (1);
 }
 

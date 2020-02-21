@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 18:02:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/21 21:29:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,53 @@ int			parse_sector_vertices(t_env *env, char **line, t_map_parser *parser)
 	return (0);
 }
 
+int			check_neighbor_validity(t_env *env, t_map_parser *parser)
+{
+	int			i;
+	int			j;
+	int			k;
+	int			valid;
+	t_sector	neighbor;
+
+	i = 0;
+	k = 0;
+	valid = 0;
+	ft_printf("nb_sectors: %d\n", env->nb_sectors);
+	ft_printf("sector 1 vertices: %d\n", env->sectors[1].nb_vertices);
+	while (i < env->sectors[parser->sectors_count].nb_vertices)
+	{
+		
+		ft_printf("sector neighbor %d: %d\n", i, env->sectors[parser->sectors_count].neighbors[i]);
+		if (env->sectors[parser->sectors_count].neighbors[i] != -1)
+		{
+			j = 0;
+			ft_printf("neigh: %d\n", env->sectors[parser->sectors_count].neighbors[i]);
+			neighbor = env->sectors[env->sectors[parser->sectors_count].neighbors[i]];
+			ft_printf("num --> %d | vertices: %d\n", neighbor.num, neighbor.nb_vertices);
+			while (j < neighbor.nb_vertices)
+			{
+				k = 0;
+				while (k < env->sectors[parser->sectors_count].nb_vertices)
+				{
+					ft_printf("vertex: %d\n", neighbor.vertices[i]);
+					if (neighbor.vertices[j] == env->sectors[parser->sectors_count].vertices[k])
+					{
+						if (neighbor.vertices[j] == env->sectors[parser->sectors_count].vertices[k + 1]
+						&& (neighbor.vertices[j + 1] == env->sectors[parser->sectors_count].vertices[k - 1]))
+							valid = 1;
+					}
+					k++;
+				}
+				j++;
+			}
+		}
+		i++;
+	}
+	if (!valid)
+		return (-1);
+	return (0);
+}
+
 int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
@@ -432,6 +479,8 @@ int			parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 		*line = skip_spaces(*line);
 		i++;
 	}
+	if (check_neighbor_validity(env, parser))
+			return(ft_printf("Sector does have a neighbor it doseon't seems valid\n"));
 	(*line)++;
 	if (!**line)
 		return (missing_data("portals, textures and light", parser));
