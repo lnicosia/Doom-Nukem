@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:57:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 12:03:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -796,6 +796,10 @@ int					new_walk_out_event(t_env *env, t_event_trigger trigger,
 t_event event);
 int					new_death_event(t_env *env, t_event_trigger trigger,
 t_event event);
+int					new_enemy_collision_event(t_env *env,
+t_event_trigger trigger, t_event event);
+int					new_object_collision_event(t_env *env,
+t_event_trigger trigger, t_event event);
 int					delete_condition(void *param);
 int					set_equals(void *param);
 int					set_less(void *param);

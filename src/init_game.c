@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:32:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 11:56:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void	set_enemies_hp(t_env *env)
 				env->difficulty;
 		i++;
 	}
+}
+
+int		hola(void *param, void *penv)
+{
+	(void)param;
+	(void)penv;
+	ft_printf("Hola!\n");
+	return (1);
 }
 
 int		init_game(int ac, char **av)
@@ -160,5 +168,13 @@ int		init_game(int ac, char **av)
 	music_vol_up_button(&env);
 	sounds_vol_up_button(&env);
 	sounds_vol_down_button(&env);
+	/*if (ft_strequ(av[1], "maps/events.map"))
+	{
+		ft_printf("{green}Custom events\n{reset}");
+		env.enemies[0].nb_collision_events = 1;
+		env.enemies[0].collision_events = (t_event*)ft_memalloc(sizeof(t_event)
+		* env.enemies[0].nb_collision_events);
+		env.enemies[0].collision_events[0] = new_func_event(&hola, NULL);
+	}*/
 	return (doom(&env));
 }

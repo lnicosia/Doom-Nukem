@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:03:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 19:04:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 13:40:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,29 @@ t_event	*get_death_event(t_env *env, t_events_parser *eparser, int mode)
 	else
 		return (&env->enemies[eparser->target_enemy]
 				.death_events[eparser->target_index]);
+	return (0);
+}
+
+t_event	*get_enemy_collision_event(t_env *env, t_events_parser *eparser,
+int mode)
+{
+	if (!mode)
+		return (&env->enemies[eparser->source_enemy]
+				.collision_events[eparser->source_index]);
+	else
+		return (&env->enemies[eparser->target_enemy]
+				.collision_events[eparser->target_index]);
+	return (0);
+}
+
+t_event	*get_object_collision_event(t_env *env, t_events_parser *eparser,
+int mode)
+{
+	if (!mode)
+		return (&env->objects[eparser->source_object]
+				.collision_events[eparser->source_index]);
+	else
+		return (&env->objects[eparser->target_object]
+				.collision_events[eparser->target_index]);
 	return (0);
 }

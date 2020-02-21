@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:23:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 16:59:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 13:37:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_events_parser_trigger_parsers(t_events_parser *eparser)
 	eparser->trigger_parsers[WALK_IN] = &sector_parser;
 	eparser->trigger_parsers[WALK_OUT] = &sector_parser;
 	eparser->trigger_parsers[DEATH] = &enemy_parser;
+	eparser->trigger_parsers[ENEMY_COLLISION] = &enemy_parser;
+	eparser->trigger_parsers[OBJECT_COLLISION] = &object_parser;
 }
 
 void	init_events_parser(t_events_parser *eparser)
@@ -49,6 +51,8 @@ void	init_events_parser(t_events_parser *eparser)
 	eparser->new_events[WALK_IN] = &new_parser_walk_in_event;
 	eparser->new_events[WALK_OUT] = &new_parser_walk_out_event;
 	eparser->new_events[DEATH] = &new_parser_death_event;
+	eparser->new_events[ENEMY_COLLISION] = &new_parser_enemy_collision_event;
+	eparser->new_events[OBJECT_COLLISION] = &new_parser_object_collision_event;
 	init_events_parser_target_parsers(eparser);
 	init_events_parser_target_types(eparser);
 	init_events_parser_updaters(eparser);
@@ -64,6 +68,8 @@ void	init_events_parser_links_protection(t_events_parser *eparser)
 	eparser->event_exists[WALK_IN] = &walk_in_event_exists;
 	eparser->event_exists[WALK_OUT] = &walk_out_event_exists;
 	eparser->event_exists[DEATH] = &death_event_exists;
+	eparser->event_exists[ENEMY_COLLISION] = &enemy_collision_event_exists;
+	eparser->event_exists[OBJECT_COLLISION] = &object_collision_event_exists;
 	eparser->get_event_array[GLOBAL] = &get_global_event;
 	eparser->get_event_array[PRESS] = &get_press_event;
 	eparser->get_event_array[SHOOT] = &get_shoot_event;
@@ -71,4 +77,6 @@ void	init_events_parser_links_protection(t_events_parser *eparser)
 	eparser->get_event_array[WALK_IN] = &get_walk_in_event;
 	eparser->get_event_array[WALK_OUT] = &get_walk_out_event;
 	eparser->get_event_array[DEATH] = &get_death_event;
+	eparser->get_event_array[ENEMY_COLLISION] = &get_enemy_collision_event;
+	eparser->get_event_array[OBJECT_COLLISION] = &get_object_collision_event;
 }

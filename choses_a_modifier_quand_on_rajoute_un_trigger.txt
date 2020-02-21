@@ -1,8 +1,10 @@
-events_parser.h (enum)
+events_parser.h (enum t_trigger)
 MAX_TRIGGER_TYPES (utils.h)
 struct t_trigger (utils.h)
 struct t_event (utils.h)
+new_***_event (env.h)
 struct t_events_parser (events_parser.h)
+new_****_parser_event (events_parser.h)
 ini_events_parser.c
 map_parse_events.c (parse_event_trigger)
 parse_event_target.c 
@@ -10,7 +12,6 @@ are_condition_selection_buttons_visible.c
 events_tab_conditions.c
 writers?
 ****_parser
-new_****_event
 get_event_array.c
 events_links_protection.c
 create_event.c (create_event(), save_event ())
