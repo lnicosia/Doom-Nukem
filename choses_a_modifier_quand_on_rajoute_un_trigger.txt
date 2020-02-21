@@ -8,7 +8,7 @@ new_****_parser_event (events_parser.h)
 ini_events_parser.c
 map_parse_events.c (parse_event_trigger)
 parse_event_target.c 
-are_condition_selection_buttons_visible.c
+are_condition_selection_buttons_visible.c \\ NON (USELESS)
 events_tab_conditions.c
 writers?
 ****_parser
