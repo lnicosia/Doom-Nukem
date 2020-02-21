@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:31:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:57:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_env
 	t_vertex			*tmp_sector;
 	t_sector			*sectors;
 	t_object			*objects;
-	t_enemy			*enemies;
+	t_enemy				*enemies;
 	t_sprite			enemy_sprites[MAX_ENEMY_SPRITES + 1];
 	t_sprite			object_sprites[MAX_OBJECT_SPRITES + 1];
 	t_texture			sprite_textures[MAX_TEXTURES];
@@ -71,6 +71,8 @@ typedef struct		s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					fatal_error;
+	int					checking_collisions_with_player;
 	int					saving;
 	int					playing;
 	int					visible_sectors;
@@ -1097,7 +1099,7 @@ t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
-void				move_player(t_env *env);
+int					move_player(t_env *env);
 void				update_player_pos(t_env *env);
 void				update_camera_position(t_camera *camera);
 int					get_sector(t_env *env, t_v3 p, int origin);

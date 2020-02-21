@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/21 10:30:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:48:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,27 +410,49 @@ void	enemy_ai(t_env *env)
 	}
 }
 
-void		enemy_melee_hit(t_env *env)
+int		enemy_melee_hit(t_env *env)
 {
 	int i;
 
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
-			env->enemies[i].behavior == MELEE_FIGHTER))
+		if (env->enemies[i].health > 0
+			&& distance_two_points_2d(env->enemies[i].pos.x,
+			env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75
+			&& env->enemies[i].exists
+			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1
+			&& env->enemies[i].pos.z <= env->player.head_z + 1)
 		{
-			env->player.hit = 1;
-			env->player.health -= ft_clamp(env->enemies[i].damage - env->player.armor, 0, env->enemies[i].damage);
-			env->player.armor -= ft_clamp(env->enemies[i].damage, 0, env->player.armor);
-			if (env->player.health < 0)
-				env->player.health = 0;
-			if (env->enemies[i].behavior == MELEE_KAMIKAZE)
-			env->enemies[i].exists = 0;
+			if (env->in_game && !env->player.colliding_enemies[i]
+				&& env->enemies[i].nb_collision_events > 0
+				&& env->enemies[i].collision_events)
+			{
+				ft_printf("launching enemy collision event\n");
+				if (start_event(&env->enemies[i].collision_events,
+					&env->enemies[i].nb_collision_events, env))
+					return (-1);
+			}
+			env->player.colliding_enemies[i] = 1;
+			if (env->enemies[i].behavior == MELEE_KAMIKAZE ||
+			env->enemies[i].behavior == MELEE_FIGHTER)
+			{
+				env->player.hit = 1;
+				env->player.health -= ft_clamp(env->enemies[i].damage -
+				env->player.armor, 0, env->enemies[i].damage);
+				env->player.armor -= ft_clamp(env->enemies[i].damage, 0,
+				env->player.armor);
+				if (env->player.health < 0)
+					env->player.health = 0;
+				if (env->enemies[i].behavior == MELEE_KAMIKAZE)
+				env->enemies[i].exists = 0;
+			}
 		}
+		else
+			env->player.colliding_enemies[i] = 0;
 		i++;
 	}
+	return (0);
 }
 
 /*

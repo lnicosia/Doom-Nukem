@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:34:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:58:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ void	animations(t_env *env)
 }
 
 /*
- **	Handles player movements
- **	TODO Protection / return values??
- */
+**	Handles player movements
+**	TODO Protection / return values??
+*/
 
 void	check_blocage(t_env *env, t_movement motion, double speed, int index)
 {
 	int nb;
 	t_v3 move;
-	static int a = 0;
 
 	nb = 0;
 	if (index != 1)
@@ -73,7 +72,6 @@ void	check_blocage(t_env *env, t_movement motion, double speed, int index)
 		if (move.x == 0 && move.y == 0)
 			nb++;
 	}
-	(void)a;
 	if (nb == 3)
 	{
 		ft_printf("stuck\n");
@@ -124,7 +122,7 @@ void	update_player_pos(t_env *env)
 		update_camera_position(&env->player.camera);
 }
 
-void	move_player(t_env *env)
+int		move_player(t_env *env)
 {
 	int			movement;
 	t_movement	motion;
@@ -177,7 +175,11 @@ void	move_player(t_env *env)
 		move.y += env->player.camera.angle_cos * speed;
 		move.z += 0;
 	}
+	env->checking_collisions_with_player = 1;
 	move = check_collision(env, move, motion, 0);
+	if (env->fatal_error)
+		return (-1);
+	env->checking_collisions_with_player = 0;
 	if (move.x != 0 || move.y != 0 || move.z != 0)
 		movement = 1;
 	env->player.pos.x += move.x;
@@ -197,4 +199,5 @@ void	move_player(t_env *env)
 		&& !env->player.state.climb && !env->player.state.drop
 		&& !env->player.state.fall && !env->player.state.fly)
 		update_player_z(env);
+	return (0);
 }
