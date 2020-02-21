@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:34:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 11:22:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	add_enemy(t_env *env)
 {
 	t_enemy	enemy;
 
+	ft_bzero(&enemy, sizeof(t_enemy));
 	enemy.num = env->nb_enemies;
 	enemy.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	enemy.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;

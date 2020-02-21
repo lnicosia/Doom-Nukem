@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 08:52:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 11:20:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void (*writers[])(int, t_event))
 			{
 				ft_dprintf(fd, "[6 (%d)][%d", i,
 				env->enemies[i].death_events[j].target_index);
-				write_event(fd, env->enemies[i].death_events[i], writers);
+				write_event(fd, env->enemies[i].death_events[j], writers);
 				j++;
 			}
 		}
