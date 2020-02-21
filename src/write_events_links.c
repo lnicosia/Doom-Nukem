@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:47:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 17:36:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 20:02:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void		write_event_link(int fd, t_condition condition)
 		|| condition.source_trigger.type == WALK_IN
 		|| condition.source_trigger.type == WALK_OUT)
 		ft_dprintf(fd, "(%d) ", condition.source_trigger.sector);
-	else if (condition.source_trigger.type == DEATH)
+	else if (condition.source_trigger.type == DEATH
+		|| condition.source_trigger.type == ENEMY_COLLISION)
 		ft_dprintf(fd, "(%d) ", condition.source_trigger.enemy);
+	else if (condition.source_trigger.type == OBJECT_COLLISION)
+		ft_dprintf(fd, "(%d) ", condition.source_trigger.object);
 	ft_dprintf(fd, "%d]", condition.source_trigger.index);
 	ft_dprintf(fd, "[%d ", condition.target_trigger.type);
 	if (condition.target_trigger.type == PRESS
@@ -39,8 +42,7 @@ void		write_event_link(int fd, t_condition condition)
 	else if (condition.target_trigger.type == DEATH
 		|| condition.target_trigger.type == ENEMY_COLLISION)
 		ft_dprintf(fd, "(%d) ", condition.target_trigger.enemy);
-	else if (condition.target_trigger.type == DEATH
-		|| condition.target_trigger.type == OBJECT_COLLISION)
+	else if (condition.target_trigger.type == OBJECT_COLLISION)
 		ft_dprintf(fd, "(%d) ", condition.target_trigger.object);
 	ft_dprintf(fd, "%d]", condition.target_trigger.index);
 	if (condition.type == EVENT_ENDED)

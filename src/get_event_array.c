@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:03:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 16:17:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 20:58:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 t_event	*get_event_array(t_env *env, t_event_trigger trigger)
 {
-	if (trigger.index == GLOBAL)
+	if (trigger.type == GLOBAL)
 		return (&env->global_events[trigger.index]);
 	else if (trigger.type == PRESS)
 		return (&env->sectors[trigger.sector]

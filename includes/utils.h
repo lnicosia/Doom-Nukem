@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 11:41:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 20:05:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,7 +478,7 @@ typedef struct		s_vertex
 	double			x;
 	double			y;
 	int				clipped[2];
-	int			num;
+	int				num;
 }					t_vertex;
 
 /*
