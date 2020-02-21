@@ -278,6 +278,17 @@ int     modify_sector(t_env *env, int sector)
     int j;
 
     j = 0;
+	if (!(env->sectors[sector].portals =
+		ft_realloc(env->sectors[sector].portals,
+		sizeof(int*) * (env->sectors[sector].nb_vertices),
+		sizeof(int*) * env->sectors[sector].nb_vertices + 1)))
+		return (-1);
+	while (j < env->sectors[sector].nb_vertices + 1)
+	{
+		env->sectors[sector].portals[j] = 1;
+		j++;
+	}
+	j = 0;
     while (j < env->sectors[sector].nb_vertices)
     {
         if (env->sectors[sector].vertices[j] == env->editor.add.v1 || env->sectors[sector].vertices[j] == env->editor.add.v2)
@@ -369,6 +380,7 @@ int     add_vertex_in_sector(t_env *env)
 			return (-1);
 		i++;
 	}
+	
 	env->editor.add.v1 = -1;
 	env->editor.add.v2 = -1;
     return (0);
