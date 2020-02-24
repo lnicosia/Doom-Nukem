@@ -248,7 +248,6 @@ int			valid_map(t_env *env)
 			return (ft_printf("Sector %d was not valid\n", i));
 		i++;
 	}
-
 	ft_printf("{reset}");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 09:24:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 14:13:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,7 +456,7 @@ int			parse_sector_portals(t_env *env, char **line, t_map_parser *parser)
 	if (parser->sector_portals_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more portals",
 					parser->sectors_count, parser));
-	if (parser->sector_neighbors_count > parser->sector_vertices_count)
+	if (parser->sector_portals_count > parser->sector_vertices_count)
 		return (sector_error("has too much portals",
 					parser->sectors_count, parser));
 	i = 0;
@@ -506,6 +506,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	while (i < parser->sector_textures_count)
 	{
 		(*line)++;
+		if (valid_int(*line, parser))
+			return (ft_printf("Invalid int for wall %d texture\n", i));
 		env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
 		if (env->sectors[parser->sectors_count].textures[i] < -MAX_SKYBOX
 		|| env->sectors[parser->sectors_count].textures[i] >= MAX_WALL_TEXTURE)
@@ -519,12 +521,18 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		}
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+			return (ft_printf("Invalid double wall %d texture align.x\n", i));
 		env->sectors[parser->sectors_count].align[i].x = ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+			return (ft_printf("Invalid double for wall %d texture align.y\n", i));
 		env->sectors[parser->sectors_count].align[i].y = ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+			return (ft_printf("Invalid double for wall %d texture scale.x\n", i));
 		env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
 		if (env->sectors[parser->sectors_count].scale[i].x < 1
 			|| env->sectors[parser->sectors_count].scale[i].x > 100)
@@ -532,6 +540,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			"between 1 and 100", parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+			return (ft_printf("Invalid double for wall %d texture scale.y\n", i));
 		env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
 		if (env->sectors[parser->sectors_count].scale[i].y < 1
 			|| env->sectors[parser->sectors_count].scale[i].y > 100)
@@ -614,6 +624,8 @@ t_map_parser *parser)
 			< env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)
 		{
 			(*line)++;
+			if (valid_int(*line, parser))
+				return (ft_printf("Invalid int for wall %d sprite texture\n", i));
 			parse = ft_atoi(*line);
 			if (parse < 0 || parse >= MAX_OBJECTS)
 				return (custom_error_with_line("Invalid sprite texture",
@@ -622,14 +634,20 @@ t_map_parser *parser)
 			env->objects_main_sprites[parse];
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
+			if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for wall %d sprite %d pos.x\n", i, j));
 			env->sectors[parser->sectors_count].wall_sprites[i].pos[j].x =
 			ft_atof(*line);
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
+			if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for wall %d sprite %d pos.y\n", i, j));
 			env->sectors[parser->sectors_count].wall_sprites[i].pos[j].y =
 			ft_atof(*line);
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
+			if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for wall %d sprite %d scale.x\n", i, j));
 			env->sectors[parser->sectors_count].wall_sprites[i].scale[j].x =
 			ft_atof(*line);
 			if ((env->sectors[parser->sectors_count].
@@ -644,6 +662,8 @@ t_map_parser *parser)
 				"between 0.1 and 100", parser));
 			*line = skip_number(*line);
 			*line = skip_spaces(*line);
+			if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for wall %d sprite %d scale.y\n", i, j));
 			env->sectors[parser->sectors_count].wall_sprites[i].scale[j].y =
 			ft_atof(*line);
 			if ((env->sectors[parser->sectors_count].
