@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	title_screen(void *param)
+int		title_screen(void *param)
 {
 	t_env	*env;
 
@@ -21,6 +21,7 @@ void	title_screen(void *param)
 	respawn(env);
 	env->in_game = 0;
 	env->menu = 1;
+	return (0);
 }
 
 int		win(void *param, void *penv)

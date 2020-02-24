@@ -423,6 +423,7 @@ typedef struct	s_editor
 	int					texture_tab;
 	int					ambiance_music;
 	int					fighting_music;
+	t_list				*events_to_delete;
 }				t_editor;
 
 #endif

@@ -59,7 +59,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c print_target_functions.c \
+		 write_events_links.c print_target_functions.c update_existing_events.c\
 		 split_sector_utils.c selection_tab.c init_hud_button.c \
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
@@ -196,7 +196,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h \
+		  events_parser.h update_existing_events.h \
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))

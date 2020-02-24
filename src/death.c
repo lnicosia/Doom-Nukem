@@ -41,7 +41,7 @@ void		respawn_entities(void *param)
 	}
 }
 
-void		respawn(void *param)
+int			respawn(void *param)
 {
 	t_env	*env;
 
@@ -63,14 +63,16 @@ void		respawn(void *param)
 	update_player_z(env);
 	SDL_SetRelativeMouseMode(1);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+	return (0);
 }
 
-void		stop_game(void *param)
+int			stop_game(void *param)
 {
 	((t_env*)param)->running = 0;
+	return (0);
 }
 
-void		death(t_env *env)
+int			death(t_env *env)
 {
 	int		i;
 
@@ -84,10 +86,11 @@ void		death(t_env *env)
 			env->enemies[i].state = RESTING;
 		if (update_confirmation_box(&env->confirmation_box,
 			"You died... Respawn?", YESNO, env))
-			return ;
+			return (-1);
 		env->confirmation_box.yes_action = &respawn;
 		env->confirmation_box.yes_target = env;
 		env->confirmation_box.no_action = &stop_game;
 		env->confirmation_box.no_target = env;
 	}
+	return (0);
 }

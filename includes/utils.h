@@ -337,6 +337,18 @@ typedef struct		s_event_trigger
 	int				sprite;
 }					t_event_trigger;
 
+typedef struct		s_event_target
+{
+	int				type;
+	int				sector;
+	int				wall;
+	int				sprite;
+	int				enemy;
+	int				object;
+	int				vertex;
+	int				weapon;
+}					t_event_target;
+
 typedef struct		s_condition
 {
 	int				type;
@@ -1184,9 +1196,9 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
-	void			(*yes_action)(void *);
+	int				(*yes_action)(void *);
 	void			*yes_target;
-	void			(*no_action)(void *);
+	int				(*no_action)(void *);
 	void			*no_target;
 }					t_confirmation_box;
 

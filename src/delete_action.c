@@ -11,25 +11,32 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "update_existing_events.h"
 
-void		delete_selected_sector(void *param)
+/*
+**	Called if the user confirms the delete
+**	Checks if any event or condition had a link with the sector
+**	If so, raise a confirmation box asking the user again
+**	if he still wants to delete
+**	If not, no confirmation box is raised and the sector is deleted
+*/
+
+int		delete_selected_sector(void *param)
 {
-	t_env	*env;
-	int	i;
+	t_env			*env;
+	t_event_target	target;
 
 	env = (t_env *)param;
-	delete_sector(env, env->editor.selected_sector);
-	delete_invalid_sectors(env);
-	delete_invalid_vertices(env);
-	env->editor.selected_sector = -1;
-	clear_portals(env);
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		create_portals(env, env->sectors[i]);
-		i++;
-	}
-	env->player.sector = get_sector_global(env, env->player.pos);
+	ft_bzero(&target, sizeof(target));
+	target.sector = env->editor.selected_sector;
+	target.type = SECTOR_DELETED;
+	if (update_sector_existing_events(env, target))
+		return (-1);
+	if (env->confirmation_box.state)
+		return (0);
+	if (delete_sector(env))
+		return (-1);
+	return (0);
 }
 
 int		delete_action(t_env *env)

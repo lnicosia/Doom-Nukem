@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	delete_selected_launch_condition(void *param)
+int		delete_selected_launch_condition(void *param)
 {
 	t_env	*env;
 
@@ -27,9 +27,10 @@ void	delete_selected_launch_condition(void *param)
 		env->editor.event_panel.event.nb_launch_conditions
 		&& env->editor.selected_launch_condition > 0)
 		env->editor.selected_launch_condition--;
+	return (0);
 }
 
-void	delete_selected_exec_condition(void *param)
+int		delete_selected_exec_condition(void *param)
 {
 	t_env	*env;
 
@@ -44,6 +45,7 @@ void	delete_selected_exec_condition(void *param)
 		env->editor.event_panel.event.nb_exec_conditions
 		&& env->editor.selected_exec_condition > 0)
 		env->editor.selected_exec_condition--;
+	return (0);
 }
 
 int		delete_condition(void *param)

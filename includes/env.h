@@ -285,7 +285,7 @@ int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
 void				del_last_vertex(t_env *env);
 int					delete_vertex(t_env *env, int vertex);
-int					delete_sector(t_env *env, int sector);
+int					delete_sector(void *param);
 int					delete_object(t_env *env, int object);
 int					current_vertices_contains(t_env *env, int vertex);
 int					is_vertex_used(t_env *env, int vertex);
@@ -465,6 +465,17 @@ int					next_ambiance_music(void *target);
 int					previous_ambiance_music(void *target);
 int					next_fighting_music(void *target);
 int					previous_fighting_music(void *target);
+int					update_existing_events(t_env *env,
+t_event_target target);
+int					update_sector_existing_events(t_env *env,
+t_event_target target);
+int					update_vertex_existing_events(t_env *env,
+t_event_target target);
+int					update_enemy_existing_events(t_env *env,
+t_event_target target);
+int					update_object_existing_events(t_env *env,
+t_event_target target);
+int					delete_selected_sector(void *param);
 
 
 /*
@@ -1158,9 +1169,9 @@ double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector,
 t_env *env);
 void				update_sprites_state(t_env *env);
-void				death(t_env *env);
-void				stop_game(void *param);
-void				respawn(void *param);
+int					death(t_env *env);
+int					stop_game(void *param);
+int					respawn(void *param);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
 void				create_teleport(t_env *env);
