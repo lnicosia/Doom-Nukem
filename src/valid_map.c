@@ -87,7 +87,50 @@ int			check_duplicate_vertices(t_sector sector, t_env *env)
 	return (0);
 }
 
-int			check_intersection_with_sector(t_sector sector, t_env *env, t_vertex vt1, t_vertex vt2)
+int			is_neighbor_valid(t_sector neighbor, t_vertex v1, t_vertex v2)
+{
+	int			i;
+
+	i = 0;
+	while (i < neighbor.nb_vertices)
+	{
+		if (neighbor.vertices[i] == v2.num &&
+		neighbor.vertices[i + 1] == v1.num)
+			return (0);
+		else if (i == neighbor.nb_vertices - 1 
+		&& (neighbor.vertices[i] == v2.num &&
+			neighbor.vertices[0] == v1.num))
+			return (0);
+		i++;
+	}
+	return (-1);
+}
+
+int			check_neighbor_validity(t_sector sector, t_env *env)
+{
+	int			i;
+	t_vertex	v1;
+	t_vertex	v2;
+	t_sector	neighbor;
+
+	i = 0;
+	while (i < env->sectors[sector.num].nb_vertices)
+	{
+		if (env->sectors[sector.num].neighbors[i] != -1)
+		{
+			v1 = env->vertices[sector.vertices[i]];	
+			v2 = env->vertices[sector.vertices[i + 1]];
+			neighbor = env->sectors[env->sectors[sector.num].neighbors[i]];
+			if (is_neighbor_valid(neighbor, v1, v2))
+				return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			check_intersection_with_sector(t_sector sector, t_env *env,
+t_vertex vt1, t_vertex vt2)
 {
 	int		i;
 	t_v2	v1;
@@ -104,22 +147,20 @@ int			check_intersection_with_sector(t_sector sector, t_env *env, t_vertex vt1, 
 		env->vertices[sector.vertices[i]].y);
 		v4 = new_v2(env->vertices[sector.vertices[i + 1]].x,
 		env->vertices[sector.vertices[i + 1]].y);
-		if (segments_intersect(v1, v2, v3, v4))
-		{
-			if ((env->vertices[sector.vertices[i]].num != vt1.num
-			&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
-			|| (env->vertices[sector.vertices[i]].num == vt1.num
-			&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
-			|| (env->vertices[sector.vertices[i]].num == vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num != vt1.num)
-			|| (env->vertices[sector.vertices[i]].num != vt1.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)
-			|| (env->vertices[sector.vertices[i]].num != vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt1.num))
-				return (0);
-			else
-				return (-1);
-		}
+			if (segments_intersect(v1, v2, v3, v4))
+			{
+				if ((env->vertices[sector.vertices[i]].num == vt1.num
+				&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
+				|| (env->vertices[sector.vertices[i]].num == vt2.num
+				&& env->vertices[sector.vertices[i + 1]].num != vt1.num)
+				|| (env->vertices[sector.vertices[i]].num != vt1.num
+				&& env->vertices[sector.vertices[i + 1]].num == vt2.num)
+				|| (env->vertices[sector.vertices[i]].num != vt2.num
+				&& env->vertices[sector.vertices[i + 1]].num == vt1.num))
+					i = i - 0;
+				else
+					return (-1);
+			}
 		i++;
 	}
 	return (0);
@@ -146,6 +187,8 @@ int			check_vertices(t_sector sector, t_env *env)
 		}
 		i++;
 	}
+	if (check_neighbor_validity(sector, env))
+		return(ft_printf("Sector %d has a invalid neighbor\n", sector.num));
 	return (0);
 }
 
@@ -174,7 +217,7 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 static int	check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
-		return (ft_printf("Sector %d has a duplicate\n", sector.num));
+		return (ft_printf("Sector %d is inside or contains a sector\n", sector.num));
 	if (check_vertices(sector, env))
 		return (ft_printf("Vertices invalid\n"));
 	if (check_slopes_start(sector))
@@ -200,6 +243,7 @@ int			valid_map(t_env *env)
 		return (ft_printf("Player position is not valid{reset}\n"));
 	while (i < env->nb_sectors)
 	{
+
 		if (check_sector(env->sectors[i], env))
 			return (ft_printf("Sector %d was not valid\n", i));
 		i++;
