@@ -24,7 +24,7 @@ int		init_objects(t_env *env, t_map_parser *parser)
 		line = tmp;
 		if (*line && *line != '#')
 		{
-			if (*line != 'O')
+			if ()*line != 'O')
 				return (invalid_char("at objects number", "'O'", *line, parser));
 			line++;
 			if (!*line)
@@ -51,7 +51,7 @@ int		init_objects(t_env *env, t_map_parser *parser)
 				return (custom_error("You can not declare less than 0 objects"));
 			if (env->nb_objects
 					&& !(env->objects = (t_object*)ft_memalloc(sizeof(t_object)
-							* (env->nb_objects))))
+							* (env->nb_objects)))
 				return (ft_perror("Could not malloc objects:"));
 			ft_strdel(&tmp);
 			return (0);
