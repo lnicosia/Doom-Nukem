@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
+#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/21 21:15:36 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/24 14:35:08 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
 		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		 is_new_vertex_valid.c add_enemy.c enemy_selection.c delete_event.c \
+		 add_enemy.c enemy_selection.c delete_event.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
@@ -192,6 +192,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c new_object_event.c \
 		   menu_keys.c option_menu.c option_menu_keys.c \
+		   is_new_vertex_valid.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

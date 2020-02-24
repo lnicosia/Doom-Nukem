@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:25:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/20 19:01:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		valid_int(char *line, t_map_parser *parser)
 	nb_digits = 0;
 	while(*line >= '0' && *line <= '9')
 	{
-		if (nb_digits > 9)
+		if (nb_digits > 8)
 			return (ft_printf("Too many digits\n"));
 		nb_digits++;
 		line++;
@@ -100,7 +100,7 @@ int		valid_double(char *line, t_map_parser *parser)
 			point = 1;
 		else if (*line == '.' && point)
 			return (ft_printf("excessive number of points\n"));
-		if (pre_point > 9 || after_point > 5)
+		if (pre_point > 8 || after_point > 4)
 			return (ft_printf("Too many digits\n"));
 		if (!point)
 			pre_point++;

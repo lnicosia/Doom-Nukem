@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 14:20:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:42:21 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,6 +356,9 @@ int		count_wall_sprites(char *line, t_map_parser *parser)
 		line++;
 		i++;
 	}
+	if (i > 5)
+		return (sector_error("Can't exceed 30 sprites", parser->sectors_count,
+		parser));
 	return (i);
 }
 
@@ -383,8 +386,8 @@ int		count_sprites(char *line, t_map_parser *parser)
 				parser->sectors_count, parser));
 			open++;
 			count++;
-			if (count > 2147483646)
-				return (sector_error("Too much sprites", parser->sectors_count,
+			if (count > parser->sector_vertices_count)
+				return (sector_error("Can't exceed %d sprites", parser->sector_vertices_count,
 				parser));
 		}
 		if (*line == '}')
@@ -417,6 +420,9 @@ int		count_floor_sprites(char *line, t_map_parser *parser)
 		line++;
 		i++;
 	}
+	if (i > 5)
+		return (sector_error("Can't exceed 5 sprites", parser->sectors_count,
+		parser));
 	return (i);
 }
 

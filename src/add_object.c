@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/21 11:22:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:33:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int	add_object(t_env *env)
 	object.num = env->nb_objects;
 	object.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	object.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	object.sprite = 0;
+	object.sprite = env->objects_main_sprites[0];
 	object.scale = 2;
 	object.angle = 0;
 	object.exists = 1;
+	object.damage = 0;
 	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, 0));
 	if (object.sector != -1)
 	{

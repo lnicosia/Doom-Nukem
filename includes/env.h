@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 15:04:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:34:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -904,6 +904,7 @@ void				init_print_condition_target_data(t_env *env);
 void				init_print_link_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
+int					segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4);
 int					generate_mipmaps(t_env *env);
 int					set_camera_map_array(t_camera *camera, int i,
 int j, t_env *env);
