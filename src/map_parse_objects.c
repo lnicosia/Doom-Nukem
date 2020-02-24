@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 14:33:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 14:59:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (valid_double(*line, parser))
 		return (ft_printf("Invalid double for object scale\n"));
 	env->objects[parser->objects_count].scale = ft_atof(*line);
+	if (env->objects[parser->objects_count].scale < 0.1
+	|| env->objects[parser->objects_count].scale > 100)
+		return (custom_error_with_line
+		("Object scale must be between 0.1 and 100", parser));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after object scale", parser));

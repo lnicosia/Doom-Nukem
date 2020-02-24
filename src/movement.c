@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 21:12:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:04:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	animations(t_env *env)
 	|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
+	if (!env->player.state.jump && !env->player.state.fall
+		&& !env->player.state.climb && !env->player.state.drop
+		&& !env->player.state.fall && !env->player.state.fly)
+		update_player_z(env);
 }
 
 /*
@@ -198,9 +202,5 @@ int		move_player(t_env *env)
 			update_player_pos(env);
 			animations(env);
 	}
-	if (!env->player.state.jump && !env->player.state.fall
-		&& !env->player.state.climb && !env->player.state.drop
-		&& !env->player.state.fall && !env->player.state.fly)
-		update_player_z(env);
 	return (0);
 }
