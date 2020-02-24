@@ -70,12 +70,22 @@ int		editor_3d_keys(t_env *env)
 	}
 	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
 	{
-		SDL_SetRelativeMouseMode(0);
-		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-				STRING, &env->save_file);
-		env->inputs.s = 0;
-		env->inputs.ctrl = 0;
+		if (env->editor.creating_event)
+		{
+			if (update_confirmation_box(&env->confirmation_box,
+				"Please save your event before saving the map", ERROR, env))
+				return (-1);
+		}
+		else
+		{
+			SDL_SetRelativeMouseMode(0);
+			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+			new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+					STRING, &env->save_file);
+			env->input_box.update = &save_map;
+			env->inputs.s = 0;
+			env->inputs.ctrl = 0;
+		}
 	}
 	if (env->confirmation_box.state)
 	{

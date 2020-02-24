@@ -348,7 +348,6 @@ typedef struct	s_editor
 	t_list				*current_vertices;
 	int					reverted;
 	int					in_game;
-	int					game;
 	int					enter_locked;
 	t_add_vertex		add;
 	t_split				split;

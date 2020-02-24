@@ -39,6 +39,9 @@ int		delete_linked_events(t_env *env)
 	while (env->editor.events_to_delete)
 	{
 		trigger = (t_event_trigger*)env->editor.events_to_delete->content;
+		if (delete_selected_event1(env, *trigger))
+			return (-1);
+		ft_lstpopfront(&env->editor.events_to_delete);
 	}
 	return (0);
 }
@@ -66,6 +69,8 @@ int		delete_sector(void *param)
 		env->sectors[i].num--;
 		i++;
 	}
+	if (delete_linked_events(env))
+		return (-1);
 	update_entities_sectors(env);
 	delete_invalid_sectors(env);
 	delete_invalid_vertices(env);

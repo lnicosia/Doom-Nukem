@@ -94,8 +94,6 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
-		if (!env->input_box.state && env->saving)
-			save_map(env);
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(&env->confirmation_box, env);
@@ -105,8 +103,6 @@ int		editor(t_env *env)
 			update_screen_zbuffer(env);
 		else
 			update_screen(env);
-		if (env->editor.game)
-			editor_start_game(env);
 	}
 	free_all(env);
 	return (0);

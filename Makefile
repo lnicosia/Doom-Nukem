@@ -53,7 +53,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 is_new_vertex_valid.c add_enemy.c enemy_selection.c delete_event.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
+		 apply_texture.c init_event_panel_buttons.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \

@@ -49,8 +49,6 @@ int	editor_keyup(t_env *env)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		env->editor.tab = env->editor.tab ? 0 : 1;
-	if (env->editor.in_game && env->sdl.event.key.keysym.sym == SDLK_g)
-		env->editor.game = env->editor.game ? 0 : 1;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;

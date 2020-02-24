@@ -76,9 +76,13 @@ t_event **events, size_t *nb)
 	return (0);
 }
 
-int		delete_selected_event1(t_env *env, t_event_trigger trigger,
-t_event **events, size_t *nb)
+int		delete_selected_event1(t_env *env, t_event_trigger trigger)
 {
+	t_event			**events;
+	size_t			*nb;
+
+	events = NULL;
+	nb = 0;
 	if (trigger.type == GLOBAL)
 	{
 		events = &env->global_events;
@@ -99,14 +103,10 @@ int		delete_selected_event(void *param)
 {
 	t_env			*env;
 	t_event_trigger	trigger;
-	t_event			**events;
-	size_t			*nb;
 
 	env = (t_env*)param;
 	trigger = env->editor.event_panel.trigger;
-	events = NULL;
-	nb = 0;
-	delete_selected_event1(env, trigger, events, nb);
+	delete_selected_event1(env, trigger);
 	return (0);
 }
 

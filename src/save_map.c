@@ -13,11 +13,12 @@
 #include "env.h"
 #include "save.h"
 
-int		save_map(t_env *env)
+int		save_map(void *param)
 {
+	t_env	*env;
 	int		fd;
 
-	env->saving = 0;
+	env = (t_env*)param;
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)

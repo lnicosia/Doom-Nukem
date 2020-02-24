@@ -24,15 +24,22 @@ int		launch_game(void *target)
 	char	*map_name;
 	t_v3	tmp_pos;
 
-	env = (void*)target;
+	env = (t_env*)target;
+	if (env->editor.creating_event)
+	{
+		if (update_confirmation_box(&env->confirmation_box,
+			"Please save your event before saving the map", ERROR, env))
+			return (-1);
+		return (0);
+	}
 	map_name = ft_strdup(env->save_file);
-	env->editor.game = 0;
 	str = ft_strdup("./doom");
 	tmp = ft_strsplit("./doom maps/tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
 	env->save_file  = ft_strdup("maps/tmp.map");
-	save_map(env);
+	if (save_map(env))
+		return (-1);
 	ft_strdel(&env->save_file);
 	env->save_file = map_name;
 	env->pid = fork();
@@ -105,7 +112,8 @@ int		editor_save_button(t_env *env)
 
 int		editor_launch_game(t_env *env)
 {
-	env->editor.launch_game = new_image_button(ON_RELEASE, &launch_game, env, env);
+	env->editor.launch_game =
+	new_image_button(ON_RELEASE, &launch_game, env, env);
 	env->editor.launch_game.str = "START";
     env->editor.launch_game.pos = new_point(40, 160);
 	return (0);
