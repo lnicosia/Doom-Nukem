@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 14:59:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 15:30:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for object texture\n"));
 	parse = ft_atoi(*line);
-	ft_printf("%d\n", MAX_OBJECTS);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid object sprite texture", parser));
 	env->objects[parser->objects_count].sprite =

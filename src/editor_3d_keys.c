@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 13:49:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 15:33:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int		editor_3d_keys(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);
+			env->sound.ambient_vol);*/
 	if (env->inputs.plus && !env->inputs.shift
 	&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;

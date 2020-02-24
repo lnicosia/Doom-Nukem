@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 19:01:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 15:28:05 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		valid_double(char *line, t_map_parser *parser)
 			point = 1;
 		else if (*line == '.' && point)
 			return (ft_printf("excessive number of points\n"));
-		if (pre_point > 8 || after_point > 4)
+		if (pre_point > 8 || after_point > 5)
 			return (ft_printf("Too many digits\n"));
 		if (!point)
 			pre_point++;
