@@ -29,3 +29,4 @@ print_link_target_functions.c
 init_event_links_types.c
 set_event_link.c
 modify_event.c
+update_existing_events.c

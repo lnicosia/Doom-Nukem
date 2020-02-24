@@ -26,7 +26,10 @@ void	update_entities_sectors(t_env *env)
 	{
 		env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
 		if (env->enemies[i].sector < 0)
-			delete_enemy(env, i);
+		{
+			env->selected_enemy = i;
+			delete_enemy(env);
+		}
 		i++;
 	}
 	i = 0;
@@ -34,7 +37,10 @@ void	update_entities_sectors(t_env *env)
 	{
 		env->objects[i].sector = get_sector_no_z(env, env->objects[i].pos);
 		if (env->objects[i].sector < 0)
-			delete_object(env, i);
+		{
+			env->selected_object = i;
+			delete_object(env);
+		}
 		i++;
 	}
 }

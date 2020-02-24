@@ -117,7 +117,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		 update_entities.c delete_sector.c \
+		 update_entities.c delete_sector.c delete_vertex.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -136,7 +136,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
 		   sound_utils.c draw_rectangle.c confirmation_box.c \
 		   draw_objects.c sprites_maths.c draw_players.c \
-		   map_parse_objects.c map_init_objects.c delete_vertex.c \
+		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
@@ -211,8 +211,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #-Ofast \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \

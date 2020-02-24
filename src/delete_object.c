@@ -12,8 +12,13 @@
 
 #include "env.h"
 
-int	delete_object(t_env *env, int object)
+int	delete_object(void *param)
 {
+	t_env	*env;
+	int		object;
+
+	env = (t_env*)param;
+	object = env->selected_object;
 	env->objects = ft_delindex(env->objects,
 			sizeof(t_object) * env->nb_objects,
 			sizeof(t_object),

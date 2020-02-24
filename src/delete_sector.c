@@ -72,8 +72,10 @@ int		delete_sector(void *param)
 	if (delete_linked_events(env))
 		return (-1);
 	update_entities_sectors(env);
-	delete_invalid_sectors(env);
-	delete_invalid_vertices(env);
+	if (delete_invalid_sectors(env))
+		return (-1);
+	if (delete_invalid_vertices(env))
+		return (-1);
 	env->editor.selected_sector = -1;
 	tabs_gestion(env);
 	clear_portals(env);

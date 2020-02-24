@@ -27,7 +27,7 @@ int		delete_selected_sector(void *param)
 	t_event_target	target;
 
 	env = (t_env *)param;
-	ft_bzero(&target, sizeof(target));
+	init_target(&target);
 	target.sector = env->editor.selected_sector;
 	target.type = SECTOR_DELETED;
 	if (update_sector_existing_events(env, target))
@@ -39,24 +39,31 @@ int		delete_selected_sector(void *param)
 	return (0);
 }
 
+int		delete_selected_vertex(t_env *env)
+{
+	int				i;
+	t_event_target	target;
+
+	init_target(&target);
+	target.vertex = env->editor.selected_vertex;
+	target.type = VERTEX_DELETED;
+	i = 0;
+	if (update_sector_existing_events(env, target))
+		return (-1);
+	if (env->confirmation_box.state)
+		return (0);
+	if (delete_vertex(env))
+		return (-1);
+	return (0);
+}
+
 int		delete_action(t_env *env)
 {
-	int	i;
-
 	if (env->editor.selected_vertex != -1
 			&& !current_vertices_contains(env, env->editor.selected_vertex))
 	{
-		i = 0;
-		delete_vertex(env, env->editor.selected_vertex);
-		delete_invalid_sectors(env);
-		delete_invalid_vertices(env);
-		env->editor.selected_vertex = -1;
-		clear_portals(env);
-		while (i < env->nb_sectors)
-		{
-			create_portals(env, env->sectors[i]);
-			i++;
-		}
+		if (delete_selected_vertex(env))
+			return (-1);
 	}
 	if (env->editor.selected_sector != -1 && !env->confirmation_box.state)
 	{
@@ -68,8 +75,15 @@ int		delete_action(t_env *env)
 	}
 	if (env->selected_object != -1)
 	{
-		delete_object(env, env->selected_object);
+		if (delete_object(env))
+			return (-1);
 		env->selected_object = -1;
+	}
+	if (env->selected_enemy != -1)
+	{
+		if (delete_enemy(env))
+			return (-1);
+		env->selected_enemy = -1;
 	}
 	env->inputs.del = 0;
 	return (0);

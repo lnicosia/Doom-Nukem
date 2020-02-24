@@ -34,6 +34,7 @@ t_events_parser *eparser)
 		parser));
 	eparser->event.target_index = eparser->target_index;
 	*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->target_parsers[eparser->target_index](env, parser, line,
 		eparser))
 		return (-1);

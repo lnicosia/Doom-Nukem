@@ -28,6 +28,7 @@ t_events_parser *eparser)
 	if (eparser->target_type < 0 || eparser->target_type > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid target event type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->target_type](env, parser, line,
 		eparser))
 		return (-1);
@@ -68,6 +69,7 @@ t_events_parser *eparser)
 	if (eparser->source_type < 0 || eparser->source_type > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid source event type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->source_type](env, parser, line,
 		eparser))
 		return (-1);

@@ -282,10 +282,11 @@ void				vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
 int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
-void				del_last_vertex(t_env *env);
-int					delete_vertex(t_env *env, int vertex);
+int					del_last_vertex(t_env *env);
+int					delete_vertex(void *param);
 int					delete_sector(void *param);
-int					delete_object(t_env *env, int object);
+int					delete_object(void *param);
+int					delete_enemy(void *param);
 int					current_vertices_contains(t_env *env, int vertex);
 int					is_vertex_used(t_env *env, int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex,
@@ -297,7 +298,6 @@ int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 int					editor_button_up(t_env *env);
-int					delete_enemy(t_env *env, int enemy);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
@@ -475,6 +475,7 @@ t_event_target target);
 int					update_object_existing_events(t_env *env,
 t_event_target target);
 int					delete_selected_sector(void *param);
+int					delete_linked_events(t_env *env);
 
 
 /*
@@ -944,6 +945,9 @@ int					option_menu_button(t_env *env);
 int					exit_button(t_env *env);
 int					return_button(t_env *env);
 void				init_events_map(t_env *env);
+void				init_condition(t_condition *condition);
+void				init_trigger(t_event_trigger *trigger);
+void				init_target(t_event_target *target);
 
 /*
 **	Parser functions

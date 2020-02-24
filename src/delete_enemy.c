@@ -12,8 +12,13 @@
 
 #include "env.h"
 
-int	delete_enemy(t_env *env, int enemy)
+int	delete_enemy(void *param)
 {
+	t_env	*env;
+	int		enemy;
+
+	env = (t_env*)param;
+	enemy = env->selected_enemy;
 	env->enemies = ft_delindex(env->enemies,
 			sizeof(t_enemy) * env->nb_enemies,
 			sizeof(t_enemy),

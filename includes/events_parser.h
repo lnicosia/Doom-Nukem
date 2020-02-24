@@ -180,6 +180,7 @@ void				init_events_parser_target_types(t_events_parser *eparser);
 void				init_events_parser_checkers(t_events_parser *eparser);
 void				init_events_parser_updaters(t_events_parser *eparser);
 void				init_events_parser_links_protection(t_events_parser *eparser);
+void				init_events_parser_var(t_events_parser *eparser);
 int					new_parser_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					new_parser_press_event(t_env *env, t_map_parser *parser,

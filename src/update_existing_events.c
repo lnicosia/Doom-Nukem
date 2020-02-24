@@ -1,15 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_existing_events.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/13 12:29:41 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/20 18:33:35 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "update_existing_events.h"
 #include "events_parser.h"
+
+int		delete_events_to_delete_list(void *param)
+{
+	t_env	*env;
+
+	env = (t_env*)param;
+	ft_lstdelfront(&env->editor.events_to_delete);
+	return (0);
+}
 
 int		check_condition_targets(t_env *env, t_condition *condition,
 t_event_target target, t_event_trigger *trigger)
 {
 	t_list	*new;
 
-	env->confirmation_box.yes_action = &delete_sector;
-	env->confirmation_box.yes_target = env;
-	if (target.type == SECTOR_DELETED && (condition->sector == target.sector
+	if (target.type == SECTOR_DELETED && target.sector >= 0
+		&& (condition->sector == target.sector
 		|| condition->target_trigger.sector == target.sector))
 	{
 		ft_printf("{green}Condition sector link found{reset}\n");
@@ -20,8 +40,12 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
+		env->confirmation_box.yes_action = &delete_sector;
+		env->confirmation_box.yes_target = env;
+		env->confirmation_box.no_action = &delete_events_to_delete_list;
+		env->confirmation_box.no_target = env;
 	}
-	else if (target.type == VERTEX_DELETED
+	else if (target.type == VERTEX_DELETED && target.vertex >= 0
 		&& condition->vertex == target.vertex)
 	{
 		ft_printf("{green}Condition vertex link found{reset}\n");
@@ -32,8 +56,13 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
+		env->confirmation_box.yes_target = env;
+		env->confirmation_box.yes_action = &delete_vertex;
+		env->confirmation_box.no_action = &delete_events_to_delete_list;
+		env->confirmation_box.no_target = env;
 	}
-	else if (target.type == ENEMY_DELETED && condition->enemy == target.enemy)
+	else if (target.type == ENEMY_DELETED && target.enemy >= 0
+		&& condition->enemy == target.enemy)
 	{
 		ft_printf("{green}Condition enemy link found{reset}\n");
 		if (update_confirmation_box(&env->confirmation_box, "Deleting this"
@@ -43,8 +72,11 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
+		env->confirmation_box.yes_target = env;
+		env->confirmation_box.no_action = &delete_events_to_delete_list;
+		env->confirmation_box.no_target = env;
 	}
-	else if (target.type == OBJECT_DELETED
+	else if (target.type == OBJECT_DELETED && target.object >= 0
 		&& condition->object == target.object)
 	{
 		ft_printf("{green}Condition object link found{reset}\n");
@@ -55,6 +87,9 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
+		env->confirmation_box.yes_target = env;
+		env->confirmation_box.no_action = &delete_events_to_delete_list;
+		env->confirmation_box.no_target = env;
 	}
 	return (0);
 }
@@ -83,6 +118,17 @@ t_event_target target, t_event_trigger *trigger)
 	return (0);
 }
 
+int		check_event_targets(t_env *env, t_event *event,
+t_event_target target, t_event_trigger *trigger)
+{
+	if (event->nb_launch_conditions > 0 || event->nb_exec_conditions > 0)
+	{
+		if (check_event_conditions_targets(env, event, target, trigger))
+			return (-1);
+	}
+	return (0);
+}
+
 int		check_stand_events_targets(t_env *env, t_sector *sector,
 t_event_target target, t_event_trigger *trigger)
 {
@@ -94,13 +140,9 @@ t_event_target target, t_event_trigger *trigger)
 	while (i < sector->nb_stand_events)
 	{
 		trigger->index = i;
-		if (sector->stand_events[i].nb_launch_conditions > 0
-			|| sector->stand_events[i].nb_exec_conditions > 0)
-		{
-			if (check_event_conditions_targets(env, &sector->stand_events[i],
-				target, trigger))
-				return (-1);
-		}
+		if (check_event_targets(env, &sector->stand_events[i],
+			target, trigger))
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -117,13 +159,9 @@ t_event_target target, t_event_trigger *trigger)
 	while (i < sector->nb_walk_in_events)
 	{
 		trigger->index = i;
-		if (sector->walk_in_events[i].nb_launch_conditions > 0
-			|| sector->walk_in_events[i].nb_exec_conditions > 0)
-		{
-			if (check_event_conditions_targets(env, &sector->walk_in_events[i],
-				target, trigger))
-				return (-1);
-		}
+		if (check_event_targets(env, &sector->walk_in_events[i],
+			target, trigger))
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -140,13 +178,9 @@ t_event_target target, t_event_trigger *trigger)
 	while (i < sector->nb_walk_out_events)
 	{
 		trigger->index = i;
-		if (sector->walk_out_events[i].nb_launch_conditions > 0
-			|| sector->walk_out_events[i].nb_exec_conditions > 0)
-		{
-			if (check_event_conditions_targets(env, &sector->walk_out_events[i],
-				target, trigger))
-				return (-1);
-		}
+		if (check_event_targets(env, &sector->walk_out_events[i],
+			target, trigger))
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -157,32 +191,23 @@ t_event_trigger *trigger)
 {
 	int		i;
 
-	i = 0;
-	while (i < env->nb_sectors)
+	i = -1;
+	while (++i < env->nb_sectors)
 	{
-		ft_printf("checking sector %d\n", i);
-		if (i != target.sector)
-		{
-			if (env->sectors[i].nb_stand_events > 0)
-			{
-				if (check_stand_events_targets(env, &env->sectors[i],
+		if (i == target.sector)
+			continue;
+		if (env->sectors[i].nb_stand_events > 0
+			&& check_stand_events_targets(env, &env->sectors[i],
+			target, trigger))
+			return (-1);
+		if (env->sectors[i].nb_walk_in_events > 0
+			&& check_walk_in_events_targets(env, &env->sectors[i],
+			target, trigger))
+			return (-1);
+		if (env->sectors[i].nb_walk_out_events > 0
+			&& check_walk_out_events_targets(env, &env->sectors[i],
 				target, trigger))
-					return (-1);
-			}
-			if (env->sectors[i].nb_walk_in_events > 0)
-			{
-				if (check_walk_in_events_targets(env, &env->sectors[i],
-				target, trigger))
-					return (-1);
-			}
-			if (env->sectors[i].nb_walk_out_events > 0)
-			{
-				if (check_walk_out_events_targets(env, &env->sectors[i],
-					target, trigger))
-					return (-1);
-			}
-		}
-		i++;
+			return (-1);
 	}
 	return (0);
 }
@@ -197,13 +222,169 @@ t_event_trigger *trigger)
 	while (i < env->nb_global_events)
 	{
 		trigger->index = i;
-		ft_printf("checking global event %d\n", i);
-		if (env->global_events[i].nb_launch_conditions > 0
-			|| env->global_events[i].nb_exec_conditions > 0)
+		if (check_event_targets(env, &env->global_events[i],
+			target, trigger))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int		check_enemy_collision_events_targets(t_env *env, t_enemy *enemy,
+t_event_target target, t_event_trigger *trigger)
+{
+	size_t	j;
+
+	j = 0;
+	trigger->type = ENEMY_COLLISION;
+	while (j < enemy->nb_collision_events)
+	{
+		trigger->index = j;
+		if (check_event_targets(env, &enemy->collision_events[j],
+			target, trigger))
+			return (-1);
+		j++;
+	}
+	return (0);
+}
+
+int		check_enemy_death_events_targets(t_env *env, t_enemy *enemy,
+t_event_target target, t_event_trigger *trigger)
+{
+	size_t	j;
+
+	j = 0;
+	trigger->type = DEATH;
+	while (j < enemy->nb_death_events)
+	{
+		trigger->index = j;
+		if (check_event_targets(env, &enemy->death_events[j],
+			target, trigger))
+			return (-1);
+		j++;
+	}
+	return (0);
+}
+
+int		check_enemies_events_targets(t_env *env, t_event_target target,
+t_event_trigger *trigger)
+{
+	int		i;
+
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		trigger->enemy = i;
+		if (check_enemy_collision_events_targets(env, &env->enemies[i],
+			target, trigger))
+			return (-1);
+		if (check_enemy_death_events_targets(env, &env->enemies[i],
+			target, trigger))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int		check_objects_events_targets(t_env *env, t_event_target target,
+t_event_trigger *trigger)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	trigger->type = OBJECT_COLLISION;
+	while (i < env->nb_objects)
+	{
+		trigger->object = i;
+		j = 0;
+		while (j < env->objects[i].nb_collision_events)
 		{
-			if (check_event_conditions_targets(env, &env->global_events[i],
+			trigger->index = j;
+			if (check_event_targets(env, &env->objects[i].collision_events[j],
 				target, trigger))
 				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int		check_wall_sprite_shoot_events_targets(t_env *env,
+t_event_target target, t_event_trigger *trigger, t_wall_sprites *wall_sprites)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	trigger->type = SHOOT;
+	while (i < wall_sprites->nb_sprites)
+	{
+		j = 0;
+		trigger->sprite = i;
+		while (j < wall_sprites->nb_shoot_events[i])
+		{
+			trigger->index = j;
+			if (check_event_targets(env, &wall_sprites->shoot_events[i][j],
+				target, trigger))
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int		check_wall_sprite_press_events_targets(t_env *env,
+t_event_target target, t_event_trigger *trigger, t_wall_sprites *wall_sprites)
+{
+	int		i;
+	size_t	j;
+
+	i = 0;
+	trigger->type = PRESS;
+	while (i < wall_sprites->nb_sprites)
+	{
+		j = 0;
+		trigger->sprite = i;
+		while (j < wall_sprites->nb_press_events[i])
+		{
+			trigger->index = j;
+			if (check_event_targets(env, &wall_sprites->press_events[i][j],
+				target, trigger))
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int		check_wall_sprites_events_targets(t_env *env, t_event_target target,
+t_event_trigger *trigger)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		trigger->sector = i;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			trigger->wall = j;
+			if (env->sectors[i].wall_sprites[j].nb_sprites > 0)
+			{
+				if (check_wall_sprite_shoot_events_targets(env, target, trigger,
+					&env->sectors[i].wall_sprites[j]))
+					return (-1);
+				if (check_wall_sprite_press_events_targets(env, target, trigger,
+					&env->sectors[i].wall_sprites[j]))
+					return (-1);
+			}
+			j++;
 		}
 		i++;
 	}
@@ -220,8 +401,24 @@ int		update_sector_existing_events(t_env *env, t_event_target target)
 {
 	t_event_trigger		trigger;
 
+	init_trigger(&trigger);
+	ft_printf("checking sectors events\n");
 	if (check_sectors_events_targets(env, target, &trigger))
 		return (-1);
+	init_trigger(&trigger);
+	ft_printf("checking enemies events\n");
+	if (check_enemies_events_targets(env, target, &trigger))
+		return (-1);
+	init_trigger(&trigger);
+	ft_printf("checking objects events\n");
+	if (check_objects_events_targets(env, target, &trigger))
+		return (-1);
+	init_trigger(&trigger);
+	ft_printf("checking wall sprites events\n");
+	if (check_wall_sprites_events_targets(env, target, &trigger))
+		return (-1);
+	init_trigger(&trigger);
+	ft_printf("checking global events\n");
 	if (env->nb_global_events > 0 && check_global_events_targets(env, target,
 		&trigger))
 		return (-1);
