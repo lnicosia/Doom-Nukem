@@ -24,7 +24,8 @@ void	print_events_tab(t_env *env)
 		print_sector_events_tab(env);
 	else if (env->selected_wall_sprite_wall != -1)
 		print_wall_sprite_events_tab(env);
-	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
+	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+		&& env->selected_enemy == -1 && env->selected_object == -1)
 		print_global_events_tab(env);
 	draw_button(env, env->editor.new_event, "New event");
 }

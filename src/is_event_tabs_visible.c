@@ -52,6 +52,7 @@ int		is_enemy_events_tab_visible(t_env *env)
 int		is_events_tab_visible(t_env *env)
 {
 	if ((env->editor.selected_sector == -1 && env->selected_floor == -1
+		&& env->selected_enemy == -1 && env->selected_object == -1
 		&& env->nb_global_events > 0)
 		|| (env->selected_object != -1
 		&& env->objects[env->selected_object].nb_collision_events > 0)

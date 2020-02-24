@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:35:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 14:39:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 09:20:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ int			check_sector_nb_events(t_env *env, int sector, size_t nb)
 
 int			check_event_nb_events(t_env *env, int sector, size_t nb)
 {
-	if ((env->editor.selected_sector == -1
-		&& env->selected_floor == -1 && env->nb_global_events > nb)
+	if ((sector == -1 && env->selected_enemy == -1
+		&& env->selected_object == -1 && env->nb_global_events > nb)
 		|| (env->selected_enemy != -1
-		&& ((env->enemies[env->selected_enemy].nb_death_events > nb)
-		|| (env->enemies[env->selected_enemy].nb_collision_events > nb)))
+		&& ((env->editor.selected_events == 1
+		&& env->enemies[env->selected_enemy].nb_death_events > nb)
+		|| (env->editor.selected_events == 0
+		&& env->enemies[env->selected_enemy].nb_collision_events > nb)))
 		|| (env->selected_object != -1
 		&& env->objects[env->selected_object].nb_collision_events > nb)
 		|| check_sector_nb_events(env, sector, nb)

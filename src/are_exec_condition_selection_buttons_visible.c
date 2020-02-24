@@ -76,9 +76,9 @@ int enemy)
 	event = env->editor.selected_event;
 	events = env->editor.selected_events;
 	if (env->selected_enemy != -1
-		&& ((env->enemies[enemy].nb_death_events > 0
+		&& ((events == 1 && env->enemies[enemy].nb_death_events > 0
 		&& env->enemies[enemy].death_events[event].nb_exec_conditions > 1)
-		|| (env->enemies[enemy].nb_collision_events > 0
+		|| (events == 0 && env->enemies[enemy].nb_collision_events > 0
 		&& env->enemies[enemy].collision_events[event].nb_exec_conditions > 1)))
 		return (1);
 	return (0);
@@ -91,7 +91,9 @@ int			check_global_exec_conditions(t_env *env)
 
 	event = env->editor.selected_event;
 	events = env->editor.selected_events;
-	if (env->nb_global_events > 0 && env->global_events[event].
+	if (env->selected_enemy == -1 && env->selected_object == -1
+		&& env->editor.selected_sector == -1 && env->selected_floor == -1
+		&& env->nb_global_events > 0 && env->global_events[event].
 		nb_exec_conditions > 1)
 		return (1);
 	return (0);

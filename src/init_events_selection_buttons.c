@@ -118,7 +118,8 @@ int		next_event(void *penv)
 			env->editor.selected_event = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
-			&& env->editor.selected_event >= env->nb_global_events)
+		&& env->selected_enemy == -1 && env->selected_object == -1
+		&& env->editor.selected_event >= env->nb_global_events)
 		env->editor.selected_event = 0;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
@@ -177,7 +178,8 @@ int		previous_event(void *penv)
 				env->editor.selected_event =
 				env->sectors[sector].nb_walk_out_events - 1;
 		}
-		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
+		else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+			&& env->selected_enemy == -1 && env->selected_object == -1)
 			env->editor.selected_event = env->nb_global_events - 1;
 	}
 	env->editor.selected_launch_condition = 0;
@@ -249,6 +251,7 @@ int		next_launch_condition(void *penv)
 			env->editor.selected_launch_condition = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+		&& env->selected_enemy == -1 && env->selected_object == -1
 		&& env->editor.selected_launch_condition >=
 		env->global_events[env->editor.selected_event].nb_launch_conditions)
 		env->editor.selected_launch_condition = 0;
@@ -317,7 +320,8 @@ int		previous_launch_condition(void *penv)
 				walk_out_events[env->editor.selected_event].
 				nb_launch_conditions - 1;
 		}
-		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
+		else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+			&& env->selected_enemy == -1 && env->selected_object == -1)
 			env->editor.selected_launch_condition =
 			env->global_events[env->editor.selected_event].nb_launch_conditions - 1;
 	}
@@ -385,6 +389,7 @@ int		next_exec_condition(void *penv)
 			env->editor.selected_exec_condition = 0;
 	}
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+		&& env->selected_enemy == -1 && env->selected_object == -1
 		&& env->editor.selected_exec_condition >=
 		env->global_events[env->editor.selected_event].nb_exec_conditions)
 		env->editor.selected_exec_condition = 0;
@@ -448,7 +453,8 @@ int		previous_exec_condition(void *penv)
 				walk_out_events[env->editor.selected_event].
 				nb_exec_conditions - 1;
 		}
-		else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
+		else if (env->selected_floor == -1 && env->editor.selected_sector == -1
+			&& env->selected_enemy == -1 && env->selected_object == -1)
 			env->editor.selected_exec_condition =
 			env->global_events[env->editor.selected_event].nb_exec_conditions - 1;
 	}
