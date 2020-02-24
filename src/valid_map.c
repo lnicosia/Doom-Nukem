@@ -166,6 +166,57 @@ t_vertex vt1, t_vertex vt2)
 	return (0);
 }
 
+int			is_sector_concave(t_sector sector, t_env *env)
+{
+	int			i;
+	t_v2		*p;
+	int			straight;
+	int			res;
+	t_vertex	current;
+
+	i = 0;
+	res = 0;
+	straight = 0;
+	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (sector.nb_vertices + 2))))
+		return (0);
+	while (i < sector.nb_vertices + 2)
+	{
+		if (i >= sector.nb_vertices)
+		{
+			if (i == sector.nb_vertices)
+			{
+				p[i].x = p[0].x;
+				p[i].y = p[0].y;
+			}
+			else if (i == sector.nb_vertices + 1)
+			{
+				p[i].x = p[1].x;
+				p[i].y = p[1].y;
+			}
+		}
+		else
+		{
+			current = env->vertices[env->sectors[sector.num].vertices[i]];
+			p[i].x = current.x;
+			p[i].y = current.y;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < sector.nb_vertices)
+	{
+		res = check_all_angles(p, res, i, straight);
+		if (!res)
+			straight++;
+		else
+			straight = 0;
+		i++;
+	}
+	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
+		return (-1);
+	return (0);
+}
+
 int			check_vertices(t_sector sector, t_env *env)
 {
 	int			i;
@@ -187,8 +238,11 @@ int			check_vertices(t_sector sector, t_env *env)
 		}
 		i++;
 	}
+	if (is_sector_concave(sector, env))
+		return (ft_printf("Sector %d is concave\n", sector.num));
 	if (check_neighbor_validity(sector, env))
 		return(ft_printf("Sector %d has a invalid neighbor\n", sector.num));
+	
 	return (0);
 }
 

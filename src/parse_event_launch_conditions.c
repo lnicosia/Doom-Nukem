@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_launch_conditions.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:20:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:41:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ t_events_parser *eparser)
 		return (invalid_char("after event launch condition target", "a space",
 		**line, parser));
 	(*line)++;
-		if (valid_number(*line, parser))
-		return (invalid_char("before launch condition target", "a digit", **line,
-		parser));
+		if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event condition index\n"));
 		eparser->condition_index = ft_atof(*line);
 	if (eparser->condition_index < 0
 			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
@@ -110,9 +109,8 @@ t_events_parser *eparser)
 		return (invalid_char("before event launch condition", "'{'",
 		**line, parser));
 	(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before launch condition type", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event launch condition's type\n"));
 		eparser->event.launch_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.launch_conditions[eparser->condition_count].type < 0
@@ -126,9 +124,8 @@ t_events_parser *eparser)
 		return (invalid_char("after event launch condition type", "a space",
 		**line, parser));
 		(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before launch condition value", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event launch condition value\n"));
 		eparser->event.launch_conditions[eparser->condition_count].value =
 		ft_atof(*line);
 	if (parse_condition2(env, parser, line, eparser))

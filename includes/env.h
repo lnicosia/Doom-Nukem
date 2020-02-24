@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/24 14:34:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 17:29:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,7 +465,7 @@ int					next_ambiance_music(void *target);
 int					previous_ambiance_music(void *target);
 int					next_fighting_music(void *target);
 int					previous_fighting_music(void *target);
-
+int					check_all_angles(t_v2 *p, int res, int i, int straight);
 
 /*
 **	Input boxes checkers and updaters

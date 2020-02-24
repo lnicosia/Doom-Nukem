@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 15:28:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 17:17:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,15 @@ int		valid_int(char *line, t_map_parser *parser)
 {
 	(void)parser;
 	int	nb_digits;
+	int	neg;
 
 	nb_digits = 0;
-	while(*line >= '0' && *line <= '9')
+	neg = 0;
+	while((*line >= '0' && *line <= '9') || *line == '-')
 	{
-		if (nb_digits > 8)
+		if (*line == '-' && !nb_digits)
+			neg = 1;
+		if (nb_digits > 8 + neg)
 			return (ft_printf("Too many digits\n"));
 		nb_digits++;
 		line++;
@@ -88,19 +92,23 @@ int		valid_double(char *line, t_map_parser *parser)
 	int	point;
 	int	pre_point;
 	int	after_point;
+	int	neg;
 
 	point = 0;
 	pre_point = 0;
 	after_point = 0;
+	neg = 0;
 	(void)parser;
 	while((*line >= '0' && *line <= '9')
-	|| (*line == '.'))
+	|| (*line == '.' || *line == '-'))
 	{
+		if (*line == '-' && !pre_point && !after_point)
+			neg = 1;
 		if (*line == '.' && !point)
 			point = 1;
 		else if (*line == '.' && point)
 			return (ft_printf("excessive number of points\n"));
-		if (pre_point > 8 || after_point > 5)
+		if (pre_point > 8 + neg || after_point > 5)
 			return (ft_printf("Too many digits\n"));
 		if (!point)
 			pre_point++;

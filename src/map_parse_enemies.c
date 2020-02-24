@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 15:26:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/24 16:25:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy health, speed and damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d hp",
+		return (ft_printf("Invalid int for enemy %d hp\n",
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].map_hp = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].map_hp <= 0)
@@ -36,7 +36,7 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy speed and damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d speed",
+		return (ft_printf("Invalid int for enemy %d speed\n",
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].speed = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 100)
@@ -51,7 +51,7 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d damage",
+		return (ft_printf("Invalid int for enemy %d damage\n",
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].damage = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].damage <= 0)
@@ -99,6 +99,11 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 		return (ft_printf("Invalid double for enemy %d scale",
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].scale = ft_atof(*line);
+	if (env->enemies[parser->enemies_count].scale
+	+ env->enemies[parser->enemies_count].pos.z + 1
+	> get_ceiling_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
+	env->enemies[parser->enemies_count].pos, env))
+		return (ft_printf("Enemy's head is too high compared to ceiling height\n"));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after enemy scale", parser));
@@ -184,6 +189,10 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 				env->enemies[parser->enemies_count].pos.z));
 	if (env->enemies[parser->enemies_count].sector >= 0)
 	{
+		if (env->enemies[parser->enemies_count].pos.z
+		< get_floor_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
+		env->enemies[parser->enemies_count].pos, env))
+			return (ft_printf("Enemy %d is under the floor\n", parser->enemies_count));
 		env->enemies[parser->enemies_count].brightness =
 			env->sectors[env->enemies[parser->enemies_count].sector].brightness;
 		env->enemies[parser->enemies_count].light_color =
