@@ -18,9 +18,9 @@ int     in_range(double nb, double val1, double val2)
 	double min;
 	double max;
 
-	min = (val1 <= val2) ? val1 : val2;
+	min = (val1 < val2) ? val1 : val2;
 	max = (val1 > val2) ? val1 : val2;
-	if (nb > min && nb <= max)
+	if (nb > min && nb < max)
 		return (1);
 	return (0);
 }
@@ -174,9 +174,11 @@ int		inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size)
 	is_inside = 0;
 	while (i < size)
 	{
-		if (((tmp_sect[i].y < v1.y && tmp_sect[j].y >= v1.y) ||
-			(tmp_sect[j].y < v1.y && tmp_sect[i].y >= v1.y)) &&
-			(tmp_sect[i].x <= v1.x || tmp_sect[j].x <= v1.x))
+		if (((tmp_sect[i].y < v1.y && tmp_sect[j].y >= v1.y)
+		|| (tmp_sect[j].y < v1.y && tmp_sect[i].y >= v1.y))
+		
+		
+		&& (tmp_sect[i].x <= v1.x || tmp_sect[j].x <= v1.x))
 		{
 			if (tmp_sect[i].x + ( v1.y - tmp_sect[i].y) /
 				(tmp_sect[j].y - tmp_sect[i].y) *

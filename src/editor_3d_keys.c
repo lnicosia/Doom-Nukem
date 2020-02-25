@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 15:34:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 15:39:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		check_move_player_conditions(t_env *env)
 
 int		editor_3d_keys(t_env *env)
 {
+	int		ret;
+
 	if (env->editor.tab)
 	{
 		if (editor_3d_tab_keys(env))
@@ -68,8 +70,13 @@ int		editor_3d_keys(t_env *env)
 		reset_selection(env);
 		tabs_gestion(env);
 	}
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
+	if (env->inputs.s && env->inputs.ctrl)
 	{
+		ret = valid_map(env);
+		if (ret == -1)
+			return (-1);
+		else if (ret)
+			return (0);
 		if (env->editor.creating_event)
 		{
 			if (update_confirmation_box(&env->confirmation_box,

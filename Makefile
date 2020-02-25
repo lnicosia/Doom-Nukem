@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/25 14:43:24 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/25 19:30:25 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
-		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
+		add_vertex.c print_target_functions2.c \
 		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
@@ -54,7 +54,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 apply_texture.c init_event_panel_buttons.c \
-		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
+		 editor_3d_keyup.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
@@ -133,7 +133,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c death.c \
-		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
+		   map_parse_vertices.c add_vertex_in_sector.c is_in_sector.c\
+		   get_existing_vertex.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
 		   sound_utils.c draw_rectangle.c confirmation_box.c \

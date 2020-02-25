@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:10:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 14:23:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:18:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ int		delete_vertex(void *param)
 	{
 		env->vertices[i].num--;
 		i++;
+	}
+	if (env->editor.current_vertices)
+	{
+		env->editor.selected_vertex = -1;
+		return (0);
 	}
 	if (delete_invalid_sectors(env))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:50:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 15:34:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,141 @@ int		check_vertex_inside_sector(t_env *env, t_v2 vertex)
 **	Check if the current sector is inside another sector
 */
 
+int			compare_sectors(int start_v1, int start_v2, t_sector sect1, t_sector sect2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (start_v1 < sect1.nb_vertices)
+	{
+		ft_printf("	v: %d | v: %d\n", sect1.vertices[start_v1], sect2.vertices[start_v2]);
+		if (sect1.vertices[start_v1] == sect2.vertices[start_v2])
+		{
+			ft_printf("	vertices equals\n");
+			i++;
+		}
+		else
+		{
+			ft_printf("\nlooping to find from start\n");
+			if (start_v2 + 1 < sect2.nb_vertices)
+				j = start_v2 + 1;
+			else
+				j = 0;
+			ft_printf("conditions of loop: ==> j: %d > v2: %d | limit: %d\n", j, start_v2, sect2.nb_vertices);
+			while ((j > start_v2 && j < sect2.nb_vertices)
+			|| (j < start_v2))
+			{
+				ft_printf("j: %d | limit: %d\n", j, sect2.nb_vertices);
+				if (sect1.vertices[start_v1] == sect2.vertices[j])
+				{
+					start_v2 = j;
+					i++;
+					ft_printf("	v: %d | v: %d\n", sect1.vertices[start_v1], sect2.vertices[j]);
+					ft_printf("	vertices equals\n");
+					break;
+				}
+				if (j < sect2.nb_vertices)
+					j++;
+				else
+					j = 0;
+			}
+		}
+		if (start_v2 < sect2.nb_vertices)
+			start_v2++;
+		else
+			start_v2 = 0;
+		start_v1++;
+	}
+	ft_printf("\n");
+	ft_printf("i: %d | vertices: %d\n", i, sect1.nb_vertices);
+	if (i == sect1.nb_vertices)
+		return (-1);
+	return (0);
+}
+
+int			check_portals(t_sector sect1, t_sector sect2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < sect1.nb_vertices)
+	{
+		j = 0;
+		while (j < sect2.nb_vertices)
+		{
+			if (sect1.vertices[i] == sect2.vertices[j]
+			&& sect1.neighbors[i] == -1)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			check_sectors_inside(t_sector sector, int sect, t_env *env)
+{
+	int			i;
+	int			j;
+	t_v2	vertex;
+	t_sector	sector2;
+
+	i = 0;
+	sector2 = env->sectors[sect];
+	ft_printf("=======> sector: %d | sector: %d <========\n", sector.num, sect);
+	while (i < sector.nb_vertices)
+	{
+		j = 0;
+		vertex = new_v2(env->vertices[sector.vertices[i]].x,
+		env->vertices[sector.vertices[i]].y);
+/*		if (is_in_sector_no_z(env, sect, vertex))
+			return (custom_error("Vertex is inside a sector"));*/
+		while (j < sector2.nb_vertices)
+		{
+			if (sector.vertices[i] == sector2.vertices[j])
+				break;
+			j++;
+		}
+		if (sector.vertices[i] == sector2.vertices[j])
+			break;
+		i++;
+	}
+	if (compare_sectors(i, j, sector, sector2))
+		return (-1);
+	if (check_portals(sector, sector2))
+		return(-1);
+	ft_printf("\n");
+	ft_printf("=======> END <=======\n");
+	if (i == sector.nb_vertices - 1)
+		return (-1);
+	return (0);
+}
+
 static int	is_inside(t_sector sector, t_env *env)
 {
 	int		i;
 
-	i = 0;
+/*	i = 0;
 	while (i < sector.nb_vertices)
 	{
 		if (check_vertex_inside_sector(env,
 			new_v2(env->vertices[sector.vertices[i]].x,
 			env->vertices[sector.vertices[i]].y)) != 1)
 			return (1);
+		i++;
+	}*/
+	i = 0;
+	while(i < env->nb_sectors)
+	{
+		if (i != sector.num)
+		{
+			if (check_sectors_inside(sector, i, env))
+				return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -212,6 +336,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 			straight = 0;
 		i++;
 	}
+	free(p);
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
 		return (-1);
 	return (0);

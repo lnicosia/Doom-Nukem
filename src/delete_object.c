@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   delete_object.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/08/26 15:39:31 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/02/25 13:29:21 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delete_object.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 14:45:16 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/25 14:47:50 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -19,6 +19,8 @@ int	delete_object(void *param)
 
 	env = (t_env*)param;
 	object = env->selected_object;
+	free_events(env->objects[object].collision_events,
+	env->objects[object].nb_collision_events);
 	env->objects = (t_object*)ft_delindex(env->objects,
 			sizeof(t_object) * env->nb_objects,
 			sizeof(t_object),

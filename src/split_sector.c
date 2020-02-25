@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:17:28 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 14:21:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:49:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,8 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	i = start;
 	while (i <= end)
 	{
-		add_vertex_to_current_sector(env, (int)sector->vertices[i]);
+		if (add_vertex_to_current_sector(env, (int)sector->vertices[i]))
+			return (-1);
 		i++;
 	}
 	env->editor.reverted = get_clockwise_order(env) ? 0 : 1;

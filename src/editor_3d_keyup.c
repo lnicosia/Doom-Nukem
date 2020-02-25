@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 12:26:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:40:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int		editor_3d_keyup(t_env *env)
 		return (0);
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
-		&& (env->selected_enemy != -1 || env->selected_object != -1))
+		&& (env->selected_enemy != -1 || env->selected_object != -1
+		|| env->selected_wall_sprite_wall != -1))
 		if (delete_action(env))
 			return (-1);
 	editor_options_tab_keyup(env);
