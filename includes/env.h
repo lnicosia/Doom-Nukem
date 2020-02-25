@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 14:38:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 15:05:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,9 @@ void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
 int					update_double_tab(int index, double size, double **tab);
 int					update_int_tab(int index, int size, int **tab);
+int					update_t_v2_tab(int index, int size, t_v2 **tab);
+int					update_t_list_tab(int index, int size, t_list ***tab);
+int					update_t_wall_sprite_tab(int index, int size, t_wall_sprites **tab);
 void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);

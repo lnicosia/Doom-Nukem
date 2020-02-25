@@ -106,6 +106,14 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		&env->sectors[sector->num].clipped_ceilings2);
 		update_double_tab(i, sector->nb_vertices + 1,
 		&env->sectors[sector->num].wall_width);
+		update_t_v2_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].scale);
+		update_t_v2_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].align);
+		update_t_list_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].wall_bullet_holes);
+		update_t_wall_sprite_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].wall_sprites);
 		sector->nb_vertices--;
 		if (!sector->neighbors || !sector->wall_sprites
 			|| !sector->wall_width || !sector->floors
