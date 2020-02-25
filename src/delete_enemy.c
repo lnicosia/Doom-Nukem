@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 10:34:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 13:27:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:48:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int	delete_enemy(void *param)
 
 	env = (t_env*)param;
 	enemy = env->selected_enemy;
+	free_events(env->enemies[enemy].collision_events,
+	env->enemies[enemy].nb_collision_events);
+	free_events(env->enemies[enemy].death_events,
+	env->enemies[enemy].nb_death_events);
 	env->enemies = (t_enemy*)ft_delindex(env->enemies,
 			sizeof(t_enemy) * env->nb_enemies,
 			sizeof(t_enemy),
