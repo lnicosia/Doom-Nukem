@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 14:30:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:03:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int		launch_events(t_env *env)
 	}
 	if (env->player.changed_sector)
 	{
-		env->player.changed_sector = 0;
-		env->player.old_sector = -1;
 		if (env->sectors[env->player.sector].gravity == 0)
 			env->player.state.fly = 1;
 		else
@@ -74,6 +72,8 @@ int		launch_events(t_env *env)
 				nb_walk_out_events, env))
 				return (-1);
 		}
+		env->player.changed_sector = 0;
+		env->player.old_sector = -1;
 	}
 	return (0);
 }

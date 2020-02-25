@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 14:29:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:59:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,13 @@ int		check_exec_conditions(t_event *event, t_condition *tab, size_t nb)
 	return (1);
 }
 
+int		event_target_exists(t_event event, t_env *env)
+{
+	(void)event;
+	(void)env;
+	return (1);
+}
+
 int		start_event(t_event **events, size_t *size, t_env *env)
 {
 	size_t		i;
@@ -175,7 +182,8 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
-		if ((!(*events)[i].target
+		if (event_target_exists((*events)[i], env)
+			&& (!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
 				&& (!(*events)[i].launch_conditions
 					|| check_launch_conditions(&(*events)[i],
@@ -227,7 +235,8 @@ int		start_event_free(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
-		if ((!(*events)[i].launch_conditions
+		if (event_target_exists((*events)[i], env)
+			&& (!(*events)[i].launch_conditions
 					|| check_launch_conditions(&(*events)[i],
 					(*events)[i].launch_conditions,
 					(*events)[i].nb_launch_conditions))
