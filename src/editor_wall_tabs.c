@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 11:29:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 10:22:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,7 @@ int		print_wall_general_tab(t_env *env)
 	{
 		print_text(new_point(720, 60), new_printable_text("Portal: ",
 		env->sdl.fonts.lato20, 0x00000000, 30), env);
-		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-		get_decimal_len(env->sectors[env->editor.selected_sector].
-		portals[env->editor.selected_wall]),
+		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 		env->sectors[env->editor.selected_sector].
 		portals[env->editor.selected_wall]);
 		env->editor.hud.g_wall.t_portal.target =

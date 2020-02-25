@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/24 14:35:08 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/25 12:19:45 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,7 +117,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		 update_entities.c delete_sector.c \
+		 update_entities.c delete_sector.c editor_vertices_tab.c \
+		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -213,7 +214,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \

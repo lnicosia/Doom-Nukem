@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:41:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 11:11:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 11:11:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ void	init_sector_buttons(t_env *env)
 	init_sector_general_buttons(env);
 }
 
+void	init_vertices_buttons(t_env *env)
+{
+	init_vertices_general_env(env);
+	init_vertices_general_buttons(env);
+}
+
 void	init_editor_tab_buttons(t_env *env)
 {
 	init_wall_buttons(env);
@@ -94,4 +100,5 @@ void	init_editor_tab_buttons(t_env *env)
 	init_player_buttons(env);
 	init_enemy_buttons(env);
 	init_object_buttons(env);
+	init_vertices_buttons(env);
 }

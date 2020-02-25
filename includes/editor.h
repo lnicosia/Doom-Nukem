@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/24 14:35:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 11:12:57 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ typedef struct	s_var_g
 	t_button		damage;
 	t_button		portal;
 	t_button		add_sprite;
+	t_button		sector;
+	t_button		vertex;
+	t_button		num;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -132,6 +135,9 @@ typedef struct	s_var_g
 	t_button_tab	t_damage;
 	t_button_tab	t_portal;
 	t_button_tab	t_add_sprite;
+	t_button_tab	t_sector;
+	t_button_tab	t_vertex;
+	t_button_tab	t_num;
 }				t_var_g;
 
 typedef struct	s_hud
@@ -144,6 +150,7 @@ typedef struct	s_hud
 	t_var_g		g_floor;
 	t_var_g		g_ceilling;
 	t_var_g		g_sector;
+	t_var_g		g_vertex;
 	t_var_g		g_player;
 	t_var_g		g_enemy;
 	t_var_g		g_object;

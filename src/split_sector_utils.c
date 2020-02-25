@@ -50,6 +50,7 @@ void	update_neighbors(t_env *env, int index, int num, t_sector *sector)
 	}
 }
 
+
 void	update_double_tab(int index, double size, double **tab)
 {
 	*tab = ft_delindex(*tab,
@@ -66,10 +67,10 @@ void	update_int_tab(int index, int size, int **tab)
 		sizeof(int) * index);
 }
 /*
-void	update_int_tab(int index, int size, int **tab)
+int	update_tab(int index, size_t size, int **tab)
 {
-	*tab = ft_delindex(*tab,
-		sizeof(int) * (size),
-		sizeof(int),
-		sizeof(int) * index);
+	if (*tab = ft_delindex(*tab, sizeof(type) * (size), sizeof(type),
+		sizeof(type) * index))
+		return (-1);
+	return (0);
 }*/

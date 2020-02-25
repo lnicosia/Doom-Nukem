@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/29 16:42:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 13:23:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,30 @@ int		modify_neighbors(t_env *env, int index, int sector)
 	return (0);
 }
 
+int		update_sector_textures(t_env *env, int sect)
+{
+	int	i;
+	t_sector *sector;
+
+	i = 0;
+	sector = &env->sectors[sect];
+	while (i < sector->nb_vertices)
+	{
+		if (set_sector_wall_map_array(sector,
+		env->wall_textures[sector->textures[i]],
+		i, env))
+			return (-1);
+		i++;
+	}
+	if (set_sector_ceiling_map_array(sector,
+	env->wall_textures[sector->ceiling_texture], env))
+		return (-1);
+	if (set_sector_floor_map_array(sector,
+	env->wall_textures[sector->floor_texture], env))
+		return (-1);
+	return (0);
+}
+
 int     modify_sector(t_env *env, int sector)
 {
     int j;
@@ -292,10 +316,6 @@ int     modify_sector(t_env *env, int sector)
 			if (modify_textures(env, j, sector))
 				return (-1);
 			if (modify_neighbors(env, j, sector))
-				return (-1);
-			/*if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].nb_sprites))
-				return (-1);*/
-			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
 				return (-1);
 			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].portals))
 				return (-1);
@@ -327,28 +347,19 @@ int     modify_sector(t_env *env, int sector)
 		}
         j++;
     }
+	if (update_sector_textures(env, sector))
+		return (-1);
+	update_sector_slope(env, &env->sectors[sector]);
+	update_sector_entities_z(env, sector);
 	return (0);
 }
 
 int		modify_vertices(t_env *env)
 {
-/*	double min;
-	double max;*/
-
 	if (!(env->vertices = (t_vertex *)ft_realloc(env->vertices, sizeof(t_vertex)
 			* env->nb_vertices, sizeof(t_vertex) * (env->nb_vertices + 1))))
 		return (ft_perror("Could not realloc env vertices"));
 	env->nb_vertices++;
-/*	min = env->vertices[env->editor.add.v1].x < env->vertices[env->editor.add.v2].x ?
-	env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
-	max = env->vertices[env->editor.add.v1].x > env->vertices[env->editor.add.v2].x ?
-	env->vertices[env->editor.add.v1].x : env->vertices[env->editor.add.v2].x;
-	env->vertices[env->nb_vertices - 1].x =	round(min + ((max - min) / 2));
-	min = env->vertices[env->editor.add.v1].y < env->vertices[env->editor.add.v2].y ?
-	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
-	max = env->vertices[env->editor.add.v1].y > env->vertices[env->editor.add.v2].y ?
-	env->vertices[env->editor.add.v1].y : env->vertices[env->editor.add.v2].y;
-	env->vertices[env->nb_vertices - 1].y = round(min + ((max - min) / 2));*/
 	env->vertices[env->nb_vertices - 1].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 	env->vertices[env->nb_vertices - 1].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 	env->vertices[env->nb_vertices - 1].num = env->nb_vertices - 1;

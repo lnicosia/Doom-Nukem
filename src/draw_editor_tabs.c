@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 15:27:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:28:48 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	print_general_tab(t_env *env)
 		print_wall_general_tab(env);
 	else if (env->selected_enemy != -1)
 		print_enemy_general_tab(env);
+	else if (env->editor.selected_vertex != -1)
+		print_vertices_general_tab(env);
 }
 
 int		print_vertex_informations(t_env *env)
@@ -118,7 +120,8 @@ int	draw_editor_tabs(t_env *env)
 	|| env->selected_ceiling != -1 ))
 	|| (!env->editor.in_game && (env->editor.selected_sector != -1
 	|| env->editor.selected_player != -1
-	|| env->selected_object != -1 || env->selected_enemy != -1)))
+	|| env->selected_object != -1 || env->selected_enemy != -1
+	|| env->editor.selected_vertex != -1)))
 		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
 	if ((!env->editor.in_game && (env->editor.selected_player != -1
 		|| env->selected_enemy != -1

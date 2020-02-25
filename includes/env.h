@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/24 17:29:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 13:31:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,12 @@ void				init_floor_general_buttons(t_env *env);
 void				init_floor_sector_buttons(t_env *env);
 void				init_floor_sprite_buttons(t_env *env);
 void				init_wall_general_env(t_env *env);
+void				init_vertices_general_env(t_env *env);
 void				init_wall_sector_env(t_env *env);
 void				init_wall_sprite_sector_env(t_env *env);
 void				init_wall_sprite_env(t_env *env);
 void				init_wall_general_buttons(t_env *env);
+void				init_vertices_general_buttons(t_env *env);
 void				init_wall_sector_buttons(t_env *env);
 void				init_wall_sprite_sector_buttons(t_env *env);
 void				init_wall_sprite_buttons(t_env *env);
@@ -325,7 +327,7 @@ char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
-void				split_sector(t_env *env);
+int					split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
 void				update_neighbors(t_env *env, int index, int num,
 t_sector *sector);
@@ -466,6 +468,11 @@ int					previous_ambiance_music(void *target);
 int					next_fighting_music(void *target);
 int					previous_fighting_music(void *target);
 int					check_all_angles(t_v2 *p, int res, int i, int straight);
+int					modify_walls_map_lvl(t_env *env, int sector);
+int					modify_t_wall_sprites_tab_in_sector(t_env *env,
+int index, int sector, t_wall_sprites **tab);
+int					modify_t_list_tab_in_sector(t_env *env, int index,
+int sector,t_list ***tab);
 
 /*
 **	Input boxes checkers and updaters
@@ -571,6 +578,7 @@ int					print_floor_general_tab(t_env *env);
 int					print_ceiling_general_tab(t_env *env);
 int					print_player_general_tab(t_env *env);
 int					print_wall_general_tab(t_env *env);
+int					print_vertices_general_tab(t_env *env);
 int					print_sector_general_tab(t_env *env);
 int					print_enemy_general_tab(t_env *env);
 int					print_object_general_tab(t_env *env);

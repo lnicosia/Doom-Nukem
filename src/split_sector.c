@@ -79,7 +79,27 @@ int	check_pos_vertices(t_env *env)
 	return (0);
 }
 
-void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
+int		update_bullet_hole_tab(t_env, int index, int sector, t_list ***tab)
+{
+	int	i;
+
+	if (!(*tab = (t_list**)ft_realloc(*tab, sizeof(t_list*)
+	* env->sectors[sector].nb_vertices, sizeof(t_list*) * (index))))
+		return (ft_perror("Could not realloc t_list tab"));
+	return (0);
+}
+
+int		update_wall_sprites_tab(t_env, int index, int sector, t_wall_sprites **tab)
+{
+	int	i;
+	
+	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
+	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (index))))
+		return (ft_perror("Could not realloc t_wall_sprites tab"));
+	return (0);
+}
+
+int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 {
 	int	i;
 
@@ -97,6 +117,8 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings1);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings2);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_width);
+		update_t_list_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_bullet_holes);
+		update_t_wall_sprite_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_sprites;		
 		sector->nb_vertices--;
 		i--;
 	}
@@ -107,9 +129,10 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		create_portals(env, env->sectors[i]);
 		i++;
 	}
+	return (0);
 }
 
-void	copying_original_sector_data(t_env *env)
+int		copying_original_sector_data(t_env *env)
 {
 	int	origin;
 	int	new;
@@ -129,6 +152,7 @@ void	copying_original_sector_data(t_env *env)
 	env->sectors[new].floor_slope = env->sectors[origin].floor_slope;
 	env->sectors[new].ceiling = env->sectors[origin].ceiling;
 	env->sectors[new].ceiling_slope = env->sectors[origin].ceiling_slope;
+	return (0);
 }
 
 int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
@@ -145,11 +169,12 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	env->editor.start_vertex = -1;
 	if (add_sector(env))
 		return (ft_printf("Error while creating new sector\n"));
-	copying_original_sector_data(env);
+	if (copying_original_sector_data(env))
+		return (-1);
 	return (0);
 }
 
-void	split_sector(t_env *env)
+int		split_sector(t_env *env)
 {
 	int			i;
 	int			start;
@@ -171,12 +196,24 @@ void	split_sector(t_env *env)
 		i++;
 	}
 	free_current_vertices(env);
-	create_new_sector(env, start, end, sector);
+	if (create_new_sector(env, start, end, sector))
+		return (-1);
 	sector = &env->sectors[env->editor.split.sector];
 	free_current_vertices(env);
-	update_sector_data(env, start, end , sector);
+	if (update_sector_data(env, start, end , sector))
+		return (-1);
+	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1], 
+		env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
+		env))
+		return (-1);
+	if (set_sector_ceiling_map_array(&env->sectors[env->nb_sectors - 1], 
+		env->wall_textures[env->sectors[env->nb_sectors - 1].ceiling_texture],
+		env))
+		return (-1);
+	update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 	env->editor.split.sector = -1;
 	env->editor.split.v1 = -1;
 	env->editor.split.v2 = -1;
 	env->editor.divide_sector = 0;
+	return (0);
 }
