@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 15:05:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 18:19:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1253,6 +1253,16 @@ int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);
 size_t				get_double_len(double nb);
 int					win(void *param, void *penv);
+int					event_target_exists(t_event *event, t_env *env);
+int					event_target_exists0(t_event *event, t_env *env);
+int					event_target_exists1(t_event *event, t_env *env);
+int					event_target_exists2(t_event *event, t_env *env);
+int					event_target_exists3(t_event *event, t_env *env);
+int					event_target_exists4(t_event *event, t_env *env);
+int					event_target_exists5(t_event *event, t_env *env);
+int					event_target_exists6(t_event *event, t_env *env);
+int					condition_target_exists(t_condition *condition,
+t_env *env);
 
 /*
 ** enemies functions
@@ -1297,9 +1307,9 @@ t_env *env);
 int					start_event_free(t_event **events, size_t *size,
 t_env *env);
 int					check_launch_conditions(t_event *event, t_condition *tab,
-size_t nb);
+size_t nb, t_env *env);
 int					check_exec_conditions(t_event *event, t_condition *tab,
-size_t nb);
+size_t nb, t_env *env);
 t_event_param		new_event_param(int num, double equ_value,
 double diff_value);
 t_event_param		empty_event_param(void);

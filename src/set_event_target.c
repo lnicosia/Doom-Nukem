@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:49:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:57:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:19:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*set_event_target1(t_env *env, t_events_parser *eparser)
 	else if (eparser->target_index == SECTOR_WALL_SCALE_Y)
 		return (&env->sectors[eparser->target_sector].
 		scale[eparser->target_wall].y);
-	if (eparser->target_index == SECTOR_WALL_PORTAL)
+	else if (eparser->target_index == SECTOR_WALL_PORTAL)
 		return (&env->sectors[eparser->target_sector].
 		portals[eparser->target_wall]);
 	else

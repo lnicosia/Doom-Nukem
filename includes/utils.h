@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 14:36:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 18:23:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,6 @@ typedef struct		s_render_vertex
 	double			y0z1;
 	double			y1z0;
 	double			yzrange;
-	t_event_trigger	*triggers;
 }					t_render_vertex;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 13:33:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:18:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int		execute_event(t_event *event, t_env *env)
 	check = 0;
 	if (event->exec_conditions
 		&& !check_exec_conditions(event, event->exec_conditions,
-		event->nb_exec_conditions))
+		event->nb_exec_conditions, env))
 		return (1);
 	if (event->check_func)
 	{
