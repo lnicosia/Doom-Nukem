@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 15:04:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:51:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,8 @@ int					delete_object(void *param);
 int					delete_enemy(void *param);
 int					current_vertices_contains(t_env *env, int vertex);
 int					is_vertex_used(t_env *env, int vertex);
+int					is_vertex_going_to_be_used(t_env *env, int sector,
+int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex,
 int sector);
 int					delete_invalid_sectors(t_env *env);
@@ -476,6 +478,7 @@ int					update_object_existing_events(t_env *env,
 t_event_target target);
 int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
+int					delete_events_to_delete_list(void *param);
 
 
 /*

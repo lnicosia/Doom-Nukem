@@ -6,13 +6,33 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 12:29:41 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 12:08:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "update_existing_events.h"
 #include "events_parser.h"
+
+int		events_to_delete_contains(t_env *env, t_event_trigger *trigger)
+{
+	t_event_trigger	*tmp;
+
+	while (env->editor.events_to_delete)
+	{
+		tmp = (t_event_trigger*)env->editor.events_to_delete->content;
+		if (tmp->type == trigger->type
+			&& tmp->index == trigger->index
+			&& tmp->sector == trigger->sector
+			&& tmp->wall == trigger->wall
+			&& tmp->enemy == trigger->enemy
+			&& tmp->object == trigger->object
+			&& tmp->sprite == trigger->sprite)
+			return (1);
+		env->editor.events_to_delete = env->editor.events_to_delete->next;
+	}
+	return (0);
+}
 
 int		delete_events_to_delete_list(void *param)
 {
@@ -26,8 +46,12 @@ int		delete_events_to_delete_list(void *param)
 int		check_condition_targets(t_env *env, t_condition *condition,
 t_event_target target, t_event_trigger *trigger)
 {
-	t_list	*new;
+	t_list			*new;
+	t_event_target	new_target;
 
+	init_target(&new_target);
+	if (events_to_delete_contains(env, trigger))
+		return (0);
 	if (target.type == SECTOR_DELETED && target.sector >= 0
 		&& (condition->sector == target.sector
 		|| condition->target_trigger.sector == target.sector))
@@ -40,10 +64,10 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
-		env->confirmation_box.yes_action = &delete_sector;
+		/*env->confirmation_box.yes_action = &delete_sector;
 		env->confirmation_box.yes_target = env;
 		env->confirmation_box.no_action = &delete_events_to_delete_list;
-		env->confirmation_box.no_target = env;
+		env->confirmation_box.no_target = env;*/
 	}
 	else if (target.type == VERTEX_DELETED && target.vertex >= 0
 		&& condition->vertex == target.vertex)
@@ -56,10 +80,10 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
-		env->confirmation_box.yes_target = env;
+		/*env->confirmation_box.yes_target = env;
 		env->confirmation_box.yes_action = &delete_vertex;
 		env->confirmation_box.no_action = &delete_events_to_delete_list;
-		env->confirmation_box.no_target = env;
+		env->confirmation_box.no_target = env;*/
 	}
 	else if (target.type == ENEMY_DELETED && target.enemy >= 0
 		&& condition->enemy == target.enemy)
@@ -72,9 +96,9 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
-		env->confirmation_box.yes_target = env;
+		/*env->confirmation_box.yes_target = env;
 		env->confirmation_box.no_action = &delete_events_to_delete_list;
-		env->confirmation_box.no_target = env;
+		env->confirmation_box.no_target = env;*/
 	}
 	else if (target.type == OBJECT_DELETED && target.object >= 0
 		&& condition->object == target.object)
@@ -87,9 +111,9 @@ t_event_target target, t_event_trigger *trigger)
 		if (!(new = ft_lstnew(trigger, sizeof(*trigger))))
 			return (ft_perror("Could not malloc new trigger node"));
 		ft_lstpushback(&env->editor.events_to_delete, new);
-		env->confirmation_box.yes_target = env;
+		/*env->confirmation_box.yes_target = env;
 		env->confirmation_box.no_action = &delete_events_to_delete_list;
-		env->confirmation_box.no_target = env;
+		env->confirmation_box.no_target = env;*/
 	}
 	return (0);
 }
@@ -402,23 +426,23 @@ int		update_sector_existing_events(t_env *env, t_event_target target)
 	t_event_trigger		trigger;
 
 	init_trigger(&trigger);
-	ft_printf("checking sectors events\n");
+	//ft_printf("checking sectors events\n");
 	if (check_sectors_events_targets(env, target, &trigger))
 		return (-1);
 	init_trigger(&trigger);
-	ft_printf("checking enemies events\n");
+	//ft_printf("checking enemies events\n");
 	if (check_enemies_events_targets(env, target, &trigger))
 		return (-1);
 	init_trigger(&trigger);
-	ft_printf("checking objects events\n");
+	//ft_printf("checking objects events\n");
 	if (check_objects_events_targets(env, target, &trigger))
 		return (-1);
 	init_trigger(&trigger);
-	ft_printf("checking wall sprites events\n");
+	//ft_printf("checking wall sprites events\n");
 	if (check_wall_sprites_events_targets(env, target, &trigger))
 		return (-1);
 	init_trigger(&trigger);
-	ft_printf("checking global events\n");
+	//ft_printf("checking global events\n");
 	if (env->nb_global_events > 0 && check_global_events_targets(env, target,
 		&trigger))
 		return (-1);
