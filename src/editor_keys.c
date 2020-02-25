@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 12:24:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:15:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int			editor_keys(t_env *env)
 	time = SDL_GetTicks();
 	if (env->inputs.backspace && !env->confirmation_box.state)
 	{
-		del_last_vertex(env);
+		if (del_last_vertex(env))
+			return (-1);
 		env->inputs.backspace = 0;
 	}
 	player_selection(env);
