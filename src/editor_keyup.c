@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:36:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:49:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,18 @@ int	editor_keyup(t_env *env)
 	{
 		clicked_vertex = get_existing_vertex(env);
 		//ft_printf("clicked_vertex: %d\n", clicked_vertex);
-		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
+		if (clicked_vertex == -1)
 		{
+			ret = is_new_vertex_valid(env, clicked_vertex);
+			if (ret == -1)
+				return (-1);
+			else if (!ret)
+				return (0);
 		//	ft_printf("add vertex\n");
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
-			add_vertex_to_current_sector(env, env->nb_vertices - 1);
+			if (add_vertex_to_current_sector(env, env->nb_vertices - 1))
+				return (-1);
 			if (env->editor.start_vertex == -1) //Nouveau secteur
 				env->editor.start_vertex = env->nb_vertices - 1;
 		}
@@ -153,14 +159,20 @@ int	editor_keyup(t_env *env)
 			if (env->editor.start_vertex == -1)
 			{
 				env->editor.start_vertex = clicked_vertex;
-				add_vertex_to_current_sector(env, clicked_vertex);
+				if (add_vertex_to_current_sector(env, clicked_vertex))
+					return (-1);
 			}
 			else
 			{
-				if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->num
-						&& ft_lstlen(env->editor.current_vertices) > 2
-						&& is_new_vertex_valid(env, clicked_vertex))
+				if (clicked_vertex == ((t_vertex*)env->editor.
+					current_vertices->content)->num
+					&& ft_lstlen(env->editor.current_vertices) > 2)
 				{
+					ret = is_new_vertex_valid(env, clicked_vertex);
+					if (ret == -1)
+						return (-1);
+					else if (!ret)
+						return (0);
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.start_vertex = -1;
 					if (add_sector(env))
@@ -169,8 +181,16 @@ int	editor_keyup(t_env *env)
 					//get_new_floor_and_ceiling(env);
 					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 				}
-				else if (is_new_vertex_valid(env, clicked_vertex))
-					add_vertex_to_current_sector(env, clicked_vertex);
+				else
+				{
+					ret = is_new_vertex_valid(env, clicked_vertex);
+					if (ret == -1)
+						return (-1);
+					else if (!ret)
+						return (0);
+					if (add_vertex_to_current_sector(env, clicked_vertex))
+						return (-1);
+				}
 				if (ft_lstlen(env->editor.current_vertices) == 2
 					&& check_pos_vertices(env))
 				{
