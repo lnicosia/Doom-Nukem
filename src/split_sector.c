@@ -79,26 +79,6 @@ int	check_pos_vertices(t_env *env)
 	return (0);
 }
 
-int		update_bullet_hole_tab(t_env, int index, int sector, t_list ***tab)
-{
-	int	i;
-
-	if (!(*tab = (t_list**)ft_realloc(*tab, sizeof(t_list*)
-	* env->sectors[sector].nb_vertices, sizeof(t_list*) * (index))))
-		return (ft_perror("Could not realloc t_list tab"));
-	return (0);
-}
-
-int		update_wall_sprites_tab(t_env, int index, int sector, t_wall_sprites **tab)
-{
-	int	i;
-	
-	if (!(*tab = (t_wall_sprites*)ft_realloc(*tab, sizeof(t_wall_sprites)
-	* env->sectors[sector].nb_vertices, sizeof(t_wall_sprites) * (index))))
-		return (ft_perror("Could not realloc t_wall_sprites tab"));
-	return (0);
-}
-
 int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 {
 	int	i;
@@ -117,8 +97,6 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings1);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings2);
 		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_width);
-		update_t_list_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_bullet_holes);
-		update_t_wall_sprite_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_sprites;		
 		sector->nb_vertices--;
 		i--;
 	}
