@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 12:03:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:39:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,14 @@ int		change_mode(void *target)
 
 int		save_button(void *target)
 {
-	t_env *env;
+	t_env	*env;
+	int		ret;
 
 	env = (t_env*)target;
-	if (!valid_map(env))
+	ret = valid_map(env);
+	if (ret == -1)
+		return (-1);
+	else if (!ret)
     {
     	SDL_SetRelativeMouseMode(0);
     	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);

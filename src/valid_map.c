@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/14 11:50:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 15:34:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 	res = 0;
 	straight = 0;
 	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (sector.nb_vertices + 2))))
-		return (0);
+		return (-1);
 	while (i < sector.nb_vertices + 2)
 	{
 		if (i >= sector.nb_vertices)
@@ -212,6 +212,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 			straight = 0;
 		i++;
 	}
+	free(p);
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
 		return (-1);
 	return (0);

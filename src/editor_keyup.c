@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 13:40:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:36:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	editor_keyup(t_env *env)
 {
 	int	clicked_vertex;
 	int	i;
+	int	ret;
 
 	i = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_g)
@@ -188,7 +189,10 @@ int	editor_keyup(t_env *env)
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)
 	{
-		if (!valid_map(env))
+		ret = valid_map(env);
+		if (ret == -1)
+			return (-1);
+		else if (!ret)
 			going_in_3D_mode(env);
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
