@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/25 11:53:59 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/25 12:27:50 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 set_new_event_target.c set_new_event_target2.c \
 		 set_new_event_target3.c set_new_event_target4.c \
 		 set_new_event_target5.c set_new_event_target6.c \
-		 set_new_event_target7.c \
+		 set_new_event_target7.c delete_wall_sprite.c \
 		 condition_event_panel.c init_condition_event_buttons.c \
 		 3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		 3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \

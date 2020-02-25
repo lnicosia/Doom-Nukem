@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 11:54:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:23:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		delete_sector(void *param)
 			 sizeof(t_sector),
 			 sizeof(t_sector) * env->editor.selected_sector);
 	env->nb_sectors--;
+	if (env->nb_sectors > 0 && !env->sectors)
+		return (-1);
 	free(env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list\n"));
@@ -71,7 +73,8 @@ int		delete_sector(void *param)
 	}
 	if (delete_linked_events(env))
 		return (-1);
-	update_entities_sectors(env);
+	if (update_entities_sectors(env))
+		return (-1);
 	if (delete_invalid_vertices(env))
 		return (-1);
 	env->editor.selected_sector = -1;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:45:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:30:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,19 @@ int		launch_events(t_env *env)
 			env->player.state.fly = 0;
 		if (env->player.sector != -1 && env->sectors[env->player.sector]
 			.nb_walk_in_events > 0)
-			start_event(&env->sectors[env->player.sector].walk_in_events,
-			&env->sectors[env->player.sector].nb_walk_in_events, env);
+		{
+			if (start_event(&env->sectors[env->player.sector].walk_in_events,
+			&env->sectors[env->player.sector].nb_walk_in_events, env))
+				return (-1);
+		}
 		if (env->player.old_sector != -1
 				&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
-			start_event(&env->sectors[env->player.old_sector].walk_out_events,
-				&env->sectors[env->player.old_sector].nb_walk_out_events, env);
+		{
+			if (start_event(&env->sectors[env->player.old_sector].
+				walk_out_events, &env->sectors[env->player.old_sector].
+				nb_walk_out_events, env))
+				return (-1);
+		}
 	}
 	return (0);
 }

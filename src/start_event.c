@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 19:19:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:29:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,11 +197,13 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
 					//free_event(&(*events)[i]);
-					*events = ft_delindex((*events),
+					*events = (t_event*)ft_delindex((*events),
 							sizeof(t_event) * (*size),
 							sizeof(t_event),
 							sizeof(t_event) * i);
 					(*size)--;
+					if (*size > 0 && !(*events))
+						return (-1);
 				}
 				else
 					i++;
@@ -245,11 +247,13 @@ int		start_event_free(t_event **events, size_t *size, t_env *env)
 				if ((*events)[i].uses >= (*events)[i].max_uses)
 				{
 					//free_event(&(*events)[i]);
-					*events = ft_delindex((*events),
+					*events = (t_event*)ft_delindex((*events),
 							sizeof(t_event) * (*size),
 							sizeof(t_event),
 							sizeof(t_event) * i);
 					(*size)--;
+					if (*size > 0 && !(*events))
+						return (-1);
 					//ft_printf("events max used. size = %d\n", *size);
 				}
 				else

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 09:41:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 16:00:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:11:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int		delete_selected_launch_condition(void *param)
 	sizeof(t_condition),
 	sizeof(t_condition) * env->editor.selected_launch_condition);
 	env->editor.event_panel.event.nb_launch_conditions--;
+	if (env->editor.event_panel.event.nb_launch_conditions > 0
+		&& !env->editor.event_panel.event.launch_conditions)
+		return (-1);
 	if (env->editor.selected_launch_condition ==
 		env->editor.event_panel.event.nb_launch_conditions
 		&& env->editor.selected_launch_condition > 0)
@@ -41,6 +44,9 @@ int		delete_selected_exec_condition(void *param)
 	sizeof(t_condition),
 	sizeof(t_condition) * env->editor.selected_exec_condition);
 	env->editor.event_panel.event.nb_exec_conditions--;
+	if (env->editor.event_panel.event.nb_exec_conditions > 0
+		&& !env->editor.event_panel.event.exec_conditions)
+		return (-1);
 	if (env->editor.selected_exec_condition ==
 		env->editor.event_panel.event.nb_exec_conditions
 		&& env->editor.selected_exec_condition > 0)

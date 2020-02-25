@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 20:05:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 13:50:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,17 @@ typedef struct		s_state
 	int				fly;
 }					t_state;
 
+typedef struct		s_event_trigger
+{
+	int				type;
+	int				index;
+	int				sector;
+	int				wall;
+	int				enemy;
+	int				object;
+	int				sprite;
+}					t_event_trigger;
+
 typedef struct		s_render_vertex
 {
 	t_v2			*texture_scale;
@@ -284,6 +295,7 @@ typedef struct		s_render_vertex
 	double			y0z1;
 	double			y1z0;
 	double			yzrange;
+	t_event_trigger	*triggers;
 }					t_render_vertex;
 
 /*
@@ -325,17 +337,6 @@ typedef struct		s_event_param
 		void		*target;
 		int			target_type;
 }					t_event_param;
-
-typedef struct		s_event_trigger
-{
-	int				type;
-	int				index;
-	int				sector;
-	int				wall;
-	int				enemy;
-	int				object;
-	int				sprite;
-}					t_event_trigger;
 
 typedef struct		s_event_target
 {

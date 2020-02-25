@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 11:51:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 13:40:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ int					editor_button_up(t_env *env);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
-void				update_entities_sectors(t_env *env);
+int					update_entities_sectors(t_env *env);
 void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
@@ -326,14 +326,14 @@ char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
-void				split_sector(t_env *env);
+int					split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
-void				update_neighbors(t_env *env, int index, int num,
+int					update_neighbors(t_env *env, int index, int num,
 t_sector *sector);
 void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
-void				update_double_tab(int index, double size, double **tab);
-void				update_int_tab(int index, int size, int **tab);
+int					update_double_tab(int index, double size, double **tab);
+int					update_int_tab(int index, int size, int **tab);
 void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
@@ -479,6 +479,7 @@ t_event_target target);
 int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
+int					delete_wall_sprite(void *param);
 
 
 /*

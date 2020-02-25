@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:05:50 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 14:41:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:28:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,6 @@ int			update_wall_texture_event(t_event *event, void *penv)
 	if (set_camera_map_array(&env->player.camera, event->update_param.sector,
 		event->update_param.wall, env))
 		return (-1);
-	return (0);
-}
-
-int			delete_itself_event(t_event *event, void *penv)
-{
-	ft_delindex(event->update_param.target,
-			sizeof(*event->update_param.target) * event->update_param.size,
-			sizeof(*event->update_param.target),
-			sizeof(*event->update_param.target) * event->update_param.num);
-	(void)penv;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:42:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 14:59:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:25:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_event **events, size_t *nb)
 	*events = (t_event*)ft_delindex(*events, sizeof(t_event) * *nb,
 	sizeof(t_event), sizeof(t_event) * trigger.index);
 	(*nb)--;
+	if (*nb > 0 && !(*events))
+		return (-1);
 	if (env->editor.selected_event == *nb)
 		env->editor.selected_event--;
 	return (0);
@@ -48,8 +50,7 @@ t_event **events, size_t *nb)
 		events = &env->enemies[trigger.enemy].collision_events;
 		nb = &env->enemies[trigger.enemy].nb_collision_events;
 	}
-	delete_selected_event4(env, trigger, events, nb);
-	return (0);
+	return (delete_selected_event4(env, trigger, events, nb));
 }
 
 int		delete_selected_event2(t_env *env, t_event_trigger trigger,
@@ -72,8 +73,7 @@ t_event **events, size_t *nb)
 		events = &env->sectors[trigger.sector].walk_in_events;
 		nb = &env->sectors[trigger.sector].nb_walk_in_events;
 	}
-	delete_selected_event3(env, trigger, events, nb);
-	return (0);
+	return (delete_selected_event3(env, trigger, events, nb));
 }
 
 int		delete_selected_event1(t_env *env, t_event_trigger trigger)
@@ -95,8 +95,7 @@ int		delete_selected_event1(t_env *env, t_event_trigger trigger)
 		nb = &env->sectors[trigger.sector].wall_sprites[trigger.
 		wall].nb_press_events[trigger.sprite];
 	}
-	delete_selected_event2(env, trigger, events, nb);
-	return (0);
+	return (delete_selected_event2(env, trigger, events, nb));
 }
 
 int		delete_selected_event(void *param)
@@ -106,8 +105,7 @@ int		delete_selected_event(void *param)
 
 	env = (t_env*)param;
 	trigger = env->editor.event_panel.trigger;
-	delete_selected_event1(env, trigger);
-	return (0);
+	return (delete_selected_event1(env, trigger));
 }
 
 int		delete_event(void *param)

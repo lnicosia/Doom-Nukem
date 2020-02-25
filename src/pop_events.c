@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:56:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 13:33:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,25 @@ int		execute_event(t_event *event, t_env *env)
 			return (1);
 	}
 	if (event->type == DOUBLE)
-		res = double_event(event);
+	{
+		if ((res = double_event(event)) == -1)
+			return (-1);
+	}
 	else if (event->type == INT)
-		res = int_event(event);
+	{
+		if ((res = int_event(event)) == -1)
+			return (-1);
+	}
 	else if (event->type == UINT32)
-		res = uint32_event(event);
+	{
+		if ((res = uint32_event(event)) == -1)
+			return (-1);
+	}
 	else if (event->type == FUNC)
-		res = func_event(event, env);
+	{
+		if ((res = func_event(event, env)) == -1)
+			return (-1);
+	}
 	if (event->update_func)
 	{
 		if (event->update_func(event, env))

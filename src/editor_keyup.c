@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 16:52:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 13:40:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int	editor_keyup(t_env *env)
 		&& env->edito.curren)
 
 	}*/
+	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
+		if (delete_action(env))
+			return (-1);
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.l = env->options.l ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
@@ -167,8 +170,12 @@ int	editor_keyup(t_env *env)
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
 					add_vertex_to_current_sector(env, clicked_vertex);
-				if (ft_lstlen(env->editor.current_vertices) == 2 && check_pos_vertices(env))
-					split_sector(env);
+				if (ft_lstlen(env->editor.current_vertices) == 2
+					&& check_pos_vertices(env))
+				{
+					if (split_sector(env))
+						return (-1);
+				}
 			}
 		}
 		env->inputs.space = 0;

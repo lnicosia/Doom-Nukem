@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 12:08:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 12:27:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,11 @@ int		delete_action(t_env *env)
 		if (delete_enemy(env))
 			return (-1);
 		env->selected_enemy = -1;
+	}
+	if (env->selected_wall_sprite_wall != -1)
+	{
+		if (delete_wall_sprite(env))
+			return (-1);
 	}
 	env->inputs.del = 0;
 	return (0);

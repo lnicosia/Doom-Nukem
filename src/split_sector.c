@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:17:28 by sipatry           #+#    #+#             */
-/*   Updated: 2019/12/02 12:31:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 14:21:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_pos_vertices(t_env *env)
 	return (0);
 }
 
-void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
+int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 {
 	int	i;
 
@@ -88,16 +88,32 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 	while (i > start)
 	{
 		update_neighbors(env, i, sector->vertices[i], sector);
-		update_int_tab(i, (int)sector->nb_vertices + 1, &env->sectors[sector->num].vertices);
-		update_int_tab(i, (int)sector->nb_vertices + 1, &env->sectors[sector->num].textures);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].floors);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].ceilings);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_floors1);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_floors2);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings1);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].clipped_ceilings2);
-		update_double_tab(i, sector->nb_vertices + 1, &env->sectors[sector->num].wall_width);
+		update_int_tab(i, (int)sector->nb_vertices + 1,
+		&env->sectors[sector->num].vertices);
+		update_int_tab(i, (int)sector->nb_vertices + 1,
+		&env->sectors[sector->num].textures);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].floors);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].ceilings);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].clipped_floors1);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].clipped_floors2);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].clipped_ceilings1);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].clipped_ceilings2);
+		update_double_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].wall_width);
 		sector->nb_vertices--;
+		if (!sector->neighbors || !sector->wall_sprites
+			|| !sector->wall_width || !sector->floors
+			|| !sector->ceilings || !sector->vertices
+			|| !sector->portals || !sector->textures
+			|| !sector->wall_bullet_holes || !sector->scale
+			|| !sector->align || !sector->selected)
+			return (-1);
 		i--;
 	}
 	clear_portals(env);
@@ -107,6 +123,7 @@ void	update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		create_portals(env, env->sectors[i]);
 		i++;
 	}
+	return (0);
 }
 
 void	copying_original_sector_data(t_env *env)
@@ -149,7 +166,7 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	return (0);
 }
 
-void	split_sector(t_env *env)
+int		split_sector(t_env *env)
 {
 	int			i;
 	int			start;
@@ -171,12 +188,15 @@ void	split_sector(t_env *env)
 		i++;
 	}
 	free_current_vertices(env);
-	create_new_sector(env, start, end, sector);
+	if (create_new_sector(env, start, end, sector))
+		return (-1);
 	sector = &env->sectors[env->editor.split.sector];
 	free_current_vertices(env);
-	update_sector_data(env, start, end , sector);
+	if (update_sector_data(env, start, end , sector))
+		return (-1);
 	env->editor.split.sector = -1;
 	env->editor.split.v1 = -1;
 	env->editor.split.v2 = -1;
 	env->editor.divide_sector = 0;
+	return (0);
 }
