@@ -248,7 +248,7 @@ int		is_new_sector_convex(t_env *env, t_list *tmp)
 				straight = 0;
 			i++;
 		}
-
+		free(p);
 		if (res != -(len - 2) && res != len - 2 && res)
 			return (0);
 	}

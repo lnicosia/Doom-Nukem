@@ -92,6 +92,8 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		&env->sectors[sector->num].vertices);
 		update_int_tab(i, (int)sector->nb_vertices + 1,
 		&env->sectors[sector->num].textures);
+		update_int_tab(i, (int)sector->nb_vertices + 1,
+		&env->sectors[sector->num].selected);
 		update_double_tab(i, sector->nb_vertices + 1,
 		&env->sectors[sector->num].floors);
 		update_double_tab(i, sector->nb_vertices + 1,

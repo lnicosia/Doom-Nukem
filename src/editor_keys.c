@@ -98,7 +98,7 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (env->editor.selected_sector != -1 && sector_buttons(env))
 		return (-1);
-	if (env->editor.selected_player != -1 && player_buttons(env))
+	if (env->editor.selected_starting_player != -1 && player_buttons(env))
 		return (-1);
 	if (env->selected_enemy != -1 && enemy_buttons(env))
 		return (-1);

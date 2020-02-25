@@ -28,21 +28,6 @@ int	editor_keyup(t_env *env)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
-/*	if (env->sdl.event.key.keysym.sym == SDLK_t)
-	{
-		env->options.test = env->options.test ? 0 : 1;
-		if (env->editor.selected_sector != -1
-			&& env->editor.current_texture >= 0
-			&& env->editor.current_texture < MAX_WALL_TEXTURE)
-		{
-				if (apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env))
-					return (-1);
-		}
-		else if (env->editor.selected_sector != -1
-		&& env->edito.curren)
-
-	}*/
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
 		if (delete_action(env))
 			return (-1);
@@ -60,6 +45,7 @@ int	editor_keyup(t_env *env)
 			&& env->editor.event_panel_dragged == -1
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_start_player == -1
 			&& (!is_mouse_on_event_panel(env) || (!env->editor.creating_event
 			&& !env->editor.creating_condition))
 			&& env->editor.dragged_object == -1
@@ -137,10 +123,10 @@ int	editor_keyup(t_env *env)
 		&& env->sdl.mx > 400)
 	{
 		clicked_vertex = get_existing_vertex(env);
-		//ft_printf("clicked_vertex: %d\n", clicked_vertex);
+		ft_printf("clicked_vertex: %d\n", clicked_vertex);
 		if (clicked_vertex == -1 && is_new_vertex_valid(env, clicked_vertex))
 		{
-		//	ft_printf("add vertex\n");
+			ft_printf("add vertex\n");
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
 			add_vertex_to_current_sector(env, env->nb_vertices - 1);
@@ -151,6 +137,7 @@ int	editor_keyup(t_env *env)
 		{
 			if (env->editor.start_vertex == -1)
 			{
+				ft_printf("add vertex to list\n");
 				env->editor.start_vertex = clicked_vertex;
 				add_vertex_to_current_sector(env, clicked_vertex);
 			}
@@ -167,9 +154,13 @@ int	editor_keyup(t_env *env)
 					free_current_vertices(env);
 					//get_new_floor_and_ceiling(env);
 					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
+					ft_printf("creating a new sector\n");
 				}
 				else if (is_new_vertex_valid(env, clicked_vertex))
+				{
+					ft_printf("");
 					add_vertex_to_current_sector(env, clicked_vertex);
+				}
 				if (ft_lstlen(env->editor.current_vertices) == 2
 					&& check_pos_vertices(env))
 				{

@@ -105,7 +105,7 @@ void	draw_grid_start_player(t_env *env)
 			{
 				reset_selection(env);
 				env->editor.dragged_start_player = 1;
-				env->editor.selected_player = 1;
+				env->editor.selected_starting_player = 1;
 				tabs_gestion(env);
 				check_event_creation(env);
 			}
@@ -113,7 +113,7 @@ void	draw_grid_start_player(t_env *env)
 		else
 			circle.radius = env->editor.scale / 2;
 	}
-	if (env->editor.selected_player == 1)
+	if (env->editor.selected_starting_player == 1)
 		circle.line_color = 0xFF00FF00;
 	draw_circle(circle, env);
 }

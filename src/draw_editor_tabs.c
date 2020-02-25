@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 11:28:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 15:57:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_sector_tab(t_env *env)
 		print_object_sector_tab(env);
 	else if (env->selected_enemy != -1)
 		print_enemy_sector_tab(env);
-	else if (env->editor.selected_player != -1)
+	else if (env->editor.selected_starting_player != -1)
 		print_player_sector_tab(env);
 	else if (env->selected_ceiling != -1)
 		print_ceiling_sector_tab(env);
@@ -80,7 +80,7 @@ void	print_general_tab(t_env *env)
 		print_ceiling_general_tab(env);
 	else if (env->selected_floor != -1)
 		print_floor_general_tab(env);
-	else if (env->editor.selected_player != -1)
+	else if (env->editor.selected_starting_player != -1)
 		print_player_general_tab(env);
 	else if (env->editor.selected_wall != -1 && env->editor.selected_sector != -1)
 		print_wall_general_tab(env);
@@ -119,11 +119,11 @@ int	draw_editor_tabs(t_env *env)
 	env->selected_floor != -1 || env->selected_enemy != -1
 	|| env->selected_ceiling != -1 ))
 	|| (!env->editor.in_game && (env->editor.selected_sector != -1
-	|| env->editor.selected_player != -1
+	|| env->editor.selected_starting_player != -1
 	|| env->selected_object != -1 || env->selected_enemy != -1
 	|| env->editor.selected_vertex != -1)))
 		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
-	if ((!env->editor.in_game && (env->editor.selected_player != -1
+	if ((!env->editor.in_game && (env->editor.selected_starting_player != -1
 		|| env->selected_enemy != -1
 	|| env->selected_object != -1)) || (env->editor.in_game
 	&& (env->selected_object != - 1 || env->editor.selected_wall != - 1 ||

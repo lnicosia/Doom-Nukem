@@ -178,7 +178,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 	res = 0;
 	straight = 0;
 	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (sector.nb_vertices + 2))))
-		return (0);
+		return (-1);
 	while (i < sector.nb_vertices + 2)
 	{
 		if (i >= sector.nb_vertices)
