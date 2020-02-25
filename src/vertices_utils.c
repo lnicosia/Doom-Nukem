@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:35:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 11:05:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:27:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,12 @@ int		current_vertices_contains(t_env *env, int vertex)
 		v = (t_vertex*)tmp->content;
 		if (v->num == vertex)
 		{
-			if (ft_lstlen(env->editor.current_vertices) < 3
-			&& vertex == env->editor.start_vertex)
+			if (vertex == env->editor.start_vertex)
+			{
+				if (ft_lstlen(env->editor.current_vertices) < 3)
+					return (1);
+			}
+			else
 				return (1);
 		}
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:49:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:20:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int	editor_keyup(t_env *env)
 		&& env->sdl.mx > 400)
 	{
 		clicked_vertex = get_existing_vertex(env);
-		//ft_printf("clicked_vertex: %d\n", clicked_vertex);
 		if (clicked_vertex == -1)
 		{
 			ret = is_new_vertex_valid(env, clicked_vertex);
