@@ -23,9 +23,8 @@ t_events_parser *eparser)
 		return (invalid_char("after event exec condition target", "a space",
 		**line, parser));
 	(*line)++;
-		if (valid_number(*line, parser))
-		return (invalid_char("before exec condition target", "a digit", **line,
-		parser));
+		if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition target\n\n"));
 		eparser->condition_index = ft_atof(*line);
 	if (eparser->condition_index < 0
 			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
@@ -77,9 +76,8 @@ t_events_parser *eparser)
 		return (invalid_char("before event exec condition", "'{'",
 		**line, parser));
 	(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before exec condition type", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition type\n"));
 		eparser->event.exec_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.exec_conditions[eparser->condition_count].type < 0
@@ -93,9 +91,8 @@ t_events_parser *eparser)
 		return (invalid_char("after event exec condition type", "a space",
 		**line, parser));
 		(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before exec condition value", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition value\n"));
 		eparser->event.exec_conditions[eparser->condition_count].value =
 		ft_atof(*line);
 	if (parse_condition2(env, parser, line, eparser))

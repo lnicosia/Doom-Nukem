@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_collision.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:45:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/21 10:56:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 09:53:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int		check_objects(t_env *env, t_v3 move, t_movement motion)
 					&& env->objects[i].nb_collision_events > 0
 					&& env->objects[i].collision_events)
 				{
-					ft_printf("launching object collision event\n");
 					if (start_event(&env->objects[i].collision_events,
 						&env->objects[i].nb_collision_events, env))
 					{
@@ -209,19 +208,31 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 		return (new_v3(0, 0, 0));
 	if (get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.future, env) -
 		get_floor_at_pos(env->sectors[motion.sector], motion.future, env) < motion.eyesight + 1)
-	return (new_v3(0, 0, 0));
+	{
+		ft_printf("Nor floor nor ceiling allows movement\n");
+		return (new_v3(0, 0, 0));
+	}
 	if (!check_ceiling(env, motion, motion.lowest_ceiling))
 		move.z = get_ceiling_at_pos(env->sectors[motion.lowest_ceiling], motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
 	if (!check_floor(env, motion, motion.sector) && motion.flight)
 		move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env) - motion.pos.z;
 	else if (!(check_floor(env, motion, motion.sector)))
 		return (new_v3(0, 0, 0));
+
+	/*
+	**	collisions pour ne pas sortir de la map
+	*/
+
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
-		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d)) ||
-			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))) &&
-			(NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
+		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2),
+		new_v2(motion.future.x, motion.future.y), motion.size_2d)) ||
+		intersection_check(new_v2(X1, Y1), new_v2(X2, Y2),
+							new_v2(motion.pos.x, motion.pos.y),
+							new_v2(motion.future.x, motion.future.y)))
+		&& (NEIGHBOR < 0 || env->sectors[motion.sector].portals[i] == 0))
 		{
+//			ft_printf("colision avec une limite de la map\n");
 			norme_mov = sqrt(move.x * move.x + move.y * move.y);
 			norme_wall = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
 			scalar = (X2 - X1) / norme_wall * move.x / norme_mov + (Y2 - Y1) / norme_wall * move.y / norme_mov;
@@ -236,12 +247,21 @@ t_v3	check_collision(t_env *env, t_v3 move, t_movement motion, int rec)
 		i++;
 	}
 	i = 0;
+
+	/*
+	**	colisions pour changer de secteur
+	*/
+
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
-		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d) ||
-			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y)))) &&
-			NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
+		if (((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2),
+								new_v2(motion.future.x, motion.future.y), motion.size_2d) ||
+			intersection_check(new_v2(X1, Y1), new_v2(X2, Y2),
+								new_v2(motion.pos.x, motion.pos.y),
+								new_v2(motion.future.x, motion.future.y))))
+			&& NEIGHBOR >= 0 && env->sectors[motion.sector].portals[i] == 1)
 		{
+//			ft_printf("collision ou changement de secteur interne\n");
 			motion.wall.sector_or = motion.sector;
 			motion.wall.sector_dest = NEIGHBOR;
 			motion.wall.norme = sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));

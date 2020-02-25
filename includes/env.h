@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 13:40:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:05:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,12 @@ void				init_floor_general_buttons(t_env *env);
 void				init_floor_sector_buttons(t_env *env);
 void				init_floor_sprite_buttons(t_env *env);
 void				init_wall_general_env(t_env *env);
+void				init_vertices_general_env(t_env *env);
 void				init_wall_sector_env(t_env *env);
 void				init_wall_sprite_sector_env(t_env *env);
 void				init_wall_sprite_env(t_env *env);
 void				init_wall_general_buttons(t_env *env);
+void				init_vertices_general_buttons(t_env *env);
 void				init_wall_sector_buttons(t_env *env);
 void				init_wall_sprite_sector_buttons(t_env *env);
 void				init_wall_sprite_buttons(t_env *env);
@@ -334,6 +336,9 @@ void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
 int					update_double_tab(int index, double size, double **tab);
 int					update_int_tab(int index, int size, int **tab);
+int					update_t_v2_tab(int index, int size, t_v2 **tab);
+int					update_t_list_tab(int index, int size, t_list ***tab);
+int					update_t_wall_sprite_tab(int index, int size, t_wall_sprites **tab);
 void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
@@ -466,6 +471,7 @@ int					next_ambiance_music(void *target);
 int					previous_ambiance_music(void *target);
 int					next_fighting_music(void *target);
 int					previous_fighting_music(void *target);
+int					check_all_angles(t_v2 *p, int res, int i, int straight);
 int					update_existing_events(t_env *env,
 t_event_target target);
 int					update_sector_existing_events(t_env *env,
@@ -586,6 +592,7 @@ int					print_floor_general_tab(t_env *env);
 int					print_ceiling_general_tab(t_env *env);
 int					print_player_general_tab(t_env *env);
 int					print_wall_general_tab(t_env *env);
+int					print_vertices_general_tab(t_env *env);
 int					print_sector_general_tab(t_env *env);
 int					print_enemy_general_tab(t_env *env);
 int					print_object_general_tab(t_env *env);
@@ -920,6 +927,7 @@ void				init_print_condition_target_data(t_env *env);
 void				init_print_link_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
+int					segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4);
 int					generate_mipmaps(t_env *env);
 int					set_camera_map_array(t_camera *camera, int i,
 int j, t_env *env);

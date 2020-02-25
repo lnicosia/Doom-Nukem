@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 21:12:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 09:52:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	animations(t_env *env)
 	|| env->player.state.crouch) && !env->editor.in_game)
 		crouch(env);
 	env->player.camera.pos.z = env->player.head_z;
+	if (!env->player.state.jump && !env->player.state.fall
+		&& !env->player.state.climb && !env->player.state.drop
+		&& !env->player.state.fall && !env->player.state.fly)
+		update_player_z(env);
 }
 
 /*
@@ -87,7 +91,6 @@ void	update_player_pos(t_env *env)
 
 		motion = new_movement(env->player.sector, env->player.size_2d,
 		env->player.eyesight, env->player.pos);
-		//ft_printf("move.x = %f, move.y = %f\n", move.x, move.y);
 		new_sector = get_sector_no_z_origin(env,
 				env->player.pos, env->player.sector);
 		if (new_sector != env->player.sector)
@@ -143,6 +146,7 @@ int		move_player(t_env *env)
 	speed *= time;
 	prev_sector = env->player.sector;
 	movement = 0;
+
 	move = new_v3(0, 0, 0);
 	motion = new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos);
 	motion.flight = env->player.state.fly;
@@ -175,6 +179,7 @@ int		move_player(t_env *env)
 		move.y += env->player.camera.angle_cos * speed;
 		move.z += 0;
 	}
+
 	env->checking_collisions_with_player = 1;
 	move = check_collision(env, move, motion, 0);
 	if (env->fatal_error)
@@ -182,6 +187,7 @@ int		move_player(t_env *env)
 	env->checking_collisions_with_player = 0;
 	if (move.x != 0 || move.y != 0 || move.z != 0)
 		movement = 1;
+
 	env->player.pos.x += move.x;
 	env->player.pos.y += move.y;
 	env->player.pos.z += move.z;
@@ -198,9 +204,7 @@ int		move_player(t_env *env)
 			update_player_pos(env);
 			animations(env);
 	}
-	if (!env->player.state.jump && !env->player.state.fall
-		&& !env->player.state.climb && !env->player.state.drop
-		&& !env->player.state.fall && !env->player.state.fly)
-		update_player_z(env);
+
+
 	return (0);
 }

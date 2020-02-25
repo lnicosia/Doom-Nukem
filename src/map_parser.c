@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:32:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:08:53 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ static int	init_vertices(t_env *env, t_map_parser *parser)
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("before vertices number", parser));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("before vertices number",
-							"space or a digit", *line, parser));
+			if (valid_int(line, parser) == WRONG_CHAR)
+				return (ft_printf("Invalid int for nb_vertices\n"));
 			env->nb_vertices = ft_atoi(line);
+			if (env->nb_vertices > 100000)
+				return (ft_printf("vertices can't exceed 100 000\n"));
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("vertices number", parser));
@@ -87,9 +88,8 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("sectors number", parser));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("sectors numbers",
-							"space or a digit", *line, parser));
+			if (valid_int(line, parser))
+				return (ft_printf("Invalid int for nb_sectors\n"));
 			env->nb_sectors = ft_atoi(line);
 			env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 			line = skip_number(line);
@@ -100,6 +100,8 @@ static int	init_sectors(t_env *env, t_map_parser *parser)
 							"a digit", *line, parser));
 			if (env->nb_sectors < 1)
 				return (custom_error("You need at least one sector"));
+			else if (env->nb_sectors > 100000)
+				return (ft_printf("nb_sectors can't exceed 100 000\n"));
 			if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 							* env->nb_sectors)))
 				return (custom_error("Could not malloc sectors!"));

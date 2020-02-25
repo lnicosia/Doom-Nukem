@@ -106,6 +106,14 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 		&env->sectors[sector->num].clipped_ceilings2);
 		update_double_tab(i, sector->nb_vertices + 1,
 		&env->sectors[sector->num].wall_width);
+		update_t_v2_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].scale);
+		update_t_v2_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].align);
+		update_t_list_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].wall_bullet_holes);
+		update_t_wall_sprite_tab(i, sector->nb_vertices + 1,
+		&env->sectors[sector->num].wall_sprites);
 		sector->nb_vertices--;
 		if (!sector->neighbors || !sector->wall_sprites
 			|| !sector->wall_width || !sector->floors
@@ -126,7 +134,7 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 	return (0);
 }
 
-void	copying_original_sector_data(t_env *env)
+int		copying_original_sector_data(t_env *env)
 {
 	int	origin;
 	int	new;
@@ -146,6 +154,7 @@ void	copying_original_sector_data(t_env *env)
 	env->sectors[new].floor_slope = env->sectors[origin].floor_slope;
 	env->sectors[new].ceiling = env->sectors[origin].ceiling;
 	env->sectors[new].ceiling_slope = env->sectors[origin].ceiling_slope;
+	return (0);
 }
 
 int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
@@ -162,7 +171,8 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	env->editor.start_vertex = -1;
 	if (add_sector(env))
 		return (ft_printf("Error while creating new sector\n"));
-	copying_original_sector_data(env);
+	if (copying_original_sector_data(env))
+		return (-1);
 	return (0);
 }
 
@@ -194,6 +204,15 @@ int		split_sector(t_env *env)
 	free_current_vertices(env);
 	if (update_sector_data(env, start, end , sector))
 		return (-1);
+	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1], 
+		env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
+		env))
+		return (-1);
+	if (set_sector_ceiling_map_array(&env->sectors[env->nb_sectors - 1], 
+		env->wall_textures[env->sectors[env->nb_sectors - 1].ceiling_texture],
+		env))
+		return (-1);
+	update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 	env->editor.split.sector = -1;
 	env->editor.split.v1 = -1;
 	env->editor.split.v2 = -1;

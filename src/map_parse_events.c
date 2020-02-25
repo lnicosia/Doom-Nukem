@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_events.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 12:07:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:56:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("event trigger", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before event trigger", "a digit",
-		**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for trigger_index\n"));
 	eparser->trigger_index = ft_atoi(*line);
 	if (eparser->trigger_index < 0 || eparser->trigger_index
 		> MAX_TRIGGER_TYPES)

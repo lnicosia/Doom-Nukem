@@ -46,6 +46,6 @@ int		editor_render(t_env *env)
 		check_event_creation(env);
 	env->editor.select = 0;
 	env->editor.select_portal = 0;
-	FMOD_System_Update(env->sound.system);
+	//FMOD_System_Update(env->sound.system);
 	return (0);
 }
