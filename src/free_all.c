@@ -198,6 +198,8 @@ void		free_all(t_env *env)
 	t_list	*tmplst;
 
 	ft_printf("Freeing data..\n");
+	if (!env)
+		return ;
 	if (env->editor.creating_event)
 	{
 		if (env->editor.event_panel.selected_event != -1)
@@ -205,8 +207,6 @@ void		free_all(t_env *env)
 		else
 			create_event(env);
 	}
-	if (!env)
-		return ;
 	free_all_sdl_relative(env);
 	if (env->sdl.fonts.amazdoom70)
 		TTF_CloseFont(env->sdl.fonts.amazdoom70);

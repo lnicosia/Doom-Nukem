@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 11:12:57 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 14:35:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,6 @@ typedef struct	s_editor
 	t_list				*current_vertices;
 	int					reverted;
 	int					in_game;
-	int					game;
 	int					enter_locked;
 	t_add_vertex		add;
 	t_split				split;
@@ -430,6 +429,7 @@ typedef struct	s_editor
 	int					texture_tab;
 	int					ambiance_music;
 	int					fighting_music;
+	t_list				*events_to_delete;
 }				t_editor;
 
 #endif

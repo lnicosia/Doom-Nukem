@@ -28,6 +28,17 @@ void	no_writer(int fd, t_event event)
 	(void)event;
 }
 
+void	init_events_parser_var(t_events_parser *eparser)
+{
+	eparser->current_sector = -1;
+	eparser->current_enemy = -1;
+	eparser->current_object = -1;
+	eparser->current_wall = -1;
+	eparser->current_sprite = -1;
+	eparser->current_vertex = -1;
+	eparser->current_weapon = -1;
+}
+
 void	init_events_parser_trigger_parsers(t_events_parser *eparser)
 {
 	eparser->trigger_parsers[GLOBAL] = &no_parser;
@@ -43,6 +54,7 @@ void	init_events_parser_trigger_parsers(t_events_parser *eparser)
 
 void	init_events_parser(t_events_parser *eparser)
 {
+	init_events_parser_var(eparser);
 	init_events_parser_trigger_parsers(eparser);
 	eparser->new_events[GLOBAL] = &new_parser_global_event;
 	eparser->new_events[PRESS] = &new_parser_press_event;

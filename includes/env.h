@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 13:31:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 14:38:20 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct		s_env
 	char				*snprintf;
 	int					fatal_error;
 	int					checking_collisions_with_player;
-	int					saving;
 	int					playing;
 	int					visible_sectors;
 	int					skybox_computed;
@@ -275,7 +274,7 @@ int					add_sector(t_env *env);
 int					add_object(t_env *env);
 int					fill_new_sector(t_sector *sector, t_env *env);
 int					editor_render(t_env *env);
-int					save_map(t_env *env);
+int					save_map(void *param);
 void				revert_sector(t_sector *sector, t_env *env);
 int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
@@ -285,12 +284,15 @@ void				vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
 int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
-void				del_last_vertex(t_env *env);
-int					delete_vertex(t_env *env, int vertex);
-int					delete_sector(t_env *env, int sector);
-int					delete_object(t_env *env, int object);
+int					del_last_vertex(t_env *env);
+int					delete_vertex(void *param);
+int					delete_sector(void *param);
+int					delete_object(void *param);
+int					delete_enemy(void *param);
 int					current_vertices_contains(t_env *env, int vertex);
 int					is_vertex_used(t_env *env, int vertex);
+int					is_vertex_going_to_be_used(t_env *env, int sector,
+int vertex);
 int					is_vertex_used_by_others(t_env *env, int vertex,
 int sector);
 int					delete_invalid_sectors(t_env *env);
@@ -300,11 +302,10 @@ int					is_new_dragged_vertex_valid(t_env *env, int index);
 void				clear_portals(t_env *env);
 int					delete_action(t_env *env);
 int					editor_button_up(t_env *env);
-int					delete_enemy(t_env *env, int enemy);
 t_sector			rotate_vertices(t_env *env, int i, int index);
 void				update_enemies_z(t_env *env);
 void				update_objects_z(t_env *env);
-void				update_entities_sectors(t_env *env);
+int					update_entities_sectors(t_env *env);
 void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
@@ -329,12 +330,12 @@ int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
 int					split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
-void				update_neighbors(t_env *env, int index, int num,
+int					update_neighbors(t_env *env, int index, int num,
 t_sector *sector);
 void				update_vertices(int index, t_sector *sector);
 void				update_textures(int index, t_sector *sector);
-void				update_double_tab(int index, double size, double **tab);
-void				update_int_tab(int index, int size, int **tab);
+int					update_double_tab(int index, double size, double **tab);
+int					update_int_tab(int index, int size, int **tab);
 void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
@@ -468,11 +469,21 @@ int					previous_ambiance_music(void *target);
 int					next_fighting_music(void *target);
 int					previous_fighting_music(void *target);
 int					check_all_angles(t_v2 *p, int res, int i, int straight);
-int					modify_walls_map_lvl(t_env *env, int sector);
-int					modify_t_wall_sprites_tab_in_sector(t_env *env,
-int index, int sector, t_wall_sprites **tab);
-int					modify_t_list_tab_in_sector(t_env *env, int index,
-int sector,t_list ***tab);
+int					update_existing_events(t_env *env,
+t_event_target target);
+int					update_sector_existing_events(t_env *env,
+t_event_target target);
+int					update_vertex_existing_events(t_env *env,
+t_event_target target);
+int					update_enemy_existing_events(t_env *env,
+t_event_target target);
+int					update_object_existing_events(t_env *env,
+t_event_target target);
+int					delete_selected_sector(void *param);
+int					delete_linked_events(t_env *env);
+int					delete_events_to_delete_list(void *param);
+int					delete_wall_sprite(void *param);
+
 
 /*
 **	Input boxes checkers and updaters
@@ -790,6 +801,7 @@ int					create_event(void *param);
 int					save_event(void *param);
 int					modify_event(void *param);
 int					delete_event(void *param);
+int					delete_selected_event1(t_env *env, t_event_trigger trigger);
 int					save_condition(void *param);
 int					create_condition(void *param);
 int					modify_condition(void *param);
@@ -942,6 +954,9 @@ int					option_menu_button(t_env *env);
 int					exit_button(t_env *env);
 int					return_button(t_env *env);
 void				init_events_map(t_env *env);
+void				init_condition(t_condition *condition);
+void				init_trigger(t_event_trigger *trigger);
+void				init_target(t_event_target *target);
 
 /*
 **	Parser functions
@@ -1167,9 +1182,9 @@ double				apply_drop(double vel);
 int					project_wall(int i, t_camera *camera, t_sector *sector,
 t_env *env);
 void				update_sprites_state(t_env *env);
-void				death(t_env *env);
-void				stop_game(void *param);
-void				respawn(void *param);
+int					death(t_env *env);
+int					stop_game(void *param);
+int					respawn(void *param);
 void				print_results(t_env *env);
 void				activate_teleport(t_env *env);
 void				create_teleport(t_env *env);

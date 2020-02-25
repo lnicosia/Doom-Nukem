@@ -64,6 +64,7 @@ t_events_parser *eparser)
 			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
 		return (custom_error_with_line("Invalid launch condition target",
 		parser));
+	init_events_parser_var(eparser);
 	*line = skip_number(*line);
 	if (eparser->target_parsers[eparser->condition_index](env, parser,
 		line, eparser))
@@ -136,6 +137,8 @@ t_events_parser *eparser)
 int		parse_event_launch_conditions(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser)
 {
+	int	i;
+
 	(*line)++;
 	if (!**line)
 		return (missing_data("event launch conditions", parser));
@@ -149,6 +152,12 @@ char **line, t_events_parser *eparser)
 			(t_condition*)ft_memalloc(sizeof(t_condition)
 			* eparser->nb_conditions)))
 		return (ft_perror("Could not malloc launch conditions"));
+	i = 0;
+	while (i < eparser->nb_conditions)
+	{
+		init_condition(&eparser->event.launch_conditions[i]);
+		i++;
+	}
 	while (eparser->condition_count < eparser->nb_conditions)
 	{
 		if (parse_condition(env, parser, line, eparser))

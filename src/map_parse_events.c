@@ -25,6 +25,7 @@ t_events_parser *eparser)
 		> MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid trigger type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->trigger_index](env, parser, line,
 		eparser))
 		return (-1);

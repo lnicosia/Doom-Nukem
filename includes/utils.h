@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 14:35:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 14:36:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,17 @@ typedef struct		s_state
 	int				fly;
 }					t_state;
 
+typedef struct		s_event_trigger
+{
+	int				type;
+	int				index;
+	int				sector;
+	int				wall;
+	int				enemy;
+	int				object;
+	int				sprite;
+}					t_event_trigger;
+
 typedef struct		s_render_vertex
 {
 	t_v2			*texture_scale;
@@ -284,6 +295,7 @@ typedef struct		s_render_vertex
 	double			y0z1;
 	double			y1z0;
 	double			yzrange;
+	t_event_trigger	*triggers;
 }					t_render_vertex;
 
 /*
@@ -326,16 +338,17 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
-typedef struct		s_event_trigger
+typedef struct		s_event_target
 {
 	int				type;
-	int				index;
 	int				sector;
 	int				wall;
+	int				sprite;
 	int				enemy;
 	int				object;
-	int				sprite;
-}					t_event_trigger;
+	int				vertex;
+	int				weapon;
+}					t_event_target;
 
 typedef struct		s_condition
 {
@@ -1184,9 +1197,9 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
-	void			(*yes_action)(void *);
+	int				(*yes_action)(void *);
 	void			*yes_target;
-	void			(*no_action)(void *);
+	int				(*no_action)(void *);
 	void			*no_target;
 }					t_confirmation_box;
 

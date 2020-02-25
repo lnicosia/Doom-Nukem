@@ -12,6 +12,8 @@ int		set_event_link(t_env *env, t_events_parser *eparser)
 		sizeof(t_condition) * source_array->nb_launch_conditions,
 		sizeof(t_condition) * (source_array->nb_launch_conditions + 1))))
 		return (-1);
+	init_condition(&source_array->launch_conditions[source_array->
+	nb_launch_conditions]);
 	source_array->launch_conditions[source_array->nb_launch_conditions].target =
 	eparser->get_event_array[eparser->target_type](env, eparser, 1);
 	source_array->launch_conditions[source_array->nb_launch_conditions].type =

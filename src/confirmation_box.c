@@ -15,20 +15,27 @@
 int		confirmation_box_keyup(t_confirmation_box *box, t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN
+		&& !env->editor.enter_locked
 		&& box->yes.anim_state == PRESSED
 		&& box->no.anim_state != PRESSED)
 	{
-		if (box->yes_action)
-			box->yes_action(box->yes_target);
 		box->state = 0;
 		env->editor.enter_locked = 1;
+		if (box->yes_action)
+		{
+			if (box->yes_action(box->yes_target))
+				return (-1);
+		}
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
 		&& box->type == YESNO
 		&& box->yes.anim_state != PRESSED)
 	{
 		if (box->no_action)
-			box->no_action(box->no_target);
+		{
+			if (box->no_action(box->no_target))
+				return (-1);
+		}
 		box->state = 0;
 	}
 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP

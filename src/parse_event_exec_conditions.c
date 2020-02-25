@@ -31,6 +31,7 @@ t_events_parser *eparser)
 		return (custom_error_with_line("Invalid exec condition target",
 		parser));
 	*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->target_parsers[eparser->condition_index](env, parser,
 		line, eparser))
 		return (-1);
@@ -102,6 +103,8 @@ t_events_parser *eparser)
 int				parse_event_exec_conditions(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser)
 {
+	int	i;
+
 	(*line)++;
 	if (!**line)
 		return (missing_data("event exec conditions", parser));
@@ -115,6 +118,12 @@ char **line, t_events_parser *eparser)
 			(t_condition*)ft_memalloc(sizeof(t_condition)
 			* eparser->nb_conditions)))
 		return (ft_perror("Could not malloc exec conditions"));
+	i = 0;
+	while (i < eparser->nb_conditions)
+	{
+		init_condition(&eparser->event.exec_conditions[i]);
+		i++;
+	}
 	while (eparser->condition_count < eparser->nb_conditions)
 	{
 		if (parse_condition(env, parser, line, eparser))

@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/25 14:25:50 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/25 14:43:24 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,13 +53,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 add_enemy.c enemy_selection.c delete_event.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
+		 apply_texture.c init_event_panel_buttons.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c print_target_functions.c \
+		 write_events_links.c print_target_functions.c update_existing_events.c\
 		 split_sector_utils.c selection_tab.c init_hud_button.c \
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
@@ -108,7 +108,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 set_new_event_target.c set_new_event_target2.c \
 		 set_new_event_target3.c set_new_event_target4.c \
 		 set_new_event_target5.c set_new_event_target6.c \
-		 set_new_event_target7.c \
+		 set_new_event_target7.c delete_wall_sprite.c \
 		 condition_event_panel.c init_condition_event_buttons.c \
 		 3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		 3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
@@ -117,8 +117,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		 update_entities.c delete_sector.c editor_vertices_tab.c \
+		 update_entities.c editor_vertices_tab.c \
 		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
+		 delete_sector.c delete_vertex.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -137,7 +138,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
 		   sound_utils.c draw_rectangle.c confirmation_box.c \
 		   draw_objects.c sprites_maths.c draw_players.c \
-		   map_parse_objects.c map_init_objects.c delete_vertex.c \
+		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
@@ -198,7 +199,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h \
+		  events_parser.h update_existing_events.h \
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
