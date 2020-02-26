@@ -17,32 +17,24 @@ void	draw_grid_objects(t_env *env)
 {
 	t_point		center;
 	t_point		size;
+	t_sprite	sprite;
 	double		scale;
 	int			i;
-	Uint32		color;
-	t_texture	texture;
-//	t_v3		v[3];
 
 	i = 0;
-	if (env->editor.dragged_object != -1)
-	{
-		color = 0xFF00FF00;
-		scale = env->editor.scale / 2.0;
-		center.x = env->sdl.mx;
-		center.y = env->sdl.my;
-		draw_circle(new_circle(color, color, center, scale), env);
-	}
 	while (i < env->nb_objects)
 	{
-		center.x = env->objects[i].pos.x * env->editor.scale + env->editor.center.x;
-		center.y = env->objects[i].pos.y * env->editor.scale + env->editor.center.y;
-		if (env->sdl.mx > center.x - env->editor.scale / 2.0
-				&& env->sdl.mx < center.x + env->editor.scale / 2.0
-				&& env->sdl.my > center.y - env->editor.scale / 2.0
-				&& env->sdl.my < center.y + env->editor.scale / 2.0)
+		center.x =
+		env->objects[i].pos.x * env->editor.scale + env->editor.center.x;
+		center.y =
+		env->objects[i].pos.y * env->editor.scale + env->editor.center.y;
+		sprite = env->object_sprites[env->objects[i].sprite];
+		if (env->sdl.mx > center.x - env->editor.scale
+				&& env->sdl.mx < center.x + env->editor.scale
+				&& env->sdl.my > center.y - env->editor.scale
+				&& env->sdl.my < center.y + env->editor.scale)
 		{
-			scale = env->editor.scale;
-			color = 0xFF00FF00;
+			scale = env->editor.scale * 2.5;
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
@@ -61,33 +53,16 @@ void	draw_grid_objects(t_env *env)
 			}
 		}
 		else
-		{
-			color = 0xFFFFFF00;
-			scale = env->editor.scale / 2.0;
-		}
-		texture = env->mini_objects_textures[0];
-		size = new_point(env->editor.scale * 2, env->editor.scale * 2);
+			scale = env->editor.scale * 2.0;
+		size = new_point(scale,
+		scale / (sprite.size[0].x / (double)sprite.size[0].y));
 		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
-		if (env->editor.dragged_object != i)
-		{
-			//draw_circle(new_circle(color, color, center, scale), env);
-			size.x /= 1.3;
-			size.y /= 1.3;
-		}
 		if (env->selected_object == i)
-			apply_image_selected(texture, center, size, env);
+			apply_sprite_selected(env->object_sprites[env->objects[i].sprite],
+			center, size, env);
 		else
-			apply_image(texture, center, size, env);
+			apply_sprite(env->object_sprites[env->objects[i].sprite],
+			center, size, env);
 		i++;
-	/*	v[0] = new_v3(center.x + cos(env->objects[i].angle - M_PI / 2) * scale / 2,
-				center.y + sin(env->objects[i].angle - M_PI / 2) * scale / 2,
-				0);
-		v[2] = new_v3(center.x - cos(env->objects[i].angle - M_PI / 2) * scale / 2,
-				center.y - sin(env->objects[i].angle - M_PI / 2) * scale / 2,
-				0);
-		v[1] = new_v3(center.x + cos(env->objects[i].angle) * scale * 2,
-				center.y + sin(env->objects[i].angle) * scale * 2,
-				0);
-		fill_triangle(v, 0xFFFFFF00, env);*/
 	}
 }

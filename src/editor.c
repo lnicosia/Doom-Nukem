@@ -99,8 +99,6 @@ int		editor(t_env *env)
 			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
-		apply_sprite(env->enemy_sprites[CYBER_DEMON], new_point(env->sdl.my,
-		env->sdl.mx), new_point(64, 64), env);
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else
