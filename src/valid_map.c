@@ -44,7 +44,8 @@ int		check_vertex_inside_sector(t_env *env, t_v2 vertex)
 **	Check if the current sector is inside another sector
 */
 
-int			compare_sectors(int start_v1, int start_v2, t_sector sect1, t_sector sect2)
+int			compare_sectors(int start_v1, int start_v2,
+t_sector sect1, t_sector sect2)
 {
 	int	i;
 	int	j;
@@ -128,6 +129,7 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 	while (i < sector.nb_vertices)
 	{
 		j = 0;
+
 		while (j < sector2.nb_vertices)
 		{
 			if (sector.vertices[i] == sector2.vertices[j])
@@ -142,8 +144,35 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 		return (-1);
 	if (check_portals(sector, sector2))
 		return(-1);
-	if (i == sector.nb_vertices - 1)
-		return (-1);
+	return (0);
+}
+
+int			check_inside_sector(t_sector sector, int sect, t_env *env)
+{
+	int			i;
+	int			j;
+	t_sector	sector2;;
+	t_v2		vertex;
+	
+	i = 0;
+	sector2 = env->sectors[sect];
+	while (i < sector2.nb_vertices)
+	{
+		j = 0;
+		vertex = new_v2(env->vertices[sector2.vertices[i]].x,
+		env->vertices[sector2.vertices[i]].y);
+		while (j < sector.nb_vertices)
+		{
+			if (vertex.x == env->vertices[sector.vertices[j]].x
+			&& vertex.y == env->vertices[sector.vertices[j]].y)
+				break;
+			j++;
+		}
+		if (j == sector.nb_vertices
+		&& is_in_sector_no_z(env, sector.num, vertex))
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
@@ -156,6 +185,8 @@ static int	is_inside(t_sector sector, t_env *env)
 	{
 		if (i != sector.num)
 		{
+			if (check_inside_sector(sector, i, env))
+				return (-1);
 			if (check_sectors_inside(sector, i, env))
 				return (-1);
 		}
@@ -319,6 +350,10 @@ int			is_sector_concave(t_sector sector, t_env *env)
 	free(p);
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
 		return (-1);
+	if (!res)
+		env->sector_is_straight = 1;
+	else
+		env->sector_is_straight = 0;
 	return (0);
 }
 
@@ -383,6 +418,8 @@ int			check_sector(t_sector sector, t_env *env)
 		return (ft_printf("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))
 		return (ft_printf("Distance between floor and ceiling exceed 1000\n"));
+	if (env->sector_is_straight)
+		return (ft_printf("Sector %d is on a staight line\n", sector.num));
 	return (0);
 }
 

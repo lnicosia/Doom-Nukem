@@ -161,10 +161,7 @@ int	editor_keyup(t_env *env)
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.start_vertex = -1;
 					if (add_sector(env))
-					{
-						ft_printf("Error while creating new sector\n");
 						return (0);
-					}
 					free_current_vertices(env);
 				}
 				else
@@ -180,6 +177,7 @@ int	editor_keyup(t_env *env)
 				if (ft_lstlen(env->editor.current_vertices) == 2
 					&& check_pos_vertices(env))
 				{
+					env->editor.split_sector = 1;
 					if (split_sector(env))
 						return (-1);
 				}

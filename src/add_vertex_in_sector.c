@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 13:23:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:36:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,11 @@ int		is_mouse_on_a_wall(t_env *env)
 				}
 			}
 			else
-			{
-				ft_printf("a vertex already exist at this position\n");
 				return (0);
-			}
 			j++;
 		}
 		i++;
 	}
-/*	ft_printf("nb_vertices: %d| i: %d\n", env->sectors[i].nb_vertices, i);
-	v1 = new_v2(env->vertices[env->sectors[i].vertices[j]].x, env->vertices[env->sectors[i].vertices[j]].y);
-	v2 = new_v2(env->vertices[env->sectors[i].vertices[j]].x, env->vertices[env->sectors[i].vertices[j]].y);
-	mouse = new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
-	round((env->sdl.my - env->editor.center.y) / env->editor.scale));
-	if (hitbox_collision(v1, v2, mouse, 0.5))
-		return (1);*/
-	/*if (env->editor.select_vertex_on_going)
-	{
-		if (env->editor.add.v1 == -1)
-	        env->editor.add.v1 = env->editor.selected_vertex;
-		else if(env->editor.selected_vertex != env->editor.add.v1 && env->editor.add.v2 == -1)
-		{
-	        env->editor.add.v2 = env->editor.selected_vertex;
-			env->editor.select_vertex_on_going = 0;
-		}
-	}
-	if (env->editor.add.v1 != -1 && env->editor.add.v2 != -1)
-    	return (1);*/
-	ft_printf("mouse isn't on a wall\n");
 	return (0);
 }
 

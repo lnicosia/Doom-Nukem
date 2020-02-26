@@ -18,9 +18,9 @@ int     in_range(double nb, double val1, double val2)
 	double min;
 	double max;
 
-	min = (val1 < val2) ? val1 : val2;
+	min = (val1 <= val2) ? val1 : val2;
 	max = (val1 > val2) ? val1 : val2;
-	if (nb > min && nb < max)
+	if (nb > min && nb <= max)
 		return (1);
 	return (0);
 }

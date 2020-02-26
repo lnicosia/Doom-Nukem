@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/26 10:42:32 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/26 15:32:56 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		 draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
 		add_vertex.c print_target_functions2.c \
-		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
+		 add_player.c editor_hud.c add_sector.c  \
 		 save_map.c write_vertices.c write_sectors.c write_objects.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
-		 player_selection.c objects_selection.c vertices_selection.c \
+		 player_selection.c objects_selection.c \
 		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
 		 add_enemy.c enemy_selection.c delete_event.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
@@ -195,7 +195,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c new_object_event.c \
 		   menu_keys.c option_menu.c option_menu_keys.c \
-		   is_new_vertex_valid.c
+		   is_new_vertex_valid.c vertices_selection.c fill_new_sector.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -216,7 +216,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  -fsanitize=address -g3 \
+		  #-fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \

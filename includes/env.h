@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/26 10:41:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/26 15:22:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct		s_env
 	int					fatal_error;
 	int					checking_collisions_with_player;
 	int					playing;
+	int					sector_is_straight;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
@@ -488,6 +489,7 @@ int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
 int					is_mouse_on_a_wall(t_env *env);
 int					check_sector(t_sector sector, t_env *env);
+void				check_sector_order(t_env *env);
 
 /*
 **	Input boxes checkers and updaters

@@ -220,5 +220,6 @@ int		split_sector(t_env *env)
 	env->editor.split.v1 = -1;
 	env->editor.split.v2 = -1;
 	env->editor.divide_sector = 0;
+	env->editor.split_sector = 0;
 	return (0);
 }
