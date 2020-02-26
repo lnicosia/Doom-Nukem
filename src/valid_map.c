@@ -53,30 +53,21 @@ int			compare_sectors(int start_v1, int start_v2, t_sector sect1, t_sector sect2
 	j = 0;
 	while (start_v1 < sect1.nb_vertices)
 	{
-		ft_printf("	v: %d | v: %d\n", sect1.vertices[start_v1], sect2.vertices[start_v2]);
 		if (sect1.vertices[start_v1] == sect2.vertices[start_v2])
-		{
-			ft_printf("	vertices equals\n");
 			i++;
-		}
 		else
 		{
-			ft_printf("\nlooping to find from start\n");
 			if (start_v2 + 1 < sect2.nb_vertices)
 				j = start_v2 + 1;
 			else
 				j = 0;
-			ft_printf("conditions of loop: ==> j: %d > v2: %d | limit: %d\n", j, start_v2, sect2.nb_vertices);
 			while ((j > start_v2 && j < sect2.nb_vertices)
 			|| (j < start_v2))
 			{
-				ft_printf("j: %d | limit: %d\n", j, sect2.nb_vertices);
 				if (sect1.vertices[start_v1] == sect2.vertices[j])
 				{
 					start_v2 = j;
 					i++;
-					ft_printf("	v: %d | v: %d\n", sect1.vertices[start_v1], sect2.vertices[j]);
-					ft_printf("	vertices equals\n");
 					break;
 				}
 				if (j < sect2.nb_vertices)
@@ -91,8 +82,6 @@ int			compare_sectors(int start_v1, int start_v2, t_sector sect1, t_sector sect2
 			start_v2 = 0;
 		start_v1++;
 	}
-	ft_printf("\n");
-	ft_printf("i: %d | vertices: %d\n", i, sect1.nb_vertices);
 	if (i == sect1.nb_vertices)
 		return (-1);
 	return (0);
@@ -102,17 +91,25 @@ int			check_portals(t_sector sect1, t_sector sect2)
 {
 	int	i;
 	int	j;
+	int	k;
 
 	i = 0;
-	j = 0;
 	while (i < sect1.nb_vertices)
 	{
 		j = 0;
 		while (j < sect2.nb_vertices)
 		{
-			if (sect1.vertices[i] == sect2.vertices[j]
-			&& sect1.neighbors[i] == -1)
-				return (-1);
+			if (sect1.vertices[i] == sect2.vertices[j])
+			{
+				k = 0;
+				while (k < sect2.nb_vertices)
+				{
+					if (sect1.vertices[i + 1] == sect2.vertices[k]
+					&& sect1.neighbors[i] == -1)
+						return (-1);					
+					k++;
+				}
+			}
 			j++;
 		}
 		i++;
@@ -129,7 +126,6 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 
 	i = 0;
 	sector2 = env->sectors[sect];
-	ft_printf("=======> sector: %d | sector: %d <========\n", sector.num, sect);
 	while (i < sector.nb_vertices)
 	{
 		j = 0;
@@ -151,8 +147,6 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 		return (-1);
 	if (check_portals(sector, sector2))
 		return(-1);
-	ft_printf("\n");
-	ft_printf("=======> END <=======\n");
 	if (i == sector.nb_vertices - 1)
 		return (-1);
 	return (0);
