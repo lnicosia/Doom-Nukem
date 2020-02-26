@@ -121,7 +121,6 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 {
 	int			i;
 	int			j;
-	t_v2	vertex;
 	t_sector	sector2;
 
 	i = 0;
@@ -129,10 +128,6 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 	while (i < sector.nb_vertices)
 	{
 		j = 0;
-		vertex = new_v2(env->vertices[sector.vertices[i]].x,
-		env->vertices[sector.vertices[i]].y);
-/*		if (is_in_sector_no_z(env, sect, vertex))
-			return (custom_error("Vertex is inside a sector"));*/
 		while (j < sector2.nb_vertices)
 		{
 			if (sector.vertices[i] == sector2.vertices[j])
@@ -156,15 +151,6 @@ static int	is_inside(t_sector sector, t_env *env)
 {
 	int		i;
 
-/*	i = 0;
-	while (i < sector.nb_vertices)
-	{
-		if (check_vertex_inside_sector(env,
-			new_v2(env->vertices[sector.vertices[i]].x,
-			env->vertices[sector.vertices[i]].y)) != 1)
-			return (1);
-		i++;
-	}*/
 	i = 0;
 	while(i < env->nb_sectors)
 	{
@@ -387,7 +373,7 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 **	Check sector validity
 */
 
-static int	check_sector(t_sector sector, t_env *env)
+int			check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d is inside or contains a sector\n", sector.num));

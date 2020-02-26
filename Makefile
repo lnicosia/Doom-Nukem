@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/25 19:30:25 by sipatry          ###   ########.fr        #
+#    Updated: 2020/02/26 10:42:32 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c death.c \
 		   map_parse_vertices.c add_vertex_in_sector.c is_in_sector.c\
-		   get_existing_vertex.c map_parser_protection_utils.c \
+		   get_existing_vertex.c ./map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
 		   sound_utils.c draw_rectangle.c confirmation_box.c \
@@ -216,7 +216,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \

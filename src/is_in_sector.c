@@ -174,11 +174,11 @@ int		inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size)
 	is_inside = 0;
 	while (i < size)
 	{
-		if (((tmp_sect[i].y < v1.y && tmp_sect[j].y >= v1.y)
-		|| (tmp_sect[j].y < v1.y && tmp_sect[i].y >= v1.y))
+		if (((tmp_sect[i].y < v1.y && tmp_sect[j].y > v1.y)
+		|| (tmp_sect[j].y < v1.y && tmp_sect[i].y > v1.y))
 		
 		
-		&& (tmp_sect[i].x <= v1.x || tmp_sect[j].x <= v1.x))
+		&& (tmp_sect[i].x < v1.x || tmp_sect[j].x < v1.x))
 		{
 			if (tmp_sect[i].x + ( v1.y - tmp_sect[i].y) /
 				(tmp_sect[j].y - tmp_sect[i].y) *

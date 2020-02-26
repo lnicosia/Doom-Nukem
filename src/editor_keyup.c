@@ -124,18 +124,13 @@ int	editor_keyup(t_env *env)
 		&& env->sdl.mx > 400)
 	{
 		clicked_vertex = get_existing_vertex(env);
-		ft_printf("clicked_vertex: %d\n", clicked_vertex);
 		if (clicked_vertex == -1)
 		{
 			ret = is_new_vertex_valid(env, clicked_vertex);
 			if (ret == -1)
 				return (-1);
 			else if (!ret)
-			{
-			ft_printf("vertex is invalid\n");
 				return (0);
-			}
-			ft_printf("add vertex\n");
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
 			if (add_vertex_to_current_sector(env, env->nb_vertices - 1))
@@ -147,7 +142,7 @@ int	editor_keyup(t_env *env)
 		{
 			if (env->editor.start_vertex == -1)
 			{
-				ft_printf("add vertex to list\n");
+
 				env->editor.start_vertex = clicked_vertex;
 				if (add_vertex_to_current_sector(env, clicked_vertex))
 					return (-1);
@@ -166,15 +161,14 @@ int	editor_keyup(t_env *env)
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.start_vertex = -1;
 					if (add_sector(env))
-						return (ft_printf("Error while creating new sector\n"));
+					{
+						ft_printf("Error while creating new sector\n");
+						return (0);
+					}
 					free_current_vertices(env);
-					//get_new_floor_and_ceiling(env);
-					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
-					ft_printf("creating a new sector\n");
 				}
 				else
 				{
-					ft_printf("sector on construction\n");
 					ret = is_new_vertex_valid(env, clicked_vertex);
 					if (ret == -1)
 						return (-1);
@@ -182,12 +176,10 @@ int	editor_keyup(t_env *env)
 						return (0);
 					if (add_vertex_to_current_sector(env, clicked_vertex))
 						return (-1);
-					ft_printf("added vertex to list");
 				}
 				if (ft_lstlen(env->editor.current_vertices) == 2
 					&& check_pos_vertices(env))
 				{
-					ft_printf("splitting sector\n");
 					if (split_sector(env))
 						return (-1);
 				}

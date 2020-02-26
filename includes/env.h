@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 19:26:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/26 10:41:13 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,7 @@ int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
 int					is_mouse_on_a_wall(t_env *env);
+int					check_sector(t_sector sector, t_env *env);
 
 /*
 **	Input boxes checkers and updaters

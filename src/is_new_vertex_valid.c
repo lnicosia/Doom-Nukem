@@ -300,48 +300,23 @@ int		new_sector_contains(t_vertex *tmp_sect, t_vertex v1, int size)
 ** Returns 1 if there's no exisiting vertex in the new sector
 */
 
-int		is_sector_empty(t_env *env, t_v2 last_vertex)
+/*
+int		is_sector_empty(t_env *env)
 {
-	int		i;
-	int		size;
-	t_list	*tmp;
+	t_sector	sector;
+	int			ret;
+	int			i;
 
 	i = 0;
-	size = 1;
-	tmp = env->editor.current_vertices;
-	while (tmp)
+	ret = ft_lstlen(env->editor.current_vertices);
+	while (i < ret)
 	{
-		size++;
-		tmp = tmp->next;
+
 	}
-	if (size <= 2)
-		return (1);
-	tmp = env->editor.current_vertices;
-	if (!(env->tmp_sector = (t_vertex *)malloc(sizeof(t_vertex) * size)))
-		return (0);
-	while (tmp)
-	{
-		env->tmp_sector[i].x = ((t_vertex*)tmp->content)->x;
-		env->tmp_sector[i].y = ((t_vertex*)tmp->content)->y;
-		tmp = tmp->next;
-		i++;
-	}
-	env->tmp_sector[i].x = last_vertex.x;
-	env->tmp_sector[i].y = last_vertex.y;
-	i = 0;
-	while (i < env->nb_vertices)
-	{
-		if (!new_sector_contains(env->tmp_sector, env->vertices[i], size) &&
-			inside_tmp_sect(env->vertices[i], env->tmp_sector, size))
-		{	
-			free(env->tmp_sector);
-			return (0);
-		}
-		i++;
-	}
-	free(env->tmp_sector);
+	if ()
+		return (-1);
 	return (1);
-}
+}*/
 
 /*
 **	Returns 1 if a vertex is valid
@@ -356,17 +331,18 @@ int		is_new_vertex_valid(t_env *env, int index)
 
 	vertex.x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 	vertex.y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
-/*	if (check_vertex_inside_sector(env, vertex) != 1)
-		return (0);*/
 	if (is_mouse_on_a_wall(env))
 		return (0);
 	if (!env->editor.current_vertices)
 		return (1);
-	if (!is_sector_empty(env, vertex))
+/*	ret = is_sector_empty(env);
+	if (ret == -1)
+		return (-1);
+	else if (!ret)
 	{
 		ft_printf("sector empty\n");
 		return (0);
-	}
+	}*/
 	if (current_vertices_contains(env, index))
 		return (0);
 	ft_printf("double in list\n");
