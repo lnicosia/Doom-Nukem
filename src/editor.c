@@ -14,10 +14,6 @@
 
 int		editor(t_env *env)
 {
-	t_point		size;
-
-	size = new_point(env->sprite_textures[32].surface->w,
-	env->sprite_textures[32].surface->h);
 	while (env->running)
 	{
 		env->pid = getpid();
@@ -57,8 +53,6 @@ int		editor(t_env *env)
 					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) * 1.1);
 					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) * 1.1);
 					env->editor.scale *= 1.1;
-					size.x *= 1.1;
-					size.y *= 1.1;
 			}
 				if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 1)
 				{
@@ -66,8 +60,6 @@ int		editor(t_env *env)
 					env->editor.center.x = env->sdl.mx + ((env->editor.center.x - env->sdl.mx) / 1.1);
 					env->editor.center.y = env->sdl.my + ((env->editor.center.y - env->sdl.my) / 1.1);
 					env->editor.scale /= 1.1;
-					size.x /= 1.1;
-					size.y /= 1.1;
 				}
 			}
 			if (env->input_box.state)
@@ -107,8 +99,8 @@ int		editor(t_env *env)
 			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
 			draw_input_box(&env->input_box, env);
-		apply_image(env->sprite_textures[32],
-		new_point(env->sdl.my - size.x / 2, env->sdl.mx - size.y / 2), size, env);
+		apply_sprite(env->enemy_sprites[CYBER_DEMON], new_point(env->sdl.my,
+		env->sdl.mx), new_point(64, 64), env);
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

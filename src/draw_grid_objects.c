@@ -16,9 +16,11 @@
 void	draw_grid_objects(t_env *env)
 {
 	t_point		center;
+	t_point		size;
 	double		scale;
 	int			i;
 	Uint32		color;
+	t_texture	texture;
 //	t_v3		v[3];
 
 	i = 0;
@@ -63,10 +65,19 @@ void	draw_grid_objects(t_env *env)
 			color = 0xFFFFFF00;
 			scale = env->editor.scale / 2.0;
 		}
-		if (env->selected_object == i)
-			color = 0xFF00FF00;
+		texture = env->mini_objects_textures[0];
+		size = new_point(env->editor.scale * 2, env->editor.scale * 2);
+		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
 		if (env->editor.dragged_object != i)
-			draw_circle(new_circle(color, color, center, scale), env);
+		{
+			//draw_circle(new_circle(color, color, center, scale), env);
+			size.x /= 1.3;
+			size.y /= 1.3;
+		}
+		if (env->selected_object == i)
+			apply_image_selected(texture, center, size, env);
+		else
+			apply_image(texture, center, size, env);
 		i++;
 	/*	v[0] = new_v3(center.x + cos(env->objects[i].angle - M_PI / 2) * scale / 2,
 				center.y + sin(env->objects[i].angle - M_PI / 2) * scale / 2,

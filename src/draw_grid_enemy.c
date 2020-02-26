@@ -16,9 +16,11 @@
 void	draw_grid_enemies(t_env *env)
 {
 	t_point		center;
+	t_point		size;
 	double		scale;
 	int			i;
 	Uint32		color;
+	t_texture	texture;
 
 	i = 0;
 	if (env->editor.dragged_enemy != -1)
@@ -28,6 +30,10 @@ void	draw_grid_enemies(t_env *env)
 		center.x = env->sdl.mx;
 		center.y = env->sdl.my;
 		draw_circle(new_circle(color, color, center, scale), env);
+		texture =
+		env->sprite_textures[env->enemies[env->editor.dragged_enemy].sprite];
+		apply_image_selected(texture, center, new_point(texture.surface->w,
+		texture.surface->h), env);
 	}
 	while (i < env->nb_enemies)
 	{
@@ -63,10 +69,22 @@ void	draw_grid_enemies(t_env *env)
 			color = 0xFF0000FF;
 			scale = env->editor.scale / 2.0;
 		}
-		if (env->selected_enemy == i)
-			color = 0xFF0000FF;
+		texture = env->mini_enemies_textures[get_main_enemy_sprite(
+		env->enemies[i].sprite, env)];
+		size = new_point(env->editor.scale * 2, env->editor.scale * 2);
+		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
+		//texture = env->sprite_textures[32];
+			//color = 0xFF0000FF;
 		if (env->editor.dragged_enemy != i)
-			draw_circle(new_circle(color, color, center, scale), env);
+		{
+			size.x /= 1.3;
+			size.y /= 1.3;
+		}
+			//draw_circle(new_circle(color, color, center, scale), env);
+		if (env->selected_enemy == i)
+			apply_image_selected(texture, center, size, env);
+		else
+			apply_image(texture, center, size, env);
 		i++;
 	}
 }

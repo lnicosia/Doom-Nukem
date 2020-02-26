@@ -576,6 +576,7 @@ int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
+int 				get_main_enemy_sprite(int sprite, t_env *env);
 
 /*
 **
@@ -998,6 +999,12 @@ int					print_text(t_point pos,
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
 void				apply_image(t_texture texture,
+				t_point pos, t_point size, t_env *env);
+void				apply_image_selected(t_texture texture,
+				t_point pos, t_point size, t_env *env);
+void				apply_sprite(t_sprite sprite,
+				t_point pos, t_point size, t_env *env);
+void				apply_sprite_selected(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
 void				print_press_text(t_env *env);
 void				fps(t_env *e);
