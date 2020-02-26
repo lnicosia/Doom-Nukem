@@ -997,6 +997,8 @@ int					print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
 				t_point pos, t_point size, t_env *env);
+void				apply_image(t_texture texture,
+				t_point pos, t_point size, t_env *env);
 void				print_press_text(t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
