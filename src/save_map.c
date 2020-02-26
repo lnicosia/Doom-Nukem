@@ -15,14 +15,25 @@
 
 int		save_map(void *param)
 {
-	t_env	*env;
-	int		fd;
+	t_env			*env;
+	int				fd;
+	int				ressource;
+	unsigned char	file[1000];
 
 	env = (t_env*)param;
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
+	if ((ressource = open("./images/textures/tiles.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
+		return (ft_printf("problem with read ressource\n"));
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (ft_printf("Could not open %s\n", env->save_file));
+	ft_printf("write ressource\n");
+	while ((read(ressource, file, 1000)) > 0)
+	{
+		ft_printf("writing\n");
+		ft_dprintf(fd, "%s", file);
+	}
+	ft_printf("done\n");
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
