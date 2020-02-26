@@ -60,28 +60,38 @@ int		selection_tabs_keyup(t_env *env)
 
 void	draw_selection_tabs(t_env *env)
 {
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& (env->sdl.mx < 348 && env->sdl.mx > 230)
 			&& (env->sdl.my < 208 && env->sdl.my > 80))
 		env->editor.draw_texture_tab = 1;
-	else if (env->editor.draw_texture_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	else if (env->editor.draw_texture_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.current_enemy_selection.state == UP)
 		env->editor.draw_texture_tab = 0;
-	if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	if (env->editor.draw_enemy_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.current_enemy_selection.state == DOWN)
 	{
 		env->editor.current_enemy_selection.state = UP;
 		env->editor.current_enemy_selection.anim_state = REST;
 	}
-	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	else if (env->editor.draw_enemy_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.current_enemy_selection.state == UP)
 		env->editor.draw_enemy_tab = 0;
-	if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	else if (env->editor.draw_object_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
+			&& env->editor.current_object_selection.state == UP)
+		env->editor.draw_object_tab = 0;
+	if (env->editor.draw_sprite_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.current_sprite_selection.state == DOWN)
 	{
 		env->editor.current_sprite_selection.state = UP;
 		env->editor.current_sprite_selection.anim_state = REST;
 	}
-	else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
+	else if (env->editor.draw_sprite_tab
+		&& env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.current_sprite_selection.state == UP)
 		env->editor.draw_sprite_tab = 0;
 }

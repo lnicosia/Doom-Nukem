@@ -14,8 +14,6 @@
 
 int	enemy_buttons_up(t_env *env)
 {
-	if (button_keyup(&env->editor.current_enemy_selection, env))
-		return (-1);
 	if (button_keyup(&env->editor.enemy_background, env))
 		return (-1);
 	if (env->editor.sector_tab.state == DOWN)

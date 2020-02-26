@@ -21,14 +21,19 @@ int		change_ceiling_sprite(t_button_next *button)
 	{
 		if (env->selected_ceiling_sprite > 0)
 			env->selected_ceiling_sprite--;
+		else
+			env->selected_ceiling_sprite =
+			env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1;
 		env->editor.previous_sprite.state = UP;
 		env->editor.previous_sprite.anim_state = REST;
 	}
 	else if (button->button_type == NEXT)
 	{
 		if (env->selected_ceiling_sprite <
-		env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1)
+			env->sectors[env->selected_ceiling].ceiling_sprites.nb_sprites - 1)
 			env->selected_ceiling_sprite++;
+		else
+			env->selected_ceiling_sprite = 0;
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}
@@ -44,14 +49,19 @@ int		change_floor_sprite(t_button_next *button)
 	{
 		if (env->selected_floor_sprite > 0)
 			env->selected_floor_sprite--;
+		else
+			env->selected_floor_sprite =
+			env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1;
 		env->editor.previous_sprite.state = UP;
 		env->editor.previous_sprite.anim_state = REST;
 	}
 	else if (button->button_type == NEXT)
 	{
 		if (env->selected_floor_sprite <
-		env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
+			env->sectors[env->selected_floor].floor_sprites.nb_sprites - 1)
 			env->selected_floor_sprite++;
+		else
+			env->selected_floor_sprite = 0;
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}
@@ -67,14 +77,21 @@ int		change_wall_sprite(t_button_next *button)
 	{
 		if (env->selected_wall_sprite_sprite > 0)
 			env->selected_wall_sprite_sprite--;
+		else
+			env->selected_wall_sprite_sprite =
+			env->sectors[env->editor.selected_sector].
+			wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1;
 		env->editor.previous_sprite.state = UP;
 		env->editor.previous_sprite.anim_state = REST;
 	}
 	else if (button->button_type == NEXT)
 	{
 		if (env->selected_wall_sprite_sprite <
-		env->sectors[env->editor.selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1)
+			env->sectors[env->editor.selected_sector].
+			wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1)
 			env->selected_wall_sprite_sprite++;
+		else
+			env->selected_wall_sprite_sprite = 0;
 		env->editor.next_sprite.state = UP;
 		env->editor.next_sprite.anim_state = REST;
 	}

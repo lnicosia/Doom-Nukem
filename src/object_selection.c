@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite_selection.c                                 :+:      :+:    :+:   */
+/*   object_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	sprite_selection(t_env *env, int nb_slots)
+void	object_tab(t_env *env, int nb_slots)
 {
 	int mod;
 	int	test;
@@ -26,14 +26,15 @@ void	sprite_selection(t_env *env, int nb_slots)
 		mod = 5;
 	while (test % mod != 0)
 		test++;	
+	ft_printf("cc\n");
 	draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF333333, 1, 5),
 				new_point(180, 490),
 				new_point((66 * mod) + 13, (66 * (test / mod)) + 13));
 	while (i < MAX_OBJECTS)
 	{
-		/*draw_button(env, env->editor.sprite_selection[i],
-		env->editor.sprite_selection[i].str);*/
+		/*draw_button(env, env->editor.object_selection[i],
+		env->editor.object_selection[i].str);*/
 		apply_sprite(env->object_sprites[env->objects_main_sprites[i]],
 		new_point(490 + 8 + (66 * (i / mod)),
 		180 + (66 * (i % mod)) + 8),

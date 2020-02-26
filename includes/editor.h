@@ -343,6 +343,7 @@ typedef struct	s_editor
 	int					select_portal;
 	int					current_texture;
 	int					current_enemy;
+	int					current_object;
 	int					current_sprite;
 	int					selected_events;
 	size_t				selected_event;
@@ -377,6 +378,7 @@ typedef struct	s_editor
 	t_texture			miniature;
 	t_button			current_texture_selection;
 	t_button			current_enemy_selection;
+	t_button			current_object_selection;
 	t_button			change_mode;
 	t_button			save;
 	t_button			launch_game;
@@ -390,6 +392,7 @@ typedef struct	s_editor
 	t_button			textures[MAX_WALL_TEXTURE];
 	t_button			skyboxes[MAX_SKYBOX + MAX_SKYBOX];
 	t_button			enemy_tab[MAX_MONSTER_MINI];
+	t_button			object_tab[MAX_OBJECTS];
 	t_button			add_enemy;
 	t_button			add_object;
 	t_button_next		next_sprite_env;

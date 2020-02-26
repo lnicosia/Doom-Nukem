@@ -99,6 +99,10 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
 		return (-1);
+	if (button_keys(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.current_object_selection, env))
+		return (-1);
 	if (button_keys(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keys(&env->editor.enemy_background, env))
@@ -160,6 +164,15 @@ int			editor_keys(t_env *env)
 		while (i < MAX_ENEMIES)
 		{
 			if (button_keys(&env->editor.enemy_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keys(&env->editor.object_tab[i], env))
 				return (-1);
 			i++;
 		}

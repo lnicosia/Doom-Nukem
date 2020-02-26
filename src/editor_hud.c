@@ -66,8 +66,14 @@ void	editor_hud(t_env *env)
 		draw_button(env, env->editor.add_object, env->editor.add_object.str);
 		draw_button(env, env->editor.current_texture_selection,
 		env->editor.current_texture_selection.str);
-		draw_button(env, env->editor.current_enemy_selection,
-		env->editor.current_enemy_selection.str);
+		//draw_button(env, env->editor.current_enemy_selection,
+		//env->editor.current_enemy_selection.str);
+		apply_sprite(env->enemy_sprites[env->editor.current_enemy],
+		new_point(env->editor.current_enemy_selection.pos.y,
+		env->editor.current_enemy_selection.pos.x), new_point(60, 60), env);
+		apply_sprite(env->object_sprites[env->editor.current_object],
+		new_point(env->editor.current_object_selection.pos.y,
+		env->editor.current_object_selection.pos.x), new_point(60, 60), env);
 		draw_button(env, env->editor.change_mode, env->editor.change_mode.str);
 		draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
 		draw_button(env, env->editor.options, env->editor.options.str);
@@ -90,6 +96,8 @@ void	editor_hud(t_env *env)
 		draw_editor_tabs(env);
 		if (env->editor.draw_enemy_tab)
 			enemy_tab(env, MAX_ENEMIES);
+		if (env->editor.draw_object_tab)
+			object_tab(env, MAX_OBJECTS);
 		if (env->editor.draw_sprite_tab)
 			sprite_selection(env, MAX_OBJECTS);
 		if (env->editor.draw_texture_tab || env->editor.draw_enemy_tab

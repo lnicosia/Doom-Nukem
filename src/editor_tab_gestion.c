@@ -72,6 +72,10 @@ int		general_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
+	if (button_keyup(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_object_selection, env))
+		return (-1);
 	if (button_keyup(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keyup(&env->editor.events_tab, env))

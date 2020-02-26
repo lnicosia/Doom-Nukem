@@ -46,8 +46,12 @@ void	print_sprite_tab(t_env *env)
 		env->editor.previous_sprite.str);
 		draw_button(env, env->editor.sprite_background,
 		env->editor.sprite_background.str);
-		draw_button(env, env->editor.current_sprite_selection,
-		env->editor.current_sprite_selection.str);
+		//draw_button(env, env->editor.current_sprite_selection,
+		//env->editor.current_sprite_selection.str);
+		apply_sprite(env->object_sprites[env->editor.current_sprite],
+		new_point(env->editor.current_sprite_selection.pos.y,
+		env->editor.current_sprite_selection.pos.x),
+		new_point(60, 60), env);
 	}
 }
 

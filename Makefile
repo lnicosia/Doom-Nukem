@@ -50,7 +50,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
 		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		 add_enemy.c enemy_selection.c delete_event.c \
+		 add_enemy.c enemy_selection.c delete_event.c object_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		 apply_texture.c init_event_panel_buttons.c \
