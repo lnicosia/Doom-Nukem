@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   selection_tab.c                                    :+:      :+:    :+:   */
+/*   texture_selection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:10:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 14:37:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 11:29:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	texture_tab(t_env *env, int nb_slots)
 		test++;	
 	draw_rectangle(env,
 				new_rectangle(0, 0xFF333333, 1, 5),
-				new_point(300, 150),
-				new_point((66 * mod) + 11, (66 * (test / mod)) + 30));
+				env->editor.texture_selection_pos,
+				env->editor.texture_selection_size);
 	while (i < MAX_WALL_TEXTURE)
 	{
 		draw_button(env, env->editor.textures[i], env->editor.textures[i].str);

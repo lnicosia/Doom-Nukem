@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 18:19:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 11:32:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,9 @@ int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
+int					editor_left_click_up(t_env *env);
+int					is_point_in_rectangle(t_point point, t_point pos,
+t_point size);
 
 
 /*
@@ -547,6 +550,8 @@ int					save_enemy(void *target);
 int					add_enemy_button(void *target);
 int					add_object_button(void *target);
 int					events_tab(void *target);
+int					open_texture_selection(void *param);
+void				enemy_selection(t_env *env);
 int					open_enemy_selection(void *param);
 int					open_object_selection(void *param);
 int					open_wall_sprite_selection(void *param);
@@ -1281,7 +1286,7 @@ t_env *env);
 */
 
 void				draw_grid_enemies(t_env *env);
-void				enemy_selection(t_env *env);
+void				enemy_drag(t_env *env);
 void				enemy_ai(t_env *env);
 void				damage_anim(t_env *env);
 int					enemy_hurt(t_env *env, int i);

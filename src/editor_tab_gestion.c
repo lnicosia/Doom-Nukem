@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 13:49:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 11:01:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		general_keyup(t_env *env)
 	if (button_keyup(&env->editor.change_mode, env))	
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_texture_selection, env))
 		return (-1);
 	if (button_keyup(&env->editor.current_enemy_selection, env))
 		return (-1);

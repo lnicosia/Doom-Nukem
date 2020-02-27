@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 09:40:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 16:21:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 10:42:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	init_skybox_selection_buttons(t_env *env)
 	{
 		if (i < MAX_SKYBOX)
 		{
-			env->editor.skyboxes[i] = new_image_button(WHEN_DOWN, &save_texture, new_button_target(env, (-i -1)), env);
+			env->editor.skyboxes[i] = new_image_button(WHEN_DOWN, &save_texture,
+			new_button_target(env, (-i -1)), env);
 			env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
 			env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
 			env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
@@ -39,7 +40,8 @@ int	init_skybox_selection_buttons(t_env *env)
 			env->editor.skyboxes[i].size_hover = new_point(64, 64);
 			env->editor.skyboxes[i].size_pressed = new_point(64, 64);
 			env->editor.skyboxes[i].size_down = new_point(64, 64);
-			env->editor.skyboxes[i].pos = new_point(300 + (64 * (i % mod)) + 5,
+			env->editor.skyboxes[i].pos =
+			new_point(300 + (66 * (i % mod)) + 7,
 			(150 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64)) + 64 * (i / mod) + 5);
 		}
 		else

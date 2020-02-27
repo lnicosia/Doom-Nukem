@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:39:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 11:58:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int		editor_3d_keys(t_env *env)
 	if (wall_edit_keys(env))
 		return (-1);
 	if (check_move_player_conditions(env))
-		move_player(env);
+	{
+		if (move_player(env))
+			return (-1);
+	}
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		reset_selection(env);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 14:35:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 12:24:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,7 @@ typedef struct	s_editor
 	int					reverted;
 	int					in_game;
 	int					enter_locked;
+	int					click_locked;
 	t_add_vertex		add;
 	t_split				split;
 	int					select_vertex_on_going;
@@ -375,6 +376,14 @@ typedef struct	s_editor
 	int					creating_launch_condition;
 	int					creating_exec_condition;
 	int					selecting_event;
+	t_point				texture_selection_size;
+	t_point				object_selection_size;
+	t_point				enemy_selection_size;
+	t_point				wall_sprite_selection_size;
+	t_point				texture_selection_pos;
+	t_point				object_selection_pos;
+	t_point				enemy_selection_pos;
+	t_point				wall_sprite_selection_pos;
 	t_texture			miniature;
 	t_button			current_texture_selection;
 	t_button			current_enemy_selection;

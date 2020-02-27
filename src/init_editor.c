@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:42:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 10:53:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,45 @@ int	hit_player(void *param, void *env)
 	(void)env;
 	ft_printf("Aie\n");
 	return (1);
+}
+
+void	init_selection_tabs(t_env *env)
+{
+	int		mod;
+	int		tmp;
+
+	tmp = MAX_ENEMIES;
+	if (tmp > 25)
+		mod = 10;
+	else
+		mod = 5;
+	while (tmp % mod != 0)
+		tmp++;
+	env->editor.enemy_selection_size = new_point((64 * mod) + 10,
+	(64 * (tmp / mod)) + 10);
+	tmp = MAX_OBJECTS;
+	if (tmp > 25)
+		mod = 10;
+	else
+		mod = 5;
+	while (tmp % mod != 0)
+		tmp++;
+	env->editor.object_selection_size = new_point((66 * mod) + 13,
+	(66 * (tmp / mod)) + 13);
+	env->editor.wall_sprite_selection_size = env->editor.object_selection_size;
+	tmp = MAX_WALL_TEXTURE + MAX_SKYBOX;
+	if (tmp > 25)
+		mod = 10;
+	else
+		mod = 5;
+	while (tmp % mod != 0)
+		tmp++;
+	env->editor.texture_selection_size = new_point((66 * mod) + 11,
+	(66 * (tmp / mod)) + 30);
+	env->editor.enemy_selection_pos = new_point(280, 380);
+	env->editor.texture_selection_pos = new_point(300, 150);
+	env->editor.object_selection_pos = new_point(280, 280);
+	env->editor.wall_sprite_selection_pos = new_point(180, 490);
 }
 
 int	init_editor(int ac, char **av)
@@ -103,6 +142,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not init camera\n", &env));
 	if (init_skybox(&env))
 		return (crash("Could not init skybox\n", &env));
+	init_selection_tabs(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
 	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w + 200;

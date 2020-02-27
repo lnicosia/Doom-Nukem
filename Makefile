@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/25 19:02:05 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/02/27 11:36:09 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,21 +53,21 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 add_enemy.c enemy_selection.c delete_event.c object_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 apply_texture.c init_event_panel_buttons.c \
+		 apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
 		 write_events_links.c print_target_functions.c update_existing_events.c\
-		 split_sector_utils.c selection_tab.c init_hud_button.c \
+		 split_sector_utils.c texture_selection.c init_hud_button.c \
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		 init_editor_tab_buttons.c editor_ceiling_tab_button.c \
 		 editor_floor_tab_button.c editor_wall_tab_button.c \
 		 editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		 editor_env_ceilling_buttons.c  change_editor_mode.c \
-		 editor_3d_button_keys.c editor_3d_button_keyup.c enemy_tab.c \
+		 editor_3d_button_keys.c editor_3d_button_keyup.c \
 		 init_add_buttons.c editor_env_sector_buttons.c \
 		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
 		 editor_button_keyup.c editor_env_player_buttons.c \

@@ -6,11 +6,54 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 16:20:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 12:30:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		is_point_in_rectangle(t_point point, t_point pos, t_point size)
+{
+	if (point.x >= pos.x && point.x <= pos.x + size.x
+		&& point.y >= pos.y && point.y <= pos.y + size.y)
+		return (1);
+	return (0);
+}
+
+int		editor_left_click_up(t_env *env)
+{
+	if (env->editor.draw_texture_tab
+		&& !is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.texture_selection_pos,
+		env->editor.texture_selection_size))
+		env->editor.draw_texture_tab = 0;
+	if (env->editor.draw_object_tab
+		&& !is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.object_selection_pos,
+		env->editor.object_selection_size))
+		env->editor.draw_object_tab = 0;
+	if (env->editor.draw_enemy_tab
+		&& !is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.enemy_selection_pos,
+		env->editor.enemy_selection_size))
+		env->editor.draw_enemy_tab = 0;
+	if (env->editor.draw_sprite_tab
+		&& !is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.wall_sprite_selection_pos,
+		env->editor.wall_sprite_selection_size))
+		env->editor.draw_sprite_tab = 0;
+	if (env->editor.create_enemy && env->sdl.mx > 400)
+	{
+		if (add_enemy(env))
+			return (-1);
+	}
+	if (env->editor.create_object && env->sdl.mx > 400)
+	{
+		if (add_object(env))
+			return (-1);
+	}
+	return (0);
+}
 
 int	editor_keyup(t_env *env)
 {
@@ -69,9 +112,9 @@ int	editor_keyup(t_env *env)
 	{
 		reset_selection(env);
 		env->editor.selected_sector = get_sector_no_z(env,
-				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
-					(env->sdl.my - env->editor.center.y) / env->editor.scale,
-					0));
+			new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
+			(env->sdl.my - env->editor.center.y) / env->editor.scale,
+			0));
 		env->editor.selected_vertex = -1;
 		env->editor.selected_player = -1;
 		env->editor.selected_events = 0;
@@ -112,6 +155,12 @@ int	editor_keyup(t_env *env)
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
+	if (env->editor.create_object && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		env->editor.create_object = 0;
+	if (env->editor.create_enemy && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		env->editor.create_enemy = 0;
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keyup(&env->confirmation_box, env))
@@ -177,8 +226,6 @@ int	editor_keyup(t_env *env)
 					if (add_sector(env))
 						return (ft_printf("Error while creating new sector\n"));
 					free_current_vertices(env);
-					//get_new_floor_and_ceiling(env);
-					//update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);
 				}
 				else
 				{
@@ -229,6 +276,11 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	{
+		if (editor_left_click_up(env))
+			return (-1);
+	}
 	if (button_keyup(&env->editor.add_enemy, env))
 		return (-1);
 	if (button_keyup(&env->editor.add_object, env))
@@ -238,6 +290,8 @@ int	editor_keyup(t_env *env)
 	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_texture_selection, env))
 		return (-1);
 	if (button_keyup(&env->editor.current_enemy_selection, env))
 		return (-1);
@@ -324,32 +378,5 @@ int	editor_keyup(t_env *env)
 			i++;
 		}
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& (env->sdl.mx < 348 && env->sdl.mx > 230)
-	&& (env->sdl.my < 208 && env->sdl.my > 80))
-		env->editor.draw_texture_tab = 1;
-	else if (env->editor.draw_texture_tab
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_texture_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& (env->sdl.mx < 304 && env->sdl.mx > 240)
-	&& (env->sdl.my < 404 && env->sdl.my > 340))
-		env->editor.draw_enemy_tab = 1;
-	else if (env->editor.draw_enemy_tab
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_enemy_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& (env->sdl.mx < 304 && env->sdl.mx > 240)
-	&& (env->sdl.my < 284 && env->sdl.my > 220))
-		env->editor.draw_object_tab = 1;
-	if (env->editor.draw_object_tab
-		&& env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_object_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->editor.create_enemy && env->sdl.mx > 400)
-		add_enemy(env);
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->editor.create_object && env->sdl.mx > 400)
-		add_object(env);
 	return (0);
 }
