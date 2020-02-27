@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:24:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 11:42:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:42:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ void	init_objects_main_sprites(t_env *env)
 	env->objects_main_sprites[16] = BULLET_HOLE;
 	env->objects_main_sprites[17] = LOST_SOUL_OBJECT;
 	env->objects_main_sprites[18] = CYBER_DEMON_OBJECT;
+	env->objects_main_sprites[19] = DOOM_GUY_FACE;
+	env->objects_main_sprites[20] = CAMERA_SPRITE;
 }

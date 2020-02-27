@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 19:52:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:07:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	starting_player_selection(t_env *env)
 		/ env->editor.scale;
 		env->player.starting_pos.y = (env->sdl.my - env->editor.center.y)
 		/ env->editor.scale;
-		env->player.starting_sector = get_sector_no_z_origin(env, env->player.starting_pos,
+		env->player.starting_sector =
+		get_sector_no_z_origin(env, env->player.starting_pos,
 		env->player.starting_sector);
 		if (env->player.starting_sector != -1)
 		{

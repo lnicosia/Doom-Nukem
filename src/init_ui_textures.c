@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 14:12:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:48:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ int		init_ui_mini_objects_textures(t_env *env)
 		env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 18,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 19,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 20,
 		env))
 		return (custom_error("Invalid bmp files"));
 	return (0);

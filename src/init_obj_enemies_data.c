@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:30:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:42:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,30 @@ void		init_objects_data(t_env *env)
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 1;
 			env->objects[i].main_sprite = CYBER_DEMON_OBJECT;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 29) // Doom guy face
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = DOOM_GUY_FACE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 30) // Camera sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = CAMERA_SPRITE;
 			env->objects[i].health = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;

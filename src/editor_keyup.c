@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 14:59:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:08:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		select_sector(t_env *env)
 			&& env->editor.event_panel_dragged == -1
 			&& env->editor.start_vertex == -1
 			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_start_player == -1
 			&& (!is_mouse_on_event_panel(env) || (!env->editor.creating_event
 			&& !env->editor.creating_condition))
 			&& env->editor.dragged_object == -1
@@ -114,6 +115,7 @@ int		select_sector(t_env *env)
 			0));
 		env->editor.selected_vertex = -1;
 		env->editor.selected_player = -1;
+		env->editor.selected_start_player = -1;
 		env->editor.selected_events = 0;
 		env->editor.selected_event = 0;
 		env->editor.selected_launch_condition = 0;
@@ -215,7 +217,9 @@ int	editor_keyup(t_env *env)
 			&& env->editor.start_vertex == -1
 			&& env->editor.event_panel_dragged == -1
 			&& env->editor.dragged_player == 1
+			&& env->editor.dragged_start_player == 1
 			&& env->editor.selected_player == 1
+			&& env->editor.selected_start_player == 1
 			&& env->editor.dragged_object == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_enemy == -1)
@@ -225,6 +229,7 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.event_panel_dragged == -1
 		&& env->editor.dragged_player == -1
+		&& env->editor.dragged_start_player == -1
 		&& env->editor.dragged_object == -1
 		&& env->editor.dragged_vertex == -1
 		&& !env->editor.in_game
@@ -385,7 +390,7 @@ int	editor_keyup(t_env *env)
 	}
 	if (env->editor.selected_sector != -1 && sector_buttons_up(env))
 		return (-1);
-	if (env->editor.selected_player != -1 && player_buttons_up(env))
+	if (env->editor.selected_start_player != -1 && player_buttons_up(env))
 		return (-1);
 	if (env->selected_enemy != -1 && enemy_buttons_up(env))
 		return (-1);

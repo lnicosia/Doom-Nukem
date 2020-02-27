@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 14:26:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:35:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,7 +573,27 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[28].size[0].y = 108;
 	env->object_sprites[28].reversed[0] = 0;
 
+	// Doom guy face
+	env->object_sprites[29].texture = 37;
+	env->object_sprites[29].oriented = 0;
+	env->object_sprites[29].start[0].x = 40;
+	env->object_sprites[29].start[0].y = 13;
+	env->object_sprites[29].end[0].x = 64;
+	env->object_sprites[29].end[0].y = 42;
+	env->object_sprites[29].size[0].x = 24;
+	env->object_sprites[29].size[0].y = 29;
+	env->object_sprites[29].reversed[0] = 0;
 
+	// Camera sprite
+	env->object_sprites[30].texture = 37;
+	env->object_sprites[30].oriented = 0;
+	env->object_sprites[30].start[0].x = 40;
+	env->object_sprites[30].start[0].y = 13;
+	env->object_sprites[30].end[0].x = 64;
+	env->object_sprites[30].end[0].y = 42;
+	env->object_sprites[30].size[0].x = 24;
+	env->object_sprites[30].size[0].y = 29;
+	env->object_sprites[30].reversed[0] = 0;
 	return (0);
 }
 int			init_enemy_sprites(t_env *env)
