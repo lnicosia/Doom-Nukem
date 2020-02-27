@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 11:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 11:02:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 15:00:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	draw_grid_vertices(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_object == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->sdl.mx > 400)
 			{
 				reset_selection(env);

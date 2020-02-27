@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:32:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:54:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -490,6 +490,11 @@ int					delete_wall_sprite(void *param);
 int					editor_left_click_up(t_env *env);
 int					is_point_in_rectangle(t_point point, t_point pos,
 t_point size);
+int					is_mouse_on_texture_selection_tab(t_env *env);
+int					is_mouse_on_object_selection_tab(t_env *env);
+int					is_mouse_on_enemy_selection_tab(t_env *env);
+int					is_mouse_on_wall_sprite_selection_tab(t_env *env);
+int					is_mouse_on_any_selection_tab(t_env *env);
 
 
 /*

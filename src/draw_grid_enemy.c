@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 10:49:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:00:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	draw_grid_enemies(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_object == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->sdl.mx > 400)
 			{
 				reset_selection(env);

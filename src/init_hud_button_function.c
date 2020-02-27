@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 12:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:38:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ int		save_enemy(void *param)
 	env->editor.click_locked = 1;
 	env->editor.current_enemy_selection.state = UP;
 	env->editor.current_enemy_selection.anim_state = REST;
+	init_enemies_data(env);
 	return (0);
 }
 
@@ -289,6 +290,7 @@ int		save_object(void *param)
 	env->editor.click_locked = 1;
 	env->editor.current_object_selection.state = UP;
 	env->editor.current_object_selection.anim_state = REST;
+	init_objects_data(env);
 	return (0);
 }
 

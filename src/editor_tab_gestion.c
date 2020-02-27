@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:01:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:40:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		general_keyup(t_env *env)
 	return (0);
 }
 
-void		editor_options_tab_keyup(t_env *env)
+void	editor_options_tab_keyup(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;

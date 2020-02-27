@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/27 12:04:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:10:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int	add_object(t_env *env)
 	env->editor.create_object = 0;
 	env->editor.add_object.state = UP;
 	env->nb_objects++;
+	init_objects_data(env);
 	return (0);
 }
