@@ -17,23 +17,15 @@ int		save_map(void *param)
 {
 	t_env			*env;
 	int				fd;
-	int				ressource;
-	unsigned char	file[1000];
 
 	env = (t_env*)param;
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
-	if ((ressource = open("./images/textures/tiles.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (ft_printf("problem with read ressource\n"));
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (ft_printf("Could not open %s\n", env->save_file));
-	ft_printf("write ressource\n");
-	while ((read(ressource, file, 1000)) > 0)
-	{
-		ft_printf("writing\n");
-		ft_dprintf(fd, "%s", file);
-	}
-	ft_printf("done\n");
+	if (write_resources(fd, env))
+		return(-1);
+	ft_printf("1\n");
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
@@ -41,8 +33,7 @@ int		save_map(void *param)
 	write_events(fd, env);
 	write_events_links(fd, env);
 	write_player(fd, env);
-	if (close(fd))
-		return (ft_printf("Could not close the file\n"));
+	ft_printf("1\n");
 	ft_printf("{reset}");
 	if (env->editor.in_game && !env->editor.tab)
 		SDL_SetRelativeMouseMode(1);

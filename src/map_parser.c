@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/24 15:08:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 17:20:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,12 @@ int		parse_map(char *file, t_env *env)
 		ft_dprintf(STDERR_FILENO, "Could not open %s\n", file);
 		return (-1);
 	}
+	if (parse_resources(env, &parser))
+		return (-1);
 	if (init_vertices(env, &parser))
 		return (-1);
-	//return (custom_error("Could not init vertices"));
+	//return (custom_error("Could not init vertices"));make
+	
 	if (parse_vertices(env, &parser))
 		return (-1);
 	//return (custom_error("Error while parsing vertices"));

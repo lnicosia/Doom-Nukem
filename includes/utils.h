@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 14:36:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 15:16:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,13 @@ typedef enum		s_ui_textures
 {
 	BACKGROUND
 }					t_ui_textures;
+
+typedef	struct		s_resource
+{
+	int				nb_textures;
+	int				nb_fonts;
+	int				nb_sound;
+}					t_resource;
 
 typedef struct		s_state
 {

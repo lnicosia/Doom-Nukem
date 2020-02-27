@@ -33,8 +33,8 @@ int		launch_game(void *target)
 		return (0);
 	}
 	map_name = ft_strdup(env->save_file);
-	str = ft_strdup("./doom");
-	tmp = ft_strsplit("./doom maps/tmp.map", ' ');
+	str = ft_strdup("./doom-nukem");
+	tmp = ft_strsplit("./doom-nukem maps/tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
 	env->save_file  = ft_strdup("maps/tmp.map");

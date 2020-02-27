@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/26 15:22:16 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 17:23:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef struct		s_env
 {
+	t_resource			resource;
 	t_sdl				sdl;
 	t_player			player;
 	t_options			options;
@@ -579,13 +580,16 @@ int					change_speed(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
-
-/*
-**
-*/
-
 void				change_ceiling_floor_height_keyup(t_env *env);
 void				check_height_protections(t_env *env, t_sector *sector);
+
+/*
+**	editor save functions
+*/
+
+int					write_resources(int fd, t_env *env);
+int					write_textures1(int fd);
+int					writing_texture(int file, int fd, char *name);
 
 /*
 **	prints and draw buttons for informations on a selected element 

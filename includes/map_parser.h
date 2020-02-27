@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:31:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:34:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int					init_enemies(t_env *env, t_map_parser *parser);
 int					parse_enemies(t_env *env, t_map_parser *parser);
 int					parse_events(t_env *env, t_map_parser *parser);
 int					parse_player(t_env *env, t_map_parser *parser);
+int					parse_resources(t_env *env, t_map_parser *parser);
 int					check_vertices_uniqueness(t_sector sector);
 int					check_sector_duplicate(t_env *env, t_sector sector,
 		int num);
