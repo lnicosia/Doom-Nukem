@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 15:35:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:22:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,14 +585,14 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[29].reversed[0] = 0;
 
 	// Camera sprite
-	env->object_sprites[30].texture = 37;
+	env->object_sprites[30].texture = 38;
 	env->object_sprites[30].oriented = 0;
-	env->object_sprites[30].start[0].x = 40;
-	env->object_sprites[30].start[0].y = 13;
-	env->object_sprites[30].end[0].x = 64;
-	env->object_sprites[30].end[0].y = 42;
-	env->object_sprites[30].size[0].x = 24;
-	env->object_sprites[30].size[0].y = 29;
+	env->object_sprites[30].start[0].x = 0;
+	env->object_sprites[30].start[0].y = 0;
+	env->object_sprites[30].end[0].x = 431;
+	env->object_sprites[30].end[0].y = 377;
+	env->object_sprites[30].size[0].x = 431;
+	env->object_sprites[30].size[0].y = 377;
 	env->object_sprites[30].reversed[0] = 0;
 	return (0);
 }

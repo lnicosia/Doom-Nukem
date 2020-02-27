@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 15:36:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:21:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 38
+# define MAX_TEXTURES 39
 # define MAX_UI_TEXTURES 60
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 30
