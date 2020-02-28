@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:16:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 17:46:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/28 12:05:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ int		write_textures1(int fd)
 		return (ft_printf("Could not open texture\n"));
 	if (writing_texture(file, fd, "./images/textures/wall1.bmp"))
 		return (-1);
-/*	if ((file = open("./images/textures/wall2.bmp", O_RDONLY)) < 0)
+	if ((file = open("./images/textures/wall2.bmp", O_RDONLY)) < 0)
 		return (ft_printf("problem with read ressource\n"));
-	if (writing(file, fd))
+	if (writing_texture(file, fd, "./images/textures/wall2.bmp"))
 		return (-1);
 	if ((file = open("./images/textures/wall3.bmp", O_RDONLY)) < 0)
 		return (ft_printf("problem with read ressource\n"));
-	if (writing(file, fd))
+	if (writing_texture(file, fd, "./images/textures/wall2.bmp"))
 		return (-1);
 	if ((file = open("./images/textures/floor0.bmp", O_RDONLY)) < 0)
 		return (ft_printf("problem with read ressource\n"));
-	if (writing(file, fd))
-		return (-1);*/
+	if (writing_texture(file, fd, "./images/textures/wall2.bmp"))
+		return (-1);
 	return (0);
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 17:23:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/28 12:17:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "utils.h"
 # include "editor.h"
+# include "map_parser.h"
 # define OX1 env->vertices[env->sectors[sector].vertices[i]].x
 # define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define OY1 env->vertices[env->sectors[sector].vertices[i]].y
@@ -23,6 +24,7 @@
 typedef struct		s_env
 {
 	t_resource			resource;
+	t_map_parser		parser;
 	t_sdl				sdl;
 	t_player			player;
 	t_options			options;
@@ -168,6 +170,49 @@ typedef struct		s_env
 **	 ---------------
 **	  -------------
 */
+
+/*
+**	Parsing functions
+*/
+
+int					parse_vertices(t_env *env, t_map_parser *parser);
+int					parse_sectors(t_env *env, t_map_parser *parser);
+int					parse_floor_sprites(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_ceiling_sprites(t_env *env, char **line,
+t_map_parser *parser);
+int					init_objects(t_env *env, t_map_parser *parser);
+int					parse_objects(t_env *env, t_map_parser *parser);
+int					init_enemies(t_env *env, t_map_parser *parser);
+int					parse_enemies(t_env *env, t_map_parser *parser);
+int					parse_events(t_env *env, t_map_parser *parser);
+int					parse_player(t_env *env, t_map_parser *parser);
+int					parse_resources(t_env *env, t_map_parser *parser);
+int					check_vertices_uniqueness(t_sector sector);
+int					check_sector_duplicate(t_env *env, t_sector sector,
+		int num);
+int					valid_number(char *line, t_map_parser *parser);
+int					valid_int(char *line, t_map_parser *parser);
+int					valid_double(char *line, t_map_parser *parser);
+int					valid_hexa(char *line, t_map_parser *parser);
+int					count_vertices(char *line, t_map_parser *parser);
+int					count_neighbors(char *line, t_map_parser *parser);
+int					count_portals(char *line, t_map_parser *parser);
+int					count_textures(char *line, t_map_parser *parser);
+int					count_sprites(char *line, t_map_parser *parser);
+int					count_wall_sprites(char *line, t_map_parser *parser);
+int					count_floor_sprites(char *line, t_map_parser *parser);
+
+/*
+**	Protection
+*/
+
+int					invalid_char(const char *location, const char *expected,
+		char c, t_map_parser *parser);
+int					missing_data(const char *missing_data, t_map_parser *parser);
+int					extra_data(const char *missing_data, t_map_parser *parser);
+int					custom_error_with_line(const char *message, t_map_parser *parser);
+int					sector_error(const char *message, int sector, t_map_parser *parser);
 
 /*
 ** Editor functions
