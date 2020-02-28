@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 19:31:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/22 16:24:35 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		projectiles_movement(t_env *env)
 				continue ;
 			}
 			collision = collision_projectiles(env, move,
-					new_movement(projectile->sector, projectile->size_2d,
+					new_motion(projectile->sector, projectile->size_2d,
 						0, projectile->pos));
 			if (collision == -1)
 			{

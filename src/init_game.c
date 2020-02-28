@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:32:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/22 16:25:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		init_game(int ac, char **av)
 	update_camera_position(&env.fixed_camera);
 	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
-	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d,
+	env.player.highest_sect = find_highest_sector(&env, new_motion(env.player.sector, env.player.size_2d,
 		env.player.eyesight, env.player.pos));
 	start_game_button(&env);
 	next_difficulty_button(&env);

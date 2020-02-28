@@ -37,7 +37,6 @@ int		delete_sector(t_env *env, int sector)
 
 	i = 0;
 	free_sector(&env->sectors[sector]);
-	//ft_printf("del sector\n");
 	env->sectors = (t_sector*)ft_delindex(env->sectors,
 			 sizeof(t_sector) * env->nb_sectors,
 			 sizeof(t_sector),

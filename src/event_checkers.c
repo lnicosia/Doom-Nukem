@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:17:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 09:42:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 int		check_x_collision_event(t_event *event, void *penv)
 {
-	t_movement	movement;
+	t_motion	movement;
 	t_v3		move;
 	t_env		*env;
 	int			sector;
 
 	env = (t_env*)penv;
-	ft_bzero(&movement, sizeof(t_movement));
+	ft_bzero(&movement, sizeof(t_motion));
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
-	movement = new_movement(env->player.sector, env->player.size_2d,
+	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
 	movement.flight = env->player.state.fly;
 	move.x = event->incr;
@@ -38,7 +38,7 @@ int		check_x_collision_event(t_event *event, void *penv)
 	}
 	else
 	{
-		move = check_collision(env, move, movement, 0);
+		move = check_collision(env, move, movement);
 		if (!move.x)
 			return (1);
 	}
@@ -47,15 +47,15 @@ int		check_x_collision_event(t_event *event, void *penv)
 
 int		check_y_collision_event(t_event *event, void *penv)
 {
-	t_movement	movement;
+	t_motion	movement;
 	t_v3		move;
 	t_env		*env;
 	int			sector;
 
 	env = (t_env*)penv;
-	ft_bzero(&movement, sizeof(t_movement));
+	ft_bzero(&movement, sizeof(t_motion));
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
-	movement = new_movement(env->player.sector, env->player.size_2d,
+	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
 	movement.flight = env->player.state.fly;
 	move.y = event->incr;
@@ -70,7 +70,7 @@ int		check_y_collision_event(t_event *event, void *penv)
 	}
 	else
 	{
-		move = check_collision(env, move, movement, 0);
+		move = check_collision(env, move, movement);
 		if (!move.y)
 			return (1);
 	}
@@ -79,15 +79,15 @@ int		check_y_collision_event(t_event *event, void *penv)
 
 int		check_z_collision_event(t_event *event, void *penv)
 {
-	t_movement	movement;
+	t_motion	movement;
 	t_v3		move;
 	t_env		*env;
 	int			sector;
 
 	env = (t_env*)penv;
-	ft_bzero(&movement, sizeof(t_movement));
+	ft_bzero(&movement, sizeof(t_motion));
 	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
-	movement = new_movement(env->player.sector, env->player.size_2d,
+	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
 	movement.flight = env->player.state.fly;
 	move.z = event->incr;
@@ -102,7 +102,7 @@ int		check_z_collision_event(t_event *event, void *penv)
 	}
 	else
 	{
-		move = check_collision(env, move, movement, 0);
+		move = check_collision(env, move, movement);
 		if ((event->incr > 0 && move.z > 0) || (event->incr < 0 && move.z < 0)
 				|| (event->incr == 0 && move.z == 0))
 			return (0);

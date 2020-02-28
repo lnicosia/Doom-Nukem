@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/20 14:16:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/22 16:24:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		respawn(void *param)
 	init_enemies_data(env);
 	init_objects_data(env);
 	init_animations(env);
-	env->player.highest_sect = find_highest_sector(env, new_movement(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));
+	env->player.highest_sect = find_highest_sector(env, new_motion(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));
 	update_player_z(env);
 	SDL_SetRelativeMouseMode(1);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);

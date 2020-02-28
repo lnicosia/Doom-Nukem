@@ -103,7 +103,7 @@ void	crouch(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	lowest_ceil = find_lowest_ceiling(env, new_movement(env->player.sector,
+	lowest_ceil = find_lowest_ceiling(env, new_motion(env->player.sector,
 		env->player.size_2d, env->player.eyesight, env->player.pos));
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.crouch)

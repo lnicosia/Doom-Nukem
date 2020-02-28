@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 14:03:20 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/02/25 09:40:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
 	t_v3 		direction;
 	t_v3 		move;
-	t_movement	motion;
+	t_motion	motion;
 
 	(void)distance;
 	if (enemy.exists )
@@ -266,10 +266,10 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 			move.x = direction.x;
 			move.y = direction.y;
 			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
-			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+			motion = new_motion(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 			motion.flight = enemy.type;
-			move = check_collision(env, move, motion, 0);
+			move = check_collision(env, move, motion);
 			if (move.x == 0 && move.y == 0 && enemy.speed != 0)
 			{
 				env->enemies[i].dir = rand_dir(env, i);
@@ -283,7 +283,7 @@ void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
 					move.x = direction.y;
 					move.y = -direction.x;
 				}
-				move = check_collision(env, move, motion, 1);
+				move = check_collision(env, move, motion);
 			}
 			env->enemies[i].pos.x += move.x;
 			env->enemies[i].pos.y += move.y;
@@ -317,7 +317,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 {
 	t_v3		direction;
 	t_v3 		move;
-	t_movement 	motion;
+	t_motion 	motion;
 
 	if (enemy.exists)
 	{
@@ -329,10 +329,10 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 			move.x = direction.x;
 			move.y = direction.y;
 			move.z = (env->enemies[i].type == AERIAL) ? direction.z : 0;
-			motion = new_movement(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
+			motion = new_motion(enemy.sector, enemy.size_2d, enemy.eyesight, enemy.pos);
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 			motion.flight = enemy.type;
-			move = check_collision(env, move, motion, 0);
+			move = check_collision(env, move, motion);
 			if (move.x == 0 && move.y == 0)
 			{
 				env->enemies[i].dir = rand_dir(env, i);
@@ -346,7 +346,7 @@ void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
 					move.x = direction.y;
 					move.y = -direction.x;
 				}
-				move = check_collision(env, move, motion, 1);
+				move = check_collision(env, move, motion);
 			}
 			env->enemies[i].pos.x += move.x;
 			env->enemies[i].pos.y += move.y;
@@ -417,8 +417,8 @@ void		enemy_melee_hit(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= PLAYER_ZPOS - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
+		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) < 1.75 && env->enemies[i].exists
+			&& env->enemies[i].pos.z >= env->player.pos.z - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
 			env->enemies[i].behavior == MELEE_FIGHTER))
 		{
 			env->player.hit = 1;

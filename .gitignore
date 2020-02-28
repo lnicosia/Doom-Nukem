@@ -40,6 +40,7 @@ src/*.swp
 doom
 doom_editor
 ./doom
+./doom-nukem
 ./doom_editor
 
 # Debug files
