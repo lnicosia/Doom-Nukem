@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/02 10:55:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 19:22:07 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ typedef struct	s_coll
 	int			vertex;
 	int			sector;
 }				t_coll;
+
+typedef struct	s_ecoll
+{
+	t_v3		pos;
+	double		radius;
+	int			*enemy;
+	double		*nearest_dist;
+}				t_ecoll;
 
 typedef	struct	s_coll_addr
 {
