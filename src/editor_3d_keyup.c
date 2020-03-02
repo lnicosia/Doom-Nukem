@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 15:01:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 14:38:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,6 @@ int		editor_3d_keyup(t_env *env)
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
-	if (env->editor.creating_event && !env->confirmation_box.state
-			&& env->editor.tab)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 	{
 		if (env->player.state.fly == 0)
@@ -110,11 +104,6 @@ int		editor_3d_keyup(t_env *env)
 		if (launch_game(env))
 			return (-1);
 	}
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		editor_show_tab(env);
 	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
@@ -129,6 +118,17 @@ int		editor_3d_keyup(t_env *env)
 		else	
 			env->editor.select = 1;
 	}
+	if (env->editor.creating_event && !env->confirmation_box.state
+			&& env->editor.tab)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->editor.tab)
 	{
 		if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
@@ -140,11 +140,6 @@ int		editor_3d_keyup(t_env *env)
 			return (-1);		
 		if (selection_tabs_keyup(env))
 			return (-1);
-		if (env->editor.creating_event)
-		{
-			if (event_panel_keyup(env))
-				return (-1);
-		}
 	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
 			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)

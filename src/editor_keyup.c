@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:08:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 14:31:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,6 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
@@ -207,11 +202,6 @@ int	editor_keyup(t_env *env)
 	if (env->editor.create_enemy && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 		env->editor.create_enemy = 0;
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
@@ -327,6 +317,16 @@ int	editor_keyup(t_env *env)
 	}
 	if (select_sector(env))
 		return (-1);
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
+	}
+	if (env->editor.creating_event && !env->confirmation_box.state)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
 	{
 		if (editor_left_click_up(env))
