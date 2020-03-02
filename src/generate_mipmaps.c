@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 10:49:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 15:45:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 11:14:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,30 +139,6 @@ int		generate_mipmaps(t_env *env)
 						texture->surface->h))) + 1;
 		//ft_printf("texture %d needs %d levels\n", i, nb_maps);
 		env->ui_textures[i].nb_maps = nb_maps;
-		if (generate_maps_for_texture(texture))
-			return (-1);
-		i++;
-	}
-	i = 0;
-	while (i < MAX_MONSTER_MINI)
-	{
-		texture = &env->mini_enemies_textures[i];
-		nb_maps = floor(log2(fmax(texture->surface->w,
-						texture->surface->h))) + 1;
-		//ft_printf("texture %d needs %d levels\n", i, nb_maps);
-		env->mini_enemies_textures[i].nb_maps = nb_maps;
-		if (generate_maps_for_texture(texture))
-			return (-1);
-		i++;
-	}
-	i = 0;
-	while (i < MAX_OBJECTS)
-	{
-		texture = &env->mini_objects_textures[i];
-		nb_maps = floor(log2(fmax(texture->surface->w,
-						texture->surface->h))) + 1;
-		//ft_printf("texture %d needs %d levels\n", i, nb_maps);
-		env->mini_objects_textures[i].nb_maps = nb_maps;
 		if (generate_maps_for_texture(texture))
 			return (-1);
 		i++;

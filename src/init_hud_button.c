@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 12:14:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 11:17:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,6 @@ int		init_enemy_selection_button(t_env *env)
 		env->editor.enemy_tab[i].img_up = env->wall_textures[i].maps[6];
 		env->editor.enemy_tab[i] = new_image_button(ON_RELEASE,
 		&save_enemy, new_button_target(env, i), env);
-		env->editor.enemy_tab[i].img_up =
-		env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_pressed =
-		env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_down =
-		env->mini_enemies_textures[i].surface;
-		env->editor.enemy_tab[i].img_hover =
-		env->mini_enemies_textures[i].surface;
 		env->editor.enemy_tab[i].size_up = new_point(64, 64);
 		env->editor.enemy_tab[i].size_down = new_point(64, 64);
         env->editor.enemy_tab[i].size_hover = new_point(64, 64);

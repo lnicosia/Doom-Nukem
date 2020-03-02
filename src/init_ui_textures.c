@@ -6,22 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 15:48:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 11:16:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		init_mini_ui_textures(t_env *env)
-{
-	if (parse_bmp_mini_enemies_textures("images/ui/mini/lost_soul_mini.bmp", 0,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_enemies_textures("images/ui/mini/cyber_demon_mini.bmp",
-		1, env))
-		return (custom_error("Invalid bmp files"));
-	return (0);
-}
 
 int		init_mini_skyboxes_selection(t_env *env)
 {
@@ -39,74 +28,6 @@ int		init_mini_skyboxes_selection(t_env *env)
 	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula_128.bmp", 4, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery_128.bmp", 5, env))
-		return (custom_error("Invalid bmp files"));
-	return (0);
-}
-
-int		init_ui_mini_objects_textures(t_env *env)
-{
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 0,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 1,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 2,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 3,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 4,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 5,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 6,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 7,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 8,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 9,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 10,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 11,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 12,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 13,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 14,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 15,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 16,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 17,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 18,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 19,
-		env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 20,
-		env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }
@@ -233,12 +154,6 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/next_arrow_hover.bmp", 59, env))
 		return (custom_error("Invalid bmp files"));
-	if (init_mini_ui_textures(env))
-		return (custom_error("error while parsing the miniatures of"
-		" the enemies"));
-	if (init_ui_mini_objects_textures(env))
-		return (custom_error("error while parsing the miniatures of"
-		" the objects"));
 	if (init_mini_skyboxes_selection(env))
 		return (custom_error("error while parsing the miniatures of"
 		" the skyboxes"));

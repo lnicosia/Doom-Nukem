@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 10:22:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:18:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,6 @@ int		print_wall_sprite_tab(t_env *env)
 	
 	env->editor.next_sprite_env.type = WALL_S;
 	env->editor.previous_sprite_env.type = WALL_S;
-	env->editor.current_sprite_selection.img_down =
-	env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
-	env->editor.current_sprite_selection.img_pressed =
-	env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
-	env->editor.current_sprite_selection.img_hover =
-	env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
-	env->editor.current_sprite_selection.img_up =
-	env->mini_objects_textures[env->selected_wall_sprite_sprite].surface;
 	print_text(new_point(560, 60), new_printable_text("Pos: ",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
