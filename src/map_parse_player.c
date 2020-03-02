@@ -15,57 +15,54 @@
 
 int		parse_player(t_env *env, t_map_parser *parser)
 {
-	char	*line;
-	char	*tmp;
-
-	while ((parser->ret = get_next_line(parser->fd, &tmp)))
+	while ((parser->ret = get_next_line(parser->fd, &(parser->tmp))))
 	{
 		parser->line_count++;
-		line = tmp;
-		if (*line && *line != '#')
+		parser->line = parser->tmp;
+		if (*(parser->line) && *(parser->line) != '#')
 		{
-			if (valid_double(line, parser))
+			if (valid_double(parser->line, parser))
 				return (ft_printf("Invalid double for player pos.y\n"));
-			env->player.pos.y = ft_atof(line);
-			env->player.starting_pos.y = ft_atof(line);
-			line = skip_number(line);
-			if (*line && *line != ' ')
+			env->player.pos.y = ft_atof(parser->line);
+			env->player.starting_pos.y = ft_atof(parser->line);
+			parser->line = skip_number(parser->line);
+			if (*(parser->line) && *(parser->line) != ' ')
 				return (invalid_char("player y",
-							"space or a digit", *line, parser));
-			if (!*line)
+							"space or a digit", *(parser->line), parser));
+			if (!*(parser->line))
 				return (missing_data("player x and angle", parser));
-			line = skip_spaces(line);
-			if (!*line)
+			parser->line = skip_spaces(parser->line);
+			if (!*(parser->line))
 				return (missing_data("player x and angle", parser));
-			if (valid_double(line, parser))
+			if (valid_double(parser->line, parser))
 				return (ft_printf("Invalid double for player pos.x\n"));
-			env->player.pos.x = ft_atof(line);
-			env->player.starting_pos.x = ft_atof(line);
-			line = skip_number(line);
-			if (*line && *line != ' ')
+			env->player.pos.x = ft_atof(parser->line);
+			env->player.starting_pos.x = ft_atof(parser->line);
+			parser->line = skip_number(parser->line);
+			if (*(parser->line) && *(parser->line) != ' ')
 				return (invalid_char("player x",
-							"space or a digit", *line, parser));
-			if (!*line)
+							"space or a digit", *(parser->line), parser));
+			if (!*(parser->line))
 				return (missing_data("player angle", parser));
 
-			line = skip_spaces(line);
-			if (!*line)
+			parser->line = skip_spaces(parser->line);
+			if (!*(parser->line))
 				return (missing_data("player angle", parser));
-			if (valid_double(line, parser))
+			if (valid_double(parser->line, parser))
 				return (ft_printf("Invalid double for player angle\n"));
-			env->player.camera.angle = (ft_atof(line) + 0.00001) * CONVERT_RADIANS;
+			env->player.camera.angle = (ft_atof(parser->line) + 0.00001) * CONVERT_RADIANS;
 			env->player.camera.angle_cos = cos(env->player.camera.angle);
 			env->player.camera.angle_sin = sin(env->player.camera.angle);
 			env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);
 			env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
 			env->editor.player_exist = 1;
-			line = skip_number(line);
-			if (*line && *line == ' ')
+			parser->line = skip_number(parser->line);
+			if (*(parser->line) && *(parser->line) == ' ')
 				return (extra_data("player declaration", parser));
-			if (*line)
+			if (*(parser->line))
 				return (invalid_char("player angle",
-							"a digit", *line, parser));
-			line = skip_spaces(line);
+							"a digit", *(parser->line), parser));
+			parser->line = skip_spaces(parser->line);
 			if ((env->player.sector = get_sector_no_z(env,
 							env->player.pos)) == -1)
 				return (custom_error_with_line("Player is not in any sector",
@@ -76,9 +73,10 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			env->player.camera.pos = env->player.pos;
 			env->player.camera.pos.z = env->player.pos.z + 8;
 		}
-		else if (line[0] != '#')
+		else if (parser->line[0] != '#')
 			return (missing_data("player data", parser));
-		ft_strdel(&tmp);
+		ft_strdel(&(parser->tmp));
+		parser->line = NULL;
 	}
 	return (0);
 }

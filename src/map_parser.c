@@ -6,12 +6,11 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/28 11:48:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 12:05:15 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "map_parser.h"
 
 static int	init_vertices(t_env *env, t_map_parser *parser)
 {
@@ -161,59 +160,56 @@ void	init_player(t_env *env)
 
 int		parse_map(char *file, t_env *env)
 {
-	t_map_parser	parser;
-
 	env->nb_sectors = 0;
 	env->nb_vertices = 0;
-	parser.sectors_count = 0;
-	parser.vertices_count = 0;
-	parser.objects_count = 0;
-	parser.enemies_count = 0;
-	parser.line_count = 0;
+	env->parser.sectors_count = 0;
+	env->parser.vertices_count = 0;
+	env->parser.objects_count = 0;
+	env->parser.enemies_count = 0;
+	env->parser.line_count = 0;
 	ft_printf("{red}");
-	if ((parser.fd = open(file, O_RDONLY)) < 0)
+	if ((env->parser.fd = open(file, O_RDONLY)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "Could not open %s\n", file);
 		return (-1);
 	}
-	if (parse_resources(env, &parser))
+	if (parse_resources(env, &(env->parser)))
 		return (-1);
-	if (init_vertices(env, &parser))
+	if (init_vertices(env, &(env->parser)))
 		return (-1);
-	//return (custom_error("Could not init vertices"));make
-	
-	if (parse_vertices(env, &parser))
+	//return (custom_error("Could not init vertices"));
+	if (parse_vertices(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Error while parsing vertices"));
-	if (init_sectors(env, &parser))
+	if (init_sectors(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Could not init sectors"));
-	if (parse_sectors(env, &parser))
+	if (parse_sectors(env, &(env->parser)))
 		return (custom_error("Error while parsing sectors"));
 				//return (-1);
-	if (init_objects(env, &parser))
+	if (init_objects(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Could not init objects"));
-	if (parse_objects(env, &parser))
+	if (parse_objects(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Error while parsing objects"));
-	if (init_enemies(env, &parser))
+	if (init_enemies(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Could not init objects"));
-	if (parse_enemies(env, &parser))
+	if (parse_enemies(env, &(env->parser)))
 		return (-1);
 	//return (custom_error("Error while parsing creatures"));
-	if (parse_events(env, &parser))
+	if (parse_events(env, &(env->parser)))
 		return (custom_error("Error while parsing events"));
-	if (parse_player(env, &parser))
+	if (parse_player(env, &(env->parser)))
 		return (custom_error("Error while parsing player data"));
 	//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
-		return (missing_data("You need to give player data", &parser));
+		return (missing_data("You need to give player data", &(env->parser)));
 	set_sectors_xmax(env);
 	init_enemies_data(env);
 	init_objects_data(env);
-	if (close(parser.fd))
+	if (close(env->parser.fd))
 		return (custom_error("Could not close the file"));
 	ft_printf("{reset}");
 	return (0);

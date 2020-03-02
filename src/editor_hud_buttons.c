@@ -37,11 +37,18 @@ int		launch_game(void *target)
 	tmp = ft_strsplit("./doom-nukem maps/tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
+	ft_strdel(&(env->save_file));
 	env->save_file  = ft_strdup("maps/tmp.map");
 	if (save_map(env))
+	{
+		ft_strdel(&str);
+		ft_strdel(&map_name);
+		ft_strdel(&tmp[0]);
+		ft_strdel(&tmp[1]);
+		ft_strdel(&env->save_file);
+		env->save_file = map_name;
 		return (-1);
-	ft_strdel(&env->save_file);
-	env->save_file = map_name;
+	}
 	env->pid = fork();
 	if (env->pid == 0)
 		execv(str, tmp);
@@ -51,6 +58,12 @@ int		launch_game(void *target)
       		exit(1);
 	}
 	env->player.starting_pos = tmp_pos;
+	ft_strdel(&env->save_file);
+	env->save_file = ft_strdup(map_name);
+	ft_strdel(&str);
+	ft_strdel(&map_name);
+	ft_strdel(&tmp[0]);
+	ft_strdel(&tmp[1]);
 	return (0);
 }
 

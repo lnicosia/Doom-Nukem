@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 10:10:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:49:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,14 @@ static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 
 int			parse_objects(t_env *env, t_map_parser *parser)
 {
-	char	*tmp;
-
 	while (parser->objects_count < env->nb_objects
 			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		tmp = parser->line;
-		if (*tmp)
+		parser->tmp = parser->line;
+		if (*(parser->tmp))
 		{
-			if (parse_object(env, tmp, parser))
+			if (parse_object(env, parser->tmp, parser))
 				return (-1);
 			parser->objects_count++;
 		}
@@ -178,7 +176,7 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (parser->line)
+		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 						"(every object has been declared)\n",
 						parser));

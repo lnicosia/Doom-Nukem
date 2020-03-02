@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:25:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:51:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,17 +225,14 @@ static int	parse_enemy(t_env *env, char *line, t_map_parser *parser)
 
 int			parse_enemies(t_env *env, t_map_parser *parser)
 {
-	char	*line;
-	char	*tmp;
-
 	while (parser->enemies_count < env->nb_enemies
-			&& (parser->ret = get_next_line(parser->fd, &line)))
+			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		tmp = line;
-		if (*tmp)
+		parser->tmp = parser->line;
+		if (*(parser->tmp))
 		{
-			if (parse_enemy(env, tmp, parser))
+			if (parse_enemy(env, parser->tmp, parser))
 				return (-1);
 			parser->enemies_count++;
 		}
@@ -247,16 +244,16 @@ int			parse_enemies(t_env *env, t_map_parser *parser)
 					env->nb_enemies - parser->enemies_count);
 			return (-1);
 		}
-		ft_strdel(&line);
+		ft_strdel(&(parser->line));
 	}
-	if ((parser->ret = get_next_line(parser->fd, &line)))
+	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (*line)
+		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 						"(every enemy has been declared)\n",
 						parser));
-		ft_strdel(&line);
+		ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("player data", parser));

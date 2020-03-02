@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:07:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 13:51:40 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int		editor(t_env *env)
 				if (!env->editor.in_game)
 				{
 					if (editor_keyup(env))
-						return (-1);
+						return (crash("Crash from editor 2D keyup\n", env));
 				}
 				else
 				{
 					if (editor_3d_keyup(env))
-						return (-1);
+						return (crash("Crash from editor 3D keyup\n", env));
 				}
 			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
@@ -65,7 +65,7 @@ int		editor(t_env *env)
 			if (env->input_box.state)
 			{
 				if (input_box_keys(&env->input_box, env))
-					return (-1);
+					return (crash("Crash from input box keys\n", env));
 			}
 		}
 		if (!env->editor.in_game)
@@ -73,7 +73,7 @@ int		editor(t_env *env)
 			if (!env->input_box.state)
 			{
 				if (editor_keys(env))
-					return (ft_printf("Error in inputs\n"));
+					return (crash("Crash from editor 2D keys\n", env));
 			}
 			draw_grid(env);
 			draw_grid_vertices(env);

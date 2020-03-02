@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/28 12:17:23 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:22:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 typedef struct		s_map_parser
 {
 	char			*line;
+	char			*tmp;
+	char			*resource_name;
 	int				nb_vertices;
 	int				nb_sectors;
 	int				ret;

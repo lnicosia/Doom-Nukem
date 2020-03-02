@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 10:07:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 11:49:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -820,16 +820,14 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 
 int			parse_sectors(t_env *env, t_map_parser *parser)
 {
-	char	*tmp;
-
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
-		tmp = parser->line;
+		parser->tmp = parser->line;
 		parser->line_count++;
-		if (*tmp)
+		if (*(parser->tmp))
 		{
-			if (parse_sector(env, tmp, parser))
+			if (parse_sector(env, parser->tmp, parser))
 				return (-1);
 			parser->sectors_count++;
 		}
@@ -846,7 +844,7 @@ int			parse_sectors(t_env *env, t_map_parser *parser)
 	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (parser->line)
+		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 						"(every sector has been declared)",
 						parser));

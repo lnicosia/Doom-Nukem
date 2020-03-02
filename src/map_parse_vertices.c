@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "env.h"
-#include "map_parser.h"
-
-/*
- **	Chek if the current vertex already exists
- */
 
 static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 {
@@ -71,7 +66,6 @@ static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
 
 int			parse_vertices(t_env *env, t_map_parser *parser)
 {
-	
 	while (parser->vertices_count < env->nb_vertices
 			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
@@ -100,10 +94,12 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (parser->line)
+		if (*(parser->line))
+		{
 			return (custom_error_with_line("Must be an empty line "
-						"(every vertex has been declared)\n",
+						"(every vertex has been declared)",
 						parser));
+		}
 		ft_strdel(&(parser->line));
 	}
 	else

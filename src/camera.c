@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:47:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/05 11:20:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 15:55:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 	camera->size = env->nb_sectors;
 	if (!(camera->screen_pos = (int*)ft_memalloc(sizeof(int) * (env->w))))
 		return (ft_printf("Could not malloc screen pos!\n", env));
-	if (!(camera->v = (t_render_vertex**)
-				malloc(sizeof(t_render_vertex*) * env->nb_sectors)))
-		return (ft_perror("Could not malloc camera sectors"));
 	if (!(camera->sector_computed = (int*)ft_memalloc(sizeof(int) * (env->nb_sectors))))
 		return (ft_printf("Could not malloc xmins!\n", env));
 	if (!(camera->sectors_size = (int*)ft_memalloc(sizeof(int) * (env->nb_sectors))))
@@ -112,6 +109,9 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 		return (ft_printf("Could not malloc screen sectors!\n", env));
 	if (!(camera->rendered_sectors = (int*)ft_memalloc(sizeof(int) * (env->screen_sectors_size))))
 		return (ft_printf("Could not malloc rendered sectors!\n", env));
+	if (!(camera->v = (t_render_vertex**)
+				malloc(sizeof(t_render_vertex*) * env->nb_sectors)))
+		return (ft_perror("Could not malloc camera sectors"));
 	i = 0;
 	while (i < env->nb_sectors)
 	{

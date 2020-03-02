@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 10:19:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:48:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,75 +17,61 @@ int		parse_texture(t_env *env, t_map_parser *parser)
 {
 	int		fd;
 	int		size;
-	char	*name;
-	char	*line;
-	char	*tmp;
-	int		ret;
 
 	(void)env;
-	ret = 0;
 	fd = 0;
 	size = 0;
 	
-	if (!(tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(name = ft_strnew(0)))
+	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_printf("Coud not malloc\n"));
-	while ((parser->ret = read(parser->fd, tmp, 1)) > 0
-	&& ft_strlen(name) < 100)
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->resource_name) < 100)
 	{
-		if (*tmp == '\n')
+		if (*(parser->tmp) == '\n')
 			break;
-		ft_printf("name: %s | tmp: %s\n", name, tmp);
-		if (!(name = ft_strjoin_free(name, tmp)))
-		{
-			ft_printf("first while\n");
-			return (-1);
-		}
+		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, parser->tmp)))
+			return (ft_printf("Could not realloc name in parse texture\n"));
 	}
-	ft_printf("name: %s\n", name);
-	if (*tmp != '\n')
+	if (*(parser->tmp) != '\n')
 		return (ft_printf("Expected a '\\n' at the end of file name\n"));
-	if (!(name = ft_strjoin_free(name, "2")))
-	{
-		ft_printf("join_frre name\n");
-		return (-1);
-	}
-	if (!(tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
+		return (ft_printf("Could not malloc name in parse texture\n"));
+	ft_strdel(&(parser->tmp));
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Coud not malloc\n"));
-	while ((parser->ret = read(parser->fd, tmp, 1)) > 0
-	&& ft_strlen(line) < 100)
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
 	{
-		if (*tmp == '\n')
+		if (*(parser->tmp) == '\n')
 			break;
-		if (!(line = ft_strjoin_free(line, tmp)))
-		{
-			ft_printf("second while\n");
-			return (-1);
-		}
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
+			return (ft_printf("Could not malloc line in parse texture\n"));
 	}
-	if (*tmp != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
-	if (valid_int(line, parser))
+	if (*(parser->tmp) != '\n')
+		return (ft_printf("Expected a '\\n' at the end of texture name\n"));
+	if (valid_int(parser->line, parser))
 		return (ft_printf("Invalid size for tetxure\n"));
-	size = ft_atoi(line);
-	ft_strdel(&line);
+	size = ft_atoi(parser->line);
+	ft_strdel(&(parser->line));
 	if (size < 54)
-		return (ft_printf("Ivalid size for texture, size is too small\n"));
-	ft_strdel(&tmp);
-	if (!(tmp = (char*)ft_memalloc(sizeof(char) * size)))
+		return (ft_printf("Invalid size for texture, size is too small\n"));
+	ft_strdel(&(parser->tmp));
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char) * size)))
 		return (ft_printf("Memalloc failed\n"));
-	if ((ret = read(parser->fd, tmp, size)) <= 0)
+	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
 		return (ft_printf("Read for texture failed\n"));	
-	if ((fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
+	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (ft_printf("Could not open texture image\n"));
-	free(name);
-	write(fd, tmp, size);
-	if (((ret = read(parser->fd, tmp, 1)) <= 0) || *tmp != '\n')
+	ft_strdel(&(parser->resource_name));
+	parser->resource_name = NULL;
+	write(fd, parser->tmp, size);
+	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
 		return (ft_printf("Invalid file\n"));
-	ft_strdel(&tmp);
+	ft_strdel(&(parser->tmp));
 	if (close(fd))
 		return (ft_printf("Could not close fd\n"));
 	return (0);
@@ -94,38 +80,38 @@ int		parse_texture(t_env *env, t_map_parser *parser)
 int		map_parse_textures(t_env *env, t_map_parser *parser)
 {
 	int	i;
-	char	*line;
-	char	*tmp;
+
 	i = 0;
-	
-	(void)env;
-	if (!(tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
-	while ((parser->ret = read(parser->fd, tmp, 1)) > 0
-	&& ft_strlen(line) < 100)
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
 	{
-		if (*tmp == '\n')
+		if (*(parser->tmp) == '\n')
 			break;
-		if (!(line = ft_strjoin_free(line, tmp)))
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 			return (ft_printf("Could not malloc line\n"));
 	}
-	if (*tmp != '\n')
+	if (*(parser->tmp) != '\n')
 		return (ft_printf("Expected a '\\n' at the end of file name\n"));
-	if (*line && *line != 'T')
+	if (*(parser->line) && *(parser->line) != 'T')
 		return (ft_printf("Expected letter: T\n"));
-	line++;
-	if (*line && *line != ' ')
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != ' ')
 		return (ft_printf("Expected a space\n"));
-	line++;
-	if (valid_int(line, parser))
+	parser->line++;
+	if (valid_int(parser->line, parser))
 		return (ft_printf("Invalid int for textures number\n"));
-	env->resource.nb_textures = atoi(line);
+	env->resource.nb_textures = atoi(parser->line);
+	parser->line -= 2;
+	ft_strdel(&(parser->line));
+	ft_strdel(&(parser->tmp));
 	while (i <  env->resource.nb_textures)
 	{
 		if (parse_texture(env, parser))
-			return (ft_printf("Error while parsing resources\n"));
+			return (ft_printf("Error while parsing textures\n"));
 		i++;
 	}
 	return (0);
@@ -133,8 +119,7 @@ int		map_parse_textures(t_env *env, t_map_parser *parser)
 
 int		parse_resources(t_env *env, t_map_parser *parser)
 {
-
 	if (map_parse_textures(env, parser))
-		return (-1);
+		return (ft_printf("Error while parsing resources\n"));
 	return (0);
 }

@@ -25,7 +25,6 @@ int		save_map(void *param)
 		return (ft_printf("Could not open %s\n", env->save_file));
 	if (write_resources(fd, env))
 		return(-1);
-	ft_printf("1\n");
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
@@ -33,7 +32,6 @@ int		save_map(void *param)
 	write_events(fd, env);
 	write_events_links(fd, env);
 	write_player(fd, env);
-	ft_printf("1\n");
 	ft_printf("{reset}");
 	if (env->editor.in_game && !env->editor.tab)
 		SDL_SetRelativeMouseMode(1);

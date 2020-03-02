@@ -18,7 +18,7 @@ int		editor_render(t_env *env)
 	if (!env->input_box.state)
 	{
 		if (editor_3d_keys(env))
-			return (-1);
+			return (crash("Crash from editor 3d keys\n", env));
 	}
 	if (env->player.changed_sector)
 	{
@@ -31,9 +31,9 @@ int		editor_render(t_env *env)
 	if (draw_walls(&env->player.camera, env))
 		return (crash("Failed to draw walls\n", env));
 	if (draw_objects(env->player.camera, env))
-		return (-1);
+		return (crash("Failed to draw objects\n", env));
 	if (draw_enemies(env->player.camera, env))
-		return (-1);
+		return (crash("Failed to draw enemies\n", env));
 	draw_crosshair(env);
 	if (env->options.show_fps)
 		fps(env);
