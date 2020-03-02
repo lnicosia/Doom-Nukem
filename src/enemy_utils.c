@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 16:15:29 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 09:40:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:55:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	enemy_far_left_right(t_env *env, int nb)
 	env->enemies[nb].far_right.y = 1000 * sin(angle_right * CONVERT_RADIANS) + env->enemies[nb].pos.y;
 }
 
-int	 is_in_enemy_fov(t_enemies enemy, t_player player, double distance)
+int	 is_in_enemy_fov(t_enemy enemy, t_player player, double distance)
 {
 	t_v2	player_pos;
 	t_v2	enemy_pos;
@@ -250,7 +250,7 @@ double	enemy_sight(t_env *env, int i, int shot_flag)
 	return (distance);
 }
 
-void	melee_ai(t_env *env, t_enemies enemy, double distance, int i)
+void	melee_ai(t_env *env, t_enemy enemy, double distance, int i)
 {
 	t_v3 		direction;
 	t_v3 		move;
@@ -313,7 +313,7 @@ double	enemy_angle_z(t_env *env, int i)
 	return (angle_z);
 }
 
-void	ranged_ai(t_env *env, t_enemies enemy, double distance, int i)
+void	ranged_ai(t_env *env, t_enemy enemy, double distance, int i)
 {
 	t_v3		direction;
 	t_v3 		move;
@@ -410,27 +410,49 @@ void	enemy_ai(t_env *env)
 	}
 }
 
-void		enemy_melee_hit(t_env *env)
+int		enemy_melee_hit(t_env *env)
 {
 	int i;
 
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		if (env->enemies[i].health > 0 && distance_two_points_2d(env->enemies[i].pos.x, env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) < 1.75 && env->enemies[i].exists
-			&& env->enemies[i].pos.z >= env->player.pos.z - 1 && env->enemies[i].pos.z <= env->player.head_z + 1 && (env->enemies[i].behavior == MELEE_KAMIKAZE ||
-			env->enemies[i].behavior == MELEE_FIGHTER))
+		if (env->enemies[i].health > 0
+			&& distance_two_points_2d(env->enemies[i].pos.x,
+			env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75
+			&& env->enemies[i].exists
+			&& env->enemies[i].pos.z >= env->player.pos.z - 1
+			&& env->enemies[i].pos.z <= env->player.head_z + 1)
 		{
-			env->player.hit = 1;
-			env->player.health -= ft_clamp(env->enemies[i].damage - env->player.armor, 0, env->enemies[i].damage);
-			env->player.armor -= ft_clamp(env->enemies[i].damage, 0, env->player.armor);
-			if (env->player.health < 0)
-				env->player.health = 0;
-			if (env->enemies[i].behavior == MELEE_KAMIKAZE)
-			env->enemies[i].exists = 0;
+			if (env->in_game && !env->player.colliding_enemies[i]
+				&& env->enemies[i].nb_collision_events > 0
+				&& env->enemies[i].collision_events)
+			{
+				ft_printf("launching enemy collision event\n");
+				if (start_event(&env->enemies[i].collision_events,
+					&env->enemies[i].nb_collision_events, env))
+					return (-1);
+			}
+			env->player.colliding_enemies[i] = 1;
+			if (env->enemies[i].behavior == MELEE_KAMIKAZE ||
+			env->enemies[i].behavior == MELEE_FIGHTER)
+			{
+				env->player.hit = 1;
+				env->player.health -= ft_clamp(env->enemies[i].damage -
+				env->player.armor, 0, env->enemies[i].damage);
+				env->player.armor -= ft_clamp(env->enemies[i].damage, 0,
+				env->player.armor);
+				if (env->player.health < 0)
+					env->player.health = 0;
+				if (env->enemies[i].behavior == MELEE_KAMIKAZE)
+				env->enemies[i].exists = 0;
+			}
 		}
+		else
+			env->player.colliding_enemies[i] = 0;
 		i++;
 	}
+	return (0);
 }
 
 /*

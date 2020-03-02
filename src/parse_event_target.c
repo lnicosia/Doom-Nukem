@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_target.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 14:32:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:33:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("event target", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before event target", "'['", **line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for target index\n"));
 	eparser->target_index = ft_atoi(*line);
 	if (eparser->target_index < 0 || eparser->target_index == PLAYER_SECTOR
 		|| eparser->target_index >= MAX_TARGET_TYPES)
@@ -34,6 +34,7 @@ t_events_parser *eparser)
 		parser));
 	eparser->event.target_index = eparser->target_index;
 	*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->target_parsers[eparser->target_index](env, parser, line,
 		eparser))
 		return (-1);

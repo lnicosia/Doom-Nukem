@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:33:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 15:50:53 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 11:59:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ int		selection_tab_button_keys(t_env *env)
 		while (i < MAX_OBJECTS)
 		{
 			if (button_keys(&env->editor.sprite_selection[i], env))
+				return (-1);
+			i++;
+		}
+	}
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keys(&env->editor.object_tab[i], env))
 				return (-1);
 			i++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_various_data.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:52:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 10:36:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:56:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ int		parse_event_various_data(t_env *env, t_map_parser *parser,
 	(*line)++;
 	if (!**line)
 		return (missing_data("event delay and maximum uses", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before event various data", "a digit",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event delay\n"));
 	delay = ft_atoi(*line);
 	if (delay < 0)
 		return (custom_error_with_line("Invalid delay", parser));
@@ -45,9 +44,8 @@ int		parse_event_various_data(t_env *env, t_map_parser *parser,
 	(*line)++;
 	if (!**line)
 		return (missing_data("even maximum uses", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before event maximum uses", "a digit",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event max uses\n"));
 	eparser->event.max_uses = ft_atoi(*line);
 	if (eparser->event.max_uses < 0)
 		return (custom_error_with_line("Invalid number of uses", parser));

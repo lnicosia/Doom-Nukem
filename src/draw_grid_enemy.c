@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 10:49:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:06:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,36 @@
 void	draw_grid_enemies(t_env *env)
 {
 	t_point		center;
+	t_point		size;
+	t_sprite	sprite;
 	double		scale;
 	int			i;
-	Uint32		color;
 
 	i = 0;
-	if (env->editor.dragged_enemy != -1)
-	{
-		color = 0xFF0000FF;
-		scale = env->editor.scale / 2.0;
-		center.x = env->sdl.mx;
-		center.y = env->sdl.my;
-		draw_circle(new_circle(color, color, center, scale), env);
-	}
 	while (i < env->nb_enemies)
 	{
-		center.x = env->enemies[i].pos.x * env->editor.scale + env->editor.center.x;
-		center.y = env->enemies[i].pos.y * env->editor.scale + env->editor.center.y;
-		if (env->sdl.mx > center.x - env->editor.scale / 2.0
-				&& env->sdl.mx < center.x + env->editor.scale / 2.0
-				&& env->sdl.my > center.y - env->editor.scale / 2.0
-				&& env->sdl.my < center.y + env->editor.scale / 2.0)
+		center.x =
+		env->enemies[i].pos.x * env->editor.scale + env->editor.center.x;
+		center.y =
+		env->enemies[i].pos.y * env->editor.scale + env->editor.center.y;
+		sprite = env->enemy_sprites[env->enemies[i].sprite];
+		if (env->sdl.mx > center.x - env->editor.scale
+				&& env->sdl.mx < center.x + env->editor.scale
+				&& env->sdl.my > center.y - env->editor.scale
+				&& env->sdl.my < center.y + env->editor.scale)
 		{
-			scale = env->editor.scale;
-			color = 0xFF0000FF;
+			scale = env->editor.scale * 2.5;
 			if (env->inputs.left_click
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
 					&& env->editor.event_panel_dragged == -1
 					&& env->editor.start_vertex == -1
 					&& env->editor.dragged_player == -1
+					&& env->editor.dragged_start_player == -1
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_object == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->sdl.mx > 400)
 			{
 				reset_selection(env);
@@ -59,14 +56,16 @@ void	draw_grid_enemies(t_env *env)
 			}
 		}
 		else
-		{
-			color = 0xFF0000FF;
-			scale = env->editor.scale / 2.0;
-		}
+			scale = env->editor.scale * 2;
+		size = new_point(scale,
+		scale / (sprite.size[0].x / (double)sprite.size[0].y));
+		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
 		if (env->selected_enemy == i)
-			color = 0xFF0000FF;
-		if (env->editor.dragged_enemy != i)
-			draw_circle(new_circle(color, color, center, scale), env);
+			apply_sprite_selected(env->enemy_sprites[env->enemies[i].sprite],
+			center, size, env);
+		else
+			apply_sprite(env->enemy_sprites[env->enemies[i].sprite], center,
+			size, env);
 		i++;
 	}
 }

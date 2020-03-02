@@ -6,76 +6,106 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:42:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 14:22:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 14:25:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
 
-void	delete_selected_event3(t_env *env, t_event_panel *panel,
+int		delete_selected_event4(t_env *env, t_event_trigger trigger,
 t_event **events, size_t *nb)
 {
-	if (panel->trigger.type == WALK_IN)
+	if (trigger.type == OBJECT_COLLISION)
 	{
-		events = &env->sectors[panel->trigger.sector].walk_in_events;
-		nb = &env->sectors[panel->trigger.sector].nb_walk_in_events;
+		events = &env->objects[trigger.object].collision_events;
+		nb = &env->objects[trigger.object].nb_collision_events;
 	}
-	else if (panel->trigger.type == WALK_OUT)
-	{
-		events = &env->sectors[panel->trigger.sector].walk_out_events;
-		nb = &env->sectors[panel->trigger.sector].nb_walk_out_events;
-	}
-	free_event(&(*events)[panel->selected_event]);
+	free_event(&(*events)[trigger.index]);
 	*events = (t_event*)ft_delindex(*events, sizeof(t_event) * *nb,
-	sizeof(t_event), sizeof(t_event) * panel->selected_event);
+	sizeof(t_event), sizeof(t_event) * trigger.index);
 	(*nb)--;
+	if (*nb > 0 && !(*events))
+		return (-1);
 	if (env->editor.selected_event == *nb)
 		env->editor.selected_event--;
+	return (0);
 }
 
-void	delete_selected_event2(t_env *env, t_event_panel *panel,
+int		delete_selected_event3(t_env *env, t_event_trigger trigger,
 t_event **events, size_t *nb)
 {
-	if (panel->trigger.type == SHOOT)
+	if (trigger.type == WALK_OUT)
 	{
-		events = &env->sectors[panel->trigger.sector].
-		wall_sprites[panel->trigger.wall].press_events[panel->trigger.sprite];
-		nb = &env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.
-		wall].nb_shoot_events[panel->trigger.sprite];
+		events = &env->sectors[trigger.sector].walk_out_events;
+		nb = &env->sectors[trigger.sector].nb_walk_out_events;
 	}
-	else if (panel->trigger.type == STAND)
+	else if (trigger.type == DEATH)
 	{
-		events = &env->sectors[panel->trigger.sector].stand_events;
-		nb = &env->sectors[panel->trigger.sector].nb_stand_events;
+		events = &env->enemies[trigger.enemy].death_events;
+		nb = &env->enemies[trigger.enemy].nb_death_events;
 	}
-	delete_selected_event3(env, panel, events, nb);
+	else if (trigger.type == ENEMY_COLLISION)
+	{
+		events = &env->enemies[trigger.enemy].collision_events;
+		nb = &env->enemies[trigger.enemy].nb_collision_events;
+	}
+	return (delete_selected_event4(env, trigger, events, nb));
 }
 
-void	delete_selected_event(void *param)
+int		delete_selected_event2(t_env *env, t_event_trigger trigger,
+t_event **events, size_t *nb)
 {
-	t_env			*env;
-	t_event_panel	*panel;
+	if (trigger.type == SHOOT)
+	{
+		events = &env->sectors[trigger.sector].
+		wall_sprites[trigger.wall].press_events[trigger.sprite];
+		nb = &env->sectors[trigger.sector].wall_sprites[trigger.
+		wall].nb_shoot_events[trigger.sprite];
+	}
+	else if (trigger.type == STAND)
+	{
+		events = &env->sectors[trigger.sector].stand_events;
+		nb = &env->sectors[trigger.sector].nb_stand_events;
+	}
+	else if (trigger.type == WALK_IN)
+	{
+		events = &env->sectors[trigger.sector].walk_in_events;
+		nb = &env->sectors[trigger.sector].nb_walk_in_events;
+	}
+	return (delete_selected_event3(env, trigger, events, nb));
+}
+
+int		delete_selected_event1(t_env *env, t_event_trigger trigger)
+{
 	t_event			**events;
 	size_t			*nb;
 
-	env = (t_env*)param;
-	panel = &env->editor.event_panel;
 	events = NULL;
 	nb = 0;
-	if (panel->trigger.type == GLOBAL)
+	if (trigger.type == GLOBAL)
 	{
 		events = &env->global_events;
 		nb = &env->nb_global_events;
 	}
-	else if (panel->trigger.type == PRESS)
+	else if (trigger.type == PRESS)
 	{
-		events = &env->sectors[panel->trigger.sector].
-		wall_sprites[panel->trigger.wall].press_events[panel->trigger.sprite];
-		nb = &env->sectors[panel->trigger.sector].wall_sprites[panel->trigger.
-		wall].nb_press_events[panel->trigger.sprite];
+		events = &env->sectors[trigger.sector].
+		wall_sprites[trigger.wall].press_events[trigger.sprite];
+		nb = &env->sectors[trigger.sector].wall_sprites[trigger.
+		wall].nb_press_events[trigger.sprite];
 	}
-	delete_selected_event2(env, panel, events, nb);
+	return (delete_selected_event2(env, trigger, events, nb));
+}
+
+int		delete_selected_event(void *param)
+{
+	t_env			*env;
+	t_event_trigger	trigger;
+
+	env = (t_env*)param;
+	trigger = env->editor.event_panel.trigger;
+	return (delete_selected_event1(env, trigger));
 }
 
 int		delete_event(void *param)

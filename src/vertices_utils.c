@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:35:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/30 15:29:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/25 16:27:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int		is_vertex_used_by_others(t_env *env, int vertex, int sector)
 }
 
 /*
- **	Returns 0 if the given vertex does not belong to any sector
- */
+**	Returns 0 if the given vertex does not belong to any sector
+*/
 
 int		is_vertex_used(t_env *env, int vertex)
 {
@@ -95,6 +95,34 @@ int		is_vertex_used(t_env *env, int vertex)
 }
 
 /*
+**	Returns 0 if the given vertex will not belong to any sector
+**	after the given sector is deleted
+*/
+
+int		is_vertex_going_to_be_used(t_env *env, int sector, int vertex)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (i != sector)
+		{
+			j = 0;
+			while (j < env->sectors[i].nb_vertices)
+			{
+				if (env->sectors[i].vertices[j] == vertex)
+					return (1);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+/*
 **	Returns 0 if the given vertex does not belong to the current sector
 */
 
@@ -109,8 +137,12 @@ int		current_vertices_contains(t_env *env, int vertex)
 		v = (t_vertex*)tmp->content;
 		if (v->num == vertex)
 		{
-			if (ft_lstlen(env->editor.current_vertices) < 3
-			&& vertex == env->editor.start_vertex)
+			if (vertex == env->editor.start_vertex)
+			{
+				if (ft_lstlen(env->editor.current_vertices) < 3)
+					return (1);
+			}
+			else
 				return (1);
 		}
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/20 14:31:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:43:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ int		is_new_sector_convex(t_env *env, t_list *tmp)
 	{
 		len += 3;
 		if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
-			return (0);
+			return (-1);
 		p[len - 3].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 		p[len - 3].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
 		while (tmp)
@@ -248,7 +248,7 @@ int		is_new_sector_convex(t_env *env, t_list *tmp)
 				straight = 0;
 			i++;
 		}
-
+		free(p);
 		if (res != -(len - 2) && res != len - 2 && res)
 			return (0);
 	}
@@ -351,7 +351,8 @@ int		is_sector_empty(t_env *env, t_v2 last_vertex)
 
 int		is_new_vertex_valid(t_env *env, int index)
 {
-	t_v2 vertex;
+	t_v2	vertex;
+	int		ret;
 
 	vertex.x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
 	vertex.y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
@@ -365,7 +366,10 @@ int		is_new_vertex_valid(t_env *env, int index)
 		return (0);
 	if (new_wall_intersects(env, index))
 		return (0);
-	if (!is_new_sector_convex(env, env->editor.current_vertices))
+	ret = is_new_sector_convex(env, env->editor.current_vertices);
+	if (ret == -1)
+		return (-1);
+	else if (!ret)	
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:01:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ int		selection_tabs_keyup(t_env *env)
 			i++;
 		}
 	}
+	if (env->editor.draw_object_tab)
+	{
+		i = 0;
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keyup(&env->editor.object_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
 	if (env->editor.draw_enemy_tab)
 	{
 		i = 0;
@@ -58,34 +68,6 @@ int		selection_tabs_keyup(t_env *env)
 	return (0);
 }
 
-void	draw_selection_tabs(t_env *env)
-{
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
-			&& (env->sdl.my < 208 && env->sdl.my > 80))
-		env->editor.draw_texture_tab = 1;
-	else if (env->editor.draw_texture_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.current_enemy_selection.state == UP)
-		env->editor.draw_texture_tab = 0;
-	if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.current_enemy_selection.state == DOWN)
-	{
-		env->editor.current_enemy_selection.state = UP;
-		env->editor.current_enemy_selection.anim_state = REST;
-	}
-	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.current_enemy_selection.state == UP)
-		env->editor.draw_enemy_tab = 0;
-	if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.current_sprite_selection.state == DOWN)
-	{
-		env->editor.current_sprite_selection.state = UP;
-		env->editor.current_sprite_selection.anim_state = REST;
-	}
-	else if (env->editor.draw_sprite_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.current_sprite_selection.state == UP)
-		env->editor.draw_sprite_tab = 0;
-}
-
 int		editor_3d_keyup(t_env *env)
 {
 	if (wall_edit_keyup(env))
@@ -97,22 +79,15 @@ int		editor_3d_keyup(t_env *env)
 		going_in_2D_mode(env);
 		return (0);
 	}
+	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
+		&& (env->selected_enemy != -1 || env->selected_object != -1
+		|| env->selected_wall_sprite_wall != -1))
+		if (delete_action(env))
+			return (-1);
 	editor_options_tab_keyup(env);
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
-	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& (env->sdl.mx > 400 || !env->editor.tab)
-			&& !env->confirmation_box.state
-			&& ((!env->editor.creating_event && !env->editor.creating_condition)
-				|| !is_mouse_on_event_panel(env)))
-	{
-		if (env->inputs.ctrl)
-			env->editor.select_portal = 1;
-		else	
-			env->editor.select = 1;
-	}
-
 	if (env->editor.creating_event && !env->confirmation_box.state
 			&& env->editor.tab)
 	{
@@ -142,8 +117,25 @@ int		editor_3d_keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 		editor_show_tab(env);
+	if (env->editor.in_game && env->sdl.event.button.button == SDL_BUTTON_LEFT
+			&& (env->sdl.mx > 400 || !env->editor.tab)
+			&& !env->confirmation_box.state
+			&& !is_mouse_on_any_selection_tab(env)
+			&& ((!env->editor.creating_event && !env->editor.creating_condition)
+				|| !is_mouse_on_event_panel(env)))
+	{
+		if (env->inputs.ctrl)
+			env->editor.select_portal = 1;
+		else	
+			env->editor.select = 1;
+	}
 	if (env->editor.tab)
 	{
+		if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		{
+			if (editor_left_click_up(env))
+				return (-1);
+		}
 		if (editor_3d_tabs_keyup(env))
 			return (-1);		
 		if (selection_tabs_keyup(env))
@@ -153,7 +145,6 @@ int		editor_3d_keyup(t_env *env)
 			if (event_panel_keyup(env))
 				return (-1);
 		}
-		draw_selection_tabs(env);
 	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
 			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)

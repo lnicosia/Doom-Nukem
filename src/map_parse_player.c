@@ -24,9 +24,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 		line = tmp;
 		if (*line && *line != '#')
 		{
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("player y",
-							"a digit", *line, parser));
+			if (valid_double(line, parser))
+				return (ft_printf("Invalid double for player pos.y\n"));
 			env->player.pos.y = ft_atof(line);
 			env->player.starting_pos.y = ft_atof(line);
 			line = skip_number(line);
@@ -38,9 +37,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("player x and angle", parser));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("player x",
-							"space or a digit", *line, parser));
+			if (valid_double(line, parser))
+				return (ft_printf("Invalid double for player pos.x\n"));
 			env->player.pos.x = ft_atof(line);
 			env->player.starting_pos.x = ft_atof(line);
 			line = skip_number(line);
@@ -53,9 +51,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("player angle", parser));
-			if (valid_number(line, parser) == WRONG_CHAR)
-				return (invalid_char("player angle",
-							"a digit", *line, parser));
+			if (valid_double(line, parser))
+				return (ft_printf("Invalid double for player angle\n"));
 			env->player.camera.angle = (ft_atof(line) + 0.00001) * CONVERT_RADIANS;
 			env->player.camera.angle_cos = cos(env->player.camera.angle);
 			env->player.camera.angle_sin = sin(env->player.camera.angle);

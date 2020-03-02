@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 14:12:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:48:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,58 +45,67 @@ int		init_mini_skyboxes_selection(t_env *env)
 
 int		init_ui_mini_objects_textures(t_env *env)
 {
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 0,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 0,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 1,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 1,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 2,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 2,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 3,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 3,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 4,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 4,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 5,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 5,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 6,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 6,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 7,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 7,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 8,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 8,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 9,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 9,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 10,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 10,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 11,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 11,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 12,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 12,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 13,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 13,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 14,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 14,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 15,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 15,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 16,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 16,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_objects_textures("images/ui/mini/lost_soul_mini.bmp", 17,
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 17,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 18,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 19,
+		env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_mini_objects_textures("images/ui/mini/mini_object.bmp", 20,
 		env))
 		return (custom_error("Invalid bmp files"));
 	return (0);

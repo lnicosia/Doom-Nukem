@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_grid_vertices.c							   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/25 11:52:27 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/02/11 10:49:39 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_vertices.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 11:02:08 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/27 16:06:44 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
@@ -50,7 +50,9 @@ void	draw_grid_vertices(t_env *env)
 					&& env->editor.dragged_vertex == -1
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_player == -1
+					&& env->editor.dragged_start_player == -1
 					&& env->editor.dragged_object == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->sdl.mx > 400)
 			{
 				reset_selection(env);
@@ -58,7 +60,7 @@ void	draw_grid_vertices(t_env *env)
 				env->editor.selected_vertex = i;
 				env->editor.start_pos.x = env->vertices[env->editor.selected_vertex].x;
 				env->editor.start_pos.y = env->vertices[env->editor.selected_vertex].y;
-				new_tabs_position(env);
+				tabs_gestion(env);
 				check_event_creation(env);
 
 			}

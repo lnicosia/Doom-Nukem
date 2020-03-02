@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/02/28 19:25:02 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/03/02 10:54:31 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,24 +50,24 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 write_player.c write_enemies.c add_object.c editor_keyup.c \
 		 player_selection.c objects_selection.c vertices_selection.c \
 		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		 is_new_vertex_valid.c add_enemy.c enemy_selection.c delete_event.c \
+		 add_enemy.c enemy_selection.c delete_event.c object_selection.c \
 		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
 		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 editor_start_game.c apply_texture.c init_event_panel_buttons.c \
+		 apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
 		 write_events.c init_print_target_data.c print_event_condition.c \
 		 write_events_utils.c write_events_utils2.c init_events_writers.c \
 		 write_event_conditions.c write_event_conditions_utils.c \
 		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c print_target_functions.c \
-		 split_sector_utils.c selection_tab.c init_hud_button.c \
+		 write_events_links.c print_target_functions.c update_existing_events.c\
+		 split_sector_utils.c texture_selection.c init_hud_button.c \
 		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		 init_editor_tab_buttons.c editor_ceiling_tab_button.c \
 		 editor_floor_tab_button.c editor_wall_tab_button.c \
 		 editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		 editor_env_ceilling_buttons.c  change_editor_mode.c \
-		 editor_3d_button_keys.c editor_3d_button_keyup.c enemy_tab.c \
+		 editor_3d_button_keys.c editor_3d_button_keyup.c \
 		 init_add_buttons.c editor_env_sector_buttons.c \
 		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
 		 editor_button_keyup.c editor_env_player_buttons.c \
@@ -77,7 +77,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 sprite_selection.c init_sprite_selection_buttons.c\
 		 editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		 init_events_selection_buttons.c print_event.c init_event_types.c \
-		 are_condition_selection_buttons_visible.c init_event_links_types.c \
+		 are_launch_condition_selection_buttons_visible.c \
+		 are_exec_condition_selection_buttons_visible.c \
+		 init_event_links_types.c is_event_tabs_visible.c \
 		 print_link_target_functions.c print_condition_target_functions.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
@@ -106,7 +108,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 set_new_event_target.c set_new_event_target2.c \
 		 set_new_event_target3.c set_new_event_target4.c \
 		 set_new_event_target5.c set_new_event_target6.c \
-		 set_new_event_target7.c \
+		 set_new_event_target7.c delete_wall_sprite.c \
 		 condition_event_panel.c init_condition_event_buttons.c \
 		 3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		 3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
@@ -115,7 +117,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		 update_entities.c delete_sector.c \
+		 update_entities.c editor_vertices_tab.c \
+		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
+		 delete_sector.c delete_vertex.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -132,9 +136,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_vertices.c is_in_sector.c map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
-		   sound_utils.c draw_rectangle.c confirmation_box.c \
+		   sound_utils.c draw_rectangle.c confirmation_box.c apply_image.c \
 		   draw_objects.c sprites_maths.c draw_players.c \
-		   map_parse_objects.c map_init_objects.c delete_vertex.c \
+		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
@@ -147,7 +151,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c map_parse_events.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \
-		   input_box_mouse.c delete_box_selection.c \
+		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
@@ -176,7 +180,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   different_condition.c init_events.c init_events_parser.c \
 		   new_global_event.c new_press_event.c new_shoot_event.c \
 		   new_stand_event.c new_walk_in_event.c new_walk_out_event.c \
-		   new_death_event.c parse_event_target.c portal_loop.c \
+		   new_enemy_event.c parse_event_target.c portal_loop.c \
 		   init_events_parser_target_types.c parse_event_launch_conditions.c \
 		   sector_parser.c enemy_parser.c wall_sprite_parser.c wall_parser.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \
@@ -190,12 +194,13 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c \
 		   menu_keys.c option_menu.c option_menu_keys.c collision_utils_2.c \
-		   collision_maths.c collision_utils.c
+		   collision_maths.c collision_utils.c new_object_event.c \
+		   is_new_vertex_valid.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h \
+		  events_parser.h update_existing_events.h \
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))

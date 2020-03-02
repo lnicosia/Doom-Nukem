@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 11:00:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:05:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	while (i < parser->sector_ceiling_sprites_count)
 	{
 		(*line)++;
-		parse= ft_atoi(*line);
+		if (valid_int(*line, parser))
+				return (ft_printf("Invalid int for ceiling sprite %d texture\n", i));
+		parse = ft_atoi(*line);
 		if (parse < 0 || parse> MAX_OBJECTS)
 			return (custom_error_with_line("Invalid ceiling sprite texture",
 			parser));
@@ -52,14 +54,20 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 		env->objects_main_sprites[parse];
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for ceiling sprite %d pos.x\n", i));
 		env->sectors[parser->sectors_count].ceiling_sprites.pos[i].x =
 		ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for ceiling sprite %d pos.y\n", i));
 		env->sectors[parser->sectors_count].ceiling_sprites.pos[i].y =
 		ft_atof(*line);
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for ceiling sprite %d scale.x\n", i));
 		env->sectors[parser->sectors_count].ceiling_sprites.scale[i].x =
 		ft_atof(*line);
 		if ((env->sectors[parser->sectors_count].
@@ -74,6 +82,8 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 			"betweem 0.1 and 100", parser));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
+		if (valid_double(*line, parser))
+				return (ft_printf("Invalid double for ceiling sprite %d scale.y\n", i));
 		env->sectors[parser->sectors_count].ceiling_sprites.scale[i].y =
 		ft_atof(*line);
 		if ((env->sectors[parser->sectors_count].

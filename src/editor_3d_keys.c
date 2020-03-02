@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 13:49:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 11:58:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		check_move_player_conditions(t_env *env)
 
 int		editor_3d_keys(t_env *env)
 {
+	int		ret;
+
 	if (env->editor.tab)
 	{
 		if (editor_3d_tab_keys(env))
@@ -62,30 +64,48 @@ int		editor_3d_keys(t_env *env)
 	if (wall_edit_keys(env))
 		return (-1);
 	if (check_move_player_conditions(env))
-		move_player(env);
+	{
+		if (move_player(env))
+			return (-1);
+	}
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		reset_selection(env);
 		tabs_gestion(env);
 	}
-	if (env->inputs.s && env->inputs.ctrl && !valid_map(env))
+	if (env->inputs.s && env->inputs.ctrl)
 	{
-		SDL_SetRelativeMouseMode(0);
-		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-				STRING, &env->save_file);
-		env->inputs.s = 0;
-		env->inputs.ctrl = 0;
+		ret = valid_map(env);
+		if (ret == -1)
+			return (-1);
+		else if (ret)
+			return (0);
+		if (env->editor.creating_event)
+		{
+			if (update_confirmation_box(&env->confirmation_box,
+				"Please save your event before saving the map", ERROR, env))
+				return (-1);
+		}
+		else
+		{
+			SDL_SetRelativeMouseMode(0);
+			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+			new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+					STRING, &env->save_file);
+			env->input_box.update = &save_map;
+			env->inputs.s = 0;
+			env->inputs.ctrl = 0;
+		}
 	}
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);
+			env->sound.ambient_vol);*/
 	if (env->inputs.plus && !env->inputs.shift
 	&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 20:39:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:40:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 36
+# define MAX_TEXTURES 39
 # define MAX_UI_TEXTURES 60
-# define MAX_MONSTER_MINI 14
-# define MAX_OBJECT_SPRITES 28
+# define MAX_MONSTER_MINI 2
+# define MAX_OBJECT_SPRITES 30
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 3
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 18
+# define MAX_OBJECTS 21
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -48,6 +48,7 @@
 # define MAX_H 1440
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
+# define MINIGUN 0
 # define HEALTH_PACK 2
 # define SHELL_AMMO 3
 # define ROCKETS_AMMO 4
@@ -66,8 +67,10 @@
 # define BULLET_HOLE 26
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
+# define DOOM_GUY_FACE 29
+# define CAMERA_SPRITE 30
 # define NB_MUSICS 2
-# define MAX_TRIGGER_TYPES 6
+# define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
 
@@ -228,6 +231,17 @@ typedef struct		s_state
 	int				fly;
 }					t_state;
 
+typedef struct		s_event_trigger
+{
+	int				type;
+	int				index;
+	int				sector;
+	int				wall;
+	int				enemy;
+	int				object;
+	int				sprite;
+}					t_event_trigger;
+
 typedef struct		s_render_vertex
 {
 	t_v2			*texture_scale;
@@ -325,16 +339,17 @@ typedef struct		s_event_param
 		int			target_type;
 }					t_event_param;
 
-typedef struct		s_event_trigger
+typedef struct		s_event_target
 {
 	int				type;
-	int				index;
 	int				sector;
 	int				wall;
+	int				sprite;
 	int				enemy;
 	int				object;
-	int				sprite;
-}					t_event_trigger;
+	int				vertex;
+	int				weapon;
+}					t_event_target;
 
 typedef struct		s_condition
 {
@@ -477,7 +492,7 @@ typedef struct		s_vertex
 	double			x;
 	double			y;
 	int				clipped[2];
-	int			num;
+	int				num;
 }					t_vertex;
 
 /*
@@ -610,6 +625,8 @@ typedef struct		s_player
 	int				changed_sector;
 	int				old_sector;
 	int				in_combat;
+	int				*colliding_objects;
+	int				*colliding_enemies;
 }					t_player;
 
 /*
@@ -956,9 +973,11 @@ typedef struct		s_object
 	int				nb_rest_state;
 	t_animation		rest;
 	t_animation		death;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
 }					t_object;
 
-typedef struct		s_enemies
+typedef struct		s_enemy
 {
 	t_v3			pos;
 	t_v3			last_player_pos;
@@ -1012,7 +1031,11 @@ typedef struct		s_enemies
 	t_animation		rest;
 	t_animation		pursue;
 	t_animation		fire;
-}					t_enemies;
+	t_event			*death_events;
+	size_t			nb_death_events;
+	t_event			*collision_events;
+	size_t			nb_collision_events;
+}					t_enemy;
 
 /*
 ** SDL data necessities
@@ -1175,9 +1198,9 @@ typedef struct		s_confirmation_box
 	char			*str;
 	int				yes_pressed;
 	int				no_pressed;
-	void			(*yes_action)(void *);
+	int				(*yes_action)(void *);
 	void			*yes_target;
-	void			(*no_action)(void *);
+	int				(*no_action)(void *);
 	void			*no_target;
 }					t_confirmation_box;
 

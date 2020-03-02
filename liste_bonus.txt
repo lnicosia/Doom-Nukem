@@ -11,3 +11,4 @@ lancer le jeu via l'editeur (peut etre)
 les textes sont centres dans leur ui respective
 portabilite
 CAMERAS
+resize d'image (avec mipmapping)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:54:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/28 19:09:11 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:50:23 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 	eyesight = motion.eyesight;
 	while (i < env->nb_objects)
 	{
-		if (env->objects[i].exists && env->objects[i].solid)
+		if (env->objects[i].exists)
 		{
 			if (distance_two_points_2d(env->objects[i].pos.x,
 				env->objects[i].pos.y, futur.x, futur.y) <
@@ -106,9 +106,29 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 				env->objects[i].pos.z) || (motion.pos.z + eyesight + 1 <=
 				env->objects[i].pos.z + env->objects[i].height && motion.pos.z +
 				eyesight + 1 >= env->objects[i].pos.z)))
-				return (0);
+			{
+				if (env->checking_collisions_with_player
+					&& env->in_game && !env->player.colliding_objects[i]
+					&& env->objects[i].nb_collision_events > 0
+					&& env->objects[i].collision_events)
+				{
+					if (start_event(&env->objects[i].collision_events,
+						&env->objects[i].nb_collision_events, env))
+					{
+						env->fatal_error = 1;
+						return (-1);
+					}
+				}
+				if (env->checking_collisions_with_player)
+					env->player.colliding_objects[i] = 1;
+				if (env->objects[i].solid)
+					return (0);
+			}
+			else if (env->checking_collisions_with_player)
+				env->player.colliding_objects[i] = 0;
 		}
 		i++;
 	}
 	return (1);
 }
+				

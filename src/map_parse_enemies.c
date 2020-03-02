@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 18:36:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:25:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("enemy health, speed and damage", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy health", "a digit",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for enemy %d hp\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].map_hp = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].map_hp <= 0)
 		return (custom_error_with_line("Enemy must have 1 or more health points", parser));
@@ -35,9 +35,9 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy speed and damage", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy speed", "a digit or space(s)",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for enemy %d speed\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].speed = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 100)
 		return (custom_error_with_line("Enemy must have speed between 0 and 100", parser));
@@ -50,9 +50,9 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy damage", "a digit or space(s)",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for enemy %d damage\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].damage = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].damage <= 0)
 		return (custom_error_with_line("Enemy must do more than 0 damage", parser));
@@ -77,9 +77,9 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("enemy sprite and scale", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy sprite", "a digit",
-					**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for enemy %d texture",
+		parser->enemies_count));
 	parse = ft_atoi(*line);
 	if (parse < 0
 			|| parse >= MAX_ENEMIES)
@@ -95,10 +95,15 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy scale", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy scale", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for enemy %d scale",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].scale = ft_atof(*line);
+	if (env->enemies[parser->enemies_count].scale
+	+ env->enemies[parser->enemies_count].pos.z + 1
+	> get_ceiling_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
+	env->enemies[parser->enemies_count].pos, env))
+		return (ft_printf("Enemy's head is too high compared to ceiling height\n"));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after enemy scale", parser));
@@ -122,8 +127,9 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("enemy y, x, z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy y", "a digit", **line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for enemy %d pos.y\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].pos.y = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -134,8 +140,9 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy x, z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy x", "a digit", **line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for enemy %d pos.x\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].pos.x = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -146,9 +153,9 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy z and angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy z", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for enemy %d pos.z\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].pos.z = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -159,9 +166,9 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy angle", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before enemy angle", "a digit or space(s)",
-					**line, parser));
+	if (valid_double(*line, parser))
+		return (ft_printf("Invalid double for enemy %d angle\n",
+		parser->enemies_count));
 	env->enemies[parser->enemies_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line)
@@ -182,6 +189,10 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 				env->enemies[parser->enemies_count].pos.z));
 	if (env->enemies[parser->enemies_count].sector >= 0)
 	{
+		if (env->enemies[parser->enemies_count].pos.z
+		< get_floor_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
+		env->enemies[parser->enemies_count].pos, env))
+			return (ft_printf("Enemy %d is under the floor\n", parser->enemies_count));
 		env->enemies[parser->enemies_count].brightness =
 			env->sectors[env->enemies[parser->enemies_count].sector].brightness;
 		env->enemies[parser->enemies_count].light_color =
@@ -249,5 +260,8 @@ int			parse_enemies(t_env *env, t_map_parser *parser)
 	}
 	else
 		return (missing_data("player data", parser));
+	if (!(env->player.colliding_enemies = (int*)ft_memalloc(sizeof(int)
+		* env->nb_enemies)))
+		return (ft_perror("Could not malloc player colliding enemies"));
 	return (0);
 }

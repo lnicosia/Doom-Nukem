@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:46:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 14:38:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,14 +260,20 @@ int			draw_objects(t_camera camera, t_env *env)
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 		{
 			env->objects[i].seen = 0;
-			if (env->objects[i].health <= 0 && env->objects[i].exists)
+			if (!env->editor.in_game
+				&& env->objects[i].health <= 0 && env->objects[i].exists)
 			{
-				if (env->object_sprites[env->objects[i].sprite].nb_death_sprites > 1)
-					death_sprite = object_destruction(env, i, env->object_sprites[env->objects[i].sprite].nb_death_sprites);
+				if (env->object_sprites[env->objects[i].sprite].
+					nb_death_sprites > 1)
+					death_sprite = object_destruction(env, i,
+					env->object_sprites[env->objects[i].sprite].
+					nb_death_sprites);
 				else
-					env->objects[i].sprite = env->object_sprites[env->objects[i].sprite].death_counterpart;
+					env->objects[i].sprite = env->object_sprites[env->
+					objects[i].sprite].death_counterpart;
 			}
-			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
+			if (!env->editor.in_game
+				&& env->objects[i].exists && env->objects[i].nb_rest_state > 1)
 				object_anim_loop(env, i);
 			if (env->objects[i].exists)
 				if (draw_object(camera, &env->objects[i], env, death_sprite))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_events.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/04 15:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:56:45 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("event trigger", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before event trigger", "a digit",
-		**line, parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for trigger_index\n"));
 	eparser->trigger_index = ft_atoi(*line);
 	if (eparser->trigger_index < 0 || eparser->trigger_index
 		> MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid trigger type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->trigger_index](env, parser, line,
 		eparser))
 		return (-1);
@@ -33,6 +33,7 @@ t_events_parser *eparser)
 	eparser->trigger_wall = eparser->current_wall;
 	eparser->trigger_sprite = eparser->current_sprite;
 	eparser->trigger_enemy = eparser->current_enemy;
+	eparser->trigger_object = eparser->current_object;
 	if (!**line)
 		return (missing_data("closing ']' brace after event trigger", parser));
 	if (**line != ']')

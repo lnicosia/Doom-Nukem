@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 10:49:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:12:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 void	draw_grid_player(t_env *env)
 {
-	t_circle	circle;
-	t_v3		v[3];
+	t_point		pos;
+	t_point		size;
+	double		scale;
 
-	circle.color = 0xFFFF0000;
-	circle.line_color = 0xFFFF0000;
 	if (env->editor.dragged_player == 1)
 	{
-		circle.center.x = env->sdl.mx;
-		circle.center.y = env->sdl.my;
-		circle.radius = env->editor.scale;
+		pos.x = env->sdl.mx;
+		pos.y = env->sdl.my;
+		scale = env->editor.scale * 3;
 	}
 	else
 	{
-		circle.center.x = (env->player.pos.x * env->editor.scale) + env->editor.center.x;
-		circle.center.y = (env->player.pos.y * env->editor.scale) + env->editor.center.y;
-		if (env->sdl.mx > circle.center.x - env->editor.scale / 2
-				&& env->sdl.mx < circle.center.x + env->editor.scale / 2
-				&& env->sdl.my > circle.center.y - env->editor.scale / 2
-				&& env->sdl.my < circle.center.y + env->editor.scale / 2)
+		pos.x = (env->player.pos.x * env->editor.scale) + env->editor.center.x;
+		pos.y = (env->player.pos.y * env->editor.scale) + env->editor.center.y;
+		if (env->sdl.mx > pos.x - env->editor.scale
+				&& env->sdl.mx < pos.x + env->editor.scale
+				&& env->sdl.my > pos.y - env->editor.scale
+				&& env->sdl.my < pos.y + env->editor.scale)
 		{
-			circle.radius = env->editor.scale;
+			scale = env->editor.scale * 3;
 			if (env->inputs.left_click
 					&& !env->input_box.state
 					&& !env->confirmation_box.state
@@ -44,6 +43,7 @@ void	draw_grid_player(t_env *env)
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->editor.dragged_start_player == -1)
 			{
 				reset_selection(env);
@@ -53,67 +53,71 @@ void	draw_grid_player(t_env *env)
 			}
 		}
 		else
-			circle.radius = env->editor.scale / 2;
+			scale = env->editor.scale * 2.5;
 	}
+	size = new_point(scale,
+	scale / (env->object_sprites[CAMERA_SPRITE].size[0].x
+	/ (double)env->object_sprites[CAMERA_SPRITE].size[0].y));
+	pos = new_point(pos.y - size.y / 2, pos.x - size.x / 2);
 	if (env->editor.selected_player == 1)
-		circle.line_color = 0xFF00FF00;
-	draw_circle(circle, env);
-	v[0] = new_v3(circle.center.x + env->player.camera.perp_cos * circle.radius / 2,
-			circle.center.y + env->player.camera.perp_sin * circle.radius / 2,
-			0);
-	v[2] = new_v3(circle.center.x - env->player.camera.perp_cos * circle.radius / 2,
-			circle.center.y - env->player.camera.perp_sin * circle.radius / 2,
-			0);
-	v[1] = new_v3(circle.center.x + env->player.camera.angle_cos * circle.radius * 2,
-			circle.center.y + env->player.camera.angle_sin * circle.radius * 2,
-			0);
-	fill_triangle(v, 0xFFFF0000, env);
+		apply_sprite_selected(env->object_sprites[CAMERA_SPRITE], pos, size,
+		env);
+	else
+		apply_sprite(env->object_sprites[CAMERA_SPRITE], pos, size, env);
 }
 
 void	draw_grid_start_player(t_env *env)
 {
-	t_circle	circle;
+	t_point		pos;
+	t_point		size;
+	double		scale;
 
-	circle.color = 0xFF00FF00;
-	circle.line_color = 0xFFFF0000;
 	if (env->editor.dragged_start_player == 1)
 	{
-		circle.center.x = env->sdl.mx;
-		circle.center.y = env->sdl.my;
-		circle.radius = env->editor.scale;
+		pos.x = env->sdl.mx;
+		pos.y = env->sdl.my;
+		scale = env->editor.scale * 3;
 	}
 	else
 	{
-		circle.center.x = (env->player.starting_pos.x * env->editor.scale) + env->editor.center.x;
-		circle.center.y = (env->player.starting_pos.y * env->editor.scale) + env->editor.center.y;
-		if (env->sdl.mx > circle.center.x - env->editor.scale / 2
-				&& env->sdl.mx < circle.center.x + env->editor.scale / 2
-				&& env->sdl.my > circle.center.y - env->editor.scale / 2
-				&& env->sdl.my < circle.center.y + env->editor.scale / 2)
+		pos.x = (env->player.starting_pos.x * env->editor.scale)
+		+ env->editor.center.x;
+		pos.y = (env->player.starting_pos.y * env->editor.scale)
+		+ env->editor.center.y;
+		if (env->sdl.mx > pos.x - env->editor.scale
+				&& env->sdl.mx < pos.x + env->editor.scale
+				&& env->sdl.my > pos.y - env->editor.scale
+				&& env->sdl.my < pos.y + env->editor.scale)
 		{
-			circle.radius = env->editor.scale;
+			scale = env->editor.scale * 3;
 			if (env->inputs.left_click
 					&& !env->input_box.state
 					&& !env->confirmation_box.state
 					&& env->editor.event_panel_dragged == -1
 					&& env->editor.start_vertex == -1
-					&& env->editor.dragged_player == -1
 					&& env->editor.dragged_enemy == -1
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1
+					&& !is_mouse_on_any_selection_tab(env)
 					&& env->editor.dragged_player == -1)
 			{
 				reset_selection(env);
 				env->editor.dragged_start_player = 1;
-				env->editor.selected_player = 1;
+				env->editor.selected_start_player = 1;
 				tabs_gestion(env);
 				check_event_creation(env);
 			}
 		}
 		else
-			circle.radius = env->editor.scale / 2;
+			scale = env->editor.scale * 2.5;
 	}
-	if (env->editor.selected_player == 1)
-		circle.line_color = 0xFF00FF00;
-	draw_circle(circle, env);
+	size = new_point(scale,
+	scale / (env->object_sprites[DOOM_GUY_FACE].size[0].x
+	/ (double)env->object_sprites[DOOM_GUY_FACE].size[0].y));
+	pos = new_point(pos.y - size.y / 2, pos.x - size.x / 2);
+	if (env->editor.selected_start_player == 1)
+		apply_sprite_selected(env->object_sprites[DOOM_GUY_FACE], pos, size,
+		env);
+	else
+		apply_sprite(env->object_sprites[DOOM_GUY_FACE], pos, size, env);
 }

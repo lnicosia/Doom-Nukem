@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/27 11:13:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 13:39:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_events_parser *eparser)
 	if (eparser->target_type < 0 || eparser->target_type > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid target event type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->target_type](env, parser, line,
 		eparser))
 		return (-1);
@@ -35,6 +36,7 @@ t_events_parser *eparser)
 	eparser->target_wall = eparser->current_wall;
 	eparser->target_sprite = eparser->current_sprite;
 	eparser->target_enemy = eparser->current_enemy;
+	eparser->target_object = eparser->current_object;
 	if (!**line)
 		return (missing_data("target index", parser));
 	if (**line != ' ')
@@ -67,6 +69,7 @@ t_events_parser *eparser)
 	if (eparser->source_type < 0 || eparser->source_type > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid source event type", parser));
 		*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->source_type](env, parser, line,
 		eparser))
 		return (-1);
@@ -74,6 +77,7 @@ t_events_parser *eparser)
 	eparser->source_wall = eparser->current_wall;
 	eparser->source_sprite = eparser->current_sprite;
 	eparser->source_enemy = eparser->current_enemy;
+	eparser->source_object = eparser->current_object;
 	if (!**line)
 		return (missing_data("source index", parser));
 	if (**line != ' ')

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:18:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 10:29:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ typedef struct		s_enemy_thread
 {
 	t_env			*env;
 	t_camera		camera;
-	t_enemies		enemy;
+	t_enemy			enemy;
 	t_render_object	orender;
 	int				xstart;
 	int				xend;
@@ -313,9 +313,9 @@ void			*select_portal_loop(void *param);
 */
 
 void				*get_enemy_relative_pos(void *param);
-void				get_translated_enemy_pos(t_camera camera, t_enemies *enemy);
-void				get_rotated_enemy_pos(t_camera camera, t_enemies *enemy);
-void				project_enemy(t_render_object *erender, t_enemies enemy, t_env *env);
+void				get_translated_enemy_pos(t_camera camera, t_enemy *enemy);
+void				get_rotated_enemy_pos(t_camera camera, t_enemy *enemy);
+void				project_enemy(t_render_object *erender, t_enemy enemy, t_env *env);
 
 void				*get_projectile_relative_pos(t_camera camera, t_env *env);
 void				get_translated_projectile_pos(t_camera camera, t_projectile *projectile);

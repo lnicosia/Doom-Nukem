@@ -6,14 +6,14 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:32:35 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/22 16:25:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:53:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void	update_entities_sectors(t_env *env)
+int		update_entities_sectors(t_env *env)
 {
 	int i;
 
@@ -26,7 +26,11 @@ void	update_entities_sectors(t_env *env)
 	{
 		env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
 		if (env->enemies[i].sector < 0)
-			delete_enemy(env, i);
+		{
+			env->selected_enemy = i;
+			if (delete_enemy(env))
+				return (-1);
+		}
 		i++;
 	}
 	i = 0;
@@ -34,7 +38,12 @@ void	update_entities_sectors(t_env *env)
 	{
 		env->objects[i].sector = get_sector_no_z(env, env->objects[i].pos);
 		if (env->objects[i].sector < 0)
-			delete_object(env, i);
+		{
+			env->selected_object = i;
+			if (delete_object(env))
+				return (-1);
+		}
 		i++;
 	}
+	return (0);
 }

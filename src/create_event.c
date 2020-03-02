@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:29:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:47:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		check_event_validity2(t_env *env, t_event event)
 		if (update_confirmation_box(&env->confirmation_box, "Number"
 			" of uses can not be negative", ERROR, env))
 			return (-1);
-		return (-1);
+		return (1);
 	}
 	return (0);
 }
@@ -33,45 +33,23 @@ int		check_event_validity(t_env *env, t_event event)
 		if (update_confirmation_box(&env->confirmation_box, "Please set"
 			" a target before saving the event", ERROR, env))
 			return (-1);
-		return (-1);
+		return (1);
 	}
 	if (env->editor.event_panel.event.speed < 0)
 	{
 		if (update_confirmation_box(&env->confirmation_box, "Speed"
 			" can not be negative", ERROR, env))
 			return (-1);
-		return (-1);
+		return (1);
 	}
 	if (env->editor.event_panel.action_panel.delay_value < 0)
 	{
 		if (update_confirmation_box(&env->confirmation_box, "Delay"
 			" can not be negative", ERROR, env))
 			return (-1);
-		return (-1);
+		return (1);
 	}
 	return (check_event_validity2(env, event));
-}
-
-int		create_event2(t_env *env)
-{
-	if (env->editor.event_panel.trigger.type == WALK_IN
-		&& new_walk_in_event(env, env->editor.event_panel.trigger,
-		env->editor.event_panel.event))
-		return (-1);
-	else if (env->editor.event_panel.trigger.type == WALK_OUT
-		&& new_walk_out_event(env, env->editor.event_panel.trigger,
-		env->editor.event_panel.event))
-		return (-1);
-	else if (env->editor.event_panel.trigger.type == DEATH
-		&& new_death_event(env, env->editor.event_panel.trigger,
-		env->editor.event_panel.event))
-		return (-1);
-	if (update_confirmation_box(&env->confirmation_box, "Event saved",
-		CONFIRM, env))
-		return (-1);
-	env->editor.creating_event = 0;
-	env->editor.selecting_target = 0;
-	return (0);
 }
 
 void	set_event(t_env *env, t_event *event)
@@ -105,7 +83,15 @@ int		save_event2(t_env *env, t_event_panel *panel)
 	else if (panel->trigger.type == WALK_OUT)
 		env->sectors[panel->trigger.sector].
 		walk_out_events[panel->selected_event] = panel->event;
-	//else if (panel->trigger.type == DEATH)
+	else if (panel->trigger.type == DEATH)
+		env->enemies[panel->trigger.enemy].
+		death_events[panel->selected_event] = panel->event;
+	else if (panel->trigger.type == ENEMY_COLLISION)
+		env->enemies[panel->trigger.enemy].
+		collision_events[panel->selected_event] = panel->event;
+	else if (panel->trigger.type == OBJECT_COLLISION)
+		env->objects[panel->trigger.object].
+		collision_events[panel->selected_event] = panel->event;
 	panel->selected_event = -1;
 	return (0);
 }
@@ -135,13 +121,47 @@ int		save_event(void *param)
 	return (save_event2(env, panel));
 }
 
+int		create_event2(t_env *env)
+{
+	if (env->editor.event_panel.trigger.type == WALK_IN
+		&& new_walk_in_event(env, env->editor.event_panel.trigger,
+		env->editor.event_panel.event))
+		return (-1);
+	else if (env->editor.event_panel.trigger.type == WALK_OUT
+		&& new_walk_out_event(env, env->editor.event_panel.trigger,
+		env->editor.event_panel.event))
+		return (-1);
+	else if (env->editor.event_panel.trigger.type == DEATH
+		&& new_death_event(env, env->editor.event_panel.trigger,
+		env->editor.event_panel.event))
+		return (-1);
+	else if (env->editor.event_panel.trigger.type == ENEMY_COLLISION
+		&& new_enemy_collision_event(env, env->editor.event_panel.trigger,
+		env->editor.event_panel.event))
+		return (-1);
+	else if (env->editor.event_panel.trigger.type == OBJECT_COLLISION
+		&& new_object_collision_event(env, env->editor.event_panel.trigger,
+		env->editor.event_panel.event))
+		return (-1);
+	if (update_confirmation_box(&env->confirmation_box, "Event saved",
+		CONFIRM, env))
+		return (-1);
+	env->editor.creating_event = 0;
+	env->editor.selecting_target = 0;
+	return (0);
+}
+
 int		create_event(void *param)
 {
 	t_env	*env;
+	int		validity;
 
 	env = (t_env*)param;
-	if (check_event_validity(env, env->editor.event_panel.event))
+	validity = check_event_validity(env, env->editor.event_panel.event);
+	if (validity == 1)
 		return (0);
+	else if (validity == -1)
+		return (-1);
 	set_event(env, &env->editor.event_panel.event);
 	if (env->editor.event_panel.trigger.type == GLOBAL
 		&& new_global_event(env, env->editor.event_panel.trigger,

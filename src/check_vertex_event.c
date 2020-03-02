@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_vertex_event.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/22 17:34:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:51:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
 
-static int	check_all_angles(t_v2 p[3], int res, int straight)
+static int	check_all_angle(t_v2 p[3], int res, int straight)
 {
 	double		angle;
 
@@ -55,7 +55,7 @@ int			is_sector_convex(t_env *env, t_sector sector)
 		env->vertices[sector.vertices[i + 1]].y);
 		p[2] = new_v2(env->vertices[sector.vertices[i + 2]].x,
 		env->vertices[sector.vertices[i + 2]].y);
-		res = check_all_angles(p, res, straight);
+		res = check_all_angle(p, res, straight);
 		if (!res)
 			straight++;
 		else
@@ -68,7 +68,7 @@ int			is_sector_convex(t_env *env, t_sector sector)
 	env->vertices[sector.vertices[0]].y);
 	p[2] = new_v2(env->vertices[sector.vertices[1]].x,
 	env->vertices[sector.vertices[1]].y);
-	res = check_all_angles(p, res, straight);
+	res = check_all_angle(p, res, straight);
 	if (!res)
 		straight++;
 	else

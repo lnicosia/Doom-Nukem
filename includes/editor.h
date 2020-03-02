@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:02:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ typedef struct	s_var_g
 	t_button		damage;
 	t_button		portal;
 	t_button		add_sprite;
+	t_button		sector;
+	t_button		vertex;
+	t_button		num;
 	t_button_tab	t_brightness;
 	t_button_tab	t_color;
 	t_button_tab	t_intensity;
@@ -132,6 +135,9 @@ typedef struct	s_var_g
 	t_button_tab	t_damage;
 	t_button_tab	t_portal;
 	t_button_tab	t_add_sprite;
+	t_button_tab	t_sector;
+	t_button_tab	t_vertex;
+	t_button_tab	t_num;
 }				t_var_g;
 
 typedef struct	s_hud
@@ -144,6 +150,7 @@ typedef struct	s_hud
 	t_var_g		g_floor;
 	t_var_g		g_ceilling;
 	t_var_g		g_sector;
+	t_var_g		g_vertex;
 	t_var_g		g_player;
 	t_var_g		g_enemy;
 	t_var_g		g_object;
@@ -319,6 +326,7 @@ typedef struct	s_editor
 	int					split_sector;
 	int					selected_sector;
 	int					selected_player;
+	int					selected_start_player;
 	int					selected_vertex;
 	int					selected_weapon;
 	int					selected_wall;
@@ -336,6 +344,7 @@ typedef struct	s_editor
 	int					select_portal;
 	int					current_texture;
 	int					current_enemy;
+	int					current_object;
 	int					current_sprite;
 	int					selected_events;
 	size_t				selected_event;
@@ -348,8 +357,8 @@ typedef struct	s_editor
 	t_list				*current_vertices;
 	int					reverted;
 	int					in_game;
-	int					game;
 	int					enter_locked;
+	int					click_locked;
 	t_add_vertex		add;
 	t_split				split;
 	int					select_vertex_on_going;
@@ -368,9 +377,18 @@ typedef struct	s_editor
 	int					creating_launch_condition;
 	int					creating_exec_condition;
 	int					selecting_event;
+	t_point				texture_selection_size;
+	t_point				object_selection_size;
+	t_point				enemy_selection_size;
+	t_point				wall_sprite_selection_size;
+	t_point				texture_selection_pos;
+	t_point				object_selection_pos;
+	t_point				enemy_selection_pos;
+	t_point				wall_sprite_selection_pos;
 	t_texture			miniature;
 	t_button			current_texture_selection;
 	t_button			current_enemy_selection;
+	t_button			current_object_selection;
 	t_button			change_mode;
 	t_button			save;
 	t_button			launch_game;
@@ -384,6 +402,7 @@ typedef struct	s_editor
 	t_button			textures[MAX_WALL_TEXTURE];
 	t_button			skyboxes[MAX_SKYBOX + MAX_SKYBOX];
 	t_button			enemy_tab[MAX_MONSTER_MINI];
+	t_button			object_tab[MAX_OBJECTS];
 	t_button			add_enemy;
 	t_button			add_object;
 	t_button_next		next_sprite_env;
@@ -423,6 +442,7 @@ typedef struct	s_editor
 	int					texture_tab;
 	int					ambiance_music;
 	int					fighting_music;
+	t_list				*events_to_delete;
 }				t_editor;
 
 #endif

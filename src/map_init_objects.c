@@ -35,10 +35,11 @@ int		init_objects(t_env *env, t_map_parser *parser)
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("before objects number", parser));
-			if (valid_number(line,parser) == WRONG_CHAR)
-				return (invalid_char("before objects number", "space of a digit",
-							*line, parser));
+			if (valid_int(line,parser) == WRONG_CHAR)
+				return (ft_printf("Invalid int for nb_objects\n"));
 			env->nb_objects = ft_atoi(line);
+			if (env->nb_objects > 100000)
+				return (ft_printf("nb_objects can't exceed 100 000\n"));
 			line = skip_number(line);
 			if (*line && *line == ' ')
 				return (extra_data("objects number", parser));

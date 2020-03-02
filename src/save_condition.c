@@ -6,11 +6,25 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:25:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 10:51:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:47:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		check_condition_validity(t_env *env, t_condition condition)
+{
+	if (!condition.target)
+	{
+		if (update_confirmation_box(&env->confirmation_box, "Please set a"
+			" target before saving the condition", ERROR, env))
+			return (-1);
+		return (1);
+	}
+	//if ((condition.type == EVENT_ENDED || condition.type == EVENT_ENDED_START)
+	//	&& (condition.target_trigger.type = -1
+	return (0);
+}
 
 void	save_condition_value(t_condition *condition, t_condition_panel *panel)
 {
@@ -49,11 +63,18 @@ int		create_condition(void *param)
 {
 	t_env	*env;
 	t_event	*event;
+	int		validity;
 
 	env = (t_env*)param;
 	event = &env->editor.event_panel.event;
 	save_condition_value(&env->editor.condition_panel.condition,
 	&env->editor.condition_panel);
+	validity = check_condition_validity(env,
+	env->editor.condition_panel.condition);
+	if (validity == 1)
+		return (0);
+	else if (validity == -1)
+		return (-1);
 	if (env->editor.creating_launch_condition)
 	{
 		if (!(event->launch_conditions = (t_condition*)ft_realloc(

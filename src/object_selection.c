@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_tab.c                                        :+:      :+:    :+:   */
+/*   object_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 18:03:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 14:18:29 by sipatry          ###   ########.fr       */
+/*   Created: 2020/01/27 10:34:34 by sipatry           #+#    #+#             */
+/*   Updated: 2020/02/27 11:38:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	enemy_tab(t_env *env, int nb_slots)
+void	object_tab(t_env *env, int nb_slots)
 {
 	int mod;
 	int	test;
@@ -25,14 +25,17 @@ void	enemy_tab(t_env *env, int nb_slots)
 	else
 		mod = 5;
 	while (test % mod != 0)
-		test++;
+		test++;	
 	draw_rectangle(env,
-				new_rectangle(0x00000000, 0xFF888888, 1, 5),
-				new_point(280, 380),
-				new_point((64 * mod) + 10, (64 * (test / mod)) + 10));
-	while (i < MAX_ENEMIES)
+				new_rectangle(0x00000000, 0xFF333333, 1, 5),
+				env->editor.object_selection_pos,
+				env->editor.object_selection_size);
+	while (i < MAX_OBJECTS)
 	{
-		draw_button(env, env->editor.enemy_tab[i], env->editor.enemy_tab[i].str);
+		apply_sprite(env->object_sprites[env->objects_main_sprites[i]],
+		new_point(280 + 8 + (66 * (i / mod)),
+		280 + (66 * (i % mod)) + 8),
+		new_point(64, 64), env);
 		i++;
 	}
 }

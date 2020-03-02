@@ -23,15 +23,15 @@ t_events_parser *eparser)
 		return (invalid_char("after event exec condition target", "a space",
 		**line, parser));
 	(*line)++;
-		if (valid_number(*line, parser))
-		return (invalid_char("before exec condition target", "a digit", **line,
-		parser));
+		if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition target\n\n"));
 		eparser->condition_index = ft_atof(*line);
 	if (eparser->condition_index < 0
 			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
 		return (custom_error_with_line("Invalid exec condition target",
 		parser));
 	*line = skip_number(*line);
+	init_events_parser_var(eparser);
 	if (eparser->target_parsers[eparser->condition_index](env, parser,
 		line, eparser))
 		return (-1);
@@ -76,9 +76,8 @@ t_events_parser *eparser)
 		return (invalid_char("before event exec condition", "'{'",
 		**line, parser));
 	(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before exec condition type", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition type\n"));
 		eparser->event.exec_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.exec_conditions[eparser->condition_count].type < 0
@@ -92,9 +91,8 @@ t_events_parser *eparser)
 		return (invalid_char("after event exec condition type", "a space",
 		**line, parser));
 		(*line)++;
-	if (valid_number(*line, parser))
-		return (invalid_char("before exec condition value", "a digit", **line,
-		parser));
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition value\n"));
 		eparser->event.exec_conditions[eparser->condition_count].value =
 		ft_atof(*line);
 	if (parse_condition2(env, parser, line, eparser))
@@ -105,6 +103,8 @@ t_events_parser *eparser)
 int				parse_event_exec_conditions(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser)
 {
+	int	i;
+
 	(*line)++;
 	if (!**line)
 		return (missing_data("event exec conditions", parser));
@@ -118,6 +118,12 @@ char **line, t_events_parser *eparser)
 			(t_condition*)ft_memalloc(sizeof(t_condition)
 			* eparser->nb_conditions)))
 		return (ft_perror("Could not malloc exec conditions"));
+	i = 0;
+	while (i < eparser->nb_conditions)
+	{
+		init_condition(&eparser->event.exec_conditions[i]);
+		i++;
+	}
 	while (eparser->condition_count < eparser->nb_conditions)
 	{
 		if (parse_condition(env, parser, line, eparser))

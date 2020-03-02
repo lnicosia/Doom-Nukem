@@ -6,11 +6,35 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 19:50:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 10:24:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		draw_current_creation(t_env *env)
+{
+	t_sprite	sprite;
+	t_point		size;
+
+	if (env->editor.create_object)
+	{
+		sprite = env->object_sprites[env->editor.current_object],
+		size = new_point(env->editor.scale * 4, env->editor.scale * 4
+		/ (sprite.size[0].x / (double)sprite.size[0].y));
+		apply_sprite(sprite, new_point(env->sdl.my - env->editor.scale,
+		env->sdl.mx - env->editor.scale), size, env);
+	}
+	if (env->editor.create_enemy)
+	{
+		sprite = env->enemy_sprites[env->editor.current_enemy],
+		size = new_point(env->editor.scale * 4, env->editor.scale * 4
+		/ (sprite.size[0].x / (double)sprite.size[0].y));
+		apply_sprite(sprite, new_point(env->sdl.my - env->editor.scale,
+		env->sdl.mx - env->editor.scale), size, env);
+	}
+	return (0);
+}
 
 int		editor(t_env *env)
 {
@@ -87,6 +111,7 @@ int		editor(t_env *env)
 				draw_grid_enemies(env);
 			if (env->editor.start_vertex != -1)
 				draw_grid_current_sector(env);
+			draw_current_creation(env);
 			draw_grid_sectors(env);
 		}
 		else
@@ -94,8 +119,6 @@ int		editor(t_env *env)
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
 		}
-		if (!env->input_box.state && env->saving)
-			save_map(env);
 		editor_hud(env);
 		if (env->confirmation_box.state)
 			draw_confirmation_box(&env->confirmation_box, env);
@@ -105,8 +128,6 @@ int		editor(t_env *env)
 			update_screen_zbuffer(env);
 		else
 			update_screen(env);
-		if (env->editor.game)
-			editor_start_game(env);
 	}
 	free_all(env);
 	return (0);

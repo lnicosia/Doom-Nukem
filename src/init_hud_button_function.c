@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 11:38:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 14:12:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/27 14:38:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,23 @@ int		open_enemy_selection(void *param)
 	return (0);
 }
 
+int		open_object_selection(void *param)
+{
+	t_env *env;
+
+	env = (t_env *)param;
+	env->editor.draw_object_tab = 1;
+	return (0);
+}
+
+int		open_texture_selection(void *param)
+{
+	t_env *env;
+
+	env = (t_env *)param;
+	env->editor.draw_texture_tab = 1;
+	return (0);
+}
 
 int		open_wall_sprite_selection(void *param)
 {
@@ -236,6 +253,7 @@ int		save_texture(void *param)
 	env->editor.current_texture_selection.state = UP;
 	env->editor.current_texture_selection.anim_state = REST;
 	env->editor.draw_texture_tab = 0;
+	env->editor.click_locked = 1;
 	return (0);
 }
 
@@ -247,15 +265,32 @@ int		save_enemy(void *param)
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_enemy = env->enemies_main_sprites[i];
-	env->editor.current_enemy_selection.img_down = env->mini_enemies_textures[i].surface;
-	env->editor.current_enemy_selection.img_pressed = env->mini_enemies_textures[i].surface;
-	env->editor.current_enemy_selection.img_hover = env->mini_enemies_textures[i].surface;
-	env->editor.current_enemy_selection.img_up = env->mini_enemies_textures[i].surface;
 	if (env->selected_enemy != -1)
-		env->enemies[env->selected_enemy].sprite = env->enemies_main_sprites[i];
+		env->enemies[env->selected_enemy].sprite = env->editor.current_enemy;
 	env->editor.draw_enemy_tab = 0;
+	env->editor.click_locked = 1;
 	env->editor.current_enemy_selection.state = UP;
 	env->editor.current_enemy_selection.anim_state = REST;
+	init_enemies_data(env);
+	return (0);
+}
+
+int		save_object(void *param)
+{
+	t_env	*env;
+	int		i;
+
+	env = ((t_button_target*)param)->env;
+	i = ((t_button_target*)param)->i;
+	env->editor.current_object = env->objects_main_sprites[i];
+	if (env->selected_object != -1)
+		env->objects[env->selected_object].sprite =
+		env->editor.current_object;
+	env->editor.draw_object_tab = 0;
+	env->editor.click_locked = 1;
+	env->editor.current_object_selection.state = UP;
+	env->editor.current_object_selection.anim_state = REST;
+	init_objects_data(env);
 	return (0);
 }
 
@@ -292,10 +327,6 @@ int		save_sprite(void *param)
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_sprite = env->objects_main_sprites[i];
-	env->editor.current_sprite_selection.img_down = env->mini_objects_textures[i].surface;
-	env->editor.current_sprite_selection.img_pressed = env->mini_objects_textures[i].surface;
-	env->editor.current_sprite_selection.img_hover = env->mini_objects_textures[i].surface;
-	env->editor.current_sprite_selection.img_up = env->mini_objects_textures[i].surface;
 	if (env->selected_wall_sprite_sprite != -1)
 	{
 		sprite = env->sectors[env->editor.selected_sector].wall_sprites;
@@ -316,6 +347,7 @@ int		save_sprite(void *param)
 		env->selected_floor_sprite, env);
 	}
 	env->editor.draw_sprite_tab = 0;
+	env->editor.click_locked = 1;
 	return (0);
 }
 

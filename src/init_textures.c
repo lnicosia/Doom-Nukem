@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 10:51:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:23:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,13 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/sprites/objects_sprites.bmp", 34, env))
 		return (ft_printf("Failed to load object sprites\n"));
 	if (parse_bmp("images/sprites/bullet_hole.bmp", 35, env))
-		return (ft_printf("Failed to load object sprites\n"));
+		return (ft_printf("Failed to load bullet hole sprite\n"));
+	if (parse_bmp("images/sprites/doom_guy.bmp", 36, env))
+		return (ft_printf("Failed to load doom guy sprite\n"));
+	if (parse_bmp("images/sprites/doom_guy_face.bmp", 37, env))
+		return (ft_printf("Failed to load doom guy face sprite\n"));
+	if (parse_bmp("images/sprites/camera.bmp", 38, env))
+		return (ft_printf("Failed to load doom guy face sprite\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));
 	return (0);

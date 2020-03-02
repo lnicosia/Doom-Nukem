@@ -59,7 +59,6 @@ int	validate_input(t_input_box *box, t_env *env)
 		if (box->str_target)
 			ft_strdel(box->str_target);
 		*(box->str_target) = ft_strdup(box->str);
-		env->saving = 1;
 	}
 	if (box->update && box->update(env))
 		return (-1);
