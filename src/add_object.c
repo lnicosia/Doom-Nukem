@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/24 14:33:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/28 18:24:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	add_object(t_env *env)
 		object.pos.z = 0;
 	}
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
+		return (ft_printf("Could not realloc objects\n"));
+	if (!(env->player.colliding_objects = (int*)ft_realloc(env->player.colliding_objects, sizeof(int) * env->nb_objects, sizeof(int) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
 	env->editor.create_object = 0;

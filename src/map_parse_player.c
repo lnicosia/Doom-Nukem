@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "map_parser.h"
+#include "env.h"
 
 int		parse_player(t_env *env, t_map_parser *parser)
 {

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 15:36:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/02 10:10:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,13 @@ static int	parse_object(t_env *env, char *line, t_map_parser *parser)
 
 int			parse_objects(t_env *env, t_map_parser *parser)
 {
-	char	*line;
 	char	*tmp;
 
 	while (parser->objects_count < env->nb_objects
-			&& (parser->ret = get_next_line(parser->fd, &line)))
+			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		tmp = line;
+		tmp = parser->line;
 		if (*tmp)
 		{
 			if (parse_object(env, tmp, parser))
@@ -174,16 +173,16 @@ int			parse_objects(t_env *env, t_map_parser *parser)
 					env->nb_objects - parser->objects_count);
 			return (-1);
 		}
-		ft_strdel(&line);
+		ft_strdel(&(parser->line));
 	}
-	if ((parser->ret = get_next_line(parser->fd, &line)))
+	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (*line)
+		if (parser->line)
 			return (custom_error_with_line("Must be an empty line "
 						"(every object has been declared)\n",
 						parser));
-		ft_strdel(&line);
+		ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("enemies, events and player data", parser));

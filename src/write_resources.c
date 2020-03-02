@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 17:44:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/28 17:58:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int		write_textures(int fd, t_env *env)
 	ft_dprintf(fd, "T %d\n", MAX_WALL_TEXTURE);
 	if (write_textures1(fd))
 		return (-1);
-//	write_textures2(fd);
-//	write_textures3(fd);
+	if (write_textures2(fd))
+		return (-1);
+	if (write_textures3(fd))
+		return (-1);
 	return (0);
 }
 

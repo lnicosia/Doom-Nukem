@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   events_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 13:38:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:52:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_PARSER_H
 # define EVENTS_PARSER_H
-# include "map_parser.h"
+# include "env.h"
 
 typedef enum		e_trigger
 {

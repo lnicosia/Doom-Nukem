@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/28 12:17:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/02/28 18:00:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,6 +634,8 @@ void				check_height_protections(t_env *env, t_sector *sector);
 
 int					write_resources(int fd, t_env *env);
 int					write_textures1(int fd);
+int					write_textures2(int fd);
+int					write_textures3(int fd);
 int					writing_texture(int file, int fd, char *name);
 
 /*
