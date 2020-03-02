@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 16:52:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:07:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,19 @@ int			choose_target(void *param)
 		panel = &env->editor.condition_panel.target_panel;
 		env->editor.creating_condition = 0;
 		env->editor.creating_event = 0;
-		env->editor.selecting_condition_target = 1;
+		if (panel->weapon_type)
+			env->editor.selecting_condition_weapon = 1;
+		else
+			env->editor.selecting_condition_target = 1;
 	}
 	else
 	{
 		panel = &env->editor.event_panel.target_panel;
 		env->editor.creating_event = 0;
-		env->editor.selecting_target = 1;
+		if (panel->weapon_type)
+			env->editor.selecting_weapon = 1;
+		else
+			env->editor.selecting_target = 1;
 	}
 	select = 0;
 	reset_selection(env);

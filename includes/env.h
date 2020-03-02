@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 13:35:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:36:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -891,6 +891,11 @@ void				reset_target_selection(t_target_panel *panel);
 int					new_event_panel_value_box(t_input_box *box,
 int type, void *target, t_env *env);
 int					close_event_panel(void *param);
+int					draw_weapon_picker(t_env *env);
+void				init_weapon_picker(t_env *env);
+int					weapon_picker_keys(t_env *env);
+int					weapon_picker_keyup(t_env *env);
+int					is_mouse_on_weapon_picker(t_env *env);
 
 /*
 ** Main functions

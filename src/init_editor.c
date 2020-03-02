@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 11:24:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:28:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	init_editor(int ac, char **av)
 	if (init_skybox(&env))
 		return (crash("Could not init skybox\n", &env));
 	init_selection_tabs(&env);
+	init_weapons(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
 	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w + 200;

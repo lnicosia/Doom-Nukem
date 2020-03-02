@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/02 11:15:37 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/02 17:32:53 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 print_condition_target_functions2.c init_print_condition_target_data.c\
 		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
 		 update_textures_buttons.c init_skybox_selection_buttons.c \
-		 draw_editor_tabs.c editor_buttons_functions.c \
+		 draw_editor_tabs.c editor_buttons_functions.c weapon_picker_keys.c \
 		 event_panel.c target_panel.c init_target_panel_buttons.c \
 		 init_action_panel_buttons.c init_conditions_tabs_buttons.c \
 		 target_panel_keys.c modify_condition.c \
@@ -119,7 +119,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		 update_entities.c editor_vertices_tab.c \
 		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		 delete_sector.c delete_vertex.c \
+		 delete_sector.c delete_vertex.c weapon_picker.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

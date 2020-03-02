@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:22:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:09:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -594,6 +594,28 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[30].size[0].x = 431;
 	env->object_sprites[30].size[0].y = 377;
 	env->object_sprites[30].reversed[0] = 0;
+
+	// Shotgun sprite
+	env->object_sprites[31].texture = 22;
+	env->object_sprites[31].oriented = 0;
+	env->object_sprites[31].start[0].x = 512;
+	env->object_sprites[31].start[0].y = 42;
+	env->object_sprites[31].end[0].x = 560;
+	env->object_sprites[31].end[0].y = 53;
+	env->object_sprites[31].size[0].x = 48;
+	env->object_sprites[31].size[0].y = 11;
+	env->object_sprites[31].reversed[0] = 0;
+
+	// Raygun sprite
+	env->object_sprites[32].texture = 39;
+	env->object_sprites[32].oriented = 0;
+	env->object_sprites[32].start[0].x = 0;
+	env->object_sprites[32].start[0].y = 0;
+	env->object_sprites[32].end[0].x = 608;
+	env->object_sprites[32].end[0].y = 253;
+	env->object_sprites[32].size[0].x = 608;
+	env->object_sprites[32].size[0].y = 253;
+	env->object_sprites[32].reversed[0] = 0;
 	return (0);
 }
 int			init_enemy_sprites(t_env *env)

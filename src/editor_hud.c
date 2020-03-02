@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:52:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:15:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,6 @@ void	editor_hud(t_env *env)
 		else
 			draw_event_panel(env);
 	}
+	if (env->editor.selecting_weapon)
+		draw_weapon_picker(env);
 }

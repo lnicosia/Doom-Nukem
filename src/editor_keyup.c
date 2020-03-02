@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 14:31:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:49:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int		select_sector(t_env *env)
 			&& env->editor.dragged_object == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_enemy == -1
-			&& !is_mouse_on_any_selection_tab(env))
+			&& !is_mouse_on_any_selection_tab(env)
+			&& !is_mouse_on_weapon_picker(env))
 	{
 		reset_selection(env);
 		env->editor.selected_sector = get_sector_no_z(env,
@@ -317,11 +318,6 @@ int	editor_keyup(t_env *env)
 	}
 	if (select_sector(env))
 		return (-1);
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
 	if (env->editor.creating_event && !env->confirmation_box.state)
 	{
 		if (event_panel_keyup(env))
@@ -330,6 +326,16 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
 	{
 		if (editor_left_click_up(env))
+			return (-1);
+	}
+	if (env->editor.selecting_weapon && !env->confirmation_box.state)
+	{
+		if (weapon_picker_keyup(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
 	if (button_keyup(&env->editor.add_enemy, env))
