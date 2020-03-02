@@ -6,57 +6,12 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:54:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/02 10:50:23 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:18:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
-
-/*
-** This function returns 1 if the ceiling is high enough and 0 if it is too low
-*/
-
-int		check_ceiling(t_env *env, t_motion motion, int sector_dest)
-{
-	if (motion.future.z + motion.eyesight >
-		get_ceiling_at_pos(env->sectors[sector_dest], motion.future, env) - 1)
-		return (0);
-	return (1);
-}
-
-/*
-** This function returns 0 if the floor is too high and 1 if it isn't
-*/
-
-int		check_floor(t_env *env, t_motion motion, int sector_dest)
-{
-	double	floor;
-
-	floor = get_floor_at_pos(env->sectors[sector_dest], motion.future, env);
-	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
-		return (0);
-	else if ((floor > motion.future.z + 0.5 && sector_dest == motion.sector &&
-		!motion.flight) ||
-		(floor > motion.future.z && sector_dest == motion.sector &&
-		motion.flight))
-		return (0);
-	if (env->player.state.jump && motion.future.z < floor)
-		return (0);
-	return (1);
-}
-
-/*
-** CHecks both the ceiling and the floor
-*/
-
-int		check_floor_ceil(t_env *env, t_motion motion, int sector_dest)
-{
-	if (!check_floor(env, motion, sector_dest)
-		|| !check_ceiling(env, motion, sector_dest))
-		return (0);
-	return (1);
-}
 
 /*
 ** Returns the movomement along the z axis by checking if the entity is
@@ -81,6 +36,44 @@ t_v3	collisions_z_axis(t_env *env, t_motion motion, t_v3 move)
 	return (move);
 }
 
+int		collision_object(t_env *env, int i, t_motion motion, t_v3 futur)
+{
+	double eyesight;
+
+	eyesight = motion.eyesight;
+	if (distance_two_points_2d(env->objects[i].pos.x,
+		env->objects[i].pos.y, futur.x, futur.y) <
+		env->objects[i].size_2d + motion.size_2d &&
+		((motion.pos.z <= env->objects[i].pos.z +
+		env->objects[i].height && motion.pos.z >=
+		env->objects[i].pos.z) || (motion.pos.z + eyesight + 1 <=
+		env->objects[i].pos.z + env->objects[i].height && motion.pos.z +
+		eyesight + 1 >= env->objects[i].pos.z)))
+		return (1);
+	return (0);
+}
+
+int		collision_objects_event(t_env *env, int i)
+{
+	if (env->checking_collisions_with_player
+		&& env->in_game && !env->player.colliding_objects[i]
+		&& env->objects[i].nb_collision_events > 0
+		&& env->objects[i].collision_events)
+	{
+		if (start_event(&env->objects[i].collision_events,
+			&env->objects[i].nb_collision_events, env))
+		{
+			env->fatal_error = 1;
+			return (-1);
+		}
+	}
+	if (env->checking_collisions_with_player)
+		env->player.colliding_objects[i] = 1;
+	if (env->objects[i].solid)
+		return (0);
+	return (1);
+}
+
 /*
 ** Checks if the entity which is moving collides with any solid object
 */
@@ -88,6 +81,7 @@ t_v3	collisions_z_axis(t_env *env, t_motion motion, t_v3 move)
 int		check_objects(t_env *env, t_v3 move, t_motion motion)
 {
 	int		i;
+	int		coll_event;
 	t_v3	futur;
 	double	eyesight;
 
@@ -98,31 +92,10 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 	{
 		if (env->objects[i].exists)
 		{
-			if (distance_two_points_2d(env->objects[i].pos.x,
-				env->objects[i].pos.y, futur.x, futur.y) <
-				env->objects[i].size_2d + motion.size_2d &&
-				((motion.pos.z <= env->objects[i].pos.z +
-				env->objects[i].height && motion.pos.z >=
-				env->objects[i].pos.z) || (motion.pos.z + eyesight + 1 <=
-				env->objects[i].pos.z + env->objects[i].height && motion.pos.z +
-				eyesight + 1 >= env->objects[i].pos.z)))
+			if (collision_object(env, i, motion, futur))
 			{
-				if (env->checking_collisions_with_player
-					&& env->in_game && !env->player.colliding_objects[i]
-					&& env->objects[i].nb_collision_events > 0
-					&& env->objects[i].collision_events)
-				{
-					if (start_event(&env->objects[i].collision_events,
-						&env->objects[i].nb_collision_events, env))
-					{
-						env->fatal_error = 1;
-						return (-1);
-					}
-				}
-				if (env->checking_collisions_with_player)
-					env->player.colliding_objects[i] = 1;
-				if (env->objects[i].solid)
-					return (0);
+				if ((coll_event = collision_objects_event(env, i)) != 1)
+					return (coll_event);
 			}
 			else if (env->checking_collisions_with_player)
 				env->player.colliding_objects[i] = 0;
@@ -131,4 +104,3 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 	}
 	return (1);
 }
-				

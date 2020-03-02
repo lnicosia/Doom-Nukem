@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 18:54:00 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/02 10:50:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:11:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ t_v3	check_collision(t_env *env, t_v3 move, t_motion motion)
 		if (move.x == 0 && move.y == 0)
 			return (move);
 	}
+	if (!check_objects(env, move, motion))
+		return (new_v3(0, 0, 0));
 	return (move);
 }
