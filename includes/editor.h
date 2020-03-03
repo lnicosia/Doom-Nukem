@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 16:02:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:11:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,16 @@ typedef struct	s_select_event_panel
 	t_button	death;
 }				t_select_event_panel;
 
+typedef struct	s_weapon_picker
+{
+	t_point		pos;
+	t_point		size;
+	t_button	next;
+	t_button	previous;
+	t_button	ok;
+	t_button	cancel;
+}				t_weapon_picker;
+
 typedef struct	s_condition_panel
 {
 	t_button				condition_tab;
@@ -346,6 +356,7 @@ typedef struct	s_editor
 	int					current_enemy;
 	int					current_object;
 	int					current_sprite;
+	int					current_weapon;
 	int					selected_events;
 	size_t				selected_event;
 	size_t				selected_launch_condition;
@@ -373,6 +384,8 @@ typedef struct	s_editor
 	int					event_panel_dragged;
 	int					selecting_target;
 	int					selecting_condition_target;
+	int					selecting_weapon;
+	int					selecting_condition_weapon;
 	int					creating_condition;
 	int					creating_launch_condition;
 	int					creating_exec_condition;
@@ -431,6 +444,7 @@ typedef struct	s_editor
 	t_button			create_event_button;
 	t_event_panel		event_panel;
 	t_condition_panel	condition_panel;
+	t_weapon_picker		weapon_picker;
 	t_button			new_event;
 	t_button			modify_event;
 	t_button			delete_event;

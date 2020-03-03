@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:54:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:36:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
-	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
-	t_texture			mini_objects_textures[MAX_OBJECTS];
 	t_texture			mini_skyboxes[MAX_SKYBOX];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
@@ -893,6 +891,11 @@ void				reset_target_selection(t_target_panel *panel);
 int					new_event_panel_value_box(t_input_box *box,
 int type, void *target, t_env *env);
 int					close_event_panel(void *param);
+int					draw_weapon_picker(t_env *env);
+void				init_weapon_picker(t_env *env);
+int					weapon_picker_keys(t_env *env);
+int					weapon_picker_keyup(t_env *env);
+int					is_mouse_on_weapon_picker(t_env *env);
 
 /*
 ** Main functions
@@ -1123,6 +1126,7 @@ int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
+int					get_angle(t_point p[3]);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,

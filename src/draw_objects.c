@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:38:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:13:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ static void		*object_loop(void *param)
 	y = orender.ystart;
 	yend = orender.yend;
 	sector = env->sectors[object.sector];
-	while (++y <= yend)
+	while (++y < yend)
 	{
 		yalpha = (y - orender.y1) / orender.yrange;
 		texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 		x = ((t_object_thread*)param)->xstart;
-		while (x < xend)
+		while (x <= xend)
 		{
 			xalpha = (x - orender.x1) / orender.xrange;
 			if (sprite.reversed[orender.index])

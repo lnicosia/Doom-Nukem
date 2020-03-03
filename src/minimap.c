@@ -6,11 +6,17 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 17:53:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 13:51:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		get_angle(t_point p[3])
+{
+	return ((p[1].x - p[0].x) * (p[2].y - p[1].y)
+			- (p[1].y - p[0].y) * (p[2].x - p[1].x));
+}
 
 static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
@@ -142,36 +148,72 @@ static void	draw_minimap_hud(t_env *env)
 
 static void	draw_sector_num(t_env *env, t_sector sector)
 {
+	t_point			p[3];
 	t_point			pos;
 	t_point			text_size;
-	char			*num;
 	unsigned int	color;
 	int				i;
+	int				nb_angles;
 
 	if (sector.num == env->player.sector)
 		color = 0x00FF00FF;
 	else
 		color = 0xFFFFFFFF;
 	i = 0;
+	nb_angles = 0;
 	pos = new_point(0, 0);
-	num = ft_sitoa(sector.num);
-	TTF_SizeText(env->sdl.fonts.lato20, num, &text_size.x, &text_size.y); 
-	while (i < sector.nb_vertices)
+	while (i < sector.nb_vertices - 1)
 	{
-		pos.x += env->minimap_pos.x + (env->vertices[sector.vertices[i]].x - env->player.pos.x) * env->options.minimap_scale;
-		pos.y += env->minimap_pos.y + (env->vertices[sector.vertices[i]].y - env->player.pos.y) * env->options.minimap_scale;
+		p[0].x = env->minimap_pos.x + (env->vertices[sector.vertices[i]].x
+				- env->player.pos.x) * env->options.minimap_scale;
+		p[0].y = env->minimap_pos.y + (env->vertices[sector.vertices[i]].y
+				- env->player.pos.y) * env->options.minimap_scale;
+		p[1].x = env->minimap_pos.x + (env->vertices[sector.vertices[i + 1]].x
+				- env->player.pos.x) * env->options.minimap_scale;
+		p[1].y = env->minimap_pos.y + (env->vertices[sector.vertices[i + 1]].y
+				- env->player.pos.y) * env->options.minimap_scale;
+		p[2].x = env->minimap_pos.x + (env->vertices[sector.vertices[i + 2]].x
+				- env->player.pos.x) * env->options.minimap_scale;
+		p[2].y = env->minimap_pos.y + (env->vertices[sector.vertices[i + 2]].y
+				- env->player.pos.y) * env->options.minimap_scale;
+		if (get_angle(p))
+		{
+			pos.x += p[1].x;
+			pos.y += p[1].y;
+			nb_angles++;
+		}
 		i++;
 	}
-	pos.x /= sector.nb_vertices;
-	pos.y /= sector.nb_vertices;
+	p[0].x = env->minimap_pos.x + (env->vertices[sector.vertices[i]].x
+			- env->player.pos.x) * env->options.minimap_scale;
+	p[0].y = env->minimap_pos.y + (env->vertices[sector.vertices[i]].y
+			- env->player.pos.y) * env->options.minimap_scale;
+	p[1].x = env->minimap_pos.x + (env->vertices[sector.vertices[0]].x
+			- env->player.pos.x) * env->options.minimap_scale;
+	p[1].y = env->minimap_pos.y + (env->vertices[sector.vertices[0]].y
+			- env->player.pos.y) * env->options.minimap_scale;
+	p[2].x = env->minimap_pos.x + (env->vertices[sector.vertices[1]].x
+			- env->player.pos.x) * env->options.minimap_scale;
+	p[2].y = env->minimap_pos.y + (env->vertices[sector.vertices[1]].y
+			- env->player.pos.y) * env->options.minimap_scale;
+	if (get_angle(p))
+	{
+		pos.x += p[1].x;
+		pos.y += p[1].y;
+		nb_angles++;
+	}
+	pos.x /= nb_angles;
+	pos.y /= nb_angles;
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", sector.num);
+	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+	&text_size.y);
 	if (pos.x - text_size.x >= env->minimap_pos.x - env->minimap_size.x / 2 - 3
 		&& pos.x < env->minimap_pos.x + env->minimap_size.x / 2 - 3
-		&& pos.y - text_size.y >= env->minimap_pos.y - env->minimap_size.y / 2 - 3
-		&& pos.y< env->minimap_pos.y + env->minimap_size.y / 2 - 3)
-	{
-		print_text(new_point(pos.y - text_size.y / 2, pos.x - text_size.x / 2), new_printable_text(num, env->sdl.fonts.lato20, color, 20), env);
-	}
-		
+		&& pos.y - text_size.y >= env->minimap_pos.y - env->minimap_size.y / 2
+		- 3 && pos.y< env->minimap_pos.y + env->minimap_size.y / 2 - 3)
+		print_text(new_point(pos.y - text_size.y / 2, pos.x - text_size.x / 2),
+		new_printable_text(env->snprintf, env->sdl.fonts.lato20, color, 20),
+		env);	
 }
 
 void		draw_sprites_minimap(t_env *env)

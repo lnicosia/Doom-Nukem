@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 15:42:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:10:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE_KAMIKAZE;
-			env->enemies[i].size_2d = env->enemies[i].scale * env->enemies[i].width_ratio;
-			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
+			env->enemies[i].size_2d = env->enemies[i].scale
+				* env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d
+				* env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;
@@ -46,8 +48,10 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].firing_sprite = 10;
 			env->enemies[i].type = TERRESTRIAL;
 			env->enemies[i].behavior = RANGED_PROJECTILE;
-			env->enemies[i].size_2d =  env->enemies[i].scale * env->enemies[i].width_ratio;
-			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
+			env->enemies[i].size_2d =  env->enemies[i].scale
+				* env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d
+				* env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 4;
 			env->enemies[i].nb_pursuit_state = 4;
 			env->enemies[i].nb_firing_state = 3;
@@ -346,6 +350,30 @@ void		init_objects_data(t_env *env)
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = CAMERA_SPRITE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 31) // Shotgun sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = SHOTGUN_SPRITE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 32) // Raygun sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = RAYGUN_SPRITE;
 			env->objects[i].health = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;

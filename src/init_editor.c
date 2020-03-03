@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 10:53:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:28:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	init_selection_tabs(t_env *env)
 		mod = 5;
 	while (tmp % mod != 0)
 		tmp++;
-	env->editor.enemy_selection_size = new_point((64 * mod) + 10,
-	(64 * (tmp / mod)) + 10);
+	env->editor.enemy_selection_size = new_point((66 * mod) + 13,
+	(66 * (tmp / mod)) + 13);
 	tmp = MAX_OBJECTS;
 	if (tmp > 25)
 		mod = 10;
@@ -143,6 +143,7 @@ int	init_editor(int ac, char **av)
 	if (init_skybox(&env))
 		return (crash("Could not init skybox\n", &env));
 	init_selection_tabs(&env);
+	init_weapons(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.health = 100;
 	env.editor.center.x = -env.player.pos.x * env.editor.scale + env.h_w + 200;

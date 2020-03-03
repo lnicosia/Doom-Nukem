@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 10:40:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:17:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 39
+# define MAX_TEXTURES 40
 # define MAX_UI_TEXTURES 60
 # define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 30
+# define MAX_OBJECT_SPRITES 32
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 3
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 21
+# define MAX_OBJECTS 23
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -69,6 +69,8 @@
 # define CYBER_DEMON_OBJECT 28
 # define DOOM_GUY_FACE 29
 # define CAMERA_SPRITE 30
+# define SHOTGUN_SPRITE 31
+# define RAYGUN_SPRITE 32
 # define NB_MUSICS 2
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
@@ -836,6 +838,8 @@ typedef struct		s_animation
 
 typedef struct		s_weapons
 {
+	t_sprite		sprite;
+	char			*name;
 	int				possessed;
 	int				first_sprite;
 	int				nb_sprites;
