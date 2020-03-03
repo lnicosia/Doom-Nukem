@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 17:53:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:23:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int		editor_3d_keyup(t_env *env)
 		if (event_panel_keyup(env))
 			return (-1);
 	}
-	if (env->editor.selecting_weapon && !env->confirmation_box.state)
+	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
+		&& !env->confirmation_box.state)
 	{
 		if (weapon_picker_keyup(env))
 			return (-1);

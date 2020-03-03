@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:36:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:02:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:40:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int		check_event_creation4(t_env *env)
 		env->editor.tab = 1;
 		SDL_SetRelativeMouseMode(0);
 	}
-	if (env->editor.selecting_target)
+	if (env->editor.selecting_target || env->editor.selecting_weapon)
 		return (new_event_target(env));
-	else if (env->editor.selecting_condition_target)
+	else if (env->editor.selecting_condition_target
+		|| env->editor.selecting_condition_weapon)
 		return (new_condition_target(env));
 	return (0);
 }
@@ -107,8 +108,9 @@ int		check_event_creation(t_env *env)
 {
 	t_target_panel	panel;
 
-	if (!env->editor.selecting_target
-		&& !env->editor.selecting_condition_target)
+	if (!env->editor.selecting_target && !env->editor.selecting_weapon
+		&& !env->editor.selecting_condition_target
+		&& !env->editor.selecting_condition_weapon)
 		return (0);
 	if (env->editor.selecting_condition_target)
 		panel = env->editor.condition_panel.target_panel;

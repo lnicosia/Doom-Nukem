@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 17:32:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 18:28:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:23:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		is_mouse_on_weapon_picker(t_env *env)
 {
-	if (!env->editor.selecting_weapon)
+	if (!env->editor.selecting_weapon
+		&& !env->editor.selecting_condition_weapon)
 		return (0);
 	if (is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
 	env->editor.weapon_picker.pos, env->editor.weapon_picker.size))

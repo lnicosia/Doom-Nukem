@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:32:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:42:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int		print_weapon_target(t_env *env, t_event *event, t_point pos, int size)
 		font = env->sdl.fonts.lato20;
 	else
 		font = env->sdl.fonts.lato15;
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Weapon %d %s",
-	event->update_param.weapon, env->event_types[event->target_index]);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: %s's %s",
+	env->weapons[event->update_param.weapon].name,
+	env->event_types[event->target_index]);
 	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }

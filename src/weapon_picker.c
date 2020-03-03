@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 15:17:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 18:29:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:43:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,18 @@ int		weapon_picker_ok(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
-	env->editor.selecting_weapon = 0;
+	env->editor.selected_weapon = env->editor.current_weapon;
+	check_event_creation(env);
+	if (env->editor.selecting_weapon)
+	{
+		env->editor.selecting_weapon = 0;
+		env->editor.creating_event = 1;
+	}
+	else if (env->editor.selecting_condition_weapon)
+	{
+		env->editor.selecting_condition_weapon = 0;
+		env->editor.creating_condition = 1;
+	}
 	return (0);
 }
 
@@ -26,7 +37,16 @@ int		weapon_picker_cancel(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
-	env->editor.selecting_weapon = 0;
+	if (env->editor.selecting_weapon)
+	{
+		env->editor.selecting_weapon = 0;
+		env->editor.creating_event = 1;
+	}
+	else if (env->editor.selecting_condition_weapon)
+	{
+		env->editor.selecting_condition_weapon = 0;
+		env->editor.creating_condition = 1;
+	}
 	return (0);
 }
 

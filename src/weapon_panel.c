@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:23:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:32:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		select_weapon(void *param)
 		panel = &env->editor.event_panel.target_panel;
 	panel->weapon_type = 1;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;
