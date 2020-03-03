@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 11:20:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:07:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -515,6 +515,7 @@ int					check_true_false_input_box(void *penv);
 int					check_portal_input_box(void *penv);
 int					check_health_input_box(void *target);
 int					check_speed_input_box(void *target);
+int					check_angle_input_box(void *target);
 int					update_sector_input_box(void *penv);
 int					update_floor_sprite_scale_input_box(void *penv);
 int					update_ceiling_sprite_scale_input_box(void *penv);
@@ -584,6 +585,7 @@ int					change_ceiling_height(void *target);
 int					change_ceiling_slope(void *target);
 int					change_health(void *target);
 int					change_speed(void *target);
+int					change_angle(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
@@ -977,6 +979,7 @@ void				init_events_map(t_env *env);
 void				init_condition(t_condition *condition);
 void				init_trigger(t_event_trigger *trigger);
 void				init_target(t_event_target *target);
+void				save_init_data(t_env *env);
 
 /*
 **	Parser functions

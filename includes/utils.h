@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:02:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:33:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,7 +593,7 @@ typedef struct		s_player
 	t_v3			starting_pos;
 	t_v3			old_pos;
 	t_camera		camera;
-	t_init_data		player_init_data;
+	t_init_data		init_data;
 	Uint32			start_move;
 	int				moving;
 	int				stuck;

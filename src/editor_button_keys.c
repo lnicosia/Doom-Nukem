@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 11:30:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:42:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	player_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_player.armor, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_player.speed, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_player.angle, env))
 			return (-1);
 	}
 	return (0);

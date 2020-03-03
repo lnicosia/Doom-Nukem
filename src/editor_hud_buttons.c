@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 11:11:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:32:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int		launch_game(void *target)
 	tmp = ft_strsplit("./doom-nukem maps/tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
-	tmp_angle = env->player.player_init_data.camera.angle;
-	env->player.player_init_data.camera.angle = env->player.camera.angle;
+	tmp_angle = env->player.init_data.camera.angle;
+	env->player.init_data.camera.angle =
+	env->player.camera.angle * CONVERT_DEGREES;
 	env->save_file  = ft_strdup("maps/tmp.map");
 	if (save_map(env))
 		return (-1);
@@ -54,7 +55,7 @@ int		launch_game(void *target)
       		exit(1);
 	}
 	env->player.starting_pos = tmp_pos;
-	env->player.player_init_data.camera.angle = tmp_angle;
+	env->player.init_data.camera.angle = tmp_angle;
 	return (0);
 }
 

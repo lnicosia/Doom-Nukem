@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:28:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:22:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ int	init_editor(int ac, char **av)
 	}
 	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not malloc sector list\n", &env));
+	view(&env);
+	update_camera_position(&env.player.camera);
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
 	if (init_skybox(&env))

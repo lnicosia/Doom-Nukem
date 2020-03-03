@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:23:43 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 09:33:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:41:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,8 @@ void	init_player_general_buttons(t_env *env)
 	&change_speed, &env->editor.hud.g_player.t_speed, env);
 	env->editor.hud.g_player.speed.pos = new_point(250, 640);
 	env->editor.hud.g_player.t_speed.pos = new_point(250, 640);
+	env->editor.hud.g_player.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_player.t_angle, env);
+	env->editor.hud.g_player.angle.pos = new_point(250, 680);
+	env->editor.hud.g_player.t_angle.pos = new_point(250, 680);
 }

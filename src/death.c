@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/02 10:40:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:34:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int			respawn(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
-	env->player.pos = env->player.player_init_data.pos;
+	env->player.pos = env->player.init_data.pos;
 	env->player.killed = 0;
 	env->player.touched = 0;
 	env->player.nb_shots = 0;
 	env->player.accuracy = 0;
-	env->player.health = env->player.player_init_data.health;
-	env->player.sector = env->player.player_init_data.sector;
-	env->player.camera = env->player.player_init_data.camera;
+	env->player.health = env->player.init_data.health;
+	env->player.sector = env->player.init_data.sector;
+	env->player.camera = env->player.init_data.camera;
 	respawn_entities(param);
 	init_weapons(env);
 	init_enemies_data(env);
