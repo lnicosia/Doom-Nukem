@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:23:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:11:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int		colorize_selected_portal(t_render_vertex v1, t_sector sector,
 		rt[i].xstart = render.xstart + (render.xend - render.xstart)
 			/ (double)THREADS * i;
 		rt[i].xend = render.xstart + (render.xend - render.xstart)
-			/ (double)THREADS * (i + 1);
+			/ (double)THREADS * (i + 1) - 1;
 		if (pthread_create(&threads[i], NULL, portal_loop, &rt[i]))
 			return (-1);
 		i++;
