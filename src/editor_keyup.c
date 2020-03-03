@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 10:52:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:16:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,7 +340,10 @@ int	editor_keyup(t_env *env)
 			return (-1);
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
+	{
 		reset_selection(env);
+		tabs_gestion(env);
+	}
 	if (button_keyup(&env->editor.add_enemy, env))
 		return (-1);
 	if (button_keyup(&env->editor.add_object, env))

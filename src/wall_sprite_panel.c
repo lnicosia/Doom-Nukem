@@ -6,41 +6,47 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:23:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:54:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
 
-int		set_wall_sprite_panel_buttons_state2(t_target_panel *panel, int index)
+int		set_wall_sprite_panel_buttons_state2(t_target_panel *panel, int index,
+int down)
 {
 	if (index == SECTOR_WALL_SPRITES_SCALE_X
 		|| index == SECTOR_FLOOR_SPRITES_SCALE_X
 		|| index == SECTOR_CEILING_SPRITES_SCALE_X)
-		panel->targets[3].state = DOWN;
+		down = 3;
 	else if (index == SECTOR_WALL_SPRITES_SCALE_Y
 		|| index == SECTOR_FLOOR_SPRITES_SCALE_Y
 		|| index == SECTOR_CEILING_SPRITES_SCALE_Y)
-		panel->targets[4].state = DOWN;
+		down = 4;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 
 int		set_wall_sprite_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == SECTOR_WALL_SPRITES_SPRITE
 		|| index == SECTOR_FLOOR_SPRITES_SPRITE
 		|| index == SECTOR_CEILING_SPRITES_SPRITE)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == SECTOR_WALL_SPRITES_POS_X
 		|| index == SECTOR_FLOOR_SPRITES_POS_X
 		|| index == SECTOR_CEILING_SPRITES_POS_X)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == SECTOR_WALL_SPRITES_POS_Y
 		|| index == SECTOR_FLOOR_SPRITES_POS_Y
 		|| index == SECTOR_CEILING_SPRITES_POS_Y)
-		panel->targets[2].state = DOWN;
-	return (set_wall_sprite_panel_buttons_state2(panel, index));
+		down = 2;
+	return (set_wall_sprite_panel_buttons_state2(panel, index, down));
 }
 
 int		select_wall_sprite(void *param)

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:34:48 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 10:37:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:04:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	player_combat_state(t_env *env)
 
 void	damage_player(t_env *env, int damage)
 {
+	if (env->player.invincible)
+		return ;
 	env->player.hit = 1;
 	env->player.health -= ft_clamp(damage * env->difficulty - env->player.armor,
 		0, damage);

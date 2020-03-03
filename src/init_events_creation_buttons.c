@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 11:22:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 18:05:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:38:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	reset_target_selection(t_target_panel *panel)
 	panel->other_type = 0;
 	panel->sector_other_type = 0;
 	panel->target_selection_phase = 0;
+	panel->selected_button = -1;
 }
 
 int		new_event(void *param)

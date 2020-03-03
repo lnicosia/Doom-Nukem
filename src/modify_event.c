@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 18:05:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:37:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		modify_event(void *param)
 	target_tab_func(env);
 	env->editor.creating_event = 1;
 	env->editor.event_panel.target_tab.state = DOWN;
+	reset_target_selection(&env->editor.event_panel.target_panel);
 	env->editor.event_panel.selected_event = env->editor.selected_event;
 	ft_bzero(&env->editor.event_panel.trigger,
 	sizeof(env->editor.event_panel.trigger));

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 11:37:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:46:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,29 @@
 
 int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == PLAYER_X)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == PLAYER_Y)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == PLAYER_Z)
-		panel->targets[2].state = DOWN;
+		down = 2;
 	else if (index == PLAYER_HP)
-		panel->targets[3].state = DOWN;
+		down = 3;
 	else if (index == PLAYER_ARMOR)
-		panel->targets[4].state = DOWN;
+		down = 4;
 	else if (index == PLAYER_SPEED)
-		panel->targets[5].state = DOWN;
+		down = 5;
 	else if (index == PLAYER_INVINCIBLE)
-		panel->targets[6].state = DOWN;
+		down = 6;
 	else if (index == PLAYER_INFINITE_AMMO)
-		panel->targets[7].state = DOWN;
+		down = 7;
 	else if (index == PLAYER_SECTOR)
-		panel->targets[8].state = DOWN;
+		down = 8;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 
@@ -49,7 +54,7 @@ int		select_player(void *param)
 		panel = &env->editor.event_panel.target_panel;
 	panel->player_type = 1;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;

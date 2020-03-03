@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:43:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:02:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:52:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int		set_other_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == WIN)
-		panel->targets[0].state = DOWN;
-		return (0);
+		down = 0;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
+	return (0);
 }
 
 int		select_other(void *param)
