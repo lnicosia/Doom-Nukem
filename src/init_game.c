@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 10:43:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:45:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ int		init_game(int ac, char **av)
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	play_music(&env, &env.sound.music_chan, env.sound.musics[0].music, env.sound.music_vol);
+	play_music(&env, &env.sound.music_chan,
+		env.sound.musics[env.sound.ambient_music].music, env.sound.music_vol);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init fixed camera\n", &env));

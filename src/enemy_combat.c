@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:34:48 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 10:37:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:00:48 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int		change_music(t_env *env, int observing_enemies)
 	{
 		env->player.in_combat = 1;
 		play_music(env, &env->sound.music_chan,
-			env->sound.musics[1].music, env->sound.music_vol);
+			env->sound.musics[env->sound.fight_music].music,
+			env->sound.music_vol);
 		return (1);
 	}
 	if (env->player.in_combat == 1 && observing_enemies == env->nb_enemies)
 	{
 		env->player.in_combat = 0;
-		play_music(env, &env->sound.music_chan, env->sound.musics[0].music,
+		play_music(env, &env->sound.music_chan,
+			env->sound.musics[env->sound.ambient_music].music,
 			env->sound.music_vol);
 		return (1);
 	}

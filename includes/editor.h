@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 18:11:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:46:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,8 +454,6 @@ typedef struct	s_editor
 	t_button			next_fighting_music;
 	t_button			previous_fighting_music;
 	int					texture_tab;
-	int					ambiance_music;
-	int					fighting_music;
 	t_list				*events_to_delete;
 }				t_editor;
 

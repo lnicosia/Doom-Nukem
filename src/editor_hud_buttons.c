@@ -132,9 +132,8 @@ int	next_ambiance_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music < NB_MUSICS - 1)
-		env->sound.current_music++;
-	env->editor.ambiance_music = env->sound.current_music;
+	if (env->sound.ambient_music < NB_MUSICS - 1)
+		env->sound.ambient_music++;
 	return (0);
 }
 
@@ -143,9 +142,8 @@ int	previous_ambiance_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music > 0)
-		env->sound.current_music--;
-	env->editor.ambiance_music = env->sound.current_music;
+	if (env->sound.ambient_music > 0)
+		env->sound.ambient_music--;
 	return (0);
 }
 
@@ -154,9 +152,8 @@ int	next_fighting_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music < NB_MUSICS - 1)
-		env->sound.current_music++;
-	env->editor.fighting_music = env->sound.current_music;
+	if (env->sound.fight_music < NB_MUSICS - 1)
+		env->sound.fight_music++;
 	return (0);
 }
 
@@ -165,8 +162,7 @@ int	previous_fighting_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music > 0)
-		env->sound.current_music--;
-	env->editor.fighting_music = env->sound.current_music;
+	if (env->sound.fight_music > 0)
+		env->sound.fight_music--;
 	return (0);
 }

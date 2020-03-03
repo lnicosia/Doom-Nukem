@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:24:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 11:31:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:47:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int					init_enemies(t_env *env, t_map_parser *parser);
 int					parse_enemies(t_env *env, t_map_parser *parser);
 int					parse_events(t_env *env, t_map_parser *parser);
 int					parse_player(t_env *env, t_map_parser *parser);
+int					parse_ambient_music(t_env *env, t_map_parser *parser);
+int					parse_fight_music(t_env *env, t_map_parser *parser);
 int					check_vertices_uniqueness(t_sector sector);
 int					check_sector_duplicate(t_env *env, t_sector sector,
 		int num);

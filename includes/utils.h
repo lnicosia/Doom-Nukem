@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 11:17:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:46:52 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -777,7 +777,8 @@ typedef struct		s_sound
 {
 	double			music_vol;
 	double			ambient_vol;
-	double			current_music;
+	int				ambient_music;
+	int				fight_music;
 	FMOD_SYSTEM		*system;
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
