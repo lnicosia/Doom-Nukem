@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:46:52 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:45:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define CAMERA_SPRITE 30
 # define SHOTGUN_SPRITE 31
 # define RAYGUN_SPRITE 32
-# define NB_MUSICS 2
+# define NB_MUSICS 3
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
@@ -785,7 +785,7 @@ typedef struct		s_sound
 	FMOD_CHANNEL	*player_movement_chan;
 	FMOD_CHANNEL	*player_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
-	t_music_list	musics[2];
+	t_music_list	musics[3];
 	FMOD_SOUND		*footstep;
 }					t_sound;
 

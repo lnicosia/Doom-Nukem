@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/03 14:30:38 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/03/03 16:13:14 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,84 +43,86 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				enemy_collision.c enemy_sight.c enemy_ai.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
-		 draw_grid.c editor_keys.c grid_tools.c editor_render.c \
-		 draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
-		 get_existing_vertex.c add_vertex.c print_target_functions2.c \
-		 add_player.c editor_hud.c add_sector.c fill_new_sector.c \
-		 save_map.c write_vertices.c write_sectors.c write_objects.c \
-		 write_player.c write_enemies.c add_object.c editor_keyup.c \
-		 player_selection.c objects_selection.c vertices_selection.c \
-		 draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		 add_enemy.c enemy_selection.c delete_event.c object_selection.c \
-		 delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
-		 fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
-		 apply_texture.c init_event_panel_buttons.c enemy_drag.c \
-		 editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
-		 write_events.c init_print_target_data.c print_event_condition.c \
-		 write_events_utils.c write_events_utils2.c init_events_writers.c \
-		 write_event_conditions.c write_event_conditions_utils.c \
-		 write_event_conditions_utils2.c init_event_conditions_writers.c \
-		 write_events_links.c print_target_functions.c update_existing_events.c\
-		 split_sector_utils.c texture_selection.c init_hud_button.c \
-		 editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
-		 editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
-		 init_editor_tab_buttons.c editor_ceiling_tab_button.c \
-		 editor_floor_tab_button.c editor_wall_tab_button.c \
-		 editor_env_wall_buttons.c editor_env_floor_buttons.c \
-		 editor_env_ceilling_buttons.c  change_editor_mode.c \
-		 editor_3d_button_keys.c editor_3d_button_keyup.c \
-		 init_add_buttons.c editor_env_sector_buttons.c \
-		 editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
-		 editor_button_keyup.c editor_env_player_buttons.c \
-		 editor_player_tab_button.c editor_enemy_tabs.c \
-		 editor_env_enemy_buttons.c editor_enemy_tab_button.c \
-		 editor_object_tabs.c editor_env_object_buttons.c \
-		 sprite_selection.c init_sprite_selection_buttons.c\
-		 editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
-		 init_events_selection_buttons.c print_event.c init_event_types.c \
-		 are_launch_condition_selection_buttons_visible.c \
-		 are_exec_condition_selection_buttons_visible.c \
-		 init_event_links_types.c is_event_tabs_visible.c \
-		 print_link_target_functions.c print_condition_target_functions.c \
-		 print_condition_target_functions2.c init_print_condition_target_data.c\
-		 change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
-		 update_textures_buttons.c init_skybox_selection_buttons.c \
-		 draw_editor_tabs.c editor_buttons_functions.c weapon_picker_keys.c \
-		 event_panel.c target_panel.c init_target_panel_buttons.c \
-		 init_action_panel_buttons.c init_conditions_tabs_buttons.c \
-		 target_panel_keys.c modify_condition.c \
-		 action_panel_keys.c conditions_panel_keys.c \
-		 event_panel_keys.c modify_event.c \
-		 new_event_panel_buttons.c new_event_panel_buttons2.c \
-		 editor_tab_gestion.c editor_wall_sprites_keys.c \
-		 3d_edit_function.c action_panel.c conditions_tabs.c \
-		 event_panel_input_box.c \
-		 init_events_creation_buttons.c reduce_texture_scales_functions.c \
-		 increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
-		 init_condition_panel_buttons.c condition_type_buttons_functions.c \
-		 condition_type_buttons_functions2.c init_condition_target_buttons.c \
-		 condition_target_panel.c condition_panel.c other_panel.c  \
-		 floor_panel.c ceiling_panel.c wall_panel.c wall_sprite_panel.c \
-		 weapon_panel.c enemy_panel.c object_panel.c player_panel.c \
-		 vertex_panel.c sector_other_panel.c check_event_creation.c \
-		 set_new_condition_target.c set_new_condition_target2.c \
-		 set_new_condition_target3.c set_new_condition_target4.c \
-		 set_new_condition_target5.c set_new_condition_target6.c \
-		 set_new_event_target.c set_new_event_target2.c \
-		 set_new_event_target3.c set_new_event_target4.c \
-		 set_new_event_target5.c set_new_event_target6.c \
-		 set_new_event_target7.c delete_wall_sprite.c \
-		 condition_event_panel.c init_condition_event_buttons.c \
-		 3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
-		 3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
-		 editor_3d_tab_keys.c selection_tabs_button_keys.c \
-		 3d_edit_right_walls_texture_align.c 3d_edit_left_walls_texture_align.c \
-		 3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
-		 editor_wall_sprites_keyup.c wall_sprites_keyup.c \
-		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		 update_entities.c editor_vertices_tab.c \
-		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		 delete_sector.c delete_vertex.c weapon_picker.c \
+		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
+		draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
+		get_existing_vertex.c add_vertex.c print_target_functions2.c \
+		add_player.c editor_hud.c add_sector.c fill_new_sector.c \
+		save_map.c write_vertices.c write_sectors.c write_objects.c \
+		write_player.c write_enemies.c add_object.c editor_keyup.c \
+		player_selection.c objects_selection.c vertices_selection.c \
+		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
+		add_enemy.c enemy_selection.c delete_event.c object_selection.c \
+		delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
+		fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
+		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
+		editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \
+		write_events.c init_print_target_data.c print_event_condition.c \
+		write_events_utils.c write_events_utils2.c init_events_writers.c \
+		write_event_conditions.c write_event_conditions_utils.c \
+		write_event_conditions_utils2.c init_event_conditions_writers.c \
+		write_events_links.c print_target_functions.c update_existing_events.c\
+		split_sector_utils.c texture_selection.c init_hud_button.c \
+		editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
+		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
+		init_editor_tab_buttons.c editor_ceiling_tab_button.c \
+		editor_floor_tab_button.c editor_wall_tab_button.c \
+		editor_env_wall_buttons.c editor_env_floor_buttons.c \
+		editor_env_ceilling_buttons.c  change_editor_mode.c \
+		editor_3d_button_keys.c editor_3d_button_keyup.c \
+		init_add_buttons.c editor_env_sector_buttons.c \
+		editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
+		editor_button_keyup.c editor_env_player_buttons.c \
+		editor_player_tab_button.c editor_enemy_tabs.c \
+		editor_env_enemy_buttons.c editor_enemy_tab_button.c \
+		editor_object_tabs.c editor_env_object_buttons.c \
+		sprite_selection.c init_sprite_selection_buttons.c\
+		editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
+		init_events_selection_buttons.c print_event.c init_event_types.c \
+		are_launch_condition_selection_buttons_visible.c \
+		are_exec_condition_selection_buttons_visible.c \
+		init_event_links_types.c is_event_tabs_visible.c \
+		print_link_target_functions.c print_condition_target_functions.c \
+		print_condition_target_functions2.c init_print_condition_target_data.c\
+		change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
+		update_textures_buttons.c init_skybox_selection_buttons.c \
+		draw_editor_tabs.c editor_buttons_functions.c weapon_picker_keys.c \
+		event_panel.c target_panel.c init_target_panel_buttons.c \
+		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
+		target_panel_keys.c modify_condition.c \
+		action_panel_keys.c conditions_panel_keys.c \
+		event_panel_keys.c modify_event.c \
+		new_event_panel_buttons.c new_event_panel_buttons2.c \
+		editor_tab_gestion.c editor_wall_sprites_keys.c \
+		3d_edit_function.c action_panel.c conditions_tabs.c \
+		event_panel_input_box.c \
+		init_events_creation_buttons.c reduce_texture_scales_functions.c \
+		increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
+		init_condition_panel_buttons.c condition_type_buttons_functions.c \
+		condition_type_buttons_functions2.c init_condition_target_buttons.c \
+		condition_target_panel.c condition_panel.c other_panel.c  \
+		floor_panel.c ceiling_panel.c wall_panel.c wall_sprite_panel.c \
+		weapon_panel.c enemy_panel.c object_panel.c player_panel.c \
+		vertex_panel.c sector_other_panel.c check_event_creation.c \
+		set_new_condition_target.c set_new_condition_target2.c \
+		set_new_condition_target3.c set_new_condition_target4.c \
+		set_new_condition_target5.c set_new_condition_target6.c \
+		set_new_event_target.c set_new_event_target2.c \
+		set_new_event_target3.c set_new_event_target4.c \
+		set_new_event_target5.c set_new_event_target6.c \
+		set_new_event_target7.c delete_wall_sprite.c \
+		condition_event_panel.c init_condition_event_buttons.c \
+		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
+		3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
+		editor_3d_tab_keys.c selection_tabs_button_keys.c \
+		3d_edit_right_walls_texture_align.c \
+		3d_edit_left_walls_texture_align.c \
+		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
+		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
+		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
+		update_entities.c editor_vertices_tab.c \
+		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
+		delete_sector.c delete_vertex.c weapon_picker.c \
+		write_musics_choices.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

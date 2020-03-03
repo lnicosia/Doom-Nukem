@@ -369,6 +369,14 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.events_tab, env))
 		return (-1);
+	if (button_keyup(&env->editor.previous_ambiance_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.previous_fighting_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_ambiance_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_fighting_music, env))
+		return (-1);
 	if (env->editor.events_tab.state == DOWN)
 	{
 		if (!env->editor.selecting_target && !env->editor.selecting_event

@@ -43,19 +43,21 @@ void	editor_hud(t_env *env)
 		env->sound.musics[env->editor.ambiance_music].music_name,
 		env->sdl.fonts.lato15 , 0x00000000, 15), env);*/
 
-		TTF_SizeText(env->sdl.fonts.lato15, "Ambiance music", &center.x, &center.y);
+		TTF_SizeText(env->sdl.fonts.lato15, 
+		env->sound.musics[env->sound.ambient_music].music_name, &center.x, &center.y);
 		print_text(new_point(322, 105 - center.x / 2), new_printable_text(
-		"Ambiance music",
+		env->sound.musics[env->sound.ambient_music].music_name,
 		env->sdl.fonts.lato15 , 0x00000000, 15), env);	
 
 		TTF_SizeText(env->sdl.fonts.lato_bold15, "fight", &center.x, &center.y);
 		print_text(new_point(345, 90), new_printable_text("Fight",
 		env->sdl.fonts.lato_bold15, 0x00000000, 15), env);
 
-		TTF_SizeText(env->sdl.fonts.lato15, "Fighting music", &center.x, &center.y);
+		TTF_SizeText(env->sdl.fonts.lato15,
+			env->sound.musics[env->sound.fight_music].music_name, &center.x, &center.y);
 		print_text(new_point(367, 105 - center.x / 2), new_printable_text(
-		"Fighting music",
-		env->sdl.fonts.lato15 , 0x00000000, 15), env);
+			env->sound.musics[env->sound.fight_music].music_name,
+			env->sdl.fonts.lato15 , 0x00000000, 15), env);
 		// right rectangle
 		draw_rectangle(env,	
 			new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),

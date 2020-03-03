@@ -29,6 +29,7 @@ int		save_map(void *param)
 	write_enemies(fd, env);
 	write_events(fd, env);
 	write_events_links(fd, env);
+	write_music_choices(fd, env);
 	write_player(fd, env);
 	if (close(fd))
 		return (ft_printf("Could not close the file\n"));

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 11:53:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 14:46:59 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:46:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ int		init_sound(t_env *env)
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[0].music) != FMOD_OK)
 		return (ft_printf("Failed to load Mt_Erebus.wav"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",//should be at_dooms_gate.wav
+	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[1].music) != FMOD_OK)
+		return (ft_printf("Failed to load bim_bam_boum.wav"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/at_dooms_gate.wav",
+		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
+		&env->sound.musics[2].music) != FMOD_OK)
 		return (ft_printf("Failed to load at_dooms_gate.wav"));
 	while (++i < NB_MUSICS)
 		FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1);
@@ -62,5 +66,10 @@ int		init_sound(t_env *env)
 		return (ft_printf("Failed to load footsteps.wav\n"));
 	env->sound.music_vol = 0.3;
 	env->sound.ambient_vol = 0.3;
+	env->sound.ambient_music = 0;
+	env->sound.musics[0].music_name = "Mt Erebus";
+	env->sound.musics[1].music_name = "Bim Bam Boum";
+	env->sound.musics[2].music_name = "At Dooms Gate";
+	env->sound.fight_music = 0;
 	return (0);
 }
