@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/28 17:58:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 11:20:59 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ int		write_textures(int fd, t_env *env)
 		return (-1);
 	return (0);
 }
-
+/*
+int		write_sound(int fd, t_env *env)
+{
+	
+	return (0);
+}
+*/
 int		write_resources(int fd, t_env *env)
 {
 	if (write_textures(fd, env))
 		return (-1);
+/*	if (write_sound(fd, env))
+		return (-1);*/
 	return (0);
 }

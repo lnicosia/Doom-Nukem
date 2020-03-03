@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 18:17:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:07:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		map_parse_textures(t_env *env, t_map_parser *parser)
 	while (i <  env->resource.nb_textures)
 	{
 		if (parse_texture(env, parser))
-			return (ft_printf("Error while parsing textures\n"));
+			return (ft_printf("Error while parsing texture %d\n", i));
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/02 17:21:44 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/03 14:26:54 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -217,7 +217,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \
@@ -255,6 +255,7 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all:
+	@curl -L -o maps/simon_test.map "https://drive.google.com/uc?export=download&id=1yAXOvR6X7u6pcXbV1ur7BwQgLyT8cp25"
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -268,7 +269,7 @@ editor:
 	@make -C $(LIBFT_DIR) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
-($LIBFT):
+$(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
 
 $(OBJ_GAME_DIR):

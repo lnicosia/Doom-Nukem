@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 12:05:15 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 14:49:34 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,36 +174,27 @@ int		parse_map(char *file, t_env *env)
 		return (-1);
 	}
 	if (parse_resources(env, &(env->parser)))
-		return (-1);
+		return (custom_error("Could not parser resources"));
 	if (init_vertices(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Could not init vertices"));
+		return (custom_error("Could not init vertices"));
 	if (parse_vertices(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Error while parsing vertices"));
+		return (custom_error("Error while parsing vertices"));
 	if (init_sectors(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Could not init sectors"));
+		return (custom_error("Could not init sectors"));
 	if (parse_sectors(env, &(env->parser)))
 		return (custom_error("Error while parsing sectors"));
-				//return (-1);
 	if (init_objects(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Could not init objects"));
+		return (custom_error("Could not init objects"));
 	if (parse_objects(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Error while parsing objects"));
+		return (custom_error("Error while parsing objects"));
 	if (init_enemies(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Could not init objects"));
+		return (custom_error("Could not init objects"));
 	if (parse_enemies(env, &(env->parser)))
-		return (-1);
-	//return (custom_error("Error while parsing creatures"));
+		return (custom_error("Error while parsing creatures"));
 	if (parse_events(env, &(env->parser)))
 		return (custom_error("Error while parsing events"));
 	if (parse_player(env, &(env->parser)))
 		return (custom_error("Error while parsing player data"));
-	//return (custom_error("Error while parsing player"));
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &(env->parser)));
 	set_sectors_xmax(env);
