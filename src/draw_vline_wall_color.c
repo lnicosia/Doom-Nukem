@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:44:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:37:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:20:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	draw_vline_wall_color(t_sector sector, t_vline vline, t_render render, t_en
 				env->selected_wall2
 				= env->sectors[render.sector].vertices[render.i + 1];
 				tabs_gestion(env);				
+				env->editor.just_selected = 1;
 			}
 			if (env->playing)
 			{

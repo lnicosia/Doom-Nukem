@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 18:11:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:19:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,6 +390,7 @@ typedef struct	s_editor
 	int					creating_launch_condition;
 	int					creating_exec_condition;
 	int					selecting_event;
+	int					just_selected;
 	t_point				texture_selection_size;
 	t_point				object_selection_size;
 	t_point				enemy_selection_size;

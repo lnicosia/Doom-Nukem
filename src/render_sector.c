@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 14:11:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:21:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int		render_sector(t_render render, t_env *env)
 {
 	int				i;
 	int				j;
+	int				just_selected;
 	t_sector		sector;
 	t_render_vertex	v1;
 	t_render		new;
@@ -263,8 +264,12 @@ int		render_sector(t_render render, t_env *env)
 			render.texture_h = env->wall_textures[render.texture].surface->h;
 			render.map_lvl = env->wall_textures[render.texture].nb_maps - 1;
 		}
+		env->editor.just_selected = 0;
+		just_selected = 0;
 		if (threaded_wall_loop(v1, sector, render, env))
 			return (-1);
+		if (env->editor.just_selected)
+			just_selected = 1;
 		if (sector.neighbors[i] != -1)
 		{
 			new = render;
@@ -272,14 +277,20 @@ int		render_sector(t_render render, t_env *env)
 			new.sector = sector.neighbors[i];
 			new.xmax = render.xend;
 			render_sector(new, env);
-			if (env->editor.selected_wall == render.i
+			if (env->editor.selected_wall == render.i && !just_selected
 				&& env->editor.selected_sector == sector.num)
-				colorize_selected_portal(v1, sector, render, env);
+			{
+				if (colorize_selected_portal(v1, sector, render, env))
+					return (-1);
+			}
 			if (env->editor.select_portal
 				&& ((env->editor.tab && env->sdl.mx >= render.xstart
 				&& env->sdl.mx <= render.xend) || (!env->editor.tab
 				&& env->h_w >= render.xstart && env->h_w <= render.xend)))
-				select_portal(v1, sector, render, env);
+			{
+				if (select_portal(v1, sector, render, env))
+					return (-1);
+			}
 			j = -1;
 			while (++j < env->w)
 			{

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:42:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:29:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:19:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ t_render render, t_env *env)
 				= env->sectors[render.sector].vertices[render.i];
 				env->selected_wall2
 				= env->sectors[render.sector].vertices[render.i + 1];
-				tabs_gestion(env);			
+				tabs_gestion(env);
+				env->editor.just_selected = 1;
 			}
 			if (env->playing)
 			{

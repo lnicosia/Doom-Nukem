@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:54:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:40:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:48:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    colorize_portal(t_render render, t_env *env)
 	pixels = env->sdl.texture_pixels;
 	start = (int)render.current_ceiling;
 	end = (int)render.current_floor;
-	while (start <= end)
+	while (start < end)
 	{
 		coord = render.x + env->w * start;
 		pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
