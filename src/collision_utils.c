@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 19:05:45 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/28 19:09:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:55:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_v3	update_move(t_env *env, t_coll coll, t_v3 *move)
 
 int		cross_portal(t_env *env, t_motion motion, int s, int v)
 {
+	if (env->sectors[s].neighbors[v] < 0)
+		return (0);
 	if (env->sector_list[env->sectors[s].neighbors[v]])
 		return (0);
 	if ((intersection_check(new_v2(env->vertices[env->sectors[s].vertices[v]].x,

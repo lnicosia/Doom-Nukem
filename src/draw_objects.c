@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:13:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 18:36:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ static void		*object_loop(void *param)
 		yalpha = (y - orender.y1) / orender.yrange;
 		texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 		x = ((t_object_thread*)param)->xstart;
-		while (x <= xend)
+		while (x < xend)
 		{
 			xalpha = (x - orender.x1) / orender.xrange;
 			if (sprite.reversed[orender.index])
 				xalpha = 1.0 - xalpha;
 			textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+				&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->objects[object.num].seen = 1;
 				if (env->editor.select && ((env->editor.tab

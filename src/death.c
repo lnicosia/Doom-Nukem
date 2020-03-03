@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 15:34:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 18:21:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,20 @@ int			respawn(void *param)
 	env->player.accuracy = 0;
 	env->player.health = env->player.init_data.health;
 	env->player.sector = env->player.init_data.sector;
+	free_camera(&env->player.camera, env);
 	env->player.camera = env->player.init_data.camera;
+	if (init_camera(&env->player.camera, env))
+		return (-1);
+	update_camera_position(&env->player.camera);
+	view(env);
 	respawn_entities(param);
 	init_weapons(env);
 	init_enemies_data(env);
 	init_objects_data(env);
 	init_animations(env);
-	env->player.highest_sect = find_highest_sector(env, new_motion(env->player.sector, env->player.size_2d, env->player.eyesight, env->player.pos));
+	env->player.highest_sect = find_highest_sector(env,
+	new_motion(env->player.sector, env->player.size_2d,
+	env->player.eyesight, env->player.pos));
 	update_player_z(env);
 	SDL_SetRelativeMouseMode(1);
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
