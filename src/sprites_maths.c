@@ -13,6 +13,32 @@
 #include "env.h"
 #include "render.h"
 
+/*
+** Returns the movement a sprite should do to go from the point origin
+** to the point destination with the given speed
+*/
+
+t_v3	sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination)
+{
+	Uint32	time;
+	t_v3	direction;
+	double  distance;
+
+	time = SDL_GetTicks() - env->time.milli_s;
+	speed *= time / 3;
+	direction.x = destination.x - origin.x;
+	direction.y = destination.y - origin.y;
+	direction.z = destination.z - origin.z;
+	if (direction.x == 0 && direction.y == 0 && direction.z == 0)
+		return (direction);
+	distance = sqrt(direction.x * direction.x + direction.y * direction.y
+		+ direction.z * direction.z);
+	direction.x = direction.x * speed / distance;
+	direction.y = direction.y * speed / distance;
+	direction.z = direction.z * speed / distance;
+	return (direction);
+}
+
 void	*get_object_relative_pos(void *param)
 {
 	t_env		*env;

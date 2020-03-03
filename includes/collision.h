@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/02 10:55:49 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 11:10:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ typedef struct	s_coll
 	int			sector;
 }				t_coll;
 
+typedef struct	s_ecoll
+{
+	t_v3		pos;
+	double		radius;
+	int			*enemy;
+	double		*nearest_dist;
+}				t_ecoll;
+
 typedef	struct	s_coll_addr
 {
 	t_motion	*motion;
@@ -74,6 +82,8 @@ typedef	struct	s_coll_addr
 
 t_coll				new_coll(int use, t_v3 bouelp);
 t_coll_addr			new_coll_addr(t_motion *motion, int *sector, int *vertex);
+t_ecoll				new_e_coll(double radius, t_v3 pos, double *near_dist,
+	int *enemy);
 t_coll				new_c(int sect, int vertex, t_motion motion);
 int					cross_portal(t_env *env, t_motion motion, int s, int v);
 t_v3				check_collision(t_env *env, t_v3 move, t_motion motion);
