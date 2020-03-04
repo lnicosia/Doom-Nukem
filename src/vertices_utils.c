@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:35:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 16:27:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:22:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		*get_vertex_sectors(t_env *env, int index)
 		{
 			if (env->sectors[i].vertices[j] == index)
 			{
-				if (!(sectors = (int *)ft_realloc(sectors,sizeof(int) * k, sizeof(int) * (k + 1))))
+				if (!(sectors = (int *)ft_realloc(sectors,sizeof(int) * k,
+					sizeof(int) * (k + 1))))
 					return (0);
 				sectors[k] = i;
 				k++;

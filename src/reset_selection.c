@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:22:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:05:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:37:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	reset_selection(t_env *env)
 	env->editor.dragged_player = -1;
 	env->editor.dragged_start_player = -1;
 	env->editor.event_panel_dragged = -1;
-	env->editor.start_vertex = -1;
 }
