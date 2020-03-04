@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 13:23:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 15:02:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		*get_sectors_list(t_env *env, int v1, int v2)
 			&& (env->sectors[i].vertices[env->sectors[i].nb_vertices - 1] == v2
 			|| env->sectors[i].vertices[j + 1] == v2)))
 			{
-				if (!(sectors = (int *)ft_realloc(sectors, sizeof(int) * k, sizeof(int) * (k + 1))))
+				if (!(sectors = (int *)ft_realloc(sectors,
+					sizeof(int) * k, sizeof(int) * (k + 1))))
 					return (0);
 				sectors[k] = i;
 				k++;

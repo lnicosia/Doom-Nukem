@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 15:43:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:20:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 		}	
 		i++;
 	}
+	ft_memdel((void**)&list_sectors);
 	return (1);
 }
 

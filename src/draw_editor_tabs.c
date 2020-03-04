@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:02:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:11:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,26 +92,6 @@ void	print_general_tab(t_env *env)
 		print_enemy_general_tab(env);
 	else if (env->editor.selected_vertex != -1)
 		print_vertices_general_tab(env);
-}
-
-int		print_vertex_informations(t_env *env)
-{
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "vertex %d", env->editor.selected_vertex);
-	print_text(new_point(450, 180), new_printable_text(env->snprintf,
-				env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	print_text(new_point(490, 50), new_printable_text("Coordinates:",
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "X: %.*f",
-	get_decimal_len(env->vertices[env->editor.selected_vertex].x),
-	env->vertices[env->editor.selected_vertex].x);
-	print_text(new_point(540, 80), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Y: %.*f",
-	get_decimal_len(env->vertices[env->editor.selected_vertex].y),
-	env->vertices[env->editor.selected_vertex].y);
-	print_text(new_point(580, 80), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0xFFFFFFFF, 30), env);
-	return (0);
 }
 
 int	draw_editor_tabs(t_env *env)

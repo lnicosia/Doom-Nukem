@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 12:27:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 14:53:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:41:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	free_wall_sprites(t_wall_sprites *wall_sprites, int sprite)
+void	free_wall_sprite_events(t_wall_sprites *wall_sprites, int sprite)
 {
 	if (wall_sprites->nb_shoot_events[sprite] > 0)
 		free_events(wall_sprites->shoot_events[sprite],
@@ -59,7 +59,9 @@ int		delete_wall_sprite(void *param)
 	sprite = env->selected_wall_sprite_sprite;
 	wall_sprites = &env->sectors[env->editor.selected_sector].
 	wall_sprites[env->selected_wall_sprite_wall];
-	free_wall_sprites(wall_sprites, sprite);
+	env->selected_wall_sprite_wall = -1;
+	env->selected_wall_sprite_sprite = -1;
+	free_wall_sprite_events(wall_sprites, sprite);
 	wall_sprites->sprite = (int*)ft_delindex(wall_sprites->sprite,
 	sizeof(int) * wall_sprites->nb_sprites,
 	sizeof(int), sizeof(int) * sprite);

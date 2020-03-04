@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 12:13:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:59:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1414,6 +1414,7 @@ void				free_all(t_env *env);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
 void				free_sector(t_sector *sector);
+void				free_wall_sprites(t_wall_sprites *wall);
 void				free_event(t_event *event);
 void				free_events(t_event *event, size_t size);
 
