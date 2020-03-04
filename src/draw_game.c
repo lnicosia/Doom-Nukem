@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 14:31:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 12:13:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 int	draw_render(t_camera *camera, t_env *env)
 {
 	if (draw_walls(camera, env))
-		return (crash("Failed to draw walls\n", env));
+		return (-1);
 	if (draw_objects(*camera, env))
 		return (-1);
 	if (draw_projectiles(*camera, env))
 		return (-1);
-	draw_explosions(*camera, env);
+	if (draw_explosions(*camera, env))
+		return (-1);
 	if (draw_enemies(*camera, env))
 		return (-1);
-	draw_players(*camera, env);
+	//if (draw_player(*camera, env))
+	//	return (-1);
 	return (0);
 }
 
@@ -32,7 +34,7 @@ int	draw_game(t_env *env)
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	env->test_time = SDL_GetTicks();
 	if (draw_render(&env->player.camera, env))
-		return (crash("Failed to draw render\n", env));
+		return (-1);
 	if (((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going) && !env->confirmation_box.state)
 		weapon_animation(env, env->player.curr_weapon);
 	else if (env->player.health > 0)

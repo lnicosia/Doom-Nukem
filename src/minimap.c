@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 13:51:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 12:09:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 	}
 }
 
-static void	draw_player(t_env *env)
+static void	draw_minimap_player(t_env *env)
 {
 	int		x;
 	int		y;
@@ -286,7 +286,7 @@ void		minimap(t_env *env)
 		s++;
 	}
 	draw_sprites_minimap(env);
-	draw_player(env);
+	draw_minimap_player(env);
 	/*int i = 0;
 	t_point	enemy_start;
 	t_point enemy_end;

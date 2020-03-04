@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/15 14:36:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:40:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		*explosion_loop(void *param)
 	return (NULL);
 }
 
-static void		threaded_explosion(t_explosion explosion, t_render_explosion erender, t_env *env)
+static int		threaded_explosion(t_explosion explosion, t_render_explosion erender, t_env *env)
 {
 	t_explosion_thread	pt[THREADS];
 	pthread_t			threads[THREADS];
@@ -79,14 +79,17 @@ static void		threaded_explosion(t_explosion explosion, t_render_explosion erende
 		pt[i].erender = erender;
 		pt[i].xstart = erender.xstart + (erender.xend - erender.xstart) / (double)THREADS * i;
 		pt[i].xend = erender.xstart + (erender.xend - erender.xstart) / (double)THREADS * (i + 1);
-		pthread_create(&threads[i], NULL, explosion_loop, &pt[i]);
+		if (pthread_create(&threads[i], NULL, explosion_loop, &pt[i]))
+			return (-1);
 		i++;
 	}
 	while (i-- > 0)
-		pthread_join(threads[i], NULL);
+		if (pthread_join(threads[i], NULL))
+			return (-1);
+	return (0);
 }
 
-void		draw_explosion(t_camera camera, t_explosion *explosion,
+int		draw_explosion(t_camera camera, t_explosion *explosion,
 t_env *env, int index)
 {
 	t_render_explosion	erender;
@@ -124,11 +127,13 @@ t_env *env, int index)
 	explosion->bottom = erender.yend;
 	erender.xrange = erender.x2 - erender.x1;
 	erender.yrange = erender.y2 - erender.y1;
-	threaded_explosion(*explosion, erender, env);
+	if (threaded_explosion(*explosion, erender, env))
+		return (-1);
+	return (0);
 }
 
 
-void		draw_explosions(t_camera camera, t_env *env)
+int		draw_explosions(t_camera camera, t_env *env)
 {
 	t_list			*tmp;
 	t_explosion		*explosion;
@@ -144,7 +149,8 @@ void		draw_explosions(t_camera camera, t_env *env)
 			sprite_index = explosion_animation(env, explosion, env->object_sprites[explosion->sprite].nb_death_sprites);
 			if (sprite_index >= 0)
 			{
-				draw_explosion(camera, explosion, env, sprite_index);
+				if (draw_explosion(camera, explosion, env, sprite_index))
+					return (-1);
 				tmp = tmp->next;
 			}
 			else
@@ -153,4 +159,5 @@ void		draw_explosions(t_camera camera, t_env *env)
 		else
 			tmp = tmp->next;
 	}
+	return (0);
 }
