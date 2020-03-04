@@ -104,6 +104,6 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 	}
 	else
 		return (missing_data("sectors, objects, enemies, events and player declaration",
-					parser));	
+					parser));
 	return (0);
 }

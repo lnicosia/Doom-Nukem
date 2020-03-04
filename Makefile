@@ -6,11 +6,11 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/03 14:26:54 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/04 16:35:01 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-GAME_NAME = Doom-nukem
+GAME_NAME = doom-nukem
 
 EDITOR_NAME = doom_editor
 
@@ -20,6 +20,10 @@ SRC_DIR = src
 OBJ_GAME_DIR = obj_game
 OBJ_EDITOR_DIR = obj_editor
 OBJ_ALL_DIR = obj_all
+FONTS_DIR = fonts
+MAPS_DIR = maps
+AUDIO_DIR = audio
+IMAGES_DIR = images
 INCLUDES_DIR = includes
 GAME_DIR = .
 EDITOR_DIR = .
@@ -119,7 +123,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		 add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		 update_entities.c editor_vertices_tab.c \
 		 editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		 write_resources.c write_textures.c \
+		 write_resources.c write_textures.c write_sounds.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -255,7 +259,6 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all:
-	@curl -L -o maps/simon_test.map "https://drive.google.com/uc?export=download&id=1yAXOvR6X7u6pcXbV1ur7BwQgLyT8cp25"
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -269,6 +272,15 @@ editor:
 	@make -C $(LIBFT_DIR) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
+resources: $(IMAGES_DIR)
+	@cp -rf /sgoinfre/goinfre/Perso/sipatry/images/ $(IMAGES_DIR)/
+	@cp -rf /sgoinfre/goinfre/Perso/sipatry/maps/ $(MAPS_DIR)/
+	@cp -rf /sgoinfre/goinfre/Perso/sipatry/fonts/ $(FONTS_DIR)/
+	@cp -rf /sgoinfre/goinfre/Perso/sipatry/audio/ $(AUDIO_DIR)/
+
+$(IMAGES_DIR):
+	@mkdir -p $(IMAGES_DIR) -j8
+	
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
 
@@ -312,6 +324,13 @@ clean:
 	@rm -Rf $(OBJ_GAME_DIR)
 	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 
+rclean:
+	@rm -Rf $(MAPS_DIR)
+	@rm -Rf $(IMAGES_DIR)
+	@rm -Rf $(FONTS_DIR)
+	@rm -Rf $(AUDIO_DIR)
+	@echo ${CYAN}"[INFO] Removed maps and images"${RESET}
+
 fclean:
 	@make fclean -C libft
 	@rm -Rf $(OBJ_ALL_DIR)
@@ -322,6 +341,6 @@ fclean:
 	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
 	@echo ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)"${RESET}
 
-re: fclean all
+re: fclean resources all
 
-.PHONY: fclean all clean libft
+.PHONY: fclean all clean libft resources maps

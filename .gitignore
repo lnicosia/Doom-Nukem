@@ -2,6 +2,9 @@
 src/*.swp
 *.swp
 
+# maps
+*.map
+
 # Prerequisites
 *.d
 

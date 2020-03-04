@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 11:56:29 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:37:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		parse_events(t_env *env, t_map_parser *parser)
 	init_events_parser(&eparser);
 	while ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
-		parser->tmp = parser->line;
+		parser->tmp = ft_strdup(parser->line);
 		parser->line_count++;
 		if (*(parser->line) == '[')
 		{

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/28 12:11:28 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 14:23:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
 # define NB_MUSICS 2
+# define NB_SOUNDS 3
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67

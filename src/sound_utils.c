@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 11:53:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/11 18:45:29 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:13:07 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		init_sound(t_env *env)
 		return (ft_printf("Could not Init fmod system\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)
-		return (ft_printf("Failed to load shotgun_shot.wav"));
+		return (ft_printf("Failed to load shotgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[1].shot) != FMOD_OK)
 		return (ft_printf("Failed to load raygun_shot.wav"));

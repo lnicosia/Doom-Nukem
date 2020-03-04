@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 17:17:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 17:03:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ int		valid_int(char *line, t_map_parser *parser)
 	{
 		if (*line == '-' && !nb_digits)
 			neg = 1;
-		if (nb_digits > 8 + neg)
+		else if (*line == '-' && nb_digits)
+			break;
+		if (nb_digits > 9 + neg)
 			return (ft_printf("Too many digits\n"));
 		nb_digits++;
 		line++;

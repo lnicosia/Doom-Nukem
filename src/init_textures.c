@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 10:38:02 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 09:31:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		init_wall_textures(t_env *env)
 	if (parse_bmp_wall_textures("images/textures/floor1.bmp", 5, env))
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp_wall_textures("images/textures/rust.bmp", 6, env))
-		return (ft_printf("Failed to load sprite sheet\n"));
+		return (ft_printf("Failed to load rust\n"));
 	if (parse_bmp_wall_textures("images/textures/black_tiles.bmp", 7, env))
 		return (ft_printf("Failed to load black_tiles\n"));
 	if (parse_bmp_wall_textures("images/textures/rock.bmp", 8, env))

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 16:47:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:52:30 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void		free_parser(t_env *env)
 	if (env->parser.resource_name)
 		ft_strdel(&(env->parser.resource_name));
 	if (env->parser.line)
-		ft_strdel(&(env->parser.line));
+		ft_memdel((void**)&(env->parser.line));
 }
 
 void		free_all(t_env *env)
