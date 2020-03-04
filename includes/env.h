@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 15:59:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:07:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
-	t_texture			mini_skyboxes[MAX_SKYBOX];
+	t_texture			mini_skyboxes[MAX_SKYBOX * 2];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
