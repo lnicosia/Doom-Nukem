@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 11:13:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 15:57:24 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1230,6 +1230,7 @@ t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
+int					init_gun(t_env *env);
 int					add_ceiling_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
 int					add_floor_bullet_hole(t_sector *sector,

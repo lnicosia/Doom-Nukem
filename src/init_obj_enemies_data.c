@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:10:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 13:37:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 50;	
 		}
-		else if (env->objects[i].sprite == 22) // explostion animation
+		else if (env->objects[i].sprite == 22) // explosion animation
 		{
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
@@ -362,11 +362,14 @@ void		init_objects_data(t_env *env)
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = SHOTGUN_SPRITE;
-			env->objects[i].health = 0;
+			env->objects[i].health = 1;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
 			env->objects[i].explodes = 0;
-			env->objects[i].type = DECORATION;
+			env->objects[i].type = WEAPON;
+			env->objects[i].weapon = SHOTGUN;
+			env->objects[i].ammo_type = SHELL;
+			env->objects[i].quantity = 15;
 			env->objects[i].damage = 0;	
 		}
 		else if (env->objects[i].sprite == 32) // Raygun sprite
@@ -374,11 +377,14 @@ void		init_objects_data(t_env *env)
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = RAYGUN_SPRITE;
-			env->objects[i].health = 0;
+			env->objects[i].health = 1;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
 			env->objects[i].explodes = 0;
-			env->objects[i].type = DECORATION;
+			env->objects[i].type = WEAPON;
+			env->objects[i].weapon = RAYGUN;
+			env->objects[i].ammo_type = ENERGY;
+			env->objects[i].quantity = 30;
 			env->objects[i].damage = 0;	
 		}
 		env->objects[i].size_2d = env->objects[i].scale

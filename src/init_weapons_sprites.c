@@ -65,3 +65,20 @@ int		init_raygun(t_env *env)
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }
+
+int		init_gun(t_env *env)
+{
+	if (parse_bmp("images/HUD/gun/gun_1.bmp", 40, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/gun/gun_2.bmp", 41, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/gun/gun_3.bmp", 42, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/gun/gun_4.bmp", 43, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/gun/gun_5.bmp", 44, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/gun/gun_6.bmp", 45, env))
+		return (ft_printf("Invalid bmp file\n"));
+	return (0);
+}

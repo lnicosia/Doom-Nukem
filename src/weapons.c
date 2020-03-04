@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/20 19:16:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:59:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int		weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 10)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;

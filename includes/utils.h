@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 10:49:28 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:39:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 40
+# define MAX_TEXTURES 46
 # define MAX_UI_TEXTURES 60
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 32
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define NB_WEAPONS 3
+# define NB_WEAPONS 4
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
 # define MAX_OBJECTS 23
@@ -150,6 +150,7 @@ typedef enum		e_object_type
 
 typedef enum		e_weapons_list
 {
+	GUN,
 	SHOTGUN,
 	RAYGUN,
 	BAZOOKA,

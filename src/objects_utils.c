@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:57:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/05 21:55:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:43:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void    objects_collision(t_env *env, t_v3 pos)
 			}
 			if (env->objects[i].type == WEAPON)
 			{
+				//ft_printf("weapon possessed ?\n");
 				if (!env->weapons[env->objects[i].weapon].possessed)
 				{
 					env->weapons[env->objects[i].weapon].possessed = 1;
