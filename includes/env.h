@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 11:20:36 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:13:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -913,7 +913,7 @@ void				reset_render_utils(t_camera *camera, t_env *env);
 int					init_screen_size(t_env *env);
 void				set_screen_size(t_env *env);
 void				init_weapons(t_env *env);
-int					init_sound(t_env *env);
+int					init_audio(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);

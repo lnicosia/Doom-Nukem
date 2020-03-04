@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:28:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:08:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	init_editor(int ac, char **av)
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
 		return (crash("Could not initialize SDL\n", &env));
-	if (init_sound(&env))
+	if (init_audio(&env))
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));

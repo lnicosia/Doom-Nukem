@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:48:32 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/22 16:26:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:52:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,13 @@ int     collision_projectiles(t_env *env, t_v3 move, t_motion motion)
         return (-3);
     while (i < env->sectors[motion.sector].nb_vertices)
     {
-        if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d)) && NEIGHBOR < 0)
+        if (env->sectors[motion.sector].neighbors[i] < 0
+			&& (intersection_check(new_v2(env->vertices[env->sectors[motion.sector].vertices[i]].x,
+			env->vertices[env->sectors[motion.sector].vertices[i]].y),
+			new_v2(env->vertices[env->sectors[motion.sector].vertices[i+ 1]].x, 
+			env->vertices[env->sectors[motion.sector].vertices[i + 1]].y),
+			new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x, motion.future.y))
+			|| hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2), new_v2(motion.future.x, motion.future.y), motion.size_2d)))
             return (i);
         i++;
     }

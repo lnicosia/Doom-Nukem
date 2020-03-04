@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 13:45:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:08:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		init_game(int ac, char **av)
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
-	if (init_sound(&env))
+	if (init_audio(&env))
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
