@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 11:06:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:31:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	write_player(int fd, t_env *env)
 	env->player.starting_pos.y,
 	ft_min(5, get_decimal_len(env->player.starting_pos.x)),
 	env->player.starting_pos.x,
-	(int)(env->player.player_init_data.camera.angle * CONVERT_DEGREES) % 360);
+	(int)(env->player.init_data.camera.angle) % 360);
 }

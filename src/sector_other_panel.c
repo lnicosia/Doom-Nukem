@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:22:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:49:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,19 @@
 
 int		set_sector_other_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == SECTOR_BRIGHTNESS)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == SECTOR_LIGHT_COLOR)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == SECTOR_INTENSITY)
-		panel->targets[2].state = DOWN;
+		down = 2;
 	else if (index == SECTOR_GRAVITY)
-		panel->targets[3].state = DOWN;
+		down = 3;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 

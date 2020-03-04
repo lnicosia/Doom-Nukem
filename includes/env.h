@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 15:57:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
-	t_texture			mini_skyboxes[MAX_SKYBOX];
+	t_texture			mini_skyboxes[MAX_SKYBOX * 2];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
@@ -515,6 +515,7 @@ int					check_true_false_input_box(void *penv);
 int					check_portal_input_box(void *penv);
 int					check_health_input_box(void *target);
 int					check_speed_input_box(void *target);
+int					check_angle_input_box(void *target);
 int					update_sector_input_box(void *penv);
 int					update_floor_sprite_scale_input_box(void *penv);
 int					update_ceiling_sprite_scale_input_box(void *penv);
@@ -584,6 +585,7 @@ int					change_ceiling_height(void *target);
 int					change_ceiling_slope(void *target);
 int					change_health(void *target);
 int					change_speed(void *target);
+int					change_angle(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
@@ -977,6 +979,7 @@ void				init_events_map(t_env *env);
 void				init_condition(t_condition *condition);
 void				init_trigger(t_event_trigger *trigger);
 void				init_target(t_event_target *target);
+void				save_init_data(t_env *env);
 
 /*
 **	Parser functions
@@ -1106,7 +1109,7 @@ void				draw_button(t_env *env, t_button b, char *str);
 */
 
 int					draw_walls(t_camera *camera, t_env *env);
-void				draw_explosions(t_camera camera, t_env *env);
+int					draw_explosions(t_camera camera, t_env *env);
 int					draw_projectiles(t_camera camera, t_env *env);
 int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
@@ -1119,7 +1122,7 @@ t_env *env);
 int					get_sprite_direction_projectile(t_projectile projectile);
 int					draw_objects(t_camera camera, t_env *env);
 int					draw_enemies(t_camera camera, t_env *env);
-int					draw_players(t_camera camera, t_env *env);
+int					draw_player(t_camera camera, t_v3 pos, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 int					keyup(t_env *env);
@@ -1412,6 +1415,7 @@ void				free_all(t_env *env);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
 void				free_sector(t_sector *sector);
+void				free_wall_sprites(t_wall_sprites *wall);
 void				free_event(t_event *event);
 void				free_events(t_event *event, size_t size);
 

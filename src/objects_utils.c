@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:57:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 16:43:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:11:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void    objects_collision(t_env *env, t_v3 pos)
 					if (env->weapons[j].ammo_type == env->objects[i].ammo_type && env->weapons[j].possessed && env->weapons[j].ammo < env->weapons[j].max_ammo)
 					{
 						env->weapons[j].ammo += env->objects[i].quantity;
-						env->weapons[j].ammo = (env->weapons[j].ammo > env->weapons[j].max_ammo) ? 
-							env->weapons[j].max_ammo : env->weapons[j].ammo;
+						env->weapons[j].ammo =
+						(env->weapons[j].ammo > env->weapons[j].max_ammo) ? 
+						env->weapons[j].max_ammo : env->weapons[j].ammo;
 						env->objects[i].exists = 0;
 					}
 					j++;

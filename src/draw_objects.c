@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:13:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 14:24:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,20 @@ static void		*object_loop(void *param)
 	y = orender.ystart;
 	yend = orender.yend;
 	sector = env->sectors[object.sector];
+	//ft_printf("drawing sprite %d\n", object.sprite);
 	while (++y < yend)
 	{
 		yalpha = (y - orender.y1) / orender.yrange;
 		texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
 		x = ((t_object_thread*)param)->xstart;
-		while (x <= xend)
+		while (x < xend)
 		{
 			xalpha = (x - orender.x1) / orender.xrange;
 			if (sprite.reversed[orender.index])
 				xalpha = 1.0 - xalpha;
 			textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+				&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->objects[object.num].seen = 1;
 				if (env->editor.select && ((env->editor.tab
@@ -260,7 +261,7 @@ int			draw_objects(t_camera camera, t_env *env)
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 		{
 			env->objects[i].seen = 0;
-			if (!env->editor.in_game
+			if (!env->editor.in_game && env->objects[i].destructible == 1
 				&& env->objects[i].health <= 0 && env->objects[i].exists)
 			{
 				if (env->object_sprites[env->objects[i].sprite].
@@ -272,8 +273,7 @@ int			draw_objects(t_camera camera, t_env *env)
 					env->objects[i].sprite = env->object_sprites[env->
 					objects[i].sprite].death_counterpart;
 			}
-			if (!env->editor.in_game
-				&& env->objects[i].exists && env->objects[i].nb_rest_state > 1)
+			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
 				object_anim_loop(env, i);
 			if (env->objects[i].exists)
 				if (draw_object(camera, &env->objects[i], env, death_sprite))

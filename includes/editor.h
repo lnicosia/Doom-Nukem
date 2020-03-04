@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 13:46:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_var_g
 	t_button		pos_z;
 	t_button		health;
 	t_button		armor;
+	t_button		angle;
 	t_button		speed;
 	t_button		scale;
 	t_button		damage;
@@ -130,6 +131,7 @@ typedef struct	s_var_g
 	t_button_tab	t_pos_z;
 	t_button_tab	t_health;
 	t_button_tab	t_armor;
+	t_button_tab	t_angle;
 	t_button_tab	t_speed;
 	t_button_tab	t_scale;
 	t_button_tab	t_damage;
@@ -390,6 +392,7 @@ typedef struct	s_editor
 	int					creating_launch_condition;
 	int					creating_exec_condition;
 	int					selecting_event;
+	int					just_selected;
 	t_point				texture_selection_size;
 	t_point				object_selection_size;
 	t_point				enemy_selection_size;

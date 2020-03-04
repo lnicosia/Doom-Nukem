@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 11:16:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:04:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ int		init_mini_skyboxes_selection(t_env *env)
 	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery"
 		".bmp", 2, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight_128.bmp", 3, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight_128.bmp",
+		3, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula_128.bmp", 4, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula_128.bmp", 4,
+		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery_128.bmp", 5, env))
+	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery"
+		"_128.bmp", 5, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
 }

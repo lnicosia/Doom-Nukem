@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 14:13:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 15:56:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -603,20 +603,20 @@ t_map_parser *parser)
 			= (t_v2*)ft_memalloc(sizeof(t_v2)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
-		if (!(env->sectors[parser->sectors_count].wall_sprites[i].press_events
-			= (t_event**)ft_memalloc(sizeof(t_event*)
-			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-			return (-1);
-		if (!(env->sectors[parser->sectors_count].wall_sprites[i].shoot_events
-			= (t_event**)ft_memalloc(sizeof(t_event*)
-			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].
 			nb_shoot_events = (size_t*)ft_memalloc(sizeof(size_t)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		if (!(env->sectors[parser->sectors_count].wall_sprites[i].
 			nb_press_events = (size_t*)ft_memalloc(sizeof(size_t)
+			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].wall_sprites[i].press_events
+			= (t_event**)ft_memalloc(sizeof(t_event*)
+			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
+			return (-1);
+		if (!(env->sectors[parser->sectors_count].wall_sprites[i].shoot_events
+			= (t_event**)ft_memalloc(sizeof(t_event*)
 			* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
 			return (-1);
 		j = 0;

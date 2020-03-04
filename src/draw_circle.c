@@ -1,18 +1,19 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_circle.c									  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/25 11:21:41 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2019/09/19 15:32:18 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_circle.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/04 17:01:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/03/04 17:01:58 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-t_circle	new_circle(Uint32 line_color, Uint32 color, t_point center, int radius)
+t_circle	new_circle(Uint32 line_color, Uint32 color, t_point center,
+		int radius)
 {
 	t_circle	new;
 

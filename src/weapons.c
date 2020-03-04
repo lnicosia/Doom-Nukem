@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 16:59:04 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:11:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,14 @@ int		weapon_animation(t_env *env, int nb)
 	{
 		env->shot.on_going = 1;
 		env->shot.start = SDL_GetTicks();
-		if (env->weapons[nb].ammo > 0)
+		if (env->weapons[nb].ammo > 0 || env->player.infinite_ammo)
 		{
 			if (shot(env))
 				return (-1);
 			play_sound(env, &env->sound.player_shots_chan, env->weapons[nb].shot,
 				env->sound.ambient_vol);
-			env->weapons[nb].ammo--;
+			if (!env->player.infinite_ammo)
+				env->weapons[nb].ammo--;
 		}
 	}
 	if (env->weapons[nb].ammo)

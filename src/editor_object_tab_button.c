@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:54:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:18:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:28:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,8 @@ void	init_object_general_buttons(t_env *env)
 	&change_object_damage, &env->editor.hud.g_object.t_damage, env);
 	env->editor.hud.g_object.damage.pos = new_point(250, 640);
 	env->editor.hud.g_object.t_damage.pos = new_point(250, 640);
+	env->editor.hud.g_object.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_object.t_angle, env);
+	env->editor.hud.g_object.angle.pos = new_point(250, 680);
+	env->editor.hud.g_object.t_angle.pos = new_point(250, 680);
 }

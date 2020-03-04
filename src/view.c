@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:15:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/07 13:50:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:51:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	view(t_env *env)
 	env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);
 	env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
 	update_camera_position(&env->player.camera);
-	env->player.camera.angle_z = ft_fclamp(env->player.camera.angle_z + env->sdl.mouse_y * 0.005, -1, 1.5);
+	env->player.camera.angle_z =
+	ft_fclamp(env->player.camera.angle_z + env->sdl.mouse_y * 0.005, -1, 1.5);
 	env->player.camera.angle_z_cos = cos(env->player.camera.angle_z);
 	env->player.camera.angle_z_sin = sin(env->player.camera.angle_z);
-	env->player.camera.horizon = env->h_h - env->player.camera.angle_z * env->player.camera.scale;
+	env->player.camera.horizon =
+	env->h_h - env->player.camera.angle_z * env->player.camera.scale;
 }

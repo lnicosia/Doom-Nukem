@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 16:39:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:14:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@
 # define MAX_TEXTURES 46
 # define MAX_UI_TEXTURES 60
 # define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 32
+# define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 4
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 23
+# define MAX_OBJECTS 24
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -72,6 +72,7 @@
 # define SHOTGUN_SPRITE 31
 # define RAYGUN_SPRITE 32
 # define NB_MUSICS 3
+# define DOOM_GUY 33
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
@@ -594,7 +595,7 @@ typedef struct		s_player
 	t_v3			starting_pos;
 	t_v3			old_pos;
 	t_camera		camera;
-	t_init_data		player_init_data;
+	t_init_data		init_data;
 	Uint32			start_move;
 	int				moving;
 	int				stuck;
@@ -944,7 +945,7 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
-	t_init_data		object_init_data;
+	t_init_data		init_data;
 	int				left;
 	int				right;
 	int				top;
@@ -993,7 +994,7 @@ typedef struct		s_enemy
 	t_v2			far_right;
 	t_v2			left_arm;
 	t_v2			right_arm;
-	t_init_data		enemies_init_data;
+	t_init_data		init_data;
 	int				firing_type;
 	int				type;
 	int				behavior;

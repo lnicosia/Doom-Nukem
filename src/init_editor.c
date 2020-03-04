@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 11:08:19 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int	init_editor(int ac, char **av)
 	init_print_condition_target_data(&env);
 	init_event_links_types(&env);
 	init_print_link_target_data(&env);
-	init_objects_data(&env);
-	init_enemies_data(&env);
 	if (!(env.snprintf = ft_strnew(SNPRINTF_SIZE)))
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
@@ -138,6 +136,8 @@ int	init_editor(int ac, char **av)
 	}
 	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
 		return (crash("Could not malloc sector list\n", &env));
+	view(&env);
+	update_camera_position(&env.player.camera);
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init camera\n", &env));
 	if (init_skybox(&env))

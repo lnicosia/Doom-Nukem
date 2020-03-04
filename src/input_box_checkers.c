@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 13:54:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:39:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,18 @@ int		check_speed_input_box(void *penv)
 	env = (t_env*)penv;
 	value = ft_atof(env->input_box.str);
 	if (value < 0 || value > 100)
+		return (1);
+	return (0);
+}
+
+int		check_angle_input_box(void *penv)
+{
+	double	value;
+	t_env	*env;
+
+	env = (t_env*)penv;
+	value = ft_atof(env->input_box.str);
+	if (value < 0 || value > 360)
 		return (1);
 	return (0);
 }

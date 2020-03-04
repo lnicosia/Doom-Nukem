@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:40:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 14:05:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int		general_keyup(t_env *env)
 	if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons_up(env))
 		return (-1);
 	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons_up(env))
+		return (-1);
+	if (env->editor.selected_start_player != -1 && player_buttons_up(env))
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:22:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:51:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,27 @@
 
 int		set_enemy_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+	
+	down = 0;
 	if (index == ENEMY_SPRITE)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == ENEMY_X)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == ENEMY_Y)
-		panel->targets[2].state = DOWN;
+		down = 2;
 	else if (index == ENEMY_Z)
-		panel->targets[3].state = DOWN;
+		down = 3;
 	else if (index == ENEMY_SCALE)
-		panel->targets[4].state = DOWN;
+		down = 4;
 	else if (index == ENEMY_SPEED)
-		panel->targets[5].state = DOWN;
+		down = 5;
 	else if (index == ENEMY_DAMAGE)
-		panel->targets[6].state = DOWN;
+		down = 6;
 	else if (index == ENEMY_HP)
-		panel->targets[7].state = DOWN;
+		down = 7;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 

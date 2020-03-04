@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/16 14:58:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:01:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ int		explosion_collision_player(t_env *env)
 			{
 				env->player.hit = 1;
 				damage = aoe_damage(distance, ((t_explosion*)tmp->content)->radius, ((t_explosion*)tmp->content)->damage);
-				env->player.health -= ft_clamp(damage - env->player.armor, 0, damage);
-				env->player.armor -= ft_clamp(damage, 0, env->player.armor);
+				if (!env->player.invincible)
+				{
+					env->player.health -=
+					ft_clamp(damage - env->player.armor, 0, damage);
+					env->player.armor -=
+					ft_clamp(damage, 0, env->player.armor);
+				}
 			}
 			((t_explosion*)tmp->content)->damage_burst = 0;
 			env->nb_explosions--;

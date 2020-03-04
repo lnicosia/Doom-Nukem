@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 11:20:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:28:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,13 @@ int		print_object_general_tab(t_env *env)
 	env->editor.hud.g_object.t_damage.target =
 	&env->objects[env->selected_object].damage;
 	draw_button(env, env->editor.hud.g_object.damage, env->snprintf);
+	print_text(new_point(680, 60), new_printable_text("Angle: ",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->objects[env->selected_object].angle),
+	env->objects[env->selected_object].angle);
+	env->editor.hud.g_object.t_angle.target =
+	&env->objects[env->selected_object].angle;
+	draw_button(env, env->editor.hud.g_object.angle, env->snprintf);
 	return (0);
 }

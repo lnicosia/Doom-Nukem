@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 11:08:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 #include "collision.h"
 #include "wall_sprite_modifier.h"
 #include "events_conditions.h"
-
-void	save_init_data(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (i < env->nb_enemies)
-	{
-		env->enemies[i].enemies_init_data.pos = env->enemies[i].pos;
-		env->enemies[i].enemies_init_data.health = env->enemies[i].health;
-		env->enemies[i].enemies_init_data.sector = env->enemies[i].sector;
-		env->enemies[i].enemies_init_data.angle = env->enemies[i].angle;
-		env->enemies[i].enemies_init_data.main_sprite = env->enemies[i].main_sprite;
-		i++;
-	}
-	env->player.player_init_data.pos = env->player.pos;
-	env->player.player_init_data.health = env->player.health;
-	env->player.player_init_data.sector = env->player.sector;
-	env->player.player_init_data.camera = env->player.camera;
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		env->objects[i].object_init_data.main_sprite = env->objects[i].main_sprite;
-		env->objects[i].object_init_data.pos = env->objects[i].pos;
-		env->objects[i].object_init_data.sector = env->objects[i].sector;
-		env->objects[i].object_init_data.angle = env->objects[i].angle;
-		i++;
-	}
-}
 
 void	set_enemies_hp(t_env *env)
 {
@@ -132,6 +103,7 @@ int		init_game(int ac, char **av)
 		i++;
 	}
 	set_enemies_hp(&env);
+	save_init_data(&env);
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
@@ -155,7 +127,6 @@ int		init_game(int ac, char **av)
 	env.fixed_camera.angle_z_cos = cos(env.fixed_camera.angle_z);
 	env.fixed_camera.angle_z_sin = sin(env.fixed_camera.angle_z);
 	update_camera_position(&env.fixed_camera);
-	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
 	env.player.highest_sect = find_highest_sector(&env, new_motion(env.player.sector, env.player.size_2d,
 		env.player.eyesight, env.player.pos));
