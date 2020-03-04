@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 18:21:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:17:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void		respawn_entities(void *param)
 	env = (t_env *)param;
 	while (i < env->nb_enemies)
 	{
-		env->enemies[i].pos = env->enemies[i].enemies_init_data.pos;
-		env->enemies[i].health = env->enemies[i].enemies_init_data.health;
-		env->enemies[i].sector = env->enemies[i].enemies_init_data.sector;
-		env->enemies[i].angle = env->enemies[i].enemies_init_data.angle;
+		env->enemies[i].pos = env->enemies[i].init_data.pos;
+		env->enemies[i].health = env->enemies[i].init_data.health;
+		env->enemies[i].sector = env->enemies[i].init_data.sector;
+		env->enemies[i].angle = env->enemies[i].init_data.angle;
 		env->enemies[i].sprite = env->enemies[i].main_sprite;
 		env->enemies[i].saw_player = 0;
 		i++;
@@ -34,9 +34,9 @@ void		respawn_entities(void *param)
 	while (i < env->nb_objects)
 	{
 		env->objects[i].sprite = env->objects[i].main_sprite;
-		env->objects[i].pos = env->objects[i].object_init_data.pos;
-		env->objects[i].sector = env->objects[i].object_init_data.sector;
-		env->objects[i].angle = env->objects[i].object_init_data.angle;
+		env->objects[i].pos = env->objects[i].init_data.pos;
+		env->objects[i].sector = env->objects[i].init_data.sector;
+		env->objects[i].angle = env->objects[i].init_data.angle;
 		i++;
 	}
 }

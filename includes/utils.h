@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:33:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:16:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -942,7 +942,7 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
-	t_init_data		object_init_data;
+	t_init_data		init_data;
 	int				left;
 	int				right;
 	int				top;
@@ -991,7 +991,7 @@ typedef struct		s_enemy
 	t_v2			far_right;
 	t_v2			left_arm;
 	t_v2			right_arm;
-	t_init_data		enemies_init_data;
+	t_init_data		init_data;
 	int				firing_type;
 	int				type;
 	int				behavior;

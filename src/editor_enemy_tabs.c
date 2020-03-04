@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:55:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 12:12:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:27:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,17 @@ int		print_enemy_general_tab(t_env *env)
 	print_text(new_point(680, 60), new_printable_text("Damage: ",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->enemies[env->selected_enemy].damage,
 	env->enemies[env->selected_enemy].damage);
 	env->editor.hud.g_enemy.t_damage.target =
 	&env->enemies[env->selected_enemy].damage;
 	draw_button(env, env->editor.hud.g_enemy.damage, env->snprintf);
+	print_text(new_point(720, 60), new_printable_text("Angle: ",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->enemies[env->selected_enemy].angle),
+	env->enemies[env->selected_enemy].angle);
+	env->editor.hud.g_enemy.t_angle.target =
+	&env->enemies[env->selected_enemy].angle;
+	draw_button(env, env->editor.hud.g_enemy.angle, env->snprintf);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:55:32 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 15:42:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:19:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	enemy_buttons(t_env *env)
 		if (button_keys(&env->editor.hud.g_enemy.scale, env))
 			return (-1);
 		if (button_keys(&env->editor.hud.g_enemy.damage, env))
+			return (-1);
+		if (button_keys(&env->editor.hud.g_enemy.angle, env))
 			return (-1);
 	}
 	return (0);
