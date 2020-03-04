@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 16:22:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 09:46:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int	init_editor(int ac, char **av)
 	init_print_condition_target_data(&env);
 	init_event_links_types(&env);
 	init_print_link_target_data(&env);
-	init_objects_data(&env);
-	init_enemies_data(&env);
 	if (!(env.snprintf = ft_strnew(SNPRINTF_SIZE)))
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
