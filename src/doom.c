@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 10:31:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:05:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,22 @@ int		launch_events(t_env *env)
 	return (0);
 }
 
+int		first_frame(t_env *env)
+{
+	reset_clipped(env);
+	clear_image(env);
+	while (SDL_PollEvent(&env->sdl.event))
+	{
+	}
+	if (draw_game(env))
+		return (-1);
+	return (0);
+}
+
 int		doom(t_env *env)
 {
+	if (env->in_game && !env->menu && !env->option && first_frame(env))
+		return (crash("First frame failed\n", env));
 	while (env->running)
 	{
 		//env->player.health = 100;
