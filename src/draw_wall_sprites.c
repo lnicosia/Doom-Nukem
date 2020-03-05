@@ -6,15 +6,15 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 18:58:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:50:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
-		t_env *env)
+int	draw_vline_sprite(int sprite, t_sector sector, t_render render,
+t_env *env)
 {
 	int	i;
 	int	coord;
@@ -64,6 +64,16 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 				|| (!env->editor.tab && render.x == env->h_w
 				&& i == env->h_h)))
 			{
+				if (env->shooting && render.z <= env->weapons[env->player.
+					curr_weapon].range
+					&& start_event(&env->sectors[sector.num].
+					wall_sprites[render.i].shoot_events[sprite],
+					&env->sectors[sector.num].wall_sprites[render.i].
+					nb_shoot_events[sprite], env))
+				{
+					env->fatal_error = 1;
+					return (0);
+				}
 				if (env->editor.select)
 				{
 					reset_selection(env);
@@ -75,7 +85,7 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 					tabs_gestion(env);
 				}
 				if (env->playing
-						&& sector.wall_sprites[render.i].nb_press_events[sprite])
+					&& sector.wall_sprites[render.i].nb_press_events[sprite])
 				{
 					if (render.z < 10)
 					{
@@ -120,9 +130,10 @@ void	draw_vline_sprite(int sprite, t_sector sector, t_render render,
 			zbuffer[coord] = render.z;
 		}
 	}
+	return (0);
 }
 
-void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
+int		draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 {
 	int		i;
 	t_point		start;
@@ -153,4 +164,5 @@ void	draw_wall_sprites(t_sector sector, t_render render, t_env *env)
 		}
 		i++;
 	}
+	return (0);
 }

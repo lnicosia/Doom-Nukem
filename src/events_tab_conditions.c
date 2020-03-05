@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:35:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 09:20:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:36:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			check_sprites_nb_events(t_env *env, int sector, size_t nb)
 		&& env->sectors[sector].wall_sprites[env->
 		selected_wall_sprite_wall].nb_press_events[env->
 		selected_wall_sprite_sprite] > nb)
-		|| (env->editor.selected_events == 0
+		|| (env->editor.selected_events == 1
 		&& env->sectors[sector].wall_sprites[env->
 		selected_wall_sprite_wall].nb_shoot_events[env->
 		selected_wall_sprite_sprite] > nb)))

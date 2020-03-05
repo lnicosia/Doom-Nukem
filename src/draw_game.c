@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 12:13:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:18:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	draw_render(t_camera *camera, t_env *env)
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	env->test_time = SDL_GetTicks();
 	if (draw_render(&env->player.camera, env))
 		return (-1);
+	env->shooting = 0;
+	env->test_time = SDL_GetTicks();
 	if (((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going) && !env->confirmation_box.state)
 		weapon_animation(env, env->player.curr_weapon);
 	else if (env->player.health > 0)

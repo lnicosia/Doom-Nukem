@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 10:10:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:25:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct		s_env
 	int					nb_enemies;
 	int					*ymax;
 	int					*ymin;
+	int					shooting;
 	t_point				minimap_pos;
 	t_point				minimap_size;
 	t_point				crosshair_pos;

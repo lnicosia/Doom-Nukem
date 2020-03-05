@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 18:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:18:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		shot(t_env *env)
 	}
 	else
 	{
+		env->shooting = 1;
 		while (i < env->nb_enemies)
 		{
 			if (hitscan_enemies(env, i) == 1)

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 09:46:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:20:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,36 +106,6 @@ void		free_sector(t_sector *sector)
 		j = 0;
 		while (j < sector->nb_vertices)
 		{
-			/*if (sector->wall_sprites[j].sprite)
-				ft_memdel((void**)&sector->wall_sprites[j].sprite);
-			if (sector->wall_sprites[j].pos)
-				ft_memdel((void**)&sector->wall_sprites[j].pos);
-			if (sector->wall_sprites[j].scale)
-				ft_memdel((void**)&sector->wall_sprites[j].scale);
-			if (sector->wall_sprites[j].shoot_events)
-			{
-				i = 0;
-				while (i < sector->wall_sprites[j].nb_sprites)
-				{
-					if (sector->wall_sprites[j].shoot_events[i])
-						ft_memdel((void**)&sector->wall_sprites[j].shoot_events[i]);
-					i++;
-				}
-			}
-			if (sector->wall_sprites[j].press_events)
-			{
-				i = 0;
-				while (i < sector->wall_sprites[j].nb_sprites)
-				{
-					if (sector->wall_sprites[j].press_events[i])
-						ft_memdel((void**)&sector->wall_sprites[j].press_events[i]);
-					i++;
-				}
-			}
-			if (sector->wall_sprites[j].nb_shoot_events)
-				ft_memdel((void**)&sector->wall_sprites[j].nb_shoot_events);
-			if (sector->wall_sprites[j].nb_press_events)
-				ft_memdel((void**)&sector->wall_sprites[j].nb_press_events);*/
 			free_wall_sprites(&sector->wall_sprites[j]);
 			j++;
 		}

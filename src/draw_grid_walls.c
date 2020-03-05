@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 10:13:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:20:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	i = 0;
 	center = new_point(0, 0);
 	nb_angles = 0;
-	//ft_printf("drawing sector %d\n", sector.num);
-	//ft_printf("%d vertices\n", sector.nb_vertices);
 	while (i < sector.nb_vertices - 1)
 	{
 		v[0].x = env->editor.center.x +
