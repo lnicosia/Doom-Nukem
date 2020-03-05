@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:52:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 11:43:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 12:01:12 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	write_object(int fd, t_object object, t_env *env)
 			ft_min(5, get_decimal_len(object.angle)),
 			object.angle);
 	ft_dprintf(fd, "[%d %.*f]\n",
-			get_main_sprite(object.sprite, env),
+			get_main_sprite(object.main_sprite, env),
 			ft_min(5, get_decimal_len(object.scale)),
 			object.scale);
 }
