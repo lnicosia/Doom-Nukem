@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:10:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1130,6 +1130,7 @@ int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 int					get_angle(t_point p[3]);
+int					count_sector_angles(t_sector *sector, t_env *env);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,

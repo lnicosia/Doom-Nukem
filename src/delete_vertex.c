@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:10:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 09:28:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 09:58:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int		delete_vertex(void *param)
 		i++;
 	}
 	if (delete_linked_events(env))
+		return (-1);
+	if (update_entities_sectors(env))
 		return (-1);
 	env->editor.selected_vertex = -1;
 	return (0);

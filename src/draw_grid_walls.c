@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:51:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:13:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,40 @@ TTF_Font	*get_correct_font(int size, t_env *env)
 		return (env->sdl.fonts.lato_black50);
 }
 
+int		count_sector_angles(t_sector *sector, t_env *env)
+{
+	int		i;
+	int		count;
+	t_point	v[3];
+
+	i = 0;
+	v[0] = new_point(0, 0);
+	v[1] = new_point(0, 0);
+	v[2] = new_point(0, 0);
+	count = 0;
+	while (i < sector->nb_vertices - 1)
+	{
+		v[0].x = env->vertices[sector->vertices[i]].x;
+		v[0].y = env->vertices[sector->vertices[i]].y;
+		v[1].x = env->vertices[sector->vertices[i + 1]].x;
+		v[1].y = env->vertices[sector->vertices[i + 1]].y;
+		v[2].x = env->vertices[sector->vertices[i + 2]].x;
+		v[2].y = env->vertices[sector->vertices[i + 2]].y;
+		if (get_angle(v))
+			count++;
+		i++;
+	}
+	v[0].x = env->vertices[sector->vertices[i]].x;
+	v[0].y = env->vertices[sector->vertices[i]].y;
+	v[1].x = env->vertices[sector->vertices[0]].x;
+	v[1].y = env->vertices[sector->vertices[0]].y;
+	v[2].x = env->vertices[sector->vertices[1]].x;
+	v[2].y = env->vertices[sector->vertices[1]].y;
+	if (get_angle(v))
+		count++;
+	return (count);
+}
+
 void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 {
 	int			i;
@@ -79,6 +113,8 @@ void	draw_grid_sector(t_sector sector, Uint32 color, t_env *env)
 	i = 0;
 	center = new_point(0, 0);
 	nb_angles = 0;
+	//ft_printf("drawing sector %d\n", sector.num);
+	//ft_printf("%d vertices\n", sector.nb_vertices);
 	while (i < sector.nb_vertices - 1)
 	{
 		v[0].x = env->editor.center.x +
