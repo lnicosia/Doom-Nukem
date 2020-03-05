@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 09:31:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:28:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load shotgun textures\n"));
 	if (init_raygun(env))
 		return (ft_printf("Failed to load raygun textures\n"));
+	if (init_gun(env))
+		return (ft_printf("Failed to load gun textures\n"));
 	if (parse_bmp("images/sprites/sprite_sheet.bmp", 22, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/sprites/lost_soul.bmp", 23, env))
@@ -125,7 +127,15 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/sprites/objects_sprites.bmp", 34, env))
 		return (ft_printf("Failed to load object sprites\n"));
 	if (parse_bmp("images/sprites/bullet_hole.bmp", 35, env))
-		return (ft_printf("Failed to load object sprites\n"));
+		return (ft_printf("Failed to load bullet hole sprite\n"));
+	if (parse_bmp("images/sprites/doom_guy.bmp", 36, env))
+		return (ft_printf("Failed to load doom guy sprite\n"));
+	if (parse_bmp("images/sprites/doom_guy_face.bmp", 37, env))
+		return (ft_printf("Failed to load doom guy face sprite\n"));
+	if (parse_bmp("images/sprites/camera.bmp", 38, env))
+		return (ft_printf("Failed to load camera sprite\n"));
+	if (parse_bmp("images/sprites/raygun.bmp", 39, env))
+		return (ft_printf("Failed to load raygun sprite\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));
 	return (0);

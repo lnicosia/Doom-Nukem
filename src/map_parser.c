@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:53:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 17:04:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:25:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,10 @@ int		parse_map(char *file, t_env *env)
 		return (custom_error("Error while parsing creatures"));
 	if (parse_events(env, &(env->parser)))
 		return (custom_error("Error while parsing events"));
+	if (parse_ambient_music(env, &(env->parser)))
+		return (custom_error("Error while parsing ambient music"));
+	if (parse_fight_music(env, &(env->parser)))
+		return (custom_error("Error while parsing combat music"));
 	if (parse_player(env, &(env->parser)))
 		return (custom_error("Error while parsing player data"));
 	if (env->player.sector == -1)

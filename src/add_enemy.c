@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 11:22:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:13:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int	add_enemy(t_env *env)
 	update_enemy(env, env->nb_enemies);
 	env->nb_enemies++;
 	env->editor.add_enemy.state = UP;
+	init_enemies_data(env);
 	return (0);
 }

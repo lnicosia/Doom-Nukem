@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_condition_functions2.c                :+:      :+:    :+:   */
+/*   print_condition_functions2.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 19:27:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:44:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_point pos, int size)
 		font = env->sdl.fonts.lato20;
 	else
 		font = env->sdl.fonts.lato15;
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Weapon %d %s %s %.*f",
-	condition->weapon, env->event_types[condition->target_index],
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%s's %s %s %.*f",
+	env->weapons[condition->weapon].name,
+	env->event_types[condition->target_index],
 	get_condition_type_str(condition), get_decimal_len(condition->value),
 	condition->value);
 	/*print_text(pos, new_printable_text(env->snprintf,

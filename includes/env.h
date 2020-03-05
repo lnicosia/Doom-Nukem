@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:39:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:51:00 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ typedef struct		s_env
 	t_texture			sprite_textures[MAX_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
-	t_texture			mini_enemies_textures[MAX_MONSTER_MINI];
-	t_texture			mini_objects_textures[MAX_OBJECTS];
-	t_texture			mini_skyboxes[MAX_SKYBOX];
+	t_texture			mini_skyboxes[MAX_SKYBOX * 2];
 	t_weapons			weapons[NB_WEAPONS];
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
@@ -388,6 +386,7 @@ int					update_t_list_tab(int index, int size, t_list ***tab);
 int					update_t_wall_sprite_tab(int index, int size, t_wall_sprites **tab);
 void				texture_tab(t_env *env, int nb_slots);
 void				enemy_tab(t_env *env, int nb_slots);
+void				object_tab(t_env *env, int nb_slots);
 void				sprite_selection(t_env *env, int nb_slots);
 int					is_mouse_on_a_wall(t_env *env);
 int					editor_mode_button(t_env *env);
@@ -533,9 +532,15 @@ int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
-int					is_mouse_on_a_wall(t_env *env);
-int					check_sector(t_sector sector, t_env *env);
-void				check_sector_order(t_env *env);
+int					editor_left_click_up(t_env *env);
+int					is_point_in_rectangle(t_point point, t_point pos,
+t_point size);
+int					is_mouse_on_texture_selection_tab(t_env *env);
+int					is_mouse_on_object_selection_tab(t_env *env);
+int					is_mouse_on_enemy_selection_tab(t_env *env);
+int					is_mouse_on_wall_sprite_selection_tab(t_env *env);
+int					is_mouse_on_any_selection_tab(t_env *env);
+
 
 /*
 **	Input boxes checkers and updaters
@@ -557,6 +562,7 @@ int					check_true_false_input_box(void *penv);
 int					check_portal_input_box(void *penv);
 int					check_health_input_box(void *target);
 int					check_speed_input_box(void *target);
+int					check_angle_input_box(void *target);
 int					update_sector_input_box(void *penv);
 int					update_floor_sprite_scale_input_box(void *penv);
 int					update_ceiling_sprite_scale_input_box(void *penv);
@@ -579,6 +585,7 @@ int					check_texture_scale(t_env *env, t_v2 *scale);
 int					nothing(void *target);
 int					save_texture(void *target);
 int					save_enemy(void *target);
+int					save_object(void *target);
 int					save_sprite(void *target);
 int					add_enemy_button(void *target);
 int					add_sprite(void *target);
@@ -594,7 +601,10 @@ int					save_enemy(void *target);
 int					add_enemy_button(void *target);
 int					add_object_button(void *target);
 int					events_tab(void *target);
+int					open_texture_selection(void *param);
+void				enemy_selection(t_env *env);
 int					open_enemy_selection(void *param);
+int					open_object_selection(void *param);
 int					open_wall_sprite_selection(void *param);
 int					update_ceiling_sprite_arrays(t_env *env);
 int					update_floor_sprite_arrays(t_env *env);
@@ -622,11 +632,15 @@ int					change_ceiling_height(void *target);
 int					change_ceiling_slope(void *target);
 int					change_health(void *target);
 int					change_speed(void *target);
+int					change_angle(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
 void				change_ceiling_floor_height_keyup(t_env *env);
 void				check_height_protections(t_env *env, t_sector *sector);
+int 				get_main_enemy_sprite(int sprite, t_env *env);
+int					parse_ambient_music(t_env *env, t_map_parser *parser);
+int					parse_fight_music(t_env *env, t_map_parser *parser);
 
 /*
 **	editor save functions
@@ -935,6 +949,11 @@ void				reset_target_selection(t_target_panel *panel);
 int					new_event_panel_value_box(t_input_box *box,
 int type, void *target, t_env *env);
 int					close_event_panel(void *param);
+int					draw_weapon_picker(t_env *env);
+void				init_weapon_picker(t_env *env);
+int					weapon_picker_keys(t_env *env);
+int					weapon_picker_keyup(t_env *env);
+int					is_mouse_on_weapon_picker(t_env *env);
 
 /*
 ** Main functions
@@ -952,7 +971,7 @@ void				reset_render_utils(t_camera *camera, t_env *env);
 int					init_screen_size(t_env *env);
 void				set_screen_size(t_env *env);
 void				init_weapons(t_env *env);
-int					init_sound(t_env *env);
+int					init_audio(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
 int					init_sdl(t_env *env);
@@ -1016,6 +1035,7 @@ void				init_events_map(t_env *env);
 void				init_condition(t_condition *condition);
 void				init_trigger(t_event_trigger *trigger);
 void				init_target(t_event_target *target);
+void				save_init_data(t_env *env);
 
 /*
 **	Parser functions
@@ -1052,6 +1072,14 @@ t_printable_text	new_printable_text(
 int					print_text(t_point pos,
 				t_printable_text text, t_env *env);
 void				apply_surface(SDL_Surface *surface,
+				t_point pos, t_point size, t_env *env);
+void				apply_image(t_texture texture,
+				t_point pos, t_point size, t_env *env);
+void				apply_image_selected(t_texture texture,
+				t_point pos, t_point size, t_env *env);
+void				apply_sprite(t_sprite sprite,
+				t_point pos, t_point size, t_env *env);
+void				apply_sprite_selected(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
 void				print_press_text(t_env *env);
 void				fps(t_env *e);
@@ -1137,7 +1165,7 @@ void				draw_button(t_env *env, t_button b, char *str);
 */
 
 int					draw_walls(t_camera *camera, t_env *env);
-void				draw_explosions(t_camera camera, t_env *env);
+int					draw_explosions(t_camera camera, t_env *env);
 int					draw_projectiles(t_camera camera, t_env *env);
 int					draw_projectile_both(t_camera camera, t_projectile *p,
 t_env *env);
@@ -1150,13 +1178,14 @@ t_env *env);
 int					get_sprite_direction_projectile(t_projectile projectile);
 int					draw_objects(t_camera camera, t_env *env);
 int					draw_enemies(t_camera camera, t_env *env);
-int					draw_players(t_camera camera, t_env *env);
+int					draw_player(t_camera camera, t_v3 pos, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
+int					get_angle(t_point p[3]);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,
@@ -1260,6 +1289,7 @@ t_point				get_button_current_size(t_button b);
 int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
+int					init_gun(t_env *env);
 int					add_ceiling_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
 int					add_floor_bullet_hole(t_sector *sector,
@@ -1309,14 +1339,27 @@ int					option_menu_keys(t_env *env);
 size_t				get_decimal_len(double nb);
 size_t				get_double_len(double nb);
 int					win(void *param, void *penv);
+int					event_target_exists(t_event *event, t_env *env);
+int					event_target_exists0(t_event *event, t_env *env);
+int					event_target_exists1(t_event *event, t_env *env);
+int					event_target_exists2(t_event *event, t_env *env);
+int					event_target_exists3(t_event *event, t_env *env);
+int					event_target_exists4(t_event *event, t_env *env);
+int					event_target_exists5(t_event *event, t_env *env);
+int					event_target_exists6(t_event *event, t_env *env);
+int					condition_target_exists(t_condition *condition,
+t_env *env);
+void				check_sector_order(t_env *env);
+int					check_sector(t_sector sector, t_env *env);
 
 /*
 ** enemies functions
 */
 
 void				draw_grid_enemies(t_env *env);
-void				enemy_selection(t_env *env);
+void				enemy_drag(t_env *env);
 void				enemy_ai(t_env *env);
+void				update_enemy_angle(t_env *env, int nb);
 void				damage_anim(t_env *env);
 int					enemy_hurt(t_env *env, int i);
 void				resting_enemy(t_env *env, int i);
@@ -1326,6 +1369,22 @@ int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
 int					draw_enemy(t_camera camera, t_enemy *enemy, t_env *env,
 						int death_sprite);
+double				enemy_sight(t_env *env, int i, int shot_flag);
+int					check_segment_in_sector(t_env *env, t_v2 enemy,
+	t_v2 player, int sector);
+void				enemy_far_left_right(t_env *env, int nb);
+void				update_enemy_pos(t_env *env, int nb, t_v3 move);
+void				damage_player(t_env *env, int damage);
+double				enemy_angle_z(t_env *env, int i);
+int					direction_of_point(t_v2 a, t_v2 b, t_v2 p);
+void				relative_pos(int direction, int *left, int *right);
+int					check_sect(t_env *env, int *sect, int *vertex,
+	t_segment enemy_player);
+t_segment			new_segment(t_v2 p1, t_v2 p2);
+t_segment			new_wall_segment(t_env *env, int sector, int vertex);
+int					enemy_collision_event(t_env *env, int i);
+int					enemy_collision_player(t_env *env, int i);
+int					enemy_is_seeing_player(t_env *env, int i);
 
 /*
 ** objects functions
@@ -1353,9 +1412,9 @@ t_env *env);
 int					start_event_free(t_event **events, size_t *size,
 t_env *env);
 int					check_launch_conditions(t_event *event, t_condition *tab,
-size_t nb);
+size_t nb, t_env *env);
 int					check_exec_conditions(t_event *event, t_condition *tab,
-size_t nb);
+size_t nb, t_env *env);
 t_event_param		new_event_param(int num, double equ_value,
 double diff_value);
 t_event_param		empty_event_param(void);
@@ -1414,6 +1473,7 @@ void				free_all(t_env *env);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
 void				free_sector(t_sector *sector);
+void				free_wall_sprites(t_wall_sprites *wall);
 void				free_event(t_event *event);
 void				free_events(t_event *event, size_t size);
 

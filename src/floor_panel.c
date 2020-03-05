@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 16:21:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:48:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,25 @@
 
 int		set_floor_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == SECTOR_FLOOR_HEIGHT)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == SECTOR_FLOOR_TEXTURE)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == SECTOR_FLOOR_SLOPE)
-		panel->targets[2].state = DOWN;
+		down = 2;
 	else if (index == SECTOR_FLOOR_ALIGN_X)
-		panel->targets[3].state = DOWN;
+		down = 3;
 	else if (index == SECTOR_FLOOR_ALIGN_Y)
-		panel->targets[4].state = DOWN;
+		down = 4;
 	else if (index == SECTOR_FLOOR_SCALE_X)
-		panel->targets[5].state = DOWN;
+		down = 5;
 	else if (index == SECTOR_FLOOR_SCALE_Y)
-		panel->targets[6].state = DOWN;
+		down = 6;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 

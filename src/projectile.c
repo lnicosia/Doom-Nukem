@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/20 19:16:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:07:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,19 @@ int		projectiles_movement(t_env *env)
 						new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
 						projectile->size_2d))
 			{
-				env->player.hit = 1;
-				env->player.health -= ft_clamp(projectile->damage - env->player.armor, 0, projectile->damage);
-				env->player.armor -= ft_clamp(projectile->damage, 0, env->player.armor);
+				if (!env->player.invincible)
+				{
+					env->player.hit = 1;
+					env->player.health -= ft_clamp(projectile->damage
+					- env->player.armor, 0, projectile->damage);
+					env->player.armor -= ft_clamp(projectile->damage,
+					0, env->player.armor);
+				}
 				tmp = ft_lstdelnode(&env->projectiles, tmp);
 				continue ;
 			}
 			collision = collision_projectiles(env, move,
-					new_movement(projectile->sector, projectile->size_2d,
+					new_motion(projectile->sector, projectile->size_2d,
 						0, projectile->pos));
 			if (collision == -1)
 			{

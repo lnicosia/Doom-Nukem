@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 14:23:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:33:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 36
+# define MAX_TEXTURES 46
 # define MAX_UI_TEXTURES 60
-# define MAX_MONSTER_MINI 14
-# define MAX_OBJECT_SPRITES 28
+# define MAX_MONSTER_MINI 2
+# define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define NB_WEAPONS 3
+# define NB_WEAPONS 4
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 19
+# define MAX_OBJECTS 24
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -67,8 +67,13 @@
 # define BULLET_HOLE 26
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
-# define NB_MUSICS 2
+# define NB_MUSICS 3
 # define NB_SOUNDS 3
+# define DOOM_GUY_FACE 29
+# define CAMERA_SPRITE 30
+# define SHOTGUN_SPRITE 31
+# define RAYGUN_SPRITE 32
+# define DOOM_GUY 33
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
@@ -147,6 +152,7 @@ typedef enum		e_object_type
 
 typedef enum		e_weapons_list
 {
+	GUN,
 	SHOTGUN,
 	RAYGUN,
 	BAZOOKA,
@@ -303,7 +309,6 @@ typedef struct		s_render_vertex
 	double			y0z1;
 	double			y1z0;
 	double			yzrange;
-	t_event_trigger	*triggers;
 }					t_render_vertex;
 
 /*
@@ -598,7 +603,7 @@ typedef struct		s_player
 	t_v3			starting_pos;
 	t_v3			old_pos;
 	t_camera		camera;
-	t_init_data		player_init_data;
+	t_init_data		init_data;
 	Uint32			start_move;
 	int				moving;
 	int				stuck;
@@ -782,14 +787,15 @@ typedef struct		s_sound
 {
 	double			music_vol;
 	double			ambient_vol;
-	double			current_music;
+	int				ambient_music;
+	int				fight_music;
 	FMOD_SYSTEM		*system;
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
 	FMOD_CHANNEL	*player_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
-	t_music_list	musics[2];
+	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
 }					t_sound;
 
@@ -843,6 +849,8 @@ typedef struct		s_animation
 
 typedef struct		s_weapons
 {
+	t_sprite		sprite;
+	char			*name;
 	int				possessed;
 	int				first_sprite;
 	int				nb_sprites;
@@ -945,7 +953,7 @@ typedef struct		s_object
 	t_v3			pos;
 	t_v3			translated_pos;
 	t_v3			rotated_pos;
-	t_init_data		object_init_data;
+	t_init_data		init_data;
 	int				left;
 	int				right;
 	int				top;
@@ -994,7 +1002,7 @@ typedef struct		s_enemy
 	t_v2			far_right;
 	t_v2			left_arm;
 	t_v2			right_arm;
-	t_init_data		enemies_init_data;
+	t_init_data		init_data;
 	int				firing_type;
 	int				type;
 	int				behavior;

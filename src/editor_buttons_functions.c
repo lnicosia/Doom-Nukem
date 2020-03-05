@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:10:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:30:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:38:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,5 +292,18 @@ int		change_speed(void *param)
 	new_input_var(&env->input_box, button->pos, button->type, button->target);
 	env->input_box.check = &check_speed_input_box;
 	env->input_box.error_message = "Error: speed must be between 0 and 100";
+	return (0);
+}
+
+int		change_angle(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab*)param;
+	env = button->env;
+	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	env->input_box.check = &check_angle_input_box;
+	env->input_box.error_message = "Error: angle must be between 0 and 360";
 	return (0);
 }

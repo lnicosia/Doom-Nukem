@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:32:35 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 13:28:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:53:21 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		update_entities_sectors(t_env *env)
 	i = 0;
 	env->player.sector = get_sector_no_z(env, env->player.pos);
 	env->player.highest_sect = find_highest_sector(env,
-		new_movement(env->player.sector, env->player.size_2d,
+		new_motion(env->player.sector, env->player.size_2d,
 		env->player.eyesight, env->player.pos));
 	while (i < env->nb_enemies)
 	{

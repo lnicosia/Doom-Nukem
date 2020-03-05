@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:14:02 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 15:58:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:25:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	new_tabs_position(t_env *env)
 	}
 	if (env->editor.selected_wall != -1 || env->selected_enemy != -1
 		|| env->selected_object != -1 || env->selected_floor != -1
-		|| env->selected_ceiling != -1 || env->editor.selected_starting_player != -1)
+		|| env->selected_ceiling != -1
+		|| env->editor.selected_start_player != -1)
 	{
 		env->editor.events_tab.pos.x = 258;
 		env->editor.general_tab.pos.x = 20;

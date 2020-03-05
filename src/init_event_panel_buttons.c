@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:03:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 22:15:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:39:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,5 @@ void	init_event_panel_buttons(t_env *env)
 	init_action_panel_buttons(env);
 	init_conditions_tabs_buttons(env);
 	init_condition_panel_buttons(env);
+	init_weapon_picker(env);
 }

@@ -357,8 +357,8 @@ int		count_wall_sprites(char *line, t_map_parser *parser)
 		i++;
 	}
 	if (i > 5)
-		return (sector_error("Can't exceed 30 sprites", parser->sectors_count,
-		parser));
+		return (sector_error("wall can't exceed 30 sprites",
+		parser->sectors_count, parser));
 	return (i);
 }
 
@@ -387,8 +387,8 @@ int		count_sprites(char *line, t_map_parser *parser)
 			open++;
 			count++;
 			if (count > parser->sector_vertices_count)
-				return (sector_error("Can't exceed %d sprites", parser->sector_vertices_count,
-				parser));
+				return (sector_error("can't exceed %d sprites",
+				parser->sector_vertices_count, parser));
 		}
 		if (*line == '}')
 		{
@@ -421,8 +421,8 @@ int		count_floor_sprites(char *line, t_map_parser *parser)
 		i++;
 	}
 	if (i > 5)
-		return (sector_error("Can't exceed 5 sprites", parser->sectors_count,
-		parser));
+		return (sector_error("can't exceed 5 floor or ceiling sprites",
+		parser->sectors_count, parser));
 	return (i);
 }
 

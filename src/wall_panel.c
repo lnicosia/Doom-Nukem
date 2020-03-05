@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 09:49:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:52:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,23 @@
 
 int		set_wall_panel_buttons_state(t_target_panel *panel, int index)
 {
+	int		down;
+
+	down = 0;
 	if (index == SECTOR_WALL_TEXTURE)
-		panel->targets[0].state = DOWN;
+		down = 0;
 	else if (index == SECTOR_WALL_PORTAL)
-		panel->targets[1].state = DOWN;
+		down = 1;
 	else if (index == SECTOR_WALL_ALIGN_X)
-		panel->targets[2].state = DOWN;
+		down = 2;
 	else if (index == SECTOR_WALL_ALIGN_Y)
-		panel->targets[3].state = DOWN;
+		down = 3;
 	else if (index == SECTOR_WALL_SCALE_X)
-		panel->targets[4].state = DOWN;
+		down = 4;
 	else if (index == SECTOR_WALL_SCALE_Y)
-		panel->targets[5].state = DOWN;
+		down = 5;
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
 	return (0);
 }
 
@@ -43,7 +48,7 @@ int		select_wall(void *param)
 		panel = &env->editor.event_panel.target_panel;
 	panel->wall_type = 1;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;

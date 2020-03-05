@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:58:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/04 17:15:35 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 11:18:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,8 @@ void	init_enemy_general_buttons(t_env *env)
 	&change_enemy_damage, &env->editor.hud.g_enemy.t_damage, env);
 	env->editor.hud.g_enemy.damage.pos = new_point(250, 680);
 	env->editor.hud.g_enemy.t_damage.pos = new_point(250, 680);
+	env->editor.hud.g_enemy.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_enemy.t_angle, env);
+	env->editor.hud.g_enemy.angle.pos = new_point(250, 720);
+	env->editor.hud.g_enemy.t_angle.pos = new_point(250, 720);
 }

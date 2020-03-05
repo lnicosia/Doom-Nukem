@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 11:43:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/26 13:36:33 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:10:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		*get_sectors_list(t_env *env, int v1, int v2)
 			&& (env->sectors[i].vertices[env->sectors[i].nb_vertices - 1] == v2
 			|| env->sectors[i].vertices[j + 1] == v2)))
 			{
-				if (!(sectors = (int *)ft_realloc(sectors, sizeof(int) * k, sizeof(int) * (k + 1))))
+				if (!(sectors = (int *)ft_realloc(sectors,
+					sizeof(int) * k, sizeof(int) * (k + 1))))
 					return (0);
 				sectors[k] = i;
 				k++;
@@ -295,6 +296,8 @@ int     modify_sector(t_env *env, int sector)
 			if (modify_neighbors(env, j, sector))
 				return (-1);
 			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].portals))
+				return (-1);
+			if (modify_int_tab_in_sector(env, j, sector, &env->sectors[sector].selected))
 				return (-1);
 			if (modify_double_tab_in_sector(env, j, sector, &env->sectors[sector].floors))
 				return (-1);

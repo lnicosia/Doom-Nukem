@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 13:49:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 14:05:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ int		general_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
+	if (button_keyup(&env->editor.current_texture_selection, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_object_selection, env))
+		return (-1);
 	if (button_keyup(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keyup(&env->editor.events_tab, env))
@@ -92,10 +98,12 @@ int		general_keyup(t_env *env)
 		return (-1);
 	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons_up(env))
 		return (-1);
+	if (env->editor.selected_start_player != -1 && player_buttons_up(env))
+		return (-1);
 	return (0);
 }
 
-void		editor_options_tab_keyup(t_env *env)
+void	editor_options_tab_keyup(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_l)
 		env->options.lighting = env->options.lighting ? 0 : 1;

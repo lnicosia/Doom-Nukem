@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/19 13:32:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:28:31 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int		return_button_func(void	*target)
 	env = (t_env*)target;
 	env->option = 0;
 	if (env->in_game)
-	{
-		ft_printf("return_button\n");
 		SDL_SetRelativeMouseMode(1);
-	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:17:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,6 @@ int		parse_sound(t_env *env, t_map_parser *parser)
 		return (ft_printf("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
 		return (ft_printf("Read for sound failed\n"));
-	if (parser->ret != size)
-		return (ft_printf("size in the map and real size of the sound are differents\n"));
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->tmp));
 	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
@@ -234,8 +232,8 @@ int		parse_resources(t_env *env, t_map_parser *parser)
 {
 	if (map_parse_textures(env, parser))
 		return (ft_printf("Error while parsing map textures\n"));
-	if (map_parser_sprites(env, parser))
-		return (ft_printf("Error while parsing map sprites\n"));
+/*	if (map_parser_sprites(env, parser))
+		return (ft_printf("Error while parsing map sprites\n"));*/
 	if (map_parse_sounds(env, parser))
 		return (ft_printf("Error while parsing map sounds\n"));
 	return (0);

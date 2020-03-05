@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:22:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:55:05 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:24:56 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	reset_selection(t_env *env)
 	env->editor.selected_vertex = -1;
 	env->editor.selected_sector = -1;
 	env->editor.selected_player = -1;
-	env->editor.selected_starting_player = -1;
+	env->editor.selected_start_player = -1;
 	env->editor.selected_wall = -1;
 	env->selected_wall_sprite_sprite = -1;
 	env->selected_wall_sprite_wall = -1;
@@ -40,5 +40,4 @@ void	reset_selection(t_env *env)
 	env->editor.dragged_player = -1;
 	env->editor.dragged_start_player = -1;
 	env->editor.event_panel_dragged = -1;
-	env->editor.start_vertex = -1;
 }

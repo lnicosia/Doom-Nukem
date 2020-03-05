@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:55:03 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 09:34:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:29:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,7 @@ void	init_object_general_env(t_env *env)
 	env->editor.hud.g_object.t_damage.env = env;
 	env->editor.hud.g_object.t_damage.pos = new_point(0, 0);
 	env->editor.hud.g_object.t_damage.type = INT;
+	env->editor.hud.g_object.t_angle.env = env;
+	env->editor.hud.g_object.t_angle.pos = new_point(0, 0);
+	env->editor.hud.g_object.t_angle.type = DOUBLE;
 }

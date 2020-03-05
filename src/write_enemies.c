@@ -12,7 +12,7 @@
 
 #include "save.h"
 
-static int	get_main_enemy_sprite(int sprite, t_env *env)
+int			get_main_enemy_sprite(int sprite, t_env *env)
 {
 	int		i;
 

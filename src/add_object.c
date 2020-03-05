@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:42:42 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/28 18:24:24 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:33:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	add_object(t_env *env)
 	object.num = env->nb_objects;
 	object.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
 	object.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	object.sprite = env->objects_main_sprites[0];
+	object.sprite = env->editor.current_object;
 	object.scale = 2;
 	object.angle = 0;
 	object.exists = 1;
@@ -41,7 +41,9 @@ int	add_object(t_env *env)
 		object.intensity = 0;
 		object.pos.z = 0;
 	}
-	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object) * env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
+	if (!(env->objects = (t_object*)ft_realloc(env->objects,
+		sizeof(t_object) * env->nb_objects, sizeof(t_object)
+		* (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	if (!(env->player.colliding_objects = (int*)ft_realloc(env->player.colliding_objects, sizeof(int) * env->nb_objects, sizeof(int) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
@@ -49,5 +51,6 @@ int	add_object(t_env *env)
 	env->editor.create_object = 0;
 	env->editor.add_object.state = UP;
 	env->nb_objects++;
+	init_objects_data(env);
 	return (0);
 }

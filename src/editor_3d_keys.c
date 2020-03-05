@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:39:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:23:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int		editor_3d_keys(t_env *env)
 	if (wall_edit_keys(env))
 		return (-1);
 	if (check_move_player_conditions(env))
-		move_player(env);
+	{
+		if (move_player(env))
+			return (-1);
+	}
 	if (env->editor.in_game && env->inputs.right_click)
 	{
 		reset_selection(env);
@@ -93,6 +96,12 @@ int		editor_3d_keys(t_env *env)
 			env->inputs.s = 0;
 			env->inputs.ctrl = 0;
 		}
+	}
+	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
+		&& !env->confirmation_box.state)
+	{
+		if (weapon_picker_keys(env))
+			return (-1);
 	}
 	if (env->confirmation_box.state)
 	{

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:46:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 14:24:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ static void		*object_loop(void *param)
 	y = orender.ystart;
 	yend = orender.yend;
 	sector = env->sectors[object.sector];
-	while (++y <= yend)
+	//ft_printf("drawing sprite %d\n", object.sprite);
+	while (++y < yend)
 	{
 		yalpha = (y - orender.y1) / orender.yrange;
 		texty = (1.0 - yalpha) * sprite.start[orender.index].y + yalpha * sprite.end[orender.index].y;
@@ -116,7 +117,7 @@ static void		*object_loop(void *param)
 				xalpha = 1.0 - xalpha;
 			textx = (1.0 - xalpha) * sprite.start[orender.index].x + xalpha * sprite.end[orender.index].x;
 			if ((object.rotated_pos.z < zbuffer[x + y * env->w]
-						&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
+				&& texture_pixels[textx + texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->objects[object.num].seen = 1;
 				if (env->editor.select && ((env->editor.tab
@@ -260,12 +261,17 @@ int			draw_objects(t_camera camera, t_env *env)
 		if (env->objects[i].rotated_pos.z > 1 && env->objects[i].exists)
 		{
 			env->objects[i].seen = 0;
-			if (env->objects[i].health <= 0 && env->objects[i].exists)
+			if (!env->editor.in_game && env->objects[i].destructible == 1
+				&& env->objects[i].health <= 0 && env->objects[i].exists)
 			{
-				if (env->object_sprites[env->objects[i].sprite].nb_death_sprites > 1)
-					death_sprite = object_destruction(env, i, env->object_sprites[env->objects[i].sprite].nb_death_sprites);
+				if (env->object_sprites[env->objects[i].sprite].
+					nb_death_sprites > 1)
+					death_sprite = object_destruction(env, i,
+					env->object_sprites[env->objects[i].sprite].
+					nb_death_sprites);
 				else
-					env->objects[i].sprite = env->object_sprites[env->objects[i].sprite].death_counterpart;
+					env->objects[i].sprite = env->object_sprites[env->
+					objects[i].sprite].death_counterpart;
 			}
 			if (env->objects[i].exists && env->objects[i].nb_rest_state > 1)
 				object_anim_loop(env, i);

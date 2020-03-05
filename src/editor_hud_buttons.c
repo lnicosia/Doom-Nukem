@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:52:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 15:39:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:32:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		launch_game(void *target)
 	char	**tmp;
 	char	*map_name;
 	t_v3	tmp_pos;
+	double	tmp_angle;
 
 	env = (t_env*)target;
 	if (env->editor.creating_event)
@@ -38,6 +39,9 @@ int		launch_game(void *target)
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
 	ft_strdel(&(env->save_file));
+	tmp_angle = env->player.init_data.camera.angle;
+	env->player.init_data.camera.angle =
+	env->player.camera.angle * CONVERT_DEGREES;
 	env->save_file  = ft_strdup("maps/tmp.map");
 	if (save_map(env))
 	{
@@ -64,6 +68,7 @@ int		launch_game(void *target)
 	ft_strdel(&map_name);
 	ft_strdel(&tmp[0]);
 	ft_strdel(&tmp[1]);
+	env->player.init_data.camera.angle = tmp_angle;
 	return (0);
 }
 
@@ -141,9 +146,8 @@ int	next_ambiance_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music < NB_MUSICS - 1)
-		env->sound.current_music++;
-	env->editor.ambiance_music = env->sound.current_music;
+	if (env->sound.ambient_music < NB_MUSICS - 1)
+		env->sound.ambient_music++;
 	return (0);
 }
 
@@ -152,9 +156,8 @@ int	previous_ambiance_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music > 0)
-		env->sound.current_music--;
-	env->editor.ambiance_music = env->sound.current_music;
+	if (env->sound.ambient_music > 0)
+		env->sound.ambient_music--;
 	return (0);
 }
 
@@ -163,9 +166,8 @@ int	next_fighting_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music < NB_MUSICS - 1)
-		env->sound.current_music++;
-	env->editor.fighting_music = env->sound.current_music;
+	if (env->sound.fight_music < NB_MUSICS - 1)
+		env->sound.fight_music++;
 	return (0);
 }
 
@@ -174,8 +176,7 @@ int	previous_fighting_music(void *target)
 	t_env	*env;
 
 	env = (t_env *)target;
-	if (env->sound.current_music > 0)
-		env->sound.current_music--;
-	env->editor.fighting_music = env->sound.current_music;
+	if (env->sound.fight_music > 0)
+		env->sound.fight_music--;
 	return (0);
 }

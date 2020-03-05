@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/09 13:55:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 19:02:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,58 +92,6 @@ void	update_screen_zbuffer(t_env *env)
 	}
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
 	SDL_RenderPresent(env->sdl.renderer);
-}
-
-/*
-**	Copy a surface into our main texture
-**	TODO Protection
-**	ex: si size depasse la taille de la surface
-*/
-
-void	apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
-{
-	int				x;
-	int				y;
-	Uint32			*pixels;
-	Uint32			pixel;
-	SDL_PixelFormat	*fmt;
-	Uint32			*texture_pixels;
-
-	texture_pixels = env->sdl.texture_pixels;
-	size.x = ft_min(size.x, surface->w);
-	size.y = ft_min(size.y, surface->h);
-	if (!surface)
-	{
-		ft_printf("apply_surface error: surface is NULL\n");
-		return ;
-	}
-	pixels = (Uint32*)surface->pixels;
-	fmt = surface->format;
-	y = 0;
-	while (y < size.y)
-	{
-		x = 0;
-		while (x < size.x) 
-		{
-			pixel = pixels[x + surface->w * y];
-			//if (surface == env->ui_textures[0].surface)
-				//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-					&&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-			texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-				(Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-				| (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-				| (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-				| (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
-			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h
-				&& pixel != 0xFFC10099)
-			{
-				texture_pixels[pos.y + x + env->w * (pos.x + y)] = blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel, (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
-			}
-			x++;
-		}
-		y++;
-	}
 }
 
 void	draw_axes(t_env *env)

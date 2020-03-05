@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 15:08:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:20:36 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_var_g
 	t_button		pos_z;
 	t_button		health;
 	t_button		armor;
+	t_button		angle;
 	t_button		speed;
 	t_button		scale;
 	t_button		damage;
@@ -130,6 +131,7 @@ typedef struct	s_var_g
 	t_button_tab	t_pos_z;
 	t_button_tab	t_health;
 	t_button_tab	t_armor;
+	t_button_tab	t_angle;
 	t_button_tab	t_speed;
 	t_button_tab	t_scale;
 	t_button_tab	t_damage;
@@ -292,6 +294,16 @@ typedef struct	s_select_event_panel
 	t_button	death;
 }				t_select_event_panel;
 
+typedef struct	s_weapon_picker
+{
+	t_point		pos;
+	t_point		size;
+	t_button	next;
+	t_button	previous;
+	t_button	ok;
+	t_button	cancel;
+}				t_weapon_picker;
+
 typedef struct	s_condition_panel
 {
 	t_button				condition_tab;
@@ -326,7 +338,7 @@ typedef struct	s_editor
 	int					split_sector;
 	int					selected_sector;
 	int					selected_player;
-	int					selected_starting_player;
+	int					selected_start_player;
 	int					selected_vertex;
 	int					selected_weapon;
 	int					selected_wall;
@@ -344,7 +356,9 @@ typedef struct	s_editor
 	int					select_portal;
 	int					current_texture;
 	int					current_enemy;
+	int					current_object;
 	int					current_sprite;
+	int					current_weapon;
 	int					selected_events;
 	size_t				selected_event;
 	size_t				selected_launch_condition;
@@ -357,6 +371,7 @@ typedef struct	s_editor
 	int					reverted;
 	int					in_game;
 	int					enter_locked;
+	int					click_locked;
 	t_add_vertex		add;
 	t_split				split;
 	int					select_vertex_on_going;
@@ -371,13 +386,25 @@ typedef struct	s_editor
 	int					event_panel_dragged;
 	int					selecting_target;
 	int					selecting_condition_target;
+	int					selecting_weapon;
+	int					selecting_condition_weapon;
 	int					creating_condition;
 	int					creating_launch_condition;
 	int					creating_exec_condition;
 	int					selecting_event;
+	int					just_selected;
+	t_point				texture_selection_size;
+	t_point				object_selection_size;
+	t_point				enemy_selection_size;
+	t_point				wall_sprite_selection_size;
+	t_point				texture_selection_pos;
+	t_point				object_selection_pos;
+	t_point				enemy_selection_pos;
+	t_point				wall_sprite_selection_pos;
 	t_texture			miniature;
 	t_button			current_texture_selection;
 	t_button			current_enemy_selection;
+	t_button			current_object_selection;
 	t_button			change_mode;
 	t_button			save;
 	t_button			launch_game;
@@ -391,6 +418,7 @@ typedef struct	s_editor
 	t_button			textures[MAX_WALL_TEXTURE];
 	t_button			skyboxes[MAX_SKYBOX + MAX_SKYBOX];
 	t_button			enemy_tab[MAX_MONSTER_MINI];
+	t_button			object_tab[MAX_OBJECTS];
 	t_button			add_enemy;
 	t_button			add_object;
 	t_button_next		next_sprite_env;
@@ -419,6 +447,7 @@ typedef struct	s_editor
 	t_button			create_event_button;
 	t_event_panel		event_panel;
 	t_condition_panel	condition_panel;
+	t_weapon_picker		weapon_picker;
 	t_button			new_event;
 	t_button			modify_event;
 	t_button			delete_event;
@@ -428,8 +457,6 @@ typedef struct	s_editor
 	t_button			next_fighting_music;
 	t_button			previous_fighting_music;
 	int					texture_tab;
-	int					ambiance_music;
-	int					fighting_music;
 	t_list				*events_to_delete;
 }				t_editor;
 

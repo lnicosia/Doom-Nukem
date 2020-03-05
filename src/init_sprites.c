@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/30 11:02:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 14:22:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -546,7 +546,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[27].firing_sprite = 2;
 	env->object_sprites[27].rest_sprite = 27;
 	env->object_sprites[27].curr_sprite = 0;
-	env->object_sprites[27].oriented = 1;
+	env->object_sprites[27].oriented = 0;
 	env->object_sprites[27].nb_death_sprites = 6;
 	env->object_sprites[27].start[0].x = 44;
 	env->object_sprites[27].start[0].y = 120;
@@ -563,7 +563,7 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[28].firing_sprite = 9;
 	env->object_sprites[28].rest_sprite = 28;
 	env->object_sprites[28].curr_sprite = 5;
-	env->object_sprites[28].oriented = 1;
+	env->object_sprites[28].oriented = 0;
 	env->object_sprites[28].nb_death_sprites = 8;
 	env->object_sprites[28].start[0].x = 44;
 	env->object_sprites[28].start[0].y = 33;
@@ -573,7 +573,119 @@ int			init_object_sprites(t_env *env)
 	env->object_sprites[28].size[0].y = 108;
 	env->object_sprites[28].reversed[0] = 0;
 
+	// Doom guy face
+	env->object_sprites[29].texture = 37;
+	env->object_sprites[29].oriented = 0;
+	env->object_sprites[29].start[0].x = 40;
+	env->object_sprites[29].start[0].y = 13;
+	env->object_sprites[29].end[0].x = 64;
+	env->object_sprites[29].end[0].y = 42;
+	env->object_sprites[29].size[0].x = 24;
+	env->object_sprites[29].size[0].y = 29;
+	env->object_sprites[29].reversed[0] = 0;
 
+	// Camera sprite
+	env->object_sprites[30].texture = 38;
+	env->object_sprites[30].oriented = 0;
+	env->object_sprites[30].start[0].x = 0;
+	env->object_sprites[30].start[0].y = 0;
+	env->object_sprites[30].end[0].x = 431;
+	env->object_sprites[30].end[0].y = 377;
+	env->object_sprites[30].size[0].x = 431;
+	env->object_sprites[30].size[0].y = 377;
+	env->object_sprites[30].reversed[0] = 0;
+
+	// Shotgun sprite
+	env->object_sprites[31].texture = 22;
+	env->object_sprites[31].oriented = 0;
+	env->object_sprites[31].rest_sprite = 31;
+	env->object_sprites[31].start[0].x = 512;
+	env->object_sprites[31].start[0].y = 42;
+	env->object_sprites[31].end[0].x = 560;
+	env->object_sprites[31].end[0].y = 53;
+	env->object_sprites[31].size[0].x = 48;
+	env->object_sprites[31].size[0].y = 11;
+	env->object_sprites[31].reversed[0] = 0;
+
+	// Raygun sprite
+	env->object_sprites[32].texture = 39;
+	env->object_sprites[32].oriented = 0;
+	env->object_sprites[32].rest_sprite = 32;
+	env->object_sprites[32].start[0].x = 0;
+	env->object_sprites[32].start[0].y = 0;
+	env->object_sprites[32].end[0].x = 608;
+	env->object_sprites[32].end[0].y = 253;
+	env->object_sprites[32].size[0].x = 608;
+	env->object_sprites[32].size[0].y = 253;
+	env->object_sprites[32].reversed[0] = 0;
+
+	// Doom guy sprite
+	env->object_sprites[33].texture = 36;
+	env->object_sprites[33].oriented = 1;
+	env->object_sprites[33].rest_sprite = 32;
+	env->object_sprites[33].start[0].x = 44;
+	env->object_sprites[33].start[0].y = 421;
+	env->object_sprites[33].end[0].x = 70;
+	env->object_sprites[33].end[0].y = 476;
+	env->object_sprites[33].size[0].x = 26;
+	env->object_sprites[33].size[0].y = 56;
+	env->object_sprites[33].reversed[0] = 1;
+
+	env->object_sprites[33].start[1].x = 114;
+	env->object_sprites[33].start[1].y = 421;
+	env->object_sprites[33].end[1].x = 157;
+	env->object_sprites[33].end[1].y = 476;
+	env->object_sprites[33].size[1].x = 43;
+	env->object_sprites[33].size[1].y = 55;
+	env->object_sprites[33].reversed[1] = 1;
+
+	env->object_sprites[33].start[2].x = 201;
+	env->object_sprites[33].start[2].y = 421;
+	env->object_sprites[33].end[2].x = 252;
+	env->object_sprites[33].end[2].y = 474;
+	env->object_sprites[33].size[2].x = 51;
+	env->object_sprites[33].size[2].y = 53;
+	env->object_sprites[33].reversed[2] = 1;
+
+	env->object_sprites[33].start[3].x = 296;
+	env->object_sprites[33].start[3].y = 421;
+	env->object_sprites[33].end[3].x = 334;
+	env->object_sprites[33].end[3].y = 473;
+	env->object_sprites[33].size[3].x = 38;
+	env->object_sprites[33].size[3].y = 52;
+	env->object_sprites[33].reversed[3] = 1;
+
+	env->object_sprites[33].start[4].x = 378;
+	env->object_sprites[33].start[4].y = 421;
+	env->object_sprites[33].end[4].x = 404;
+	env->object_sprites[33].end[4].y = 472;
+	env->object_sprites[33].size[4].x = 26;
+	env->object_sprites[33].size[4].y = 51;
+	env->object_sprites[33].reversed[4] = 1;
+
+	env->object_sprites[33].start[5].x = 448;
+	env->object_sprites[33].start[5].y = 421;
+	env->object_sprites[33].end[5].x = 496;
+	env->object_sprites[33].end[5].y = 477;
+	env->object_sprites[33].size[5].x = 48;
+	env->object_sprites[33].size[5].y = 56;
+	env->object_sprites[33].reversed[5] = 1;
+
+	env->object_sprites[33].start[6].x = 540;
+	env->object_sprites[33].start[6].y = 421;
+	env->object_sprites[33].end[6].x = 596;
+	env->object_sprites[33].end[6].y = 476;
+	env->object_sprites[33].size[6].x = 56;
+	env->object_sprites[33].size[6].y = 56;
+	env->object_sprites[33].reversed[6] = 1;
+
+	env->object_sprites[33].start[7].x = 640;
+	env->object_sprites[33].start[7].y = 421;
+	env->object_sprites[33].end[7].x = 688;
+	env->object_sprites[33].end[7].y = 476;
+	env->object_sprites[33].size[7].x = 48;
+	env->object_sprites[33].size[7].y = 56;
+	env->object_sprites[33].reversed[7] = 1;
 	return (0);
 }
 int			init_enemy_sprites(t_env *env)

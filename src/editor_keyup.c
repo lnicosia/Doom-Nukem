@@ -6,11 +6,132 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:49:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:37:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		is_point_in_rectangle(t_point point, t_point pos, t_point size)
+{
+	if (point.x >= pos.x && point.x <= pos.x + size.x
+		&& point.y >= pos.y && point.y <= pos.y + size.y)
+		return (1);
+	return (0);
+}
+
+int		is_mouse_on_texture_selection_tab(t_env *env)
+{
+	if (env->editor.draw_texture_tab
+		&& is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.texture_selection_pos,
+		env->editor.texture_selection_size))
+		return (1);
+	return (0);
+}
+
+int		is_mouse_on_object_selection_tab(t_env *env)
+{
+	if (env->editor.draw_object_tab
+		&& is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.object_selection_pos,
+		env->editor.object_selection_size))
+		return (1);
+	return (0);
+}
+
+int		is_mouse_on_enemy_selection_tab(t_env *env)
+{
+	if (env->editor.draw_enemy_tab
+		&& is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.enemy_selection_pos,
+		env->editor.enemy_selection_size))
+		return (1);
+	return (0);
+}
+
+int		is_mouse_on_wall_sprite_selection_tab(t_env *env)
+{
+	if (env->editor.draw_sprite_tab
+		&& is_point_in_rectangle(new_point(env->sdl.mx, env->sdl.my),
+		env->editor.wall_sprite_selection_pos,
+		env->editor.wall_sprite_selection_size))
+		return (1);
+	return (0);
+}
+
+int		is_mouse_on_any_selection_tab(t_env *env)
+{
+	if (is_mouse_on_texture_selection_tab(env)
+		|| is_mouse_on_object_selection_tab(env)
+		|| is_mouse_on_enemy_selection_tab(env)
+		|| is_mouse_on_wall_sprite_selection_tab(env))
+		return (1);
+	return (0);
+}
+
+int		editor_left_click_up(t_env *env)
+{
+	if (!is_mouse_on_texture_selection_tab(env))
+		env->editor.draw_texture_tab = 0;
+	if (!is_mouse_on_object_selection_tab(env))
+		env->editor.draw_object_tab = 0;
+	if (!is_mouse_on_enemy_selection_tab(env))
+		env->editor.draw_enemy_tab = 0;
+	if (!is_mouse_on_wall_sprite_selection_tab(env))
+		env->editor.draw_sprite_tab = 0;
+	if (env->editor.create_enemy && env->sdl.mx > 400)
+	{
+		if (add_enemy(env))
+			return (-1);
+	}
+	if (env->editor.create_object && env->sdl.mx > 400)
+	{
+		if (add_object(env))
+			return (-1);
+	}
+	return (0);
+}
+
+int		select_sector(t_env *env)
+{
+	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
+			&& !env->confirmation_box.state
+			&& env->editor.event_panel_dragged == -1
+			&& env->editor.start_vertex == -1
+			&& env->editor.dragged_player == -1
+			&& env->editor.dragged_start_player == -1
+			&& (!is_mouse_on_event_panel(env) || (!env->editor.creating_event
+			&& !env->editor.creating_condition))
+			&& env->editor.dragged_object == -1
+			&& env->editor.dragged_vertex == -1
+			&& env->editor.dragged_enemy == -1
+			&& !is_mouse_on_any_selection_tab(env)
+			&& !is_mouse_on_weapon_picker(env))
+	{
+		reset_selection(env);
+		env->editor.selected_sector = get_sector_no_z(env,
+			new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
+			(env->sdl.my - env->editor.center.y) / env->editor.scale,
+			0));
+		env->editor.selected_vertex = -1;
+		env->editor.selected_player = -1;
+		env->editor.selected_start_player = -1;
+		env->editor.selected_events = 0;
+		env->editor.selected_event = 0;
+		env->editor.selected_launch_condition = 0;
+		env->editor.selected_exec_condition = 0;
+		if (env->editor.selected_sector == -1)
+		{
+			env->selected_floor = -1;
+			env->selected_ceiling = -1;
+		}
+		env->selected_enemy = -1;
+		tabs_gestion(env);
+		check_event_creation(env);
+	}
+	return (0);
+}
 
 int	editor_keyup(t_env *env)
 {
@@ -41,43 +162,6 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
-	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& !env->confirmation_box.state
-			&& env->editor.event_panel_dragged == -1
-			&& env->editor.start_vertex == -1
-			&& env->editor.dragged_player == -1
-			&& env->editor.dragged_start_player == -1
-			&& (!is_mouse_on_event_panel(env) || (!env->editor.creating_event
-			&& !env->editor.creating_condition))
-			&& env->editor.dragged_object == -1
-			&& env->editor.dragged_vertex == -1
-			&& env->editor.dragged_enemy == -1)
-	{
-		reset_selection(env);
-		env->editor.selected_sector = get_sector_no_z(env,
-				new_v3((env->sdl.mx - env->editor.center.x) / env->editor.scale,
-					(env->sdl.my - env->editor.center.y) / env->editor.scale,
-					0));
-		env->editor.selected_vertex = -1;
-		env->editor.selected_player = -1;
-		env->editor.selected_events = 0;
-		env->editor.selected_event = 0;
-		env->editor.selected_launch_condition = 0;
-		env->editor.selected_exec_condition = 0;
-		if (env->editor.selected_sector == -1)
-		{
-			env->selected_floor = -1;
-			env->selected_ceiling = -1;
-		}
-		env->selected_enemy = -1;
-		tabs_gestion(env);
-		check_event_creation(env);
-	}
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
@@ -98,17 +182,20 @@ int	editor_keyup(t_env *env)
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
+	if (env->editor.create_object && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		env->editor.create_object = 0;
+	if (env->editor.create_enemy && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		env->editor.create_enemy = 0;
 	if (env->sdl.mx > 400 && env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& !env->confirmation_box.state
 			&& env->editor.start_vertex == -1
 			&& env->editor.event_panel_dragged == -1
 			&& env->editor.dragged_player == 1
+			&& env->editor.dragged_start_player == 1
 			&& env->editor.selected_player == 1
+			&& env->editor.selected_start_player == 1
 			&& env->editor.dragged_object == -1
 			&& env->editor.dragged_vertex == -1
 			&& env->editor.dragged_enemy == -1)
@@ -118,6 +205,7 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.event_panel_dragged == -1
 		&& env->editor.dragged_player == -1
+		&& env->editor.dragged_start_player == -1
 		&& env->editor.dragged_object == -1
 		&& env->editor.dragged_vertex == -1
 		&& !env->editor.in_game
@@ -214,6 +302,34 @@ int	editor_keyup(t_env *env)
 			}
 		}
 	}
+	if (select_sector(env))
+		return (-1);
+	if (env->editor.creating_event && !env->confirmation_box.state)
+	{
+		if (event_panel_keyup(env))
+			return (-1);
+	}
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	{
+		if (editor_left_click_up(env))
+			return (-1);
+	}
+	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
+		&& !env->confirmation_box.state)
+	{
+		if (weapon_picker_keyup(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
+	}
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
+	{
+		reset_selection(env);
+		tabs_gestion(env);
+	}
 	if (button_keyup(&env->editor.add_enemy, env))
 		return (-1);
 	if (button_keyup(&env->editor.add_object, env))
@@ -223,6 +339,12 @@ int	editor_keyup(t_env *env)
 	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_texture_selection, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keyup(&env->editor.current_object_selection, env))
 		return (-1);
 	if (button_keyup(&env->editor.texture_background, env))
 		return (-1);
@@ -235,6 +357,14 @@ int	editor_keyup(t_env *env)
 	if (button_keyup(&env->editor.sprite_tab, env))
 		return (-1);
 	if (button_keyup(&env->editor.events_tab, env))
+		return (-1);
+	if (button_keyup(&env->editor.previous_ambiance_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.previous_fighting_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_ambiance_music, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_fighting_music, env))
 		return (-1);
 	if (env->editor.events_tab.state == DOWN)
 	{
@@ -266,7 +396,7 @@ int	editor_keyup(t_env *env)
 	}
 	if (env->editor.selected_sector != -1 && sector_buttons_up(env))
 		return (-1);
-	if (env->editor.selected_player != -1 && player_buttons_up(env))
+	if (env->editor.selected_start_player != -1 && player_buttons_up(env))
 		return (-1);
 	if (env->selected_enemy != -1 && enemy_buttons_up(env))
 		return (-1);
@@ -296,19 +426,14 @@ int	editor_keyup(t_env *env)
 			i++;
 		}
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 348 && env->sdl.mx > 230)
-	&& (env->sdl.my < 208 && env->sdl.my > 80))
-		env->editor.draw_texture_tab = 1;
-	else if (env->editor.draw_texture_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_texture_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && (env->sdl.mx < 304 && env->sdl.mx > 240)
-	&& (env->sdl.my < 404 && env->sdl.my > 340))
-		env->editor.draw_enemy_tab = 1;
-	else if (env->editor.draw_enemy_tab && env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->editor.draw_enemy_tab = 0;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_enemy && env->sdl.mx > 400)
-		add_enemy(env);
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT && env->editor.create_object && env->sdl.mx > 400)
-		add_object(env);
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keyup(&env->editor.object_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
 	return (0);
 }

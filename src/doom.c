@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 13:45:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:32:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int		launch_events(t_env *env)
 	}
 	if (env->player.changed_sector)
 	{
-		env->player.changed_sector = 0;
-		env->player.old_sector = -1;
 		if (env->sectors[env->player.sector].gravity == 0)
 			env->player.state.fly = 1;
 		else
@@ -74,12 +72,28 @@ int		launch_events(t_env *env)
 				nb_walk_out_events, env))
 				return (-1);
 		}
+		env->player.changed_sector = 0;
+		env->player.old_sector = -1;
 	}
+	return (0);
+}
+
+int		first_frame(t_env *env)
+{
+	reset_clipped(env);
+	clear_image(env);
+	while (SDL_PollEvent(&env->sdl.event))
+	{
+	}
+	if (draw_game(env))
+		return (-1);
 	return (0);
 }
 
 int		doom(t_env *env)
 {
+	if (env->in_game && !env->menu && !env->option && first_frame(env))
+		return (crash("First frame failed\n", env));
 	while (env->running)
 	{
 		//env->player.health = 100;

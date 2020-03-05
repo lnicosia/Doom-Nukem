@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 14:50:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 14:04:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ int		general_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
 		return (-1);
+	if (button_keys(&env->editor.current_texture_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.current_object_selection, env))
+		return (-1);
 	if (button_keys(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keys(&env->editor.events_tab, env))
@@ -77,7 +83,8 @@ int		selection_button_keys(t_env *env)
 	if (env->selected_object != -1 && object_buttons(env))
 		return (-1);
 	if ((env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
-	|| env->selected_wall_sprite_sprite != -1) && env->editor.sprite_tab.state == DOWN)
+		|| env->selected_wall_sprite_sprite != -1)
+		&& env->editor.sprite_tab.state == DOWN)
 	{
 		if (button_keys(&env->editor.next_sprite, env)
 		|| button_keys(&env->editor.previous_sprite, env)
@@ -89,6 +96,8 @@ int		selection_button_keys(t_env *env)
 	if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons(env))
 		return (-1);
 	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons(env))
+		return (-1);
+	if (env->editor.selected_start_player != -1 && player_buttons(env))
 		return (-1);
 	return (0);
 }

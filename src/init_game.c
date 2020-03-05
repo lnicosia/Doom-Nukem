@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 20:07:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 #include "collision.h"
 #include "wall_sprite_modifier.h"
 #include "events_conditions.h"
-
-void	save_init_data(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (i < env->nb_enemies)
-	{
-		env->enemies[i].enemies_init_data.pos = env->enemies[i].pos;
-		env->enemies[i].enemies_init_data.health = env->enemies[i].health;
-		env->enemies[i].enemies_init_data.sector = env->enemies[i].sector;
-		env->enemies[i].enemies_init_data.angle = env->enemies[i].angle;
-		env->enemies[i].enemies_init_data.main_sprite = env->enemies[i].main_sprite;
-		i++;
-	}
-	env->player.player_init_data.pos = env->player.pos;
-	env->player.player_init_data.health = env->player.health;
-	env->player.player_init_data.sector = env->player.sector;
-	env->player.player_init_data.camera = env->player.camera;
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		env->objects[i].object_init_data.main_sprite = env->objects[i].main_sprite;
-		env->objects[i].object_init_data.pos = env->objects[i].pos;
-		env->objects[i].object_init_data.sector = env->objects[i].sector;
-		env->objects[i].object_init_data.angle = env->objects[i].angle;
-		i++;
-	}
-}
 
 void	set_enemies_hp(t_env *env)
 {
@@ -99,7 +70,7 @@ int		init_game(int ac, char **av)
 		return (crash("Could not malloc snprintf char *\n", &env));
 	if (init_sdl(&env))
 		return (crash("Coulnt not initialize SDL\n", &env));
-	if (init_sound(&env))
+	if (init_audio(&env))
 		return (crash("Could not load sound\n", &env));
 	if (init_ttf(&env))
 		return (crash("Could not load fonts\n", &env));
@@ -132,13 +103,15 @@ int		init_game(int ac, char **av)
 		i++;
 	}
 	set_enemies_hp(&env);
+	save_init_data(&env);
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
 	init_animations(&env);
 	init_weapons(&env);
 	ft_printf("Starting music..\n");
-	play_music(&env, &env.sound.music_chan, env.sound.musics[0].music, env.sound.music_vol);
+	play_music(&env, &env.sound.music_chan,
+		env.sound.musics[env.sound.ambient_music].music, env.sound.music_vol);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env.player.camera, &env))
 		return (crash("Could not init fixed camera\n", &env));
@@ -154,9 +127,8 @@ int		init_game(int ac, char **av)
 	env.fixed_camera.angle_z_cos = cos(env.fixed_camera.angle_z);
 	env.fixed_camera.angle_z_sin = sin(env.fixed_camera.angle_z);
 	update_camera_position(&env.fixed_camera);
-	save_init_data(&env);
 	env.confirmation_box.font = env.sdl.fonts.lato20;
-	env.player.highest_sect = find_highest_sector(&env, new_movement(env.player.sector, env.player.size_2d,
+	env.player.highest_sect = find_highest_sector(&env, new_motion(env.player.sector, env.player.size_2d,
 		env.player.eyesight, env.player.pos));
 	start_game_button(&env);
 	next_difficulty_button(&env);

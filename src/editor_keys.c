@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:37:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:14:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			editor_keys(t_env *env)
 	}
 	player_selection(env);
 	starting_player_selection(env);
-	enemy_selection(env);
+	enemy_drag(env);
 	objects_selection(env);
 	vertices_selection(env);
 	if (env->confirmation_box.state)
@@ -99,13 +99,27 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
 		return (-1);
+	if (button_keys(&env->editor.current_texture_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.current_enemy_selection, env))
+		return (-1);
+	if (button_keys(&env->editor.current_object_selection, env))
+		return (-1);
 	if (button_keys(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keys(&env->editor.enemy_background, env))
 		return (-1);
+	if (button_keys(&env->editor.next_ambiance_music, env))
+		return (-1);
+	if (button_keys(&env->editor.next_fighting_music, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_fighting_music, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_ambiance_music, env))
+		return (-1);
 	if (env->editor.selected_sector != -1 && sector_buttons(env))
 		return (-1);
-	if (env->editor.selected_starting_player != -1 && player_buttons(env))
+	if (env->editor.selected_start_player != -1 && player_buttons(env))
 		return (-1);
 	if (env->selected_enemy != -1 && enemy_buttons(env))
 		return (-1);
@@ -164,9 +178,24 @@ int			editor_keys(t_env *env)
 			i++;
 		}
 	}
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keys(&env->editor.object_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
 	if (env->editor.creating_event && !env->confirmation_box.state)
 	{
 		if (event_panel_keys(env))
+			return (-1);
+	}
+	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
+		&& !env->confirmation_box.state)
+	{
+		if (weapon_picker_keys(env))
 			return (-1);
 	}
 	if ((env->inputs.plus || env->inputs.minus) && !env->editor.in_game && env->editor.selected_sector != -1)

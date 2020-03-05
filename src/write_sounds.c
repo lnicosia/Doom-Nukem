@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:48:58 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 16:52:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:05:03 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int		write_sounds(int fd, t_env *env)
 	if ((file = open("./audio/bim_bam_boum.wav", O_RDONLY)) < 0)
 		return (ft_printf("Could not open music bim bam boum\n"));
 	if (write_sound(file, fd, "./audio/bim_bam_boum.wav"))
+		return (-1);
+	if ((file = open("./audio/at_dooms_gate.wav", O_RDONLY)) < 0)
+		return (ft_printf("Could not open music at dooms gate\n"));
+	if (write_sound(file, fd, "./audio/at_dooms_gate.wav"))
 		return (-1);
 	if ((file = open("./audio/raygun_shot.wav", O_RDONLY)) < 0)
 		return (ft_printf("Could not open raygun sound\n"));

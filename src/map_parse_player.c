@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 10:46:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:29:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,18 @@ int		parse_player(t_env *env, t_map_parser *parser)
 				return (missing_data("player angle", parser));
 			if (valid_double(parser->line, parser))
 				return (ft_printf("Invalid double for player angle\n"));
-			env->player.camera.angle = (ft_atof(parser->line) + 0.00001) * CONVERT_RADIANS;
-			env->player.camera.angle_cos = cos(env->player.camera.angle);
-			env->player.camera.angle_sin = sin(env->player.camera.angle);
-			env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);
-			env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
+			env->player.init_data.camera.angle = ft_atof(parser->line);
+			//* CONVERT_RADIANS;
+			env->player.camera.angle = env->player.init_data.camera.angle
+			* CONVERT_RADIANS;
+			env->player.camera.angle_cos =
+			cos(env->player.camera.angle);
+			env->player.camera.angle_sin =
+			sin(env->player.camera.angle);
+			env->player.camera.perp_cos =
+			cos(env->player.camera.angle - M_PI / 2);
+			env->player.camera.perp_sin =
+			sin(env->player.camera.angle - M_PI / 2);
 			env->editor.player_exist = 1;
 			parser->line = skip_number(parser->line);
 			if (*(parser->line) && *(parser->line) == ' ')

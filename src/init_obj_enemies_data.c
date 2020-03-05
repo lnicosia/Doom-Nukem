@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/11 17:27:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:12:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].main_sprite = LOST_SOUL;
 			env->enemies[i].type = AERIAL;
 			env->enemies[i].behavior = MELEE_KAMIKAZE;
-			env->enemies[i].size_2d = env->enemies[i].scale * env->enemies[i].width_ratio;
-			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
+			env->enemies[i].size_2d = env->enemies[i].scale
+				* env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d
+				* env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 2;
 			env->enemies[i].nb_pursuit_state = 2;
 			env->enemies[i].nb_firing_state = 0;
@@ -46,8 +48,10 @@ void		init_enemies_data(t_env *env)
 			env->enemies[i].firing_sprite = 10;
 			env->enemies[i].type = TERRESTRIAL;
 			env->enemies[i].behavior = RANGED_PROJECTILE;
-			env->enemies[i].size_2d =  env->enemies[i].scale * env->enemies[i].width_ratio;
-			env->enemies[i].eyesight = env->enemies[i].size_2d * env->enemies[i].height_ratio;
+			env->enemies[i].size_2d =  env->enemies[i].scale
+				* env->enemies[i].width_ratio;
+			env->enemies[i].eyesight = env->enemies[i].size_2d
+				* env->enemies[i].height_ratio;
 			env->enemies[i].nb_rest_state = 4;
 			env->enemies[i].nb_pursuit_state = 4;
 			env->enemies[i].nb_firing_state = 3;
@@ -87,7 +91,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 15;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 2) // health pack
+		else if (env->objects[i].sprite == 2) // health pack
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -99,7 +103,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 25;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 3) // shotgun ammo
+		else if (env->objects[i].sprite == 3) // shotgun ammo
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -112,7 +116,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 10;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 4) // rocket ammo
+		else if (env->objects[i].sprite == 4) // rocket ammo
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -125,7 +129,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 5;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 5) // regular ammo
+		else if (env->objects[i].sprite == 5) // regular ammo
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -138,7 +142,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 40;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 6) // energy cell pack
+		else if (env->objects[i].sprite == 6) // energy cell pack
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -151,7 +155,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 20;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
+		else if (env->objects[i].sprite >= 7 && env->objects[i].sprite <= 10) // lamp
 		{
 			env->objects[i].height_ratio = 0.20;
 			env->objects[i].solid = 1;
@@ -163,7 +167,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 11)
+		else if (env->objects[i].sprite == 11)
 		{
 			env->objects[i].height_ratio = 1;
 			env->objects[i].solid = 1;
@@ -175,7 +179,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
+		else if (env->objects[i].sprite >= 12 && env->objects[i].sprite <= 15) // monitor
 		{
 			env->objects[i].height_ratio = 1;
 			env->objects[i].solid = 1;
@@ -186,7 +190,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 16)
+		else if (env->objects[i].sprite == 16)
 		{
 			env->objects[i].height_ratio = 1;
 			env->objects[i].solid = 1;
@@ -197,7 +201,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 17) // green armor
+		else if (env->objects[i].sprite == 17) // green armor
 		{
 			env->objects[i].height_ratio = 2;
 			env->objects[i].solid = 0;
@@ -209,7 +213,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].quantity = 50;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
+		else if (env->objects[i].sprite == 18 || env->objects[i].sprite == 19) // candle
 		{
 			env->objects[i].height_ratio = 1;
 			env->objects[i].main_sprite = CANDLE;
@@ -220,7 +224,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 0;
 		}
-		if (env->objects[i].sprite == 20) // barrel
+		else if (env->objects[i].sprite == 20) // barrel
 		{
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 1;
@@ -233,7 +237,7 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 50;
 		}
-		if (env->objects[i].sprite == 21) // barrel exploding
+		else if (env->objects[i].sprite == 21) // barrel exploding
 		{
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
@@ -245,7 +249,158 @@ void		init_objects_data(t_env *env)
 			env->objects[i].type = DECORATION;
 			env->objects[i].damage = 50;	
 		}
-		env->objects[i].size_2d = env->objects[i].scale * env->objects[i].height_ratio;
+		else if (env->objects[i].sprite == 22) // explosion animation
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = -1;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 1;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 50;	
+		}
+		else if (env->objects[i].sprite == 23) // Grid
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 1;
+			env->objects[i].main_sprite = GRID;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 24) // Button off
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = BUTTON_OFF;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 25) // Button on
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = BUTTON_ON;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 26) // Bullet hole object
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = BULLET_HOLE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 27) // Lost soul object
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 1;
+			env->objects[i].main_sprite = LOST_SOUL_OBJECT;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 28) // Cyber demon object
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 1;
+			env->objects[i].main_sprite = CYBER_DEMON_OBJECT;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 29) // Doom guy face
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = DOOM_GUY_FACE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 30) // Camera sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = CAMERA_SPRITE;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 31) // Shotgun sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = SHOTGUN_SPRITE;
+			env->objects[i].health = 1;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = WEAPON;
+			env->objects[i].weapon = SHOTGUN;
+			env->objects[i].ammo_type = SHELL;
+			env->objects[i].quantity = 15;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 32) // Raygun sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = RAYGUN_SPRITE;
+			env->objects[i].health = 1;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = WEAPON;
+			env->objects[i].weapon = RAYGUN;
+			env->objects[i].ammo_type = ENERGY;
+			env->objects[i].quantity = 30;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 33) // Doom guy sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = DOOM_GUY;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		env->objects[i].size_2d = env->objects[i].scale
+		* env->objects[i].height_ratio;
 		i++;
 	}
 }

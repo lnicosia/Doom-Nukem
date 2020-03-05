@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 14:29:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:29:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,39 @@ int		is_queued(t_list *queued_values, void *target)
 	return (0);
 }
 
-int		check_launch_conditions(t_event *event, t_condition *tab, size_t nb)
+int		check_launch_conditions(t_event *event, t_condition *tab, size_t nb,
+t_env *env)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < nb)
 	{
+		if (tab[i].type < EVENT_ENDED && !condition_target_exists(&tab[i], env))
+			return (1);
 		if (tab[i].type == EQUALS
-				&& equals_condition(tab[i]))
+				&& equals_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == DIFFERENT
-				&& different_condition(tab[i]))
+				&& different_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == LESS
-				&& less_condition(tab[i]))
+				&& less_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == GREATER
-				&& greater_condition(tab[i]))
+				&& greater_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == LESS_OR_EQUALS
-				&& less_or_equals_condition(tab[i]))
+				&& less_or_equals_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == GREATER_OR_EQUALS
-				&& greater_or_equals_condition(tab[i]))
+				&& greater_or_equals_condition(&tab[i]))
 			return (0);
 		else if (tab[i].type == EVENT_ENDED
-				&& event_ended_condition(tab[i], event))
+				&& event_ended_condition(&tab[i], event))
 			return (0);
 		else if (tab[i].type == EVENT_ENDED_START
-				&& event_ended_start_condition(tab[i], event))
+				&& event_ended_start_condition(&tab[i], event))
 			return (0);
 		/*else if (tab[i].type == FUNCTION
 				&& event_func_condition(tab[i], event))
@@ -127,36 +130,42 @@ int		set_target_to_condition(t_event *event, t_condition condition)
 	return (0);
 }
 
-int		check_exec_conditions(t_event *event, t_condition *tab, size_t nb)
+int		check_exec_conditions(t_event *event, t_condition *tab, size_t nb,
+t_env *env)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < nb)
 	{
+		if (!condition_target_exists(&tab[i], env))
+		{
+			ft_printf("target does not exist\n");
+			return (1);
+		}
 		if (tab[i].type == EQUALS
-				&& equals_condition(tab[i]))
+				&& equals_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == DIFFERENT
-				&& different_condition(tab[i]))
+				&& different_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == LESS
-				&& less_condition(tab[i]))
+				&& less_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == GREATER
-				&& greater_condition(tab[i]))
+				&& greater_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == LESS_OR_EQUALS
-				&& less_or_equals_condition(tab[i]))
+				&& less_or_equals_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == GREATER_OR_EQUALS
-				&& greater_or_equals_condition(tab[i]))
+				&& greater_or_equals_condition(&tab[i]))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == EVENT_ENDED
-				&& event_ended_condition(tab[i], event))
+				&& event_ended_condition(&tab[i], event))
 			return (set_target_to_condition(event, tab[i]));
 		else if (tab[i].type == EVENT_ENDED_START
-				&& event_ended_start_condition(tab[i], event))
+				&& event_ended_start_condition(&tab[i], event))
 			return (set_target_to_condition(event, tab[i]));
 		/*else if (tab[i].type == FUNCTION
 				&& event_func_condition(tab[i], event))
@@ -175,12 +184,13 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
-		if ((!(*events)[i].target
+		if (event_target_exists(&(*events)[i], env)
+			&& (!(*events)[i].target
 					|| !is_queued(env->queued_values, (*events)[i].target))
 				&& (!(*events)[i].launch_conditions
 					|| check_launch_conditions(&(*events)[i],
 					(*events)[i].launch_conditions,
-					(*events)[i].nb_launch_conditions))
+					(*events)[i].nb_launch_conditions, env))
 				&& update_event(&(*events)[i]))
 		{
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
@@ -227,10 +237,11 @@ int		start_event_free(t_event **events, size_t *size, t_env *env)
 	i = 0;
 	while (i < *size)
 	{
-		if ((!(*events)[i].launch_conditions
+		if (event_target_exists(&(*events)[i], env)
+			&& (!(*events)[i].launch_conditions
 					|| check_launch_conditions(&(*events)[i],
 					(*events)[i].launch_conditions,
-					(*events)[i].nb_launch_conditions))
+					(*events)[i].nb_launch_conditions, env))
 				&& update_event(&(*events)[i]))
 		{
 			if (!(new = ft_lstnew(&(*events)[i], sizeof(t_event))))
