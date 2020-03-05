@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:10:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 16:00:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 09:28:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int		update_sector(t_sector *sector, int vertex, t_env *env)
 	sector->nb_vertices--;
 	if (sector->nb_vertices > 0 && (!sector->vertices))
 		return (-1);
+	if (sector->start_floor_slope >= sector->nb_vertices)
+		sector->start_floor_slope--;
+	if (sector->start_ceiling_slope >= sector->nb_vertices)
+		sector->start_ceiling_slope--;
 	return (0);
 }
 
