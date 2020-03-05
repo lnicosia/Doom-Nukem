@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:47:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:24:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 		= 1;
 	env->floor_bullet_holes_events[env->nb_floor_bullet_holes_events].delay
 		= 5000;
+	env->floor_bullet_holes_events[env->nb_floor_bullet_holes_events].
+		target_index = -1;
 	env->nb_floor_bullet_holes_events++;
 	return (0);
 }
@@ -134,6 +136,8 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 		.max_uses = 1;
 	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].delay
 		= 5000;
+	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].
+		target_index = -1;
 	env->nb_ceiling_bullet_holes_events++;
 	return (0);
 }
@@ -235,6 +239,8 @@ int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 		= 1;
 	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events].delay
 		= 5000;
+	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events].
+		target_index = -1;
 	env->nb_wall_bullet_holes_events++;
 	return (0);
 }

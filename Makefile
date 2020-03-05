@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/05 10:05:34 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/05 16:04:27 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,7 +198,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   menu_keys.c option_menu.c option_menu_keys.c collision_utils_2.c \
 		   collision_maths.c collision_utils.c new_object_event.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
-		   init_audio.c
+		   init_audio.c angles_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

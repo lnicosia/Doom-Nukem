@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:14:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:02:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,6 +467,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	int				first_angles[3];
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
