@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 16:24:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:39:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		add_floor_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc floor sprites scale"));
 	sector->floor_sprites.sprite[sector->floor_sprites.nb_sprites] = BULLET_HOLE;
-	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites] = new_v2(0.4, 0.4);
+	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites] =
+		new_v2(projectile->scale, projectile->scale);
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites] =
 		get_floor_bullet_hole_pos(sector, projectile, env);
 	sector->floor_sprites.pos[sector->floor_sprites.nb_sprites].x -=
@@ -103,8 +104,8 @@ int		add_ceiling_bullet_hole(t_sector *sector, t_projectile *projectile,
 					sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc ceiling sprites scale"));
 	sector->ceiling_sprites.sprite[sector->ceiling_sprites.nb_sprites] = BULLET_HOLE;
-	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites] = new_v2(0.4,
-			0.4);
+	sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites] =
+		new_v2(projectile->scale, projectile->scale);
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites] =
 		get_ceiling_bullet_hole_pos(sector, projectile, env);
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites].x -=
@@ -220,6 +221,7 @@ int		add_wall_bullet_hole(t_sector *sector, t_projectile *projectile,
 		get_wall_bullet_hole_pos(sector, projectile, i, env);
 	bullet_hole.pos.x -= 0.2;
 	bullet_hole.pos.y -= 0.2;
+	bullet_hole.map_scale = new_v2(projectile->scale, projectile->scale);
 	if (!(new = ft_lstnew(&bullet_hole, sizeof(t_bullet_hole))))
 		return (ft_perror("Could not malloc new bullet hole"));
 	ft_lstpushback(&sector->wall_bullet_holes[i], new);

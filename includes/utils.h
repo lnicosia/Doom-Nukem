@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 16:02:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:38:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,6 +422,7 @@ typedef struct		s_bullet_hole
 {
   	t_v2			pos;
 	t_v2			scale;
+	t_v2			map_scale;
 }					t_bullet_hole;
 
 typedef struct		s_sector

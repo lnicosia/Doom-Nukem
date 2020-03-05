@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 17:06:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/05 16:39:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 			curr->scale.x =
 				env->object_sprites[BULLET_HOLE].size[0].x
-				/ 0.4 * sector->wall_width[i]
+				/ curr->map_scale.x * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			wall_bullet_holes = wall_bullet_holes->next;
 		}
@@ -204,7 +204,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 			curr->scale.x =
 				env->object_sprites[BULLET_HOLE].size[0].x
-				/ 0.4 * sector->wall_width[i]
+				/ curr->map_scale.x * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			wall_bullet_holes = wall_bullet_holes->next;
 		}
@@ -235,7 +235,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 		curr->scale.y =
 			env->object_sprites[BULLET_HOLE].size[0].x
-			/ 0.4
+			/ curr->map_scale.y
 			* (sector->ceiling - sector->floor);
 		wall_bullet_holes = wall_bullet_holes->next;
 	}
