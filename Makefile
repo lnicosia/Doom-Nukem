@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/05 16:04:27 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/05 17:22:16 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -172,7 +172,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
+		   add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
+		   shift_bullet_hole.c get_bullet_hole_pos.c \
 		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
 		   print_press_text.c modify_wall_sprite.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \

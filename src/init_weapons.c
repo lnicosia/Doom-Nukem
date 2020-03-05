@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/05 16:28:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:36:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void    init_weapons(t_env *env)
     env->weapons[0].weapon_switch = 0;
     env->weapons[0].first_sprite = 40;
     env->weapons[0].nb_sprites = 6;
-	env->weapons[0].ammo_type = ROCKET;
+	env->weapons[0].ammo_type = REGULAR;
     env->weapons[0].ammo = 20;
     env->weapons[0].damage = 15;
     env->weapons[0].max_ammo = 20;
     env->weapons[0].splash = 0;
     env->weapons[0].range = 50;
+    env->weapons[0].hole_scale = 0.4;
 	env->weapons[0].sprite = env->object_sprites[SHOTGUN_SPRITE];
 
 	env->weapons[1].name = "Shotgun";
@@ -42,6 +43,7 @@ void    init_weapons(t_env *env)
     env->weapons[1].max_ammo = 25;
     env->weapons[1].splash = 1;
     env->weapons[1].range = 30;
+    env->weapons[1].hole_scale = 0.4;
 	env->weapons[1].sprite = env->object_sprites[SHOTGUN_SPRITE];
 
 
@@ -55,6 +57,7 @@ void    init_weapons(t_env *env)
     env->weapons[2].max_ammo = 40;
     env->weapons[2].range = 50;
     env->weapons[2].splash = 0;
+    env->weapons[2].hole_scale = 0.4;
 	env->weapons[2].sprite = env->object_sprites[RAYGUN_SPRITE];
 
 	env->weapons[3].name = "Rocket Launcher";
@@ -67,6 +70,7 @@ void    init_weapons(t_env *env)
 	env->weapons[3].max_ammo = 20;
 	env->weapons[3].splash = 1;
 	env->weapons[3].range = 30;
+    env->weapons[3].hole_scale =  0.4;
 	env->weapons[3].sprite = env->object_sprites[SHOTGUN_SPRITE];
 
 }

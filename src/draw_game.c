@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 11:18:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:33:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,27 @@ int	draw_render(t_camera *camera, t_env *env)
 	return (0);
 }
 
+int	create_bullet_holes(t_env *env)
+{
+	if (env->new_wall_bullet_hole
+		&& add_wall_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env->new_bullet_hole_wall,
+		env))
+		return (-1);
+	env->new_wall_bullet_hole = 0;
+	env->new_floor_bullet_hole = 0;
+	env->new_ceiling_bullet_hole = 0;
+	env->new_bullet_hole_sector = -1;
+	env->new_bullet_hole_wall = -1;
+	return (0);
+}
+
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	if (draw_render(&env->player.camera, env))
+		return (-1);
+	if (create_bullet_holes(env))
 		return (-1);
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();

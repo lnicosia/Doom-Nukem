@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 16:38:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:23:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -852,6 +852,7 @@ typedef struct		s_weapons
 	int				ammo;
 	int				ammo_type;
 	double			range;
+	double			hole_scale;
 	int				max_ammo;
 	int				damage;
 	int				splash;
