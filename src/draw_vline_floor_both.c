@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:46:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/05 18:23:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,6 @@ void	draw_vline_floor_both(t_sector sector, t_vline vline,
 			map_lvl = get_current_floor_map(sector.floor_texture, z, &render, env);
 		texture_pixels = (Uint32*)env->wall_textures[sector.floor_texture].
 			maps[map_lvl]->pixels;
-		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
-		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
-		{
-			if (env->editor.select)
-			{
-				reset_selection(env);
-				env->selected_floor = render.sector;
-				tabs_gestion(env);
-			}
-			if (env->playing)
-			{
-				env->hovered_wall_sprite_wall = -1;
-				env->hovered_wall_sprite_sprite = -1;
-				env->hovered_wall_sprite_sector = -1;
-			}
-		}
 		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
 			* divider;
 		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
@@ -82,6 +66,30 @@ void	draw_vline_floor_both(t_sector sector, t_vline vline,
 			text_y = ft_abs((int)text_y % render.texture_h);
 		if (text_x >= render.texture_w || text_x < 0)
 			text_x = ft_abs((int)text_x % render.texture_w);
+		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
+		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
+		{
+			if (env->editor.select)
+			{
+				reset_selection(env);
+				env->selected_floor = render.sector;
+				tabs_gestion(env);
+			}
+			if (env->shooting
+				&& z <= env->weapons[env->player.curr_weapon].range)
+			{
+				env->new_floor_bullet_hole = 1;
+				env->new_bullet_hole_pos =
+				new_v2(x, y);
+				env->new_bullet_hole_sector = sector.num;
+			}
+			if (env->playing)
+			{
+				env->hovered_wall_sprite_wall = -1;
+				env->hovered_wall_sprite_sprite = -1;
+				env->hovered_wall_sprite_sector = -1;
+			}
+		}
 		if (text_x >= 0 && text_x < render.texture_w && text_y >= 0 && text_y < render.texture_h)
 		{
 			pixels[coord] = apply_light_both(texture_pixels[(int)text_x

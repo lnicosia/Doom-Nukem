@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 17:33:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:26:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,15 @@ int	draw_render(t_camera *camera, t_env *env)
 
 int	create_bullet_holes(t_env *env)
 {
-	if (env->new_wall_bullet_hole
-		&& add_wall_hitscan_bullet_hole(
+	if (env->new_wall_bullet_hole && add_wall_hitscan_bullet_hole(
 		&env->sectors[env->new_bullet_hole_sector], env->new_bullet_hole_wall,
 		env))
+		return (-1);
+	if (env->new_floor_bullet_hole && add_floor_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env))
+		return (-1);
+	if (env->new_ceiling_bullet_hole && add_ceiling_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env))
 		return (-1);
 	env->new_wall_bullet_hole = 0;
 	env->new_floor_bullet_hole = 0;
