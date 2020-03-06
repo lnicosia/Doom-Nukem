@@ -6,17 +6,11 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 12:09:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:06:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		get_angle(t_point p[3])
-{
-	return ((p[1].x - p[0].x) * (p[2].y - p[1].y)
-			- (p[1].y - p[0].y) * (p[2].x - p[1].x));
-}
 
 static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {

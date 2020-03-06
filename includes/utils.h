@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 10:52:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:07:22 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,10 @@ typedef struct		s_render_vertex
 	double			c2;
 	double			x;
 	double			y;
+	double			clipped_pos_x1;
+	double			clipped_pos_y1;
+	double			clipped_pos_x2;
+	double			clipped_pos_y2;
 	double			neighbor_f1;
 	double			neighbor_f2;
 	double			neighbor_floor_range;
@@ -423,6 +427,7 @@ typedef struct		s_bullet_hole
 {
   	t_v2			pos;
 	t_v2			scale;
+	t_v2			map_scale;
 }					t_bullet_hole;
 
 typedef struct		s_sector
@@ -468,6 +473,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	int				first_angles[3];
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
@@ -856,6 +862,7 @@ typedef struct		s_weapons
 	int				ammo;
 	int				ammo_type;
 	double			range;
+	double			hole_scale;
 	int				max_ammo;
 	int				damage;
 	int				splash;
@@ -934,7 +941,7 @@ typedef	struct		s_explosion
 	int				centered_sprite;
 	int				damage;
 	int				sprite;
-	int			damage_burst;
+	int				damage_burst;
 	int				left;
 	int				right;
 	int				top;

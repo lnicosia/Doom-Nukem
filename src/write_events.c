@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 14:54:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:33:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	write_wall_sprites_events(int fd, t_sector sector,
 			k = 0;
 			while (k < sector.wall_sprites[i].nb_shoot_events[j])
 			{
-				ft_dprintf(fd, "[1 (%d %d %d)][%d", sector.num, i, j,
+				ft_dprintf(fd, "[2 (%d %d %d)][%d", sector.num, i, j,
 				sector.wall_sprites[i].shoot_events[j][k].target_index);
 				write_event(fd, sector.wall_sprites[i].shoot_events[j][k],
 				writers);

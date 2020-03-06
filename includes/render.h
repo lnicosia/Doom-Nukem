@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 14:32:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:09:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ t_render render, t_env *env);
 void			draw_floor(t_sector sector, t_render render, t_env *env);
 void			draw_wall(t_sector sector, t_render render, t_env *env);
 void			draw_wall_no_light(t_sector sector, t_render render, t_env *env);
-void			draw_wall_sprites(t_sector sector, t_render render, t_env *env);
+int				draw_wall_sprites(t_sector sector, t_render render, t_env *env);
 void			draw_wall_bullet_holes(t_sector sector, t_render render,
 t_env *env);
 void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);

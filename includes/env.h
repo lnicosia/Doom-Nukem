@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 18:45:07 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:09:56 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,13 @@ typedef struct		s_env
 	int					nb_enemies;
 	int					*ymax;
 	int					*ymin;
+	int					shooting;
+	int					new_wall_bullet_hole;
+	int					new_floor_bullet_hole;
+	int					new_ceiling_bullet_hole;
+	int					new_bullet_hole_sector;
+	int					new_bullet_hole_wall;
+	t_v2				new_bullet_hole_pos;
 	t_point				minimap_pos;
 	t_point				minimap_size;
 	t_point				crosshair_pos;
@@ -1130,6 +1137,8 @@ int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				minimap(t_env *e);
 int					get_angle(t_point p[3]);
+int					get_sector_first_angles(t_sector *sector, t_env *env);
+int					count_sector_angles(t_sector *sector, t_env *env);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,
@@ -1235,12 +1244,18 @@ int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
 int					init_gun(t_env *env);
 int					init_gatling(t_env *env);
-int					add_ceiling_bullet_hole(t_sector *sector,
+int					add_ceiling_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
-int					add_floor_bullet_hole(t_sector *sector,
+int					add_floor_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
-int					add_wall_bullet_hole(t_sector *sector,
+int					add_wall_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, int i, t_env *env);
+int					add_ceiling_hitscan_bullet_hole(t_sector *sector,
+t_env *env);
+int					add_floor_hitscan_bullet_hole(t_sector *sector,
+t_env *env);
+int					add_wall_hitscan_bullet_hole(t_sector *sector, int i,
+t_env *env);
 int					shift_ceiling_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
 int					shift_floor_bullet_hole(t_sector *sector,

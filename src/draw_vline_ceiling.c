@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:46:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/05 18:47:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 	double	y;
 	double	x;
 	double	z;
+	double	text_y;
+	double	text_x;
 	double	alpha;
 	double	divider;
 	int		map_lvl;
@@ -54,6 +56,17 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 			map_lvl = get_current_ceiling_map(sector.ceiling_texture, z, &render, env);
 		texture_pixels = env->wall_textures[sector.ceiling_texture].
 		maps[map_lvl]->pixels;
+		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
+			* divider;
+		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
+			* divider;
+		text_y = y * sector.ceiling_scale[map_lvl].y + sector.ceiling_align[map_lvl].y;
+		text_x = x * sector.ceiling_scale[map_lvl].x + sector.ceiling_align[map_lvl].x;
+		text_x = render.texture_w - text_x;
+		if (text_y >= render.texture_h || text_y < 0)
+			text_y = ft_abs((int)text_y % render.texture_h);
+		if (text_x >= render.texture_w || text_x < 0)
+			text_x = ft_abs((int)text_x % render.texture_w);
 		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
 		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
@@ -63,6 +76,14 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 				env->selected_ceiling = render.sector;
 				tabs_gestion(env);
 			}
+			if (env->shooting
+				&& z <= env->weapons[env->player.curr_weapon].range)
+			{
+				env->new_ceiling_bullet_hole = 1;
+				env->new_bullet_hole_pos =
+				new_v2(x, y);
+				env->new_bullet_hole_sector = sector.num;
+			}
 			if (env->playing)
 			{
 				env->hovered_wall_sprite_wall = -1;
@@ -70,21 +91,9 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 				env->hovered_wall_sprite_sector = -1;
 			}
 		}
-		y = (render.texel_y_near_z + alpha * render.texel_y_camera_range)
-			* divider;
-		x = (render.texel_x_near_z + alpha * render.texel_x_camera_range)
-			* divider;
-		y = y * sector.ceiling_scale[map_lvl].y + sector.ceiling_align[map_lvl].y;
-		x = x * sector.ceiling_scale[map_lvl].x + sector.ceiling_align[map_lvl].x;
-		x = render.texture_w - x;
-		if (y >= render.texture_h || y < 0)
-			y = ft_abs((int)y % render.texture_h);
-		if (x >= render.texture_w || x < 0)
-			x = ft_abs((int)x % render.texture_w);
-		if (x >= 0 && x < render.texture_w && y >= 0 && y < render.texture_h)
+		if (text_x >= 0 && text_x < render.texture_w && text_y >= 0 && text_y < render.texture_h)
 		{
-				pixels[coord] = texture_pixels[(int)x
-				+ render.texture_w * (int)y];
+			pixels[coord] = apply_light_brightness(texture_pixels[(int)text_x + render.texture_w * (int)text_y], sector.brightness);
 			if (env->editor.in_game && !env->editor.select
 				&& env->selected_ceiling == render.sector
 				&& env->selected_ceiling_sprite == -1)

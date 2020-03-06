@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 11:53:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 15:42:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int		launch_events(t_env *env)
 					&env->nb_wall_bullet_holes_events, env))
 			return (-1);
 	}
-	if (env->floor_bullet_holes_events && env->floor_bullet_holes_events
+	if (env->floor_bullet_holes_events
 			&& env->nb_floor_bullet_holes_events)
 	{
 		if (start_event(&env->floor_bullet_holes_events,
 					&env->nb_floor_bullet_holes_events, env))
 			return (-1);
 	}
-	if (env->ceiling_bullet_holes_events && env->ceiling_bullet_holes_events
+	if (env->ceiling_bullet_holes_events
 			&& env->nb_ceiling_bullet_holes_events)
 	{
 		if (start_event(&env->ceiling_bullet_holes_events,
