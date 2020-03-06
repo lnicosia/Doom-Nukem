@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 17:23:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 09:46:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,10 @@ typedef struct		s_render_vertex
 	double			c2;
 	double			x;
 	double			y;
+	double			clipped_pos_x1;
+	double			clipped_pos_y1;
+	double			clipped_pos_x2;
+	double			clipped_pos_y2;
 	double			neighbor_f1;
 	double			neighbor_f2;
 	double			neighbor_floor_range;
