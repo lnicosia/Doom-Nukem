@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/06 11:43:45 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/06 14:11:25 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		player_selection.c objects_selection.c vertices_selection.c \
 		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
 		add_enemy.c enemy_selection.c delete_event.c object_selection.c \
-		delete_object.c delete_action.c delete_enemy.c draw_grid_enemy.c \
+		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
 		fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		editor_3d_keyup.c add_vertex_in_sector.c split_sector.c \

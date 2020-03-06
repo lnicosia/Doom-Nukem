@@ -1,17 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_grid_enemy.c                                  :+:      :+:    :+:   */
+/*   draw_grid_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:06:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 15:02:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+void	draw_enemy_angle(t_enemy *enemy, t_point pos, t_env *env)
+{
+	t_point	p;
+
+	p = new_point(
+		pos.x + cos(enemy->angle * CONVERT_RADIANS)
+		* env->editor.scale * 2,
+		pos.y + sin(enemy->angle * CONVERT_RADIANS)
+		* env->editor.scale * 2);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(enemy->angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale,
+		p.y + sin(enemy->angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(enemy->angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale,
+		p.y + sin(enemy->angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+}
 
 void	draw_grid_enemies(t_env *env)
 {
@@ -59,6 +82,7 @@ void	draw_grid_enemies(t_env *env)
 			scale = env->editor.scale * 2;
 		size = new_point(scale,
 		scale / (sprite.size[0].x / (double)sprite.size[0].y));
+		draw_enemy_angle(&env->enemies[i], center, env);
 		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
 		if (env->selected_enemy == i)
 			apply_sprite_selected(env->enemy_sprites[env->enemies[i].sprite],
