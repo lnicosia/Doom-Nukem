@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 18:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:37:20 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,13 +184,13 @@ int		weapon_animation(t_env *env, int nb)
 			play_sound(env, &env->sound.player_shots_chan, env->weapons[nb].shot,
 				env->sound.ambient_vol);
 			if (!env->player.infinite_ammo)
-				env->weapons[nb].ammo--;
+				env->weapons[nb].ammo-=0;
 		}
 	}
 	if (env->weapons[nb].ammo)
 	{
-		if (env->time.milli_s > env->shot.start + 70 && ((env->time.milli_s - env->shot.start) / 70 < env->weapons[nb].nb_sprites))
-			draw_weapon(env, env->weapons[nb].first_sprite + (int)((env->time.milli_s - env->shot.start) / 70));
+		if (env->time.milli_s > env->shot.start + env->weapons[nb].frame_speed && ((env->time.milli_s - env->shot.start) / env->weapons[nb].frame_speed < env->weapons[nb].nb_sprites))
+			draw_weapon(env, env->weapons[nb].first_sprite + (int)((env->time.milli_s - env->shot.start) / env->weapons[nb].frame_speed));
 		else
 			draw_weapon(env, env->weapons[nb].first_sprite);
 	}
@@ -198,7 +198,7 @@ int		weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * env->weapons[nb].frame_speed)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;

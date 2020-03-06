@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 10:56:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 16:51:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:45:33 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int		init_musics(t_env *env)
 
 int		init_sounds(t_env *env)
 {
-	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
+	if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)//Should be a gun shot
-		return (ft_printf("Failed to load shotgun_shot.wav"));
+		return (ft_printf("Failed to load handgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[1].shot) != FMOD_OK)
-		return (ft_printf("Failed to load shotgun_shot.wav"));
+		return (ft_printf("Failed to load shotgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[2].shot) != FMOD_OK)
-		return (ft_printf("Failed to load raygun_shot.wav"));
+		return (ft_printf("Failed to load raygun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
 		return (ft_printf("Failed to load footsteps.wav\n"));

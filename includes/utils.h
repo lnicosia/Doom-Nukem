@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:14:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 10:52:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 46
+# define MAX_TEXTURES 52
 # define MAX_UI_TEXTURES 60
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define NB_WEAPONS 4
+# define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
 # define MAX_OBJECTS 24
@@ -155,6 +155,7 @@ typedef enum		e_weapons_list
 	SHOTGUN,
 	RAYGUN,
 	BAZOOKA,
+	GATLING,
 	KNIFE
 }					t_weapons_list;
 
@@ -676,6 +677,8 @@ typedef struct		s_keys
 	Sint32			nb1;
 	Sint32			nb2;
 	Sint32			nb3;
+	Sint32			nb4;
+	Sint32			nb5;
 }					t_keys;
 
 /*
@@ -716,6 +719,8 @@ typedef struct		s_inputs
 	uint8_t			nb1;
 	uint8_t			nb2;
 	uint8_t			nb3;
+	uint8_t			nb4;
+	uint8_t			nb5;
 }					t_inputs;
 
 /*
@@ -843,6 +848,7 @@ typedef struct		s_weapons
 {
 	t_sprite		sprite;
 	char			*name;
+	int				frame_speed;
 	int				possessed;
 	int				first_sprite;
 	int				nb_sprites;

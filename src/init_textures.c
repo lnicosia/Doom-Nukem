@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:44:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load raygun textures\n"));
 	if (init_gun(env))
 		return (ft_printf("Failed to load gun textures\n"));
+	if (init_gatling(env))
+		return (ft_printf("Failed to load gatling textures\n"));
 	if (parse_bmp("images/sprites/sprite_sheet.bmp", 22, env))
 		return (ft_printf("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/sprites/lost_soul.bmp", 23, env))

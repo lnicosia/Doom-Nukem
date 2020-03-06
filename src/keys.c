@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 12:11:24 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/06 10:54:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,24 @@ int		keys(t_env *env)
 	else if (env->inputs.nb3)
 	{
 		env->player.next_weapon = 2;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb4)
+	{
+		env->player.next_weapon = 3;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb5)
+	{
+		env->player.next_weapon = 4;
 		if (env->player.next_weapon != env->player.curr_weapon &&
 			env->weapons[env->player.next_weapon].possessed)
 			weapon_change(env);

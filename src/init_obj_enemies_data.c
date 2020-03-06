@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 10:02:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void		init_objects_data(t_env *env)
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;
 			env->objects[i].type = WEAPON;
-			env->objects[i].ammo_type = ENERGY;
-			env->objects[i].weapon = RAYGUN;
-			env->objects[i].quantity = 15;
+			env->objects[i].ammo_type = REGULAR;
+			env->objects[i].weapon = GATLING;
+			env->objects[i].quantity = 200;
 			env->objects[i].damage = 0;
 		}
 		else if (env->objects[i].sprite == 2) // health pack
@@ -359,7 +359,7 @@ void		init_objects_data(t_env *env)
 		}
 		else if (env->objects[i].sprite == 31) // Shotgun sprite
 		{
-			env->objects[i].height_ratio = 0.6;
+			env->objects[i].height_ratio = 2.5;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = SHOTGUN_SPRITE;
 			env->objects[i].health = 1;
@@ -374,7 +374,7 @@ void		init_objects_data(t_env *env)
 		}
 		else if (env->objects[i].sprite == 32) // Raygun sprite
 		{
-			env->objects[i].height_ratio = 0.6;
+			env->objects[i].height_ratio = 2.5;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = RAYGUN_SPRITE;
 			env->objects[i].health = 1;
