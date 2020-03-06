@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   game_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 16:06:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 12:18:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,13 @@ static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 
 static void	draw_minimap_player(t_env *env)
 {
-	int		x;
-	int		y;
 	t_point	p0;
 	t_point	p1;
 	t_v3	triangle[3];
 
-	x = env->minimap_pos.x - 2;
-	while (x < env->minimap_pos.x + 3)
-	{
-		y = env->minimap_pos.y - 2;
-		while (y < env->minimap_pos.y + 3)
-		{
-			put_pixel(env, x, y, 0xFFFFFF00);
-			y++;
-		}
-		x++;
-	}
+	apply_sprite(env->object_sprites[DOOM_GUY_FACE],
+		new_point(env->minimap_pos.y - 7, env->minimap_pos.x - 7),
+		new_point(14, 14), env);
 	triangle[2] = new_v3(
 			(env->player.camera.near_left_pos.x - env->player.pos.x) * env->options.minimap_scale + env->minimap_pos.x,
 			(env->player.camera.near_left_pos.y - env->player.pos.y) * env->options.minimap_scale + env->minimap_pos.y,
@@ -140,76 +130,6 @@ static void	draw_minimap_hud(t_env *env)
 	}
 }
 
-static void	draw_sector_num(t_env *env, t_sector sector)
-{
-	t_point			p[3];
-	t_point			pos;
-	t_point			text_size;
-	unsigned int	color;
-	int				i;
-	int				nb_angles;
-
-	if (sector.num == env->player.sector)
-		color = 0x00FF00FF;
-	else
-		color = 0xFFFFFFFF;
-	i = 0;
-	nb_angles = 0;
-	pos = new_point(0, 0);
-	while (i < sector.nb_vertices - 1)
-	{
-		p[0].x = env->minimap_pos.x + (env->vertices[sector.vertices[i]].x
-				- env->player.pos.x) * env->options.minimap_scale;
-		p[0].y = env->minimap_pos.y + (env->vertices[sector.vertices[i]].y
-				- env->player.pos.y) * env->options.minimap_scale;
-		p[1].x = env->minimap_pos.x + (env->vertices[sector.vertices[i + 1]].x
-				- env->player.pos.x) * env->options.minimap_scale;
-		p[1].y = env->minimap_pos.y + (env->vertices[sector.vertices[i + 1]].y
-				- env->player.pos.y) * env->options.minimap_scale;
-		p[2].x = env->minimap_pos.x + (env->vertices[sector.vertices[i + 2]].x
-				- env->player.pos.x) * env->options.minimap_scale;
-		p[2].y = env->minimap_pos.y + (env->vertices[sector.vertices[i + 2]].y
-				- env->player.pos.y) * env->options.minimap_scale;
-		if (get_angle(p))
-		{
-			pos.x += p[1].x;
-			pos.y += p[1].y;
-			nb_angles++;
-		}
-		i++;
-	}
-	p[0].x = env->minimap_pos.x + (env->vertices[sector.vertices[i]].x
-			- env->player.pos.x) * env->options.minimap_scale;
-	p[0].y = env->minimap_pos.y + (env->vertices[sector.vertices[i]].y
-			- env->player.pos.y) * env->options.minimap_scale;
-	p[1].x = env->minimap_pos.x + (env->vertices[sector.vertices[0]].x
-			- env->player.pos.x) * env->options.minimap_scale;
-	p[1].y = env->minimap_pos.y + (env->vertices[sector.vertices[0]].y
-			- env->player.pos.y) * env->options.minimap_scale;
-	p[2].x = env->minimap_pos.x + (env->vertices[sector.vertices[1]].x
-			- env->player.pos.x) * env->options.minimap_scale;
-	p[2].y = env->minimap_pos.y + (env->vertices[sector.vertices[1]].y
-			- env->player.pos.y) * env->options.minimap_scale;
-	if (get_angle(p))
-	{
-		pos.x += p[1].x;
-		pos.y += p[1].y;
-		nb_angles++;
-	}
-	pos.x /= nb_angles;
-	pos.y /= nb_angles;
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", sector.num);
-	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
-	&text_size.y);
-	if (pos.x - text_size.x >= env->minimap_pos.x - env->minimap_size.x / 2 - 3
-		&& pos.x < env->minimap_pos.x + env->minimap_size.x / 2 - 3
-		&& pos.y - text_size.y >= env->minimap_pos.y - env->minimap_size.y / 2
-		- 3 && pos.y< env->minimap_pos.y + env->minimap_size.y / 2 - 3)
-		print_text(new_point(pos.y - text_size.y / 2, pos.x - text_size.x / 2),
-		new_printable_text(env->snprintf, env->sdl.fonts.lato20, color, 20),
-		env);	
-}
-
 void		draw_sprites_minimap(t_env *env)
 {
 	int			i;
@@ -246,7 +166,7 @@ void		draw_sprites_minimap(t_env *env)
 	}
 }
 
-void		minimap(t_env *env)
+void		game_minimap(t_env *env)
 {
 	int			s;
 	int			v;
@@ -262,24 +182,22 @@ void		minimap(t_env *env)
 		if (env->player.head_z > sect.floor_min
 				&& env->player.head_z < sect.ceiling_max)
 		{
-			if (s == env->player.sector)
-				line.color = 0xFF00FF00;
-			else
-				line.color = 0xFFFFFFFF;
-			draw_sector_num(env, sect);
 			while (v < sect.nb_vertices)
 			{
-				line.p0.x = env->minimap_pos.x + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.p0.y = env->minimap_pos.y + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-				line.p1.x = env->minimap_pos.x + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.p1.y = env->minimap_pos.y + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-				draw_line_minimap(line.p0, line.p1, *env, line.color);
+				if (sect.neighbors[v] == -1)
+				{
+					line.p0.x = env->minimap_pos.x + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.p0.y = env->minimap_pos.y + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
+					line.p1.x = env->minimap_pos.x + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+					line.p1.y = env->minimap_pos.y + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+					draw_line_minimap(line.p0, line.p1, *env, 0xFFFFFFFF);
+				}
 				v++;
 			}
 		}
 		s++;
 	}
-	draw_sprites_minimap(env);
+	//draw_sprites_minimap(env);
 	draw_minimap_player(env);
 	/*int i = 0;
 	t_point	enemy_start;

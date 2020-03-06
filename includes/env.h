@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 11:16:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:41:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1135,7 +1135,8 @@ void				check_parsing(t_env *env);
 int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
-void				minimap(t_env *e);
+void				editor_minimap(t_env *e);
+void				game_minimap(t_env *e);
 int					get_angle(t_point p[3]);
 int					get_sector_first_angles(t_sector *sector, t_env *env);
 int					count_sector_angles(t_sector *sector, t_env *env);

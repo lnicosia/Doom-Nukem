@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 12:14:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:41:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		editor_render(t_env *env)
 	if (env->options.show_fps)
 		fps(env);
 	game_time(env);
-	minimap(env);
+	editor_minimap(env);
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	if ((env->editor.selecting_target || env->editor.selecting_condition_target)
