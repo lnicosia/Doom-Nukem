@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/05 17:22:16 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/06 11:22:39 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,14 +33,17 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
-				draw_projectiles.c \
+				draw_projectiles.c projectile_on_wall_sprite.c \
 				keys.c weapons.c draw_hud.c\
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
 				explosion.c draw_explosion.c \
 				explosion_maths.c enemy_maths.c enemy_combat.c \
-				enemy_collision.c enemy_sight.c enemy_ai.c
+				enemy_collision.c enemy_sight.c enemy_ai.c \
+		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
+		   		shift_bullet_hole.c get_bullet_hole_pos.c \
+		   		delete_bullet_hole.c shift_bullet_hole_events.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -172,9 +175,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
-		   shift_bullet_hole.c get_bullet_hole_pos.c \
-		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
+		   free_sector.c \
 		   print_press_text.c modify_wall_sprite.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \

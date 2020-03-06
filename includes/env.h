@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 17:31:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:16:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1279,6 +1279,8 @@ void				shift_floor_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
+int					projectile_on_wall_sprite(t_v2 pos, t_sector *sector,
+		int wall, t_env *env);
 void				play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				play_music(t_env *env, FMOD_CHANNEL **chan,
