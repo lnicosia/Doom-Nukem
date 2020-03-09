@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 17:28:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:57:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_print_target_data3(t_env *env)
 	env->print_target_data[OBJECT_Y] = &print_object_target;
 	env->print_target_data[OBJECT_Z] = &print_object_target;
 	env->print_target_data[WIN] = &print_nothing_target;
+	env->print_target_data[DIALOG] = &print_nothing_target;
 }
 
 void	init_print_target_data2(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 15:41:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:28:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		split_text(char **str, t_point pos, t_env *env)
 		}
 		else
 			tmp2 = tmp;
-		if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2),
+		if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
 			ft_strlen(*str) - ft_strlen(tmp2))))
 			return (-1);
 		ft_strdel(str);

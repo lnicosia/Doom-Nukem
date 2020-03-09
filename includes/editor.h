@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:14:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct	s_action_panel
 	t_button	speed;
 	t_button	delay;
 	t_button	max_uses;
+	t_button	text;
 	Uint32		uint32_value;
 	double		double_value;
 	int			int_value;

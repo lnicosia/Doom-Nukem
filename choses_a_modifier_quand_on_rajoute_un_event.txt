@@ -13,6 +13,8 @@ Si besoin de parametres:
 creer parser
 creer action panel
 other_panel.c
+set_new_event_target.c
+target_panel_keys.c (augmenter le max pour la bonne phase)
 init_print_target_data.c
 print_event.c (partie action: print les parametres s'il y en a)
 writers?

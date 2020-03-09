@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:37:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:07:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,24 @@ void	set_modified_event(t_env *env, t_event *event)
 			event->start_incr;
 	}
 }
+
+/*void	set_target_panel_type(t_event_panel *panel)
+{
+	if (panel->event.check_param.sprite != -1)
+		panel->target_panel.wall_sprite_type = 1;
+	else if (panel->event.check_param.wall != -1)
+		panel->target_panel.wall_type = 1;
+	else if (panel->event.check_param.sector != -1)
+		panel->target_panel.sector_type = 1;
+	else if (panel->event.check_param.enemy != -1)
+		panel->target_panel.enemy_type = 1;
+	else if (panel->event.check_param.object != -1)
+		panel->target_panel.object_type = 1;
+	else if (panel->event.check_param.vertex != -1)
+		panel->target_panel.vertex_type = 1;
+	else
+		panel->target_panel.other_type = 1;
+}*/
 
 int		modify_event(void *param)
 {
@@ -143,5 +161,8 @@ int		modify_event(void *param)
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;
 	set_action_type_buttons_state(env);
+	ft_printf("event target = %d\n", env->editor.event_panel.event.target_index);
+	ft_printf("event type = %d\n", env->editor.event_panel.event.type);
+	//set_target_panel_type(&env->editor.event_panel);
 	return (0);
 }

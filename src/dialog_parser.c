@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:35:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 15:07:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:24:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_events_parser *eparser)
 	if (!(*line)[len])
 		return (missing_data("end of the event", parser));
 	if ((*line)[len] != ')')
-		return (invalid_char("after dialog text", "')'", **line, parser));
+		return (invalid_char("after dialog text or text is too long", "')'",
+		**line, parser));
 	if (!(eparser->current_str = ft_strsub(*line, 0, len)))
 		return (-1);
 	if (ft_strchr(eparser->current_str, '\n'))
