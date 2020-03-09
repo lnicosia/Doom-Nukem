@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 11:02:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:26:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,8 @@ void		free_all(t_env *env)
 		ft_lstdelfront(&env->events);
 	if (env->queued_values)
 		ft_lstdelfront(&env->queued_values);
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:04:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 09:27:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/previous_arrow_hover.bmp", 58, env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/next_arrow_hover.bmp", 59, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/dialog_box.bmp", 60, env))
 		return (custom_error("Invalid bmp files"));
 	if (init_mini_skyboxes_selection(env))
 		return (custom_error("error while parsing the miniatures of"

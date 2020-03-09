@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 14:41:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:19:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,11 @@ int		delete_action(t_env *env)
 	else if (env->selected_wall_sprite_wall != -1)
 	{
 		if (delete_wall_sprite(env))
+			return (-1);
+	}
+	else if (env->selected_floor_sprite != -1)
+	{
+		if (delete_floor_sprite(env))
 			return (-1);
 	}
 	else if (env->editor.selected_vertex != -1

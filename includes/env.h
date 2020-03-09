@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 11:41:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:33:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ typedef struct		s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					dialog_box;
+	int					dialog_box_max_lines;
+	size_t				dialog_box_line_size;
+	char				*dialog_box_str;
+	int					next_dialog;
 	int					fatal_error;
 	int					checking_collisions_with_player;
 	int					playing;
@@ -492,6 +497,8 @@ int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
+int					delete_floor_sprite(void *param);
+int					delete_ceiling_sprite(void *param);
 int					editor_left_click_up(t_env *env);
 int					is_point_in_rectangle(t_point point, t_point pos,
 t_point size);
@@ -1110,6 +1117,8 @@ t_rectangle rectangle);
 void				set_button_hover_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
+int					draw_dialog_box(char **str, t_env *env);
+int					find_dialog_box_max_char(t_env *env);
 
 /*
 ** Main pipeline functions

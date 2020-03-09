@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/06 14:11:25 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/09 11:05:58 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,7 +117,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
-		3d_edit_right_walls_texture_align.c \
+		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
 		3d_edit_left_walls_texture_align.c \
 		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
@@ -146,7 +146,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_objects.c sprites_maths.c draw_player.c save_init_data.c \
 		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
-		   sprite_maths_enemies.c draw_enemies.c button.c \
+		   sprite_maths_enemies.c draw_enemies.c button.c dialog_box.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
@@ -175,7 +175,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   free_sector.c \
+		   free_sector.c init_screen_size.c \
 		   print_press_text.c modify_wall_sprite.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \

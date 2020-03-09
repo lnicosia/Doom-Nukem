@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 09:46:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:28:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 46
-# define MAX_UI_TEXTURES 60
+# define MAX_UI_TEXTURES 61
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
@@ -1110,7 +1110,6 @@ typedef struct		s_options
 	int				wall_lover;
 	int				color_clipping;
 	int				wall_color;
-	int				test;
 	int				clipping;
 	int				show_ennemies;
 	int				zbuffer;

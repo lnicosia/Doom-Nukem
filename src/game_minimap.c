@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 12:18:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:30:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,6 @@ static void	draw_minimap_player(t_env *env)
 	p1.x = triangle[1].x;
 	p1.y = triangle[1].y;
 	draw_line_minimap(p0, p1, *env, 0xFFFFFF00);
-	if (!env->options.test)
-	{
-		p1.x = triangle[0].x;
-		p1.y = triangle[0].y;
-		draw_line_minimap(p0, p1, *env, 0xFF00FF00);
-	}
 	triangle[2] = new_v3(
 			(env->player.camera.angle_cos * env->player.camera.far_z - env->player.camera.angle_sin * env->player.camera.far_right) * env->options.minimap_scale + env->minimap_pos.x,
 			(env->player.camera.angle_sin * env->player.camera.far_z + env->player.camera.angle_cos * env->player.camera.far_right) * env->options.minimap_scale + env->minimap_pos.y,
@@ -86,9 +80,6 @@ static void	draw_minimap_player(t_env *env)
 	p1.y = p0.y + env->player.camera.perp_sin * env->w * env->options.minimap_scale;
 	p0.x = p0.x - env->player.camera.perp_cos * env->w * env->options.minimap_scale;
 	p0.y = p0.y - env->player.camera.perp_sin * env->w * env->options.minimap_scale;
-	if (env->options.test)
-		draw_line_minimap(p0, p1, *env, 0xFFFFFF00);
-
 	p0.x = env->minimap_pos.x;
 	p0.y = env->minimap_pos.y;
 	p1.x = env->player.camera.angle_cos * env->player.camera.near_z * env->options.minimap_scale + p0.x;
@@ -179,21 +170,17 @@ void		game_minimap(t_env *env)
 	{
 		sect = env->sectors[s];
 		v = 0;
-		if (env->player.head_z > sect.floor_min
-				&& env->player.head_z < sect.ceiling_max)
+		while (v < sect.nb_vertices)
 		{
-			while (v < sect.nb_vertices)
+			if (sect.neighbors[v] == -1)
 			{
-				if (sect.neighbors[v] == -1)
-				{
-					line.p0.x = env->minimap_pos.x + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-					line.p0.y = env->minimap_pos.y + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-					line.p1.x = env->minimap_pos.x + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-					line.p1.y = env->minimap_pos.y + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-					draw_line_minimap(line.p0, line.p1, *env, 0xFFFFFFFF);
-				}
-				v++;
+				line.p0.x = env->minimap_pos.x + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
+				line.p0.y = env->minimap_pos.y + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
+				line.p1.x = env->minimap_pos.x + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
+				line.p1.y = env->minimap_pos.y + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
+				draw_line_minimap(line.p0, line.p1, *env, 0xFFFFFFFF);
 			}
+			v++;
 		}
 		s++;
 	}
