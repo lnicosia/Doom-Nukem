@@ -6,11 +6,24 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:22:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:41:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		dialog_event(void *param, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
+	if (!(env->dialog_box_str = ft_strdup((char*)param)))
+		return (-1);
+	env->dialog_box = 1;
+	return (1);
+}
 
 /*
 **	Finds the maximum number of characters that can fit in one line

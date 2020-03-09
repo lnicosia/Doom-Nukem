@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 10:28:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:32:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 # define NB_MUSICS 3
 # define DOOM_GUY 33
 # define MAX_TRIGGER_TYPES 8
-# define MAX_TARGET_TYPES 68
+# define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
 
 typedef	enum		e_musics_list

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 14:53:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:54:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_events_parser_target_types3(t_events_parser *eparser)
 	eparser->target_types[OBJECT_Y] = DOUBLE;
 	eparser->target_types[OBJECT_Z] = DOUBLE;
 	eparser->target_types[WIN] = FUNC;
+	eparser->target_types[DIALOG] = FUNC;
 }
 
 void	init_events_parser_target_types2(t_events_parser *eparser)

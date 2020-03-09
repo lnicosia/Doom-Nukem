@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/09 11:05:58 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/09 15:39:45 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,7 +175,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   free_sector.c init_screen_size.c \
+		   free_sector.c init_screen_size.c dialog_parser.c \
 		   print_press_text.c modify_wall_sprite.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \

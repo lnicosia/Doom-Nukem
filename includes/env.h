@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 13:33:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:55:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1320,6 +1320,7 @@ int					event_target_exists5(t_event *event, t_env *env);
 int					event_target_exists6(t_event *event, t_env *env);
 int					condition_target_exists(t_condition *condition,
 t_env *env);
+int					dialog_event(void *param, void *penv);
 
 /*
 ** enemies functions

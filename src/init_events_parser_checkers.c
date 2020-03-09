@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 12:03:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:33:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_events_parser_checkers3(t_events_parser *eparser)
 	eparser->checkers[OBJECT_Y] = &check_double_overflow_event;
 	eparser->checkers[OBJECT_Z] = &check_double_overflow_event;
 	eparser->checkers[WIN] = 0;
+	eparser->checkers[DIALOG] = 0;
 }
 
 void	init_events_parser_checkers2(t_events_parser *eparser)
