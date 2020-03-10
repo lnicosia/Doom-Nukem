@@ -94,7 +94,7 @@ t_env *env)
 	new.size_up = new_point(98, 98);
 	new.size_pressed = new_point(98, 98);
 	new.size_down = new_point(98, 98);
-	new.size_hover = new_point(98, 98);
+	new.size_hover = new_point(98, 98); 
 	return (new);
 }
 
@@ -274,8 +274,8 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[18].surface || !env->ui_textures[19].surface
-		|| !env->ui_textures[20].surface)
+	if (!env->ui_textures[15].surface || !env->ui_textures[16].surface
+		|| !env->ui_textures[17].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[15].surface;
 	new.img_pressed = env->ui_textures[16].surface;
@@ -294,13 +294,33 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[15].surface || !env->ui_textures[16].surface
-		|| !env->ui_textures[17].surface)
+	if (!env->ui_textures[18].surface || !env->ui_textures[19].surface
+		|| !env->ui_textures[20].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[18].surface;
 	new.img_pressed = env->ui_textures[19].surface;
 	new.img_down = env->ui_textures[19].surface;
 	new.img_hover = env->ui_textures[20].surface;
+	new.size_up = new_point(32, 32);
+	new.size_down = new_point(32, 32);
+	new.size_hover = new_point(32, 32);
+	new.size_pressed = new_point(32, 32);
+	return (new);
+}
+
+t_button	new_previous_button_2(int type, int (*action)(void *), void *param,
+t_env *env)
+{
+	t_button	new;
+
+	new = init_button(type, action, param, env);
+	if (!env->ui_textures[60].surface || !env->ui_textures[61].surface
+		|| !env->ui_textures[62].surface)
+		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
+	new.img_up = env->ui_textures[60].surface;
+	new.img_pressed = env->ui_textures[61].surface;
+	new.img_down = env->ui_textures[61].surface;
+	new.img_hover = env->ui_textures[62].surface;
 	new.size_up = new_point(32, 32);
 	new.size_down = new_point(32, 32);
 	new.size_hover = new_point(32, 32);

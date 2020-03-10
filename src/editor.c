@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 10:32:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:02:06 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,22 @@ int		editor(t_env *env)
 			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP
 				|| env->sdl.event.type == SDL_MOUSEBUTTONUP))
 			{
-				if (!env->editor.in_game)
+				if (!env->editor.in_game && !env->options.editor_options)
 				{
 					if (editor_keyup(env))
 						return (-1);
 				}
-				else
+				else if (!env->options.editor_options && env->editor.in_game)
 				{
 					if (editor_3d_keyup(env))
 						return (-1);
+				}
+				else if (env->options.editor_options)
+				{
+					if (editor_options_keyup(env))
+						return (-1);
+					if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+						editor_show_tab(env);
 				}
 			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
@@ -94,9 +101,14 @@ int		editor(t_env *env)
 		}
 		if (!env->editor.in_game)
 		{
-			if (!env->input_box.state)
+			if (!env->input_box.state && !env->options.editor_options)
 			{
 				if (editor_keys(env))
+					return (ft_printf("Error in inputs\n"));
+			}
+			else if (!env->input_box.state)
+			{
+				if (editor_options_keys(env))
 					return (ft_printf("Error in inputs\n"));
 			}
 			draw_grid(env);
@@ -114,7 +126,7 @@ int		editor(t_env *env)
 			draw_current_creation(env);
 			draw_grid_sectors(env);
 		}
-		else
+		else if (env->editor.in_game)
 		{
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));

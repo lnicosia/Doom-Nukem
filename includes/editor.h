@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:08:54 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,6 +406,7 @@ typedef struct	s_editor
 	t_button			current_enemy_selection;
 	t_button			current_object_selection;
 	t_button			change_mode;
+	t_button			quit_options;
 	t_button			save;
 	t_button			launch_game;
 	t_button			texture_background;
@@ -456,6 +457,10 @@ typedef struct	s_editor
 	t_button			previous_ambiance_music;
 	t_button			next_fighting_music;
 	t_button			previous_fighting_music;
+	t_button			mipmapping;
+	t_button			zbuffer;
+	t_button			light;
+	t_button			fps;
 	int					texture_tab;
 	t_list				*events_to_delete;
 }				t_editor;

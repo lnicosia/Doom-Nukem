@@ -95,9 +95,22 @@ int		save_button(void *target)
 	return (0);
 }
 
+int		editor_options(void *target)
+{
+	t_env *env;
+
+	env = (t_env*)target;
+	if (env->options.editor_options == 0)
+		env->options.editor_options = 1;
+	else
+		env->options.editor_options = 0;
+	return (0);
+}
+
 int		editor_options_button(t_env *env)
 {
-	env->editor.options = new_image_button(ON_RELEASE, NULL, env, env);
+	env->editor.options = new_image_button(ON_RELEASE, &editor_options,
+		env, env);
 	env->editor.options.str = "OPTIONS";
 	env->editor.options.pos = new_point(40, 210);
 	return (0);

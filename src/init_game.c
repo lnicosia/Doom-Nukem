@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/08 14:37:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int		init_game(int ac, char **av)
 	start_game_button(&env);
 	next_difficulty_button(&env);
 	prev_difficulty_button(&env);
-	option_menu_button(&env);
+	option_menu_ig_button(&env);
 	return_button(&env);
 	exit_button(&env);
 	music_vol_down_button(&env);

@@ -352,6 +352,8 @@ int	editor_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
+	if (button_keyup(&env->editor.options, env))
+		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
 	if (button_keyup(&env->editor.current_texture_selection, env))

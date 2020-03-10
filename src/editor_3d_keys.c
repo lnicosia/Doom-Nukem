@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 10:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:49:10 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,14 @@ int		editor_3d_keys(t_env *env)
 
 	if (env->editor.tab)
 	{
-		if (editor_3d_tab_keys(env))
-			return (-1);
+		if (!env->options.editor_options)
+		{
+			if (editor_3d_tab_keys(env))
+				return (-1);
+		}
+		else
+			if (editor_options_keys(env))
+				return (-1);
 	}
 	if (wall_edit_keys(env))
 		return (-1);

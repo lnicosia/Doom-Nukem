@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 15:42:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/08 14:37:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int		doom(t_env *env)
 		{
 			if (env->option)
 			{
-				option_menu(env);
+				option_menu_ig(env);
 				/*if (open_options(env))
 					return (crash("Could not process options pannel\n", env));*/
 			}

@@ -74,12 +74,12 @@ int		start_game_button(t_env *env)
 	return (0);
 }
 
-int		option_menu_button(t_env *env)
+int		option_menu_ig_button(t_env *env)
 {
-	env->option_menu = new_image_button(ON_RELEASE, &open_options,
+	env->option_menu_ig = new_image_button(ON_RELEASE, &open_options,
 		env, env);
-	env->option_menu.pos = new_point(env->h_w - env->option_menu.size_up.x / 2,
-		env->h_h + env->h_h / 4 + env->option_menu.size_up.y);
+	env->option_menu_ig.pos = new_point(env->h_w - env->option_menu_ig.size_up.x
+		/ 2, env->h_h + env->h_h / 4 + env->option_menu_ig.size_up.y);
 	return (0);
 }
 
@@ -135,7 +135,7 @@ void	start_game_menu(t_env *env)
 	draw_button(env, env->start_game_button, "START");
 	draw_button(env, env->next_difficulty, NULL);
 	draw_button(env, env->previous_difficulty, NULL);
-	draw_button(env, env->option_menu, "OPTIONS");
+	draw_button(env, env->option_menu_ig, "OPTIONS");
 	draw_button(env, env->exit_button, "EXIT");
 	print_difficulty(env);
 	while (SDL_PollEvent(&env->sdl.event))

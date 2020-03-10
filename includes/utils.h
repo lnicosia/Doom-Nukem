@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 11:07:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:54:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 52
-# define MAX_UI_TEXTURES 60
+# define MAX_UI_TEXTURES 63
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
@@ -1129,6 +1129,7 @@ typedef struct		s_options
 	int				mouse;
 	int				max_floor_sprites;
 	int				max_wall_sprites;
+	int				editor_options;
 }					t_options;
 
 /*

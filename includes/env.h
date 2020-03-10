@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 11:09:56 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:00:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef struct		s_env
 	t_button			start_game_button;
 	t_button			previous_difficulty;
 	t_button			next_difficulty;
-	t_button			option_menu;
+	t_button			option_menu_ig;
 	t_button			exit_button;
 	t_button			return_button;
 	t_button			music_vol_down;
@@ -178,6 +178,7 @@ typedef struct		s_env
 
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
+void				init_editor_options_buttons(t_env *env);
 void				init_editor_data(t_env *env);
 void				init_selection_data(t_env *env);
 void				init_editor_tab_buttons(t_env *env);
@@ -245,9 +246,11 @@ void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
 int					editor_3d_keys(t_env *env);
+int					editor_options_keys(t_env *env);
 int					editor_mouse(t_env *env);
 int					editor_keyup(t_env *env);
 int					editor_3d_keyup(t_env *env);
+int					editor_options_keyup(t_env *env);
 int					editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
@@ -979,7 +982,7 @@ int					music_vol_up_button(t_env *env);
 int					music_vol_down_button(t_env *env);
 int					sounds_vol_up_button(t_env *env);
 int					sounds_vol_down_button(t_env *env);
-int					option_menu_button(t_env *env);
+int					option_menu_ig_button(t_env *env);
 int					exit_button(t_env *env);
 int					return_button(t_env *env);
 void				init_events_map(t_env *env);
@@ -1082,6 +1085,8 @@ void *param, t_env *env);
 t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_previous_button(int type, int (*action)(void *),
+void *param, t_env *env);
+t_button			new_previous_button_2(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
@@ -1202,7 +1207,7 @@ void				jump(t_env *env);
 void				crouch(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
-void				option_menu(t_env *env);
+void				option_menu_ig(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
@@ -1294,8 +1299,8 @@ int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
 int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
-int					option_menu_keyup(t_env *env);
-int					option_menu_keys(t_env *env);
+int					option_menu_ig_keyup(t_env *env);
+int					option_menu_ig_keys(t_env *env);
 size_t				get_decimal_len(double nb);
 size_t				get_double_len(double nb);
 int					win(void *param, void *penv);

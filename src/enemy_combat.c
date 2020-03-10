@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:34:48 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 18:45:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,22 @@ void	damage_player(t_env *env, int damage)
 }
 
 /*
+** Manages death and events of a kamikaze enemy
+*/
+
+int		kamikaze_death(t_env *env, int i)
+{
+	env->enemies[i].health = 0;
+	if (env->enemies[i].nb_death_events > 0
+		&& env->enemies[i].death_events
+		&& start_event(&env->enemies[i].death_events,
+		&env->enemies[i].nb_death_events, env))
+		return (-1);
+	env->enemies[i].exists = 0;
+	return (0);
+}
+
+/*
 ** Manages the collisions between an enemy and the player and the consequences
 ** of that collision: event, player damage, enemy death for instance
 */
@@ -109,10 +125,7 @@ int		enemy_melee_hit(t_env *env)
 			{
 				damage_player(env, env->enemies[i].damage);
 				if (env->enemies[i].behavior == MELEE_KAMIKAZE)
-				{
-					env->enemies[i].health = 0;
-					env->enemies[i].exists = 0;
-				}
+					kamikaze_death(env, i);
 			}
 		}
 		else

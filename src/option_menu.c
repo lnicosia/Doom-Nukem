@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 16:28:31 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/09 11:20:27 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,18 +165,23 @@ void	print_sounds_vol(t_env *env)
 		0xFFFFFFFF, 30), env);
 }
 
-void	option_menu(t_env *env)
+void	draw_option_menu_ig_buttons(t_env *env)
 {
-	clear_image(env);
-	SDL_SetRelativeMouseMode(0);
-	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
-		new_point(env->w, env->h), env);
 	draw_button(env, env->return_button, "RETURN");
 	draw_button(env, env->exit_button, "EXIT");
 	draw_button(env, env->music_vol_up, NULL);
 	draw_button(env, env->music_vol_down, NULL);
 	draw_button(env, env->sounds_vol_up, NULL);
 	draw_button(env, env->sounds_vol_down, NULL);
+}
+
+void	option_menu_ig(t_env *env)
+{
+	clear_image(env);
+	SDL_SetRelativeMouseMode(0);
+	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
+		new_point(env->w, env->h), env);
+	draw_option_menu_ig_buttons(env);
 	print_music_vol(env);
 	print_sounds_vol(env);
 	while (SDL_PollEvent(&env->sdl.event))
@@ -187,8 +192,8 @@ void	option_menu(t_env *env)
 			env->running = 0;
 		update_inputs(env);
 		if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
-			option_menu_keyup(env);
-		option_menu_keys(env);
+			option_menu_ig_keyup(env);
+		option_menu_ig_keys(env);
 	}
 	update_screen(env);
 }

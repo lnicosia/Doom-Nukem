@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/05 17:22:16 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/03/09 14:31:51 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		update_entities.c editor_vertices_tab.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
 		delete_sector.c delete_vertex.c weapon_picker.c \
-		write_musics_choices.c \
+		write_musics_choices.c editor_option_keys.c \
+		init_editor_options_buttons.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -219,7 +220,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
+		  -Ofast -flto\
 		  #-fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
