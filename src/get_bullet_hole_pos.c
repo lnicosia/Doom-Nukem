@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:24:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/02 15:24:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:24:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ t_v2	get_floor_bullet_hole_pos(t_sector *sector, t_projectile *projectile,
 t_env *env)
 {
 	t_v3	inter;
+	int		i;
 
+	i = get_sector_first_angles(sector, env);
 	inter = get_intersection_line_plane(projectile->pos, projectile->dest,
-	new_plane(new_v3(env->vertices[sector->vertices[0]].x,
-	env->vertices[sector->vertices[0]].y,
-	sector->floors[0]),
-	new_v3(env->vertices[sector->vertices[1]].x,
-	env->vertices[sector->vertices[1]].y,
-	sector->floors[1]),
-	new_v3(env->vertices[sector->vertices[2]].x,
-	env->vertices[sector->vertices[2]].y,
-	sector->floors[2])),
-	new_v3(env->vertices[sector->vertices[0]].x,
-	env->vertices[sector->vertices[0]].y,
-	sector->floors[0]));
+	new_plane(new_v3(env->vertices[sector->vertices[i]].x,
+	env->vertices[sector->vertices[i]].y,
+	sector->floors[i]),
+	new_v3(env->vertices[sector->vertices[i + 1]].x,
+	env->vertices[sector->vertices[i + 1]].y,
+	sector->floors[i + 1]),
+	new_v3(env->vertices[sector->vertices[i + 2]].x,
+	env->vertices[sector->vertices[i + 2]].y,
+	sector->floors[i + 2])),
+	new_v3(env->vertices[sector->vertices[i]].x,
+	env->vertices[sector->vertices[i]].y,
+	sector->floors[i]));
 	return (new_v2(inter.x, inter.y));
 }
 
@@ -37,20 +39,22 @@ t_v2	get_ceiling_bullet_hole_pos(t_sector *sector, t_projectile *projectile,
 t_env *env)
 {
 	t_v3	inter;
+	int		i;
 
+	i = get_sector_first_angles(sector, env);
 	inter = get_intersection_line_plane(projectile->pos, projectile->dest,
-	new_plane(new_v3(env->vertices[sector->vertices[0]].x,
-	env->vertices[sector->vertices[0]].y,
-	sector->ceilings[0]),
-	new_v3(env->vertices[sector->vertices[1]].x,
-	env->vertices[sector->vertices[1]].y,
-	sector->ceilings[1]),
-	new_v3(env->vertices[sector->vertices[2]].x,
-	env->vertices[sector->vertices[2]].y,
-	sector->ceilings[2])),
-	new_v3(env->vertices[sector->vertices[0]].x,
-	env->vertices[sector->vertices[0]].y,
-	sector->ceilings[0]));
+	new_plane(new_v3(env->vertices[sector->vertices[i]].x,
+	env->vertices[sector->vertices[i]].y,
+	sector->ceilings[i]),
+	new_v3(env->vertices[sector->vertices[i + 1]].x,
+	env->vertices[sector->vertices[i + 1]].y,
+	sector->ceilings[i + 1]),
+	new_v3(env->vertices[sector->vertices[i + 2]].x,
+	env->vertices[sector->vertices[i + 2]].y,
+	sector->ceilings[i + 2])),
+	new_v3(env->vertices[sector->vertices[i]].x,
+	env->vertices[sector->vertices[i]].y,
+	sector->ceilings[i]));
 	return (new_v2(inter.x, inter.y));
 }
 

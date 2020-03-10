@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:21:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 09:55:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void		*wall_loop(void *param)
 				- render.texel_y_near_z;
 			render.zrange = render.z - render.camera->near_z;
 		}
-		draw_wall_sprites(sector, render, env);
+		if (draw_wall_sprites(sector, render, env))
+			return (0);
 		draw_wall_bullet_holes(sector, render, env);
 		if (render.current_ceiling > env->ymin[x])
 		{
@@ -266,7 +267,7 @@ int		render_sector(t_render render, t_env *env)
 		}
 		env->editor.just_selected = 0;
 		just_selected = 0;
-		if (threaded_wall_loop(v1, sector, render, env))
+		if (threaded_wall_loop(v1, sector, render, env) || env->fatal_error)
 			return (-1);
 		if (env->editor.just_selected)
 			just_selected = 1;

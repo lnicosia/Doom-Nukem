@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/20 18:54:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:32:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_event_conditions_writers3(void (*writers[])(int, t_condition))
 	writers[OBJECT_X] = &condition_object_writer;
 	writers[OBJECT_Y] = &condition_object_writer;
 	writers[OBJECT_Z] = &condition_object_writer;
+	//writers[WIN] = &condition_no_writer;
 }
 
 void	init_event_conditions_writers2(void (*writers[])(int, t_condition))

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 18:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:27:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		shot(t_env *env)
 	}
 	else
 	{
+		env->shooting = 1;
 		while (i < env->nb_enemies)
 		{
 			if (hitscan_enemies(env, i) == 1)
@@ -233,7 +234,7 @@ void    print_ammo(t_env *env)
 	env->weapons[env->player.curr_weapon].ammo,
 	env->weapons[env->player.curr_weapon].max_ammo);
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5),
-	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0),
+	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xfff1f2f3, 0),
 	env);
 }
 

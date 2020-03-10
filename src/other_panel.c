@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:43:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:52:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:00:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		set_other_panel_buttons_state(t_target_panel *panel, int index)
 	down = 0;
 	if (index == WIN)
 		down = 0;
+	else if (index == DIALOG)
+		down = 1;
 	panel->targets[down].state = DOWN;
 	panel->selected_button = down;
 	return (0);
@@ -34,7 +36,7 @@ int		select_other(void *param)
 	panel = &env->editor.event_panel.target_panel;
 	panel->other_type = 1;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		panel->targets[i].state = UP;
 		i++;
@@ -48,5 +50,6 @@ int		select_other(void *param)
 int		draw_other_panel(t_env *env, t_target_panel *panel)
 {
 	draw_button(env, panel->targets[0], "Win");
+	draw_button(env, panel->targets[1], "Dialog");
 	return (0);
 }

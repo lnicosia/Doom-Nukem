@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:32:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 17:14:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int		launch_events(t_env *env)
 					&env->nb_wall_bullet_holes_events, env))
 			return (-1);
 	}
-	if (env->floor_bullet_holes_events && env->floor_bullet_holes_events
+	if (env->floor_bullet_holes_events
 			&& env->nb_floor_bullet_holes_events)
 	{
 		if (start_event(&env->floor_bullet_holes_events,
 					&env->nb_floor_bullet_holes_events, env))
 			return (-1);
 	}
-	if (env->ceiling_bullet_holes_events && env->ceiling_bullet_holes_events
+	if (env->ceiling_bullet_holes_events
 			&& env->nb_ceiling_bullet_holes_events)
 	{
 		if (start_event(&env->ceiling_bullet_holes_events,

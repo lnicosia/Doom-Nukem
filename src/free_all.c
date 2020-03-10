@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:52:30 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 17:15:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,8 @@ void		free_all(t_env *env)
 		ft_lstdelfront(&env->events);
 	if (env->queued_values)
 		ft_lstdelfront(&env->queued_values);
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])

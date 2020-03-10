@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:42:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:19:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:08:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_render render, t_env *env)
 			i++;
 			continue;
 		}
+		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		if ((env->editor.tab && vline.x == env->sdl.mx && i == env->sdl.my)
 		|| (!env->editor.tab && vline.x == env->h_w && i == env->h_h))
 		{
@@ -93,6 +94,19 @@ t_render render, t_env *env)
 				tabs_gestion(env);
 				env->editor.just_selected = 1;
 			}
+			if (env->shooting
+				&& render.z <= env->weapons[env->player.curr_weapon].range)
+			{
+				env->new_wall_bullet_hole = 1;
+				env->new_bullet_hole_pos =
+				new_v2(((render.alpha / render.camera->v[sector.num]
+				[render.i + 1].vz) / ((1 - render.alpha) / render.
+				camera->v[sector.num][render.i].vz + render.alpha / render.
+				camera->v[sector.num][render.i + 1].vz)) * sector.
+				wall_width[render.i], yalpha * (sector.ceiling - sector.floor));
+				env->new_bullet_hole_sector = sector.num;
+				env->new_bullet_hole_wall = render.i;
+			}
 			if (env->playing)
 			{
 				env->hovered_wall_sprite_wall = -1;
@@ -100,7 +114,6 @@ t_render render, t_env *env)
 				env->hovered_wall_sprite_sector = -1;
 			}
 		}
-		yalpha = (i - render.no_slope_current_ceiling) / render.line_height;
 		/*x = yalpha * render.camera->v[render.sector][render.i].texture_scale.y
 			+ sector.align[render.i].y;
 		while (x >= render.texture_w)

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:26:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:46:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:33:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		third_phase_keys(t_env *env, t_target_panel *panel)
 	else if (panel->vertex_type)
 		max = 2;
 	else if (panel->other_type)
-		max = 1;
+		max = 2;
 	else
 		max = 8;
 	i = 0;
@@ -138,7 +138,7 @@ int		third_phase_keyup(t_env *env, t_target_panel *panel)
 	else if (panel->vertex_type)
 		max = 2;
 	else if (panel->other_type)
-		max = 1;
+		max = 2;
 	else
 		max = 8;
 	i = 0;

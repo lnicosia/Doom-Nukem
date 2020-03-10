@@ -14,71 +14,71 @@
 
 int		init_shotgun(t_env *env)
 {
-	if (parse_bmp("images/HUD/shotgun/shot1.bmp", 0, env))
+	if (parse_bmp("images/HUD/shot1.bmp", 0, env))
 		return (ft_printf("Invalid bmp file\n"));
- 	if (parse_bmp("images/HUD/shotgun/shot2.bmp", 1, env))
+ 	if (parse_bmp("images/HUD/shot2.bmp", 1, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot3.bmp", 2, env))
+	if (parse_bmp("images/HUD/shot3.bmp", 2, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot4.bmp", 3, env))
+	if (parse_bmp("images/HUD/shot4.bmp", 3, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot5.bmp", 4, env))
+	if (parse_bmp("images/HUD/shot5.bmp", 4, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot6.bmp", 5, env))
+	if (parse_bmp("images/HUD/shot6.bmp", 5, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot7.bmp", 6, env))
+	if (parse_bmp("images/HUD/shot7.bmp", 6, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot8.bmp", 7, env))
+	if (parse_bmp("images/HUD/shot8.bmp", 7, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot9.bmp", 8, env))
+	if (parse_bmp("images/HUD/shot9.bmp", 8, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot10.bmp", 9, env))
+	if (parse_bmp("images/HUD/shot10.bmp", 9, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot11.bmp", 10, env))
+	if (parse_bmp("images/HUD/shot11.bmp", 10, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot12.bmp", 11, env))
+	if (parse_bmp("images/HUD/shot12.bmp", 11, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot13.bmp", 12, env))
+	if (parse_bmp("images/HUD/shot13.bmp", 12, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot14.bmp", 13, env))
+	if (parse_bmp("images/HUD/shot14.bmp", 13, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shotgun/shot15.bmp", 14, env))
+	if (parse_bmp("images/HUD/shot15.bmp", 14, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }
 
 int		init_raygun(t_env *env)
 {
-	if (parse_bmp("images/HUD/raygun/raygun1.bmp", 15, env))
+	if (parse_bmp("images/HUD/raygun1.bmp", 15, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun2.bmp", 16, env))
+	if (parse_bmp("images/HUD/raygun2.bmp", 16, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun3.bmp", 17, env))
+	if (parse_bmp("images/HUD/raygun3.bmp", 17, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun4.bmp", 18, env))
+	if (parse_bmp("images/HUD/raygun4.bmp", 18, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun5.bmp", 19, env))
+	if (parse_bmp("images/HUD/raygun5.bmp", 19, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun6.bmp", 20, env))
+	if (parse_bmp("images/HUD/raygun6.bmp", 20, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/raygun/raygun7.bmp", 21, env))
+	if (parse_bmp("images/HUD/raygun7.bmp", 21, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }
 
 int		init_gun(t_env *env)
 {
-	if (parse_bmp("images/HUD/gun/gun_1.bmp", 40, env))
+	if (parse_bmp("images/HUD/gun_1.bmp", 40, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/gun/gun_2.bmp", 41, env))
+	if (parse_bmp("images/HUD/gun_2.bmp", 41, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/gun/gun_3.bmp", 42, env))
+	if (parse_bmp("images/HUD/gun_3.bmp", 42, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/gun/gun_4.bmp", 43, env))
+	if (parse_bmp("images/HUD/gun_4.bmp", 43, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/gun/gun_5.bmp", 44, env))
+	if (parse_bmp("images/HUD/gun_5.bmp", 44, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/gun/gun_6.bmp", 45, env))
+	if (parse_bmp("images/HUD/gun_6.bmp", 45, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }
