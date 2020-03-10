@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:33:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/06 11:42:43 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 68
 # define MAX_REAL_TARGET_TYPES 67
+# define NB_BMP_SPRITES 13
+# define NB_FONTS 8
 
 typedef	enum		e_musics_list
 {
@@ -227,6 +229,8 @@ typedef enum		s_ui_textures
 typedef	struct		s_resource
 {
 	int				nb_textures;
+	int				nb_sprites;
+	int				nb_skyboxes;
 	int				nb_fonts;
 	int				nb_sound;
 }					t_resource;

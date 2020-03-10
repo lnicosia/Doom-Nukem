@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/04 18:52:26 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/10 10:10:34 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,16 @@ OBJ_ALL_DIR = obj_all
 FONTS_DIR = fonts
 MAPS_DIR = maps
 AUDIO_DIR = audio
-IMAGES_DIR = images
 INCLUDES_DIR = includes
+IMAGES_DIR = images
+TEXTURES_DIR = textures
+SPRITES_DIR = sprites
+SKYBOXES_DIR = skyboxes
+HUD_DIR = HUD
+UI_DIR = UI
+GUN_DIR = gun
+RAYGUN_DIR = raygun
+SHOTGUN_DIR = shotgun
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
@@ -32,6 +40,8 @@ SDL_DIR = SDL2-2.0.8/include
 SDL_TTF_DIR = SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
+SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
+BUILD_RESOURCES = resources
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -127,7 +137,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
 		delete_sector.c delete_vertex.c weapon_picker.c \
 		write_musics_choices.c write_resources.c write_textures.c \
-		write_sounds.c\
+		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -205,13 +215,34 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   collision_maths.c collision_utils.c new_object_event.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
 		   init_audio.c vertices_selection.c fill_new_sector.c\
-		   map_parse_resources.c
+		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
+		   map_parse_fonts.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
 		  events_parser.h update_existing_events.h \
 
+TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
+			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
+			rust.bmp sand.bmp wall0.bmp wall1.bmp wall3.bmp wall4.bmp \
+
+SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
+			cyber_demon.bmp doom_guy_face.bmp doom_guy.bmp lost_soul.bmp \
+			MIDSPACE.bmp objects_sprites.bmp projectiles_sprites.bmp \
+			raygun.bmp sprite_sheet.bmp
+
+SKYBOXES =	back.bmp bottom.bmp top.bmp left.bmp right.bmp front.bmp \
+			nebula_back.bmp nebula_bottom.bmp nebula_top.bmp nebula_right.bmp \
+			nebula_left.bmp nebula_front.bmp night_back.bmp night_bottom.bmp \
+			night_left.bmp night_right.bmp night_top.bmp night_front.bmp \
+
+HUD =	hud.bmp Ammo_hud.bmp Life_armor_hud.bmp raygun1.bmp raygun2.bmp \
+		raygun3.bmp raygun4.bmp raygun5.bmp raygun6.bmp raygun7.bmp \
+		shot1.bmp shot2.bmp shot3.bmp shot4.bmp shot5.bmp shot6.bmp shot7.bmp \
+		shot8.bmp shot9.bmp shot10.bmp shot11.bmp shot12.bmp shot13.bmp \
+		shot14.bmp shot15.bmp 
+		
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -221,12 +252,17 @@ OBJ_EDITOR = $(addprefix $(OBJ_EDITOR_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
 SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
+TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
+#SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
+#SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
+#HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast \
-		  -fsanitize=address -g3 \
+		  #-fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \
 		  #-ffast-math \
@@ -264,6 +300,7 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all:
+	@make $(BUILD_RESOURCES) -j8
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -277,15 +314,6 @@ editor:
 	@make -C $(LIBFT_DIR) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
-resources: $(IMAGES_DIR)
-	@cp -rf /sgoinfre/goinfre/Perso/sipatry/images/ $(IMAGES_DIR)/
-	@cp -rf /sgoinfre/goinfre/Perso/sipatry/maps/ $(MAPS_DIR)/
-	@cp -rf /sgoinfre/goinfre/Perso/sipatry/fonts/ $(FONTS_DIR)/
-	@cp -rf /sgoinfre/goinfre/Perso/sipatry/audio/ $(AUDIO_DIR)/
-
-$(IMAGES_DIR):
-	@mkdir -p $(IMAGES_DIR) -j8
-	
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
 
@@ -298,15 +326,55 @@ $(OBJ_EDITOR_DIR):
 $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
-$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(IMAGES_DIR):
+	@mkdir -p $(IMAGES_DIR)
+
+$(TEXTURES_DIR):
+	@mkdir -p $(IMAGES_DIR)/$(TEXTURES_DIR)
+
+$(SPRITES_DIR):
+	@mkdir -p $(IMAGES_DIR)/$(SPRITES_DIR)
+	
+$(SKYBOXES_DIR):
+	@mkdir -p $(IMAGES_DIR)/$(SKYBOXES_DIR)
+
+$(HUD_DIR):
+	@mkdir -p $(IMAGES_DIR)/$(HUD_DIR)
+
+$(UI_DIR):
+	@mkdir -p $(IMAGES_DIR)/$(UI_DIR)
+
+$(TEXTURES_FILES)/%.bmp: $(SOURCES_PATH)/images/textures/%.bmp \
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(IMAGES_DIR)/$(SPRITES_DIR)/%.bmp: $(SOURCES_PATH)/images/sprites/%.bmp
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(IMAGES_DIR)/$(SKYBOXES_DIR)/%.bmp: $(SOURCES_PATH)/images/skyboxes/%.bmp
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(IMAGES_DIR)/$(HUD_DIR)/%.bmp: $(SOURCES_PATH)/images/HUD/%.bmp
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(BUILD_RESOURCES):	$(IMAGES_DIR) \
+					$(TEXTURES_DIR) $(TEXTURES_FILES) \
+					$(SPRITES_DIR) $(SPRITES_FILES) \
+					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
+					$(HUD_DIR) $(HUD_FILES) \
+
+$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
@@ -329,13 +397,6 @@ clean:
 	@rm -Rf $(OBJ_GAME_DIR)
 	@echo ${CYAN}"[INFO] Removed objs"${RESET}
 
-rclean:
-	@rm -Rf $(MAPS_DIR)
-	@rm -Rf $(IMAGES_DIR)
-	@rm -Rf $(FONTS_DIR)
-	@rm -Rf $(AUDIO_DIR)
-	@echo ${CYAN}"[INFO] Removed maps and images"${RESET}
-
 fclean:
 	@make fclean -C libft
 	@rm -Rf $(OBJ_ALL_DIR)
@@ -346,6 +407,6 @@ fclean:
 	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
 	@echo ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)"${RESET}
 
-re: fclean resources all
+re: fclean all
 
-.PHONY: fclean all clean libft resources maps
+.PHONY: fclean all clean libft maps

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:48:58 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 19:05:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/09 10:39:28 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ int		write_sound(int file, int fd, char *name)
 		return (ft_printf("Invalid wav file\n"));
 	size = read_int32(header, 4);
 	ft_dprintf(fd, "%s\n%d\n", name, size);
-	ft_printf("size: %d\n", size);
 	write(fd, header, 44);
 	while ((ret = (read(file, resource, 10000))) > 0)
 		write(fd, resource, ret);
 	write(fd, "\n", 1);
 	if (close(file))
-		return (ft_printf("Could not close the wav file\n"));	
+		return (ft_printf("Could not close the wav file\n"));
 	return (0);
 }
 
@@ -65,6 +64,5 @@ int		write_sounds(int fd, t_env *env)
 		return (ft_printf("Could not open footstep sound\n"));
 	if (write_sound(file, fd, "./audio/footstep.wav"))
 		return (-1);
-	ft_printf("Done\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:51:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/09 17:37:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,9 @@ int					count_textures(char *line, t_map_parser *parser);
 int					count_sprites(char *line, t_map_parser *parser);
 int					count_wall_sprites(char *line, t_map_parser *parser);
 int					count_floor_sprites(char *line, t_map_parser *parser);
+int					parse_sound(t_env *env, t_map_parser *parser);
+int					parse_bmp_file(t_env *env, t_map_parser *parser);
+int					parse_font_file(t_env *env, t_map_parser *parser);
 
 /*
 **	Protection
@@ -652,7 +655,15 @@ int					write_sound(int file, int fd, char *name);
 int					write_textures1(int fd);
 int					write_textures2(int fd);
 int					write_textures3(int fd);
-int					writing_texture(int file, int fd, char *name);
+int					write_sprites1(int fd);
+int					write_sprites2(int fd);
+int					write_sprites3(int fd);
+int					write_skybox1(int fd, int file);
+int					write_skybox2(int fd, int file);
+int					write_skybox3(int fd, int file);
+int					write_fonts1(int fd, int file);
+int					write_fonts2(int fd, int file);
+int					writing_bmp(int file, int fd, char *name);
 
 /*
 **	prints and draw buttons for informations on a selected element 

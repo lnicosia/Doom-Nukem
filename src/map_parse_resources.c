@@ -6,83 +6,19 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 19:17:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/09 10:42:51 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "map_parser.h"
 
-int		parse_bmp_file(t_env *env, t_map_parser *parser)
-{
-	int		fd;
-	int		size;
-
-	(void)env;
-	fd = 0;
-	size = 0;
-	
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
-		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->resource_name = ft_strnew(0)))
-		return (ft_printf("Coud not malloc\n"));
-	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
-	&& ft_strlen(parser->resource_name) < 100)
-	{
-		if (*(parser->tmp) == '\n')
-			break;
-		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, parser->tmp)))
-			return (ft_printf("Could not realloc name in parse bmp\n"));
-	}
-	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
-	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
-		return (ft_printf("Could not malloc name in parse bmp\n"));
-	ft_strdel(&(parser->tmp));
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
-		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Coud not malloc\n"));
-	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
-	&& ft_strlen(parser->line) < 100)
-	{
-		if (*(parser->tmp) == '\n')
-			break;
-		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line in parse bmp\n"));
-	}
-	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of bmp name\n"));
-	if (valid_int(parser->line, parser))
-		return (ft_printf("Invalid size for bmp file\n"));
-	size = ft_atoi(parser->line);
-	ft_strdel(&(parser->line));
-	if (size < 54)
-		return (ft_printf("Invalid size for bmp file, size is too small\n"));
-	ft_strdel(&(parser->tmp));
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char) * size)))
-		return (ft_printf("Memalloc failed\n"));
-	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
-		return (ft_printf("Read for bmp file failed\n"));	
-	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (ft_printf("Could not open bmp file\n"));
-	ft_strdel(&(parser->resource_name));
-	parser->resource_name = NULL;
-	write(fd, parser->tmp, size);
-	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
-		return (ft_printf("Invalid file\n"));
-	ft_strdel(&(parser->tmp));
-	if (close(fd))
-		return (ft_printf("Could not close fd\n"));
-	return (0);
-}
-
 int		map_parse_textures(t_env *env, t_map_parser *parser)
 {
 	int	i;
 
 	i = 0;
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
@@ -120,72 +56,49 @@ int		map_parse_textures(t_env *env, t_map_parser *parser)
 	return (0);
 }
 
-int		parse_sound(t_env *env, t_map_parser *parser)
+int		map_parse_sprites(t_env *env, t_map_parser *parser)
 {
-	int		fd;
-	int		size;
+	int	i;
 
-	(void)env;
-	fd = 0;
-	size = 0;
-	
-	ft_strdel(&(parser->tmp));
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
-		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->resource_name = ft_strnew(0)))
-		return (ft_printf("Coud not malloc\n"));
-	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
-	&& ft_strlen(parser->resource_name) < 100)
-	{
-		if (*(parser->tmp) == '\n')
-			break;
-		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, parser->tmp)))
-			return (ft_printf("Could not realloc name in parse texture\n"));
-	}
-	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
-	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
-		return (ft_printf("Could not malloc name in parse sound\n"));
-	ft_strdel(&(parser->tmp));
+	i = 0;
 	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Coud not malloc\n"));
+		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
 	{
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line in parse sound file\n"));
+			return (ft_printf("Could not malloc line\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of sound file\n"));
+		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+	if (*(parser->line) && *(parser->line) != 'S')
+		return (ft_printf("Expected letter: S\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != 'P')
+		return (ft_printf("Expected letter: 'P'\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != ' ')
+		return (ft_printf("Expected a space\n"));
+	parser->line++;
 	if (valid_int(parser->line, parser))
-		return (ft_printf("Invalid size for sound\n"));
-	size = ft_atoi(parser->line);
-	if (size < 44)
-		return (ft_printf("Invalid size for sound, size is too small\n"));
-	ft_strdel(&(parser->tmp));
-	size += 8;
-	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (ft_printf("Could not open sound file\n"));
-	ft_strdel(&(parser->resource_name));
-	parser->resource_name = NULL;
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char) * size)))
-		return (ft_printf("Memalloc failed\n"));
-	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
-		return (ft_printf("Read for sound failed\n"));
-	write(fd, parser->tmp, size);
-	ft_strdel(&(parser->tmp));
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
-		return (ft_printf("Memalloc failed\n"));
-	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
-		return (ft_printf("Invalid sound file\n"));
+		return (ft_printf("Invalid int for sprites number\n"));
+	env->resource.nb_sprites = atoi(parser->line);
+	parser->line -= 3;
+	if (env->resource.nb_sprites > NB_BMP_SPRITES
+	|| env->resource.nb_sprites < 1)
+		return (ft_printf("Wrong number of sprites\n"));
 	ft_strdel(&(parser->tmp));
 	ft_strdel(&(parser->line));
-	if (close(fd))
-		return (ft_printf("Could not close fd\n"));
+	while (i <  env->resource.nb_sprites)
+	{
+		if (parse_bmp_file(env, parser))
+			return (ft_printf("Error while parsing sprite %d\n", i));
+		i++;
+	}
 	return (0);
 }
 
@@ -194,7 +107,7 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	int	i;
 
 	i = 0;
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
@@ -217,6 +130,8 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	if (valid_int(parser->line, parser))
 		return (ft_printf("Invalid int for sounds number\n"));
 	env->resource.nb_sound = atoi(parser->line);
+	parser->line -= 2;
+	ft_strdel(&(parser->line));
 	if (env->resource.nb_sound > NB_MUSICS + NB_SOUNDS || env->resource.nb_sound < 0)
 		return (ft_printf("Wrong number of sounds\n"));
 	while (i < env->resource.nb_sound)
@@ -228,13 +143,108 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	return (0);
 }
 
+int		map_parse_skyboxes(t_env *env, t_map_parser *parser)
+{
+	int	i;
+
+	i = 0;
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+		return (ft_printf("Memalloc failed\n"));
+	if (!(parser->line = ft_strnew(0)))
+		return (ft_printf("Could not malloc line\n"));
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
+	{
+		if (*(parser->tmp) == '\n')
+			break;
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
+			return (ft_printf("Could not malloc line\n"));
+	}
+	if (*(parser->tmp) != '\n')
+		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+	if (*(parser->line) && *(parser->line) != 'S')
+		return (ft_printf("Expected letter: S\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != 'K')
+		return (ft_printf("Expected letter: 'K'\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != 'Y')
+		return (ft_printf("Expected letter: 'Y'\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != ' ')
+		return (ft_printf("Expected a space\n"));
+	parser->line++;
+	if (valid_int(parser->line, parser))
+		return (ft_printf("Invalid int for skybox images number\n"));
+	env->resource.nb_skyboxes = atoi(parser->line);
+	parser->line -= 2;
+	if (env->resource.nb_skyboxes > MAX_SKYBOX * 6
+	|| env->resource.nb_skyboxes < 1)
+		return (ft_printf("Wrong number of sprites\n"));
+	ft_strdel(&(parser->tmp));
+	while (i <  env->resource.nb_skyboxes)
+	{
+		if (parse_bmp_file(env, parser))
+			return (ft_printf("Error while parsing skybox %d\n", i));
+		i++;
+	}
+	return (0);
+}
+
+int		map_parse_fonts(t_env *env, t_map_parser *parser)
+{
+	int	i;
+
+	i = 0;
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+		return (ft_printf("Memalloc failed\n"));
+	if (!(parser->line = ft_strnew(0)))
+		return (ft_printf("Could not malloc line\n"));
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
+	{
+		if (*(parser->tmp) == '\n')
+			break;
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
+			return (ft_printf("Could not malloc line\n"));
+	}
+	if (*(parser->tmp) != '\n')
+		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+	if (*(parser->line) && *(parser->line) != 'F')
+		return (ft_printf("Expected letter: 'F'\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != ' ')
+		return (ft_printf("Expected a space\n"));
+	parser->line++;
+	if (valid_int(parser->line, parser))
+		return (ft_printf("Invalid int for fonts number\n"));
+	env->resource.nb_fonts = atoi(parser->line);
+	parser->line -= 2;
+	if (env->resource.nb_fonts > NB_FONTS
+	|| env->resource.nb_fonts < 1)
+		return (ft_printf("Wrong number of fonts\n"));
+	ft_strdel(&(parser->tmp));
+	i = 0;
+	while (i <  env->resource.nb_fonts)
+	{
+		if (parse_font_file(env, parser))
+			return (ft_printf("Error while parsing font %d\n", i));
+		i++;
+	}
+	return (0);
+}
+
 int		parse_resources(t_env *env, t_map_parser *parser)
 {
 	if (map_parse_textures(env, parser))
 		return (ft_printf("Error while parsing map textures\n"));
-/*	if (map_parser_sprites(env, parser))
-		return (ft_printf("Error while parsing map sprites\n"));*/
+	if (map_parse_sprites(env, parser))
+		return (ft_printf("Error while parsing map sprites\n"));
+	if (map_parse_skyboxes(env, parser))
+		return (ft_printf("Error while parsing map skyboxes\n"));
 	if (map_parse_sounds(env, parser))
 		return (ft_printf("Error while parsing map sounds\n"));
+	if (map_parse_fonts(env, parser))
+		return (ft_printf("Error while parsing map fonts\n"));
 	return (0);
 }
