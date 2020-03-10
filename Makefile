@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/10 13:55:48 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/10 15:53:17 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -265,6 +265,13 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 		previous_arrow.bmp next_arrow.bmp previous_arrow_down.bmp \
 		next_arrow_down.bmp previous_arrow_hover.bmp next_arrow_hover.bmp
 
+AUDIO = Mt_Erebus.wav bim_bam_boum.wav \
+		shotgun_shot.wav raygun_shot.wav footstep.wav
+
+FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
+		Montserrat-Regular.ttf PlayfairDisplay-Regular.ttf \
+		Lato-Regular.ttf Lato-Bold.ttf Lato-Black.ttf
+
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -279,20 +286,27 @@ SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRI
 SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
 HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
 UI_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
+AUDIO_FILES = $(addprefix $(AUDIO_DIR)/, $(AUDIO))
+FONTS_FILES = $(addprefix $(FONTS_DIR)/, $(FONTS))
 
 TEXTURES_PATH = $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR))
 SPRITES_PATH =  $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR))
 SKYBOXES_PATH =  $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR))
 HUD_PATH =  $(addprefix $(IMAGES_DIR)/, $(HUD_DIR))
 UI_PATH =  $(addprefix $(IMAGES_DIR)/, $(UI_DIR))
+AUDIO_PATH = $(AUDIO_DIR)
+FONTS_PATH = $(FONTS_DIR)
 
-TEXTURES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
-SPRITES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
-SKYBOXES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
-HUD_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
-UI_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_DIR)))
+TEXTURES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
+SPRITES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
+SKYBOXES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
+HUD_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
+UI_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_DIR)))
+AUDIO_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(AUDIO_DIR))
+FONTS_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(FONTS_DIR))
 
-ALL_IMG_RESOURCES = $(IMAGES_DIR)
+
+ALL_RESOURCES = $(EDITOR_DIR)
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
@@ -337,7 +351,7 @@ CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
 all:
-	@make $(ALL_IMG_RESOURCES)
+	@make $(ALL_RESOURCES)
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -381,41 +395,57 @@ $(HUD_DIR):
 $(UI_DIR):
 	@mkdir -p $(UI_PATH)
 
-$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE)/%.bmp
+$(AUDIO_DIR):
+	@mkdir -p $(AUDIO_PATH)
+
+$(FONTS_DIR):
+	@mkdir -p $(FONTS_PATH)
+
+$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE_PATH)/%.bmp $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE)/%.bmp
+$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE_PATH)/%.bmp $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE)/%.bmp
+$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE_PATH)/%.bmp $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(HUD_PATH)/%.bmp: $(HUD_SOURCE)/%.bmp
+$(HUD_PATH)/%.bmp: $(HUD_SOURCE_PATH)/%.bmp $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(UI_PATH)/%.bmp: $(UI_SOURCE)/%.bmp
-	@printf "\e[0;33m[INFO] Importing: $<\e[0m\n"
+$(UI_PATH)/%.bmp: $(UI_SOURCE_PATH)/%.bmp $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(ALL_IMG_RESOURCES): $(TEXTURES_DIR) $(TEXTURES_FILES)\
+$(AUDIO_PATH)/%.wav: $(AUDIO_SOURCE_PATH)/%.wav $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf $(MAKEFILE)
+	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
+	@cp $< $@
+
+$(ALL_RESOURCES):	$(TEXTURES_DIR) $(TEXTURES_FILES) \
 					$(SPRITES_DIR) $(SPRITES_FILES) \
 					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
 					$(HUD_DIR) $(HUD_FILES) \
-					$(UI_DIR) $(UI_FILES) 
+					$(UI_DIR) $(UI_FILES) \
+					$(AUDIO_DIR) $(AUDIO_FILES) \
+					$(FONTS_DIR) $(FONTS_FILES)
 
-$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
