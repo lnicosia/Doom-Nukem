@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/10 10:46:45 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/10 11:51:44 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ TEXTURES_DIR = textures
 SPRITES_DIR = sprites
 SKYBOXES_DIR = skyboxes
 HUD_DIR = HUD
-UI_DIR = UI
+UI_DIR = ui
 GUN_DIR = gun
 RAYGUN_DIR = raygun
 SHOTGUN_DIR = shotgun
@@ -41,7 +41,6 @@ SDL_TTF_DIR = SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
-BUILD_RESOURCES = resources
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -225,7 +224,8 @@ HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
-			rust.bmp sand.bmp wall0.bmp wall1.bmp wall3.bmp wall4.bmp \
+			rust.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
+			wall4.bmp \
 
 SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
 			cyber_demon.bmp doom_guy_face.bmp doom_guy.bmp lost_soul.bmp \
@@ -233,7 +233,7 @@ SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
 			raygun.bmp sprite_sheet.bmp
 
 SKYBOXES =	back.bmp bottom.bmp top.bmp left.bmp right.bmp front.bmp \
-			nebula_back.bmp nebula_bottom.bmp nebula_top.bmp nebula_right.bmp \
+			nebula_back.bmp nebula_bottom.bmp nebula_top.bmp nebula_right.bmp\
 			nebula_left.bmp nebula_front.bmp night_back.bmp night_bottom.bmp \
 			night_left.bmp night_right.bmp night_top.bmp night_front.bmp \
 
@@ -241,8 +241,30 @@ HUD =	hud.bmp Ammo_hud.bmp Life_armor_hud.bmp raygun1.bmp raygun2.bmp \
 		raygun3.bmp raygun4.bmp raygun5.bmp raygun6.bmp raygun7.bmp \
 		shot1.bmp shot2.bmp shot3.bmp shot4.bmp shot5.bmp shot6.bmp shot7.bmp \
 		shot8.bmp shot9.bmp shot10.bmp shot11.bmp shot12.bmp shot13.bmp \
-		shot14.bmp shot15.bmp 
-		
+		shot14.bmp shot15.bmp
+
+UI =	button-default-up.bmp button-default-pressed.bmp \
+		button-default-hover.bmp background-up-64.bmp \
+		background-pressed-64.bmp background-hover-64.bmp \
+		onglet-up.bmp onglet-pressed.bmp onglet-hover.bmp tab-button-up.bmp\
+		tab-button-pressed.bmp tab-button-hover.bmp plus-button-up.bmp \
+		plus-button-pressed.bmp plus-button-hover.bmp next-up2.bmp \
+		next-pressed2.bmp next-hover2.bmp previous-up2.bmp \
+		previous-pressed2.bmp  previous-hover2.bmp \
+		minus-button-up.bmp minus-button-pressed.bmp minus-button-hover.bmp \
+		file.bmp file_straight.bmp plus-button-up2.bmp \
+		plus-button-pressed2.bmp plus-button-hover2.bmp minus-button-up2.bmp \
+		minus-button-pressed2.bmp minus-button-hover2.bmp background-up2.bmp \
+		background-pressed2.bmp background-hover2.bmp add_button.bmp \
+		onglet-up2.bmp onglet-pressed2.bmp onglet-hover2.bmp \
+		hud-button-up.bmp hud-button-pressed.bmp hud-button-hover.bmp \
+		play_icon.bmp target_icon.bmp event_icon.bmp condition_icon.bmp \
+		play_icon_down.bmp target_icon_down_blue.bmp event_icon_down_blue.bmp\
+		condition_icon_down_blue.bmp play_icon_hover.bmp \
+		target_icon_hover.bmp event_icon_hover.bmp condition_icon_hover.bmp \
+		previous_arrow.bmp next_arrow.bmp previous_arrow_down.bmp \
+		next_arrow_down.bmp previous_arrow_hover.bmp next_arrow_hover.bmp
+
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -256,11 +278,19 @@ TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(TEXTURES_DIR)/, $(TEX
 SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
 SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
 HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+UI_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
 
 TEXTURES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
 SPRITES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
 SKYBOXES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
 HUD_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
+UI_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_DIR)))
+
+ALL_IMG_RESOURCES = $(UI)
+ALL_IMG_RESOURCES += $(SKYBOXES)
+ALL_IMG_RESOURCES += $(SPRITES)
+ALL_IMG_RESOURCES += $(TEXTURES)
+ALL_IMG_RESOURCES += $(HUD)
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
@@ -304,8 +334,7 @@ GREEN := "\033[0;32m"
 CYAN := "\033[0;36m"
 RESET :="\033[0m"
 
-all:
-	@make $(BUILD_RESOURCES) -j8
+all: $(ALL_IMG_RESOURCES)
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -365,10 +394,15 @@ $(IMAGES_DIR)/$(HUD_DIR)/%.bmp: $(HUD_SOURCE)/%.bmp
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(BUILD_RESOURCES): $(TEXTURES_DIR) $(TEXTURES_FILES) \
+$(IMAGES_DIR)/$(UI_DIR)/%.bmp: $(UI_SOURCE)/%.bmp
+	@printf "\e[0;33m[INFO] Importing: $<\e[0m\n"
+	@cp $< $@
+
+$(ALL_IMG_RESOURCES): $(TEXTURES_DIR) $(TEXTURES_FILES) \
 					$(SPRITES_DIR) $(SPRITES_FILES) \
 					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
 					$(HUD_DIR) $(HUD_FILES) \
+					$(UI_DIR) $(UI_FILES) \
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
