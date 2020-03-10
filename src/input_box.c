@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 15:50:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:05:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,8 +269,9 @@ int		split_box_text(t_input_box *box, t_env *env)
 	box->pos.x + box->size.x / 100);
 	if (!(str = ft_strdup(box->str)))
 		return (-1);
+	TTF_SizeText(box->font, str, &text_size.x, &text_size.y);
 	while (ft_strlen(str)
-		&& pos.x + text_size.y < box->pos.y + box->size.y * 0.99)
+		&& pos.x + text_size.y <= box->pos.y + box->size.y * 0.99)
 	{
 		if (!(tmp = get_current_line(box, str, tmp)))
 			return (-1);
