@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/10 10:10:34 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/10 10:46:45 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -253,9 +253,14 @@ SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
 TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
-#SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
-#SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
-#HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
+SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
+HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+
+TEXTURES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
+SPRITES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
+SKYBOXES_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
+HUD_SOURCE = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
@@ -344,24 +349,23 @@ $(HUD_DIR):
 $(UI_DIR):
 	@mkdir -p $(IMAGES_DIR)/$(UI_DIR)
 
-$(TEXTURES_FILES)/%.bmp: $(SOURCES_PATH)/images/textures/%.bmp \
+$(IMAGES_DIR)/$(TEXTURES_DIR)/%.bmp: $(TEXTURES_SOURCE)/%.bmp
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(IMAGES_DIR)/$(SPRITES_DIR)/%.bmp: $(SOURCES_PATH)/images/sprites/%.bmp
+$(IMAGES_DIR)/$(SPRITES_DIR)/%.bmp: $(SPRITES_SOURCE)/%.bmp
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(IMAGES_DIR)/$(SKYBOXES_DIR)/%.bmp: $(SOURCES_PATH)/images/skyboxes/%.bmp
+$(IMAGES_DIR)/$(SKYBOXES_DIR)/%.bmp: $(SKYBOXES_SOURCE)/%.bmp
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(IMAGES_DIR)/$(HUD_DIR)/%.bmp: $(SOURCES_PATH)/images/HUD/%.bmp
+$(IMAGES_DIR)/$(HUD_DIR)/%.bmp: $(HUD_SOURCE)/%.bmp
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(BUILD_RESOURCES):	$(IMAGES_DIR) \
-					$(TEXTURES_DIR) $(TEXTURES_FILES) \
+$(BUILD_RESOURCES): $(TEXTURES_DIR) $(TEXTURES_FILES) \
 					$(SPRITES_DIR) $(SPRITES_FILES) \
 					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
 					$(HUD_DIR) $(HUD_FILES) \
