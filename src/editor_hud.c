@@ -151,16 +151,19 @@ void	editor_hud(t_env *env)
 				new_point(20, 40), new_point(360, 230));
 			draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-				new_point(20, 310), new_point(360, 117));
+				new_point(20, 310), new_point(360, 112));
 			draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-				new_point(20, 440), new_point(360, 117));
+				new_point(20, 435), new_point(360, 112));
 			draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-				new_point(20, 570), new_point(360, 97));
+				new_point(20, 560), new_point(360, 92));
 			draw_rectangle(env,
 				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-				new_point(20, 680), new_point(360, 57));
+				new_point(20, 665), new_point(360, 52));
+			draw_rectangle(env,
+				new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+				new_point(20, 730), new_point(360, 150));
 			draw_button(env, env->editor.quit_options,
 				env->editor.quit_options.str);
 			print_text(new_point(5, 155), new_printable_text("OPTIONS",
@@ -176,9 +179,11 @@ void	editor_hud(t_env *env)
 			print_on_off(env, env->options.zbuffer, new_point(114, 265));
 			print_on_off(env, env->options.lighting, new_point(164, 265));
 			print_on_off(env, env->options.show_fps, new_point(214, 265));
+
+
 			print_text(new_point(315, 50), new_printable_text("Ceiling/Floor",
 				env->sdl.fonts.lato_bold15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 51, "left-click");
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 55, "left-click");
 			print_text(new_point(340, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Height%*s", 53, "+/-");
@@ -194,7 +199,7 @@ void	editor_hud(t_env *env)
 
 			print_text(new_point(440, 50), new_printable_text("Textures",
 				env->sdl.fonts.lato_bold15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 51, "left-click");
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 55, "left-click");
 			print_text(new_point(465, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Add texture%*s", 41, "T");
@@ -208,39 +213,57 @@ void	editor_hud(t_env *env)
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 
 
-			print_text(new_point(555, 50), new_printable_text("Sprites",
+			print_text(new_point(565, 50), new_printable_text("Sprites",
 				env->sdl.fonts.lato_bold15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 51, "left-click");
-			print_text(new_point(580, 70), new_printable_text(env->snprintf,
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 55, "left-click");
+			print_text(new_point(590, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Scale %*s", 57, "ctrl shift +/-");
-			print_text(new_point(600, 70), new_printable_text(env->snprintf,
+			print_text(new_point(610, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Pos   %*s", 58, "ctrl shift </>");
-			print_text(new_point(620, 70), new_printable_text(env->snprintf,
+			print_text(new_point(630, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 
 
-			print_text(new_point(640, 50), new_printable_text("Portals",
+			print_text(new_point(670, 50), new_printable_text("Portals",
 				env->sdl.fonts.lato_bold15, 0x000000FF, 15), env);
 			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select %*s", 57, "ctrl left-click");
-			print_text(new_point(665, 70), new_printable_text(env->snprintf,
+			print_text(new_point(695, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 
 
-			print_text(new_point(705, 50), new_printable_text("Bindings",
+			print_text(new_point(735, 50), new_printable_text("Bindings",
 				env->sdl.fonts.lato_bold15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Light%*s", 15, "ctrl + L");
-			print_text(new_point(730, 70), new_printable_text(env->snprintf,
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Light%*s", 19, "ctrl + L");
+			print_text(new_point(760, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Zbuffer%*s", 13, "ctrl + Z");
-			print_text(new_point(7, 230), new_printable_text(env->snprintf,
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Zbuffer%*s", 16, "ctrl + Z");
+			print_text(new_point(760, 230), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Fly %*s", 17, "F");
-			print_text(new_point(805, 70), new_printable_text(env->snprintf,
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Fly %*s", 21, "F");
+			print_text(new_point(780, 70), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Fly up%*s", 13, "space");
-			print_text(new_point(805, 230), new_printable_text(env->snprintf,
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Fly up%*s", 18, "space");
+			print_text(new_point(780, 230), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Fly down%*s", 11, "cmd");
+			print_text(new_point(800, 230), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "2D/3D%*s", 12, "Enter");
+			print_text(new_point(800, 70), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Game%*s", 18, "ctrl + G");
+			print_text(new_point(820, 230), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Options%*s", 11, "ctrl + O");
+			print_text(new_point(820, 70), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Help%*s", 18, "ctrl + H");
+			print_text(new_point(840, 70), new_printable_text(env->snprintf,
+				env->sdl.fonts.lato15, 0x000000FF, 15), env);
+			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Minimap%*s", 12, "ctrl + M");
+			print_text(new_point(840, 230), new_printable_text(env->snprintf,
 				env->sdl.fonts.lato15, 0x000000FF, 15), env);
 			/*int h, w;
 			TTF_SizeText(env->sdl.fonts.lato_bold20, "Ceiling/Floor", &w, &h);
