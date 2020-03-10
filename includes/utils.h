@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:32:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 10:43:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1236,6 +1236,9 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
+	int				curr_line;
+	int				max_lines;
+	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;

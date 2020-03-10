@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 10:32:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 10:07:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ int		editor(t_env *env)
 		if (env->confirmation_box.state)
 			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
-			draw_input_box(&env->input_box, env);
+		{
+			if (draw_input_box(&env->input_box, env))
+				return (-1);
+		}
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

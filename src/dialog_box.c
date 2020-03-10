@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 16:28:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:52:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		dialog_event(void *param, void *penv)
 }
 
 /*
-**	Finds the maximum number of characters that can fit in one line
+**	Finds the maximum number of 'a' characters that can fit in one line
 **	of the dialog box
 */
 
@@ -37,10 +37,10 @@ int		find_dialog_box_max_char(t_env *env)
 	t_point	size;
 
 	size = new_point(0, 0);
-	len = 0;
-	if (!(str = ft_strdup("a")))
+	len = 1;
+	if (!(str = ft_strnew(0)))
 		return (-1);
-	while (size.x < env->h_w)
+	while (size.x < env->h_w - 70)
 	{
 		ft_strdel(&str);
 		if (!(str = ft_strnew(len)))
@@ -56,11 +56,35 @@ int		find_dialog_box_max_char(t_env *env)
 }
 
 /*
+**	Find the largest string of the current text characters that fit in one line
+*/
+
+static char	*get_current_line(char **str, char *tmp, t_env *env)
+{
+	size_t	len;
+	char	*res;
+	t_point	size;
+
+	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp, &size.x, &size.y);
+	len = ft_strlen(tmp);
+	res = tmp;
+	while (size.x < env->h_w - 70 && len <= ft_strlen(*str))
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(*str, 0, len)))
+			return (0);
+		TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y);
+		len++;
+	}
+	return (res);
+}
+
+/*
 **	If the string is too big to fit in one line
 **	Prints the text in multiple lines
 */
 
-int		split_text(char **str, t_point pos, t_env *env)
+int			split_text(char **str, t_point pos, t_env *env)
 {
 	int		count;
 	char	*tmp;
@@ -74,7 +98,9 @@ int		split_text(char **str, t_point pos, t_env *env)
 		if (!(tmp = ft_strsub(*str, 0,
 			ft_min(env->dialog_box_line_size, ft_strlen(*str)))))
 			return (-1);
-		if (ft_strlen(tmp) < ft_strlen(*str))
+		if (!(tmp = get_current_line(str, tmp, env)))
+			return (-1);
+		if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
 		{
 			if (!(tmp2 = ft_strsub(tmp, 0,
 				ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
@@ -109,7 +135,6 @@ int		draw_dialog_box(char **str, t_env *env)
 	t_texture	texture;
 	t_point		size;
 	t_point		pos;
-	t_point		text_size;
 	char		*tmp;
 
 	if (!str || !*str || !**str)
@@ -118,22 +143,11 @@ int		draw_dialog_box(char **str, t_env *env)
 		return (-1);
 	texture = env->ui_textures[60];
 	size = new_point(env->h_w, env->h_w / 3);
-	pos = new_point(env->h - size.y + 30, env->h_w - size.x / 2 + 50);
+	pos = new_point(env->h - size.y + 30, env->h_w - size.x / 2 + 35);
 	apply_image(texture, new_point(env->h - size.y, env->h_w - size.x / 2),
 	size, env);
-	if (ft_strlen(tmp) > env->dialog_box_line_size)
-	{
-		if (split_text(&tmp, pos, env))
-			return (-1);
-	}
-	else
-	{
-		TTF_SizeText(env->sdl.fonts.lato_bold30, tmp, &text_size.x,
-		&text_size.y);
-		print_text(pos, new_printable_text(tmp,
-		env->sdl.fonts.lato_bold30, 0xFFf1f2f3, 0), env);
-		ft_strdel(&tmp);
-	}
+	if (split_text(&tmp, pos, env))
+		return (-1);
 	if (env->next_dialog)
 	{
 		ft_strdel(str);

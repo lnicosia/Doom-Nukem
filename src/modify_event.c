@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 10:26:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 17:07:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 10:01:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,6 @@ int		modify_event(void *param)
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;
 	set_action_type_buttons_state(env);
-	ft_printf("event target = %d\n", env->editor.event_panel.event.target_index);
-	ft_printf("event type = %d\n", env->editor.event_panel.event.type);
 	//set_target_panel_type(&env->editor.event_panel);
 	return (0);
 }

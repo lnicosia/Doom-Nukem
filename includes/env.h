@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 14:55:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 10:45:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,8 @@ void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
-void				draw_input_box(t_input_box *box, t_env *env);
+int					draw_input_box(t_input_box *box, t_env *env);
+int					find_input_box_max_char(t_input_box *box);
 int					input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);

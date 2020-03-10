@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 17:29:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 10:46:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_env *env)
 
 	if (type < 0 || type > 3 || !target)
 		return (-1);
-	box->size = env->editor.event_panel.action_panel.value.size_up;
+	box->size.x = env->editor.event_panel.content_panel_size.x * 0.9;
+	box->size.y = env->editor.event_panel.content_panel_size.x * 0.6;
 	box->pos = env->editor.event_panel.action_panel.value.pos;
 	box->rectangle = env->editor.event_panel.action_panel.value.up;
 	box->rectangle = new_rectangle(0xc8ccd0, 0x333333, 1, 2);
@@ -67,8 +68,13 @@ t_env *env)
 		box->str_target = (char**)target;
 		if (box->str)
 			ft_strdel(&box->str);
-		box->str = ft_strdup(*(char**)target);
+		if (*(char**)target)
+			box->str = ft_strdup(*(char**)target);
+		else
+			box->str = ft_strnew(0);
 	}
+	if (find_input_box_max_char(box))
+		return (-1);
 	box->cursor = ft_strlen(box->str);
 	box->accept_inputs = 1;
 	box->select_start = 0;

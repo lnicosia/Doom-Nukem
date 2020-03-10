@@ -78,8 +78,7 @@ O 2
 [11.37262 4.49665 2 0] [0 2]
 [20.17262 4.59665 0 0] [0 2]
 
-E 1
-[25.07262 9.29665 0 0] [1 5] [40 40 25]
+E 0
 
 [0][37 (2)][0 50 0][][][1000 0]
 [0][36 (2)][0 FFFF0000 0][][][1000 0]
@@ -113,7 +112,7 @@ E 1
 [1 (17 1 0)][21 (15 1 0)][0 -10 3][{0 25 20 (12 1 0)}{0 25 20 (10 1 0)}][][0 0]
 [1 (17 1 0)][19 (15 1)][0 1 0.5][{0 25 20 (12 1 0)}{0 25 20 (10 1 0)}][][0 0]
 [4 (19)][67][0 0 0][][][0 0]
-[4 (1)][68 (Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf. Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf. Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf. Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf. Bonjour je m'appelle trouduc je suis un etudiant a 42 j'aime bien les pates et ecrire plein de trucs qui servent a rien. Passe une bonne game glhf.)][0 0 0][][][0 0]
+[4 (1)][68 (Bonjour)][0 0 0][][][0 0]
 Links
 [0 1][0 4][1]
 [0 2][0 1][0]
