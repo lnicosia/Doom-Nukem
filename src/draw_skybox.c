@@ -105,7 +105,7 @@ void	skybox_loop(t_render skybox, t_skybox_data wall_data, t_render render,
 		vline.start = ft_max(min, skybox.current_ceiling);
 		vline.end = ft_min(skybox.current_floor, max);
 		draw_skybox_wall(vline, wall_data, skybox, env);
-		if ((env->options.zbuffer || env->options.contouring)
+		if ((env->options.zbuffer)
 				&& (x == (int)v1.x || x == (int)env->skybox[skybox.i + 1].x))
 			draw_vline_color(vline, env);
 	}

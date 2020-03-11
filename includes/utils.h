@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 11:51:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:42:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1110,25 +1110,15 @@ typedef struct s_skybox
 typedef struct		s_options
 {
 	double			minimap_scale;
-	int				contouring;
 	int				render_sectors;
 	int				lighting;
 	int				show_minimap;
 	int				show_fps;
-	int				wall_lover;
-	int				color_clipping;
-	int				wall_color;
 	int				test;
 	int				clipping;
-	int				show_ennemies;
 	int				zbuffer;
-	int				p;
-	int				l;
 	int				o;
-	int				animations;
-	int				gamma_filter;
 	int				mipmapping;
-	int				mouse;
 	int				max_floor_sprites;
 	int				max_wall_sprites;
 	int				editor_options;

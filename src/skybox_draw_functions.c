@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox_draw_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 14:19:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 18:50:16 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 		zbuffer[coord] = z;
 		i++;
 	}
-	if (env->options.zbuffer || env->options.contouring)
+	if (env->options.zbuffer)
 	{
 		if (vline.start == (int)render.max_ceiling)
 		{
@@ -269,7 +269,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		}
 		i++;
 	}
-	if (env->options.zbuffer || env->options.contouring)
+	if (env->options.zbuffer)
 	{
 		if (vline.start >= 0 && vline.start < env->h - 1)
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
@@ -410,7 +410,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		}
 		i++;
 	}
-	if (env->options.zbuffer || env->options.contouring)
+	if (env->options.zbuffer)
 	{
 		if (vline.start == (int)render.max_floor + 1
 				&& vline.start >= 0 && vline.start < env->h)
