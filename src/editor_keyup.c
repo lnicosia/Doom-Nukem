@@ -140,7 +140,7 @@ int	editor_keyup(t_env *env)
 	int	ret;
 
 	i = 0;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
+	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl)
 	{
 		if (launch_game(env))
 			return (-1);

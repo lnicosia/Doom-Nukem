@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 10:53:39 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:54:42 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_inputs(t_env *env)
 	env->inputs.forward = 0;
 	env->inputs.backward = 0;
 	env->inputs.s = 0;
+	env->inputs.h = 0;
 	env->inputs.left = 0;
 	env->inputs.right = 0;
 	env->inputs.plus = 0;
@@ -112,6 +113,8 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.nb4 = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.nb5)
 		env->inputs.nb5 = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.h)
+		env->inputs.h = mode;
 	if (!env->editor.key_delay && mode)
 		env->editor.start_key_delay = SDL_GetTicks() - 1;
 	if (mode)

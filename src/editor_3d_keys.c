@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:49:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:31:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,11 @@ int		editor_3d_keys(t_env *env)
 	if (env->inputs.minus && !env->inputs.shift
 	&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
+	if (env->inputs.h)
+	{
+		env->editor.options_from_h = 1;
+		env->editor.tab = 1;
+		env->options.editor_options = 1;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 15:54:01 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:51:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -679,6 +679,7 @@ typedef struct		s_keys
 	Sint32			equals;
 	Sint32			p;
 	Sint32			a;
+	Sint32			h;
 	Sint32			lgui;
 	Sint32			nb1;
 	Sint32			nb2;
@@ -721,6 +722,7 @@ typedef struct		s_inputs
 	uint8_t			home;
 	uint8_t			end;
 	uint8_t			a;
+	uint8_t			h;
 	uint8_t			lgui;
 	uint8_t			nb1;
 	uint8_t			nb2;

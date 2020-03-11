@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 11:01:43 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/10 19:38:57 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ int		general_keyup(t_env *env)
 
 void	editor_options_tab_keyup(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_l)
+	if (env->sdl.event.key.keysym.sym == SDLK_l && env->inputs.ctrl)
 		env->options.lighting = env->options.lighting ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_z)
+	if (env->sdl.event.key.keysym.sym == SDLK_z && env->inputs.ctrl)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	if (env->sdl.event.key.keysym.sym == SDLK_m && env->inputs.ctrl)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 }
 

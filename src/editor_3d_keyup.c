@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 12:04:57 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:28:19 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		editor_3d_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 			&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
+	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl)
 	{
 		if (launch_game(env))
 			return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 13:30:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 19:30:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int		keyup(t_env *env)
 		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_j)
 		env->options.color_clipping = env->options.color_clipping ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->options.wall_color = env->options.wall_color ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_t)
 		env->options.test = env->options.test ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_i)

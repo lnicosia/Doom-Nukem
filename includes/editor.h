@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 11:08:54 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:25:04 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,6 +462,7 @@ typedef struct	s_editor
 	t_button			light;
 	t_button			fps;
 	int					texture_tab;
+	int					options_from_h;
 	t_list				*events_to_delete;
 }				t_editor;
 
