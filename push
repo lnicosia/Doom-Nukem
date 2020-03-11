@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mv maps /sgoinfre/goinfre/Perso/sipatry
+cp maps/* /sgoinfre/goinfre/Perso/sipatry/maps
 git add .
 echo "name of the commit"
 read name
