@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mv maps /sgoinfre/goinfre/Perso/sipatry
+git add .
+echo "name of the commit"
+read name
+git commit -m $name
+git push
