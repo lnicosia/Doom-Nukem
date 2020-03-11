@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:32:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 11:40:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:27:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,22 @@ void	init_wall_sprite_sector_buttons(t_env *env)
 
 void	init_wall_sprite_buttons(t_env *env)
 {
-	env->editor.hud.sp_wall_sprite.pos_x = new_hud_pos_button(ON_RELEASE,
+	env->editor.hud.sp_wall_sprite.pos_x = new_hud_button(ON_RELEASE,
 	&change_var, &env->editor.hud.sp_wall_sprite.t_pos_x, env);
 	env->editor.hud.sp_wall_sprite.pos_x.pos = new_point(170, 560);
 	env->editor.hud.sp_wall_sprite.t_pos_x.pos = new_point(170, 560);
-	env->editor.hud.sp_wall_sprite.pos_y = new_hud_pos_button(ON_RELEASE,
+	env->editor.hud.sp_wall_sprite.pos_y = new_hud_button(ON_RELEASE,
 	&change_var, &env->editor.hud.sp_wall_sprite.t_pos_y, env);
-	env->editor.hud.sp_wall_sprite.pos_y.pos = new_point(300, 560);
-	env->editor.hud.sp_wall_sprite.t_pos_y.pos = new_point(300, 560);
-	env->editor.hud.sp_wall_sprite.scale_x = new_hud_pos_button(ON_RELEASE,
+	env->editor.hud.sp_wall_sprite.pos_y.pos = new_point(170, 600);
+	env->editor.hud.sp_wall_sprite.t_pos_y.pos = new_point(170, 600);
+	env->editor.hud.sp_wall_sprite.scale_x = new_hud_button(ON_RELEASE,
 	&change_wall_sprite_scale, &env->editor.hud.sp_wall_sprite.t_scale_x, env);
-	env->editor.hud.sp_wall_sprite.scale_x.pos = new_point(170, 600);
-	env->editor.hud.sp_wall_sprite.t_scale_x.pos = new_point(170, 600);
-	env->editor.hud.sp_wall_sprite.scale_y = new_hud_pos_button(ON_RELEASE,
+	env->editor.hud.sp_wall_sprite.scale_x.pos = new_point(170, 640);
+	env->editor.hud.sp_wall_sprite.t_scale_x.pos = new_point(170, 640);
+	env->editor.hud.sp_wall_sprite.scale_y = new_hud_button(ON_RELEASE,
 	&change_wall_sprite_scale, &env->editor.hud.sp_wall_sprite.t_scale_y, env);
-	env->editor.hud.sp_wall_sprite.scale_y.pos = new_point(300, 600);
-	env->editor.hud.sp_wall_sprite.t_scale_y.pos = new_point(300, 600);
+	env->editor.hud.sp_wall_sprite.scale_y.pos = new_point(170, 680);
+	env->editor.hud.sp_wall_sprite.t_scale_y.pos = new_point(170, 680);
 	env->editor.hud.sp_wall_sprite.add_sprite = new_image_button(ON_RELEASE,
 	&add_sprite, env, env);
 	env->editor.hud.sp_wall_sprite.add_sprite.str = "ADD SPRITE";

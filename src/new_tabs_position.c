@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:14:02 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 13:58:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:58:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ void	tabs_gestion(t_env *env)
 	&& env->editor.events_tab.state == UP
 	&& env->selected_wall_sprite_sprite == -1)
 		general_tab(env);
-	if (env->selected_wall_sprite_sprite != -1)
+	if (env->selected_wall_sprite_sprite != -1
+		|| env->selected_ceiling_sprite != -1
+		|| env->selected_floor_sprite != -1)
 		sprite_tab(env);
 	new_tabs_position(env);
 }

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 11:29:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/13 12:20:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:30:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	init_change_wall_buttons(t_env *env)
 	env->editor.next_wall =
 	new_next_button(WHEN_DOWN, &next_selected_wall, env, env);
 	env->editor.next_wall_env.env = env;
-	env->editor.next_wall.pos = new_point(350, 470);
+	env->editor.next_wall.pos = new_point(350, 510);
 	env->editor.next_wall_env.button_type = NEXT;
 	env->editor.previous_wall =
 	new_previous_button(WHEN_DOWN, &next_selected_wall, env, env);
 	env->editor.previous_wall_env.env = env;
-	env->editor.previous_wall.pos = new_point(30, 470);
+	env->editor.previous_wall.pos = new_point(30, 510);
 	env->editor.previous_wall_env.button_type = PREVIOUS;
 }
 
