@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:24:33 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 17:09:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:37:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	init_objects_main_sprites(t_env *env)
 	env->objects_main_sprites[20] = CAMERA_SPRITE;
 	env->objects_main_sprites[21] = SHOTGUN_SPRITE;
 	env->objects_main_sprites[22] = RAYGUN_SPRITE;
+	env->objects_main_sprites[23] = 34;
 }

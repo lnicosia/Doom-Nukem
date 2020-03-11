@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 18:14:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:00:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/sprites/camera.bmp", 38, env))
 		return (ft_printf("Failed to load camera sprite\n"));
 	if (parse_bmp("images/sprites/raygun.bmp", 39, env))
+		return (ft_printf("Failed to load raygun sprite\n"));
+	if (parse_bmp("images/sprites/hd.bmp", 46, env))
 		return (ft_printf("Failed to load raygun sprite\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));

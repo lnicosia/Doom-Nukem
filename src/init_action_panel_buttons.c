@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 10:46:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:25:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_env *env)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->text_size = 229;
 	box->error_message = "Error";
 	return (0);
 }

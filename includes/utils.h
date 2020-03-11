@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:44:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:00:44 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@
 # define MAX_TEXTURES 52
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 33
+# define MAX_OBJECT_SPRITES 34
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 24
+# define MAX_OBJECTS 25
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -1267,6 +1267,7 @@ typedef struct		s_input_box
 	size_t			minus;
 	size_t			select_start;
 	size_t			select_end;
+	size_t			text_size;
 	char			*str;
 	char			*error_message;
 	Uint32			del_timer;

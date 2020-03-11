@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:49:10 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:48:06 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ int		editor_3d_keys(t_env *env)
 		{
 			SDL_SetRelativeMouseMode(0);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-			new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-					STRING, &env->save_file);
+			if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+					STRING, &env->save_file))
+				return (-1);
+			env->input_box.text_size = 50;
 			env->input_box.update = &save_map;
 			env->inputs.s = 0;
 			env->inputs.ctrl = 0;
