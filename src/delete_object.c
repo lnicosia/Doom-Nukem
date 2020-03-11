@@ -25,6 +25,11 @@ int	delete_object(void *param)
 			sizeof(t_object) * env->nb_objects,
 			sizeof(t_object),
 			sizeof(t_object) * object);
+	env->player.colliding_objects = (int*)ft_delindex(
+			env->player.colliding_objects,
+			sizeof(int) * env->nb_objects,
+			sizeof(int),
+			sizeof(int) * object);
 	env->nb_objects--;
 	if (env->nb_objects > 0 && !env->objects)
 		return (-1);

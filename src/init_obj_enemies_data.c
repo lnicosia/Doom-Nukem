@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_obj_enemies_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 11:06:51 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:10 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,6 +392,18 @@ void		init_objects_data(t_env *env)
 			env->objects[i].height_ratio = 0.6;
 			env->objects[i].solid = 0;
 			env->objects[i].main_sprite = DOOM_GUY;
+			env->objects[i].health = 0;
+			env->objects[i].nb_rest_state = 1;
+			env->objects[i].destructible = 0;
+			env->objects[i].explodes = 0;
+			env->objects[i].type = DECORATION;
+			env->objects[i].damage = 0;	
+		}
+		else if (env->objects[i].sprite == 34) // Hd sprite
+		{
+			env->objects[i].height_ratio = 0.6;
+			env->objects[i].solid = 0;
+			env->objects[i].main_sprite = 34;
 			env->objects[i].health = 0;
 			env->objects[i].nb_rest_state = 1;
 			env->objects[i].destructible = 0;

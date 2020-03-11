@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:26:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/02 11:18:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:32:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int		print_wall_sprite_sector_tab(t_env *env)
 {
-	print_text(new_point(480, 60), new_printable_text("Sector:",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->editor.selected_sector);
-	print_text(new_point(480, 230), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	t_point		size;
+	
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
+	env->editor.selected_sector);
+	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	print_text(new_point(465, 200 - size.x / 2),
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
 	print_text(new_point(520, 60), new_printable_text("Brightness:",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
@@ -56,7 +59,7 @@ int		print_wall_sprite_tab(t_env *env)
 	
 	env->editor.next_sprite_env.type = WALL_S;
 	env->editor.previous_sprite_env.type = WALL_S;
-	print_text(new_point(560, 60), new_printable_text("Pos: ",
+	print_text(new_point(560, 60), new_printable_text("X",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -69,6 +72,8 @@ int		print_wall_sprite_tab(t_env *env)
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	pos[env->selected_wall_sprite_sprite].x;
 	draw_button(env, env->editor.hud.sp_wall_sprite.pos_x, env->snprintf);
+	print_text(new_point(600, 60), new_printable_text("Y",
+	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
@@ -80,7 +85,7 @@ int		print_wall_sprite_tab(t_env *env)
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	pos[env->selected_wall_sprite_sprite].y;
 	draw_button(env, env->editor.hud.sp_wall_sprite.pos_y, env->snprintf);
-	print_text(new_point(600, 60), new_printable_text("Scale: ",
+	print_text(new_point(640, 60), new_printable_text("Scale X",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -93,6 +98,8 @@ int		print_wall_sprite_tab(t_env *env)
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	scale[env->selected_wall_sprite_sprite].x;
 	draw_button(env, env->editor.hud.sp_wall_sprite.scale_x, env->snprintf);
+	print_text(new_point(680, 60), new_printable_text("Scale X",
+	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
@@ -111,34 +118,36 @@ int		print_wall_sprite_tab(t_env *env)
 
 int		print_wall_sector_tab(t_env *env)
 {
-	print_text(new_point(480, 60), new_printable_text("Sector:",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", 
-	env->editor.selected_sector),
-	print_text(new_point(480, 230), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	print_text(new_point(520, 60), new_printable_text("Brightness:",
+	t_point		size;
+	
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
+	env->editor.selected_sector);
+	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	print_text(new_point(465, 200 - size.x / 2),
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
+	print_text(new_point(520, 60), new_printable_text("Brightness",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", 
 	env->sectors[env->editor.selected_sector].brightness);
 	env->editor.hud.s_wall.t_brightness.target =
 	&env->sectors[env->editor.selected_sector].brightness;
 	draw_button(env, env->editor.hud.s_wall.brightness, env->snprintf);
-	print_text(new_point(560, 60), new_printable_text("Light_color:",
+	print_text(new_point(560, 60), new_printable_text("Light_color",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X", 
 	env->sectors[env->editor.selected_sector].light_color);
 	env->editor.hud.s_wall.t_color.target =
 	&env->sectors[env->editor.selected_sector].light_color;
 	draw_button(env, env->editor.hud.s_wall.color, env->snprintf);
-	print_text(new_point(600, 60), new_printable_text("Intensity:",
+	print_text(new_point(600, 60), new_printable_text("Intensity",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", 
 	env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall.t_intensity.target =
 	&env->sectors[env->editor.selected_sector].intensity;
 	draw_button(env, env->editor.hud.s_wall.intensity, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Gravity:",
+	print_text(new_point(640, 60), new_printable_text("Gravity",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f", 
 	get_decimal_len(env->sectors[env->editor.selected_sector].gravity),
@@ -151,9 +160,23 @@ int		print_wall_sector_tab(t_env *env)
 
 int		print_wall_general_tab(t_env *env)
 {
+	t_point		size;
+	
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
+	env->editor.selected_sector);
+	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	print_text(new_point(465, 200 - size.x / 2),
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Wall %d",
+	env->editor.selected_wall);
+	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &size.x, &size.y);
+	print_text(new_point(510, 200 - size.x / 2),
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	draw_button(env, env->editor.next_wall, env->editor.next_wall.str);
 	draw_button(env, env->editor.previous_wall, env->editor.previous_wall.str);
-	print_text(new_point(560, 60), new_printable_text("Scale X: ",
+	print_text(new_point(560, 60), new_printable_text("Scale X",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -164,7 +187,7 @@ int		print_wall_general_tab(t_env *env)
 	&env->sectors[env->editor.selected_sector].
 	scale[env->editor.selected_wall].x;
 	draw_button(env, env->editor.hud.g_wall.texture_scale_x, env->snprintf);
-	print_text(new_point(600, 60), new_printable_text("Scale Y: ",
+	print_text(new_point(600, 60), new_printable_text("Scale Y",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -175,7 +198,7 @@ int		print_wall_general_tab(t_env *env)
 	&env->sectors[env->editor.selected_sector].
 	scale[env->editor.selected_wall].y;
 	draw_button(env, env->editor.hud.g_wall.texture_scale_y, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Align X: ",
+	print_text(new_point(640, 60), new_printable_text("Align X",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -186,7 +209,7 @@ int		print_wall_general_tab(t_env *env)
 	&env->sectors[env->editor.selected_sector].
 	align[env->editor.selected_wall].x;
 	draw_button(env, env->editor.hud.g_wall.texture_align_x, env->snprintf);
-	print_text(new_point(680, 60), new_printable_text("Align Y: ",
+	print_text(new_point(680, 60), new_printable_text("Align Y",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.
@@ -200,7 +223,7 @@ int		print_wall_general_tab(t_env *env)
 	if (env->sectors[env->editor.selected_sector].
 	neighbors[env->editor.selected_wall] != -1)
 	{
-		print_text(new_point(720, 60), new_printable_text("Portal: ",
+		print_text(new_point(720, 60), new_printable_text("Portal",
 		env->sdl.fonts.lato20, 0x00000000, 30), env);
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 		env->sectors[env->editor.selected_sector].

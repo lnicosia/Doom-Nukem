@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 18:15:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 14:33:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:34:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,10 +221,19 @@ int			draw_player(t_camera camera, t_v3 pos, t_env *env)
 	player.pos = pos;
 	player.sprite = DOOM_GUY;
 	player.scale = 7;
-	player.sector = get_sector_global(env, player.pos);
-	player.light_color = env->sectors[player.sector].light_color;
-	player.brightness = env->sectors[player.sector].brightness;
-	player.intensity = env->sectors[player.sector].intensity;
+	player.sector = get_sector_no_z(env, player.pos);
+	if (player.sector != -1)
+	{
+		player.light_color = env->sectors[player.sector].light_color;
+		player.brightness = env->sectors[player.sector].brightness;
+		player.intensity = env->sectors[player.sector].intensity;
+	}
+	else
+	{
+		player.light_color = 0;
+		player.brightness = 0;
+		player.intensity = 0;
+	}
 	player.angle = env->player.init_data.camera.angle;
 	get_translated_object_pos(camera, &player);
 	get_rotated_object_pos(camera, &player);

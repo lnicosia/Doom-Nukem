@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_wall_brightness.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:42:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 18:49:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:13:16 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_render render, t_env *env)
 	int			coord;
 
 	pixels = env->sdl.texture_pixels;
-	if (env->options.show_minimap)
+	if (env->options.mipmapping)
 	{
 		//ft_printf("{cyan}[WALL]{reset}\n");
 		render.map_lvl = get_current_wall_map(render.texture, render.z, &render, env);

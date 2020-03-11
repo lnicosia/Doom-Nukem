@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:52:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:26:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		set_wall_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
 
-	down = 0;
+	down = -1;
 	if (index == SECTOR_WALL_TEXTURE)
 		down = 0;
 	else if (index == SECTOR_WALL_PORTAL)
@@ -30,8 +30,11 @@ int		set_wall_panel_buttons_state(t_target_panel *panel, int index)
 		down = 4;
 	else if (index == SECTOR_WALL_SCALE_Y)
 		down = 5;
-	panel->targets[down].state = DOWN;
-	panel->selected_button = down;
+	if (down != -1)
+	{
+		panel->targets[down].state = DOWN;
+		panel->selected_button = down;
+	}
 	return (0);
 }
 

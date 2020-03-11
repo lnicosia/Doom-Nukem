@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 10:19:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:46:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ int		parse_str_input(t_input_box *box, t_env *env)
 		return (0);
 	env->sdl.event.key.keysym.sym = 0;
 	if (!(ft_isalnum(new) || new == '-' || new == '.'
-		|| new == '_' || new == '/'))
+		|| new == '_' || new == '/' || new == ' '))
 		return (0);
 	if (add_char(box, new))
 		return (-1);

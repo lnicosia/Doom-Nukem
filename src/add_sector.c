@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 10:00:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:14:08 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_sector	new_default_sector(t_env *env)
 int			add_sector(t_env *env)
 {
 	t_sector	sector;
-
+	
 	sector = new_default_sector(env);
 	if (init_new_sector_arrays(&sector))
 		return (ft_printf("Error while initializing new sector arrays\n"));
@@ -177,5 +177,13 @@ int			add_sector(t_env *env)
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list"));
 	get_new_floor_and_ceiling(env);
+	if (check_sector(sector, env) && !env->editor.split_sector)
+	{
+		env->editor.selected_sector = env->nb_sectors - 1;
+		free_current_vertices(env);
+		delete_sector(env);
+		env->editor.selected_sector = -1;
+		return (-1);
+	}
 	return (0);
 }

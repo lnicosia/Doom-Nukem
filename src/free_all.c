@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 11:02:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:15:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,16 @@ void		free_enemies(t_env *env)
 	ft_memdel((void**)&env->enemies);
 }
 
+void		free_parser(t_env *env)
+{
+	if (env->parser.tmp)
+		ft_strdel(&(env->parser.tmp));
+	if (env->parser.resource_name)
+		ft_strdel(&(env->parser.resource_name));
+	if (env->parser.line)
+		ft_memdel((void**)&(env->parser.line));
+}
+
 void		free_all(t_env *env)
 {
 	int 	i;
@@ -200,6 +210,7 @@ void		free_all(t_env *env)
 	ft_printf("Freeing data..\n");
 	if (!env)
 		return ;
+	free_parser(env);
 	if (env->editor.creating_event)
 	{
 		if (env->editor.event_panel.selected_event != -1)
@@ -305,6 +316,8 @@ void		free_all(t_env *env)
 		ft_lstdelfront(&env->events);
 	if (env->queued_values)
 		ft_lstdelfront(&env->queued_values);
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])

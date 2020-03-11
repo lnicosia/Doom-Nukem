@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 19:02:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:51:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	set_zbuffer_colors(t_env *env)
 	y = 0;
 	while (y < env->h)
 	{
-		x = 0;
+		if (env->editor.tab)
+			x = 400;
+		else
+			x = 0;
 		while (x < env->w)
 		{
 			if ((y <= 300 && x < env->w - 300) || y > 300 || env->editor.in_game || !env->options.show_minimap)

@@ -20,6 +20,8 @@ void	texture_tab(t_env *env, int nb_slots)
 
 	i = 0;
 	test = nb_slots;
+	if (nb_slots > 50)
+		mod = 15;
 	if (nb_slots > 25)
 		mod = 10;
 	else

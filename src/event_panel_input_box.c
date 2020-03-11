@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:22:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 09:43:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:19:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_env *env)
 			ft_strdel(&box->str);
 		box->str = ft_strdup(*(char**)target);
 	}
+	if (find_input_box_max_char(box))
+		return (-1);
 	box->cursor = ft_strlen(box->str);
 	box->accept_inputs = 1;
 	box->select_start = 0;
@@ -135,6 +137,8 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 			ft_strdel(&box->str);
 		box->str = ft_strdup(*(char**)target);
 	}
+	if (find_input_box_max_char(box))
+		return (-1);
 	box->cursor = ft_strlen(box->str);
 	box->accept_inputs = 1;
 	box->select_start = 0;

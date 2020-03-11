@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 17:37:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:30:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,21 +150,6 @@ int	editor_keyup(t_env *env)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
-/*	if (env->sdl.event.key.keysym.sym == SDLK_t)
-	{
-		env->options.test = env->options.test ? 0 : 1;
-		if (env->editor.selected_sector != -1
-			&& env->editor.current_texture >= 0
-			&& env->editor.current_texture < MAX_WALL_TEXTURE)
-		{
-				if (apply_texture(env->editor.current_texture,
-				&env->sectors[env->editor.selected_sector], env))
-					return (-1);
-		}
-		else if (env->editor.selected_sector != -1
-		&& env->edito.curren)
-
-	}*/
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
 		if (delete_action(env))
 			return (-1);
@@ -232,7 +217,6 @@ int	editor_keyup(t_env *env)
 				return (-1);
 			else if (!ret)
 				return (0);
-		//	ft_printf("add vertex\n");
 			if (add_vertex(env))
 				return (ft_printf("Could not add new vertex\n"));
 			if (add_vertex_to_current_sector(env, env->nb_vertices - 1))
@@ -244,6 +228,7 @@ int	editor_keyup(t_env *env)
 		{
 			if (env->editor.start_vertex == -1)
 			{
+
 				env->editor.start_vertex = clicked_vertex;
 				if (add_vertex_to_current_sector(env, clicked_vertex))
 					return (-1);
@@ -262,7 +247,7 @@ int	editor_keyup(t_env *env)
 					env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 					env->editor.start_vertex = -1;
 					if (add_sector(env))
-						return (ft_printf("Error while creating new sector\n"));
+						return (0);
 					free_current_vertices(env);
 				}
 				else
@@ -278,6 +263,7 @@ int	editor_keyup(t_env *env)
 				if (ft_lstlen(env->editor.current_vertices) == 2
 					&& check_pos_vertices(env))
 				{
+					env->editor.split_sector = 1;
 					if (split_sector(env))
 						return (-1);
 				}

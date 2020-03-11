@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 16:42:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:14:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 52
-# define MAX_UI_TEXTURES 63
+# define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 33
+# define MAX_OBJECT_SPRITES 34
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 24
+# define MAX_OBJECTS 25
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
@@ -67,15 +67,19 @@
 # define BULLET_HOLE 26
 # define LOST_SOUL_OBJECT 27
 # define CYBER_DEMON_OBJECT 28
+# define NB_MUSICS 3
+# define NB_SOUNDS 3
 # define DOOM_GUY_FACE 29
 # define CAMERA_SPRITE 30
 # define SHOTGUN_SPRITE 31
 # define RAYGUN_SPRITE 32
-# define NB_MUSICS 3
 # define DOOM_GUY 33
 # define MAX_TRIGGER_TYPES 8
-# define MAX_TARGET_TYPES 68
+# define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
+# define NB_BMP_SPRITES 13
+# define NB_FONTS 8
+# define NB_HUD_FILES 32
 
 typedef	enum		e_musics_list
 {
@@ -223,6 +227,16 @@ typedef enum		s_ui_textures
 {
 	BACKGROUND
 }					t_ui_textures;
+
+typedef	struct		s_resource
+{
+	int				nb_textures;
+	int				nb_sprites;
+	int				nb_skyboxes;
+	int				nb_fonts;
+	int				nb_sound;
+	int				nb_hud_files;
+}					t_resource;
 
 typedef struct		s_state
 {
@@ -1236,6 +1250,9 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
+	int				curr_line;
+	int				max_lines;
+	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
@@ -1243,6 +1260,7 @@ typedef struct		s_input_box
 	size_t			minus;
 	size_t			select_start;
 	size_t			select_end;
+	size_t			text_size;
 	char			*str;
 	char			*error_message;
 	Uint32			del_timer;

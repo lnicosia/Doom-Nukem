@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ui_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 16:06:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:10:32 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 int		init_mini_skyboxes_selection(t_env *env)
 {
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight.bmp", 0,
+	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight.bmp", 0,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula.bmp", 1,
+	if (parse_bmp_mini_skyboxes_textures("images/ui/nebula.bmp", 1,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery"
+	if (parse_bmp_mini_skyboxes_textures("images/ui/beautifull_scenery"
 		".bmp", 2, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/moonlight_128.bmp",
+	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight_128.bmp",
 		3, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/nebula_128.bmp", 4,
+	if (parse_bmp_mini_skyboxes_textures("images/ui/nebula_128.bmp", 4,
 		env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_mini_skyboxes_textures("images/ui/skyboxes/beautifull_scenery"
+	if (parse_bmp_mini_skyboxes_textures("images/ui/beautifull_scenery"
 		"_128.bmp", 5, env))
 		return (custom_error("Invalid bmp files"));
 	return (0);
@@ -157,11 +157,13 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/next_arrow_hover.bmp", 59, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-up2_pink.bmp", 60, env))
+	if (parse_bmp_ui_textures("images/ui/dialog_box.bmp", 60, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-pressed2_pink.bmp", 61, env))
+	if (parse_bmp_ui_textures("images/ui/previous-up2_pink.bmp", 61, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/previous-hover2_pink.bmp", 62, env))
+	if (parse_bmp_ui_textures("images/ui/previous-pressed2_pink.bmp", 62, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/previous-hover2_pink.bmp", 63, env))
 		return (custom_error("Invalid bmp files"));
 	if (init_mini_skyboxes_selection(env))
 		return (custom_error("error while parsing the miniatures of"

@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "env.h"
-#include "map_parser.h"
-
-/*
- **	Chek if the current vertex already exists
- */
 
 static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 {
@@ -71,16 +66,13 @@ static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
 
 int			parse_vertices(t_env *env, t_map_parser *parser)
 {
-	char	*line;
-
-	line = NULL;
 	while (parser->vertices_count < env->nb_vertices
-			&& (parser->ret = get_next_line(parser->fd, &line)))
+			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (*line)
+		if (parser->line)
 		{
-			if (parse_vertex(env, parser, line))
+			if (parse_vertex(env, parser, parser->line))
 			{
 				ft_dprintf(STDERR_FILENO,
 						"[Line %d] Vertex %d had an error\n",
@@ -97,16 +89,18 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 					env->nb_vertices - parser->vertices_count);
 			return (-1);
 		}
-		ft_strdel(&line);
+		ft_strdel(&(parser->line));
 	}
-	if ((parser->ret = get_next_line(parser->fd, &line)))
+	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
 		parser->line_count++;
-		if (*line)
+		if (*(parser->line))
+		{
 			return (custom_error_with_line("Must be an empty line "
-						"(every vertex has been declared)\n",
+						"(every vertex has been declared)",
 						parser));
-		ft_strdel(&line);
+		}
+		ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("sectors, objects, enemies, events and player declaration",

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 14:41:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:15:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,6 @@ int		delete_selected_sector(void *param)
 	init_target(&target);
 	target.sector = env->editor.selected_sector;
 	target.type = SECTOR_DELETED;
-	//if (update_sector_existing_events(env, target))
-		//return (-1);
-	//if (find_future_invalid_vertices_existing_events(env,
-		//env->sectors[env->editor.selected_sector]))
-		//return (-1);
 	env->confirmation_box.yes_action = &delete_sector;
 	env->confirmation_box.yes_target = env;
 	env->confirmation_box.no_action = &delete_events_to_delete_list;
@@ -121,20 +116,17 @@ int		delete_selected_sector(void *param)
 	return (0);
 }
 
-int		delete_selected_vertex(t_env *env)
+int		delete_selected_vertex(void *param)
 {
+	t_env			*env;
 	int				i;
 	t_event_target	target;
 
+	env = (t_env *)param;
 	init_target(&target);
 	target.vertex = env->editor.selected_vertex;
 	target.type = VERTEX_DELETED;
 	i = 0;
-	//if (update_sector_existing_events(env, target))
-		//return (-1);
-	//if (find_future_invalid_sectors_existing_events(env,
-		//env->editor.selected_vertex))
-		//return (-1);
 	env->confirmation_box.yes_action = &delete_vertex;
 	env->confirmation_box.yes_target = env;
 	env->confirmation_box.no_action = &delete_events_to_delete_list;
@@ -165,11 +157,19 @@ int		delete_action(t_env *env)
 		if (delete_wall_sprite(env))
 			return (-1);
 	}
+	else if (env->selected_floor_sprite != -1)
+	{
+		if (delete_floor_sprite(env))
+			return (-1);
+	}
 	else if (env->editor.selected_vertex != -1
 			&& !current_vertices_contains(env, env->editor.selected_vertex))
 	{
-		if (delete_selected_vertex(env))
+		if (update_confirmation_box(&env->confirmation_box,
+			"Delete the selected vertex?", YESNO, env))
 			return (-1);
+		env->confirmation_box.yes_action = &delete_selected_vertex;
+		env->confirmation_box.yes_target = env;
 	}
 	else if (env->editor.selected_sector != -1 && !env->confirmation_box.state)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 16:00:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:14:25 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "utils.h"
 # include "editor.h"
+# include "map_parser.h"
 # define OX1 env->vertices[env->sectors[sector].vertices[i]].x
 # define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
 # define OY1 env->vertices[env->sectors[sector].vertices[i]].y
@@ -22,6 +23,8 @@
 
 typedef struct		s_env
 {
+	t_resource			resource;
+	t_map_parser		parser;
 	t_sdl				sdl;
 	t_player			player;
 	t_options			options;
@@ -69,9 +72,15 @@ typedef struct		s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					dialog_box;
+	int					dialog_box_max_lines;
+	size_t				dialog_box_line_size;
+	char				*dialog_box_str;
+	int					next_dialog;
 	int					fatal_error;
 	int					checking_collisions_with_player;
 	int					playing;
+	int					sector_is_straight;
 	int					visible_sectors;
 	int					skybox_computed;
 	int					selected_wall1;
@@ -171,6 +180,52 @@ typedef struct		s_env
 **	 ---------------
 **	  -------------
 */
+
+/*
+**	Parsing functions
+*/
+
+int					parse_vertices(t_env *env, t_map_parser *parser);
+int					parse_sectors(t_env *env, t_map_parser *parser);
+int					parse_floor_sprites(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_ceiling_sprites(t_env *env, char **line,
+t_map_parser *parser);
+int					init_objects(t_env *env, t_map_parser *parser);
+int					parse_objects(t_env *env, t_map_parser *parser);
+int					init_enemies(t_env *env, t_map_parser *parser);
+int					parse_enemies(t_env *env, t_map_parser *parser);
+int					parse_events(t_env *env, t_map_parser *parser);
+int					parse_player(t_env *env, t_map_parser *parser);
+int					parse_resources(t_env *env, t_map_parser *parser);
+int					check_vertices_uniqueness(t_sector sector);
+int					check_sector_duplicate(t_env *env, t_sector sector,
+		int num);
+int					valid_number(char *line, t_map_parser *parser);
+int					valid_int(char *line, t_map_parser *parser);
+int					valid_double(char *line, t_map_parser *parser);
+int					valid_hexa(char *line, t_map_parser *parser);
+int					count_vertices(char *line, t_map_parser *parser);
+int					count_neighbors(char *line, t_map_parser *parser);
+int					count_portals(char *line, t_map_parser *parser);
+int					count_textures(char *line, t_map_parser *parser);
+int					count_sprites(char *line, t_map_parser *parser);
+int					count_wall_sprites(char *line, t_map_parser *parser);
+int					count_floor_sprites(char *line, t_map_parser *parser);
+int					parse_sound(t_env *env, t_map_parser *parser);
+int					parse_bmp_file(t_env *env, t_map_parser *parser);
+int					parse_font_file(t_env *env, t_map_parser *parser);
+
+/*
+**	Protection
+*/
+
+int					invalid_char(const char *location, const char *expected,
+		char c, t_map_parser *parser);
+int					missing_data(const char *missing_data, t_map_parser *parser);
+int					extra_data(const char *missing_data, t_map_parser *parser);
+int					custom_error_with_line(const char *message, t_map_parser *parser);
+int					sector_error(const char *message, int sector, t_map_parser *parser);
 
 /*
 ** Editor functions
@@ -318,7 +373,8 @@ void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
-void				draw_input_box(t_input_box *box, t_env *env);
+int					draw_input_box(t_input_box *box, t_env *env);
+int					find_input_box_max_char(t_input_box *box);
 int					input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);
@@ -495,6 +551,8 @@ int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
+int					delete_floor_sprite(void *param);
+int					delete_ceiling_sprite(void *param);
 int					editor_left_click_up(t_env *env);
 int					is_point_in_rectangle(t_point point, t_point pos,
 t_point size);
@@ -599,14 +657,38 @@ int					change_angle(void *target);
 int					next_selected_wall(void	*target);
 int					change_slope_direction(void	*target);
 int 				get_main_sprite(int sprite, t_env *env);
-int 				get_main_enemy_sprite(int sprite, t_env *env);
-
-/*
-**
-*/
-
 void				change_ceiling_floor_height_keyup(t_env *env);
 void				check_height_protections(t_env *env, t_sector *sector);
+int 				get_main_enemy_sprite(int sprite, t_env *env);
+int					parse_ambient_music(t_env *env, t_map_parser *parser);
+int					parse_fight_music(t_env *env, t_map_parser *parser);
+
+/*
+**	editor save functions
+*/
+
+int					write_resources(int fd, t_env *env);
+int					write_sounds(int fd, t_env *env);
+int					write_sound(int file, int fd, char *name);
+int					write_textures1(int fd);
+int					write_textures2(int fd);
+int					write_textures3(int fd);
+int					write_sprites1(int fd);
+int					write_sprites2(int fd);
+int					write_sprites3(int fd);
+int					write_skybox1(int fd, int file);
+int					write_skybox2(int fd, int file);
+int					write_skybox3(int fd, int file);
+int					write_fonts1(int fd, int file);
+int					write_fonts2(int fd, int file);
+int					write_hud1(int fd, int file);
+int					write_hud2(int fd, int file);
+int					write_hud3(int fd, int file);
+int					write_hud4(int fd, int file);
+int					write_hud5(int fd, int file);
+int					write_hud6(int fd, int file);
+int					write_hud7(int fd, int file);
+int					writing_bmp(int file, int fd, char *name);
 
 /*
 **	prints and draw buttons for informations on a selected element 
@@ -1115,6 +1197,8 @@ t_rectangle rectangle);
 void				set_button_hover_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
+int					draw_dialog_box(char **str, t_env *env);
+int					find_dialog_box_max_char(t_env *env);
 
 /*
 ** Main pipeline functions
@@ -1140,7 +1224,8 @@ void				check_parsing(t_env *env);
 int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
-void				minimap(t_env *e);
+void				editor_minimap(t_env *e);
+void				game_minimap(t_env *e);
 int					get_angle(t_point p[3]);
 int					get_sector_first_angles(t_sector *sector, t_env *env);
 int					count_sector_angles(t_sector *sector, t_env *env);
@@ -1285,6 +1370,8 @@ void				shift_floor_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
+int					projectile_on_wall_sprite(t_v2 pos, t_sector *sector,
+		int wall, t_env *env);
 void				play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				play_music(t_env *env, FMOD_CHANNEL **chan,
@@ -1314,6 +1401,9 @@ int					event_target_exists5(t_event *event, t_env *env);
 int					event_target_exists6(t_event *event, t_env *env);
 int					condition_target_exists(t_condition *condition,
 t_env *env);
+void				check_sector_order(t_env *env);
+int					check_sector(t_sector sector, t_env *env);
+int					dialog_event(void *param, void *penv);
 
 /*
 ** enemies functions

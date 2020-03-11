@@ -7,7 +7,6 @@ void	init_options(t_env *env)
 	env->options.lighting = 1;
 	env->options.show_minimap = 1;
 	env->options.show_fps = 1;
-	env->options.test = 0;
 	env->options.minimap_scale = 2.5;
 	env->option = 0;
 	env->options.zbuffer = 0;

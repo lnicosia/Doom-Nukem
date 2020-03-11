@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:56:45 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:37:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,42 +69,39 @@ t_events_parser *eparser)
 int		parse_events(t_env *env, t_map_parser *parser)
 {
 	t_events_parser	eparser;
-	char			*line;
-	char			*tmp;
 
-	line = NULL;
 	ft_bzero(&eparser, sizeof(eparser));
 	init_events_parser(&eparser);
-	while ((parser->ret = get_next_line(parser->fd, &line)))
+	while ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
-		tmp = line;
+		parser->tmp = ft_strdup(parser->line);
 		parser->line_count++;
-		if (*line == '[')
+		if (*(parser->line) == '[')
 		{
-			if (parse_event(env, parser, &line, &eparser))
+			if (parse_event(env, parser, &(parser->line), &eparser))
 			{
-				ft_strdel(&tmp);
+				ft_strdel(&(parser->tmp));
 				return (-1);
 			}
 		}
-		else if (ft_strlen(line) == 5 && ft_strequ(line, "Links"))
+		else if (ft_strlen(parser->line) == 5 && ft_strequ(parser->line, "Links"))
 		{
 			if (parse_events_links(env, parser))
 			{
-				ft_strdel(&tmp);
+				ft_strdel(&(parser->tmp));
 				return (-1);
 			}
-			ft_strdel(&tmp);
+			ft_strdel(&(parser->tmp));
 			break ;
 		}
-		else if (!*line)
+		else if (!*(parser->line))
 		{
-			ft_strdel(&tmp);
+			ft_strdel(&(parser->tmp));
 			break ;
 		}
-		else if (*line != '#')
-			return (invalid_char("at event declaration", "[", *line, parser));
-		ft_strdel(&tmp);
+		else if (*(parser->line) != '#')
+			return (invalid_char("at event declaration", "[", *(parser->line), parser));
+		ft_strdel(&(parser->tmp));
 	}
 	return (0);
 }

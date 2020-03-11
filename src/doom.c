@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/08 14:37:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:13:27 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		doom(t_env *env)
 					|| env->sdl.event.type == SDL_MOUSEBUTTONUP)
 				{
 					if (keyup(env))
-						return (-1);
+						return (crash("Keyup failed\n", env));
 				}
 				if (env->sdl.event.type == SDL_MOUSEWHEEL
 					&& !env->weapon_change.on_going &&
@@ -132,7 +132,7 @@ int		doom(t_env *env)
 			}
 			update_sprites_state(env);
 			if (projectiles_movement(env))
-				return (-1);
+				return (crash("Projectile creation or impact creation failed\n", env));
 			if (!env->confirmation_box.state)
 			{
 				enemy_ai(env);
@@ -141,24 +141,24 @@ int		doom(t_env *env)
 				explosion_collision_enemies(env);
 				explosion_collision_player(env);
 				if (enemy_melee_hit(env))
-					return (-1);
+					return (crash("Collision with a melee enemy failed\n", env));
 				player_combat_state(env);
 				if (keys(env))
-					return (-1);
+					return (crash("Keys failed\n", env));
 			}
 			if (env->events)
 			{
 				if (pop_events(env))
-					return (-1);
+					return (crash("Events failed\n", env));
 			}
 			if (launch_events(env))
-				return (-1);
+				return (crash("Events Failed\n", env));
 			if (env->player.health <= 0)
 				death(env);
 			if (env->confirmation_box.state)
 			{
 				if (confirmation_box_keys(&env->confirmation_box, env))
-					return (-1);
+					return (crash("Crash from a confirmation box\n", env));
 			}
 		}
 		if (env->menu && !env->in_game && !env->option)

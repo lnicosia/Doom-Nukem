@@ -44,17 +44,152 @@ int		check_vertex_inside_sector(t_env *env, t_v2 vertex)
 **	Check if the current sector is inside another sector
 */
 
+int			compare_sectors(int start_v1, int start_v2,
+t_sector sect1, t_sector sect2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (start_v1 < sect1.nb_vertices)
+	{
+		if (sect1.vertices[start_v1] == sect2.vertices[start_v2])
+			i++;
+		else
+		{
+			if (start_v2 + 1 < sect2.nb_vertices)
+				j = start_v2 + 1;
+			else
+				j = 0;
+			while ((j > start_v2 && j < sect2.nb_vertices)
+			|| (j < start_v2))
+			{
+				if (sect1.vertices[start_v1] == sect2.vertices[j])
+				{
+					start_v2 = j;
+					i++;
+					break;
+				}
+				if (j < sect2.nb_vertices)
+					j++;
+				else
+					j = 0;
+			}
+		}
+		if (start_v2 < sect2.nb_vertices)
+			start_v2++;
+		else
+			start_v2 = 0;
+		start_v1++;
+	}
+	if (i == sect1.nb_vertices)
+		return (-1);
+	return (0);
+}
+
+int			check_portals(t_sector sect1, t_sector sect2)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (i < sect1.nb_vertices)
+	{
+		j = 0;
+		while (j < sect2.nb_vertices)
+		{
+			if (sect1.vertices[i] == sect2.vertices[j])
+			{
+				k = 0;
+				while (k < sect2.nb_vertices)
+				{
+					if (sect1.vertices[i + 1] == sect2.vertices[k]
+					&& sect1.neighbors[i] == -1)
+						return (-1);					
+					k++;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			check_sectors_inside(t_sector sector, int sect, t_env *env)
+{
+	int			i;
+	int			j;
+	t_sector	sector2;
+
+	i = 0;
+	sector2 = env->sectors[sect];
+	while (i < sector.nb_vertices)
+	{
+		j = 0;
+
+		while (j < sector2.nb_vertices)
+		{
+			if (sector.vertices[i] == sector2.vertices[j])
+				break;
+			j++;
+		}
+		if (sector.vertices[i] == sector2.vertices[j])
+			break;
+		i++;
+	}
+	if (compare_sectors(i, j, sector, sector2))
+		return (-1);
+	if (check_portals(sector, sector2))
+		return(-1);
+	return (0);
+}
+
+int			check_inside_sector(t_sector sector, int sect, t_env *env)
+{
+	int			i;
+	int			j;
+	t_sector	sector2;;
+	t_v2		vertex;
+	
+	i = 0;
+	sector2 = env->sectors[sect];
+	while (i < sector2.nb_vertices)
+	{
+		j = 0;
+		vertex = new_v2(env->vertices[sector2.vertices[i]].x,
+		env->vertices[sector2.vertices[i]].y);
+		while (j < sector.nb_vertices)
+		{
+			if (vertex.x == env->vertices[sector.vertices[j]].x
+			&& vertex.y == env->vertices[sector.vertices[j]].y)
+				break;
+			j++;
+		}
+		if (j == sector.nb_vertices
+		&& is_in_sector_no_z(env, sector.num, vertex))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 static int	is_inside(t_sector sector, t_env *env)
 {
 	int		i;
 
 	i = 0;
-	while (i < sector.nb_vertices)
+	while(i < env->nb_sectors)
 	{
-		if (check_vertex_inside_sector(env,
-			new_v2(env->vertices[sector.vertices[i]].x,
-			env->vertices[sector.vertices[i]].y)) != 1)
-			return (1);
+		if (i != sector.num)
+		{
+			if (check_inside_sector(sector, i, env))
+				return (-1);
+			if (check_sectors_inside(sector, i, env))
+				return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -215,6 +350,10 @@ int			is_sector_concave(t_sector sector, t_env *env)
 	free(p);
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
 		return (-1);
+	if (!res)
+		env->sector_is_straight = 1;
+	else
+		env->sector_is_straight = 0;
 	return (0);
 }
 
@@ -269,7 +408,7 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 **	Check sector validity
 */
 
-static int	check_sector(t_sector sector, t_env *env)
+int			check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d is inside or contains a sector\n", sector.num));
@@ -279,6 +418,8 @@ static int	check_sector(t_sector sector, t_env *env)
 		return (ft_printf("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))
 		return (ft_printf("Distance between floor and ceiling exceed 1000\n"));
+	if (env->sector_is_straight)
+		return (ft_printf("Sector %d is on a staight line\n", sector.num));
 	return (0);
 }
 

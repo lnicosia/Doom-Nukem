@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 18:26:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:33:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int	draw_game(t_env *env)
 	draw_crosshair(env);
 	if (env->options.show_fps)
 		fps(env);
-	if (env->options.test)
-		print_debug(env);
 	game_time(env);
 	animations(env);
 	if (env->player.health > 0)
@@ -80,7 +78,8 @@ int	draw_game(t_env *env)
 		print_results(env);
 	if (env->player.hit)
 		damage_anim(env);
-	int i = 0;
+	// Cheat code
+	/*int i = 0;
 	if (env->options.test)
 	{
 		while (i < env->nb_enemies)
@@ -94,14 +93,17 @@ int	draw_game(t_env *env)
 			}
 			i++;
 		}
-	}
-	minimap(env);
+	}*/
+	game_minimap(env);
 	if (env->hovered_wall_sprite_sprite != -1
 		&& env->hovered_wall_sprite_wall != -1
 		&& env->hovered_wall_sprite_sector != -1)
 		print_press_text(env);
 	if (env->confirmation_box.state)
 		draw_confirmation_box(&env->confirmation_box, env);
+	if (env->dialog_box && env->dialog_box_str
+		&& draw_dialog_box(&env->dialog_box_str, env))
+		return (-1);
 	if (env->options.zbuffer)
 		update_screen_zbuffer(env);
 	else

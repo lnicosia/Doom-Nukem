@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_audio.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 10:56:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/05 16:45:33 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:33 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int		init_musics(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[0].music) != FMOD_OK)
-		return (ft_printf("Failed to load Mt_Erebus.wav"));
+		return (ft_printf("Failed to load Mt_Erebus.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[1].music) != FMOD_OK)
-		return (ft_printf("Failed to load bim_bam_boum.wav"));
+		return (ft_printf("Failed to load bim_bam_boum.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/at_dooms_gate.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[2].music) != FMOD_OK)
-		return (ft_printf("Failed to load at_dooms_gate.wav"));
+		return (ft_printf("Failed to load at_dooms_gate.wav\n"));
 	while (++i < NB_MUSICS)
 		FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1);
 	return (0);
@@ -37,7 +37,7 @@ int		init_musics(t_env *env)
 int		init_sounds(t_env *env)
 {
 	if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
-		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)//Should be a gun shot
+		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)
 		return (ft_printf("Failed to load handgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[1].shot) != FMOD_OK)

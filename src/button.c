@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:29:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:14:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:38:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,21 +222,14 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[9].surface || !env->ui_textures[10].surface
-		|| !env->ui_textures[11].surface)
-		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[9].surface;
-	new.img_pressed = env->ui_textures[10].surface;
-	new.img_down = env->ui_textures[10].surface;
-	new.img_hover = env->ui_textures[11].surface;
-	new.size_up = new_point(new.img_up->w,
-	new.img_up->h);
-	new.size_down = new_point(new.img_down->w,
-	new.img_down->h);
-	new.size_hover = new_point(new.img_hover->w,
-	new.img_hover->h);
-	new.size_pressed = new_point(new.img_pressed->w,
-	new.img_pressed->h);
+	new.up = new_rectangle(0xf1f2f6, 0, 1, 0);
+	new.pressed = new_rectangle(0xdfe4ea, 0, 1, 0);
+	new.down = new_rectangle(0xdfe4ea, 0, 1, 0);
+	new.hover = new_rectangle(0xffffff, 0, 1, 0);
+	new.size_up = new_point(192, 32);
+	new.size_down = new_point(192, 32);
+	new.size_hover = new_point(192, 32);
+	new.size_pressed = new_point(192, 32);
 	new.up_text_color = 0x333333FF;
 	new.hover_text_color = 0x333333FF;
 	new.pressed_text_color = 0x333333FF;
@@ -250,13 +243,10 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[9].surface || !env->ui_textures[10].surface
-		|| !env->ui_textures[11].surface)
-		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[9].surface;
-	new.img_pressed = env->ui_textures[10].surface;
-	new.img_down = env->ui_textures[10].surface;
-	new.img_hover = env->ui_textures[11].surface;
+	new.up = new_rectangle(0xf1f2f6, 0, 1, 0);
+	new.pressed = new_rectangle(0xdfe4ea, 0, 1, 0);
+	new.down = new_rectangle(0xdfe4ea, 0, 1, 0);
+	new.hover = new_rectangle(0xffffff, 0, 1, 0);
 	new.size_up = new_point(50, 32);
 	new.size_down = new_point(50, 32);
 	new.size_hover = new_point(50, 32);
@@ -314,13 +304,13 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[60].surface || !env->ui_textures[61].surface
-		|| !env->ui_textures[62].surface)
+	if (!env->ui_textures[61].surface || !env->ui_textures[62].surface
+		|| !env->ui_textures[63].surface)
 		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
-	new.img_up = env->ui_textures[60].surface;
-	new.img_pressed = env->ui_textures[61].surface;
-	new.img_down = env->ui_textures[61].surface;
-	new.img_hover = env->ui_textures[62].surface;
+	new.img_up = env->ui_textures[61].surface;
+	new.img_pressed = env->ui_textures[62].surface;
+	new.img_down = env->ui_textures[62].surface;
+	new.img_hover = env->ui_textures[63].surface;
 	new.size_up = new_point(32, 32);
 	new.size_down = new_point(32, 32);
 	new.size_hover = new_point(32, 32);

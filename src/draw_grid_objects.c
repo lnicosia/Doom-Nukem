@@ -6,12 +6,35 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:06:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 15:02:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+void	draw_object_angle(t_object *object, t_point pos, t_env *env)
+{
+	t_point	p;
+
+	p = new_point(
+		pos.x + cos(object->angle * CONVERT_RADIANS)
+		* env->editor.scale * 2,
+		pos.y + sin(object->angle * CONVERT_RADIANS)
+		* env->editor.scale * 2);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(object->angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale,
+		p.y + sin(object->angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(object->angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale,
+		p.y + sin(object->angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+}
 
 void	draw_grid_objects(t_env *env)
 {
@@ -45,7 +68,7 @@ void	draw_grid_objects(t_env *env)
 					&& env->editor.dragged_object == -1
 					&& env->editor.dragged_vertex == -1
 					&& !is_mouse_on_any_selection_tab(env)
-					&& env->editor.dragged_enemy == -1)
+					&& env->editor.dragged_object == -1)
 			{
 				reset_selection(env);
 				env->editor.dragged_object = i;
@@ -58,6 +81,7 @@ void	draw_grid_objects(t_env *env)
 			scale = env->editor.scale * 2.0;
 		size = new_point(scale,
 		scale / (sprite.size[0].x / (double)sprite.size[0].y));
+		draw_object_angle(&env->objects[i], center, env);
 		center = new_point(center.y - size.y / 2, center.x - size.x / 2);
 		if (env->selected_object == i)
 			apply_sprite_selected(env->object_sprites[env->objects[i].sprite],

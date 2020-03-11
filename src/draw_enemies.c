@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/03 18:12:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 14:42:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void		*enemy_loop(void *param)
 				+ texty * texture.surface->w] != 0xFFC10099))
 			{
 				env->enemies[enemy.num].seen = 1;
-				if ((env->editor.select == 1 && x == env->sdl.mx && y == env->sdl.my)
+				if ((env->editor.tab && env->editor.select == 1 && x == env->sdl.mx && y == env->sdl.my)
 				|| (!env->editor.tab && env->editor.select == 1 && x == env->h_w && y == env->h_h))
 				{
 					reset_selection(env);

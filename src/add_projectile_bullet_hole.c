@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:53:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 17:14:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 11:21:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,5 +244,7 @@ t_projectile *projectile, int i, t_env *env)
 	env->wall_bullet_holes_events[env->nb_wall_bullet_holes_events].
 		target_index = -1;
 	env->nb_wall_bullet_holes_events++;
+	if (projectile_on_wall_sprite(bullet_hole.pos, sector, i, env))
+		return (-1);
 	return (0);
 }

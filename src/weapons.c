@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/06 11:05:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:07:49 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void    print_ammo(t_env *env)
 	env->weapons[env->player.curr_weapon].ammo,
 	env->weapons[env->player.curr_weapon].max_ammo);
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5),
-	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0),
+	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xfff1f2f3, 0),
 	env);
 }
 

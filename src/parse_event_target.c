@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:33:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/09 14:58:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_events_parser *eparser)
 	eparser->target_vertex = eparser->current_vertex;
 	eparser->target_weapon = eparser->current_weapon;
 	eparser->target_object = eparser->current_object;
+	eparser->target_str = eparser->current_str;
 	eparser->event.target = set_event_target(env, eparser);
 	eparser->event.update_param.sector = eparser->target_sector;
 	eparser->event.update_param.wall = eparser->target_wall;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/08 14:37:53 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:19 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		init_game(int ac, char **av)
 	env.editor.player_exist = 1;
 	env.playing = 1;
 	init_player(&env);
+	env.i = 0;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -119,6 +120,8 @@ int		init_game(int ac, char **av)
 		return (crash("Could not init fixed camera\n", &env));
 	if (init_skybox(&env))
 		return (crash("Could not init skybox\n", &env));
+	if (find_dialog_box_max_char(&env))
+		return (crash("Could not find dialog box maximum chars\n", &env));
 	env.fixed_camera.pos = new_v3(3, 3, 7);
 	env.fixed_camera.angle = 45 * CONVERT_RADIANS;
 	env.fixed_camera.angle_cos = cos(env.fixed_camera.angle);
@@ -140,13 +143,18 @@ int		init_game(int ac, char **av)
 	music_vol_up_button(&env);
 	sounds_vol_up_button(&env);
 	sounds_vol_down_button(&env);
-	/*if (ft_strequ(av[1], "maps/events.map"))
-	{
-		ft_printf("{green}Custom events\n{reset}");
-		env.enemies[0].nb_collision_events = 1;
-		env.enemies[0].collision_events = (t_event*)ft_memalloc(sizeof(t_event)
-		* env.enemies[0].nb_collision_events);
-		env.enemies[0].collision_events[0] = new_func_event(&hola, NULL);
-	}*/
+	// Pour tester la dialog box
+	/*env.dialog_box = 1;
+	env.dialog_box_str =
+	ft_strdup("Lorem ipsum dolor sit amet, consectetur adipiscing"
+	" elit, sed do eiusmod tempor incididunt ut labore"
+	" et dolore magna aliqua. Ut enim ad minim veniam,"
+	" quis nostrud exercitation ullamco laboris nisi ut"
+	" aliquip ex ea commodo consequat. Duis aute irure"
+	" dolor in reprehenderit in voluptate velit esse"
+	" cillum dolore eu fugiat nulla pariatur. Excepteur"
+	" sint occaecat cupidatat non proident, sunt in "
+	" culpa qui officia deserunt mollit anim id est"
+	" laborum.");*/
 	return (doom(&env));
 }
