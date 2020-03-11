@@ -6,7 +6,7 @@
 #    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/10 15:53:17 by sipatry          ###   ########.fr        #
+#    Updated: 2020/03/11 12:31:25 by sipatry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,14 +46,17 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
-				draw_projectiles.c \
-				keys.c weapons.c draw_hud.c\
+				draw_projectiles.c projectile_on_wall_sprite.c \
+				keys.c weapons.c draw_hud.c game_minimap.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
 				explosion.c draw_explosion.c \
 				explosion_maths.c enemy_maths.c enemy_combat.c \
-				enemy_collision.c enemy_sight.c enemy_ai.c
+				enemy_collision.c enemy_sight.c enemy_ai.c \
+		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
+		   		shift_bullet_hole.c get_bullet_hole_pos.c \
+		   		delete_bullet_hole.c shift_bullet_hole_events.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -127,7 +130,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
-		3d_edit_right_walls_texture_align.c \
+		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
 		3d_edit_left_walls_texture_align.c \
 		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
@@ -137,6 +140,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		delete_sector.c delete_vertex.c weapon_picker.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
+		editor_minimap.c init_editor_options_buttons.c \
+		editor_option_keys.c write_hud.c write_hud2.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -146,7 +151,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
 		   get_slope.c update_player_z.c movement_collision.c win.c \
 		   get_screen_sectors.c check_parsing.c view.c init_options.c \
-		   minimap.c fps.c inputs.c init_editor_data.c set_button_images.c \
+		   fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c death.c \
@@ -158,7 +163,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_objects.c sprites_maths.c draw_player.c save_init_data.c \
 		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
-		   sprite_maths_enemies.c draw_enemies.c button.c \
+		   sprite_maths_enemies.c draw_enemies.c button.c dialog_box.c \
 		   map_parse_enemies.c  draw_line_free.c render.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
@@ -187,8 +192,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
-		   add_bullet_hole.c shift_bullet_hole.c get_bullet_hole_pos.c \
-		   delete_bullet_hole.c shift_bullet_hole_events.c free_sector.c \
+		   free_sector.c init_screen_size.c dialog_parser.c \
 		   print_press_text.c modify_wall_sprite.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \
@@ -215,7 +219,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
 		   init_audio.c vertices_selection.c fill_new_sector.c\
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
-		   map_parse_fonts.c
+		   map_parse_fonts.c angles_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -241,7 +245,8 @@ HUD =	hud.bmp Ammo_hud.bmp Life_armor_hud.bmp raygun1.bmp raygun2.bmp \
 		raygun3.bmp raygun4.bmp raygun5.bmp raygun6.bmp raygun7.bmp \
 		shot1.bmp shot2.bmp shot3.bmp shot4.bmp shot5.bmp shot6.bmp shot7.bmp \
 		shot8.bmp shot9.bmp shot10.bmp shot11.bmp shot12.bmp shot13.bmp \
-		shot14.bmp shot15.bmp
+		shot14.bmp shot15.bmp Gatling_1.bmp Gatling_2.bmp Gatling_3.bmp \
+		Gatling_4.bmp Gatling_5.bmp Gatling_6.bmp
 
 UI =	button-default-up.bmp button-default-pressed.bmp \
 		button-default-hover.bmp background-up-64.bmp \
@@ -263,9 +268,13 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 		condition_icon_down_blue.bmp play_icon_hover.bmp \
 		target_icon_hover.bmp event_icon_hover.bmp condition_icon_hover.bmp \
 		previous_arrow.bmp next_arrow.bmp previous_arrow_down.bmp \
-		next_arrow_down.bmp previous_arrow_hover.bmp next_arrow_hover.bmp
+		next_arrow_down.bmp previous_arrow_hover.bmp next_arrow_hover.bmp \
+		moonlight.bmp moonlight_128.bmp nebula.bmp nebula_128.bmp \
+		beautifull_scenery.bmp beautifull_scenery_128.bmp \
+		previous-hover2_pink.bmp previous-pressed2_pink.bmp \
+		previous-up2_pink.bmp
 
-AUDIO = Mt_Erebus.wav bim_bam_boum.wav \
+AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav\
 		shotgun_shot.wav raygun_shot.wav footstep.wav
 
 FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
@@ -312,7 +321,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast \
+		  -Ofast\
 		  #-fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \

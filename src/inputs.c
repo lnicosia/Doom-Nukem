@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 14:33:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 11:29:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/06 10:53:39 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init_inputs(t_env *env)
 	env->inputs.nb1 = 0;
 	env->inputs.nb2 = 0;
 	env->inputs.nb3 = 0;
+	env->inputs.nb4 = 0;
+	env->inputs.nb5 = 0;
 }
 
 void	set_inputs(t_env *env, int mode)
@@ -106,6 +108,10 @@ void	set_inputs(t_env *env, int mode)
 		env->inputs.nb2 = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.nb3)
 		env->inputs.nb3 = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.nb4)
+		env->inputs.nb4 = mode;
+	if (env->sdl.event.key.keysym.sym == env->keys.nb5)
+		env->inputs.nb5 = mode;
 	if (!env->editor.key_delay && mode)
 		env->editor.start_key_delay = SDL_GetTicks() - 1;
 	if (mode)

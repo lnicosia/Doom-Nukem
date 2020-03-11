@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 11:42:43 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 11:33:58 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 46
-# define MAX_UI_TEXTURES 60
+# define MAX_TEXTURES 52
+# define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 33
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define NB_WEAPONS 4
+# define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
 # define MAX_OBJECTS 24
@@ -75,10 +75,11 @@
 # define RAYGUN_SPRITE 32
 # define DOOM_GUY 33
 # define MAX_TRIGGER_TYPES 8
-# define MAX_TARGET_TYPES 68
+# define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
 # define NB_BMP_SPRITES 13
 # define NB_FONTS 8
+# define NB_HUD_FILES 32
 
 typedef	enum		e_musics_list
 {
@@ -158,6 +159,7 @@ typedef enum		e_weapons_list
 	SHOTGUN,
 	RAYGUN,
 	BAZOOKA,
+	GATLING,
 	KNIFE
 }					t_weapons_list;
 
@@ -233,6 +235,7 @@ typedef	struct		s_resource
 	int				nb_skyboxes;
 	int				nb_fonts;
 	int				nb_sound;
+	int				nb_hud_files;
 }					t_resource;
 
 typedef struct		s_state
@@ -281,6 +284,10 @@ typedef struct		s_render_vertex
 	double			c2;
 	double			x;
 	double			y;
+	double			clipped_pos_x1;
+	double			clipped_pos_y1;
+	double			clipped_pos_x2;
+	double			clipped_pos_y2;
 	double			neighbor_f1;
 	double			neighbor_f2;
 	double			neighbor_floor_range;
@@ -434,6 +441,7 @@ typedef struct		s_bullet_hole
 {
   	t_v2			pos;
 	t_v2			scale;
+	t_v2			map_scale;
 }					t_bullet_hole;
 
 typedef struct		s_sector
@@ -479,6 +487,7 @@ typedef struct		s_sector
 	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
+	int				first_angles[3];
 	double			**walls_map_lvl;
 	double			*floor_map_lvl;
 	double			*ceiling_map_lvl;
@@ -688,6 +697,8 @@ typedef struct		s_keys
 	Sint32			nb1;
 	Sint32			nb2;
 	Sint32			nb3;
+	Sint32			nb4;
+	Sint32			nb5;
 }					t_keys;
 
 /*
@@ -728,6 +739,8 @@ typedef struct		s_inputs
 	uint8_t			nb1;
 	uint8_t			nb2;
 	uint8_t			nb3;
+	uint8_t			nb4;
+	uint8_t			nb5;
 }					t_inputs;
 
 /*
@@ -855,6 +868,7 @@ typedef struct		s_weapons
 {
 	t_sprite		sprite;
 	char			*name;
+	int				frame_speed;
 	int				possessed;
 	int				first_sprite;
 	int				nb_sprites;
@@ -862,6 +876,7 @@ typedef struct		s_weapons
 	int				ammo;
 	int				ammo_type;
 	double			range;
+	double			hole_scale;
 	int				max_ammo;
 	int				damage;
 	int				splash;
@@ -940,7 +955,7 @@ typedef	struct		s_explosion
 	int				centered_sprite;
 	int				damage;
 	int				sprite;
-	int			damage_burst;
+	int				damage_burst;
 	int				left;
 	int				right;
 	int				top;
@@ -1115,7 +1130,6 @@ typedef struct		s_options
 	int				wall_lover;
 	int				color_clipping;
 	int				wall_color;
-	int				test;
 	int				clipping;
 	int				show_ennemies;
 	int				zbuffer;
@@ -1128,6 +1142,7 @@ typedef struct		s_options
 	int				mouse;
 	int				max_floor_sprites;
 	int				max_wall_sprites;
+	int				editor_options;
 }					t_options;
 
 /*
@@ -1242,6 +1257,9 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
+	int				curr_line;
+	int				max_lines;
+	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;

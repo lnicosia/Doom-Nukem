@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 14:54:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/06 10:54:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int		keys(t_env *env)
 		if (env->player.next_weapon != env->player.curr_weapon &&
 			env->weapons[env->player.next_weapon].possessed)
 			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
 	}
 	else if (env->inputs.nb2)
 	{
@@ -65,6 +67,8 @@ int		keys(t_env *env)
 		if (env->player.next_weapon != env->player.curr_weapon &&
 			env->weapons[env->player.next_weapon].possessed)
 			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
 	}
 	else if (env->inputs.nb3)
 	{
@@ -72,6 +76,26 @@ int		keys(t_env *env)
 		if (env->player.next_weapon != env->player.curr_weapon &&
 			env->weapons[env->player.next_weapon].possessed)
 			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb4)
+	{
+		env->player.next_weapon = 3;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb5)
+	{
+		env->player.next_weapon = 4;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
 	}
 	return (0);
 }

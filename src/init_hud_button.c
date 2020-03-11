@@ -189,6 +189,7 @@ int		init_editor_hud(t_env *env)
 	init_skybox_selection_buttons(env);
 	init_informations_tab(env);
 	init_options_buttons(env);
+	init_editor_options_buttons(env);
 	init_editor_tab_buttons(env);
 	init_events_selection_buttons(env);
 	init_event_panel_buttons(env);

@@ -6,11 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:06:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 13:59:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:20:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events_parser.h"
 
 int		draw_event_value_panel(t_env *env)
 {
@@ -81,6 +81,40 @@ int		draw_action_panel_bottom(t_env *env)
 	return (0);
 }
 
+int		draw_real_target_action_panel(t_event_panel panel, t_env *env)
+{
+	draw_button(env, panel.action_panel.go_to, "Go to");
+	draw_button(env, panel.action_panel.add, "Add");
+	draw_event_value_panel(env);
+	draw_event_speed_panel(env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
+	env->editor.event_panel.action_panel.delay_value);
+	draw_button(env, panel.action_panel.delay, env->snprintf);
+	draw_action_panel_bottom(env);
+	return (0);
+}
+
+int		draw_function_target_action_panel(t_event_panel panel, t_env *env)
+{
+	t_point			text_size;
+
+	(void)env;
+	if (panel.event.target_index == WIN)
+	{
+		TTF_SizeText(env->sdl.fonts.lato_black30, "Win the game",
+		&text_size.x, &text_size.y);
+		print_text(new_point(panel.pos.y + panel.top_size + panel.content_panel_size.y / 2 - text_size.y / 2,
+		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size.x / 2),
+		new_printable_text("Win the game",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	}
+	else if (panel.event.target_index == DIALOG)
+	{
+		draw_button(env, panel.action_panel.text, "Text");
+	}
+	return (0);
+}
+
 int		draw_action_panel(t_env *env)
 {
 	t_point			text_size;
@@ -93,13 +127,9 @@ int		draw_action_panel(t_env *env)
 	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size.x / 2),
 	new_printable_text("Tell what your event does",
 	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
-	draw_button(env, panel.action_panel.go_to, "Go to");
-	draw_button(env, panel.action_panel.add, "Add");
-	draw_event_value_panel(env);
-	draw_event_speed_panel(env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->editor.event_panel.action_panel.delay_value);
-	draw_button(env, panel.action_panel.delay, env->snprintf);
-	draw_action_panel_bottom(env);
+	if (!env->editor.event_panel.target_panel.other_type)
+		return (draw_real_target_action_panel(panel, env));
+	else
+		return (draw_function_target_action_panel(panel, env));
 	return (0);
 }

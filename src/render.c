@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 17:06:56 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/06 09:45:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 		t_env *env)
 {
 	t_v2	inter;
-	t_v2	clipped_pos;
 
 	inter = get_intersection(
 			new_v2(camera->v[sector->num][i].vx, camera->v[sector->num][i].vz),
@@ -45,29 +44,35 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 		camera->v[sector->num][i].clipped_vx2 = camera->v[sector->num][i + 1].vx;
 		camera->v[sector->num][i].clipped_vz2 = camera->v[sector->num][i + 1].vz;
 	}
-	clipped_pos.x = camera->v[sector->num][i].clipped_vx1 * camera->angle_sin
-		+ camera->v[sector->num][i].clipped_vz1 * camera->angle_cos + camera->pos.x;
-	clipped_pos.y = camera->v[sector->num][i].clipped_vz1 * camera->angle_sin
-		- camera->v[sector->num][i].clipped_vx1 * camera->angle_cos + camera->pos.y;
+	camera->v[sector->num][i].clipped_pos_x1 =
+	camera->v[sector->num][i].clipped_vx1 * camera->angle_sin
+	+ camera->v[sector->num][i].clipped_vz1 * camera->angle_cos + camera->pos.x;
+	camera->v[sector->num][i].clipped_pos_y1 =
+		camera->v[sector->num][i].clipped_vz1 * camera->angle_sin
+		- camera->v[sector->num][i].clipped_vx1 * camera->angle_cos
+		+ camera->pos.y;
 	camera->v[sector->num][i].clipped_vf1 = get_floor_at_pos(*sector,
-			new_v3(clipped_pos.x, clipped_pos.y, 0),
-			env);
+		new_v3(camera->v[sector->num][i].clipped_pos_x1,
+		camera->v[sector->num][i].clipped_pos_y1, 0), env);
 	camera->v[sector->num][i].clipped_vc1 = get_ceiling_at_pos(*sector,
-			new_v3(clipped_pos.x, clipped_pos.y, 0),
-			env);
-	clipped_pos.x = camera->v[sector->num][i].clipped_vx2 * camera->angle_sin
-		+ camera->v[sector->num][i].clipped_vz2 * camera->angle_cos + camera->pos.x;
-	clipped_pos.y = camera->v[sector->num][i].clipped_vz2 * camera->angle_sin
-		- camera->v[sector->num][i].clipped_vx2 * camera->angle_cos + camera->pos.y;
+		new_v3(camera->v[sector->num][i].clipped_pos_x1,
+		camera->v[sector->num][i].clipped_pos_y1, 0), env);
+	camera->v[sector->num][i].clipped_pos_x2 =
+	camera->v[sector->num][i].clipped_vx2 * camera->angle_sin
+	+ camera->v[sector->num][i].clipped_vz2 * camera->angle_cos + camera->pos.x;
+	camera->v[sector->num][i].clipped_pos_y2 =
+		camera->v[sector->num][i].clipped_vz2 * camera->angle_sin
+		- camera->v[sector->num][i].clipped_vx2 * camera->angle_cos
+		+ camera->pos.y;
 	camera->v[sector->num][i].clipped_vf2 = get_floor_at_pos(*sector,
-			new_v3(clipped_pos.x, clipped_pos.y, 0),
-			env);
+		new_v3(camera->v[sector->num][i].clipped_pos_x2,
+		camera->v[sector->num][i].clipped_pos_y2, 0), env);
 	camera->v[sector->num][i].clipped_vc2 = get_ceiling_at_pos(*sector,
-			new_v3(clipped_pos.x, clipped_pos.y, 0),
-			env);
+		new_v3(camera->v[sector->num][i].clipped_pos_x2,
+		camera->v[sector->num][i].clipped_pos_y2, 0), env);
 }
 
-void		clip_wall2(int i, t_camera *camera, t_sector *sector, t_env *env)
+void		clip_wall(int i, t_camera *camera, t_sector *sector, t_env *env)
 {
 	if ((camera->v[sector->num][i].vz < camera->near_z
 				&& camera->v[sector->num][i + 1].vz < camera->near_z)
@@ -172,7 +177,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 			curr->scale.x =
 				env->object_sprites[BULLET_HOLE].size[0].x
-				/ 0.4 * sector->wall_width[i]
+				/ curr->map_scale.x * sector->wall_width[i]
 				/ camera->v[sector->num][i + 1].vz;
 			wall_bullet_holes = wall_bullet_holes->next;
 		}
@@ -204,7 +209,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 			curr->scale.x =
 				env->object_sprites[BULLET_HOLE].size[0].x
-				/ 0.4 * sector->wall_width[i]
+				/ curr->map_scale.x * sector->wall_width[i]
 				/ camera->v[sector->num][i].clipped_vz2;
 			wall_bullet_holes = wall_bullet_holes->next;
 		}
@@ -235,7 +240,7 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	  	curr = (t_bullet_hole*)wall_bullet_holes->content;
 		curr->scale.y =
 			env->object_sprites[BULLET_HOLE].size[0].x
-			/ 0.4
+			/ curr->map_scale.y
 			* (sector->ceiling - sector->floor);
 		wall_bullet_holes = wall_bullet_holes->next;
 	}
@@ -299,7 +304,7 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 	i = -1;
 	while (++i < sector->nb_vertices)
-		clip_wall2(i, camera, sector, env);
+		clip_wall(i, camera, sector, env);
 	camera->v[sector->num][sector->nb_vertices] = camera->v[sector->num][0];
 	i = -1;
 	while (++i < sector->nb_vertices)

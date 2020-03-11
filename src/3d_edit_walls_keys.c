@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_edit_walls_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:02:17 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 18:33:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:35:38 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,23 +107,27 @@ int		change_texture_alignement(t_env *env)
 
 int		wall_edit_keys(t_env *env)
 {
-	if (change_texture_alignement(env))
-		return (-1);
-	if (change_textures_scales(env))
-		return (-1);
-	if (env->editor.in_game && (env->selected_wall_sprite_sprite != -1
-	|| env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1))
-		editor_wall_sprites_keys(env);
-	if ((env->inputs.plus || env->inputs.minus)
-	&& (env->selected_ceiling || env->selected_floor))
+	if (!env->options.editor_options)
 	{
-		change_ceiling_floor_height(env);
-		if (env->selected_floor != -1)
-			update_sector_entities_z(env, env->selected_floor);
+		if (change_texture_alignement(env))
+			return (-1);
+		if (change_textures_scales(env))
+			return (-1);
+		if (env->editor.in_game && (env->selected_wall_sprite_sprite != -1
+			|| env->selected_ceiling_sprite != -1
+			|| env->selected_floor_sprite != -1))
+			editor_wall_sprites_keys(env);
+		if ((env->inputs.plus || env->inputs.minus)
+			&& (env->selected_ceiling || env->selected_floor))
+		{
+			change_ceiling_floor_height(env);
+			if (env->selected_floor != -1)
+				update_sector_entities_z(env, env->selected_floor);
+		}
+		if (change_walls_texture(env))
+			return (-1);
+		if (slope_keys(env))
+			return (-1);
 	}
-	if (change_walls_texture(env))
-		return (-1);
-	if (slope_keys(env))
-		return (-1);
 	return (0);
 }

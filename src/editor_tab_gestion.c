@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:05:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:15:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int		general_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.change_mode, env))	
 		return (-1);
+	if (button_keyup(&env->editor.options, env))
+		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
 	if (button_keyup(&env->editor.current_texture_selection, env))
@@ -132,6 +134,7 @@ int		editor_3d_tabs_keyup(t_env *env)
 void	editor_show_tab(t_env *env)
 {
 	env->editor.tab = env->editor.tab ? 0 : 1;
+	env->options.editor_options = 0;
 	if (env->editor.tab)
 		SDL_SetRelativeMouseMode(0);
 	else if (!env->editor.tab)

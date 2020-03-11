@@ -6,11 +6,35 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:12:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 15:02:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	draw_player_angle(t_point pos, t_env *env)
+{
+	t_point	p;
+
+	p = new_point(
+		pos.x + cos(env->player.init_data.camera.angle * CONVERT_RADIANS)
+		* env->editor.scale * 3,
+		pos.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS)
+		* env->editor.scale * 3);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(env->player.init_data.camera.angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale,
+		p.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS
+			- M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+	pos = new_point(
+		p.x + cos(env->player.init_data.camera.angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale,
+		p.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS
+			+ M_PI / 1.3) * env->editor.scale);
+	draw_line(pos, p, *env, 0xFFFFFF00);
+}
 
 void	draw_grid_player(t_env *env)
 {
@@ -114,7 +138,8 @@ void	draw_grid_start_player(t_env *env)
 	size = new_point(scale,
 	scale / (env->object_sprites[DOOM_GUY_FACE].size[0].x
 	/ (double)env->object_sprites[DOOM_GUY_FACE].size[0].y));
-	pos = new_point(pos.y - size.y / 2, pos.x - size.x / 2);
+	draw_player_angle(pos, env);
+	pos = new_point(pos.y - size.x / 2, pos.x - size.y / 2);
 	if (env->editor.selected_start_player == 1)
 		apply_sprite_selected(env->object_sprites[DOOM_GUY_FACE], pos, size,
 		env);

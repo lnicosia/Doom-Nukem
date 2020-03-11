@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 14:51:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:12:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int		delete_invalid_sectors(t_env *env)
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		if (env->sectors[i].nb_vertices < 3)
+		if (env->sectors[i].nb_vertices < 3
+				|| !count_sector_angles(&env->sectors[i], env))
 		{
 			env->editor.selected_sector = i;
 			if (delete_sector(env))

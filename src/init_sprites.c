@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 14:22:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/05 11:48:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -576,6 +576,7 @@ int			init_object_sprites(t_env *env)
 	// Doom guy face
 	env->object_sprites[29].texture = 37;
 	env->object_sprites[29].oriented = 0;
+	env->object_sprites[29].rest_sprite = 29;
 	env->object_sprites[29].start[0].x = 40;
 	env->object_sprites[29].start[0].y = 13;
 	env->object_sprites[29].end[0].x = 64;
@@ -587,6 +588,7 @@ int			init_object_sprites(t_env *env)
 	// Camera sprite
 	env->object_sprites[30].texture = 38;
 	env->object_sprites[30].oriented = 0;
+	env->object_sprites[30].rest_sprite = 30;
 	env->object_sprites[30].start[0].x = 0;
 	env->object_sprites[30].start[0].y = 0;
 	env->object_sprites[30].end[0].x = 431;
@@ -622,7 +624,7 @@ int			init_object_sprites(t_env *env)
 	// Doom guy sprite
 	env->object_sprites[33].texture = 36;
 	env->object_sprites[33].oriented = 1;
-	env->object_sprites[33].rest_sprite = 32;
+	env->object_sprites[33].rest_sprite = 33;
 	env->object_sprites[33].start[0].x = 44;
 	env->object_sprites[33].start[0].y = 421;
 	env->object_sprites[33].end[0].x = 70;

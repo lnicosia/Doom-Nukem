@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 18:11:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:13:29 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		shot(t_env *env)
 	}
 	else
 	{
+		env->shooting = 1;
 		while (i < env->nb_enemies)
 		{
 			if (hitscan_enemies(env, i) == 1)
@@ -184,13 +185,13 @@ int		weapon_animation(t_env *env, int nb)
 			play_sound(env, &env->sound.player_shots_chan, env->weapons[nb].shot,
 				env->sound.ambient_vol);
 			if (!env->player.infinite_ammo)
-				env->weapons[nb].ammo--;
+				env->weapons[nb].ammo-=0;
 		}
 	}
 	if (env->weapons[nb].ammo)
 	{
-		if (env->time.milli_s > env->shot.start + 70 && ((env->time.milli_s - env->shot.start) / 70 < env->weapons[nb].nb_sprites))
-			draw_weapon(env, env->weapons[nb].first_sprite + (int)((env->time.milli_s - env->shot.start) / 70));
+		if (env->time.milli_s > env->shot.start + env->weapons[nb].frame_speed && ((env->time.milli_s - env->shot.start) / env->weapons[nb].frame_speed < env->weapons[nb].nb_sprites))
+			draw_weapon(env, env->weapons[nb].first_sprite + (int)((env->time.milli_s - env->shot.start) / env->weapons[nb].frame_speed));
 		else
 			draw_weapon(env, env->weapons[nb].first_sprite);
 	}
@@ -198,7 +199,7 @@ int		weapon_animation(t_env *env, int nb)
 	{
 		draw_weapon(env, env->weapons[nb].first_sprite);
 	}
-	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * 70)
+	if ((int)((env->time.milli_s - env->shot.start)) >= env->weapons[nb].nb_sprites * env->weapons[nb].frame_speed)
 	{
 		env->shot.start = 0;
 		env->shot.on_going = 0;
@@ -233,7 +234,7 @@ void    print_ammo(t_env *env)
 	env->weapons[env->player.curr_weapon].ammo,
 	env->weapons[env->player.curr_weapon].max_ammo);
 	print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5),
-	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xA1A1A100, 0),
+	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xfff1f2f3, 0),
 	env);
 }
 

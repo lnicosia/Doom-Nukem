@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 14:22:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 11:45:09 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,27 @@ int		write_fonts(int fd, int file)
 	return (0);
 }
 
+int		write_hud(int fd, int file)
+{
+	ft_printf("saving hud files\n");
+	ft_dprintf(fd, "H %d\n", NB_HUD_FILES);
+	if (write_hud1(fd, file))
+		return (-1);
+	if (write_hud2(fd, file))
+		return (-1);
+	if (write_hud3(fd, file))
+		return (-1);
+	if (write_hud4(fd, file))
+		return (-1);
+	if (write_hud5(fd, file))
+		return (-1);
+	if (write_hud6(fd, file))
+		return (-1);
+	if (write_hud7(fd, file))
+		return (-1);
+	return (0);	
+}
+
 int		write_resources(int fd, t_env *env)
 {
 	int file;
@@ -95,6 +116,8 @@ int		write_resources(int fd, t_env *env)
 	if (write_sprites(fd))
 		return (-1);
 	if (write_skyboxes(fd, file))
+		return (-1);
+	if (write_hud(fd, file))
 		return (-1);
 	if (write_sounds(fd, env))
 		return (-1);

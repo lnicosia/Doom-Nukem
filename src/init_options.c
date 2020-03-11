@@ -11,7 +11,6 @@ void	init_options(t_env *env)
 	env->options.show_fps = 1;
 	env->options.color_clipping = 0;
 	env->options.wall_color = 1;
-	env->options.test = 0;
 	env->options.minimap_scale = 2.5;
 	env->options.clipping = 1;
 	env->option = 0;
@@ -27,4 +26,5 @@ void	init_options(t_env *env)
 	env->crosshair_pos = new_point(env->h_w, env->h_h);
 	env->options.max_floor_sprites = 5;
 	env->options.max_wall_sprites = 30;
+	env->options.editor_options = 0;
 }

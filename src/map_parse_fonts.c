@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:19:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 14:55:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 13:16:42 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		parse_font_file(t_env *env, t_map_parser *parser)
 	size = 0;
 	
 	ft_strdel(&(parser->tmp));
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	ft_strdel(&(parser->line));
+	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_printf("Coud not malloc\n"));
@@ -52,7 +53,7 @@ int		parse_font_file(t_env *env, t_map_parser *parser)
 			return (ft_printf("Could not malloc line in parse font file\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of the size of thefile\n"));
+		return (ft_printf("Expected a '\\n' at the end of the size of the file\n"));
 	if (valid_int(parser->line, parser))
 		return (ft_printf("Invalid size for font file\n"));
 	size = ft_atoi(parser->line);

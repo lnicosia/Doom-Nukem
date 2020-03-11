@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 11:38:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 19:28:54 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ typedef struct		s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					dialog_box;
+	int					dialog_box_max_lines;
+	size_t				dialog_box_line_size;
+	char				*dialog_box_str;
+	int					next_dialog;
 	int					fatal_error;
 	int					checking_collisions_with_player;
 	int					playing;
@@ -122,6 +127,13 @@ typedef struct		s_env
 	int					nb_enemies;
 	int					*ymax;
 	int					*ymin;
+	int					shooting;
+	int					new_wall_bullet_hole;
+	int					new_floor_bullet_hole;
+	int					new_ceiling_bullet_hole;
+	int					new_bullet_hole_sector;
+	int					new_bullet_hole_wall;
+	t_v2				new_bullet_hole_pos;
 	t_point				minimap_pos;
 	t_point				minimap_size;
 	t_point				crosshair_pos;
@@ -150,7 +162,7 @@ typedef struct		s_env
 	t_button			start_game_button;
 	t_button			previous_difficulty;
 	t_button			next_difficulty;
-	t_button			option_menu;
+	t_button			option_menu_ig;
 	t_button			exit_button;
 	t_button			return_button;
 	t_button			music_vol_down;
@@ -221,6 +233,7 @@ int					sector_error(const char *message, int sector, t_map_parser *parser);
 
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
+void				init_editor_options_buttons(t_env *env);
 void				init_editor_data(t_env *env);
 void				init_selection_data(t_env *env);
 void				init_editor_tab_buttons(t_env *env);
@@ -288,9 +301,11 @@ void				draw_grid(t_env *env);
 void				init_editor_data(t_env *env);
 int					editor_keys(t_env *env);
 int					editor_3d_keys(t_env *env);
+int					editor_options_keys(t_env *env);
 int					editor_mouse(t_env *env);
 int					editor_keyup(t_env *env);
 int					editor_3d_keyup(t_env *env);
+int					editor_options_keyup(t_env *env);
 int					editor_mouseup(t_env *env);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
@@ -358,7 +373,8 @@ void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
-void				draw_input_box(t_input_box *box, t_env *env);
+int					draw_input_box(t_input_box *box, t_env *env);
+int					find_input_box_max_char(t_input_box *box);
 int					input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_env *env);
@@ -535,6 +551,8 @@ int					delete_selected_sector(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
+int					delete_floor_sprite(void *param);
+int					delete_ceiling_sprite(void *param);
 int					editor_left_click_up(t_env *env);
 int					is_point_in_rectangle(t_point point, t_point pos,
 t_point size);
@@ -663,6 +681,13 @@ int					write_skybox2(int fd, int file);
 int					write_skybox3(int fd, int file);
 int					write_fonts1(int fd, int file);
 int					write_fonts2(int fd, int file);
+int					write_hud1(int fd, int file);
+int					write_hud2(int fd, int file);
+int					write_hud3(int fd, int file);
+int					write_hud4(int fd, int file);
+int					write_hud5(int fd, int file);
+int					write_hud6(int fd, int file);
+int					write_hud7(int fd, int file);
 int					writing_bmp(int file, int fd, char *name);
 
 /*
@@ -1039,7 +1064,7 @@ int					music_vol_up_button(t_env *env);
 int					music_vol_down_button(t_env *env);
 int					sounds_vol_up_button(t_env *env);
 int					sounds_vol_down_button(t_env *env);
-int					option_menu_button(t_env *env);
+int					option_menu_ig_button(t_env *env);
 int					exit_button(t_env *env);
 int					return_button(t_env *env);
 void				init_events_map(t_env *env);
@@ -1143,6 +1168,8 @@ t_button			new_next_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_previous_button(int type, int (*action)(void *),
 void *param, t_env *env);
+t_button			new_previous_button_2(int type, int (*action)(void *),
+void *param, t_env *env);
 t_button			new_minus_button(int type, int (*action)(void *),
 void *param, t_env *env);
 t_button			new_add_button(int type, int (*action)(void *),
@@ -1170,6 +1197,8 @@ t_rectangle rectangle);
 void				set_button_hover_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
+int					draw_dialog_box(char **str, t_env *env);
+int					find_dialog_box_max_char(t_env *env);
 
 /*
 ** Main pipeline functions
@@ -1195,8 +1224,11 @@ void				check_parsing(t_env *env);
 int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
-void				minimap(t_env *e);
+void				editor_minimap(t_env *e);
+void				game_minimap(t_env *e);
 int					get_angle(t_point p[3]);
+int					get_sector_first_angles(t_sector *sector, t_env *env);
+int					count_sector_angles(t_sector *sector, t_env *env);
 void				view(t_env *env);
 void				reset_clipped(t_env *env);
 t_v3				sprite_movement(t_env *env, double speed, t_v3 origin,
@@ -1260,7 +1292,7 @@ void				jump(t_env *env);
 void				crouch(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
-void				option_menu(t_env *env);
+void				option_menu_ig(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);
 void				select_menu(t_env *env);
@@ -1301,12 +1333,19 @@ int					editor_start_game(t_env *env);
 int					init_raygun(t_env *env);
 int					init_shotgun(t_env *env);
 int					init_gun(t_env *env);
-int					add_ceiling_bullet_hole(t_sector *sector,
+int					init_gatling(t_env *env);
+int					add_ceiling_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
-int					add_floor_bullet_hole(t_sector *sector,
+int					add_floor_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
-int					add_wall_bullet_hole(t_sector *sector,
+int					add_wall_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, int i, t_env *env);
+int					add_ceiling_hitscan_bullet_hole(t_sector *sector,
+t_env *env);
+int					add_floor_hitscan_bullet_hole(t_sector *sector,
+t_env *env);
+int					add_wall_hitscan_bullet_hole(t_sector *sector, int i,
+t_env *env);
 int					shift_ceiling_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env);
 int					shift_floor_bullet_hole(t_sector *sector,
@@ -1331,6 +1370,8 @@ void				shift_floor_bullet_hole_events(int sector, int sprite,
 t_env *env);
 void				shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
+int					projectile_on_wall_sprite(t_v2 pos, t_sector *sector,
+		int wall, t_env *env);
 void				play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				play_music(t_env *env, FMOD_CHANNEL **chan,
@@ -1345,8 +1386,8 @@ int					precompute_ceiling_sprite_scales(int sector, int sprite,
 t_env *env);
 int					menu_keys(t_env *env);
 int					menu_keyup(t_env *env);
-int					option_menu_keyup(t_env *env);
-int					option_menu_keys(t_env *env);
+int					option_menu_ig_keyup(t_env *env);
+int					option_menu_ig_keys(t_env *env);
 size_t				get_decimal_len(double nb);
 size_t				get_double_len(double nb);
 int					win(void *param, void *penv);
@@ -1362,6 +1403,7 @@ int					condition_target_exists(t_condition *condition,
 t_env *env);
 void				check_sector_order(t_env *env);
 int					check_sector(t_sector sector, t_env *env);
+int					dialog_event(void *param, void *penv);
 
 /*
 ** enemies functions

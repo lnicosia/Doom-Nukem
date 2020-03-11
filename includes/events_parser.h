@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/28 17:52:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 18:12:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef enum		e_events_targets
 	OBJECT_X,
 	OBJECT_Y,
 	OBJECT_Z,
-	WIN
+	WIN,
+	DIALOG
 }					t_events_targets;
 
 typedef struct		s_events_parser
@@ -116,6 +117,7 @@ typedef struct		s_events_parser
 	int				target_enemy;
 	int				target_weapon;
 	int				target_object;
+	char*			target_str;
 	int				target_index;
 	int				target_type;
 	int				source_type;
@@ -125,6 +127,7 @@ typedef struct		s_events_parser
 	int				source_enemy;
 	int				source_index;
 	int				source_object;
+	char			*source_str;
 	int				current_index;
 	int				current_vertex;
 	int				current_sector;
@@ -133,6 +136,7 @@ typedef struct		s_events_parser
 	int				current_enemy;
 	int				current_weapon;
 	int				current_object;
+	char			*current_str;
 	int				condition_vertex;
 	int				condition_sector;
 	int				condition_wall;
@@ -243,6 +247,8 @@ int					object_parser(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int					event_parser(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
+int					dialog_parser(t_env *env, t_map_parser *parser,
+char **line, t_events_parser *eparser);
 
 /*
 **	Unit writers
@@ -259,6 +265,7 @@ void				ceiling_sprite_writer(int fd, t_event event);
 void				vertex_writer(int fd, t_event event);
 void				weapon_writer(int fd, t_event event);
 void				object_writer(int fd, t_event event);
+void				dialog_writer(int fd, t_event event);
 void				event_writer(int fd, t_event event);
 void				condition_no_writer(int fd, t_condition condition);
 void				condition_sector_writer(int fd, t_condition condition);

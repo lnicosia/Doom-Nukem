@@ -97,6 +97,8 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.change_mode, env))
 		return (-1);
+	if (button_keys(&env->editor.options, env))
+		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
 		return (-1);
 	if (button_keys(&env->editor.current_texture_selection, env))

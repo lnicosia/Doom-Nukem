@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 10:42:51 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 13:16:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		map_parse_textures(t_env *env, t_map_parser *parser)
 	int	i;
 
 	i = 0;
+	ft_strdel(&parser->line);
+	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
@@ -61,6 +63,8 @@ int		map_parse_sprites(t_env *env, t_map_parser *parser)
 	int	i;
 
 	i = 0;
+	ft_strdel(&parser->line);
+	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
@@ -148,6 +152,8 @@ int		map_parse_skyboxes(t_env *env, t_map_parser *parser)
 	int	i;
 
 	i = 0;
+	ft_strdel(&parser->line);
+	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
@@ -181,11 +187,56 @@ int		map_parse_skyboxes(t_env *env, t_map_parser *parser)
 	if (env->resource.nb_skyboxes > MAX_SKYBOX * 6
 	|| env->resource.nb_skyboxes < 1)
 		return (ft_printf("Wrong number of sprites\n"));
-	ft_strdel(&(parser->tmp));
+	ft_strdel(&parser->tmp);
 	while (i <  env->resource.nb_skyboxes)
 	{
 		if (parse_bmp_file(env, parser))
 			return (ft_printf("Error while parsing skybox %d\n", i));
+		i++;
+	}
+	return (0);
+}
+
+int		map_parse_hud(t_env *env, t_map_parser *parser)
+{
+	int	i;
+
+	i = 0;
+	ft_strdel(&parser->line);
+	ft_strdel(&parser->tmp);
+	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+		return (ft_printf("Memalloc failed\n"));
+	if (!(parser->line = ft_strnew(0)))
+		return (ft_printf("Could not malloc line\n"));
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
+	{
+		if (*(parser->tmp) == '\n')
+			break;
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
+			return (ft_printf("Could not malloc line\n"));
+	}
+	if (*(parser->tmp) != '\n')
+		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+	if (*(parser->line) && *(parser->line) != 'H')
+		return (ft_printf("Expected letter: H\n"));
+	parser->line++;
+	if (*(parser->line) && *(parser->line) != ' ')
+		return (ft_printf("Expected a space\n"));
+	parser->line++;
+	if (valid_int(parser->line, parser))
+		return (ft_printf("Invalid int for hud images number\n"));
+	env->resource.nb_hud_files = atoi(parser->line);
+	parser->line -= 2;
+	if (env->resource.nb_hud_files > NB_HUD_FILES
+	|| env->resource.nb_hud_files < 1)
+		return (ft_printf("Wrong number of hud\n"));
+	ft_strdel(&parser->line);
+	ft_strdel(&parser->tmp);
+	while (i <  env->resource.nb_hud_files)
+	{
+		if (parse_bmp_file(env, parser))
+			return (ft_printf("Error while parsing hud images\n"));
 		i++;
 	}
 	return (0);
@@ -196,7 +247,8 @@ int		map_parse_fonts(t_env *env, t_map_parser *parser)
 	int	i;
 
 	i = 0;
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	ft_strdel(&parser->line);
+	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
@@ -225,7 +277,7 @@ int		map_parse_fonts(t_env *env, t_map_parser *parser)
 		return (ft_printf("Wrong number of fonts\n"));
 	ft_strdel(&(parser->tmp));
 	i = 0;
-	while (i <  env->resource.nb_fonts)
+	while (i < env->resource.nb_fonts)
 	{
 		if (parse_font_file(env, parser))
 			return (ft_printf("Error while parsing font %d\n", i));
@@ -242,6 +294,8 @@ int		parse_resources(t_env *env, t_map_parser *parser)
 		return (ft_printf("Error while parsing map sprites\n"));
 	if (map_parse_skyboxes(env, parser))
 		return (ft_printf("Error while parsing map skyboxes\n"));
+	if (map_parse_hud(env, parser))
+		return (ft_printf("Error while parsing map hud\n"));
 	if (map_parse_sounds(env, parser))
 		return (ft_printf("Error while parsing map sounds\n"));
 	if (map_parse_fonts(env, parser))

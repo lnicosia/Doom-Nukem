@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2019/11/28 18:46:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/06 09:25:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		draw_upper_wall(t_sector sector, t_render render, t_env *env)
 	t_vline	vline;
 
 	vline.x = render.x;
+	//ft_printf("drawing upper wall\n");
 	vline.start = (int)(render.current_ceiling);
 	vline.end = (int)(render.neighbor_current_ceiling);
 	vline.draw_wall = 1;

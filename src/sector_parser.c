@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:31:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:39:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("sector number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before sector number", "a digit", **line,
 		parser));
 		eparser->current_sector = ft_atoi(*line);

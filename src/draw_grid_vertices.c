@@ -42,7 +42,7 @@ void	draw_grid_vertices(t_env *env)
 		{
 			scale = env->editor.scale / 3.0;
 			color = 0xFF00FF00;
-			if (env->inputs.left_click
+			if (env->inputs.left_click && !env->options.editor_options
 					&& !env->confirmation_box.state
 					&& !env->input_box.state
 					&& env->editor.event_panel_dragged == -1

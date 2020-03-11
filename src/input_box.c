@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 09:51:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:05:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 			ft_strdel(&box->str);
 		box->str = ft_strdup(*(char**)target);
 	}
+	if (find_input_box_max_char(box))
+		return (-1);
 	box->cursor = ft_strlen(box->str);
 	box->select_start = 0;
 	box->select_end = ft_strlen(box->str);
@@ -134,6 +136,8 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 			ft_strdel(&box->str);
 		box->str = ft_strdup(*(char**)target);
 	}
+	if (find_input_box_max_char(box))
+		return (-1);
 	box->cursor = ft_strlen(box->str);
 	box->accept_inputs = 1;
 	box->select_start = 0;
@@ -144,7 +148,7 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	return (0);
 }
 
-int	init_input_box(t_input_box *box, t_env *env)
+int		init_input_box(t_input_box *box, t_env *env)
 {
 	ft_bzero(box, sizeof(*box));
 	box->type = DOUBLE;
@@ -160,36 +164,178 @@ int	init_input_box(t_input_box *box, t_env *env)
 	return (0);
 }
 
-void	draw_input_box_content(t_input_box *box, t_env *env)
-{
-	t_printable_text	text;
-	t_point			pos;
-	t_point			size;
+/*
+**	Finds the maximum number of characters that can fit in one line
+**	of the input box
+*/
 
-	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
-		return ;
-	TTF_SizeText(box->font, box->str, &size.x, &size.y);
-	pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
-	box->pos.x + 6);
-	text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
-	print_text(pos, text, env);
+int		find_input_box_max_char(t_input_box *box)
+{
+	char	*str;
+	size_t  len;
+	t_point size;
+
+	size = new_point(0, 0);
+	len = 1;
+	if (!(str = ft_strnew(0)))
+		return (-1);
+	while (size.x < box->size.x * 0.99)
+	{
+		ft_strdel(&str);
+		if (!(str = ft_strnew(len)))
+			return (-1);
+		ft_memset(str, 'a', len);
+		TTF_SizeText(box->font, str, &size.x, &size.y);
+		len++;
+	}
+	ft_strdel(&str);
+	box->line_size = len;
+	box->max_lines = (box->size.y * 0.99) / (double)size.y;
+	return (0);
 }
 
-void	draw_cursor(t_input_box *box, t_env *env)
+/*
+**	Find the largest string of te current text characters that fit in one line
+*/
+
+static char	*get_current_line(t_input_box *box, char *str, char *tmp)
+{
+	size_t	len;
+	char	*res;
+	t_point	size;
+
+	//TTF_SizeText(box->font, tmp, &size.x, &size.y);
+	(void)tmp;
+	len = 0;
+	if (!(res = ft_strnew(0)))
+		return (0);
+	while (size.x < box->size.x * 0.99 && len <= ft_strlen(str))
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(str, 0, len)))
+			return (0);
+		TTF_SizeText(box->font, res, &size.x, &size.y);
+		len++;
+	}
+	if (size.x >= box->size.x * 0.99)
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(str, 0, len - 2)))
+			return (0);
+	}
+	return (res);
+}
+
+/*
+**	Draws the cursor
+*/
+
+int	draw_cursor(t_input_box *box, t_point pos, char *sub, t_env *env)
 {
 	t_point	size;
-	int	y;
-	char	*sub;
+	int		y;
 
-	sub = ft_strsub(box->str, 0, box->cursor);
+	if (!sub)
+		return (-1);
 	TTF_SizeText(box->font, sub, &size.x, &size.y);
-	y = box->pos.y + 5;
-	while (y < box->pos.y + box->size.y - 4)
+	y = pos.x;
+	while (y < pos.x + size.y)
 	{
-		env->sdl.texture_pixels[box->pos.x + size.x + 5 + env->w * y] = 0xFF606060;
+		env->sdl.texture_pixels[pos.y + size.x + env->w * y] =
+		0xFF606060;
 		y++;
 	}
 	ft_strdel(&sub);
+	return (0);
+}
+
+/*
+**	If the string is too big to fit in one line
+**	Prints the text in multiple lines
+*/
+
+int		split_box_text(t_input_box *box, t_env *env)
+{
+	size_t	count;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+	char	*str;
+	t_point text_size;
+	t_point	pos;
+
+	count = 0;
+	pos = new_point(box->pos.y + box->size.y / 100,
+	box->pos.x + box->size.x / 100);
+	if (!(str = ft_strdup(box->str)))
+		return (-1);
+	TTF_SizeText(box->font, str, &text_size.x, &text_size.y);
+	while (ft_strlen(str)
+		&& pos.x + text_size.y <= box->pos.y + box->size.y * 0.99)
+	{
+		if (!(tmp = get_current_line(box, str, tmp)))
+			return (-1);
+		if (ft_strlen(tmp) < ft_strlen(str) && ft_strrchr(tmp, ' '))
+		{
+			if (!(tmp2 = ft_strsub(tmp, 0,
+				ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
+				return (-1);
+			ft_strdel(&tmp);
+		}
+		else
+			tmp2 = tmp;
+		if (!(tmp3 = ft_strsub(str, ft_strlen(tmp2) + 1,
+			ft_strlen(str) - ft_strlen(tmp2))))
+			return (-1);
+		ft_strdel(&str);
+		str = tmp3;
+		TTF_SizeText(box->font, tmp2, &text_size.x, &text_size.y);
+		print_text(pos, new_printable_text(tmp2, box->font,
+		0x333333FF, 0), env);
+		if (box->cursor > count && box->cursor <= count + ft_strlen(tmp2) + 1
+			&& (box->cursor_state || env->inputs.home || env->inputs.end
+			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
+		{
+			if (draw_cursor(box, pos, ft_strsub(tmp2, 0,
+				box->cursor - count), env))
+				return (-1);
+		}
+		count += ft_strlen(tmp2);
+		ft_strdel(&tmp2);
+		pos.x += text_size.y + 5;
+	}
+	ft_strdel(&str);
+	return (0);
+}
+
+int		draw_input_box_content(t_input_box *box, t_env *env)
+{
+	t_printable_text	text;
+	t_point				pos;
+	t_point				size;
+
+	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
+		return (0);
+	TTF_SizeText(box->font, box->str, &size.x, &size.y);
+	if (size.x < box->size.x * 0.99 || box->type != STRING)
+	{
+		pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
+		box->pos.x + 6);
+		text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
+		print_text(pos, text, env);
+		if (box->cursor_state || env->inputs.home || env->inputs.end
+			|| env->inputs.right || env->inputs.left || env->inputs.left_click)
+		{
+			if (draw_cursor(box, pos, ft_strsub(box->str, 0, box->cursor), env))
+				return (-1);
+		}
+	}
+	else if (box->type == STRING)
+	{
+		if (split_box_text(box, env))
+			return (-1);
+	}
+	return (0);
 }
 
 void	draw_box_selection(t_input_box *box, t_env *env)
@@ -198,8 +344,8 @@ void	draw_box_selection(t_input_box *box, t_env *env)
 	t_point	size2;
 	size_t	start;
 	size_t	end;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	char	*sub;
 
 	if (box->select_start > box->select_end)
@@ -234,42 +380,19 @@ void	draw_box_selection(t_input_box *box, t_env *env)
 	}
 }
 
-void	draw_input_box(t_input_box *box, t_env *env)
+int		draw_input_box(t_input_box *box, t_env *env)
 {
-	/*int	x;
-	int	y;
-
-	y = box->pos.y;
-	while (y < box->pos.y + box->size.y)
-	{
-		x =  box->pos.x;
-		while (x < box->pos.x + box->size.x)
-		{
-			if (x < box->pos.x + box->size.x - 3 && y < box->pos.y + box->size.y - 3
-				&& x > box->pos.x + 3 && y > box->pos.y + 3)
-				env->sdl.texture_pixels[x + env->w * y] = 0xFFFFFFFF;
-			else
-				env->sdl.texture_pixels[x + env->w * y] = 0xFF606060;
-			x++;
-		}
-		y++;
-	}*/
 	draw_rectangle(env, box->rectangle, box->pos, box->size);
 	if (box->select_start != box->select_end)
 		draw_box_selection(box, env);
-	draw_input_box_content(box, env);
-	if (box->cursor_state
-		|| env->inputs.home
-		|| env->inputs.end
-		|| env->inputs.right
-		|| env->inputs.left
-		|| env->inputs.left_click)
-		draw_cursor(box, env);
+	if (draw_input_box_content(box, env))
+		return (-1);
 	if (SDL_GetTicks() - box->cursor_timer > box->cursor_delay)
 	{
 		box->cursor_timer = SDL_GetTicks();
 		box->cursor_state = box->cursor_state ? 0 : 1;
 	}
+	return (0);
 }
 
 int		input_box_keys(t_input_box *box, t_env *env)

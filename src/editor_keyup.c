@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 17:37:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 10:30:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,6 +337,8 @@ int	editor_keyup(t_env *env)
 	if (button_keyup(&env->editor.save, env))
 		return (-1);
 	if (button_keyup(&env->editor.change_mode, env))
+		return (-1);
+	if (button_keyup(&env->editor.options, env))
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);

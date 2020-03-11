@@ -6,11 +6,16 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 14:47:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:28:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+
+void	init_events_writers4(void (*writers[])(int, t_event))
+{
+	writers[DIALOG] = &dialog_writer;
+}
 
 void	init_events_writers3(void (*writers[])(int, t_event))
 {
@@ -36,6 +41,7 @@ void	init_events_writers3(void (*writers[])(int, t_event))
 	writers[OBJECT_Y] = &object_writer;
 	writers[OBJECT_Z] = &object_writer;
 	writers[WIN] = &no_writer;
+	init_events_writers4(writers);
 }
 
 void	init_events_writers2(void (*writers[])(int, t_event))

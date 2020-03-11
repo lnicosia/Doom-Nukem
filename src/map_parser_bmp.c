@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 11:10:27 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 10:38:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 12:30:37 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 
 	(void)env;
 	fd = 0;
-	size = 0;	
+	size = 0;
+	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->resource_name = ft_strnew(0)))
@@ -51,7 +52,7 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 			return (ft_printf("Could not malloc line in parse bmp\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of bmp name\n"));
+		return (ft_printf("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))
 		return (ft_printf("Invalid size for bmp file\n"));
 	size = ft_atoi(parser->line);

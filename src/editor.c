@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:32:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 18:15:17 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,22 @@ int		editor(t_env *env)
 			if (!env->input_box.state && (env->sdl.event.type == SDL_KEYUP
 				|| env->sdl.event.type == SDL_MOUSEBUTTONUP))
 			{
-				if (!env->editor.in_game)
+				if (!env->editor.in_game && !env->options.editor_options)
 				{
 					if (editor_keyup(env))
 						return (crash("Crash from editor 2D keyup\n", env));
 				}
-				else
+				else if (!env->options.editor_options && env->editor.in_game)
 				{
 					if (editor_3d_keyup(env))
 						return (crash("Crash from editor 3D keyup\n", env));
+				}
+				else if (env->options.editor_options)
+				{
+					if (editor_options_keyup(env))
+						return (-1);
+					if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+						editor_show_tab(env);
 				}
 			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
@@ -94,10 +101,15 @@ int		editor(t_env *env)
 		}
 		if (!env->editor.in_game)
 		{
-			if (!env->input_box.state)
+			if (!env->input_box.state && !env->options.editor_options)
 			{
 				if (editor_keys(env))
 					return (crash("Crash from editor 2D keys\n", env));
+			}
+			else if (!env->input_box.state)
+			{
+				if (editor_options_keys(env))
+					return (ft_printf("Error in inputs\n"));
 			}
 			draw_grid(env);
 			draw_grid_vertices(env);
@@ -114,7 +126,7 @@ int		editor(t_env *env)
 			draw_current_creation(env);
 			draw_grid_sectors(env);
 		}
-		else
+		else if (env->editor.in_game)
 		{
 			if (editor_render(env))
 				return (crash("Render function failed\n", env));
@@ -123,7 +135,10 @@ int		editor(t_env *env)
 		if (env->confirmation_box.state)
 			draw_confirmation_box(&env->confirmation_box, env);
 		if (env->input_box.state)
-			draw_input_box(&env->input_box, env);
+		{
+			if (draw_input_box(&env->input_box, env))
+				return (-1);
+		}
 		if (env->options.zbuffer && env->editor.in_game)
 			update_screen_zbuffer(env);
 		else

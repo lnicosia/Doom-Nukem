@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 19:20:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/10 18:12:35 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct	s_action_panel
 	t_button	speed;
 	t_button	delay;
 	t_button	max_uses;
+	t_button	text;
 	Uint32		uint32_value;
 	double		double_value;
 	int			int_value;
@@ -406,6 +407,7 @@ typedef struct	s_editor
 	t_button			current_enemy_selection;
 	t_button			current_object_selection;
 	t_button			change_mode;
+	t_button			quit_options;
 	t_button			save;
 	t_button			launch_game;
 	t_button			texture_background;
@@ -456,6 +458,10 @@ typedef struct	s_editor
 	t_button			previous_ambiance_music;
 	t_button			next_fighting_music;
 	t_button			previous_fighting_music;
+	t_button			mipmapping;
+	t_button			zbuffer;
+	t_button			light;
+	t_button			fps;
 	int					texture_tab;
 	t_list				*events_to_delete;
 }				t_editor;

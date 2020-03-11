@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_tab_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:04:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 12:08:50 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		general_keys(t_env *env)
 	else if (button_keys(&env->editor.sector_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.change_mode, env))
+		return (-1);
+	if (button_keys(&env->editor.options, env))
 		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
 		return (-1);
