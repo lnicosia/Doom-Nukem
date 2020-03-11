@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 10:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:32:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ int		editor_3d_keys(t_env *env)
 		{
 			SDL_SetRelativeMouseMode(0);
 			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-			new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-					STRING, &env->save_file);
+			if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+					STRING, &env->save_file))
+				return (-1);
+			env->input_box.text_size = 50;
 			env->input_box.update = &save_map;
 			env->inputs.s = 0;
 			env->inputs.ctrl = 0;

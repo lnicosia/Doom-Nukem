@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 10:43:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:26:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1246,6 +1246,7 @@ typedef struct		s_input_box
 	size_t			minus;
 	size_t			select_start;
 	size_t			select_end;
+	size_t			text_size;
 	char			*str;
 	char			*error_message;
 	Uint32			del_timer;

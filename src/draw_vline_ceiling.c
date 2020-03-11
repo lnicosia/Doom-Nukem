@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 18:47:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:50:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	draw_vline_ceiling(t_sector sector, t_vline vline, t_render render,
 		}
 		if (text_x >= 0 && text_x < render.texture_w && text_y >= 0 && text_y < render.texture_h)
 		{
-			pixels[coord] = apply_light_brightness(texture_pixels[(int)text_x + render.texture_w * (int)text_y], sector.brightness);
+			pixels[coord] = texture_pixels[(int)text_x + render.texture_w * (int)text_y];
 			if (env->editor.in_game && !env->editor.select
 				&& env->selected_ceiling == render.sector
 				&& env->selected_ceiling_sprite == -1)
