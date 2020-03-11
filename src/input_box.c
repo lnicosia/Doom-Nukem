@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:43:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:43:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,10 @@ int		split_box_text(t_input_box *box, t_env *env)
 		TTF_SizeText(box->font, tmp2, &text_size.x, &text_size.y);
 		print_text(pos, new_printable_text(tmp2, box->font,
 		0x333333FF, 0), env);
+		// Draw input box selection
+		if (box->select_start != box->select_end)
+		{
+		}
 		if (box->cursor > count && box->cursor <= count + ft_strlen(tmp2) + 1
 			&& (box->cursor_state || env->inputs.home || env->inputs.end
 			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
@@ -383,8 +387,8 @@ void	draw_box_selection(t_input_box *box, t_env *env)
 int		draw_input_box(t_input_box *box, t_env *env)
 {
 	draw_rectangle(env, box->rectangle, box->pos, box->size);
-	if (box->select_start != box->select_end)
-		draw_box_selection(box, env);
+	/*if (box->select_start != box->select_end)
+		draw_box_selection(box, env);*/
 	if (draw_input_box_content(box, env))
 		return (-1);
 	if (SDL_GetTicks() - box->cursor_timer > box->cursor_delay)

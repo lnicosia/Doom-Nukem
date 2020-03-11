@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:42:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int		init_wall_textures(t_env *env)
 		return (ft_printf("Failed to load sand\n"));
 	if (parse_bmp_wall_textures("images/textures/grey.bmp", 14, env))
 		return (ft_printf("Failed to load grey\n"));
+	if (parse_bmp_wall_textures("images/textures/rock5.bmp", 15, env))
+		return (ft_printf("Failed to load grey\n"));
 	return (0);
 }
 
@@ -135,6 +137,8 @@ int		init_textures(t_env *env)
 	if (parse_bmp("images/sprites/camera.bmp", 38, env))
 		return (ft_printf("Failed to load camera sprite\n"));
 	if (parse_bmp("images/sprites/raygun.bmp", 39, env))
+		return (ft_printf("Failed to load raygun sprite\n"));
+	if (parse_bmp("images/sprites/hd.bmp", 46, env))
 		return (ft_printf("Failed to load raygun sprite\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));

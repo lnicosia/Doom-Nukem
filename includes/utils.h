@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 17:26:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:42:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@
 # define PLAYER_YPOS env->player.pos.y
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
-# define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 46
+# define MAX_WALL_TEXTURE 16
+# define MAX_TEXTURES 47
 # define MAX_UI_TEXTURES 61
 # define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 33
+# define MAX_OBJECT_SPRITES 34
 # define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 4
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 24
+# define MAX_OBJECTS 25
 # define NB_BUTTON 10
 # define AMMO_HUD 26
 # define ARMOR_LIFE_HUD 27
