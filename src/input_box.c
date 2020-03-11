@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 11:37:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:43:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 
 	if (type < 0 || type > 3 || !target)
 		return (-1);
-	box->size = new_point(200, 50);
+	box->size = new_point(250, 60);
 	box->pos = pos;
 	box->rectangle = new_rectangle(0xFFFFFFFF, 0xFF606060, 1, 3);
 	box->type = type;

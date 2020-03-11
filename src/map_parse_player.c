@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:05:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 14:27:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:48:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		parse_player(t_env *env, t_map_parser *parser)
 							env->player.pos)) == -1)
 				return (custom_error_with_line("Player is not in any sector",
 							parser));
+			update_player_z(env);
+			env->player.starting_pos.z = env->player.pos.z;
 			if (!env->sectors[env->player.sector].gravity)
 				env->player.state.fly = 1;
 			env->player.highest_sect = env->player.sector;
