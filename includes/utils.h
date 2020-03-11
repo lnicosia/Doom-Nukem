@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:00:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:14:52 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -693,6 +693,7 @@ typedef struct		s_keys
 	Sint32			equals;
 	Sint32			p;
 	Sint32			a;
+	Sint32			h;
 	Sint32			lgui;
 	Sint32			nb1;
 	Sint32			nb2;
@@ -735,6 +736,7 @@ typedef struct		s_inputs
 	uint8_t			home;
 	uint8_t			end;
 	uint8_t			a;
+	uint8_t			h;
 	uint8_t			lgui;
 	uint8_t			nb1;
 	uint8_t			nb2;
@@ -1122,24 +1124,15 @@ typedef struct s_skybox
 typedef struct		s_options
 {
 	double			minimap_scale;
-	int				contouring;
 	int				render_sectors;
 	int				lighting;
 	int				show_minimap;
 	int				show_fps;
-	int				wall_lover;
-	int				color_clipping;
-	int				wall_color;
+	int				test;
 	int				clipping;
-	int				show_ennemies;
 	int				zbuffer;
-	int				p;
-	int				l;
 	int				o;
-	int				animations;
-	int				gamma_filter;
 	int				mipmapping;
-	int				mouse;
 	int				max_floor_sprites;
 	int				max_wall_sprites;
 	int				editor_options;

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 13:44:44 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:13:12 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int		editor(t_env *env)
 					if (env->sdl.event.key.keysym.sym == SDLK_TAB)
 						editor_show_tab(env);
 				}
+				else if (env->options.editor_options)
+				{
+					if (editor_options_keyup(env))
+						return (-1);
+					if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+						editor_show_tab(env);
+				}
 			}
 			if (!env->editor.in_game && env->sdl.event.type == SDL_MOUSEWHEEL)
 			{
@@ -105,6 +112,11 @@ int		editor(t_env *env)
 			{
 				if (editor_keys(env))
 					return (crash("Crash from editor 2D keys\n", env));
+			}
+			else if (!env->input_box.state)
+			{
+				if (editor_options_keys(env))
+					return (ft_printf("Error in inputs\n"));
 			}
 			else if (!env->input_box.state)
 			{

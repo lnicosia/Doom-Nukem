@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:33:04 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:13:31 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		going_in_3D_mode(t_env *env)
 	update_camera_position(&env->player.camera);
 	update_player_z(env);
 	ft_bzero(&env->inputs, sizeof(env->inputs));
-	env->options.mouse = 1;
 	if (!env->editor.tab)
 	{
 		SDL_SetRelativeMouseMode(1);

@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:30:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 14:02:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:13:24 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	draw_vline_wall(t_sector sector, t_vline vline, t_render render, t_env *env
 			&& !env->editor.select && !env->editor.select_portal)
 			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		zbuffer[coord] = render.z;
-		if (env->options.zbuffer || env->options.contouring)
+		if (env->options.zbuffer)
 			if (i == (int)(render.max_ceiling)
 					|| i == (int)(render.neighbor_max_ceiling)
 					|| i == (int)(render.max_floor)

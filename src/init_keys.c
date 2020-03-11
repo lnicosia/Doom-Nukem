@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 10:53:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_keys(t_env *env)
 	env->keys.end = SDLK_END;
 	env->keys.home = SDLK_HOME;
 	env->keys.a = SDLK_a;
+	env->keys.h = SDLK_h;
 	env->keys.nb1 = SDLK_1;
 	env->keys.nb2 = SDLK_2;
 	env->keys.nb3 = SDLK_3;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_option_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:12:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/10 11:07:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:55 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ int		editor_options_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.fps, env))
 		return (-1);
+	if (env->editor.options_from_h == 1 && !env->inputs.h)
+	{
+		env->editor.options_from_h = 0;
+		env->options.editor_options = 0;
+		if (env->editor.in_game)
+			editor_show_tab(env);
+		env->editor.tab = 0;
+	}
 	return (0);
 }
 

@@ -208,5 +208,10 @@ int			editor_keys(t_env *env)
 			env->time.tick4 = SDL_GetTicks();
 		time = SDL_GetTicks();
 	}
+	if (env->inputs.h)
+	{
+		env->editor.options_from_h = 1;
+		env->options.editor_options = 1;
+	}
 	return (0);
 }

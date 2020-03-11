@@ -85,17 +85,17 @@ int		init_gun(t_env *env)
 
 int		init_gatling(t_env *env)
 {
-	if (parse_bmp("images/HUD/Gatling_1.bmp", 46, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_1.bmp", 46, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Gatling_2.bmp", 47, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_2.bmp", 47, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Gatling_3.bmp", 48, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_3.bmp", 48, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Gatling_4.bmp", 49, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_4.bmp", 49, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Gatling_5.bmp", 50, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_5.bmp", 50, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/Gatling_6.bmp", 51, env))
+	if (parse_bmp("images/HUD/Gatling/Gatling_6.bmp", 51, env))
 		return (ft_printf("Invalid bmp file\n"));
 	return (0);
 }

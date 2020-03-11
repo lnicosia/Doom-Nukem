@@ -140,7 +140,7 @@ int	editor_keyup(t_env *env)
 	int	ret;
 
 	i = 0;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
+	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl)
 	{
 		if (launch_game(env))
 			return (-1);
@@ -153,8 +153,6 @@ int	editor_keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
 		if (delete_action(env))
 			return (-1);
-	if (env->sdl.event.key.keysym.sym == SDLK_l)
-		env->options.l = env->options.l ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
