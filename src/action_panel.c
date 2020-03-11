@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:06:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 17:20:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:21:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int		draw_action_panel(t_env *env)
 	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size.x / 2),
 	new_printable_text("Tell what your event does",
 	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
-	if (!env->editor.event_panel.target_panel.other_type)
+	if (env->editor.event_panel.event.target_index < MAX_REAL_TARGET_TYPES)
 		return (draw_real_target_action_panel(panel, env));
 	else
 		return (draw_function_target_action_panel(panel, env));
