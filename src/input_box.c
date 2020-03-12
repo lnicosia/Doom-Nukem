@@ -77,6 +77,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
 	return (0);
 }
@@ -144,7 +145,9 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
+	ft_printf("new input var\n");
 	return (0);
 }
 
@@ -275,8 +278,7 @@ int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 	}
 	start = ft_max(0, start - box->count);
 	end = ft_min(end - box->count, ft_strlen(str));
-	if (!(sub = ft_strsub(str, 0, start)))
-		return (-1);
+	sub = ft_strsub(str, 0, start);
 	TTF_SizeText(box->font, sub, &size1.x, &size1.y);
 	if (sub)
 		ft_strdel(&sub);
