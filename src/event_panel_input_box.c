@@ -77,6 +77,7 @@ t_env *env)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
 	return (0);
 }
@@ -145,6 +146,7 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
 	return (0);
 }

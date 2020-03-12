@@ -77,6 +77,7 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
 	return (0);
 }
@@ -144,7 +145,9 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->select_end = ft_strlen(box->str);
 	box->check = 0;
 	box->update = 0;
+	box->count = 0;
 	box->error_message = "Error";
+	ft_printf("new input var\n");
 	return (0);
 }
 
@@ -250,13 +253,61 @@ int	draw_cursor(t_input_box *box, t_point pos, char *sub, t_env *env)
 }
 
 /*
+**	Highlight the current selection with blue
+*/
+
+int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
+{
+	t_point	size1;
+	t_point	size2;
+	size_t	start;
+	size_t	end;
+	int		x;
+	int		y;
+	char	*sub;
+
+	if (box->select_start > box->select_end)
+	{
+		start = box->select_end;
+		end = box->select_start;
+	}
+	else
+	{
+		start = box->select_start;
+		end = box->select_end;
+	}
+	start = ft_max(0, start - box->count);
+	end = ft_min(end - box->count, ft_strlen(str));
+	sub = ft_strsub(str, 0, start);
+	TTF_SizeText(box->font, sub, &size1.x, &size1.y);
+	if (sub)
+		ft_strdel(&sub);
+	if (!(sub = ft_strsub(str, start, end - start)))
+		return (-1);
+	TTF_SizeText(box->font, sub, &size2.x, &size2.y);
+	if (sub)
+		ft_strdel(&sub);
+	y = pos.x;
+	while (y < pos.x + size2.y)
+	{
+		x = pos.y + size1.x;
+		while (x < pos.y + size1.x + size2.x)
+		{
+			env->sdl.texture_pixels[x + y * env->w] = 0xFF71B3D1;
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+/*
 **	If the string is too big to fit in one line
 **	Prints the text in multiple lines
 */
 
 int		split_box_text(t_input_box *box, t_env *env)
 {
-	size_t	count;
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
@@ -264,7 +315,7 @@ int		split_box_text(t_input_box *box, t_env *env)
 	t_point text_size;
 	t_point	pos;
 
-	count = 0;
+	box->count = 0;
 	pos = new_point(box->pos.y + box->size.y / 100,
 	box->pos.x + box->size.x / 100);
 	if (!(str = ft_strdup(box->str)))
@@ -290,21 +341,26 @@ int		split_box_text(t_input_box *box, t_env *env)
 		ft_strdel(&str);
 		str = tmp3;
 		TTF_SizeText(box->font, tmp2, &text_size.x, &text_size.y);
-		print_text(pos, new_printable_text(tmp2, box->font,
-		0x333333FF, 0), env);
 		// Draw input box selection
-		if (box->select_start != box->select_end)
+		if (box->select_start != box->select_end
+			&& box->select_start <= ft_strlen(tmp2) + box->count
+			&& box->select_end >= box->count)
 		{
+			if (draw_box_selection(box, pos, tmp2, env))
+				return (-1);
 		}
-		if (box->cursor > count && box->cursor <= count + ft_strlen(tmp2) + 1
+		if (box->cursor > box->count
+			&& box->cursor <= box->count + ft_strlen(tmp2) + 1
 			&& (box->cursor_state || env->inputs.home || env->inputs.end
 			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
 		{
 			if (draw_cursor(box, pos, ft_strsub(tmp2, 0,
-				box->cursor - count), env))
+				box->cursor - box->count), env))
 				return (-1);
 		}
-		count += ft_strlen(tmp2);
+		print_text(pos, new_printable_text(tmp2, box->font,
+		0x333333FF, 0), env);
+		box->count += ft_strlen(tmp2);
 		ft_strdel(&tmp2);
 		pos.x += text_size.y + 5;
 	}
@@ -325,6 +381,8 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 	{
 		pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
 		box->pos.x + 6);
+		if (draw_box_selection(box, pos, box->str, env))
+			return (-1);
 		text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
 		print_text(pos, text, env);
 		if (box->cursor_state || env->inputs.home || env->inputs.end
@@ -342,53 +400,9 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 	return (0);
 }
 
-void	draw_box_selection(t_input_box *box, t_env *env)
-{
-	t_point	size1;
-	t_point	size2;
-	size_t	start;
-	size_t	end;
-	int		x;
-	int		y;
-	char	*sub;
-
-	if (box->select_start > box->select_end)
-	{
-		start = box->select_end;
-		end = box->select_start;
-	}
-	else
-	{
-		start = box->select_start;
-		end = box->select_end;
-	}
-	sub = ft_strsub(box->str, 0, start);
-	TTF_SizeText(box->font, sub, &size1.x, &size1.y);
-	if (sub)
-		ft_strdel(&sub);
-	sub = ft_strsub(box->str, 0, end);
-	TTF_SizeText(box->font, sub, &size2.x, &size2.y);
-	if (sub)
-		ft_strdel(&sub);
-	y = box->pos.y + 5;
-	while (y < box->pos.y + box->size.y - 4)
-	{
-		x = box->pos.x + 5 + size1.x;
-		while (x < box->pos.x + 5 + size2.x)
-		{
-			//env->sdl.texture_pixels[x + y * env->w] = blend_alpha(env->sdl.texture_pixels[x + y * env->w], 0xFF71B3D1, 128);
-			env->sdl.texture_pixels[x + y * env->w] = 0xFF71B3D1;
-			x++;
-		}
-		y++;
-	}
-}
-
 int		draw_input_box(t_input_box *box, t_env *env)
 {
 	draw_rectangle(env, box->rectangle, box->pos, box->size);
-	/*if (box->select_start != box->select_end)
-		draw_box_selection(box, env);*/
 	if (draw_input_box_content(box, env))
 		return (-1);
 	if (SDL_GetTicks() - box->cursor_timer > box->cursor_delay)

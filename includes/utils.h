@@ -29,7 +29,7 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 52
+# define MAX_TEXTURES 53
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 34
@@ -1250,8 +1250,8 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
-	int				curr_line;
 	int				max_lines;
+	size_t			count;
 	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;

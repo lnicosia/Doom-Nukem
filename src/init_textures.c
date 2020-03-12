@@ -138,7 +138,7 @@ int		init_textures(t_env *env)
 		return (ft_printf("Failed to load camera sprite\n"));
 	if (parse_bmp("images/sprites/raygun.bmp", 39, env))
 		return (ft_printf("Failed to load raygun sprite\n"));
-	if (parse_bmp("images/sprites/hd.bmp", 46, env))
+	if (parse_bmp("images/sprites/hd.bmp", 52, env))
 		return (ft_printf("Failed to load raygun sprite\n"));
 	if (init_skyboxes(env))
 		return (ft_printf("Could not load skyboxes textures\n"));
