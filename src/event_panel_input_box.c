@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:22:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 11:19:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:36:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_env *env)
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
+		if (*box->int_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
@@ -45,6 +47,13 @@ t_env *env)
 		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
+		if (*box->double_target < 0)
+			box->minus = 1;
+		if (dec_len)
+		{
+			box->period = 1;
+			box->period_index = len - dec_len + box->minus;
+		}
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
 		set_double_stats(box);
@@ -59,6 +68,8 @@ t_env *env)
 		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
+		if (*box->uint32_target < 0)
+			box->minus = 1;
 		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
@@ -103,6 +114,8 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
+		if (*box->int_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
@@ -116,6 +129,13 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 			return (-1);
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
+		if (*box->double_target < 0)
+			box->minus = 1;
+		if (dec_len)
+		{
+			box->period = 1;
+			box->period_index = len - dec_len + box->minus;
+		}
 		set_double_stats(box);
 	}
 	else if (type == UINT32)
@@ -129,6 +149,8 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
 		ft_strdel(&tmp);
+		if (*box->uint32_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == STRING)

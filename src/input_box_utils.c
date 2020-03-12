@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 15:14:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:18:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,10 @@ int		parse_uint32_input(t_input_box *box, t_env *env)
 
 	(void)box;
 	new = ft_getchar(env->sdl.event.key.keysym.sym, env->inputs.shift);
-	if (!new || !ft_ishexa(new) || ft_strlen(box->str) > 9)
+	if (!new || !ft_ishexa(new))
+		return (0);
+	if (ft_strlen(box->str) > 9
+		&& !(box->select_start == 0 && box->select_end == ft_strlen(box->str)))
 		return (0);
 	if (box->select_start < 2)
 		box->select_start = 2;
@@ -167,8 +170,8 @@ int		parse_integer_input(t_input_box *box, t_env *env)
 		return (0);
 	if (!ft_isdigit(new))
 	{
-		if (new != '-' || (new == '-' && box->cursor && box->select_start != 0
-			&& box->select_end != ft_strlen(box->str)))
+		if (new != '-' || (new == '-' && box->cursor && (box->select_start != 0
+			|| box->select_end != ft_strlen(box->str))))
 			return (0);
 	}
 	if (ft_strlen(box->str) - box->minus >= 9 || (box->minus && !box->cursor))
@@ -193,16 +196,18 @@ int		parse_double_input(t_input_box *box, t_env *env)
 	{
 		if ((new != '.' && new != '-')
 			|| (new == '.' && box->period)
-			|| (new == '-' && box->cursor && box->select_start != 0
-			&& box->select_end != ft_strlen(box->str)))
+			|| (new == '-' && box->cursor && (box->select_start != 0
+			|| box->select_end != ft_strlen(box->str))))
 			return (0);
 	}
 	else if ((box->float_count >= 5 && box->cursor > box->period_index)
 		|| (box->minus && !box->cursor)
-		|| (box->int_count >= 9
-		&& box->cursor <= box->period_index))
-		return (0);
-	if (ft_strlen(box->str) - box->minus >= 9 && !box->period)
+		|| (box->int_count >= 9 && box->cursor <= box->period_index))
+	{
+		if (!(box->select_start == 0 && box->select_end == ft_strlen(box->str)))
+			return (0);
+	}
+	if (ft_strlen(box->str) - box->minus >= 9 && !box->period && new != '.')
 	{
 		box->cursor = 9 + box->minus;
 		box->period_index = box->cursor;
