@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 16:12:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:46:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
-	//	if (*box->int_target < 0)
-	//		box->minus = 1;
+		if (*box->int_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
