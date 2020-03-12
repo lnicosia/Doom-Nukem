@@ -1250,8 +1250,8 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
-	int				curr_line;
 	int				max_lines;
+	size_t			count;
 	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;
