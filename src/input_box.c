@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 16:43:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:01:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->update = 0;
 	box->count = 0;
 	box->error_message = "Error";
-	ft_printf("new input var\n");
 	return (0);
 }
 
@@ -207,9 +206,9 @@ static char	*get_current_line(t_input_box *box, char *str, char *tmp)
 	char	*res;
 	t_point	size;
 
-	//TTF_SizeText(box->font, tmp, &size.x, &size.y);
+	size = new_point(0, 0);
 	(void)tmp;
-	len = 0;
+	len = 1;
 	if (!(res = ft_strnew(0)))
 		return (0);
 	while (size.x < box->size.x * 0.99 && len <= ft_strlen(str))
@@ -283,7 +282,15 @@ int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 	if (sub)
 		ft_strdel(&sub);
 	if (!(sub = ft_strsub(str, start, end - start)))
+	{
+		ft_printf("select start = %d\n", box->select_start);
+		ft_printf("select end = %d\n", box->select_end);
+		ft_printf("char count = %d\n", box->count);
+		ft_printf("{red}Input box selection sub str empty!\n");
+		ft_printf("Start = %d\n", start);
+		ft_printf("End = %d{reset}\n", end);
 		return (-1);
+	}
 	TTF_SizeText(box->font, sub, &size2.x, &size2.y);
 	if (sub)
 		ft_strdel(&sub);
@@ -312,10 +319,11 @@ int		split_box_text(t_input_box *box, t_env *env)
 	char	*tmp2;
 	char	*tmp3;
 	char	*str;
+	int		i;
 	t_point text_size;
 	t_point	pos;
 
-	box->count = 0;
+	i = 0;
 	pos = new_point(box->pos.y + box->size.y / 100,
 	box->pos.x + box->size.x / 100);
 	if (!(str = ft_strdup(box->str)))
@@ -326,6 +334,7 @@ int		split_box_text(t_input_box *box, t_env *env)
 	{
 		if (!(tmp = get_current_line(box, str, tmp)))
 			return (-1);
+		//ft_printf("tmp = '%s'\n", tmp);
 		if (ft_strlen(tmp) < ft_strlen(str) && ft_strrchr(tmp, ' '))
 		{
 			if (!(tmp2 = ft_strsub(tmp, 0,
@@ -335,7 +344,9 @@ int		split_box_text(t_input_box *box, t_env *env)
 		}
 		else
 			tmp2 = tmp;
-		if (!(tmp3 = ft_strsub(str, ft_strlen(tmp2) + 1,
+		//ft_printf("tmp2 = '%s'\n", tmp2);
+		//ft_printf("str = '%s'\n", str);
+		if (!(tmp3 = ft_strsub(str, ft_strlen(tmp2),
 			ft_strlen(str) - ft_strlen(tmp2))))
 			return (-1);
 		ft_strdel(&str);
@@ -343,14 +354,23 @@ int		split_box_text(t_input_box *box, t_env *env)
 		TTF_SizeText(box->font, tmp2, &text_size.x, &text_size.y);
 		// Draw input box selection
 		if (box->select_start != box->select_end
-			&& box->select_start <= ft_strlen(tmp2) + box->count
+			&& ((box->select_start <= ft_strlen(tmp2) + box->count
 			&& box->select_end >= box->count)
+			|| (box->select_end <= ft_strlen(tmp2) + box->count
+			&& box->select_start >= box->count)))
 		{
 			if (draw_box_selection(box, pos, tmp2, env))
 				return (-1);
 		}
+		if (env->inputs.left_click
+			&& env->sdl.mx >= pos.y && env->sdl.mx <= pos.y + box->size.x
+			&& env->sdl.my >= pos.x && env->sdl.my <= pos.x + text_size.y)
+		{
+			if (input_box_mouse(box, pos, tmp2, env))
+				return (-1);
+		}
 		if (box->cursor > box->count
-			&& box->cursor <= box->count + ft_strlen(tmp2) + 1
+			&& box->cursor <= box->count + ft_strlen(tmp2)
 			&& (box->cursor_state || env->inputs.home || env->inputs.end
 			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
 		{
@@ -363,6 +383,7 @@ int		split_box_text(t_input_box *box, t_env *env)
 		box->count += ft_strlen(tmp2);
 		ft_strdel(&tmp2);
 		pos.x += text_size.y + 5;
+		i++;
 	}
 	ft_strdel(&str);
 	return (0);
@@ -377,11 +398,15 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
 		return (0);
 	TTF_SizeText(box->font, box->str, &size.x, &size.y);
+	box->count = 0;
 	if (size.x < box->size.x * 0.99 || box->type != STRING)
 	{
 		pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
 		box->pos.x + 6);
-		if (draw_box_selection(box, pos, box->str, env))
+		if (box->select_start != box->select_end
+			&& draw_box_selection(box, pos, box->str, env))
+			return (-1);
+		if (env->inputs.left_click && input_box_mouse(box, pos, box->str, env))
 			return (-1);
 		text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
 		print_text(pos, text, env);
@@ -512,7 +537,7 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->inputs.left_click)
 	{
-		input_box_mouse(box, env);
+		box->click = 1;
 		if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN
 			&& (env->sdl.mx < box->pos.x
 			|| env->sdl.mx > box->pos.x + box->size.x

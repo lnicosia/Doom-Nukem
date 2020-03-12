@@ -377,7 +377,8 @@ int					draw_input_box(t_input_box *box, t_env *env);
 int					find_input_box_max_char(t_input_box *box);
 int					input_box_keys(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
-int					input_box_mouse(t_input_box *box, t_env *env);
+int					input_box_mouse(t_input_box *box, t_point pos, char *str,
+t_env *env);
 int					new_input_box(t_input_box *box, t_point pos,
 						int type, void *target);
 int					new_input_var(t_input_box *box, t_point pos,
