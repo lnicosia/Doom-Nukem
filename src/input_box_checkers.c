@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:12:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 15:39:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:55:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ int		check_light_data_input_box(void *penv)
 
 	env = (t_env*)penv;
 	value = ft_atoi(env->input_box.str);
-	if (value <= -255 || value >= 255)
+	if (value < -255 || value > 255)
 		return (1);
 	return (0);
 }

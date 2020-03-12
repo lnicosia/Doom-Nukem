@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 14:02:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:00:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			editor_keys(t_env *env)
 			env->input_box.update = &save_map;
 			env->inputs.s = 0;
 			env->inputs.ctrl = 0;
-			env->input_box.text_size = 420;
+			env->input_box.text_size = 42;
 		}
 	}
 

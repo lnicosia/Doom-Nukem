@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 16:46:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:06:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,6 +399,14 @@ int		split_box_text(t_input_box *box, t_env *env)
 			&& (box->cursor_state || env->inputs.home || env->inputs.end
 			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
 		{
+			if (box->up)
+			{
+				box->up = 0;
+			}
+			if (box->down)
+			{
+				box->down = 0;
+			}
 			if (draw_cursor(box, pos, ft_strsub(tmp2, 0,
 				box->cursor - box->count), env))
 				return (-1);
@@ -504,9 +512,8 @@ int		input_box_keys(t_input_box *box, t_env *env)
 			del_char(box, 1);
 		env->inputs.del = 0;
 	}
-	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT
-		&& box->cursor > 0 && SDL_GetTicks()
-		- box->move_cursor_timer > box->move_cursor_delay)
+	else if (env->sdl.event.key.keysym.sym == SDLK_LEFT && box->cursor > 0
+		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
 	{
 		if (box->select_start == box->select_end)
 			box->cursor--;
@@ -534,6 +541,12 @@ int		input_box_keys(t_input_box *box, t_env *env)
 		}
 		box->move_cursor_timer = SDL_GetTicks();
 	}
+	else if (env->sdl.event.key.keysym.sym == SDLK_DOWN
+		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
+		box->down = 1;
+	else if (env->sdl.event.key.keysym.sym == SDLK_UP
+		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
+		box->down = 1;
 	else if (env->inputs.end)
 		box->cursor = ft_strlen(box->str);
 	else if (env->inputs.home)
