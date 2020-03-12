@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:14:25 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/03/12 18:55:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,6 +331,9 @@ void				draw_grid_player(t_env *env);
 void				draw_grid_start_player(t_env *env);
 void				draw_grid_objects(t_env *env);
 void				editor_hud(t_env *env);
+void				editor_options_hud(t_env *env);
+void				editor_options_buttons(t_env *env);
+void				editor_options_rectangles(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
