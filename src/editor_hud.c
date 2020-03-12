@@ -41,7 +41,7 @@ void	editor_options_rectangles(t_env *env)
 		new_point(20, 605), new_point(360, 52));
 	draw_rectangle(env,
 		new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-		new_point(20, 670), new_point(360, 130));
+		new_point(20, 670), new_point(360, 190));
 }
 
 void	editor_options_buttons(t_env *env)
@@ -142,7 +142,7 @@ void	editor_options_bindings_1(t_env *env)
 
 void	editor_options_bindings_2(t_env *env)
 {
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Game%*s", 18, "ctrl + G");
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Game%*s", 19, "ctrl + G");
 	print_text(new_point(760, 230), new_printable_text(env->snprintf,
 		env->sdl.fonts.lato15, 0x000000FF, 15), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Options%*s", 11, "ctrl + O");
@@ -153,6 +153,22 @@ void	editor_options_bindings_2(t_env *env)
 		env->sdl.fonts.lato15, 0x000000FF, 15), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Minimap%*s", 12, "ctrl + M");
 	print_text(new_point(780, 230), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato15, 0x000000FF, 15), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector%*s", 14, "Spacebar");
+	print_text(new_point(800, 70), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato15, 0x000000FF, 15), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Vertex%*s", 18,
+		"ctrl + click");
+	print_text(new_point(800, 230), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato15, 0x000000FF, 15), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Return%*s", 13, "Backspace");
+	print_text(new_point(820, 70), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato15, 0x000000FF, 15), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Delete%*s", 15, "Del");
+	print_text(new_point(820, 230), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato15, 0x000000FF, 15), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Save%*s", 18, "ctrl + S");
+	print_text(new_point(840, 70), new_printable_text(env->snprintf,
 		env->sdl.fonts.lato15, 0x000000FF, 15), env);
 }
 
