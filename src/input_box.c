@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 17:06:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:05:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,12 +351,19 @@ int		split_box_text(t_input_box *box, t_env *env)
 	i = 0;
 	pos = new_point(box->pos.y + box->size.y / 100,
 	box->pos.x + box->size.x / 100);
+	box->cursor_in_line = 0;
 	if (!(str = ft_strdup(box->str)))
 		return (-1);
 	TTF_SizeText(box->font, str, &text_size.x, &text_size.y);
 	while (ft_strlen(str)
 		&& pos.x + text_size.y <= box->pos.y + box->size.y * 0.99)
 	{
+		if (box->change_cursor_line)
+		{
+			box->cursor =
+			ft_min(box->count + box->cursor_in_line, ft_strlen(box->str));
+			box->change_cursor_line = 0;
+		}
 		if (!(tmp = get_current_line(box, str, tmp)))
 			return (-1);
 		//ft_printf("tmp = '%s'\n", tmp);
@@ -394,25 +401,30 @@ int		split_box_text(t_input_box *box, t_env *env)
 			if (input_box_mouse(box, pos, tmp2, env))
 				return (-1);
 		}
+		box->cursor_in_line = box->cursor - box->count;
 		if (box->cursor > box->count
 			&& box->cursor <= box->count + ft_strlen(tmp2)
 			&& (box->cursor_state || env->inputs.home || env->inputs.end
-			|| env->inputs.right || env->inputs.left || env->inputs.left_click))
+			|| env->inputs.right || env->inputs.left || env->inputs.up
+			|| env->inputs.down || env->inputs.left_click))
 		{
-			if (box->up)
-			{
-				box->up = 0;
-			}
-			if (box->down)
-			{
-				box->down = 0;
-			}
 			if (draw_cursor(box, pos, ft_strsub(tmp2, 0,
 				box->cursor - box->count), env))
 				return (-1);
+			if (box->up)
+			{
+				box->up = 0;
+				box->cursor = box->prec_count + box->cursor_in_line;
+			}
+			if (box->down && ft_strlen(str))
+			{
+				box->down = 0;
+				box->change_cursor_line = 1;
+			}
 		}
 		print_text(pos, new_printable_text(tmp2, box->font,
 		0x333333FF, 0), env);
+		box->prec_count = box->count;
 		box->count += ft_strlen(tmp2);
 		ft_strdel(&tmp2);
 		pos.x += text_size.y + 5;
@@ -432,6 +444,7 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 		return (0);
 	TTF_SizeText(box->font, box->str, &size.x, &size.y);
 	box->count = 0;
+	box->prec_count = 0;
 	if (size.x < box->size.x * 0.99 || box->type != STRING)
 	{
 		pos = new_point(box->pos.y + box->size.y / 2 - size.y / 2,
@@ -543,10 +556,20 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_DOWN
 		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
+	{
 		box->down = 1;
+		box->select_start = 0;
+		box->select_end = 0;
+		box->move_cursor_timer = SDL_GetTicks();
+	}
 	else if (env->sdl.event.key.keysym.sym == SDLK_UP
 		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
-		box->down = 1;
+	{
+		box->up = 1;
+		box->select_start = 0;
+		box->select_end = 0;
+		box->move_cursor_timer = SDL_GetTicks();
+	}
 	else if (env->inputs.end)
 		box->cursor = ft_strlen(box->str);
 	else if (env->inputs.home)

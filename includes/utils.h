@@ -6,7 +6,7 @@
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 17:00:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:54:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1255,6 +1255,8 @@ typedef struct		s_input_box
 	int				down;
 	int				up;
 	int				cursor_in_line;
+	int				change_cursor_line;
+	size_t			prec_count;
 	size_t			count;
 	size_t			line_size;
 	size_t			cursor;
