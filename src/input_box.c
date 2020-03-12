@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 18:05:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:08:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,7 +457,8 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 		text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
 		print_text(pos, text, env);
 		if (box->cursor_state || env->inputs.home || env->inputs.end
-			|| env->inputs.right || env->inputs.left || env->inputs.left_click)
+			|| env->inputs.right || env->inputs.left || env->inputs.left_click
+			|| env->inputs.up || env->inputs.down)
 		{
 			if (draw_cursor(box, pos, ft_strsub(box->str, 0, box->cursor), env))
 				return (-1);
