@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 15:01:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:33:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 			ft_strdel(&box->str);
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
+		if (*box->int_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
@@ -46,6 +48,13 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
+		if (*box->double_target < 0)
+			box->minus = 1;
+		if (dec_len)
+		{
+			box->period = 1;
+			box->period_index = len - dec_len + box->minus;
+		}
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
 		set_double_stats(box);
@@ -61,6 +70,8 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
 		ft_strdel(&tmp);
+		if (*box->uint32_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -102,6 +113,8 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
+		if (*box->int_target < 0)
+			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == DOUBLE)
@@ -113,6 +126,13 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
+		if (*box->double_target < 0)
+			box->minus = 1;
+		if (dec_len)
+		{
+			box->period = 1;
+			box->period_index = len - dec_len;
+		}
 		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
 		*(box->double_target));
 		set_double_stats(box);
@@ -127,6 +147,8 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
+		if (*box->uint32_target < 0)
+			box->minus = 1;
 		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
