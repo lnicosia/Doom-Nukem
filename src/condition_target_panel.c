@@ -15,13 +15,10 @@
 int		draw_condition_targets_panel(t_env *env)
 {
 	t_point			text_size1;
-	//t_point			text_size2;
 	t_event_panel	panel;
-	t_condition		condition;
 	int				phase;
 
 	panel = env->editor.event_panel;
-	condition = env->editor.condition_panel.condition;
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition's target",
 	&text_size1.x, &text_size1.y);
 	print_text(new_point(panel.pos.y + panel.top_size + 17,

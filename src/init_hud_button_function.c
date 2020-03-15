@@ -17,11 +17,9 @@ int		change_slope_direction(void *target)
 	t_env			*env;
 	t_button_next	*button;
 	t_sector		*sector;
-	int				i;
 	
 	button = NULL;
 	env = (t_env *)target;
-	i = 0;
 	if (env->editor.next_slope_swap.state == DOWN)
 		button = &env->editor.next_slope_swap_env;
 	if (env->editor.previous_slope_swap.state == DOWN)

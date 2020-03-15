@@ -79,7 +79,6 @@ int		init_object_selection_button(t_env *env)
 	i = 0;
  	while (i < MAX_OBJECTS)
 	{
-		env->editor.object_tab[i].img_up = env->wall_textures[i].maps[6];
 		env->editor.object_tab[i] = new_image_button(ON_RELEASE,
 		&save_object, new_button_target(env, i), env);
 		env->editor.object_tab[i].size_up = new_point(64, 64);

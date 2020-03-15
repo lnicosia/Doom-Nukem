@@ -68,8 +68,6 @@ t_env *env)
 		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
-		if (*box->uint32_target < 0)
-			box->minus = 1;
 		ft_strdel(&tmp);
 		set_double_stats(box);
 	}
@@ -149,8 +147,6 @@ int	new_event_panel_box(t_input_box *box, int type, void *target, t_env *env)
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
 		ft_strdel(&tmp);
-		if (*box->uint32_target < 0)
-			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == STRING)

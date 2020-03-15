@@ -222,9 +222,7 @@ void		draw_objects_minimap(t_env *env)
 	t_sprite	sprite;
 	t_point		pos;
 	t_point		size;
-	Uint32		*pixels;
 
-	pixels = env->sdl.texture_pixels;
 	i = -1;
 	while (++i < env->nb_objects)
 	{
@@ -258,9 +256,7 @@ void		draw_enemies_minimap(t_env *env)
 	t_sprite	sprite;
 	t_point		pos;
 	t_point		size;
-	Uint32		*pixels;
 
-	pixels = env->sdl.texture_pixels;
 	i = -1;
 	while (++i < env->nb_enemies)
 	{

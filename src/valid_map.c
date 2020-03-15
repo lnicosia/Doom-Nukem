@@ -278,12 +278,18 @@ t_vertex vt1, t_vertex vt2)
 	v2 = new_v2(vt2.x, vt2.y);
 	while (i < sector.nb_vertices)
 	{
+	  ft_printf("i = %d\n", i);
 		v3 = new_v2(env->vertices[sector.vertices[i]].x,
 		env->vertices[sector.vertices[i]].y);
 		v4 = new_v2(env->vertices[sector.vertices[i + 1]].x,
 		env->vertices[sector.vertices[i + 1]].y);
 			if (segments_intersect(v1, v2, v3, v4))
 			{
+			  ft_printf("segments intersects\n");
+	  			ft_printf("env num = %d\n", env->vertices[sector.vertices[i]].num);
+	  			ft_printf("env num + 1 = %d\n", env->vertices[sector.vertices[i + 1]].num);
+	  			ft_printf("v1 num = %d\n", vt1.num);
+	  			ft_printf("v2 num = %d\n", vt2.num);
 				if ((env->vertices[sector.vertices[i]].num == vt1.num
 				&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
 				|| (env->vertices[sector.vertices[i]].num == vt2.num
@@ -294,7 +300,10 @@ t_vertex vt1, t_vertex vt2)
 				&& env->vertices[sector.vertices[i + 1]].num == vt1.num))
 					i = i - 0;
 				else
+				{
+			  ft_printf("pas de point en commun\n");
 					return (-1);
+				}
 			}
 		i++;
 	}

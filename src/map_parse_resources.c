@@ -65,7 +65,7 @@ int		map_parse_sprites(t_env *env, t_map_parser *parser)
 	i = 0;
 	ft_strdel(&parser->line);
 	ft_strdel(&parser->tmp);
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
@@ -154,7 +154,7 @@ int		map_parse_skyboxes(t_env *env, t_map_parser *parser)
 	i = 0;
 	ft_strdel(&parser->line);
 	ft_strdel(&parser->tmp);
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));
@@ -204,7 +204,7 @@ int		map_parse_hud(t_env *env, t_map_parser *parser)
 	i = 0;
 	ft_strdel(&parser->line);
 	ft_strdel(&parser->tmp);
-	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
+	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
 		return (ft_printf("Could not malloc line\n"));

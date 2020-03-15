@@ -105,7 +105,7 @@ void	print_sector_events(t_env *env)
 
 	if (env->selected_floor != -1)
 		sector = env->sectors[env->selected_floor];
-	else if (env->editor.selected_sector != -1)
+	else
 		sector = env->sectors[env->editor.selected_sector];
 	if (env->editor.selected_events == 0
 		&& sector.nb_stand_events > 0)
@@ -146,7 +146,7 @@ void	print_sector_events_tab(t_env *env)
 
 	if (env->selected_floor != -1)
 		sector = env->sectors[env->selected_floor];
-	else if (env->editor.selected_sector != -1)
+	else
 		sector = env->sectors[env->editor.selected_sector];
 	if (env->editor.selected_events == 0)
 		print_text(new_point(470, 150), new_printable_text("Stand events",

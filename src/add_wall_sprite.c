@@ -19,6 +19,8 @@ int	update_wall_sprite_arrays(t_env *env)
 	int				index;
 
 	index = 0;
+	wall = NULL;
+	sector = NULL;
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		sector = &env->sectors[env->editor.selected_sector];

@@ -15,9 +15,6 @@
 
 void	set_trigger(t_env *env, t_event_trigger *trigger)
 {
-	int		sector;
-
-	sector = -1;
 	if (env->selected_enemy != -1)
 	{
 		if (env->editor.selected_events == 0)
@@ -44,10 +41,6 @@ void	set_trigger(t_env *env, t_event_trigger *trigger)
 	else if (env->selected_wall_sprite_wall == -1
 		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
 	{
-		if (env->selected_floor != -1)
-			sector = env->selected_floor;
-		else if (env->editor.selected_sector != -1)
-			sector = env->editor.selected_sector;
 		if (env->editor.selected_events == 0)
 			trigger->type = STAND;
 		else if (env->editor.selected_events == 1)

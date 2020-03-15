@@ -119,14 +119,12 @@ int		delete_selected_sector(void *param)
 int		delete_selected_vertex(void *param)
 {
 	t_env			*env;
-	int				i;
 	t_event_target	target;
 
 	env = (t_env *)param;
 	init_target(&target);
 	target.vertex = env->editor.selected_vertex;
 	target.type = VERTEX_DELETED;
-	i = 0;
 	env->confirmation_box.yes_action = &delete_vertex;
 	env->confirmation_box.yes_target = env;
 	env->confirmation_box.no_action = &delete_events_to_delete_list;

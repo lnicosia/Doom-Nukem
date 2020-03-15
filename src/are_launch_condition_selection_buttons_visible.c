@@ -74,10 +74,8 @@ int			check_object_launch_conditions(t_env *env,
 int object)
 {
 	int		event;
-	int		events;
 
 	event = env->editor.selected_event;
-	events = env->editor.selected_events;
 	if (env->selected_object != -1
 		&& env->objects[object].nb_collision_events > 0
 		&& env->objects[object].collision_events[event].
@@ -89,10 +87,8 @@ int object)
 int			check_global_launch_conditions(t_env *env)
 {
 	int		event;
-	int		events;
 
 	event = env->editor.selected_event;
-	events = env->editor.selected_events;
 	if (env->selected_enemy == -1 && env->selected_object == -1
 		&& env->editor.selected_sector == -1 && env->selected_floor == -1
 		&& env->nb_global_events > 0 && env->global_events[event].

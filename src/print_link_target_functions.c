@@ -16,13 +16,9 @@
 int		print_global_link_target(t_env *env, t_condition *condition,
 t_point pos, int size)
 {
-	TTF_Font	*font;
 	char		*ended;
 
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	if (condition->type == EVENT_ENDED)
 		ended = "ended";
 	else
@@ -30,21 +26,15 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%s %d %s",
 	env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, ended);
-	/*print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
 int		print_sector_link_target(t_env *env, t_condition *condition,
 t_point pos, int size)
 {
-	TTF_Font	*font;
 	char		*ended;
 
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	if (condition->type == EVENT_ENDED)
 		ended = "ended";
 	else
@@ -52,21 +42,15 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d %s %d %s",
 	condition->sector, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, ended);
-	/*print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
 int		print_object_link_target(t_env *env, t_condition *condition,
 t_point pos, int size)
 {
-	TTF_Font	*font;
 	char		*ended;
 
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	if (condition->type == EVENT_ENDED)
 		ended = "ended";
 	else
@@ -74,21 +58,15 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d %s %d %s",
 	condition->object, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, condition->value, ended);
-	/*print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
 int		print_enemy_link_target(t_env *env, t_condition *condition,
 t_point pos, int size)
 {
-	TTF_Font	*font;
 	char		*ended;
 
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	if (condition->type == EVENT_ENDED)
 		ended = "ended";
 	else
@@ -96,21 +74,15 @@ t_point pos, int size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d %s %d %s",
 	condition->enemy, env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index, condition->value, ended);
-	/*print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }
 
 int		print_wall_sprite_link_target(t_env *env, t_condition *condition,
 t_point pos, int size)
 {
-	TTF_Font	*font;
 	char		*ended;
 
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	if (condition->type == EVENT_ENDED)
 		ended = "ended";
 	else
@@ -120,7 +92,5 @@ t_point pos, int size)
 	env->event_links_types[condition->target_trigger.type],
 	condition->target_trigger.index,
 	ended);
-	/*print_text(pos, new_printable_text(env->snprintf,
-	font, 0xFFFFFFFF, 0), env);*/
 	return (pos.y);
 }

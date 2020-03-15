@@ -334,6 +334,10 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address -g3
 endif
 
+SOUND_WINDOWS = fmod.dll fmodL.dll
+
+SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
+
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
               -L/usr/local/lib -lcygwin -lSDL2main \
@@ -345,10 +349,12 @@ SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
+	SOUND = $(SOUND_WINDOWS)
 else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		SDL = $(SDL_OSX)
+		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
 	else
 		echo "Can only compile on Windows or MacOS"
 		exit 1
@@ -460,14 +466,12 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
 	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
-	@install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
+	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) $(SOUND)
 	@echo ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
 	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
-	@install_name_tool -add_rpath @executable_path/sound_lib $(GAME_NAME)
+	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) $(SOUND)
 	@echo ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!"${RESET}
 
 clean: 

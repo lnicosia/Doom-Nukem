@@ -14,12 +14,10 @@
 
 int			editor_keys(t_env *env)
 {
-	double	time;
 	int		i;
 	int		ret;
 
 	i = 0;
-	time = SDL_GetTicks();
 	if (env->inputs.backspace && !env->confirmation_box.state)
 	{
 		if (del_last_vertex(env))
@@ -206,7 +204,6 @@ int			editor_keys(t_env *env)
 	{
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
-		time = SDL_GetTicks();
 	}
 	if (env->inputs.h)
 	{

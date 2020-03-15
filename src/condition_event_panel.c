@@ -17,10 +17,8 @@ int		draw_condition_event_panel(t_env *env)
 	t_point			text_size1;
 	t_point			text_size2;
 	t_event_panel	panel;
-	t_condition		condition;
 
 	panel = env->editor.event_panel;
-	condition = env->editor.condition_panel.condition;
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose an event in the bottom",
 	&text_size1.x, &text_size1.y);
 	print_text(new_point(panel.pos.y + panel.top_size + 100 - text_size1.y,

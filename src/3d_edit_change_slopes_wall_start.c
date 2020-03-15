@@ -102,10 +102,8 @@ int		change_ceiling_slope_start(t_env *env)
 
 int		change_slope_start(t_env *env)
 {
-	int	i;
 	int	sect;
 
-	i = 0;
 	sect = 0;
 	if (env->selected_floor != -1)
 	{
