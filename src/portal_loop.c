@@ -74,17 +74,13 @@ void            *portal_loop(void *param)
 
 void    check_mouse(t_render render, t_env *env)
 {
-	int		coord;
 	int		start;
 	int		end;
-	Uint32	*pixels;
 	
-	pixels = env->sdl.texture_pixels;
 	start = (int)render.current_ceiling;
 	end = (int)render.current_floor;
 	while (start <= end)
 	{
-		coord = render.x + env->w * start;
 		if ((env->editor.tab && render.x == env->sdl.mx && start == env->sdl.my)
 			|| (!env->editor.tab && render.x == env->h_w && start == env->h_h))
 		{

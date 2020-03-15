@@ -143,13 +143,13 @@ t_env *env)
 	int				x;
 	int				y;
 	Uint32			pixel;
-	SDL_PixelFormat	*fmt;
+	//SDL_PixelFormat	*fmt;
 	SDL_Surface		*surface;
 	Uint32			*texture_pixels;
 
 	texture_pixels = env->sdl.texture_pixels;
 	surface = get_closest_mipmap(texture, size);
-	fmt = surface->format;
+//	fmt = surface->format;
 	y = 0;
 	while (y < size.y)
 	{
@@ -253,7 +253,7 @@ t_env *env)
 	int				x;
 	int				y;
 	Uint32			pixel;
-	SDL_PixelFormat	*fmt;
+	//SDL_PixelFormat	*fmt;
 	SDL_Surface		*surface;
 	t_texture		texture;
 	Uint32			*texture_pixels;
@@ -262,7 +262,7 @@ t_env *env)
 	texture = env->sprite_textures[sprite.texture];
 	surface = get_closest_mipmap(texture, size);
 	surface = texture.surface;
-	fmt = surface->format;
+	//fmt = surface->format;
 	y = 0;
 	while (y < size.y)
 	{

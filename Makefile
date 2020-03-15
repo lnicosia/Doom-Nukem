@@ -319,7 +319,7 @@ ALL_RESOURCES = $(EDITOR_DIR)
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
+CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) -Wno-misleading-indentation \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast\
 		  #-fsanitize=address -g3 \

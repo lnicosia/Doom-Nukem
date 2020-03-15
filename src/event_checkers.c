@@ -130,8 +130,8 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
-		prec = sector.floor_slope;
-		update_sector_slope(env, &sector);
+		env->sectors[sector.num].floor_slope = prec;
+		update_sector_slope(env, &env->sectors[sector.num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -140,8 +140,8 @@ int		check_floor_slope_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			prec = sector.floor_slope;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].floor_slope = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 	}
@@ -152,14 +152,15 @@ int		check_floor_slope_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			prec = sector.floor_slope;
+			env->sectors[sector.num].floor_slope = prec;
 			update_sector_slope(env, &sector);
+		update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 		i++;
 	}
-	prec = sector.floor_slope;
-	update_sector_slope(env, &sector);
+	env->sectors[sector.num].floor_slope = prec;
+	update_sector_slope(env, &env->sectors[sector.num]);
 	return (0);
 }
 
@@ -183,8 +184,8 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
-		prec = sector.ceiling_slope;
-		update_sector_slope(env, &sector);
+		env->sectors[sector.num].ceiling_slope = prec;
+		update_sector_slope(env, &env->sectors[sector.num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -193,8 +194,8 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			prec = sector.ceiling_slope;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].ceiling_slope = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 	}
@@ -205,14 +206,14 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			prec = sector.floor_slope;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].ceiling_slope = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 		i++;
 	}
-	prec = sector.ceiling_slope;
-	update_sector_slope(env, &sector);
+	env->sectors[sector.num].ceiling_slope = prec;
+	update_sector_slope(env, &env->sectors[sector.num]);
 	return (0);
 }
 
@@ -236,8 +237,8 @@ int		check_floor_event(t_event *event, void *penv)
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
-		prec = sector.floor;
-		update_sector_slope(env, &sector);
+		env->sectors[sector.num].floor = prec;
+		update_sector_slope(env, &env->sectors[sector.num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -246,8 +247,8 @@ int		check_floor_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			prec = sector.floor;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].floor = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 	}
@@ -258,14 +259,14 @@ int		check_floor_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			prec = sector.floor_slope;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].floor = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 		i++;
 	}
-	prec = sector.floor;
-	update_sector_slope(env, &sector);
+	env->sectors[sector.num].floor = prec;
+	update_sector_slope(env, &env->sectors[sector.num]);
 	return (0);
 }
 
@@ -289,8 +290,8 @@ int		check_ceiling_event(t_event *event, void *penv)
 	update_sector_slope(env, &sector);
 	if (sector.floor_max > sector.ceiling_min)
 	{
-		prec = sector.ceiling;
-		update_sector_slope(env, &sector);
+		env->sectors[sector.num].ceiling = prec;
+		update_sector_slope(env, &env->sectors[sector.num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -299,8 +300,8 @@ int		check_ceiling_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			prec = sector.ceiling;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].ceiling = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 	}
@@ -311,14 +312,14 @@ int		check_ceiling_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			prec = sector.floor_slope;
-			update_sector_slope(env, &sector);
+			env->sectors[sector.num].ceiling = prec;
+			update_sector_slope(env, &env->sectors[sector.num]);
 			return (1);
 		}
 		i++;
 	}
-	prec = sector.ceiling;
-	update_sector_slope(env, &sector);
+	env->sectors[sector.num].ceiling = prec;
+	update_sector_slope(env, &env->sectors[sector.num]);
 	return (0);
 }
 
@@ -346,12 +347,11 @@ int		check_sprite_event(t_event *event, void *penv)
 
 int		check_scale_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0 && event->start_value + time * event->incr > 100)
 			|| (event->incr < 0 && event->start_value + time * event->incr < 0.1)
 			|| (!event->speed && (event->goal > 100
@@ -362,12 +362,11 @@ int		check_scale_event(t_event *event, void *penv)
 
 int		check_align_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0 && event->start_value + time * event->incr > 1000000)
 			|| (event->incr < 0
 				&& event->start_value + time * event->incr < -1000000)
@@ -379,12 +378,11 @@ int		check_align_event(t_event *event, void *penv)
 
 int		check_brightness_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0 && event->start_value + time * event->incr >= 255)
 			|| (event->incr < 0 && event->start_value + time * event->incr <= -255)
 			|| (!event->speed && (event->goal >= 255
@@ -395,29 +393,26 @@ int		check_brightness_event(t_event *event, void *penv)
 
 int		check_color_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0 && event->start_value + time * event->incr >=
 				0xFFFFFFFF)
 			|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
-			|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF
-					|| (Uint32)event->goal < 0)))
+			|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF)))
 		return (1);
 	return (0);
 }
 
 int		check_int_overflow_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0
 				&& event->start_value + time * event->incr >= 2147483646)
 			|| (event->incr < 0
@@ -430,12 +425,11 @@ int		check_int_overflow_event(t_event *event, void *penv)
 
 int		check_double_overflow_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0
 				&& event->start_value + time * event->incr >= 99999999999999)
 			|| (event->incr < 0
@@ -448,12 +442,11 @@ int		check_double_overflow_event(t_event *event, void *penv)
 
 int		check_gravity_event(t_event *event, void *penv)
 {
-	t_env	*env;
 	Uint32	time;
 
+	(void)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	env = (t_env*)penv;
 	if ((event->incr > 0 && event->start_value + time * event->incr > 10)
 			|| (event->incr < 0 && event->start_value + time * event->incr < -10)
 			|| (!event->speed && ((int)event->goal > 10
@@ -464,9 +457,7 @@ int		check_gravity_event(t_event *event, void *penv)
 
 int		check_true_false_event(t_event *event, void *penv)
 {
-	t_env	*env;
-
-	env = (t_env*)penv;
+	(void)penv;
 	if ((event->incr > 0 && *(int*)event->target == 1)
 			|| (event->incr < 0 && *(int*)event->target == 0)
 			|| (!event->speed && (int)event->goal != 1

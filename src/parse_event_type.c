@@ -18,6 +18,7 @@ int		parse_value(t_env *env, t_map_parser *parser, char **line,
 	double		value;
 
 	(void)env;
+	value = 0;
 	if (eparser->event.type == INT)
 	{
 		if (valid_double(*line, parser))

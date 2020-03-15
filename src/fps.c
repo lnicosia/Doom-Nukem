@@ -15,10 +15,8 @@
 void	fps(t_env *env)
 {
 	Uint32			new_time;
-	double			fps;
 
 	new_time = SDL_GetTicks();
-	fps = 1000 / (new_time - env->sdl.time);
 	env->fps_count++;
 	if (new_time - env->frame_timer >= 1000)
 	{

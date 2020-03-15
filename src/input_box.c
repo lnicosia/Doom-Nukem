@@ -70,8 +70,6 @@ int	new_input_box(t_input_box *box, t_point pos, int type, void *target)
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
 		ft_strdel(&tmp);
-		if (*box->uint32_target < 0)
-			box->minus = 1;
 		set_double_stats(box);
 	}
 	else if (type == STRING)
@@ -150,8 +148,6 @@ int	new_input_var(t_input_box *box, t_point pos, int type, void *target)
 		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
 		if (!(box->str = ft_strdup(tmp)))
 			return (-1);
-		if (*box->uint32_target < 0)
-			box->minus = 1;
 		ft_strdel(&tmp);
 		set_double_stats(box);
 	}

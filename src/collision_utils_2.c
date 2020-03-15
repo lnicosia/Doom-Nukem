@@ -83,11 +83,9 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 	int		i;
 	int		coll_event;
 	t_v3	futur;
-	double	eyesight;
 
 	i = 0;
 	futur = calculate_motion_future(motion, move);
-	eyesight = motion.eyesight;
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].exists)

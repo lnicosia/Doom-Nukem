@@ -16,14 +16,12 @@
 void	update_player_z(t_env *env)
 {
 	t_sector	*sector;
-	t_vertex	v0;
 
 
 	if (!env->player.state.fly)
 	{
 		env->player.state.walk = 1;
 		sector = &env->sectors[env->player.highest_sect];
-		v0 = env->vertices[sector->vertices[0]];
 		env->player.pos.z = get_floor_at_pos(*sector, env->player.pos, env);
 		env->player.head_z = env->player.pos.z + env->player.eyesight;
 		env->player.camera.pos.z = env->player.head_z;
@@ -32,8 +30,6 @@ void	update_player_z(t_env *env)
 	{
 		env->player.state.walk = 1;
 		sector = &env->sectors[env->player.highest_sect];
-		v0 = env->vertices[sector->vertices[0]];
-		
 		if (get_floor_at_pos(*sector, env->player.pos, env) > env->player.pos.z
 		&& get_ceiling_at_pos(*sector, env->player.pos, env) >
 		env->player.pos.z + env->player.eyesight + 1)
