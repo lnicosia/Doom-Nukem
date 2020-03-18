@@ -22,7 +22,7 @@ int		map_parse_textures(t_env *env, t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
@@ -67,7 +67,7 @@ int		map_parse_sprites(t_env *env, t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
@@ -113,7 +113,7 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	i = 0;
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
@@ -156,7 +156,7 @@ int		map_parse_skyboxes(t_env *env, t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
@@ -206,7 +206,7 @@ int		map_parse_hud(t_env *env, t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(0)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
@@ -250,7 +250,7 @@ int		map_parse_fonts(t_env *env, t_map_parser *parser)
 	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
-	if (!(parser->line = ft_strnew(0)))
+	if (!(parser->line = ft_strnew(1)))
 		return (ft_printf("Could not malloc line\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)

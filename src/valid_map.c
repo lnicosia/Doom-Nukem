@@ -370,19 +370,19 @@ int			check_vertices(t_sector sector, t_env *env)
 {
 	int			i;
 	int			j;
-	t_vertex	v1;
-	t_vertex	v2;
+	//t_vertex	v1;
+	//t_vertex	v2;
 
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-		v1 = env->vertices[sector.vertices[i]];
-		v2 = env->vertices[sector.vertices[i + 1]];
+		//v1 = env->vertices[sector.vertices[i]];
+		//v2 = env->vertices[sector.vertices[i + 1]];
 		j = 0;
 		while (j < env->nb_sectors)
 		{
-			if (check_intersection_with_sector(env->sectors[j], env, v1, v2))
-				return (-1);
+			//if (check_intersection_with_sector(env->sectors[j], env, v1, v2))
+				//return (-1);
 			j++;
 		}
 		i++;

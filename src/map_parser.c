@@ -173,8 +173,8 @@ int		parse_map(char *file, t_env *env)
 		ft_dprintf(STDERR_FILENO, "Could not open %s\n", file);
 		return (-1);
 	}
-	if (parse_resources(env, &(env->parser)))
-		return (custom_error("Could not parser resources"));
+	//if (parse_resources(env, &(env->parser)))
+		//return (custom_error("Could not parse resources"));
 	if (init_vertices(env, &(env->parser)))
 		return (custom_error("Could not init vertices"));
 	if (parse_vertices(env, &(env->parser)))

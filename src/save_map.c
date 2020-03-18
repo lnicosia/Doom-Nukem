@@ -23,8 +23,8 @@ int		save_map(void *param)
 	ft_printf("{red}");
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (ft_printf("Could not open %s\n", env->save_file));
-	if (write_resources(fd, env))
-		return(-1);
+	//if (write_resources(fd, env))
+	//	return(-1);
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
