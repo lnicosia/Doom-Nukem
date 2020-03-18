@@ -36,14 +36,14 @@ int		launch_game(void *target)
 	}
 	map_name = ft_strdup(env->save_file);
 	str = ft_strdup("./doom-nukem");
-	tmp = ft_strsplit("./doom-nukem maps/tmp.map", ' ');
+	tmp = ft_strsplit("./doom-nukem tmp.map", ' ');
 	tmp_pos = env->player.starting_pos;
 	env->player.starting_pos = env->player.pos;
 	ft_strdel(&(env->save_file));
 	tmp_angle = env->player.init_data.camera.angle;
 	env->player.init_data.camera.angle =
 	env->player.camera.angle * CONVERT_DEGREES;
-	env->save_file  = ft_strdup("maps/tmp.map");
+	env->save_file  = ft_strdup("tmp.map");
 	if (save_map(env))
 	{
 		ft_strdel(&str);
