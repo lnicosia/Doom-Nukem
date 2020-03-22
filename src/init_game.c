@@ -86,6 +86,8 @@ int		init_game(int ac, char **av)
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], &env))
 		return (crash("{red}Error while parsing the map{reset}\n", &env));
+	if (!(env.save_file = ft_strdup(av[1])))
+		return (crash("Could not malloc map name", &env));
 	if (valid_map(&env))
 		return (crash("Invalid map!\n", &env));
 	if (!(env.sector_list = (int *)ft_memalloc(sizeof(int) * env.nb_sectors)))
@@ -101,10 +103,9 @@ int		init_game(int ac, char **av)
 	while (i < env.nb_enemies)
 	{
 		env.enemies[i].exists = 1;
+		env.enemies[i].health = env.enemies[i].map_hp * env.difficulty;
 		i++;
 	}
-	set_enemies_hp(&env);
-	save_init_data(&env);
 	view(&env);
 	update_camera_position(&env.player.camera);
 	SDL_SetRelativeMouseMode(1);
@@ -143,18 +144,5 @@ int		init_game(int ac, char **av)
 	music_vol_up_button(&env);
 	sounds_vol_up_button(&env);
 	sounds_vol_down_button(&env);
-	// Pour tester la dialog box
-	/*env.dialog_box = 1;
-	env.dialog_box_str =
-	ft_strdup("Lorem ipsum dolor sit amet, consectetur adipiscing"
-	" elit, sed do eiusmod tempor incididunt ut labore"
-	" et dolore magna aliqua. Ut enim ad minim veniam,"
-	" quis nostrud exercitation ullamco laboris nisi ut"
-	" aliquip ex ea commodo consequat. Duis aute irure"
-	" dolor in reprehenderit in voluptate velit esse"
-	" cillum dolore eu fugiat nulla pariatur. Excepteur"
-	" sint occaecat cupidatat non proident, sunt in "
-	" culpa qui officia deserunt mollit anim id est"
-	" laborum.");*/
 	return (doom(&env));
 }

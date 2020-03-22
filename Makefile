@@ -176,7 +176,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
-		   pop_events.c start_event.c event_updaters.c \
+		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
 		   draw_floor_sprites.c draw_floor_sprites_no_light.c \

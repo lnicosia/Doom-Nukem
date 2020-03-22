@@ -44,22 +44,45 @@ void		respawn_entities(void *param)
 int			respawn(void *param)
 {
 	t_env	*env;
+	int		i;
 
 	env = (t_env*)param;
-	env->player.pos = env->player.init_data.pos;
-	env->player.killed = 0;
+	free_map(env);
+	init_player(env);
+	if (parse_map(env->save_file, env))
+		return (-1);
+	if (valid_map(env))
+		return (-1);
+	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (-1);
+	precompute_slopes(env);
+	update_player_z(env);
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
+		i++;
+	}
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		env->enemies[i].exists = 1;
+		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
+		i++;
+	}
+	/*env->player.killed = 0;
 	env->player.touched = 0;
 	env->player.nb_shots = 0;
 	env->player.accuracy = 0;
 	env->player.health = env->player.init_data.health;
-	env->player.sector = env->player.init_data.sector;
+	env->player.sector = env->player.init_data.sector;*/
 	free_camera(&env->player.camera, env);
-	env->player.camera = env->player.init_data.camera;
+	env->dialog_box = 0;
 	if (init_camera(&env->player.camera, env))
 		return (-1);
 	update_camera_position(&env->player.camera);
 	view(env);
-	respawn_entities(param);
+	//respawn_entities(param);
 	init_weapons(env);
 	init_enemies_data(env);
 	init_objects_data(env);

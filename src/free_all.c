@@ -55,7 +55,7 @@ void		free_events(t_event	*events, size_t size)
 		ft_memdel((void**)&events);
 }
 
-static void	free_sectors(t_env *env)
+void		free_sectors(t_env *env)
 {
 	int		i;
 
@@ -169,7 +169,8 @@ void		free_objects(t_env *env)
 			env->objects[i].nb_collision_events);
 		i++;
 	}
-	ft_memdel((void**)&env->objects);
+	if (env->objects)
+		ft_memdel((void**)&env->objects);
 }
 
 void		free_enemies(t_env *env)
@@ -189,7 +190,8 @@ void		free_enemies(t_env *env)
 			env->enemies[i].nb_collision_events);
 		i++;
 	}
-	ft_memdel((void**)&env->enemies);
+	if (env->enemies)
+		ft_memdel((void**)&env->enemies);
 }
 
 void		free_parser(t_env *env)
@@ -205,7 +207,6 @@ void		free_parser(t_env *env)
 void		free_all(t_env *env)
 {
 	int 	i;
-	t_list	*tmplst;
 
 	ft_printf("Freeing data..\n");
 	if (!env)
@@ -285,17 +286,7 @@ void		free_all(t_env *env)
 		TTF_CloseFont(env->sdl.fonts.lato_bold50);
 	if (env->sdl.fonts.bebasneue)
 		TTF_CloseFont(env->sdl.fonts.bebasneue);
-	if (env->enemies)
-		free_enemies(env);
-	if (env->objects)
-		free_objects(env);
-	if (env->player.colliding_objects)
-		ft_memdel((void**)&env->player.colliding_objects);
-	if (env->player.colliding_enemies)
-		ft_memdel((void**)&env->player.colliding_enemies);
-	free_camera(&env->player.camera, env);
-	if (env->sectors)
-		free_sectors(env);
+	free_map(env);
 	i = 0;
 	// Leak peut etre si index 5 pas free
 	while (i < 4)
@@ -304,14 +295,8 @@ void		free_all(t_env *env)
 			ft_memdel((void**)&env->skybox[i].texture_scale);
 		i++;
 	};
-	if (env->vertices)
-		ft_memdel((void**)&env->vertices);
-	if (env->objects)
-		ft_memdel((void**)&env->objects);
 	if (env->save_file)
 		ft_strdel(&env->save_file);
-	if (env->sector_list)
-		ft_memdel((void**)&env->sector_list);
 	if (env->events)
 		ft_lstdelfront(&env->events);
 	if (env->queued_values)
@@ -329,23 +314,6 @@ void		free_all(t_env *env)
 	if (env->snprintf)
 		ft_strdel(&env->snprintf);
 	i = 0;
-	free_events(env->global_events, env->nb_global_events);
-	free_events(env->wall_bullet_holes_events,
-	env->nb_wall_bullet_holes_events);
-	free_events(env->floor_bullet_holes_events,
-	env->nb_floor_bullet_holes_events);
-	free_events(env->ceiling_bullet_holes_events,
-	env->nb_ceiling_bullet_holes_events);
-	if (env->projectiles)
-	{
-		while (env->projectiles)
-		{
-			tmplst = env->projectiles;
-			tmplst = tmplst->next;
-			free(env->projectiles);
-			env->projectiles = tmplst;
-		}
-	}
 	free_audio(env, 0);
 	free_textures(env);
 	TTF_Quit();
