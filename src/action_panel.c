@@ -64,6 +64,9 @@ int		draw_action_panel_bottom(t_env *env)
 	env->editor.event_panel.action_panel.delay.size_up.x / 2 - text_size.x / 2),
 	new_printable_text("Delay (ms)", env->sdl.fonts.lato20, 0x333333FF, 0),
 	env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
+	env->editor.event_panel.action_panel.delay_value);
+	draw_button(env, env->editor.event_panel.action_panel.delay, env->snprintf);
 	if (env->editor.event_panel.event.max_uses)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
 		env->editor.event_panel.event.max_uses);
@@ -87,9 +90,6 @@ int		draw_real_target_action_panel(t_event_panel panel, t_env *env)
 	draw_button(env, panel.action_panel.add, "Add");
 	draw_event_value_panel(env);
 	draw_event_speed_panel(env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->editor.event_panel.action_panel.delay_value);
-	draw_button(env, panel.action_panel.delay, env->snprintf);
 	draw_action_panel_bottom(env);
 	return (0);
 }
@@ -112,6 +112,7 @@ int		draw_function_target_action_panel(t_event_panel panel, t_env *env)
 	{
 		draw_button(env, panel.action_panel.text, "Text");
 	}
+	draw_action_panel_bottom(env);
 	return (0);
 }
 
