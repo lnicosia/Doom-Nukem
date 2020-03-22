@@ -18,8 +18,12 @@ int		keyup(t_env *env)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->options.show_fps = env->options.show_fps ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN && env->dialog_box
+	  && !env->confirmation_box.state)
 		env->next_dialog = 1;
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
 	if (env->sdl.event.key.keysym.sym == SDLK_n)
 		env->drawing = env->drawing ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_e

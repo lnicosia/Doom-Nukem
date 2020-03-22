@@ -57,6 +57,7 @@ int			respawn(void *param)
 		return (-1);
 	precompute_slopes(env);
 	update_player_z(env);
+	ft_bzero(&env->inputs, sizeof(env->inputs));
 	i = 0;
 	while (i < env->nb_objects)
 	{
@@ -78,6 +79,7 @@ int			respawn(void *param)
 	env->player.sector = env->player.init_data.sector;*/
 	free_camera(&env->player.camera, env);
 	env->dialog_box = 0;
+	env->next_dialog = 0;
 	if (init_camera(&env->player.camera, env))
 		return (-1);
 	update_camera_position(&env->player.camera);
