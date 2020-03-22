@@ -121,7 +121,7 @@ int	init_editor(int ac, char **av)
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
-		env.save_file = ft_strdup("maps/test.map");
+		env.save_file = ft_strdup("test.map");
 	}
 	else if (ac == 2)
 	{

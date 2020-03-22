@@ -65,9 +65,11 @@ static char	*get_current_line(char **str, char *tmp, t_env *env)
 	char	*res;
 	t_point	size;
 
-	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp, &size.x, &size.y);
-	len = ft_strlen(tmp);
-	res = tmp;
+	(void)tmp;
+	size = new_point(0, 0);
+	len = 1;
+	if (!(res = ft_strnew(0)))
+		return (0);
 	while (size.x < env->h_w - 70 && len <= ft_strlen(*str))
 	{
 		ft_strdel(&res);
@@ -75,6 +77,12 @@ static char	*get_current_line(char **str, char *tmp, t_env *env)
 			return (0);
 		TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y);
 		len++;
+	}
+	if (size.x >= env->h_w - 70)
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(*str, 0, len - 2)))
+			return (0);
 	}
 	return (res);
 }
@@ -93,11 +101,8 @@ int			split_text(char **str, t_point pos, t_env *env)
 	t_point	text_size;
 
 	count = 0;
-	while (ft_strlen(*str) && count < env->dialog_box_max_lines)
+	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
-		if (!(tmp = ft_strsub(*str, 0,
-			ft_min(env->dialog_box_line_size, ft_strlen(*str)))))
-			return (-1);
 		if (!(tmp = get_current_line(str, tmp, env)))
 			return (-1);
 		if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
