@@ -53,37 +53,6 @@ int		draw_event_speed_panel(t_env *env)
 	return (0);
 }
 
-int		draw_action_panel_bottom(t_env *env)
-{
-	t_point			text_size;
-
-	TTF_SizeText(env->sdl.fonts.lato20, "Delay (ms)", &text_size.x,
-	&text_size.y);
-	print_text(new_point(env->editor.event_panel.action_panel.delay.pos.y
-	- text_size.y - 5, env->editor.event_panel.action_panel.delay.pos.x +
-	env->editor.event_panel.action_panel.delay.size_up.x / 2 - text_size.x / 2),
-	new_printable_text("Delay (ms)", env->sdl.fonts.lato20, 0x333333FF, 0),
-	env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->editor.event_panel.action_panel.delay_value);
-	draw_button(env, env->editor.event_panel.action_panel.delay, env->snprintf);
-	if (env->editor.event_panel.event.max_uses)
-		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-		env->editor.event_panel.event.max_uses);
-	else
-		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Inf.");
-	draw_button(env, env->editor.event_panel.action_panel.max_uses,
-	env->snprintf);
-	TTF_SizeText(env->sdl.fonts.lato20, "Number of uses", &text_size.x,
-	&text_size.y);
-	print_text(new_point(env->editor.event_panel.action_panel.max_uses.pos.y
-	- text_size.y - 5, env->editor.event_panel.action_panel.max_uses.pos.x +
-	env->editor.event_panel.action_panel.max_uses.size_up.x / 2 -
-	text_size.x / 2), new_printable_text("Number of uses",
-	env->sdl.fonts.lato20, 0x333333FF, 0), env);
-	return (0);
-}
-
 int		draw_real_target_action_panel(t_event_panel panel, t_env *env)
 {
 	draw_button(env, panel.action_panel.go_to, "Go to");
@@ -103,15 +72,14 @@ int		draw_function_target_action_panel(t_event_panel panel, t_env *env)
 	{
 		TTF_SizeText(env->sdl.fonts.lato_black30, "Win the game",
 		&text_size.x, &text_size.y);
-		print_text(new_point(panel.pos.y + panel.top_size + panel.content_panel_size.y / 2 - text_size.y / 2,
+		print_text(new_point(panel.pos.y + panel.top_size
+		+ panel.content_panel_size.y / 2 - text_size.y / 2,
 		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size.x / 2),
 		new_printable_text("Win the game",
 		env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
 	}
 	else if (panel.event.target_index == DIALOG)
-	{
 		draw_button(env, panel.action_panel.text, "Text");
-	}
 	draw_action_panel_bottom(env);
 	return (0);
 }

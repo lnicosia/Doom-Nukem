@@ -765,6 +765,7 @@ int					draw_object_panel(t_env *env, t_target_panel *panel);
 int					draw_weapon_panel(t_env *env, t_target_panel *panel);
 int					draw_wall_sprite_panel(t_env *env, t_target_panel *panel);
 int					draw_action_panel(t_env *env);
+int					draw_action_panel_bottom(t_env *env);
 int					draw_launch_conditions_panel(t_env *env);
 int					draw_exec_conditions_panel(t_env *env);
 void				draw_first_phase_selection(t_env *env,

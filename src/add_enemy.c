@@ -12,6 +12,25 @@
 
 #include "env.h"
 
+void	set_enemy_height_on_floor(t_enemy *enemy)
+{
+	if (enemy->sprite < CYBER_DEMON)
+	{
+		enemy->height_on_floor = 5;
+		enemy->scale = 5;
+	}
+	else if (enemy->sprite < MAX_ENEMY_SPRITES)
+	{
+		enemy->height_on_floor = 0;
+		enemy->scale = 5;
+	}
+	else
+	{
+		enemy->height_on_floor = 0;
+		enemy->scale = 5;
+	}
+}
+
 int	add_enemy(t_env *env)
 {
 	t_enemy	enemy;
@@ -27,21 +46,7 @@ int	add_enemy(t_env *env)
 	enemy.speed = 40;
 	enemy.map_hp = 40;
 	enemy.damage = 25;
-	if (enemy.sprite < CYBER_DEMON)
-	{
-		enemy.height_on_floor = 5;
-		enemy.scale = 5;
-	}
-	else if (enemy.sprite < MAX_ENEMY_SPRITES)
-	{
-		enemy.height_on_floor = 0;
-		enemy.scale = 5;
-	}
-	else
-	{
-		enemy.height_on_floor = 0;
-		enemy.scale = 5;
-	}
+	set_enemy_height_on_floor(&enemy);
 	if (!(env->enemies = (t_enemy*)ft_realloc(env->enemies,
 		sizeof(t_enemy) * env->nb_enemies, sizeof(t_enemy)
 		* (env->nb_enemies + 1))))
