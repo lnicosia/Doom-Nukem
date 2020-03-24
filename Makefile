@@ -57,6 +57,10 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
 		   		shift_bullet_hole.c get_bullet_hole_pos.c \
 		   		delete_bullet_hole.c shift_bullet_hole_events.c \
+		        add_floor_hitscan_bullet_hole.c \
+				add_ceiling_hitscan_bullet_hole.c \
+		        add_floor_projectile_bullet_hole.c \
+				add_ceiling_projectile_bullet_hole.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
@@ -104,7 +108,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_editor_tabs.c editor_buttons_functions.c weapon_picker_keys.c \
 		event_panel.c target_panel.c init_target_panel_buttons.c \
 		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
-		target_panel_keys.c modify_condition.c \
+		target_panel_keys.c modify_condition.c init_new_sector_arrays.c \
 		3d_edit_change_floor_slope_start.c \
 		3d_edit_change_ceiling_slope_start.c \
 		action_panel_keys.c conditions_panel_keys.c \
@@ -219,7 +223,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   menu_keys.c option_menu.c option_menu_keys.c collision_utils_2.c \
 		   collision_maths.c collision_utils.c new_object_event.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
-		   init_audio.c vertices_selection.c fill_new_sector.c\
+		   init_audio.c vertices_selection.c fill_new_sector.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
 		   map_parse_fonts.c angles_utils.c \
 

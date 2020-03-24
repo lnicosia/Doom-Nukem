@@ -17,7 +17,8 @@ t_wall_sprites *floor)
 {
 	if (!(sector->floor_sprites_scale =
 	 	(t_v2*)ft_realloc(sector->floor_sprites_scale,
-		sizeof(t_v2) * floor->nb_sprites, sizeof(t_v2) * (floor->nb_sprites + 1))))
+		sizeof(t_v2) * floor->nb_sprites, sizeof(t_v2)
+		* (floor->nb_sprites + 1))))
 		return (-1);
 	precompute_floor_sprite_scales(env->selected_floor,
 		floor->nb_sprites, env);

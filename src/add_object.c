@@ -12,7 +12,28 @@
 
 #include "env.h"
 
-int	add_object(t_env *env)
+void	set_object_sector(t_object *object, t_env *env)
+{
+	object->sector = get_sector_no_z(env, new_v3(object->pos.x,
+	object->pos.y, 0));
+	if (object->sector != -1)
+	{
+		object->light_color = env->sectors[object->sector].light_color;
+		object->brightness = env->sectors[object->sector].brightness;
+		object->intensity = env->sectors[object->sector].intensity;
+		object->pos.z = get_floor_at_pos(env->sectors[object->sector],
+		object->pos, env);
+	}
+	else
+	{
+		object->light_color = 0xFFFFFFFF;
+		object->brightness = 0;
+		object->intensity = 0;
+		object->pos.z = 0;
+	}
+}
+
+int		add_object(t_env *env)
 {
 	t_object	object;
 
@@ -25,27 +46,14 @@ int	add_object(t_env *env)
 	object.angle = 0;
 	object.exists = 1;
 	object.damage = 0;
-	object.sector = get_sector_no_z(env, new_v3(object.pos.x, object.pos.y, 0));
-	if (object.sector != -1)
-	{
-		object.light_color = env->sectors[object.sector].light_color;
-		object.brightness = env->sectors[object.sector].brightness;
-		object.intensity = env->sectors[object.sector].intensity;
-		object.pos.z = get_floor_at_pos(env->sectors[object.sector],
-		object.pos, env);
-	}
-	else
-	{
-		object.light_color = 0xFFFFFFFF;
-		object.brightness = 0;
-		object.intensity = 0;
-		object.pos.z = 0;
-	}
+	set_object_sector(&object, env);
 	if (!(env->objects = (t_object*)ft_realloc(env->objects,
 		sizeof(t_object) * env->nb_objects, sizeof(t_object)
 		* (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
-	if (!(env->player.colliding_objects = (int*)ft_realloc(env->player.colliding_objects, sizeof(int) * env->nb_objects, sizeof(int) * (env->nb_objects + 1))))
+	if (!(env->player.colliding_objects =
+	  	(int*)ft_realloc(env->player.colliding_objects,
+	  	sizeof(int) * env->nb_objects, sizeof(int) * (env->nb_objects + 1))))
 		return (ft_printf("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
 	env->editor.create_object = 0;

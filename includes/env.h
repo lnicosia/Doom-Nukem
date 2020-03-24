@@ -334,6 +334,7 @@ void				editor_hud(t_env *env);
 int					get_clockwise_order(t_env *env);
 void				revert_sector_order(t_env *env);
 int					add_sector(t_env *env);
+int					init_new_sector_arrays(t_sector *sector);
 int					add_object(t_env *env);
 int					fill_new_sector(t_sector *sector, t_env *env);
 int					editor_render(t_env *env);
