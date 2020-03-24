@@ -81,7 +81,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		init_editor_tab_buttons.c editor_ceiling_tab_button.c \
-		editor_floor_tab_button.c editor_wall_tab_button.c \
+		editor_floor_tab_button.c editor_wall_tab_button.c wall_edit_keyup.c \
 		editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		editor_env_ceilling_buttons.c  change_editor_mode.c \
 		editor_3d_button_keys.c editor_3d_button_keyup.c \
@@ -105,12 +105,14 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		event_panel.c target_panel.c init_target_panel_buttons.c \
 		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
 		target_panel_keys.c modify_condition.c \
+		3d_edit_change_floor_slope_start.c \
+		3d_edit_change_ceiling_slope_start.c \
 		action_panel_keys.c conditions_panel_keys.c \
 		event_panel_keys.c modify_event.c \
 		new_event_panel_buttons.c new_event_panel_buttons2.c \
 		editor_tab_gestion.c editor_wall_sprites_keys.c \
 		3d_edit_function.c action_panel.c conditions_tabs.c \
-		event_panel_input_box.c \
+		event_panel_input_box.c 3d_edit_change_ceiling_floor_height.c \
 		init_events_creation_buttons.c reduce_texture_scales_functions.c \
 		increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
 		init_condition_panel_buttons.c condition_type_buttons_functions.c \
@@ -128,7 +130,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_new_event_target7.c delete_wall_sprite.c \
 		condition_event_panel.c init_condition_event_buttons.c \
 		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
-		3d_edit_slopes.c 3d_edit_change_slopes_wall_start.c \
+		3d_edit_slopes.c 3d_edit_change_slope_start.c \
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
 		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
 		3d_edit_left_walls_texture_align.c \

@@ -562,6 +562,10 @@ int					is_mouse_on_object_selection_tab(t_env *env);
 int					is_mouse_on_enemy_selection_tab(t_env *env);
 int					is_mouse_on_wall_sprite_selection_tab(t_env *env);
 int					is_mouse_on_any_selection_tab(t_env *env);
+int					change_texture_alignement_keyup(t_env *env);
+int					change_walls_texture_keyup(t_env *env);
+int					change_textures_scales_keyup(t_env *env);
+int					slopes_keyup(t_env *env);
 
 
 /*
