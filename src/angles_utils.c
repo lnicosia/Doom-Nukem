@@ -52,12 +52,9 @@ int		count_sector_angles(t_sector *sector, t_env *env)
 	int		count;
 	t_point	v[3];
 
-	i = 0;
-	v[0] = new_point(0, 0);
-	v[1] = new_point(0, 0);
-	v[2] = new_point(0, 0);
+	i = -1;
 	count = 0;
-	while (i < sector->nb_vertices - 1)
+	while (++i < sector->nb_vertices - 1)
 	{
 		v[0].x = env->vertices[sector->vertices[i]].x;
 		v[0].y = env->vertices[sector->vertices[i]].y;
@@ -67,7 +64,6 @@ int		count_sector_angles(t_sector *sector, t_env *env)
 		v[2].y = env->vertices[sector->vertices[i + 2]].y;
 		if (get_angle(v))
 			count++;
-		i++;
 	}
 	v[0].x = env->vertices[sector->vertices[i]].x;
 	v[0].y = env->vertices[sector->vertices[i]].y;

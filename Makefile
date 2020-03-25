@@ -161,7 +161,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c death.c \
-		   map_parse_vertices.c add_vertex_in_sector.c is_in_sector.c\
+		   map_parse_vertices.c is_in_sector.c add_vertex_in_sector.c \
 		   get_existing_vertex.c ./map_parser_protection_utils.c \
 		   map_parse_sectors.c map_parser_utils.c map_parse_sectors_utils.c \
 		   physics.c map_parse_player.c create_portals.c init_weapons.c \
@@ -170,7 +170,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_objects.c map_init_objects.c init_events_data.c \
 		   free_all.c map_parser.c animations.c map_init_enemies.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c dialog_box.c \
-		   map_parse_enemies.c  draw_line_free.c render.c \
+		   map_parse_enemies.c  draw_line_free.c render.c animations2.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
@@ -199,7 +199,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   free_sector.c init_screen_size.c dialog_parser.c \
-		   print_press_text.c modify_wall_sprite.c \
+		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
 		   draw_wall_bullet_holes.c intersect_maths.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
@@ -225,7 +225,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
 		   init_audio.c vertices_selection.c fill_new_sector.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
-		   map_parse_fonts.c angles_utils.c \
+		   map_parse_fonts.c angles_utils.c add_vertex_in_sector_utils.c \
+		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

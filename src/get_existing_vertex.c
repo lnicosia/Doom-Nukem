@@ -21,9 +21,11 @@ int	get_existing_not_dragged_vertex(t_env *env)
 	while (i < env->nb_vertices)
 	{
 		vertex = env->vertices[i];
-		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-				&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y
-				&& vertex.num != env->vertices[env->editor.selected_vertex].num)
+		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale)
+		  	== vertex.x
+			&& round((env->sdl.my - env->editor.center.y) / env->editor.scale)
+			== vertex.y
+			&& vertex.num != env->vertices[env->editor.selected_vertex].num)
 			return (vertex.num);
 		i++;
 	}
@@ -39,8 +41,10 @@ int	get_existing_vertex(t_env *env)
 	while (i < env->nb_vertices)
 	{
 		vertex = env->vertices[i];
-		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale) == vertex.x
-		&& round((env->sdl.my - env->editor.center.y) / env->editor.scale) == vertex.y)
+		if (round((env->sdl.mx - env->editor.center.x) / env->editor.scale)
+		  	== vertex.x
+			&& round((env->sdl.my - env->editor.center.y) / env->editor.scale)
+			== vertex.y)
 			return (vertex.num);
 		i++;
 	}

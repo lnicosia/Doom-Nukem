@@ -18,7 +18,8 @@
 **	ex: si size depasse la taille de la surface
 */
 
-void    apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *env)
+void    apply_surface(SDL_Surface *surface, t_point pos, t_point size,
+t_env *env)
 {
 	int				x;
 	int				y;
@@ -44,19 +45,13 @@ void    apply_surface(SDL_Surface *surface, t_point pos, t_point size, t_env *en
 		while (x < size.x)
 		{
 			pixel = pixels[x + surface->w * y];
-			//if (surface == env->ui_textures[0].surface)
-			//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-			  &&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-					 texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-					 (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-					 | (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-					 | (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-					 | (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
-				texture_pixels[pos.y + x + env->w * (pos.x + y)] = blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel, (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
+				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)],
+				pixel,
+				(Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
 			}
 			x++;
 		}
@@ -111,20 +106,13 @@ void    apply_image(t_texture texture, t_point pos, t_point size, t_env *env)
 		while (x < size.x)
 		{
 			pixel = get_pixel(surface, x, y, size);
-			//if (surface == env->ui_textures[0].surface)
-			//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-			  &&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-					 texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-					 (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-					 | (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-					 | (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-					 | (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
-				//texture_pixels[pos.y + x + env->w * (pos.x + y)] = pixel;
-				texture_pixels[pos.y + x + env->w * (pos.x + y)] = blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel, (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
+				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)],
+				pixel,
+				(Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
 			}
 			x++;
 		}
@@ -143,13 +131,11 @@ t_env *env)
 	int				x;
 	int				y;
 	Uint32			pixel;
-	//SDL_PixelFormat	*fmt;
 	SDL_Surface		*surface;
 	Uint32			*texture_pixels;
 
 	texture_pixels = env->sdl.texture_pixels;
 	surface = get_closest_mipmap(texture, size);
-//	fmt = surface->format;
 	y = 0;
 	while (y < size.y)
 	{
@@ -157,15 +143,6 @@ t_env *env)
 		while (x < size.x)
 		{
 			pixel = get_pixel(surface, x, y, size);
-			//if (surface == env->ui_textures[0].surface)
-			//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-			  &&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-					 texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-					 (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-					 | (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-					 | (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-					 | (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
@@ -188,8 +165,6 @@ t_point size)
 	xalpha = curr.x / (double)size.x;
 	yalpha = curr.y / (double)size.y;
 	pixels = (Uint32*)surface->pixels;
-	//return (pixels[(int)(xalpha * surface->w) +
-	//(int)(yalpha * surface->h) * surface->w]);
 	return (pixels[(int)(sprite.start[0].x + xalpha * sprite.size[0].x) +
 	(int)(sprite.start[0].y + yalpha * sprite.size[0].y) * surface->w]);
 }
@@ -221,20 +196,13 @@ void    apply_sprite(t_sprite sprite, t_point pos, t_point size, t_env *env)
 		while (x < size.x)
 		{
 			pixel = get_sprite_pixel(surface, sprite, new_point(x, y), size);
-			//if (surface == env->ui_textures[0].surface)
-			//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-			  &&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-					 texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-					 (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-					 | (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-					 | (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-					 | (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
-				//texture_pixels[pos.y + x + env->w * (pos.x + y)] = pixel;
-				texture_pixels[pos.y + x + env->w * (pos.x + y)] = blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel, (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
+				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				blend_alpha(texture_pixels[pos.y + x + env->w * (pos.x + y)],
+				pixel,
+				(Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
 			}
 			x++;
 		}
@@ -253,7 +221,6 @@ t_env *env)
 	int				x;
 	int				y;
 	Uint32			pixel;
-	//SDL_PixelFormat	*fmt;
 	SDL_Surface		*surface;
 	t_texture		texture;
 	Uint32			*texture_pixels;
@@ -262,7 +229,6 @@ t_env *env)
 	texture = env->sprite_textures[sprite.texture];
 	surface = get_closest_mipmap(texture, size);
 	surface = texture.surface;
-	//fmt = surface->format;
 	y = 0;
 	while (y < size.y)
 	{
@@ -270,19 +236,9 @@ t_env *env)
 		while (x < size.x)
 		{
 			pixel = get_sprite_pixel(surface, sprite, new_point(x, y), size);
-			//if (surface == env->ui_textures[0].surface)
-			//ft_printf("trying pixel [%d][%d]\n", x, y);
-			/*if ((Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) != 0
-			  &&*/ /*if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0 && pos.x + y < env->h)
-					 texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-					 (Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss) << 24
-					 | (Uint8)(((pixel & fmt->Rmask) >> fmt->Rshift) << fmt->Rloss) << 16
-					 | (Uint8)(((pixel & fmt->Gmask) >> fmt->Gshift) << fmt->Gloss) << 8
-					 | (Uint8)(((pixel & fmt->Bmask) >> fmt->Bshift) << fmt->Bloss) << 0;*/
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
-				//texture_pixels[pos.y + x + env->w * (pos.x + y)] = pixel;
 				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
 				blend_alpha(pixel, 0x1ABC9C, 128);
 			}

@@ -394,6 +394,7 @@ char				ft_getchar(int input, int shift);
 int					add_char(t_input_box *box, char c);
 int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
+int					realloc_sector_arrays(t_env *env, int sector, int j);
 int					split_sector(t_env *env);
 int					check_pos_vertices(t_env *env);
 int					update_neighbors(t_env *env, int index, int num,

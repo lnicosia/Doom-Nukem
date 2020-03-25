@@ -12,9 +12,30 @@
 
 #include "env.h"
 
-int		del_last_vertex(t_env *env)
+int		del_last_vertex2(t_env *env)
 {
 	t_list		*tmp;
+	t_vertex	*v;
+
+	tmp = env->editor.current_vertices;
+	while (tmp && tmp->next && tmp->next->next)
+		tmp = tmp->next;
+	v = (t_vertex*)tmp->next->content;
+	if (!is_vertex_used(env, v->num))
+	{
+		env->editor.selected_vertex = v->num;
+		if (delete_vertex(env))
+			return (-1);
+	}
+	free(tmp->next->content);
+	tmp->next->content = NULL;
+	free(tmp->next);
+	tmp->next = NULL;
+	return (0);
+}
+
+int		del_last_vertex(t_env *env)
+{
 	t_vertex	*v;
 
 	if (!env->editor.current_vertices)
@@ -34,21 +55,7 @@ int		del_last_vertex(t_env *env)
 		env->editor.start_vertex = -1;
 		return (0);
 	}
-	tmp = env->editor.current_vertices;
-	while (tmp && tmp->next && tmp->next->next)
-		tmp = tmp->next;
-	v = (t_vertex*)tmp->next->content;
-	if (!is_vertex_used(env, v->num))
-	{
-		env->editor.selected_vertex = v->num;
-		if (delete_vertex(env))
-			return (-1);
-	}
-	free(tmp->next->content);
-	tmp->next->content = NULL;
-	free(tmp->next);
-	tmp->next = NULL;
-	return (0);
+	return (del_last_vertex2(env));
 }
 
 void	free_current_vertices(t_env *env)
