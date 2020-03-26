@@ -100,6 +100,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_events_selection_buttons.c print_event.c init_event_types.c \
 		are_launch_condition_selection_buttons_visible.c \
 		are_exec_condition_selection_buttons_visible.c \
+		are_exec_condition_selection_buttons_visible2.c \
 		init_event_links_types.c is_event_tabs_visible.c \
 		print_link_target_functions.c print_condition_target_functions.c \
 		print_condition_target_functions2.c init_print_condition_target_data.c\
@@ -172,7 +173,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   sprite_maths_enemies.c draw_enemies.c button.c dialog_box.c \
 		   map_parse_enemies.c  draw_line_free.c render.c animations2.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
-		   precompute_skybox.c draw_skybox.c draw_floor.c \
+		   precompute_skybox.c draw_skybox.c draw_floor.c apply_image2.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
 		   select_line.c draw_wall_sprites.c input_box.c \

@@ -491,6 +491,8 @@ int					are_events_selection_buttons_visible(t_env *env);
 int					is_modify_event_button_visible(t_env *env);
 int					are_launch_condition_selection_buttons_visible(t_env *env);
 int					are_exec_condition_selection_buttons_visible(t_env *env);
+int					check_sector_exec_conditions(t_env *env, int sector);
+int					check_sector_launch_conditions(t_env *env, int sector);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 int					check_event_creation(t_env *env);
@@ -1125,6 +1127,7 @@ void				apply_sprite(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
 void				apply_sprite_selected(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
+SDL_Surface			*get_closest_mipmap(t_texture texture, t_point size);
 void				print_press_text(t_env *env);
 void				fps(t_env *e);
 void				print_debug(t_env *env);
