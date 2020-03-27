@@ -178,8 +178,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
 		   select_line.c draw_wall_sprites.c input_box.c get_pixel.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
-		   draw_circle_free.c draw_circle.c ft_getchar.c \
-		   objects_utils.c misc_utils.c map_parse_events.c \
+		   draw_circle_free.c draw_circle.c ft_getchar.c new_button.c \
+		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
