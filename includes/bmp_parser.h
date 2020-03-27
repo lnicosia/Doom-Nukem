@@ -32,6 +32,9 @@ typedef struct	s_bmp_parser
 	int32_t			color_used;
 	int32_t			color_important;
 	unsigned int	*colors;
+	int				ret;
+	int				index;
+	int				skybox_index;
 }				t_bmp_parser;
 
 int32_t				read_int32(unsigned char *str, int index);
@@ -46,6 +49,8 @@ uint32_t			read_color4(unsigned char *str, double index,
 		unsigned int *colors);
 uint32_t			read_color1(unsigned char *str, double index,
 		unsigned int *colors);
+unsigned int		get_pixel(double byte, unsigned char *str,
+t_bmp_parser *parser);
 void				check_bmp_parsing(t_bmp_parser parser);
 int					parse_file_header(int fd, t_bmp_parser *parser);
 int					get_image_header_data(unsigned char *str,
@@ -54,17 +59,7 @@ int					parse_image_header(int fd, t_bmp_parser *parser);
 int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser,
-int index, t_env *env);
-int					parse_pixel_data_wall(int fd, t_bmp_parser *parser,
-int index, t_env *env);
-int					parse_pixel_data_skybox(int fd, t_bmp_parser *parser,
-int index, int num_sky, t_env *env);
-int					parse_pixel_data_ui(int fd, t_bmp_parser *parser,
-int index, t_env *env);
-int					parse_pixel_data_ui_mini(int fd, t_bmp_parser *parser,
-int index, t_env *env);
-int					parse_pixel_data_ui_mini_objects(int fd, t_bmp_parser *parser,
-int index, t_env *env);
-int					parse_pixel_data_ui_mini_skyboxes(int fd, t_bmp_parser *parser,
-int index, t_env *env);
+t_texture *textures);
+int					set_byte(int *x, int *y, double *byte,
+t_bmp_parser *parser);
 #endif

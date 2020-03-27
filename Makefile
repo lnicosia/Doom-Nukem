@@ -176,7 +176,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c apply_image2.c \
 		   precompute_neighbors.c skybox_draw_functions.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
-		   select_line.c draw_wall_sprites.c input_box.c \
+		   select_line.c draw_wall_sprites.c input_box.c get_pixel.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c \
 		   objects_utils.c misc_utils.c map_parse_events.c \
@@ -195,7 +195,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c \
 		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
 		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
-		   draw_vline_wall.c draw_vline_wall_brightness.c \
+		   draw_vline_wall.c draw_vline_wall_brightness.c bmp_parser_utils2.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
@@ -369,9 +369,9 @@ else
 	endif
 endif
 
-GREEN := "\033[0;32m"
-CYAN := "\033[0;36m"
-RESET :="\033[0m"
+GREEN := "\e[0;32m"
+CYAN := "\e[0;36m"
+RESET :="\e[0m"
 
 all:
 	@make $(ALL_RESOURCES)
@@ -475,29 +475,29 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
 $(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
 	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) $(SOUND)
-	@echo ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!"${RESET}
+	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!\n"${RESET}
 
 $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
 	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
 	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) $(SOUND)
-	@echo ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!"${RESET}
+	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"${RESET}
 
 clean: 
 	@make clean -C libft
 	@rm -Rf $(OBJ_ALL_DIR)
 	@rm -Rf $(OBJ_EDITOR_DIR)
 	@rm -Rf $(OBJ_GAME_DIR)
-	@echo ${CYAN}"[INFO] Removed objs"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 
 fclean:
 	@make fclean -C libft
 	@rm -Rf $(OBJ_ALL_DIR)
 	@rm -Rf $(OBJ_EDITOR_DIR)
 	@rm -Rf $(OBJ_GAME_DIR)
-	@echo ${CYAN}"[INFO] Removed objs"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 	@rm -Rf $(GAME_DIR)/$(GAME_NAME)
 	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
-	@echo ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)"${RESET}
+	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
 
 re: fclean all
 

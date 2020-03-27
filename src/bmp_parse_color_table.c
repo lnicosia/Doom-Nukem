@@ -75,12 +75,6 @@ static void	set_colors4(unsigned int *colors)
 	colors[15] = 0xFFFFFFFF;
 }
 
-static void	set_colors1(unsigned int *colors)
-{
-	colors[0] = 0xFF;
-	colors[1] = 0xFFFFFFFF;
-}
-
 static int	default_color_table(t_bmp_parser *parser)
 {
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
@@ -91,7 +85,10 @@ static int	default_color_table(t_bmp_parser *parser)
 	if (parser->bpp == 4)
 		set_colors4(parser->colors);
 	if (parser->bpp == 1)
-		set_colors1(parser->colors);
+	{
+	  	parser->colors[0] = 0xFF;
+	  	parser->colors[1] = 0xFFFFFFFF;
+	}
 	return (0);
 }
 

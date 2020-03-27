@@ -37,7 +37,7 @@ t_env *env)
 	}
 }
 
-Uint32	get_pixel(SDL_Surface *surface, int x, int y, t_point size)
+Uint32	get_image_pixel(SDL_Surface *surface, int x, int y, t_point size)
 {
 	double	xalpha;
 	double	yalpha;
@@ -81,7 +81,7 @@ void    apply_image(t_texture texture, t_point pos, t_point size, t_env *env)
 		x = -1;
 		while (++x < size.x)
 		{
-			pixel = get_pixel(surface, x, y, size);
+			pixel = get_image_pixel(surface, x, y, size);
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
@@ -116,7 +116,7 @@ t_env *env)
 		x = 0;
 		while (x < size.x)
 		{
-			pixel = get_pixel(surface, x, y, size);
+			pixel = get_image_pixel(surface, x, y, size);
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 			{
