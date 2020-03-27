@@ -12,6 +12,29 @@
 
 #include "events_parser.h"
 
+int		ceiling_sprite_parser2(t_env *env, t_map_parser *parser, char **line,
+t_events_parser *eparser)
+{
+	if (**line != ' ')
+		return (invalid_char("after sector number", "a space", **line,
+		parser));
+		(*line)++;
+	if (!**line || **line == ']' || **line == ')')
+		return (missing_data("ceiling_sprite and sprite", parser));
+	if (valid_number(*line, parser))
+		return (invalid_char("before ceiling_sprite number", "a digit", **line,
+		parser));
+	eparser->current_sprite = ft_atoi(*line);
+	if (eparser->current_sprite < 0 || eparser->current_sprite >=
+		env->sectors[eparser->current_sector].ceiling_sprites.nb_sprites)
+		return (custom_error_with_line("Invalid ceiling_sprite index", parser));
+		*line = skip_number(*line);
+	if (!**line || **line != ')')
+		return (invalid_char("after sprite index", "')'", **line, parser));
+	(*line)++;
+	return (0);
+}
+
 int		ceiling_sprite_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
@@ -38,22 +61,5 @@ t_events_parser *eparser)
 		*line = skip_number(*line);
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("ceiling_sprite number", parser));
-	if (**line != ' ')
-		return (invalid_char("after sector number", "a space", **line,
-		parser));
-		(*line)++;
-	if (!**line || **line == ']' || **line == ')')
-		return (missing_data("ceiling_sprite and sprite", parser));
-	if (valid_number(*line, parser))
-		return (invalid_char("before ceiling_sprite number", "a digit", **line,
-		parser));
-	eparser->current_sprite = ft_atoi(*line);
-	if (eparser->current_sprite < 0 || eparser->current_sprite >=
-		env->sectors[eparser->current_sector].ceiling_sprites.nb_sprites)
-		return (custom_error_with_line("Invalid ceiling_sprite index", parser));
-		*line = skip_number(*line);
-	if (!**line || **line != ')')
-		return (invalid_char("after sprite index", "')'", **line, parser));
-	(*line)++;
-	return (0);
+	return (ceiling_sprite_parser2(env, parser, line, eparser));
 }

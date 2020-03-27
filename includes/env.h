@@ -496,6 +496,8 @@ int					check_sector_launch_conditions(t_env *env, int sector);
 t_button_target		*new_button_target(t_env *env, int i);
 void				new_tabs_position(t_env *env);
 int					check_event_creation(t_env *env);
+int					new_condition_target(t_env *env);
+int					new_event_target(t_env *env);
 void				tabs_gestion(t_env *env);
 int					change_target_texture(t_env *env);
 void				editor_show_tab(t_env *env);
@@ -752,6 +754,9 @@ int					wall_sprite_buttons_up(t_env *env);
 
 int					draw_event_panel(t_env *env);
 int					draw_condition_panel(t_env *env);
+void				draw_condition_condition_panel(t_env *env);
+void				draw_condition_type_tab(t_env *env);
+void				draw_condition_target_tab(t_env *env);
 int					draw_condition_targets_panel(t_env *env);
 int					draw_condition_event_panel(t_env *env);
 int					draw_target_panel(t_env *env);
@@ -917,6 +922,7 @@ int					set_event_speed(void *param);
 int					set_event_delay(void *param);
 int					set_event_max_uses(void *param);
 int					create_event(void *param);
+int					check_event_validity(t_env *env, t_event event);
 int					save_event(void *param);
 int					modify_event(void *param);
 int					delete_event(void *param);
@@ -1153,6 +1159,8 @@ Uint32				apply_light_brightness(Uint32 src, int brightness);
 int					update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env);
 int					draw_confirmation_box(t_confirmation_box *box, t_env *env);
+int					no_pressed(void *param);
+int					yes_pressed(void *param);
 t_rectangle			new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
 void				draw_rectangle(t_env *env, t_rectangle r, t_point pos,
@@ -1526,6 +1534,8 @@ int					check_portal_event(t_event *event, void *penv);
 int					check_true_false_event(t_event *event, void *penv);
 int					check_vertex_x_event(t_event *event, void *penv);
 int					check_vertex_y_event(t_event *event, void *penv);
+int					is_sector_convex(t_env *env, t_sector *sector);
+int					update_sectors_slope(int vertex, t_env *env);
 
 /*
 **	Free functions

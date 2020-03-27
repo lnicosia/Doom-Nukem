@@ -66,7 +66,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
 		draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
 		add_vertex.c print_target_functions2.c draw_action_panel_bottom.c \
-		add_player.c editor_hud.c add_sector.c \
+		add_player.c editor_hud.c add_sector.c condition_panel2.c \
 		save_map.c write_vertices.c write_sectors.c write_objects.c \
 		write_player.c write_enemies.c add_object.c editor_keyup.c \
 		player_selection.c objects_selection.c object_selection.c\
@@ -75,7 +75,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
 		fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
-		editor_3d_keyup.c split_sector.c \
+		editor_3d_keyup.c split_sector.c set_condition_panel_buttons_state.c \
 		write_events.c init_print_target_data.c print_event_condition.c \
 		write_events_utils.c write_events_utils2.c init_events_writers.c \
 		write_event_conditions.c write_event_conditions_utils.c \
@@ -138,7 +138,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		3d_edit_slopes.c 3d_edit_change_slope_start.c \
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
 		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
-		3d_edit_left_walls_texture_align.c \
+		3d_edit_left_walls_texture_align.c new_target.c \
 		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
@@ -157,7 +157,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   bmp_parse_header.c bmp_parse_pixel_data.c bmp_parse_color_table.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
 		   get_slope.c update_player_z.c movement_collision.c win.c \
-		   get_screen_sectors.c check_parsing.c view.c init_options.c \
+		   get_screen_sectors.c view.c init_options.c confirmation_box_keys.c \
 		   fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
@@ -201,7 +201,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   free_sector.c init_screen_size.c dialog_parser.c \
 		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
-		   draw_wall_bullet_holes.c intersect_maths.c \
+		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
 		   event_ended_condition.c event_ended_start_condition.c \
@@ -220,7 +220,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
 		   parse_events_links.c events_links_protection.c set_event_link.c \
 		   get_event_array.c get_event_nb.c init_objects_main_sprites.c \
-		   precompute_floor_ceiling_sprites_scales.c \
+		   precompute_floor_ceiling_sprites_scales.c check_event_validity.c \
 		   menu_keys.c option_menu.c option_menu_keys.c collision_utils_2.c \
 		   collision_maths.c collision_utils.c new_object_event.c \
 		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
@@ -228,6 +228,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
 		   map_parse_fonts.c angles_utils.c add_vertex_in_sector_utils.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
+		   check_vertex_event_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
