@@ -50,7 +50,8 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 			else if (!i && sector.vertices[sector.nb_vertices - 1] == data.v2
 					&& sector.neighbors[sector.nb_vertices -1] == -1)
 			{
-				env->sectors[sector.num].neighbors[sector.nb_vertices - 1] = data.father;
+				env->sectors[sector.num].neighbors[sector.nb_vertices - 1] =
+				data.father;
 				env->sectors[data.father].neighbors[data.index] = sector.num;
 				return (2);
 			}

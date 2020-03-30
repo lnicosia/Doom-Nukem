@@ -350,6 +350,7 @@ int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
 int					del_last_vertex(t_env *env);
 int					delete_vertex(void *param);
+int					update_sector(t_sector *sector, int vertex);
 int					delete_sector(void *param);
 int					delete_object(void *param);
 int					delete_enemy(void *param);
@@ -555,6 +556,7 @@ t_event_target target);
 int					update_object_existing_events(t_env *env,
 t_event_target target);
 int					delete_selected_sector(void *param);
+int					delete_selected_vertex(void *param);
 int					delete_linked_events(t_env *env);
 int					delete_events_to_delete_list(void *param);
 int					delete_wall_sprite(void *param);
@@ -926,6 +928,7 @@ int					check_event_validity(t_env *env, t_event event);
 int					save_event(void *param);
 int					modify_event(void *param);
 int					delete_event(void *param);
+int					delete_selected_event(void *param);
 int					delete_selected_event1(t_env *env, t_event_trigger trigger);
 int					save_condition(void *param);
 int					create_condition(void *param);
@@ -1014,6 +1017,8 @@ int					is_mouse_on_weapon_picker(t_env *env);
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
 int					crash(char *str, t_env *env);
+int					first_frame(t_env *env);
+int					launch_events(t_env *env);
 void				reset_render_utils(t_camera *camera, t_env *env);
 
 /*
@@ -1217,6 +1222,8 @@ void				set_button_hover_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
 void				draw_button(t_env *env, t_button b, char *str);
 int					draw_dialog_box(char **str, t_env *env);
+int					find_dialog_box_max_char(t_env *env);
+int					dialog_event(void *param, void *penv);
 int					find_dialog_box_max_char(t_env *env);
 
 /*

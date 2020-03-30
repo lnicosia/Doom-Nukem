@@ -12,6 +12,23 @@
 
 #include "events_parser.h"
 
+int		dialog_parser2(size_t len, t_map_parser *parser, char **line,
+t_events_parser *eparser)
+{
+	if (!(*line)[len])
+		return (missing_data("end of the event", parser));
+	if ((*line)[len] != ')')
+		return (invalid_char("after dialog text or text is too long", "')'",
+		**line, parser));
+	if (!(eparser->current_str = ft_strsub(*line, 0, len)))
+		return (-1);
+	if (ft_strchr(eparser->current_str, '\n'))
+		return (invalid_char("in dialog text", "no special characters",
+		**line, parser));
+		(*line) += len + 1;
+	return (0);
+}
+
 int		dialog_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
@@ -33,16 +50,5 @@ t_events_parser *eparser)
 	len = 0;
 	while ((*line)[len] && (*line)[len] != ')' && len < 1024)
 		len++;
-	if (!(*line)[len])
-		return (missing_data("end of the event", parser));
-	if ((*line)[len] != ')')
-		return (invalid_char("after dialog text or text is too long", "')'",
-		**line, parser));
-	if (!(eparser->current_str = ft_strsub(*line, 0, len)))
-		return (-1);
-	if (ft_strchr(eparser->current_str, '\n'))
-		return (invalid_char("in dialog text", "no special characters",
-		**line, parser));
-		(*line) += len + 1;
-	return (0);
+	return (dialog_parser2(len, parser, line, eparser));
 }

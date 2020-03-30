@@ -51,7 +51,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
-				explosion.c draw_explosion.c \
+				explosion.c draw_explosion.c doom_utils.c \
 				explosion_maths.c enemy_maths.c enemy_combat.c \
 				enemy_collision.c enemy_sight.c enemy_ai.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
@@ -110,10 +110,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		event_panel.c target_panel.c init_target_panel_buttons.c \
 		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
 		target_panel_keys.c modify_condition.c init_new_sector_arrays.c \
-		3d_edit_change_floor_slope_start.c \
+		3d_edit_change_floor_slope_start.c delete_selected_event.c \
 		3d_edit_change_ceiling_slope_start.c \
 		action_panel_keys.c conditions_panel_keys.c \
-		event_panel_keys.c modify_event.c \
+		event_panel_keys.c modify_event.c delete_action_utils.c \
 		new_event_panel_buttons.c new_event_panel_buttons2.c \
 		editor_tab_gestion.c editor_wall_sprites_keys.c \
 		3d_edit_function.c action_panel.c conditions_tabs.c \
@@ -148,7 +148,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 		editor_minimap.c init_editor_options_buttons.c \
-		editor_option_keys.c write_hud.c write_hud2.c\
+		editor_option_keys.c write_hud.c write_hud2.c \
+		update_sector_with_deleted_vertex.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -196,7 +197,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
 		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
 		   draw_vline_wall.c draw_vline_wall_brightness.c bmp_parser_utils2.c \
-		   draw_vline_wall_both.c draw_vline_wall_color.c \
+		   draw_vline_wall_both.c draw_vline_wall_color.c dialog_box_utils.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   free_sector.c init_screen_size.c dialog_parser.c \

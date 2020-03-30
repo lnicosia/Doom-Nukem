@@ -12,69 +12,6 @@
 
 #include "env.h"
 
-int		update_sector(t_sector *sector, int vertex, t_env *env)
-{
-	(void)env;
-	sector->vertices = (int*)ft_delindex(sector->vertices,
-		sizeof(int) * (sector->nb_vertices + 1), sizeof(int),
-		sizeof(int) * vertex);
-	sector->textures = (int*)ft_delindex(sector->textures,
-		sizeof(int) * (sector->nb_vertices + 1), sizeof(int),
-		sizeof(int) * vertex);
-	sector->neighbors = (int*)ft_delindex(sector->neighbors,
-		sizeof(int) * (sector->nb_vertices + 1), sizeof(int),
-		sizeof(int) * vertex);
-	sector->portals = (int*)ft_delindex(sector->portals,
-		sizeof(int) * (sector->nb_vertices + 1), sizeof(int),
-		sizeof(int) * vertex);
-	sector->floors = (double*)ft_delindex(sector->floors,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->ceilings = (double*)ft_delindex(sector->ceilings,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->clipped_floors1 = (double*)ft_delindex(sector->clipped_floors1,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->clipped_floors2 = (double*)ft_delindex(sector->clipped_floors2,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->clipped_ceilings1 = (double*)ft_delindex(sector->clipped_ceilings1,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->clipped_ceilings2 = (double*)ft_delindex(sector->clipped_ceilings2,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	sector->wall_width = (double*)ft_delindex(sector->wall_width,
-		sizeof(double) * (sector->nb_vertices + 1), sizeof(double),
-		sizeof(double) * vertex);
-	ft_memdel((void**)&sector->walls_map_lvl[vertex]);
-	sector->walls_map_lvl = (double**)ft_delindex(sector->walls_map_lvl,
-		sizeof(double*) * (sector->nb_vertices + 1), sizeof(double*),
-		sizeof(double*) * vertex);
-	sector->scale = (t_v2*)ft_delindex(sector->scale,
-		sizeof(t_v2) * (sector->nb_vertices + 1), sizeof(t_v2),
-		sizeof(t_v2) * vertex);
-	sector->align = (t_v2*)ft_delindex(sector->align,
-		sizeof(t_v2) * (sector->nb_vertices + 1), sizeof(t_v2),
-		sizeof(t_v2) * vertex);
-	sector->wall_bullet_holes = (t_list**)ft_delindex(sector->wall_bullet_holes,
-		sizeof(t_list*) * (sector->nb_vertices + 1), sizeof(t_list*),
-		sizeof(t_list*) * vertex);
-	free_wall_sprites(&sector->wall_sprites[vertex]);
-	sector->wall_sprites = (t_wall_sprites*)ft_delindex(sector->wall_sprites,
-		sizeof(t_wall_sprites) * (sector->nb_vertices + 1),
-		sizeof(t_wall_sprites), sizeof(t_wall_sprites) * vertex);
-	sector->nb_vertices--;
-	if (sector->nb_vertices > 0 && (!sector->vertices))
-		return (-1);
-	if (sector->start_floor_slope >= sector->nb_vertices)
-		sector->start_floor_slope--;
-	if (sector->start_ceiling_slope >= sector->nb_vertices)
-		sector->start_ceiling_slope--;
-	return (0);
-}
-
 int		modify_sectors(t_env *env, int vertex)
 {
 	int	i;
@@ -88,7 +25,7 @@ int		modify_sectors(t_env *env, int vertex)
 		{
 			if (env->sectors[i].vertices[j] == vertex)
 			{
-				if (update_sector(&env->sectors[i], j, env))
+				if (update_sector(&env->sectors[i], j))
 					return (-1);
 			}
 			if (env->sectors[i].vertices[j] > vertex)
@@ -99,6 +36,34 @@ int		modify_sectors(t_env *env, int vertex)
 		env->sectors[i].vertices[0];
 		i++;
 	}
+	return (0);
+}
+
+int		delete_vertex2(int vertex, t_env *env)
+{
+  	int	i;
+
+	if (env->nb_sectors)
+	{
+		if (modify_sectors(env, vertex))
+			return (-1);
+	}
+	if (delete_invalid_sectors(env))
+		return (-1);
+	if (delete_invalid_vertices(env))
+		return (-1);
+	clear_portals(env);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		create_portals(env, env->sectors[i]);
+		i++;
+	}
+	if (delete_linked_events(env))
+		return (-1);
+	if (update_entities_sectors(env))
+		return (-1);
+	env->editor.selected_vertex = -1;
 	return (0);
 }
 
@@ -128,28 +93,7 @@ int		delete_vertex(void *param)
 		env->editor.selected_vertex = -1;
 		return (0);
 	}
-	if (env->nb_sectors)
-	{
-		if (modify_sectors(env, vertex))
-			return (-1);
-	}
-	if (delete_invalid_sectors(env))
-		return (-1);
-	if (delete_invalid_vertices(env))
-		return (-1);
-	clear_portals(env);
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		create_portals(env, env->sectors[i]);
-		i++;
-	}
-	if (delete_linked_events(env))
-		return (-1);
-	if (update_entities_sectors(env))
-		return (-1);
-	env->editor.selected_vertex = -1;
-	return (0);
+	return (delete_vertex2(vertex, env));
 }
 
 int		delete_invalid_vertices(t_env *env)

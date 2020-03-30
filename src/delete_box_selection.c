@@ -53,32 +53,12 @@ int		set_double_stats(t_input_box *box)
 	return (0);
 }
 
-int	delete_box_selection(t_input_box *box)
+int	delete_box_selection2(t_input_box *box, size_t start, size_t end)
 {
 	char	*res;
 	char	*s1;
 	char	*s2;
-	size_t	start;
-	size_t	end;
 
-	if (box->select_start > box->select_end)
-	{
-		start = box->select_end;
-		end = box->select_start;
-	}
-	else
-	{
-		start = box->select_start;
-		end = box->select_end;
-	}
-	if (box->type == DOUBLE && box->period
-		&& start <= box->period_index && end >= box->period_index)
-	{
-		if (end != ft_strlen(box->str) && start > box->minus)
-			box->add_period = 1;
-		else
-			box->period = 0;
-	}
 	s1 = ft_strsub(box->str, 0, start);
 	s2 = ft_strsub(box->str, end, ft_strlen(box->str) - end);
 	if (!(res = ft_strnew(ft_strlen(box->str) - (end - start))))
@@ -101,4 +81,30 @@ int	delete_box_selection(t_input_box *box)
 	if (box->minus && !ft_strchr(box->str, '-'))
 		box->minus--;
 	return (0);
+}
+
+int	delete_box_selection(t_input_box *box)
+{
+	size_t	start;
+	size_t	end;
+
+	if (box->select_start > box->select_end)
+	{
+		start = box->select_end;
+		end = box->select_start;
+	}
+	else
+	{
+		start = box->select_start;
+		end = box->select_end;
+	}
+	if (box->type == DOUBLE && box->period
+		&& start <= box->period_index && end >= box->period_index)
+	{
+		if (end != ft_strlen(box->str) && start > box->minus)
+			box->add_period = 1;
+		else
+			box->period = 0;
+	}
+	return (delete_box_selection2(box, start, end));
 }

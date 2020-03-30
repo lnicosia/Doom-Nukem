@@ -41,6 +41,36 @@ void		respawn_entities(void *param)
 	}
 }
 
+int			respawn2(t_env *env)
+{
+	int		i;
+
+	i = -1;
+	while (++i < env->nb_enemies)
+	{
+		env->enemies[i].exists = 1;
+		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
+	}
+	free_camera(&env->player.camera, env);
+	env->dialog_box = 0;
+	env->next_dialog = 0;
+	if (init_camera(&env->player.camera, env))
+		return (-1);
+	update_camera_position(&env->player.camera);
+	view(env);
+	init_weapons(env);
+	init_enemies_data(env);
+	init_objects_data(env);
+	init_animations(env);
+	env->player.highest_sect = find_highest_sector(env,
+	new_motion(env->player.sector, env->player.size_2d,
+	env->player.eyesight, env->player.pos));
+	update_player_z(env);
+	SDL_SetRelativeMouseMode(1);
+	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+	return (0);
+}
+
 int			respawn(void *param)
 {
 	t_env	*env;
@@ -64,38 +94,7 @@ int			respawn(void *param)
 		env->objects[i].exists = 1;
 		i++;
 	}
-	i = 0;
-	while (i < env->nb_enemies)
-	{
-		env->enemies[i].exists = 1;
-		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
-		i++;
-	}
-	/*env->player.killed = 0;
-	env->player.touched = 0;
-	env->player.nb_shots = 0;
-	env->player.accuracy = 0;
-	env->player.health = env->player.init_data.health;
-	env->player.sector = env->player.init_data.sector;*/
-	free_camera(&env->player.camera, env);
-	env->dialog_box = 0;
-	env->next_dialog = 0;
-	if (init_camera(&env->player.camera, env))
-		return (-1);
-	update_camera_position(&env->player.camera);
-	view(env);
-	//respawn_entities(param);
-	init_weapons(env);
-	init_enemies_data(env);
-	init_objects_data(env);
-	init_animations(env);
-	env->player.highest_sect = find_highest_sector(env,
-	new_motion(env->player.sector, env->player.size_2d,
-	env->player.eyesight, env->player.pos));
-	update_player_z(env);
-	SDL_SetRelativeMouseMode(1);
-	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	return (0);
+	return (respawn2(env));
 }
 
 int			stop_game(void *param)
@@ -110,7 +109,8 @@ int			death(t_env *env)
 
 	i = 0;
 	if (env->player.nb_shots > 0)
-		env->player.accuracy = ((env->player.touched / env->player.nb_shots) * 100);
+		env->player.accuracy = ((env->player.touched / env->player.nb_shots)
+		* 100);
 	if (!env->confirmation_box.state)
 	{
 		SDL_SetRelativeMouseMode(0);

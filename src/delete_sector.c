@@ -46,6 +46,29 @@ int		delete_linked_events(t_env *env)
 	return (0);
 }
 
+int		delete_sector2(t_env *env)
+{
+  	int	i;
+
+	if (delete_linked_events(env))
+		return (-1);
+	if (update_entities_sectors(env))
+		return (-1);
+	if (delete_invalid_vertices(env))
+		return (-1);
+	env->editor.selected_sector = -1;
+	tabs_gestion(env);
+	clear_portals(env);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		create_portals(env, env->sectors[i]);
+		i++;
+	}
+	env->player.sector = get_sector_global(env, env->player.pos);
+	return (0);
+}
+
 int		delete_sector(void *param)
 {
 	t_env			*env;
@@ -71,23 +94,7 @@ int		delete_sector(void *param)
 		env->sectors[i].num--;
 		i++;
 	}
-	if (delete_linked_events(env))
-		return (-1);
-	if (update_entities_sectors(env))
-		return (-1);
-	if (delete_invalid_vertices(env))
-		return (-1);
-	env->editor.selected_sector = -1;
-	tabs_gestion(env);
-	clear_portals(env);
-	i = 0;
-	while (i < env->nb_sectors)
-	{
-		create_portals(env, env->sectors[i]);
-		i++;
-	}
-	env->player.sector = get_sector_global(env, env->player.pos);
-	return (0);
+	return (delete_sector2(env));
 }
 
 int		delete_invalid_sectors(t_env *env)
