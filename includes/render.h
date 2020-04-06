@@ -113,9 +113,25 @@ typedef struct		s_drawer
 	int				coord;
 }					t_drawer;
 
+typedef struct		s_enemy_drawer
+{
+	double			xalpha;
+	double			yalpha;
+	t_enemy			*enemy;
+	t_texture		*texture;
+	t_sprite		*sprite;
+	t_sector		*sector;
+  	int				x;
+	int				y;
+	int				xend;
+	int				yend;
+	int				textx;
+	int				texty;
+}					t_enemy_drawer;
+
 typedef struct		s_render_projectile
 {
-	t_camera		camera;
+	t_camera		*camera;
 	int				x1;
 	int				x2;
 	int				y1;
@@ -135,7 +151,7 @@ typedef struct		s_render_projectile
 
 typedef struct		s_render_explosion
 {
-	t_camera		camera;
+	t_camera		*camera;
 	int				x1;
 	int				x2;
 	int				y1;
@@ -152,7 +168,7 @@ typedef struct		s_render_explosion
 
 typedef struct		s_render_object
 {
-	t_camera		camera;
+	t_camera		*camera;
 	int				x1;
 	int				x2;
 	int				y1;
@@ -162,7 +178,7 @@ typedef struct		s_render_object
 	int				xend;
 	int				yend;
 	int				index;
-	int			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				intensity;
 	double			xrange;
@@ -177,7 +193,7 @@ typedef struct	s_skybox_data
 	double		ceiling_horizon;
 	double		max_ceiling;
 	double		max_floor;
-	int		i;
+	int			i;
 	int			mode;
 }				t_skybox_data;
 
@@ -204,9 +220,9 @@ typedef struct	s_precompute_thread
 typedef struct		s_object_thread
 {
 	t_env			*env;
-	t_camera		camera;
-	t_object		object;
-	t_render_object	orender;
+	t_camera		*camera;
+	t_object		*object;
+	t_render_object	*orender;
 	int				xstart;
 	int				xend;
 }					t_object_thread;
@@ -214,9 +230,9 @@ typedef struct		s_object_thread
 typedef struct		s_explosion_thread
 {
 	t_env				*env;
-	t_camera			camera;
-	t_explosion			explosion;
-	t_render_explosion	erender;
+	t_camera			*camera;
+	t_explosion			*explosion;
+	t_render_explosion	*erender;
 	int					xstart;
 	int					xend;
 }					t_explosion_thread;
@@ -224,9 +240,9 @@ typedef struct		s_explosion_thread
 typedef struct		s_projectile_thread
 {
 	t_env				*env;
-	t_camera			camera;
-	t_projectile		projectile;
-	t_render_projectile	prender;
+	t_camera			*camera;
+	t_projectile		*projectile;
+	t_render_projectile	*prender;
 	int					xstart;
 	int					xend;
 }					t_projectile_thread;
@@ -234,9 +250,9 @@ typedef struct		s_projectile_thread
 typedef struct		s_enemy_thread
 {
 	t_env			*env;
-	t_camera		camera;
-	t_enemy			enemy;
-	t_render_object	orender;
+	t_camera		*camera;
+	t_enemy			*enemy;
+	t_render_object	*orender;
 	int				xstart;
 	int				xend;
 }					t_enemy_thread;
@@ -252,6 +268,8 @@ void			draw_vline_ceiling_brightness(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
 void			draw_vline_ceiling_both(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
+void			get_ceiling_z(t_render *render, t_drawer *drawer, t_env *env);
+void			get_texels(t_render *render, t_drawer *drawer);
 void			draw_vline_wall(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
 void			draw_vline_wall_color(t_sector *sector, t_vline vline,
@@ -333,40 +351,40 @@ void			*select_portal_loop(void *param);
 */
 
 void				*get_enemy_relative_pos(void *param);
-void				get_translated_enemy_pos(t_camera camera, t_enemy *enemy);
-void				get_rotated_enemy_pos(t_camera camera, t_enemy *enemy);
-void				project_enemy(t_render_object *erender, t_enemy enemy,
+void				get_translated_enemy_pos(t_camera *camera, t_enemy *enemy);
+void				get_rotated_enemy_pos(t_camera *camera, t_enemy *enemy);
+void				project_enemy(t_render_object *erender, t_enemy *enemy,
 t_env *env);
 
-void				*get_projectile_relative_pos(t_camera camera, t_env *env);
-void				get_translated_projectile_pos(t_camera camera,
+void				*get_projectile_relative_pos(t_camera *camera, t_env *env);
+void				get_translated_projectile_pos(t_camera *camera,
 t_projectile *projectile);
-void				get_rotated_projectile_pos(t_camera camera,
+void				get_rotated_projectile_pos(t_camera *camera,
 t_projectile *projectile);
 void				project_projectile(t_render_projectile *prender,
-t_projectile projectile, t_env *env);
+t_projectile *projectile, t_env *env);
 
-void				*get_explosion_relative_pos(t_camera camera,
+void				*get_explosion_relative_pos(t_camera *camera,
 t_env *env);
-void				get_translated_explosion_pos(t_camera camera,
+void				get_translated_explosion_pos(t_camera *camera,
 t_explosion *explosion);
-void				get_rotated_explosion_pos(t_camera camera,
+void				get_rotated_explosion_pos(t_camera *camera,
 t_explosion *explosion);
 void				project_explosion(t_render_explosion *erender,
-t_explosion explosion, t_env *env);
+t_explosion *explosion, t_env *env);
 
-void				get_translated_object_pos(t_camera camera,
+void				get_translated_object_pos(t_camera *camera,
 t_object *object);
-void				get_rotated_object_pos(t_camera camera, t_object *object);
+void				get_rotated_object_pos(t_camera *camera, t_object *object);
 void				*get_object_relative_pos(void *param);
-void				project_object(t_render_object *orender, t_object object,
+void				project_object(t_render_object *orender, t_object *object,
 t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env,
 int x);
 void				*raycasting(void *param);
 void				*skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
-int					draw_object(t_camera camera, t_object *object, t_env *env,
+int					draw_object(t_camera *camera, t_object *object, t_env *env,
 int death_sprite);
 
 #endif

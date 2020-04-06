@@ -92,7 +92,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_add_buttons.c editor_env_sector_buttons.c \
 		editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
 		editor_button_keyup.c editor_env_player_buttons.c \
-		editor_player_tab_button.c editor_enemy_tabs.c \
+		editor_player_tab_button.c editor_enemy_tabs.c print_events_tabs2.c \
 		editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		editor_object_tabs.c editor_env_object_buttons.c \
 		sprite_selection.c init_sprite_selection_buttons.c\
@@ -229,7 +229,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
 		   map_parse_fonts.c angles_utils.c add_vertex_in_sector_utils.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
-		   check_vertex_event_utils.c \
+		   check_vertex_event_utils.c draw_ceiling_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

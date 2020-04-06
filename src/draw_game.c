@@ -16,15 +16,15 @@ int	draw_render(t_camera *camera, t_env *env)
 {
 	if (draw_walls(camera, env))
 		return (-1);
-	if (draw_objects(*camera, env))
+	if (draw_objects(camera, env))
 		return (-1);
-	if (draw_projectiles(*camera, env))
+	if (draw_projectiles(camera, env))
 		return (-1);
-	if (draw_explosions(*camera, env))
+	if (draw_explosions(camera, env))
 		return (-1);
-	if (draw_enemies(*camera, env))
+	if (draw_enemies(camera, env))
 		return (-1);
-	//if (draw_player(*camera, env))
+	//if (draw_player(camera, env))
 	//	return (-1);
 	return (0);
 }

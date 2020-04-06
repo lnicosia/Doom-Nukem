@@ -32,6 +32,47 @@ void		fill_vline_free(Uint32 color, t_point p1, t_point p2, t_env *env)
 	}
 }
 
+void		draw_outline_free2(t_circle circle, int x, int y, t_env *env)
+{
+	if (circle.center.x - y >= 0 && circle.center.x - y < env->w
+			&& circle.center.y + x >= 0 && circle.center.y + x < env->h)
+	env->sdl.texture_pixels[circle.center.x - y + env->w
+	* (circle.center.y + x)] = circle.line_color;
+	if (circle.center.x + y >= 0 && circle.center.x + y < env->w
+			&& circle.center.y - x >= 0 && circle.center.y - x < env->h)
+	env->sdl.texture_pixels[circle.center.x + y + env->w
+	* (circle.center.y - x)] = circle.line_color;
+	if (circle.center.x - y >= 0 && circle.center.x - y < env->w
+			&& circle.center.y - x >= 0 && circle.center.y - x < env->h)
+	env->sdl.texture_pixels[circle.center.x - y + env->w
+	* (circle.center.y - x)] = circle.line_color;
+}
+
+void		draw_outline_free(t_circle circle, int x, int y, t_env *env)
+{
+	if (circle.center.x + x >= 0 && circle.center.x + x < env->w
+			&& circle.center.y + y >= 0 && circle.center.y + y < env->h)
+	env->sdl.texture_pixels[circle.center.x + x + env->w
+	* (circle.center.y + y)] = circle.line_color;
+	if (circle.center.x - x >= 0 && circle.center.x - x < env->w
+			&& circle.center.y + y >= 0 && circle.center.y + y < env->h)
+	env->sdl.texture_pixels[circle.center.x - x + env->w
+	* (circle.center.y + y)] = circle.line_color;
+	if (circle.center.x + x >= 0 && circle.center.x + x < env->w
+			&& circle.center.y - y >= 0 && circle.center.y - y < env->h)
+	env->sdl.texture_pixels[circle.center.x + x + env->w
+	* (circle.center.y - y)] = circle.line_color;
+	if (circle.center.x - x >= 0 && circle.center.x - x < env->w
+			&& circle.center.y - y >= 0 && circle.center.y - y < env->h)
+	env->sdl.texture_pixels[circle.center.x - x + env->w
+	* (circle.center.y - y)] = circle.line_color;
+	if (circle.center.x + y >= 0 && circle.center.x + y < env->w
+			&& circle.center.y + x >= 0 && circle.center.y + x < env->h)
+	env->sdl.texture_pixels[circle.center.x + y + env->w
+	* (circle.center.y + x)] = circle.line_color;
+	draw_outline_free2(circle, x, y, env);
+}
+
 void		draw_circle_free(t_circle circle, t_env *env)
 {
 	int	x;
@@ -43,49 +84,19 @@ void		draw_circle_free(t_circle circle, t_env *env)
 	p = 3 - 2 * circle.radius;
 	while (x <= y)
 	{
-		fill_hline_free(circle.color,
-				new_point(circle.center.x - x, circle.center.y + y),
-				new_point(circle.center.x + x, circle.center.y + y),
-				env);
-		fill_hline_free(circle.color,
-				new_point(circle.center.x - x, circle.center.y - y),
-				new_point(circle.center.x + x, circle.center.y - y),
-				env);
-		fill_hline_free(circle.color,
-				new_point(circle.center.x - y, circle.center.y - x),
-				new_point(circle.center.x + y, circle.center.y - x),
-				env);
-		fill_hline_free(circle.color,
-				new_point(circle.center.x - y, circle.center.y + x),
-				new_point(circle.center.x + y, circle.center.y + x),
-				env);
-		if (circle.center.x + x >= 0 && circle.center.x + x < env->w
-				&& circle.center.y + y >= 0 && circle.center.y + y < env->h)
-		env->sdl.texture_pixels[circle.center.x + x + env->w * (circle.center.y + y)] = circle.line_color;
-		if (circle.center.x - x >= 0 && circle.center.x - x < env->w
-				&& circle.center.y + y >= 0 && circle.center.y + y < env->h)
-		env->sdl.texture_pixels[circle.center.x - x + env->w * (circle.center.y + y)] = circle.line_color;
-		if (circle.center.x + x >= 0 && circle.center.x + x < env->w
-				&& circle.center.y - y >= 0 && circle.center.y - y < env->h)
-		env->sdl.texture_pixels[circle.center.x + x + env->w * (circle.center.y - y)] = circle.line_color;
-		if (circle.center.x - x >= 0 && circle.center.x - x < env->w
-				&& circle.center.y - y >= 0 && circle.center.y - y < env->h)
-		env->sdl.texture_pixels[circle.center.x - x + env->w * (circle.center.y - y)] = circle.line_color;
-		if (circle.center.x + y >= 0 && circle.center.x + y < env->w
-				&& circle.center.y + x >= 0 && circle.center.y + x < env->h)
-		env->sdl.texture_pixels[circle.center.x + y + env->w * (circle.center.y + x)] = circle.line_color;
-		if (circle.center.x - y >= 0 && circle.center.x - y < env->w
-				&& circle.center.y + x >= 0 && circle.center.y + x < env->h)
-		env->sdl.texture_pixels[circle.center.x - y + env->w * (circle.center.y + x)] = circle.line_color;
-		if (circle.center.x + y >= 0 && circle.center.x + y < env->w
-				&& circle.center.y - x >= 0 && circle.center.y - x < env->h)
-		env->sdl.texture_pixels[circle.center.x + y + env->w * (circle.center.y - x)] = circle.line_color;
-		if (circle.center.x - y >= 0 && circle.center.x - y < env->w
-				&& circle.center.y - x >= 0 && circle.center.y - x < env->h)
-		env->sdl.texture_pixels[circle.center.x - y + env->w * (circle.center.y - x)] = circle.line_color;
-		if (p < 0)
-			p += 4 * x++ + 6;
-		else
-			p += 4 * (x++ - y--) + 10;
+		fill_hline_free(circle.color, new_point(circle.center.x - x,
+		circle.center.y + y), new_point(circle.center.x + x,
+		circle.center.y + y), env);
+		fill_hline_free(circle.color, new_point(circle.center.x - x,
+		circle.center.y - y), new_point(circle.center.x + x,
+		circle.center.y - y), env);
+		fill_hline_free(circle.color, new_point(circle.center.x - y,
+		circle.center.y - x), new_point(circle.center.x + y,
+		circle.center.y - x), env);
+		fill_hline_free(circle.color, new_point(circle.center.x - y,
+		circle.center.y + x), new_point(circle.center.x + y,
+		circle.center.y + x), env);
+		draw_outline_free(circle, x, y, env);
+		p += p < 0 ? 4 * x++ + 6 : 4 * (x++ - y--) + 10;
 	}
 }

@@ -30,11 +30,11 @@ int		editor_render(t_env *env)
 	animations(env);
 	if (draw_walls(&env->player.camera, env))
 		return (-1);
-	if (draw_objects(env->player.camera, env))
+	if (draw_objects(&env->player.camera, env))
 		return (crash("Failed to draw objects\n", env));
-	if (draw_enemies(env->player.camera, env))
+	if (draw_enemies(&env->player.camera, env))
 		return (crash("Failed to draw enemies\n", env));
-	if (draw_player(env->player.camera, env->player.starting_pos, env))
+	if (draw_player(&env->player.camera, env->player.starting_pos, env))
 		return (crash("failed to draw player\n", env));
 	draw_crosshair(env);
 	if (env->options.show_fps)

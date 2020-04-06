@@ -13,52 +13,53 @@
 #include "env.h"
 #include "render.h"
 
-int		get_sprite_direction_projectile(t_projectile projectile)
+int		get_sprite_direction_projectile(t_projectile *projectile)
 {
 	double	angle;
 
-	angle = (int)((atan2(projectile.translated_pos.z, projectile.translated_pos.x)) * CONVERT_DEGREES) % 360;
+	angle = (int)((atan2(projectile->translated_pos.z,
+	projectile->translated_pos.x)) * CONVERT_DEGREES) % 360;
 	if (angle < 0)
 		angle += 360;
-	if (angle >= projectile.angle - 22.5 && angle < projectile.angle + 22.5)
+	if (angle >= projectile->angle - 22.5 && angle < projectile->angle + 22.5)
 		return (4);
-	else if (angle >= projectile.angle + 22.5 && angle < projectile.angle + 67.5)
+	else if (angle >= projectile->angle + 22.5 && angle < projectile->angle + 67.5)
 		return (5);
-	else if (angle >= projectile.angle + 67.5 && angle < projectile.angle + 112.5)
+	else if (angle >= projectile->angle + 67.5 && angle < projectile->angle + 112.5)
 		return (6);
-	else if (angle >= projectile.angle + 112.5 && angle < projectile.angle + 157.5)
+	else if (angle >= projectile->angle + 112.5 && angle < projectile->angle + 157.5)
 		return (7);
-	else if (angle >= projectile.angle + 157.5 && angle < projectile.angle + 202.5)
+	else if (angle >= projectile->angle + 157.5 && angle < projectile->angle + 202.5)
 		return (0);
-	else if (angle >= projectile.angle + 202.5 && angle < projectile.angle + 247.5)
+	else if (angle >= projectile->angle + 202.5 && angle < projectile->angle + 247.5)
 		return (1);
-	else if (angle >= projectile.angle + 247.5 && angle < projectile.angle + 292.5)
+	else if (angle >= projectile->angle + 247.5 && angle < projectile->angle + 292.5)
 		return (2);
-	else if (angle >= projectile.angle + 292.5 && angle < projectile.angle + 337.5)
+	else if (angle >= projectile->angle + 292.5 && angle < projectile->angle + 337.5)
 		return (3);
-	else if (angle >= projectile.angle + 337.5)
+	else if (angle >= projectile->angle + 337.5)
 		return (4);
-	else if (angle < projectile.angle - 22.5 && angle >= projectile.angle - 67.5)
+	else if (angle < projectile->angle - 22.5 && angle >= projectile->angle - 67.5)
 		return (3);
-	else if (angle < projectile.angle - 67.5 && angle >= projectile.angle - 112.5)
+	else if (angle < projectile->angle - 67.5 && angle >= projectile->angle - 112.5)
 		return (2);
-	else if (angle < projectile.angle - 112.5 && angle >= projectile.angle - 157.5)
+	else if (angle < projectile->angle - 112.5 && angle >= projectile->angle - 157.5)
 		return (1);
-	else if (angle < projectile.angle - 157.5 && angle >= projectile.angle - 202.5)
+	else if (angle < projectile->angle - 157.5 && angle >= projectile->angle - 202.5)
 		return (0);
-	else if (angle < projectile.angle - 202.5 && angle >= projectile.angle - 247.5)
+	else if (angle < projectile->angle - 202.5 && angle >= projectile->angle - 247.5)
 		return (7);
-	else if (angle < projectile.angle - 247.5 && angle >= projectile.angle - 292.5)
+	else if (angle < projectile->angle - 247.5 && angle >= projectile->angle - 292.5)
 		return (6);
-	else if (angle < projectile.angle - 292.5 && angle >= projectile.angle - 337.5)
+	else if (angle < projectile->angle - 292.5 && angle >= projectile->angle - 337.5)
 		return (5);
-	else if (angle < projectile.angle - 337.5)
+	else if (angle < projectile->angle - 337.5)
 		return (4);
 	else
 		return (0);
 }
 
-int			draw_projectiles(t_camera camera, t_env *env)
+int			draw_projectiles(t_camera *camera, t_env *env)
 {
 	t_list			*tmp;
 	t_projectile	*projectile;

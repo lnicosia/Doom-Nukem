@@ -293,6 +293,8 @@ int					init_skybox_selection_buttons(t_env *env);
 
 int					editor(t_env *env);
 int					draw_editor_tabs(t_env *env);
+void				print_events_tab(t_env *env);
+void				print_event_selection(t_env *env, size_t nb);
 void				wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void				wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void				editor_wall_sprites_keyup(t_env *env);
@@ -1231,20 +1233,20 @@ int					find_dialog_box_max_char(t_env *env);
 */
 
 int					draw_walls(t_camera *camera, t_env *env);
-int					draw_explosions(t_camera camera, t_env *env);
-int					draw_projectiles(t_camera camera, t_env *env);
-int					draw_projectile_both(t_camera camera, t_projectile *p,
+int					draw_explosions(t_camera *camera, t_env *env);
+int					draw_projectiles(t_camera *camera, t_env *env);
+int					draw_projectile_both(t_camera *camera, t_projectile *p,
 t_env *env);
-int					draw_projectile_no_light(t_camera camera, t_projectile *p,
+int					draw_projectile_no_light(t_camera *camera, t_projectile *p,
 t_env *env);
-int					draw_projectile_brightness(t_camera camera, t_projectile *p,
+int					draw_projectile_brightness(t_camera *camera, t_projectile *p,
 t_env *env);
-int					draw_projectile_color(t_camera camera, t_projectile *p,
+int					draw_projectile_color(t_camera *camera, t_projectile *p,
 t_env *env);
-int					get_sprite_direction_projectile(t_projectile projectile);
-int					draw_objects(t_camera camera, t_env *env);
-int					draw_enemies(t_camera camera, t_env *env);
-int					draw_player(t_camera camera, t_v3 pos, t_env *env);
+int					get_sprite_direction_projectile(t_projectile *projectile);
+int					draw_objects(t_camera *camera, t_env *env);
+int					draw_enemies(t_camera *camera, t_env *env);
+int					draw_player(t_camera *camera, t_v3 pos, t_env *env);
 int					draw_game(t_env *env);
 void				check_parsing(t_env *env);
 int					keyup(t_env *env);
@@ -1446,7 +1448,7 @@ void				pursuing_enemy(t_env *env, int i);
 int					dying_enemy(t_env *env, int i, int nb_sprites);
 int					rand_dir(t_env *env, int index);
 void				enemy_firing_anim(t_env *env, int i);
-int					draw_enemy(t_camera camera, t_enemy *enemy, t_env *env,
+int					draw_enemy(t_camera *camera, t_enemy *enemy, t_env *env,
 						int death_sprite);
 double				enemy_sight(t_env *env, int i, int shot_flag);
 int					check_segment_in_sector(t_env *env, t_v2 enemy,

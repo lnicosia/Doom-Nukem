@@ -5,90 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 18:52:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:51:53 by sipatry          ###   ########.fr       */
+/*   Created: 2019/11/28 18:54:30 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/02/11 17:52:22 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
+void	draw_current_ceiling_sprite_no_light(int j, t_render *render,
+t_drawer *drawer, t_env *env)
+{
+	Uint32*		sprite_pixels;
+
+	sprite_pixels =
+	(Uint32*)env->sprite_textures[drawer->sprite->texture].str;
+	if (env->editor.select && ((env->editor.tab
+	&& render->x == env->sdl.mx && drawer->i == env->sdl.my)
+	|| (!env->editor.tab && render->x == env->h_w
+	&& drawer->i == env->h_h)))
+	{
+		reset_selection(env);
+		env->selected_ceiling = drawer->sector->num;
+		env->selected_ceiling_sprite = j;
+		tabs_gestion(env);
+	}
+	env->sdl.texture_pixels[drawer->coord] =
+	sprite_pixels[(int)drawer->sprite_x
+	+ env->sprite_textures[drawer->sprite->texture].surface->w
+	* (int)drawer->sprite_y];
+	if (!env->editor.select && env->selected_ceiling == drawer->sector->num
+		&& env->selected_ceiling_sprite == j)
+		env->sdl.texture_pixels[drawer->coord] =
+		blend_alpha(env->sdl.texture_pixels[drawer->coord], 0x1ABC9C,
+		128);
+	env->zbuffer[drawer->coord] = drawer->z;
+}
+
+void	draw_ceiling_sprite_no_light(int j, t_render *render,
+t_drawer *drawer, t_env *env)
+{
+	Uint32*		sprite_pixels;
+
+	drawer->sprite =
+	&env->object_sprites[drawer->sector->ceiling_sprites.sprite[j]];
+	sprite_pixels =
+	(Uint32*)env->sprite_textures[drawer->sprite->texture].str;
+	drawer->sprite_x = (drawer->x - drawer->sector->ceiling_sprites.pos[j].x)
+	* drawer->sector->ceiling_sprites_scale[j].x + drawer->sprite->start[0].x;
+	drawer->sprite_y = (drawer->y - drawer->sector->ceiling_sprites.pos[j].y)
+	* drawer->sector->ceiling_sprites_scale[j].y + drawer->sprite->start[0].y;
+	if (drawer->sprite_x >= drawer->sprite->start[0].x
+	  	&& drawer->sprite_x < drawer->sprite->end[0].x
+		&& drawer->sprite_y >= drawer->sprite->start[0].y
+		&& drawer->sprite_y < drawer->sprite->end[0].y
+		&& sprite_pixels[(int)drawer->sprite_x
+		+ env->sprite_textures[drawer->sprite->texture].surface->w
+		* (int)drawer->sprite_y] != 0xFFC10099)
+	  	draw_current_ceiling_sprite_no_light(j, render, drawer, env);
+}
+
 void	draw_ceiling_sprites_no_light(t_sector *sector, t_render *render,
 t_env *env)
 {
 	int			j;
-	int			i;
-	int			end;
-	double		alpha;
-	double		divider;
-	double		z;
-	double		y;
-	double		x;
-	double		sprite_x;
-	double		sprite_y;
-	t_sprite	sprite;
-	Uint32*		sprite_pixels;
-	Uint32*		pixels;
-	int			coord;
+	t_drawer	drawer;
 
-	i = env->ymin[render->x];
-	end = ft_min(render->current_ceiling, env->ymax[render->x]);
-	pixels = env->sdl.texture_pixels;
-	while (i <= end)
+	drawer.i = env->ymin[render->x];
+	drawer.end = ft_min(render->current_ceiling, env->ymax[render->x]);
+	drawer.sector = sector;
+	while (drawer.i <= drawer.end)
 	{
-		coord = render->x + env->w * i;
-		alpha = (render->max_ceiling - i) / render->ceiling_height;
-		divider = 1 / (render->camera->near_z + alpha * render->zrange);
-		z = render->z_near_z * divider;
-		if (z >= env->zbuffer[coord])
+	  	get_ceiling_z(render, &drawer, env);
+		if (drawer.z >= env->zbuffer[drawer.coord])
 		{
-			i++;
+			drawer.i++;
 			continue;
 		}
-		y = (render->texel_y_near_z + alpha * render->texel_y_camera_range)
-			* divider;
-		x = (render->texel_x_near_z + alpha * render->texel_x_camera_range)
-			* divider;
+		get_texels(render, &drawer);
 		j = 0;
 		while (j < sector->ceiling_sprites.nb_sprites)
 		{
-			sprite = env->object_sprites[sector->ceiling_sprites.sprite[j]];
-			sprite_pixels = (Uint32*)env->sprite_textures[sprite.texture].str;
-			/*sprite_x = (x - sector->ceiling_sprites.pos[j].x)
-				* (sprite.size[0].x) / sector->ceiling_sprites.scale[j].x;
-			sprite_y = (y - sector->ceiling_sprites.pos[j].y)
-				* (sprite.size[0].y) / sector->ceiling_sprites.scale[j].y;*/
-			sprite_x = (x - sector->ceiling_sprites.pos[j].x)
-				* sector->ceiling_sprites_scale[j].x + sprite.start[0].x;
-			sprite_y = (y - sector->ceiling_sprites.pos[j].y)
-				* sector->ceiling_sprites_scale[j].y + sprite.start[0].y;
-			if (sprite_x >= sprite.start[0].x && sprite_x < sprite.end[0].x
-					&& sprite_y >= sprite.start[0].y && sprite_y < sprite.end[0].y
-					&& sprite_pixels[(int)sprite_x
-					+ env->sprite_textures[sprite.texture].surface->w
-					* (int)sprite_y] != 0xFFC10099)
-			{
-				if (env->editor.select && ((env->editor.tab
-				&& render->x == env->sdl.mx && i == env->sdl.my)
-				|| (!env->editor.tab && render->x == env->h_w
-				&& i == env->h_h)))
-				{
-					reset_selection(env);
-					env->selected_ceiling = sector->num;
-					env->selected_ceiling_sprite = j;
-					tabs_gestion(env);
-				}
-				pixels[coord] = sprite_pixels[(int)sprite_x
-					+ env->sprite_textures[sprite.texture].surface->w
-					* (int)sprite_y];
-				if (!env->editor.select && env->selected_ceiling == sector->num
-					&& env->selected_ceiling_sprite == j)
-					pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
-				env->zbuffer[coord] = z;
-				break;
-			}
+		  	draw_ceiling_sprite_no_light(j, render, &drawer, env);
 			j++;
 		}
-		i++;
+		drawer.i++;
 	}
 }
