@@ -26,62 +26,62 @@ void	draw_vline_color(t_vline vline, t_env *env)
 	}
 }
 
-void		draw_wall(t_sector sector, t_render render, t_env *env)
+void		draw_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 
-	vline.x = render.x;
-	vline.start = (int)(render.current_ceiling);
-	vline.end = (int)(render.current_floor);
+	vline.x = render->x;
+	vline.start = (int)(render->current_ceiling);
+	vline.end = (int)(render->current_floor);
 	vline.color = 0xFFFF0000;
-	if (sector.neighbors[render.i] == -1 && sector.textures[render.i] != -1)
+	if (sector->neighbors[render->i] == -1 && sector->textures[render->i] != -1)
 		vline.draw_wall = 1;
 	else
 		vline.draw_wall = 0;
-	if (!env->options.lighting || (!sector.brightness && !sector.intensity))
+	if (!env->options.lighting || (!sector->brightness && !sector->intensity))
 		draw_vline_wall(sector, vline, render, env);
-	else if (!sector.brightness)
+	else if (!sector->brightness)
 		draw_vline_wall_color(sector, vline, render, env);
-	else if (!sector.intensity)
+	else if (!sector->intensity)
 		draw_vline_wall_brightness(sector, vline, render, env);
 	else
 		draw_vline_wall_both(sector, vline, render, env);
 }
 
-void		draw_upper_wall(t_sector sector, t_render render, t_env *env)
+void		draw_upper_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 
-	vline.x = render.x;
+	vline.x = render->x;
 	//ft_printf("drawing upper wall\n");
-	vline.start = (int)(render.current_ceiling);
-	vline.end = (int)(render.neighbor_current_ceiling);
+	vline.start = (int)(render->current_ceiling);
+	vline.end = (int)(render->neighbor_current_ceiling);
 	vline.draw_wall = 1;
 	vline.color = 0xFFFF0000;
-	if (!env->options.lighting || (!sector.brightness && !sector.intensity))
+	if (!env->options.lighting || (!sector->brightness && !sector->intensity))
 		draw_vline_wall(sector, vline, render, env);
-	else if (!sector.brightness)
+	else if (!sector->brightness)
 		draw_vline_wall_color(sector, vline, render, env);
-	else if (!sector.intensity)
+	else if (!sector->intensity)
 		draw_vline_wall_brightness(sector, vline, render, env);
 	else
 		draw_vline_wall_both(sector, vline, render, env);
 }
 
-void		draw_bottom_wall(t_sector sector, t_render render, t_env *env)
+void		draw_bottom_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 
-	vline.x = render.x;
-	vline.start = (int)(render.neighbor_current_floor);
-	vline.end = (int)(render.current_floor);
+	vline.x = render->x;
+	vline.start = (int)(render->neighbor_current_floor);
+	vline.end = (int)(render->current_floor);
 	vline.draw_wall = 1;
 	vline.color = 0xFFFF0000;
-	if (!env->options.lighting || (!sector.brightness && !sector.intensity))
+	if (!env->options.lighting || (!sector->brightness && !sector->intensity))
 		draw_vline_wall(sector, vline, render, env);
-	else if (!sector.brightness)
+	else if (!sector->brightness)
 		draw_vline_wall_color(sector, vline, render, env);
-	else if (!sector.intensity)
+	else if (!sector->intensity)
 		draw_vline_wall_brightness(sector, vline, render, env);
 	else
 		draw_vline_wall_both(sector, vline, render, env);

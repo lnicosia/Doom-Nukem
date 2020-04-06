@@ -66,7 +66,8 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture texture,
 	return (0);
 }
 
-int		get_current_ceiling_map(int texture, double z, t_render *render, t_env *env)
+int		get_current_ceiling_map(int texture, double z, t_render *render,
+t_env *env)
 {
 	size_t		j;
 	double			res;

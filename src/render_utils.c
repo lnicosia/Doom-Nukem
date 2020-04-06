@@ -37,16 +37,16 @@ void		reset_clipped(t_env *env)
 	}
 }
 
-int	get_vertex_nb_in_sector(int vertex, t_sector sector)
+int	get_vertex_nb_in_sector(int vertex, t_sector *sector)
 {
 	int	i;
 	int	res;
 
 	i = 0;
 	res = 0;
-	while (i < sector.nb_vertices)
+	while (i < sector->nb_vertices)
 	{
-		if (sector.vertices[i] == vertex)
+		if (sector->vertices[i] == vertex)
 			res = i;
 		i++;
 	}

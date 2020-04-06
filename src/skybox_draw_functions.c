@@ -12,13 +12,13 @@
 
 #include "env.h"
 #include "render.h"
-#include "render.h"
 
 /*
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
+void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data,
+t_render *render, t_env *env)
 {
 	int			i;
 	double		yalpha;
@@ -38,17 +38,17 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	double		divider;
 
 	if (wall_data.mode == CEILING)
-		texture = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[render.texture];
+		texture = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[render->texture];
 	else if (wall_data.mode == FLOOR)
-		texture = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[render.texture];
+		texture = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[render->texture];
 	else
-		texture = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[render.texture];
+		texture = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[render->texture];
 	pixels = env->sdl.texture_pixels;
 	texture_pixels = texture.str;
 	zbuffer = env->zbuffer;
 	texture_w = texture.surface->w;
 	texture_h = texture.surface->h;
-	x = render.alpha * render.texture_w * render.z;
+	x = render->alpha * render->texture_w * render->z;
 	if (x != x)
 		return ;
 	while (x >= texture_w)
@@ -62,15 +62,15 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 		coord = vline.x + env->w * i;
 		if (wall_data.mode == CEILING)
 		{
-			alpha = (wall_data.max_ceiling - i) / render.ceiling_height;
-			divider = 1 / (render.camera->near_z + alpha * render.zrange);
-			z = render.z_near_z * divider;
+			alpha = (wall_data.max_ceiling - i) / render->ceiling_height;
+			divider = 1 / (render->camera->near_z + alpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
-			alpha = (i - wall_data.max_floor) / render.floor_height;
-			divider = 1 / (render.camera->near_z + alpha * render.zrange);
-			z = render.z_near_z * divider;
+			alpha = (i - wall_data.max_floor) / render->floor_height;
+			divider = 1 / (render->camera->near_z + alpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else
 			z = wall_data.z;
@@ -93,35 +93,35 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 				reset_selection(env);
 				if (wall_data.mode == CEILING)
 				{
-					env->selected_ceiling = render.sector;
+					env->selected_ceiling = render->sector;
 					tabs_gestion(env);
 				}
 				else if (wall_data.mode == FLOOR)
 				{
 					tabs_gestion(env);
-					env->selected_floor = render.sector;
+					env->selected_floor = render->sector;
 				}
 				else
 				{
 					if (env->editor.in_game)
 					{
-						env->editor.selected_sector = render.sector;
+						env->editor.selected_sector = render->sector;
 						env->editor.selected_wall = wall_data.i;
 					}
-					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
+					env->selected_wall1 = env->sectors[render->sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render->sector].vertices[wall_data.i + 1];
 				}
 				tabs_gestion(env);			
 			}
 		}
-		yalpha = (i - render.max_ceiling) / render.line_height;
-		y = yalpha * render.texture_h;
+		yalpha = (i - render->max_ceiling) / render->line_height;
+		y = yalpha * render->texture_h;
 		while (y >= texture_h)
 			y -= texture_h;
 		while (y < 0)
 			y += texture_h;
 		pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-		if (env->editor.in_game && render.selected && !env->editor.select
+		if (env->editor.in_game && render->selected && !env->editor.select
 			&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
 			&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
 			pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
@@ -130,12 +130,12 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 	}
 	if (env->options.zbuffer)
 	{
-		if (vline.start == (int)render.max_ceiling)
+		if (vline.start == (int)render->max_ceiling)
 		{
 			start_coord = vline.x + env->w * vline.start;
 			pixels[start_coord] = 0xFFFF0000;
 		}
-		if (vline.end == (int)render.max_floor)
+		if (vline.end == (int)render->max_floor)
 		{
 			end_coord = vline.x + env->w * vline.end;
 			pixels[end_coord] = 0xFFFF0000;
@@ -147,7 +147,8 @@ void	draw_skybox_wall(t_vline vline, t_skybox_data wall_data, t_render render, t
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
+void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data,
+t_render *render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -167,38 +168,38 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	zbuffer = env->zbuffer;
 	if (wall_data.mode == CEILING)
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[1].str;
 	}
 	else if (wall_data.mode == FLOOR)
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[1].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[1].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[1].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[1].str;
 	}
 	else
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[1].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[1].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[1].str;
 	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = render.ceiling_start / (double)(i - render.ceiling_horizon);
+		alpha = render->ceiling_start / (double)(i - render->ceiling_horizon);
 		if (wall_data.mode == CEILING)
 		{
-			salpha = (wall_data.max_ceiling - i) / render.ceiling_height;
-			divider = 1 / (render.camera->near_z + salpha * render.zrange);
-			z = render.z_near_z * divider;
+			salpha = (wall_data.max_ceiling - i) / render->ceiling_height;
+			divider = 1 / (render->camera->near_z + salpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
-			salpha = (i - wall_data.max_floor) / render.floor_height;
-			divider = 1 / (render.camera->near_z + salpha * render.zrange);
-			z = render.z_near_z * divider;
+			salpha = (i - wall_data.max_floor) / render->floor_height;
+			divider = 1 / (render->camera->near_z + salpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else
 			z = wall_data.z;
@@ -220,38 +221,38 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 			{
 				reset_selection(env);
 				if (wall_data.mode == CEILING)
-					env->selected_ceiling = render.sector;
+					env->selected_ceiling = render->sector;
 				else if (wall_data.mode == FLOOR)
-					env->selected_floor = render.sector;
+					env->selected_floor = render->sector;
 				else
 				{
 					if (env->editor.in_game)
 					{
-						env->editor.selected_sector = render.sector;
+						env->editor.selected_sector = render->sector;
 						env->editor.selected_wall = wall_data.i;
 					}
-					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
+					env->selected_wall1 = env->sectors[render->sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render->sector].vertices[wall_data.i + 1];
 				}
 				tabs_gestion(env);
 			}
 		}
-		y = alpha * render.texel.y + (1.0 - alpha) * 5;
-		x = alpha * render.texel.x + (1.0 - alpha) * 5;
+		y = alpha * render->texel.y + (1.0 - alpha) * 5;
+		x = alpha * render->texel.x + (1.0 - alpha) * 5;
 		if (wall_data.mode == CEILING)
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[1].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[1].surface->w / 10;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[1].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[1].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[1].surface->w / 10;
 		}
 		else
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[1].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[1].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[1].surface->w / 10;
 		}
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
@@ -261,7 +262,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && render.selected && !env->editor.select
+			if (env->editor.in_game && render->selected && !env->editor.select
 				&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
 				&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
 				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
@@ -273,7 +274,7 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 	{
 		if (vline.start >= 0 && vline.start < env->h - 1)
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
-		if (vline.end == (int)render.max_ceiling - 1
+		if (vline.end == (int)render->max_ceiling - 1
 				&& vline.end >= 0 && vline.end < env->h)
 			pixels[vline.x + env->w * vline.end] = 0xFFFF0000;
 	}
@@ -283,7 +284,8 @@ void	draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data, t_render render
 **	Draw a vertical vline on the screen at vline.x
 */
 
-void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, t_env *env)
+void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
+t_render *render, t_env *env)
 {
 	int		i;
 	double	y;
@@ -303,41 +305,41 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	zbuffer = env->zbuffer;
 	texture_h = 0;
 	texture_w = 0;
-	texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].str;
+	texture_pixels = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].str;
 	if (wall_data.mode == CEILING)
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].str;
 	}
 	else if (wall_data.mode == FLOOR)
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[0].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[0].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[0].str;
 	}
 	else
 	{
-		texture_w = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w;
-		texture_h = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h;
-		texture_pixels = env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].str;
+		texture_w = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[0].surface->w;
+		texture_h = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[0].surface->h;
+		texture_pixels = env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[0].str;
 	}
 	i = vline.start;
 	while (i <= vline.end)
 	{
 		coord = vline.x + env->w * i;
-		alpha = render.floor_start / (double)(i - render.floor_horizon);
+		alpha = render->floor_start / (double)(i - render->floor_horizon);
 		if (wall_data.mode == CEILING)
 		{
-			salpha = (wall_data.max_ceiling - i) / render.ceiling_height;
-			divider = 1 / (render.camera->near_z + salpha * render.zrange);
-			z = render.z_near_z * divider;
+			salpha = (wall_data.max_ceiling - i) / render->ceiling_height;
+			divider = 1 / (render->camera->near_z + salpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
-			salpha = (i - wall_data.max_floor) / render.floor_height;
-			divider = 1 / (render.camera->near_z + salpha * render.zrange);
-			z = render.z_near_z * divider;
+			salpha = (i - wall_data.max_floor) / render->floor_height;
+			divider = 1 / (render->camera->near_z + salpha * render->zrange);
+			z = render->z_near_z * divider;
 		}
 		else
 			z = wall_data.z;
@@ -359,39 +361,39 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 			{
 				reset_selection(env);
 				if (wall_data.mode == CEILING)
-					env->selected_ceiling = render.sector;
+					env->selected_ceiling = render->sector;
 				else if (wall_data.mode == FLOOR)
-					env->selected_floor = render.sector;
+					env->selected_floor = render->sector;
 				else
 				{
 					if (env->editor.in_game)
 					{
-						env->editor.selected_sector = render.sector;
+						env->editor.selected_sector = render->sector;
 						env->editor.selected_wall = wall_data.i;
 					}
-					env->selected_wall1 = env->sectors[render.sector].vertices[wall_data.i];
-					env->selected_wall2 = env->sectors[render.sector].vertices[wall_data.i + 1];
+					env->selected_wall1 = env->sectors[render->sector].vertices[wall_data.i];
+					env->selected_wall2 = env->sectors[render->sector].vertices[wall_data.i + 1];
 				}
 				tabs_gestion(env);
 			}
 		}
-		y = alpha * render.texel.y + (1.0 - alpha) * 5;
-		x = alpha * render.texel.x + (1.0 - alpha) * 5;
+		y = alpha * render->texel.y + (1.0 - alpha) * 5;
+		x = alpha * render->texel.x + (1.0 - alpha) * 5;
 		if (wall_data.mode == CEILING)
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].ceiling_texture) - 1].textures[0].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].ceiling_texture) - 1].textures[0].surface->w / 10;
 		}
 		else if (wall_data.mode == FLOOR)
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].floor_texture) - 1].textures[0].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[0].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].floor_texture) - 1].textures[0].surface->w / 10;
 		}
 		else if (wall_data.mode == WALL || wall_data.mode == UPPER_WALL
 			|| wall_data.mode == BOTTOM_WALL)
 		{
-			y *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->h / 10;
-			x *= env->skyboxes[abs(env->sectors[render.sector].textures[wall_data.i]) - 1].textures[0].surface->w / 10;
+			y *= env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[0].surface->h / 10;
+			x *= env->skyboxes[abs(env->sectors[render->sector].textures[wall_data.i]) - 1].textures[0].surface->w / 10;
 		}
 		if (y >= texture_h || y < 0)
 			y = ft_abs((int)y % texture_h);
@@ -402,7 +404,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 		if (x >= 0 && x < texture_w && y >= 0 && y < texture_h)
 		{
 			pixels[coord] = texture_pixels[(int)x + texture_w * (int)y];
-			if (env->editor.in_game && render.selected && !env->editor.select
+			if (env->editor.in_game && render->selected && !env->editor.select
 				&& (wall_data.mode != CEILING || env->selected_ceiling_sprite == -1)
 				&& (wall_data.mode != FLOOR || env->selected_floor_sprite == -1))
 				pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
@@ -412,7 +414,7 @@ void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data, t_render render, 
 	}
 	if (env->options.zbuffer)
 	{
-		if (vline.start == (int)render.max_floor + 1
+		if (vline.start == (int)render->max_floor + 1
 				&& vline.start >= 0 && vline.start < env->h)
 			pixels[vline.x + env->w * vline.start] = 0xFFFF0000;
 		if (vline.end < env->h - 1 && vline.end >= 0)

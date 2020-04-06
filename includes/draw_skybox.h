@@ -14,10 +14,10 @@
 # define DRAW_SKYBOX_H
 #include "env.h"
 
-void	draw_vline_skybox(t_vline vline, int mode, t_render skybox, t_env *env);
-void	draw_vline_floor_skybox(t_vline vline, int mode, t_render skybox,
+void	draw_vline_skybox(t_vline vline, int mode, t_render *skybox, t_env *env);
+void	draw_vline_floor_skybox(t_vline vline, int mode, t_render *skybox,
 		t_env *env);
-void	draw_vline_ceiling_skybox(t_vline vline, int mode, t_render skybox,
+void	draw_vline_ceiling_skybox(t_vline vline, int mode, t_render *skybox,
 		t_env *env);
 
 #endif

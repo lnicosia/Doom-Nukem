@@ -97,6 +97,22 @@ typedef struct	s_render
 	int			texture_h;
 }				t_render;
 
+typedef struct		s_drawer
+{
+  	double			x;
+	double			y;
+	double			sprite_x;
+	double			sprite_y;
+	double			alpha;
+	double			z;
+	double			divider;
+	t_sprite		*sprite;
+	t_sector		*sector;
+	int				i;
+	int				end;
+	int				coord;
+}					t_drawer;
+
 typedef struct		s_render_projectile
 {
 	t_camera		camera;
@@ -109,7 +125,7 @@ typedef struct		s_render_projectile
 	int				xend;
 	int				yend;
 	int				index;
-	int			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				intensity;
 	double			xrange;
@@ -168,7 +184,7 @@ typedef struct	s_skybox_data
 typedef struct	s_render_thread
 {
 	t_render_vertex	v1;
-	t_sector		sector;
+	t_sector		*sector;
 	t_render		render;
 	t_env			*env;
 	int				xstart;
@@ -227,78 +243,82 @@ typedef struct		s_enemy_thread
 
 void			select_line(t_vline vline, t_env *env);
 int				render_sector(t_render render, t_env *env);
-void			draw_ceiling(t_sector sector, t_render render, t_env *env);
-void			draw_vline_ceiling(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_ceiling_color(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_ceiling_brightness(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_ceiling_both(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_wall(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_wall_color(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_wall_brightness(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_wall_both(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_floor(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_floor_color(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_floor_brightness(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_vline_floor_both(t_sector sector, t_vline vline,
-t_render render, t_env *env);
-void			draw_floor(t_sector sector, t_render render, t_env *env);
-void			draw_wall(t_sector sector, t_render render, t_env *env);
-void			draw_wall_no_light(t_sector sector, t_render render, t_env *env);
-int				draw_wall_sprites(t_sector sector, t_render render, t_env *env);
-void			draw_wall_bullet_holes(t_sector sector, t_render render,
+void			draw_ceiling(t_sector *sector, t_render *render, t_env *env);
+void			draw_vline_ceiling(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_ceiling_color(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_ceiling_brightness(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_ceiling_both(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_wall(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_wall_color(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_wall_brightness(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_wall_both(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_floor(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_floor_color(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_floor_brightness(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_vline_floor_both(t_sector *sector, t_vline vline,
+t_render *render, t_env *env);
+void			draw_floor(t_sector *sector, t_render *render, t_env *env);
+void			draw_wall(t_sector *sector, t_render *render, t_env *env);
+void			draw_wall_no_light(t_sector *sector, t_render *render,
 t_env *env);
-void			draw_floor_sprites(t_sector sector, t_render render, t_env *env);
-void			draw_floor_sprites_no_light(t_sector sector,
-t_render render, t_env *env);
-void			draw_floor_sprites_color(t_sector sector,
-t_render render, t_env *env);
-void			draw_floor_sprites_brightness(t_sector sector,
-t_render render, t_env *env);
-void			draw_floor_sprites_both(t_sector sector,
-t_render render, t_env *env);
-void			draw_ceiling_sprites(t_sector sector, t_render render, t_env *env);
-void			draw_ceiling_sprites_no_light(t_sector sector,
-t_render render, t_env *env);
-void			draw_ceiling_sprites_color(t_sector sector,
-t_render render, t_env *env);
-void			draw_ceiling_sprites_brightness(t_sector sector,
-t_render render, t_env *env);
-void			draw_ceiling_sprites_both(t_sector sector,
-t_render render, t_env *env);
-void			draw_upper_wall(t_sector sector, t_render render, t_env *env);
-void			draw_bottom_wall(t_sector sector, t_render render,
+int				draw_wall_sprites(t_sector *sector, t_render *render,
+t_env *env);
+void			draw_wall_bullet_holes(t_sector *sector, t_render *render,
+t_env *env);
+void			draw_floor_sprites(t_sector *sector, t_render *render,
+t_env *env);
+void			draw_floor_sprites_no_light(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_floor_sprites_color(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_floor_sprites_brightness(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_floor_sprites_both(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_ceiling_sprites(t_sector *sector, t_render *render,
+t_env *env);
+void			draw_ceiling_sprites_no_light(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_ceiling_sprites_color(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_ceiling_sprites_brightness(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_ceiling_sprites_both(t_sector *sector,
+t_render *render, t_env *env);
+void			draw_upper_wall(t_sector *sector, t_render *render, t_env *env);
+void			draw_bottom_wall(t_sector *sector, t_render *render,
 		t_env *env);
-void			draw_skybox(t_render render, int mode, t_env *env);
+void			draw_skybox(t_render *render, int mode, t_env *env);
 void			precompute_skybox(t_env *env);
-int			get_vertex_nb_in_sector(int vertex, t_sector sector);
+int				get_vertex_nb_in_sector(int vertex, t_sector *sector);
 void			precompute_neighbors(int i, t_camera *camera, t_sector *sector,
 		t_env *env);
 void			draw_skybox_ceiling(t_vline vline, t_skybox_data wall_data,
-		t_render render, t_env *env);
+		t_render *render, t_env *env);
 void			draw_skybox_wall(t_vline vline, t_skybox_data wall_data,
-		t_render render, t_env *env);
+		t_render *render, t_env *env);
 void			draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
-		t_render render, t_env *env);
+		t_render *render, t_env *env);
 void			draw_vline_color(t_vline vline, t_env *env);
 int				get_screen_sectors(t_camera *camera, t_env *env);
 void			restrict_floor(t_render_vertex v1, t_render *render,
-		t_sector sector, t_env *env);
+		t_sector *sector, t_env *env);
 void			restrict_ceiling(t_render_vertex v1, t_render *render,
-		t_sector sector, t_env *env);
+		t_sector *sector, t_env *env);
 void			reset_x_restrictions(t_sector *sector, t_env *env);
-void			get_vline_data(t_render_vertex v1, t_sector sector,
-		t_render render, t_env *env);
+void			get_vline_data(t_render_vertex v1, t_sector *sector,
+		t_render *render, t_env *env);
 int				get_current_wall_map(int texture, double z, t_render *render,
 t_env *env);
 int				get_current_floor_map(int texture, double z, t_render *render,
@@ -315,26 +335,38 @@ void			*select_portal_loop(void *param);
 void				*get_enemy_relative_pos(void *param);
 void				get_translated_enemy_pos(t_camera camera, t_enemy *enemy);
 void				get_rotated_enemy_pos(t_camera camera, t_enemy *enemy);
-void				project_enemy(t_render_object *erender, t_enemy enemy, t_env *env);
+void				project_enemy(t_render_object *erender, t_enemy enemy,
+t_env *env);
 
 void				*get_projectile_relative_pos(t_camera camera, t_env *env);
-void				get_translated_projectile_pos(t_camera camera, t_projectile *projectile);
-void				get_rotated_projectile_pos(t_camera camera, t_projectile *projectile);
-void				project_projectile(t_render_projectile *prender, t_projectile projectile, t_env *env);
+void				get_translated_projectile_pos(t_camera camera,
+t_projectile *projectile);
+void				get_rotated_projectile_pos(t_camera camera,
+t_projectile *projectile);
+void				project_projectile(t_render_projectile *prender,
+t_projectile projectile, t_env *env);
 
-void				*get_explosion_relative_pos(t_camera camera, t_env *env);
-void				get_translated_explosion_pos(t_camera camera, t_explosion *explosion);
-void				get_rotated_explosion_pos(t_camera camera, t_explosion *explosion);
-void				project_explosion(t_render_explosion *erender, t_explosion explosion, t_env *env);
+void				*get_explosion_relative_pos(t_camera camera,
+t_env *env);
+void				get_translated_explosion_pos(t_camera camera,
+t_explosion *explosion);
+void				get_rotated_explosion_pos(t_camera camera,
+t_explosion *explosion);
+void				project_explosion(t_render_explosion *erender,
+t_explosion explosion, t_env *env);
 
-void				get_translated_object_pos(t_camera camera, t_object *object);
+void				get_translated_object_pos(t_camera camera,
+t_object *object);
 void				get_rotated_object_pos(t_camera camera, t_object *object);
 void				*get_object_relative_pos(void *param);
-void				project_object(t_render_object *orender, t_object object, t_env *env);
-void				get_neighbor_ceil_floor(t_render *render, t_env *env, int x);
+void				project_object(t_render_object *orender, t_object object,
+t_env *env);
+void				get_neighbor_ceil_floor(t_render *render, t_env *env,
+int x);
 void				*raycasting(void *param);
 void				*skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
-int					draw_object(t_camera camera, t_object *object, t_env *env, int death_sprite);
+int					draw_object(t_camera camera, t_object *object, t_env *env,
+int death_sprite);
 
 #endif

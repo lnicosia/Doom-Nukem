@@ -12,7 +12,7 @@
 
 #include "render.h"
 
-void    colorize_portal(t_render render, t_env *env)
+void    colorize_portal(t_render *render, t_env *env)
 {
 	int		coord;
 	int		start;
@@ -20,11 +20,11 @@ void    colorize_portal(t_render render, t_env *env)
 	Uint32	*pixels;
 	
 	pixels = env->sdl.texture_pixels;
-	start = (int)render.current_ceiling;
-	end = (int)render.current_floor;
+	start = (int)render->current_ceiling;
+	end = (int)render->current_floor;
 	while (start < end)
 	{
-		coord = render.x + env->w * start;
+		coord = render->x + env->w * start;
 		pixels[coord] = blend_alpha(pixels[coord], 0x1ABC9C, 128);
 		start++;
 	}
@@ -33,7 +33,7 @@ void    colorize_portal(t_render render, t_env *env)
 void            *portal_loop(void *param)
 {
 	t_render_vertex	v1;
-	t_sector		sector;
+	t_sector		*sector;
 	t_render		render;
 	t_env			*env;
 	int				x;
@@ -50,7 +50,7 @@ void            *portal_loop(void *param)
 		render.x = x;
 		render.alpha = (x - v1.x) / v1.xrange;
 		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
-		render.divider = 1 / (render.camera->v[sector.num][render.i + 1].vz
+		render.divider = 1 / (render.camera->v[sector->num][render.i + 1].vz
 				+ render.alpha * v1.zrange);
 		render.z = v1.zcomb * render.divider;
 		render.z_near_z = render.z * render.camera->near_z;
@@ -66,7 +66,7 @@ void            *portal_loop(void *param)
 			* v1.no_slope_ceiling_range + v1.no_slope_c1;
 		render.line_height = (render.no_slope_current_floor
 				- render.no_slope_current_ceiling);
-		colorize_portal(render, env);
+		colorize_portal(&render, env);
 		x++;
 	}
 	return (NULL);
@@ -100,7 +100,7 @@ void    check_mouse(t_render render, t_env *env)
 void            *select_portal_loop(void *param)
 {
 	t_render_vertex	v1;
-	t_sector		sector;
+	t_sector		*sector;
 	t_render		render;
 	t_env			*env;
 	int				x;
@@ -117,7 +117,7 @@ void            *select_portal_loop(void *param)
 		render.x = x;
 		render.alpha = (x - v1.x) / v1.xrange;
 		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
-		render.divider = 1 / (render.camera->v[sector.num][render.i + 1].vz
+		render.divider = 1 / (render.camera->v[sector->num][render.i + 1].vz
 				+ render.alpha * v1.zrange);
 		render.z = v1.zcomb * render.divider;
 		render.z_near_z = render.z * render.camera->near_z;
