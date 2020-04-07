@@ -51,7 +51,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
-				explosion.c draw_explosion.c doom_utils.c \
+				explosion.c draw_explosions.c draw_explosion.c doom_utils.c \
 				explosion_maths.c enemy_maths.c enemy_combat.c \
 				enemy_collision.c enemy_sight.c enemy_ai.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
