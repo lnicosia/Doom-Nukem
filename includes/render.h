@@ -113,7 +113,7 @@ typedef struct		s_drawer
 	int				coord;
 }					t_drawer;
 
-typedef struct		s_enemy_drawer
+typedef struct		s_sprite_drawer
 {
 	double			xalpha;
 	double			yalpha;
@@ -127,7 +127,7 @@ typedef struct		s_enemy_drawer
 	int				yend;
 	int				textx;
 	int				texty;
-}					t_enemy_drawer;
+}					t_sprite_drawer;
 
 typedef struct		s_render_projectile
 {
@@ -345,6 +345,12 @@ int				get_current_ceiling_map(int texture, double z, t_render *render,
 t_env *env);
 void			*portal_loop(void *param);
 void			*select_portal_loop(void *param);
+void			get_sprite_x(t_render_object *orender, t_sprite_drawer *drawer);
+void			draw_vline_enemy(t_render_object *orender,
+t_sprite_drawer *drawer, t_env *env);
+int				get_enemy_direction(t_enemy *enemy);
+void			put_enemy_pixel(t_render_object *orender,
+t_sprite_drawer *drawer, t_env *env);
 
 /*
 **	Sprite part
