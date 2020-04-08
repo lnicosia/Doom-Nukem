@@ -4,8 +4,16 @@
 void	get_ceiling_z(t_render *render, t_drawer *drawer, t_env *env)
 {
 	drawer->coord = render->x + env->w * drawer->i;
-	drawer->alpha =
-	(render->max_ceiling - drawer->i) / render->ceiling_height;
+	drawer->alpha = (render->max_ceiling - drawer->i) / render->ceiling_height;
+	drawer->divider = 1 / (render->camera->near_z + drawer->alpha
+	* render->zrange);
+	drawer->z = render->z_near_z * drawer->divider;
+}
+
+void	get_floor_z(t_render *render, t_drawer *drawer, t_env *env)
+{
+	drawer->coord = render->x + env->w * drawer->i;
+	drawer->alpha = (drawer->i - render->max_floor) / render->floor_height;
 	drawer->divider = 1 / (render->camera->near_z + drawer->alpha
 	* render->zrange);
 	drawer->z = render->z_near_z * drawer->divider;

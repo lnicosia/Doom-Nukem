@@ -274,6 +274,8 @@ void				draw_vline_ceiling_both(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
 void				get_ceiling_z(t_render *render, t_drawer *drawer,
 t_env *env);
+void				get_floor_z(t_render *render, t_drawer *drawer,
+t_env *env);
 void				get_texels(t_render *render, t_drawer *drawer);
 void				draw_vline_wall(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
