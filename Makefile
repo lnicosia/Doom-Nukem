@@ -181,7 +181,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c new_button.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
-		   gravity.c input_box_utils.c init_ui_textures.c \
+		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
 		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c free_map.c \
@@ -192,7 +192,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_skyboxes.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
 		   draw_ceiling_sprites_color.c draw_ceiling_sprites_brightness.c \
-		   draw_ceiling_sprites_both.c get_clockwise_order.c \
+		   draw_ceiling_sprites_both.c get_clockwise_order.c draw_objects3.c \
 		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c \
 		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
 		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \

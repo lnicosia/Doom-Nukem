@@ -2,14 +2,13 @@
 
 void	fill_img_minimap(t_point c, t_env *data, Uint32 color)
 {
-	//if (c.x >= data->w - 300 && c.x < data->w && c.y >= 0 && c.y <= 300
 	if (c.x >= 0 && c.x < data->w && c.y >= 0 && c.y < data->h
 		&& c.x >= data->minimap_pos.x - data->minimap_size.x / 2
 		&& c.x < data->minimap_pos.x + data->minimap_size.x / 2
 		&& c.y >= data->minimap_pos.y - data->minimap_size.y / 2
 		&& c.y < data->minimap_pos.y + data->minimap_size.y / 2
-			&& (color == 0xFFFF0000 || color == 0xFF00FF00
-				|| (data->sdl.texture_pixels[c.x + c.y * data->w] != 0xFF00FF00)))
+		&& (color == 0xFFFF0000 || color == 0xFF00FF00
+		|| (data->sdl.texture_pixels[c.x + c.y * data->w] != 0xFF00FF00)))
 		data->sdl.texture_pixels[c.x + c.y * data->w] = color;
 }
 
@@ -35,7 +34,8 @@ void	draw_line_low_minimap(t_point c1, t_point c2, t_env *data, int color)
 	}
 }
 
-void	draw_line_high_minimap(t_point c1, t_point c2, t_env *data, Uint32 color)
+void	draw_line_high_minimap(t_point c1, t_point c2, t_env *data,
+Uint32 color)
 {
 	int	dx;
 	int	dy;

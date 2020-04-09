@@ -12,21 +12,6 @@
 
 #include "render.h"
 
-void		update_enemies_z(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (i < env->nb_enemies)
-	{
-		if (env->enemies[i].sector == env->sectors[env->selected_floor].num)
-			env->enemies[i].pos.z =
-			get_floor_at_pos(env->sectors[env->selected_floor],
-			new_v3(env->enemies[i].pos.x, env->enemies[i].pos.y, 0), env);
-		i++;
-	}
-}
-
 int	get_enemy_direction2(t_enemy *enemy, double angle)
 {
 	if (angle < enemy->angle - 22.5 && angle >= enemy->angle - 67.5)

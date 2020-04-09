@@ -117,6 +117,7 @@ typedef struct		s_sprite_drawer
 {
 	double			xalpha;
 	double			yalpha;
+	void			*param;
 	t_explosion		*explosion;
 	t_projectile	*projectile;
 	t_enemy			*enemy;
@@ -362,6 +363,18 @@ void				put_enemy_pixel(t_render_object *orender,
 t_sprite_drawer *drawer, t_env *env);
 int					draw_explosion(t_camera *camera, t_explosion *explosion,
 t_env *env, int sprite_index);
+void				get_sprite_y(t_render_object *orender,
+t_sprite_drawer *drawer);
+void				draw_vline_object(t_render_object *orender,
+t_sprite_drawer *drawer, t_env *env);
+int					get_object_direction(t_object *object);
+void				put_object_pixel(t_render_object *orender,
+t_sprite_drawer *drawer, t_env *env);
+int					draw_explosion(t_camera *camera, t_explosion *explosion,
+t_env *env, int sprite_index);
+int					threaded_object_loop(t_object *object,
+t_render_object *orender, t_env *env);
+void				apply_object_filter(t_sprite_drawer *drawer, t_env *env);
 
 /*
 **	Sprite part
