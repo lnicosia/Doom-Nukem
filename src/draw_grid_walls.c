@@ -34,9 +34,9 @@ void	draw_current_wall(int i, t_grid_wall_drawer *drawer, t_env *env)
 		drawer->nb_angles++;
 	}
 	if (drawer->sector->neighbors[i] == -1)
-		draw_line(drawer->v[0], drawer->v[1], *env, drawer->color);
+		draw_line(drawer->v[0], drawer->v[1], env, drawer->color);
 	else
-		draw_line(drawer->v[0], drawer->v[1], *env, 0xFFFF0000);
+		draw_line(drawer->v[0], drawer->v[1], env, 0xFFFF0000);
 }
 
 void	draw_last_wall(int i, t_grid_wall_drawer *drawer, t_env *env)
@@ -60,9 +60,9 @@ void	draw_last_wall(int i, t_grid_wall_drawer *drawer, t_env *env)
 		drawer->nb_angles++;
 	}
 	if (drawer->sector->neighbors[i] == -1)
-		draw_line(drawer->v[0], drawer->v[1], *env, drawer->color);
+		draw_line(drawer->v[0], drawer->v[1], env, drawer->color);
 	else
-		draw_line(drawer->v[0], drawer->v[1], *env, 0xFFFF0000);
+		draw_line(drawer->v[0], drawer->v[1], env, 0xFFFF0000);
 }
 
 void	draw_sector_num(t_grid_wall_drawer *drawer, t_env *env)

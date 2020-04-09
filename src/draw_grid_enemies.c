@@ -21,19 +21,19 @@ void	draw_enemy_angle(t_enemy *enemy, t_point pos, t_env *env)
 		* env->editor.scale * 2,
 		pos.y + sin(enemy->angle * CONVERT_RADIANS)
 		* env->editor.scale * 2);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(enemy->angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale,
 		p.y + sin(enemy->angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(enemy->angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale,
 		p.y + sin(enemy->angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 }
 
 void	draw_enemy_sprite(int i, double scale, t_point center, t_env *env)

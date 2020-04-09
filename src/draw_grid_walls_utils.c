@@ -5,7 +5,7 @@ void	draw_current_sector_last_wall(t_point v1, t_point v2, t_env *env)
 {
 	v2.x = env->sdl.mx;
 	v2.y = env->sdl.my;
-	draw_line(v1, v2, *env, 0xFFFFFF00);
+	draw_line(v1, v2, env, 0xFFFFFF00);
 }
 
 void	draw_grid_current_sector(t_env *env)
@@ -27,7 +27,7 @@ void	draw_grid_current_sector(t_env *env)
 		v = (t_vertex*)tmp->content;
 		v2.x = env->editor.center.x + v->x * env->editor.scale;
 		v2.y = env->editor.center.y + v->y * env->editor.scale;
-		draw_line(v1, v2, *env, 0xFFFFFF00);
+		draw_line(v1, v2, env, 0xFFFFFF00);
 		v1 = v2;
 		tmp = tmp->next;
 	}

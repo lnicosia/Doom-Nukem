@@ -21,19 +21,19 @@ void	draw_object_angle(t_object *object, t_point pos, t_env *env)
 		* env->editor.scale * 2,
 		pos.y + sin(object->angle * CONVERT_RADIANS)
 		* env->editor.scale * 2);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(object->angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale,
 		p.y + sin(object->angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(object->angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale,
 		p.y + sin(object->angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 }
 
 int		click_on_grid_object(t_env *env)

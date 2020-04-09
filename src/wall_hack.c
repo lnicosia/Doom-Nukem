@@ -14,16 +14,16 @@ void	wall_hack(t_env *env)
 		if (env->enemies[i].exists)
 		{
 			draw_line(new_point(env->enemies[i].left, env->enemies[i].top),
-			new_point(env->enemies[i].right, env->enemies[i].top), *env,
+			new_point(env->enemies[i].right, env->enemies[i].top), env,
 			0xFF00FF00);
 			draw_line(new_point(env->enemies[i].right, env->enemies[i].top),
-			new_point(env->enemies[i].right, env->enemies[i].bottom), *env,
+			new_point(env->enemies[i].right, env->enemies[i].bottom), env,
 			0xFF00FF00);
 			draw_line(new_point(env->enemies[i].right, env->enemies[i].bottom),
-			new_point(env->enemies[i].left, env->enemies[i].bottom), *env,
+			new_point(env->enemies[i].left, env->enemies[i].bottom), env,
 			0xFF00FF00);
 			draw_line(new_point(env->enemies[i].left, env->enemies[i].bottom),
-			new_point(env->enemies[i].left, env->enemies[i].top), *env,
+			new_point(env->enemies[i].left, env->enemies[i].top), env,
 			0xFF00FF00);
 		}
 		i++;

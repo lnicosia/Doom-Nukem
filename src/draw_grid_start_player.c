@@ -9,19 +9,19 @@ void	draw_player_angle(t_point pos, t_env *env)
 		* env->editor.scale * 3,
 		pos.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS)
 		* env->editor.scale * 3);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(env->player.init_data.camera.angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale,
 		p.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS
 			- M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 	pos = new_point(
 		p.x + cos(env->player.init_data.camera.angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale,
 		p.y + sin(env->player.init_data.camera.angle * CONVERT_RADIANS
 			+ M_PI / 1.3) * env->editor.scale);
-	draw_line(pos, p, *env, 0xFFFFFF00);
+	draw_line(pos, p, env, 0xFFFFFF00);
 }
 
 int		click_on_grid_start_player(t_env *env)

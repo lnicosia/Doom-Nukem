@@ -1153,10 +1153,10 @@ unsigned int		blend_add(unsigned int src,
 				unsigned int dest, uint8_t alpha);
 unsigned int		blend_mul(unsigned int src, unsigned int dest);
 void				draw_line_3(t_env *env, t_line line);
-void				draw_line(t_point c1, t_point c2, t_env env, Uint32 color);
-void				draw_line_free(t_point c1, t_point c2, t_env env,
+void				draw_line(t_point c1, t_point c2, t_env *env, Uint32 color);
+void				draw_line_free(t_point c1, t_point c2, t_env *env,
 Uint32 color);
-void				draw_line_minimap(t_point c1, t_point c2, t_env env,
+void				draw_line_minimap(t_point c1, t_point c2, t_env *env,
 Uint32 color);
 Uint32				apply_light(Uint32 src, Uint32 color, int intensity,
 int brightness);
