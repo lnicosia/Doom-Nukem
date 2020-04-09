@@ -375,6 +375,8 @@ t_env *env, int sprite_index);
 int					threaded_object_loop(t_object *object,
 t_render_object *orender, t_env *env);
 void				apply_object_filter(t_sprite_drawer *drawer, t_env *env);
+void				init_object_render(t_render_object *orender, t_object *object,
+t_v2 size, t_env *env);
 
 /*
 **	Sprite part
