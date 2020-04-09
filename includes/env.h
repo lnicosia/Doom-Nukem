@@ -326,6 +326,7 @@ void				print_vertices(t_env *env);
 void				print_sectors(t_env *env);
 void				draw_grid_current_sector(t_env *env);
 void				draw_grid_sectors(t_env *env);
+TTF_Font			*get_correct_font(int size, t_env *env);
 int					get_existing_vertex(t_env *env);
 int					get_existing_not_dragged_vertex(t_env *env);
 void				add_player(t_env *env);
@@ -1268,6 +1269,7 @@ void				weapon_change(t_env *env);
 int					next_possessed_weapon(t_env *env);
 void				print_ammo(t_env *env);
 int					shot(t_env *env);
+void				wall_hack(t_env *env);
 int					create_projectile(t_env *env, t_projectile_data data,
 t_projectile_stats stats, t_projectile_data_2 data2);
 int					create_explosion(t_env *env, t_explosion_data data,

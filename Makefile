@@ -71,7 +71,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_player.c write_enemies.c add_object.c editor_keyup.c \
 		player_selection.c objects_selection.c object_selection.c\
 		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
-		add_enemy.c enemy_selection.c delete_event.c \
+		add_enemy.c enemy_selection.c delete_event.c draw_grid_start_player.c \
 		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
 		fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
@@ -132,7 +132,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_new_event_target.c set_new_event_target2.c \
 		set_new_event_target3.c set_new_event_target4.c \
 		set_new_event_target5.c set_new_event_target6.c \
-		set_new_event_target7.c delete_wall_sprite.c \
+		set_new_event_target7.c delete_wall_sprite.c draw_grid_walls_utils.c \
 		condition_event_panel.c init_condition_event_buttons.c \
 		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
 		3d_edit_slopes.c 3d_edit_change_slope_start.c \
@@ -175,7 +175,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_enemies.c  draw_line_free.c render.c animations2.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c apply_image2.c \
-		   precompute_neighbors.c skybox_draw_functions.c \
+		   precompute_neighbors.c skybox_draw_functions.c wall_hack.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
 		   select_line.c draw_wall_sprites.c input_box.c get_pixel.c \
 		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
@@ -235,7 +235,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h update_existing_events.h \
+		  events_parser.h update_existing_events.h draw_grid_walls.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
