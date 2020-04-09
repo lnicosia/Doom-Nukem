@@ -375,8 +375,20 @@ t_env *env, int sprite_index);
 int					threaded_object_loop(t_object *object,
 t_render_object *orender, t_env *env);
 void				apply_object_filter(t_sprite_drawer *drawer, t_env *env);
-void				init_object_render(t_render_object *orender, t_object *object,
-t_v2 size, t_env *env);
+void				init_object_render(t_render_object *orender,
+t_object *object, t_v2 size, t_env *env);
+void				init_projectile_render(t_render_projectile *prender,
+t_projectile *projectile, t_v2 size, t_env *env);
+void				draw_vline_projectile_both(t_render_projectile *prender,
+t_sprite_drawer *drawer, t_env *env);
+void				draw_vline_projectile_brightness(
+t_render_projectile *prender, t_sprite_drawer *drawer, t_env *env);
+void				draw_vline_projectile_color(t_render_projectile *prender,
+t_sprite_drawer *drawer, t_env *env);
+void				draw_vline_projectile_no_light(t_render_projectile *prender,
+t_sprite_drawer *drawer, t_env *env);
+void				get_projectile_x(t_render_projectile *prender,
+t_sprite_drawer *drawer);
 
 /*
 **	Sprite part
